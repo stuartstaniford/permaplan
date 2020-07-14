@@ -40,7 +40,8 @@ HeightMarker::~HeightMarker(void)
 
 
 // =======================================================================================
-// Stub definition this should be overwritten by implementing subclasses
+// This is where the actual octahedron geometry is defined - we render it into a buffer
+// on request
 
 bool HeightMarker::bufferGeometry(TriangleBuffer* T)
 {
@@ -111,7 +112,7 @@ bool HeightMarker::bufferGeometry(TriangleBuffer* T)
 
 
 // =======================================================================================
-// Stub definition this should be overwritten by implementing subclasses
+// How much space we need in a TriangleBuffer
 
 void HeightMarker::triangleBufferSize(unsigned& vCount, unsigned& iCount)
 {
@@ -121,7 +122,7 @@ void HeightMarker::triangleBufferSize(unsigned& vCount, unsigned& iCount)
 
 
 // =======================================================================================
-// Stub definition this should be overwritten by implementing subclasses
+// Stub definition
 
 void HeightMarker::draw(void)
 {
@@ -160,7 +161,8 @@ void HeightMarker::updateBoundingBox(void)
                                                                 
 
 // =======================================================================================
-// Stub definition this should be overwritten by implementing subclasses
+// We assume we are part of a table of visual objects and we just contribute one row
+// about this particular HeightMarker.
 
 bool HeightMarker::diagnosticHTML(HttpDebug* serv)
 {
