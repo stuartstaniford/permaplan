@@ -9,6 +9,7 @@
 #include <cstring>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include "Camera.h"
 #include "LandSurface.h"
 
 
@@ -95,7 +96,9 @@ void LandSurface::highlightNode(Quadtree* targetNode, vec4& color, float accent)
 // Reconfigure the land surface when we are told about a new observation that is to be
 // added to our state
 
-void newLandHeight(HeightMarker* hM)
+extern vec3 zAxis;
+
+void LandSurface::newLandHeight(HeightMarker* hM)
 {
   locationCount++;
   
@@ -104,14 +107,14 @@ void newLandHeight(HeightMarker* hM)
   else if(locationCount == 2)
    {
     // includes both points, sloping up
-    float *lower, *upper;
-    qtree->redoLandPlanar();
+    //float *lower, *upper;
+    //qtree->redoLandPlanar();
    }
   else if(locationCount == 3)
    {
     // plane through all three points
     
-    qtree->redoLandPlanar();
+    //qtree->redoLandPlanar();
    }
   
   // store pointer to hM in our table

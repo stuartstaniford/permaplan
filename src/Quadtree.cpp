@@ -191,7 +191,7 @@ void Quadtree::redoLandPlanar(vec3 position, vec3 normal)
 {
   
   // Redo our land variables
-  
+  // How to do?
   // Redo our bounding box
   
   // Deal with kids
