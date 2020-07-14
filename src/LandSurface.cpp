@@ -101,26 +101,34 @@ extern vec3 zAxis;
 void LandSurface::newLandHeight(HeightMarker* hM)
 {
   locationCount++;
+  vec3 plane;
   
   if(locationCount == 1)
-    qtree->redoLandPlanar(hM->location, zAxis); // level surface at the new height
+   {
+    // level surface at the new height
+    plane[0] = 0.0f; // co-efficient of x
+    plane[1] = 0.0f; // co-efficient of y
+    plane[2] = hM->location[2]; // intersection with the z-axis
+   }
   else if(locationCount == 2)
    {
     // includes both points, sloping up
     //float *lower, *upper;
-    //qtree->redoLandPlanar();
+    plane[0] = plane[1] = plane[2] = 0.0f; //XXX stub
    }
   else if(locationCount == 3)
    {
     // plane through all three points
-    
-    //qtree->redoLandPlanar();
+    plane[0] = plane[1] = plane[2] = 0.0f; //XXX stub
    }
   
   // store pointer to hM in our table
 
   if(locationCount <= 3) // done already
+   {
+    qtree->redoLandPlanar(plane);
     return;
+   }
   
   // Otherwise get into doing some math with all points
   if(locationCount <= 20)

@@ -187,7 +187,7 @@ void Quadtree::bufferVisualObjects(TriangleBuffer* tbuf)
 // Redo the landsurface in the quadtree with a plane specified by the parameters
 // (The plane goes through position, with normal being perpendicular to it).
 
-void Quadtree::redoLandPlanar(vec3 position, vec3 normal)
+void Quadtree::redoLandPlanar(vec3 plane)
 {
   
   // Redo our land variables
@@ -198,7 +198,7 @@ void Quadtree::redoLandPlanar(vec3 position, vec3 normal)
   if(landVBOSize > 6)
     for(int i=0; i<4; i++)
       if(kids[i])
-        kids[i]->redoLandPlanar(position, normal);
+        kids[i]->redoLandPlanar(plane);
   
   // Need feedback from kids about anything that changed bounding box?
 }

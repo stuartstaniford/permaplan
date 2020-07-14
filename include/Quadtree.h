@@ -36,7 +36,7 @@ class Quadtree
   void bufferGeometryLeaf(VertexBufElement* buf);
   void bufferVisualObjects(TriangleBuffer* tbuf);
   void storeVisualObject(VisualObject* obj);
-  void redoLandPlanar(vec3 position, vec3 normal);
+  void redoLandPlanar(vec3 plane);
   void draw(void);
   Quadtree* matchRay(vec3& position, vec3& direction, float& lambda);
   bool diagnosticHTML(HttpDebug* serv, char* path);

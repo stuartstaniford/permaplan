@@ -1,8 +1,9 @@
 // Copyright Staniford Systems.  All Rights Reserved.  July 2020 -
 // Class for storing and rendering a section of the landsurface mesh for some
 // particular region in the quadtree (generally a leaf).  This class defines
-// a simple planar version of the interface, but it can be overriden by
-// more advanced subclasses that implement a more complex surface model.
+// a simple planar version of the interface, with the plane defined by the
+// constructor variables pos and norm - plane passes through pos and is perpendicular
+// to norm.
 
 #ifndef LAND_SURFACE_REGION_PLANAR_H
 #define LAND_SURFACE_REGION_PLANAR_H
@@ -18,9 +19,11 @@ class LandSurfaceRegionPlanar: public LandSurfaceRegion
  public:
   
   // Instance variables - public
+  float heights[4];   // Defines heights at the corners, same order as Quadtree.cpp kids
 
+  
   // Member functions - public
-  LandSurfaceRegionPlanar(float x, float y, float width, float height);
+  LandSurfaceRegionPlanar(float x, float y, float width, float height, vec3 plane);
   ~LandSurfaceRegionPlanar(void);
   bool bufferGeometry(TriangleBuffer* T);
   void draw(void);
