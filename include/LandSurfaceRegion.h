@@ -1,8 +1,7 @@
 // Copyright Staniford Systems.  All Rights Reserved.  July 2020 -
 // Class for storing and rendering a section of the landsurface mesh for some
 // particular region in the quadtree (generally a leaf).  This class defines
-// a simple planar version of the interface, but it can be overriden by
-// more advanced subclasses that implement a more complex surface model.
+// the interface that any implementation providing this service needs to conform to.
 
 #ifndef LAND_SURFACE_REGION_H
 #define LAND_SURFACE_REGION_H
@@ -24,12 +23,12 @@ class LandSurfaceRegion: public VisualObject
   // Member functions - public
   LandSurfaceRegion(float x, float y, float width, float height);
   ~LandSurfaceRegion(void);
-  bool bufferGeometry(TriangleBuffer* T);
+  virtual bool bufferGeometry(TriangleBuffer* T);
   void draw(void);
-  bool matchRay(vec3& position, vec3& direction, float& lambda);
-  void updateBoundingBox(void);
-  void triangleBufferSize(unsigned& vCount, unsigned& iCount);
-  bool diagnosticHTML(HttpDebug* serv);
+  virtual bool matchRay(vec3& position, vec3& direction, float& lambda);
+  virtual void updateBoundingBox(void);
+  virtual void triangleBufferSize(unsigned& vCount, unsigned& iCount);
+  virtual bool diagnosticHTML(HttpDebug* serv);
 
  private:
   

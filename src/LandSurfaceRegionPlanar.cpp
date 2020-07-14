@@ -1,29 +1,25 @@
 // Copyright Staniford Systems.  All Rights Reserved.  July 2020 -
 // Class for storing and rendering a section of the landsurface mesh for some
 // particular region in the quadtree (generally a leaf).  This class defines
-// the interface that any implementation providing this service needs to conform to.
+// a simple planar version of the interface, but it can be overriden by
+// more advanced subclasses that implement a more complex surface model.
 
 #include <err.h>
-#include "LandSurfaceRegion.h"
+#include "LandSurfaceRegionPlanar.h"
 
 // =======================================================================================
 // Constructors.
 
-LandSurfaceRegion::LandSurfaceRegion(float x, float y, float width, float height)
+LandSurfaceRegionPlanar::LandSurfaceRegionPlanar(float x, float y,
+                          float width, float height):LandSurfaceRegion(x,y,width,height)
 {
-  xyPos[0]  = x;
-  xyPos[1]  = y;
-  extent[0] = width;
-  extent[1] = height;
-  
-  updateBoundingBox();
 }
 
 
 // =======================================================================================
 // Destructor
 
-LandSurfaceRegion::~LandSurfaceRegion(void)
+LandSurfaceRegionPlanar::~LandSurfaceRegionPlanar(void)
 {
 }
 
@@ -31,7 +27,7 @@ LandSurfaceRegion::~LandSurfaceRegion(void)
 // =======================================================================================
 // Stub definition this should be overwritten by implementing subclasses
 
-bool LandSurfaceRegion::bufferGeometry(TriangleBuffer* T)
+bool LandSurfaceRegionPlanar::bufferGeometry(TriangleBuffer* T)
 {
 
 
@@ -42,7 +38,7 @@ bool LandSurfaceRegion::bufferGeometry(TriangleBuffer* T)
 // =======================================================================================
 // Stub definition this should be overwritten by implementing subclasses
 
-void LandSurfaceRegion::triangleBufferSize(unsigned& vCount, unsigned& iCount)
+void LandSurfaceRegionPlanar::triangleBufferSize(unsigned& vCount, unsigned& iCount)
 {
   vCount = 0u;
   iCount = 0u;
@@ -52,7 +48,7 @@ void LandSurfaceRegion::triangleBufferSize(unsigned& vCount, unsigned& iCount)
 // =======================================================================================
 // Stub definition this should be overwritten by implementing subclasses
 
-void LandSurfaceRegion::draw(void)
+void LandSurfaceRegionPlanar::draw(void)
 {
   return;
 }
@@ -61,7 +57,7 @@ void LandSurfaceRegion::draw(void)
 // =======================================================================================
 // Stub definition this should be overwritten by implementing subclasses
 
-bool LandSurfaceRegion::matchRay(vec3& position, vec3& direction, float& lambda)
+bool LandSurfaceRegionPlanar::matchRay(vec3& position, vec3& direction, float& lambda)
 {
   if(!box->matchRay(position, direction, lambda))
     return false;
@@ -77,7 +73,7 @@ bool LandSurfaceRegion::matchRay(vec3& position, vec3& direction, float& lambda)
 // =======================================================================================
 // Stub not done.
                                                                 
-void LandSurfaceRegion::updateBoundingBox(void)
+void LandSurfaceRegionPlanar::updateBoundingBox(void)
 {
   if(!box)
     box = new BoundingBox(0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
@@ -88,7 +84,7 @@ void LandSurfaceRegion::updateBoundingBox(void)
 // =======================================================================================
 // Stub definition this should be overwritten by implementing subclasses
 
-bool LandSurfaceRegion::diagnosticHTML(HttpDebug* serv)
+bool LandSurfaceRegionPlanar::diagnosticHTML(HttpDebug* serv)
 {
 /*
   serv->addResponseData("<tr><td>HeightMarker</td>");
