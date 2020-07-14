@@ -1,0 +1,2 @@
+open -a XCode src/*.cpp src/*.c
+open -a XCode include/*.h openSrc compilePmod 812/*.json src/*.glsl

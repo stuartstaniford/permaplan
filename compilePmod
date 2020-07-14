@@ -1,0 +1,1 @@
+clang++ -std=c++11 -g -Wall -o pmod -I ./include -I ./imgui -I ./imgui/examples -framework OpenGL -lglfw -lGLEW src/*.cpp

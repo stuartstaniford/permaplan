@@ -1,0 +1,25 @@
+// Copyright Staniford Systems.  All Rights Reserved.  Apr 2020 -
+// Base Map/Model for 812 Irish Settlement Rd, Freeville, NY 13068
+
+{
+ // Initial summary stuff about the overall design
+ "spaceUnits":  "feet",
+ "baseYear":    2020,
+ "author":      "Stuart Staniford",
+ "version":     [0,1],
+ "landSurface":
+  {
+   "textureFile": "812/812IrishGoogleMap_4_21_20.png",
+   "width": 325.0
+  },
+ "contents":
+ [
+  {
+   "type": "boundary",
+   "points": [ [0.0, 0.0, 1.0], [0.0, 300.0, 20.0], [300.0, 300.0, 30.0] ]
+  }
+  
+
+ ]
+}
+
