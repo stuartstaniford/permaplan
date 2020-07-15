@@ -149,12 +149,15 @@ void LandSurfaceRegionPlanar::updateBoundingBox(void)
 
 bool LandSurfaceRegionPlanar::diagnosticHTML(HttpDebug* serv)
 {
-/*
-  serv->addResponseData("<tr><td>HeightMarker</td>");
-  serv->respPtr += sprintf(serv->respPtr,
-                           "<td><b>Location:</b> (%.1f, %.1f, %.1f)</td></tr>\n",
-                           location[0], location[1], location[2]);
-*/
+  serv->addResponseData("<tr><td>LandSurfaceRegionPlanar</td><td>");
+  serv->respPtr += sprintf(serv->respPtr, "<b>XY Position:</b> (%.1f, %.1f)<br>",
+                           xyPos[0], xyPos[1]);
+  serv->respPtr += sprintf(serv->respPtr, "<b>Extent:</b> (%.1f, %.1f)<br>",
+                           extent[0], extent[1]);
+  serv->respPtr += sprintf(serv->respPtr, "<b>Heights:</b> (%.1f, %.1f, %.1f, %.1f)<br>",
+                           heights[0], heights[1], heights[2], heights[3]);
+  serv->addResponseData("</td></tr>\n");
+
  return true;
 }
 
