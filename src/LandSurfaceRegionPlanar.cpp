@@ -8,12 +8,37 @@
 #include <err.h>
 #include "LandSurfaceRegionPlanar.h"
 
+/* Arrangement of kids is as follows:
+ ---------------
+ |      |      |
+ | k[2] | k[3] |
+ |      |      |
+ ---------------
+ |      |      |
+ | k[0] | k[1] |
+ |      |      |
+ ---------------      */
+
+// =======================================================================================
+// Utility function that computes the height of a plane at some particular location
+
+inline float planeHeight(vec3 plane, float x, float y)
+{
+  return x*plane[0] + y*plane[1] + plane[2];
+}
+
 // =======================================================================================
 // Constructors.
 
 LandSurfaceRegionPlanar::LandSurfaceRegionPlanar(float x, float y, float width, float height,
                            vec3 plane):LandSurfaceRegion(x,y,width,height)
 {
+  heights[0] = planeHeight(plane, x,          y);
+  heights[1] = planeHeight(plane, x + width,  y);
+  heights[2] = planeHeight(plane, x,          y + height);
+  heights[3] = planeHeight(plane, x + width,  y + height);
+
+  updateBoundingBox();
 }
 
 
@@ -30,7 +55,6 @@ LandSurfaceRegionPlanar::~LandSurfaceRegionPlanar(void)
 
 bool LandSurfaceRegionPlanar::bufferGeometry(TriangleBuffer* T)
 {
-
 
   return false;
 }
@@ -76,8 +100,22 @@ bool LandSurfaceRegionPlanar::matchRay(vec3& position, vec3& direction, float& l
                                                                 
 void LandSurfaceRegionPlanar::updateBoundingBox(void)
 {
+  float lowZ  = HUGE_VALF;
+  float highZ = -HUGE_VALF;
+  
+  for(int i = 0; i<4; i++)
+   {
+    if(heights[i] < lowZ)
+      lowZ = heights[i];
+    if(heights[i] > highZ)
+      highZ = heights[i];
+   }
   if(!box)
-    box = new BoundingBox(0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+    box = new BoundingBox(xyPos[0], xyPos[1], lowZ,
+                          xyPos[0] + extent[0], xyPos[1] + extent[1], highZ);
+  else
+    box->reset(xyPos[0], xyPos[1], lowZ,
+               xyPos[0] + extent[0], xyPos[1] + extent[1], highZ);
   return;
 }
                                                                 

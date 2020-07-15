@@ -40,6 +40,19 @@ BoundingBox::~BoundingBox(void)
 
 
 // =======================================================================================
+// Give new values to an existing box.
+
+void BoundingBox::reset(float x_l, float y_l, float z_l, float x_u, float y_u, float z_u)
+{
+  lower[0] = x_l;
+  lower[1] = y_l;
+  lower[2] = z_l;
+  upper[0] = x_u;
+  upper[1] = y_u;
+  upper[2] = z_u;
+}
+
+// =======================================================================================
 // Put a single bounding box into a gpu buffer.  This is generally done with fixed color
 // we don't handle texturing the bounding box.  This is mostly for debugging/diagnostic
 // purposes.  Intended for use with GL_TRIANGLE_STRIP.  Requires 14 vertices

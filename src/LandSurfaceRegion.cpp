@@ -16,7 +16,7 @@ LandSurfaceRegion::LandSurfaceRegion(float x, float y, float width, float height
   extent[0] = width;
   extent[1] = height;
   
-  updateBoundingBox();
+  //updateBoundingBox();  // implementing subclass should do this once it's known.
 }
 
 

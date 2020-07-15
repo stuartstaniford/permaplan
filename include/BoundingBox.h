@@ -29,6 +29,7 @@ class BoundingBox
   BoundingBox(vec3& bottomCorner, vec3& topCorner);
   BoundingBox(float x_l, float y_l, float z_l, float x_u, float y_u, float z_u);
   ~BoundingBox(void);
+  void reset(float x_l, float y_l, float z_l, float x_u, float y_u, float z_u);
   void bufferGeometry(VertexBufElement* buf);
   VertexBufferCombo* bufferGeometry(void);
   void draw(Shader& shader, VertexBufferCombo* combo, vec4 color);

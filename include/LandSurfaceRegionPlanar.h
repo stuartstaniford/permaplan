@@ -19,7 +19,7 @@ class LandSurfaceRegionPlanar: public LandSurfaceRegion
  public:
   
   // Instance variables - public
-  float heights[4];   // Defines heights at the corners, same order as Quadtree.cpp kids
+  vec4 heights; 
 
   
   // Member functions - public
