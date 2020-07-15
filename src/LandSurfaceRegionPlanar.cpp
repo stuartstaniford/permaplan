@@ -51,22 +51,46 @@ LandSurfaceRegionPlanar::~LandSurfaceRegionPlanar(void)
 
 
 // =======================================================================================
-// Stub definition this should be overwritten by implementing subclasses
+// Buffer our two triangles - we put the vertices in the same order as quadtree kids (see
+// diagram up top).
 
 bool LandSurfaceRegionPlanar::bufferGeometry(TriangleBuffer* T)
 {
+  VertexBufElement* vertices;
+  unsigned* indices;
+  unsigned vOffset, iOffset;
+  
+  unless(T->requestSpace(&vertices, &indices, vOffset, iOffset, 4u, 6u))
+    return false;
+  
+  // Now we know where we are putting stuff and that there is space, so pack
+  // in the vertices
+  vertices[0].set(xyPos[0], xyPos[1], heights[0]); //lower left
+  vertices[1].set(xyPos[0] + extent[0], xyPos[1], heights[1]); //lower right
+  vertices[2].set(xyPos[0], xyPos[1] + extent[1], heights[2]);  //upper left
+  vertices[3].set(xyPos[0] + extent[0], xyPos[1] + extent[1], heights[3]); //upper right
+  
+  // Lower left triangle
+  indices[0] = vOffset;
+  indices[1] = vOffset + 1u;
+  indices[2] = vOffset + 2u;
+  
+  // Upper right triangle
+  indices[3] = vOffset + 1u;
+  indices[4] = vOffset + 3u;
+  indices[5] = vOffset + 2u;
 
-  return false;
+  return true;
 }
 
 
 // =======================================================================================
-// Stub definition this should be overwritten by implementing subclasses
+// How much space we need in a triangle buffer
 
 void LandSurfaceRegionPlanar::triangleBufferSize(unsigned& vCount, unsigned& iCount)
 {
-  vCount = 0u;
-  iCount = 0u;
+  vCount = 4u;
+  iCount = 6u;
 }
 
 
