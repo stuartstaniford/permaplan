@@ -120,7 +120,7 @@ bool LandSurfaceRegionPlanar::matchRay(vec3& position, vec3& direction, float& l
 
 
 // =======================================================================================
-// Stub not done.
+// Recompute our bounding box when a caller needs it done.
                                                                 
 void LandSurfaceRegionPlanar::updateBoundingBox(void)
 {
@@ -145,7 +145,8 @@ void LandSurfaceRegionPlanar::updateBoundingBox(void)
                                                                 
 
 // =======================================================================================
-// Stub definition this should be overwritten by implementing subclasses
+// We assume we are part of a table of visual objects and we just contribute one row
+// about this particular chunk of land surface.
 
 bool LandSurfaceRegionPlanar::diagnosticHTML(HttpDebug* serv)
 {

@@ -12,6 +12,7 @@
 #include <algorithm>
 #include <list>
 #include "VisualObject.h"
+#include "LandSurfaceRegionPlanar.h"
 
 
 // =======================================================================================
@@ -23,8 +24,11 @@ class Quadtree
  public:
   
   // Instance variables - public
+  
+  //XXX deprecate
   unsigned    landVBOSize;        //amount of memory required for land vertices,
   unsigned    bufferOffset;       // our offset location in gpu serialized buffer
+  
   unsigned    vertexTBufSize;     //amount of memory required for vertices in triangle buffer,
   unsigned    indexTBufSize;     //amount of memory required for indices in triangle buffer,
 
@@ -46,11 +50,15 @@ class Quadtree
   // Instance variables - private
   Shader&                   shader;
   BoundingBox               bbox;
+ 
+  //XXX deprecate
   float                     topLeftZ;
   float                     bottomRightZ;
+
   vec2                      textureBL;    // bottom left corner of our region in texture s-t space
   vec2                      textureTR;    // top right corner of our region in texture s-t space
   Quadtree*                 kids[4];      // our four child quadtree nodes
+  LandSurfaceRegion*        surface;
   std::list<VisualObject*>  vObjects;     // objects for display that we own
   
   // Member functions - private
