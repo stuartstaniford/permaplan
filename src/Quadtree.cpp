@@ -360,6 +360,8 @@ bool Quadtree::diagnosticHTML(HttpDebug* serv, char* path)
     // Visual objects
     serv->newSection("Objects Stored at this Quadtree Node");
     serv->startTable();
+    if(surface)
+      surface->diagnosticHTML(serv);
     for (VisualObject* obj : vObjects)
       obj->diagnosticHTML(serv);
     serv->addResponseData("</table></center>\n");
