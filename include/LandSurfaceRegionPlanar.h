@@ -23,7 +23,8 @@ class LandSurfaceRegionPlanar: public LandSurfaceRegion
 
   
   // Member functions - public
-  LandSurfaceRegionPlanar(float x, float y, float width, float height, vec3 plane);
+  LandSurfaceRegionPlanar(float x, float y, float width, float height,
+                          float s, float t, float sWidth, float tHeight, vec3 plane);
   ~LandSurfaceRegionPlanar(void);
   bool bufferGeometry(TriangleBuffer* T);
   void draw(void);

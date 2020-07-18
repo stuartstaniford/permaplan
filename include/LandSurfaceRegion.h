@@ -19,9 +19,12 @@ class LandSurfaceRegion: public VisualObject
   // Instance variables - public
   vec2 xyPos;
   vec2 extent;
+  vec2 stPos;
+  vec2 stExtent;
 
   // Member functions - public
-  LandSurfaceRegion(float x, float y, float width, float height);
+  LandSurfaceRegion(float x, float y, float width, float height, float s, float t,
+                    float sWidth, float tHeight);
   ~LandSurfaceRegion(void);
   virtual bool bufferGeometry(TriangleBuffer* T);
   void draw(void);

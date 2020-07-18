@@ -31,7 +31,8 @@ inline float planeHeight(vec3 plane, float x, float y)
 // Constructors.
 
 LandSurfaceRegionPlanar::LandSurfaceRegionPlanar(float x, float y, float width, float height,
-                           vec3 plane):LandSurfaceRegion(x,y,width,height)
+                          float s, float t, float sWidth, float tHeight, vec3 plane):
+                          LandSurfaceRegion(x, y, width, height, s, t, sWidth, tHeight)
 {
   heights[0] = planeHeight(plane, x,          y);
   heights[1] = planeHeight(plane, x + width,  y);

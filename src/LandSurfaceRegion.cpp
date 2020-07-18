@@ -9,13 +9,18 @@
 // =======================================================================================
 // Constructors.
 
-LandSurfaceRegion::LandSurfaceRegion(float x, float y, float width, float height)
+LandSurfaceRegion::LandSurfaceRegion(float x, float y, float width, float height,
+                                     float s, float t, float sWidth, float tHeight)
 {
-  xyPos[0]  = x;
-  xyPos[1]  = y;
-  extent[0] = width;
-  extent[1] = height;
-  
+  xyPos[0]    = x;
+  xyPos[1]    = y;
+  extent[0]   = width;
+  extent[1]   = height;
+  stPos[0]    = s;
+  stPos[1]    = t;
+  stExtent[0] = sWidth;
+  stExtent[1] = tHeight;
+
   //updateBoundingBox();  // implementing subclass should do this once it's known.
 }
 
