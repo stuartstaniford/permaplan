@@ -91,7 +91,7 @@ void LandSurfaceRegion::updateBoundingBox(void)
 bool LandSurfaceRegion::diagnosticHTML(HttpDebug* serv)
 {
   serv->addResponseData("<tr><td>LandSurfaceRegion</td><td>");
-  serv->addResponseData("<b>Why no subclass???</b><br>");
+  serv->addResponseData("<b>Why no subclass?\?\?</b><br>");
   serv->respPtr += sprintf(serv->respPtr, "<b>XY Position:</b> (%.1f, %.1f)<br>",
                            xyPos[0], xyPos[1]);
   serv->respPtr += sprintf(serv->respPtr, "<b>Extent:</b> (%.1f, %.1f)<br>",

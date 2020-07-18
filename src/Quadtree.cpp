@@ -173,7 +173,6 @@ void Quadtree::storeVisualObject(VisualObject* obj)
 
 void Quadtree::bufferVisualObjects(TriangleBuffer* tbuf)
 {
-
   // Handle visual objects stored at our level
   for (VisualObject* obj : vObjects)
     obj->bufferGeometry(tbuf);
@@ -183,6 +182,22 @@ void Quadtree::bufferVisualObjects(TriangleBuffer* tbuf)
     for(int i=0; i<4; i++)
       if(kids[i])
         kids[i]->bufferVisualObjects(tbuf);
+}
+
+
+// =======================================================================================
+// Put all of the quadtree visual objects into a buffer in depth first order.
+
+void Quadtree::bufferLandSurface(TriangleBuffer* tbuf)
+{
+  // Handle visual objects stored at our level
+  surface->bufferGeometry(tbuf);
+  
+  // Deal with kids
+  if(landVBOSize > 6)
+    for(int i=0; i<4; i++)
+      if(kids[i])
+        kids[i]->bufferLandSurface(tbuf);
 }
 
 

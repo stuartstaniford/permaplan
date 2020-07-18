@@ -39,6 +39,7 @@ class Quadtree
   void bufferGeometry(VertexBufElement* buf);
   void bufferGeometryLeaf(VertexBufElement* buf);
   void bufferVisualObjects(TriangleBuffer* tbuf);
+  void bufferLandSurface(TriangleBuffer* tbuf);
   void storeVisualObject(VisualObject* obj);
   void redoLandPlanar(vec3 plane);
   void draw(void);
