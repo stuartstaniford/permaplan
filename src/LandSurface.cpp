@@ -17,7 +17,13 @@
 // Constructor which sets up the surface as specified in the design file
 
 LandSurface::LandSurface(Shader& S, PmodDesign& D): rect(NULL), qtree(NULL), shader(S),
-                                          design(D), VAOs(1), locationCount(0u)
+                                          design(D),
+#ifdef USE_TRIANGLE_BUFFER
+                                          tbuf(NULL),
+#else
+                                          VAOs(1),
+#endif
+                                            locationCount(0u)
 {
   using namespace rapidjson;
 
@@ -43,13 +49,18 @@ LandSurface::LandSurface(Shader& S, PmodDesign& D): rect(NULL), qtree(NULL), sha
 // =======================================================================================
 // Late constructor stuff that can't be done until after the Qtree is initialized
 
-void LandSurface::setUpVBO(Quadtree* q)
+void LandSurface::bufferGeometry(Quadtree* q)
 {
   qtree = q;
   
 #ifdef USE_TRIANGLE_BUFFER
-
-  
+  //XXX note sizing here is inefficient, needs to be replaced with more dynamic
+  // approach
+  tbuf = new TriangleBuffer(qtree->landVBOSize, qtree->landVBOSize);
+  if(!tbuf)
+    err(-1, "Can't allocate memory in __func__\n");
+  qtree->bufferLandSurface(tbuf);
+  tbuf->sendToGPU(GL_STATIC_DRAW);
 #else
   VertexBufElement* buf = new VertexBufElement[qtree->landVBOSize];
   if(!buf)
@@ -72,8 +83,8 @@ LandSurface::~LandSurface(void)
     delete rect;
 
 #ifdef USE_TRIANGLE_BUFFER
-
-#else
+  if(tbuf)
+    delete tbuf;
   if(VBO)
     delete VBO;
 #endif
@@ -168,10 +179,11 @@ vec4 yellowAccentColor = {0.9f, 0.9f, 0.0f, 1.0f};
 void LandSurface::draw(Camera& camera)
 {
 #ifdef USE_TRIANGLE_BUFFER
-  
+  tbuf->bind();
 #else
   VAOs.bind(0);
   VBO->bind();
+#endif
 
   // Highlight where the camera points at
   vec3 pos, dir;
@@ -183,12 +195,15 @@ void LandSurface::draw(Camera& camera)
   
   // Draw the main surface
   rect->texture.bind(shader, 0, "earthTexture");
+#ifdef USE_TRIANGLE_BUFFER
+  tbuf->draw();
+#else
   glDrawArrays(GL_TRIANGLES, 0, qtree->landVBOSize);
-  if(checkGLError(stderr, "LandSurface::draw:glDrawArrays"))
-    exit(-1);
+#endif
   if(targetNode)
     highlightNode(targetNode, yellowAccentColor, 0.0f);
-#endif
+  if(checkGLError(stderr, "LandSurface::draw"))
+    exit(-1);
 }
 
 

@@ -22,7 +22,7 @@ Scene::Scene(Shader& S, PmodDesign& des, PmodConfig& conf): shader(S),
   qtree = new Quadtree(shader, 0.0f, 0.0f, (unsigned)(land.rect->width),
                        (unsigned)(land.rect->height),
                        0.0f, 0.0f, 1.0f, 1.0f, minSize, 0u);
-  land.setUpVBO(qtree);
+  land.bufferGeometry(qtree);
 }
 
 

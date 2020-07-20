@@ -32,7 +32,7 @@ class LandSurface
   
   // Member functions - public
   LandSurface(Shader& S, PmodDesign& D);
-  void setUpVBO(Quadtree* q);
+  void bufferGeometry(Quadtree* q);
   ~LandSurface(void);
   void newLandHeight(HeightMarker* hM);
   void draw(Camera& camera);
@@ -43,10 +43,10 @@ class LandSurface
   Shader&               shader;
   PmodDesign&           design;
 #ifdef USE_TRIANGLE_BUFFER
+  TriangleBuffer*       tbuf;
 #else
   VertexArrayObject     VAOs;
   VertexBufferObject*   VBO;
-
 #endif
   unsigned              locationCount;
 

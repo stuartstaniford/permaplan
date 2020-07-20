@@ -48,6 +48,8 @@ bool TriangleBuffer::requestSpace(VertexBufElement** verticesAssigned, unsigned*
                   unsigned& vOffset, unsigned& iOffset,
                   unsigned vRequestCount, unsigned iRequestCount)
 {
+  unless(vertices && indices)
+   err(-1, "Trying to request space on unallocated TriangleBuffer\n");
   if(vNext + vRequestCount <= vCount && iNext + iRequestCount <= iCount)
    {
     *verticesAssigned =  vertices + vNext;
@@ -74,6 +76,10 @@ void TriangleBuffer::sendToGPU(GLenum usage)
   combo = new ElementBufferCombo(vertices, vCount, indices, iCount, usage);
   glBufferData(GL_ARRAY_BUFFER, vCount*sizeof(VertexBufElement), vertices, usage);
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, iCount*sizeof(unsigned), indices, usage);
+  delete[] vertices;
+  delete[] indices;
+  vertices = NULL;
+  indices = NULL;
 }
 
 
