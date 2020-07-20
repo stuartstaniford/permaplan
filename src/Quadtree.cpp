@@ -93,9 +93,8 @@ Quadtree::Quadtree(Shader& S, float x, float y, unsigned width, unsigned height,
       // leaves are actually the most common case
       kids[0] = kids[2] = NULL;
       landVBOSize = 6;   //XX should this be hard-coded here?
-      surface = new LandSurfaceRegionPlanar(x, y, width, height, textureBL[0], textureBL[1],
-                                            textureTR[0] - textureBL[0],
-                                            textureTR[1] - textureBL[1], xyPlane);
+      surface = new LandSurfaceRegionPlanar(x, y, width, height, s, t,
+                                            sWidth, tHeight, xyPlane);
       // Do other leafy stuff here
      }
     else

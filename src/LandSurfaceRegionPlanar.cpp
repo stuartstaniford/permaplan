@@ -158,9 +158,9 @@ bool LandSurfaceRegionPlanar::diagnosticHTML(HttpDebug* serv)
                            extent[0], extent[1]);
   serv->respPtr += sprintf(serv->respPtr, "<b>Heights:</b> (%.1f, %.1f, %.1f, %.1f)<br>",
                            heights[0], heights[1], heights[2], heights[3]);
-  serv->respPtr += sprintf(serv->respPtr, "<b>ST Position:</b> (%.1f, %.1f)<br>",
+  serv->respPtr += sprintf(serv->respPtr, "<b>ST Position:</b> (%.4f, %.4f)<br>",
                            stPos[0], stPos[1]);
-  serv->respPtr += sprintf(serv->respPtr, "<b>ST Extent:</b> (%.1f, %.1f)<br>",
+  serv->respPtr += sprintf(serv->respPtr, "<b>ST Extent:</b> (%.4f, %.4f)<br>",
                            stExtent[0], stExtent[1]);
   serv->addResponseData("</td></tr>\n");
 
