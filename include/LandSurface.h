@@ -17,7 +17,7 @@
 #include "Camera.h"
 #include "HeightMarker.h"
 
-// #define USE_TRIANGLE_BUFFER 1
+#define USE_TRIANGLE_BUFFER 1
 
 // =======================================================================================
 // Class variable initialization

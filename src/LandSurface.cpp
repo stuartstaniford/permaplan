@@ -85,6 +85,7 @@ LandSurface::~LandSurface(void)
 #ifdef USE_TRIANGLE_BUFFER
   if(tbuf)
     delete tbuf;
+#else
   if(VBO)
     delete VBO;
 #endif
@@ -178,9 +179,7 @@ vec4 yellowAccentColor = {0.9f, 0.9f, 0.0f, 1.0f};
 
 void LandSurface::draw(Camera& camera)
 {
-#ifdef USE_TRIANGLE_BUFFER
-  tbuf->bind();
-#else
+#ifndef USE_TRIANGLE_BUFFER
   VAOs.bind(0);
   VBO->bind();
 #endif
