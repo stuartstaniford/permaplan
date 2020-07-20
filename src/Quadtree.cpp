@@ -192,14 +192,14 @@ void Quadtree::bufferVisualObjects(TriangleBuffer* tbuf)
 
 void Quadtree::bufferLandSurface(TriangleBuffer* tbuf)
 {
-  // Handle visual objects stored at our level
-  surface->bufferGeometry(tbuf);
-  
-  // Deal with kids
   if(landVBOSize > 6)
-    for(int i=0; i<4; i++)
+   {
+    for(int i=0; i<4; i++)   // Deal with kids
       if(kids[i])
         kids[i]->bufferLandSurface(tbuf);
+   }
+  else
+    surface->bufferGeometry(tbuf); // we are a leaf, buffer our surface object
 }
 
 
