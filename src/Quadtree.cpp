@@ -194,7 +194,7 @@ void Quadtree::bufferLandSurface(TriangleBuffer* tbuf)
   if(landVBOSize > 6)
    {
     for(int i=0; i<4; i++)   // Deal with kids
-      if(kids[i])
+      if(kids[i])// && (kids[i]->landVBOSize > 6 || i%2))
         kids[i]->bufferLandSurface(tbuf);
    }
   else

@@ -66,10 +66,14 @@ bool LandSurfaceRegionPlanar::bufferGeometry(TriangleBuffer* T)
   
   // Now we know where we are putting stuff and that there is space, so pack
   // in the vertices
-  vertices[0].set(xyPos[0], xyPos[1], heights[0]); //lower left
-  vertices[1].set(xyPos[0] + extent[0], xyPos[1], heights[1]); //lower right
-  vertices[2].set(xyPos[0], xyPos[1] + extent[1], heights[2]);  //upper left
-  vertices[3].set(xyPos[0] + extent[0], xyPos[1] + extent[1], heights[3]); //upper right
+  vertices[0].set(xyPos[0], xyPos[1], heights[0],
+                  stPos[0], stPos[1]); //lower left
+  vertices[1].set(xyPos[0] + extent[0], xyPos[1], heights[1],
+                  stPos[0] + stExtent[0], stPos[1]); //lower right
+  vertices[2].set(xyPos[0], xyPos[1] + extent[1], heights[2],
+                  stPos[0], stPos[1] + stExtent[1]);  //upper left
+  vertices[3].set(xyPos[0] + extent[0], xyPos[1] + extent[1], heights[3],
+                  stPos[0] + stExtent[0], stPos[1] + stExtent[1]); //upper right
   
   // Lower left triangle
   indices[0] = vOffset;
