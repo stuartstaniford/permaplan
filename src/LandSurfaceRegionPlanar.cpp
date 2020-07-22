@@ -34,12 +34,7 @@ LandSurfaceRegionPlanar::LandSurfaceRegionPlanar(float x, float y, float width, 
                           float s, float t, float sWidth, float tHeight, vec3 plane):
                           LandSurfaceRegion(x, y, width, height, s, t, sWidth, tHeight)
 {
-  heights[0] = planeHeight(plane, x,          y);
-  heights[1] = planeHeight(plane, x + width,  y);
-  heights[2] = planeHeight(plane, x,          y + height);
-  heights[3] = planeHeight(plane, x + width,  y + height);
-
-  updateBoundingBox();
+  resetPlane(plane);
 }
 
 
@@ -50,6 +45,18 @@ LandSurfaceRegionPlanar::~LandSurfaceRegionPlanar(void)
 {
 }
 
+
+// =======================================================================================
+// Function that sets up our height variables based on our plane
+
+void LandSurfaceRegionPlanar::resetPlane(vec3 plane)
+{
+  heights[0] = planeHeight(plane, xyPos[0],             xyPos[1]);
+  heights[1] = planeHeight(plane, xyPos[0] + extent[0], xyPos[1]);
+  heights[2] = planeHeight(plane, xyPos[0],             xyPos[1] + extent[1]);
+  heights[3] = planeHeight(plane, xyPos[0] + extent[0], xyPos[1] + extent[1]);
+  updateBoundingBox();
+}
 
 // =======================================================================================
 // Buffer our two triangles - we put the vertices in the same order as quadtree kids (see

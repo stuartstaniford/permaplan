@@ -41,6 +41,7 @@ class Quadtree
   void bufferVisualObjects(TriangleBuffer* tbuf);
   void bufferLandSurface(TriangleBuffer* tbuf);
   void storeVisualObject(VisualObject* obj);
+  void recomputeBoundingBox(void);
   void redoLandPlanar(vec3 plane);
   void draw(void);
   Quadtree* matchRay(vec3& position, vec3& direction, float& lambda);

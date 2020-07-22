@@ -203,23 +203,48 @@ void Quadtree::bufferLandSurface(TriangleBuffer* tbuf)
 
 
 // =======================================================================================
+// Recompute the bounding box from scratch after changes
+
+void Quadtree::recomputeBoundingBox(void)
+{
+  bbox.unsetZs();
+  if(landVBOSize > 6)
+   {
+    for(int i=0; i<4; i++)
+      if(kids[i])
+        bbox.extendZ(kids[i]->bbox);
+   }
+  else
+   {
+    bbox.extendZ(*(surface->box));
+   }
+  
+  //XXX need to recompute the effect of visual objects
+}
+
+
+// =======================================================================================
 // Redo the landsurface in the quadtree with a plane specified by the parameters
 // (The plane goes through position, with normal being perpendicular to it).
+// Note this function makes the assumption that our surface is already an
+// existing LandSurfaceRegionPlanar.  This should generally be true.
 
 void Quadtree::redoLandPlanar(vec3 plane)
 {
-  
-  // Redo our land variables
-  // How to do?
-  // Redo our bounding box
-  
-  // Deal with kids
   if(landVBOSize > 6)
+   {
     for(int i=0; i<4; i++)
       if(kids[i])
         kids[i]->redoLandPlanar(plane);
+    recomputeBoundingBox();
+   }
+  else
+   {
+    LandSurfaceRegionPlanar* planarSurface = (LandSurfaceRegionPlanar*)surface;
+    planarSurface->resetPlane(plane);
+    recomputeBoundingBox();
+   }
   
-  // Need feedback from kids about anything that changed bounding box?
 }
 
 

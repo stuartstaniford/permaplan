@@ -54,6 +54,8 @@ void LandSurface::bufferGeometry(Quadtree* q)
   qtree = q;
   
 #ifdef USE_TRIANGLE_BUFFER
+  if(tbuf)
+    delete tbuf;
   //XXX note sizing here is inefficient, needs to be replaced with more dynamic
   // approach
   tbuf = new TriangleBuffer(qtree->landVBOSize, qtree->landVBOSize);
@@ -170,6 +172,8 @@ void LandSurface::newLandHeight(HeightMarker* hM)
     // Kriging
 
    }
+  
+  bufferGeometry(qtree);
 }
 
 // =======================================================================================

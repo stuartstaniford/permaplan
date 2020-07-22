@@ -26,6 +26,7 @@ class LandSurfaceRegionPlanar: public LandSurfaceRegion
   LandSurfaceRegionPlanar(float x, float y, float width, float height,
                           float s, float t, float sWidth, float tHeight, vec3 plane);
   ~LandSurfaceRegionPlanar(void);
+  void resetPlane(vec3 plane);
   bool bufferGeometry(TriangleBuffer* T);
   void draw(void);
   bool matchRay(vec3& position, vec3& direction, float& lambda);

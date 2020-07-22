@@ -36,6 +36,7 @@ class BoundingBox
   bool matchRay(vec3& position, vec3& direction, float& lambda);
   bool xyContains(const BoundingBox& otherBox);
   bool extendZ(const BoundingBox& otherBox);
+  void unsetZs(void);
   bool diagnosticHTML(HttpDebug* serv);
 
  private:

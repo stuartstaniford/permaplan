@@ -52,6 +52,16 @@ void BoundingBox::reset(float x_l, float y_l, float z_l, float x_u, float y_u, f
   upper[2] = z_u;
 }
 
+
+// =======================================================================================
+// Set Zs to nonsense values (to be overriden by assembling values from other boxes
+
+void BoundingBox::unsetZs(void)
+{
+  lower[2] = HUGE_VALF;
+  upper[2] = -HUGE_VALF;
+}
+
 // =======================================================================================
 // Put a single bounding box into a gpu buffer.  This is generally done with fixed color
 // we don't handle texturing the bounding box.  This is mostly for debugging/diagnostic
