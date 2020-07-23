@@ -215,9 +215,7 @@ void Quadtree::recomputeBoundingBox(void)
         bbox.extendZ(kids[i]->bbox);
    }
   else
-   {
     bbox.extendZ(*(surface->box));
-   }
   
   //XXX need to recompute the effect of visual objects
 }
@@ -236,15 +234,13 @@ void Quadtree::redoLandPlanar(vec3 plane)
     for(int i=0; i<4; i++)
       if(kids[i])
         kids[i]->redoLandPlanar(plane);
-    recomputeBoundingBox();
    }
   else
    {
     LandSurfaceRegionPlanar* planarSurface = (LandSurfaceRegionPlanar*)surface;
     planarSurface->resetPlane(plane);
-    recomputeBoundingBox();
    }
-  
+  recomputeBoundingBox();
 }
 
 

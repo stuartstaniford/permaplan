@@ -51,7 +51,8 @@ LandSurface::LandSurface(Shader& S, PmodDesign& D): rect(NULL), qtree(NULL), sha
 
 void LandSurface::bufferGeometry(Quadtree* q)
 {
-  qtree = q;
+  if(q)
+    qtree = q;
   
 #ifdef USE_TRIANGLE_BUFFER
   if(tbuf)
@@ -158,6 +159,7 @@ void LandSurface::newLandHeight(HeightMarker* hM)
   if(locationCount <= 3) // done already
    {
     qtree->redoLandPlanar(plane);
+    bufferGeometry(NULL);
     return;
    }
   
@@ -173,7 +175,6 @@ void LandSurface::newLandHeight(HeightMarker* hM)
 
    }
   
-  bufferGeometry(qtree);
 }
 
 // =======================================================================================

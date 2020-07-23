@@ -89,7 +89,7 @@ void TriangleBuffer::sendToGPU(GLenum usage)
 void TriangleBuffer::draw(void)
 {
   unless(combo)
-    return;
+    err(-1, "No combo in TriangleBuffer::draw");
   combo->bind();
   glDrawElements(GL_TRIANGLES, iCount, GL_UNSIGNED_INT, 0);
   if(checkGLError(stderr, "TriangleBuffer::draw"))
