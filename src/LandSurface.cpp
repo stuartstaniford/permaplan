@@ -68,7 +68,7 @@ void LandSurface::bufferGeometry(Quadtree* q)
   VertexBufElement* buf = new VertexBufElement[qtree->landVBOSize];
   if(!buf)
     err(-1, "Can't allocate memory in __func__\n");
-  qtree->bufferGeometry(buf);
+  qtree->bufferGeometry(buf);+
   VAOs.bind(0);
   VBO = new VertexBufferObject(qtree->landVBOSize, buf, GL_DYNAMIC_DRAW);
   delete[] buf;
@@ -150,6 +150,7 @@ void LandSurface::newLandHeight(HeightMarker* hM)
   else if(locationCount == 2)
    {
     // includes both points, sloping up along the line between them.
+    //XXX not checking that the two points are identical
     if(heightLocations[1][0] == heightLocations[0][0])
       plane[0] = 0.0f;
     else
@@ -166,7 +167,17 @@ void LandSurface::newLandHeight(HeightMarker* hM)
   else if(locationCount == 3)
    {
     // plane through all three points
-    plane[0] = plane[1] = plane[2] = 0.0f; //XXX stub
+    //XXX not checking that the triangle might be degenerate
+    vec3 diff1, diff2, norm;
+    glm_vec3_sub(heightLocations[0], heightLocations[1], diff1);
+    glm_vec3_sub(heightLocations[0], heightLocations[2], diff2);
+    glm_vec3_cross(diff1, diff2, norm);
+    // The equation of a plane is ax+by+cz = d, where [a,b,c]
+    // is the normal vector to the plane.
+    float d = glm_vec3_dot(heightLocations[0], norm);
+    plane[0] = -norm[0]/d;
+    plane[1] = -norm[1]/d;
+    plane[2] = norm[2]/d;
    }
   
   // store pointer to hM in our table
