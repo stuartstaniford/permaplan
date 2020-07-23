@@ -128,10 +128,15 @@ void LandSurface::highlightNode(Quadtree* targetNode, vec4& color, float accent)
 // Reconfigure the land surface when we are told about a new observation that is to be
 // added to our state
 
+//XXX We don't currently detect if a new heightmarker is unacceptable - eg second one
+// is exactly the same as first.  Need to do more error checking, and have a way to
+// report that the heightMarker should be rejected and deleted.
+
 extern vec3 zAxis;
 
 void LandSurface::newLandHeight(HeightMarker* hM)
 {
+  heightLocations.push_back(hM->location);
   locationCount++;
   vec3 plane;
   
@@ -144,9 +149,19 @@ void LandSurface::newLandHeight(HeightMarker* hM)
    }
   else if(locationCount == 2)
    {
-    // includes both points, sloping up
-    //float *lower, *upper;
-    plane[0] = plane[1] = plane[2] = 0.0f; //XXX stub
+    // includes both points, sloping up along the line between them.
+    if(heightLocations[1][0] == heightLocations[0][0])
+      plane[0] = 0.0f;
+    else
+      plane[0] = (heightLocations[1][2] - heightLocations[0][2])/
+                    (heightLocations[1][0] - heightLocations[0][0]);
+    if(heightLocations[1][1] == heightLocations[0][1])
+      plane[1] = 0.0f;
+    else
+      plane[1] = (heightLocations[1][2] - heightLocations[0][2])/
+                    (heightLocations[1][1] - heightLocations[0][1]);
+    plane[2] = heightLocations[0][2] - plane[0]*heightLocations[0][0]
+                    - plane[1]*heightLocations[0][1];
    }
   else if(locationCount == 3)
    {

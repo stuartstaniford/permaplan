@@ -8,6 +8,7 @@
 #define LANDSURFACE_H
 
 #include <cglm/cglm.h>
+#include <vector>
 #include "Shader.h"
 #include "PmodDesign.h"
 #include "VertexArrayObject.h"
@@ -16,6 +17,7 @@
 #include "Quadtree.h"
 #include "Camera.h"
 #include "HeightMarker.h"
+
 
 #define USE_TRIANGLE_BUFFER 1
 
@@ -49,6 +51,7 @@ class LandSurface
   VertexBufferObject*   VBO;
 #endif
   unsigned              locationCount;
+  std::vector<float*>    heightLocations;
 
   //Texture               texture;
   

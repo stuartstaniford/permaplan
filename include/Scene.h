@@ -42,11 +42,11 @@ class Scene
 
  private:
   // Instance variables - private
-  ColoredAxes*    axes;
-  Grid*           grid;
-  LandSurface     land;
-  PmodConfig&     config;
-  
+  ColoredAxes*      axes;
+  Grid*             grid;
+  LandSurface       land;
+  PmodConfig&       config;
+
   // Member functions - private
   void setModelMatrix(float latt, float longt);
 };
