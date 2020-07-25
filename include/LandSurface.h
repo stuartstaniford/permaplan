@@ -38,6 +38,7 @@ class LandSurface
   ~LandSurface(void);
   void newLandHeight(HeightMarker* hM);
   void draw(Camera& camera);
+  bool diagnosticHTML(HttpDebug* serv);
 
  private:
   

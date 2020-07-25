@@ -31,6 +31,7 @@ class Scene
   PmodDesign&     design;
   Quadtree*       qtree;
   TriangleBuffer* tbuf;
+  LandSurface     land;
 
   // Member functions - public
   Scene(Shader& S, PmodDesign& des, PmodConfig& C);
@@ -44,7 +45,6 @@ class Scene
   // Instance variables - private
   ColoredAxes*      axes;
   Grid*             grid;
-  LandSurface       land;
   PmodConfig&       config;
 
   // Member functions - private

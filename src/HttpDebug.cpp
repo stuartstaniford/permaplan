@@ -99,6 +99,10 @@ bool HttpDebug::indexPage(void)
   addResponseData("<tr><td><a href=\"/quad/\">quad/</a></td>");
   addResponseData("<td>Examine the quadtree</td></tr>\n");
 
+  // Land Surface
+  addResponseData("<tr><td><a href=\"/land/\">land/</a></td>");
+  addResponseData("<td>Information about the land surface model.</td></tr>\n");
+
   // Camera
   addResponseData("<tr><td><a href=\"/camera/\">camera/</a></td>");
   addResponseData("<td>Current camera variables</td></tr>\n");
@@ -161,6 +165,9 @@ bool HttpDebug::processRequestHeader(void)
 
   if( strlen(url) == 6 && strncmp(url, "/tbuf/", 6) == 0)
     return scene.tbuf->diagnosticHTML(this);
+
+  if( strlen(url) == 6 && strncmp(url, "/land/", 6) == 0)
+    return scene.land.diagnosticHTML(this);
 
   if( strlen(url) ==8 && strncmp(url, "/camera/", 8) == 0)
     return scene.camera.diagnosticHTML(this);

@@ -180,8 +180,6 @@ void LandSurface::newLandHeight(HeightMarker* hM)
     plane[2] = d/norm[2];
    }
   
-  // store pointer to hM in our table
-
   if(locationCount <= 3) // done already
    {
     qtree->redoLandPlanar(plane);
@@ -234,6 +232,32 @@ void LandSurface::draw(Camera& camera)
     highlightNode(targetNode, yellowAccentColor, 0.0f);
   if(checkGLError(stderr, "LandSurface::draw"))
     exit(-1);
+}
+
+
+// =======================================================================================
+// Provide a diagnostic page about the land surface
+
+bool LandSurface::diagnosticHTML(HttpDebug* serv)
+{
+  serv->startResponsePage("Land");
+  
+  serv->addResponseData("<center>\n");
+  serv->startTable();
+  serv->addResponseData("<tr><th>Heightmarker index</th><th>X</th>");
+  serv->addResponseData("<th>Y</th><th>Z</th></tr>\n");
+  
+  for(int i=0; i< locationCount; i++)
+   {
+    serv->respPtr += sprintf(serv->respPtr, "<tr><th>%d</td>", i);
+    for(int j=0; j<3; j++)
+      serv->respPtr += sprintf(serv->respPtr, "<td>%.1f</td>", heightLocations[i][j]);
+    serv->addResponseData("</tr>\n");
+   }
+  
+  serv->addResponseData("</table></center><hr>\n");
+  serv->endResponsePage();
+  return true;
 }
 
 

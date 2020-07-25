@@ -13,8 +13,8 @@
 // Constructor, which initializes the geometry
 
 Scene::Scene(Shader& S, PmodDesign& des, PmodConfig& conf): shader(S),
-                camera(shader, 200.0f, 45.0f), design(des), tbuf(NULL), axes(NULL),
-                grid(NULL), land(shader, design), config(conf)
+                camera(shader, 200.0f, 45.0f), design(des), tbuf(NULL),
+                land(shader, design), axes(NULL), grid(NULL), config(conf)
 {
   unsigned minSize = 10;
   // Note that land and qtree have mutual dependencies that means there
