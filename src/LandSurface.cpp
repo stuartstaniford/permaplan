@@ -175,9 +175,9 @@ void LandSurface::newLandHeight(HeightMarker* hM)
     // The equation of a plane is ax+by+cz = d, where [a,b,c]
     // is the normal vector to the plane.
     float d = glm_vec3_dot(heightLocations[0], norm);
-    plane[0] = -norm[0]/d;
-    plane[1] = -norm[1]/d;
-    plane[2] = norm[2]/d;
+    plane[0] = -norm[0]/norm[2];
+    plane[1] = -norm[1]/norm[2];
+    plane[2] = d/norm[2];
    }
   
   // store pointer to hM in our table
