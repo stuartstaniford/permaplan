@@ -26,12 +26,12 @@ class LandSurfaceRegion: public VisualObject
   LandSurfaceRegion(float x, float y, float width, float height, float s, float t,
                     float sWidth, float tHeight);
   ~LandSurfaceRegion(void);
-  virtual bool bufferGeometry(TriangleBuffer* T);
-  void draw(void);
-  virtual bool matchRay(vec3& position, vec3& direction, float& lambda);
-  virtual void updateBoundingBox(void);
-  virtual void triangleBufferSize(unsigned& vCount, unsigned& iCount);
-  virtual bool diagnosticHTML(HttpDebug* serv);
+  virtual bool  bufferGeometry(TriangleBuffer* T);
+  virtual void  draw(void);
+  virtual bool  matchRay(vec3& position, vec3& direction, float& lambda);
+  virtual void  updateBoundingBox(void);
+  virtual void  triangleBufferSize(unsigned& vCount, unsigned& iCount);
+  virtual bool  diagnosticHTML(HttpDebug* serv);
 
  private:
   
