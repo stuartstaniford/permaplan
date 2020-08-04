@@ -71,7 +71,7 @@ void LandSurface::bufferGeometry(Quadtree* q)
   qtree->bufferGeometry(buf);+
   VAOs.bind(0);
   VBO = new VertexBufferObject(qtree->landVBOSize, buf, GL_DYNAMIC_DRAW);
-  delete[] buf;
+  delete[] buf; buf = NULL;
 #endif
   
 }
@@ -186,9 +186,15 @@ void LandSurface::newLandHeight(HeightMarker* hM)
     bufferGeometry(NULL);
     return;
    }
-  
-  // Otherwise get into doing some math with all points
-  if(locationCount <= 20)
+
+  if(locationCount == 4)
+   {
+    // Toss the plane, and fire up a single Bezier patch at the root of the quadtree
+    qtree->stripSurface();
+    
+   }
+
+  if(locationCount <= 10)
    {
     // Fit a low order polynomial
 

@@ -100,7 +100,7 @@ VertexBufferCombo* BoundingBox::bufferGeometry(void)
   VertexBufElement* buf = new VertexBufElement[14];
   bufferGeometry(buf);
   VertexBufferCombo* combo = new VertexBufferCombo(14, buf);
-  delete[] buf;
+  delete[] buf; buf = NULL;
   return combo;
 }
 

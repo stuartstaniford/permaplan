@@ -43,6 +43,7 @@ class Quadtree
   void storeVisualObject(VisualObject* obj);
   void recomputeBoundingBox(void);
   void redoLandPlanar(vec3 plane);
+  void stripSurface(void);
   void draw(void);
   Quadtree* matchRay(vec3& position, vec3& direction, float& lambda);
   bool diagnosticHTML(HttpDebug* serv, char* path);

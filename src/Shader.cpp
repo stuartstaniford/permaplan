@@ -81,7 +81,7 @@ unsigned loadAndCompileShader(const char* fileName, GLenum shaderType)
    }
   
   // Free resources no longer required and go home
-  delete glslSource;
+  delete glslSource; glslSource = NULL;
   return shader;
 }
 

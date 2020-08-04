@@ -245,6 +245,25 @@ void Quadtree::redoLandPlanar(vec3 plane)
 
 
 // =======================================================================================
+// Remove all surface links, preparatory to rebuilding some other way.  Note that
+// bounding boxes could be invalid after this call, and will need to be rebuilt.
+
+void Quadtree::stripSurface(void)
+{
+  if(landVBOSize > 6)
+   {
+    for(int i=0; i<4; i++)
+      if(kids[i])
+        kids[i]->stripSurface();
+   }
+  else
+   {
+    delete surface;
+    surface = NULL;
+   }
+}
+
+// =======================================================================================
 // Put all of the quadtree geometry into a buffer in depth first order.  Caller must
 // give us a large enough buffer (presumably by checking landVBOSize).
 

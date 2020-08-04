@@ -25,7 +25,7 @@ class LandSurfaceRegion: public VisualObject
   // Member functions - public
   LandSurfaceRegion(float x, float y, float width, float height, float s, float t,
                     float sWidth, float tHeight);
-  ~LandSurfaceRegion(void);
+  virtual ~LandSurfaceRegion(void);
   virtual bool  bufferGeometry(TriangleBuffer* T);
   virtual void  draw(void);
   virtual bool  matchRay(vec3& position, vec3& direction, float& lambda);

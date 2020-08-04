@@ -57,7 +57,7 @@ Grid::Grid(Shader& S, LandSurface& L, float gridSpacing): shader(S), spacing(gri
    }
 
   VBO = new VertexBufferObject(2*(nX+nY), buf, GL_STATIC_DRAW);
-  delete buf;
+  delete buf; buf = NULL;
 
   if(checkGLError(stderr, "Grid::Grid"))
     exit(-1);
