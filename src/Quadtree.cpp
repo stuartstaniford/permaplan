@@ -22,6 +22,7 @@
  |      |      |
  ---------------      */
 
+#define forAllKids(i)  for(int i=0; i<4; i++) if(kids[i])
 
 // =======================================================================================
 // Constructor for a quadtree node
@@ -117,9 +118,8 @@ Quadtree::Quadtree(Shader& S, float x, float y, unsigned width, unsigned height,
 
 Quadtree::~Quadtree(void)
 {
-  for(int i=0; i<4; i++)
-    if(kids[i])
-      delete kids[i];
+  forAllKids(i)
+    delete kids[i];
 }
 
 
@@ -159,8 +159,8 @@ void Quadtree::storeVisualObject(VisualObject* obj)
   indexTBufSize += iSize;
 
   bbox.extendZ(*(obj->box));
-  for(int i=0; i<4; i++)
-    if(kids[i] && kids[i]->bbox.xyContains(*(obj->box)))
+  forAllKids(i)
+    if(kids[i]->bbox.xyContains(*(obj->box)))
      {
       kids[i]->storeVisualObject(obj);
       return;
@@ -180,9 +180,8 @@ void Quadtree::bufferVisualObjects(TriangleBuffer* tbuf)
   
   // Deal with kids
   if(landVBOSize > 6)
-    for(int i=0; i<4; i++)
-      if(kids[i])
-        kids[i]->bufferVisualObjects(tbuf);
+    forAllKids(i)
+      kids[i]->bufferVisualObjects(tbuf);
 }
 
 
@@ -193,9 +192,9 @@ void Quadtree::bufferLandSurface(TriangleBuffer* tbuf)
 {
   if(landVBOSize > 6)
    {
-    for(int i=0; i<4; i++)   // Deal with kids
-      if(kids[i])// && (kids[i]->landVBOSize > 6 || i%2))
-        kids[i]->bufferLandSurface(tbuf);
+    // Deal with kids
+    forAllKids(i)
+      kids[i]->bufferLandSurface(tbuf);
    }
   else
     surface->bufferGeometry(tbuf); // we are a leaf, buffer our surface object
@@ -210,9 +209,8 @@ void Quadtree::recomputeBoundingBox(void)
   bbox.unsetZs();
   if(landVBOSize > 6)
    {
-    for(int i=0; i<4; i++)
-      if(kids[i])
-        bbox.extendZ(kids[i]->bbox);
+    forAllKids(i)
+      bbox.extendZ(kids[i]->bbox);
    }
   else
     bbox.extendZ(*(surface->box));
@@ -231,9 +229,8 @@ void Quadtree::redoLandPlanar(vec3 plane)
 {
   if(landVBOSize > 6)
    {
-    for(int i=0; i<4; i++)
-      if(kids[i])
-        kids[i]->redoLandPlanar(plane);
+    forAllKids(i)
+      kids[i]->redoLandPlanar(plane);
    }
   else
    {
@@ -252,9 +249,8 @@ void Quadtree::stripSurface(void)
 {
   if(landVBOSize > 6)
    {
-    for(int i=0; i<4; i++)
-      if(kids[i])
-        kids[i]->stripSurface();
+    forAllKids(i)
+      kids[i]->stripSurface();
    }
   else
    {
@@ -277,13 +273,10 @@ void Quadtree::bufferGeometry(VertexBufElement* buf)
   else
    {
     VertexBufElement* b = buf;
-    for(int i=0; i<4; i++)
+    forAllKids(i)
      {
-      if(kids[i])
-       {
-        kids[i]->bufferGeometry(b);
-        b += kids[i]->landVBOSize;
-       }
+      kids[i]->bufferGeometry(b);
+      b += kids[i]->landVBOSize;
      }
    }
 }
@@ -294,9 +287,8 @@ void Quadtree::bufferGeometry(VertexBufElement* buf)
 
 void Quadtree::draw(void)
 {
-  for(int i=0; i<4; i++)
-    if(kids[i])
-      kids[i]->draw();
+  forAllKids(i)
+    kids[i]->draw();
   
   if(checkGLError(stderr, "Quadtree::draw"))
     exit(-1);
