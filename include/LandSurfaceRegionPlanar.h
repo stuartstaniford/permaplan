@@ -32,6 +32,7 @@ class LandSurfaceRegionPlanar: public LandSurfaceRegion
   bool  matchRay(vec3& position, vec3& direction, float& lambda);
   void  updateBoundingBox(void);
   void  triangleBufferSize(unsigned& vCount, unsigned& iCount);
+  void  fit(std::vector<float*>& locations);
   bool  diagnosticHTML(HttpDebug* serv);
 
  private:

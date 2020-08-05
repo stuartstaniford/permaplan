@@ -175,6 +175,8 @@ void LandSurface::newLandHeight(HeightMarker* hM)
     // Toss the plane, and fire up a single Bezier patch at the root of the quadtree
     qtree->stripSurface();
     qtree->surface = new BezierPatch(qtree);
+    qtree->surface->fit(heightLocations);
+    
    }
 
   if(locationCount <= 10)

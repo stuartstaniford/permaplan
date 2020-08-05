@@ -6,6 +6,7 @@
 #ifndef LAND_SURFACE_REGION_H
 #define LAND_SURFACE_REGION_H
 
+#include <vector>
 #include "VisualObject.h"
 
 // =======================================================================================
@@ -31,6 +32,7 @@ class LandSurfaceRegion: public VisualObject
   virtual bool  matchRay(vec3& position, vec3& direction, float& lambda);
   virtual void  updateBoundingBox(void);
   virtual void  triangleBufferSize(unsigned& vCount, unsigned& iCount);
+  virtual void  fit(std::vector<float*>& locations);
   virtual bool  diagnosticHTML(HttpDebug* serv);
 
  private:

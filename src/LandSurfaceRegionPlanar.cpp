@@ -157,6 +157,15 @@ void LandSurfaceRegionPlanar::updateBoundingBox(void)
                                                                 
 
 // =======================================================================================
+// Stub not done.
+
+void  LandSurfaceRegionPlanar::fit(std::vector<float*>& locations)
+{
+  
+}
+
+
+// =======================================================================================
 // We assume we are part of a table of visual objects and we just contribute one row
 // about this particular chunk of land surface.
 

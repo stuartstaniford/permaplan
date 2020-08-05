@@ -141,6 +141,41 @@ void BezierPatch::updateBoundingBox(void)
 
 
 // =======================================================================================
+// Fit our patch to a vector of locations
+
+// Right now this is a stub with hard-coded control points
+#define setControlPoints(i,j,x,y,z) controlPoints[i][j][0]=x;controlPoints[i][j][1]=y;controlPoints[i][j][2]=z
+#define randHeight arc4random()/(float)UINT32_MAX*100.0f-50.0f
+
+void BezierPatch::fit(std::vector<float*>& locations)
+{
+  // Bottom row of control points
+  setControlPoints(0, 0, xyPos[0],                    xyPos[1],                   randHeight);
+  setControlPoints(1, 0, xyPos[0] + 0.33f*extent[0],  xyPos[1],                   randHeight);
+  setControlPoints(2, 0, xyPos[0] + 0.66f*extent[0],  xyPos[1],                   randHeight);
+  setControlPoints(3, 0, xyPos[0] + extent[0],        xyPos[1],                   randHeight);
+  
+  // Second row of control points
+  setControlPoints(0, 1, xyPos[0],                    xyPos[1] + 0.33f*extent[1], randHeight);
+  setControlPoints(1, 1, xyPos[0] + 0.33f*extent[0],  xyPos[1] + 0.33f*extent[1], randHeight);
+  setControlPoints(2, 1, xyPos[0] + 0.66f*extent[0],  xyPos[1] + 0.33f*extent[1], randHeight);
+  setControlPoints(3, 1, xyPos[0] + extent[0],        xyPos[1] + 0.33f*extent[1], randHeight);
+  
+  // Third row of control points
+  setControlPoints(0, 2, xyPos[0],                    xyPos[1] + 0.66f*extent[1], randHeight);
+  setControlPoints(1, 2, xyPos[0] + 0.33f*extent[0],  xyPos[1] + 0.66f*extent[1], randHeight);
+  setControlPoints(2, 2, xyPos[0] + 0.66f*extent[0],  xyPos[1] + 0.66f*extent[1], randHeight);
+  setControlPoints(3, 2, xyPos[0] + extent[0],        xyPos[1] + 0.66f*extent[1], randHeight);
+
+  // Fourth row of control points
+  setControlPoints(0, 3, xyPos[0],                    xyPos[1] + extent[1],       randHeight);
+  setControlPoints(1, 3, xyPos[0] + 0.33f*extent[0],  xyPos[1] + extent[1],       randHeight);
+  setControlPoints(2, 3, xyPos[0] + 0.66f*extent[0],  xyPos[1] + extent[1],       randHeight);
+  setControlPoints(3, 3, xyPos[0] + extent[0],        xyPos[1] + extent[1],       randHeight);
+
+}
+
+// =======================================================================================
 // We assume we are part of a table of visual objects and we just contribute one row
 // about this particular chunk of land surface.
 

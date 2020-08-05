@@ -88,7 +88,16 @@ void LandSurfaceRegion::updateBoundingBox(void)
     box = new BoundingBox(0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
   return;
 }
-                                                                
+
+
+// =======================================================================================
+// Stub not done.
+
+void  LandSurfaceRegion::fit(std::vector<float*>& locations)
+{
+  
+}
+
 
 // =======================================================================================
 // Stub definition this should be overwritten by implementing subclasses
