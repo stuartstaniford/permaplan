@@ -19,7 +19,6 @@
 #include "HeightMarker.h"
 
 
-#define USE_TRIANGLE_BUFFER 1
 
 // =======================================================================================
 // Class variable initialization
@@ -45,12 +44,7 @@ class LandSurface
   // Instance variables - private
   Shader&               shader;
   PmodDesign&           design;
-#ifdef USE_TRIANGLE_BUFFER
   TriangleBuffer*       tbuf;
-#else
-  VertexArrayObject     VAOs;
-  VertexBufferObject*   VBO;
-#endif
   unsigned              locationCount;
   std::vector<float*>    heightLocations;
 

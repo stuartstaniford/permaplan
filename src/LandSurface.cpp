@@ -18,12 +18,8 @@
 
 LandSurface::LandSurface(Shader& S, PmodDesign& D): rect(NULL), qtree(NULL), shader(S),
                                           design(D),
-#ifdef USE_TRIANGLE_BUFFER
                                           tbuf(NULL),
-#else
-                                          VAOs(1),
-#endif
-                                            locationCount(0u)
+                                          locationCount(0u)
 {
   using namespace rapidjson;
 
@@ -54,7 +50,6 @@ void LandSurface::bufferGeometry(Quadtree* q)
   if(q)
     qtree = q;
   
-#ifdef USE_TRIANGLE_BUFFER
   if(tbuf)
     delete tbuf;
   //XXX note sizing here is inefficient, needs to be replaced with more dynamic
@@ -64,16 +59,6 @@ void LandSurface::bufferGeometry(Quadtree* q)
     err(-1, "Can't allocate memory in __func__\n");
   qtree->bufferLandSurface(tbuf);
   tbuf->sendToGPU(GL_STATIC_DRAW);
-#else
-  VertexBufElement* buf = new VertexBufElement[qtree->landVBOSize];
-  if(!buf)
-    err(-1, "Can't allocate memory in __func__\n");
-  qtree->bufferGeometry(buf);+
-  VAOs.bind(0);
-  VBO = new VertexBufferObject(qtree->landVBOSize, buf, GL_DYNAMIC_DRAW);
-  delete[] buf; buf = NULL;
-#endif
-  
 }
 
 
@@ -84,14 +69,8 @@ LandSurface::~LandSurface(void)
 {
   if(rect)
     delete rect;
-
-#ifdef USE_TRIANGLE_BUFFER
   if(tbuf)
     delete tbuf;
-#else
-  if(VBO)
-    delete VBO;
-#endif
 }
 
 
@@ -101,6 +80,7 @@ LandSurface::~LandSurface(void)
 
 void LandSurface::highlightNode(Quadtree* targetNode, vec4& color, float accent)
 {
+/*
 #ifdef USE_TRIANGLE_BUFFER
   
 #else
@@ -121,6 +101,8 @@ void LandSurface::highlightNode(Quadtree* targetNode, vec4& color, float accent)
   if(checkGLError(stderr, "LandSurface::highlightNode"))
     exit(-1);
 #endif
+*/
+  
 }
 
 
@@ -214,11 +196,6 @@ vec4 yellowAccentColor = {0.9f, 0.9f, 0.0f, 1.0f};
 
 void LandSurface::draw(Camera& camera)
 {
-#ifndef USE_TRIANGLE_BUFFER
-  VAOs.bind(0);
-  VBO->bind();
-#endif
-
   // Highlight where the camera points at
   vec3 pos, dir;
   float lambda;
@@ -229,11 +206,7 @@ void LandSurface::draw(Camera& camera)
   
   // Draw the main surface
   rect->texture.bind(shader, 0, "earthTexture");
-#ifdef USE_TRIANGLE_BUFFER
   tbuf->draw();
-#else
-  glDrawArrays(GL_TRIANGLES, 0, qtree->landVBOSize);
-#endif
   if(targetNode)
     highlightNode(targetNode, yellowAccentColor, 0.0f);
   if(checkGLError(stderr, "LandSurface::draw"))
