@@ -30,11 +30,11 @@
 vec3 xyPlane = {0.0f, 0.0f, 0.0f};
 
 Quadtree::Quadtree(Shader& S, float x, float y, unsigned width, unsigned height,
-                   float s, float t, float sWidth, float tHeight, unsigned& minSize,
-                   unsigned offset): landVBOSize(0u), bufferOffset(offset),
-                   vertexTBufSize(0u), indexTBufSize(0u), shader(S),
-                   bbox(x, y, 0.0f, x + (float)width, y+ (float)height, 0.1f),
-                   surface(NULL), vObjects()
+                    float s, float t, float sWidth, float tHeight, unsigned& minSize,
+                    unsigned offset): landVBOSize(0u), bufferOffset(offset),
+                    vertexTBufSize(0u), indexTBufSize(0u),
+                    bbox(x, y, 0.0f, x + (float)width, y+ (float)height, 0.1f),
+                    shader(S), surface(NULL), vObjects()
 {
   topLeftZ      = 0.05f;
   bottomRightZ  = 0.05f;

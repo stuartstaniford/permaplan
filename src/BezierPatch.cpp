@@ -5,13 +5,20 @@
 #include <err.h>
 #include "BezierPatch.h"
 
-
 // =======================================================================================
 // Constructors.
 
 BezierPatch::BezierPatch(float x, float y, float width, float height,
                                                  float s, float t, float sWidth, float tHeight):
 LandSurfaceRegion(x, y, width, height, s, t, sWidth, tHeight)
+{
+}
+
+BezierPatch::BezierPatch(Quadtree* qtree):
+LandSurfaceRegion(qtree->bbox.lower[0], qtree->bbox.lower[1],
+                  qtree->bbox.upper[0] - qtree->bbox.lower[0],
+                  qtree->bbox.upper[1] - qtree->bbox.lower[1],
+                  0.0f, 0.0f, 1.0f, 1.0f)
 {
 }
 

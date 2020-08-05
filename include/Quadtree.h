@@ -21,16 +21,19 @@
 
 class Quadtree
 {
+  friend class LandSurface;
+
  public:
   
   // Instance variables - public
   
   //XXX deprecate
-  unsigned    landVBOSize;        //amount of memory required for land vertices,
-  unsigned    bufferOffset;       // our offset location in gpu serialized buffer
+  unsigned      landVBOSize;        //amount of memory required for land vertices,
+  unsigned      bufferOffset;       // our offset location in gpu serialized buffer
   
-  unsigned    vertexTBufSize;     //amount of memory required for vertices in triangle buffer,
-  unsigned    indexTBufSize;     //amount of memory required for indices in triangle buffer,
+  unsigned      vertexTBufSize;     //amount of memory required for vertices in triangle buffer,
+  unsigned      indexTBufSize;     //amount of memory required for indices in triangle buffer,
+  BoundingBox   bbox;
 
   // Member functions - public
   Quadtree(Shader& S, float x, float y, unsigned width, unsigned height, float s, float t,
@@ -52,7 +55,6 @@ class Quadtree
   
   // Instance variables - private
   Shader&                   shader;
-  BoundingBox               bbox;
  
   //XXX deprecate
   float                     topLeftZ;

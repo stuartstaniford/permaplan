@@ -7,6 +7,7 @@
 #define BEZIER_PATCH_H
 
 #include "LandSurfaceRegion.h"
+#include "Quadtree.h"
 
 // =======================================================================================
 // Class variable initialization
@@ -23,6 +24,7 @@ public:
   // Member functions - public
   BezierPatch(float x, float y, float width, float height,
                           float s, float t, float sWidth, float tHeight);
+  BezierPatch(Quadtree* qtree);
   ~BezierPatch(void);
   bool  bufferGeometry(TriangleBuffer* T);
   void  draw(void);

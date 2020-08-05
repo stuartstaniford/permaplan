@@ -11,6 +11,7 @@
 #include <GLFW/glfw3.h>
 #include "Camera.h"
 #include "LandSurface.h"
+#include "BezierPatch.h"
 
 
 // =======================================================================================
@@ -173,7 +174,7 @@ void LandSurface::newLandHeight(HeightMarker* hM)
    {
     // Toss the plane, and fire up a single Bezier patch at the root of the quadtree
     qtree->stripSurface();
-    
+    qtree->surface = new BezierPatch(qtree);
    }
 
   if(locationCount <= 10)
