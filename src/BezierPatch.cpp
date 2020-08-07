@@ -202,11 +202,11 @@ void BezierPatch::fit(std::vector<float*>& locations)
 
 // =======================================================================================
 // We assume we are part of a table of visual objects and we just contribute one row
-// about this particular chunk of land surface.
+// about this particular chunk of land surface.  Since BezierPatch is a bit complex
+// we have a little mini-table of all our control points inside the cell.
 
 bool BezierPatch::diagnosticHTML(HttpDebug* serv)
 {
-  
   serv->addResponseData("<tr><td>BezierPatch</td><td>");
   serv->addResponseData("<table cellpadding=1 border=1><tr><th>i</th><th>j</th><th>X</th><th>Y</th><th>Z</th></tr>");
   for(int i=0; i<4; i++)
