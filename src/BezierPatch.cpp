@@ -206,20 +206,16 @@ void BezierPatch::fit(std::vector<float*>& locations)
 
 bool BezierPatch::diagnosticHTML(HttpDebug* serv)
 {
-  /*
-  serv->addResponseData("<tr><td>LandSurfaceRegionPlanar</td><td>");
-  serv->respPtr += sprintf(serv->respPtr, "<b>XY Position:</b> (%.1f, %.1f)<br>",
-                           xyPos[0], xyPos[1]);
-  serv->respPtr += sprintf(serv->respPtr, "<b>Extent:</b> (%.1f, %.1f)<br>",
-                           extent[0], extent[1]);
-  serv->respPtr += sprintf(serv->respPtr, "<b>Heights:</b> (%.1f, %.1f, %.1f, %.1f)<br>",
-                           heights[0], heights[1], heights[2], heights[3]);
-  serv->respPtr += sprintf(serv->respPtr, "<b>ST Position:</b> (%.4f, %.4f)<br>",
-                           stPos[0], stPos[1]);
-  serv->respPtr += sprintf(serv->respPtr, "<b>ST Extent:</b> (%.4f, %.4f)<br>",
-                           stExtent[0], stExtent[1]);
-  serv->addResponseData("</td></tr>\n");
-*/
+  
+  serv->addResponseData("<tr><td>BezierPatch</td><td>");
+  serv->addResponseData("<table cellpadding=1 border=1><tr><th>i</th><th>j</th><th>X</th><th>Y</th><th>Z</th></tr>");
+  for(int i=0; i<4; i++)
+    for(int j=0; j<4; j++)
+  serv->respPtr += sprintf(serv->respPtr,
+              "<tr><td>%d</td><td>%d</td><td>%.1f</td><td>%.1f</td><td>%.1f</td></tr>",
+              i, j, controlPoints[i][j][0], controlPoints[i][j][1], controlPoints[i][j][2]);
+  serv->addResponseData("</table></td></tr>\n");
+
   return true;
 }
 
