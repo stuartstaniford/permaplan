@@ -28,7 +28,7 @@ public:
   ~BezierPatch(void);
   bool  bufferGeometry(TriangleBuffer* T);
   void  draw(void);
-  float surfaceHeight(float x, float y);
+  void surfacePoint(vec3 result, float x, float y);
   bool  matchRay(vec3& position, vec3& direction, float& lambda);
   void  updateBoundingBox(void);
   void  triangleBufferSize(unsigned& vCount, unsigned& iCount);

@@ -5,6 +5,7 @@
 #include <err.h>
 #include "BezierPatch.h"
 
+
 // =======================================================================================
 // Constructors.
 
@@ -32,12 +33,36 @@ BezierPatch::~BezierPatch(void)
 
 
 // =======================================================================================
-// Computes the height of the patch at some particular location
+// Computes the height of the patch at some particular location in parametric
+// space. For background, see:
+// https://www.scratchapixel.com/lessons/advanced-rendering/bezier-curve-rendering-utah-teapot/bezier-surface
 
-float BezierPatch::surfaceHeight(float x, float y)
+float bern[4] = {1.0f, 3.0f, 3.0f, 1.0f};
+
+void BezierPatch::surfacePoint(vec3 result, float u, float v)
 {
-  return 0.0f;
+  glm_vec3_zero(result);
+  
+  float upow[4], vpow[4], u1minpow[4], v1minpow[4];
+  upow[0] = vpow[0] = u1minpow[0] = v1minpow[0] = 1.0f;
+  for(int i=1; i<4; i++)
+   {
+    upow[i]     = u*upow[i-1];
+    vpow[i]     = v*vpow[i-1];
+    u1minpow[i] = (u-1.0f)*u1minpow[i-1];
+    v1minpow[i] = (v-1.0f)*v1minpow[i-1];
+   }
+
+  for(int i=0; i<4; i++)
+    for(int j=0; j<4; j++)
+     {
+      float scale = bern[i]*upow[i]*u1minpow[3-i]*bern[j]*vpow[j]*v1minpow[3-j];
+      vec3 scaledControlPoint;
+      glm_vec3_scale(controlPoints[i][j], scale, scaledControlPoint);
+      glm_vec3_add(result, scaledControlPoint, result);
+     }
 }
+
 
 // =======================================================================================
 // Buffer our two triangles - we put the vertices in the same order as quadtree kids (see
