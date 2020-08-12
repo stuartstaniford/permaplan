@@ -10,16 +10,16 @@
 // Constructors.
 
 BezierPatch::BezierPatch(float x, float y, float width, float height,
-                                                 float s, float t, float sWidth, float tHeight):
-LandSurfaceRegion(x, y, width, height, s, t, sWidth, tHeight)
+                        float s, float t, float sWidth, float tHeight, unsigned gridPoints):
+LandSurfaceRegion(x, y, width, height, s, t, sWidth, tHeight), gridN(gridPoints)
 {
 }
 
-BezierPatch::BezierPatch(Quadtree* qtree):
+BezierPatch::BezierPatch(Quadtree* qtree, unsigned gridPoints):
 LandSurfaceRegion(qtree->bbox.lower[0], qtree->bbox.lower[1],
                   qtree->bbox.upper[0] - qtree->bbox.lower[0],
                   qtree->bbox.upper[1] - qtree->bbox.lower[1],
-                  0.0f, 0.0f, 1.0f, 1.0f)
+                  0.0f, 0.0f, 1.0f, 1.0f), gridN(gridPoints)
 {
 }
 
@@ -39,7 +39,7 @@ BezierPatch::~BezierPatch(void)
 
 float bern[4] = {1.0f, 3.0f, 3.0f, 1.0f};
 
-void BezierPatch::surfacePoint(vec3 result, float u, float v)
+void BezierPatch::surfacePoint(float u, float v, vec3 result)
 {
   glm_vec3_zero(result);
   
@@ -65,40 +65,44 @@ void BezierPatch::surfacePoint(vec3 result, float u, float v)
 
 
 // =======================================================================================
-// Buffer our two triangles - we put the vertices in the same order as quadtree kids (see
-// diagram up top).
+// Buffer our triangles.
 
 bool BezierPatch::bufferGeometry(TriangleBuffer* T)
 {
-  /*
+  // Establish space needs and obtain buffers
   VertexBufElement* vertices;
   unsigned* indices;
   unsigned vOffset, iOffset;
-  
-  unless(T->requestSpace(&vertices, &indices, vOffset, iOffset, 4u, 6u))
-  return false;
-  
-  // Now we know where we are putting stuff and that there is space, so pack
-  // in the vertices
-  vertices[0].set(xyPos[0], xyPos[1], heights[0],
-                  stPos[0], stPos[1]); //lower left
-  vertices[1].set(xyPos[0] + extent[0], xyPos[1], heights[1],
-                  stPos[0] + stExtent[0], stPos[1]); //lower right
-  vertices[2].set(xyPos[0], xyPos[1] + extent[1], heights[2],
-                  stPos[0], stPos[1] + stExtent[1]);  //upper left
-  vertices[3].set(xyPos[0] + extent[0], xyPos[1] + extent[1], heights[3],
-                  stPos[0] + stExtent[0], stPos[1] + stExtent[1]); //upper right
-  
-  // Lower left triangle
-  indices[0] = vOffset;
-  indices[1] = vOffset + 1u;
-  indices[2] = vOffset + 2u;
-  
-  // Upper right triangle
-  indices[3] = vOffset + 1u;
-  indices[4] = vOffset + 3u;
-  indices[5] = vOffset + 2u;
-*/
+  unsigned vCount = (gridN+1)*(gridN+1);
+  unsigned iCount = 6*gridN*gridN;
+  unless(T->requestSpace(&vertices, &indices, vOffset, iOffset, vCount, iCount))
+    return false;
+
+  //Figure out the vertices
+  float spacing = 1.0f/(float)gridN;
+  unsigned i,j;
+  float u,v;
+  for (i=0, u=0.0f; i<=gridN; i++, u+=spacing)
+    for (j=0, v=0.0f; j<=gridN; j++, v+=spacing)
+     {
+      VertexBufElement* bufEl = vertices + i*(gridN + 1) + j;
+      surfacePoint(u, v, bufEl->pos);
+      bufEl->tex[0] = stPos[0] + stExtent[0]*spacing*(float)i;
+      bufEl->tex[1] = stPos[1] + stExtent[1]*spacing*(float)j;
+     }
+
+  for (i=0; i<gridN; i++)
+    for (j=0; j<gridN; j++)
+     {
+      unsigned base = 6*(i*gridN + j);
+      indices[base] = i*(gridN + 1) + j;
+      indices[base + 1] = (i+1)*(gridN + 1) + j;
+      indices[base + 2] = i*(gridN + 1) + j + 1;
+      indices[base + 3] = indices[base + 1];
+      indices[base + 4] = (i+1)*(gridN + 1) + j + 1;
+      indices[base + 5] = indices[base + 2];
+     }
+
   return true;
 }
 

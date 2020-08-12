@@ -23,12 +23,12 @@ public:
   
   // Member functions - public
   BezierPatch(float x, float y, float width, float height,
-                          float s, float t, float sWidth, float tHeight);
-  BezierPatch(Quadtree* qtree);
+                          float s, float t, float sWidth, float tHeight, unsigned gridPoints);
+  BezierPatch(Quadtree* qtree, unsigned gridPoints);
   ~BezierPatch(void);
   bool  bufferGeometry(TriangleBuffer* T);
   void  draw(void);
-  void surfacePoint(vec3 result, float x, float y);
+  void  surfacePoint(float x, float y, vec3 result);
   bool  matchRay(vec3& position, vec3& direction, float& lambda);
   void  updateBoundingBox(void);
   void  triangleBufferSize(unsigned& vCount, unsigned& iCount);
@@ -38,6 +38,7 @@ public:
 private:
   
   // Instance variables - private
+  unsigned  gridN;  // number of squares to divide u/v space into when tesselating.
   
   // Member functions - private
 };
