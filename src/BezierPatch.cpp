@@ -65,6 +65,15 @@ void BezierPatch::surfacePoint(float u, float v, vec3 result)
 
 
 // =======================================================================================
+// For anyone who needs to know how much space we would take up in a triangleBuffer.
+
+void BezierPatch::triangleBufferSizes(unsigned& vertexCount, unsigned& indexCount)
+{
+  vertexCount = (gridN+1)*(gridN+1);
+  indexCount = 6*gridN*gridN;
+}
+
+// =======================================================================================
 // Buffer our triangles.
 
 bool BezierPatch::bufferGeometry(TriangleBuffer* T)
@@ -73,8 +82,8 @@ bool BezierPatch::bufferGeometry(TriangleBuffer* T)
   VertexBufElement* vertices;
   unsigned* indices;
   unsigned vOffset, iOffset;
-  unsigned vCount = (gridN+1)*(gridN+1);
-  unsigned iCount = 6*gridN*gridN;
+  unsigned vCount, iCount;
+  triangleBufferSizes(vCount, iCount);
   unless(T->requestSpace(&vertices, &indices, vOffset, iOffset, vCount, iCount))
     return false;
 

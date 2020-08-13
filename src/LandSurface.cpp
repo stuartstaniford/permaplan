@@ -174,9 +174,16 @@ void LandSurface::newLandHeight(HeightMarker* hM)
    {
     // Toss the plane, and fire up a single Bezier patch at the root of the quadtree
     qtree->stripSurface();
-    qtree->surface = new BezierPatch(qtree, 10); //XX - hardcoded gridpoints
-    qtree->surface->fit(heightLocations);
-    
+    BezierPatch* bez = new BezierPatch(qtree, 10); //XX - hardcoded gridpoints
+    qtree->surface = bez;
+    bez->fit(heightLocations);
+    unsigned vCount, iCount;
+    bez->triangleBufferSizes(vCount, iCount);
+    TriangleBuffer* tbuf = new TriangleBuffer(vCount, iCount);
+    if(!tbuf)
+      err(-1, "Can't allocate memory in __func__\n");
+    bez->bufferGeometry(tbuf);
+    tbuf->sendToGPU(GL_STATIC_DRAW);
    }
 
   if(locationCount <= 10)

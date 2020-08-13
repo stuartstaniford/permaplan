@@ -26,6 +26,7 @@ public:
                           float s, float t, float sWidth, float tHeight, unsigned gridPoints);
   BezierPatch(Quadtree* qtree, unsigned gridPoints);
   ~BezierPatch(void);
+  void  triangleBufferSizes(unsigned& vertexCount, unsigned& indexCount);
   bool  bufferGeometry(TriangleBuffer* T);
   void  draw(void);
   void  surfacePoint(float x, float y, vec3 result);
