@@ -20,7 +20,9 @@ class TriangleBuffer
  public:
   
   // Instance variables - public
-  
+  unsigned              vCount;
+  unsigned              iCount;
+
   // Member functions - public
   TriangleBuffer(unsigned vertexCount, unsigned indexCount);
   ~TriangleBuffer(void);
@@ -36,8 +38,6 @@ class TriangleBuffer
   // Instance variables - private
   unsigned*             indices;
   VertexBufElement*     vertices;
-  unsigned              vCount;
-  unsigned              iCount;
   unsigned              vNext;
   unsigned              iNext;
   ElementBufferCombo*   combo;

@@ -16,6 +16,7 @@
 TriangleBuffer::TriangleBuffer(unsigned vertexCount, unsigned indexCount):
                 vCount(vertexCount), iCount(indexCount), vNext(0u), iNext(0u), combo(NULL)
 {
+  fprintf(stderr, "Triangle buffer of size %d,%d allocated\n", vCount, iCount);
   vertices = new VertexBufElement[vCount];
   unless(vertices)
     err(-1, "Couldn't allocate vertex space in TriangleBuffer::TriangleBuffer");
