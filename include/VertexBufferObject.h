@@ -48,6 +48,12 @@ class VertexBufElement
    accent = 0.0f;
   }
   
+  inline void fprint(FILE* file)
+   {
+    fprintf(file, "pos:\t%.1f,\t%.1f,\t%.1f\ttex:\t%.3f\t%.3f\n",
+            pos[0], pos[1], pos[2], tex[0], tex[1]);
+   }
+  
   inline void copy(VertexBufElement* src)
    {
     memcpy(this, src, sizeof(VertexBufElement));

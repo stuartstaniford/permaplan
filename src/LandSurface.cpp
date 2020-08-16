@@ -184,7 +184,7 @@ void LandSurface::newLandHeight(HeightMarker* hM)
     tbuf = new TriangleBuffer(vCount, iCount);
     if(!tbuf)
       err(-1, "Can't allocate memory in __func__\n");
-    fprintf(stderr, "Triangle buffer of size %d,%d obtained\n", tbuf->vCount, tbuf->iCount);
+    //fprintf(stderr, "Triangle buffer of size %d,%d obtained\n", tbuf->vCount, tbuf->iCount);
     bez->bufferGeometry(tbuf);
     tbuf->sendToGPU(GL_STATIC_DRAW);
    }

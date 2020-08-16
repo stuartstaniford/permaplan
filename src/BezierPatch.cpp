@@ -98,6 +98,7 @@ bool BezierPatch::bufferGeometry(TriangleBuffer* T)
       surfacePoint(u, v, bufEl->pos);
       bufEl->tex[0] = stPos[0] + stExtent[0]*spacing*(float)i;
       bufEl->tex[1] = stPos[1] + stExtent[1]*spacing*(float)j;
+      bufEl->fprint(stdout);
      }
 
   for (i=0; i<gridN; i++)
