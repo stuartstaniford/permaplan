@@ -100,6 +100,31 @@ void TriangleBuffer::draw(void)
 
 
 // =======================================================================================
+// Dump our state to a file in an ASCII form for debugging (this is used when the
+// state is transient and cannot easily be inspected with diagnosticHTML();
+
+void TriangleBuffer::fprint(FILE* file)
+{
+  // Output all the vertices
+  for(int v = 0; v < vCount; v++)
+   {
+    VertexBufElement* b = vertices + v;
+    fprintf(file, "%d\txyz: %.1f %.1f %.1f\tst: %.3f, %.3f\tacc: %.3f\n",
+             v, b->pos[0], b->pos[1], b->pos[2], b->tex[0], b->tex[1], b->accent);
+   }
+  
+  // Output all the indices, one triangle per row
+  for(int i = 0; i < iCount; i+=3)
+   {
+    fprintf(file, "%d:\t",i/3);
+    for(int j = 0; j < 3; j++)
+      fprintf(file,"%d ", indices[i+j]);
+    fprintf(file, "\n");
+   }
+}
+
+
+// =======================================================================================
 // Provide diagnostic html about the triangles in our buffer.  Since we don't really
 // know anything about where we are located or what our contents mean, we don't
 // provide page header/footer, but rather just two tables, one of our vertices, and

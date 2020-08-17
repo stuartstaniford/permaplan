@@ -31,6 +31,7 @@ class TriangleBuffer
                     unsigned vRequestCount, unsigned iRequestCount);
   void sendToGPU(GLenum usage);
   void draw(void);
+  void fprint(FILE* file);
   bool diagnosticHTML(HttpDebug* serv);
   
  private:

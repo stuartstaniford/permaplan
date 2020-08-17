@@ -49,8 +49,8 @@ void BezierPatch::surfacePoint(float u, float v, vec3 result)
    {
     upow[i]     = u*upow[i-1];
     vpow[i]     = v*vpow[i-1];
-    u1minpow[i] = (u-1.0f)*u1minpow[i-1];
-    v1minpow[i] = (v-1.0f)*v1minpow[i-1];
+    u1minpow[i] = (1.0f - u)*u1minpow[i-1];
+    v1minpow[i] = (1.0f - v)*v1minpow[i-1];
    }
 
   for(int i=0; i<4; i++)
@@ -98,7 +98,9 @@ bool BezierPatch::bufferGeometry(TriangleBuffer* T)
       surfacePoint(u, v, bufEl->pos);
       bufEl->tex[0] = stPos[0] + stExtent[0]*spacing*(float)i;
       bufEl->tex[1] = stPos[1] + stExtent[1]*spacing*(float)j;
-      bufEl->fprint(stdout);
+      bufEl->accent = 0.0f;
+      //printf("u,v: %.3f, %.3f\t", u, v);
+      //bufEl->fprint(stdout);
      }
 
   for (i=0; i<gridN; i++)
@@ -113,6 +115,7 @@ bool BezierPatch::bufferGeometry(TriangleBuffer* T)
       indices[base + 5] = indices[base + 2];
      }
 
+  //T->fprint(stderr);
   return true;
 }
 
@@ -185,6 +188,7 @@ void BezierPatch::updateBoundingBox(void)
 // Right now this is a stub with hard-coded control points
 #define setControlPoints(i,j,x,y,z) controlPoints[i][j][0]=x;controlPoints[i][j][1]=y;controlPoints[i][j][2]=z
 #define randHeight arc4random()/(float)UINT32_MAX*100.0f-50.0f
+//#define randHeight 50.0f
 
 void BezierPatch::fit(std::vector<float*>& locations)
 {
