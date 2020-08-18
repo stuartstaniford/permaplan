@@ -23,23 +23,22 @@ ScriptController::ScriptController(PmodDesign& D): design(D)
     return;
    }
   
-  Value& LsJson = design.doc["scriptControl"];
+  Value& scriptArray = design.doc["scriptControl"];
+  unless(scriptArray.IsArray())
+    err(-1, "Misformatted scriptControl is not array in JSON file.");
 
-  //Up to here
-  
+/*
   float width;
   if(LsJson.HasMember("width") && LsJson["width"].IsNumber())
     width = LsJson["width"].GetFloat();
   else
     err(-1, "Bad landSurface width in file %s\n", design.config.designFileName);
-/*
+
   if(LsJson.HasMember("textureFile") && LsJson["textureFile"].IsString())
     rect = new TexturedRect(shader, LsJson["textureFile"].GetString(), width, 0.0f);
   else
     err(-1, "Bad landSurface texturefile in file %s\n", design.config.designFileName);
 
-  if(checkGLError(stderr, "LandSurface::LandSurface"))
-    exit(-1);
 */
  }
 

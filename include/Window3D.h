@@ -11,6 +11,7 @@
 #include "Scene.h"
 #include "Camera.h"
 #include "imgui.h"
+#include "ScriptController.h"
 
 //#define SHOW_DEMO_WINDOW
 
@@ -19,8 +20,9 @@ class Window3D
  public:
 
   // Public instance variables
-  Scene*  scene;
-
+  Scene*            scene;
+  ScriptController* scriptController;
+  
   // Public methods
   Window3D(int pixWidth, int pixHeight);
   void loop(void);

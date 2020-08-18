@@ -33,7 +33,8 @@ void windowResize(GLFWwindow* window, int width, int height)
 // =======================================================================================
 // Constructor for a Window3D
 
-Window3D::Window3D(int pixWidth, int pixHeight): scene(NULL), width(pixWidth),
+Window3D::Window3D(int pixWidth, int pixHeight): scene(NULL),
+                    scriptController(NULL), width(pixWidth),
                     height(pixHeight), lastMouseX(HUGE_VAL), lastMouseY(HUGE_VAL),
                     show_insert_menu(true), show_focus_overlay(true)
 #ifdef SHOW_DEMO_WINDOW

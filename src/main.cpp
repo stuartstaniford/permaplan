@@ -40,6 +40,7 @@ int main (int argc, char* argv[])
   PmodDesign design(config);
   Scene scene(shader, design, config);
   window.scene = &scene;
+  window.scriptController = new ScriptController(design);
   
   // Start up the debugging http server
   HttpDebug   httpServer(config.debugPort, scene);
