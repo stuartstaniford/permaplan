@@ -8,18 +8,8 @@
 #ifndef SCRIPTCONTROLLER_H
 #define SCRIPTCONTROLLER_H
 
-/*
-#include <cglm/cglm.h>
-#include <vector>
-#include "Shader.h"
-#include "VertexArrayObject.h"
-#include "VertexBufferObject.h"
-#include "TexturedRect.h"
-#include "Quadtree.h"
-#include "Camera.h"
-#include "HeightMarker.h"
-*/
 
+#include <unordered_map>
 #include "HttpDebug.h"
 #include "PmodDesign.h"
 
@@ -36,12 +26,22 @@ class ScriptController
   // Member functions - public
   ScriptController(PmodDesign& D);
   ~ScriptController(void);
+  void processNewScriptControl(void);
+  void processCameraMovement(const char* type);
+  unsigned simulatedKeys(float delta);
   bool diagnosticHTML(HttpDebug* serv);
 
  private:
   
   // Instance variables - private
-  PmodDesign&           design;
+  PmodDesign&                         design;
+  double                              timeSec;
+  double                              timeLimit;
+  unsigned                            index;
+  rapidjson::Value                    scriptArray;
+  rapidjson::Value                    nextObject;
+  std::unordered_map<char*, unsigned> camActionMap;
+  unsigned                            currentCamAction;
   
   // Member functions - private
 

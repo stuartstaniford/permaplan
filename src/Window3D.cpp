@@ -267,7 +267,10 @@ void Window3D::processInput(Camera& camera)
         camOpFlags |= CAM_MOVE_UP;
       
      }
-    camera.adjust(camOpFlags, timeDelta());
+    float delta = timeDelta();
+    if(scriptController)
+      camOpFlags |= scriptController->simulatedKeys(delta);
+    camera.adjust(camOpFlags, delta);
    }
 
   processMouse(camera);

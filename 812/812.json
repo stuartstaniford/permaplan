@@ -21,7 +21,14 @@
   ],
  "scriptControl":
   [
-   300, 200
+   {
+    type: "CAM_MOVE_UP",
+    duration: 2.5
+   },
+   {
+   type: "CAM_MOVE_DOWN",
+   duration: 2.0
+   },
   ]
 }
 
