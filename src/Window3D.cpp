@@ -98,9 +98,16 @@ void Window3D::imguiInsertMenu(void)
   
   ImGui::InputText("", heightBuf, 8, ImGuiInputTextFlags_CharsDecimal);
   
-  if(ImGui::Button("Height"))
+  bool fromScript;
+  if(ImGui::Button("Height") ||
+          (fromScript = scriptController->checkInterfaceAction(IA_HeightMarker)))
    {
-    float z = atof(heightBuf);
+    float z;
+    if(fromScript)
+      z = scriptController->getHeight();
+    else
+      z = atof(heightBuf);
+    
     heightBuf[0] = '\0';
     scene->newLandHeight(z);
    }

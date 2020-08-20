@@ -36,6 +36,42 @@
    {
     "type": "CAM_MOVE_FORWARD",
     "duration": 0.05
+   },
+   {
+    "type": "INTERFACE_ACTION",
+    "action": "IA_HeightMarker",
+    "height": -10.0
+   },
+   {
+    "type": "CAM_MOVE_RIGHT",
+    "duration": 0.2
+   },
+   {
+    "type": "CAM_MOVE_FORWARD",
+    "duration": 2.0
+   },
+   {
+    "type": "INTERFACE_ACTION",
+    "action": "IA_HeightMarker",
+    "height": 10.0
+   },
+   {
+    "type": "CAM_MOVE_RIGHT",
+    "duration": 1.2
+   },
+   {
+   "type": "INTERFACE_ACTION",
+   "action": "IA_HeightMarker",
+   "height": 20.0
+   },
+   {
+   "type": "CAM_MOVE_BACK",
+   "duration": 1.5
+   },
+   {
+   "type": "INTERFACE_ACTION",
+   "action": "IA_HeightMarker",
+   "height": -20.0
    }
   ]
 }

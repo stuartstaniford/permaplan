@@ -14,6 +14,16 @@
 #include "HttpDebug.h"
 #include "PmodDesign.h"
 
+// =======================================================================================
+// Enum for interface actions to be simulated
+
+enum InterfaceAction
+{
+  IA_None,
+  IA_HeightMarker,
+  IA_Unknown,
+};
+
 
 // =======================================================================================
 // Class variable initialization
@@ -27,23 +37,31 @@ class ScriptController
   // Member functions - public
   ScriptController(PmodDesign& D);
   ~ScriptController(void);
-  void processNewScriptControl(void);
-  void setupCamActionMap(void);
-  void processCameraMovement(const char* type);
-  unsigned simulatedKeys(float delta);
-  bool diagnosticHTML(HttpDebug* serv);
+  void      processNewScriptControl(void);
+  void      setupMaps(void);
+  void      processInterfaceAction(rapidjson::Value& V);
+  void      processCameraMovement(const char* type);
+  unsigned  simulatedKeys(float delta);
+  bool      checkInterfaceAction(InterfaceAction I);
+  bool      diagnosticHTML(HttpDebug* serv);
+  void      setHeight(rapidjson::Value& V);
+  
+  inline float getHeight(void) {return args[0];}
 
  private:
   
   // Instance variables - private
-  PmodDesign&                         design;
-  double                              timeSec;
-  double                              timeLimit;
-  unsigned                            index;
-  rapidjson::Value                    scriptArray;
-  rapidjson::Value                    nextObject;
-  std::unordered_map<std::string, unsigned> camActionMap;
-  unsigned                            currentCamAction;
+  PmodDesign&                                       design;
+  double                                            timeSec;
+  double                                            timeLimit;
+  unsigned                                          index;
+  rapidjson::Value                                  scriptArray;
+  rapidjson::Value                                  nextObject;
+  std::unordered_map<std::string, unsigned>         camActionMap;
+  std::unordered_map<std::string, InterfaceAction>  interfaceActionMap;
+  unsigned                                          currentCamAction;
+  InterfaceAction                                   currentInterfaceAction;
+  float                                             args[16];
   
   // Member functions - private
 

@@ -11,18 +11,19 @@
 // Define flags used for passing multiple camera ops in parallel.  Intended to go
 // in an unsigned 32 bit opFlags variable.
 
-#define CAM_PITCH_UP      0x00000001  // Rotate camera direction upwards at rotationalSpeed
-#define CAM_PITCH_DOWN    0x00000002  // Rotate camera direction downwards at rotationalSpeed
-#define CAM_YAW_LEFT      0x00000004  // Rotate camera direction left at rotationalSpeed
-#define CAM_YAW_RIGHT     0x00000008  // Rotate camera direction right at rotationalSpeed
-#define CAM_ROLL_LEFT     0x00000010  // Roll camera to the left at rotationalSpeed
-#define CAM_ROLL_RIGHT    0x00000020  // Roll camera to the right at rotationalSpeed
-#define CAM_MOVE_FORWARD  0x00000040  // Move camera position forward at speed
-#define CAM_MOVE_BACK     0x00000080  // Move camera position back at speed
-#define CAM_MOVE_UP       0x00000100  // Move camera position up at speed
-#define CAM_MOVE_DOWN     0x00000200  // Move camera position back at speed
-#define CAM_MOVE_LEFT     0x00000400  // Move camera position left at speed
-#define CAM_MOVE_RIGHT    0x00000800  // Move camera position right at speed
+#define CAM_PITCH_UP          0x00000001  // Rotate camera direction upwards at rotationalSpeed
+#define CAM_PITCH_DOWN        0x00000002  // Rotate camera direction downwards at rotationalSpeed
+#define CAM_YAW_LEFT          0x00000004  // Rotate camera direction left at rotationalSpeed
+#define CAM_YAW_RIGHT         0x00000008  // Rotate camera direction right at rotationalSpeed
+#define CAM_ROLL_LEFT         0x00000010  // Roll camera to the left at rotationalSpeed
+#define CAM_ROLL_RIGHT        0x00000020  // Roll camera to the right at rotationalSpeed
+#define CAM_MOVE_FORWARD      0x00000040  // Move camera position forward at speed
+#define CAM_MOVE_BACK         0x00000080  // Move camera position back at speed
+#define CAM_MOVE_UP           0x00000100  // Move camera position up at speed
+#define CAM_MOVE_DOWN         0x00000200  // Move camera position back at speed
+#define CAM_MOVE_LEFT         0x00000400  // Move camera position left at speed
+#define CAM_MOVE_RIGHT        0x00000800  // Move camera position right at speed
+#define CAM_INTERFACE_ACTION  0x00001000  // Some kind of interface action (ScriptController.h)
 
 
 // =======================================================================================
