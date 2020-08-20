@@ -23,11 +23,19 @@
   [
    {
     "type": "CAM_MOVE_UP",
-    "duration": 2.5
+    "duration": 2.0
    },
    {
     "type": "CAM_MOVE_DOWN",
     "duration": 2.0
+   },
+   {
+    "type": "CAM_MOVE_RIGHT",
+    "duration": 0.05
+   },
+   {
+    "type": "CAM_MOVE_FORWARD",
+    "duration": 0.05
    }
   ]
 }

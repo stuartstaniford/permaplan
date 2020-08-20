@@ -74,8 +74,11 @@ void ScriptController::processNewScriptControl(void)
   currentCamAction = 0u;
   
   if(index >= scriptArray.Size())
+   {
     timeSec = -2.0;
- 
+    return;
+   }
+  
   nextObject = scriptArray[index];
   
   unless(nextObject.IsObject())
@@ -114,31 +117,28 @@ void ScriptController::processCameraMovement(const char* type)
   
   timeLimit += duration;
   currentCamAction = camActionMap[type];
+  printf("currentCamAction: %x\n", currentCamAction);
 }
 
 
 // =======================================================================================
 // Interface to determine if the simulation script is calling for any keypresses
-// Uses flags defined in Camera.h
+// Uses flags defined in Camera.h.  Arg delta is in microseconds.
 
 unsigned ScriptController::simulatedKeys(float delta)
 {
-  unsigned retVal = 0u;
-  
-  if(timeSec < 1.5)  // There is no script, we'll never do anything.
+  if(timeSec < -1.5)  // There is no script, we'll never do anything.
     return 0u;
   
   if(timeSec < 0.0)  // First time we are called
     timeSec = 0.0;
   
-  timeSec += delta;
-  
-  if(timeSec <= timeLimit)
-    retVal = currentCamAction;
-  else
+  timeSec += delta/1000000.0;
+  printf("%.3f\n", timeSec);
+  if(timeSec > timeLimit)
     processNewScriptControl();
   
-  return retVal;
+  return currentCamAction;
 }
 
 
