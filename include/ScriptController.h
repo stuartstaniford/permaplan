@@ -10,6 +10,7 @@
 
 
 #include <unordered_map>
+#include <string>
 #include "HttpDebug.h"
 #include "PmodDesign.h"
 
@@ -27,6 +28,7 @@ class ScriptController
   ScriptController(PmodDesign& D);
   ~ScriptController(void);
   void processNewScriptControl(void);
+  void setupCamActionMap(void);
   void processCameraMovement(const char* type);
   unsigned simulatedKeys(float delta);
   bool diagnosticHTML(HttpDebug* serv);
@@ -40,7 +42,7 @@ class ScriptController
   unsigned                            index;
   rapidjson::Value                    scriptArray;
   rapidjson::Value                    nextObject;
-  std::unordered_map<char*, unsigned> camActionMap;
+  std::unordered_map<std::string, unsigned> camActionMap;
   unsigned                            currentCamAction;
   
   // Member functions - private

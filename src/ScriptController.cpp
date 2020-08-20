@@ -18,7 +18,8 @@ using namespace rapidjson;
 ScriptController::ScriptController(PmodDesign& D): design(D), timeSec(-1.0), timeLimit(0.0),
                                 index(0u), camActionMap(), currentCamAction(0u)
 {
-
+  setupCamActionMap();
+  
   unless(design.doc.HasMember("scriptControl"))
    {
     timeSec = -2.0; // this means ScriptController will never actually do anything.
@@ -35,34 +36,7 @@ ScriptController::ScriptController(PmodDesign& D): design(D), timeSec(-1.0), tim
    }
   
   processNewScriptControl();
-  
-  camActionMap[(char*)"CAM_PITCH_UP"]     = CAM_PITCH_UP;
-  camActionMap[(char*)"CAM_PITCH_DOWN"]   = CAM_PITCH_DOWN;
-  camActionMap[(char*)"CAM_YAW_LEFT"]     = CAM_YAW_LEFT;
-  camActionMap[(char*)"CAM_YAW_RIGHT"]    = CAM_YAW_RIGHT;
-  camActionMap[(char*)"CAM_ROLL_LEFT"]    = CAM_ROLL_LEFT;
-  camActionMap[(char*)"CAM_ROLL_RIGHT"]   = CAM_ROLL_RIGHT;
-  camActionMap[(char*)"CAM_MOVE_FORWARD"] = CAM_MOVE_FORWARD;
-  camActionMap[(char*)"CAM_MOVE_BACK"]    = CAM_MOVE_BACK;
-  camActionMap[(char*)"CAM_MOVE_UP"]      = CAM_MOVE_UP;
-  camActionMap[(char*)"CAM_MOVE_DOWN"]    = CAM_MOVE_DOWN;
-  camActionMap[(char*)"CAM_MOVE_LEFT"]    = CAM_MOVE_LEFT;
-  camActionMap[(char*)"CAM_MOVE_RIGHT"]   = CAM_MOVE_RIGHT;
-
-/*
-  float width;
-  if(LsJson.HasMember("width") && LsJson["width"].IsNumber())
-    width = LsJson["width"].GetFloat();
-  else
-    err(-1, "Bad landSurface width in file %s\n", design.config.designFileName);
-
-  if(LsJson.HasMember("textureFile") && LsJson["textureFile"].IsString())
-    rect = new TexturedRect(shader, LsJson["textureFile"].GetString(), width, 0.0f);
-  else
-    err(-1, "Bad landSurface texturefile in file %s\n", design.config.designFileName);
-
-*/
- }
+}
 
 
 // =======================================================================================
@@ -70,6 +44,25 @@ ScriptController::ScriptController(PmodDesign& D): design(D), timeSec(-1.0), tim
 
 ScriptController::~ScriptController(void)
 {
+}
+
+// =======================================================================================
+// Initialize the camActionMap (a static mapping from cam action names to flag values).
+
+void ScriptController::setupCamActionMap(void)
+{
+  camActionMap["CAM_PITCH_UP"]     = CAM_PITCH_UP;
+  camActionMap["CAM_PITCH_DOWN"]   = CAM_PITCH_DOWN;
+  camActionMap["CAM_YAW_LEFT"]     = CAM_YAW_LEFT;
+  camActionMap["CAM_YAW_RIGHT"]    = CAM_YAW_RIGHT;
+  camActionMap["CAM_ROLL_LEFT"]    = CAM_ROLL_LEFT;
+  camActionMap["CAM_ROLL_RIGHT"]   = CAM_ROLL_RIGHT;
+  camActionMap["CAM_MOVE_FORWARD"] = CAM_MOVE_FORWARD;
+  camActionMap["CAM_MOVE_BACK"]    = CAM_MOVE_BACK;
+  camActionMap["CAM_MOVE_UP"]      = CAM_MOVE_UP;
+  camActionMap["CAM_MOVE_DOWN"]    = CAM_MOVE_DOWN;
+  camActionMap["CAM_MOVE_LEFT"]    = CAM_MOVE_LEFT;
+  camActionMap["CAM_MOVE_RIGHT"]   = CAM_MOVE_RIGHT;
 }
 
 
@@ -110,8 +103,9 @@ void ScriptController::processNewScriptControl(void)
 
 void ScriptController::processCameraMovement(const char* type)
 {
-  unless(camActionMap[(char*)type] > 0u)
-    err(-1, "Bad script control at array position %d unknown camera movement.", index);
+  unless(camActionMap[type])
+    err(-1, "Bad script control at array position %d unknown camera movement %s.",
+                                              index, type);
   unless(nextObject.HasMember("duration"))
     err(-1, "Bad script control at array position %d no duration.", index);
   unless(nextObject["duration"].IsNumber())
@@ -119,7 +113,7 @@ void ScriptController::processCameraMovement(const char* type)
   double duration = nextObject["duration"].GetDouble();
   
   timeLimit += duration;
-  currentCamAction = camActionMap[(char*)type];
+  currentCamAction = camActionMap[type];
 }
 
 
