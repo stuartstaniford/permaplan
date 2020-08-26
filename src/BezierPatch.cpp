@@ -261,19 +261,33 @@ float BezierPatch::estimateFit(std::vector<float*>& locations)
 // =======================================================================================
 // Make a copy of this structure, allocating new copies of all pointed-to things
 
-std::vector<float*>* BezierPatch::copyFitPointUVVals(void)
+void BezierPatch::copyFitPointUVVals(void)
 {
-  std::vector<float*>* copy = new std::vector<float*>;
-  
   int i, N = fitPointUVVals.size();
+  int M = copyOfFitPointUVVals.size();
   
   for(i=0; i<N; i++)
    {
-    float* uv = new vec2;
-    glm_vec3_copy(fitPointUVVals[i], uv);
-    copy->push_back(uv);
+    if(i<M)
+      glm_vec3_copy(fitPointUVVals[i], copyOfFitPointUVVals[i]);
+    else
+     {
+      float* uv = new vec2;
+      glm_vec3_copy(fitPointUVVals[i], uv);
+      copyOfFitPointUVVals.push_back(uv);
+     }
    }
-  return copy;
+}
+
+
+// =======================================================================================
+// Make a copy of the control points structure.
+
+void BezierPatch::copyControlPoints(void)
+{
+  for(int i=0; i<4; i++)
+    for(int j=0; j<4; j++)
+      glm_vec3_copy(controlPoints[i][j], copyOfControlPoints[i][j]);
 }
 
 
@@ -292,15 +306,12 @@ void BezierPatch::improveFit(std::vector<float*>& locations)
   printf("fitQual is %.1f\n", fitQual);
   
   //Make copies of the current control points and uv estimates
-  std::vector<float*>* copyOfFitPointUVVals = copyFitPointUVVals();
-  
+  copyFitPointUVVals();
+  copyControlPoints();
   
   // Compute the gradient vector of the fit wrt control points and uv estimates
   
   // Loop trying to find a delta of the gradient that's an improvement.
-
-  // Clean up
-  delete[] copyOfFitPointUVVals;
 }
 
 

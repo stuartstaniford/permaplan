@@ -18,8 +18,9 @@ class BezierPatch: public LandSurfaceRegion
 public:
   
   // Instance variables - public
-  vec3 controlPoints[4][4];     // i and j increase to the north and to the east
-  
+  vec3 controlPoints[4][4];         // i and j increase to the north and to the east
+  vec3 copyOfControlPoints[4][4];   // used in fitting
+
   
   // Member functions - public
   BezierPatch(float x, float y, float width, float height,
@@ -37,7 +38,8 @@ public:
   float estimateFit(std::vector<float*>& locations);
   void  improveFit(std::vector<float*>& locations);
   void  setUpUVVals(std::vector<float*>& locations);
-  std::vector<float*>* copyFitPointUVVals(void);
+  void  copyFitPointUVVals(void);
+  void  copyControlPoints(void);
   bool  diagnosticHTML(HttpDebug* serv);
   
 private:
@@ -46,7 +48,8 @@ private:
   unsigned              gridN;  // number of squares to divide u/v space into when tesselating.
   bool                  fitGoodEnough;
   std::vector<float*>   fitPointUVVals;
-  
+  std::vector<float*>   copyOfFitPointUVVals; // used for fitting
+
   // Member functions - private
 };
 
