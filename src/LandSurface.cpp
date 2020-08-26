@@ -18,9 +18,7 @@
 // Constructor which sets up the surface as specified in the design file
 
 LandSurface::LandSurface(Shader& S, PmodDesign& D): rect(NULL), qtree(NULL), shader(S),
-                                          design(D),
-                                          tbuf(NULL),
-                                          locationCount(0u)
+                              design(D), tbuf(NULL), locationCount(0u), heightLocations()
 {
   using namespace rapidjson;
 

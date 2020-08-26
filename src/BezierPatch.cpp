@@ -227,6 +227,8 @@ void BezierPatch::improveFit(std::vector<float*>& locations)
   if(fitGoodEnough)
     return;
   
+  //if(fitPointUVVals.)
+  
 }
 
 
