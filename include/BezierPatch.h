@@ -37,6 +37,7 @@ public:
   float estimateFit(std::vector<float*>& locations);
   void  improveFit(std::vector<float*>& locations);
   void  setUpUVVals(std::vector<float*>& locations);
+  std::vector<float*>* copyFitPointUVVals(void);
   bool  diagnosticHTML(HttpDebug* serv);
   
 private:
