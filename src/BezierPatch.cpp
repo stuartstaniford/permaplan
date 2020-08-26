@@ -220,6 +220,24 @@ void BezierPatch::randomFit(std::vector<float*>& locations)
 
 
 // =======================================================================================
+// Make an initial guess at the u,v values of fitpoints on the parametric surface, based
+// on the assumption that the relative locations of the heighmarkers within the patch are
+// a reasonable starting point.  (These will subsequently be iteratively improved).
+
+void  BezierPatch::setUpUVVals(std::vector<float*>& locations)
+{
+  int i, N = locations.size();
+  for(i=0; i<N; i++)
+   {
+    float* uv = new vec2;
+    uv[0] = (locations[i][0] - xyPos[0])/extent[0];
+    uv[1] = (locations[i][1] - xyPos[1])/extent[1];
+    fitPointUVVals.push_back(uv);
+   }
+}
+
+
+// =======================================================================================
 // Make an incremental improvement in the fit of the patch to the known locations.
 
 void BezierPatch::improveFit(std::vector<float*>& locations)
@@ -227,7 +245,8 @@ void BezierPatch::improveFit(std::vector<float*>& locations)
   if(fitGoodEnough)
     return;
   
-  //if(fitPointUVVals.)
+  unless(fitPointUVVals.size())
+    setUpUVVals(locations);
   
 }
 

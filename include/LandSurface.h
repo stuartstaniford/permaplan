@@ -46,7 +46,7 @@ class LandSurface
   PmodDesign&           design;
   TriangleBuffer*       tbuf;
   unsigned              locationCount;
-  std::vector<float*>    heightLocations;
+  std::vector<float*>   heightLocations;
 
   //Texture               texture;
   
