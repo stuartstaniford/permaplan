@@ -11,7 +11,8 @@
 
 BezierPatch::BezierPatch(float x, float y, float width, float height,
                         float s, float t, float sWidth, float tHeight, unsigned gridPoints):
-LandSurfaceRegion(x, y, width, height, s, t, sWidth, tHeight), gridN(gridPoints)
+            LandSurfaceRegion(x, y, width, height, s, t, sWidth, tHeight), gridN(gridPoints),
+            fitGoodEnough(false), fitPointUVVals()
 {
 }
 
@@ -183,14 +184,12 @@ void BezierPatch::updateBoundingBox(void)
 
 
 // =======================================================================================
-// Fit our patch to a vector of locations
+// This creates a random Bezier patch (which can later be improved.
 
-// Right now this is a stub with hard-coded control points
 #define setControlPoints(i,j,x,y,z) controlPoints[i][j][0]=x;controlPoints[i][j][1]=y;controlPoints[i][j][2]=z
 #define randHeight arc4random()/(float)UINT32_MAX*100.0f-50.0f
-//#define randHeight 50.0f
 
-void BezierPatch::fit(std::vector<float*>& locations)
+void BezierPatch::randomFit(std::vector<float*>& locations)
 {
   // Bottom row of control points
   setControlPoints(0, 0, xyPos[0],                    xyPos[1],                   randHeight);
@@ -216,7 +215,20 @@ void BezierPatch::fit(std::vector<float*>& locations)
   setControlPoints(2, 3, xyPos[0] + 0.66f*extent[0],  xyPos[1] + extent[1],       randHeight);
   setControlPoints(3, 3, xyPos[0] + extent[0],        xyPos[1] + extent[1],       randHeight);
 
+  fitGoodEnough = false;
 }
+
+
+// =======================================================================================
+// Make an incremental improvement in the fit of the patch to the known locations.
+
+void BezierPatch::improveFit(std::vector<float*>& locations)
+{
+  if(fitGoodEnough)
+    return;
+  
+}
+
 
 // =======================================================================================
 // We assume we are part of a table of visual objects and we just contribute one row

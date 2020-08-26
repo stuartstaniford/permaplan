@@ -33,13 +33,16 @@ public:
   bool  matchRay(vec3& position, vec3& direction, float& lambda);
   void  updateBoundingBox(void);
   void  triangleBufferSize(unsigned& vCount, unsigned& iCount);
-  void  fit(std::vector<float*>& locations);
+  void  randomFit(std::vector<float*>& locations);
+  void  improveFit(std::vector<float*>& locations);
   bool  diagnosticHTML(HttpDebug* serv);
   
 private:
   
   // Instance variables - private
-  unsigned  gridN;  // number of squares to divide u/v space into when tesselating.
+  unsigned              gridN;  // number of squares to divide u/v space into when tesselating.
+  bool                  fitGoodEnough;
+  std::vector<float*>   fitPointUVVals;
   
   // Member functions - private
 };

@@ -176,7 +176,7 @@ void LandSurface::newLandHeight(HeightMarker* hM)
     qtree->stripSurface();
     BezierPatch* bez = new BezierPatch(qtree, 10); //XX - hardcoded gridpoints
     qtree->surface = bez;
-    bez->fit(heightLocations);
+    bez->randomFit(heightLocations);
     unsigned vCount, iCount;
     bez->triangleBufferSizes(vCount, iCount);
     if(tbuf)
