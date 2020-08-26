@@ -271,6 +271,12 @@ void BezierPatch::improveFit(std::vector<float*>& locations)
   
   float fitQual = estimateFit(locations);
   printf("fitQual is %.1f\n", fitQual);
+  
+  //Make copies of the current control points and uv estimates
+  
+  // Compute the gradient vector of the fit wrt control points and uv estimates
+  
+  // Loop trying to find a delta of the gradient that's an improvement.
 }
 
 
