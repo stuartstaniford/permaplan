@@ -34,6 +34,7 @@ public:
   void  updateBoundingBox(void);
   void  triangleBufferSize(unsigned& vCount, unsigned& iCount);
   void  randomFit(std::vector<float*>& locations);
+  float estimateFit(std::vector<float*>& locations);
   void  improveFit(std::vector<float*>& locations);
   void  setUpUVVals(std::vector<float*>& locations);
   bool  diagnosticHTML(HttpDebug* serv);

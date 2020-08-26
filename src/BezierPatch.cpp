@@ -224,7 +224,7 @@ void BezierPatch::randomFit(std::vector<float*>& locations)
 // on the assumption that the relative locations of the heighmarkers within the patch are
 // a reasonable starting point.  (These will subsequently be iteratively improved).
 
-void  BezierPatch::setUpUVVals(std::vector<float*>& locations)
+void BezierPatch::setUpUVVals(std::vector<float*>& locations)
 {
   int i, N = locations.size();
   for(i=0; i<N; i++)
@@ -234,6 +234,27 @@ void  BezierPatch::setUpUVVals(std::vector<float*>& locations)
     uv[1] = (locations[i][1] - xyPos[1])/extent[1];
     fitPointUVVals.push_back(uv);
    }
+}
+
+
+// =======================================================================================
+// Compute the current fit of the patch to the known locations.  Summed square distance.
+
+float BezierPatch::estimateFit(std::vector<float*>& locations)
+{
+  float sum = 0.0f;
+  int i, N = locations.size();
+  vec3 estimatedLocation;
+  vec3 distVec;
+  
+  for(i=0; i<N; i++)
+   {
+    surfacePoint(fitPointUVVals[i][0], fitPointUVVals[i][1], estimatedLocation);
+    glm_vec3_sub(locations[i], estimatedLocation, distVec);
+    sum += glm_vec3_norm2(distVec);
+   }
+  
+  return sum;
 }
 
 
@@ -248,6 +269,8 @@ void BezierPatch::improveFit(std::vector<float*>& locations)
   unless(fitPointUVVals.size())
     setUpUVVals(locations);
   
+  float fitQual = estimateFit(locations);
+  printf("fitQual is %.1f\n", fitQual);
 }
 
 
