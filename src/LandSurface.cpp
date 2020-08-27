@@ -11,14 +11,13 @@
 #include <GLFW/glfw3.h>
 #include "Camera.h"
 #include "LandSurface.h"
-#include "BezierPatch.h"
 
 
 // =======================================================================================
 // Constructor which sets up the surface as specified in the design file
 
 LandSurface::LandSurface(Shader& S, PmodDesign& D): rect(NULL), qtree(NULL), shader(S),
-                              design(D), tbuf(NULL), locationCount(0u), heightLocations()
+              design(D), tbuf(NULL), locationCount(0u), heightLocations(), inFitMode(false)
 {
   using namespace rapidjson;
 
@@ -175,16 +174,9 @@ void LandSurface::newLandHeight(HeightMarker* hM)
     BezierPatch* bez = new BezierPatch(qtree, 10); //XX - hardcoded gridpoints
     qtree->surface = bez;
     bez->randomFit(heightLocations);
-    unsigned vCount, iCount;
-    bez->triangleBufferSizes(vCount, iCount);
-    if(tbuf)
-      delete tbuf;
-    tbuf = new TriangleBuffer(vCount, iCount);
-    if(!tbuf)
-      err(-1, "Can't allocate memory in __func__\n");
-    //fprintf(stderr, "Triangle buffer of size %d,%d obtained\n", tbuf->vCount, tbuf->iCount);
-    bez->bufferGeometry(tbuf);
-    tbuf->sendToGPU(GL_STATIC_DRAW);
+    redoBezierLandSurface(bez);
+    inFitMode = true;
+    return;
    }
 
   if(locationCount <= 10)
@@ -200,6 +192,27 @@ void LandSurface::newLandHeight(HeightMarker* hM)
   
 }
 
+
+// =======================================================================================
+// Redo the triangle buffer (after improving the fit).  XX Note the approach here of
+// tossing the whole thing and start over seems a bit costly and a more efficient
+// approach might need to be developed if this is a bottleneck
+
+void LandSurface::redoBezierLandSurface(BezierPatch* bez)
+{
+  unsigned vCount, iCount;
+  bez->triangleBufferSizes(vCount, iCount);
+  if(tbuf)
+    delete tbuf;
+  tbuf = new TriangleBuffer(vCount, iCount);
+  if(!tbuf)
+    err(-1, "Can't allocate memory in __func__\n");
+  //fprintf(stderr, "Triangle buffer of size %d,%d obtained\n", tbuf->vCount, tbuf->iCount);
+  bez->bufferGeometry(tbuf);
+  tbuf->sendToGPU(GL_STATIC_DRAW);
+}
+
+
 // =======================================================================================
 // Render our part of the scene
 
@@ -208,18 +221,27 @@ vec4 yellowAccentColor = {0.9f, 0.9f, 0.0f, 1.0f};
 void LandSurface::draw(Camera& camera)
 {
   // Highlight where the camera points at
-  vec3 pos, dir;
+/*  vec3 pos, dir;
   float lambda;
   camera.copyDirection(pos, dir);
   Quadtree* targetNode = qtree->matchRay(pos, dir, lambda);
   if(targetNode)
     highlightNode(targetNode, yellowAccentColor, 0.3f);
+*/
   
   // Draw the main surface
+  if(inFitMode)
+   {
+    BezierPatch* bez = (BezierPatch*)qtree->surface;
+    if(bez->improveFit(heightLocations))
+      redoBezierLandSurface(bez);
+    else
+      inFitMode = false;
+   }
   rect->texture.bind(shader, 0, "earthTexture");
   tbuf->draw();
-  if(targetNode)
-    highlightNode(targetNode, yellowAccentColor, 0.0f);
+  //if(targetNode)
+  //  highlightNode(targetNode, yellowAccentColor, 0.0f);
   if(checkGLError(stderr, "LandSurface::draw"))
     exit(-1);
 }

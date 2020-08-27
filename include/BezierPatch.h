@@ -36,7 +36,7 @@ public:
   void  triangleBufferSize(unsigned& vCount, unsigned& iCount);
   void  randomFit(std::vector<float*>& locations);
   float estimateFit(std::vector<float*>& locations);
-  void  improveFit(std::vector<float*>& locations);
+  bool  improveFit(std::vector<float*>& locations);
   void  setUpUVVals(std::vector<float*>& locations);
   void  copyFitPointUVVals(void);
   void  copyControlPoints(void);

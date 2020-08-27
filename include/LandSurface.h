@@ -17,7 +17,7 @@
 #include "Quadtree.h"
 #include "Camera.h"
 #include "HeightMarker.h"
-
+#include "BezierPatch.h"
 
 
 // =======================================================================================
@@ -36,6 +36,7 @@ class LandSurface
   void bufferGeometry(Quadtree* q);
   ~LandSurface(void);
   void newLandHeight(HeightMarker* hM);
+  void redoBezierLandSurface(BezierPatch* bez);
   void draw(Camera& camera);
   bool diagnosticHTML(HttpDebug* serv);
 
@@ -47,6 +48,7 @@ class LandSurface
   TriangleBuffer*       tbuf;
   unsigned              locationCount;
   std::vector<float*>   heightLocations;
+  bool                  inFitMode;
 
   //Texture               texture;
   

@@ -294,10 +294,10 @@ void BezierPatch::copyControlPoints(void)
 // =======================================================================================
 // Make an incremental improvement in the fit of the patch to the known locations.
 
-void BezierPatch::improveFit(std::vector<float*>& locations)
+bool BezierPatch::improveFit(std::vector<float*>& locations)
 {
   if(fitGoodEnough)
-    return;
+    return false;
   
   unless(fitPointUVVals.size())
     setUpUVVals(locations);
@@ -312,6 +312,9 @@ void BezierPatch::improveFit(std::vector<float*>& locations)
   // Compute the gradient vector of the fit wrt control points and uv estimates
   
   // Loop trying to find a delta of the gradient that's an improvement.
+  
+  
+  return false;  // temp, while functionality of this function under development.
 }
 
 
