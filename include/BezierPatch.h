@@ -46,7 +46,6 @@ private:
   
   // Instance variables - private
   unsigned              gridN;  // number of squares to divide u/v space into when tesselating.
-  bool                  fitGoodEnough;
   std::vector<float*>   fitPointUVVals;
   std::vector<float*>   copyOfFitPointUVVals; // used for fitting
 

@@ -12,7 +12,7 @@
 BezierPatch::BezierPatch(float x, float y, float width, float height,
                         float s, float t, float sWidth, float tHeight, unsigned gridPoints):
             LandSurfaceRegion(x, y, width, height, s, t, sWidth, tHeight), gridN(gridPoints),
-            fitGoodEnough(false), fitPointUVVals()
+            fitPointUVVals()
 {
 }
 
@@ -214,8 +214,6 @@ void BezierPatch::randomFit(std::vector<float*>& locations)
   setControlPoints(1, 3, xyPos[0] + 0.33f*extent[0],  xyPos[1] + extent[1],       randHeight);
   setControlPoints(2, 3, xyPos[0] + 0.66f*extent[0],  xyPos[1] + extent[1],       randHeight);
   setControlPoints(3, 3, xyPos[0] + extent[0],        xyPos[1] + extent[1],       randHeight);
-
-  fitGoodEnough = false;
 }
 
 
@@ -296,9 +294,6 @@ void BezierPatch::copyControlPoints(void)
 
 bool BezierPatch::improveFit(std::vector<float*>& locations)
 {
-  if(fitGoodEnough)
-    return false;
-  
   unless(fitPointUVVals.size())
     setUpUVVals(locations);
   
