@@ -290,6 +290,36 @@ void BezierPatch::copyControlPoints(void)
 
 
 // =======================================================================================
+// Compute the direction of maximum increase in the fit distance
+
+void BezierPatch::computeGradientVector(std::vector<float*>& locations)
+{
+  // First deal with the control points
+  // i, j indexes which control point we are talking about.
+  // k indexes over the N locations (and their mapped u,v estimated points)
+  // m indexes over x,y,z directions.
+  int i, j, k, m, N = locations.size();
+  
+  for(i=0;i<4;i++)
+    for(j=0;j<4;j++)
+      for(m=0;m<3;m++)
+       {
+        gradientControlPoints[i][j][m] = 0.0f;
+        for(k=0;k<N;k++)
+         {
+
+          
+          
+         }
+       }
+
+  
+  // Then deal with the uvFitPoints
+  
+}
+
+
+//=======================================================================================
 // Make an incremental improvement in the fit of the patch to the known locations.
 
 bool BezierPatch::improveFit(std::vector<float*>& locations)
@@ -297,13 +327,13 @@ bool BezierPatch::improveFit(std::vector<float*>& locations)
   unless(fitPointUVVals.size())
     setUpUVVals(locations);
   
-  float fitQual = estimateFit(locations);
-  printf("fitQual is %.1f\n", fitQual);
+  float fitDist = estimateFit(locations);
+  printf("fitDist is %.1f\n", fitDist);
   
-  //Make copies of the current control points and uv estimates
   copyFitPointUVVals();
   copyControlPoints();
-  
+
+  computeGradientVector(locations);
   // Compute the gradient vector of the fit wrt control points and uv estimates
   
   // Loop trying to find a delta of the gradient that's an improvement.

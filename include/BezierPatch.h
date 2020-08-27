@@ -20,6 +20,7 @@ public:
   // Instance variables - public
   vec3 controlPoints[4][4];         // i and j increase to the north and to the east
   vec3 copyOfControlPoints[4][4];   // used in fitting
+  vec3 gradientControlPoints[4][4]; // direction in which fit distance increases fastest
 
   
   // Member functions - public
@@ -40,8 +41,10 @@ public:
   void  setUpUVVals(std::vector<float*>& locations);
   void  copyFitPointUVVals(void);
   void  copyControlPoints(void);
+  void  computeGradientVector(std::vector<float*>& locations);
   bool  diagnosticHTML(HttpDebug* serv);
-  
+
+
 private:
   
   // Instance variables - private
