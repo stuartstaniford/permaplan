@@ -34,6 +34,23 @@ BezierPatch::~BezierPatch(void)
 
 
 // =======================================================================================
+// Utility function to compute the powers of u, 1-u, v, and 1-v for use in Bernstein
+// polynomials
+
+void BezierPatch::calcPowers(float u, float v)
+{
+  upow[0] = vpow[0] = u1minpow[0] = v1minpow[0] = 1.0f;
+  for(int i=1; i<4; i++)
+   {
+    upow[i]     = u*upow[i-1];
+    vpow[i]     = v*vpow[i-1];
+    u1minpow[i] = (1.0f - u)*u1minpow[i-1];
+    v1minpow[i] = (1.0f - v)*v1minpow[i-1];
+   }
+}
+
+
+// =======================================================================================
 // Computes the height of the patch at some particular location in parametric
 // space. For background, see:
 // https://www.scratchapixel.com/lessons/advanced-rendering/bezier-curve-rendering-utah-teapot/bezier-surface
@@ -44,16 +61,7 @@ void BezierPatch::surfacePoint(float u, float v, vec3 result)
 {
   glm_vec3_zero(result);
   
-  float upow[4], vpow[4], u1minpow[4], v1minpow[4];
-  upow[0] = vpow[0] = u1minpow[0] = v1minpow[0] = 1.0f;
-  for(int i=1; i<4; i++)
-   {
-    upow[i]     = u*upow[i-1];
-    vpow[i]     = v*vpow[i-1];
-    u1minpow[i] = (1.0f - u)*u1minpow[i-1];
-    v1minpow[i] = (1.0f - v)*v1minpow[i-1];
-   }
-
+  calcPowers(u,v);
   for(int i=0; i<4; i++)
     for(int j=0; j<4; j++)
      {
@@ -290,16 +298,31 @@ void BezierPatch::copyControlPoints(void)
 
 
 // =======================================================================================
-// Compute the direction of maximum increase in the fit distance
+// Compute the direction of maximum increase in the fit distance.  This will be hard
+// to understand without reviewing the notes in gradient.pdf
 
 void BezierPatch::computeGradientVector(std::vector<float*>& locations)
 {
-  // First deal with the control points
   // i, j indexes which control point we are talking about.
   // k indexes over the N locations (and their mapped u,v estimated points)
   // m indexes over x,y,z directions.
   int i, j, k, m, N = locations.size();
   
+  // First precompute a subexpression S[k][m].  See notes in gradient.pdf
+  float* S = new float[3*N];
+  
+  for(k=0; k<N; k++)
+    for(m=0; m<3; m++)
+     {
+      S[3*k+m] = 0.0f;
+      calcPowers(fitPointUVVals[k][0], fitPointUVVals[k][0]);
+      for(i=0;i<4;i++)
+        for(j=0;j<4;j++)
+          S[3*k+m] += controlPoints[i][j][m]*bern[i]*bern[j]
+                                  *upow[i]*u1minpow[i]*vpow[j]*v1minpow[j];
+     }
+  
+  // First deal with the gradient with respect to the control points
   for(i=0;i<4;i++)
     for(j=0;j<4;j++)
       for(m=0;m<3;m++)
@@ -307,15 +330,16 @@ void BezierPatch::computeGradientVector(std::vector<float*>& locations)
         gradientControlPoints[i][j][m] = 0.0f;
         for(k=0;k<N;k++)
          {
-
-          
-          
+          calcPowers(fitPointUVVals[k][0], fitPointUVVals[k][1]);
+          gradientControlPoints[i][j][m] += -2.0f*(locations[k][m] - S[3*k+m])*
+                              bern[i]*bern[j]*upow[i]*u1minpow[i]*vpow[j]*v1minpow[j];
          }
        }
 
   
   // Then deal with the uvFitPoints
   
+  delete[] S;
 }
 
 

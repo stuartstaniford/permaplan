@@ -28,6 +28,7 @@ public:
                           float s, float t, float sWidth, float tHeight, unsigned gridPoints);
   BezierPatch(Quadtree* qtree, unsigned gridPoints);
   ~BezierPatch(void);
+  void  calcPowers(float u, float v);
   void  triangleBufferSizes(unsigned& vertexCount, unsigned& indexCount);
   bool  bufferGeometry(TriangleBuffer* T);
   void  draw(void);
@@ -51,6 +52,9 @@ private:
   unsigned              gridN;  // number of squares to divide u/v space into when tesselating.
   std::vector<float*>   fitPointUVVals;
   std::vector<float*>   copyOfFitPointUVVals; // used for fitting
+  
+  // Used repeatedly for calculating Bernstein polynomial expressions
+  float upow[4], vpow[4], u1minpow[4], v1minpow[4];
 
   // Member functions - private
 };
