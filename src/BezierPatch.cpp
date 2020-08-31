@@ -306,6 +306,7 @@ void BezierPatch::computeGradientVector(std::vector<float*>& locations)
   // i, j indexes which control point we are talking about.
   // k indexes over the N locations (and their mapped u,v estimated points)
   // m indexes over x,y,z directions.
+  // n indexes over u,v directions.
   int i, j, k, m, N = locations.size();
   
   // First precompute a subexpression S[k][m].  See notes in gradient.pdf
@@ -315,11 +316,11 @@ void BezierPatch::computeGradientVector(std::vector<float*>& locations)
     for(m=0; m<3; m++)
      {
       S[3*k+m] = 0.0f;
-      calcPowers(fitPointUVVals[k][0], fitPointUVVals[k][0]);
+      calcPowers(fitPointUVVals[k][0], fitPointUVVals[k][1]);
       for(i=0;i<4;i++)
         for(j=0;j<4;j++)
           S[3*k+m] += controlPoints[i][j][m]*bern[i]*bern[j]
-                                  *upow[i]*u1minpow[i]*vpow[j]*v1minpow[j];
+                                  *upow[i]*u1minpow[3-i]*vpow[j]*v1minpow[3-j];
      }
   
   // First deal with the gradient with respect to the control points
@@ -332,13 +333,41 @@ void BezierPatch::computeGradientVector(std::vector<float*>& locations)
          {
           calcPowers(fitPointUVVals[k][0], fitPointUVVals[k][1]);
           gradientControlPoints[i][j][m] += -2.0f*(locations[k][m] - S[3*k+m])*
-                              bern[i]*bern[j]*upow[i]*u1minpow[i]*vpow[j]*v1minpow[j];
+                              bern[i]*bern[j]*upow[i]*u1minpow[3-i]*vpow[j]*v1minpow[3-j];
          }
        }
 
-  
+#define upow_P(i)     ((i)<0?0.0f:upow[(i)])
+#define vpow_P(i)     ((i)<0?0.0f:vpow[(i)])
+#define u1minpow_P(i) ((i)<0?0.0f:u1minpow[(i)])
+#define v1minpow_P(i) ((i)<0?0.0f:v1minpow[(i)])
+
   // Then deal with the uvFitPoints
-  
+  float sumU, sumV, minisumU, minisumV;
+  for(k=0; k<N; k++)
+   {
+    sumU = sumV = 0.0f;
+    for(m=0; m<3; m++)
+     {
+      minisumU = minisumV = 0.0f;
+      calcPowers(fitPointUVVals[k][0], fitPointUVVals[k][1]);
+      for(i=0;i<4;i++)
+        for(j=0;j<4;j++)
+         {
+          minisumU += bern[i]*bern[j]*vpow[j]*v1minpow[3-j]*
+                    (u1minpow[3-i]*i*upow_P(i-1) - upow[i]*(3-i)*u1minpow_P(3-i-1));
+          minisumV += bern[i]*bern[j]*upow[i]*u1minpow[3-i]*
+                    (v1minpow[3-j]*j*vpow_P(j-1) - vpow[j]*(3-j)*v1minpow_P(3-j-1));
+         }
+      minisumU *= -2.0f*(locations[k][m] - S[3*k+m]);
+      minisumV *= -2.0f*(locations[k][m] - S[3*k+m]);
+      sumU += minisumU;
+      sumV += minisumV;
+     }
+    
+   // if( vector is already big enough)
+   //   gradientFitPointUVVals[k][n] = sum;
+   }
   delete[] S;
 }
 
