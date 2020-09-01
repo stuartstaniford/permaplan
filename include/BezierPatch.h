@@ -44,6 +44,7 @@ public:
   void  copyControlPoints(void);
   void  computeGradientVector(std::vector<float*>& locations);
   void  applyGradientVector(float delta);
+  void  revertGradientVector(void);
   bool  diagnosticHTML(HttpDebug* serv);
 
 
@@ -57,6 +58,7 @@ private:
 
   // Used repeatedly for calculating Bernstein polynomial expressions
   float upow[4], vpow[4], u1minpow[4], v1minpow[4];
+  float currentDelta;
 
   // Member functions - private
 };

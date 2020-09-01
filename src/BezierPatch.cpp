@@ -12,15 +12,18 @@
 BezierPatch::BezierPatch(float x, float y, float width, float height,
                         float s, float t, float sWidth, float tHeight, unsigned gridPoints):
             LandSurfaceRegion(x, y, width, height, s, t, sWidth, tHeight), gridN(gridPoints),
-            fitPointUVVals()
+            currentDelta(0.0001f)
 {
 }
+
+// NB Two constructors!!  Maybe update both?
 
 BezierPatch::BezierPatch(Quadtree* qtree, unsigned gridPoints):
 LandSurfaceRegion(qtree->bbox.lower[0], qtree->bbox.lower[1],
                   qtree->bbox.upper[0] - qtree->bbox.lower[0],
                   qtree->bbox.upper[1] - qtree->bbox.lower[1],
-                  0.0f, 0.0f, 1.0f, 1.0f), gridN(gridPoints)
+                  0.0f, 0.0f, 1.0f, 1.0f), gridN(gridPoints),
+                  currentDelta(0.0001f)
 {
 }
 
@@ -410,7 +413,33 @@ void BezierPatch::applyGradientVector(float delta)
 
 
 //=======================================================================================
+// We tried something that didn't work out.  Go back to where we were before.
+
+void BezierPatch::revertGradientVector(void)
+{
+  // i, j indexes which control point we are talking about.
+  // k indexes over the N locations (and their mapped u,v estimated points)
+  // m indexes over x,y,z directions.
+  // n indexes over u,v directions.
+  int i, j, k, m, n, N = fitPointUVVals.size();
+  
+  // First deal with the control points
+  for(i=0;i<4;i++)
+    for(j=0;j<4;j++)
+      for(m=0;m<3;m++)
+        controlPoints[i][j][m] = copyOfControlPoints[i][j][m];
+  
+  // Now the fit points
+  for(k=0; k<N; k++)
+    for(n=0; n<2; n++)
+      fitPointUVVals[k][n] = copyOfFitPointUVVals[k][n];
+}
+
+
+//=======================================================================================
 // Make an incremental improvement in the fit of the patch to the known locations.
+
+#define fitTolerance 1e-6
 
 bool BezierPatch::improveFit(std::vector<float*>& locations)
 {
@@ -418,21 +447,36 @@ bool BezierPatch::improveFit(std::vector<float*>& locations)
     setUpUVVals(locations);
   
   float fitDist = estimateFit(locations);
-  printf("fitDist is %.1f\n", fitDist);
+  printf("fitDist is %.1f, applying delta %f\n", fitDist, currentDelta);
   
   copyFitPointUVVals();
   copyControlPoints();
 
   computeGradientVector(locations);
   
-  applyGradientVector(0.000001f);
-  fitDist = estimateFit(locations);
-  printf("fitDist now %.1f\n", fitDist);
+  applyGradientVector(currentDelta);
+  float newFitDist = estimateFit(locations);
+  printf("fitDist now %.1f\n", newFitDist);
 
-  // Loop trying to find a delta of the gradient that's an improvement.
-  
-  
-  return false;  // temp, while functionality of this function under development.
+  // See if it's an improvement or not
+  if(newFitDist > fitDist)
+   {
+    // Presumably overshot the mark
+    currentDelta /= 2.0f;
+    revertGradientVector();
+    return true;
+   }
+  else if( (fitDist - newFitDist)/fitDist < fitTolerance)
+   {
+    // Call it good
+    return false;
+   }
+  else
+   {
+    // We improved it, see if we can be more aggressive next time
+    currentDelta *= 2.0f;
+    return true;
+   }
 }
 
 
