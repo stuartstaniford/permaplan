@@ -43,6 +43,7 @@ public:
   void  copyFitPointUVVals(void);
   void  copyControlPoints(void);
   void  computeGradientVector(std::vector<float*>& locations);
+  void  applyGradientVector(float delta);
   bool  diagnosticHTML(HttpDebug* serv);
 
 

@@ -306,7 +306,6 @@ void BezierPatch::computeGradientVector(std::vector<float*>& locations)
   // i, j indexes which control point we are talking about.
   // k indexes over the N locations (and their mapped u,v estimated points)
   // m indexes over x,y,z directions.
-  // n indexes over u,v directions.
   int i, j, k, m, N = locations.size();
   
   // First precompute a subexpression S[k][m].  See notes in gradient.pdf
@@ -386,6 +385,31 @@ void BezierPatch::computeGradientVector(std::vector<float*>& locations)
 
 
 //=======================================================================================
+// Move the specified delta in the opposite direction of the gradient vector (ie
+// downslope).
+
+void BezierPatch::applyGradientVector(float delta)
+{
+  // i, j indexes which control point we are talking about.
+  // k indexes over the N locations (and their mapped u,v estimated points)
+  // m indexes over x,y,z directions.
+  // n indexes over u,v directions.
+  int i, j, k, m, n, N = fitPointUVVals.size();
+
+  // First deal with the control points
+  for(i=0;i<4;i++)
+    for(j=0;j<4;j++)
+      for(m=0;m<3;m++)
+        controlPoints[i][j][m] -= delta*gradientControlPoints[i][j][m];
+
+  // Now the fit points
+  for(k=0; k<N; k++)
+    for(n=0; n<2; n++)
+      fitPointUVVals[k][n] -= delta*gradientFitPointUVVals[k][n];
+}
+
+
+//=======================================================================================
 // Make an incremental improvement in the fit of the patch to the known locations.
 
 bool BezierPatch::improveFit(std::vector<float*>& locations)
@@ -400,8 +424,11 @@ bool BezierPatch::improveFit(std::vector<float*>& locations)
   copyControlPoints();
 
   computeGradientVector(locations);
-  // Compute the gradient vector of the fit wrt control points and uv estimates
   
+  applyGradientVector(0.000001f);
+  fitDist = estimateFit(locations);
+  printf("fitDist now %.1f\n", fitDist);
+
   // Loop trying to find a delta of the gradient that's an improvement.
   
   
