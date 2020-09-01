@@ -344,6 +344,7 @@ void BezierPatch::computeGradientVector(std::vector<float*>& locations)
 
   // Then deal with the uvFitPoints
   float sumU, sumV, minisumU, minisumV;
+  float commonExpression;
   for(k=0; k<N; k++)
    {
     sumU = sumV = 0.0f;
@@ -354,19 +355,31 @@ void BezierPatch::computeGradientVector(std::vector<float*>& locations)
       for(i=0;i<4;i++)
         for(j=0;j<4;j++)
          {
-          minisumU += bern[i]*bern[j]*vpow[j]*v1minpow[3-j]*
+          commonExpression = controlPoints[i][j][m]*bern[i]*bern[j];
+          minisumU += commonExpression*vpow[j]*v1minpow[3-j]*
                     (u1minpow[3-i]*i*upow_P(i-1) - upow[i]*(3-i)*u1minpow_P(3-i-1));
-          minisumV += bern[i]*bern[j]*upow[i]*u1minpow[3-i]*
+          minisumV += commonExpression*upow[i]*u1minpow[3-i]*
                     (v1minpow[3-j]*j*vpow_P(j-1) - vpow[j]*(3-j)*v1minpow_P(3-j-1));
          }
-      minisumU *= -2.0f*(locations[k][m] - S[3*k+m]);
-      minisumV *= -2.0f*(locations[k][m] - S[3*k+m]);
+      commonExpression = -2.0f*(locations[k][m] - S[3*k+m]);
+      minisumU *= commonExpression;
+      minisumV *= commonExpression;
       sumU += minisumU;
       sumV += minisumV;
      }
     
-   // if( vector is already big enough)
-   //   gradientFitPointUVVals[k][n] = sum;
+    if(gradientFitPointUVVals.size() > k)
+     {
+      gradientFitPointUVVals[k][0] = sumU;
+      gradientFitPointUVVals[k][1] = sumV;
+     }
+    else
+     {
+      float* newGradient  = new float[2];
+      newGradient[0]    = sumU;
+      newGradient[1]    = sumV;
+      gradientFitPointUVVals.push_back(newGradient);
+     }
    }
   delete[] S;
 }
