@@ -6,7 +6,7 @@
 #include <err.h>
 #include "HeightMarker.h"
 
-const float heightMarkerSize   = 0.3f; // 1/2 the side of the square in x and y directions
+const float heightMarkerSize   = 1.5f; //0.3f; // 1/2 the side of the square in x and y directions
 const float heightMarkerHeight = heightMarkerSize*sqrtf(2.0f); // 1/2 the total height
 
 // =======================================================================================

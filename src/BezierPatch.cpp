@@ -355,11 +355,11 @@ void BezierPatch::computeGradientVector(std::vector<float*>& locations)
   float commonExpression;
   for(k=0; k<N; k++)
    {
-    sumU = sumV = 0.0f;
+    sumU = sumV = 0.0f; // Track as we sum over m
+    calcPowers(fitPointUVVals[k][0], fitPointUVVals[k][1]);
     for(m=0; m<3; m++)
      {
-      minisumU = minisumV = 0.0f;
-      calcPowers(fitPointUVVals[k][0], fitPointUVVals[k][1]);
+      minisumU = minisumV = 0.0f; // Track as we sum over i,j
       for(i=0;i<4;i++)
         for(j=0;j<4;j++)
          {
@@ -397,7 +397,7 @@ void BezierPatch::computeGradientVector(std::vector<float*>& locations)
 // Move the specified delta in the opposite direction of the gradient vector (ie
 // downslope).
 
-void BezierPatch::applyGradientVector(float delta)
+void BezierPatch::applyGradientVector(void)
 {
   // i, j indexes which control point we are talking about.
   // k indexes over the N locations (and their mapped u,v estimated points)
@@ -409,12 +409,12 @@ void BezierPatch::applyGradientVector(float delta)
   for(i=0;i<4;i++)
     for(j=0;j<4;j++)
       for(m=0;m<3;m++)
-        controlPoints[i][j][m] -= delta*gradientControlPoints[i][j][m];
+        controlPoints[i][j][m] -= currentDelta*gradientControlPoints[i][j][m];
 
   // Now the fit points
   for(k=0; k<N; k++)
     for(n=0; n<2; n++)
-      fitPointUVVals[k][n] -= delta*gradientFitPointUVVals[k][n];
+      fitPointUVVals[k][n] -= currentDelta*gradientFitPointUVVals[k][n];
 }
 
 
@@ -445,7 +445,7 @@ void BezierPatch::revertGradientVector(void)
 //=======================================================================================
 // Make an incremental improvement in the fit of the patch to the known locations.
 
-#define fitTolerance 1e-6
+#define fitTolerance 1e-12
 
 bool BezierPatch::improveFit(std::vector<float*>& locations)
 {
@@ -453,7 +453,7 @@ bool BezierPatch::improveFit(std::vector<float*>& locations)
     setUpUVVals(locations);
   
   float fitDist = estimateFit(locations);
-  printf("fitDist is %.1f, applying delta %f\n", fitDist, currentDelta);
+  printf("fitDist is %.1f, applying delta %.9f\n", fitDist, currentDelta);
   
   copyFitPointUVVals();
   copyControlPoints();
@@ -466,21 +466,22 @@ bool BezierPatch::improveFit(std::vector<float*>& locations)
   dumpDetailState(name);
 #endif
   
-  applyGradientVector(currentDelta);
+  applyGradientVector();
   float newFitDist = estimateFit(locations);
-  printf("fitDist now %.1f\n", newFitDist);
+  printf("fitDist now %.3f\n", newFitDist);
 
   // See if it's an improvement or not
-  if(newFitDist > fitDist)
+  if(newFitDist >= fitDist && !(currentDelta < fitTolerance))
    {
     // Presumably overshot the mark
     currentDelta /= 2.0f;
     revertGradientVector();
     return true;
    }
-  else if( (fitDist - newFitDist)/fitDist < fitTolerance)
+  else if( (fitDist - newFitDist)/fitDist < fitTolerance || currentDelta < fitTolerance)
    {
     // Call it good
+    printf("Terminating with improvement of %.12f\n", (fitDist - newFitDist)/fitDist);
     return false;
    }
   else
@@ -523,7 +524,7 @@ void printUVVector(FILE* file, char* title, std::vector<float*>& myVec)
   fprintf(file, "%s.\n\n", title);
 
   for(k=0; k<N; k++)
-    fprintf(file, "%d\t%f\t%f\n:", k, myVec[k][0], myVec[k][1]);
+    fprintf(file, "%d:\t%f\t%f\n", k, myVec[k][0], myVec[k][1]);
 
   fprintf(file, "\n");
 }
