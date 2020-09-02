@@ -9,6 +9,7 @@
 #include "LandSurfaceRegion.h"
 #include "Quadtree.h"
 
+#define BEZIER_DUMP_DETAIL
 // =======================================================================================
 // Class variable initialization
 
@@ -45,6 +46,7 @@ public:
   void  computeGradientVector(std::vector<float*>& locations);
   void  applyGradientVector(float delta);
   void  revertGradientVector(void);
+  void  dumpDetailState(char* fileName);
   bool  diagnosticHTML(HttpDebug* serv);
 
 
@@ -59,7 +61,10 @@ private:
   // Used repeatedly for calculating Bernstein polynomial expressions
   float upow[4], vpow[4], u1minpow[4], v1minpow[4];
   float currentDelta;
-
+#ifdef BEZIER_DUMP_DETAIL
+  int   fitIterationCount;
+#endif
+  
   // Member functions - private
 };
 

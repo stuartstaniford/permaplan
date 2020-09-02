@@ -13,6 +13,9 @@ BezierPatch::BezierPatch(float x, float y, float width, float height,
                         float s, float t, float sWidth, float tHeight, unsigned gridPoints):
             LandSurfaceRegion(x, y, width, height, s, t, sWidth, tHeight), gridN(gridPoints),
             currentDelta(0.0001f)
+#ifdef BEZIER_DUMP_DETAIL
+, fitIterationCount(0)
+#endif
 {
 }
 
@@ -24,6 +27,9 @@ LandSurfaceRegion(qtree->bbox.lower[0], qtree->bbox.lower[1],
                   qtree->bbox.upper[1] - qtree->bbox.lower[1],
                   0.0f, 0.0f, 1.0f, 1.0f), gridN(gridPoints),
                   currentDelta(0.0001f)
+#ifdef BEZIER_DUMP_DETAIL
+, fitIterationCount(0)
+#endif
 {
 }
 
@@ -454,6 +460,12 @@ bool BezierPatch::improveFit(std::vector<float*>& locations)
 
   computeGradientVector(locations);
   
+#ifdef BEZIER_DUMP_DETAIL
+  char name[16];
+  sprintf(name, "bezDetail%d.txt", fitIterationCount++);
+  dumpDetailState(name);
+#endif
+  
   applyGradientVector(currentDelta);
   float newFitDist = estimateFit(locations);
   printf("fitDist now %.1f\n", newFitDist);
@@ -477,6 +489,62 @@ bool BezierPatch::improveFit(std::vector<float*>& locations)
     currentDelta *= 2.0f;
     return true;
    }
+}
+
+
+// =======================================================================================
+// Dump out one array as part of dumpDetailState
+
+void printControlPointArray(FILE* file, char* title, vec3 myArray[4][4])
+{
+  int i,j,m;
+  
+  fprintf(file, "%s.\n\n", title);
+
+  for(i=0;i<4;i++)
+    for(j=0;j<4;j++)
+     {
+      fprintf(file, "%d, %d:", i, j);
+      for(m=0;m<3;m++)
+        fprintf(file, "\t%f", myArray[i][j][m]);
+      fprintf(file, "\n");
+     }
+  fprintf(file, "\n");
+}
+
+
+// =======================================================================================
+// Dump out one array as part of dumpDetailState
+
+void printUVVector(FILE* file, char* title, std::vector<float*>& myVec)
+{
+  int k, N = myVec.size();
+  
+  fprintf(file, "%s.\n\n", title);
+
+  for(k=0; k<N; k++)
+    fprintf(file, "%d\t%f\t%f\n:", k, myVec[k][0], myVec[k][1]);
+
+  fprintf(file, "\n");
+}
+
+
+// =======================================================================================
+// Dump out lots of data for debugging purposes
+
+void BezierPatch::dumpDetailState(char* fileName)
+{
+  FILE* file = fopen(fileName, "w");
+  if(!file)
+    err(-1, "Couldn't open %s for writing BezierPatch detail state.", fileName);
+  
+  printControlPointArray(file, (char*)"Control Points", controlPoints);
+  printControlPointArray(file, (char*)"Gradient of Control Points", gradientControlPoints);
+
+  printUVVector(file, (char*)"fitPointUVVals", fitPointUVVals);
+  printUVVector(file, (char*)"gradientFitPointUVVals", gradientFitPointUVVals);
+
+  fclose(file);
 }
 
 
