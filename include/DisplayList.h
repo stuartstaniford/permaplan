@@ -3,30 +3,29 @@
 // should be displayed and be stored in the quadtree
 
 
-#ifndef VISUAL_OBJECT_H
-#define VISUAL_OBJECT_H
+#ifndef DISPLAY_LIST_H
+#define DISPLAY_LIST_H
 
-#include "BoundingBox.h"
-#include "TriangleBuffer.h"
+#include <vector>
+#include "VisualObject.h"
 
 // =======================================================================================
 // Class variable initialization
 
+//XX Right now this just creates display lists of HeightMarkers, but it should be
+// templated so we can create display lists of anything.
 
-class VisualObject
+class DisplayList: public std::vector<VisualObject*>
 {
  public:
   
   // Instance variables - public
-  BoundingBox*   box;
 
   // Member functions - public
-  VisualObject(BoundingBox* B = NULL);
-  virtual ~VisualObject(void);
+  DisplayList(void);
+  DisplayList(std::vector<float*> locations);
+  ~DisplayList();
   virtual bool bufferGeometry(TriangleBuffer* T);
-  void draw(void);
-  virtual bool matchRay(vec3& position, vec3& direction, float& lambda);
-  virtual void updateBoundingBox(void);
   virtual void triangleBufferSize(unsigned& vCount, unsigned& iCount);
   virtual bool diagnosticHTML(HttpDebug* serv);
 
