@@ -1,6 +1,7 @@
-// Copyright Staniford Systems.  All Rights Reserved.  Jun 2020 -
-// This class is not used directly, but instead is a superclass for anything that
-// should be displayed and be stored in the quadtree
+// Copyright Staniford Systems.  All Rights Reserved.  Sep 2020 -
+// Class that contains a list of visual objects and some methods for managing
+// the list as a whole.  Handy for quickly throwing up a set of something
+// or others for display.
 
 
 #ifndef DISPLAY_LIST_H

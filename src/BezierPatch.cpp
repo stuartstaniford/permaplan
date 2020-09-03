@@ -4,6 +4,7 @@
 
 #include <err.h>
 #include "BezierPatch.h"
+#include "HeightMarker.h"
 
 
 // =======================================================================================
@@ -79,6 +80,27 @@ void BezierPatch::surfacePoint(float u, float v, vec3 result)
       glm_vec3_scale(controlPoints[i][j], scale, scaledControlPoint);
       glm_vec3_add(result, scaledControlPoint, result);
      }
+}
+
+
+// =======================================================================================
+// Create a new display list with markers for all the fit locations.
+
+DisplayList* BezierPatch::newUVLocationList(void)
+{
+  DisplayList* D = new DisplayList();
+  vec3 location;
+  int k, N = fitPointUVVals.size();
+  HeightMarker* H;
+  
+  for(k=0; k<N; k++)
+   {
+    surfacePoint(fitPointUVVals[k][0], fitPointUVVals[k][0], location);
+    H = new HeightMarker(location);
+    D->push_back(H);
+   }
+    
+  return D;
 }
 
 

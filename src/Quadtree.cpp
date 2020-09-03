@@ -175,8 +175,7 @@ void Quadtree::storeVisualObject(VisualObject* obj)
 void Quadtree::bufferVisualObjects(TriangleBuffer* tbuf)
 {
   // Handle visual objects stored at our level
-  for (VisualObject* obj : vObjects)
-    obj->bufferGeometry(tbuf);
+  vObjects.bufferGeometry(tbuf);
   
   // Deal with kids
   if(landVBOSize > 6)
@@ -410,8 +409,7 @@ bool Quadtree::diagnosticHTML(HttpDebug* serv, char* path)
     serv->startTable();
     if(surface)
       surface->diagnosticHTML(serv);
-    for (VisualObject* obj : vObjects)
-      obj->diagnosticHTML(serv);
+    vObjects.diagnosticHTML(serv);
     serv->addResponseData("</table></center>\n");
 
     // Vertex Data

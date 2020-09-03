@@ -8,6 +8,7 @@
 
 #include "LandSurfaceRegion.h"
 #include "Quadtree.h"
+#include "DisplayList.h"
 
 //#define BEZIER_DUMP_DETAIL
 //#define float double
@@ -31,25 +32,18 @@ public:
                           float s, float t, float sWidth, float tHeight, unsigned gridPoints);
   BezierPatch(Quadtree* qtree, unsigned gridPoints);
   ~BezierPatch(void);
-  void  calcPowers(float u, float v);
-  void  triangleBufferSizes(unsigned& vertexCount, unsigned& indexCount);
-  bool  bufferGeometry(TriangleBuffer* T);
-  void  draw(void);
-  void  surfacePoint(float x, float y, vec3 result);
-  bool  matchRay(vec3& position, vec3& direction, float& lambda);
-  void  updateBoundingBox(void);
-  void  triangleBufferSize(unsigned& vCount, unsigned& iCount);
-  void  randomFit(std::vector<float*>& locations);
-  float estimateFit(std::vector<float*>& locations);
-  bool  improveFit(std::vector<float*>& locations);
-  void  setUpUVVals(std::vector<float*>& locations);
-  void  copyFitPointUVVals(void);
-  void  copyControlPoints(void);
-  void  computeGradientVector(std::vector<float*>& locations);
-  void  applyGradientVector(void);
-  void  revertGradientVector(void);
-  void  dumpDetailState(char* fileName);
-  bool  diagnosticHTML(HttpDebug* serv);
+  void          calcPowers(float u, float v);
+  void          triangleBufferSizes(unsigned& vertexCount, unsigned& indexCount);
+  bool          bufferGeometry(TriangleBuffer* T);
+  void          draw(void);
+  void          surfacePoint(float x, float y, vec3 result);
+  bool          matchRay(vec3& position, vec3& direction, float& lambda);
+  void          updateBoundingBox(void);
+  DisplayList*  newUVLocationList(void);
+  void          triangleBufferSize(unsigned& vCount, unsigned& iCount);
+  void          randomFit(std::vector<float*>& locations);
+  bool          improveFit(std::vector<float*>& locations);
+  bool          diagnosticHTML(HttpDebug* serv);
 
 
 private:
@@ -68,6 +62,14 @@ private:
 #endif
   
   // Member functions - private
+  float estimateFit(std::vector<float*>& locations);
+  void  setUpUVVals(std::vector<float*>& locations);
+  void  copyFitPointUVVals(void);
+  void  copyControlPoints(void);
+  void  computeGradientVector(std::vector<float*>& locations);
+  void  applyGradientVector(void);
+  void  revertGradientVector(void);
+  void  dumpDetailState(char* fileName);
 };
 
 #endif

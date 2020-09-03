@@ -1,7 +1,8 @@
 
-// Copyright Staniford Systems.  All Rights Reserved.  Jun 2020 -
-// This class is not used directly, but instead is a superclass for anything that
-// should be displayed and be stored in the quadtree
+// Copyright Staniford Systems.  All Rights Reserved.  Sep 2020 -
+// Class that contains a list of visual objects and some methods for managing
+// the list as a whole.  Handy for quickly throwing up a set of something
+// or others for display.
 
 #include "DisplayList.h"
 #include "HeightMarker.h"
@@ -70,12 +71,13 @@ void DisplayList::triangleBufferSize(unsigned& vCount, unsigned& iCount)
 
 
 // =======================================================================================
-// Stub definition.
+// We just do our kids one at a time, we are transparent ourself
 
 bool DisplayList::diagnosticHTML(HttpDebug* serv)
 {
-  serv->addResponseData("<tr><td>DisplayList</td>");
-  serv->addResponseData("<td>Unimplemented.</td></tr>\n");
+  int i, N = size();
+  for(i=0; i<N; i++)
+    at(i)->diagnosticHTML(serv);
 
   return false;
 }
