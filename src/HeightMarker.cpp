@@ -114,7 +114,7 @@ bool HeightMarker::bufferGeometry(TriangleBuffer* T)
 // =======================================================================================
 // How much space we need in a TriangleBuffer
 
-void HeightMarker::triangleBufferSize(unsigned& vCount, unsigned& iCount)
+void HeightMarker::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 {
   vCount = 6u;
   iCount = 24u;

@@ -18,6 +18,9 @@
 
 LandSurface::LandSurface(Shader& S, PmodDesign& D): rect(NULL), qtree(NULL), shader(S),
               design(D), tbuf(NULL), locationCount(0u), heightLocations(), inFitMode(false)
+#ifdef VISUALIZE_FITTING
+, fitTBuf(NULL)
+#endif
 {
   using namespace rapidjson;
 
@@ -202,14 +205,17 @@ void LandSurface::redoBezierLandSurface(BezierPatch* bez)
 {
   unsigned vCount, iCount;
   bez->triangleBufferSizes(vCount, iCount);
-  if(tbuf)
-    delete tbuf;
-  tbuf = new TriangleBuffer(vCount, iCount);
-  if(!tbuf)
-    err(-1, "Can't allocate memory in __func__\n");
-  //fprintf(stderr, "Triangle buffer of size %d,%d obtained\n", tbuf->vCount, tbuf->iCount);
+  recycleTriangleBuffer(tbuf, vCount, iCount);
   bez->bufferGeometry(tbuf);
   tbuf->sendToGPU(GL_STATIC_DRAW);
+
+#ifdef VISUALIZE_FITTING
+  DisplayList* D = bez->newUVLocationList();
+  D->triangleBufferSizes(vCount, iCount);
+  recycleTriangleBuffer(fitTBuf, vCount, iCount);
+  D->bufferGeometry(fitTBuf);
+  fitTBuf->sendToGPU(GL_STATIC_DRAW);
+#endif
 }
 
 

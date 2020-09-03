@@ -55,7 +55,7 @@ void DisplayList::bufferGeometry(TriangleBuffer* T)
 // =======================================================================================
 // Returns the size we need for all our contents
 
-void DisplayList::triangleBufferSize(unsigned& vCount, unsigned& iCount)
+void DisplayList::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 {
   vCount = 0u;
   iCount = 0u;
@@ -63,7 +63,7 @@ void DisplayList::triangleBufferSize(unsigned& vCount, unsigned& iCount)
   int i, N = size();
   for(i=0; i<N; i++)
    {
-    at(i)->triangleBufferSize(vObjectSize, iObjectSize);
+    at(i)->triangleBufferSizes(vObjectSize, iObjectSize);
     vCount += vObjectSize;
     iCount += iObjectSize;
    }

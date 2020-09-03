@@ -154,7 +154,7 @@ void Quadtree::bufferGeometryLeaf(VertexBufElement* buf)
 void Quadtree::storeVisualObject(VisualObject* obj)
 {
   unsigned vSize, iSize;
-  obj->triangleBufferSize(vSize, iSize);
+  obj->triangleBufferSizes(vSize, iSize);
   vertexTBufSize += vSize;
   indexTBufSize += iSize;
 

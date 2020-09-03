@@ -23,6 +23,8 @@
 // =======================================================================================
 // Class variable initialization
 
+#define VISUALIZE_FITTING 1
+
 class LandSurface
 {
  public:
@@ -49,6 +51,9 @@ class LandSurface
   unsigned              locationCount;
   std::vector<float*>   heightLocations;
   bool                  inFitMode;
+#ifdef VISUALIZE_FITTING
+  TriangleBuffer*       fitTBuf;
+#endif
 
   //Texture               texture;
   

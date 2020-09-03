@@ -28,7 +28,7 @@ class DisplayList: public std::vector<VisualObject*>
   DisplayList(std::vector<float*> locations);
   ~DisplayList();
   void bufferGeometry(TriangleBuffer* T);
-  void triangleBufferSize(unsigned& vCount, unsigned& iCount);
+  void triangleBufferSizes(unsigned& vCount, unsigned& iCount);
   bool diagnosticHTML(HttpDebug* serv);
 
  private:

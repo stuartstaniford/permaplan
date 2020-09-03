@@ -8,6 +8,7 @@
 #ifndef TRIANGLE_BUFFER_H
 #define TRIANGLE_BUFFER_H
 
+#include <err.h>
 #include "ElementBufferCombo.h"
 #include "HttpDebug.h"
 
@@ -47,5 +48,17 @@ class TriangleBuffer
   
   
 };
+
+// Helper functions
+
+inline void recycleTriangleBuffer(TriangleBuffer*& tbuf, int vCount, int iCount)
+{
+  if(tbuf)
+    delete tbuf;
+  tbuf = new TriangleBuffer(vCount, iCount);
+  if(!tbuf)
+    err(-1, "Can't allocate memory in __func__\n");
+  //fprintf(stderr, "Triangle buffer of size %d,%d obtained\n", tbuf->vCount, tbuf->iCount);
+}
 
 #endif

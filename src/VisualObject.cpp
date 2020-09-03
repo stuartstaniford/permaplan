@@ -68,7 +68,7 @@ void VisualObject::updateBoundingBox(void)
 // =======================================================================================
 // Stub definition this should be overwritten by implementing subclasses
 
-void VisualObject::triangleBufferSize(unsigned& vCount, unsigned& iCount)
+void VisualObject::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 {
   vCount = 0u;
   iCount = 0u;

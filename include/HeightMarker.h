@@ -26,7 +26,7 @@ class HeightMarker: public VisualObject
   void draw(void);
   bool matchRay(vec3& position, vec3& direction, float& lambda);
   void updateBoundingBox(void);
-  void triangleBufferSize(unsigned& vCount, unsigned& iCount);
+  void triangleBufferSizes(unsigned& vCount, unsigned& iCount);
   bool diagnosticHTML(HttpDebug* serv);
 
  private:
