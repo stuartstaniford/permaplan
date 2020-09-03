@@ -11,7 +11,7 @@
 #include <cglm/cglm.h>
 #include <algorithm>
 #include <list>
-#include "VisualObject.h"
+#include "DisplayList.h"
 #include "LandSurfaceRegionPlanar.h"
 
 

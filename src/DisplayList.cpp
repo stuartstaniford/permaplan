@@ -43,9 +43,11 @@ DisplayList::~DisplayList(void)
 // =======================================================================================
 // Puts all the visualobject contents in a buffer
 
-bool DisplayList::bufferGeometry(TriangleBuffer* T)
+void DisplayList::bufferGeometry(TriangleBuffer* T)
 {
-  return false;
+  int i, N = size();
+  for(i=0; i<N; i++)
+    at(i)->bufferGeometry(T);
 }
 
 
@@ -65,7 +67,6 @@ void DisplayList::triangleBufferSize(unsigned& vCount, unsigned& iCount)
     iCount += iObjectSize;
    }
 }
-
 
 
 // =======================================================================================

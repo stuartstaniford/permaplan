@@ -25,9 +25,9 @@ class DisplayList: public std::vector<VisualObject*>
   DisplayList(void);
   DisplayList(std::vector<float*> locations);
   ~DisplayList();
-  virtual bool bufferGeometry(TriangleBuffer* T);
-  virtual void triangleBufferSize(unsigned& vCount, unsigned& iCount);
-  virtual bool diagnosticHTML(HttpDebug* serv);
+  void bufferGeometry(TriangleBuffer* T);
+  void triangleBufferSize(unsigned& vCount, unsigned& iCount);
+  bool diagnosticHTML(HttpDebug* serv);
 
  private:
   
