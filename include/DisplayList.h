@@ -12,8 +12,9 @@
 // =======================================================================================
 // Class variable initialization
 
-//XX Right now this just creates display lists of HeightMarkers, but it should be
-// templated so we can create display lists of anything.
+//XX Right now this just creates display lists of HeightMarkers when fed a location
+// list in a constructor, but it should be templated so we can create display lists
+// of anything as the default in that scenario.
 
 class DisplayList: public std::vector<VisualObject*>
 {

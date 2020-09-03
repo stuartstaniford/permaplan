@@ -165,7 +165,7 @@ void Quadtree::storeVisualObject(VisualObject* obj)
       kids[i]->storeVisualObject(obj);
       return;
      }
-  vObjects.push_front(obj);
+  vObjects.push_back(obj);
 }
 
 

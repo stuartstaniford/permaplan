@@ -64,7 +64,7 @@ class Quadtree
   vec2                      textureTR;    // top right corner of our region in texture s-t space
   Quadtree*                 kids[4];      // our four child quadtree nodes
   LandSurfaceRegion*        surface;
-  std::list<VisualObject*>  vObjects;     // objects for display that we own
+  DisplayList               vObjects;     // objects for display that we own
   
   // Member functions - private
   Quadtree* matchChild(vec3& position, vec3& direction, float& lambda);
