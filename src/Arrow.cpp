@@ -1,7 +1,6 @@
 
-// Copyright Staniford Systems.  All Rights Reserved.  Jun 2020 -
-// Class for storing and rendering the user supplied locations of height markers.
-// Renders them as an octahedron balanced on the actual height location
+// Copyright Staniford Systems.  All Rights Reserved.  Sep 2020 -
+// Class for rendering a simple straight arrow.
 
 #include <err.h>
 #include "Arrow.h"

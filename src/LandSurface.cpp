@@ -246,6 +246,16 @@ void LandSurface::draw(Camera& camera)
    }
   rect->texture.bind(shader, 0, "earthTexture");
   tbuf->draw();
+#ifdef VISUALIZE_FITTING
+  vec4  objColor  = {0.8f, 0.5f, 0.2f, 1.0f};
+  if(fitTBuf)
+   {
+    shader.setUniform("fixedColor", true);
+    shader.setUniform("theColor", objColor);
+    fitTBuf->draw();
+    shader.setUniform("fixedColor", false);
+   }
+#endif
   //if(targetNode)
   //  highlightNode(targetNode, yellowAccentColor, 0.0f);
   if(checkGLError(stderr, "LandSurface::draw"))
