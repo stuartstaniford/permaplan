@@ -23,8 +23,6 @@
 // =======================================================================================
 // Class variable initialization
 
-#define VISUALIZE_FITTING 1
-
 class LandSurface
 {
  public:

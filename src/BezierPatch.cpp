@@ -95,7 +95,7 @@ DisplayList* BezierPatch::newUVLocationList(void)
   
   for(k=0; k<N; k++)
    {
-    surfacePoint(fitPointUVVals[k][0], fitPointUVVals[k][0], location);
+    surfacePoint(fitPointUVVals[k][0], fitPointUVVals[k][1], location);
     H = new HeightMarker(location);
     D->push_back(H);
    }
@@ -263,12 +263,12 @@ void BezierPatch::randomFit(std::vector<float*>& locations)
 
 void BezierPatch::setUpUVVals(std::vector<float*>& locations)
 {
-  int i, N = locations.size();
-  for(i=0; i<N; i++)
+  int k, N = locations.size();
+  for(k=0; k<N; k++)
    {
     float* uv = new vec2;
-    uv[0] = (locations[i][0] - xyPos[0])/extent[0];
-    uv[1] = (locations[i][1] - xyPos[1])/extent[1];
+    uv[0] = (locations[k][0] - xyPos[0])/extent[0];
+    uv[1] = (locations[k][1] - xyPos[1])/extent[1];
     fitPointUVVals.push_back(uv);
    }
 }
@@ -582,10 +582,25 @@ bool BezierPatch::diagnosticHTML(HttpDebug* serv)
   serv->addResponseData("<table cellpadding=1 border=1><tr><th>i</th><th>j</th><th>X</th><th>Y</th><th>Z</th></tr>");
   for(int i=0; i<4; i++)
     for(int j=0; j<4; j++)
-  serv->respPtr += sprintf(serv->respPtr,
+      serv->respPtr += sprintf(serv->respPtr,
               "<tr><td>%d</td><td>%d</td><td>%.1f</td><td>%.1f</td><td>%.1f</td></tr>",
               i, j, controlPoints[i][j][0], controlPoints[i][j][1], controlPoints[i][j][2]);
-  serv->addResponseData("</table></td></tr>\n");
+  serv->addResponseData("</table>\n");
+#ifdef VISUALIZE_FITTING
+  serv->addResponseData("<table cellpadding=1 border=1><tr><th>k</th><th>u</th><th>v</th><th>X</th><th>Y</th><th>Z</th></tr>");
+  int k, N = fitPointUVVals.size();
+  for(k=0; k<N; k++)
+   {
+    serv->respPtr += sprintf(serv->respPtr, "<tr><td>%d</td><td>%.3f</td><td>%.3f</td>\n",
+                            k, fitPointUVVals[k][0], fitPointUVVals[k][1]);
+    vec3 xyz;
+    surfacePoint(fitPointUVVals[k][0], fitPointUVVals[k][1], xyz);
+    serv->respPtr += sprintf(serv->respPtr, "<td>%.1f</td><td>%.1f</td><td>%.1f</td></tr>\n",
+                             xyz[0], xyz[1], xyz[2]);
+    serv->addResponseData("</table>\n");
+   }
+#endif
+  serv->addResponseData("</td></tr>\n");
 
   return true;
 }

@@ -11,7 +11,7 @@
 #include "DisplayList.h"
 
 //#define BEZIER_DUMP_DETAIL
-//#define float double
+#define VISUALIZE_FITTING 1
 
 // =======================================================================================
 // Class variable initialization
