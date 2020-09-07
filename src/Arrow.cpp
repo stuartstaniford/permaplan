@@ -36,18 +36,97 @@ bool Arrow::bufferGeometry(TriangleBuffer* T)
   unsigned* indices;
   unsigned vOffset, iOffset;
   
-  unless(T->requestSpace(&vertices, &indices, vOffset, iOffset, 0u, 0u))
+  unless(T->requestSpace(&vertices, &indices, vOffset, iOffset,
+                         ARROW_SIDES*3+1, // vertices in the arrow
+                         ARROW_SIDES*9))  // indices of vertices of triangles
     return false;
-  
-  // Now we know where we are putting stuff and that there is space, so pack
-  // in the vertices
-  //vertices[0].set(location[0], location[1],
-  //                location[2]);  //bottom vertex
 
-  // Lower facing south
-  //indices[0] = vOffset;
-  //indices[1] = vOffset + 2u;
-  //indices[2] = vOffset + 1u;
+  float arrowRadius   = glm_vec3_norm(direction)*ARROW_RADIUS;
+  float angleRadians  = 2.0f*M_PI/ARROW_SIDES;
+
+  vec3 f1, f2; // Set up axes perpendicular to direction, which will be called f1 and f2.
+  vec3 f0; // starting place, will be z-axis unless dir is parallel when we use x-axis.
+  
+  //Eg if ARROW_SIDES == 8 the cross section of the arrow shaft looks like
+  /*
+       ^
+       | f1 direction
+   
+     -----
+    /     \
+   /       \
+  |         |  ---->
+  |         |  f2 direction
+   \       /
+    \     /
+     -----
+
+*/
+  if(direction[0] == direction[1] == 0.0f)
+   {
+    f0[0] = 1.0f;
+    f0[1] = f0[2] = 0.0f;
+   }
+  else
+   {
+    f0[0] = f0[1] = 0.0f;
+    f0[2] = 1.0f;
+   }
+  
+  glm_vec3_cross(f0, direction, f1);
+  glm_vec3_cross(f1, direction, f2);
+
+  glm_vec3_scale_as(f1, arrowRadius, f1);
+  glm_vec3_scale_as(f2, arrowRadius, f2);
+
+  // Now that we've done some initial setup, we can compute all the vertices.
+
+  float ang, cosAng, sinAng, x, y, z, arrowBody = (1.0f - ARROW_HEAD);
+  for(int i=0; i<ARROW_SIDES; i++)
+   {
+    ang = i*angleRadians;
+    cosAng = cos(ang);
+    sinAng = sin(ang);
+    
+    // base of shaft of the arrow on this particular radial slice
+    x = location[0] + cosAng*f1[0] + sinAng*f2[0];
+    y = location[1] + cosAng*f1[1] + sinAng*f2[1];
+    z = location[2] + cosAng*f1[2] + sinAng*f2[2];
+    vertices[3*i].set(x, y, z);
+
+    // top of shaft
+    x += arrowBody*direction[0];
+    y += arrowBody*direction[1];
+    z += arrowBody*direction[2];
+    vertices[3*i+1].set(x, y, z);
+    
+    // base of arrow head
+    x += ARROW_HEAD_WIDTH*(cosAng*f1[0] + sinAng*f2[0]);
+    y += ARROW_HEAD_WIDTH*(cosAng*f1[1] + sinAng*f2[1]);
+    z += ARROW_HEAD_WIDTH*(cosAng*f1[2] + sinAng*f2[2]);
+    vertices[3*i+2].set(x, y, z);
+   }
+ 
+  // tip of the arrow
+  vertices[3*ARROW_SIDES].set(location[0]+direction[0], location[1]+direction[1],
+                              location[2]+direction[2]);
+  
+  // Done with vertices, now set up the indices.
+  
+  int iPlus;
+  for(int i=0; i<ARROW_SIDES; i++)
+   {
+    iPlus = (i+1)%ARROW_SIDES;
+    indices[9*i]    = vOffset + 3*i;            // base of this radius
+    indices[9*i+1]  = vOffset + 3*i + 1u;       // top of shaft at this radius
+    indices[9*i+2]  = vOffset + 3*iPlus;        // base of shaft at next radius
+    indices[9*i+3]  = indices[9*i+2];           // base of shaft at next radius
+    indices[9*i+4]  = indices[9*i+1];           // top of shaft at this radius
+    indices[9*i+5]  = vOffset + 3*iPlus + 1u;   // top of shaft at next radius
+    indices[9*i+6]  = vOffset + 3*i + 2u;       // base of head at this radius
+    indices[9*i+7]  = vOffset + 3*ARROW_SIDES;  // tip of the arrow
+    indices[9*i+8]  = vOffset + 3*iPlus + 2u;   // base of head at next radius
+   }
 
   return true;
 }
@@ -58,8 +137,8 @@ bool Arrow::bufferGeometry(TriangleBuffer* T)
 
 void Arrow::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 {
-  vCount = 0u;
-  iCount = 0u;
+  vCount = ARROW_SIDES*3+1;
+  iCount = ARROW_SIDES*9;
 }
 
 

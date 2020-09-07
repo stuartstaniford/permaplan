@@ -9,6 +9,11 @@
 // =======================================================================================
 // Class variable initialization
 
+//XX this should perhaps be a template parameter to the class
+#define ARROW_SIDES 6
+#define ARROW_RADIUS 0.07        // as a multiple of length (which is norm(direction)).
+#define ARROW_HEAD 0.15          // fraction of the arrow in the head.
+#define ARROW_HEAD_WIDTH 1.0f    // multiple of the radius for the overhang over the shaft.
 
 class Arrow: public VisualObject
 {
