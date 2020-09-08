@@ -108,6 +108,25 @@ DisplayList* BezierPatch::newUVLocationList(void)
 
 
 // =======================================================================================
+// Add the control points to a display list.
+
+vec3  darkRedColor  = {0.7f, 0.1f, 0.1f};
+
+void BezierPatch::addControlPointstoDisplayList(DisplayList* D)
+{
+  HeightMarker* H;
+
+  for(int i=0; i<4; i++)
+    for(int j=0; j<4; j++)
+     {
+      H = new HeightMarker(controlPoints[i][j]);
+      H->setNoTexColor(darkRedColor);
+      D->push_back(H);
+     }
+}
+
+
+// =======================================================================================
 // For anyone who needs to know how much space we would take up in a triangleBuffer.
 
 void BezierPatch::triangleBufferSizes(unsigned& vertexCount, unsigned& indexCount)

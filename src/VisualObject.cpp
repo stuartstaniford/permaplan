@@ -26,6 +26,8 @@ VisualObject::~VisualObject(void)
 
 // =======================================================================================
 // Used when this visual object is going to be a visual indicator with a fixed color.
+// XX - should this be hived off into a different class, that could use multiple
+// inheritance to pull in, so this isn't present in non-visual indicator subclasses?
 
 void VisualObject::setNoTexColor(vec3 color)
 {
