@@ -14,7 +14,7 @@
 BezierPatch::BezierPatch(float x, float y, float width, float height,
                         float s, float t, float sWidth, float tHeight, unsigned gridPoints):
             LandSurfaceRegion(x, y, width, height, s, t, sWidth, tHeight), gridN(gridPoints),
-            currentDelta(0.0001f)
+            currentDelta(1.0f)
 #ifdef BEZIER_DUMP_DETAIL
 , fitIterationCount(0)
 #endif
@@ -28,7 +28,7 @@ LandSurfaceRegion(qtree->bbox.lower[0], qtree->bbox.lower[1],
                   qtree->bbox.upper[0] - qtree->bbox.lower[0],
                   qtree->bbox.upper[1] - qtree->bbox.lower[1],
                   0.0f, 0.0f, 1.0f, 1.0f), gridN(gridPoints),
-                  currentDelta(0.0001f)
+                  currentDelta(1.0f)
 #ifdef BEZIER_DUMP_DETAIL
 , fitIterationCount(0)
 #endif
