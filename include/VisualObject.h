@@ -18,11 +18,12 @@ class VisualObject
  public:
   
   // Instance variables - public
-  BoundingBox*   box;
-
+  BoundingBox*  box;
+  
   // Member functions - public
   VisualObject(BoundingBox* B = NULL);
   virtual ~VisualObject(void);
+  void setNoTexColor(vec3 color);
   virtual bool bufferGeometry(TriangleBuffer* T);
   void draw(void);
   virtual bool matchRay(vec3& position, vec3& direction, float& lambda);
@@ -30,10 +31,12 @@ class VisualObject
   virtual void triangleBufferSizes(unsigned& vCount, unsigned& iCount);
   virtual bool diagnosticHTML(HttpDebug* serv);
 
- private:
+ protected:
   
-  // Instance variables - private
-  
+  // Instance variables - protected
+  vec3          noTexColor;
+  bool          useNoTexColor;
+
   // Member functions - private
 };
 

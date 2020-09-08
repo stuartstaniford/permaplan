@@ -29,12 +29,14 @@ void main()
    {
     if(noTexColor)
      {
-      // We use the tex coordinate and accent as a color vector.
+      // We use the tex coordinate and accent as a color vector.  This is generally
+      // used for non-real non-lighted visual indicators.
       FragColor = vec4(texCoord.x, texCoord.y, accent, 1.0);
      }
     else
      {
-      // Earth texture, modified by accentColor
+      // Earth texture, modified by accentColor.  This is the branch for actual
+      // scenery/objects in the scene.
       FragColor = (1.0f-accent)*texture(earthTexture, texCoord) + accent*accentColor;
      }
    }

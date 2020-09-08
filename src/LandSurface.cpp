@@ -247,13 +247,11 @@ void LandSurface::draw(Camera& camera)
   rect->texture.bind(shader, 0, "earthTexture");
   tbuf->draw();
 #ifdef VISUALIZE_FITTING
-  vec4  orangeColor  = {0.8f, 0.5f, 0.2f, 1.0f};
   if(fitTBuf)
    {
-    shader.setUniform("fixedColor", true);
-    shader.setUniform("theColor", orangeColor);
+    shader.setUniform("noTexColor", true);
     fitTBuf->draw();
-    shader.setUniform("fixedColor", false);
+    shader.setUniform("noTexColor", false);
    }
 #endif
   //if(targetNode)

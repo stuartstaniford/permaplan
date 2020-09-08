@@ -86,6 +86,8 @@ void BezierPatch::surfacePoint(float u, float v, vec3 result)
 // =======================================================================================
 // Create a new display list with markers for all the fit locations.
 
+vec3  orangeColor  = {0.8f, 0.5f, 0.2f};
+
 DisplayList* BezierPatch::newUVLocationList(void)
 {
   DisplayList* D = new DisplayList();
@@ -97,6 +99,7 @@ DisplayList* BezierPatch::newUVLocationList(void)
    {
     surfacePoint(fitPointUVVals[k][0], fitPointUVVals[k][1], location);
     H = new HeightMarker(location);
+    H->setNoTexColor(orangeColor);
     D->push_back(H);
    }
     

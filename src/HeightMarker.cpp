@@ -67,6 +67,10 @@ bool HeightMarker::bufferGeometry(TriangleBuffer* T)
   vertices[5].set(location[0], location[1],
                   location[2] + 2.0f*heightMarkerHeight);  //top vertex
 
+  if(useNoTexColor)
+    for(int i=0; i<6; i++)
+      vertices[i].setNoTexColor(noTexColor);
+  
   // Lower facing south
   indices[0] = vOffset;
   indices[1] = vOffset + 2u;

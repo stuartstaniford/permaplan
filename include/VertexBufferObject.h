@@ -48,6 +48,13 @@ class VertexBufElement
    accent = 0.0f;
   }
   
+  inline void setNoTexColor(vec3 C)
+   {
+    tex[0]  = C[0];
+    tex[1]  = C[1];
+    accent  = C[2];
+   }
+  
   inline void fprint(FILE* file)
    {
     fprintf(file, "pos:\t%.1f,\t%.1f,\t%.1f\ttex:\t%.3f\t%.3f\n",

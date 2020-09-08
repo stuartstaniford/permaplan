@@ -9,7 +9,7 @@
 // =======================================================================================
 // Constructors
 
-VisualObject::VisualObject(BoundingBox* B): box(B)
+VisualObject::VisualObject(BoundingBox* B): box(B), useNoTexColor(false)
 {
 }
 
@@ -21,6 +21,16 @@ VisualObject::~VisualObject(void)
 {
   if(box)
     delete box;
+}
+
+
+// =======================================================================================
+// Used when this visual object is going to be a visual indicator with a fixed color.
+
+void VisualObject::setNoTexColor(vec3 color)
+{
+  glm_vec3_copy(color, noTexColor);
+  useNoTexColor = true;
 }
 
 
