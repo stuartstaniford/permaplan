@@ -46,8 +46,7 @@ TriangleBuffer::~TriangleBuffer(void)
 // TriangleBuffer, giving them a slice of both buffers that they can use
 
 bool TriangleBuffer::requestSpace(VertexBufElement** verticesAssigned, unsigned** indicesAssigned,
-                  unsigned& vOffset, unsigned& iOffset,
-                  unsigned vRequestCount, unsigned iRequestCount)
+                  unsigned& vOffset, unsigned vRequestCount, unsigned iRequestCount)
 {
   unless(vertices && indices)
    err(-1, "Trying to request space on unallocated TriangleBuffer\n");
@@ -56,7 +55,6 @@ bool TriangleBuffer::requestSpace(VertexBufElement** verticesAssigned, unsigned*
     *verticesAssigned =  vertices + vNext;
     *indicesAssigned  =  indices + iNext;
     vOffset           =  vNext;
-    iOffset           =  iNext;
     vNext             += vRequestCount;
     iNext             += iRequestCount;
     return true;

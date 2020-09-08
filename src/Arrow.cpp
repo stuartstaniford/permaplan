@@ -34,9 +34,9 @@ bool Arrow::bufferGeometry(TriangleBuffer* T)
 {
   VertexBufElement* vertices;
   unsigned* indices;
-  unsigned vOffset, iOffset;
+  unsigned vOffset;
   
-  unless(T->requestSpace(&vertices, &indices, vOffset, iOffset,
+  unless(T->requestSpace(&vertices, &indices, vOffset,
                          ARROW_SIDES*3+1, // vertices in the arrow
                          ARROW_SIDES*9))  // indices of vertices of triangles
     return false;

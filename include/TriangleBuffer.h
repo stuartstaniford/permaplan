@@ -28,8 +28,7 @@ class TriangleBuffer
   TriangleBuffer(unsigned vertexCount, unsigned indexCount);
   ~TriangleBuffer(void);
   bool requestSpace(VertexBufElement** verticesAssigned, unsigned** indicesAssigned,
-                    unsigned& vOffset, unsigned& iOffset,
-                    unsigned vRequestCount, unsigned iRequestCount);
+                    unsigned& vOffset, unsigned vRequestCount, unsigned iRequestCount);
   void sendToGPU(GLenum usage);
   void draw(void);
   void fprint(FILE* file);

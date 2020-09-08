@@ -47,9 +47,9 @@ bool HeightMarker::bufferGeometry(TriangleBuffer* T)
 {
   VertexBufElement* vertices;
   unsigned* indices;
-  unsigned vOffset, iOffset;
+  unsigned vOffset;
   
-  unless(T->requestSpace(&vertices, &indices, vOffset, iOffset, 6u, 24u))
+  unless(T->requestSpace(&vertices, &indices, vOffset, 6u, 24u))
     return false;
   
   // Now we know where we are putting stuff and that there is space, so pack

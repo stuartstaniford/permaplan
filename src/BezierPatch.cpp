@@ -121,10 +121,10 @@ bool BezierPatch::bufferGeometry(TriangleBuffer* T)
   // Establish space needs and obtain buffers
   VertexBufElement* vertices;
   unsigned* indices;
-  unsigned vOffset, iOffset;
+  unsigned vOffset;
   unsigned vCount, iCount;
   triangleBufferSizes(vCount, iCount);
-  unless(T->requestSpace(&vertices, &indices, vOffset, iOffset, vCount, iCount))
+  unless(T->requestSpace(&vertices, &indices, vOffset, vCount, iCount))
     return false;
 
   //Figure out the vertices

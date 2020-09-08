@@ -66,9 +66,9 @@ bool LandSurfaceRegionPlanar::bufferGeometry(TriangleBuffer* T)
 {
   VertexBufElement* vertices;
   unsigned* indices;
-  unsigned vOffset, iOffset;
+  unsigned vOffset;
   
-  unless(T->requestSpace(&vertices, &indices, vOffset, iOffset, 4u, 6u))
+  unless(T->requestSpace(&vertices, &indices, vOffset, 4u, 6u))
     return false;
   
   // Now we know where we are putting stuff and that there is space, so pack
