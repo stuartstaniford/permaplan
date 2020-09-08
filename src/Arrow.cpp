@@ -112,7 +112,11 @@ bool Arrow::bufferGeometry(TriangleBuffer* T)
   // tip of the arrow
   vertices[3*ARROW_SIDES].set(location[0]+direction[0], location[1]+direction[1],
                               location[2]+direction[2]);
-  
+ 
+  if(useNoTexColor)
+    for(int i=0; i<ARROW_SIDES*3+1; i++)
+      vertices[i].setNoTexColor(noTexColor);
+
   // Done with vertices, now set up the indices.  As usual, we need triangles
   // to be clockwise looking from outside the arrow, because of OpenGL faceculling.
   

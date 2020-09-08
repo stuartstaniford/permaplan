@@ -5,6 +5,7 @@
 #include <err.h>
 #include "BezierPatch.h"
 #include "HeightMarker.h"
+#include "Arrow.h"
 
 
 // =======================================================================================
@@ -110,18 +111,38 @@ DisplayList* BezierPatch::newUVLocationList(void)
 // =======================================================================================
 // Add the control points to a display list.
 
-vec3  darkRedColor  = {0.7f, 0.1f, 0.1f};
+vec3  darkRedColor  = {0.6f, 0.1f, 0.1f};
 
-void BezierPatch::addControlPointstoDisplayList(DisplayList* D)
+void BezierPatch::addControlPointsToDisplayList(DisplayList* D)
 {
   HeightMarker* H;
-
+  
   for(int i=0; i<4; i++)
     for(int j=0; j<4; j++)
      {
       H = new HeightMarker(controlPoints[i][j]);
       H->setNoTexColor(darkRedColor);
       D->push_back(H);
+     }
+}
+
+
+// =======================================================================================
+// Add arrows showing the current direction of the
+
+vec3  lighterRedColor  = {0.9f, 0.1f, 0.1f};
+
+void BezierPatch::addControlGradientsToDisplayList(DisplayList* D)
+{
+  Arrow* A;
+  
+  for(int i=0; i<4; i++)
+    for(int j=0; j<4; j++)
+     {
+      //currentDelta
+      A = new Arrow(controlPoints[i][j], gradientControlPoints[i][j]);
+      A->setNoTexColor(lighterRedColor);
+      D->push_back(A);
      }
 }
 

@@ -40,7 +40,8 @@ public:
   bool          matchRay(vec3& position, vec3& direction, float& lambda);
   void          updateBoundingBox(void);
   DisplayList*  newUVLocationList(void);
-  void          addControlPointstoDisplayList(DisplayList* D);
+  void          addControlPointsToDisplayList(DisplayList* D);
+  void          addControlGradientsToDisplayList(DisplayList* D);
   void          triangleBufferSize(unsigned& vCount, unsigned& iCount);
   void          randomFit(std::vector<float*>& locations);
   bool          improveFit(std::vector<float*>& locations);
