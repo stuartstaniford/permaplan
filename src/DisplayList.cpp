@@ -30,6 +30,9 @@ DisplayList::DisplayList(std::vector<float*> locations): std::vector<VisualObjec
 
 }
 
+// Note remaining methods do not have any specificity to HeightMarker and should work
+// correctly with any VisualObject subclass.
+
 // =======================================================================================
 // Destructor
 

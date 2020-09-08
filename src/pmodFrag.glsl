@@ -14,6 +14,7 @@ uniform sampler2D earthTexture;
 
 // Used for things like axes, grid lines, etc
 uniform bool      fixedColor;
+uniform bool      noTexColor;
 uniform vec4      theColor;
 uniform vec4      accentColor;
 
@@ -26,7 +27,15 @@ void main()
    }
   else
    {
-    // Earth texture, modified by accentColor
-    FragColor = (1.0f-accent)*texture(earthTexture, texCoord) + accent*accentColor;
+    if(noTexColor)
+     {
+      // We use the tex coordinate and accent as a color vector.
+      FragColor = vec4(texCoord.x, texCoord.y, accent, 1.0);
+     }
+    else
+     {
+      // Earth texture, modified by accentColor
+      FragColor = (1.0f-accent)*texture(earthTexture, texCoord) + accent*accentColor;
+     }
    }
 }
