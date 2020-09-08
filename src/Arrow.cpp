@@ -30,6 +30,9 @@ Arrow::~Arrow(void)
 // This is where the actual octahedron geometry is defined - we render it into a buffer
 // on request
 
+float arrowBody = (1.0f - ARROW_HEAD);
+float angleRadians  = 2.0f*M_PI/ARROW_SIDES;
+
 bool Arrow::bufferGeometry(TriangleBuffer* T)
 {
   VertexBufElement* vertices;
@@ -42,7 +45,6 @@ bool Arrow::bufferGeometry(TriangleBuffer* T)
     return false;
 
   float arrowRadius   = glm_vec3_norm(direction)*ARROW_RADIUS;
-  float angleRadians  = 2.0f*M_PI/ARROW_SIDES;
 
   vec3 f1, f2; // Set up axes perpendicular to direction, which will be called f1 and f2.
   vec3 f0; // starting place, will be z-axis unless dir is parallel when we use x-axis.
@@ -60,9 +62,9 @@ bool Arrow::bufferGeometry(TriangleBuffer* T)
    \       /
     \     /
      -----
-
 */
-  if(direction[0] == direction[1] == 0.0f)
+  
+  if(direction[0] < epsilon && direction[1] < epsilon)
    {
     f0[0] = 1.0f;
     f0[1] = f0[2] = 0.0f;
@@ -74,15 +76,15 @@ bool Arrow::bufferGeometry(TriangleBuffer* T)
    }
   
   glm_vec3_cross(f0, direction, f1);
-  glm_vec3_cross(f1, direction, f2);
+  glm_vec3_cross(direction, f1, f2);
 
   glm_vec3_scale_as(f1, arrowRadius, f1);
   glm_vec3_scale_as(f2, arrowRadius, f2);
 
   // Now that we've done some initial setup, we can compute all the vertices.
 
-  float ang, cosAng, sinAng, x, y, z, arrowBody = (1.0f - ARROW_HEAD);
-  for(int i=0; i<ARROW_SIDES; i++)
+  float ang, cosAng, sinAng, x, y, z;
+  for(unsigned i=0; i<ARROW_SIDES; i++)
    {
     ang = i*angleRadians;
     cosAng = cos(ang);
@@ -111,10 +113,11 @@ bool Arrow::bufferGeometry(TriangleBuffer* T)
   vertices[3*ARROW_SIDES].set(location[0]+direction[0], location[1]+direction[1],
                               location[2]+direction[2]);
   
-  // Done with vertices, now set up the indices.
+  // Done with vertices, now set up the indices.  As usual, we need triangles
+  // to be clockwise looking from outside the arrow, because of OpenGL faceculling.
   
   int iPlus;
-  for(int i=0; i<ARROW_SIDES; i++)
+  for(unsigned i=0; i<ARROW_SIDES; i++)
    {
     iPlus = (i+1)%ARROW_SIDES;
     indices[9*i]    = vOffset + 3*i;            // base of this radius
