@@ -135,12 +135,15 @@ vec3  lighterRedColor  = {0.9f, 0.1f, 0.1f};
 void BezierPatch::addControlGradientsToDisplayList(DisplayList* D)
 {
   Arrow* A;
+  vec3 direction;
   
   for(int i=0; i<4; i++)
     for(int j=0; j<4; j++)
      {
       //currentDelta
-      A = new Arrow(controlPoints[i][j], gradientControlPoints[i][j]);
+      glm_vec3_copy(gradientControlPoints[i][j], direction);
+      glm_vec3_negate(direction);
+      A = new Arrow(controlPoints[i][j], direction);
       A->setNoTexColor(lighterRedColor);
       D->push_back(A);
      }
