@@ -516,7 +516,7 @@ void BezierPatch::revertGradientVector(void)
 //=======================================================================================
 // Make an incremental improvement in the fit of the patch to the known locations.
 
-#define fitTolerance 1e-12
+#define fitTolerance 1e-5
 
 bool BezierPatch::improveFit(std::vector<float*>& locations)
 {
@@ -549,7 +549,8 @@ bool BezierPatch::improveFit(std::vector<float*>& locations)
     revertGradientVector();
     return true;
    }
-  else if( (fitDist - newFitDist)/fitDist < fitTolerance || currentDelta < fitTolerance)
+  else if( (fitDist - newFitDist)/fitDist < fitTolerance || currentDelta < fitTolerance
+           || fitDist < 0.1f)
    {
     // Call it good
     printf("Terminating with improvement of %.12f\n", (fitDist - newFitDist)/fitDist);
