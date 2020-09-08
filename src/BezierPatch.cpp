@@ -471,18 +471,21 @@ void BezierPatch::applyGradientVector(void)
   // k indexes over the N locations (and their mapped u,v estimated points)
   // m indexes over x,y,z directions.
   // n indexes over u,v directions.
-  int i, j, k, m, n, N = fitPointUVVals.size();
 
   // First deal with the control points
-  for(i=0;i<4;i++)
-    for(j=0;j<4;j++)
-      for(m=0;m<3;m++)
+  for(int i=0;i<4;i++)
+    for(int j=0;j<4;j++)
+      for(int m=0;m<3;m++)
         controlPoints[i][j][m] -= currentDelta*gradientControlPoints[i][j][m];
 
   // Now the fit points
+  /*
+  int k, n, N = fitPointUVVals.size();
   for(k=0; k<N; k++)
     for(n=0; n<2; n++)
       fitPointUVVals[k][n] -= currentDelta*gradientFitPointUVVals[k][n];
+*/
+  
 }
 
 
