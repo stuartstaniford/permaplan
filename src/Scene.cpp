@@ -101,7 +101,7 @@ void Scene::newLandHeight(float& z)
   qtree->bufferVisualObjects(tbuf);
   tbuf->sendToGPU(GL_STATIC_DRAW);
   
-  //XXX Need to redo the landsurface here, in light of the new height observation
+  //Redo the landsurface here, in light of the new height observation
   land.newLandHeight(H);
 }
 

@@ -257,8 +257,7 @@ void LandSurface::draw(Camera& camera)
     shader.setUniform("noTexColor", false);
    }
 #endif
-  //if(targetNode)
-  //  highlightNode(targetNode, yellowAccentColor, 0.0f);
+
   if(checkGLError(stderr, "LandSurface::draw"))
     exit(-1);
 }

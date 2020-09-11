@@ -12,6 +12,7 @@
 #include "Camera.h"
 #include "imgui.h"
 #include "ScriptController.h"
+#include "Timeval.h"
 
 //#define SHOW_DEMO_WINDOW
 
@@ -38,9 +39,10 @@ class Window3D
   int             height;
   double          lastMouseX, lastMouseY;
   GLFWwindow*     window;
-  struct timeval  lastTime;
+  Timeval         lastTime;
   bool            show_insert_menu;
   bool            show_focus_overlay;
+  bool            inClick;
 #ifdef SHOW_DEMO_WINDOW
   bool            show_demo_window;
 #endif

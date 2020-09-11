@@ -10,7 +10,13 @@
  "landSurface":
   {
    "textureFile": "812/812IrishGoogleMap_4_21_20.png",
-   "width": 325.0
+   "width": 325.0,
+   "altitudes":
+      [
+       [0.0, 0.0, 1.0],
+       [0.0, 300.0, 20.0],
+       [300.0, 300.0, 30.0]
+     ]
   },
  "contents":
   [

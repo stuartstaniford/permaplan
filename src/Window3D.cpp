@@ -36,7 +36,7 @@ void windowResize(GLFWwindow* window, int width, int height)
 Window3D::Window3D(int pixWidth, int pixHeight): scene(NULL),
                     scriptController(NULL), width(pixWidth),
                     height(pixHeight), lastMouseX(HUGE_VAL), lastMouseY(HUGE_VAL),
-                    show_insert_menu(true), show_focus_overlay(true)
+                    show_insert_menu(true), show_focus_overlay(true), inClick(false)
 #ifdef SHOW_DEMO_WINDOW
                     , show_demo_window(true)
 #endif
@@ -83,7 +83,7 @@ Window3D::Window3D(int pixWidth, int pixHeight): scene(NULL),
   // Setup Dear ImGui style
   ImGui::StyleColorsClassic();
   
-  gettimeofday(&lastTime, NULL);
+  lastTime.now();
 }
 
 
@@ -212,12 +212,17 @@ void Window3D::processMouse(Camera& camera)
   int state = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT);
   if (state == GLFW_PRESS)
    {
+    inClick = true;
     double xDelta = (mouseX - lastMouseX)/width;
     double yDelta = (mouseY - lastMouseY)/height;
   
     if(xDelta < -1.0 || xDelta > 1.0 || yDelta < -1.0 || yDelta > 1.0)
       goto processMouseExit; // weird, don't know what to do.
     camera.mouseDrag((float)xDelta, (float)yDelta);
+   }
+  else if(inClick)
+   {
+    inClick = false;
    }
   
 processMouseExit:
@@ -288,19 +293,10 @@ void Window3D::processInput(Camera& camera)
 
 float Window3D::timeDelta(void)
 {
-  // Find the current time
-  struct timeval now;
-  gettimeofday(&now, NULL);
-  
-  // Compute the difference from the last time
-  double diff;
-  diff = (now.tv_sec - lastTime.tv_sec)*1e6;
-  diff += now.tv_usec;
-  diff -= lastTime.tv_usec;
-
-  // Record the current time for use next time around
-  lastTime.tv_sec = now.tv_sec;
-  lastTime.tv_usec = now.tv_usec;
+  Timeval thisMoment;
+  thisMoment.now();
+  double diff = (thisMoment - lastTime)*1e6;
+  lastTime = thisMoment;
   
   return (float)diff;
 }
