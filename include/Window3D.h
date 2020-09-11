@@ -40,9 +40,11 @@ class Window3D
   double          lastMouseX, lastMouseY;
   GLFWwindow*     window;
   Timeval         lastTime;
+  Timeval         mouseUpTime;
   bool            show_insert_menu;
   bool            show_focus_overlay;
   bool            inClick;
+  bool            testingDoubleClick;
 #ifdef SHOW_DEMO_WINDOW
   bool            show_demo_window;
 #endif
@@ -51,6 +53,7 @@ class Window3D
   // Private methods
   void    processInput(Camera& camera);
   void    processMouse(Camera& camera);
+  void    processDoubleClick(float mouseX, float mouseY);
   float   timeDelta(void);              // returns the number of microseconds since last call
   void    imguiInterface(void);
   void    imguiInsertMenu(void);

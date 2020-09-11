@@ -36,7 +36,8 @@ void windowResize(GLFWwindow* window, int width, int height)
 Window3D::Window3D(int pixWidth, int pixHeight): scene(NULL),
                     scriptController(NULL), width(pixWidth),
                     height(pixHeight), lastMouseX(HUGE_VAL), lastMouseY(HUGE_VAL),
-                    show_insert_menu(true), show_focus_overlay(true), inClick(false)
+                    show_insert_menu(true), show_focus_overlay(true), inClick(false),
+                    testingDoubleClick(false)
 #ifdef SHOW_DEMO_WINDOW
                     , show_demo_window(true)
 #endif
@@ -197,6 +198,14 @@ void Window3D::loop(void)
    }
 }
 
+// =======================================================================================
+// We have detected a mouse double-click in the window - figure out what we should do.
+
+void Window3D::processDoubleClick(float mouseX, float mouseY)
+{
+  printf("Double click at %.2f, %.2f!!\n", mouseX, mouseY);
+}
+
 
 // =======================================================================================
 // Handle mouse input in the window
@@ -213,16 +222,28 @@ void Window3D::processMouse(Camera& camera)
   if (state == GLFW_PRESS)
    {
     inClick = true;
-    double xDelta = (mouseX - lastMouseX)/width;
-    double yDelta = (mouseY - lastMouseY)/height;
-  
-    if(xDelta < -1.0 || xDelta > 1.0 || yDelta < -1.0 || yDelta > 1.0)
-      goto processMouseExit; // weird, don't know what to do.
-    camera.mouseDrag((float)xDelta, (float)yDelta);
+    if(testingDoubleClick)
+     {
+      testingDoubleClick = false;
+      Timeval justNow;
+      justNow.now();
+      if(justNow - mouseUpTime < 0.25)
+        processDoubleClick((float)mouseX, (float)mouseY);
+     }
+    else
+     {
+      double xDelta = (mouseX - lastMouseX)/width;
+      double yDelta = (mouseY - lastMouseY)/height;
+      if(xDelta < -1.0 || xDelta > 1.0 || yDelta < -1.0 || yDelta > 1.0)
+        goto processMouseExit; // weird, don't know what to do.
+      camera.mouseDrag((float)xDelta, (float)yDelta);
+     }
    }
   else if(inClick)
    {
-    inClick = false;
+    inClick            = false;
+    testingDoubleClick = true;
+    mouseUpTime.now();
    }
   
 processMouseExit:
