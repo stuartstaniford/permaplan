@@ -182,10 +182,11 @@ void LandSurface::newLandHeight(HeightMarker* hM)
     return;
    }
 
-  if(locationCount <= 10)
+  if(locationCount <= 30)
    {
-    // Fit a low order polynomial
-
+    // Iterate on our quadtree root Bezier patch
+    inFitMode = true;
+    return;
    }
   else
    {

@@ -310,7 +310,7 @@ void BezierPatch::randomFit(std::vector<float*>& locations)
 void BezierPatch::setUpUVVals(std::vector<float*>& locations)
 {
   int k, N = locations.size();
-  for(k=0; k<N; k++)
+  for(k=fitPointUVVals.size(); k<N; k++)
    {
     float* uv = new vec2;
     uv[0] = (locations[k][0] - xyPos[0])/extent[0];
@@ -520,7 +520,7 @@ void BezierPatch::revertGradientVector(void)
 
 bool BezierPatch::improveFit(std::vector<float*>& locations)
 {
-  unless(fitPointUVVals.size())
+  unless(fitPointUVVals.size() == locations.size())
     setUpUVVals(locations);
   
   float fitDist = estimateFit(locations);
