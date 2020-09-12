@@ -20,7 +20,7 @@ Timeval::~Timeval(void)
 
 
 // =======================================================================================
-// Puts all the visualobject contents in a buffer
+// Wrapper for finding the current time.
 
 void Timeval::now(void)
 {
@@ -39,5 +39,6 @@ double Timeval::operator-(const Timeval& t)
   diff -= t.tv_usec/1e6;
   return diff;
 }
+
 
 // =======================================================================================

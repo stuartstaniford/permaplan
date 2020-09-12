@@ -36,7 +36,7 @@ void windowResize(GLFWwindow* window, int width, int height)
 Window3D::Window3D(int pixWidth, int pixHeight): scene(NULL),
                     scriptController(NULL), width(pixWidth),
                     height(pixHeight), lastMouseX(HUGE_VAL), lastMouseY(HUGE_VAL),
-                    show_insert_menu(true), show_focus_overlay(true), inClick(false),
+                    show_insert_menu(false), show_focus_overlay(true), inClick(false),
                     testingDoubleClick(false)
 #ifdef SHOW_DEMO_WINDOW
                     , show_demo_window(true)
@@ -111,6 +111,7 @@ void Window3D::imguiInsertMenu(void)
     
     heightBuf[0] = '\0';
     scene->newLandHeight(z);
+    show_insert_menu = false;
    }
   ImGui::End();
 }
@@ -203,6 +204,7 @@ void Window3D::loop(void)
 
 void Window3D::processDoubleClick(float mouseX, float mouseY)
 {
+  show_insert_menu = true;
   printf("Double click at %.2f, %.2f!!\n", mouseX, mouseY);
 }
 
