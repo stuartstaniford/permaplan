@@ -44,7 +44,6 @@ void Scene::setModelMatrix(float latt, float longt)
   static vec3 zAxis = {0.0f, 0.0f, 1.0f};
   static vec3 yAxis = {0.0f, 1.0f, 0.0f};
   
-  mat4 model;
   glm_mat4_identity(model);
   glm_rotate(model, latt/180.0f*M_PI, yAxis);
   glm_rotate(model, longt/180.0f*M_PI, zAxis);
@@ -117,12 +116,11 @@ void Scene::draw(void)
   shader.useProgram();
   setModelMatrix(0.0f, 0.0f);
 
-
   // Display the colored axes if configured
   if(config.plotAxes)
    {
     if(!axes)
-      axes = new ColoredAxes(shader, 1000.0f);  // number needs to come from somewhere
+      axes = new ColoredAxes(shader, 1000.0f);  //XX number needs to come from somewhere
     axes->draw();
    }
 

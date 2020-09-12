@@ -32,6 +32,7 @@ class Scene
   Quadtree*       qtree;
   TriangleBuffer* tbuf;
   LandSurface     land;
+  mat4            model;
 
   // Member functions - public
   Scene(Shader& S, PmodDesign& des, PmodConfig& C);

@@ -210,6 +210,21 @@ void Camera::updateViewMatrix(void)
 
 
 // =======================================================================================
+// Given the model matrix (from the scene) this will provide an inverse transformation
+// from normal device co-ordinates to the model co-ordinates.  Useful in translating
+// on screen coordinates to points in the model.  Providing inverse of
+// projection*view*model (which is generally done in the vertex shader).
+
+void Camera::invertView(mat4& model, mat4& invertMatrix)
+{
+  mat4 product;
+  glm_mat4_mul(projection, view, product);
+  glm_mat4_mul(product, model, product);
+  glm_mat4_inv(product, invertMatrix);
+}
+
+
+// =======================================================================================
 // Provide a diagnostic page about this camera
 
 bool Camera::diagnosticHTML(HttpDebug* serv)

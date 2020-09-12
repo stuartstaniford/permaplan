@@ -16,9 +16,9 @@
 
 
 // =======================================================================================
-// Class variable initialization
+// For overall openGL initialization
 
-bool Window3D::GLFWInitDone = false;
+bool GLFWInitDone = false;
 
 
 // =======================================================================================
@@ -114,6 +114,23 @@ void Window3D::imguiInsertMenu(void)
     show_insert_menu = false;
    }
   ImGui::End();
+}
+
+
+// =======================================================================================
+// Find the object at a given screen location (eg the mouse position)
+
+VisualObject* Window3D::findObjectFromWindowCoords(vec3 location, float screenX, float screenY)
+{
+  /*
+  vec3 pos, dir;
+  float lambda;
+  camera.copyDirection(pos, dir);
+  Quadtree* targetNode = qtree->matchRay(pos, dir, lambda);
+  glm_vec3_scale(dir, lambda, dir);
+  glm_vec3_add(pos, dir, location);
+*/
+  return NULL;
 }
 
 

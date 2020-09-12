@@ -32,7 +32,6 @@ class Window3D
  private:
   
   // Class variables - private
-  static bool  GLFWInitDone;
   
   // Instance variables - private
   int             width;
@@ -51,14 +50,14 @@ class Window3D
   char            heightBuf[16];
   
   // Private methods
-  void    processInput(Camera& camera);
-  void    processMouse(Camera& camera);
-  void    processDoubleClick(float mouseX, float mouseY);
-  float   timeDelta(void);              // returns the number of microseconds since last call
-  void    imguiInterface(void);
-  void    imguiInsertMenu(void);
-  void    imguiFocusOverlay(void);
-
+  void          processInput(Camera& camera);
+  void          processMouse(Camera& camera);
+  void          processDoubleClick(float mouseX, float mouseY);
+  float         timeDelta(void);           // number of microseconds since last call
+  void          imguiInterface(void);
+  void          imguiInsertMenu(void);
+  void          imguiFocusOverlay(void);
+  VisualObject* findObjectFromWindowCoords(vec3 location, float screenX, float screenY);
 };
 
 #endif

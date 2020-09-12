@@ -42,8 +42,9 @@ class Camera
   void  adjust(unsigned opFlags, float timeLapseUsec);
   void  mouseDrag(float xDelta, float yDelta);
   void  copyDirection(vec3& position, vec3& direction);
+  void  invertView(mat4& model, mat4& invertMatrix);
   bool  diagnosticHTML(HttpDebug* serv);
-  
+
  private:
   
   // Instance variables - private
