@@ -9,6 +9,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <unistd.h>
+#include <cglm/cglm.h>
 #include "Window3D.h"
 #include "PmodException.h"
 #include "imgui_impl_opengl3.h"
@@ -122,14 +123,27 @@ void Window3D::imguiInsertMenu(void)
 
 VisualObject* Window3D::findObjectFromWindowCoords(vec3 location, float screenX, float screenY)
 {
-  /*
   vec3 pos, dir;
+  
+  pos[0] = screenX/width*2.0f-1.0f;  // transform to [-1,1]
+  pos[1] = screenY/width*2.0f-1.0f;  // transform to [-1,1]
+  pos[2] = 1.0f; // OpenGL is right-handed, +ve z axis points out of screen.
+  dir[0] = 0.0f;
+  dir[1] = 0.0f;
+  dir[2] = -1.0f; // vector pointing into screen.
+  
+  // Now convert pos and dir to model space
+  mat4 invert;
+  scene->camera.invertView(scene->model, invert);
+  glm_mat4_mulv3(invert, pos, 1.0f, pos);
+  glm_mat4_mulv3(invert, dir, 1.0f, dir);
+  
+  // Now find what we point to
   float lambda;
-  camera.copyDirection(pos, dir);
-  Quadtree* targetNode = qtree->matchRay(pos, dir, lambda);
+  /*Quadtree* targetNode = */scene->qtree->matchRay(pos, dir, lambda);
   glm_vec3_scale(dir, lambda, dir);
   glm_vec3_add(pos, dir, location);
-*/
+
   return NULL;
 }
 
@@ -160,10 +174,11 @@ void Window3D::imguiFocusOverlay(void)
     window_flags |= ImGuiWindowFlags_NoMove;
   if (ImGui::Begin("Focus Overlay", &show_focus_overlay, window_flags))
    {
-    vec3 camF;
-    scene->findCameraObject(camF);
+    vec3 mouseSceneLoc;
+    //scene->findCameraObject(camF);
+    findObjectFromWindowCoords(mouseSceneLoc, lastMouseX, lastMouseY);
     ImGui::Text("Object Type\nCoords: %.1f' east, %.1f' north\nAltitude: %.1f'\n",
-                  camF[0], camF[1], camF[2]);
+                  mouseSceneLoc[0], mouseSceneLoc[1], mouseSceneLoc[2]);
     ImGui::Text("Camera Height: %.1f'\n", scene->findCameraHeight());
     ImGui::Separator();
    }
