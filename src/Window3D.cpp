@@ -34,13 +34,19 @@ void windowResize(GLFWwindow* window, int width, int height)
 // =======================================================================================
 // Constructor for a Window3D
 
-Window3D::Window3D(int pixWidth, int pixHeight): scene(NULL),
-                    scriptController(NULL), width(pixWidth),
-                    height(pixHeight), lastMouseX(HUGE_VAL), lastMouseY(HUGE_VAL),
-                    show_insert_menu(false), show_focus_overlay(true), inClick(false),
-                    testingDoubleClick(false)
+Window3D::Window3D(int pixWidth, int pixHeight):
+                        scene(NULL),
+                        scriptController(NULL),
+                        width(pixWidth),
+                        height(pixHeight),
+                        lastMouseX(HUGE_VAL),
+                        lastMouseY(HUGE_VAL),
+                        show_insert_menu(false),
+                        show_focus_overlay(true),
+                        inClick(false),
+                        testingDoubleClick(false)
 #ifdef SHOW_DEMO_WINDOW
-                    , show_demo_window(true)
+                        , show_demo_window(true)
 #endif
 {
   if(!GLFWInitDone)
@@ -123,26 +129,34 @@ void Window3D::imguiInsertMenu(void)
 
 VisualObject* Window3D::findObjectFromWindowCoords(vec3 location, float screenX, float screenY)
 {
-  vec3 pos, dir;
+  vec4 pos, dir;
   
   pos[0] = screenX/width*2.0f-1.0f;  // transform to [-1,1]
-  pos[1] = screenY/width*2.0f-1.0f;  // transform to [-1,1]
+  pos[1] = 1.0f - screenY/width*2.0f;  // transform to [-1,1]
   pos[2] = 1.0f; // OpenGL is right-handed, +ve z axis points out of screen.
+  pos[3] = 1.0f;
   dir[0] = 0.0f;
   dir[1] = 0.0f;
   dir[2] = -1.0f; // vector pointing into screen.
+  dir[3] = 1.0f;
   
   // Now convert pos and dir to model space
   mat4 invert;
   scene->camera.invertView(scene->model, invert);
-  glm_mat4_mulv3(invert, pos, 1.0f, pos);
-  glm_mat4_mulv3(invert, dir, 1.0f, dir);
+  glm_mat4_mulv(invert, pos, pos);
+  glm_mat4_mulv(invert, dir, dir);
+  glm_vec4_scale(pos, 1.0f/pos[3], pos);
+  glm_vec4_scale(dir, 1.0f/dir[3], dir);
+  
+  vec3 pos3, dir3;
+  glm_vec3(pos, pos3);
+  glm_vec3(dir, dir3);
   
   // Now find what we point to
   float lambda;
-  /*Quadtree* targetNode = */scene->qtree->matchRay(pos, dir, lambda);
-  glm_vec3_scale(dir, lambda, dir);
-  glm_vec3_add(pos, dir, location);
+  scene->qtree->matchRay(pos3, dir3, lambda);
+  glm_vec3_scale(dir3, lambda, dir3);
+  glm_vec3_add(pos3, dir3, location);
 
   return NULL;
 }
@@ -180,6 +194,12 @@ void Window3D::imguiFocusOverlay(void)
     ImGui::Text("Object Type\nCoords: %.1f' east, %.1f' north\nAltitude: %.1f'\n",
                   mouseSceneLoc[0], mouseSceneLoc[1], mouseSceneLoc[2]);
     ImGui::Text("Camera Height: %.1f'\n", scene->findCameraHeight());
+    
+    // Various debugging options
+    // Shows location of mouse in window co-ordinates
+    ImGui::Text("Raw mouse: %.1f, %.1f'\n", lastMouseX, lastMouseY);
+    
+    
     ImGui::Separator();
    }
   ImGui::End();

@@ -12,10 +12,11 @@
 // =======================================================================================
 // Function to create and open a new vertex buffer object
 
-VertexBufferCombo::VertexBufferCombo(unsigned count, VertexBufElement* data):
-VertexArrayObject(1), VertexBufferObject(count, data, GL_STATIC_DRAW)
+VertexBufferCombo::VertexBufferCombo(unsigned count, VertexBufElement* data, GLenum usage):
+                                          VertexArrayObject(1),
+                                          VertexBufferObject(count, data, usage)
 {
-
+  
 }
 
 

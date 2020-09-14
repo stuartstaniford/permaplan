@@ -15,9 +15,15 @@ using namespace rapidjson;
 // =======================================================================================
 // Constructor which sets up the surface as specified in the design file
 
-ScriptController::ScriptController(PmodDesign& D): design(D), timeSec(-1.0), timeLimit(0.0),
-                                index(0u), camActionMap(), interfaceActionMap(),
-                                currentCamAction(0u), currentInterfaceAction(IA_None)
+ScriptController::ScriptController(PmodDesign& D):
+                                      design(D),
+                                      timeSec(-1.0),
+                                      timeLimit(0.0),
+                                      index(0u),
+                                      camActionMap(),
+                                      interfaceActionMap(),
+                                      currentCamAction(0u),
+                                      currentInterfaceAction(IA_None)
 {
   setupMaps();
   

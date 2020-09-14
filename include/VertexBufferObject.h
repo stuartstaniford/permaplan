@@ -28,6 +28,16 @@ class VertexBufElement
   float accent;
   
   // public methods
+  inline void set(float x, float y, float z, float s, float t, float a)
+  {
+   pos[0] = x;
+   pos[1] = y;
+   pos[2] = z;
+   tex[0] = s;
+   tex[1] = t;
+   accent = a;
+  }
+
   inline void set(float x, float y, float z, float s, float t)
    {
     pos[0] = x;
@@ -38,6 +48,16 @@ class VertexBufElement
     accent = 0.0f;
    }
 
+  inline void set(vec3 v, vec3 c)
+   {
+    pos[0] = v[0];
+    pos[1] = v[1];
+    pos[2] = v[2];
+    tex[0] = c[0];
+    tex[1] = c[1];
+    accent = c[2];
+   }
+  
   inline void set(float x, float y, float z)
   {
    pos[0] = x;

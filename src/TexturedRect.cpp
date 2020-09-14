@@ -15,8 +15,13 @@
 // =======================================================================================
 // Set up two triangles with co-ords and texture coords
 
-TexturedRect::TexturedRect(Shader& S, const char* textureFileName, float widthIn, float heightIn):
-        shader(S), width(widthIn), height(heightIn), texture(textureFileName), axesVAOs(1)
+TexturedRect::TexturedRect(Shader& S, const char* textureFileName, float widthIn,
+                           float heightIn):
+                                shader(S),
+                                width(widthIn),
+                                height(heightIn),
+                                texture(textureFileName),
+                                axesVAOs(1)
 {
   VertexBufElement buf[6];
 

@@ -14,7 +14,11 @@
 // Constructor allocates the buffers for both vertices and indices into the vertex array
 
 TriangleBuffer::TriangleBuffer(unsigned vertexCount, unsigned indexCount):
-                vCount(vertexCount), iCount(indexCount), vNext(0u), iNext(0u), combo(NULL)
+                                  vCount(vertexCount),
+                                  iCount(indexCount),
+                                  vNext(0u),
+                                  iNext(0u),
+                                  combo(NULL)
 {
   //fprintf(stderr, "Triangle buffer of size %d,%d allocated\n", vCount, iCount);
   vertices = new VertexBufElement[vCount];

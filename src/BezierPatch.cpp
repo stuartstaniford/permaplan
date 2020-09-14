@@ -13,8 +13,9 @@
 
 BezierPatch::BezierPatch(float x, float y, float width, float height,
                         float s, float t, float sWidth, float tHeight, unsigned gridPoints):
-            LandSurfaceRegion(x, y, width, height, s, t, sWidth, tHeight), gridN(gridPoints),
-            currentDelta(1.0f)
+                            LandSurfaceRegion(x, y, width, height, s, t, sWidth, tHeight),
+                            gridN(gridPoints),
+                            currentDelta(1.0f)
 #ifdef BEZIER_DUMP_DETAIL
 , fitIterationCount(0)
 #endif

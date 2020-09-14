@@ -27,8 +27,11 @@ vec4 gridColor = { 0.6f, 0.5f, 0.0f, 0.5f};  // transparent yellowy orange
 // =======================================================================================
 // Create the GPU buffers containing the grid lines to display in color later
 
-Grid::Grid(Shader& S, LandSurface& L, float gridSpacing): shader(S), spacing(gridSpacing),
-            land(L), axesVAOs(1)
+Grid::Grid(Shader& S, LandSurface& L, float gridSpacing):
+                      shader(S),
+                      spacing(gridSpacing),
+                      land(L),
+                      axesVAOs(1)
 {
   VertexBufElement* buf;
   

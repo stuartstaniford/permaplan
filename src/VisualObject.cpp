@@ -9,7 +9,9 @@
 // =======================================================================================
 // Constructors
 
-VisualObject::VisualObject(BoundingBox* B): box(B), useNoTexColor(false)
+VisualObject::VisualObject(BoundingBox* B):
+                                box(B),
+                                useNoTexColor(false)
 {
 }
 

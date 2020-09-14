@@ -12,8 +12,10 @@
 // =======================================================================================
 // Create three small GPU buffers containing the three axes to display in color later
 
-ColoredAxes::ColoredAxes(Shader& S, float axesLen): shader(S), axesVAOs(3),
-                                                                      axesLength(axesLen)
+ColoredAxes::ColoredAxes(Shader& S, float axesLen):
+                            shader(S),
+                            axesVAOs(3),
+                            axesLength(axesLen)
 {
   VertexBufElement buf[2];
   

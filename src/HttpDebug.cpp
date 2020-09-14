@@ -22,8 +22,11 @@
 // =======================================================================================
 // Create the socket and bind to the port in the constructor
 
-HttpDebug::HttpDebug(unsigned short servPort, Scene& S): scene(S), reqBufSize(8192),
-                  respBufSize(16384), port(servPort)
+HttpDebug::HttpDebug(unsigned short servPort, Scene& S):
+                        scene(S),
+                        reqBufSize(8192),
+                        respBufSize(16384),
+                        port(servPort)
 {
   reqBuf  = new char[reqBufSize];
   respBuf = new char[respBufSize];

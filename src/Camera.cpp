@@ -217,10 +217,10 @@ void Camera::updateViewMatrix(void)
 
 void Camera::invertView(mat4& model, mat4& invertMatrix)
 {
-  mat4 product;
+  mat4 product, product2;
   glm_mat4_mul(projection, view, product);
-  glm_mat4_mul(product, model, product);
-  glm_mat4_inv(product, invertMatrix);
+  glm_mat4_mul(product, model, product2);
+  glm_mat4_inv(product2, invertMatrix);
 }
 
 

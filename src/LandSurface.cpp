@@ -16,10 +16,17 @@
 // =======================================================================================
 // Constructor which sets up the surface as specified in the design file
 
-LandSurface::LandSurface(Shader& S, PmodDesign& D): rect(NULL), qtree(NULL), shader(S),
-              design(D), tbuf(NULL), locationCount(0u), heightLocations(), inFitMode(false)
+LandSurface::LandSurface(Shader& S, PmodDesign& D):
+                            rect(NULL),
+                            qtree(NULL),
+                            shader(S),
+                            design(D),
+                            tbuf(NULL),
+                            locationCount(0u),
+                            heightLocations(),
+                            inFitMode(false)
 #ifdef VISUALIZE_FITTING
-, fitTBuf(NULL)
+                            , fitTBuf(NULL)
 #endif
 {
   using namespace rapidjson;
