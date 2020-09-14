@@ -5,33 +5,24 @@
 #ifndef COLOREDAXES_H
 #define COLOREDAXES_H
 
-#include "Shader.h"
-#include "VertexArrayObject.h"
-#include "VertexBufferObject.h"
-#include <cglm/cglm.h>
+#include "LineStripList.h"
 
 // =======================================================================================
 // Class variable initialization
 
 
-class ColoredAxes
+class ColoredAxes: public LineStripList
 {
  public:
   
-  // Instance variables - public
-  Shader&   shader;
   
   // Member functions - public
   ColoredAxes(Shader& S, float axesLen);
   ~ColoredAxes(void);
-  void draw(void);
 
  private:
   
   // Instance variables - private
-  VertexArrayObject     axesVAOs;
-  float                 axesLength;
-  VertexBufferObject*   VBO[3];
   
   // Member functions - private
   

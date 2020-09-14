@@ -49,7 +49,7 @@ void LineStripList::addLine(vec3 pos, vec3 dir, vec3 color)
 // Sets up the appropriate VBO, VAO, and dispatches the data.  Only call when the buffer
 // is new, or has changed.
 
-void LineStripList::sendToGPU(GLenum usage)
+void LineStripList::sendToGPU(void)
 {
   if(combo)
     delete combo;

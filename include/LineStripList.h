@@ -26,7 +26,7 @@ class LineStripList: public std::vector<VertexBufElement>
   LineStripList(Shader& S, GLenum usage);
   ~LineStripList();
   void addLine(vec3 pos, vec3 dir, vec4 color);
-  void sendToGPU(GLenum usage);
+  void sendToGPU(void);
   void draw(void);
   bool diagnosticHTML(HttpDebug* serv);
 
