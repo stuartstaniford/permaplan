@@ -55,6 +55,7 @@ void LineStripList::sendToGPU(void)
     delete combo;
   combo = new VertexBufferCombo(this->size(), this->data(), usageGL);
   this->resize(0);
+  this->shrink_to_fit();
 }
 
 
