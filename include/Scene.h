@@ -35,11 +35,11 @@ class Scene
   mat4            model;
   vec3            lastMouseLocation;
   vec3            lastMouseDirection;
-
+  
   // Member functions - public
   Scene(Shader& S, PmodDesign& des, PmodConfig& C);
   ~Scene(void);
-  void          draw(void);
+  void          draw(bool mouseMoved);
   void          findCameraObject(vec3 location);
   float         findCameraHeight(void);
   void          newLandHeight(float& z);
@@ -50,6 +50,7 @@ class Scene
   ColoredAxes*      axes;
   Grid*             grid;
   PmodConfig&       config;
+  LineStripList*    sceneIndicators;
 
   // Member functions - private
   void setModelMatrix(float latt, float longt);

@@ -20,7 +20,8 @@ Scene::Scene(Shader& S, PmodDesign& des, PmodConfig& conf):
                 land(shader, design),
                 axes(NULL),
                 grid(NULL),
-                config(conf)
+                config(conf),
+                sceneIndicators(NULL)
 {
   unsigned minSize = 10;
   // Note that land and qtree have mutual dependencies that means there
@@ -112,22 +113,17 @@ VisualObject* Scene::findObjectFromWindowCoords(vec3 location, float clipX, floa
   glm_vec4_scale(pos, 1.0f/pos[3], pos);
   glm_vec4_scale(dir, 1.0f/dir[3], dir);
   
-  vec3 pos3, dir3;
-  glm_vec3(pos, pos3);
-  glm_vec3(dir, dir3);
+  glm_vec3(pos, lastMouseLocation);
+  glm_vec3(dir, lastMouseDirection);
   
   // Now find what we point to
   float lambda;
-  qtree->matchRay(pos3, dir3, lambda);
-  glm_vec3_scale(dir3, lambda, dir3);
-  glm_vec3_add(pos3, dir3, location);
+  qtree->matchRay(lastMouseLocation, lastMouseDirection, lambda);
+  glm_vec3_scale(lastMouseDirection, lambda, lastMouseDirection);
+  glm_vec3_add(lastMouseLocation, lastMouseDirection, location);
   
-  glm_vec3_copy(pos3, lastMouseLocation);
-  glm_vec3_copy(dir3, lastMouseDirection);
-
   return NULL;
 }
-
 
 
 // =======================================================================================
@@ -156,10 +152,12 @@ void Scene::newLandHeight(float& z)
 // =======================================================================================
 // Draw the current state of the scene (called from the main Window3D event loop)
 
-vec4  objColor  = {0.0f, 0.5f, 0.9f, 1.0f};
+bool  showMouseRay  = true;
+vec4  objColor      = {0.0f, 0.5f, 0.9f, 1.0f};
+vec4  rayColor      = {0.0f, 0.5f, 0.5, 1.0f};
 
 int count = 1;
-void Scene::draw(void)
+void Scene::draw(bool mouseMoved)
 {
   shader.useProgram();
   setModelMatrix(0.0f, 0.0f);
@@ -180,6 +178,19 @@ void Scene::draw(void)
     grid->draw();
    }
 
+  if(showMouseRay)
+   {
+    if(mouseMoved)
+     {
+      if(sceneIndicators)
+        delete sceneIndicators;
+      sceneIndicators = new LineStripList(shader);
+      sceneIndicators->addLine(lastMouseLocation, lastMouseDirection, rayColor);
+      sceneIndicators->sendToGPU(); // XX we should really just reuse the existing buffer
+     }
+    sceneIndicators->draw();
+   }
+  
   // Display the main textured land surface
   land.draw(camera);
   
