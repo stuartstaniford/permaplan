@@ -33,14 +33,17 @@ class Scene
   TriangleBuffer* tbuf;
   LandSurface     land;
   mat4            model;
+  vec3            lastMouseLocation;
+  vec3            lastMouseDirection;
 
   // Member functions - public
   Scene(Shader& S, PmodDesign& des, PmodConfig& C);
   ~Scene(void);
-  void  draw(void);
-  void  findCameraObject(vec3 location);
-  float findCameraHeight(void);
-  void  newLandHeight(float& z);
+  void          draw(void);
+  void          findCameraObject(vec3 location);
+  float         findCameraHeight(void);
+  void          newLandHeight(float& z);
+  VisualObject* findObjectFromWindowCoords(vec3 location, float clipX, float clipY);
 
  private:
   // Instance variables - private

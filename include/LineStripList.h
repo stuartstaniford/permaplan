@@ -23,7 +23,7 @@ class LineStripList: public std::vector<VertexBufElement>
   // Instance variables - public
 
   // Member functions - public
-  LineStripList(Shader& S, GLenum usage);
+  LineStripList(Shader& S, GLenum usage = GL_STATIC_DRAW);
   ~LineStripList();
   void addLine(vec3 pos, vec3 dir, vec4 color);
   void sendToGPU(void);

@@ -44,7 +44,8 @@ Window3D::Window3D(int pixWidth, int pixHeight):
                         show_insert_menu(false),
                         show_focus_overlay(true),
                         inClick(false),
-                        testingDoubleClick(false)
+                        testingDoubleClick(false),
+                        mouseMoved(true)
 #ifdef SHOW_DEMO_WINDOW
                         , show_demo_window(true)
 #endif
@@ -125,44 +126,6 @@ void Window3D::imguiInsertMenu(void)
 
 
 // =======================================================================================
-// Find the object at a given screen location (eg the mouse position)
-
-VisualObject* Window3D::findObjectFromWindowCoords(vec3 location, float screenX, float screenY)
-{
-  vec4 pos, dir;
-  
-  pos[0] = screenX/width*2.0f-1.0f;  // transform to [-1,1]
-  pos[1] = 1.0f - screenY/width*2.0f;  // transform to [-1,1]
-  pos[2] = 1.0f; // OpenGL is right-handed, +ve z axis points out of screen.
-  pos[3] = 1.0f;
-  dir[0] = 0.0f;
-  dir[1] = 0.0f;
-  dir[2] = -1.0f; // vector pointing into screen.
-  dir[3] = 1.0f;
-  
-  // Now convert pos and dir to model space
-  mat4 invert;
-  scene->camera.invertView(scene->model, invert);
-  glm_mat4_mulv(invert, pos, pos);
-  glm_mat4_mulv(invert, dir, dir);
-  glm_vec4_scale(pos, 1.0f/pos[3], pos);
-  glm_vec4_scale(dir, 1.0f/dir[3], dir);
-  
-  vec3 pos3, dir3;
-  glm_vec3(pos, pos3);
-  glm_vec3(dir, dir3);
-  
-  // Now find what we point to
-  float lambda;
-  scene->qtree->matchRay(pos3, dir3, lambda);
-  glm_vec3_scale(dir3, lambda, dir3);
-  glm_vec3_add(pos3, dir3, location);
-
-  return NULL;
-}
-
-
-// =======================================================================================
 // Transparent overlay that displays information about the thing currently in focus
 
 void Window3D::imguiFocusOverlay(void)
@@ -190,7 +153,8 @@ void Window3D::imguiFocusOverlay(void)
    {
     vec3 mouseSceneLoc;
     //scene->findCameraObject(camF);
-    findObjectFromWindowCoords(mouseSceneLoc, lastMouseX, lastMouseY);
+    scene->findObjectFromWindowCoords(mouseSceneLoc,
+                    lastMouseX/width*2.0f-1.0f, 1.0f - lastMouseY/width*2.0f);
     ImGui::Text("Object Type\nCoords: %.1f' east, %.1f' north\nAltitude: %.1f'\n",
                   mouseSceneLoc[0], mouseSceneLoc[1], mouseSceneLoc[2]);
     ImGui::Text("Camera Height: %.1f'\n", scene->findCameraHeight());
@@ -271,7 +235,12 @@ void Window3D::processMouse(Camera& camera)
   
   double mouseX, mouseY;
   glfwGetCursorPos(window, &mouseX, &mouseY);
-  
+
+  if( (abs(mouseX - lastMouseX) < epsilon) && (abs(mouseY - lastMouseY) < epsilon))
+    mouseMoved = false;
+  else
+    mouseMoved = true;
+
   int state = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT);
   if (state == GLFW_PRESS)
    {
@@ -284,7 +253,7 @@ void Window3D::processMouse(Camera& camera)
       if(justNow - mouseUpTime < 0.25)
         processDoubleClick((float)mouseX, (float)mouseY);
      }
-    else
+    else if(mouseMoved)
      {
       double xDelta = (mouseX - lastMouseX)/width;
       double yDelta = (mouseY - lastMouseY)/height;

@@ -13,7 +13,7 @@
 // Create the three axes to display in color later
 
 ColoredAxes::ColoredAxes(Shader& S, float axesLen):
-                            LineStripList(S, GL_STATIC_DRAW)
+                                        LineStripList(S)
 {
   vec3 theColor = {0.0f, 0.0f, 0.0f};
   vec3 pos      = {0.0f, 0.0f, 0.0f};

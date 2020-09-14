@@ -89,6 +89,48 @@ float Scene::findCameraHeight(void)
 
 
 // =======================================================================================
+// Find the object at a given screen location (eg the mouse position)
+
+VisualObject* Scene::findObjectFromWindowCoords(vec3 location, float clipX, float clipY)
+{
+  vec4 pos, dir;
+  
+  pos[0] = clipX;  // should be in [-1,1]
+  pos[1] = clipY;  // should be in [-1,1] with positive y towards top of window
+  pos[2] = 1.0f; // OpenGL is right-handed, +ve z axis points out of screen.
+  pos[3] = 1.0f;
+  dir[0] = 0.0f;
+  dir[1] = 0.0f;
+  dir[2] = -1.0f; // vector pointing into screen.
+  dir[3] = 1.0f;
+  
+  // Now convert pos and dir to model space
+  mat4 invert;
+  camera.invertView(model, invert);
+  glm_mat4_mulv(invert, pos, pos);
+  glm_mat4_mulv(invert, dir, dir);
+  glm_vec4_scale(pos, 1.0f/pos[3], pos);
+  glm_vec4_scale(dir, 1.0f/dir[3], dir);
+  
+  vec3 pos3, dir3;
+  glm_vec3(pos, pos3);
+  glm_vec3(dir, dir3);
+  
+  // Now find what we point to
+  float lambda;
+  qtree->matchRay(pos3, dir3, lambda);
+  glm_vec3_scale(dir3, lambda, dir3);
+  glm_vec3_add(pos3, dir3, location);
+  
+  glm_vec3_copy(pos3, lastMouseLocation);
+  glm_vec3_copy(dir3, lastMouseDirection);
+
+  return NULL;
+}
+
+
+
+// =======================================================================================
 // The interface has been notified of a new height measurement at the camera focus.
 
 void Scene::newLandHeight(float& z)

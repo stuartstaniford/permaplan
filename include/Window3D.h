@@ -44,6 +44,7 @@ class Window3D
   bool            show_focus_overlay;
   bool            inClick;
   bool            testingDoubleClick;
+  bool            mouseMoved;
 #ifdef SHOW_DEMO_WINDOW
   bool            show_demo_window;
 #endif
@@ -57,7 +58,6 @@ class Window3D
   void          imguiInterface(void);
   void          imguiInsertMenu(void);
   void          imguiFocusOverlay(void);
-  VisualObject* findObjectFromWindowCoords(vec3 location, float screenX, float screenY);
 };
 
 #endif
