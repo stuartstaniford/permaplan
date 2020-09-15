@@ -165,15 +165,17 @@ void Window3D::imguiFocusOverlay(void)
     vec3 mouseSceneLoc;
     //scene->findCameraObject(camF);
     scene->findObjectFromWindowCoords(mouseSceneLoc,
-                    lastMouseX/width*2.0f-1.0f, 1.0f - lastMouseY/width*2.0f);
+                    lastMouseX/width*2.0f-1.0f, 1.0f - lastMouseY/height*2.0f);
     ImGui::Text("Object Type\nCoords: %.1f' east, %.1f' north\nAltitude: %.1f'\n",
                   mouseSceneLoc[0], mouseSceneLoc[1], mouseSceneLoc[2]);
     ImGui::Text("Camera Height: %.1f'\n", scene->findCameraHeight());
     
     // Various debugging options
     // Shows location of mouse in window co-ordinates
-    ImGui::Text("Raw mouse: %.1f/%d, %.1f/%d'\n", lastMouseX, width, lastMouseY, height);
-    
+    ImGui::Text("Raw mouse: %.1f/%d, %.1f/%d\n", lastMouseX, width, lastMouseY, height);
+    ImGui::Text("Clip mouse: %.3f [-1,1], %.3f [-1,1]\n",
+                    lastMouseX/width*2.0f-1.0f, 1.0f - lastMouseY/height*2.0f);
+
     //Mouse Ray
     ImGui::Text("Mouse in world space: %.3f, %.3f, %.3f'\n", scene->lastMouseLocation[0],
                 scene->lastMouseLocation[1], scene->lastMouseLocation[2]);
@@ -183,6 +185,15 @@ void Window3D::imguiFocusOverlay(void)
     // Projection matrix
     displayImguiMatrix("Projection Matrix:", scene->camera.projection);
     
+    // View matrix
+    displayImguiMatrix("View Matrix:", scene->camera.view);
+
+    // Model matrix
+    displayImguiMatrix("Model Matrix:", scene->model);
+
+    // Invert matrix
+    displayImguiMatrix("Invert Matrix:", scene->invert);
+
     ImGui::Separator();
    }
   ImGui::End();

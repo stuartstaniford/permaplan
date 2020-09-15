@@ -35,7 +35,8 @@ class Scene
   mat4            model;
   vec3            lastMouseLocation;
   vec3            lastMouseDirection;
-  
+  mat4            invert;
+
   // Member functions - public
   Scene(Shader& S, PmodDesign& des, PmodConfig& C);
   ~Scene(void);

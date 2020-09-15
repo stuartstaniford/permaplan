@@ -60,8 +60,8 @@ class Camera
   float     far;
   unsigned  viewLoc;
   unsigned  projLoc;
-  mat4      view;
 public:
+  mat4      view;
   mat4      projection;
 private:
   // Member functions - private

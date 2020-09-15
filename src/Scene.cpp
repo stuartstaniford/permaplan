@@ -102,7 +102,6 @@ VisualObject* Scene::findObjectFromWindowCoords(vec3 location, float clipX, floa
   pos[3] = 1.0f;   // w
   
   // Now convert pos to model space (then we can interpolate to camera point)
-  mat4 invert;
   camera.invertView(model, invert);
   glm_mat4_mulv(invert, pos, pos);
   glm_vec4_scale(pos, 1.0f/pos[3], pos);
