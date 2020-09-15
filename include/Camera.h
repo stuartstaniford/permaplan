@@ -61,8 +61,9 @@ class Camera
   unsigned  viewLoc;
   unsigned  projLoc;
   mat4      view;
+public:
   mat4      projection;
-  
+private:
   // Member functions - private
   void updateViewMatrix(void);
   void setProjectionMatrix(void);

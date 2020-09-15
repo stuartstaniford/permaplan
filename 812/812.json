@@ -24,7 +24,7 @@
     "type": "boundary",
     "points": [ [0.0, 0.0, 1.0], [0.0, 300.0, 20.0], [300.0, 300.0, 30.0] ]
    }
-  ],
+  ] /*,
  "scriptControl":
   [
    {
@@ -79,6 +79,6 @@
    "action": "IA_HeightMarker",
    "height": -20.0
    }
-  ]
+  ]*/
 }
 

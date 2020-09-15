@@ -113,10 +113,10 @@ VisualObject* Scene::findObjectFromWindowCoords(vec3 location, float clipX, floa
   glm_vec3_sub(pos, camPos, lastMouseDirection);
   
   // Now find what we point to
-  float lambda;
-  qtree->matchRay(camPos, lastMouseDirection, lambda);
-  glm_vec3_scale(lastMouseDirection, lambda, lastMouseDirection);
-  glm_vec3_add(camPos, lastMouseDirection, location);
+  //float lambda;
+  //qtree->matchRay(camPos, lastMouseDirection, lambda);
+  //glm_vec3_scale(lastMouseDirection, lambda, lastMouseDirection);
+  //glm_vec3_add(camPos, lastMouseDirection, location);
   
   return NULL;
 }

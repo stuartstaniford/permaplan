@@ -126,6 +126,17 @@ void Window3D::imguiInsertMenu(void)
 
 
 // =======================================================================================
+// Utility function to put a matrix into the current imgui window.
+
+void displayImguiMatrix(const char* title, const mat4& m)
+{
+  ImGui::Text("%s\n", title);
+  for(int i=0; i<4; i++)
+    ImGui::Text("%.2f %.2f %.2f %.2f\n", m[i][0], m[i][1], m[i][2], m[i][3]);
+}
+
+
+// =======================================================================================
 // Transparent overlay that displays information about the thing currently in focus
 
 void Window3D::imguiFocusOverlay(void)
@@ -164,11 +175,14 @@ void Window3D::imguiFocusOverlay(void)
     ImGui::Text("Raw mouse: %.1f/%d, %.1f/%d'\n", lastMouseX, width, lastMouseY, height);
     
     //Mouse Ray
-    ImGui::Text("Mouse in world space: %.1f, %.1f, %.1f'\n", scene->lastMouseLocation[0],
+    ImGui::Text("Mouse in world space: %.3f, %.3f, %.3f'\n", scene->lastMouseLocation[0],
                 scene->lastMouseLocation[1], scene->lastMouseLocation[2]);
-    ImGui::Text("Mouse direction: %.1f, %.1f, %.1f'\n", scene->lastMouseDirection[0],
+    ImGui::Text("Mouse direction: %.3f, %.3f, %.3f'\n", scene->lastMouseDirection[0],
                 scene->lastMouseDirection[1], scene->lastMouseDirection[2]);
 
+    // Projection matrix
+    displayImguiMatrix("Projection Matrix:", scene->camera.projection);
+    
     ImGui::Separator();
    }
   ImGui::End();
@@ -208,7 +222,7 @@ void Window3D::loop(void)
    {
     glClearColor(0.6f, 0.7f, 0.7f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glfwGetFramebufferSize(window, &width, &height); // make sure we know current size
+    glfwGetWindowSize(window, &width, &height); // make sure we know current size
     
     scene->draw(mouseMoved);
     imguiInterface();
