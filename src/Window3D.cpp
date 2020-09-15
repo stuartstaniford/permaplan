@@ -161,7 +161,7 @@ void Window3D::imguiFocusOverlay(void)
     
     // Various debugging options
     // Shows location of mouse in window co-ordinates
-    ImGui::Text("Raw mouse: %.1f, %.1f'\n", lastMouseX, lastMouseY);
+    ImGui::Text("Raw mouse: %.1f/%d, %.1f/%d'\n", lastMouseX, width, lastMouseY, height);
     
     //Mouse Ray
     ImGui::Text("Mouse in world space: %.1f, %.1f, %.1f'\n", scene->lastMouseLocation[0],
@@ -208,6 +208,7 @@ void Window3D::loop(void)
    {
     glClearColor(0.6f, 0.7f, 0.7f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glfwGetFramebufferSize(window, &width, &height); // make sure we know current size
     
     scene->draw(mouseMoved);
     imguiInterface();

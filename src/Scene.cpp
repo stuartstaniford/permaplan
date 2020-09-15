@@ -94,33 +94,29 @@ float Scene::findCameraHeight(void)
 
 VisualObject* Scene::findObjectFromWindowCoords(vec3 location, float clipX, float clipY)
 {
-  vec4 pos, dir;
+  vec4 pos;
   
   pos[0] = clipX;  // should be in [-1,1]
   pos[1] = clipY;  // should be in [-1,1] with positive y towards top of window
-  pos[2] = 1.0f; // OpenGL is right-handed, +ve z axis points out of screen.
-  pos[3] = 1.0f;
-  dir[0] = 0.0f;
-  dir[1] = 0.0f;
-  dir[2] = -1.0f; // vector pointing into screen.
-  dir[3] = 1.0f;
+  pos[2] = -1.0f; // +ve z axis points out of screen, we pick a point at back of scene
+  pos[3] = 1.0f;   // w
   
-  // Now convert pos and dir to model space
+  // Now convert pos to model space (then we can interpolate to camera point)
   mat4 invert;
   camera.invertView(model, invert);
   glm_mat4_mulv(invert, pos, pos);
-  glm_mat4_mulv(invert, dir, dir);
   glm_vec4_scale(pos, 1.0f/pos[3], pos);
-  glm_vec4_scale(dir, 1.0f/dir[3], dir);
   
   glm_vec3(pos, lastMouseLocation);
-  glm_vec3(dir, lastMouseDirection);
+  vec3 camPos, camDir;
+  camera.copyDirection(camPos, camDir);
+  glm_vec3_sub(pos, camPos, lastMouseDirection);
   
   // Now find what we point to
   float lambda;
-  qtree->matchRay(lastMouseLocation, lastMouseDirection, lambda);
+  qtree->matchRay(camPos, lastMouseDirection, lambda);
   glm_vec3_scale(lastMouseDirection, lambda, lastMouseDirection);
-  glm_vec3_add(lastMouseLocation, lastMouseDirection, location);
+  glm_vec3_add(camPos, lastMouseDirection, location);
   
   return NULL;
 }
