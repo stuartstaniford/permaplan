@@ -163,7 +163,12 @@ void Window3D::imguiFocusOverlay(void)
     // Shows location of mouse in window co-ordinates
     ImGui::Text("Raw mouse: %.1f, %.1f'\n", lastMouseX, lastMouseY);
     
-    
+    //Mouse Ray
+    ImGui::Text("Mouse in world space: %.1f, %.1f, %.1f'\n", scene->lastMouseLocation[0],
+                scene->lastMouseLocation[1], scene->lastMouseLocation[2]);
+    ImGui::Text("Mouse direction: %.1f, %.1f, %.1f'\n", scene->lastMouseDirection[0],
+                scene->lastMouseDirection[1], scene->lastMouseDirection[2]);
+
     ImGui::Separator();
    }
   ImGui::End();
