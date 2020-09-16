@@ -42,6 +42,7 @@ class Camera
   void  adjust(unsigned opFlags, float timeLapseUsec);
   void  mouseDrag(float xDelta, float yDelta);
   void  copyDirection(vec3& position, vec3& direction);
+  void  rayFromScreenLocation(vec3& position, vec3& direction, float clipX, float clipY);
   void  invertView(mat4& model, mat4& invertMatrix);
   bool  diagnosticHTML(HttpDebug* serv);
 
@@ -56,6 +57,7 @@ class Camera
   float     rotationalSpeed;  // degrees/second
   float     mouseRotation;  // degrees/window size
   float     viewAngle;  // degrees
+  float     aspectRatio;
   float     near;
   float     far;
   unsigned  viewLoc;

@@ -137,6 +137,39 @@ void displayImguiMatrix(const char* title, const mat4& m)
 
 
 // =======================================================================================
+// Stuff that may or may not be turned on in the overlay window concerning the mouse
+// location.
+
+void Window3D::mouseOverlayDisplays(vec3 mouseSceneLoc)
+{
+  ImGui::Text("Mouse: %.1f E, %.1f N %.1f altitude\n",
+              mouseSceneLoc[0], mouseSceneLoc[1], mouseSceneLoc[2]);
+  
+  // Shows location of mouse in window co-ordinates
+  /*ImGui::Text("Raw mouse: %.1f/%d, %.1f/%d\n", lastMouseX, width, lastMouseY, height);
+  ImGui::Text("Clip mouse: %.3f [-1,1], %.3f [-1,1]\n",
+              lastMouseX/width*2.0f-1.0f, 1.0f - lastMouseY/height*2.0f);
+  */
+  //Mouse Ray
+  /*ImGui::Text("Mouse in world space: %.3f, %.3f, %.3f'\n", scene->lastMouseLocation[0],
+              scene->lastMouseLocation[1], scene->lastMouseLocation[2]);
+  ImGui::Text("Mouse direction: %.3f, %.3f, %.3f'\n", scene->lastMouseDirection[0],
+              scene->lastMouseDirection[1], scene->lastMouseDirection[2]);
+  */
+  // Projection matrix
+  //displayImguiMatrix("Projection Matrix:", scene->camera.projection);
+  
+  // View matrix
+  //displayImguiMatrix("View Matrix:", scene->camera.view);
+  
+  // Model matrix
+  //displayImguiMatrix("Model Matrix:", scene->model);
+  
+  // Invert matrix
+  //displayImguiMatrix("Invert Matrix:", scene->invert);
+}
+
+// =======================================================================================
 // Transparent overlay that displays information about the thing currently in focus
 
 void Window3D::imguiFocusOverlay(void)
@@ -169,31 +202,7 @@ void Window3D::imguiFocusOverlay(void)
     ImGui::Text("Object Type\nCoords: %.1f' east, %.1f' north\nAltitude: %.1f'\n",
                   mouseSceneLoc[0], mouseSceneLoc[1], mouseSceneLoc[2]);
     ImGui::Text("Camera Height: %.1f'\n", scene->findCameraHeight());
-    
-    // Various debugging options
-    // Shows location of mouse in window co-ordinates
-    ImGui::Text("Raw mouse: %.1f/%d, %.1f/%d\n", lastMouseX, width, lastMouseY, height);
-    ImGui::Text("Clip mouse: %.3f [-1,1], %.3f [-1,1]\n",
-                    lastMouseX/width*2.0f-1.0f, 1.0f - lastMouseY/height*2.0f);
-
-    //Mouse Ray
-    ImGui::Text("Mouse in world space: %.3f, %.3f, %.3f'\n", scene->lastMouseLocation[0],
-                scene->lastMouseLocation[1], scene->lastMouseLocation[2]);
-    ImGui::Text("Mouse direction: %.3f, %.3f, %.3f'\n", scene->lastMouseDirection[0],
-                scene->lastMouseDirection[1], scene->lastMouseDirection[2]);
-
-    // Projection matrix
-    displayImguiMatrix("Projection Matrix:", scene->camera.projection);
-    
-    // View matrix
-    displayImguiMatrix("View Matrix:", scene->camera.view);
-
-    // Model matrix
-    displayImguiMatrix("Model Matrix:", scene->model);
-
-    // Invert matrix
-    displayImguiMatrix("Invert Matrix:", scene->invert);
-
+    mouseOverlayDisplays(mouseSceneLoc);
     ImGui::Separator();
    }
   ImGui::End();

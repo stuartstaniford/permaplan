@@ -26,6 +26,7 @@ Camera::Camera(Shader& S, float distance, float viewAngleDegrees):
                   rotationalSpeed(30.0f),
                   mouseRotation(180.0f),
                   viewAngle(viewAngleDegrees),
+                  aspectRatio(0.0f),
                   near(distance/100.0f),
                   far(distance*10.0f)
 {
@@ -186,7 +187,7 @@ void Camera::setProjectionMatrix(void)
 {
   int viewportParams[4];
   glGetIntegerv(GL_VIEWPORT, viewportParams);
-  float aspectRatio = (float)(viewportParams[2]) / (float)(viewportParams[3]);
+  aspectRatio = (float)(viewportParams[2]) / (float)(viewportParams[3]);
   glm_perspective(glm_rad(viewAngle), aspectRatio, near, far, projection);
   shader.setUniform(projLoc, projection);
   if(checkGLError(stderr, "Camera::setProjectionMatrix"))
@@ -221,6 +222,32 @@ void Camera::invertView(mat4& model, mat4& invertMatrix)
   glm_mat4_mul(projection, view, product);
   glm_mat4_mul(product, model, product2);
   glm_mat4_inv(product2, invertMatrix);
+}
+
+
+// =======================================================================================
+// Return a line (as a point and a vector in the line direction), given two coordinates
+// in the window (but normalized to [-1,1] as in clip space).
+
+void Camera::rayFromScreenLocation(vec3& position, vec3& direction, float clipX, float clipY)
+{
+  vec3 viewX, viewY, viewZ;  // point in the X,Y,-Z direction in the view plane in world space
+
+  glm_vec3_copy(pos, position);
+
+  glm_vec3_cross(front, up, viewX);
+  
+  float yLength = tanf( glm_rad(viewAngle) / 2 )*near;
+  float xLength = yLength * aspectRatio;
+  
+  xLength *= clipX;
+  yLength *= clipY;
+
+  glm_vec3_scale_as(viewX, xLength, viewX);
+  glm_vec3_scale_as(up, yLength, viewY);
+  glm_vec3_scale_as(front, near, viewZ);
+  glm_vec3_add(viewX, viewY, direction);
+  glm_vec3_add(direction, viewZ, direction);
 }
 
 

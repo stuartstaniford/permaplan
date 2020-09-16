@@ -58,6 +58,8 @@ class Window3D
   void          imguiInterface(void);
   void          imguiInsertMenu(void);
   void          imguiFocusOverlay(void);
+  void          mouseOverlayDisplays(vec3 mouseSceneLoc);
+
 };
 
 #endif

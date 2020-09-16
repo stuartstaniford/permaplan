@@ -93,29 +93,14 @@ float Scene::findCameraHeight(void)
 // Find the object at a given screen location (eg the mouse position)
 
 VisualObject* Scene::findObjectFromWindowCoords(vec3 location, float clipX, float clipY)
-{
-  vec4 pos;
-  
-  pos[0] = clipX;  // should be in [-1,1]
-  pos[1] = clipY;  // should be in [-1,1] with positive y towards top of window
-  pos[2] = -1.0f; // +ve z axis points out of screen, we pick a point at back of scene
-  pos[3] = 1.0f;   // w
-  
-  // Now convert pos to model space (then we can interpolate to camera point)
-  camera.invertView(model, invert);
-  glm_mat4_mulv(invert, pos, pos);
-  glm_vec4_scale(pos, 1.0f/pos[3], pos);
-  
-  glm_vec3(pos, lastMouseLocation);
-  vec3 camPos, camDir;
-  camera.copyDirection(camPos, camDir);
-  glm_vec3_sub(pos, camPos, lastMouseDirection);
-  
+{  
+  camera.rayFromScreenLocation(lastMouseLocation, lastMouseDirection, clipX, clipY);
+
   // Now find what we point to
-  //float lambda;
-  //qtree->matchRay(camPos, lastMouseDirection, lambda);
-  //glm_vec3_scale(lastMouseDirection, lambda, lastMouseDirection);
-  //glm_vec3_add(camPos, lastMouseDirection, location);
+  float lambda;
+  qtree->matchRay(lastMouseLocation, lastMouseDirection, lambda);
+  glm_vec3_scale(lastMouseDirection, lambda, lastMouseDirection);
+  glm_vec3_add(lastMouseLocation, lastMouseDirection, location);
   
   return NULL;
 }
