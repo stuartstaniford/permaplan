@@ -25,6 +25,7 @@ public:
   // Member functions - public
   Grid(Shader& S, LandSurface& L, float gridSpacing, float alt = 0.0f);
   void resetAltitude(float alt = 0.0f);
+  void newHeight(float z);
   ~Grid(void);
   void draw(void);
   
@@ -35,7 +36,8 @@ private:
   LandSurface&          land;
   int                   nX;
   int                   nY;
-  float                 altitude;
+  unsigned              NHeights;
+  float                 sumHeights;
   LineStripList         lines;
   
   // Member functions - private

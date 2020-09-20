@@ -34,15 +34,27 @@ int gridModuli[2] = {10, 100};
 Grid::Grid(Shader& S, LandSurface& L, float gridSpacing, float alt):
                       spacing(gridSpacing),
                       land(L),
-                      altitude(alt),
+                      NHeights(0u),
+                      sumHeights(0.0f),
                       lines(S)
 {
   if(!land.rect)
     err(-1, "Unsupported lack of rect in Grid::Grid\n");
   
+  resetAltitude(alt);
+  if(checkGLError(stderr, "Grid::Grid"))
+    exit(-1);
+}
+
+
+// =======================================================================================
+// Redo us at a different height
+
+void Grid::resetAltitude(float alt)
+{
   nX = (int)(land.rect->width/spacing) + 1;
   nY = (int)(land.rect->height/spacing) + 1;
-
+  
   int i; float f;
   int level;
   vec3 pos, dir;
@@ -56,10 +68,10 @@ Grid::Grid(Shader& S, LandSurface& L, float gridSpacing, float alt):
    {
     setGridLevel(i);
     pos[0] = f;
-    pos[2] = altitude + gridHeights[level];
+    pos[2] = alt + gridHeights[level];
     lines.addLine(pos, dir, gridColor[level]);
    }
-
+  
   // east west lines
   pos[0] = 0.0f;
   dir[0] = land.rect->height;
@@ -69,22 +81,21 @@ Grid::Grid(Shader& S, LandSurface& L, float gridSpacing, float alt):
    {
     setGridLevel(i);
     pos[1] = f;
-    pos[2] = altitude + gridHeights[level];
+    pos[2] = alt + gridHeights[level];
     lines.addLine(pos, dir, gridColor[level]);
    }
-
   lines.sendToGPU();
-  if(checkGLError(stderr, "Grid::Grid"))
-    exit(-1);
 }
 
 
 // =======================================================================================
-// Redo us at a different height
+// New height (the grid will be at the average of these).
 
-void Grid::resetAltitude(float alt)
+void Grid::newHeight(float z)
 {
-  
+  NHeights++;
+  sumHeights += z;
+  resetAltitude(sumHeights/NHeights);
 }
 
 

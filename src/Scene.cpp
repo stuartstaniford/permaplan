@@ -114,6 +114,7 @@ void Scene::newLandHeight(float& z)
   lastDoubleClick[2] = z;
   HeightMarker* H = new HeightMarker(lastDoubleClick);
   qtree->storeVisualObject(H);
+  grid->newHeight(z);
   
   //XXX Temporary hack - toss the old buffer and make a new one
   if(tbuf)
