@@ -5,11 +5,12 @@
 #ifndef GRID_H
 #define GRID_H
 
+#include <cglm/cglm.h>
 #include "Shader.h"
 #include "VertexArrayObject.h"
 #include "VertexBufferObject.h"
 #include "LandSurface.h"
-#include <cglm/cglm.h>
+#include "LineStripList.h"
 
 // =======================================================================================
 // Class variable initialization
@@ -22,20 +23,20 @@ public:
   // Instance variables - public
   
   // Member functions - public
-  Grid(Shader& S, LandSurface& L, float gridSpacing);
+  Grid(Shader& S, LandSurface& L, float gridSpacing, float alt = 0.0f);
+  void resetAltitude(float alt = 0.0f);
   ~Grid(void);
   void draw(void);
   
 private:
   
   // Instance variables - private
-  Shader&               shader;
   float                 spacing;
   LandSurface&          land;
-  VertexArrayObject     axesVAOs;
-  VertexBufferObject*   VBO;
   int                   nX;
   int                   nY;
+  float                 altitude;
+  LineStripList         lines;
   
   // Member functions - private
   
