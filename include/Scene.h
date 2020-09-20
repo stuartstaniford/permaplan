@@ -35,6 +35,7 @@ class Scene
   mat4            model;
   vec3            lastMouseLocation;
   vec3            lastMouseDirection;
+  vec3            lastDoubleClick;
 
   // Member functions - public
   Scene(Shader& S, PmodDesign& des, PmodConfig& C);
@@ -50,7 +51,6 @@ class Scene
   ColoredAxes*      axes;
   Grid*             grid;
   PmodConfig&       config;
-  LineStripList*    sceneIndicators;
 
   // Member functions - private
   void setModelMatrix(float latt, float longt);

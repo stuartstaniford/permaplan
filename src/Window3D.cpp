@@ -261,6 +261,8 @@ void Window3D::loop(void)
 void Window3D::processDoubleClick(float mouseX, float mouseY)
 {
   show_insert_menu = true;
+  scene->findObjectFromWindowCoords(scene->lastDoubleClick,
+                          mouseX/width*2.0f-1.0f, 1.0f - mouseY/height*2.0f);
   printf("Double click at %.2f, %.2f!!\n", mouseX, mouseY);
 }
 

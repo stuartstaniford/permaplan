@@ -20,8 +20,7 @@ Scene::Scene(Shader& S, PmodDesign& des, PmodConfig& conf):
                 land(shader, design),
                 axes(NULL),
                 grid(NULL),
-                config(conf),
-                sceneIndicators(NULL)
+                config(conf)
 {
   unsigned minSize = 10;
   // Note that land and qtree have mutual dependencies that means there
@@ -107,17 +106,16 @@ VisualObject* Scene::findObjectFromWindowCoords(vec3 location, float clipX, floa
 
 
 // =======================================================================================
-// The interface has been notified of a new height measurement at the camera focus.
+// The interface has been notified of a new height measurement at the last
+// place we double-clicked.
 
 void Scene::newLandHeight(float& z)
 {
-  vec3 newLocation;
-  findCameraObject(newLocation);
-  newLocation[2] = z;
-  HeightMarker* H = new HeightMarker(newLocation);
+  lastDoubleClick[2] = z;
+  HeightMarker* H = new HeightMarker(lastDoubleClick);
   qtree->storeVisualObject(H);
   
-  // XXX Temporary hack - toss the old buffer and make a new one
+  //XXX Temporary hack - toss the old buffer and make a new one
   if(tbuf)
     delete tbuf;
   tbuf = new TriangleBuffer(qtree->vertexTBufSize, qtree->indexTBufSize);
@@ -132,9 +130,7 @@ void Scene::newLandHeight(float& z)
 // =======================================================================================
 // Draw the current state of the scene (called from the main Window3D event loop)
 
-bool  showMouseRay  = true;
 vec4  objColor      = {0.0f, 0.5f, 0.9f, 1.0f};
-vec4  rayColor      = {0.0f, 0.5f, 0.5, 1.0f};
 
 int count = 1;
 void Scene::draw(bool mouseMoved)
@@ -158,19 +154,7 @@ void Scene::draw(bool mouseMoved)
     grid->draw();
    }
 
-  if(showMouseRay)
-   {
-    if(mouseMoved)
-     {
-      if(sceneIndicators)
-        delete sceneIndicators;
-      sceneIndicators = new LineStripList(shader);
-      sceneIndicators->addLine(lastMouseLocation, lastMouseDirection, rayColor);
-      sceneIndicators->sendToGPU(); // XX we should really just reuse the existing buffer
-     }
-    sceneIndicators->draw();
-   }
-  
+ 
   // Display the main textured land surface
   land.draw(camera);
   
