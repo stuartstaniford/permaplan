@@ -39,6 +39,7 @@ class LandSurface
   void redoBezierLandSurface(BezierPatch* bez);
   void draw(Camera& camera);
   bool diagnosticHTML(HttpDebug* serv);
+  inline unsigned  getLocationCount(void) {return locationCount;}
 
  private:
   

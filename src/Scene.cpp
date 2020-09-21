@@ -125,6 +125,8 @@ void Scene::newLandHeight(float& z)
   
   //Redo the landsurface here, in light of the new height observation
   land.newLandHeight(H);
+  if(land.getLocationCount() == 1)
+    camera.teleportUp(z);
 }
 
 

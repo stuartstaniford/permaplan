@@ -45,7 +45,8 @@ class Camera
   void  rayFromScreenLocation(vec3& position, vec3& direction, float clipX, float clipY);
   void  invertView(mat4& model, mat4& invertMatrix);
   bool  diagnosticHTML(HttpDebug* serv);
-
+  inline void teleportUp(float distance) {adjust(CAM_MOVE_UP, distance/speed*1.0e6);}
+  
  private:
   
   // Instance variables - private
