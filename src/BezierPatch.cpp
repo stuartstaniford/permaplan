@@ -8,6 +8,8 @@
 #include "Arrow.h"
 
 
+#define forAllControlIndices(i,j)   for(int i=0; i<4; i++) for(int j=0; j<4; j++)
+
 // =======================================================================================
 // Constructors.
 
@@ -138,16 +140,15 @@ void BezierPatch::addControlGradientsToDisplayList(DisplayList* D)
   Arrow* A;
   vec3 direction;
   
-  for(int i=0; i<4; i++)
-    for(int j=0; j<4; j++)
-     {
-      //currentDelta
-      glm_vec3_copy(gradientControlPoints[i][j], direction);
-      glm_vec3_negate(direction);
-      A = new Arrow(controlPoints[i][j], direction);
-      A->setNoTexColor(lighterRedColor);
-      D->push_back(A);
-     }
+  forAllControlIndices(i,j)
+   {
+    //currentDelta
+    glm_vec3_copy(gradientControlPoints[i][j], direction);
+    glm_vec3_negate(direction);
+    A = new Arrow(controlPoints[i][j], direction);
+    A->setNoTexColor(lighterRedColor);
+    D->push_back(A);
+   }
 }
 
 
@@ -227,14 +228,14 @@ void BezierPatch::draw(void)
 
 
 // =======================================================================================
-// Stub definition this should be overwritten by implementing subclasses
+// Decide whether a given ray intersects with our patch or not.
 
 bool BezierPatch::matchRay(vec3& position, vec3& direction, float& lambda)
 {
   if(!box->matchRay(position, direction, lambda))
     return false;
   
-  // So it touches our bounding box, have to test the faces.
+  // So it touches our bounding box, have to test the patch itself.
   
   //XXX NOT DONE
   
@@ -243,28 +244,36 @@ bool BezierPatch::matchRay(vec3& position, vec3& direction, float& lambda)
 
 
 // =======================================================================================
-// Recompute our bounding box when a caller needs it done.
+// Recompute our bounding box when a caller needs it done.  We rely on the fact
+// that a Bezier patch lies entirely in the compact hull of the control points, so
+// if we do min/max on all the control points, we will have an axis-aligned
+// bounding box (although not necessarily an optimal one as the surface does not
+// typically touch the interior control points).
 
 void BezierPatch::updateBoundingBox(void)
 {
-  /*
-  float lowZ  = HUGE_VALF;
-  float highZ = -HUGE_VALF;
+  vec3 bottomCorner, topCorner;
   
-  for(int i = 0; i<4; i++)
+  for(int i=0; i<3;i++)
    {
-    if(heights[i] < lowZ)
-      lowZ = heights[i];
-    if(heights[i] > highZ)
-      highZ = heights[i];
+    bottomCorner[i] = HUGE_VALF;
+    topCorner[i] = -HUGE_VALF;
    }
+  
+  forAllControlIndices(i,j)
+    for(int m=0; m<3; m++)
+     {
+      if(controlPoints[i][j][m] < bottomCorner[m])
+        bottomCorner[m] = controlPoints[i][j][m];
+      if(controlPoints[i][j][m] > topCorner[m])
+        topCorner[m] = controlPoints[i][j][m];
+     }
+  
   if(!box)
-    box = new BoundingBox(xyPos[0], xyPos[1], lowZ,
-                          xyPos[0] + extent[0], xyPos[1] + extent[1], highZ);
+    box = new BoundingBox(bottomCorner, topCorner);
   else
-    box->reset(xyPos[0], xyPos[1], lowZ,
-               xyPos[0] + extent[0], xyPos[1] + extent[1], highZ);
-*/
+    box->reset(bottomCorner, topCorner);
+
    return;
 }
 
@@ -369,9 +378,8 @@ void BezierPatch::copyFitPointUVVals(void)
 
 void BezierPatch::copyControlPoints(void)
 {
-  for(int i=0; i<4; i++)
-    for(int j=0; j<4; j++)
-      glm_vec3_copy(controlPoints[i][j], copyOfControlPoints[i][j]);
+  forAllControlIndices(i,j)
+    glm_vec3_copy(controlPoints[i][j], copyOfControlPoints[i][j]);
 }
 
 
@@ -474,10 +482,9 @@ void BezierPatch::applyGradientVector(void)
   // n indexes over u,v directions.
 
   // First deal with the control points
-  for(int i=0;i<4;i++)
-    for(int j=0;j<4;j++)
-      for(int m=0;m<3;m++)
-        controlPoints[i][j][m] -= currentDelta*gradientControlPoints[i][j][m];
+  forAllControlIndices(i,j)
+    for(int m=0;m<3;m++)
+      controlPoints[i][j][m] -= currentDelta*gradientControlPoints[i][j][m];
 
   // Now the fit points
   /*
@@ -571,18 +578,15 @@ bool BezierPatch::improveFit(std::vector<float*>& locations)
 
 void printControlPointArray(FILE* file, char* title, vec3 myArray[4][4])
 {
-  int i,j,m;
-  
   fprintf(file, "%s.\n\n", title);
 
-  for(i=0;i<4;i++)
-    for(j=0;j<4;j++)
-     {
-      fprintf(file, "%d, %d:", i, j);
-      for(m=0;m<3;m++)
-        fprintf(file, "\t%f", myArray[i][j][m]);
-      fprintf(file, "\n");
-     }
+  forAllControlIndices(i,j)
+   {
+    fprintf(file, "%d, %d:", i, j);
+    for(int m=0;m<3;m++)
+      fprintf(file, "\t%f", myArray[i][j][m]);
+    fprintf(file, "\n");
+   }
   fprintf(file, "\n");
 }
 
@@ -631,9 +635,8 @@ bool BezierPatch::diagnosticHTML(HttpDebug* serv)
 {
   serv->addResponseData("<tr><td>BezierPatch</td><td>");
   serv->addResponseData("<table cellpadding=1 border=1><tr><th>i</th><th>j</th><th>X</th><th>Y</th><th>Z</th></tr>");
-  for(int i=0; i<4; i++)
-    for(int j=0; j<4; j++)
-      serv->respPtr += sprintf(serv->respPtr,
+  forAllControlIndices(i,j)
+    serv->respPtr += sprintf(serv->respPtr,
               "<tr><td>%d</td><td>%d</td><td>%.1f</td><td>%.1f</td><td>%.1f</td></tr>",
               i, j, controlPoints[i][j][0], controlPoints[i][j][1], controlPoints[i][j][2]);
   serv->addResponseData("</table>\n");

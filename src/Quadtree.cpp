@@ -310,10 +310,8 @@ Quadtree* Quadtree::matchChild(vec3& position, vec3& direction, float& lambda)
   Quadtree* descendant;
   Quadtree* bestDescendant  = NULL;
   
-  for(int i=0; i<4; i++)
+  forAllKids(i)
    {
-    if(!kids[i])
-      continue;
     if(!(descendant = kids[i]->matchRay(position, direction, kidLambda)))
       continue;
     if(kidLambda < bestLambda)
@@ -392,19 +390,14 @@ bool Quadtree::diagnosticHTML(HttpDebug* serv, char* path)
     serv->newSection("Child Nodes");
     serv->startTable();
     serv->addResponseData("<tr><th>Index</th><th>X Bounds</th><th>Y Bounds</th>\n");
-    for(int i = 0; i < 4; i++)
+    forAllKids(i)
      {
-      if(kids[i])
-       {
-        serv->respPtr += sprintf(serv->respPtr,
+      serv->respPtr += sprintf(serv->respPtr,
                           "<tr><td><a href=\"%d/\">%d</a></td>",i, i);
-        serv->respPtr += sprintf(serv->respPtr, "<td>(%.1f, %.1f)</td>",
+      serv->respPtr += sprintf(serv->respPtr, "<td>(%.1f, %.1f)</td>",
                             kids[i]->bbox.lower[0], kids[i]->bbox.upper[0]);
-        serv->respPtr += sprintf(serv->respPtr, "<td>(%.1f, %.1f)</td>",
+      serv->respPtr += sprintf(serv->respPtr, "<td>(%.1f, %.1f)</td>",
                             kids[i]->bbox.lower[1], kids[i]->bbox.upper[1]);
-       }
-      else
-        serv->respPtr += sprintf(serv->respPtr, "<tr><td>%d</td><td>None",i);
       serv->addResponseData("</td></tr>\n");
      }
     serv->addResponseData("</table></center>\n");

@@ -14,6 +14,8 @@
 // =======================================================================================
 // Constructors
 
+//NB!! Two constructors
+
 BoundingBox::BoundingBox(vec3& bottomCorner, vec3& topCorner)
 {
   glm_vec3_copy(bottomCorner, lower);
