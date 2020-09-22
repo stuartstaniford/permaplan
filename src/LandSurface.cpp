@@ -184,6 +184,7 @@ void LandSurface::newLandHeight(HeightMarker* hM)
     BezierPatch* bez = new BezierPatch(qtree, 10); //XX - hardcoded gridpoints
     qtree->surface = bez;
     bez->randomFit(heightLocations);
+    bez->levelFit(heightLocations);
     redoBezierLandSurface(bez);
     inFitMode = true;
     return;

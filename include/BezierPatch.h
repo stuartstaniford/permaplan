@@ -44,6 +44,7 @@ public:
   void          addControlGradientsToDisplayList(DisplayList* D);
   void          triangleBufferSize(unsigned& vCount, unsigned& iCount);
   void          randomFit(std::vector<float*>& locations);
+  void          levelFit(std::vector<float*>& locations);
   bool          improveFit(std::vector<float*>& locations);
   bool          diagnosticHTML(HttpDebug* serv);
 

@@ -279,36 +279,38 @@ void BezierPatch::updateBoundingBox(void)
 
 
 // =======================================================================================
-// This creates a random Bezier patch (which can later be improved.
+// This creates a random Bezier patch (which can later be improved).
 
-#define setControlPoints(i,j,x,y,z) controlPoints[i][j][0]=x;controlPoints[i][j][1]=y;controlPoints[i][j][2]=z
+#define setControlPoints(i,j,x,y,z) controlPoints[i][j][0]=(x);controlPoints[i][j][1]=(y);controlPoints[i][j][2]=(z)
 #define randHeight arc4random()/(float)UINT32_MAX*100.0f-50.0f
 
 void BezierPatch::randomFit(std::vector<float*>& locations)
 {
-  // Bottom row of control points
-  setControlPoints(0, 0, xyPos[0],                    xyPos[1],                   randHeight);
-  setControlPoints(1, 0, xyPos[0] + 0.33f*extent[0],  xyPos[1],                   randHeight);
-  setControlPoints(2, 0, xyPos[0] + 0.66f*extent[0],  xyPos[1],                   randHeight);
-  setControlPoints(3, 0, xyPos[0] + extent[0],        xyPos[1],                   randHeight);
-  
-  // Second row of control points
-  setControlPoints(0, 1, xyPos[0],                    xyPos[1] + 0.33f*extent[1], randHeight);
-  setControlPoints(1, 1, xyPos[0] + 0.33f*extent[0],  xyPos[1] + 0.33f*extent[1], randHeight);
-  setControlPoints(2, 1, xyPos[0] + 0.66f*extent[0],  xyPos[1] + 0.33f*extent[1], randHeight);
-  setControlPoints(3, 1, xyPos[0] + extent[0],        xyPos[1] + 0.33f*extent[1], randHeight);
-  
-  // Third row of control points
-  setControlPoints(0, 2, xyPos[0],                    xyPos[1] + 0.66f*extent[1], randHeight);
-  setControlPoints(1, 2, xyPos[0] + 0.33f*extent[0],  xyPos[1] + 0.66f*extent[1], randHeight);
-  setControlPoints(2, 2, xyPos[0] + 0.66f*extent[0],  xyPos[1] + 0.66f*extent[1], randHeight);
-  setControlPoints(3, 2, xyPos[0] + extent[0],        xyPos[1] + 0.66f*extent[1], randHeight);
+  forAllControlIndices(i,j)
+   {
+    setControlPoints(i, j, xyPos[0] + i/3.0f*extent[0],
+                        xyPos[1] + j/3.0f*extent[1], randHeight);
+   }
+}
 
-  // Fourth row of control points
-  setControlPoints(0, 3, xyPos[0],                    xyPos[1] + extent[1],       randHeight);
-  setControlPoints(1, 3, xyPos[0] + 0.33f*extent[0],  xyPos[1] + extent[1],       randHeight);
-  setControlPoints(2, 3, xyPos[0] + 0.66f*extent[0],  xyPos[1] + extent[1],       randHeight);
-  setControlPoints(3, 3, xyPos[0] + extent[0],        xyPos[1] + extent[1],       randHeight);
+
+// =======================================================================================
+// This creates a flat Bezier patch at the average height of the locations, which can
+// later be improved
+
+void BezierPatch::levelFit(std::vector<float*>& locations)
+{
+  float average = 0.0f;
+  int N = locations.size();
+  for(int i=0; i<N; i++)
+    average += locations[i][2];
+  average /= N;
+  
+  forAllControlIndices(i,j)
+   {
+    setControlPoints(i, j, xyPos[0] + i/3.0f*extent[0],
+                   xyPos[1] + j/3.0f*extent[1], average);
+   }
 }
 
 
