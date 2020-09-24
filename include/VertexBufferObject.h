@@ -9,11 +9,17 @@
 #include <cglm/cglm.h>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include "GlobalMacros.h"
 
-#define unless(X) if(!(X))
 
 // =======================================================================================
 // Class variable initialization
+
+
+// =======================================================================================
+// Helper function prototypes
+
+bool mollerTrumbore(vec3 v0, vec3 v1, vec3 v2, vec3 rayPos, vec3 rayDir, float& outT);
 
 // =======================================================================================
 // Used as the elements within a buffer that will be passed to the shader
@@ -85,6 +91,17 @@ class VertexBufElement
    {
     memcpy(this, src, sizeof(VertexBufElement));
    }
+  
+  // Function for checking whether a ray intersects a triangle and the triangle is
+  // specified by pointers to two other VertexBufElements besides *this.  If true,
+  // returns the distance of the intersection along rayDir from rayPos as outT.
+  inline bool rayMatch(VertexBufElement* v1, VertexBufElement* v2, vec3 rayPosition,
+                vec3 rayDirection, float& outT)
+   {
+    return mollerTrumbore(this->pos, v1->pos, v2->pos, rayPosition, rayDirection, outT);
+   }
+  
+  
 };
 
 

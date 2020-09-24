@@ -237,7 +237,6 @@ bool BezierPatch::matchRay(vec3& position, vec3& direction, float& lambda)
   
   // So it touches our bounding box, have to test the patch itself.
   
-  //XXX NOT DONE
   
   return true;
 }

@@ -11,7 +11,6 @@
 #include "VertexBufferCombo.h"
 #include "HttpDebug.h"
 
-#define epsilon 0.000000001f
 
 // =======================================================================================
 // Class variable initialization

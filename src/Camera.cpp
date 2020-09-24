@@ -227,7 +227,8 @@ void Camera::invertView(mat4& model, mat4& invertMatrix)
 
 // =======================================================================================
 // Return a line (as a point and a vector in the line direction), given two coordinates
-// in the window (but normalized to [-1,1] as in clip space).
+// in the window (but normalized to [-1,1] as in clip space).  This approach inspired by
+// http://schabby.de/picking-opengl-ray-tracing/
 
 void Camera::rayFromScreenLocation(vec3& position, vec3& direction, float clipX, float clipY)
 {
