@@ -17,7 +17,8 @@ BezierPatch::BezierPatch(float x, float y, float width, float height,
                         float s, float t, float sWidth, float tHeight, unsigned gridPoints):
                             LandSurfaceRegion(x, y, width, height, s, t, sWidth, tHeight),
                             gridN(gridPoints),
-                            currentDelta(1.0f)
+                            currentDelta(1.0f),
+                            lastRayMatch(NULL)
 #ifdef BEZIER_DUMP_DETAIL
 , fitIterationCount(0)
 #endif
@@ -161,52 +162,6 @@ void BezierPatch::triangleBufferSizes(unsigned& vertexCount, unsigned& indexCoun
   indexCount = 6*gridN*gridN;
 }
 
-// =======================================================================================
-// Buffer our triangles.
-
-bool BezierPatch::bufferGeometry(TriangleBuffer* T)
-{
-  // Establish space needs and obtain buffers
-  VertexBufElement* vertices;
-  unsigned* indices;
-  unsigned vOffset;
-  unsigned vCount, iCount;
-  triangleBufferSizes(vCount, iCount);
-  unless(T->requestSpace(&vertices, &indices, vOffset, vCount, iCount))
-    return false;
-
-  //Figure out the vertices
-  float spacing = 1.0f/(float)gridN;
-  unsigned i,j;
-  float u,v;
-  for (i=0, u=0.0f; i<=gridN; i++, u+=spacing)
-    for (j=0, v=0.0f; j<=gridN; j++, v+=spacing)
-     {
-      VertexBufElement* bufEl = vertices + i*(gridN + 1) + j;
-      surfacePoint(u, v, bufEl->pos);
-      bufEl->tex[0] = stPos[0] + stExtent[0]*spacing*(float)i;
-      bufEl->tex[1] = stPos[1] + stExtent[1]*spacing*(float)j;
-      bufEl->accent = 0.0f;
-      //printf("u,v: %.3f, %.3f\t", u, v);
-      //bufEl->fprint(stdout);
-     }
-
-  for (i=0; i<gridN; i++)
-    for (j=0; j<gridN; j++)
-     {
-      unsigned base = 6*(i*gridN + j);
-      indices[base] = i*(gridN + 1) + j;
-      indices[base + 1] = (i+1)*(gridN + 1) + j;
-      indices[base + 2] = i*(gridN + 1) + j + 1;
-      indices[base + 3] = indices[base + 1];
-      indices[base + 4] = (i+1)*(gridN + 1) + j + 1;
-      indices[base + 5] = indices[base + 2];
-     }
-
-  //T->fprint(stderr);
-  return true;
-}
-
 
 // =======================================================================================
 // How much space we need in a triangle buffer
@@ -228,6 +183,112 @@ void BezierPatch::draw(void)
 
 
 // =======================================================================================
+// Buffer our triangles.
+
+#define forAllUVGrid(i,j,u,v, limit, spacing)     int i,j; float u,v; float spacing = 1.0f/(float)gridN;\
+                                for (i=0, u=0.0f; i<limit; i++, u+=spacing) \
+                                  for (j=0, v=0.0f; j<limit; j++, v+=spacing)
+
+
+bool BezierPatch::bufferGeometry(TriangleBuffer* T)
+{
+  // Establish space needs and obtain buffers
+  VertexBufElement* vertices;
+  unsigned* indices;
+  unsigned vOffset;
+  unsigned vCount, iCount;
+  triangleBufferSizes(vCount, iCount);
+  unless(T->requestSpace(&vertices, &indices, vOffset, vCount, iCount))
+    return false;
+
+  //Figure out the vertices
+  forAllUVGrid(i,j,u,v, gridN+1, spacing)
+   {
+    VertexBufElement* bufEl = vertices + i*(gridN + 1) + j;
+    surfacePoint(u, v, bufEl->pos);
+    bufEl->tex[0] = stPos[0] + stExtent[0]*spacing*(float)i;
+    bufEl->tex[1] = stPos[1] + stExtent[1]*spacing*(float)j;
+    bufEl->accent = 0.0f;
+    //printf("u,v: %.3f, %.3f\t", u, v);
+    //bufEl->fprint(stdout);
+   }
+
+  for (int i=0; i<gridN; i++)
+    for (int j=0; j<gridN; j++)
+     {
+      unsigned base = 6*(i*gridN + j); //Location of the i,j square in indices
+      
+      // Lower left triangle in i,j gridcell
+      indices[base] = i*(gridN + 1) + j;
+      indices[base + 1] = (i+1)*(gridN + 1) + j;
+      indices[base + 2] = i*(gridN + 1) + j + 1;
+      
+      // Upper right triangle in i,j gridcell
+      indices[base + 3] = indices[base + 1];
+      indices[base + 4] = (i+1)*(gridN + 1) + j + 1;
+      indices[base + 5] = indices[base + 2];
+     }
+
+  return true;
+}
+
+
+// =======================================================================================
+// When we have no idea where/whether a ray will match, we check every
+// triangle in the tesselation.
+
+bool BezierPatch::matchRayAll(vec3& position, vec3& direction, float& lambda)
+{
+  if(!lastRayMatch)
+    lastRayMatch = new PatchRayState;
+  
+  //XXX note the algorithm in here calculates each vertex six times.  If this turns
+  // out to be a bottleneck, we could cache the answers in some way to reduce the
+  // cpu usage.
+  
+  forAllUVGrid(i, j, u, v, gridN, spacing)
+   {
+    // Lower left triangle
+    surfacePoint(u, v, lastRayMatch->triangle[0]);
+    surfacePoint(u+spacing, v, lastRayMatch->triangle[1]);
+    surfacePoint(u, v+spacing, lastRayMatch->triangle[2]);
+    if(lastRayMatch->matchRay(position, direction, lambda))
+     {
+      lastRayMatch->lowerLeft = true;
+      goto GOT_HIT;
+     }
+
+    // Upper right triangle
+    surfacePoint(u+spacing, v, lastRayMatch->triangle[0]);
+    surfacePoint(u+spacing, v+spacing, lastRayMatch->triangle[1]);
+    surfacePoint(u, v+spacing, lastRayMatch->triangle[2]);
+    if(lastRayMatch->matchRay(position, direction, lambda))
+     {
+      lastRayMatch->lowerLeft = false;
+      goto GOT_HIT;
+     }
+   }
+
+  return false;
+
+GOT_HIT:
+  lastRayMatch->uv[0] = u;
+  lastRayMatch->uv[1] = v;
+  lastRayMatch->spacing = spacing;
+  return true;
+}
+
+
+// =======================================================================================
+// Decide whether a given ray intersects with a neighboring triangle or not.
+
+bool PatchRayState::matchNeighbor(vec3 rayPos, vec3 rayDir, float& outT)
+{
+  return false;
+}
+
+
+// =======================================================================================
 // Decide whether a given ray intersects with our patch or not.
 
 bool BezierPatch::matchRay(vec3& position, vec3& direction, float& lambda)
@@ -236,9 +297,24 @@ bool BezierPatch::matchRay(vec3& position, vec3& direction, float& lambda)
     return false;
   
   // So it touches our bounding box, have to test the patch itself.
+  if(!lastRayMatch)
+   {
+    if(matchRayAll(position, direction, lambda))
+      return true;
+    else
+      return false;
+   }
   
+  // We had a match on a previous invocation
+  if(lastRayMatch->matchRay(position, direction, lambda))
+    // Awesome, it still works.  We expect this to be the usual case.
+    return true;
   
-  return true;
+  if(lastRayMatch->matchNeighbor(position, direction, lambda))
+    return true;
+     
+  // All else has failed, so apply brute force again
+  return matchRayAll(position, direction, lambda);
 }
 
 

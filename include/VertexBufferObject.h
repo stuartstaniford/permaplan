@@ -21,6 +21,7 @@
 
 bool mollerTrumbore(vec3 v0, vec3 v1, vec3 v2, vec3 rayPos, vec3 rayDir, float& outT);
 
+
 // =======================================================================================
 // Used as the elements within a buffer that will be passed to the shader
 
@@ -100,7 +101,6 @@ class VertexBufElement
    {
     return mollerTrumbore(this->pos, v1->pos, v2->pos, rayPosition, rayDirection, outT);
    }
-  
   
 };
 

@@ -31,7 +31,20 @@
 
 class PatchRayState
 {
+  friend class BezierPatch;
+ 
+  vec3  triangle[3];
+  vec2  uv;
+  float spacing;
+  bool  lowerLeft;
   
+  inline bool matchRay(vec3 rayPos, vec3 rayDir, float& outT)
+   {
+    return mollerTrumbore(triangle[0], triangle[1], triangle[2], rayPos, rayDir, outT);
+   }
+
+  bool matchNeighbor(vec3 rayPos, vec3 rayDir, float& outT);
+
 };
 
 // =======================================================================================
@@ -80,6 +93,8 @@ private:
   // Used repeatedly for calculating Bernstein polynomial expressions
   float upow[4], vpow[4], u1minpow[4], v1minpow[4];
   double currentDelta;
+  PatchRayState*        lastRayMatch;
+  
 #ifdef BEZIER_DUMP_DETAIL
   int   fitIterationCount;
 #endif
@@ -93,6 +108,8 @@ private:
   void  applyGradientVector(void);
   void  revertGradientVector(void);
   void  dumpDetailState(char* fileName);
+  bool  matchRayAll(vec3& position, vec3& direction, float& lambda);
+
 };
 
 #endif
