@@ -21,6 +21,10 @@
 
 bool mollerTrumbore(vec3 v0, vec3 v1, vec3 v2, vec3 rayPos, vec3 rayDir, float& outT);
 
+inline bool mollerTrumbore(vec3 triangle[3], vec3 rayPos, vec3 rayDir, float& outT)
+{
+  return mollerTrumbore(triangle[0], triangle[1], triangle[2], rayPos, rayDir, outT);
+}
 
 // =======================================================================================
 // Used as the elements within a buffer that will be passed to the shader

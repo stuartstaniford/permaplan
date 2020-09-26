@@ -16,36 +16,7 @@
 // =======================================================================================
 // Class variable initialization
 
-// =======================================================================================
-// Helper state for tracking a ray traversing the patch (typically the mouse).
-// The basic idea here is that rather than do a ton of complicated algebraic geometry,
-// we rely on the fact that most of the time the ray points to the same triangle as
-// in the last frame.  If it doensn't, it very likely points to a neighboring triangle.
-// So almost all the time we can get by with a few quick triangle tests.  Only
-// very occasionally do we pay the high cost of doing a brute force search of all the
-// triangles (which will be amortized away).  Even in the scenario where the mouse
-// is within the Bezier patch AABB, but not intersecting the patch, we can track the
-// triangle which *would have been closest*, and if the distance to that has barely
-// changed, we can figure there's no need to do the work of searching all the triangles
-// again.  Only when the mouse is on the move in this zone do we need to do more work.
-
-class PatchRayState
-{
-  friend class BezierPatch;
- 
-  vec3  triangle[3];
-  vec2  uv;
-  float spacing;
-  bool  lowerLeft;
-  
-  inline bool matchRay(vec3 rayPos, vec3 rayDir, float& outT)
-   {
-    return mollerTrumbore(triangle[0], triangle[1], triangle[2], rayPos, rayDir, outT);
-   }
-
-  bool matchNeighbor(vec3 rayPos, vec3 rayDir, float& outT);
-
-};
+class PatchRayState; // forward declaration, see bottom of file
 
 // =======================================================================================
 // Main class for a BezierPatch
@@ -112,6 +83,52 @@ private:
 
 };
 
+
+// =======================================================================================
+// Helper state for tracking a ray traversing the patch (typically the mouse).
+// The basic idea here is that rather than do a ton of complicated algebraic geometry,
+// we rely on the fact that most of the time the ray points to the same triangle as
+// in the last frame.  If it doensn't, it very likely points to a neighboring triangle.
+// So almost all the time we can get by with a few quick triangle tests.  Only
+// very occasionally do we pay the high cost of doing a brute force search of all the
+// triangles (which will be amortized away).  Even in the scenario where the mouse
+// is within the Bezier patch AABB, but not intersecting the patch, we can track the
+// triangle which *would have been closest*, and if the distance to that has barely
+// changed, we can figure there's no need to do the work of searching all the triangles
+// again.  Only when the mouse is on the move in this zone do we need to do more work.
+
+class PatchRayState
+{
+  friend class BezierPatch;
+  
+  vec3        triangle[3];
+  vec2        uv;
+  float       spacing;
+  bool        lowerLeft;
+  BezierPatch* parent;
+  
+  inline bool matchRay(vec3 rayPos, vec3 rayDir, float& outT)
+  {
+   return mollerTrumbore(triangle, rayPos, rayDir, outT);
+  }
+  
+  inline void getUpperRight(vec3 outTriangle[3])
+  {
+   glm_vec3_copy(triangle[1], outTriangle[0]);
+   parent->surfacePoint(uv[0]+spacing, uv[1]+spacing, outTriangle[1]);
+   glm_vec3_copy(triangle[2], outTriangle[2]);
+  }
+  
+  inline void getLowerLeft(vec3 outTriangle[3])
+  {
+   parent->surfacePoint(uv[0], uv[1], outTriangle[0]);
+   glm_vec3_copy(triangle[0], outTriangle[1]);
+   glm_vec3_copy(triangle[2], outTriangle[2]);
+  }
+  
+  bool matchNeighbor(vec3 rayPos, vec3 rayDir, float& outT);
+  
+};
 #endif
 
 

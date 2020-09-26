@@ -272,9 +272,10 @@ bool BezierPatch::matchRayAll(vec3& position, vec3& direction, float& lambda)
   return false;
 
 GOT_HIT:
-  lastRayMatch->uv[0] = u;
-  lastRayMatch->uv[1] = v;
+  lastRayMatch->uv[0]   = u;
+  lastRayMatch->uv[1]   = v;
   lastRayMatch->spacing = spacing;
+  lastRayMatch->parent  = this;
   return true;
 }
 
@@ -284,6 +285,23 @@ GOT_HIT:
 
 bool PatchRayState::matchNeighbor(vec3 rayPos, vec3 rayDir, float& outT)
 {
+  vec3 neighbor[3];
+  
+  // First think about the other square in the grid.
+  
+  if(lowerLeft)
+    getUpperRight(neighbor);
+  else
+    getLowerLeft(neighbor);
+  if(mollerTrumbore(neighbor, rayPos, rayDir, outT))
+   {
+    memcpy(triangle, neighbor, sizeof(neighbor));
+    lowerLeft = ~lowerLeft;
+    return true;
+   }
+
+  //XXX Up to here
+  
   return false;
 }
 
