@@ -108,24 +108,38 @@ class PatchRayState
   BezierPatch* parent;
   
   inline bool matchRay(vec3 rayPos, vec3 rayDir, float& outT)
-  {
-   return mollerTrumbore(triangle, rayPos, rayDir, outT);
-  }
+   {
+    return mollerTrumbore(triangle, rayPos, rayDir, outT);
+   }
   
   inline void getUpperRight(vec3 outTriangle[3])
-  {
-   glm_vec3_copy(triangle[1], outTriangle[0]);
-   parent->surfacePoint(uv[0]+spacing, uv[1]+spacing, outTriangle[1]);
-   glm_vec3_copy(triangle[2], outTriangle[2]);
-  }
+   {
+    glm_vec3_copy(triangle[1], outTriangle[0]);
+    parent->surfacePoint(uv[0]+spacing, uv[1]+spacing, outTriangle[1]);
+    glm_vec3_copy(triangle[2], outTriangle[2]);
+   }
   
   inline void getLowerLeft(vec3 outTriangle[3])
-  {
-   parent->surfacePoint(uv[0], uv[1], outTriangle[0]);
-   glm_vec3_copy(triangle[0], outTriangle[1]);
-   glm_vec3_copy(triangle[2], outTriangle[2]);
-  }
-  
+   {
+    parent->surfacePoint(uv[0], uv[1], outTriangle[0]);
+    glm_vec3_copy(triangle[0], outTriangle[1]);
+    glm_vec3_copy(triangle[2], outTriangle[2]);
+   }
+
+  inline void getLowerLeft(vec3 outTriangle[3], float u, float v)
+   {
+    parent->surfacePoint(uv[0],           uv[1],            outTriangle[0]);
+    parent->surfacePoint(uv[0] + spacing, uv[1],            outTriangle[1]);
+    parent->surfacePoint(uv[0],           uv[1] + spacing,  outTriangle[2]);
+   }
+
+  inline void getUpperRight(vec3 outTriangle[3], float u, float v)
+   {
+    parent->surfacePoint(uv[0] + spacing, uv[1],            outTriangle[0]);
+    parent->surfacePoint(uv[0] + spacing, uv[1] + spacing,  outTriangle[1]);
+    parent->surfacePoint(uv[0],           uv[1] + spacing,  outTriangle[2]);
+   }
+
   bool matchNeighbor(vec3 rayPos, vec3 rayDir, float& outT);
   
 };

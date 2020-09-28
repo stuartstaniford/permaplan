@@ -287,7 +287,7 @@ bool PatchRayState::matchNeighbor(vec3 rayPos, vec3 rayDir, float& outT)
 {
   vec3 neighbor[3];
   
-  // First think about the other square in the grid.
+  // First think about the other square in the grid, which is cheaper to compute
   
   if(lowerLeft)
     getUpperRight(neighbor);
@@ -300,9 +300,38 @@ bool PatchRayState::matchNeighbor(vec3 rayPos, vec3 rayDir, float& outT)
     return true;
    }
 
-  //XXX Up to here
+  // Now check the neighbors
+  for(int i = -1; i <= 1; i++)
+   {
+    float trialU = uv[0] + spacing*i;
+    if(trialU < 0.0f || trialU + spacing > 1.0f)
+      continue;
+    for(int j = -1; j <= 1; j++)
+     {
+      if(i==j==0) // already did that case before the loops
+        continue;
+      float trialV = uv[1] + spacing*j;
+      if(trialV < 0.0f || trialV + spacing > 1.0f)
+        continue;
+      getLowerLeft(neighbor, trialU, trialV);
+      if(mollerTrumbore(neighbor, rayPos, rayDir, outT))
+       {
+        lowerLeft = true;
+        goto MATCH_NEIGHBOR_FOUND;
+       }
+      getUpperRight(neighbor, trialU, trialV);
+       {
+        lowerLeft = false;
+        goto MATCH_NEIGHBOR_FOUND;
+       }
+     }
+   }
   
   return false;
+
+MATCH_NEIGHBOR_FOUND:
+  
+  return true;
 }
 
 
