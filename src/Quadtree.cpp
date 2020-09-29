@@ -303,44 +303,54 @@ void Quadtree::draw(void)
 // Used by matchRay, in the situation in which we know that we have matched, and we want
 // to know if there's a more specific match to our child.
 
-Quadtree* Quadtree::matchChild(vec3& position, vec3& direction, float& lambda)
+VisualObject* Quadtree::matchChild(vec3& position, vec3& direction, float& lambda)
 {
-  float     kidLambda;
-  float     bestLambda      = HUGE_VALF;
-  Quadtree* descendant;
-  Quadtree* bestDescendant  = NULL;
+  float         kidLambda;
+  float         bestLambda      = HUGE_VALF;
+  VisualObject* descObject;
+  VisualObject* bestDescObject  = NULL;
   
   forAllKids(i)
    {
-    if(!(descendant = kids[i]->matchRay(position, direction, kidLambda)))
+    if(!(descObject = kids[i]->matchRay(position, direction, kidLambda)))
       continue;
     if(kidLambda < bestLambda)
      {
       bestLambda      = kidLambda;
-      bestDescendant  = descendant;
+      bestDescObject  = descObject;
      }
    }
-  if(bestDescendant)
+  if(bestDescObject)
    {
     lambda = bestLambda;
-    return bestDescendant;
+    return bestDescObject;
    }
-  return this;
+  return NULL;
 }
 
 
 // =======================================================================================
 // Give a ray specified by a position vector and a direction vector, find the first
-// quadtree leaf node that intersects the ray.  Returns NULL if nothing matches.  Note
+// object leaf node that intersects the ray.  Returns NULL if nothing matches.  Note
 // matches at negative multiples of the direction vector will not be counted - we seek
 // the smallest positive multiple of direction (here store in the reference arg lambda).
 
-Quadtree* Quadtree::matchRay(vec3& position, vec3& direction, float& lambda)
+VisualObject* Quadtree::matchRay(vec3& position, vec3& direction, float& lambda)
 {
-  if(bbox.matchRay(position, direction, lambda))
-    return matchChild(position, direction, lambda);
-  else
+  VisualObject* returnObject;
+  
+  unless(bbox.matchRay(position, direction, lambda))
     return NULL;
+  
+  //XXX need to check the display list vObjects
+  
+  if( (returnObject = matchChild(position, direction, lambda)) )
+    return returnObject;
+  
+  if(surface && surface->matchRay(position, direction, lambda))
+    return surface;
+  
+  return NULL;
 }
 
 

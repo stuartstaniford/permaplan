@@ -48,7 +48,7 @@ class Quadtree
   void redoLandPlanar(vec3 plane);
   void stripSurface(void);
   void draw(void);
-  Quadtree* matchRay(vec3& position, vec3& direction, float& lambda);
+  VisualObject* matchRay(vec3& position, vec3& direction, float& lambda);
   bool diagnosticHTML(HttpDebug* serv, char* path);
 
  private:
@@ -67,7 +67,7 @@ class Quadtree
   DisplayList               vObjects;     // objects for display that we own
   
   // Member functions - private
-  Quadtree* matchChild(vec3& position, vec3& direction, float& lambda);
+  VisualObject* matchChild(vec3& position, vec3& direction, float& lambda);
 };
 
 #endif

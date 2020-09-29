@@ -340,7 +340,7 @@ MATCH_NEIGHBOR_FOUND:
 
 bool BezierPatch::matchRay(vec3& position, vec3& direction, float& lambda)
 {
-  if(!box->matchRay(position, direction, lambda))
+  if(!box || !box->matchRay(position, direction, lambda))
     return false;
   
   // So it touches our bounding box, have to test the patch itself.
@@ -413,6 +413,7 @@ void BezierPatch::randomFit(std::vector<float*>& locations)
     setControlPoints(i, j, xyPos[0] + i/3.0f*extent[0],
                         xyPos[1] + j/3.0f*extent[1], randHeight);
    }
+  updateBoundingBox();
 }
 
 
@@ -433,6 +434,7 @@ void BezierPatch::levelFit(std::vector<float*>& locations)
     setControlPoints(i, j, xyPos[0] + i/3.0f*extent[0],
                    xyPos[1] + j/3.0f*extent[1], average);
    }
+  updateBoundingBox();
 }
 
 
@@ -686,12 +688,14 @@ bool BezierPatch::improveFit(std::vector<float*>& locations)
    {
     // Call it good
     printf("Terminating with improvement of %.12f\n", (fitDist - newFitDist)/fitDist);
+    updateBoundingBox();
     return false;
    }
   else
    {
     // We improved it, see if we can be more aggressive next time
     currentDelta *= 2.0f;
+    updateBoundingBox();
     return true;
    }
 }
