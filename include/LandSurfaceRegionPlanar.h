@@ -33,6 +33,7 @@ class LandSurfaceRegionPlanar: public LandSurfaceRegion
   void  updateBoundingBox(void);
   void  triangleBufferSize(unsigned& vCount, unsigned& iCount);
   void  fit(std::vector<float*>& locations);
+  const char* objectName(void);
   bool  diagnosticHTML(HttpDebug* serv);
 
  private:

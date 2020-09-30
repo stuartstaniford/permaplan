@@ -190,6 +190,16 @@ void Arrow::updateBoundingBox(void)
                                                                 
 
 // =======================================================================================
+// Tell callers our name at runtime.
+
+const char* Arrow::objectName(void)
+{
+  static char* name = (char*)"Arrow";
+  return name;
+}
+
+
+// =======================================================================================
 // We assume we are part of a table of visual objects and we just contribute one row
 // about this particular HeightMarker.
 

@@ -337,12 +337,26 @@ VisualObject* Quadtree::matchChild(vec3& position, vec3& direction, float& lambd
 
 VisualObject* Quadtree::matchRay(vec3& position, vec3& direction, float& lambda)
 {
-  VisualObject* returnObject;
+  VisualObject* returnObject = NULL;
   
   unless(bbox.matchRay(position, direction, lambda))
     return NULL;
   
-  //XXX need to check the display list vObjects
+  int           i, N = vObjects.size();
+  float         objLambda, bestLambda = HUGE_VALF;
+  for(i=0; i<N; i++)
+    if(vObjects[i]->matchRay(position, direction, objLambda))
+      if(objLambda < bestLambda)
+       {
+        bestLambda    = objLambda;
+        returnObject  = vObjects[i];
+       }
+
+  if(returnObject)
+   {
+    lambda = bestLambda;
+    return returnObject;
+   }
   
   if( (returnObject = matchChild(position, direction, lambda)) )
     return returnObject;

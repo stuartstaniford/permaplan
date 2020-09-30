@@ -197,12 +197,19 @@ void Window3D::imguiFocusOverlay(void)
    {
     vec3 mouseSceneLoc;
     //scene->findCameraObject(camF);
-    scene->findObjectFromWindowCoords(mouseSceneLoc,
+    VisualObject* mouseObject = scene->findObjectFromWindowCoords(mouseSceneLoc,
                     lastMouseX/width*2.0f-1.0f, 1.0f - lastMouseY/height*2.0f);
-    ImGui::Text("Object Type\nCoords: %.1f' east, %.1f' north\nAltitude: %.1f'\n",
+    if(mouseObject)
+     {
+      ImGui::Text("Object Type: %s\n", mouseObject->objectName());
+      ImGui::Text("Coords: %.1f' east, %.1f' north\nAltitude: %.1f'\n",
                   mouseSceneLoc[0], mouseSceneLoc[1], mouseSceneLoc[2]);
+      mouseOverlayDisplays(mouseSceneLoc);
+     }
+    else
+      ImGui::Text("Mouse out of scene.\n");
+
     ImGui::Text("Camera Height: %.1f'\n", scene->findCameraHeight());
-    mouseOverlayDisplays(mouseSceneLoc);
     ImGui::Separator();
    }
   ImGui::End();

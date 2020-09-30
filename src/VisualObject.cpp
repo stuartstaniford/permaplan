@@ -89,6 +89,16 @@ void VisualObject::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 }
 
 
+// =======================================================================================
+// Stub definition this should be overwritten by implementing subclasses
+
+const char* VisualObject::objectName(void)
+{
+  static char* name = (char*)"VisualObject";
+  return name;
+}
+
+
 
 // =======================================================================================
 // Stub definition this should be overwritten by implementing subclasses

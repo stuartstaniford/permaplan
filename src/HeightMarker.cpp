@@ -165,6 +165,16 @@ void HeightMarker::updateBoundingBox(void)
                                                                 
 
 // =======================================================================================
+// Tell callers our name at runtime.
+
+const char* HeightMarker::objectName(void)
+{
+  static char* name = (char*)"Height Marker";
+  return name;
+}
+
+
+// =======================================================================================
 // We assume we are part of a table of visual objects and we just contribute one row
 // about this particular HeightMarker.
 

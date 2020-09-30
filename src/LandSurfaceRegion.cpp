@@ -100,6 +100,16 @@ void  LandSurfaceRegion::fit(std::vector<float*>& locations)
 
 
 // =======================================================================================
+// Tell callers our name at runtime.
+
+const char* LandSurfaceRegion::objectName(void)
+{
+  static char* name = (char*)"LandSurfaceRegion";
+  return name;
+}
+
+
+// =======================================================================================
 // Stub definition this should be overwritten by implementing subclasses
 
 bool LandSurfaceRegion::diagnosticHTML(HttpDebug* serv)

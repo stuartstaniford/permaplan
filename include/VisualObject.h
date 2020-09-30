@@ -29,6 +29,7 @@ class VisualObject
   virtual bool matchRay(vec3& position, vec3& direction, float& lambda);
   virtual void updateBoundingBox(void);
   virtual void triangleBufferSizes(unsigned& vCount, unsigned& iCount);
+  virtual const char* objectName(void);
   virtual bool diagnosticHTML(HttpDebug* serv);
 
  protected:

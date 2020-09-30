@@ -31,6 +31,7 @@ class Arrow: public VisualObject
   bool matchRay(vec3& position, vec3& direction, float& lambda);
   void updateBoundingBox(void);
   void triangleBufferSizes(unsigned& vCount, unsigned& iCount);
+  const char* objectName(void);
   bool diagnosticHTML(HttpDebug* serv);
 
  private:

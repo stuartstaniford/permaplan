@@ -755,6 +755,16 @@ void BezierPatch::dumpDetailState(char* fileName)
 
 
 // =======================================================================================
+// Tell callers our name at runtime.
+
+const char* BezierPatch::objectName(void)
+{
+  static char* name = (char*)"Bezier Patch";
+  return name;
+}
+
+
+// =======================================================================================
 // We assume we are part of a table of visual objects and we just contribute one row
 // about this particular chunk of land surface.  Since BezierPatch is a bit complex
 // we have a little mini-table of all our control points inside the cell.

@@ -166,6 +166,17 @@ void  LandSurfaceRegionPlanar::fit(std::vector<float*>& locations)
 
 
 // =======================================================================================
+// Tell callers our name at runtime.
+
+const char* LandSurfaceRegionPlanar::objectName(void)
+{
+  static char* name = (char*)"Land Surface Plane";
+  return name;
+}
+
+
+
+// =======================================================================================
 // We assume we are part of a table of visual objects and we just contribute one row
 // about this particular chunk of land surface.
 

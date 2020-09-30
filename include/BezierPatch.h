@@ -50,6 +50,7 @@ public:
   void          randomFit(std::vector<float*>& locations);
   void          levelFit(std::vector<float*>& locations);
   bool          improveFit(std::vector<float*>& locations);
+  const char*   objectName(void);
   bool          diagnosticHTML(HttpDebug* serv);
 
 
