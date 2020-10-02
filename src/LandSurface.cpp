@@ -183,7 +183,8 @@ void LandSurface::newLandHeight(HeightMarker* hM)
     qtree->stripSurface();
     BezierPatch* bez = new BezierPatch(qtree, 10); //XX - hardcoded gridpoints
     qtree->surface = bez;
-    bez->randomFit(heightLocations);
+    //bez->randomFit(heightLocations);
+    bez->assertCopyVer();
     bez->levelFit(heightLocations);
     redoBezierLandSurface(bez);
     inFitMode = true;
@@ -213,6 +214,9 @@ void LandSurface::newLandHeight(HeightMarker* hM)
 void LandSurface::redoBezierLandSurface(BezierPatch* bez)
 {
   unsigned vCount, iCount;
+
+  bez->assertCopyVer();
+
   bez->triangleBufferSizes(vCount, iCount);
   recycleTriangleBuffer(tbuf, vCount, iCount);
   bez->bufferGeometry(tbuf);
@@ -227,6 +231,7 @@ void LandSurface::redoBezierLandSurface(BezierPatch* bez)
   D->bufferGeometry(fitTBuf);
   fitTBuf->sendToGPU(GL_STATIC_DRAW);
 #endif
+  bez->assertCopyVer();
 }
 
 

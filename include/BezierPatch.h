@@ -51,6 +51,7 @@ public:
   void          levelFit(std::vector<float*>& locations);
   bool          improveFit(std::vector<float*>& locations);
   const char*   objectName(void);
+  void          assertCopyVer(void);
   bool          diagnosticHTML(HttpDebug* serv);
 
 

@@ -10,8 +10,30 @@
 
 #define forAllControlIndices(i,j)   for(int i=0; i<4; i++) for(int j=0; j<4; j++)
 
+PatchRayState* copyVer = NULL;
+void BezierPatch::assertCopyVer(void)
+{
+  assert(lastRayMatch == copyVer);
+}
+
 // =======================================================================================
 // Constructors.
+
+// NB Two constructors!!  Maybe update both?
+
+BezierPatch::BezierPatch(Quadtree* qtree, unsigned gridPoints):
+                        LandSurfaceRegion(qtree->bbox.lower[0], qtree->bbox.lower[1],
+                              qtree->bbox.upper[0] - qtree->bbox.lower[0],
+                              qtree->bbox.upper[1] - qtree->bbox.lower[1],
+                              0.0f, 0.0f, 1.0f, 1.0f), gridN(gridPoints),
+                        currentDelta(1.0f),
+                        lastRayMatch(NULL)
+#ifdef BEZIER_DUMP_DETAIL
+                        , fitIterationCount(0)
+#endif
+{
+}
+
 
 BezierPatch::BezierPatch(float x, float y, float width, float height,
                         float s, float t, float sWidth, float tHeight, unsigned gridPoints):
@@ -20,21 +42,7 @@ BezierPatch::BezierPatch(float x, float y, float width, float height,
                             currentDelta(1.0f),
                             lastRayMatch(NULL)
 #ifdef BEZIER_DUMP_DETAIL
-, fitIterationCount(0)
-#endif
-{
-}
-
-// NB Two constructors!!  Maybe update both?
-
-BezierPatch::BezierPatch(Quadtree* qtree, unsigned gridPoints):
-LandSurfaceRegion(qtree->bbox.lower[0], qtree->bbox.lower[1],
-                  qtree->bbox.upper[0] - qtree->bbox.lower[0],
-                  qtree->bbox.upper[1] - qtree->bbox.lower[1],
-                  0.0f, 0.0f, 1.0f, 1.0f), gridN(gridPoints),
-                  currentDelta(1.0f)
-#ifdef BEZIER_DUMP_DETAIL
-, fitIterationCount(0)
+                            , fitIterationCount(0)
 #endif
 {
 }
@@ -237,11 +245,15 @@ bool BezierPatch::bufferGeometry(TriangleBuffer* T)
 // When we have no idea where/whether a ray will match, we check every
 // triangle in the tesselation.
 
+
 bool BezierPatch::matchRayAll(vec3& position, vec3& direction, float& lambda)
 {
   if(!lastRayMatch)
-    lastRayMatch = new PatchRayState;
-  
+   {
+    lastRayMatch          = new PatchRayState;
+    copyVer               = lastRayMatch;
+    lastRayMatch->parent  = this;
+   }
   //XXX note the algorithm in here calculates each vertex six times.  If this turns
   // out to be a bottleneck, we could cache the answers in some way to reduce the
   // cpu usage.
@@ -275,7 +287,6 @@ GOT_HIT:
   lastRayMatch->uv[0]   = u;
   lastRayMatch->uv[1]   = v;
   lastRayMatch->spacing = spacing;
-  lastRayMatch->parent  = this;
   return true;
 }
 
@@ -340,6 +351,7 @@ MATCH_NEIGHBOR_FOUND:
 
 bool BezierPatch::matchRay(vec3& position, vec3& direction, float& lambda)
 {
+  assertCopyVer();
   if(!box || !box->matchRay(position, direction, lambda))
     return false;
   
@@ -696,6 +708,7 @@ bool BezierPatch::improveFit(std::vector<float*>& locations)
     // We improved it, see if we can be more aggressive next time
     currentDelta *= 2.0f;
     updateBoundingBox();
+    assertCopyVer();
     return true;
    }
 }
