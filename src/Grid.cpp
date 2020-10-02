@@ -74,7 +74,7 @@ void Grid::resetAltitude(float alt)
   
   // east west lines
   pos[0] = 0.0f;
-  dir[0] = land.rect->height;
+  dir[0] = land.rect->width;
   dir[1] = 0.0f;
   dir[2] = 0.0f;
   for(i = 0, f = 0.0f; i < nY; i++, f+=spacing)
