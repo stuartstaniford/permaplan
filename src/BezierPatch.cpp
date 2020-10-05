@@ -287,6 +287,7 @@ GOT_HIT:
   lastRayMatch->uv[0]   = u;
   lastRayMatch->uv[1]   = v;
   lastRayMatch->spacing = spacing;
+  printf("matchRayAll at u,v: %.3f, %.3f\n", u,v);
   return true;
 }
 
@@ -670,7 +671,7 @@ bool BezierPatch::improveFit(std::vector<float*>& locations)
     setUpUVVals(locations);
   
   float fitDist = estimateFit(locations);
-  printf("fitDist is %.1f, applying delta %.9f\n", fitDist, currentDelta);
+  LogBezierFit("fitDist is %.1f, applying delta %.9f\n", fitDist, currentDelta);
   
   copyFitPointUVVals();
   copyControlPoints();
@@ -685,7 +686,7 @@ bool BezierPatch::improveFit(std::vector<float*>& locations)
   
   applyGradientVector();
   float newFitDist = estimateFit(locations);
-  printf("fitDist now %.3f\n", newFitDist);
+  LogBezierFit("fitDist now %.3f\n", newFitDist);
 
   // See if it's an improvement or not
   if(newFitDist >= fitDist && !(currentDelta < fitTolerance))
@@ -699,7 +700,7 @@ bool BezierPatch::improveFit(std::vector<float*>& locations)
            || fitDist < 0.1f)
    {
     // Call it good
-    printf("Terminating with improvement of %.12f\n", (fitDist - newFitDist)/fitDist);
+    LogBezierFit("Terminating with improvement of %.12f\n", (fitDist - newFitDist)/fitDist);
     updateBoundingBox();
     return false;
    }
