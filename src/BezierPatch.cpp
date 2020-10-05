@@ -19,7 +19,7 @@ void BezierPatch::assertCopyVer(void)
 // =======================================================================================
 // Constructors.
 
-// NB Two constructors!!  Maybe update both?
+// NB Two constructors!!  Probably update both!
 
 BezierPatch::BezierPatch(Quadtree* qtree, unsigned gridPoints):
                         LandSurfaceRegion(qtree->bbox.lower[0], qtree->bbox.lower[1],
@@ -359,6 +359,7 @@ bool BezierPatch::matchRay(vec3& position, vec3& direction, float& lambda)
   // So it touches our bounding box, have to test the patch itself.
   if(!lastRayMatch)
    {
+    LogBezierMatchRay("First time to match all.");
     if(matchRayAll(position, direction, lambda))
       return true;
     else
@@ -367,9 +368,11 @@ bool BezierPatch::matchRay(vec3& position, vec3& direction, float& lambda)
   
   // We had a match on a previous invocation
   if(lastRayMatch->matchRay(position, direction, lambda))
+   {
     // Awesome, it still works.  We expect this to be the usual case.
+    LogBezierMatchRay("Rematch on last ray match succeeded.");
     return true;
-  
+   }
   if(lastRayMatch->matchNeighbor(position, direction, lambda))
     return true;
      

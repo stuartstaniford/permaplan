@@ -245,8 +245,17 @@ void Window3D::imguiInterface(void)
 
 void Window3D::loop(void)
 {
+  unsigned frameCount = 0;
+  Timeval start;
+  start.now();
+  Timeval frameTime;
+  double frameDouble;
+
   while(!glfwWindowShouldClose(window))
    {
+    frameTime.now();
+    frameDouble = frameTime - start;
+    LogFrameStarts("Frame %u starting after %.6lfs\n", frameCount, frameDouble);
     glClearColor(0.6f, 0.7f, 0.7f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glfwGetWindowSize(window, &width, &height); // make sure we know current size
@@ -259,6 +268,7 @@ void Window3D::loop(void)
     glfwPollEvents();
     if(!io.WantCaptureMouse)
       processInput(scene->camera);
+    frameCount++;
    }
 }
 
