@@ -31,7 +31,7 @@
 // =======================================================================================
 // General logging mechanism
 
-#define LogStatement(...) fprintf(stderr, __DATE__ " " __TIME__ ": " __VA_ARGS__)
+#define LogStatement(...) fprintf(stdout, __DATE__ " " __TIME__ ": " __VA_ARGS__)
 
 
 // =======================================================================================

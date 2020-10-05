@@ -281,13 +281,14 @@ bool BezierPatch::matchRayAll(vec3& position, vec3& direction, float& lambda)
      }
    }
 
+  LogBezierMatchRay("matchRayAll did not match.\n");
   return false;
 
 GOT_HIT:
   lastRayMatch->uv[0]   = u;
   lastRayMatch->uv[1]   = v;
   lastRayMatch->spacing = spacing;
-  printf("matchRayAll at u,v: %.3f, %.3f\n", u,v);
+  LogBezierMatchRay("matchRayAll hit at u,v: %.3f, %.3f\n", u,v);
   return true;
 }
 
@@ -309,20 +310,22 @@ bool PatchRayState::matchNeighbor(vec3 rayPos, vec3 rayDir, float& outT)
    {
     memcpy(triangle, neighbor, sizeof(neighbor));
     lowerLeft = ~lowerLeft;
+    LogBezierMatchRay("Mating triangle to last match succeeded.\n");
     return true;
    }
 
   // Now check the neighbors
+  float trialU, trialV;
   for(int i = -1; i <= 1; i++)
    {
-    float trialU = uv[0] + spacing*i;
+    trialU = uv[0] + spacing*i;
     if(trialU < 0.0f || trialU + spacing > 1.0f)
       continue;
     for(int j = -1; j <= 1; j++)
      {
       if(i==j==0) // already did that case before the loops
         continue;
-      float trialV = uv[1] + spacing*j;
+      trialV = uv[1] + spacing*j;
       if(trialV < 0.0f || trialV + spacing > 1.0f)
         continue;
       getLowerLeft(neighbor, trialU, trialV);
@@ -339,10 +342,14 @@ bool PatchRayState::matchNeighbor(vec3 rayPos, vec3 rayDir, float& outT)
      }
    }
   
+  LogBezierMatchRay("matchNeighbor failed to find hit.\n");
   return false;
 
 MATCH_NEIGHBOR_FOUND:
-  
+  memcpy(triangle, neighbor, sizeof(neighbor));
+  uv[0] = trialU;
+  uv[1] = trialV;
+  LogBezierMatchRay("matchNeighbor hit at u,v: %.3f, %.3f\n", uv[0], uv[1]);
   return true;
 }
 
@@ -359,7 +366,7 @@ bool BezierPatch::matchRay(vec3& position, vec3& direction, float& lambda)
   // So it touches our bounding box, have to test the patch itself.
   if(!lastRayMatch)
    {
-    LogBezierMatchRay("First time to match all.");
+    LogBezierMatchRay("First time to match all.\n");
     if(matchRayAll(position, direction, lambda))
       return true;
     else
@@ -370,7 +377,7 @@ bool BezierPatch::matchRay(vec3& position, vec3& direction, float& lambda)
   if(lastRayMatch->matchRay(position, direction, lambda))
    {
     // Awesome, it still works.  We expect this to be the usual case.
-    LogBezierMatchRay("Rematch on last ray match succeeded.");
+    LogBezierMatchRay("Rematch on last ray match succeeded.\n");
     return true;
    }
   if(lastRayMatch->matchNeighbor(position, direction, lambda))
