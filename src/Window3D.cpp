@@ -265,12 +265,12 @@ void Window3D::loop(void)
 // =======================================================================================
 // We have detected a mouse double-click in the window - figure out what we should do.
 
-void Window3D::processDoubleClick(float mouseX, float mouseY)
+void Window3D::processDoubleClick(float mouseX, float mouseY, float timeDiff)
 {
   show_insert_menu = true;
   scene->findObjectFromWindowCoords(scene->lastDoubleClick,
                           mouseX/width*2.0f-1.0f, 1.0f - mouseY/height*2.0f);
-  printf("Double click at %.2f, %.2f!!\n", mouseX, mouseY);
+  LogDoubleClick("Double click (%.3fs) at %.2f, %.2f\n", timeDiff, mouseX, mouseY);
 }
 
 
@@ -299,8 +299,9 @@ void Window3D::processMouse(Camera& camera)
       testingDoubleClick = false;
       Timeval justNow;
       justNow.now();
-      if(justNow - mouseUpTime < 0.25)
-        processDoubleClick((float)mouseX, (float)mouseY);
+      float timeDiff = justNow - mouseUpTime;
+      if(timeDiff < 0.25)
+        processDoubleClick((float)mouseX, (float)mouseY, timeDiff);
      }
     else if(mouseMoved)
      {
