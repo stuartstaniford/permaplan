@@ -102,9 +102,11 @@ VisualObject* Scene::findObjectFromWindowCoords(vec3 location, float clipX, floa
    {
     glm_vec3_scale(lastMouseDirection, lambda, lastMouseDirection);
     glm_vec3_add(lastMouseLocation, lastMouseDirection, location);
+    LogMouseRayPoint("Mouse on object %s at %.1f, %.1f, %.1f\n",
+                     obj->objectName(), location[0], location[1], location[2]);
     return obj;
    }
-  
+  LogMouseRayPoint("No object under mouse.\n");
   return NULL;
 }
 
@@ -139,7 +141,6 @@ void Scene::newLandHeight(float& z)
 
 vec4  objColor      = {0.0f, 0.5f, 0.9f, 1.0f};
 
-int count = 1;
 void Scene::draw(bool mouseMoved)
 {
   shader.useProgram();
