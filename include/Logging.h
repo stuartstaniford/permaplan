@@ -31,8 +31,10 @@
 // =======================================================================================
 // General logging mechanism
 
-#define LogStatement(...) fprintf(stdout, __DATE__ " " __TIME__ ": " __VA_ARGS__)
+#define LogStatement(...) fprintf(LogFile, __DATE__ " " __TIME__ ": " __VA_ARGS__)
 
+void LogInit(void);
+extern FILE* LogFile;
 
 // =======================================================================================
 // Logging options to do with overall control flow and speed

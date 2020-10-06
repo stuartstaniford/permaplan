@@ -26,6 +26,9 @@ void* callProcessConn(void* arg)
 
 int main (int argc, char* argv[])
 {
+  // Initialize logging so we can record the rest of the start-up.
+  LogInit();
+  
   // Process the command line
   PmodConfig config(argc, argv);
   if(!(config.isValid()))
