@@ -296,10 +296,17 @@ void Window3D::processMouse(Camera& camera)
   glfwGetCursorPos(window, &mouseX, &mouseY);
 
   if( (abs(mouseX - lastMouseX) < epsilon) && (abs(mouseY - lastMouseY) < epsilon))
+   {
     mouseMoved = false;
+    LogMouseLocation("Mouse unmoved at %.1f, %.1f\n", mouseX, mouseY);
+   }
   else
+   {
     mouseMoved = true;
-
+    LogMouseLocation("Mouse moved to %.1f, %.1f (by %.1f,%.1f)\n", mouseX, mouseY,
+                     mouseX - lastMouseX, mouseY - lastMouseY);
+   }
+  
   int state = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT);
   if (state == GLFW_PRESS)
    {

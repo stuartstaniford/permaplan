@@ -12,8 +12,8 @@
 // =======================================================================================
 // Logging options to do with interface controls
 
-//#define LOG_DOUBLE_CLICK  // Location and intra-click timing of mouse double clicks
-
+#define LOG_MOUSE_LOCATION // where the mouse is on the screen each frame
+#define LOG_DOUBLE_CLICK  // Location and intra-click timing of mouse double clicks
 
 // =======================================================================================
 // Logging options to do with the Bezier Patch code
@@ -50,6 +50,14 @@ extern FILE* LogFile;
 // =======================================================================================
 // Logging options to do with interface controls
 
+// where the mouse is on the screen each frame
+#ifdef LOG_MOUSE_LOCATION
+#define LogMouseLocation(...) LogStatement(__VA_ARGS__)
+#else
+#define LogMouseLocation(...)
+#endif
+
+// Location and intra-click timing of mouse double clicks
 #ifdef LOG_DOUBLE_CLICK
 #define LogDoubleClick(...) LogStatement(__VA_ARGS__)
 #else
