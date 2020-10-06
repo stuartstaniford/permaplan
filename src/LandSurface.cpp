@@ -130,6 +130,9 @@ void LandSurface::newLandHeight(HeightMarker* hM)
   locationCount++;
   vec3 plane;
   
+  LogLandHeights("New height recorded at %.1f, %.1f, %.1f\n",
+                      hM->location[0], hM->location[1], hM->location[2]);
+  
   if(locationCount == 1)
    {
     // level surface at the new height

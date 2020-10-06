@@ -16,6 +16,7 @@
 #define LOG_MOUSE_CLICK     // Location of single mouse clicks
 #define LOG_DOUBLE_CLICK    // Location and intra-click timing of mouse double clicks
 #define LOG_MOUSE_RAY_POINT // Where the mouse is pointing in 3d space
+#define LOG_LAND_HEIGHTS    // Log when a new land height is entered.
 
 // =======================================================================================
 // Logging options to do with the Bezier Patch code
@@ -78,6 +79,13 @@ extern FILE* LogFile;
 #define LogMouseRayPoint(...) LogStatement(__VA_ARGS__)
 #else
 #define LogMouseRayPoint(...)
+#endif
+
+// Log when a new land height is entered.
+#ifdef LOG_LAND_HEIGHTS
+#define LogLandHeights(...) LogStatement(__VA_ARGS__)
+#else
+#define LogLandHeights(...)
 #endif
 
 
