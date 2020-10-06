@@ -13,6 +13,7 @@
 // Logging options to do with interface controls
 
 #define LOG_MOUSE_LOCATION // where the mouse is on the screen each frame
+#define LOG_MOUSE_CLICK    // Location of single mouse clicks
 #define LOG_DOUBLE_CLICK  // Location and intra-click timing of mouse double clicks
 
 // =======================================================================================
@@ -55,6 +56,13 @@ extern FILE* LogFile;
 #define LogMouseLocation(...) LogStatement(__VA_ARGS__)
 #else
 #define LogMouseLocation(...)
+#endif
+
+// Location and intra-click timing of mouse double clicks
+#ifdef LOG_MOUSE_CLICK
+#define LogMouseClick(...) LogStatement(__VA_ARGS__)
+#else
+#define LogMouseClick(...)
 #endif
 
 // Location and intra-click timing of mouse double clicks
