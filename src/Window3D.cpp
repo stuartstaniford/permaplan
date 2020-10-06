@@ -245,17 +245,28 @@ void Window3D::imguiInterface(void)
 
 void Window3D::loop(void)
 {
-  unsigned frameCount = 0;
-  Timeval start;
+  unsigned  frameCount = 0;
+  Timeval   start;
+  Timeval   frameTime;
+  double    frameDouble;
+  double    lastFrameDouble;
+  bool      firstTime = true;
+
   start.now();
-  Timeval frameTime;
-  double frameDouble;
 
   while(!glfwWindowShouldClose(window))
    {
     frameTime.now();
     frameDouble = frameTime - start;
-    LogFrameStarts("Frame %u starting after %.6lfs\n", frameCount, frameDouble);
+    if(firstTime)
+     {
+      LogFrameStarts("Frame %u starting at %.6lfs\n", frameCount, frameDouble);
+      firstTime = false;
+     }
+    else
+      LogFrameStarts("Frame %u starting at %.6lfs (%.1fms gap)\n",
+                     frameCount, frameDouble, (frameDouble - lastFrameDouble)*1000.0f);
+    lastFrameDouble = frameDouble;
     glClearColor(0.6f, 0.7f, 0.7f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glfwGetWindowSize(window, &width, &height); // make sure we know current size
