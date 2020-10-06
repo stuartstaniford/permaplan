@@ -277,8 +277,11 @@ void Window3D::loop(void)
 
     glfwSwapBuffers(window);
     glfwPollEvents();
-    if(!io.WantCaptureMouse)
+    unless(io.WantCaptureMouse)
       processInput(scene->camera);
+    else
+      LogMouseLocation("ImGui has mouse\n");
+
     frameCount++;
    }
 }
@@ -301,7 +304,10 @@ void Window3D::processDoubleClick(float mouseX, float mouseY, float timeDiff)
 void Window3D::processMouse(Camera& camera)
 {
   if (!glfwGetWindowAttrib(window, GLFW_HOVERED))
+   {
+    LogMouseLocation("Mouse cursor out of window\n");
     return; // cursor is not with us, nothing to do.
+   }
   
   double mouseX, mouseY;
   glfwGetCursorPos(window, &mouseX, &mouseY);
