@@ -24,7 +24,9 @@ LandSurface::LandSurface(Shader& S, PmodDesign& D):
                             tbuf(NULL),
                             locationCount(0u),
                             heightLocations(),
-                            inFitMode(false)
+                            inFitMode(false),
+                            initialHeightCount(0u),
+                            initialHeightIndex(0u)
 #ifdef VISUALIZE_FITTING
                             , fitTBuf(NULL)
 #endif
@@ -45,6 +47,16 @@ LandSurface::LandSurface(Shader& S, PmodDesign& D):
   else
     err(-1, "Bad landSurface texturefile in file %s\n", design.config.designFileName);
 
+  if(LsJson.HasMember("altitudes"))
+   {
+    unless(LsJson["altitudes"].IsArray())
+      err(-1, "Altitudes is not array in file %s\n", design.config.designFileName);
+    unless((initialHeightCount = LsJson["altitudes"].Size()) > 0)
+     {
+      warn("Empty altitudes array in JSON file.");
+     }
+    altitudeArray = &LsJson["altitudes"];
+   }
   if(checkGLError(stderr, "LandSurface::LandSurface"))
     exit(-1);
 }
@@ -79,6 +91,30 @@ LandSurface::~LandSurface(void)
     delete rect;
   if(tbuf)
     delete tbuf;
+}
+
+
+// =======================================================================================
+// used to extract further height locations from the json design file
+
+bool LandSurface::nextInitialHeightLocation(vec3 location)
+{
+  using namespace rapidjson;
+
+  if(initialHeightIndex >= initialHeightCount)
+    return false;
+
+  Value& row = (*altitudeArray)[initialHeightIndex];
+  unless(row.IsArray())
+    err(-1, "Bad row %d in altitudes.\n", initialHeightIndex);
+  unless(row.Size() == 3)
+    err(-1, "Bad row %d in altitudes has %d members instead of 3.\n",
+                        initialHeightIndex, row.Size());
+
+  for(int i=0; i<3; i++)
+    location[i] = row[i].GetFloat();
+  initialHeightIndex++;
+  return true;
 }
 
 

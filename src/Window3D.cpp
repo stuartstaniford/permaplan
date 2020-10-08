@@ -118,7 +118,8 @@ void Window3D::imguiInsertMenu(void)
       z = atof(heightBuf);
     
     heightBuf[0] = '\0';
-    scene->newLandHeight(z);
+    scene->lastDoubleClick[2] = z;
+    scene->newLandHeight(scene->lastDoubleClick);
     show_insert_menu = false;
    }
   ImGui::End();

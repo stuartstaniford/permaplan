@@ -43,7 +43,7 @@ class Scene
   void          draw(bool mouseMoved);
   void          findCameraObject(vec3 location);
   float         findCameraHeight(void);
-  void          newLandHeight(float& z);
+  void          newLandHeight(vec3 location);
   VisualObject* findObjectFromWindowCoords(vec3 location, float clipX, float clipY);
 
  private:

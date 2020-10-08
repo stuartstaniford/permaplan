@@ -13,9 +13,10 @@
    "width": 325.0,
    "altitudes":
       [
-       [0.0, 0.0, 1.0],
-       [0.0, 300.0, 20.0],
-       [300.0, 300.0, 30.0]
+       [162.3, 147.6, 1451.0],  // in front of barn
+       [4.7, 332.8, 1500.0],    // where the stream exits top of the land
+       [232.0, 351.3, 1446.0],  // in the pond
+       [284.0, 210.5, 1433.0]  // Six Mile Creek
      ]
   },
  "contents":

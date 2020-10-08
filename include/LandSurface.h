@@ -39,6 +39,7 @@ class LandSurface
   void redoBezierLandSurface(BezierPatch* bez);
   void draw(Camera& camera);
   bool diagnosticHTML(HttpDebug* serv);
+  bool nextInitialHeightLocation(vec3 location);
   inline unsigned  getLocationCount(void) {return locationCount;}
 
  private:
@@ -50,6 +51,9 @@ class LandSurface
   unsigned              locationCount;
   std::vector<float*>   heightLocations;
   bool                  inFitMode;
+  unsigned              initialHeightCount;
+  unsigned              initialHeightIndex;
+  rapidjson::Value*     altitudeArray;
 #ifdef VISUALIZE_FITTING
   TriangleBuffer*       fitTBuf;
 #endif

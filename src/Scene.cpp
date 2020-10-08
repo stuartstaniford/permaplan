@@ -115,12 +115,11 @@ VisualObject* Scene::findObjectFromWindowCoords(vec3 location, float clipX, floa
 // The interface has been notified of a new height measurement at the last
 // place we double-clicked.
 
-void Scene::newLandHeight(float& z)
+void Scene::newLandHeight(vec3 location)
 {
-  lastDoubleClick[2] = z;
-  HeightMarker* H = new HeightMarker(lastDoubleClick);
+  HeightMarker* H = new HeightMarker(location);
   qtree->storeVisualObject(H);
-  grid->newHeight(z);
+  grid->newHeight(location[2]);
   
   //XXX Temporary hack - toss the old buffer and make a new one
   if(tbuf)
@@ -132,7 +131,7 @@ void Scene::newLandHeight(float& z)
   //Redo the landsurface here, in light of the new height observation
   land.newLandHeight(H);
   if(land.getLocationCount() == 1)
-    camera.teleportUp(z);
+    camera.teleportUp(location[2]);
 }
 
 
@@ -164,6 +163,9 @@ void Scene::draw(bool mouseMoved)
 
  
   // Display the main textured land surface
+  vec3 L;
+  if(land.nextInitialHeightLocation(L))
+    newLandHeight(L);
   land.draw(camera);
   
   // Draw all the objects stored in the quadtree
