@@ -250,10 +250,12 @@ bool BezierPatch::matchRayAll(vec3& position, vec3& direction, float& lambda)
 {
   if(!lastRayMatch)
    {
-    lastRayMatch          = new PatchRayState;
-    copyVer               = lastRayMatch;
-    lastRayMatch->parent  = this;
+    lastRayMatch              = new PatchRayState;
+    copyVer                   = lastRayMatch;
+    lastRayMatch->parent      = this;
+    lastRayMatch->validMatch  = false;
    }
+  
   //XXX note the algorithm in here calculates each vertex six times.  If this turns
   // out to be a bottleneck, we could cache the answers in some way to reduce the
   // cpu usage.
@@ -282,13 +284,16 @@ bool BezierPatch::matchRayAll(vec3& position, vec3& direction, float& lambda)
    }
 
   LogBezierMatchRay("matchRayAll did not match.\n");
+  lastRayMatch->validMatch  = false;
   return false;
 
 GOT_HIT:
   lastRayMatch->uv[0]   = u;
   lastRayMatch->uv[1]   = v;
   lastRayMatch->spacing = spacing;
-  LogBezierMatchRay("matchRayAll hit at u,v: %.3f, %.3f\n", u,v);
+  lastRayMatch->validMatch  = true;
+  LogBezierMatchRay("matchRayAll hit at u,v: %.3f, %.3f, lowerLeft: %c\n",
+                                                    u, v, lastRayMatch->lowerLeft);
   return true;
 }
 
@@ -349,7 +354,8 @@ MATCH_NEIGHBOR_FOUND:
   memcpy(triangle, neighbor, sizeof(neighbor));
   uv[0] = trialU;
   uv[1] = trialV;
-  LogBezierMatchRay("matchNeighbor hit at u,v: %.3f, %.3f\n", uv[0], uv[1]);
+  LogBezierMatchRay("matchNeighbor hit at u,v: %.3f, %.3f, lowerLeft: %c\n",
+                                                        uv[0], uv[1], lowerLeft);
   return true;
 }
 
@@ -364,9 +370,9 @@ bool BezierPatch::matchRay(vec3& position, vec3& direction, float& lambda)
     return false;
   
   // So it touches our bounding box, have to test the patch itself.
-  if(!lastRayMatch)
+  if(!lastRayMatch || !(lastRayMatch->validMatch))
    {
-    LogBezierMatchRay("First time to match all.\n");
+    LogBezierMatchRay("Entering match all from no previous match.\n");
     if(matchRayAll(position, direction, lambda))
       return true;
     else

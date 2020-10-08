@@ -106,8 +106,9 @@ class PatchRayState
   vec3        triangle[3];
   vec2        uv;
   float       spacing;
-  bool        lowerLeft;
   BezierPatch* parent;
+  bool        lowerLeft;
+  bool        validMatch;
   
   inline bool matchRay(vec3 rayPos, vec3 rayDir, float& outT)
    {
