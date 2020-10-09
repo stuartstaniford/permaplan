@@ -107,6 +107,7 @@ void BezierPatch::computeGradConstraints(void)
   gradConstrainedDone = true;
 }
 
+
 // =======================================================================================
 // Utility function to compute the powers of u, 1-u, v, and 1-v for use in Bernstein
 // polynomials

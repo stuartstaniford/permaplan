@@ -17,6 +17,7 @@ class PmodConfig
   bool            plotGrid;
   float           gridSpacing;
   unsigned short  debugPort;
+  bool            levelPlane;
 
   // Member functions - public
   PmodConfig(int argc, char* argv[]);

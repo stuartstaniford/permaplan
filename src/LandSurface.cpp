@@ -176,6 +176,10 @@ void LandSurface::newLandHeight(HeightMarker* hM)
     plane[1] = 0.0f; // co-efficient of y
     plane[2] = hM->location[2]; // intersection with the z-axis
    }
+  else if(design.config.levelPlane)
+   {
+    return;
+   }
   else if(locationCount == 2)
    {
     // includes both points, sloping up along the line between them.

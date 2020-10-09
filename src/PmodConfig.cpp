@@ -21,6 +21,7 @@ void PmodConfig::usage()
   printf("\t-A\tPlot X (red), Y (green), and Z (blue) axes.\n");
   printf("\t-d F\tRead design file F.\n");
   printf("\t-g f\tAdd square gridlines every f units.\n");
+  printf("\t-L\tLeave land surface as a plane.\n");
   printf("\t-p P\tRun debug server on port P .\n");
   printf("\n");
   exit(0);
@@ -38,8 +39,9 @@ PmodConfig::PmodConfig(int argc, char* argv[])
   plotAxes        = false;
   designFileName  = NULL;
   debugPort       = 2080;
+  levelPlane      = false;
   
-  while( (optionChar = getopt(argc, argv, "Ad:g:p:")) != -1)
+  while( (optionChar = getopt(argc, argv, "Ad:g:Lp:")) != -1)
   switch (optionChar)
    {
     case 'A':
@@ -57,6 +59,10 @@ PmodConfig::PmodConfig(int argc, char* argv[])
         err(-1, "Bad gridspacing via -g: %s\n", optarg);
       break;
 
+     case 'L':
+      levelPlane = true;
+      break;
+      
      case 'p':
       debugPort = atoi(optarg);
       if(!debugPort)
