@@ -36,6 +36,7 @@ public:
                           float s, float t, float sWidth, float tHeight, unsigned gridPoints);
   BezierPatch(Quadtree* qtree, unsigned gridPoints);
   ~BezierPatch(void);
+  void          computeGradConstraints(void);
   void          calcPowers(float u, float v);
   void          triangleBufferSizes(unsigned& vertexCount, unsigned& indexCount);
   bool          bufferGeometry(TriangleBuffer* T);

@@ -16,6 +16,9 @@ void BezierPatch::assertCopyVer(void)
   assert(lastRayMatch == copyVer);
 }
 
+bool gradConstrained[4][4][3];
+bool gradConstrainedDone = false;
+
 // =======================================================================================
 // Constructors.
 
@@ -32,6 +35,8 @@ BezierPatch::BezierPatch(Quadtree* qtree, unsigned gridPoints):
                         , fitIterationCount(0)
 #endif
 {
+  if(!gradConstrainedDone)
+    computeGradConstraints();
 }
 
 
@@ -45,6 +50,8 @@ BezierPatch::BezierPatch(float x, float y, float width, float height,
                             , fitIterationCount(0)
 #endif
 {
+  if(!gradConstrainedDone)
+    computeGradConstraints();
 }
 
 
@@ -55,6 +62,50 @@ BezierPatch::~BezierPatch(void)
 {
 }
 
+
+// =======================================================================================
+// Mark which directions we cannot go in (eg at the edge of the patch).
+
+void BezierPatch::computeGradConstraints(void)
+{
+  forAllControlIndices(i,j)
+    for(int m=0; m<3; m++)
+      gradConstrained[i][j][m] = false;
+
+  // South west corner can only move in z direction
+  gradConstrained[0][0][0] = true;
+  gradConstrained[0][0][1] = true;
+
+  // South east corner can only move in z direction
+  gradConstrained[0][3][0] = true;
+  gradConstrained[0][3][1] = true;
+
+  // North west corner can only move in z direction
+  gradConstrained[3][0][0] = true;
+  gradConstrained[3][0][1] = true;
+
+  // North east corner can only move in z direction
+  gradConstrained[3][3][0] = true;
+  gradConstrained[3][3][1] = true;
+
+  // West side cannot move in x direction
+  gradConstrained[1][0][0] = true;
+  gradConstrained[2][0][0] = true;
+
+  // East side cannot move in x direction
+  gradConstrained[1][3][0] = true;
+  gradConstrained[2][3][0] = true;
+
+  // South side cannot move in y direction
+  gradConstrained[0][1][1] = true;
+  gradConstrained[0][2][1] = true;
+
+  // North side cannot move in y direction
+  gradConstrained[3][1][1] = true;
+  gradConstrained[3][2][1] = true;
+
+  gradConstrainedDone = true;
+}
 
 // =======================================================================================
 // Utility function to compute the powers of u, 1-u, v, and 1-v for use in Bernstein
@@ -569,6 +620,8 @@ void BezierPatch::computeGradientVector(std::vector<float*>& locations)
       for(m=0;m<3;m++)
        {
         gradientControlPoints[i][j][m] = 0.0f;
+        if(gradConstrained[i][j][m])
+          continue;
         for(k=0;k<N;k++)
          {
           calcPowers(fitPointUVVals[k][0], fitPointUVVals[k][1]);
