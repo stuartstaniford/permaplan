@@ -376,14 +376,14 @@ bool PatchRayState::matchNeighbor(vec3 rayPos, vec3 rayDir, float& outT)
   for(int i = -1; i <= 1; i++)
    {
     trialU = uv[0] + spacing*i;
-    if(trialU < 0.0f || trialU + spacing > 1.0f)
+    if(trialU < 0.0f - epsilon || trialU + spacing > 1.0f + epsilon)
       continue;
     for(int j = -1; j <= 1; j++)
      {
       if(i==j==0) // already did that case before the loops
         continue;
       trialV = uv[1] + spacing*j;
-      if(trialV < 0.0f || trialV + spacing > 1.0f)
+      if(trialV < 0.0f - epsilon || trialV + spacing > 1.0f + epsilon)
         continue;
       getLowerLeft(neighbor, trialU, trialV);
       if(mollerTrumbore(neighbor, rayPos, rayDir, outT))
@@ -392,6 +392,7 @@ bool PatchRayState::matchNeighbor(vec3 rayPos, vec3 rayDir, float& outT)
         goto MATCH_NEIGHBOR_FOUND;
        }
       getUpperRight(neighbor, trialU, trialV);
+      if(mollerTrumbore(neighbor, rayPos, rayDir, outT))
        {
         lowerLeft = false;
         goto MATCH_NEIGHBOR_FOUND;
