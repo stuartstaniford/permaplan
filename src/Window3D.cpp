@@ -45,7 +45,8 @@ Window3D::Window3D(int pixWidth, int pixHeight):
                         show_focus_overlay(true),
                         inClick(false),
                         testingDoubleClick(false),
-                        mouseMoved(true)
+                        mouseMoved(true),
+                        frameTimeAvg(0.0f)
 #ifdef SHOW_DEMO_WINDOW
                         , show_demo_window(true)
 #endif
@@ -143,8 +144,8 @@ void displayImguiMatrix(const char* title, const mat4& m)
 
 void Window3D::mouseOverlayDisplays(vec3 mouseSceneLoc)
 {
-  ImGui::Text("Mouse: %.1f E, %.1f N %.1f altitude\n",
-              mouseSceneLoc[0], mouseSceneLoc[1], mouseSceneLoc[2]);
+  //ImGui::Text("Mouse: %.1f E, %.1f N %.1f altitude\n",
+  //            mouseSceneLoc[0], mouseSceneLoc[1], mouseSceneLoc[2]);
   
   // Shows location of mouse in window co-ordinates
   /*ImGui::Text("Raw mouse: %.1f/%d, %.1f/%d\n", lastMouseX, width, lastMouseY, height);
@@ -211,6 +212,7 @@ void Window3D::imguiFocusOverlay(void)
       ImGui::Text("Mouse out of scene.\n");
 
     ImGui::Text("Camera Height: %.1f'\n", scene->findCameraHeight());
+    ImGui::Text("Frames/Sec: %.0f\n", 1.0f/frameTimeAvg);
     ImGui::Separator();
    }
   ImGui::End();
@@ -265,8 +267,14 @@ void Window3D::loop(void)
       firstTime = false;
      }
     else
+     {
       LogFrameStarts("Frame %u starting at %.6lfs (%.1fms gap)\n",
                      frameCount, frameDouble, (frameDouble - lastFrameDouble)*1000.0f);
+      if(frameTimeAvg == 0.0f)
+        frameTimeAvg = frameDouble - lastFrameDouble;
+      else
+        frameTimeAvg = 0.001f*(frameDouble - lastFrameDouble) + 0.999f*frameTimeAvg;
+     }
     lastFrameDouble = frameDouble;
     glClearColor(0.6f, 0.7f, 0.7f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

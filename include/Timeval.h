@@ -21,7 +21,7 @@ class Timeval: public timeval
   Timeval(void);
   ~Timeval();
   void now();
-  double operator-(const Timeval& t);
+  double operator-(const Timeval& t); // Difference between two times (in seconds)
 
 
  private:

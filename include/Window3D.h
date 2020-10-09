@@ -45,6 +45,7 @@ class Window3D
   bool            inClick;
   bool            testingDoubleClick;
   bool            mouseMoved;
+  float           frameTimeAvg;
 #ifdef SHOW_DEMO_WINDOW
   bool            show_demo_window;
 #endif
