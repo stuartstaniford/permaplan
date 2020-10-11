@@ -228,7 +228,18 @@ void LandSurface::newLandHeight(HeightMarker* hM)
     qtree->surface = bez;
     //bez->randomFit(heightLocations);
     bez->assertCopyVer();
-    bez->levelFit(heightLocations);
+    if(design.config.bezReadFileName)
+     {
+      // Note this is very expensive in a frame, but it only happens very near startup.
+      FILE* readFile = fopen(design.config.bezReadFileName, "r");
+      if(!readFile)
+        err(-1, "Couldn't open file %s\n", design.config.bezReadFileName);
+      bez->readControlPointsFromFile(readFile);
+      fclose(readFile);
+     }
+    else
+      bez->levelFit(heightLocations);
+
     redoBezierLandSurface(bez);
     inFitMode = true;
     return;
