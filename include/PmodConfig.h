@@ -18,6 +18,8 @@ class PmodConfig
   float           gridSpacing;
   unsigned short  debugPort;
   bool            levelPlane;
+  char*           bezReadFileName;
+  char*           bezWriteFileName;
 
   // Member functions - public
   PmodConfig(int argc, char* argv[]);

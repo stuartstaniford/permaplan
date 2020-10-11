@@ -6,7 +6,8 @@
 // =======================================================================================
 // Logging options to do with overall control flow and speed
 
-#define LOG_FRAME_STARTS // Log each frame as it begins
+#define LOG_FRAME_STARTS  // Log each frame as it begins
+#define LOG_CLOSE_DOWN    // Log when we exit.
 
 
 // =======================================================================================
@@ -17,6 +18,7 @@
 #define LOG_DOUBLE_CLICK    // Location and intra-click timing of mouse double clicks
 #define LOG_MOUSE_RAY_POINT // Where the mouse is pointing in 3d space
 #define LOG_LAND_HEIGHTS    // Log when a new land height is entered.
+
 
 // =======================================================================================
 // Logging options to do with the Bezier Patch code
@@ -42,10 +44,18 @@ extern FILE* LogFile;
 // =======================================================================================
 // Logging options to do with overall control flow and speed
 
+// Log each frame as it begins
 #ifdef LOG_FRAME_STARTS
 #define LogFrameStarts(...) LogStatement(__VA_ARGS__)
 #else
 #define LogFrameStarts(...)
+#endif
+
+// Log when we exit
+#ifdef LOG_CLOSE_DOWN
+#define LogCloseDown(...) LogStatement(__VA_ARGS__)
+#else
+#define LogCloseDown(...)
 #endif
 
 

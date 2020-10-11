@@ -49,6 +49,7 @@ class Quadtree
   void stripSurface(void);
   void draw(void);
   VisualObject* matchRay(vec3& position, vec3& direction, float& lambda);
+  void saveSurfaceState(char* fileName);
   bool diagnosticHTML(HttpDebug* serv, char* path);
 
  private:

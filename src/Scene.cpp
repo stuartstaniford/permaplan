@@ -39,6 +39,17 @@ Scene::~Scene(void)
 {
   if(axes)
     delete axes;
+  saveState();
+}
+
+
+// =======================================================================================
+// Save state from the scene.
+
+void Scene::saveState(void)
+{
+  if(design.config.bezWriteFileName)
+    qtree->saveSurfaceState(design.config.bezWriteFileName);  
 }
 
 

@@ -24,6 +24,7 @@
 
 HttpDebug::HttpDebug(unsigned short servPort, Scene& S):
                         scene(S),
+                        shutDownNow(false),
                         reqBufSize(8192),
                         respBufSize(16384),
                         port(servPort)
@@ -79,9 +80,16 @@ void* HttpDebug::processConnections(void)
     // Accept a connection
     unsigned len = sizeof(cliaddr);
     if((connfd = accept(sockfd, (SA*)&cliaddr, &len)) < 0)
-      err(-1, "Accept failed on socket %d in __func__\n", sockfd);
+     {
+      if(shutDownNow)
+        break;
+      else
+        err(-1, "Accept failed on socket %d in __func__\n", sockfd);
+     }
     processOneHTTP1_1();
    }
+  
+  LogCloseDown("HttpDebug server shutting down normally.\n");
   return NULL;
 }
 

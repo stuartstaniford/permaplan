@@ -805,6 +805,16 @@ void printControlPointArray(FILE* file, char* title, vec3 myArray[4][4])
 
 
 // =======================================================================================
+// Version of the above specific to the control points themselves, and visible outside
+// the BezierPatch class.
+
+void BezierPatch::printControlPoints(FILE* file)
+{
+  printControlPointArray(file, (char*)"Control Points", controlPoints);
+}
+
+
+// =======================================================================================
 // Dump out one array as part of dumpDetailState
 
 void printUVVector(FILE* file, char* title, std::vector<float*>& myVec)

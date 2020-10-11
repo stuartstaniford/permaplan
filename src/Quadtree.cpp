@@ -369,6 +369,20 @@ VisualObject* Quadtree::matchRay(vec3& position, vec3& direction, float& lambda)
 
 
 // =======================================================================================
+// Store the landsurface configuation in a file
+
+void Quadtree::saveSurfaceState(char* fileName)
+{
+  if(surface && strcmp(surface->objectName(), (char*)"Bezier Patch") == 0)
+   {
+    FILE* bezFile = fopen(fileName, "w");
+    ((BezierPatch*)surface)->printControlPoints(bezFile);
+    fclose(bezFile);
+   }
+}
+
+
+// =======================================================================================
 // Provide a diagnostic page about this node in the tree (or possibly refer to one of our kids)
 
 bool Quadtree::diagnosticHTML(HttpDebug* serv, char* path)

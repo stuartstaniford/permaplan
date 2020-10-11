@@ -44,6 +44,7 @@ class Scene
   void          findCameraObject(vec3 location);
   float         findCameraHeight(void);
   void          newLandHeight(vec3 location);
+  void          saveState(void);
   VisualObject* findObjectFromWindowCoords(vec3 location, float clipX, float clipY);
 
  private:

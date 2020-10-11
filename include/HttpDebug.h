@@ -26,6 +26,8 @@ public:
   // Instance variables - public
   char*               respPtr;
   Scene&              scene;
+  bool                shutDownNow; // by convention, this thread only reads, others set
+                                   // this variable to true to shut it down.  So no lock.
 
   // Member functions - public
   HttpDebug(unsigned short servPort, Scene& S);

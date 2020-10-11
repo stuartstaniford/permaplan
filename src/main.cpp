@@ -54,7 +54,7 @@ int main (int argc, char* argv[])
     err(-1, "Couldn't spawn HTTP server thread in %s.\n", argv[0]);
   
   
-  window.loop();
+  window.loop(httpServer);
 
  return 0;
 }

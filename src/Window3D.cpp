@@ -246,7 +246,7 @@ void Window3D::imguiInterface(void)
 // =======================================================================================
 // Event processing loop for our window
 
-void Window3D::loop(void)
+void Window3D::loop(HttpDebug& httpServer)
 {
   unsigned  frameCount = 0;
   Timeval   start;
@@ -293,6 +293,10 @@ void Window3D::loop(void)
 
     frameCount++;
    }
+  httpServer.shutDownNow = true;
+  scene->saveState();
+  frameTime.now();
+  LogCloseDown("Orderly exit from window loop after %.6lf\n", frameTime - start);
 }
 
 // =======================================================================================

@@ -52,6 +52,7 @@ public:
   void          levelFit(std::vector<float*>& locations);
   bool          improveFit(std::vector<float*>& locations);
   const char*   objectName(void);
+  void          printControlPoints(FILE* file);
   void          assertCopyVer(void);
   bool          diagnosticHTML(HttpDebug* serv);
 
@@ -86,6 +87,11 @@ private:
 
 };
 
+
+// =======================================================================================
+// Utility functions not part of class
+
+void printControlPointArray(FILE* file, char* title, vec3 myArray[4][4]);
 
 // =======================================================================================
 // Helper state for tracking a ray traversing the patch (typically the mouse).

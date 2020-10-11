@@ -19,6 +19,8 @@ void PmodConfig::usage()
   printf("\nUsage:\n\n%s [options]\n\nOptions:\n\n", progName);
   
   printf("\t-A\tPlot X (red), Y (green), and Z (blue) axes.\n");
+  printf("\t-b F\tRead Bezier patch state from file F.\n");
+  printf("\t-B F\tWrite the Bezier patch state to file F.\n");
   printf("\t-d F\tRead design file F.\n");
   printf("\t-g f\tAdd square gridlines every f units.\n");
   printf("\t-L\tLeave land surface as a plane.\n");
@@ -35,19 +37,29 @@ PmodConfig::PmodConfig(int argc, char* argv[])
 {
   int optionChar;
   
-  progName        = strdup(argv[0]);
-  plotAxes        = false;
-  designFileName  = NULL;
-  debugPort       = 2080;
-  levelPlane      = false;
-  
-  while( (optionChar = getopt(argc, argv, "Ad:g:Lp:")) != -1)
+  progName          = strdup(argv[0]);
+  plotAxes          = false;
+  designFileName    = NULL;
+  debugPort         = 2080;
+  levelPlane        = false;
+  bezReadFileName   = NULL;
+  bezWriteFileName  = NULL;
+
+  while( (optionChar = getopt(argc, argv, "Ab:B:d:g:Lp:")) != -1)
   switch (optionChar)
    {
     case 'A':
       plotAxes = true;
       break;
-  
+
+     case 'b':
+      bezReadFileName = optarg;
+      break;
+
+     case 'B':
+      bezWriteFileName = optarg;
+      break;
+
     case 'd':
       designFileName = optarg;
       break;

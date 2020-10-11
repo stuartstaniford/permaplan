@@ -26,7 +26,7 @@ class Window3D
   
   // Public methods
   Window3D(int pixWidth, int pixHeight);
-  void loop(void);
+  void loop(HttpDebug& httpServer);
   void diagnosticHTML(void);
   
  private:
