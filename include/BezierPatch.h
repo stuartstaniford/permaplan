@@ -50,6 +50,7 @@ public:
   void          triangleBufferSize(unsigned& vCount, unsigned& iCount);
   void          randomFit(std::vector<float*>& locations);
   void          levelFit(std::vector<float*>& locations);
+  void          readControlPointsFromFile(FILE* file);
   bool          improveFit(std::vector<float*>& locations);
   const char*   objectName(void);
   void          printControlPoints(FILE* file);

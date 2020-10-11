@@ -521,6 +521,37 @@ void BezierPatch::levelFit(std::vector<float*>& locations)
 
 
 // =======================================================================================
+// This replaces the current values of the control points with values taken from a file.
+// (Possibly our control points are buried in a larger file with other things in, in which
+// case the file pointer should be at the beginning of our section, and we will leave it
+// at the end of our section.
+
+#define READ_BUF_SIZE 128
+void BezierPatch::readControlPointsFromFile(FILE* file)
+{
+  char buf[READ_BUF_SIZE];
+  fgets(buf, READ_BUF_SIZE, file);
+  if(strncmp(buf, (char*)"Control Points.\n", READ_BUF_SIZE) != 0)
+    err(-1, "Bad Bezier Patch control points.\n");
+  fgets(buf, READ_BUF_SIZE, file); // empty line
+  
+  float x, y, z;
+  int readI, readJ;
+  forAllControlIndices(i,j)
+   {
+    fgets(buf, READ_BUF_SIZE, file);
+    if(sscanf(buf, "%d, %d: %f %f %f", &readI, &readJ, &x, &y, &z) != 5)
+      err(-1, "Bad Bezier Patch control point read at %d,%d: %s.\n", i, j, buf);
+    if( (i != readI) || (j != readJ) )
+      err(-1, "Bad Bezier Patch control point indices at %d,%d: %s.\n", i, j, buf);
+    setControlPoints(i, j, x, y, z);
+   }
+  
+  updateBoundingBox();
+}
+
+
+// =======================================================================================
 // Make an initial guess at the u,v values of fitpoints on the parametric surface, based
 // on the assumption that the relative locations of the heighmarkers within the patch are
 // a reasonable starting point.  (These will subsequently be iteratively improved).
