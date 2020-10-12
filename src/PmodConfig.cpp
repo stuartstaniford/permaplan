@@ -10,6 +10,7 @@
 #include <err.h>
 #include "PmodConfig.h"
 
+PmodConfig* PmodConfig::config = NULL;
 
 // =======================================================================================
 // Educate the poor user
@@ -35,6 +36,13 @@ void PmodConfig::usage()
 
 PmodConfig::PmodConfig(int argc, char* argv[])
 {
+  // Constructor should only be called once at startup.  Everyone else gets us via
+  // getConfig()
+  if(config)
+    return;
+  else
+    config = this;
+  
   int optionChar;
   
   progName          = strdup(argv[0]);

@@ -22,10 +22,9 @@ class PmodDesign
   
   // Instance variables - public
   rapidjson::Document   doc;
-  PmodConfig&           config;
 
   // Member functions - public
-  PmodDesign(PmodConfig& config);
+  PmodDesign(void);
   ~PmodDesign(void);
 };
 

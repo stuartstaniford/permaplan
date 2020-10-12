@@ -32,6 +32,7 @@ LandSurface::LandSurface(Shader& S, PmodDesign& D):
 #endif
 {
   using namespace rapidjson;
+  const PmodConfig& config = PmodConfig::getConfig();
 
   if(!(design.doc.HasMember("landSurface") && design.doc["landSurface"].IsObject()))
     err(-1, "No land surface available\n");
@@ -41,16 +42,16 @@ LandSurface::LandSurface(Shader& S, PmodDesign& D):
   if(LsJson.HasMember("width") && LsJson["width"].IsNumber())
     width = LsJson["width"].GetFloat();
   else
-    err(-1, "Bad landSurface width in file %s\n", design.config.designFileName);
+    err(-1, "Bad landSurface width in file %s\n", config.designFileName);
   if(LsJson.HasMember("textureFile") && LsJson["textureFile"].IsString())
     rect = new TexturedRect(shader, LsJson["textureFile"].GetString(), width, 0.0f);
   else
-    err(-1, "Bad landSurface texturefile in file %s\n", design.config.designFileName);
+    err(-1, "Bad landSurface texturefile in file %s\n", config.designFileName);
 
   if(LsJson.HasMember("altitudes"))
    {
     unless(LsJson["altitudes"].IsArray())
-      err(-1, "Altitudes is not array in file %s\n", design.config.designFileName);
+      err(-1, "Altitudes is not array in file %s\n", config.designFileName);
     unless((initialHeightCount = LsJson["altitudes"].Size()) > 0)
      {
       warn("Empty altitudes array in JSON file.");
@@ -162,6 +163,7 @@ extern vec3 zAxis;
 
 void LandSurface::newLandHeight(HeightMarker* hM)
 {
+  const PmodConfig& config = PmodConfig::getConfig();
   heightLocations.push_back(hM->location);
   locationCount++;
   vec3 plane;
@@ -176,7 +178,7 @@ void LandSurface::newLandHeight(HeightMarker* hM)
     plane[1] = 0.0f; // co-efficient of y
     plane[2] = hM->location[2]; // intersection with the z-axis
    }
-  else if(design.config.levelPlane)
+  else if(config.levelPlane)
    {
     return;
    }
@@ -228,12 +230,12 @@ void LandSurface::newLandHeight(HeightMarker* hM)
     qtree->surface = bez;
     //bez->randomFit(heightLocations);
     bez->assertCopyVer();
-    if(design.config.bezReadFileName)
+    if(config.bezReadFileName)
      {
       // Note this is very expensive in a frame, but it only happens very near startup.
-      FILE* readFile = fopen(design.config.bezReadFileName, "r");
+      FILE* readFile = fopen(config.bezReadFileName, "r");
       if(!readFile)
-        err(-1, "Couldn't open file %s\n", design.config.bezReadFileName);
+        err(-1, "Couldn't open file %s\n", config.bezReadFileName);
       bez->readControlPointsFromFile(readFile);
       fclose(readFile);
      }

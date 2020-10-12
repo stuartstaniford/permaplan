@@ -40,8 +40,8 @@ int main (int argc, char* argv[])
   // Initialize everything
   Window3D window(800, 600);
   Shader shader("src/pmodVert.glsl", "src/pmodFrag.glsl");
-  PmodDesign design(config);
-  Scene scene(shader, design, config);
+  PmodDesign design;
+  Scene scene(shader, design);
   window.scene = &scene;
   window.scriptController = new ScriptController(design);
   

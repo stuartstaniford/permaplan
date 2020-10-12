@@ -14,9 +14,10 @@ using namespace rapidjson;
 // =======================================================================================
 // Constructor: parse the json file
 
-PmodDesign::PmodDesign(PmodConfig& config): config(config)
+PmodDesign::PmodDesign(void)
 {
   unsigned bufSize;
+  const PmodConfig& config = PmodConfig::getConfig();
   char* buf = loadFileToBuf(config.designFileName, &bufSize);
   
   ParseResult ok = doc.ParseInsitu<kParseCommentsFlag>(buf);

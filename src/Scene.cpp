@@ -12,15 +12,14 @@
 // =======================================================================================
 // Constructor, which initializes the geometry
 
-Scene::Scene(Shader& S, PmodDesign& des, PmodConfig& conf):
+Scene::Scene(Shader& S, PmodDesign& des):
                 shader(S),
                 camera(shader, 200.0f, 45.0f),
                 design(des),
                 tbuf(NULL),
                 land(shader, design),
                 axes(NULL),
-                grid(NULL),
-                config(conf)
+                grid(NULL)
 {
   unsigned minSize = 10;
   // Note that land and qtree have mutual dependencies that means there
@@ -48,8 +47,9 @@ Scene::~Scene(void)
 
 void Scene::saveState(void)
 {
-  if(design.config.bezWriteFileName)
-    qtree->saveSurfaceState(design.config.bezWriteFileName);  
+  const PmodConfig& config = PmodConfig::getConfig();
+  if(config.bezWriteFileName)
+    qtree->saveSurfaceState(config.bezWriteFileName);
 }
 
 
@@ -157,6 +157,7 @@ void Scene::draw(bool mouseMoved)
   setModelMatrix(0.0f, 0.0f);
 
   // Display the colored axes if configured
+  const PmodConfig& config = PmodConfig::getConfig();
   if(config.plotAxes)
    {
     if(!axes)

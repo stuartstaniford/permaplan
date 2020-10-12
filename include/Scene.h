@@ -38,7 +38,7 @@ class Scene
   vec3            lastDoubleClick;
 
   // Member functions - public
-  Scene(Shader& S, PmodDesign& des, PmodConfig& C);
+  Scene(Shader& S, PmodDesign& des);
   ~Scene(void);
   void          draw(bool mouseMoved);
   void          findCameraObject(vec3 location);
@@ -51,7 +51,6 @@ class Scene
   // Instance variables - private
   ColoredAxes*      axes;
   Grid*             grid;
-  PmodConfig&       config;
 
   // Member functions - private
   void setModelMatrix(float latt, float longt);

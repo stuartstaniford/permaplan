@@ -20,12 +20,22 @@ class PmodConfig
   bool            levelPlane;
   char*           bezReadFileName;
   char*           bezWriteFileName;
+  
+  private:
+  
+  static PmodConfig* config;
 
+  public:
+  
   // Member functions - public
   PmodConfig(int argc, char* argv[]);
   ~PmodConfig(void);
   void usage(void);
   bool isValid(void);
+  static const PmodConfig& getConfig(void) // Get the singleton instance
+   {
+    return *config;
+   }
 };
 
 #endif
