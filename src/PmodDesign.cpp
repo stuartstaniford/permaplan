@@ -11,11 +11,19 @@
 
 using namespace rapidjson;
 
+PmodDesign* PmodDesign::design = NULL;
+
 // =======================================================================================
 // Constructor: parse the json file
 
 PmodDesign::PmodDesign(void)
 {
+  // Constructor should only be called once at startup.  Everyone else gets us via
+  // getDesign()
+  if(design)
+    return;
+  else
+    design = this;
   unsigned bufSize;
   const PmodConfig& config = PmodConfig::getConfig();
   char* buf = loadFileToBuf(config.designFileName, &bufSize);

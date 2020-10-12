@@ -15,8 +15,7 @@ using namespace rapidjson;
 // =======================================================================================
 // Constructor which sets up the surface as specified in the design file
 
-ScriptController::ScriptController(PmodDesign& D):
-                                      design(D),
+ScriptController::ScriptController(void):
                                       timeSec(-1.0),
                                       timeLimit(0.0),
                                       index(0u),
@@ -26,7 +25,7 @@ ScriptController::ScriptController(PmodDesign& D):
                                       currentInterfaceAction(IA_None)
 {
   setupMaps();
-  
+  PmodDesign& design = PmodDesign::getDesign();
   unless(design.doc.HasMember("scriptControl"))
    {
     timeSec = -2.0; // this means ScriptController will never actually do anything.

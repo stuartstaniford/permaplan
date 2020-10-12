@@ -12,12 +12,11 @@
 // =======================================================================================
 // Constructor, which initializes the geometry
 
-Scene::Scene(Shader& S, PmodDesign& des):
+Scene::Scene(Shader& S):
                 shader(S),
                 camera(shader, 200.0f, 45.0f),
-                design(des),
                 tbuf(NULL),
-                land(shader, design),
+                land(shader),
                 axes(NULL),
                 grid(NULL)
 {

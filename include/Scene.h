@@ -28,7 +28,6 @@ class Scene
   // Instance variables - public
   Shader&         shader;
   Camera          camera;
-  PmodDesign&     design;
   Quadtree*       qtree;
   TriangleBuffer* tbuf;
   LandSurface     land;
@@ -38,7 +37,7 @@ class Scene
   vec3            lastDoubleClick;
 
   // Member functions - public
-  Scene(Shader& S, PmodDesign& des);
+  Scene(Shader& S);
   ~Scene(void);
   void          draw(bool mouseMoved);
   void          findCameraObject(vec3 location);

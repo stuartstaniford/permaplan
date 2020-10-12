@@ -35,7 +35,7 @@ class ScriptController
   // Instance variables - public
   
   // Member functions - public
-  ScriptController(PmodDesign& D);
+  ScriptController(void);
   ~ScriptController(void);
   void      processNewScriptControl(void);
   void      setupMaps(void);
@@ -51,7 +51,6 @@ class ScriptController
  private:
   
   // Instance variables - private
-  PmodDesign&                                       design;
   double                                            timeSec;
   double                                            timeLimit;
   unsigned                                          index;

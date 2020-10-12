@@ -16,11 +16,10 @@
 // =======================================================================================
 // Constructor which sets up the surface as specified in the design file
 
-LandSurface::LandSurface(Shader& S, PmodDesign& D):
+LandSurface::LandSurface(Shader& S):
                             rect(NULL),
                             qtree(NULL),
                             shader(S),
-                            design(D),
                             tbuf(NULL),
                             locationCount(0u),
                             heightLocations(),
@@ -33,6 +32,7 @@ LandSurface::LandSurface(Shader& S, PmodDesign& D):
 {
   using namespace rapidjson;
   const PmodConfig& config = PmodConfig::getConfig();
+  PmodDesign& design = PmodDesign::getDesign();
 
   if(!(design.doc.HasMember("landSurface") && design.doc["landSurface"].IsObject()))
     err(-1, "No land surface available\n");

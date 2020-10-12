@@ -23,9 +23,20 @@ class PmodDesign
   // Instance variables - public
   rapidjson::Document   doc;
 
+private:
+  
+  static PmodDesign* design;
+  
+public:
+
   // Member functions - public
   PmodDesign(void);
   ~PmodDesign(void);
+  static PmodDesign& getDesign(void) // Get the singleton instance
+  {
+   return *design;
+  }
+
 };
 
 #endif

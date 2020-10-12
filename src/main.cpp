@@ -41,9 +41,9 @@ int main (int argc, char* argv[])
   Window3D window(800, 600);
   Shader shader("src/pmodVert.glsl", "src/pmodFrag.glsl");
   PmodDesign design;
-  Scene scene(shader, design);
+  Scene scene(shader);
   window.scene = &scene;
-  window.scriptController = new ScriptController(design);
+  window.scriptController = new ScriptController();
   
   // Start up the debugging http server
   HttpDebug   httpServer(config.debugPort, scene);
