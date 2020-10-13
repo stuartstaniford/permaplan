@@ -16,11 +16,10 @@ class Box: public VisualObject
  public:
   
   // Instance variables - public
-  vec3 location;
+  mat4 trans;
 
   // Member functions - public
-  Box(float x, float y, float z);
-  Box(vec3 loc);
+  Box(mat4 transform);   // We take the unit box on [0,0,0] to [1,1,1] and apply transform to it.
   ~Box(void);
   bool bufferGeometry(TriangleBuffer* T);
   void draw(void);

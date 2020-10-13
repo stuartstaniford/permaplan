@@ -5,30 +5,18 @@
 #include <err.h>
 #include "Box.h"
 
-const float heightMarkerSize   = 1.5f; //0.3f; // 1/2 the side of the square in x and y directions
-const float heightMarkerHeight = heightMarkerSize*sqrtf(2.0f); // 1/2 the total height
+#define forAllBoxVertices(i,j,k) for(int i=0; i<2; i++) \
+                                   for(int j=0; j<2; j++) \
+                                     for(int k=0; k<2; k++)
 
 // =======================================================================================
-// Constructors.  Note that typically we are constructed dynamically on a pointer, and
-// pointers to us are stored both in the Qtree and in the LandSurface
+// Constructors.
 
-Box::Box(float x, float y, float z)
+Box::Box(mat4 transform)
 {
-  location[0] = x;
-  location[1] = y;
-  location[2] = z;
+  glm_mat4_copy(transform, trans);
   updateBoundingBox();
 }
-
-
-Box::Box(vec3 loc)
-{
-  location[0] = loc[0];
-  location[1] = loc[1];
-  location[2] = loc[2];
-  updateBoundingBox();
-}
-
 
 // =======================================================================================
 // Destructor
@@ -111,9 +99,30 @@ bool Box::matchRay(vec3& position, vec3& direction, float& lambda)
 void Box::updateBoundingBox(void)
 {
   if(!box)
-    box = new BoundingBox(location[0] - heightMarkerSize, location[1] - heightMarkerSize,
-                      location[2], location[0] + heightMarkerSize,
-                      location[1] + heightMarkerSize, location[2] + 2.0f*heightMarkerHeight);
+    box = new BoundingBox();
+  else
+    box->hugeValify();
+  
+  vec4 vertex4, out;
+  vec3 vertex3;
+  
+  forAllBoxVertices(i,j,k)
+   {
+    vertex4[0] = i;
+    vertex4[1] = j;
+    vertex4[2] = k;
+    vertex4[3] = 1.0f;
+    glm_mat4_mulv(trans, vertex4, out);
+    glm_vec3(out, vertex3);
+    for(int m=0; m<3; m++)
+     {
+      if(vertex3[m] < box->lower[m])
+        box->lower[m] = vertex3[m];
+      if(vertex3[m] > box->upper[m])
+        box->upper[m] = vertex3[m];
+     }
+   }
+  
   return;
 }
                                                                 
@@ -136,9 +145,9 @@ bool Box::diagnosticHTML(HttpDebug* serv)
 {
   
   serv->addResponseData("<tr><td>Box</td>");
-  serv->respPtr += sprintf(serv->respPtr,
+  /*serv->respPtr += sprintf(serv->respPtr,
                            "<td><b>Location:</b> (%.1f, %.1f, %.1f)</td></tr>\n",
-                           location[0], location[1], location[2]);
+                           location[0], location[1], location[2]);*/
   return true;
 }
 

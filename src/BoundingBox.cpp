@@ -14,7 +14,7 @@
 // =======================================================================================
 // Constructors
 
-//NB!! Two constructors
+//NB!! Three constructors
 
 BoundingBox::BoundingBox(vec3& bottomCorner, vec3& topCorner)
 {
@@ -32,6 +32,20 @@ BoundingBox::BoundingBox(float x_l, float y_l, float z_l, float x_u, float y_u, 
   upper[1] = y_u;
   upper[2] = z_u;
 }
+
+// This last one is useful when we are about to search a bunch of vertices to find
+// lower/upper bounds
+
+BoundingBox::BoundingBox(void)
+{
+  lower[0] = HUGE_VALF;
+  lower[1] = HUGE_VALF;
+  lower[2] = HUGE_VALF;
+  upper[0] = -HUGE_VALF;
+  upper[1] = -HUGE_VALF;
+  upper[2] = -HUGE_VALF;
+}
+
 
 // =======================================================================================
 // Destructor
@@ -52,6 +66,20 @@ void BoundingBox::reset(float x_l, float y_l, float z_l, float x_u, float y_u, f
   upper[0] = x_u;
   upper[1] = y_u;
   upper[2] = z_u;
+}
+
+
+// =======================================================================================
+// Set up an existing box for vertex search on update
+
+void BoundingBox::hugeValify(void)
+{
+  lower[0] = HUGE_VALF;
+  lower[1] = HUGE_VALF;
+  lower[2] = HUGE_VALF;
+  upper[0] = -HUGE_VALF;
+  upper[1] = -HUGE_VALF;
+  upper[2] = -HUGE_VALF;
 }
 
 
