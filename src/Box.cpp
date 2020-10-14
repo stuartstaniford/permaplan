@@ -61,8 +61,53 @@ float* Box::getNextVertex(bool resetToFirst)
   return currentVertex;
 }
 
+
 // =======================================================================================
-// This is where the actual octahedron geometry is defined - we render it into a buffer
+// Iterator over indices.  Recall the underlying unit cube pre transformation is on axes
+// from [0,0,0] to [1,1,1].  Refer to getNextVertex above for which vertex is which.  This
+// function defines the triangles.  Recall counterclockwise winding order is front facing.
+// https://learnopengl.com/Advanced-OpenGL/Face-culling
+
+static int indexArray[36] = {
+                          // Underside (z=0), close to origin
+                          0, 0, 0,
+                          // Underside (z=0), away from origin
+                          0, 0, 0,
+                          // Topside (z=1), close to origin
+                          0, 0, 0,
+                          // Topside (z=1), close to origin
+                          0, 0, 0,
+                          // Southside (y=0), close to origin
+                          0, 0, 0,
+                          // Southside (y=0), away from origin
+                          0, 0, 0,
+                          // Northside (y=1), close to origin
+                          0, 0, 0,
+                          // Northside (y=1), away from origin
+                          0, 0, 0,
+                          // Westside (x=0), close to origin
+                          0, 0, 0,
+                          // Westside (x=0), away from origin
+                          0, 0, 0,
+                          // Eastside (x=1), close to origin
+                          0, 0, 0,
+                          // Eastside (x=1), away from origin
+                          0, 0, 0
+                        };
+
+int Box::getNextIndex(bool resetToFirst)
+{
+  if(resetToFirst)
+    return indexArray[index = 0];
+  else if(index >= 36)
+    return -1;
+  else
+    return indexArray[++index];
+}
+
+
+// =======================================================================================
+// This is where the actual geometry is defined - we render it into a buffer
 // on request
 
 bool Box::bufferGeometry(TriangleBuffer* T)
@@ -76,18 +121,18 @@ bool Box::bufferGeometry(TriangleBuffer* T)
   
   // Now we know where we are putting stuff and that there is space, so pack
   // in the vertices
- // vertices[0].set(location[0], location[1],
- //                 location[2]);  //bottom vertex
- 
-//  if(useNoTexColor)
-//    for(int i=0; i<6; i++)
-//      vertices[i].setNoTexColor(noTexColor);
-  
-  // Lower facing south
-  //indices[0] = vOffset;
-  //indices[1] = vOffset + 2u;
-  //indices[2] = vOffset + 1u;
+  int i;
+  float* v3;
+  for(i=0, v3 = getNextVertex(true); v3; i++, v3 = getNextVertex(false))
+   {
+    vertices[i].set(v3[0], v3[1], v3[2]);
+    if(useNoTexColor)
+      vertices[i].setNoTexColor(noTexColor);
+   }
 
+  int I;
+  for(i = 0, I = getNextIndex(true); I >= 0; i++, I = getNextIndex(false))
+    indices[i] = vOffset + I;
 
   return true;
 }
