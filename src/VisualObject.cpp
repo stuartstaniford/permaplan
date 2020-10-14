@@ -27,6 +27,15 @@ VisualObject::~VisualObject(void)
 
 
 // =======================================================================================
+// Stub definition this should be overwritten by implementing subclasses
+
+float* VisualObject::getNextVertex(bool resetToFirst)
+{
+  return NULL;
+}
+
+
+// =======================================================================================
 // Used when this visual object is going to be a visual indicator with a fixed color.
 // XX - should this be hived off into a different class, that could use multiple
 // inheritance to pull in, so this isn't present in non-visual indicator subclasses?

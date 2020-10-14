@@ -24,6 +24,7 @@ class VisualObject
   VisualObject(BoundingBox* B = NULL);
   virtual ~VisualObject(void);
   void setNoTexColor(vec3 color);
+  virtual float* getNextVertex(bool firstVertex);  // return is ptr to a vec3
   virtual bool bufferGeometry(TriangleBuffer* T);
   void draw(void);
   virtual bool matchRay(vec3& position, vec3& direction, float& lambda);
@@ -37,6 +38,7 @@ class VisualObject
   // Instance variables - protected
   vec3          noTexColor;
   bool          useNoTexColor;
+  vec3          currentVertex;
 
   // Member functions - private
 };

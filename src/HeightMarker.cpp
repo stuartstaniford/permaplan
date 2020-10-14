@@ -40,6 +40,15 @@ HeightMarker::~HeightMarker(void)
 
 
 // =======================================================================================
+//XX Stub definition needs to be implemented
+
+float* HeightMarker::getNextVertex(bool resetToFirst)
+{
+  return NULL;
+}
+
+
+// =======================================================================================
 // This is where the actual octahedron geometry is defined - we render it into a buffer
 // on request
 

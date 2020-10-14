@@ -22,13 +22,14 @@ class HeightMarker: public VisualObject
   HeightMarker(float x, float y, float z);
   HeightMarker(vec3 loc);
   ~HeightMarker(void);
-  bool bufferGeometry(TriangleBuffer* T);
-  void draw(void);
-  bool matchRay(vec3& position, vec3& direction, float& lambda);
-  void updateBoundingBox(void);
-  void triangleBufferSizes(unsigned& vCount, unsigned& iCount);
+  float*      getNextVertex(bool firstVertex);  // return is ptr to a vec3
+  bool        bufferGeometry(TriangleBuffer* T);
+  void        draw(void);
+  bool        matchRay(vec3& position, vec3& direction, float& lambda);
+  void        updateBoundingBox(void);
+  void        triangleBufferSizes(unsigned& vCount, unsigned& iCount);
   const char* objectName(void);
-  bool diagnosticHTML(HttpDebug* serv);
+  bool        diagnosticHTML(HttpDebug* serv);
 
  private:
   

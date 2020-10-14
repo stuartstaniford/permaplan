@@ -5,9 +5,6 @@
 #include <err.h>
 #include "Box.h"
 
-#define forAllBoxVertices(i,j,k) for(int i=0; i<2; i++) \
-                                   for(int j=0; j<2; j++) \
-                                     for(int k=0; k<2; k++)
 
 // =======================================================================================
 // Constructors.
@@ -18,6 +15,7 @@ Box::Box(mat4 transform)
   updateBoundingBox();
 }
 
+
 // =======================================================================================
 // Destructor
 
@@ -25,6 +23,43 @@ Box::~Box(void)
 {
 }
 
+
+// =======================================================================================
+// Iterator over vertices.  // return is ptr to a vec3
+
+float* Box::getNextVertex(bool resetToFirst)
+{
+  if(resetToFirst)
+   {
+    iterI = iterJ = iterK = '\0';
+   }
+  else
+   {
+    iterK++;
+    if(iterK > 1)
+     {
+      iterK = '\0';
+      iterJ++;
+     }
+    if(iterJ > 1)
+     {
+      iterJ = '\0';
+      iterI++;
+     }
+    if(iterI > 1)
+      return NULL;
+   }
+  
+  vec4 vertex4, out;
+
+  vertex4[0] = iterI;
+  vertex4[1] = iterJ;
+  vertex4[2] = iterK;
+  vertex4[3] = 1.0f;
+  glm_mat4_mulv(trans, vertex4, out);
+  glm_vec3(out, currentVertex);
+  return currentVertex;
+}
 
 // =======================================================================================
 // This is where the actual octahedron geometry is defined - we render it into a buffer
@@ -82,7 +117,7 @@ void Box::draw(void)
 
 bool Box::matchRay(vec3& position, vec3& direction, float& lambda)
 {
-  if(!box->matchRay(position, direction, lambda))
+  if(box->matchRay(position, direction, lambda))
     return false;
   
   // So it touches our bounding box, have to test the faces.
@@ -103,23 +138,14 @@ void Box::updateBoundingBox(void)
   else
     box->hugeValify();
   
-  vec4 vertex4, out;
-  vec3 vertex3;
-  
-  forAllBoxVertices(i,j,k)
+  for(float* v3 = getNextVertex(true); v3 != NULL; v3 = getNextVertex(false))
    {
-    vertex4[0] = i;
-    vertex4[1] = j;
-    vertex4[2] = k;
-    vertex4[3] = 1.0f;
-    glm_mat4_mulv(trans, vertex4, out);
-    glm_vec3(out, vertex3);
     for(int m=0; m<3; m++)
      {
-      if(vertex3[m] < box->lower[m])
-        box->lower[m] = vertex3[m];
-      if(vertex3[m] > box->upper[m])
-        box->upper[m] = vertex3[m];
+      if(v3[m] < box->lower[m])
+        box->lower[m] = v3[m];
+      if(v3[m] > box->upper[m])
+        box->upper[m] = v3[m];
      }
    }
   

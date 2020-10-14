@@ -27,6 +27,15 @@ Arrow::~Arrow(void)
 
 
 // =======================================================================================
+//XX Stub definition needs to be implemented
+
+float* Arrow::getNextVertex(bool resetToFirst)
+{
+  return NULL;
+}
+
+
+// =======================================================================================
 // This is where the actual octahedron geometry is defined - we render it into a buffer
 // on request
 

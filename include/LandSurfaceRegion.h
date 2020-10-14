@@ -27,6 +27,7 @@ class LandSurfaceRegion: public VisualObject
   LandSurfaceRegion(float x, float y, float width, float height, float s, float t,
                     float sWidth, float tHeight);
   virtual ~LandSurfaceRegion(void);
+  float*        getNextVertex(bool firstVertex);  // return is ptr to a vec3
   virtual bool  bufferGeometry(TriangleBuffer* T);
   virtual void  draw(void);
   virtual bool  matchRay(vec3& position, vec3& direction, float& lambda);

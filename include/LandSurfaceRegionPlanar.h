@@ -26,15 +26,16 @@ class LandSurfaceRegionPlanar: public LandSurfaceRegion
   LandSurfaceRegionPlanar(float x, float y, float width, float height,
                           float s, float t, float sWidth, float tHeight, vec3 plane);
   ~LandSurfaceRegionPlanar(void);
-  void  resetPlane(vec3 plane);
-  bool  bufferGeometry(TriangleBuffer* T);
-  void  draw(void);
-  bool  matchRay(vec3& position, vec3& direction, float& lambda);
-  void  updateBoundingBox(void);
-  void  triangleBufferSize(unsigned& vCount, unsigned& iCount);
-  void  fit(std::vector<float*>& locations);
+  void        resetPlane(vec3 plane);
+  float*      getNextVertex(bool firstVertex);  // return is ptr to a vec3
+  bool        bufferGeometry(TriangleBuffer* T);
+  void        draw(void);
+  bool        matchRay(vec3& position, vec3& direction, float& lambda);
+  void        updateBoundingBox(void);
+  void        triangleBufferSize(unsigned& vCount, unsigned& iCount);
+  void        fit(std::vector<float*>& locations);
   const char* objectName(void);
-  bool  diagnosticHTML(HttpDebug* serv);
+  bool        diagnosticHTML(HttpDebug* serv);
 
  private:
   

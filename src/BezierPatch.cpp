@@ -64,6 +64,15 @@ BezierPatch::~BezierPatch(void)
 
 
 // =======================================================================================
+//XX Stub definition needs to be implemented
+
+float* BezierPatch::getNextVertex(bool resetToFirst)
+{
+  return NULL;
+}
+
+
+// =======================================================================================
 // Mark which directions we cannot go in (eg at the edge of the patch).
 
 void BezierPatch::computeGradConstraints(void)

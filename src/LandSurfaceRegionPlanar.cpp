@@ -47,6 +47,15 @@ LandSurfaceRegionPlanar::~LandSurfaceRegionPlanar(void)
 
 
 // =======================================================================================
+//XX Stub definition needs to be implemented
+
+float* LandSurfaceRegionPlanar::getNextVertex(bool resetToFirst)
+{
+  return NULL;
+}
+
+
+// =======================================================================================
 // Function that sets up our height variables based on our plane
 
 void LandSurfaceRegionPlanar::resetPlane(vec3 plane)

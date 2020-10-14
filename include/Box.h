@@ -21,6 +21,7 @@ class Box: public VisualObject
   // Member functions - public
   Box(mat4 transform);   // We take the unit box on [0,0,0] to [1,1,1] and apply transform to it.
   ~Box(void);
+  float* getNextVertex(bool resetToFirst);  // return is ptr to a vec3
   bool bufferGeometry(TriangleBuffer* T);
   void draw(void);
   bool matchRay(vec3& position, vec3& direction, float& lambda);
@@ -32,6 +33,7 @@ class Box: public VisualObject
  private:
   
   // Instance variables - private
+  char iterI, iterJ, iterK;
   
   // Member functions - private
 };

@@ -34,6 +34,15 @@ LandSurfaceRegion::~LandSurfaceRegion(void)
 
 
 // =======================================================================================
+//XX Stub definition needs to be implemented
+
+float* LandSurfaceRegion::getNextVertex(bool resetToFirst)
+{
+  return NULL;
+}
+
+
+// =======================================================================================
 // Stub definition this should be overwritten by implementing subclasses
 
 bool LandSurfaceRegion::bufferGeometry(TriangleBuffer* T)
