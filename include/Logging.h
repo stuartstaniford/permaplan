@@ -20,6 +20,11 @@
 #define LOG_LAND_HEIGHTS      // Log when a new land height is entered.
 #define LOG_OBJECT_INSERTIONS // Log when a new object is inserted in scene.
 
+// =======================================================================================
+// Logging options to do with quadtree insertions
+
+#define LOG_QUADTREE_INSERTIONS // Log the process of a new object being put in the quadtree.
+
 
 // =======================================================================================
 // Logging options to do with the Bezier Patch code
@@ -104,6 +109,16 @@ extern FILE* LogFile;
 #define LogObjectInsertions(...) LogStatement(__VA_ARGS__)
 #else
 #define LogObjectInsertions(...)
+#endif
+
+// =======================================================================================
+// Logging options to do with quadtree insertions
+
+// Log the process of a new object being put in the quadtree.
+#ifdef LOG_QUADTREE_INSERTIONS
+#define LogQuadtreeInsertions(...) LogStatement(__VA_ARGS__)
+#else
+#define LogQuadtreeInsertions(...)
 #endif
 
 
