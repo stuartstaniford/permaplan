@@ -169,9 +169,11 @@ VisualObject* Scene::getFreshObject(char* objTypeName, mat4 transform)
 
 void Scene::newObjectTransform(mat4 transform, float initSize, vec3 location)
 {
+  // Remember that cglm does right multiplication, so the transformations are applied
+  // to the incoming object in reverse order to their order in the code.
   glm_mat4_identity(transform);
-  glm_scale_uni(transform, initSize);
   glm_translate(transform, location);
+  glm_scale_uni(transform, initSize);
 }
 
 
@@ -185,7 +187,8 @@ void Scene::insertVisibleObject(char* objTypeName, float initSize, vec3 location
   VisualObject* newObj = getFreshObject(objTypeName, transform);
   
   //XX need to allow the user to edit the object
-  
+  LogObjectInsertions("Object inserted: %s (size %.1f) at %.1f, %.1f, %.1f\n",
+                      objTypeName, initSize, location[0], location[1], location[2]);
   qtree->storeVisualObject(newObj);
 }
 
