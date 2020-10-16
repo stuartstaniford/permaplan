@@ -148,6 +148,14 @@ void Scene::newLandHeight(vec3 location)
 // =======================================================================================
 // Draw the current state of the scene (called from the main Window3D event loop)
 
+void Scene::insertVisibleObject(char* objTypeName, float initSize)
+{
+  
+}
+
+// =======================================================================================
+// Draw the current state of the scene (called from the main Window3D event loop)
+
 vec4  objColor      = {0.0f, 0.5f, 0.9f, 1.0f};
 
 void Scene::draw(bool mouseMoved)

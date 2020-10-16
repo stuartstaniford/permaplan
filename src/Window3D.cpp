@@ -123,7 +123,15 @@ void Window3D::imguiInsertMenu(void)
     scene->newLandHeight(scene->lastDoubleClick);
     show_insert_menu = false;
    }
-  ImGui::End();
+  if(ImGui::Button("Block") ||
+     (fromScript = scriptController->checkInterfaceAction(IA_HeightMarker)))
+   {
+    float size;
+    size = atof(heightBuf);
+    heightBuf[0] = '\0';
+    scene->insertVisibleObject((char*)"Block", size);
+    show_insert_menu = false;
+   }  ImGui::End();
 }
 
 
