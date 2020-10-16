@@ -8,6 +8,7 @@
 #include "Scene.h"
 #include "Shader.h"
 #include "HeightMarker.h"
+#include "Box.h"
 
 // =======================================================================================
 // Constructor, which initializes the geometry
@@ -148,9 +149,44 @@ void Scene::newLandHeight(vec3 location)
 // =======================================================================================
 // Draw the current state of the scene (called from the main Window3D event loop)
 
-void Scene::insertVisibleObject(char* objTypeName, float initSize)
+VisualObject* Scene::getFreshObject(char* objTypeName, mat4 transform)
 {
+  VisualObject* returnVal = NULL;
   
+  if(strcmp(objTypeName, "Block") == 0)
+    returnVal = (VisualObject*)new Box(transform);
+
+  return returnVal;
+}
+
+
+// =======================================================================================
+// Create the transformation matrix which will allow the new object to be visible in the
+// correct initial location.
+
+//XX likely this should be moved into visualObject and be done in a way that avoids
+// copying the matrix in the object state.
+
+void Scene::newObjectTransform(mat4 transform, float initSize, vec3 location)
+{
+  glm_mat4_identity(transform);
+  glm_scale_uni(transform, initSize);
+  glm_translate(transform, location);
+}
+
+
+// =======================================================================================
+// Handle a UI call to insert a new object in the scene (from the insert menu in Window3D)
+
+void Scene::insertVisibleObject(char* objTypeName, float initSize, vec3 location)
+{
+  mat4 transform;
+  newObjectTransform(transform, initSize, location);
+  VisualObject* newObj = getFreshObject(objTypeName, transform);
+  
+  //XX need to allow the user to edit the object
+  
+  qtree->storeVisualObject(newObj);
 }
 
 // =======================================================================================

@@ -129,7 +129,7 @@ void Window3D::imguiInsertMenu(void)
     float size;
     size = atof(heightBuf);
     heightBuf[0] = '\0';
-    scene->insertVisibleObject((char*)"Block", size);
+    scene->insertVisibleObject((char*)"Block", size, scene->lastDoubleClick);
     show_insert_menu = false;
    }  ImGui::End();
 }
