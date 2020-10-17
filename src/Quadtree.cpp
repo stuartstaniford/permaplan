@@ -167,9 +167,11 @@ void Quadtree::storeVisualObject(VisualObject* obj)
   forAllKids(i)
     if(kids[i]->bbox.xyContains(*(obj->box)))
      {
+      LogQuadtreeInsertions("Passing %s object to child %d.\n", obj->objectName(), i);
       kids[i]->storeVisualObject(obj);
       return;
      }
+  LogQuadtreeInsertions("Final storage of %s object.\n", obj->objectName());
   vObjects.push_back(obj);
 }
 
