@@ -51,7 +51,19 @@ void DisplayList::bufferGeometry(TriangleBuffer* T)
 {
   int i, N = size();
   for(i=0; i<N; i++)
+   {
     at(i)->bufferGeometry(T);
+
+#ifdef LOG_DISPLAYLIST_BUFFER
+    if(strcmp(at(i)->objectName(), (char*)"Arrow") == 0) //XX no arrow bounding box yet.
+      continue;
+    float centroid[3];
+    for(int m=0; m<3; m++)
+      centroid[m] = (at(i)->box->lower[m] + at(i)->box->upper[m])/2.0f;
+    LogDisplayListBuffer("Buffering %s object at %.1f, %.1f, %.1f.\n",
+                         at(i)->objectName(), centroid[0], centroid[1], centroid[2]);
+#endif
+   }
 }
 
 

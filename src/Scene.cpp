@@ -123,6 +123,19 @@ VisualObject* Scene::findObjectFromWindowCoords(vec3 location, float clipX, floa
 
 
 // =======================================================================================
+//XXX Temporary hack - toss the old buffer and make a new one
+
+void Scene::rebuildVisualObjectBuffer(void)
+{
+  if(tbuf)
+    delete tbuf;
+  tbuf = new TriangleBuffer(qtree->vertexTBufSize, qtree->indexTBufSize);
+  qtree->bufferVisualObjects(tbuf);
+  tbuf->sendToGPU(GL_STATIC_DRAW);
+}
+
+
+// =======================================================================================
 // The interface has been notified of a new height measurement at the last
 // place we double-clicked.
 
@@ -132,12 +145,7 @@ void Scene::newLandHeight(vec3 location)
   qtree->storeVisualObject(H);
   grid->newHeight(location[2]);
   
-  //XXX Temporary hack - toss the old buffer and make a new one
-  if(tbuf)
-    delete tbuf;
-  tbuf = new TriangleBuffer(qtree->vertexTBufSize, qtree->indexTBufSize);
-  qtree->bufferVisualObjects(tbuf);
-  tbuf->sendToGPU(GL_STATIC_DRAW);
+  rebuildVisualObjectBuffer();
   
   //Redo the landsurface here, in light of the new height observation
   land.newLandHeight(H);
@@ -190,7 +198,9 @@ void Scene::insertVisibleObject(char* objTypeName, float initSize, vec3 location
   LogObjectInsertions("Object inserted: %s (size %.1f) at %.1f, %.1f, %.1f\n",
                       objTypeName, initSize, location[0], location[1], location[2]);
   qtree->storeVisualObject(newObj);
+  rebuildVisualObjectBuffer();
 }
+
 
 // =======================================================================================
 // Draw the current state of the scene (called from the main Window3D event loop)
@@ -235,3 +245,7 @@ void Scene::draw(bool mouseMoved)
     shader.setUniform("fixedColor", false);
    }
 }
+
+
+// =======================================================================================
+

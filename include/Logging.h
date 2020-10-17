@@ -21,9 +21,10 @@
 #define LOG_OBJECT_INSERTIONS // Log when a new object is inserted in scene.
 
 // =======================================================================================
-// Logging options to do with quadtree insertions
+// Logging options to do with quadtree operations
 
 #define LOG_QUADTREE_INSERTIONS // Log the process of a new object being put in the quadtree.
+#define LOG_DISPLAYLIST_BUFFER  // Log the process of objects being buffered for display.
 
 
 // =======================================================================================
@@ -111,6 +112,7 @@ extern FILE* LogFile;
 #define LogObjectInsertions(...)
 #endif
 
+
 // =======================================================================================
 // Logging options to do with quadtree insertions
 
@@ -119,6 +121,13 @@ extern FILE* LogFile;
 #define LogQuadtreeInsertions(...) LogStatement(__VA_ARGS__)
 #else
 #define LogQuadtreeInsertions(...)
+#endif
+
+// Log the process of a new object being put in the quadtree.
+#ifdef LOG_DISPLAYLIST_BUFFER
+#define LogDisplayListBuffer(...) LogStatement(__VA_ARGS__)
+#else
+#define LogDisplayListBuffer(...)
 #endif
 
 

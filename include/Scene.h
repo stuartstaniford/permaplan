@@ -47,7 +47,7 @@ class Scene
   VisualObject* getFreshObject(char* objTypeName, mat4 transform);
   void          newObjectTransform(mat4 transform, float initSize, vec3 location);
   void          insertVisibleObject(char* objTypeName, float initSize, vec3 location);
-
+  void          rebuildVisualObjectBuffer(void);
   VisualObject* findObjectFromWindowCoords(vec3 location, float clipX, float clipY);
 
  private:

@@ -186,7 +186,9 @@ bool Arrow::matchRay(vec3& position, vec3& direction, float& lambda)
 // =======================================================================================
 // Bounding box is aligned with the square of the octahedron (which is aligned in the x-y
 // plane).  Height markers are currently immutable once created.
-                                                                
+
+//XX arrow bounding box not implemented yet.
+
 void Arrow::updateBoundingBox(void)
 {
 /*  if(!box)
