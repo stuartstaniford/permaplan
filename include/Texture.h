@@ -15,9 +15,10 @@ class Texture
  public:
   
   // Instance variables - public
-  int       width;    // these are the internal ones from the image
-  int       height;
-  int       nrChannels;
+  int         width;    // these are the internal ones from the image
+  int         height;
+  int         nrChannels;
+  const char* textureFileName;  // remember where we came from
 
   // Member functions - public
   Texture(const char* fileName);

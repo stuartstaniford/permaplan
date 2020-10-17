@@ -7,6 +7,7 @@
 #define MATERIAL_H
 
 #include <cglm/cglm.h>
+#include "Texture.h"
 
 // =======================================================================================
 // Class variable initialization
@@ -19,12 +20,13 @@ public:
   // Instance variables - public
   
   // Member functions - public
-  Material(float carbonD);
+  Material(float carbonD, char* tFileName);
   ~Material(void);
   
 private:
   
   // Instance variables - private
+  Texture texture;
   float carbonDensity;
   
   // Member functions - private

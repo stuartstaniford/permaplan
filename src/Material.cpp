@@ -10,8 +10,9 @@
 // =======================================================================================
 // Constructor
 
-Material::Material(float carbonD):
+Material::Material(float carbonD, char* tFileName):
                       carbonDensity(carbonD),
+                      texture(tFileName)
 {
 }
 

@@ -41,7 +41,8 @@ void Texture::get2DWrapTextureFromData(GLenum format, GLenum type, void* data)
 // =======================================================================================
 // Load a texture from a file (and set up the Mipmap)
 
-Texture::Texture(const char* fileName)
+Texture::Texture(const char* fileName):
+                            textureFileName(fileName)
 {
   unsigned format;
   stbi_set_flip_vertically_on_load(1);
