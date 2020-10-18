@@ -7,7 +7,9 @@
 #define MATERIAL_H
 
 #include <cglm/cglm.h>
+#include <vector>
 #include "Texture.h"
+#include "HttpDebug.h"
 
 // =======================================================================================
 // Class variable initialization
@@ -18,19 +20,46 @@ class Material
 public:
   
   // Instance variables - public
-  
+  const char* name;
+  float       carbonDensity;
+
   // Member functions - public
-  Material(float carbonD, char* tFileName);
+  Material(float carbonD, char* matName, char* tFileName);
   ~Material(void);
   
 private:
   
   // Instance variables - private
   Texture texture;
-  float carbonDensity;
   
   // Member functions - private
   
+};
+
+class MaterialList: public std::vector<Material*>
+{
+private:
+  
+  static MaterialList* theMaterialList;
+
+public:
+  
+  // Instance variables - public
+  
+  // Member functions - public
+  MaterialList(void);
+  ~MaterialList();
+  bool diagnosticHTML(HttpDebug* serv);
+  static const MaterialList& getMaterials(void) // Get the singleton instance
+  {
+   return *theMaterialList;
+  }
+
+
+
+  // Instance variables - private
+  
+  // Member functions - private
 };
 
 #endif

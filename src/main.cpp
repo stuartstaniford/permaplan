@@ -6,6 +6,7 @@
 #include "PmodDesign.h"
 #include "Shader.h"
 #include "HttpDebug.h"
+#include "Material.h"
 
 // =======================================================================================
 // C function to launder C++ method into pthread_create
@@ -15,10 +16,6 @@ void* callProcessConn(void* arg)
   HttpDebug* hd = (HttpDebug*)arg;
   return hd->processConnections();
 }
-
-// =======================================================================================
-// Global objects
-
 
 
 // =======================================================================================
@@ -44,6 +41,7 @@ int main (int argc, char* argv[])
   Scene scene(shader);
   window.scene = &scene;
   window.scriptController = new ScriptController();
+  MaterialList materials;
   
   // Start up the debugging http server
   HttpDebug   httpServer(config.debugPort, scene);
@@ -53,7 +51,7 @@ int main (int argc, char* argv[])
   if((pthreadErr = pthread_create(&httpThread, NULL, callProcessConn, &httpServer)) != 0)
     err(-1, "Couldn't spawn HTTP server thread in %s.\n", argv[0]);
   
-  
+  // Main simulation loop
   window.loop(httpServer);
 
  return 0;

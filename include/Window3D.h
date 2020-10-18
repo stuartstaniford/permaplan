@@ -41,6 +41,7 @@ class Window3D
   Timeval         lastTime;
   Timeval         mouseUpTime;
   bool            show_insert_menu;
+  bool            show_materials_menu;
   bool            show_focus_overlay;
   bool            inClick;
   bool            testingDoubleClick;
@@ -50,6 +51,8 @@ class Window3D
   bool            show_demo_window;
 #endif
   char            heightBuf[16];
+  float           size;
+
   
   // Private methods
   void          processInput(Camera& camera);
@@ -58,6 +61,7 @@ class Window3D
   float         timeDelta(void);           // number of microseconds since last call
   void          imguiInterface(void);
   void          imguiInsertMenu(void);
+  void          imguiMaterialsMenu(void);
   void          imguiFocusOverlay(void);
   void          mouseOverlayDisplays(vec3 mouseSceneLoc);
 

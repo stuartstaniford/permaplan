@@ -10,10 +10,11 @@
 #include <GLFW/glfw3.h>
 #include <unistd.h>
 #include <cglm/cglm.h>
-#include "Window3D.h"
-#include "PmodException.h"
 #include "imgui_impl_opengl3.h"
 #include "imgui_impl_glfw.h"
+#include "Window3D.h"
+#include "PmodException.h"
+#include "Material.h"
 
 
 // =======================================================================================
@@ -126,12 +127,36 @@ void Window3D::imguiInsertMenu(void)
   if(ImGui::Button("Block") ||
      (fromScript = scriptController->checkInterfaceAction(IA_HeightMarker)))
    {
-    float size;
     size = atof(heightBuf);
     heightBuf[0] = '\0';
-    scene->insertVisibleObject((char*)"Block", size, scene->lastDoubleClick);
     show_insert_menu = false;
-   }  ImGui::End();
+    show_materials_menu = true;
+   }
+  ImGui::End();
+}
+
+
+// =======================================================================================
+// The floating menu to select a material (eg for a block)
+
+void Window3D::imguiMaterialsMenu(void)
+{
+  if(!show_materials_menu)
+    return;
+  ImGui::Begin("Select Material", &show_materials_menu, ImGuiWindowFlags_AlwaysAutoResize);
+  
+  const MaterialList& materials = MaterialList::getMaterials();
+  int i, N = materials.size();
+  
+  for(i=0; i<N; i++)
+    if(ImGui::Button(materials[i]->name))
+     {
+      show_materials_menu = false;
+      scene->insertVisibleObject((char*)"Block", size, scene->lastDoubleClick);
+      LogMaterialSelections("Material %s selected for block, carbon density %.2f.\n",
+                            materials[i]->name, materials[i]->carbonDensity);
+     }
+  ImGui::End();
 }
 
 
@@ -237,7 +262,8 @@ void Window3D::imguiInterface(void)
   ImGui::NewFrame();
   
   imguiInsertMenu();
-  
+  imguiMaterialsMenu();
+
   imguiFocusOverlay();
 
 #ifdef SHOW_DEMO_WINDOW
