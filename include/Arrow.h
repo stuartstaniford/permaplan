@@ -26,14 +26,15 @@ class Arrow: public VisualObject
   // Member functions - public
   Arrow(vec3 root, vec3 dir);
   ~Arrow(void);
-  float* getNextVertex(bool firstVertex);  // return is ptr to a vec3
-  bool bufferGeometry(TriangleBuffer* T);
-  void draw(void);
-  bool matchRay(vec3& position, vec3& direction, float& lambda);
-  void updateBoundingBox(void);
-  void triangleBufferSizes(unsigned& vCount, unsigned& iCount);
+  bool        getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
+  bool        getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
+  int         getNextIndex(bool resetToFirst);
+  bool        bufferGeometry(TriangleBuffer* T);
+  bool        matchRay(vec3& position, vec3& direction, float& lambda);
+  void        updateBoundingBox(void);
+  void        triangleBufferSizes(unsigned& vCount, unsigned& iCount);
   const char* objectName(void);
-  bool diagnosticHTML(HttpDebug* serv);
+  bool        diagnosticHTML(HttpDebug* serv);
 
  private:
   

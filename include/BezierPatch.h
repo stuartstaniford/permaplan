@@ -36,12 +36,13 @@ public:
                           float s, float t, float sWidth, float tHeight, unsigned gridPoints);
   BezierPatch(Quadtree* qtree, unsigned gridPoints);
   ~BezierPatch(void);
-  float*        getNextVertex(bool firstVertex);  // return is ptr to a vec3
+  bool          getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
+  bool          getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
+  int           getNextIndex(bool resetToFirst);
   void          computeGradConstraints(void);
   void          calcPowers(float u, float v);
   void          triangleBufferSizes(unsigned& vertexCount, unsigned& indexCount);
   bool          bufferGeometry(TriangleBuffer* T);
-  void          draw(void);
   void          surfacePoint(float x, float y, vec3 result);
   bool          matchRay(vec3& position, vec3& direction, float& lambda);
   void          updateBoundingBox(void);

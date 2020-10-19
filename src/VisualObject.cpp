@@ -29,9 +29,27 @@ VisualObject::~VisualObject(void)
 // =======================================================================================
 // Stub definition this should be overwritten by implementing subclasses
 
-float* VisualObject::getNextVertex(bool resetToFirst)
+bool VisualObject::getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
 {
-  return NULL;
+  return false;
+}
+
+
+// =======================================================================================
+// Stub definition this should be overwritten by implementing subclasses
+
+bool VisualObject::getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
+{
+  return false;
+}
+
+
+// =======================================================================================
+// Stub definition this should be overwritten by implementing subclasses
+
+int VisualObject::getNextIndex(bool resetToFirst)
+{
+  return -1;
 }
 
 
@@ -53,15 +71,6 @@ void VisualObject::setNoTexColor(vec3 color)
 bool VisualObject::bufferGeometry(TriangleBuffer* T)
 {
   return false;
-}
-
-
-// =======================================================================================
-// Stub definition this should be overwritten by implementing subclasses
-
-void VisualObject::draw(void)
-{
-  return;
 }
 
 

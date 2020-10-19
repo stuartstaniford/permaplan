@@ -66,9 +66,25 @@ BezierPatch::~BezierPatch(void)
 // =======================================================================================
 //XX Stub definition needs to be implemented
 
-float* BezierPatch::getNextVertex(bool resetToFirst)
+bool BezierPatch::getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
 {
-  return NULL;
+  return false;
+}
+
+
+// =======================================================================================
+//XX Stub definition needs to be implemented
+bool BezierPatch::getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
+{
+  return false;
+}
+
+
+// =======================================================================================
+//XX Stub definition needs to be implemented
+int BezierPatch::getNextIndex(bool resetToFirst)
+{
+  return -1;
 }
 
 
@@ -239,15 +255,6 @@ void BezierPatch::triangleBufferSize(unsigned& vCount, unsigned& iCount)
 {
   vCount = 0u;
   iCount = 0u;
-}
-
-
-// =======================================================================================
-// Stub definition this should be overwritten by implementing subclasses
-
-void BezierPatch::draw(void)
-{
-  return;
 }
 
 

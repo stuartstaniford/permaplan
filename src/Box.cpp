@@ -27,7 +27,7 @@ Box::~Box(void)
 // =======================================================================================
 // Iterator over vertices.  // return is ptr to a vec3
 
-float* Box::getNextVertex(bool resetToFirst)
+bool Box::getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
 {
   if(resetToFirst)
    {
@@ -47,7 +47,7 @@ float* Box::getNextVertex(bool resetToFirst)
       iterI++;
      }
     if(iterI > 1)
-      return NULL;
+      return false;
    }
   
   vec4 vertex4, out;
@@ -57,8 +57,16 @@ float* Box::getNextVertex(bool resetToFirst)
   vertex4[2] = iterK;
   vertex4[3] = 1.0f;
   glm_mat4_mulv(trans, vertex4, out);
-  glm_vec3(out, currentVertex);
-  return currentVertex;
+  glm_vec3(out, (float*)v->pos);
+  return true;
+}
+
+
+// =======================================================================================
+//XX Stub definition needs to be implemented
+bool Box::getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
+{
+  return false;
 }
 
 
@@ -122,10 +130,10 @@ bool Box::bufferGeometry(TriangleBuffer* T)
   // Now we know where we are putting stuff and that there is space, so pack
   // in the vertices
   int i;
-  float* v3;
-  for(i=0, v3 = getNextVertex(true); v3; i++, v3 = getNextVertex(false))
+  bool result;
+  for(i=0, result=getNextUniqueVertex(true, vertices+i, PositionOnly); result;
+                          i++, result = getNextUniqueVertex(false, vertices+i, PositionOnly))
    {
-    vertices[i].set(v3[0], v3[1], v3[2]);
     if(useNoTexColor)
       vertices[i].setNoTexColor(noTexColor);
    }
@@ -183,14 +191,17 @@ void Box::updateBoundingBox(void)
   else
     box->hugeValify();
   
-  for(float* v3 = getNextVertex(true); v3 != NULL; v3 = getNextVertex(false))
+  Vertex v3;
+  bool result;
+  for(result = getNextUniqueVertex(true, &v3, PositionOnly); result;
+                                  result = getNextUniqueVertex(false, &v3, PositionOnly))
    {
     for(int m=0; m<3; m++)
      {
-      if(v3[m] < box->lower[m])
-        box->lower[m] = v3[m];
-      if(v3[m] > box->upper[m])
-        box->upper[m] = v3[m];
+      if(v3.pos[m] < box->lower[m])
+        box->lower[m] = v3.pos[m];
+      if(v3.pos[m] > box->upper[m])
+        box->upper[m] = v3.pos[m];
      }
    }
   

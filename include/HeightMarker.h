@@ -22,7 +22,9 @@ class HeightMarker: public VisualObject
   HeightMarker(float x, float y, float z);
   HeightMarker(vec3 loc);
   ~HeightMarker(void);
-  float*      getNextVertex(bool firstVertex);  // return is ptr to a vec3
+  bool        getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
+  bool        getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
+  int         getNextIndex(bool resetToFirst);
   bool        bufferGeometry(TriangleBuffer* T);
   void        draw(void);
   bool        matchRay(vec3& position, vec3& direction, float& lambda);

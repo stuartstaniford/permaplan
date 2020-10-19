@@ -42,9 +42,25 @@ HeightMarker::~HeightMarker(void)
 // =======================================================================================
 //XX Stub definition needs to be implemented
 
-float* HeightMarker::getNextVertex(bool resetToFirst)
+bool HeightMarker::getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
 {
-  return NULL;
+  return false;
+}
+
+
+// =======================================================================================
+//XX Stub definition needs to be implemented
+bool HeightMarker::getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
+{
+  return false;
+}
+
+
+// =======================================================================================
+//XX Stub definition needs to be implemented
+int HeightMarker::getNextIndex(bool resetToFirst)
+{
+  return -1;
 }
 
 

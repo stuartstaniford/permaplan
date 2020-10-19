@@ -29,9 +29,25 @@ Arrow::~Arrow(void)
 // =======================================================================================
 //XX Stub definition needs to be implemented
 
-float* Arrow::getNextVertex(bool resetToFirst)
+bool Arrow::getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
 {
-  return NULL;
+  return false;
+}
+
+
+// =======================================================================================
+//XX Stub definition needs to be implemented
+bool Arrow::getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
+{
+  return false;
+}
+
+
+// =======================================================================================
+//XX Stub definition needs to be implemented
+int Arrow::getNextIndex(bool resetToFirst)
+{
+  return -1;
 }
 
 
@@ -155,15 +171,6 @@ void Arrow::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 {
   vCount = ARROW_SIDES*3+1;
   iCount = ARROW_SIDES*9;
-}
-
-
-// =======================================================================================
-// Stub definition
-
-void Arrow::draw(void)
-{
-  return;
 }
 
 

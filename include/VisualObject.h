@@ -23,22 +23,22 @@ class VisualObject
   // Member functions - public
   VisualObject(BoundingBox* B = NULL);
   virtual ~VisualObject(void);
-  void setNoTexColor(vec3 color);
-  virtual float* getNextVertex(bool firstVertex);  // return is ptr to a vec3
-  virtual bool bufferGeometry(TriangleBuffer* T);
-  void draw(void);
-  virtual bool matchRay(vec3& position, vec3& direction, float& lambda);
-  virtual void updateBoundingBox(void);
-  virtual void triangleBufferSizes(unsigned& vCount, unsigned& iCount);
+  void                setNoTexColor(vec3 color);
+  virtual bool        getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
+  virtual bool        getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
+  virtual int         getNextIndex(bool resetToFirst);
+  virtual bool        bufferGeometry(TriangleBuffer* T);
+  virtual bool        matchRay(vec3& position, vec3& direction, float& lambda);
+  virtual void        updateBoundingBox(void);
+  virtual void        triangleBufferSizes(unsigned& vCount, unsigned& iCount);
   virtual const char* objectName(void);
-  virtual bool diagnosticHTML(HttpDebug* serv);
+  virtual bool        diagnosticHTML(HttpDebug* serv);
 
  protected:
   
   // Instance variables - protected
   vec3          noTexColor;
   bool          useNoTexColor;
-  vec3          currentVertex;
 
   // Member functions - private
 };

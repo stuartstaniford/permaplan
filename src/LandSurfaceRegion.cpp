@@ -34,11 +34,28 @@ LandSurfaceRegion::~LandSurfaceRegion(void)
 
 
 // =======================================================================================
-//XX Stub definition needs to be implemented
+// Stub definition this should be overwritten by implementing subclasses
 
-float* LandSurfaceRegion::getNextVertex(bool resetToFirst)
+bool LandSurfaceRegion::getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
 {
-  return NULL;
+  return false;
+}
+
+
+// =======================================================================================
+// Stub definition this should be overwritten by implementing subclasses
+bool LandSurfaceRegion::getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
+{
+  return false;
+}
+
+
+// =======================================================================================
+// Stub definition this should be overwritten by implementing subclasses
+
+int LandSurfaceRegion::getNextIndex(bool resetToFirst)
+{
+  return -1;
 }
 
 
@@ -60,15 +77,6 @@ void LandSurfaceRegion::triangleBufferSize(unsigned& vCount, unsigned& iCount)
 {
   vCount = 0u;
   iCount = 0u;
-}
-
-
-// =======================================================================================
-// Stub definition this should be overwritten by implementing subclasses
-
-void LandSurfaceRegion::draw(void)
-{
-  return;
 }
 
 

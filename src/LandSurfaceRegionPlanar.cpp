@@ -49,9 +49,25 @@ LandSurfaceRegionPlanar::~LandSurfaceRegionPlanar(void)
 // =======================================================================================
 //XX Stub definition needs to be implemented
 
-float* LandSurfaceRegionPlanar::getNextVertex(bool resetToFirst)
+bool LandSurfaceRegionPlanar::getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
 {
-  return NULL;
+  return false;
+}
+
+
+// =======================================================================================
+//XX Stub definition needs to be implemented
+bool LandSurfaceRegionPlanar::getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
+{
+  return false;
+}
+
+
+// =======================================================================================
+//XX Stub definition needs to be implemented
+int LandSurfaceRegionPlanar::getNextIndex(bool resetToFirst)
+{
+  return -1;
 }
 
 

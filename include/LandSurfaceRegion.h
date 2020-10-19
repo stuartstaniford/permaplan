@@ -27,15 +27,16 @@ class LandSurfaceRegion: public VisualObject
   LandSurfaceRegion(float x, float y, float width, float height, float s, float t,
                     float sWidth, float tHeight);
   virtual ~LandSurfaceRegion(void);
-  float*        getNextVertex(bool firstVertex);  // return is ptr to a vec3
-  virtual bool  bufferGeometry(TriangleBuffer* T);
-  virtual void  draw(void);
-  virtual bool  matchRay(vec3& position, vec3& direction, float& lambda);
-  virtual void  updateBoundingBox(void);
-  virtual void  triangleBufferSize(unsigned& vCount, unsigned& iCount);
-  virtual void  fit(std::vector<float*>& locations);
+  virtual bool        getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
+  virtual bool        getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
+  virtual int         getNextIndex(bool resetToFirst);
+  virtual bool        bufferGeometry(TriangleBuffer* T);
+  virtual bool        matchRay(vec3& position, vec3& direction, float& lambda);
+  virtual void        updateBoundingBox(void);
+  virtual void        triangleBufferSize(unsigned& vCount, unsigned& iCount);
+  virtual void        fit(std::vector<float*>& locations);
   virtual const char* objectName(void);
-  virtual bool  diagnosticHTML(HttpDebug* serv);
+  virtual bool        diagnosticHTML(HttpDebug* serv);
 
  private:
   

@@ -14,7 +14,15 @@
 
 
 // =======================================================================================
-// Class variable initialization
+// An Enum for how much of the Vertex to fill out when returning from things like
+// getNextVertex.
+
+enum VertexDetail
+{
+  PositionOnly,
+  IncludeTexture,
+  IncludeNormal
+};
 
 
 // =======================================================================================
@@ -36,8 +44,8 @@ class Vertex
   
   // public instance variables
   vec3  pos;
-  vec2  tex;  //XX should probably be half-size floats
-  // XX need normals here for lighting
+  vec2  tex;
+  // XX need normals here for lighting - probably half precision.
   float accent;
   
   // public methods
