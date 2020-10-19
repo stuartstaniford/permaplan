@@ -26,7 +26,7 @@ public:
   // Instance variables - public
   
   // Member functions - public
-  ElementBufferCombo(VertexBufElement* vertices, unsigned vCount, unsigned* indices,
+  ElementBufferCombo(Vertex* vertices, unsigned vCount, unsigned* indices,
                       unsigned iCount, GLenum usage);
   ~ElementBufferCombo(void);
   void bind(void);

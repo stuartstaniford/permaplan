@@ -54,7 +54,7 @@ float* HeightMarker::getNextVertex(bool resetToFirst)
 
 bool HeightMarker::bufferGeometry(TriangleBuffer* T)
 {
-  VertexBufElement* vertices;
+  Vertex* vertices;
   unsigned* indices;
   unsigned vOffset;
   

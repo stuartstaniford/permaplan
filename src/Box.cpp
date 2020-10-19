@@ -112,7 +112,7 @@ int Box::getNextIndex(bool resetToFirst)
 
 bool Box::bufferGeometry(TriangleBuffer* T)
 {
-  VertexBufElement* vertices;
+  Vertex* vertices;
   unsigned* indices;
   unsigned vOffset;
   

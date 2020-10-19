@@ -16,7 +16,7 @@
 // Class variable initialization
 
 
-class LineStripList: public std::vector<VertexBufElement>
+class LineStripList: public std::vector<Vertex>
 {
  public:
   

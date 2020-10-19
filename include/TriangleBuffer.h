@@ -27,7 +27,7 @@ class TriangleBuffer
   // Member functions - public
   TriangleBuffer(unsigned vertexCount, unsigned indexCount);
   ~TriangleBuffer(void);
-  bool requestSpace(VertexBufElement** verticesAssigned, unsigned** indicesAssigned,
+  bool requestSpace(Vertex** verticesAssigned, unsigned** indicesAssigned,
                     unsigned& vOffset, unsigned vRequestCount, unsigned iRequestCount);
   void sendToGPU(GLenum usage);
   void draw(void);
@@ -38,7 +38,7 @@ class TriangleBuffer
   
   // Instance variables - private
   unsigned*             indices;
-  VertexBufElement*     vertices;
+  Vertex*               vertices;
   unsigned              vNext;
   unsigned              iNext;
   ElementBufferCombo*   combo;

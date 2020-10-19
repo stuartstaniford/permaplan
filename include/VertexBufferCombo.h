@@ -24,7 +24,7 @@ public:
   // Instance variables - public
   
   // Member functions - public
-  VertexBufferCombo(unsigned count, VertexBufElement* data, GLenum usage = GL_STATIC_DRAW);
+  VertexBufferCombo(unsigned count, Vertex* data, GLenum usage = GL_STATIC_DRAW);
   ~VertexBufferCombo(void);
   void bind(void);
 };

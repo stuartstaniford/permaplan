@@ -39,8 +39,8 @@ class Quadtree
   Quadtree(Shader& S, float x, float y, unsigned width, unsigned height, float s, float t,
            float sWidth, float tHeight, unsigned& minSize, unsigned offset);
   ~Quadtree(void);
-  void bufferGeometry(VertexBufElement* buf);
-  void bufferGeometryLeaf(VertexBufElement* buf);
+  void bufferGeometry(Vertex* buf);
+  void bufferGeometryLeaf(Vertex* buf);
   void bufferVisualObjects(TriangleBuffer* tbuf);
   void bufferLandSurface(TriangleBuffer* tbuf);
   void storeVisualObject(VisualObject* obj);

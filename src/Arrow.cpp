@@ -44,9 +44,9 @@ float angleRadians  = 2.0f*M_PI/ARROW_SIDES;
 
 bool Arrow::bufferGeometry(TriangleBuffer* T)
 {
-  VertexBufElement* vertices;
+  Vertex*   vertices;
   unsigned* indices;
-  unsigned vOffset;
+  unsigned  vOffset;
   
   unless(T->requestSpace(&vertices, &indices, vOffset,
                          ARROW_SIDES*3+1, // vertices in the arrow

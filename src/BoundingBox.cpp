@@ -97,7 +97,7 @@ void BoundingBox::unsetZs(void)
 // we don't handle texturing the bounding box.  This is mostly for debugging/diagnostic
 // purposes.  Intended for use with GL_TRIANGLE_STRIP.  Requires 14 vertices
 
-void BoundingBox::bufferGeometry(VertexBufElement* buf)
+void BoundingBox::bufferGeometry(Vertex* buf)
 {
   buf[0].set(lower[0], upper[1], upper[2]); // Front-top-left
   buf[1].set(upper[0], upper[1], upper[2]); // Front-top-right
@@ -122,12 +122,12 @@ void BoundingBox::bufferGeometry(VertexBufElement* buf)
 
 // =======================================================================================
 // Put a single bounding box into a gpu buffer.  We manage our own buffer, call
-// bufferGeometry(VertexBufElement), and return a newly allocated VertexBufferCombo
+// bufferGeometry(Vertex), and return a newly allocated VertexBufferCombo
 // which can be used by the caller to draw.
 
 VertexBufferCombo* BoundingBox::bufferGeometry(void)
 {
-  VertexBufElement* buf = new VertexBufElement[14];
+  Vertex* buf = new Vertex[14];
   bufferGeometry(buf);
   VertexBufferCombo* combo = new VertexBufferCombo(14, buf);
   delete[] buf; buf = NULL;

@@ -23,7 +23,7 @@ TexturedRect::TexturedRect(Shader& S, const char* textureFileName, float widthIn
                                 texture(textureFileName),
                                 axesVAOs(1)
 {
-  VertexBufElement buf[6];
+  Vertex buf[6];
 
   if(height == 0.0f)  //infer the height from the width and the aspect ratio of the texture
     height = (width*texture.height)/texture.width;

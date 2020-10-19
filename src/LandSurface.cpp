@@ -130,12 +130,12 @@ void LandSurface::highlightNode(Quadtree* targetNode, vec4& color, float accent)
   
 #else
   //printf("Size: %u\tOffset: %u\n", targetNode->landVBOSize, targetNode->bufferOffset);
-  VertexBufElement* buf = (VertexBufElement*)glMapBufferRange(GL_ARRAY_BUFFER,
-                        (targetNode->bufferOffset)*sizeof(VertexBufElement),
-                        (targetNode->landVBOSize)*sizeof(VertexBufElement), GL_MAP_WRITE_BIT);
+  Vertex* buf = (Vertex*)glMapBufferRange(GL_ARRAY_BUFFER,
+                        (targetNode->bufferOffset)*sizeof(Vertex),
+                        (targetNode->landVBOSize)*sizeof(Vertex), GL_MAP_WRITE_BIT);
   if(checkGLError(stderr, "LandSurface::highlightNode:glMapBufferRange") || !buf)
     exit(-1);
-  VertexBufElement* b;
+  Vertex* b;
   int i;
   if(accent > 0.0f)
     shader.setUniform("accentColor", color);

@@ -132,7 +132,7 @@ Quadtree::~Quadtree(void)
 // Put a single quadtree node into a gpu buffer.  Generally used on leaves, but would
 // work on internal nodes if ever used for that.
 
-void Quadtree::bufferGeometryLeaf(VertexBufElement* buf)
+void Quadtree::bufferGeometryLeaf(Vertex* buf)
 {
   // First triangle
   buf[0].set(bbox.lower[0], bbox.lower[1], bbox.lower[2],   //lower left
@@ -269,7 +269,7 @@ void Quadtree::stripSurface(void)
 // Put all of the quadtree geometry into a buffer in depth first order.  Caller must
 // give us a large enough buffer (presumably by checking landVBOSize).
 
-void Quadtree::bufferGeometry(VertexBufElement* buf)
+void Quadtree::bufferGeometry(Vertex* buf)
 {
   if(6==landVBOSize)
    {
@@ -278,7 +278,7 @@ void Quadtree::bufferGeometry(VertexBufElement* buf)
    }
   else
    {
-    VertexBufElement* b = buf;
+    Vertex* b = buf;
     forAllKids(i)
      {
       kids[i]->bufferGeometry(b);

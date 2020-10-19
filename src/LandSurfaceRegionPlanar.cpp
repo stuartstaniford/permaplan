@@ -73,9 +73,9 @@ void LandSurfaceRegionPlanar::resetPlane(vec3 plane)
 
 bool LandSurfaceRegionPlanar::bufferGeometry(TriangleBuffer* T)
 {
-  VertexBufElement* vertices;
+  Vertex*   vertices;
   unsigned* indices;
-  unsigned vOffset;
+  unsigned  vOffset;
   
   unless(T->requestSpace(&vertices, &indices, vOffset, 4u, 6u))
     return false;

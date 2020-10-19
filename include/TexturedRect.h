@@ -48,7 +48,7 @@ class TexturedRect
 // Helper function to set up a rectangle as two triangles in a vertex buffer.  Needs
 // to be space for six vertices.  All done at z=0.
 
-inline void bufferRectangle(VertexBufElement* buf, float x, float y,
+inline void bufferRectangle(Vertex* buf, float x, float y,
                   float width, float height, float s, float t, float texW, float texH)
 {
   // First triangle

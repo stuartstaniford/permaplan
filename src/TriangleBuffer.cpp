@@ -21,7 +21,7 @@ TriangleBuffer::TriangleBuffer(unsigned vertexCount, unsigned indexCount):
                                   combo(NULL)
 {
   //fprintf(stderr, "Triangle buffer of size %d,%d allocated\n", vCount, iCount);
-  vertices = new VertexBufElement[vCount];
+  vertices = new Vertex[vCount];
   unless(vertices)
     err(-1, "Couldn't allocate vertex space in TriangleBuffer::TriangleBuffer");
   indices = new unsigned[iCount];
@@ -49,7 +49,7 @@ TriangleBuffer::~TriangleBuffer(void)
 // This provides service to visualObjects that need to add their geometry into this
 // TriangleBuffer, giving them a slice of both buffers that they can use
 
-bool TriangleBuffer::requestSpace(VertexBufElement** verticesAssigned, unsigned** indicesAssigned,
+bool TriangleBuffer::requestSpace(Vertex** verticesAssigned, unsigned** indicesAssigned,
                   unsigned& vOffset, unsigned vRequestCount, unsigned iRequestCount)
 {
   unless(vertices && indices)
@@ -77,7 +77,7 @@ void TriangleBuffer::sendToGPU(GLenum usage)
   if(combo)
     delete combo;
   combo = new ElementBufferCombo(vertices, vCount, indices, iCount, usage);
-  glBufferData(GL_ARRAY_BUFFER, vCount*sizeof(VertexBufElement), vertices, usage);
+  glBufferData(GL_ARRAY_BUFFER, vCount*sizeof(Vertex), vertices, usage);
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, iCount*sizeof(unsigned), indices, usage);
   delete[] vertices;
   delete[] indices;
@@ -110,7 +110,7 @@ void TriangleBuffer::fprint(FILE* file)
   // Output all the vertices
   for(int v = 0; v < vCount; v++)
    {
-    VertexBufElement* b = vertices + v;
+    Vertex* b = vertices + v;
     fprintf(file, "%d\txyz: %.1f %.1f %.1f\tst: %.3f, %.3f\tacc: %.3f\n",
              v, b->pos[0], b->pos[1], b->pos[2], b->tex[0], b->tex[1], b->accent);
    }

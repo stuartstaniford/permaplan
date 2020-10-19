@@ -12,7 +12,7 @@
 // =======================================================================================
 // Function to create and open a new vertex buffer object
 
-ElementBufferCombo::ElementBufferCombo(VertexBufElement* vertices, unsigned vCount,
+ElementBufferCombo::ElementBufferCombo(Vertex* vertices, unsigned vCount,
                           unsigned* indices, unsigned iCount, GLenum usage):
                           VertexArrayObject(1),
                           VertexBufferObject(vCount, vertices, usage),

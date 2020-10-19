@@ -11,7 +11,7 @@
 // Constructors
 
 LineStripList::LineStripList(Shader& S, GLenum usage):
-                        std::vector<VertexBufElement>(),
+                        std::vector<Vertex>(),
                         shader(S),
                         combo(NULL),
                         usageGL(usage),

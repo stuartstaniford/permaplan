@@ -262,7 +262,7 @@ void BezierPatch::draw(void)
 bool BezierPatch::bufferGeometry(TriangleBuffer* T)
 {
   // Establish space needs and obtain buffers
-  VertexBufElement* vertices;
+  Vertex* vertices;
   unsigned* indices;
   unsigned vOffset;
   unsigned vCount, iCount;
@@ -273,7 +273,7 @@ bool BezierPatch::bufferGeometry(TriangleBuffer* T)
   //Figure out the vertices
   forAllUVGrid(i,j,u,v, gridN+1, spacing)
    {
-    VertexBufElement* bufEl = vertices + i*(gridN + 1) + j;
+    Vertex* bufEl = vertices + i*(gridN + 1) + j;
     surfacePoint(u, v, bufEl->pos);
     bufEl->tex[0] = stPos[0] + stExtent[0]*spacing*(float)i;
     bufEl->tex[1] = stPos[1] + stExtent[1]*spacing*(float)j;
