@@ -43,9 +43,9 @@ class Vertex
  public:
   
   // public instance variables
-  vec3  pos;
-  vec2  tex;
-  // XX need normals here for lighting - probably half precision.
+  vec3    pos;
+  vec2    tex;
+  __fp16  norm[3];
   float accent;
   
   // public methods

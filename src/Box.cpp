@@ -29,6 +29,9 @@ Box::~Box(void)
 
 bool Box::getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
 {
+  if(detail > PositionOnly)
+    err(-1,"Textures etc not implemented in Box::getNextUniqueVertex.\n");
+  
   if(resetToFirst)
    {
     iterI = iterJ = iterK = '\0';
@@ -63,45 +66,37 @@ bool Box::getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
 
 
 // =======================================================================================
-//XX Stub definition needs to be implemented
-bool Box::getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
-{
-  return false;
-}
-
-
-// =======================================================================================
 // Iterator over indices.  Recall the underlying unit cube pre transformation is on axes
 // from [0,0,0] to [1,1,1].  Refer to getNextVertex above for which vertex is which.  This
 // function defines the triangles.  Recall counterclockwise winding order is front facing.
 // https://learnopengl.com/Advanced-OpenGL/Face-culling
 
 static int indexArray[36] = {
-                          // Underside (z=0), close to origin
-                          0, 2, 4,
-                          // Underside (z=0), away from origin
-                          2, 6, 4,
-                          // Topside (z=1), close to origin
-                          1, 5, 3,
-                          // Topside (z=1), away from origin
-                          3, 5, 7,
-                          // Westside (x=0), close to origin
-                          0, 1, 2,
-                          // Westside (x=0), away from origin
-                          2, 1, 3,
-                          // Eastside (x=1), close to origin
-                          5, 4, 6,
-                          // Eastside (x=1), away from origin
-                          5, 6, 7,
-                          // Southside (y=0), close to origin
-                          0, 4, 1,
-                          // Southside (y=0), away from origin
-                          1, 4, 5,
-                          // Northside (y=1), close to origin
-                          2, 3, 6,
-                          // Northside (y=1), away from origin
-                          3, 7, 6
-                        };
+  // Underside (z=0), close to origin
+  0, 2, 4,
+  // Underside (z=0), away from origin
+  2, 6, 4,
+  // Topside (z=1), close to origin
+  1, 5, 3,
+  // Topside (z=1), away from origin
+  3, 5, 7,
+  // Westside (x=0), close to origin
+  0, 1, 2,
+  // Westside (x=0), away from origin
+  2, 1, 3,
+  // Eastside (x=1), close to origin
+  5, 4, 6,
+  // Eastside (x=1), away from origin
+  5, 6, 7,
+  // Southside (y=0), close to origin
+  0, 4, 1,
+  // Southside (y=0), away from origin
+  1, 4, 5,
+  // Northside (y=1), close to origin
+  2, 3, 6,
+  // Northside (y=1), away from origin
+  3, 7, 6
+};
 
 int Box::getNextIndex(bool resetToFirst)
 {
@@ -111,6 +106,41 @@ int Box::getNextIndex(bool resetToFirst)
     return -1;
   else
     return indexArray[++index];
+}
+
+
+// =======================================================================================
+//Generate all the vertices in order, with textures, normals, etc.
+/*
+// Underside (z=0), close to origin
+0, 2, 4,
+// Underside (z=0), away from origin
+2, 6, 4,
+// Topside (z=1), close to origin
+1, 5, 3,
+// Topside (z=1), away from origin
+3, 5, 7,
+// Westside (x=0), close to origin
+0, 1, 2,
+// Westside (x=0), away from origin
+2, 1, 3,
+// Eastside (x=1), close to origin
+5, 4, 6,
+// Eastside (x=1), away from origin
+5, 6, 7,
+// Southside (y=0), close to origin
+0, 4, 1,
+// Southside (y=0), away from origin
+1, 4, 5,
+// Northside (y=1), close to origin
+2, 3, 6,
+// Northside (y=1), away from origin
+3, 7, 6
+};
+*/
+bool Box::getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
+{
+  return false;
 }
 
 
