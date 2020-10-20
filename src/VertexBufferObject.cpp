@@ -8,7 +8,8 @@
 #include "Shader.h"
 
 // =======================================================================================
-// Function to create and open a new vertex buffer object
+// Function to create and open a new vertex buffer object.
+// Note this needs to correspond to the layout in Vertex.h
 
 VertexBufferObject::VertexBufferObject(unsigned count, Vertex* data, GLenum usage)
 {
@@ -27,7 +28,7 @@ VertexBufferObject::VertexBufferObject(unsigned count, Vertex* data, GLenum usag
   glEnableVertexAttribArray(1);
 
   // Accent data location established
-  glVertexAttribPointer(2, 1, GL_FLOAT, GL_FALSE, sizeof(Vertex),
+  glVertexAttribPointer(2, 1, GL_HALF_FLOAT, GL_FALSE, sizeof(Vertex),
                         (void*)offsetof(Vertex, accent));
   glEnableVertexAttribArray(2);
 
