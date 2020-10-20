@@ -6,6 +6,8 @@
 
 #include <err.h>
 #include <stdio.h>
+#include "Logging.h"
+#include "Vertex.h"
 
 FILE* LogFile;
 
@@ -16,4 +18,7 @@ void LogInit(void)
   LogFile = fopen(fileName, "w");
   if(!LogFile)
     err(-1, "Couldn't create log file %s\n", fileName);
+  
+  LogStructureSizes("Size of Vertex: %lu bytes.\n", sizeof(Vertex));
+  
 }

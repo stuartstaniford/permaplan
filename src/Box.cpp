@@ -1,6 +1,7 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Oct 2020 -
 // Class for storing and rendering the rectangular boxes (eg straw bales, durisol blocks,
 // timber beams, etc).
+// Note that the diagram in box.pdf might be helpful in following this code.
 
 #include <err.h>
 #include "Box.h"
@@ -25,7 +26,8 @@ Box::~Box(void)
 
 
 // =======================================================================================
-// Iterator over vertices.  // return is ptr to a vec3
+// Iterator over vertices with each unique.  Doesn't do textures, normals, as they aren't
+// very well defined for this purpose.
 
 bool Box::getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
 {
@@ -111,35 +113,77 @@ int Box::getNextIndex(bool resetToFirst)
 
 // =======================================================================================
 //Generate all the vertices in order, with textures, normals, etc.
-/*
-// Underside (z=0), close to origin
-0, 2, 4,
-// Underside (z=0), away from origin
-2, 6, 4,
-// Topside (z=1), close to origin
-1, 5, 3,
-// Topside (z=1), away from origin
-3, 5, 7,
-// Westside (x=0), close to origin
-0, 1, 2,
-// Westside (x=0), away from origin
-2, 1, 3,
-// Eastside (x=1), close to origin
-5, 4, 6,
-// Eastside (x=1), away from origin
-5, 6, 7,
-// Southside (y=0), close to origin
-0, 4, 1,
-// Southside (y=0), away from origin
-1, 4, 5,
-// Northside (y=1), close to origin
-2, 3, 6,
-// Northside (y=1), away from origin
-3, 7, 6
+
+static Vertex vertexArray[36] = {
+
+  // Each line is
+  // pos[0], pos[1], pos[2], tex[0], tex[1], norm[0], norm[1], norm[2], accent
+  
+  // Underside (z=0), close to origin
+  {{0.0f, 0.0f, 0.0f}, {1.0f, 0.0f}, {0.0f, 0.0f, -1.0f}, 0.0f},  // 0
+  {{0.0f, 1.0f, 0.0f}, {0.0f, 0.0f}, {0.0f, 0.0f, -1.0f}, 0.0f},  // 2
+  {{1.0f, 0.0f, 0.0f}, {1.0f, 1.0f}, {0.0f, 0.0f, -1.0f}, 0.0f},  // 4
+
+  // Underside (z=0), away from origin
+  {{0.0f, 1.0f, 0.0f}, {0.0f, 0.0f}, {0.0f, 0.0f, -1.0f}, 0.0f},  // 2
+  {{1.0f, 1.0f, 0.0f}, {0.0f, 1.0f}, {0.0f, 0.0f, -1.0f}, 0.0f},  // 6
+  {{1.0f, 0.0f, 0.0f}, {1.0f, 1.0f}, {0.0f, 0.0f, -1.0f}, 0.0f},  // 4
+
+  // Topside (z=1), close to origin
+  {{0.0f, 0.0f, 1.0f}, {1.0f, 0.0f}, {0.0f, 0.0f, 1.0f}, 0.0f},   // 1
+  {{1.0f, 0.0f, 1.0f}, {1.0f, 1.0f}, {0.0f, 0.0f, 1.0f}, 0.0f},   // 5
+  {{0.0f, 1.0f, 1.0f}, {0.0f, 0.0f}, {0.0f, 0.0f, 1.0f}, 0.0f},   // 3
+
+  // Topside (z=1), away from origin
+  {{0.0f, 1.0f, 1.0f}, {0.0f, 0.0f}, {0.0f, 0.0f, 1.0f}, 0.0f},   // 3
+  {{1.0f, 0.0f, 1.0f}, {1.0f, 1.0f}, {0.0f, 0.0f, 1.0f}, 0.0f},   // 5
+  {{1.0f, 1.0f, 1.0f}, {0.0f, 1.0f}, {0.0f, 0.0f, 1.0f}, 0.0f},   // 7
+
+  // Westside (x=0), close to origin
+  {{0.0f, 0.0f, 0.0f}, {1.0f, 0.0f}, {-1.0f, 0.0f, 0.0f}, 0.0f},  // 0
+  {{0.0f, 0.0f, 1.0f}, {1.0f, 1.0f}, {-1.0f, 0.0f, 0.0f}, 0.0f},  // 1
+  {{0.0f, 1.0f, 0.0f}, {0.0f, 0.0f}, {-1.0f, 0.0f, 0.0f}, 0.0f},  // 2
+
+  // Westside (x=0), away from origin
+  {{0.0f, 1.0f, 0.0f}, {0.0f, 0.0f}, {-1.0f, 0.0f, 0.0f}, 0.0f},  // 2
+  {{0.0f, 0.0f, 1.0f}, {1.0f, 1.0f}, {-1.0f, 0.0f, 0.0f}, 0.0f},  // 1
+  {{0.0f, 1.0f, 1.0f}, {0.0f, 1.0f}, {-1.0f, 0.0f, 0.0f}, 0.0f},  // 3
+
+  // Eastside (x=1), close to origin
+  {{1.0f, 0.0f, 1.0f}, {0.0f, 1.0f}, {1.0f, 0.0f, 0.0f}, 0.0f},   // 5
+  {{1.0f, 0.0f, 0.0f}, {0.0f, 0.0f}, {1.0f, 0.0f, 0.0f}, 0.0f},   // 4
+  {{1.0f, 1.0f, 0.0f}, {1.0f, 0.0f}, {1.0f, 0.0f, 0.0f}, 0.0f},   // 6
+
+  // Eastside (x=1), away from origin
+  {{1.0f, 0.0f, 1.0f}, {0.0f, 1.0f}, {1.0f, 0.0f, 0.0f}, 0.0f},   // 5
+  {{1.0f, 1.0f, 0.0f}, {1.0f, 0.0f}, {1.0f, 0.0f, 0.0f}, 0.0f},   // 6
+  {{1.0f, 1.0f, 1.0f}, {1.0f, 1.0f}, {1.0f, 0.0f, 0.0f}, 0.0f},   // 7
+
+  // Southside (y=0), close to origin
+  {{0.0f, 0.0f, 0.0f}, {0.0f, 0.0f}, {0.0f, -1.0f, 0.0f}, 0.0f},  // 0
+  {{1.0f, 0.0f, 0.0f}, {1.0f, 0.0f}, {0.0f, -1.0f, 0.0f}, 0.0f},  // 4
+  {{0.0f, 0.0f, 1.0f}, {0.0f, 1.0f}, {0.0f, -1.0f, 0.0f}, 0.0f},  // 1
+
+  // Southside (y=0), away from origin
+  {{0.0f, 0.0f, 1.0f}, {0.0f, 1.0f}, {0.0f, -1.0f, 0.0f}, 0.0f},  // 1
+  {{1.0f, 0.0f, 0.0f}, {1.0f, 0.0f}, {0.0f, -1.0f, 0.0f}, 0.0f},  // 4
+  {{1.0f, 0.0f, 1.0f}, {1.0f, 1.0f}, {0.0f, -1.0f, 0.0f}, 0.0f},  // 5
+
+  // Northside (y=1), close to origin
+  {{0.0f, 1.0f, 0.0f}, {1.0f, 0.0f}, {0.0f, 1.0f, 0.0f}, 0.0f},   // 2
+  {{0.0f, 1.0f, 1.0f}, {1.0f, 1.0f}, {0.0f, 1.0f, 0.0f}, 0.0f},   // 3
+  {{1.0f, 1.0f, 0.0f}, {0.0f, 0.0f}, {0.0f, 1.0f, 0.0f}, 0.0f},   // 6
+
+  // Northside (y=1), away from origin
+  {{0.0f, 1.0f, 1.0f}, {1.0f, 1.0f}, {0.0f, 1.0f, 0.0f}, 0.0f},   // 3
+  {{1.0f, 1.0f, 1.0f}, {1.0f, 0.0f}, {0.0f, 1.0f, 0.0f}, 0.0f},   // 7
+  {{1.0f, 1.0f, 0.0f}, {0.0f, 0.0f}, {0.0f, 1.0f, 0.0f}, 0.0f},   // 6
 };
-*/
+
+
 bool Box::getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
 {
+  printf("%f", vertexArray[0].pos[0]);
   return false;
 }
 

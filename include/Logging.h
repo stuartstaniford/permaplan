@@ -6,8 +6,9 @@
 // =======================================================================================
 // Logging options to do with overall control flow and speed
 
-#define LOG_FRAME_STARTS  // Log each frame as it begins
-#define LOG_CLOSE_DOWN    // Log when we exit.
+#define LOG_FRAME_STARTS      // Log each frame as it begins
+#define LOG_CLOSE_DOWN        // Log when we exit.
+#define LOG_STRUCTURE_SIZES   // Log the size of structures on this platform at startup.
 
 
 // =======================================================================================
@@ -66,6 +67,12 @@ extern FILE* LogFile;
 #define LogCloseDown(...)
 #endif
 
+// Log the size of structures on this platform at startup.
+#ifdef LOG_STRUCTURE_SIZES
+#define LogStructureSizes(...) LogStatement(__VA_ARGS__)
+#else
+#define LogStructureSizes(...)
+#endif
 
 
 // =======================================================================================

@@ -46,7 +46,7 @@ class Vertex
   vec3    pos;
   vec2    tex;
   __fp16  norm[3];
-  float accent;
+  float accent;  //XX Probably should be changed to __fp16
   
   // public methods
   inline void set(float x, float y, float z, float s, float t, float a)
