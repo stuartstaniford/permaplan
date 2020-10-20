@@ -183,8 +183,37 @@ static Vertex vertexArray[36] = {
 
 bool Box::getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
 {
-  printf("%f", vertexArray[0].pos[0]);
-  return false;
+  if(resetToFirst)
+    index = 0;
+  else
+    index++;
+  if(index >= 36)
+    return false;
+  
+  vec4 workVec4, out;
+  
+  glm_vec3_copy(vertexArray[index].pos, workVec4);
+  workVec4[3] = 1.0f;
+  
+  glm_mat4_mulv(trans, workVec4, out);
+  glm_vec3(out, (float*)v->pos);
+
+  if(detail >= IncludeTexture)
+    glm_vec2_copy(vertexArray[index].tex, v->tex);
+
+  if(detail >= IncludeNormal)
+   {
+    vec3 normTemp;
+    for(int j=0; j<3; j++)
+      normTemp[j] = vertexArray[index].normal[j];
+    glm_vec3_copy(normTemp, workVec4);
+    workVec4[3] = 1.0f;
+    glm_mat4_mulv(trans, workVec4, out);
+    glm_vec3(out, normTemp);
+    for(int j=0; j<3; j++)
+      v->normal[j] = (__fp16)normTemp[j];
+   }
+  return true;
 }
 
 
