@@ -45,7 +45,7 @@ class Vertex
   // public instance variables
   vec3    pos;
   vec2    tex;
-  __fp16  norm[3];
+  __fp16  normal[3];
   __fp16  accent;
   
   // public methods

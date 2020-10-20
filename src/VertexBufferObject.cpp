@@ -27,10 +27,15 @@ VertexBufferObject::VertexBufferObject(unsigned count, Vertex* data, GLenum usag
                         (void*)offsetof(Vertex, tex));
   glEnableVertexAttribArray(1);
 
+  // Normal data location established
+  glVertexAttribPointer(2, 3, GL_HALF_FLOAT, GL_FALSE, sizeof(Vertex),
+                        (void*)offsetof(Vertex, normal));
+  glEnableVertexAttribArray(1);
+
   // Accent data location established
-  glVertexAttribPointer(2, 1, GL_HALF_FLOAT, GL_FALSE, sizeof(Vertex),
+  glVertexAttribPointer(3, 1, GL_HALF_FLOAT, GL_FALSE, sizeof(Vertex),
                         (void*)offsetof(Vertex, accent));
-  glEnableVertexAttribArray(2);
+  glEnableVertexAttribArray(3);
 
   if(checkGLError(stderr, "VertexBufferObject::VertexBufferObject"))
     exit(-1);
