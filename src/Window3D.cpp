@@ -152,7 +152,7 @@ void Window3D::imguiMaterialsMenu(void)
     if(ImGui::Button(materials[i]->name))
      {
       show_materials_menu = false;
-      scene->insertVisibleObject((char*)"Block", size, scene->lastDoubleClick);
+      scene->insertVisibleObject((char*)"Block", size, scene->lastDoubleClick, materials[i]);
       LogMaterialSelections("Material %s selected for block, carbon density %.2f.\n",
                             materials[i]->name, materials[i]->carbonDensity);
      }

@@ -188,15 +188,15 @@ void Scene::newObjectTransform(mat4 transform, float initSize, vec3 location)
 // =======================================================================================
 // Handle a UI call to insert a new object in the scene (from the insert menu in Window3D)
 
-void Scene::insertVisibleObject(char* objTypeName, float initSize, vec3 location)
+void Scene::insertVisibleObject(char* objType, float size, vec3 loc, Material* material)
 {
   mat4 transform;
-  newObjectTransform(transform, initSize, location);
-  VisualObject* newObj = getFreshObject(objTypeName, transform);
+  newObjectTransform(transform, size, loc);
+  VisualObject* newObj = getFreshObject(objType, transform);
   
   //XX need to allow the user to edit the object
   LogObjectInsertions("Object inserted: %s (size %.1f) at %.1f, %.1f, %.1f\n",
-                      objTypeName, initSize, location[0], location[1], location[2]);
+                      objType, size, loc[0], loc[1], loc[2]);
   qtree->storeVisualObject(newObj);
   rebuildVisualObjectBuffer();
 }
