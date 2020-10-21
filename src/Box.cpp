@@ -227,23 +227,20 @@ bool Box::bufferGeometry(TriangleBuffer* T)
   unsigned* indices;
   unsigned vOffset;
   
-  unless(T->requestSpace(&vertices, &indices, vOffset, 8u, 36u))
+  unless(T->requestSpace(&vertices, &indices, vOffset, 36u, 36u))
     return false;
   
   // Now we know where we are putting stuff and that there is space, so pack
   // in the vertices
   int i;
   bool result;
-  for(i=0, result=getNextUniqueVertex(true, vertices+i, PositionOnly); result;
-                          i++, result = getNextUniqueVertex(false, vertices+i, PositionOnly))
+  for(i=0, result=getNextVertex(true, vertices+i, IncludeNormal); result;
+                          i++, result = getNextVertex(false, vertices+i, IncludeNormal))
    {
     if(useNoTexColor)
       vertices[i].setNoTexColor(noTexColor);
+    indices[i] = vOffset + i;
    }
-
-  int I;
-  for(i = 0, I = getNextIndex(true); I >= 0; i++, I = getNextIndex(false))
-    indices[i] = vOffset + I;
 
   return true;
 }
