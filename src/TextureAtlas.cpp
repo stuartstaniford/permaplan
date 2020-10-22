@@ -53,6 +53,8 @@ TextureAtlas::TextureAtlas(char* dirName)
 void TextureAtlas::processOneAtlas(DIR* dir, char* path)
 {
   struct dirent* dirEntry;
+  Texture* texture;
+  
   while( (dirEntry = readdir(dir)) )
    {
     if(dirEntry->d_type != DT_REG)   // ignore anything but regular files
@@ -66,7 +68,9 @@ void TextureAtlas::processOneAtlas(DIR* dir, char* path)
     path[len] = '/';
     path[len+1] = '\0';
     strncat(path, dirEntry->d_name, TexPathLimit-len-3);
-    LogTextureAtlas("Found %s for texture atlas.\n", dirEntry->d_name);
+    texture = new Texture(path);
+    LogTextureAtlas("Found %s for texture atlas (width %d, height %d).\n",
+                      dirEntry->d_name, texture->width, texture->height);
    }
 }
 
