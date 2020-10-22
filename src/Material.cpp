@@ -44,11 +44,11 @@ MaterialList::MaterialList(void)
     theMaterialList = this;
   
   Material* strawBale = new Material(0.0, (char*)"Straw Bale",
-                                          (char*)"Materials/StrawBale/Bale.png");
+                                          (char*)"Materials/Blocks/StrawBale/Bale.png");
   push_back(strawBale);
   
   Material* nexcem = new Material(0.0, (char*)"Nexcem",
-                                       (char*)"Materials/Nexcem/nexcem.png");
+                                       (char*)"Materials/Blocks/Nexcem/nexcem.png");
   push_back(nexcem);
 }
 

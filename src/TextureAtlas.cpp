@@ -12,6 +12,7 @@
 #include <cstring>
 #include "TextureAtlas.h"
 #include "Logging.h"
+#include "GlobalMacros.h"
 
 #define TexPathLimit 2048
 
@@ -54,13 +55,13 @@ void TextureAtlas::processOneAtlas(DIR* dir, char* path)
 {
   struct dirent* dirEntry;
   Texture* texture;
-  
+
   while( (dirEntry = readdir(dir)) )
    {
-    if(dirEntry->d_type != DT_REG)   // ignore anything but regular files
-      continue;
-    if(dirEntry->d_name[0] == '.')   // ignore hidden files starting with "."
-      continue;
+    unless(dirEntry->d_type == DT_REG || dirEntry->d_type == DT_DIR)
+      continue;                       // ignore anything but regular files and subdirs
+    if(dirEntry->d_name[0] == '.')
+      continue;                       // ignore hidden files starting with "."
     int len = strlen(path);
     if(TexPathLimit - len < 4)
       err(-1, "Out of path space for adding %s to %s in processOneAtlas.\n",
@@ -68,9 +69,22 @@ void TextureAtlas::processOneAtlas(DIR* dir, char* path)
     path[len] = '/';
     path[len+1] = '\0';
     strncat(path, dirEntry->d_name, TexPathLimit-len-3);
-    texture = new Texture(path);
-    LogTextureAtlas("Found %s for texture atlas (width %d, height %d).\n",
+    
+    if(dirEntry->d_type == DT_REG)
+     {
+      texture = new Texture(path);
+      LogTextureAtlas("Found %s for texture atlas (width %d, height %d).\n",
                       dirEntry->d_name, texture->width, texture->height);
+     }
+    else
+     {
+      DIR* subDir = opendir(path);
+      if(!subDir)
+        err(-1, "Couldn't open directory %s in TextureAtlas::TextureAtlas", path);
+      processOneAtlas(subDir, path);
+      closedir(subDir);
+      path[len] = '\0'; // truncate anything done to path by recursive call
+     }
    }
 }
 
