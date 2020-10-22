@@ -28,7 +28,7 @@ class TextureAtlas
   // Member functions - public
   TextureAtlas(char* dirName);
   ~TextureAtlas(void);
-  void processOneAtlas(DIR* dir);
+  void processOneAtlas(DIR* dir, char* path);
 
  private:
   

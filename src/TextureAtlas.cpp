@@ -39,7 +39,7 @@ TextureAtlas::TextureAtlas(char* dirName)
     if(!subDir)
       err(-1, "Couldn't open directory %s in TextureAtlas::TextureAtlas", subDirName);
     LogTextureAtlas("Creating texture atlas for %s.\n", subDirName);
-    processOneAtlas(subDir);
+    processOneAtlas(subDir, subDirName);
     closedir(subDir);
    }
   closedir(atlasRoot);
@@ -49,9 +49,20 @@ TextureAtlas::TextureAtlas(char* dirName)
 // =======================================================================================
 // Deal with one particular directory, and the atlas created from the textures in it.
 
-void TextureAtlas::processOneAtlas(DIR* dir)
+void TextureAtlas::processOneAtlas(DIR* dir, char* path)
 {
-  
+  struct dirent* dirEntry;
+  while( (dirEntry = readdir(dir)) )
+   {
+    if(dirEntry->d_type != DT_REG)   // ignore anything but regular files
+      continue;
+    if(dirEntry->d_name[0] == '.') // ignore hidden files starting with "."
+      continue;
+    
+    // HERE
+    //sprintf(subDirName, "%s/%s", dirName, dirEntry->d_name);
+    //subDir = opendir(subDirName);
+   }
 }
 
 
