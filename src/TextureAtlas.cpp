@@ -13,6 +13,7 @@
 #include "TextureAtlas.h"
 #include "Logging.h"
 
+#define TexPathLimit 2048
 
 // =======================================================================================
 // Constructor
@@ -27,7 +28,7 @@ TextureAtlas::TextureAtlas(char* dirName)
   //Traverse the base directory for subdirectories
   struct dirent* dirEntry;
   DIR* subDir;
-  char subDirName[1024];
+  char subDirName[TexPathLimit];
   while( (dirEntry = readdir(atlasRoot)) )
    {
     if(dirEntry->d_type != DT_DIR)   // ignore regular files and other non-directories
@@ -56,12 +57,16 @@ void TextureAtlas::processOneAtlas(DIR* dir, char* path)
    {
     if(dirEntry->d_type != DT_REG)   // ignore anything but regular files
       continue;
-    if(dirEntry->d_name[0] == '.') // ignore hidden files starting with "."
+    if(dirEntry->d_name[0] == '.')   // ignore hidden files starting with "."
       continue;
-    
-    // HERE
-    //sprintf(subDirName, "%s/%s", dirName, dirEntry->d_name);
-    //subDir = opendir(subDirName);
+    int len = strlen(path);
+    if(TexPathLimit - len < 4)
+      err(-1, "Out of path space for adding %s to %s in processOneAtlas.\n",
+                                                    dirEntry->d_name, path);
+    path[len] = '/';
+    path[len+1] = '\0';
+    strncat(path, dirEntry->d_name, TexPathLimit-len-3);
+    LogTextureAtlas("Found %s for texture atlas.\n", dirEntry->d_name);
    }
 }
 
