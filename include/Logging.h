@@ -20,7 +20,14 @@
 #define LOG_MOUSE_RAY_POINT     // Where the mouse is pointing in 3d space
 #define LOG_LAND_HEIGHTS        // Log when a new land height is entered.
 #define LOG_OBJECT_INSERTIONS   // Log when a new object is inserted in scene.
+
+
+// =======================================================================================
+// Logging options to do with materials and textures
+
+#define LOG_TEXTURE_ATLAS       // Log texture atlas creation
 #define LOG_MATERIAL_SELECTIONS // Log when a material is selected.
+
 
 // =======================================================================================
 // Logging options to do with quadtree operations
@@ -32,8 +39,8 @@
 // =======================================================================================
 // Logging options to do with the Bezier Patch code
 
-#define LOG_BEZIER_FIT  // Log the process of fitting the Bezier patch to height data
-#define LOG_BEZIER_MATCH_RAY //Log the process of matching a ray to the patch.
+#define LOG_BEZIER_FIT        // Log the process of fitting the Bezier patch to height data
+#define LOG_BEZIER_MATCH_RAY  // Log the process of matching a ray to the patch.
 
 
 // =======================================================================================
@@ -118,6 +125,17 @@ extern FILE* LogFile;
 #define LogObjectInsertions(...) LogStatement(__VA_ARGS__)
 #else
 #define LogObjectInsertions(...)
+#endif
+
+
+// =======================================================================================
+// Logging options to do with materials and textures
+
+// Log texture atlas creation
+#ifdef LOG_TEXTURE_ATLAS
+#define LogTextureAtlas(...) LogStatement(__VA_ARGS__)
+#else
+#define LogTextureAtlas(...)
 #endif
 
 // Log when a material is selected.

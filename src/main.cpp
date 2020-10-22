@@ -6,6 +6,7 @@
 #include "PmodDesign.h"
 #include "Shader.h"
 #include "HttpDebug.h"
+#include "TextureAtlas.h"
 #include "Material.h"
 
 // =======================================================================================
@@ -41,6 +42,7 @@ int main (int argc, char* argv[])
   Scene scene(shader);
   window.scene = &scene;
   window.scriptController = new ScriptController();
+  TextureAtlas textureAtlas((char*)"Materials");
   MaterialList materials;
   
   // Start up the debugging http server
