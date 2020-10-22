@@ -12,7 +12,7 @@
 // Create a texture from data (and set up the Mipmap).  See this link for background
 // https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/glTexImage2D.xhtml
 
-void Texture::get2DWrapTextureFromData(GLenum format, GLenum type, void* data)
+void Texture::sendToGpu(void)
 {
   glGenTextures(1, &textureId);
   glBindTexture(GL_TEXTURE_2D, textureId);
@@ -23,7 +23,7 @@ void Texture::get2DWrapTextureFromData(GLenum format, GLenum type, void* data)
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
   checkGLError(stderr, "get2DWrapTextureFromData GL_TEXTURE_MIN_FILTER");
-  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, format, type, data);
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, format, GL_UNSIGNED_BYTE, data);
   if(checkGLError(stderr, "get2DWrapTextureFromData glTexImage2D"))
    {
     int maxTexSize;
@@ -35,18 +35,20 @@ void Texture::get2DWrapTextureFromData(GLenum format, GLenum type, void* data)
   glGenerateMipmap(GL_TEXTURE_2D);
   if(checkGLError(stderr, "get2DWrapTextureFromData glGenerateMipmap"))
     exit(-1);
+  stbi_image_free(data);
+  data = NULL;
 }
 
 
 // =======================================================================================
-// Load a texture from a file (and set up the Mipmap)
+// Load a texture from a file.
 
 Texture::Texture(const char* fileName):
-                            textureFileName(fileName)
+                            textureFileName(fileName),
+                            data(NULL)
 {
-  unsigned format;
   stbi_set_flip_vertically_on_load(1);
-  unsigned char *data = stbi_load(fileName, &width, &height, &nrChannels, 0);
+  data = stbi_load(fileName, &width, &height, &nrChannels, 0);
   if(!data)
     err(-1, "Couldn't load texture file %s", fileName);
   if(4==nrChannels)
@@ -57,9 +59,6 @@ Texture::Texture(const char* fileName):
     err(-1, "Unsupported %d channels in file %s", nrChannels ,fileName);
   if(width <=0 || height <= 0)
     err(-1, "Bad width,height: (%d,%d) in file %s", width, height ,fileName);
-
-  get2DWrapTextureFromData(format, GL_UNSIGNED_BYTE, data);
-  stbi_image_free(data);
 }
 
 
@@ -68,7 +67,10 @@ Texture::Texture(const char* fileName):
 
 Texture::~Texture(void)
 {
-  glDeleteTextures(1, &textureId);
+  if(data)
+    stbi_image_free(data);
+  else
+    glDeleteTextures(1, &textureId);
 }
 
 

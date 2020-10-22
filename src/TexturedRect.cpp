@@ -25,6 +25,8 @@ TexturedRect::TexturedRect(Shader& S, const char* textureFileName, float widthIn
 {
   Vertex buf[6];
 
+  texture.sendToGpu();
+  
   if(height == 0.0f)  //infer the height from the width and the aspect ratio of the texture
     height = (width*texture.height)/texture.width;
     
