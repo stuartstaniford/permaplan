@@ -37,6 +37,10 @@ inline bool mollerTrumbore(vec3 triangle[3], vec3 rayPos, vec3 rayDir, float& ou
 
 // =======================================================================================
 // Used as the elements within a buffer that will be passed to the shader
+// Note: see here for discussion of half precision floating point, which is key
+// to keeping our vertex type at or below 32 bytes (1/4 of a cache line on many
+// architectures).
+// https://clang.llvm.org/docs/LanguageExtensions.html#half-precision-floating-point
 
 class Vertex
 {

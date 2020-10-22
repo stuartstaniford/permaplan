@@ -18,6 +18,24 @@
 // Class variable initialization
 
 
+// =======================================================================================
+// Helper class that is used to hold additional information about a
+// given texture while we are in the process of building the Atlas
+
+class TextureAtlasEntry: private Texture
+{
+  friend class TextureAtlas;
+
+  private:
+    //int x;
+    //int y;
+  
+};
+
+// =======================================================================================
+// Main Atlas class with the code for processing the texture directory
+// tree and building that Atlas.
+
 class TextureAtlas
 {
  public:
