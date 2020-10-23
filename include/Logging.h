@@ -9,6 +9,7 @@
 #define LOG_FRAME_STARTS      // Log each frame as it begins
 #define LOG_CLOSE_DOWN        // Log when we exit.
 #define LOG_STRUCTURE_SIZES   // Log the size of structures on this platform at startup.
+#define LOG_OPENGL_CONSTANTS  // Log various openGL parameters
 
 
 // =======================================================================================
@@ -82,6 +83,13 @@ extern FILE* LogFile;
 #define LogStructureSizes(...)
 #endif
 
+// Log various openGL parameters
+#ifdef LOG_OPENGL_CONSTANTS
+#define LogOpenGLConstants(...) LogStatement(__VA_ARGS__)
+#else
+#define LogOpenGLConstants(...)
+#endif
+
 
 // =======================================================================================
 // Logging options to do with interface controls
@@ -152,6 +160,7 @@ extern FILE* LogFile;
 #else
 #define LogMaterialSelections(...)
 #endif
+
 
 // =======================================================================================
 // Logging options to do with quadtree insertions

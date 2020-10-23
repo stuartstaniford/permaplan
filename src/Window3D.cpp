@@ -33,6 +33,29 @@ void windowResize(GLFWwindow* window, int width, int height)
 
 
 // =======================================================================================
+// Helper function to do various openGL logging
+
+#ifdef LOG_OPENGL_CONSTANTS
+
+void openGLInitialLogging(void)
+{
+  int params[4];
+  
+  glGetIntegerv(GL_MAX_TEXTURE_SIZE, params);
+  LogOpenGLConstants("OpenGL Max texture size is %d.\n", params[0]);
+
+/* This next causes an OpenGL error for some reason, so commented out.
+ glGetIntegerv(GL_MAX_TEXTURE_UNITS, params);
+  LogOpenGLConstants("OpenGL Max texture units is %d.\n", params[0]);
+*/
+  
+  if(checkGLError(stderr, "openGLInitialLogging"))
+    exit(-1);
+}
+
+#endif
+
+// =======================================================================================
 // Constructor for a Window3D
 
 Window3D::Window3D(int pixWidth, int pixHeight):
@@ -83,6 +106,11 @@ Window3D::Window3D(int pixWidth, int pixHeight):
   glEnable(GL_DEPTH_TEST);
   glEnable(GL_CULL_FACE);
  
+  // Perform logging of some features of the OpenGLimplementation (if log types on)
+#ifdef LOG_OPENGL_CONSTANTS
+  openGLInitialLogging();
+#endif
+
   // Dear ImGui initialization
   // Setup context
   IMGUI_CHECKVERSION();
