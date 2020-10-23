@@ -26,6 +26,7 @@
 // Logging options to do with materials and textures
 
 #define LOG_TEXTURE_ATLAS       // Log texture atlas creation
+#define LOG_ATLAS_ANOMALIES     // Log weird conditions in texture atlas creation
 #define LOG_MATERIAL_SELECTIONS // Log when a material is selected.
 
 
@@ -136,6 +137,13 @@ extern FILE* LogFile;
 #define LogTextureAtlas(...) LogStatement(__VA_ARGS__)
 #else
 #define LogTextureAtlas(...)
+#endif
+
+// Log weird conditions in texture atlas creation
+#ifdef LOG_ATLAS_ANOMALIES
+#define LogAtlasAnomalies(...) LogStatement(__VA_ARGS__)
+#else
+#define LogAtlasAnomalies(...)
 #endif
 
 // Log when a material is selected.

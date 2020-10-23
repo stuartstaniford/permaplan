@@ -47,6 +47,48 @@ TextureAtlas::TextureAtlas(char* dirName)
   closedir(atlasRoot);
 }
 
+// =======================================================================================
+// Helper function to see if the file name of an extension might reasonably be an image.
+
+bool extensionCheck(char* fileName)
+{
+  char* extension = rindex(fileName, '.');
+  unsigned len    = strlen(fileName);
+  
+  if(!extension)      // treat things with no extension as though they might be an image
+   {
+    LogAtlasAnomalies("Texture Atlas file with no extension %s.\n", fileName);
+    return true;
+   }
+  
+  extension++;
+  if(extension - fileName >= len)
+    err(-1, "Filename %s ends in .\n", fileName);
+  
+  // Definitely image types
+  if(strcmp(extension, "jpg")==0)
+    return true;
+  if(strcmp(extension, "png")==0)
+    return true;
+  if(strcmp(extension, "gif")==0)
+    return true;
+  if(strcmp(extension, "bmp")==0)
+    return true;
+
+  // Definitely not image types
+  if(strcmp(extension, "json")==0)
+    return false;
+  if(strcmp(extension, "txt")==0)
+    return false;
+  if(strcmp(extension, "html")==0)
+    return false;
+  if(strcmp(extension, "rtf")==0)
+    return false;
+
+  LogAtlasAnomalies("Texture Atlas file with unknown extension %s.\n", fileName);
+  return true; // default to trying to see if it will work
+}
+
 
 // =======================================================================================
 // Deal with one particular directory, and the atlas created from the textures in it.
@@ -62,6 +104,8 @@ void TextureAtlas::processOneAtlas(DIR* dir, char* path)
       continue;                       // ignore anything but regular files and subdirs
     if(dirEntry->d_name[0] == '.')
       continue;                       // ignore hidden files starting with "."
+    if(dirEntry->d_type == DT_REG && !extensionCheck(dirEntry->d_name))
+      continue;                       // ignore meta-data files etc.
     int len = strlen(path);
     if(TexPathLimit - len < 4)
       err(-1, "Out of path space for adding %s to %s in processOneAtlas.\n",
@@ -83,8 +127,8 @@ void TextureAtlas::processOneAtlas(DIR* dir, char* path)
         err(-1, "Couldn't open directory %s in TextureAtlas::TextureAtlas", path);
       processOneAtlas(subDir, path);
       closedir(subDir);
-      path[len] = '\0'; // truncate anything done to path by recursive call
      }
+    path[len] = '\0'; // reset path
    }
 }
 
