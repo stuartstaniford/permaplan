@@ -144,21 +144,31 @@ void Shader::useProgram(void)
 // Functions to set various values in the shader.  Basically using C++ overloading to
 // hide the ugliness of the openGL API.  These ones lookup by name.
 
+// First is setting bools
 void Shader::setUniform(const char* name, const bool value)
 {
   glUniform1i(glGetUniformLocation(shaderProgram, name), value);
 }
 
+// Then setting unsigned
 void Shader::setUniform(const char* name, const unsigned value)
 {
   glUniform1i(glGetUniformLocation(shaderProgram, name), value);
 }
 
+// Setting a single vec3
+void Shader::setUniform(const char* name, const vec3& vector)
+{
+  glUniform3fv(glGetUniformLocation(shaderProgram, name), 1, vector);
+}
+
+// Setting a single vec4
 void Shader::setUniform(const char* name, const vec4& vector)
 {
   glUniform4fv(glGetUniformLocation(shaderProgram, name), 1, vector);
 }
 
+// Setting a single mat4
 void Shader::setUniform(const char* name, const mat4& matrix)
 {
   glUniformMatrix4fv(glGetUniformLocation(shaderProgram, name), 1, GL_FALSE, (float*)matrix);

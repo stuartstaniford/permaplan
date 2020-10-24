@@ -18,6 +18,8 @@ uniform bool      fixedColor;
 uniform bool      noTexColor;
 uniform vec4      theColor;
 uniform vec4      accentColor;
+uniform vec3      sunPosition;
+uniform vec3      sunColor;
 
 void main()
 {
