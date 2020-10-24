@@ -10,7 +10,6 @@
 #include "HeightMarker.h"
 #include "Box.h"
 
-#define SUN_DISTANCE 100000.0f
 
 // =======================================================================================
 // Constructor, which initializes the geometry
@@ -20,6 +19,7 @@ Scene::Scene(Shader& S):
                 camera(shader, 200.0f, 45.0f),
                 tbuf(NULL),
                 land(shader),
+                lighting(S),
                 axes(NULL),
                 grid(NULL)
 {
@@ -30,12 +30,6 @@ Scene::Scene(Shader& S):
                        (unsigned)(land.rect->height),
                        0.0f, 0.0f, 1.0f, 1.0f, minSize, 0u);
   land.bufferGeometry(qtree);
-  sunPosition[0]  = -SUN_DISTANCE/M_SQRT2;
-  sunPosition[1]  = 0.0f;
-  sunPosition[2]  = SUN_DISTANCE/M_SQRT2;
-  sunColor[0]     = 1.0f;
-  sunColor[0]     = 1.0f;
-  sunColor[1]     = 1.0f;
 }
 
 
@@ -58,16 +52,6 @@ void Scene::saveState(void)
   const PmodConfig& config = PmodConfig::getConfig();
   if(config.bezWriteFileName)
     qtree->saveSurfaceState(config.bezWriteFileName);
-}
-
-
-// =======================================================================================
-// Update the light sources on the GPU.
-
-void Scene::updateLightSourcesOnGPU(void)
-{
-  shader.setUniform("sunPosition", sunPosition);
-  shader.setUniform("sunColor", sunColor);
 }
 
 
@@ -229,6 +213,7 @@ void Scene::draw(bool mouseMoved)
 {
   shader.useProgram();
   setModelMatrix(0.0f, 0.0f);
+  lighting.updateGPU();
 
   // Display the colored axes if configured
   const PmodConfig& config = PmodConfig::getConfig();

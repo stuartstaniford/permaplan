@@ -156,6 +156,12 @@ void Shader::setUniform(const char* name, const unsigned value)
   glUniform1i(glGetUniformLocation(shaderProgram, name), value);
 }
 
+// Setting a signle float
+void Shader::setUniform(const char* name, const float value)
+{
+  glUniform1f(glGetUniformLocation(shaderProgram, name), value);
+}
+
 // Setting a single vec3
 void Shader::setUniform(const char* name, const vec3& vector)
 {

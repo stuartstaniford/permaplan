@@ -19,6 +19,9 @@ uniform bool      fixedColor;
 uniform bool      noTexColor;
 uniform vec4      theColor;
 uniform vec4      accentColor;
+
+// Stuff related to the lighting model
+uniform float     ambientStrength;
 uniform vec3      sunPosition;
 uniform vec3      sunColor;
 

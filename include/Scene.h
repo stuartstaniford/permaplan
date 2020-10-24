@@ -16,6 +16,7 @@
 #include "Quadtree.h"
 #include "TriangleBuffer.h"
 #include "Material.h"
+#include "LightingModel.h"
 
 
 // =======================================================================================
@@ -36,9 +37,8 @@ class Scene
   vec3            lastMouseLocation;
   vec3            lastMouseDirection;
   vec3            lastDoubleClick;
-  vec3            sunPosition;
-  vec3            sunColor;
-
+  LightingModel   lighting;
+  
   // Member functions - public
   Scene(Shader& S);
   ~Scene(void);

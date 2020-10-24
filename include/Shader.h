@@ -28,6 +28,7 @@ class Shader
   void useProgram(void);
   void setUniform(const char* name, const bool value);
   void setUniform(const char* name, const unsigned value);
+  void setUniform(const char* name, const float value);
   void setUniform(const char* name, const vec3& value);
   void setUniform(const char* name, const vec4& value);
   void setUniform(const char* name, const mat4& matrix);
