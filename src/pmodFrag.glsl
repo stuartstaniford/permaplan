@@ -6,6 +6,7 @@ out vec4  FragColor;
 
 // Stuff coming from the vertex shader
 in vec2   texCoord;
+in vec3   normal;
 in float  accent;
 
 // The main earth texture

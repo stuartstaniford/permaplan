@@ -6,6 +6,7 @@ layout (location = 2) in vec3 aNormal;
 layout (location = 3) in float aAccent;
 
 out vec2 texCoord;
+out vec3 normal;
 out float accent;
 
 uniform mat4  model;
@@ -16,6 +17,7 @@ void main()
 {
   gl_Position   = projection*view*model*vec4(aPos, 1.0f);
   texCoord      = aTexCoord;
+  normal        = aNormal;
   accent        = aAccent;
 }
 
