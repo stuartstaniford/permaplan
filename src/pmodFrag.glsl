@@ -8,6 +8,7 @@ out vec4  FragColor;
 in vec2   texCoord;
 in vec3   normal;
 in float  accent;
+in vec3   fragPosition;
 
 // The main earth texture
 uniform sampler2D earthTexture;
