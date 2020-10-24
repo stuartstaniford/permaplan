@@ -42,9 +42,15 @@ void main()
      }
     else
      {
-      // Earth texture, modified by accentColor.  This is the branch for actual
-      // scenery/objects in the scene.
-      FragColor = (1.0f-accent)*texture(earthTexture, texCoord) + accent*accentColor;
+      // Earth texture, modified by lighting model and accentColor.  This is the
+      // branch for actual scenery/objects in the scene.
+      vec4 ambient      = vec4(ambientStrength * sunColor, 1.0);
+      vec4 objectColor  = (1.0f-accent)*texture(earthTexture, texCoord) + accent*accentColor;
+      vec3 norm         = normalize(normal);
+      vec3 sunDir       = normalize(sunPosition - fragPosition);
+      float diff        = max(dot(norm, sunDir), 0.0);
+      vec4 diffuse      = vec4(diff * sunColor, 1.0);
+      FragColor         = (ambient+diffuse) * objectColor;
      }
    }
 }

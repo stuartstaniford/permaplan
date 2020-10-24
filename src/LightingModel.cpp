@@ -14,7 +14,7 @@
 
 LightingModel::LightingModel(Shader& S):
                     shader(S),
-                    ambientStrength(0.2f)
+                    ambientStrength(0.6f)
 {
   sunPosition[0]  = -SUN_DISTANCE/M_SQRT2;
   sunPosition[1]  = 0.0f;
