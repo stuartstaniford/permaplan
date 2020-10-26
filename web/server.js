@@ -1,3 +1,6 @@
+// Copyright Staniford Systems.  All Rights Reserved.  Oct 2020 -
+// Back end server for talking to mobile clients.
+
 var express = require('express');
 var helmet = require('helmet')
 
