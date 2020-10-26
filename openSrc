@@ -1,2 +1,3 @@
 open -a XCode src/*.cpp src/*.c
-open -a XCode include/*.h openSrc measCode.pl compilePmod 812/*.json src/*.glsl CMakeLists.txt web/*.js
+open -a XCode include/*.h
+open -a XCode openSrc measCode.pl compilePmod 812/*.json src/*.glsl CMakeLists.txt web/*.js web/views/*.ejs
