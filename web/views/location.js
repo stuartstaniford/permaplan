@@ -34,7 +34,10 @@ function draw()
 // ========================================================================================
 // Main entrypoint code for starting on page load
 
-alert("Javascript says hi!")
+
+function myFunction() {
+  window.alert("I am an alert box!");
+}
 
 
 // ========================================================================================

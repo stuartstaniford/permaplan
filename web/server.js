@@ -6,7 +6,7 @@ var helmet = require('helmet')
 
 var server = express();
 
-server.use(helmet());
+//server.use(helmet());
 
 server.set('view engine', 'ejs');
 
