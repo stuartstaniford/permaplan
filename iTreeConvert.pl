@@ -8,9 +8,10 @@ open(FILE, $iTreeFile) || die("Couldn't open $iTreeFile.\n");
 open(OUT, ">$outFile") || die("Couldn't open $outFile.\n");
 
 $firstRow = <FILE>;
+$firstRow =~ s/[\r\n]//g;
 
 @names = split('\t', $firstRow);
-print join("|", @names)."|\n";
+
 print OUT "\[\n";
 $firstLine = 1;
 while(<FILE>)
@@ -24,7 +25,7 @@ while(<FILE>)
     print OUT ",\n"; # terminate the previous line
    }
   print OUT "\{\n";
-
+  s/[\r\n]//g;
   @vals = split('\t', $_);
   $firstVal = 1;
   foreach $i (0.. $#names)
