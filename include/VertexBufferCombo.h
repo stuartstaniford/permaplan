@@ -6,7 +6,7 @@
 #ifndef VERTEX_BUFFER_COMBO_H
 #define VERTEX_BUFFER_COMBO_H
 
-#include "vertexArrayObject.h"
+#include "VertexArrayObject.h"
 #include "VertexBufferObject.h"
 
 // =======================================================================================

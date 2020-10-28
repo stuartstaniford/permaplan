@@ -1,10 +1,11 @@
 <%- include('headCommon.ejs', {title: 'Test.'}) %>
 
-    <p>Test page.</p>
-
+<p>Demo page recording very basic information about trees, and geolocating them.</p>
 
 <script src="location.js"></script>
 
-<button onclick="myFunction()">Try it</button>
+<button onclick="recordNewTree()">Record New Tree</button>
+
+<p id="treeResultsPara"></p>
 
 <%- include('footer.ejs') %>
