@@ -7,6 +7,12 @@
 var gStartTime  = 0.0;    // Time of first callback in ms.
 var resultPara;           //Place to report what happened.
 
+var trees = [
+             {'Common Name': 'Northern Red Oak',
+              'Scientific Name': 'Quercus Rubra',
+              }
+             
+            ]
 
 // ========================================================================================
 // Possibly useful code to steal
