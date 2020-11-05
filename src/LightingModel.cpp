@@ -7,7 +7,7 @@
 
 // Useful constants.
 
-#define SUN_DISTANCE 100000.0f
+#define SUN_DISTANCE 200000.0f
 
 // =======================================================================================
 // Constructor

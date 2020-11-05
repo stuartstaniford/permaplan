@@ -26,7 +26,7 @@ LFLAGS =
 LIBS = -framework OpenGL -lglfw -lGLEW
 
 # define the source files
-SRCS = $(wildcard src/*.c) $(wildcard src/*.cpp)
+SRCS = $(wildcard src/*.cpp)
 
 
 # define the C object files
@@ -64,7 +64,7 @@ $(MAIN): $(OBJS)
 				$(CPP) $(CFLAGS) $(INCLUDES) -c $<  -o $@
 
 clean:
-				$(RM) *.o *~ $(MAIN)
+				$(RM) src/*.o *~ $(MAIN)
 
 depend: $(SRCS)
 				makedepend $(INCLUDES) $^
