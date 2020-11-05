@@ -23,7 +23,7 @@ bool mollerTrumbore(vec3 v0, vec3 v1, vec3 v2, vec3 rayPos, vec3 rayDir, float& 
   glm_vec3_sub(v2, v0, edge2);
   glm_vec3_cross(rayDir, edge2, h);
   a = glm_vec3_dot(edge1, h);
-  if (a > -epsilon && a < epsilon)
+  if (a > -EPSILON && a < EPSILON)
     return false;    // This ray is parallel to this triangle.
   f = 1.0f/a;
   glm_vec3_sub(rayPos, v0, s);
@@ -36,7 +36,7 @@ bool mollerTrumbore(vec3 v0, vec3 v1, vec3 v2, vec3 rayPos, vec3 rayDir, float& 
     return false;
   // At this stage we can compute t to find out where the intersection point is on the line.
   outT = f * glm_vec3_dot(edge2,q);
-  if (outT > epsilon) // ray intersection
+  if (outT > EPSILON) // ray intersection
     return true;
   else // This means that there is a line intersection but not a ray intersection.
     return false;

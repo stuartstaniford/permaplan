@@ -8,7 +8,6 @@
 #ifndef SCRIPTCONTROLLER_H
 #define SCRIPTCONTROLLER_H
 
-
 #include <unordered_map>
 #include <string>
 #include "HttpDebug.h"

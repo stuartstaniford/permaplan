@@ -382,7 +382,7 @@ bool PatchRayState::matchNeighbor(vec3 rayPos, vec3 rayDir, float& outT)
   if(mollerTrumbore(neighbor, rayPos, rayDir, outT))
    {
     memcpy(triangle, neighbor, sizeof(neighbor));
-    lowerLeft = ~lowerLeft;
+    lowerLeft = !lowerLeft;
     LogBezierMatchRay("Mating triangle to last match succeeded.\n");
     return true;
    }
@@ -392,14 +392,14 @@ bool PatchRayState::matchNeighbor(vec3 rayPos, vec3 rayDir, float& outT)
   for(int i = -1; i <= 1; i++)
    {
     trialU = uv[0] + spacing*i;
-    if(trialU < 0.0f - epsilon || trialU + spacing > 1.0f + epsilon)
+    if(trialU < 0.0f - EPSILON || trialU + spacing > 1.0f + EPSILON)
       continue;
     for(int j = -1; j <= 1; j++)
      {
       if(i==j==0) // already did that case before the loops
         continue;
       trialV = uv[1] + spacing*j;
-      if(trialV < 0.0f - epsilon || trialV + spacing > 1.0f + epsilon)
+      if(trialV < 0.0f - EPSILON || trialV + spacing > 1.0f + EPSILON)
         continue;
       getLowerLeft(neighbor, trialU, trialV);
       if(mollerTrumbore(neighbor, rayPos, rayDir, outT))

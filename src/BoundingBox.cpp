@@ -2,6 +2,7 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Jun 2020 -
 // This manages the quadtree used for efficient organization of visual rendering
 
+#include <math.h>
 #include <cstdio>
 #include <stdexcept>
 #include <err.h>
@@ -159,9 +160,9 @@ bool BoundingBox::matchRay(vec3& position, vec3& direction, float& lambda)
   // first deal with a bunch of quick cases where we are clearly pointed away from the box
   for(int i=0; i<3; i++)
    {
-    if(position[i] < lower[i] && direction[i] < epsilon)
+    if(position[i] < lower[i] && direction[i] < EPSILON)
       return false;
-    if(position[i] > upper[i] && direction[i] > -epsilon)
+    if(position[i] > upper[i] && direction[i] > -EPSILON)
       return false;
    }
 
@@ -171,7 +172,7 @@ bool BoundingBox::matchRay(vec3& position, vec3& direction, float& lambda)
     // We'll refer to the other two directions as a and b
     int a = (i+1)%3;
     int b = (i+2)%3;
-    if(abs(direction[i]) < epsilon)
+    if(fabsf(direction[i]) < EPSILON)
       continue;
     if( (lambda = (lower[i] - position[i])/direction[i]) > 0.0f)
      {

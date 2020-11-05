@@ -2,6 +2,7 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Sep 2020 -
 // Class for rendering a simple straight arrow.
 
+#include <cstdio>
 #include <err.h>
 #include "Arrow.h"
 
@@ -89,7 +90,7 @@ bool Arrow::bufferGeometry(TriangleBuffer* T)
      -----
 */
   
-  if(direction[0] < epsilon && direction[1] < epsilon)
+  if(direction[0] < EPSILON && direction[1] < EPSILON)
    {
     f0[0] = 1.0f;
     f0[1] = f0[2] = 0.0f;

@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-open(FILE, "wc src/*.cpp include/*.h *.pl 812/*.json src/*.glsl CMakeLists.txt web/*.js web/views/*js|")
+open(FILE, "wc Makefile src/*.cpp include/*.h *.pl 812/*.json src/*.glsl CMakeLists.txt web/*.js web/views/*js|")
 || die("Couldn't run wc.\n");
 
 open(OUT, "|open -a XCode -f") || die("Couldn't open XCode.\n");

@@ -5,8 +5,9 @@
 #ifndef GLOBAL_MACRO_DEFNS_H
 #define GLOBAL_MACRO_DEFNS_H
 
+
 #define unless(X) if(!(X))
-#define epsilon 0.000000001f
+#define EPSILON 0.000000001f
 
 #endif
 
