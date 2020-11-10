@@ -61,6 +61,8 @@ class Scene
 
   // Member functions - private
   void setModelMatrix(float latt, float longt);
+  Scene(const Scene&);                 // Prevent copy-construction
+  Scene& operator=(const Scene&);      // Prevent assignment
 };
 
 #endif

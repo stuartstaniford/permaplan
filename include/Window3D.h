@@ -64,6 +64,8 @@ class Window3D
   void          imguiMaterialsMenu(void);
   void          imguiFocusOverlay(void);
   void          mouseOverlayDisplays(vec3 mouseSceneLoc);
+  Window3D(const Window3D&);                 // Prevent copy-construction
+  Window3D& operator=(const Window3D&);      // Prevent assignment
 
 };
 

@@ -27,6 +27,12 @@ public:
   VertexBufferCombo(unsigned count, Vertex* data, GLenum usage = GL_STATIC_DRAW);
   ~VertexBufferCombo(void);
   void bind(void);
+
+private:
+
+  // Member functions - private
+  VertexBufferCombo(const VertexBufferCombo&);                 // Prevent copy-construction
+  VertexBufferCombo& operator=(const VertexBufferCombo&);      // Prevent assignment
 };
 
 #endif

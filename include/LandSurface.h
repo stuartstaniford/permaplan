@@ -60,7 +60,8 @@ class LandSurface
   
   // Member functions - private
   void highlightNode(Quadtree* targetNode, vec4& color, float accent);
-
+  LandSurface(const LandSurface&);                 // Prevent copy-construction
+  LandSurface& operator=(const LandSurface&);      // Prevent assignment
 
 };
 

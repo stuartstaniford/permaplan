@@ -87,6 +87,8 @@ private:
   void  revertGradientVector(void);
   void  dumpDetailState(char* fileName);
   bool  matchRayAll(vec3& position, vec3& direction, float& lambda);
+  BezierPatch(const BezierPatch&);                 // Prevent copy-construction
+  BezierPatch& operator=(const BezierPatch&);      // Prevent assignment
 
 };
 
@@ -154,7 +156,6 @@ class PatchRayState
    }
 
   bool matchNeighbor(vec3 rayPos, vec3 rayDir, float& outT);
-  
 };
 #endif
 

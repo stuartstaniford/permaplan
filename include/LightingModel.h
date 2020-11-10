@@ -31,6 +31,8 @@ private:
   float   ambientStrength;
 
   // Member functions - private
+  LightingModel(const LightingModel&);                 // Prevent copy-construction
+  LightingModel& operator=(const LightingModel&);      // Prevent assignment
 };
 
 #endif

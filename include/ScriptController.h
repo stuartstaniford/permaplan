@@ -62,6 +62,8 @@ class ScriptController
   float                                             args[16];
   
   // Member functions - private
+  ScriptController(const ScriptController&);                 // Prevent copy-construction
+  ScriptController& operator=(const ScriptController&);      // Prevent assignment
 
 };
 

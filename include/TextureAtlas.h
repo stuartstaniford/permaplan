@@ -53,8 +53,9 @@ class TextureAtlas
   // Instance variables - private
 
   // Member functions - private
+  TextureAtlas(const TextureAtlas&);                 // Prevent copy-construction
+  TextureAtlas& operator=(const TextureAtlas&);      // Prevent assignment
 
-  
 };
 
 #endif

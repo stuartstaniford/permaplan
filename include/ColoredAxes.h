@@ -25,8 +25,8 @@ class ColoredAxes: public LineStripList
   // Instance variables - private
   
   // Member functions - private
-  
-
+  ColoredAxes(const ColoredAxes&);                 // Prevent copy-construction
+  ColoredAxes& operator=(const ColoredAxes&);      // Prevent assignment
 };
 
 #endif

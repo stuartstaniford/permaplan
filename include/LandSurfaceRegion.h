@@ -43,6 +43,8 @@ class LandSurfaceRegion: public VisualObject
   // Instance variables - private
   
   // Member functions - private
+  LandSurfaceRegion(const LandSurfaceRegion&);                 // Prevent copy-construction
+  LandSurfaceRegion& operator=(const LandSurfaceRegion&);      // Prevent assignment
 };
 
 #endif

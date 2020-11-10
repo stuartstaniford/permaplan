@@ -109,7 +109,6 @@ void TriangleBuffer::draw(VertexDrawType drawType, vec4 objColor)
   
   if(checkGLError(stderr, "TriangleBuffer::draw"))
     exit(-1);
-
 }
 
 

@@ -25,6 +25,12 @@ class VertexArrayObject
   VertexArrayObject(unsigned sizeIn);
   ~VertexArrayObject(void);
   void bind(unsigned index);
+
+private:
+
+  // Member functions - private
+  VertexArrayObject(const VertexArrayObject&);                 // Prevent copy-construction
+  VertexArrayObject& operator=(const VertexArrayObject&);      // Prevent assignment
 };
 
 #endif

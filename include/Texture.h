@@ -35,6 +35,8 @@ class Texture
   unsigned  textureId;
   
   // Member functions - private
+  Texture(const Texture&);                 // Prevent copy-construction
+  Texture& operator=(const Texture&);      // Prevent assignment
 };
 
 #endif

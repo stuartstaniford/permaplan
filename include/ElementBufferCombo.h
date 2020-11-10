@@ -30,6 +30,13 @@ public:
                       unsigned iCount, GLenum usage);
   ~ElementBufferCombo(void);
   void bind(void);
+
+private:
+  
+  // Member functions - private
+  ElementBufferCombo(const ElementBufferCombo&);                 // Prevent copy-construction
+  ElementBufferCombo& operator=(const ElementBufferCombo&);      // Prevent assignment
+
 };
 
 #endif

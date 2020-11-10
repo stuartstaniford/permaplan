@@ -69,6 +69,8 @@ private:
   // Member functions - private
   void updateViewMatrix(void);
   void setProjectionMatrix(void);
+  Camera(const Camera&);                 // Prevent copy-construction
+  Camera& operator=(const Camera&);      // Prevent assignment
 
 };
 

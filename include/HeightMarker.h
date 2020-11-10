@@ -38,6 +38,9 @@ class HeightMarker: public VisualObject
   // Instance variables - private
   
   // Member functions - private
+  HeightMarker(const HeightMarker&);                 // Prevent copy-construction
+  HeightMarker& operator=(const HeightMarker&);      // Prevent assignment
+
 };
 
 #endif

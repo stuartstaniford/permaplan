@@ -39,7 +39,9 @@ class TexturedRect
   VertexBufferObject*   VBO;
   
   // Member functions - private
-  
+  TexturedRect(const TexturedRect&);                 // Prevent copy-construction
+  TexturedRect& operator=(const TexturedRect&);      // Prevent assignment
+
 
 };
 

@@ -26,7 +26,8 @@ class ElementBufferObject
   unsigned  ebo;
   
   // Member functions - private
-  
+  ElementBufferObject(const ElementBufferObject&);                 // Prevent copy-construction
+  ElementBufferObject& operator=(const ElementBufferObject&);      // Prevent assignment
 
 };
 

@@ -38,6 +38,8 @@ class LineStripList: public std::vector<Vertex>
   unsigned            N;       // used to store number of vertices when gone to the gpu
   
   // Member functions - private
+  LineStripList(const LineStripList&);                 // Prevent copy-construction
+  LineStripList& operator=(const LineStripList&);      // Prevent assignment
 };
 
 #endif

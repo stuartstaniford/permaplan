@@ -41,8 +41,9 @@ private:
   
   // Member functions - private
   void resetAltitude(float alt);
+  Grid(const Grid&);                 // Prevent copy-construction
+  Grid& operator=(const Grid&);      // Prevent assignment
 
-  
 };
 
 #endif

@@ -44,6 +44,8 @@ class LandSurfaceRegionPlanar: public LandSurfaceRegion
   // Instance variables - private
   
   // Member functions - private
+  LandSurfaceRegionPlanar(const LandSurfaceRegionPlanar&);                 // Prevent copy-construction
+  LandSurfaceRegionPlanar& operator=(const LandSurfaceRegionPlanar&);      // Prevent assignment
 };
 
 #endif

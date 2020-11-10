@@ -41,6 +41,8 @@ class Arrow: public VisualObject
   // Instance variables - private
   
   // Member functions - private
+  Arrow(const Arrow&);                 // Prevent copy-construction
+  Arrow& operator=(const Arrow&);      // Prevent assignment
 };
 
 #endif

@@ -38,8 +38,8 @@ class VertexBufferObject
   unsigned  VBOindex;
   
   // Member functions - private
-  
-
+  VertexBufferObject(const VertexBufferObject&);                 // Prevent copy-construction
+  VertexBufferObject& operator=(const VertexBufferObject&);      // Prevent assignment
 };
 
 #endif

@@ -46,6 +46,8 @@ class BoundingBox
   // Instance variables - private
   
   // Member functions - private
+  BoundingBox(const BoundingBox&);                 // Prevent copy-construction
+  BoundingBox& operator=(const BoundingBox&);      // Prevent assignment
 };
 
 

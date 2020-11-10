@@ -39,6 +39,8 @@ class Box: public VisualObject
   int  index;
   
   // Member functions - private
+  Box(const Box&);                 // Prevent copy-construction
+  Box& operator=(const Box&);      // Prevent assignment
 };
 
 #endif

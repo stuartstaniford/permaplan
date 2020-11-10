@@ -36,6 +36,8 @@ class DisplayList: public std::vector<VisualObject*>
   // Instance variables - private
   
   // Member functions - private
+  DisplayList(const DisplayList&);                 // Prevent copy-construction
+  DisplayList& operator=(const DisplayList&);      // Prevent assignment
 };
 
 #endif

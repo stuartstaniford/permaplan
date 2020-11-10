@@ -44,8 +44,9 @@ class TriangleBuffer
   ElementBufferCombo*   combo;
 
   // Member functions - private
-  
-  
+  TriangleBuffer(const TriangleBuffer&);                 // Prevent copy-construction
+  TriangleBuffer& operator=(const TriangleBuffer&);      // Prevent assignment
+
 };
 
 // Helper functions

@@ -68,6 +68,8 @@ class Quadtree
   
   // Member functions - private
   VisualObject* matchChild(vec3& position, vec3& direction, float& lambda);
+  Quadtree(const Quadtree&);                 // Prevent copy-construction
+  Quadtree& operator=(const Quadtree&);      // Prevent assignment
 };
 
 #endif

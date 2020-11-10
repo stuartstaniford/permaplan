@@ -33,7 +33,9 @@ private:
   Texture texture;
   
   // Member functions - private
-  
+  Material(const Material&);                 // Prevent copy-construction
+  Material& operator=(const Material&);      // Prevent assignment
+
 };
 
 class MaterialList: public std::vector<Material*>
@@ -55,11 +57,13 @@ public:
    return *theMaterialList;
   }
 
-
+private:
 
   // Instance variables - private
   
   // Member functions - private
+  MaterialList(const MaterialList&);                 // Prevent copy-construction
+  MaterialList& operator=(const MaterialList&);      // Prevent assignment
 };
 
 #endif
