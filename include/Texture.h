@@ -26,7 +26,7 @@ class Texture
   // Member functions - public
   Texture(const char* fileName);
   ~Texture(void);
-  void bind(Shader& shader, unsigned textureUnit, const char* name);
+  void bind(unsigned textureUnit, const char* name);
   void sendToGpu(void);
 
  private:

@@ -30,7 +30,7 @@ class TriangleBuffer
   bool requestSpace(Vertex** verticesAssigned, unsigned** indicesAssigned,
                     unsigned& vOffset, unsigned vRequestCount, unsigned iRequestCount);
   void sendToGPU(GLenum usage);
-  void draw(void);
+  void draw(VertexDrawType drawType, vec4 objColor);
   void fprint(FILE* file);
   bool diagnosticHTML(HttpDebug* serv);
   

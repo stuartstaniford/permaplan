@@ -74,6 +74,7 @@ bool BezierPatch::getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail
 
 // =======================================================================================
 //XX Stub definition needs to be implemented
+
 bool BezierPatch::getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
 {
   return false;
@@ -289,6 +290,8 @@ bool BezierPatch::bufferGeometry(TriangleBuffer* T)
     //bufEl->fprint(stdout);
    }
 
+  //XXX haven't computed normals yet.
+  
   for (int i=0; i<gridN; i++)
     for (int j=0; j<gridN; j++)
      {
@@ -744,6 +747,7 @@ void BezierPatch::applyGradientVector(void)
       controlPoints[i][j][m] -= currentDelta*gradientControlPoints[i][j][m];
 
   // Now the fit points
+  // XXX - currently commented out as causing major slowdown
   /*
   int k, n, N = fitPointUVVals.size();
   for(k=0; k<N; k++)

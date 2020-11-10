@@ -77,13 +77,13 @@ Texture::~Texture(void)
 // =======================================================================================
 // Bind a particular texture to a given active texture unit and name in the shader
 
-void Texture::bind(Shader& shader, unsigned textureUnit, const char* name)
+void Texture::bind(unsigned textureUnit, const char* name)
 {
   glActiveTexture(GL_TEXTURE0+textureUnit);
   glBindTexture(GL_TEXTURE_2D, textureId);
   if(checkGLError(stderr, "Texture::bind:glBindTexture"))
     exit(-1);
-
+  Shader& shader = Shader::getMainShader();
   shader.setUniform(name, textureUnit);
   if(checkGLError(stderr, "Texture::bind:setUniform"))
     exit(-1);

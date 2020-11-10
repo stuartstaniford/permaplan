@@ -7,6 +7,7 @@
 #include "loadFileToBuf.h"
 #include "Shader.h"
 
+Shader* Shader::mainShader = NULL;
 
 // =======================================================================================
 // Utility function to check openGL glGetError and report
@@ -91,6 +92,13 @@ unsigned loadAndCompileShader(const char* fileName, GLenum shaderType)
 
 Shader::Shader(const char* vertexShaderFile, const char* fragmentShaderFile)
 {
+  // Constructor should only be called once at startup.  Everyone else gets us via
+  // getMainShader()
+  if(mainShader)
+    return;
+  else
+    mainShader = this;
+
   // Get and compile the shader source
   unsigned vertexShader   = loadAndCompileShader(vertexShaderFile, GL_VERTEX_SHADER);
   unsigned fragmentShader = loadAndCompileShader(fragmentShaderFile, GL_FRAGMENT_SHADER);

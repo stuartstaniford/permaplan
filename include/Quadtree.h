@@ -36,7 +36,7 @@ class Quadtree
   BoundingBox   bbox;
 
   // Member functions - public
-  Quadtree(Shader& S, float x, float y, unsigned width, unsigned height, float s, float t,
+  Quadtree(float x, float y, unsigned width, unsigned height, float s, float t,
            float sWidth, float tHeight, unsigned& minSize, unsigned offset);
   ~Quadtree(void);
   void bufferGeometry(Vertex* buf);
@@ -55,7 +55,6 @@ class Quadtree
  private:
   
   // Instance variables - private
-  Shader&                   shader;
  
   //XXX deprecate
   float                     topLeftZ;

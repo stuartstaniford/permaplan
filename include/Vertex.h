@@ -24,6 +24,13 @@ enum VertexDetail
   IncludeNormal
 };
 
+enum VertexDrawType
+{
+  FixedColor,
+  NoTexColor,
+  Lighted
+};
+
 
 // =======================================================================================
 // Helper function prototypes

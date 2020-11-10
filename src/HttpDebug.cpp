@@ -118,10 +118,14 @@ bool HttpDebug::indexPage(void)
   addResponseData("<tr><td><a href=\"/camera/\">camera/</a></td>");
   addResponseData("<td>Current camera variables</td></tr>\n");
   
-  // Global tbuf
-  addResponseData("<tr><td><a href=\"/tbuf/\">tbuf/</a></td>");
-  addResponseData("<td>Global triangle buffer</td></tr>\n");
-  
+  // Scene indicator tbuf
+  addResponseData("<tr><td><a href=\"/stbuf/\">tbuf/</a></td>");
+  addResponseData("<td>Scene indicator triangle buffer</td></tr>\n");
+
+  // Scene object tbuf
+  addResponseData("<tr><td><a href=\"/otbuf/\">tbuf/</a></td>");
+  addResponseData("<td>Scene object triangle buffer</td></tr>\n");
+
   // End table and page
   addResponseData("</table></center>\n");
   endResponsePage();
@@ -174,8 +178,11 @@ bool HttpDebug::processRequestHeader(void)
   if( strlen(url) >= 6 && strncmp(url, "/quad/", 6) == 0)
     return scene.qtree->diagnosticHTML(this, url+6);
 
-  if( strlen(url) == 6 && strncmp(url, "/tbuf/", 6) == 0)
-    return scene.tbuf->diagnosticHTML(this);
+  if( strlen(url) == 7 && strncmp(url, "/stbuf/", 7) == 0)
+    return scene.indicatorTbuf->diagnosticHTML(this);
+  
+  if( strlen(url) == 7 && strncmp(url, "/otbuf/", 7) == 0)
+    return scene.sceneObjectTbuf->diagnosticHTML(this);
 
   if( strlen(url) == 6 && strncmp(url, "/land/", 6) == 0)
     return scene.land.diagnosticHTML(this);

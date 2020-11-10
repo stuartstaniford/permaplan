@@ -14,19 +14,19 @@
 // =======================================================================================
 // Constructor, which initializes the geometry
 
-Scene::Scene(Shader& S):
-                shader(S),
-                camera(shader, 200.0f, 45.0f),
-                tbuf(NULL),
-                land(shader),
-                lighting(S),
+Scene::Scene():
+                camera(200.0f, 45.0f),
+                sceneObjectTbuf(NULL),
+                indicatorTbuf(NULL),
+                land(),
+                lighting(),
                 axes(NULL),
                 grid(NULL)
 {
   unsigned minSize = 10;
   // Note that land and qtree have mutual dependencies that means there
   // are several steps in setting them up.
-  qtree = new Quadtree(shader, 0.0f, 0.0f, (unsigned)(land.rect->width),
+  qtree = new Quadtree(0.0f, 0.0f, (unsigned)(land.rect->width),
                        (unsigned)(land.rect->height),
                        0.0f, 0.0f, 1.0f, 1.0f, minSize, 0u);
   land.bufferGeometry(qtree);
@@ -66,6 +66,7 @@ void Scene::setModelMatrix(float latt, float longt)
   glm_mat4_identity(model);
   glm_rotate(model, latt/180.0f*M_PI, yAxis);
   glm_rotate(model, longt/180.0f*M_PI, zAxis);
+  Shader& shader = Shader::getMainShader();
   shader.setUniform("model", model);
   if(checkGLError(stderr, "Scene::setModelMatrix"))
     exit(-1);
@@ -127,13 +128,13 @@ VisualObject* Scene::findObjectFromWindowCoords(vec3 location, float clipX, floa
 // =======================================================================================
 //XXX Temporary hack - toss the old buffer and make a new one
 
-void Scene::rebuildVisualObjectBuffer(void)
+void Scene::rebuildVisualObjectBuffer(TriangleBuffer** tbuf)
 {
-  if(tbuf)
-    delete tbuf;
-  tbuf = new TriangleBuffer(qtree->vertexTBufSize, qtree->indexTBufSize);
-  qtree->bufferVisualObjects(tbuf);
-  tbuf->sendToGPU(GL_STATIC_DRAW);
+  if(*tbuf)
+    delete *tbuf;
+  *tbuf = new TriangleBuffer(qtree->vertexTBufSize, qtree->indexTBufSize);
+  qtree->bufferVisualObjects(*tbuf);
+  (*tbuf)->sendToGPU(GL_STATIC_DRAW);
 }
 
 
@@ -147,7 +148,8 @@ void Scene::newLandHeight(vec3 location)
   qtree->storeVisualObject(H);
   grid->newHeight(location[2]);
   
-  rebuildVisualObjectBuffer();
+  rebuildVisualObjectBuffer(&indicatorTbuf);
+  //XX also need to rebuild rest of objects once their heights are relative
   
   //Redo the landsurface here, in light of the new height observation
   land.newLandHeight(H);
@@ -200,7 +202,7 @@ void Scene::insertVisibleObject(char* objType, float size, vec3 loc, Material* m
   LogObjectInsertions("Object inserted: %s (size %.1f) at %.1f, %.1f, %.1f\n",
                       objType, size, loc[0], loc[1], loc[2]);
   qtree->storeVisualObject(newObj);
-  rebuildVisualObjectBuffer();
+  rebuildVisualObjectBuffer(&sceneObjectTbuf);
 }
 
 
@@ -211,6 +213,7 @@ vec4  objColor      = {0.0f, 0.5f, 0.9f, 1.0f};
 
 void Scene::draw(bool mouseMoved)
 {
+  Shader& shader = Shader::getMainShader();
   shader.useProgram();
   setModelMatrix(0.0f, 0.0f);
   lighting.updateGPU();
@@ -220,7 +223,7 @@ void Scene::draw(bool mouseMoved)
   if(config.plotAxes)
    {
     if(!axes)
-      axes = new ColoredAxes(shader, 1000.0f);  //XX number needs to come from somewhere
+      axes = new ColoredAxes(1000.0f);  //XX number needs to come from somewhere
     axes->draw();
    }
 
@@ -228,7 +231,7 @@ void Scene::draw(bool mouseMoved)
   if(config.plotGrid)
    {
     if(!grid)
-      grid = new Grid(shader, land, config.gridSpacing);
+      grid = new Grid(land, config.gridSpacing);
     grid->draw();
    }
 
@@ -240,13 +243,8 @@ void Scene::draw(bool mouseMoved)
   land.draw(camera);
   
   // Draw all the objects stored in the quadtree
-  if(tbuf)
-   {
-    shader.setUniform("fixedColor", true);
-    shader.setUniform("theColor", objColor);
-    tbuf->draw();
-    shader.setUniform("fixedColor", false);
-   }
+  if(sceneObjectTbuf)
+    sceneObjectTbuf->draw(Lighted, NULL);
 }
 
 

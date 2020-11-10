@@ -31,12 +31,12 @@ int gridModuli[2] = {10, 100};
                             else \
                                level = 0
 
-Grid::Grid(Shader& S, LandSurface& L, float gridSpacing, float alt):
+Grid::Grid(LandSurface& L, float gridSpacing, float alt):
                       spacing(gridSpacing),
                       land(L),
                       NHeights(0u),
                       sumHeights(0.0f),
-                      lines(S)
+                      lines()
 {
   if(!land.rect)
     err(-1, "Unsupported lack of rect in Grid::Grid\n");

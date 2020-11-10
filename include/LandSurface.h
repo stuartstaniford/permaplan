@@ -32,7 +32,7 @@ class LandSurface
   Quadtree*       qtree;
   
   // Member functions - public
-  LandSurface(Shader& S);
+  LandSurface(void);
   void bufferGeometry(Quadtree* q);
   ~LandSurface(void);
   void newLandHeight(HeightMarker* hM);
@@ -45,7 +45,6 @@ class LandSurface
  private:
   
   // Instance variables - private
-  Shader&               shader;
   TriangleBuffer*       tbuf;
   unsigned              locationCount;
   std::vector<float*>   heightLocations;

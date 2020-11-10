@@ -12,8 +12,7 @@
 // =======================================================================================
 // Constructor
 
-LightingModel::LightingModel(Shader& S):
-                    shader(S),
+LightingModel::LightingModel(void):
                     ambientStrength(0.6f)
 {
   sunPosition[0]  = -SUN_DISTANCE/M_SQRT2;
@@ -30,6 +29,7 @@ LightingModel::LightingModel(Shader& S):
 
 void LightingModel::updateGPU(void)
 {
+  Shader& shader = Shader::getMainShader();
   shader.setUniform("sunPosition",      sunPosition);
   shader.setUniform("sunColor",         sunColor);
   shader.setUniform("ambientStrength",  ambientStrength);

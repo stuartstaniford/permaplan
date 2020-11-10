@@ -12,8 +12,8 @@
 // =======================================================================================
 // Create the three axes to display in color later
 
-ColoredAxes::ColoredAxes(Shader& S, float axesLen):
-                                        LineStripList(S)
+ColoredAxes::ColoredAxes(float axesLen):
+                                        LineStripList()
 {
   vec3 theColor = {0.0f, 0.0f, 0.0f};
   vec3 pos      = {0.0f, 0.0f, 0.0f};

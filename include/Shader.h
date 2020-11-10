@@ -21,7 +21,12 @@ class Shader
  public:
 
   // Instance variables - public
+ 
+ private:
+  // Pointers to instances
+  static Shader* mainShader;
 
+ public:
   // Member functions - public
   Shader(const char* vertexShaderFile, const char* fragmentShaderFile);
   ~Shader(void);
@@ -36,8 +41,13 @@ class Shader
   unsigned getUniformLocation(const char* name);
 
   void setUniform(const unsigned loc, const mat4& matrix);
+  static Shader& getMainShader(void) // Get the singleton instance
+   {
+    return *mainShader;
+   }
 
  private:
+
 
   // Instance variables - private
   unsigned  shaderProgram;

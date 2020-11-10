@@ -20,8 +20,7 @@ vec3 zAxis = {0.0f, 0.0f, 1.0f};
 // =======================================================================================
 // Initialize a new camera view distance down the Z axis, with y axis as the up direction
 
-Camera::Camera(Shader& S, float distance, float viewAngleDegrees):
-                  shader(S),
+Camera::Camera(float distance, float viewAngleDegrees):
                   speed(200.0f),
                   rotationalSpeed(30.0f),
                   mouseRotation(180.0f),
@@ -39,12 +38,16 @@ Camera::Camera(Shader& S, float distance, float viewAngleDegrees):
   up[0]     = 0.0f;
   up[1]     = 1.0f;
   up[2]     = 0.0f;
+
+  Shader& shader = Shader::getMainShader();
   viewLoc = shader.getUniformLocation("view");
   projLoc = shader.getUniformLocation("projection");
   if(checkGLError(stderr, "Camera::Camera"))
     exit(-1);
   setProjectionMatrix();
   updateViewMatrix();
+  if(checkGLError(stderr, "after updateViewMatrix"))
+    exit(-1);
 }
 
 
@@ -189,6 +192,7 @@ void Camera::setProjectionMatrix(void)
   glGetIntegerv(GL_VIEWPORT, viewportParams);
   aspectRatio = (float)(viewportParams[2]) / (float)(viewportParams[3]);
   glm_perspective(glm_rad(viewAngle), aspectRatio, near, far, projection);
+  Shader& shader = Shader::getMainShader();
   shader.setUniform(projLoc, projection);
   if(checkGLError(stderr, "Camera::setProjectionMatrix"))
     exit(-1);
@@ -204,6 +208,7 @@ void Camera::updateViewMatrix(void)
   
   glm_vec3_add(pos, front, target);
   glm_lookat(pos, target, up, view);
+  Shader& shader = Shader::getMainShader();
   shader.setUniform(viewLoc, view);
   if(checkGLError(stderr, "Camera::updateViewMatrix"))
     exit(-1);

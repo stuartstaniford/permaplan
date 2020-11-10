@@ -23,7 +23,7 @@ public:
   // Instance variables - public
   
   // Member functions - public
-  Grid(Shader& S, LandSurface& L, float gridSpacing, float alt = 0.0f);
+  Grid(LandSurface& L, float gridSpacing, float alt = 0.0f);
   void newHeight(float z);
   ~Grid(void);
   void draw(void);

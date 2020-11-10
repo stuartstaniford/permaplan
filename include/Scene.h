@@ -28,10 +28,10 @@ class Scene
  public:
   
   // Instance variables - public
-  Shader&         shader;
   Camera          camera;
   Quadtree*       qtree;
-  TriangleBuffer* tbuf;
+  TriangleBuffer* sceneObjectTbuf;
+  TriangleBuffer* indicatorTbuf;
   LandSurface     land;
   mat4            model;
   vec3            lastMouseLocation;
@@ -40,7 +40,7 @@ class Scene
   LightingModel   lighting;
   
   // Member functions - public
-  Scene(Shader& S);
+  Scene(void);
   ~Scene(void);
   void          draw(bool mouseMoved);
   void          findCameraObject(vec3 location);
@@ -51,7 +51,7 @@ class Scene
   VisualObject* getFreshObject(char* objTypeName, mat4 transform);
   void          newObjectTransform(mat4 transform, float initSize, vec3 location);
   void          insertVisibleObject(char* objType, float size, vec3 loc, Material* material);
-  void          rebuildVisualObjectBuffer(void);
+  void          rebuildVisualObjectBuffer(TriangleBuffer** tbuf);
   VisualObject* findObjectFromWindowCoords(vec3 location, float clipX, float clipY);
 
  private:

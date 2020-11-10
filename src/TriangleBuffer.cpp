@@ -89,12 +89,24 @@ void TriangleBuffer::sendToGPU(GLenum usage)
 // =======================================================================================
 // Bind our OpenGL objects and then render our objects
 
-void TriangleBuffer::draw(void)
+void TriangleBuffer::draw(VertexDrawType drawType, vec4 objColor)
 {
   unless(combo)
     err(-1, "No combo in TriangleBuffer::draw");
   combo->bind();
+  Shader& shader = Shader::getMainShader();
+  if(drawType == FixedColor)
+   {
+    shader.setUniform("fixedColor", true);
+    shader.setUniform("theColor", objColor);
+   }
+  else if(drawType == NoTexColor)
+    shader.setUniform("noTexColor", true);
+
   glDrawElements(GL_TRIANGLES, iCount, GL_UNSIGNED_INT, 0);
+  shader.setUniform("fixedColor", false);
+  shader.setUniform("noTexColor", false);
+  
   if(checkGLError(stderr, "TriangleBuffer::draw"))
     exit(-1);
 

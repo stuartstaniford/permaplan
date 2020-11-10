@@ -29,7 +29,7 @@
 
 vec3 xyPlane = {0.0f, 0.0f, 0.0f};
 
-Quadtree::Quadtree(Shader& S, float x, float y, unsigned width, unsigned height,
+Quadtree::Quadtree(float x, float y, unsigned width, unsigned height,
                     float s, float t, float sWidth, float tHeight, unsigned& minSize,
                     unsigned offset):
                         landVBOSize(0u),
@@ -37,7 +37,6 @@ Quadtree::Quadtree(Shader& S, float x, float y, unsigned width, unsigned height,
                         vertexTBufSize(0u),
                         indexTBufSize(0u),
                         bbox(x, y, 0.0f, x + (float)width, y+ (float)height, 0.1f),
-                        shader(S),
                         surface(NULL),
                         vObjects()
 {
@@ -70,17 +69,17 @@ Quadtree::Quadtree(Shader& S, float x, float y, unsigned width, unsigned height,
     w2 = width - w1;
     sw1 = (sWidth*w1)/width;
     sw2 = (sWidth*w2)/width;
-    kids[0] = new Quadtree(shader, x, y, w1, h1, s, t, sw1, th1, minSize, offset);
+    kids[0] = new Quadtree(x, y, w1, h1, s, t, sw1, th1, minSize, offset);
     offset += kids[0]->landVBOSize;
-    kids[1] = new Quadtree(shader, x+w1, y, w2, h1, s + sw1, t, sw2, th1, minSize, offset);
+    kids[1] = new Quadtree(x+w1, y, w2, h1, s + sw1, t, sw2, th1, minSize, offset);
     offset += kids[1]->landVBOSize;
     landVBOSize += kids[0]->landVBOSize + kids[1]->landVBOSize;
     if(height > minSize)
      {
      // Splitting on x and y
-      kids[2] = new Quadtree(shader, x, y+h1, w1, h2, s, t+th1, sw1, th2, minSize, offset);
+      kids[2] = new Quadtree(x, y+h1, w1, h2, s, t+th1, sw1, th2, minSize, offset);
       offset += kids[2]->landVBOSize;
-      kids[3] = new Quadtree(shader, x+w1, y+h1, w2, h2, s+sw1, t+th1, sw2, th2, minSize, offset);
+      kids[3] = new Quadtree(x+w1, y+h1, w2, h2, s+sw1, t+th1, sw2, th2, minSize, offset);
       landVBOSize += kids[2]->landVBOSize + kids[3]->landVBOSize;
      }
     else
@@ -106,9 +105,9 @@ Quadtree::Quadtree(Shader& S, float x, float y, unsigned width, unsigned height,
     else
      {
       // We are splitting on y, but not on x
-      kids[0] = new Quadtree(shader, x, y, w1, h1, s, t, sw1, th1, minSize, offset);
+      kids[0] = new Quadtree(x, y, w1, h1, s, t, sw1, th1, minSize, offset);
       offset += kids[0]->landVBOSize;
-      kids[2] = new Quadtree(shader, x, y+h1, w1, h2, s, t+th1, sw1, th2, minSize, offset);
+      kids[2] = new Quadtree(x, y+h1, w1, h2, s, t+th1, sw1, th2, minSize, offset);
       landVBOSize += kids[0]->landVBOSize + kids[2]->landVBOSize;
      }
    }

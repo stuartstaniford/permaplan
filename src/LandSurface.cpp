@@ -16,10 +16,9 @@
 // =======================================================================================
 // Constructor which sets up the surface as specified in the design file
 
-LandSurface::LandSurface(Shader& S):
+LandSurface::LandSurface(void):
                             rect(NULL),
                             qtree(NULL),
-                            shader(S),
                             tbuf(NULL),
                             locationCount(0u),
                             heightLocations(),
@@ -44,7 +43,7 @@ LandSurface::LandSurface(Shader& S):
   else
     err(-1, "Bad landSurface width in file %s\n", config.designFileName);
   if(LsJson.HasMember("textureFile") && LsJson["textureFile"].IsString())
-    rect = new TexturedRect(shader, LsJson["textureFile"].GetString(), width, 0.0f);
+    rect = new TexturedRect(LsJson["textureFile"].GetString(), width, 0.0f);
   else
     err(-1, "Bad landSurface texturefile in file %s\n", config.designFileName);
 
@@ -316,15 +315,11 @@ void LandSurface::draw(Camera& camera)
     else
       inFitMode = false;
    }
-  rect->texture.bind(shader, 0, "earthTexture");
-  tbuf->draw();
+  rect->texture.bind(0, "earthTexture");
+  tbuf->draw(Lighted, NULL);
 #ifdef VISUALIZE_FITTING
   if(fitTBuf)
-   {
-    shader.setUniform("noTexColor", true);
-    fitTBuf->draw();
-    shader.setUniform("noTexColor", false);
-   }
+    fitTBuf->draw(NoTexColor, NULL);
 #endif
 
   if(checkGLError(stderr, "LandSurface::draw"))

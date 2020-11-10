@@ -23,7 +23,7 @@ class LineStripList: public std::vector<Vertex>
   // Instance variables - public
 
   // Member functions - public
-  LineStripList(Shader& S, GLenum usage = GL_STATIC_DRAW);
+  LineStripList(GLenum usage = GL_STATIC_DRAW);
   ~LineStripList();
   void addLine(vec3 pos, vec3 dir, vec4 color);
   void sendToGPU(void);
@@ -33,7 +33,6 @@ class LineStripList: public std::vector<Vertex>
  private:
   
   // Instance variables - private
-  Shader&             shader;
   VertexBufferCombo*  combo;
   GLenum              usageGL;
   unsigned            N;       // used to store number of vertices when gone to the gpu

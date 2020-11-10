@@ -23,13 +23,12 @@ class TexturedRect
  public:
   
   // Instance variables - public
-  Shader&   shader;
   float     width;
   float     height;
   Texture   texture;
 
   // Member functions - public
-  TexturedRect(Shader& S, const char* textureFileName, float widthIn, float heightIn);
+  TexturedRect(const char* textureFileName, float widthIn, float heightIn);
   ~TexturedRect(void);
   void draw(void);
 

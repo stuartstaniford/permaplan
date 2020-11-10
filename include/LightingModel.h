@@ -19,14 +19,13 @@ public:
   // Instance variables - public
   
   // Member functions - public
-  LightingModel(Shader& S);
+  LightingModel(void);
   void updateGPU(void);
   ~LightingModel(void);
   
 private:
   
   // Instance variables - private
-  Shader& shader;
   vec3    sunPosition;
   vec3    sunColor;
   float   ambientStrength;

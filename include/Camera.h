@@ -37,7 +37,7 @@ class Camera
   // Instance variables - public
   
   // Member functions - public
-  Camera(Shader& S, float distance, float viewAngleDegrees);
+  Camera(float distance, float viewAngleDegrees);
   ~Camera(void);
   void  adjust(unsigned opFlags, float timeLapseUsec);
   void  mouseDrag(float xDelta, float yDelta);
@@ -50,7 +50,6 @@ class Camera
  private:
   
   // Instance variables - private
-  Shader&   shader;
   vec3      pos;
   vec3      front;
   vec3      up;

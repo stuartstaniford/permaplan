@@ -27,30 +27,32 @@ uniform vec3      sunColor;
 
 void main()
 {
+  vec4 ambient      = vec4(ambientStrength * sunColor, 1.0);
+  vec4 objectColor;
+  vec3 norm         = normalize(normal);
+  vec3 sunDir       = normalize(sunPosition - fragPosition);
+  float diff        = max(dot(norm, sunDir), 0.0);
+  vec4 diffuse      = vec4(diff * sunColor, 1.0);
+
   if(fixedColor)
    {
     // Just used a fixed color for everything here
-    FragColor = theColor;
+    objectColor = theColor;
    }
   else
    {
     if(noTexColor)
      {
       // We use the tex coordinate and accent as a color vector.  This is generally
-      // used for non-real non-lighted visual indicators.
-      FragColor = vec4(texCoord.x, texCoord.y, accent, 1.0);
+      // used for non-real visual indicators.
+      objectColor = vec4(texCoord.x, texCoord.y, accent, 1.0);
      }
     else
      {
       // Earth texture, modified by lighting model and accentColor.  This is the
       // branch for actual scenery/objects in the scene.
-      vec4 ambient      = vec4(ambientStrength * sunColor, 1.0);
-      vec4 objectColor  = (1.0f-accent)*texture(earthTexture, texCoord) + accent*accentColor;
-      vec3 norm         = normalize(normal);
-      vec3 sunDir       = normalize(sunPosition - fragPosition);
-      float diff        = max(dot(norm, sunDir), 0.0);
-      vec4 diffuse      = vec4(diff * sunColor, 1.0);
-      FragColor         = (ambient+diffuse) * objectColor;
+      objectColor   = (1.0f-accent)*texture(earthTexture, texCoord) + accent*accentColor;
      }
+    FragColor         = (ambient+diffuse) * objectColor;
    }
 }

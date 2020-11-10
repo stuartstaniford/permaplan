@@ -17,7 +17,7 @@ class ColoredAxes: public LineStripList
   
   
   // Member functions - public
-  ColoredAxes(Shader& S, float axesLen);
+  ColoredAxes(float axesLen);
   ~ColoredAxes(void);
 
  private:

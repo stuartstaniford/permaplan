@@ -15,9 +15,8 @@
 // =======================================================================================
 // Set up two triangles with co-ords and texture coords
 
-TexturedRect::TexturedRect(Shader& S, const char* textureFileName, float widthIn,
+TexturedRect::TexturedRect(const char* textureFileName, float widthIn,
                            float heightIn):
-                                shader(S),
                                 width(widthIn),
                                 height(heightIn),
                                 texture(textureFileName),
@@ -57,7 +56,7 @@ TexturedRect::~TexturedRect(void)
 void TexturedRect::draw(void)
 {
   axesVAOs.bind(0);
-  texture.bind(shader, 0, "earthTexture");
+  texture.bind(0, "earthTexture");
   glDrawArrays(GL_TRIANGLES, 0, 6);
 
   if(checkGLError(stderr, "TexturedRect::draw"))

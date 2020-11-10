@@ -10,9 +10,8 @@
 // =======================================================================================
 // Constructors
 
-LineStripList::LineStripList(Shader& S, GLenum usage):
+LineStripList::LineStripList(GLenum usage):
                         std::vector<Vertex>(),
-                        shader(S),
                         combo(NULL),
                         usageGL(usage),
                         N(0u)
@@ -63,6 +62,7 @@ void LineStripList::sendToGPU(void)
 
 void LineStripList::draw(void)
 {
+  Shader& shader = Shader::getMainShader();
   shader.setUniform("noTexColor", true);
   combo->bind();
   glDrawArrays(GL_LINES, 0, N);
