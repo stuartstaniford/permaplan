@@ -36,6 +36,13 @@ public:
   {
    return *design;
   }
+private:
+
+  // Member functions - private
+  
+  PmodDesign(const PmodDesign&);                 // Prevent copy-construction
+  PmodDesign& operator=(const PmodDesign&);      // Prevent assignment
+
 
 };
 

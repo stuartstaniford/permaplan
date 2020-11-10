@@ -52,6 +52,9 @@ class Shader
   // Instance variables - private
   unsigned  shaderProgram;
 
+  // member functions - private
+  Shader(const Shader&);                 // Prevent copy-construction
+  Shader& operator=(const Shader&);      // Prevent assignment
 };
 
 #endif

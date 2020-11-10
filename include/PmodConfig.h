@@ -36,7 +36,16 @@ class PmodConfig
    {
     return *config;
    }
+
+private:
+
+  // Member functions - private
+  
+  PmodConfig(const PmodConfig&);                 // Prevent copy-construction
+  PmodConfig& operator=(const PmodConfig&);      // Prevent assignment
+
 };
+
 
 #endif
 
