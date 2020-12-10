@@ -56,7 +56,7 @@ HttpDebug::HttpDebug(unsigned short servPort, Scene& S):
 }
 
 
-// =======================================================================================
+// ======================================================================================
 // Destructor deallocates the buffers and closes the socket
 
 HttpDebug::~HttpDebug(void)
@@ -65,7 +65,6 @@ HttpDebug::~HttpDebug(void)
   delete[] reqBuf;
   delete[] respBuf;
   delete[] headBuf;
-
 }
 
 
