@@ -3,6 +3,8 @@ Open Source permaculture planning software.  In early stages of development, do 
 
 Inatallation notes:
 
-Clone this repository
-Clone Imgui (https://github.com/ocornut/imgui) into the subdirectory called imgui
+Clone this repository.
+
+Clone Imgui (https://github.com/ocornut/imgui) into the subdirectory called imgui.
+
 
