@@ -7,4 +7,7 @@ Clone this repository.
 
 Clone Imgui (https://github.com/ocornut/imgui) into the subdirectory called imgui.
 
+Clone rapidjson (https://github.com/Tencent/rapidjson.git) into the subdirectory called rapidjson.
+
+
 
