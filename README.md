@@ -9,5 +9,7 @@ Clone Imgui (https://github.com/ocornut/imgui.git) into the subdirectory called 
 
 Clone rapidjson (https://github.com/Tencent/rapidjson.git) into the subdirectory called rapidjson.
 
+You'll need cglm (https://github.com/recp/cglm) installed somewhere (I do "brew install cglm")
+
 
 
