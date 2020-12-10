@@ -1,7 +1,7 @@
 # permaplan
 Open Source permaculture planning software.  In early stages of development, do not try to use yet.
 
-Installation notes:
+Installation notes for building the source:
 
 Clone this repository.
 
