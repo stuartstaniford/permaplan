@@ -22,15 +22,23 @@
 // Helper class that is used to hold additional information about a
 // given texture while we are in the process of building the Atlas
 
-class TextureAtlasEntry: private Texture
+class TANode
 {
   friend class TextureAtlas;
 
+  // Member functions - public
+  TANode(Texture*  T = NULL, int width = 0, int height = 0);
+  TANode* insert(Texture* T);
+
   private:
-    //int x;
-    //int y;
-  
+    TANode*   child[2];
+    Texture*  tex;
+    int       x;
+    int       y;
+    int       w;
+    int       h;
 };
+
 
 // =======================================================================================
 // Main Atlas class with the code for processing the texture directory

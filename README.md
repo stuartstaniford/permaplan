@@ -1,7 +1,7 @@
 # permaplan
-Open Source permaculture planning software.  In early stages of development, do not try to use yet.
+Open Source permaculture planning software.  In early stages of development, do not try to use yet.  Shooting to have alpha semi-usable code mid 2021.
 
-Currently only believed to compile on MacOS Mojave and Catalina.
+Currently only believed to compile on MacOS Mojave and Catalina.  Written in C++, but I speak it with a very strong C accent (I was a C network security guy for over twenty years).
 
 Installation notes for building the source:
 

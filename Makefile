@@ -29,7 +29,7 @@ LIBS = -framework OpenGL -lglfw -lGLEW
 SRCS = $(wildcard src/*.cpp)
 
 
-# define the C object files
+# define the C++ object files
 #
 # This uses Suffix Replacement within a macro:
 #   $(name:string1=string2)
@@ -40,7 +40,7 @@ SRCS = $(wildcard src/*.cpp)
 OBJS = $(SRCS:.cpp=.o)
 
 # define the executable file
-MAIN = pmod
+MAIN = permaplan
 
 #
 # The following part of the makefile is generic; it can be used to

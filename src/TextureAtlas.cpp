@@ -134,6 +134,69 @@ void TextureAtlas::processOneAtlas(DIR* dir, char* path)
 
 
 // =======================================================================================
+// Constructor for a TA Node.
+
+TANode::TANode(Texture*  T, int width, int height):
+              tex(T),
+              w(width),
+              h(height)
+{
+
+}
+
+// =======================================================================================
+// Insert a node into the tree we are currently constructing.
+// Code loosely based on https://blackpawn.com/texts/lightmaps/default.html
+
+TANode* TANode::insert(Texture* T)
+{
+/*
+    if we're not a leaf then
+        (try inserting into first child)
+        newNode = child[0]->Insert( img )
+        if newNode != NULL return newNode
+
+        (no room, insert into second)
+        return child[1]->Insert( img )
+    else
+        (if there's already a lightmap here, return)
+        if imageID != NULL return NULL
+
+        (if we're too small, return)
+        if img doesn't fit in pnode->rect
+            return NULL
+
+        (if we're just right, accept)
+        if img fits perfectly in pnode->rect
+            return pnode
+        
+        (otherwise, gotta split this node and create some kids)
+        pnode->child[0] = new Node
+        pnode->child[1] = new Node
+        
+        (decide which way to split)
+        dw = rc.width - img.width
+        dh = rc.height - img.height
+        
+        if dw > dh then
+            child[0]->rect = Rectangle(rc.left, rc.top,
+                                       rc.left+width-1, rc.bottom)
+            child[1]->rect = Rectangle(rc.left+width, rc.top,
+                                       rc.right, rc.bottom)
+        else
+            child[0]->rect = Rectangle(rc.left, rc.top,
+                                       rc.right, rc.top+height-1)
+            child[1]->rect = Rectangle(rc.left, rc.top+height,
+                                       rc.right, rc.bottom)
+        
+        (insert into first child we created)
+        return Insert( img, pnode->child[0] )
+*/
+  return NULL;
+}
+
+
+// =======================================================================================
 // Destructor
 
 TextureAtlas::~TextureAtlas(void)
