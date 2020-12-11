@@ -1,6 +1,8 @@
 # permaplan
 Open Source permaculture planning software.  In early stages of development, do not try to use yet.
 
+Currently only believed to compile on MacOS Mojave and Catalina.
+
 Installation notes for building the source:
 
 Clone this repository.
