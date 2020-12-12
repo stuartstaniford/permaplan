@@ -29,7 +29,8 @@ class TANode
 
   // Member functions - public
   TANode(Texture*  T = NULL);
-  TANode* insert(TANode* T);
+  ~TANode(void);
+  TANode* insert(TANode* T, unsigned& wd, unsigned& ht);
 
   private:
     TANode*   child[2];
@@ -56,11 +57,16 @@ class TextureAtlas
   TextureAtlas(char* dirName);
   ~TextureAtlas(void);
   void processOneAtlas(DIR* dir, char* path);
+  void createImageTree(char* name);
 
  private:
   
   // Instance variables - private
-
+  TANode* treeRoot;
+  std::vector<TANode*> nodeList;
+  unsigned width;
+  unsigned height;
+  
   // Member functions - private
   TextureAtlas(const TextureAtlas&);                 // Prevent copy-construction
   TextureAtlas& operator=(const TextureAtlas&);      // Prevent assignment

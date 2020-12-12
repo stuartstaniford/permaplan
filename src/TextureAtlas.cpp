@@ -21,7 +21,8 @@
 // =======================================================================================
 // Constructor
 
-TextureAtlas::TextureAtlas(char* dirName)
+TextureAtlas::TextureAtlas(char* dirName):
+                treeRoot(NULL)
 {
   // Open the base directory
   DIR* atlasRoot = opendir(dirName);
@@ -45,6 +46,7 @@ TextureAtlas::TextureAtlas(char* dirName)
     LogTextureAtlas("Creating texture atlas for %s.\n", subDirName);
     processOneAtlas(subDir, subDirName);
     closedir(subDir);
+    createImageTree(subDirName);
    }
   closedir(atlasRoot);
 }
@@ -110,7 +112,6 @@ void TextureAtlas::processOneAtlas(DIR* dir, char* path)
 {
   struct dirent* dirEntry;
   Texture* texture;
-  std::vector<TANode*> nodeList;
 
   while( (dirEntry = readdir(dir)) )
    {
@@ -146,19 +147,40 @@ void TextureAtlas::processOneAtlas(DIR* dir, char* path)
      }
     path[len] = '\0'; // reset path
    }
+}
+
+
+// =======================================================================================
+// After extracting the list of textures from one subdirectory tree, create the in-memory
+// image tree required to turn them into a single new texture.
+
+void TextureAtlas::createImageTree(char* name)
+{
+  width = 0;
+  height = 0;
+  
   std::sort(nodeList.begin(), nodeList.end(), perimeterCompare);
-  TANode* root = new TANode();
-  glGetIntegerv(GL_MAX_TEXTURE_SIZE, (GLint *)&(root->w));
-  root->h = root->w;
-  root->top = root->left = 0u;
+
+  // delete any old treeRoot, and set up a bud for the new tree
+  if(treeRoot)
+    delete treeRoot;
+  treeRoot = new TANode();
+  glGetIntegerv(GL_MAX_TEXTURE_SIZE, (GLint *)&(treeRoot->w));
+  treeRoot->h = treeRoot->w;
+  treeRoot->top = treeRoot->left = 0u;
+
+  // Go through all the textures, adding them to the tree
   while(nodeList.size() > 0)
    {
     TANode* node = nodeList.back();
     nodeList.pop_back();
-    if(!root->insert(node))
+    if(!treeRoot->insert(node, width, height))
        LogTextureAtlas("Texture atlas creation failed at %s (width %d, height %d).\n",
                       node->tex->textureFileName, node->tex->width, node->tex->height);
    }
+  
+  LogTextureAtlas("Texture atlas creation for %s succeeded (width %d, height %d).\n",
+                                        name, width, height);
 }
 
 
@@ -174,10 +196,21 @@ TANode::TANode(Texture* T):
 
 
 // =======================================================================================
+// Destructor for a TA Node.
+
+TANode::~TANode(void)
+{
+  delete child[0];
+  delete child[1];
+  // note that we don't delete tex, since we don't own it.
+}
+
+
+// =======================================================================================
 // Insert a node into the tree we are currently constructing.
 // Code loosely based on https://blackpawn.com/texts/lightmaps/default.html
 
-TANode* TANode::insert(TANode* T)
+TANode* TANode::insert(TANode* T, unsigned& wd, unsigned& ht)
 {
   TANode* retPtr = NULL;
   
@@ -185,18 +218,18 @@ TANode* TANode::insert(TANode* T)
   if(tex)
     return NULL;
 
-  // we're not a leaf, so try inserting into first child
+  // We're not a leaf, so try inserting into first child
   if(child[0])
    {
-    retPtr = child[0]->insert(T);
+    retPtr = child[0]->insert(T, wd, ht);
     if(retPtr)
       return retPtr;
    }
   
-  // no room, try inserting into second
+  // No room, try inserting into second
   if(child[1])
    {
-    retPtr = child[1]->insert(T);
+    retPtr = child[1]->insert(T, wd, ht);
     if(retPtr)
       return retPtr;
     else
@@ -213,8 +246,15 @@ TANode* TANode::insert(TANode* T)
     // if we're just right, accept
     if(T->tex->width == w && T->tex->height == h)
      {
+      // Note this is the place in the code in which a new image is actually entered
+      // into the tree.
       tex = T->tex;
       delete T;
+      if(this->left + tex->width > wd)
+        wd = this->left + tex->width;
+      if(this->top + tex->height > ht)
+        ht = this->top + tex->height;
+
       return this;
      }
     
@@ -251,7 +291,7 @@ TANode* TANode::insert(TANode* T)
       child[1]->left  = left;
      }
     // Insert into first child we created
-    return child[0]->insert(T);
+    return child[0]->insert(T, wd, ht);
    }
 }
 
