@@ -17,6 +17,7 @@
 
 #define TexPathLimit 2048
 
+
 // =======================================================================================
 // Constructor
 
@@ -47,6 +48,7 @@ TextureAtlas::TextureAtlas(char* dirName)
    }
   closedir(atlasRoot);
 }
+
 
 // =======================================================================================
 // Helper function to see if the file name of an extension might reasonably be an image.
@@ -92,12 +94,12 @@ bool extensionCheck(char* fileName)
 
 
 // =======================================================================================
-// Compare two TANodes and decide which has the longer perimeter, we want those at the
-// beginning of the list
+// Compare two TANodes and decide which has the shortest perimeter, we want those at the
+// beginning of the list (which we will read from the back)
 
 bool perimeterCompare (TANode* t, TANode* u)
 {
-  return (t->tex->width + t->tex->height > u->tex->width + u->tex->height);
+  return (t->tex->width + t->tex->height < u->tex->width + u->tex->height);
 }
 
 
@@ -145,69 +147,112 @@ void TextureAtlas::processOneAtlas(DIR* dir, char* path)
     path[len] = '\0'; // reset path
    }
   std::sort(nodeList.begin(), nodeList.end(), perimeterCompare);
-
+  TANode* root = new TANode();
+  glGetIntegerv(GL_MAX_TEXTURE_SIZE, (GLint *)&(root->w));
+  root->h = root->w;
+  root->top = root->left = 0u;
+  while(nodeList.size() > 0)
+   {
+    TANode* node = nodeList.back();
+    nodeList.pop_back();
+    if(!root->insert(node))
+       LogTextureAtlas("Texture atlas creation failed at %s (width %d, height %d).\n",
+                      node->tex->textureFileName, node->tex->width, node->tex->height);
+   }
 }
 
 
 // =======================================================================================
 // Constructor for a TA Node.
 
-TANode::TANode(Texture*  T):
+TANode::TANode(Texture* T):
               tex(T)
 {
   child[0] = NULL;
   child[1] = NULL;
 }
 
+
 // =======================================================================================
 // Insert a node into the tree we are currently constructing.
 // Code loosely based on https://blackpawn.com/texts/lightmaps/default.html
 
-TANode* TANode::insert(Texture* T)
+TANode* TANode::insert(TANode* T)
 {
-/*
-    if we're not a leaf then
-        (try inserting into first child)
-        newNode = child[0]->Insert( img )
-        if newNode != NULL return newNode
+  TANode* retPtr = NULL;
+  
+  // If there's already a texture here, we are a leaf, return
+  if(tex)
+    return NULL;
 
-        (no room, insert into second)
-        return child[1]->Insert( img )
+  // we're not a leaf, so try inserting into first child
+  if(child[0])
+   {
+    retPtr = child[0]->insert(T);
+    if(retPtr)
+      return retPtr;
+   }
+  
+  // no room, try inserting into second
+  if(child[1])
+   {
+    retPtr = child[1]->insert(T);
+    if(retPtr)
+      return retPtr;
     else
-        (if there's already a lightmap here, return)
-        if imageID != NULL return NULL
+      return NULL;
+   }
+  else
+   {
+    // Children don't exist yet, but nor are we a leaf
 
-        (if we're too small, return)
-        if img doesn't fit in pnode->rect
-            return NULL
+    // If we're too small, return
+    if(T->tex->width > w || T->tex->height > h)
+      return NULL;
 
-        (if we're just right, accept)
-        if img fits perfectly in pnode->rect
-            return pnode
+    // if we're just right, accept
+    if(T->tex->width == w && T->tex->height == h)
+     {
+      tex = T->tex;
+      delete T;
+      return this;
+     }
+    
+    // Otherwise, gotta split this node and create some kids
+    child[0] = new TANode;
+    child[1] = new TANode;
+    
+    // Decide which way to split.
+    int dw = w - T->tex->width;
+    int dh = h - T->tex->height;
         
-        (otherwise, gotta split this node and create some kids)
-        pnode->child[0] = new Node
-        pnode->child[1] = new Node
-        
-        (decide which way to split)
-        dw = rc.width - img.width
-        dh = rc.height - img.height
-        
-        if dw > dh then
-            child[0]->rect = Rectangle(rc.left, rc.top,
-                                       rc.left+width-1, rc.bottom)
-            child[1]->rect = Rectangle(rc.left+width, rc.top,
-                                       rc.right, rc.bottom)
-        else
-            child[0]->rect = Rectangle(rc.left, rc.top,
-                                       rc.right, rc.top+height-1)
-            child[1]->rect = Rectangle(rc.left, rc.top+height,
-                                       rc.right, rc.bottom)
-        
-        (insert into first child we created)
-        return Insert( img, pnode->child[0] )
-*/
-  return NULL;
+    if(dw > dh) // left over width greater than left over height
+     {
+      // split horizontally (around a vertical line)
+      child[0]->h     = h;
+      child[0]->w     = T->tex->width;
+      child[0]->top   = top;
+      child[0]->left  = left;
+      child[1]->h     = h;
+      child[1]->w     = dw;
+      child[1]->top   = top;
+      child[1]->left  = left + T->tex->width;
+     }
+    else
+     {
+      // split vertically (around a horizontal line)
+      child[0]->h     = T->tex->height;
+      child[0]->w     = w;
+      child[0]->top   = top;
+      child[0]->left  = left;
+      child[1]->h     = dh;
+      child[1]->w     = w;
+      child[1]->top   = top + T->tex->height;
+      child[1]->left  = left;
+     }
+    // Insert into first child we created
+    return child[0]->insert(T);
+   }
 }
 
 

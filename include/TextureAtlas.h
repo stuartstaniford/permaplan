@@ -29,13 +29,15 @@ class TANode
 
   // Member functions - public
   TANode(Texture*  T = NULL);
-  TANode* insert(Texture* T);
+  TANode* insert(TANode* T);
 
   private:
     TANode*   child[2];
     Texture*  tex;
-    int       x;
-    int       y;
+    unsigned  top;
+    unsigned  left;
+    unsigned  w;
+    unsigned  h;
 };
 
 
