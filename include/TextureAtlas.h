@@ -52,12 +52,13 @@ class TextureAtlas
   
   // Instance variables - public
 
-
   // Member functions - public
   TextureAtlas(char* dirName);
   ~TextureAtlas(void);
   void processOneAtlas(DIR* dir, char* path);
   void createImageTree(char* name);
+  bool saveAtlasImage(char* name, unsigned width, unsigned height);
+  
 
  private:
   

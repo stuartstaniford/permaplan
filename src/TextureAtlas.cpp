@@ -151,6 +151,18 @@ void TextureAtlas::processOneAtlas(DIR* dir, char* path)
 
 
 // =======================================================================================
+// Create the image from the TANode tree and write it out.
+
+bool TextureAtlas::saveAtlasImage(char* name, unsigned width, unsigned height)
+{
+  unsigned char* buf = new unsigned char[4*width*height];
+  
+  delete[] buf;
+  return true;
+}
+
+
+// =======================================================================================
 // After extracting the list of textures from one subdirectory tree, create the in-memory
 // image tree required to turn them into a single new texture.
 
@@ -179,7 +191,11 @@ void TextureAtlas::createImageTree(char* name)
                       node->tex->textureFileName, node->tex->width, node->tex->height);
    }
   
-  LogTextureAtlas("Texture atlas creation for %s succeeded (width %d, height %d).\n",
+  if(saveAtlasImage(name, width, height))
+    LogTextureAtlas("Texture atlas creation for %s succeeded (width %d, height %d).\n",
+                                        name, width, height);
+  else
+    LogTextureAtlas("Couldn't create texture atlas file for %s (width %d, height %d).\n",
                                         name, width, height);
 }
 

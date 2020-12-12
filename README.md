@@ -2,7 +2,7 @@
 Permaculture planning software.  In early stages of development, do not try to use yet.  Shooting to have alpha semi-usable code mid 2021.  Intend to ultimately open-source, but right now is still all rights-reserved with no
 license to copy.
 
-Currently only believed to compile on MacOS Mojave and Catalina.  Written in C++, but I speak it with a very strong C accent (I was a C network security guy for over twenty years).
+Currently only believed to compile on MacOS Mojave and Catalina.  Code is in C++, but I speak it with a very strong C accent (I was a C network security guy for over twenty years).
 
 Installation notes for building the source:
 
