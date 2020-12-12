@@ -19,15 +19,16 @@
 
 
 // =======================================================================================
-// Helper class that is used to hold additional information about a
-// given texture while we are in the process of building the Atlas
+// Helper class that is used to hold additional information about a given texture,
+// temporarily, while we are in the process of building the Atlas.
 
 class TANode
 {
   friend class TextureAtlas;
+  friend bool perimeterCompare (TANode* t, TANode* u);
 
   // Member functions - public
-  TANode(Texture*  T = NULL, int width = 0, int height = 0);
+  TANode(Texture*  T = NULL);
   TANode* insert(Texture* T);
 
   private:
@@ -35,8 +36,6 @@ class TANode
     Texture*  tex;
     int       x;
     int       y;
-    int       w;
-    int       h;
 };
 
 

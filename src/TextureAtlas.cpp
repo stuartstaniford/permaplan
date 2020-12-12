@@ -10,6 +10,7 @@
 
 #include <err.h>
 #include <cstring>
+#include <vector>
 #include "TextureAtlas.h"
 #include "Logging.h"
 #include "GlobalMacros.h"
@@ -91,12 +92,23 @@ bool extensionCheck(char* fileName)
 
 
 // =======================================================================================
+// Compare two TANodes and decide which has the longer perimeter, we want those at the
+// beginning of the list
+
+bool perimeterCompare (TANode* t, TANode* u)
+{
+  return (t->tex->width + t->tex->height > u->tex->width + u->tex->height);
+}
+
+
+// =======================================================================================
 // Deal with one particular directory, and the atlas created from the textures in it.
 
 void TextureAtlas::processOneAtlas(DIR* dir, char* path)
 {
   struct dirent* dirEntry;
   Texture* texture;
+  std::vector<TANode*> nodeList;
 
   while( (dirEntry = readdir(dir)) )
    {
@@ -117,6 +129,8 @@ void TextureAtlas::processOneAtlas(DIR* dir, char* path)
     if(dirEntry->d_type == DT_REG)
      {
       texture = new Texture(path);
+      TANode* node = new TANode(texture);
+      nodeList.push_back(node);
       LogTextureAtlas("Found %s for texture atlas (width %d, height %d).\n",
                       dirEntry->d_name, texture->width, texture->height);
      }
@@ -130,18 +144,19 @@ void TextureAtlas::processOneAtlas(DIR* dir, char* path)
      }
     path[len] = '\0'; // reset path
    }
+  std::sort(nodeList.begin(), nodeList.end(), perimeterCompare);
+
 }
 
 
 // =======================================================================================
 // Constructor for a TA Node.
 
-TANode::TANode(Texture*  T, int width, int height):
-              tex(T),
-              w(width),
-              h(height)
+TANode::TANode(Texture*  T):
+              tex(T)
 {
-
+  child[0] = NULL;
+  child[1] = NULL;
 }
 
 // =======================================================================================
