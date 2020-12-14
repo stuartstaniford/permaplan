@@ -134,8 +134,8 @@ void TextureAtlas::processOneAtlas(DIR* dir, char* path)
       texture = new Texture(path);
       TANode* node = new TANode(texture);
       nodeList.push_back(node);
-      LogTextureAtlas("Found %s for texture atlas (width %d, height %d).\n",
-                      dirEntry->d_name, texture->width, texture->height);
+      LogTextureAtlas("Found %s for texture atlas (width %d, height %d, nrChannels %d).\n",
+                      dirEntry->d_name, texture->width, texture->height, texture->nrChannels);
      }
     else
      {
@@ -153,11 +153,11 @@ void TextureAtlas::processOneAtlas(DIR* dir, char* path)
 // =======================================================================================
 // Create the image from the TANode tree and write it out.
 
-bool TextureAtlas::saveAtlasImage(char* name, unsigned width, unsigned height)
+bool TextureAtlas::saveAtlasImage(char* name)
 {
   unsigned char* buf = new unsigned char[4*width*height];
   
-  treeRoot->insertIntoImageRecursively(buf);
+  treeRoot->insertIntoImageRecursively(buf, width, height);
   delete[] buf;
   return true;
 }
@@ -192,7 +192,7 @@ void TextureAtlas::createImageTree(char* name)
                       node->tex->textureFileName, node->tex->width, node->tex->height);
    }
   
-  if(saveAtlasImage(name, width, height))
+  if(saveAtlasImage(name))
     LogTextureAtlas("Texture atlas creation for %s succeeded (width %d, height %d).\n",
                                         name, width, height);
   else
@@ -324,16 +324,16 @@ TextureAtlas::~TextureAtlas(void)
 // =======================================================================================
 // Recursive function to go down tree and call insertIntoImage on all the leaves.
 
-void TANode::insertIntoImageRecursively(unsigned char* buf)
+void TANode::insertIntoImageRecursively(unsigned char* buf, unsigned width, unsigned height)
 {
   if(tex)
-    insertIntoImage(buf);
+    insertIntoImage(buf, width, height);
   else
    {
     if(child[0])
      {
-      child[0]->insertIntoImageRecursively(buf);
-      child[1]->insertIntoImageRecursively(buf);
+      child[0]->insertIntoImageRecursively(buf, width, height);
+      child[1]->insertIntoImageRecursively(buf, width, height);
      }
    }
 }
@@ -342,10 +342,16 @@ void TANode::insertIntoImageRecursively(unsigned char* buf)
 // =======================================================================================
 // Write a specific image into the image buffer for the Atlas.
 
-void TANode::insertIntoImage(unsigned char* buf)
+void TANode::insertIntoImage(unsigned char* buf, unsigned width, unsigned height)
 {
-
-
+  for(int i=0; i<tex->height; i++)
+    for(int j=0; j<tex->width; j++)
+     {
+       for(int m=0; m<tex->nrChannels;m++)
+         buf[((i+top)*width + j + left)*4+m] = tex->data[(i*(tex->width)+j)*tex->nrChannels+m];
+       for(int m=tex->nrChannels; m<4;m++)
+         buf[((i+top)*width + j + left)*4+m] = 0u;
+     }
 }
 
 

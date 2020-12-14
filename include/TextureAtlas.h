@@ -31,8 +31,8 @@ class TANode
   TANode(Texture*  T = NULL);
   ~TANode(void);
   TANode* insert(TANode* T, unsigned& wd, unsigned& ht);
-  void insertIntoImageRecursively(unsigned char* buffer);
-  void insertIntoImage(unsigned char* buffer);
+  void insertIntoImageRecursively(unsigned char* buf, unsigned width, unsigned height);
+  void insertIntoImage(unsigned char* buf, unsigned width, unsigned height);
 
   private:
     TANode*   child[2];
@@ -59,7 +59,7 @@ class TextureAtlas
   ~TextureAtlas(void);
   void processOneAtlas(DIR* dir, char* path);
   void createImageTree(char* name);
-  bool saveAtlasImage(char* name, unsigned width, unsigned height);
+  bool saveAtlasImage(char* name);
   
 
  private:
