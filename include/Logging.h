@@ -28,6 +28,7 @@
 
 #define LOG_TEXTURE_ATLAS       // Log texture atlas creation
 #define LOG_ATLAS_ANOMALIES     // Log weird conditions in texture atlas creation
+#define LOG_ATLAS_PLACEMENT     // Log details of which image is where in atlas
 #define LOG_MATERIAL_SELECTIONS // Log when a material is selected.
 
 
@@ -152,6 +153,13 @@ extern FILE* LogFile;
 #define LogAtlasAnomalies(...) LogStatement(__VA_ARGS__)
 #else
 #define LogAtlasAnomalies(...)
+#endif
+
+// Log details of which image is where in atlas
+#ifdef LOG_ATLAS_PLACEMENT
+#define LogAtlasPlacement(...) LogStatement(__VA_ARGS__)
+#else
+#define LogAtlasPlacement(...)
 #endif
 
 // Log when a material is selected.

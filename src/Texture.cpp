@@ -8,6 +8,46 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
+
+// =======================================================================================
+// Load a texture from a file.
+
+Texture::Texture(const char* fileName):
+                            data(NULL)
+{
+  //fprintf(stderr, "File name of size %lu\n", strlen(fileName));
+  //fprintf(stderr, "File name is %s\n",fileName);
+  
+  textureFileName = new char[strlen(fileName)+1];
+  strcpy(textureFileName, fileName);
+  stbi_set_flip_vertically_on_load(1);
+  data = stbi_load(fileName, &width, &height, &nrChannels, 0);
+  if(!data)
+    err(-1, "Couldn't load texture file %s", fileName);
+  if(4==nrChannels)
+    format = GL_RGBA;
+  else if(3==nrChannels)
+    format = GL_RGB;
+  else
+    err(-1, "Unsupported %d channels in file %s", nrChannels ,fileName);
+  if(width <=0 || height <= 0)
+    err(-1, "Bad width,height: (%d,%d) in file %s", width, height ,fileName);
+}
+
+
+// =======================================================================================
+// Destructor
+
+Texture::~Texture(void)
+{
+  if(data)
+    stbi_image_free(data);
+  else
+    glDeleteTextures(1, &textureId);
+  delete[] textureFileName;
+}
+
+
 // =======================================================================================
 // Create a texture from data (and set up the Mipmap).  See this link for background
 // https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/glTexImage2D.xhtml
@@ -37,40 +77,6 @@ void Texture::sendToGpu(void)
     exit(-1);
   stbi_image_free(data);
   data = NULL;
-}
-
-
-// =======================================================================================
-// Load a texture from a file.
-
-Texture::Texture(const char* fileName):
-                            textureFileName(fileName),
-                            data(NULL)
-{
-  stbi_set_flip_vertically_on_load(1);
-  data = stbi_load(fileName, &width, &height, &nrChannels, 0);
-  if(!data)
-    err(-1, "Couldn't load texture file %s", fileName);
-  if(4==nrChannels)
-    format = GL_RGBA;
-  else if(3==nrChannels)
-    format = GL_RGB;
-  else
-    err(-1, "Unsupported %d channels in file %s", nrChannels ,fileName);
-  if(width <=0 || height <= 0)
-    err(-1, "Bad width,height: (%d,%d) in file %s", width, height ,fileName);
-}
-
-
-// =======================================================================================
-// Destructor
-
-Texture::~Texture(void)
-{
-  if(data)
-    stbi_image_free(data);
-  else
-    glDeleteTextures(1, &textureId);
 }
 
 

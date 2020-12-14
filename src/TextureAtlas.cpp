@@ -57,21 +57,24 @@ TextureAtlas::TextureAtlas(char* dirName):
 // =======================================================================================
 // Helper function to see if the file name of an extension might reasonably be an image.
 
-bool extensionCheck(char* fileName)
+bool fileNameAndExtensionCheck(char* fileName)
 {
+  if(strncmp(fileName, (char*)"atlas.", 6) == 0) // don't consume our own outputs
+    return false;
+  
+  // Now figure out the extension, and sanity check it.
   char* extension = rindex(fileName, '.');
   unsigned len    = strlen(fileName);
-  
   if(!extension)      // treat things with no extension as though they might be an image
    {
     LogAtlasAnomalies("Texture Atlas file with no extension %s.\n", fileName);
     return true;
    }
-  
   extension++;
   if(extension - fileName >= len)
     err(-1, "Filename %s ends in .\n", fileName);
-  
+ 
+ 
   // Definitely image types
   if(strcmp(extension, "jpg")==0)
     return true;
@@ -121,7 +124,7 @@ void TextureAtlas::processOneAtlas(DIR* dir, char* path)
       continue;                       // ignore anything but regular files and subdirs
     if(dirEntry->d_name[0] == '.')
       continue;                       // ignore hidden files starting with "."
-    if(dirEntry->d_type == DT_REG && !extensionCheck(dirEntry->d_name))
+    if(dirEntry->d_type == DT_REG && !fileNameAndExtensionCheck(dirEntry->d_name))
       continue;                       // ignore meta-data files etc.
     int len = strlen(path);
     if(TexPathLimit - len < 4)
@@ -167,7 +170,7 @@ bool TextureAtlas::saveAtlasImage(char* name)
   strncat(name, (char*)"/atlas.png", TexPathLimit);
   retVal = (bool)stbi_write_png(name, width, height, 4, buf, 4*width);
 
-  delete[] buf;
+  delete[] buf; buf = NULL;
   return retVal;
 }
 
@@ -185,7 +188,11 @@ void TextureAtlas::createImageTree(char* name)
 
   // delete any old treeRoot, and set up a bud for the new tree
   if(treeRoot)
+   {
     delete treeRoot;
+    treeRoot = NULL;
+   }
+  
   treeRoot = new TANode();
   glGetIntegerv(GL_MAX_TEXTURE_SIZE, (GLint *)&(treeRoot->w));
   treeRoot->h = treeRoot->w;
@@ -195,7 +202,7 @@ void TextureAtlas::createImageTree(char* name)
   while(nodeList.size() > 0)
    {
     TANode* node = nodeList.back();
-    nodeList.pop_back();
+    nodeList.pop_back(); // node should now be the only pointer to this object
     if(!treeRoot->insert(node, width, height))
        LogTextureAtlas("Texture atlas creation failed at %s (width %d, height %d).\n",
                       node->tex->textureFileName, node->tex->width, node->tex->height);
@@ -275,12 +282,14 @@ TANode* TANode::insert(TANode* T, unsigned& wd, unsigned& ht)
       // Note this is the place in the code in which a new image is actually entered
       // into the tree.
       tex = T->tex;
-      delete T;
-      if(this->left + tex->width > wd)
-        wd = this->left + tex->width;
-      if(this->top + tex->height > ht)
-        ht = this->top + tex->height;
-
+      delete T; T=NULL;
+      if(left + tex->width > wd)
+        wd = left + tex->width;
+      if(top + tex->height > ht)
+        ht = top + tex->height;
+       LogAtlasPlacement("Placing %s (width %d, height %d) at row: %d, col: %d.\n",
+                      tex->textureFileName, tex->width, tex->height,
+                      top, left);
       return this;
      }
     

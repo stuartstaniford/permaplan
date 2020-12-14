@@ -19,7 +19,7 @@ class Texture
   int             width;            // these are the internal ones
   int             height;           // from the image
   int             nrChannels;
-  const char*     textureFileName;  // remember where we came from
+  char*           textureFileName;  // remember where we came from
   GLenum          format;           // GL_RGBA etc
   unsigned char*  data;             // holding area for the data
   

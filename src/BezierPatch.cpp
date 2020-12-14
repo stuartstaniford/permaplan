@@ -726,7 +726,7 @@ void BezierPatch::computeGradientVector(std::vector<float*>& locations)
       gradientFitPointUVVals.push_back(newGradient);
      }
    }
-  delete[] S;
+  delete[] S; // don't need to set to NULL as going out of scope
 }
 
 
