@@ -20,5 +20,10 @@ make depend
 
 make
 
+Additional appreciations:
+
+Sean Barrett for stb_image.h and stb_image_write.h.
+
+
 
 

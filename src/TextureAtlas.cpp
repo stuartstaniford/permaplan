@@ -14,6 +14,8 @@
 #include "TextureAtlas.h"
 #include "Logging.h"
 #include "GlobalMacros.h"
+#define STB_IMAGE_WRITE_IMPLEMENTATION
+#include "stb_image_write.h"
 
 #define TexPathLimit 2048
 
@@ -155,11 +157,18 @@ void TextureAtlas::processOneAtlas(DIR* dir, char* path)
 
 bool TextureAtlas::saveAtlasImage(char* name)
 {
+  bool retVal = false;
   unsigned char* buf = new unsigned char[4*width*height];
   
+  // Put the tree of images into the buffer
   treeRoot->insertIntoImageRecursively(buf, width, height);
+  
+  // Write the buffer out to the file
+  strncat(name, (char*)"/atlas.png", TexPathLimit);
+  retVal = (bool)stbi_write_png(name, width, height, 4, buf, 4*width);
+
   delete[] buf;
-  return true;
+  return retVal;
 }
 
 

@@ -12,7 +12,7 @@ $total = 0;
 while(<FILE>)
 {
   next if /imgui/;
-  next if /stb_image/;
+  next if /stb_/;
   next if /imconfig/;
   next if /total/;
   @vals = split;
