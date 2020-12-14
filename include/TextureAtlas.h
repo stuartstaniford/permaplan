@@ -31,6 +31,8 @@ class TANode
   TANode(Texture*  T = NULL);
   ~TANode(void);
   TANode* insert(TANode* T, unsigned& wd, unsigned& ht);
+  void insertIntoImageRecursively(unsigned char* buffer);
+  void insertIntoImage(unsigned char* buffer);
 
   private:
     TANode*   child[2];
