@@ -253,11 +253,16 @@ TANode* TANode::insert(TANode* T, unsigned& wd, unsigned& ht)
   
   // If there's already a texture here, we are a leaf, return
   if(tex)
+   {
+    LogAtlasPlacement("Cannot insert into leaf %s\n", tex->textureFileName);
     return NULL;
-
+   }
+  
   // We're not a leaf, so try inserting into first child
   if(child[0])
    {
+    LogAtlasPlacement("Trying child zero (w:%d, h:%d) at (%d,%d)\n",
+        child[0]->w, child[0]->h, child[0]->top, child[0]->left);
     retPtr = child[0]->insert(T, wd, ht);
     if(retPtr)
       return retPtr;
@@ -266,6 +271,8 @@ TANode* TANode::insert(TANode* T, unsigned& wd, unsigned& ht)
   // No room, try inserting into second
   if(child[1])
    {
+    LogAtlasPlacement("Trying child one (w:%d, h:%d) at (%d,%d)\n",
+        child[1]->w, child[1]->h, child[1]->top, child[1]->left);
     retPtr = child[1]->insert(T, wd, ht);
     if(retPtr)
       return retPtr;
@@ -278,8 +285,12 @@ TANode* TANode::insert(TANode* T, unsigned& wd, unsigned& ht)
 
     // If we're too small, return
     if(T->tex->width > w || T->tex->height > h)
+     {
+      LogAtlasPlacement("Cannot fit (w:%d, h:%d) into (%d, %d) at (%d, %d)\n",
+        T->tex->width, T->tex->height, w, h, top, left);
       return NULL;
-
+     }
+    
     // if we're just right, accept
     if(T->tex->width == w && T->tex->height == h)
      {
@@ -316,6 +327,8 @@ TANode* TANode::insert(TANode* T, unsigned& wd, unsigned& ht)
       child[1]->w     = dw;
       child[1]->top   = top;
       child[1]->left  = left + T->tex->width;
+      LogAtlasPlacement("Splitting (w:%d, h:%d) horizontally at %d\n",
+              w, h, T->tex->width);
      }
     else
      {
@@ -328,6 +341,8 @@ TANode* TANode::insert(TANode* T, unsigned& wd, unsigned& ht)
       child[1]->w     = w;
       child[1]->top   = top + T->tex->height;
       child[1]->left  = left;
+      LogAtlasPlacement("Splitting (w:%d, h:%d) vertically at %d\n",
+              w, h, T->tex->height);
      }
     // Insert into first child we created
     return child[0]->insert(T, wd, ht);
