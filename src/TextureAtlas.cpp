@@ -162,13 +162,17 @@ bool TextureAtlas::saveAtlasImage(char* name)
 {
   bool retVal = false;
   unsigned char* buf = new unsigned char[4*width*height];
+  for(int i=0; i<4*width*height; i++)
+    buf[i] = '\0';
   
   // Put the tree of images into the buffer
   treeRoot->insertIntoImageRecursively(buf, width, height);
   
   // Write the buffer out to the file
-  strncat(name, (char*)"/atlas.png", TexPathLimit);
-  retVal = (bool)stbi_write_png(name, width, height, 4, buf, 4*width);
+  //strncat(name, (char*)"/atlas.png", TexPathLimit);
+  //retVal = (bool)stbi_write_png(name, width, height, 4, buf, 4*width);
+  strncat(name, (char*)"/atlas.jpg", TexPathLimit);
+  retVal = (bool)stbi_write_jpg(name, width, height, 4, buf, 50);
 
   delete[] buf; buf = NULL;
   return retVal;
@@ -362,13 +366,14 @@ void TANode::insertIntoImageRecursively(unsigned char* buf, unsigned width, unsi
 
 void TANode::insertIntoImage(unsigned char* buf, unsigned width, unsigned height)
 {
+  //fprintf(stderr, "Putting %s into image at %d,%d\n", tex->textureFileName, top, left);
   for(int i=0; i<tex->height; i++)
     for(int j=0; j<tex->width; j++)
      {
-       for(int m=0; m<tex->nrChannels;m++)
+       for(int m=0; m<tex->nrChannels; m++)
          buf[((i+top)*width + j + left)*4+m] = tex->data[(i*(tex->width)+j)*tex->nrChannels+m];
-       for(int m=tex->nrChannels; m<4;m++)
-         buf[((i+top)*width + j + left)*4+m] = 0u;
+       for(int m=tex->nrChannels; m<4; m++)
+         buf[((i+top)*width + j + left)*4+m] = '\0';
      }
 }
 
