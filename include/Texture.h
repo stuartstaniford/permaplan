@@ -24,7 +24,7 @@ class Texture
   unsigned char*  data;             // holding area for the data
   
   // Member functions - public
-  Texture(const char* fileName);
+  Texture(const char* fileName, bool flip);
   ~Texture(void);
   void bind(unsigned textureUnit, const char* name);
   void sendToGpu(void);

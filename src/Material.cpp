@@ -14,7 +14,7 @@ MaterialList* MaterialList::theMaterialList = NULL;
 Material::Material(float carbonD, char* matName, char* tFileName):
                       name(matName),
                       carbonDensity(carbonD),
-                      texture(tFileName)
+                      texture(tFileName, 0)
 {
 }
 

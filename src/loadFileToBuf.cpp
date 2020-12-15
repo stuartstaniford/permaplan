@@ -1,3 +1,6 @@
+// Copyright Staniford Systems.  All Rights Reserved.  Apr 2020 -
+// Utility function for loading a file into a buffer.
+
 #include <err.h>
 #include <sys/stat.h>
 #include "loadFileToBuf.h"

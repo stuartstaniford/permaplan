@@ -136,7 +136,7 @@ void TextureAtlas::processOneAtlas(DIR* dir, char* path)
     
     if(dirEntry->d_type == DT_REG)
      {
-      texture = new Texture(path);
+      texture = new Texture(path, 0);
       TANode* node = new TANode(texture);
       nodeList.push_back(node);
       LogTextureAtlas("Found %s for texture atlas (width %d, height %d, nrChannels %d).\n",

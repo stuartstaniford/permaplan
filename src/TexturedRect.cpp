@@ -19,7 +19,7 @@ TexturedRect::TexturedRect(const char* textureFileName, float widthIn,
                            float heightIn):
                                 width(widthIn),
                                 height(heightIn),
-                                texture(textureFileName),
+                                texture(textureFileName, 1),
                                 axesVAOs(1)
 {
   Vertex buf[6];

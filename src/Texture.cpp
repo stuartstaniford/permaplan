@@ -12,7 +12,7 @@
 // =======================================================================================
 // Load a texture from a file.
 
-Texture::Texture(const char* fileName):
+Texture::Texture(const char* fileName, bool flip):
                             data(NULL)
 {
   //fprintf(stderr, "File name of size %lu\n", strlen(fileName));
@@ -20,7 +20,7 @@ Texture::Texture(const char* fileName):
   
   textureFileName = new char[strlen(fileName)+1];
   strcpy(textureFileName, fileName);
-  stbi_set_flip_vertically_on_load(1);
+  stbi_set_flip_vertically_on_load((int)flip);
   data = stbi_load(fileName, &width, &height, &nrChannels, 0);
   if(!data)
     err(-1, "Couldn't load texture file %s", fileName);
