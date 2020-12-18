@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-$detail = 1;
+$detail = 0;
 
 open(FILE, "wc src/*.cpp include/*.h *.pl 812/*.json src/*.glsl CMakeLists.txt web/*.js web/views/*js docs/*.md|")
 || die("Couldn't run wc.\n");
