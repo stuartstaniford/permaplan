@@ -36,6 +36,13 @@ Each OLDF object consists of a series of JSON objects which are the values of su
 
 ### Overview Example
 
+This gives an example showing the major sections of an OLDF object in a file (details are suppressed with ellipses).  Each of these sections is treated at length in subsequent sections, but the example should serve to make the overall structure clearer.  
+  * The `introductoryData` section has metadata about the file and global information required to interpret the file (eg choices of units).  
+  * The `landSurface` section describes the shape of the relief of this particular piece of land.
+  * The `plants` section describes plants either present on the land, or planned for the future.
+  * The `boundaries` section contains the coordinates of an enclosing polygon of the land described by this OLDF object.
+  * The `fencing` section describes the geometry of fencing present or planned on the land.
+
 ```
 // Example OLDF file with one OLDF object
 {
