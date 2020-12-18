@@ -32,7 +32,9 @@ An OLDF file consists of a series of objects, each of which is a self-contained 
 
 Separate OLDF objects in a file otherwise share no relationship, and n the remainder of the document, we describe the structure of a single OLDF object.  Multiple OLDF objects are processed in parallel to each other without reference to the others.
 
-Each OLDF object consists of a series of JSON objects which are the values of subobjects inside, and associated with names of the master OLDF object.  Various of these subobjects are described in the remaining sections of this specification.  However, the important master principle is that implementations coming across sub-objects with tag names they do not understand should  
+Each OLDF object consists of a series of JSON objects which are the values of subobjects inside, and associated with names of the master OLDF object.  Various of these subobjects are described in the remaining sections of this specification.  
+
+However, the important master principle is that implementations coming across sub-objects with tag names they do not understand should ignore those sub-objects.  This allows experimental or implementation-specific extensions of the file format.  Implementors of such extensions should be aware that there is no guarantee that arbitrary name choices may not be over-ridden by future versions of this specification.  However, the specification commits to never create new sub-objects (or sub-sub-objects) that begin with the sequence 'X-', thus meaning they are safe for proprietary/experimental extensions (except that different proprietary extensions might conflict with each other, and at present this specification does not provide any facilities to prevent such collisions.)
 
 ### Overview Example
 
@@ -73,6 +75,13 @@ This gives an example showing the major sections of an OLDF object in a file (de
 ```
 ## Introductory Data
 
+The `introductoryData` section has metadata about the file and global information required to interpret the file.  It has certain mandatory name/value pairs that must be present, and then others that are optional.  We here take them in turn.
+
+### spaceUnits (mandatory)
+
+Syntax: `"spaceUnits":  "<units>",
+
+where `<units>` is a JSON string allowed only to be one of either `feet` or `meters`, reflecting either Imperial/SAE or SI units of measurement.  A file must pick exactly one such unit and use it throughout for coordinates of geometry in a variety of other sections.  There is no provision for direct use of other sub-units such as inches, yards, or centimeters.  Generally geometric co-ordinates will be specified as JSON numbers, and thus decimal fractions of the measurements are allowed.  Thus a length of twelve feet, three inches would be expressed as 12.25.
 
 ## Land Surface
 
