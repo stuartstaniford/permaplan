@@ -1,8 +1,8 @@
 #!/usr/bin/perl
 
-$detail = 0;
+$detail = 1;
 
-open(FILE, "wc src/*.cpp include/*.h *.pl 812/*.json src/*.glsl CMakeLists.txt web/*.js web/views/*js|")
+open(FILE, "wc src/*.cpp include/*.h *.pl 812/*.json src/*.glsl CMakeLists.txt web/*.js web/views/*js docs/*.md|")
 || die("Couldn't run wc.\n");
 
 open(OUT, "|open -a XCode -f") || die("Couldn't open XCode.\n") if $detail;

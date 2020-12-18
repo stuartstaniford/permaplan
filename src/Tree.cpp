@@ -1,8 +1,8 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Dec 2020 -
 // Class for storing and rendering trees.
 
-#include <err.h>
 #include "Tree.h"
+#include <err.h>
 
 
 // =======================================================================================
