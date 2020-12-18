@@ -79,7 +79,7 @@ The `introductoryData` section has metadata about the file and global informatio
 
 ### spaceUnits (mandatory)
 
-Syntax: `"spaceUnits":  "<units>",
+Syntax: `"spaceUnits":  "<units>",`
 
 where `<units>` is a JSON string allowed only to be one of either `feet` or `meters`, reflecting either Imperial/SAE or SI units of measurement.  A file must pick exactly one such unit and use it throughout for coordinates of geometry in a variety of other sections.  There is no provision for direct use of other sub-units such as inches, yards, or centimeters.  Generally geometric co-ordinates will be specified as JSON numbers, and thus decimal fractions of the measurements are allowed.  Thus a length of twelve feet, three inches would be expressed as 12.25.
 
