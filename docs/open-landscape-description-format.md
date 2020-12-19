@@ -51,25 +51,25 @@ This gives an example showing the major sections of an OLDF object in a file (de
   "introductoryData":
     {
      "spaceUnits":        "feet",
-     "version":           [0, 0, 1]
+     "version":           [0, 0, 1],
      "fileTime":          [<seconds>, <microseconds>],
      "baseYear":          2020,
      "software":          "permaplan",
      "softwareVersion":   "1.2.3",
-     "author":            "Stuart Staniford",
-    }
+     "author":            "Stuart Staniford"
+    },
  "landSurface":
   {
    ...
-  }
+  },
  "plants":
   {
    ...
-  }  
+  },
  "boundaries":
   {
    ...
-  }  
+  },  
  "fencing":
   {
    ...
@@ -92,6 +92,12 @@ Syntax: `"fileTime":  [<seconds>, <microseconds>]`
 
 The fileTime value is a JSON array of exactly two integers which denote the time at which the file was written.  The first integer is the number of seconds since the beginning of 1970, UTC (aka "Unix time") and the second integer is a number of microseconds (expressing the fractional part of a second).
 
+### baseYear (mandatory)
+
+Syntax: `"baseYear":  <year>,`
+
+The baseYear value is an integer value for the year that is considered "base" for simulation and extrapolation purposes.  That is, plants and the like present before the baseYear are considered existing, whereas ones planted after that are projected (by default).  This may or may not be the year associated with the fileTime (eg a plan might be created which cannot be executed until some years in the future).
+
 ### version (mandatory)
 
 Syntax: `"version":  [<majorversion>, <minorversion1>, <minorversion2>]`
@@ -104,9 +110,10 @@ Syntax: `"software":  "<progname>",`
 
 The software value is a JSON string to denote the software that wrote out the file.  The special value `manual edit` can be used to denote a file created in a text editor or similar.
 
+
 ### softwareVersion (optional)
 
-Syntax: `"software-version":  "<version-info>",`
+Syntax: `"softwareVersion":  "<version-info>",`
 
 The software-version is a JSON string to denote the version of the particular software that wrote out the file (as distinct from the version of this OLDF specification itself).  This specification allows OLDF writing software to use any legal JSON string for their version information.
 
@@ -121,7 +128,26 @@ The author value is a JSON string to denote the human author of a particular fil
 
 ## Boundaries
 
+The boundaries object is used to define the edge of the contiguous parcel described by this particular OLDF object.  Generally the boundaries will be the legally defined bounds of the parcel ownership.  Boundaries are defined by means of a single reference point absolutely defined by latitude and longtitude, and then a series of straight arcs expressed in spaceUnits (either feet or meters as defined in the introductoryData).  Non straight boundary arcs must be approximated by a series of short straight segments.  The detailed formats of the two sections are as follows.
 
+### referencePoint (mandatory)
+
+Syntax: `"referencePoint":  [<latitude>,<longtitude>],`
+
+### Boundaries Example
+The example below shows a simple boundaries object
+
+```
+// Example OLDF boundaries object
+ "boundaries":
+  {
+   "referencePoint": [<latitude>,<longtitude>],
+   "arcs": [
+            
+           ]
+  },
+
+```
 ## Fencing
 
 
