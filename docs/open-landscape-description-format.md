@@ -50,10 +50,13 @@ This gives an example showing the major sections of an OLDF object in a file (de
 {
   "introductoryData":
     {
-     "spaceUnits":  "feet",
-     "baseYear":    2020,
-     "author":      "Stuart Staniford",
-     "version":     [0.0.1]
+     "spaceUnits":        "feet",
+     "version":           [0, 0, 1]
+     "fileTime":          [<seconds>, <microseconds>],
+     "baseYear":          2020,
+     "software":          "permaplan",
+     "softwareVersion":   "1.2.3",
+     "author":            "Stuart Staniford",
     }
  "landSurface":
   {
@@ -82,6 +85,36 @@ The `introductoryData` section has metadata about the file and global informatio
 Syntax: `"spaceUnits":  "<units>",`
 
 where `<units>` is a JSON string allowed only to be one of either `feet` or `meters`, reflecting either Imperial/SAE or SI units of measurement.  A file must pick exactly one such unit and use it throughout for coordinates of geometry in a variety of other sections.  There is no provision for direct use of other sub-units such as inches, yards, or centimeters.  Generally geometric co-ordinates will be specified as JSON numbers, and thus decimal fractions of the measurements are allowed.  Thus a length of twelve feet, three inches would be expressed as 12.25.
+
+### fileTime (mandatory)
+
+Syntax: `"fileTime":  [<seconds>, <microseconds>]`
+
+The fileTime value is a JSON array of exactly two integers which denote the time at which the file was written.  The first integer is the number of seconds since the beginning of 1970, UTC (aka "Unix time") and the second integer is a number of microseconds (expressing the fractional part of a second).
+
+### version (mandatory)
+
+Syntax: `"version":  [<majorversion>, <minorversion1>, <minorversion2>]`
+
+The version value is a JSON array of exactly three integers which denote the version of this specification that governs the format of the file.  The current version is `[0,0,1]`.  Version numbers will be incremented as the file format continues to evolve over time.  A general convention is that changes in minor version numbers will be expected to preserve backward compatability with older versions of OLDF parsing software.  However, this may not be the case with changes in major version number.  Major version 0 is used for versions of the specification prior to general release, while it is in early development and testing.
+
+### software (mandatory)
+
+Syntax: `"software":  "<progname>",`
+
+The software value is a JSON string to denote the software that wrote out the file.  The special value `manual edit` can be used to denote a file created in a text editor or similar.
+
+### softwareVersion (optional)
+
+Syntax: `"software-version":  "<version-info>",`
+
+The software-version is a JSON string to denote the version of the particular software that wrote out the file (as distinct from the version of this OLDF specification itself).  This specification allows OLDF writing software to use any legal JSON string for their version information.
+
+### author (optional)
+
+Syntax: `"author":  "First Last",`
+
+The author value is a JSON string to denote the human author of a particular file.
 
 ## Land Surface
 
