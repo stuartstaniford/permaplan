@@ -76,6 +76,11 @@ This gives an example showing the major sections of an OLDF object in a file (de
   }  
 }
 ```
+
+### Character sets and internationalization
+
+All JSON names in objects should be expressed in 8 bit ASCII characters, as should all JSON numerical values and JSON structure such as {, }, [, etc.  However, the contents of strings in values are expressed in UTF8 characters and thus may represent any language or alphabet that can be captured via UTF8.  UTF-8 is as described in [RFC 3629](https://tools.ietf.org/html/rfc3629).
+
 ## Introductory Data
 
 The `introductoryData` section has metadata about the file and global information required to interpret the file.  It has certain mandatory name/value pairs that must be present, and then others that are optional.  We here take them in turn.
@@ -121,7 +126,7 @@ The software-version is a JSON string to denote the version of the particular so
 
 Syntax: `"author":  "First Last",`
 
-The author value is a JSON string to denote the human author of a particular file.
+The author value is a JSON string to denote the human author of a particular file.  The specification allows any 
 
 ## Land Surface
 
