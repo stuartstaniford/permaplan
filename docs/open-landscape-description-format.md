@@ -2,7 +2,7 @@
 
 ## Stuart Staniford
 
-## v 0.0.1 12/18/2020
+## v 0.0.2 12/21/2020
 
 ***
 
@@ -51,7 +51,7 @@ This gives an example showing the major sections of an OLDF object in a file (de
   "introductoryData":
     {
      "spaceUnits":        "feet",
-     "version":           [0, 0, 1],
+     "version":           [0, 0, 2],
      "fileTime":          [<seconds>, <microseconds>],
      "baseYear":          2020,
      "software":          "permaplan",
@@ -79,7 +79,7 @@ This gives an example showing the major sections of an OLDF object in a file (de
 
 ### Character sets and internationalization
 
-All JSON names in objects should be expressed in 8 bit ASCII characters, as should all JSON numerical values and JSON structure such as {, }, [, etc.  However, the contents of strings in values are expressed in UTF8 characters and thus may represent any language or alphabet that can be captured via UTF8.  UTF-8 is as described in [RFC 3629](https://tools.ietf.org/html/rfc3629).
+All JSON names in objects should be expressed in 8 bit ASCII characters, as should all JSON numerical values and JSON structure such as {, }, [, etc.  However, the contents of strings in values are expressed in UTF8 characters and thus may represent any language or alphabet that can be captured via UTF8.  UTF8 is as described in [RFC 3629](https://tools.ietf.org/html/rfc3629).
 
 ## Introductory Data
 
@@ -126,7 +126,7 @@ The software-version is a JSON string to denote the version of the particular so
 
 Syntax: `"author":  "First Last",`
 
-The author value is a JSON string to denote the human author of a particular file.  The specification allows any 
+The author value is a JSON string to denote the human author of a particular file.  The specification allows any UTF8 string and does not constrain to any particular convention of naming humans or organizations.
 
 ## Land Surface
 
@@ -166,9 +166,48 @@ The example below shows a simple boundaries object
 ```
 This example is a square plot, three hundred feet on each side, in Manhattan, NY.
 
+## Plants
+
+This section covers plants in the landscape.  The plants value is a JSON array of an arbitrary number of individual plants.  Each plant is described by an object, with various named attributes about that particular plant.
+
+### Plants Example
+The example below shows the beginning of a plants object, with the first plant in the array laid
+out in detail.  Individual attributes of the plant are described below.
+
+```
+// Example OLDF plants object
+ "plants":
+  {
+    [
+      {
+       "location": [92, 48],
+       "yearPlanted": 2022,
+       "timePlanted":
+       "genus": "Acer",
+       "species": "rubrum",
+       "taxonomyLink": 
+    },
+   ...
+   ]
+ },
+```
+### location (mandatory)
+
+Syntax: `"location": [<unitsEast>, <unitsNorth>],`
+
+The location gives the planting location (actual or planned) of this particular plant.
+
+### yearPlanted (mandatory)
+
+### timePlanted (optional)
+
+### genus (mandatory)
+
+### species (mandatory)
+
+### taxonomyLink (optional)
+
 ## Fencing
 
-
-## Plants
 
 
