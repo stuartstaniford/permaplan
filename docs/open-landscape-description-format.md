@@ -128,11 +128,20 @@ The author value is a JSON string to denote the human author of a particular fil
 
 ## Boundaries
 
-The boundaries object is used to define the edge of the contiguous parcel described by this particular OLDF object.  Generally the boundaries will be the legally defined bounds of the parcel ownership.  Boundaries are defined by means of a single reference point absolutely defined by latitude and longtitude, and then a series of straight arcs expressed in spaceUnits (either feet or meters as defined in the introductoryData).  Non straight boundary arcs must be approximated by a series of short straight segments.  The detailed formats of the two sections are as follows.
+The boundaries object is used to define the edge of the contiguous parcel described by this particular OLDF object.  Generally the boundaries will be the legally defined bounds of the parcel ownership.  Boundaries are defined by means of a single reference point absolutely defined by latitude and longtitude, and then a series of straight arcs expressed in spaceUnits (either feet or meters as defined in the introductoryData).  Non straight boundary arcs must be approximated by a series of short straight segments. The boundary arcs must vector sum to zero (ie the boundary forms a closed polygon), and the boundary must not intersect itself otherwise.  The detailed formats of the two sections are as follows. T
 
 ### referencePoint (mandatory)
 
 Syntax: `"referencePoint":  [<latitude>,<longtitude>],`
+
+The referentPoint object value is a JSON arry with exactly two numeric members, the first representing the latitude and the second of the longtitude of the reference point in degrees.  Minutes and seconds are not represented directly by as decimal parts of the latitude and longtitude (of course parsing applications may display these values to users however they like, but the representation in the file is via decimal parts of a degree).  Longtitudes east of the Greenwich meridian are positive, whereas longtitudes west of it are negative.
+
+### arcs (mandatory)
+
+Syntax: `"arcs":  [ [<x1>, <y1>], [<x2>, <y2>], ...,`
+
+The arcs object is a JSON array of arbitrary length (but at least three members).  Each member in this array is a two dimension array representing a two-dimensional vector in the horizontal plane, expressed in spaceUnits (as defined in the introductoryData to be either feet or meters).  The series of vectors are interpreted as a successive series of movements starting from the reference point which form the boundary of the landscape described by a particular OLDF object.  The boundary arcs must vector sum to zero (ie the boundary forms a closed polygon), and the boundary must not intersect itself otherwise.  When seen from overhead, the boundary arcs must go in a counter-clockwise direction.
+
 
 ### Boundaries Example
 The example below shows a simple boundaries object
@@ -141,13 +150,17 @@ The example below shows a simple boundaries object
 // Example OLDF boundaries object
  "boundaries":
   {
-   "referencePoint": [<latitude>,<longtitude>],
+   "referencePoint": [40.7831, -73.9712],
    "arcs": [
-            
+            [300, 0],
+            [0, 300],
+            [-300, 0],
+            [0, -300],
            ]
   },
-
 ```
+This example is a square plot, three hundred feet on each side, in Manhattan, NY.
+
 ## Fencing
 
 
