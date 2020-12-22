@@ -13,7 +13,7 @@ FILE* LogFile;
 
 void LogInit(void)
 {
-  char* fileName = (char*)"pmod.log";
+  char* fileName = (char*)"permaplan.log";
   
   LogFile = fopen(fileName, "w");
   if(!LogFile)
