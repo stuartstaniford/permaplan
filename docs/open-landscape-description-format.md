@@ -101,7 +101,8 @@ The fileTime value is a JSON array of exactly two integers which denote the time
 
 Syntax: `"baseYear":  <year>,`
 
-The baseYear value is an integer value for the year that is considered "base" for simulation and extrapolation purposes.  That is, plants and the like present before the baseYear are considered existing, whereas ones planted after that are projected (by default).  This may or may not be the year associated with the fileTime (eg a plan might be created which cannot be executed until some years in the future).
+The baseYear value is an integer value for the year that is considered "base" for simulation and extrapolation purposes.  That is, plants and the like present before the baseYear are considered existing, whereas ones planted after that are projected (by default).  This may or may not be the year associated with the fileTime (eg a plan might be created which cannot be executed until some years in the future).  The possible range of valid baseYears is presently restricted to the years 1500 to 2500 AD (to
+allow some error checking for unreasonable values).
 
 ### version (mandatory)
 

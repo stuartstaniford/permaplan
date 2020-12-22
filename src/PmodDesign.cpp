@@ -47,16 +47,13 @@ PmodDesign::PmodDesign(void)
 
 
 // =======================================================================================
-// Function to check the structure of the OLDF introductoryData object.
+// Function to check the spatial units.
 
-bool PmodDesign::validateIntroductoryData(void)
+bool PmodDesign::validateSpaceUnits(Value& introductoryData)
 {
-  bool              retVal              = true;
-  Value&            introductoryData    = doc["introductoryData"];
-  int               expectedVersion[3]  = {0,0,2};
-  const PmodConfig& config              = PmodConfig::getConfig();
-
-  // spaceUnits
+  bool retVal = true;
+  const PmodConfig& config = PmodConfig::getConfig();
+  
   if(introductoryData.HasMember("spaceUnits") && introductoryData["spaceUnits"].IsString())
    {
     const char* token = introductoryData["spaceUnits"].GetString();
@@ -76,7 +73,50 @@ bool PmodDesign::validateIntroductoryData(void)
     retVal = false;
    }
 
-  // version
+ return retVal;
+}
+
+
+// =======================================================================================
+// Function to check the base year.
+
+bool PmodDesign::validateBaseYear(Value& introductoryData)
+{
+  bool retVal = true;
+  const PmodConfig& config = PmodConfig::getConfig();
+  
+  if(introductoryData.HasMember("baseYear") && introductoryData["baseYear"].IsInt())
+   {
+    baseYear = introductoryData["baseYear"].GetInt();
+    if(!(baseYear >= 1500) && (baseYear <= 2500))
+     {
+      LogOLDFValidity("Out of range introductoryData:baseYear %d, in OLDF file %s\n",
+                                                            baseYear, config.designFileName);
+      retVal = false;
+     }
+    else
+      LogOLDFDetails("baseYear is %d in OLDF file %s\n", baseYear, config.designFileName);
+   }
+  else
+   {
+    LogOLDFValidity("No valid introductoryData:baseYear in OLDF file %s\n",
+                                                                    config.designFileName);
+    retVal = false;
+   }
+
+ return retVal;
+}
+
+
+// =======================================================================================
+// Function to check the OLDF spec version array.
+
+bool PmodDesign::validateVersion(Value& introductoryData)
+{
+  bool retVal = true;
+  int expectedVersion[3] = {0,0,2};
+  const PmodConfig& config = PmodConfig::getConfig();
+  
   if(introductoryData.HasMember("version") && introductoryData["version"].IsArray())
    {
     Value& versionArray = introductoryData["version"];
@@ -109,6 +149,22 @@ bool PmodDesign::validateIntroductoryData(void)
     LogOLDFValidity("No introductoryData:version array in OLDF file %s\n", config.designFileName);
     retVal = false;
    }
+  
+ return retVal;
+}
+
+
+// =======================================================================================
+// Function to check the structure of the OLDF introductoryData object.
+
+bool PmodDesign::validateIntroductoryData(void)
+{
+  bool              retVal              = true;
+  Value&            introductoryData    = doc["introductoryData"];
+
+  retVal &= validateSpaceUnits(introductoryData);
+  retVal &= validateBaseYear(introductoryData);
+  retVal &= validateVersion(introductoryData);
 
   return retVal;
 }

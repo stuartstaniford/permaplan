@@ -21,7 +21,8 @@ class PmodDesign
   public:
   
   // Instance variables - public
-  rapidjson::Document   doc;
+  rapidjson::Document doc;
+  int                 baseYear;
 
 private:
   
@@ -41,6 +42,9 @@ private:
 
   // Member functions - private
   bool validateIntroductoryData(void);
+  bool validateSpaceUnits(rapidjson::Value& introductoryData);
+  bool validateBaseYear(rapidjson::Value& introductoryData);
+  bool validateVersion(rapidjson::Value& introductoryData);
   PmodDesign(const PmodDesign&);                 // Prevent copy-construction
   PmodDesign& operator=(const PmodDesign&);      // Prevent assignment
 
