@@ -1,7 +1,9 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Apr 2020 -
 // Main object that encapsulates the design of a given piece of land.  This is basically
-// the contents of the main json file given via -d.  Generally the rest of the command
+// the contents of the main OLDF file given via -d.  Generally the rest of the command
 // line is captured in PmodConfig, not in here.
+// See docs/open-landscape-description-format.md for the file format.
+
 
 #include <stdexcept>
 #include <err.h>
@@ -31,7 +33,7 @@ PmodDesign::PmodDesign(void)
   ParseResult ok = doc.ParseInsitu<kParseCommentsFlag>(buf);
   if (!ok)
    {
-    fprintf(stderr, "JSON parse error: %s (%u)",
+    fprintf(stderr, "JSON parse error: %s (%u)\n",
             GetParseError_En(ok.Code()), (unsigned)(ok.Offset()));
     exit(1);
    }

@@ -1,10 +1,10 @@
-// Simple OLDF file for basic smoke testing of Permaplan
+// Simple OLDF file for basic smoke testing of permaplan executable
 {
   "introductoryData":
     {
      "spaceUnits":        "feet",
      "version":           [0, 0, 2],
-     "fileTime":          [<seconds>, <microseconds>],
+     "fileTime":          [20, 40],
      "baseYear":          2020,
      "software":          "manual edit",
      "softwareVersion":   "none",
