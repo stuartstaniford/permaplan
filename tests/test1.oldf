@@ -1,0 +1,29 @@
+// Simple OLDF file for basic smoke testing of Permaplan
+{
+  "introductoryData":
+    {
+     "spaceUnits":        "feet",
+     "version":           [0, 0, 2],
+     "fileTime":          [<seconds>, <microseconds>],
+     "baseYear":          2020,
+     "software":          "manual edit",
+     "softwareVersion":   "none",
+     "author":            "Stuart Staniford"
+    },
+ "landSurface":
+  {
+   "null": 0
+  },
+ "plants":
+  {
+   "null": 0
+  },
+ "boundaries":
+  {
+   "null": 0
+  },
+ "fencing":
+  {
+   "null": 0
+  }
+}
