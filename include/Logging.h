@@ -13,6 +13,13 @@
 
 
 // =======================================================================================
+// Logging options to do with parsing and validating the OLDF file
+
+#define LOG_OLDF_VALIDITY      // Log validity problems in the file
+#define LOG_OLDF_DETAILS       // Log details of valid OLDF objects
+
+
+// =======================================================================================
 // Logging options to do with interface controls
 
 #define LOG_MOUSE_LOCATION      // where the mouse is on the screen each frame
@@ -89,6 +96,24 @@ extern FILE* LogFile;
 #define LogOpenGLConstants(...) LogStatement(__VA_ARGS__)
 #else
 #define LogOpenGLConstants(...)
+#endif
+
+
+// =======================================================================================
+// Logging options to do with parsing and validating the OLDF file
+
+// Log validity problems in the file
+#ifdef LOG_OLDF_VALIDITY
+#define LogOLDFValidity(...) LogStatement(__VA_ARGS__)
+#else
+#define LogOLDFValidity(...)
+#endif
+
+// Log details of valid OLDF objects
+#ifdef LOG_OLDF_DETAILS
+#define LogOLDFDetails(...) LogStatement(__VA_ARGS__)
+#else
+#define LogOLDFDetails(...)
 #endif
 
 

@@ -31,6 +31,7 @@ public:
 
   // Member functions - public
   PmodDesign(void);
+  bool validateOLDF(void);
   ~PmodDesign(void);
   static PmodDesign& getDesign(void) // Get the singleton instance
   {
@@ -39,7 +40,7 @@ public:
 private:
 
   // Member functions - private
-  
+  bool validateIntroductoryData(void);
   PmodDesign(const PmodDesign&);                 // Prevent copy-construction
   PmodDesign& operator=(const PmodDesign&);      // Prevent assignment
 
