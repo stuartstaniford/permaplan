@@ -179,7 +179,7 @@ bool PmodDesign::validateFileTime(Value& introductoryData)
        }
       fileTime.set(fileTimeArray[0].GetInt(), fileTimeArray[1].GetInt());
       if(fileTimeGood)
-        LogOLDFDetails("file time of OLDF file %s is %s\n", config.designFileName,
+        LogOLDFDetails("file time of OLDF file %s is %s", config.designFileName,
                             fileTime.ctimeString());
       else
         retVal = false;
@@ -201,6 +201,32 @@ bool PmodDesign::validateFileTime(Value& introductoryData)
 
 
 // =======================================================================================
+// Function to check that a particular member exists and is a JSON string.
+
+bool PmodDesign::validateStringMemmberExists(Value& thisObject, char* objName, char* member)
+{
+  bool retVal = true;
+  const PmodConfig& config = PmodConfig::getConfig();
+  
+  if(thisObject.HasMember(member) && thisObject[member].IsString())
+   {
+    const char* token = thisObject[member].GetString();
+    LogOLDFDetails("\"%s\" is \"%s\" in %s object in OLDF file %s\n", member, token,
+                                                      objName, config.designFileName);
+   }
+  else
+   {
+    LogOLDFValidity("No %s:%s token in OLDF file %s\n", objName, member,
+                                                            config.designFileName);
+    retVal = false;
+   }
+
+ return retVal;
+}
+
+
+
+// =======================================================================================
 // Function to check the structure of the OLDF introductoryData object.
 
 bool PmodDesign::validateIntroductoryData(void)
@@ -212,6 +238,8 @@ bool PmodDesign::validateIntroductoryData(void)
   retVal &= validateBaseYear(introductoryData);
   retVal &= validateVersion(introductoryData);
   retVal &= validateFileTime(introductoryData);
+  retVal &= validateStringMemmberExists(introductoryData,
+                                            (char*)"introductoryData", (char*)"software");
 
   return retVal;
 }
