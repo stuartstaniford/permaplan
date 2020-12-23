@@ -6,6 +6,7 @@
 #define TIMEVAL_H
 
 #include <unistd.h>
+#include <time.h>
 
 // =======================================================================================
 // Class variable initialization
@@ -21,6 +22,8 @@ class Timeval: public timeval
   Timeval(void);
   ~Timeval();
   void now();
+  void set(time_t tv_sec_in, suseconds_t tv_usec_in);
+  char* ctimeString(void);
   double operator-(const Timeval& t); // Difference between two times (in seconds)
 
 

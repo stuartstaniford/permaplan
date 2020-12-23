@@ -155,6 +155,52 @@ bool PmodDesign::validateVersion(Value& introductoryData)
 
 
 // =======================================================================================
+// Function to check the OLDF spec file time.
+
+bool PmodDesign::validateFileTime(Value& introductoryData)
+{
+  bool retVal = true;
+  const PmodConfig& config = PmodConfig::getConfig();
+  
+  if(introductoryData.HasMember("fileTime") && introductoryData["fileTime"].IsArray())
+   {
+    Value& fileTimeArray = introductoryData["fileTime"];
+    if(fileTimeArray.Size() == 2)
+     {
+      bool fileTimeGood = true;
+      for (int i = 0; i < fileTimeArray.Size(); i++)
+       {
+        if(!(fileTimeArray[i].IsInt()))
+         {
+          fileTimeGood = false;
+          LogOLDFValidity("introductoryData:fileTime array is not int at pos %d in OLDF file %s\n",
+                                                    i, config.designFileName);
+         }
+       }
+      fileTime.set(fileTimeArray[0].GetInt(), fileTimeArray[1].GetInt());
+      if(fileTimeGood)
+        LogOLDFDetails("file time of OLDF file %s is %s\n", config.designFileName,
+                            fileTime.ctimeString());
+      else
+        retVal = false;
+     }
+    else
+     {
+      LogOLDFValidity("introductoryData:fileTime array is wrong size %d in OLDF file %s\n",
+                                                    fileTimeArray.Size(), config.designFileName);
+     }
+   }
+  else
+   {
+    LogOLDFValidity("No introductoryData:fileTime array in OLDF file %s\n", config.designFileName);
+    retVal = false;
+   }
+  
+ return retVal;
+}
+
+
+// =======================================================================================
 // Function to check the structure of the OLDF introductoryData object.
 
 bool PmodDesign::validateIntroductoryData(void)
@@ -165,6 +211,7 @@ bool PmodDesign::validateIntroductoryData(void)
   retVal &= validateSpaceUnits(introductoryData);
   retVal &= validateBaseYear(introductoryData);
   retVal &= validateVersion(introductoryData);
+  retVal &= validateFileTime(introductoryData);
 
   return retVal;
 }

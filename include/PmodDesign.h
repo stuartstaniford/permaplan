@@ -11,6 +11,7 @@
 #include "rapidjson/stringbuffer.h"
 #include "rapidjson/error/en.h"
 #include "PmodConfig.h"
+#include "Timeval.h"
 
 // =======================================================================================
 // Class variable initialization
@@ -23,7 +24,8 @@ class PmodDesign
   // Instance variables - public
   rapidjson::Document doc;
   int                 baseYear;
-
+  Timeval             fileTime;
+  
 private:
   
   static PmodDesign* design;
@@ -45,6 +47,7 @@ private:
   bool validateSpaceUnits(rapidjson::Value& introductoryData);
   bool validateBaseYear(rapidjson::Value& introductoryData);
   bool validateVersion(rapidjson::Value& introductoryData);
+  bool validateFileTime(rapidjson::Value& introductoryData);
   PmodDesign(const PmodDesign&);                 // Prevent copy-construction
   PmodDesign& operator=(const PmodDesign&);      // Prevent assignment
 

@@ -29,13 +29,33 @@ void Timeval::now(void)
 
 
 // =======================================================================================
+// Setting the inner timeval based on supplied arguments.
+
+void Timeval::set(time_t tv_sec_in, suseconds_t tv_usec_in)
+{
+  tv_sec = tv_sec_in;
+  tv_usec = tv_usec_in;
+}
+
+
+// =======================================================================================
+// Return string version of time.  Note this loses fractions and includes \n - could
+// do with something better.
+
+char* Timeval::ctimeString(void)
+{
+  return ctime(&tv_sec);
+}
+
+
+// =======================================================================================
 // Give the difference between two times (in seconds, as a double)
 
 double Timeval::operator-(const Timeval& t)
 {
   double diff;
-  diff = (this->tv_sec - t.tv_sec);
-  diff += this->tv_usec/1e6 ;
+  diff = (tv_sec - t.tv_sec);
+  diff += tv_usec/1e6 ;
   diff -= t.tv_usec/1e6;
   return diff;
 }
