@@ -44,6 +44,7 @@ private:
 
   // Member functions - private
   bool validateStringMemmberExists(rapidjson::Value& thisObject, char* objName, char* member);
+  bool validateOptionalStringMember(rapidjson::Value& thisObject, char* objName, char* member);
   bool validateIntroductoryData(void);
   bool validateSpaceUnits(rapidjson::Value& introductoryData);
   bool validateBaseYear(rapidjson::Value& introductoryData);

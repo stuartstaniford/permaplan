@@ -225,6 +225,37 @@ bool PmodDesign::validateStringMemmberExists(Value& thisObject, char* objName, c
 }
 
 
+// =======================================================================================
+// Function to check that if a particular member exists, it is a JSON string.
+
+bool PmodDesign::validateOptionalStringMember(Value& thisObject, char* objName, char* member)
+{
+  bool retVal = true;
+  const PmodConfig& config = PmodConfig::getConfig();
+  
+  if(thisObject.HasMember(member))
+   {
+    if(thisObject[member].IsString())
+     {
+      const char* token = thisObject[member].GetString();
+      LogOLDFDetails("\"%s\" is \"%s\" in %s object in OLDF file %s\n", member, token,
+                                                      objName, config.designFileName);
+     }
+    else
+     {
+      retVal = false;
+      LogOLDFValidity("%s:%s token is not string in in OLDF file %s\n", objName, member,
+                                                            config.designFileName);
+     }
+   }
+  else
+   {
+    LogOLDFDetails("Non-required %s:%s token not present in OLDF file %s\n",
+                                      objName, member, config.designFileName);
+   }
+ return retVal;
+}
+
 
 // =======================================================================================
 // Function to check the structure of the OLDF introductoryData object.
@@ -239,8 +270,11 @@ bool PmodDesign::validateIntroductoryData(void)
   retVal &= validateVersion(introductoryData);
   retVal &= validateFileTime(introductoryData);
   retVal &= validateStringMemmberExists(introductoryData,
-                                            (char*)"introductoryData", (char*)"software");
-
+                                    (char*)"introductoryData", (char*)"software");
+  retVal &= validateOptionalStringMember(introductoryData,
+                                    (char*)"introductoryData", (char*)"softwareVersion");
+  retVal &= validateOptionalStringMember(introductoryData,
+                                    (char*)"introductoryData", (char*)"author");
   return retVal;
 }
 
