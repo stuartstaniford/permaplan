@@ -161,7 +161,7 @@ The example below shows a simple boundaries object
             [300, 0],
             [0, 300],
             [-300, 0],
-            [0, -300],
+            [0, -300]
            ]
   },
 ```

@@ -203,7 +203,7 @@ bool PmodDesign::validateFileTime(Value& introductoryData)
 // =======================================================================================
 // Function to check that a particular member exists and is a JSON string.
 
-bool PmodDesign::validateStringMemmberExists(Value& thisObject, char* objName, char* member)
+bool PmodDesign::validateStringMemberExists(Value& thisObject, char* objName, char* member)
 {
   bool retVal = true;
   const PmodConfig& config = PmodConfig::getConfig();
@@ -269,12 +269,98 @@ bool PmodDesign::validateIntroductoryData(void)
   retVal &= validateBaseYear(introductoryData);
   retVal &= validateVersion(introductoryData);
   retVal &= validateFileTime(introductoryData);
-  retVal &= validateStringMemmberExists(introductoryData,
+  retVal &= validateStringMemberExists(introductoryData,
                                     (char*)"introductoryData", (char*)"software");
   retVal &= validateOptionalStringMember(introductoryData,
                                     (char*)"introductoryData", (char*)"softwareVersion");
   retVal &= validateOptionalStringMember(introductoryData,
                                     (char*)"introductoryData", (char*)"author");
+  return retVal;
+}
+
+
+// =======================================================================================
+// Function to check the OLDF boundary reference point.
+
+bool PmodDesign::validateReferencePoint(Value& boundaries)
+{
+  bool retVal = true;
+  const PmodConfig& config = PmodConfig::getConfig();
+  
+  if(boundaries.HasMember("referencePoint") && boundaries["referencePoint"].IsArray())
+   {
+    Value& refPointArray = boundaries["referencePoint"];
+    if(refPointArray.Size() == 2)
+     {
+      bool bothGood = true;
+      
+      // Latitude
+      if(!(refPointArray[0].IsNumber()))
+       {
+        bothGood = false;
+        LogOLDFValidity("referencePoint latitude is not numerical in OLDF file %s\n",
+                                                                      config.designFileName);
+       }
+      else
+       {
+        if(refPointArray[0].GetDouble() < -90.0 || refPointArray[0].GetDouble() > 90.0)
+         {
+          bothGood = false;
+          LogOLDFValidity("referencePoint latitude is out of range in OLDF file %s\n",
+                                                                      config.designFileName);
+         }
+      }
+
+      // Longtitude
+      if(!(refPointArray[1].IsNumber()))
+       {
+        bothGood = false;
+        LogOLDFValidity("referencePoint longtitude is not numerical in OLDF file %s\n",
+                                                                      config.designFileName);
+       }
+      else
+       {
+        if(refPointArray[0].GetDouble() < -180.0 || refPointArray[0].GetDouble() > 180.0)
+         {
+          bothGood = false;
+          LogOLDFValidity("referencePoint longtitude is out of range in OLDF file %s\n",
+                                                                      config.designFileName);
+         }
+      }
+
+      if(bothGood)
+        LogOLDFDetails("Reference Point of OLDF file %s is lat %.3f, long %.3f\n",
+            config.designFileName, refPointArray[0].GetDouble(), refPointArray[1].GetDouble());
+      else
+        retVal = false;
+     }
+    else
+     {
+      LogOLDFValidity("boundaries:referencePoint array is wrong size %d in OLDF file %s\n",
+                                                    refPointArray.Size(), config.designFileName);
+     }
+   }
+  else
+   {
+    LogOLDFValidity("No boundaries:referencePoint array in OLDF file %s\n", config.designFileName);
+    retVal = false;
+   }
+  
+ return retVal;
+}
+
+
+// =======================================================================================
+// Function to check the structure of the OLDF introductoryData object.
+
+bool PmodDesign::validateBoundaries(void)
+{
+  bool    retVal      = true;
+  Value&  boundaries  = doc["boundaries"];
+
+  retVal &= validateReferencePoint(boundaries);
+  //retVal &= validateArcs(boundaries);
+
   return retVal;
 }
 
@@ -296,7 +382,15 @@ bool PmodDesign::validateOLDF(void)
    }
   else
     retVal &= validateIntroductoryData();
-  
+
+  if(!(doc.HasMember("boundaries") && doc["boundaries"].IsObject()))
+   {
+    LogOLDFValidity("No boundaries in OLDF file %s\n", config.designFileName);
+    retVal = false;
+   }
+  else
+    retVal &= validateBoundaries();
+
   return retVal;
 }
 

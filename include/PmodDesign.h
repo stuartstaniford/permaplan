@@ -43,13 +43,16 @@ public:
 private:
 
   // Member functions - private
-  bool validateStringMemmberExists(rapidjson::Value& thisObject, char* objName, char* member);
+  bool validateStringMemberExists(rapidjson::Value& thisObject, char* objName, char* member);
   bool validateOptionalStringMember(rapidjson::Value& thisObject, char* objName, char* member);
   bool validateIntroductoryData(void);
   bool validateSpaceUnits(rapidjson::Value& introductoryData);
   bool validateBaseYear(rapidjson::Value& introductoryData);
   bool validateVersion(rapidjson::Value& introductoryData);
   bool validateFileTime(rapidjson::Value& introductoryData);
+  bool validateReferencePoint(rapidjson::Value& boundaries);
+  //bool validateArcs(rapidjson::Value& boundaries);
+  bool validateBoundaries(void);
   PmodDesign(const PmodDesign&);                 // Prevent copy-construction
   PmodDesign& operator=(const PmodDesign&);      // Prevent assignment
 
