@@ -3,10 +3,16 @@
 
 {
  // Initial summary stuff about the overall design
- "spaceUnits":  "feet",
- "baseYear":    2020,
- "author":      "Stuart Staniford",
- "version":     [0,1],
+ "introductoryData":
+    {
+     "spaceUnits":        "feet",
+     "version":           [0, 0, 2],
+     "fileTime":          [20, 40],
+     "baseYear":          2020,
+     "software":          "manual edit",
+     "softwareVersion":   "none",
+     "author":            "Stuart Staniford"
+    },
  "landSurface":
   {
    "textureFile": "812/812IrishGoogleMap_4_21_20.png",
