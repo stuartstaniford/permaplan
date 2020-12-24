@@ -5,11 +5,13 @@
 // See docs/open-landscape-description-format.md for the file format.
 
 
+#include "PmodDesign.h"
 #include <stdexcept>
 #include <err.h>
-#include "PmodDesign.h"
+#include <math.h>
 #include "loadFileToBuf.h"
 #include "Logging.h"
+#include "GlobalMacros.h"
 
 
 using namespace rapidjson;
@@ -351,6 +353,82 @@ bool PmodDesign::validateReferencePoint(Value& boundaries)
 
 
 // =======================================================================================
+// Function to check the OLDF arcs.
+
+bool PmodDesign::validateArcs(Value& boundaries)
+{
+  bool retVal = true;
+  const PmodConfig& config = PmodConfig::getConfig();
+  float sumDist[2] = {0.0f, 0.0f};
+  
+  if(boundaries.HasMember("arcs") && boundaries["arcs"].IsArray())
+   {
+    Value& arcArray = boundaries["arcs"];
+    if(arcArray.Size() >= 3)
+     {
+      bool allGood = true;
+      
+      for(int i=0; i<arcArray.Size(); i++)
+       {
+        if(!(arcArray[i].IsArray()))
+         {
+          allGood = false;
+          LogOLDFValidity("arcs[%d] is not array in OLDF file %s\n", i, config.designFileName);
+         }
+        else
+         {
+          if(arcArray[i].Size() == 2)
+            for(int j=0; j<2; j++)
+             {
+              if(arcArray[i][j].IsNumber())
+                sumDist[j] += arcArray[i][j].GetFloat();
+              else
+               {
+                allGood = false;
+                LogOLDFValidity("arcs[%d][%d] is not numerical in OLDF file %s\n", i, j,
+                                                                      config.designFileName);
+               }
+             }
+          else
+           {
+            LogOLDFValidity("arcs[%d] has wrong size %d in OLDF file %s\n", i,
+                                                    arcArray[i].Size(), config.designFileName);
+           }
+         }
+       }
+ 
+      if(allGood)
+       {
+        if( (fabs(sumDist[0]) < EPSILON) && (fabs(sumDist[1]) < EPSILON) )
+          LogOLDFDetails("Correct arcs array of size %d in OLDF file %s\n",
+                                                      arcArray.Size(), config.designFileName);
+        else
+         {
+          retVal = false;
+          LogOLDFValidity("arcs do not close (sum %f, %f) in OLDF file %s\n", sumDist[0],
+                                                        sumDist[1], config.designFileName);
+         }
+       }
+      else
+        retVal = false;
+     }
+    else
+     {
+      LogOLDFValidity("boundaries:arcs array is too small (size %d) in OLDF file %s\n",
+                                                    arcArray.Size(), config.designFileName);
+     }
+   }
+  else
+   {
+    LogOLDFValidity("No boundaries:arcs array in OLDF file %s\n", config.designFileName);
+    retVal = false;
+   }
+  
+ return retVal;
+}
+
+
+// =======================================================================================
 // Function to check the structure of the OLDF introductoryData object.
 
 bool PmodDesign::validateBoundaries(void)
@@ -359,7 +437,7 @@ bool PmodDesign::validateBoundaries(void)
   Value&  boundaries  = doc["boundaries"];
 
   retVal &= validateReferencePoint(boundaries);
-  //retVal &= validateArcs(boundaries);
+  retVal &= validateArcs(boundaries);
 
   return retVal;
 }

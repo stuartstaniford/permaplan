@@ -51,7 +51,7 @@ private:
   bool validateVersion(rapidjson::Value& introductoryData);
   bool validateFileTime(rapidjson::Value& introductoryData);
   bool validateReferencePoint(rapidjson::Value& boundaries);
-  //bool validateArcs(rapidjson::Value& boundaries);
+  bool validateArcs(rapidjson::Value& boundaries);
   bool validateBoundaries(void);
   PmodDesign(const PmodDesign&);                 // Prevent copy-construction
   PmodDesign& operator=(const PmodDesign&);      // Prevent assignment
