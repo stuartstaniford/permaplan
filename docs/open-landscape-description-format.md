@@ -131,6 +131,38 @@ The author value is a JSON string to denote the human author of a particular fil
 
 ## Land Surface
 
+The landSurface object contains data allowing OLDF data to model the relief of the surface of the land that is present within the boundaries.  This can be done in a variety of ways.  On is storing explicit altitudes (eg as obtained from survey measurements or from a GPS device (or phone app).  Alternatively, several mathematical approximation schemes are supported by the specification.
+
+### textureURL (optional)
+
+Syntax: `"textureURL":  <url>,`
+
+The version value is a JSON array of exactly three integers which denote the version of this specification that governs the format of the file.  The current version is `[0,0,1]`.  Version numbers will be incremented as the file format continues to evolve over time.  A general convention is that changes in minor version numbers will be expected to preserve backward compatability with older versions of OLDF parsing software.  However, this may not be the case with changes in major version number.  Major version 0 is used for versions of the specification prior to general release, while it is in early development and testing.
+
+### landSurface Example
+The example below shows a simple boundaries object
+```
+ // Example OLDF landSurface object
+"landSurface":
+  {
+   "textureURL": "http://www.mydomain.org/blah.png",
+   "width": 685.0,
+   "altitudes":
+      [
+       [341.0, 311.0, 1451.0],  // in front of barn
+       [20, 697, 1500.0],       // where the stream exits top of the land
+       [526, 752, 1446.0],      // in the pond
+       [578, 381, 1433.0],      // Six Mile Creek
+       [593, 328, 1433.0],      // Six Mile Creek near road
+       [362, 187, 1447.5],      // Lower left of gable of house
+       [459.7, 613.76, 1447.3], // Corner of gazebo closest to house
+       [684.3, 495.1, 1446.0],  // Outlet of pond
+       [407.4, 129.6, 1445.5],  // Center of road opposite lower left of gable
+       [15, 1009, 1520.0],      // Top corner of land
+       [470, 195, 1443.0]       // Driveway meets road
+     ]
+  },
+```
 
 ## Boundaries
 
@@ -172,33 +204,36 @@ This example is a square plot, three hundred feet on each side, in Manhattan, NY
 This section covers plants in the landscape.  The plants value is a JSON array of an arbitrary number of individual plants.  Each plant is described by an object, with various named attributes about that particular plant.
 
 ### Plants Example
-The example below shows the beginning of a plants object, with the first plant in the array laid
-out in detail.  Individual attributes of the plant are described below.
+The example below shows the beginning of a plants array, with the first plant in the array laid
+out in detail.  Individual attributes of the plant are described below.  If there are no plants in the file, that should
+be expressed as an empty array (but the plants tag should be present).
 
 ```
 // Example OLDF plants object
  "plants":
-  {
-    [
-      {
-       "location": [92, 48],
-       "yearPlanted": 2022,
-       "timePlanted":
-       "genus": "Acer",
-       "species": "rubrum",
-       "taxonomyLink": 
-    },
+  [
+    {
+     "location": [92, 48],
+     "yearPlanted": 2022,
+     "timePlanted":
+     "genus": "Acer",
+     "species": "rubrum",
+     "taxonomyLink": 
+   },
    ...
-   ]
- },
+ ],
 ```
 ### location (mandatory)
 
 Syntax: `"location": [<unitsEast>, <unitsNorth>],`
 
-The location gives the planting location (actual or planned) of this particular plant.
+The location gives the planting location (actual or planned) of this particular plant.  This is described by an array of two numbers, the displacements east and north of the referencePoint (from the boundaries object), expressed in the units set in the introductoryData:spaceUnits.
 
 ### yearPlanted (mandatory)
+
+Syntax: `"yearPlanted": <year>,`
+
+This is the year that this plant was estimated to have been planted, expressed as an integer number of years AD.  Obviously, for existing plants that were planted long ago (eg established trees) this may have to be expressed quite roughly.
 
 ### timePlanted (optional)
 
