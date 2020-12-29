@@ -538,22 +538,58 @@ bool PmodDesign::validateTexture(Value& landSurface)
 bool PmodDesign::validateAltitudes(Value& landSurface)
 {
   bool retVal = true;
-/*  const PmodConfig& config = PmodConfig::getConfig();
+  const PmodConfig& config = PmodConfig::getConfig();
 
-
- if(LsJson.HasMember("altitudes"))
+  if(!landSurface.HasMember("altitudes"))
    {
-    unless(LsJson["altitudes"].IsArray())
-      err(-1, "Altitudes is not array in file %s\n", config.designFileName);
-    unless((initialHeightCount = LsJson["altitudes"].Size()) > 0)
-     {
-      warn("Empty altitudes array in JSON file.");
-     }
-    altitudeArray = &LsJson["altitudes"];
+    LogOLDFDetails("No landSurface:altitudes object in OLDF file %s\n", config.designFileName);
+    return true; // it is optional
    }
-  if(checkGLError(stderr, "LandSurface::LandSurface"))
-    exit(-1);
-*/
+
+  if(landSurface["altitudes"].IsArray())
+   {
+    Value& altitudeArray = landSurface["altitudes"];
+    for(int i = 0; i < altitudeArray.Size(); i++)
+     {
+      if(altitudeArray[i].IsArray())
+       {
+        int s = altitudeArray[i].Size();
+        if(s == 3 || s == 4)
+         {
+          for(int j=0; j<3; j++)
+            if(altitudeArray[i][j].IsNumber())
+             {
+              //XXX need to check fits in bounds?
+             }
+            else
+             {
+              LogOLDFValidity("landSurface:altitudes[%d][%d] is non numeric"
+                      " in OLDF file %s\n", i, j, config.designFileName);
+              retVal = false;
+             }
+         }
+        else
+         {
+          LogOLDFValidity("landSurface:altitudes[%d] is wrong size (%d) array"
+                              " in OLDF file %s\n", i, s, config.designFileName);
+          retVal = false;
+         }
+       }
+      else
+       {
+        LogOLDFValidity("landSurface:altitudes[%d] is not array in OLDF file %s\n",
+                                                            i, config.designFileName);
+        retVal = false;
+       }
+     }
+   }
+  else
+   {
+    LogOLDFValidity("landSurface:altitudes is not array in OLDF file %s\n",
+                                                                config.designFileName);
+    retVal = false;
+   }
+
 
  return retVal;
 }
