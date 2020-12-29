@@ -192,6 +192,11 @@ Syntax: `offset": [<westOffset>, <southOffset>]`
 
 The offset describe the relationship of the lower left (ie southwest) corner of the texture image to the referencePoint on the boundary that is described in the boundaries object.  Both co-ordinates are expressed in spaceUnits.  <westOffset> describes how far west of the referencePoint the corner is, and <southOffset> describes how far south it is.  Note files MUST conform to the convention that the entire boundary must fall within the image rectangle, if one is defined.
 
+### altitudes (optional)
+
+Syntax: `"altitudes":  [ [<x>, <y>, <z>, "<annotation>"], [...], ...],`
+
+The altitudes element in the landSurface object is an array of four-tuples which represent points measurements of the height of the land surface at particular locations (eg as determined by survey measurements, from a GPS device or phone application, etc).  Each four tuple consists of first the `<x>` and `<y>` values which denote the location of this particular measurement (in spaceUnits from the boundaries:referencePoint).  Then comes the `<z>` value which is the altitude of the landSurface above mean sea level (also expressed in spaceUnits - either feet or meters).  These first three values are numerical, but the fourth element (which is optional) is a string with a description of this particular location or measurement.  This string is not constrained by this specification and is for human consumption.
 
 ### landSurface Example
 The example below shows a simple boundaries object
@@ -206,19 +211,19 @@ The example below shows a simple boundaries object
      "offset": [20, 40]
     },
    "altitudes":
-      [
-       [341.0, 311.0, 1451.0],  // in front of barn
-       [20, 697, 1500.0],       // where the stream exits top of the land
-       [526, 752, 1446.0],      // in the pond
-       [578, 381, 1433.0],      // Six Mile Creek
-       [593, 328, 1433.0],      // Six Mile Creek near road
-       [362, 187, 1447.5],      // Lower left of gable of house
-       [459.7, 613.76, 1447.3], // Corner of gazebo closest to house
-       [684.3, 495.1, 1446.0],  // Outlet of pond
-       [407.4, 129.6, 1445.5],  // Center of road opposite lower left of gable
-       [15, 1009, 1520.0],      // Top corner of land
-       [470, 195, 1443.0]       // Driveway meets road
-     ]
+    [
+      [341.0, 311.0, 1451.0,   "in front of barn"],
+      [20, 697, 1500.0,        "where the stream exits top of the land"],
+      [526, 752, 1446.0,       "in the pond"],
+      [578, 381, 1433.0,       "Six Mile Creek"],
+      [593, 328, 1433.0,       "Six Mile Creek near road"],
+      [362, 187, 1447.5,       "Lower left of gable of house"],
+      [459.7, 613.76, 1447.3,  "Corner of gazebo closest to house"],
+      [684.3, 495.1, 1446.0,   "Outlet of pond"],
+      [407.4, 129.6, 1445.5,   "Center of road opposite lower left of gable"],
+      [15, 1009, 1520.0,       "Top corner of land"],
+      [470, 195, 1443.0,       "Driveway meets road"]
+    ]
   },
 ```
 

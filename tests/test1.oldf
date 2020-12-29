@@ -20,17 +20,17 @@
      },
     "altitudes":
       [
-       [341.0, 311.0, 1451.0],  // in front of barn
-       [20, 697, 1500.0],       // where the stream exits top of the land
-       [526, 752, 1446.0],      // in the pond
-       [578, 381, 1433.0],      // Six Mile Creek
-       [593, 328, 1433.0],      // Six Mile Creek near road
-       [362, 187, 1447.5],      // Lower left of gable of house
-       [459.7, 613.76, 1447.3], // Corner of gazebo closest to house
-       [684.3, 495.1, 1446.0],  // Outlet of pond
-       [407.4, 129.6, 1445.5],  // Center of road opposite lower left of gable
-       [15, 1009, 1520.0],      // Top corner of land
-       [470, 195, 1443.0]       // Driveway meets road
+       [341.0, 311.0, 1451.0,   "in front of barn"],
+       [20, 697, 1500.0,        "where the stream exits top of the land"],
+       [526, 752, 1446.0,       "in the pond"],
+       [578, 381, 1433.0,       "Six Mile Creek"],
+       [593, 328, 1433.0,       "Six Mile Creek near road"],
+       [362, 187, 1447.5,       "Lower left of gable of house"],
+       [459.7, 613.76, 1447.3,  "Corner of gazebo closest to house"],
+       [684.3, 495.1, 1446.0,   "Outlet of pond"],
+       [407.4, 129.6, 1445.5,   "Center of road opposite lower left of gable"],
+       [15, 1009, 1520.0,       "Top corner of land"],
+       [470, 195, 1443.0,       "Driveway meets road"]
      ]
    },
  "plants":
