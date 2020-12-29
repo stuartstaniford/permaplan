@@ -129,41 +129,6 @@ Syntax: `"author":  "First Last",`
 
 The author value is a JSON string to denote the human author of a particular file.  The specification allows any UTF8 string and does not constrain to any particular convention of naming humans or organizations.
 
-## Land Surface
-
-The landSurface object contains data allowing OLDF data to model the relief of the surface of the land that is present within the boundaries.  This can be done in a variety of ways.  On is storing explicit altitudes (eg as obtained from survey measurements or from a GPS device (or phone app).  Alternatively, several mathematical approximation schemes are supported by the specification.
-
-### textureURL (optional)
-
-Syntax: `"textureURL":  <url>,`
-
-The version value is a JSON array of exactly three integers which denote the version of this specification that governs the format of the file.  The current version is `[0,0,1]`.  Version numbers will be incremented as the file format continues to evolve over time.  A general convention is that changes in minor version numbers will be expected to preserve backward compatability with older versions of OLDF parsing software.  However, this may not be the case with changes in major version number.  Major version 0 is used for versions of the specification prior to general release, while it is in early development and testing.
-
-### landSurface Example
-The example below shows a simple boundaries object
-```
- // Example OLDF landSurface object
-"landSurface":
-  {
-   "textureURL": "http://www.mydomain.org/blah.png",
-   "width": 685.0,
-   "altitudes":
-      [
-       [341.0, 311.0, 1451.0],  // in front of barn
-       [20, 697, 1500.0],       // where the stream exits top of the land
-       [526, 752, 1446.0],      // in the pond
-       [578, 381, 1433.0],      // Six Mile Creek
-       [593, 328, 1433.0],      // Six Mile Creek near road
-       [362, 187, 1447.5],      // Lower left of gable of house
-       [459.7, 613.76, 1447.3], // Corner of gazebo closest to house
-       [684.3, 495.1, 1446.0],  // Outlet of pond
-       [407.4, 129.6, 1445.5],  // Center of road opposite lower left of gable
-       [15, 1009, 1520.0],      // Top corner of land
-       [470, 195, 1443.0]       // Driveway meets road
-     ]
-  },
-```
-
 ## Boundaries
 
 The boundaries object is used to define the edge of the contiguous parcel described by this particular OLDF object.  Generally the boundaries will be the legally defined bounds of the parcel ownership.  Boundaries are defined by means of a single reference point absolutely defined by latitude and longtitude, and then a series of straight arcs expressed in spaceUnits (either feet or meters as defined in the introductoryData).  Non straight boundary arcs must be approximated by a series of short straight segments. The boundary arcs must vector sum to zero (ie the boundary forms a closed polygon), and the boundary must not intersect itself otherwise.  The detailed formats of the two sections are as follows. T
@@ -198,6 +163,64 @@ The example below shows a simple boundaries object
   },
 ```
 This example is a square plot, three hundred feet on each side, in Manhattan, NY.
+
+## Land Surface
+
+The landSurface object contains data allowing OLDF data to model the relief of the surface of the land that is present within the boundaries.  This can be done in a variety of ways.  On is storing explicit altitudes (eg as obtained from survey measurements or from a GPS device (or phone app).  Alternatively, several mathematical approximation schemes are supported by the specification.
+
+### texture (optional)
+
+Syntax: `"texture":  {"url": "<url>", ...},`
+
+The texture is an object with three elements (url, width, offset), which are described individually next.  All three of these elements must be present in the texture object (if a texture object is present at all in the landSurface).
+
+#### url (mandatory)
+
+Syntax: `"url": "<url>",`
+
+The url element is a string representing the location of an image file that can be used to texture the landsurface (typically a satellite photo or a map of some kind ).  URLs are as per [RFC 3986](https://tools.ietf.org/html/rfc3986).  In particular, the file:// scheme can be used to represent a local file.   
+
+####  width (mandatory)
+
+Syntax: `"width": <width>,`
+
+The width element is a number giving the scale of the image file from the url element, which is defined as a number of spaceUnits.  The number may be an integer or have a decimal part.   The height is not specified explicitly but is to be inferred from the aspect ratio of the image.
+
+#### offset (mandatory)
+
+Syntax: `offset": [<westOffset>, <southOffset>]`
+
+The offset describe the relationship of the lower left (ie southwest) corner of the texture image to the referencePoint on the boundary that is described in the boundaries object.  Both co-ordinates are expressed in spaceUnits.  <westOffset> describes how far west of the referencePoint the corner is, and <southOffset> describes how far south it is.  Note files MUST conform to the convention that the entire boundary must fall within the image rectangle, if one is defined.
+
+
+### landSurface Example
+The example below shows a simple boundaries object
+```
+ // Example OLDF landSurface object
+"landSurface":
+  {
+   "texture": 
+    {
+     "url": "http://www.mydomain.org/blah.png", 
+     "width": 685.0,
+     "offset": [20, 40]
+    },
+   "altitudes":
+      [
+       [341.0, 311.0, 1451.0],  // in front of barn
+       [20, 697, 1500.0],       // where the stream exits top of the land
+       [526, 752, 1446.0],      // in the pond
+       [578, 381, 1433.0],      // Six Mile Creek
+       [593, 328, 1433.0],      // Six Mile Creek near road
+       [362, 187, 1447.5],      // Lower left of gable of house
+       [459.7, 613.76, 1447.3], // Corner of gazebo closest to house
+       [684.3, 495.1, 1446.0],  // Outlet of pond
+       [407.4, 129.6, 1445.5],  // Center of road opposite lower left of gable
+       [15, 1009, 1520.0],      // Top corner of land
+       [470, 195, 1443.0]       // Driveway meets road
+     ]
+  },
+```
 
 ## Plants
 

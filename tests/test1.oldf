@@ -12,8 +12,12 @@
     },
   "landSurface":
    {
-    "textureURL": "http://www.mydomain.org/blah.png",
-    "width": 685.0,
+    "texture":
+     {
+      "url": "http://www.mydomain.org/blah.png",
+      "width": 685.0,
+      "offset": [20, 40]
+     },
     "altitudes":
       [
        [341.0, 311.0, 1451.0],  // in front of barn

@@ -444,6 +444,140 @@ bool PmodDesign::validateBoundaries(void)
 
 
 // =======================================================================================
+// Function to check the OLDF texture inside landSurface (note that it is optional).
+
+bool PmodDesign::validateTexture(Value& landSurface)
+{
+  bool retVal = true;
+  const PmodConfig& config = PmodConfig::getConfig();
+  
+  if(!landSurface.HasMember("texture"))
+   {
+    LogOLDFDetails("No landSurface:texture object in OLDF file %s\n", config.designFileName);
+    return true; // it is optional
+   }
+  
+  if(!landSurface["texture"].IsObject())
+   {
+    LogOLDFValidity("landSurface:texture is not object in OLDF file %s\n",
+                                                                config.designFileName);
+    retVal = false;
+   }
+  else
+   {
+    Value& texture  = landSurface["texture"];
+    bool widthOk  = true;
+    bool urlOk    = true;
+    bool offsetOk = true;
+    
+    float width;
+    if(texture.HasMember("width") && texture["width"].IsNumber())
+      width = texture["width"].GetFloat();
+    else
+     {
+      LogOLDFValidity("Bad landSurface:texture:width in OLDF file %s\n",
+                                                                config.designFileName);
+      widthOk = false;
+     }
+    const char* url;
+    if(texture.HasMember("url") && texture["url"].IsString())
+      url = texture["url"].GetString();
+    else
+     {
+      LogOLDFValidity("Bad landSurface:texture:url in OLDF file %s\n",
+                                                                config.designFileName);
+      urlOk = false;
+     }
+    float west, south;
+    if(texture.HasMember("offset") && texture["offset"].IsArray())
+     {
+      Value& offset = texture["offset"];
+      if(offset.Size() != 2)
+       {
+        LogOLDFValidity("landSurface:texture:offset has wrong size %d in OLDF file %s\n",
+                                                    offset.Size(), config.designFileName);
+        offsetOk = false;
+       }
+      else
+       {
+        if(offset[0].IsNumber() && offset[1].IsNumber())
+         {
+          west  = offset[0].GetFloat();
+          south = offset[1].GetFloat();
+         }
+        else
+         {
+          LogOLDFValidity("landSurface:texture:offset: non-numerical vals in OLDF file %s\n",
+                                                                  config.designFileName);
+          offsetOk = false;
+         }
+       }
+     }
+    else
+     {
+      LogOLDFValidity("Bad landSurface:texture:offset in OLDF file %s\n",
+                                                                config.designFileName);
+      retVal = false;
+     }
+    if(widthOk && urlOk && offsetOk)
+     {
+      // the whole texture object is soft and sweet-smelling.
+      LogOLDFDetails("Valid landSurface:texture object for %s in OLDF file %s\n",
+                                                        url, config.designFileName);
+     }
+    else
+      retVal = false; // specific problems will have been logged above.
+   }
+ return retVal;
+}
+
+
+// =======================================================================================
+// Function to check the OLDF altitudes inside landSurface (note that it is optional).
+
+bool PmodDesign::validateAltitudes(Value& landSurface)
+{
+  bool retVal = true;
+/*  const PmodConfig& config = PmodConfig::getConfig();
+
+
+ if(LsJson.HasMember("altitudes"))
+   {
+    unless(LsJson["altitudes"].IsArray())
+      err(-1, "Altitudes is not array in file %s\n", config.designFileName);
+    unless((initialHeightCount = LsJson["altitudes"].Size()) > 0)
+     {
+      warn("Empty altitudes array in JSON file.");
+     }
+    altitudeArray = &LsJson["altitudes"];
+   }
+  if(checkGLError(stderr, "LandSurface::LandSurface"))
+    exit(-1);
+*/
+
+ return retVal;
+}
+
+
+// =======================================================================================
+// Function to check the structure of the OLDF landSurface object.  Note the convention
+// is that the syntactical correctness and anything that can be statically checked our
+// checked here.  However dynamical issues (eg files not present, urls not loading) are
+// checked in the LandSurface class.
+
+bool PmodDesign::validateLandSurface(void)
+{
+  bool    retVal  = true;
+  Value&  landSurface  = doc["landSurface"];
+
+  retVal &= validateTexture(landSurface);
+  retVal &= validateAltitudes(landSurface);
+
+  return retVal;
+}
+
+
+// =======================================================================================
 // Function to check the structure of the OLDF object after it has been parsed out of the
 // file (ie it is at least known to be valid JSON at this point, now we want to know if
 // it's valid OLDF.  Do a lot of logging of the structure if so configured.
@@ -468,6 +602,14 @@ bool PmodDesign::validateOLDF(void)
    }
   else
     retVal &= validateBoundaries();
+
+  if(!(doc.HasMember("landSurface") && doc["landSurface"].IsObject()))
+   {
+    LogOLDFValidity("No land Surface in OLDF file %s\n", config.designFileName);
+    retVal = false;
+   }
+  else
+    retVal &= validateLandSurface();
 
   return retVal;
 }

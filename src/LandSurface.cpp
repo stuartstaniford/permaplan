@@ -33,9 +33,7 @@ LandSurface::LandSurface(void):
   const PmodConfig& config = PmodConfig::getConfig();
   PmodDesign& design = PmodDesign::getDesign();
 
-  if(!(design.doc.HasMember("landSurface") && design.doc["landSurface"].IsObject()))
-    err(-1, "No land surface available\n");
-  
+  // Note that syntax of the landSurface object has already been checked in PmodDesign
   Value& LsJson = design.doc["landSurface"];
   float width;
   if(LsJson.HasMember("width") && LsJson["width"].IsNumber())

@@ -53,6 +53,10 @@ private:
   bool validateReferencePoint(rapidjson::Value& boundaries);
   bool validateArcs(rapidjson::Value& boundaries);
   bool validateBoundaries(void);
+  bool validateTexture(rapidjson::Value& landSurface);
+  bool validateAltitudes(rapidjson::Value& landSurface);
+  bool validateLandSurface(void);
+
   PmodDesign(const PmodDesign&);                 // Prevent copy-construction
   PmodDesign& operator=(const PmodDesign&);      // Prevent assignment
 
