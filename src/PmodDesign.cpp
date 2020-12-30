@@ -22,7 +22,8 @@ PmodDesign* PmodDesign::design = NULL;
 // Constructor: parse the json file
 
 PmodDesign::PmodDesign(void):
-                  writeFile(NULL)
+                  writeFile(NULL),
+                  metricUnits(false)
 {
   // Constructor should only be called once at startup.  Everyone else gets us via
   // getDesign()
@@ -59,14 +60,22 @@ bool PmodDesign::validateSpaceUnits(Value& introductoryData)
   if(introductoryData.HasMember("spaceUnits") && introductoryData["spaceUnits"].IsString())
    {
     const char* token = introductoryData["spaceUnits"].GetString();
-    if(!(strcmp(token, "feet") == 0 || strcmp(token, "meters") == 0 ))
+    if(strcmp(token, "feet") == 0)
+     {
+      LogOLDFDetails("Using feet as spatial units in OLDF file %s\n", config.designFileName);
+      metricUnits = false;
+     }
+    else if(strcmp(token, "meters") == 0 )
+     {
+      LogOLDFDetails("Using meters as spatial units in OLDF file %s\n", config.designFileName);
+      metricUnits = true;
+     }
+    else
      {
       LogOLDFValidity("Bad introductoryData:spaceUnits %s, in OLDF file %s\n",
                                                             token, config.designFileName);
       retVal = false;
      }
-    else
-     LogOLDFDetails("spaceUnits are %s in OLDF file %s\n", token, config.designFileName);
    }
   else
    {
@@ -659,7 +668,11 @@ void PmodDesign::writeIntroductoryData(char* indent)
  fprintf(writeFile, "%s\"introductoryData\":\n", indent);
  fprintf(writeFile, "%s {\n", indent);
  fprintf(writeFile, "%s%s\"spaceUnits\": ", indent, indent);
-
+ if(metricUnits)
+   fprintf(writeFile, "\"meters\",\n");
+ else
+   fprintf(writeFile, "\"feet\",\n");
+ 
  fprintf(writeFile, "%s },\n", indent);
 }
 

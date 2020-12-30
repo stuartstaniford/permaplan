@@ -26,6 +26,7 @@ class PmodDesign
   int                 baseYear;
   Timeval             fileTime;
   FILE*               writeFile;
+  bool                metricUnits;
   
 private:
   
