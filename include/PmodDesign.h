@@ -35,6 +35,7 @@ public:
   // Member functions - public
   PmodDesign(void);
   bool validateOLDF(void);
+  void writeOLDFFile(void);
   ~PmodDesign(void);
   static PmodDesign& getDesign(void) // Get the singleton instance
   {
@@ -43,6 +44,8 @@ public:
 private:
 
   // Member functions - private
+  
+  // Functions associated with validating the OLDF file.
   bool validateStringMemberExists(rapidjson::Value& thisObject, char* objName, char* member);
   bool validateOptionalStringMember(rapidjson::Value& thisObject, char* objName, char* member);
   bool validateIntroductoryData(void);
@@ -57,6 +60,8 @@ private:
   bool validateAltitudes(rapidjson::Value& landSurface);
   bool validateLandSurface(void);
 
+  // Functions associated with writing out the OLDF file
+  
   PmodDesign(const PmodDesign&);                 // Prevent copy-construction
   PmodDesign& operator=(const PmodDesign&);      // Prevent assignment
 

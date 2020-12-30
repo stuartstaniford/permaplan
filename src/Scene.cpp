@@ -52,6 +52,11 @@ void Scene::saveState(void)
   const PmodConfig& config = PmodConfig::getConfig();
   if(config.bezWriteFileName)
     qtree->saveSurfaceState(config.bezWriteFileName);
+  if(config.writeDesignFileName)
+   {
+    PmodDesign& theDesign = PmodDesign::getDesign();
+    theDesign.writeOLDFFile();
+   }
 }
 
 

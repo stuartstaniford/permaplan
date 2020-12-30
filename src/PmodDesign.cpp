@@ -652,6 +652,15 @@ bool PmodDesign::validateOLDF(void)
 
 
 // =======================================================================================
+// Function to write out an OLDF file from current in memory state.
+
+void PmodDesign::writeOLDFFile(void)
+{
+
+}
+
+
+// =======================================================================================
 // Destructor
 
 PmodDesign::~PmodDesign()

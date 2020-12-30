@@ -20,6 +20,7 @@ class PmodConfig
   bool            levelPlane;
   char*           bezReadFileName;
   char*           bezWriteFileName;
+  char*           writeDesignFileName;
   
   private:
   

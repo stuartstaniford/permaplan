@@ -45,15 +45,16 @@ PmodConfig::PmodConfig(int argc, char* argv[])
   
   int optionChar;
   
-  progName          = strdup(argv[0]);
-  plotAxes          = false;
-  designFileName    = NULL;
-  debugPort         = 2080;
-  levelPlane        = false;
-  bezReadFileName   = NULL;
-  bezWriteFileName  = NULL;
-
-  while( (optionChar = getopt(argc, argv, "Ab:B:d:g:Lp:")) != -1)
+  progName            = strdup(argv[0]);
+  plotAxes            = false;
+  designFileName      = NULL;
+  debugPort           = 2080;
+  levelPlane          = false;
+  bezReadFileName     = NULL;
+  bezWriteFileName    = NULL;
+  writeDesignFileName = NULL;
+  
+  while( (optionChar = getopt(argc, argv, "Ab:B:d:D:g:Lp:")) != -1)
   switch (optionChar)
    {
     case 'A':
@@ -70,6 +71,10 @@ PmodConfig::PmodConfig(int argc, char* argv[])
 
     case 'd':
       designFileName = optarg;
+      break;
+
+    case 'D':
+      writeDesignFileName = optarg;
       break;
 
      case 'g':
