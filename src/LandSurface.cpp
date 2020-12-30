@@ -33,17 +33,23 @@ LandSurface::LandSurface(void):
   const PmodConfig& config = PmodConfig::getConfig();
   PmodDesign& design = PmodDesign::getDesign();
 
-  // Note that syntax of the landSurface object has already been checked in PmodDesign
+  // Note that syntax of the landSurface object has already been checked in PmodDesign,
+  // so we can rely on the structure being correct OLDF here.
   Value& LsJson = design.doc["landSurface"];
-  float width;
-  if(LsJson.HasMember("width") && LsJson["width"].IsNumber())
-    width = LsJson["width"].GetFloat();
-  else
-    err(-1, "Bad landSurface width in file %s\n", config.designFileName);
-  if(LsJson.HasMember("textureFile") && LsJson["textureFile"].IsString())
-    rect = new TexturedRect(LsJson["textureFile"].GetString(), width, 0.0f);
-  else
-    err(-1, "Bad landSurface texturefile in file %s\n", config.designFileName);
+  unless(LsJson.HasMember("texture") && LsJson["texture"].IsObject())
+   {
+    //XX need to handle case of no texture.
+    err(-1, "Cannot handle no texture correctly in file %s\n", config.designFileName);
+   }
+  float width = LsJson["texture"]["width"].GetFloat();
+  const char* url = LsJson["texture"]["url"].GetString();
+  unless(strlen(url) > 6 && strncmp(url, "file:/", 6) == 0)
+   {
+    //XX need to handle other kinds of urls via an http client library
+    err(-1, "Only file:/ urls handled in texture url %s in file %s\n", url, config.designFileName);
+   }
+  
+  rect = new TexturedRect(url+6, width, 0.0f);
 
   if(LsJson.HasMember("altitudes"))
    {
@@ -93,7 +99,8 @@ LandSurface::~LandSurface(void)
 
 
 // =======================================================================================
-// used to extract further height locations from the json design file
+// used to extract further height locations from the oldf design file.  Note that OLDF
+// file syntax is checked in PmodDesign, so we can safely assume it's correct here.
 
 bool LandSurface::nextInitialHeightLocation(vec3 location)
 {
@@ -103,12 +110,6 @@ bool LandSurface::nextInitialHeightLocation(vec3 location)
     return false;
 
   Value& row = (*altitudeArray)[initialHeightIndex];
-  unless(row.IsArray())
-    err(-1, "Bad row %d in altitudes.\n", initialHeightIndex);
-  unless(row.Size() == 3)
-    err(-1, "Bad row %d in altitudes has %d members instead of 3.\n",
-                        initialHeightIndex, row.Size());
-
   for(int i=0; i<3; i++)
     location[i] = row[i].GetFloat();
   initialHeightIndex++;

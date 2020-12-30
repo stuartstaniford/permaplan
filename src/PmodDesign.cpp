@@ -45,7 +45,6 @@ PmodDesign::PmodDesign(void):
     err(-1, "Base of OLDF file %s is not JSON object.\n", config.designFileName);
   if(!validateOLDF())
     err(-1, "Invalid OLDF file %s - see log for details\n", config.designFileName);
-
 }
 
 

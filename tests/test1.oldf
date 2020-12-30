@@ -14,7 +14,7 @@
    {
     "texture":
      {
-      "url": "http://www.mydomain.org/blah.png",
+      "url": "file:/Materials/Trees/Acer_rubrum/October-Glory-Variant-Summer-Leaf.png",
       "width": 685.0,
       "offset": [20, 40]
      },
