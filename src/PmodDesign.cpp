@@ -21,7 +21,8 @@ PmodDesign* PmodDesign::design = NULL;
 // =======================================================================================
 // Constructor: parse the json file
 
-PmodDesign::PmodDesign(void)
+PmodDesign::PmodDesign(void):
+                  writeFile(NULL)
 {
   // Constructor should only be called once at startup.  Everyone else gets us via
   // getDesign()
@@ -652,11 +653,43 @@ bool PmodDesign::validateOLDF(void)
 
 
 // =======================================================================================
-// Function to write out an OLDF file from current in memory state.
+// Write out the introductory data section of the OLDF file.
+
+void PmodDesign::writeIntroductoryData(char* indent)
+{
+ fprintf(writeFile, "%s\"introductoryData\":\n", indent);
+ fprintf(writeFile, "%s {\n", indent);
+ fprintf(writeFile, "%s%s\"spaceUnits\": ", indent, indent);
+
+ fprintf(writeFile, "%s },\n", indent);
+}
+
+
+// =======================================================================================
+// Function to write out an OLDF file from current in memory state.  Note, we write out
+// our JSON with simple fprintf statements in fixed order, as this approach is cheaper
+// and easier than using the rapidjson library.  On reading, we need to handle any valid
+// JSON formatting, but on writing, we only need a single valid format.
 
 void PmodDesign::writeOLDFFile(void)
 {
-
+  const PmodConfig& config = PmodConfig::getConfig();
+  
+  // Get the file, opening comment, etc
+  writeFile = fopen(config.writeDesignFileName, "w");
+  unless(writeFile)
+    err(-1, "Couldn't open %s to write out OLDF file.\n", config.writeDesignFileName);
+  fprintf(writeFile, "//OLDF Format - see https://github.com/stuartstaniford"
+                "/permaplan/blob/master/docs/open-landscape-description-format.md"
+                "\n{\n");
+  
+  // Write out the difference sections.
+  writeIntroductoryData((char*)"  ");
+  
+  // Go home, we are done.
+  fprintf(writeFile, "}\n");
+  fclose(writeFile);
+  writeFile = NULL;
 }
 
 

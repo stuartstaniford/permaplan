@@ -25,6 +25,7 @@ class PmodDesign
   rapidjson::Document doc;
   int                 baseYear;
   Timeval             fileTime;
+  FILE*               writeFile;
   
 private:
   
@@ -61,7 +62,8 @@ private:
   bool validateLandSurface(void);
 
   // Functions associated with writing out the OLDF file
-  
+  void writeIntroductoryData(char* insert);
+
   PmodDesign(const PmodDesign&);                 // Prevent copy-construction
   PmodDesign& operator=(const PmodDesign&);      // Prevent assignment
 

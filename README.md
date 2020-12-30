@@ -20,6 +20,8 @@ make depend
 
 make
 
+Test suites depend on jq (https://stedolan.github.io/jq/ or "brew install jq").
+
 Additional appreciations:
 
 Sean Barrett for stb_image.h and stb_image_write.h.
