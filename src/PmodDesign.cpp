@@ -703,7 +703,7 @@ void PmodDesign::writeIntroductoryData(char* indent)
 // and easier than using the rapidjson library.  On reading, we need to handle any valid
 // JSON formatting, but on writing, we only need a single valid format.
 
-void PmodDesign::writeOLDFFile(void)
+void PmodDesign::writeOLDFFile(LandSurface& land)
 {
   const PmodConfig& config = PmodConfig::getConfig();
   
@@ -715,8 +715,10 @@ void PmodDesign::writeOLDFFile(void)
                 "/permaplan/blob/master/docs/open-landscape-description-format.md"
                 "\n{\n");
   
-  // Write out the difference sections.
-  writeIntroductoryData((char*)"  ");
+  // Write out the different sections.
+  char* indent = (char*)"  ";
+  writeIntroductoryData(indent);
+  land.writeOLDFSection(writeFile, indent);
   
   // Go home, we are done.
   fprintf(writeFile, "}\n");

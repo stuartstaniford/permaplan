@@ -10,10 +10,12 @@
 #include "rapidjson/writer.h"
 #include "rapidjson/stringbuffer.h"
 #include "rapidjson/error/en.h"
+#include "LandSurface.h"
 #include "PmodConfig.h"
 #include "Timeval.h"
 
 #define spaceUnitsText(x) ((x)?(char*)"meters":(char*)"feet")
+
 // =======================================================================================
 // Class variable initialization
 
@@ -38,7 +40,7 @@ public:
   // Member functions - public
   PmodDesign(void);
   bool validateOLDF(void);
-  void writeOLDFFile(void);
+  void writeOLDFFile(LandSurface& land);
   ~PmodDesign(void);
   static PmodDesign& getDesign(void) // Get the singleton instance
   {

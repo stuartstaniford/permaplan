@@ -11,6 +11,7 @@
 #include <GLFW/glfw3.h>
 #include "Camera.h"
 #include "LandSurface.h"
+#include "PmodDesign.h"
 
 
 // =======================================================================================
@@ -323,6 +324,19 @@ void LandSurface::draw(Camera& camera)
 
   if(checkGLError(stderr, "LandSurface::draw"))
     exit(-1);
+}
+
+
+// =======================================================================================
+// Write out the LandSurface data to a file in OLDF JSON format.
+
+void LandSurface::writeOLDFSection(FILE* file, char* indent)
+{
+  // Open the object
+  fprintf(file, "%s\"landSurface\":\n", indent);
+  fprintf(file, "%s {\n", indent);
+
+  fprintf(file, "%s },\n", indent);
 }
 
 

@@ -55,7 +55,7 @@ void Scene::saveState(void)
   if(config.writeDesignFileName)
    {
     PmodDesign& theDesign = PmodDesign::getDesign();
-    theDesign.writeOLDFFile();
+    theDesign.writeOLDFFile(land);
    }
 }
 

@@ -10,7 +10,6 @@
 #include <cglm/cglm.h>
 #include <vector>
 #include "Shader.h"
-#include "PmodDesign.h"
 #include "VertexArrayObject.h"
 #include "VertexBufferObject.h"
 #include "TexturedRect.h"
@@ -18,6 +17,7 @@
 #include "Camera.h"
 #include "HeightMarker.h"
 #include "BezierPatch.h"
+#include "rapidjson/document.h"
 
 
 // =======================================================================================
@@ -41,6 +41,7 @@ class LandSurface
   bool diagnosticHTML(HttpDebug* serv);
   bool nextInitialHeightLocation(vec3 location);
   inline unsigned  getLocationCount(void) {return locationCount;}
+  void writeOLDFSection(FILE* file, char* indent);
 
  private:
   
