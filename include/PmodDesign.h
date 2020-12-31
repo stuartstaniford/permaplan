@@ -13,6 +13,7 @@
 #include "PmodConfig.h"
 #include "Timeval.h"
 
+#define spaceUnitsText(x) ((x)?(char*)"meters":(char*)"feet")
 // =======================================================================================
 // Class variable initialization
 

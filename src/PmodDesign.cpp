@@ -665,14 +665,14 @@ bool PmodDesign::validateOLDF(void)
 
 void PmodDesign::writeIntroductoryData(char* indent)
 {
+ Timeval T;
  fprintf(writeFile, "%s\"introductoryData\":\n", indent);
  fprintf(writeFile, "%s {\n", indent);
- fprintf(writeFile, "%s%s\"spaceUnits\": ", indent, indent);
- if(metricUnits)
-   fprintf(writeFile, "\"meters\",\n");
- else
-   fprintf(writeFile, "\"feet\",\n");
- 
+ fprintf(writeFile, "%s%s\"spaceUnits\": \"%s\",\n",
+                                              indent, indent, spaceUnitsText(metricUnits));
+ T.now();
+ fprintf(writeFile, "%s%s\"fileTime\": [%ld, %d],\n", indent, indent, T.tv_sec, T.tv_usec);
+
  fprintf(writeFile, "%s },\n", indent);
 }
 
