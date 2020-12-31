@@ -665,15 +665,35 @@ bool PmodDesign::validateOLDF(void)
 
 void PmodDesign::writeIntroductoryData(char* indent)
 {
- Timeval T;
- fprintf(writeFile, "%s\"introductoryData\":\n", indent);
- fprintf(writeFile, "%s {\n", indent);
- fprintf(writeFile, "%s%s\"spaceUnits\": \"%s\",\n",
-                                              indent, indent, spaceUnitsText(metricUnits));
- T.now();
- fprintf(writeFile, "%s%s\"fileTime\": [%ld, %d],\n", indent, indent, T.tv_sec, T.tv_usec);
+  // Open the object
+  fprintf(writeFile, "%s\"introductoryData\":\n", indent);
+  fprintf(writeFile, "%s {\n", indent);
 
- fprintf(writeFile, "%s },\n", indent);
+  // spaceUnits
+  fprintf(writeFile, "%s%s\"spaceUnits\": \"%s\",\n",
+                                              indent, indent, spaceUnitsText(metricUnits));
+
+  // version
+  fprintf(writeFile, "%s%s\"version\": [0, 0, 2],\n", indent, indent);
+
+  // fileTime
+  Timeval T;
+  T.now();
+  fprintf(writeFile, "%s%s\"fileTime\": [%ld, %d],\n", indent, indent, T.tv_sec, T.tv_usec);
+
+  // baseYear
+  fprintf(writeFile, "%s%s\"baseYear\": %d,\n", indent, indent, baseYear);
+
+  // software
+  fprintf(writeFile, "%s%s\"software\": \"Permaplan\",\n", indent, indent);
+
+  // software version
+  fprintf(writeFile, "%s%s\"softwareVersion\": \"TBD\",\n", indent, indent);
+
+  // author - this is the last one without the comma after
+  fprintf(writeFile, "%s%s\"author\": \"TBD\"\n", indent, indent);
+
+  fprintf(writeFile, "%s },\n", indent);
 }
 
 
