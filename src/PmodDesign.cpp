@@ -621,6 +621,45 @@ bool PmodDesign::validateLandSurface(void)
   return retVal;
 }
 
+// =======================================================================================
+// Utility function to test that a genus name starts with an upper case letter, and
+// otherwise only has lower case letters.
+
+bool validateGenusName(char* objName, const char* genus)
+{
+  bool retVal  = true;
+  const PmodConfig& config = PmodConfig::getConfig();
+
+  int N = strlen(genus);
+  
+  unless(N > 1)
+   {
+    LogOLDFValidity("Genus name %s too short in %s in OLDF file %s\n",
+                                                    genus, objName, config.designFileName);
+    return false;
+   }
+
+  unless(genus[0] >= 'A' && genus[0] <= 'Z')
+   {
+    LogOLDFValidity("Genus name %s not capitalized in %s in OLDF file %s\n",
+                                                    genus, objName, config.designFileName);
+    retVal = false;
+   }
+  
+  bool allLower = true;
+  for(int i=1; i<N; i++)
+    unless(genus[i] >= 'a' && genus[i] <= 'z')
+      allLower = false;
+  unless(allLower)
+   {
+    LogOLDFValidity("Genus name %s not has non-alpha chars or upper case in %s "
+                            "in OLDF file %s\n", genus, objName, config.designFileName);
+    retVal = false;
+   }
+
+  return retVal;
+}
+
 
 // =======================================================================================
 // Function to check the structure of any OLDF plant objects present.
@@ -646,7 +685,11 @@ bool PmodDesign::validatePlants(void)
                                                         i, config.designFileName);
       retVal = false;
      }
-
+    char logObjectName[16];
+    sprintf(logObjectName, "plants[%d]", i);
+    retVal &= validateStringMemberExists(plants[i], logObjectName, (char*)"genus");
+    retVal &= validateGenusName(logObjectName, plants[i]["genus"].GetString());
+    retVal &= validateStringMemberExists(plants[i], logObjectName, (char*)"species");
    }
 
 
