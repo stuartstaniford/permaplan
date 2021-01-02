@@ -339,11 +339,16 @@ void LandSurface::writeOLDFSection(FILE* file, char* indent)
   fprintf(file, "%s\"landSurface\":\n", indent);
   fprintf(file, "%s {\n", indent);
 
-  fprintf(file, "%s%s\"url\": \"file:/%s\"\n", indent, indent,
+  // Texture
+  fprintf(file, "%s%s\"texture\":\n%s%s {\n", indent, indent, indent, indent);
+  fprintf(file, "%s%s%s\"url\": \"file:/%s\"\n", indent, indent, indent,
                                                             rect->texture.textureFileName);
-  fprintf(file, "%s%s\"width\": %f\n", indent, indent, rect->width);
-  fprintf(file, "%s%s\"offset\": [%f,%f]\n", indent, indent, rectOffset[0], rectOffset[1]);
+  fprintf(file, "%s%s%s\"width\": %f\n", indent, indent, indent, rect->width);
+  fprintf(file, "%s%s%s\"offset\": [%f,%f]\n", indent, indent, indent,
+                                                            rectOffset[0], rectOffset[1]);
+  fprintf(file, "%s%s },\n", indent, indent);
 
+  // Close out the landSurafec object
   fprintf(file, "%s },\n", indent);
 }
 
