@@ -273,5 +273,10 @@ This is the year that this plant was estimated to have been planted, expressed a
 
 ## Fencing
 
+## Buildings
+
+### Blocks (optional)
+
+### Gables (optional)
 
 

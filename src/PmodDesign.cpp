@@ -623,6 +623,39 @@ bool PmodDesign::validateLandSurface(void)
 
 
 // =======================================================================================
+// Function to check the structure of any OLDF plant objects present.
+
+bool PmodDesign::validatePlants(void)
+{
+  bool    retVal  = true;
+  const PmodConfig& config = PmodConfig::getConfig();
+  Value&  plants  = doc["plants"];
+  
+  unless(plants.IsArray())
+   {
+    LogOLDFValidity("Plants is not an array in OLDF file %s\n", config.designFileName);
+    return false;
+   }
+  
+  int N = plants.Size();
+  for(int i=0; i<N; i++)
+   {
+    unless(plants[i].IsObject())
+     {
+      LogOLDFValidity("Plants[%d]is not an object in OLDF file %s\n",
+                                                        i, config.designFileName);
+      retVal = false;
+     }
+
+   }
+
+
+  return retVal;
+}
+
+
+
+// =======================================================================================
 // Function to check the structure of the OLDF object after it has been parsed out of the
 // file (ie it is at least known to be valid JSON at this point, now we want to know if
 // it's valid OLDF.  Do a lot of logging of the structure if so configured.
@@ -655,6 +688,11 @@ bool PmodDesign::validateOLDF(void)
    }
   else
     retVal &= validateLandSurface();
+
+  if(doc.HasMember("plants")) // plants are optional
+    retVal &= validatePlants();
+  else
+    LogOLDFDetails("No plants present in OLDF file %s\n", config.designFileName);
 
   return retVal;
 }

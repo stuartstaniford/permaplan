@@ -64,6 +64,7 @@ private:
   bool validateTexture(rapidjson::Value& landSurface);
   bool validateAltitudes(rapidjson::Value& landSurface);
   bool validateLandSurface(void);
+  bool validatePlants(void);
 
   // Functions associated with writing out the OLDF file
   void writeIntroductoryData(char* insert);

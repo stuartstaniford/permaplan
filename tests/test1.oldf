@@ -34,9 +34,16 @@
      ]
    },
  "plants":
-  {
-   "null": 0
-  },
+  [
+    {
+     "location": [92, 48],
+     "yearPlanted": 2022,
+     "timePlanted": [20,20],
+     "genus": "Acer",
+     "species": "rubrum",
+     "taxonomyLink": "blah"
+    }
+  ],
  "boundaries":
   {
    "referencePoint": [40.7831, -73.9712],
@@ -50,5 +57,16 @@
  "fencing":
   {
    "null": 0
+  },
+ "buildings":
+  {
+   "blocks":
+    [
+     "blah"
+    ],
+   "gables":
+    [
+     "blah"
+    ]
   }
 }
