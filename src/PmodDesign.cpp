@@ -621,6 +621,7 @@ bool PmodDesign::validateLandSurface(void)
   return retVal;
 }
 
+
 // =======================================================================================
 // Utility function to test that a genus name starts with an upper case letter, and
 // otherwise only has lower case letters.
@@ -662,6 +663,38 @@ bool validateGenusName(char* objName, const char* genus)
 
 
 // =======================================================================================
+// Utility function to test that a species name starts only has lower case letters.
+
+bool validateSpeciesName(char* objName, const char* species)
+{
+  bool retVal  = true;
+  const PmodConfig& config = PmodConfig::getConfig();
+
+  int N = strlen(species);
+  
+  unless(N > 1)
+   {
+    LogOLDFValidity("Species name %s too short in %s in OLDF file %s\n",
+                                                    species, objName, config.designFileName);
+    return false;
+   }
+  
+  bool allLower = true;
+  for(int i=0; i<N; i++)
+    unless(species[i] >= 'a' && species[i] <= 'z')
+      allLower = false;
+  unless(allLower)
+   {
+    LogOLDFValidity("Species name %s not has non-alpha chars or upper case in %s "
+                            "in OLDF file %s\n", species, objName, config.designFileName);
+    retVal = false;
+   }
+
+  return retVal;
+}
+
+
+// =======================================================================================
 // Function to check the structure of any OLDF plant objects present.
 
 bool PmodDesign::validatePlants(void)
@@ -690,12 +723,11 @@ bool PmodDesign::validatePlants(void)
     retVal &= validateStringMemberExists(plants[i], logObjectName, (char*)"genus");
     retVal &= validateGenusName(logObjectName, plants[i]["genus"].GetString());
     retVal &= validateStringMemberExists(plants[i], logObjectName, (char*)"species");
+    retVal &= validateSpeciesName(logObjectName, plants[i]["species"].GetString());
    }
-
-
+  
   return retVal;
 }
-
 
 
 // =======================================================================================
