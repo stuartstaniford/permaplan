@@ -53,6 +53,7 @@ class LandSurface
   unsigned              initialHeightCount;
   unsigned              initialHeightIndex;
   rapidjson::Value*     altitudeArray;
+  float                 rectOffset[2];
 #ifdef VISUALIZE_FITTING
   TriangleBuffer*       fitTBuf;
 #endif

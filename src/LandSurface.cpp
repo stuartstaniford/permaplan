@@ -50,6 +50,9 @@ LandSurface::LandSurface(void):
     err(-1, "Only file:/ urls handled in texture url %s in file %s\n", url, config.designFileName);
    }
   
+  rectOffset[0] = LsJson["texture"]["offset"][0].GetFloat();
+  rectOffset[1] = LsJson["texture"]["offset"][1].GetFloat();
+
   rect = new TexturedRect(url+6, width, 0.0f);
 
   if(LsJson.HasMember("altitudes"))
@@ -335,6 +338,11 @@ void LandSurface::writeOLDFSection(FILE* file, char* indent)
   // Open the object
   fprintf(file, "%s\"landSurface\":\n", indent);
   fprintf(file, "%s {\n", indent);
+
+  fprintf(file, "%s%s\"url\": \"file:/%s\"\n", indent, indent,
+                                                            rect->texture.textureFileName);
+  fprintf(file, "%s%s\"width\": %f\n", indent, indent, rect->width);
+  fprintf(file, "%s%s\"offset\": [%f,%f]\n", indent, indent, rectOffset[0], rectOffset[1]);
 
   fprintf(file, "%s },\n", indent);
 }
