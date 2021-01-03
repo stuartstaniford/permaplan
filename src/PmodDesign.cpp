@@ -720,10 +720,42 @@ bool PmodDesign::validatePlants(void)
      }
     char logObjectName[16];
     sprintf(logObjectName, "plants[%d]", i);
+    
+    // Location
+    unless(plants[i].HasMember("location") && plants[i]["location"].IsArray())
+     {
+      LogOLDFValidity("Absent or malformed location for %s in OLDF file %s\n",
+                                      logObjectName, config.designFileName);
+      retVal = false;
+     }
+    unless(plants[i]["location"].Size() == 2)
+     {
+      LogOLDFValidity("Wrong size array for %s in OLDF file %s\n",
+                                      logObjectName, config.designFileName);
+      retVal = false;
+     }
+    unless(plants[i]["location"][0].IsNumber() && plants[i]["location"][1].IsNumber())
+     {
+      LogOLDFValidity("Location array values non-numerical for %s in OLDF file %s\n",
+                                      logObjectName, config.designFileName);
+      retVal = false;
+     }
+
+    // yearPlanted
+    
+    
+    //timePlanted
+
+    // Genus
     retVal &= validateStringMemberExists(plants[i], logObjectName, (char*)"genus");
     retVal &= validateGenusName(logObjectName, plants[i]["genus"].GetString());
+    
+    // Species
     retVal &= validateStringMemberExists(plants[i], logObjectName, (char*)"species");
     retVal &= validateSpeciesName(logObjectName, plants[i]["species"].GetString());
+
+    // Taxonomy link
+    retVal &= validateOptionalStringMember(plants[i], logObjectName, (char*)"taxonomyLink");
    }
   
   return retVal;
