@@ -265,9 +265,22 @@ This is the year that this plant was estimated to have been planted, expressed a
 
 ### timePlanted (optional)
 
+Syntax: `"timePlanted": [<seconds>, <microseconds>],`
+
+This is the time that this plant was estimated to have been planted, expressed as a detailed Unix time with integer seconds after 1970 and then microseconds.  This should only be used when the actual planting time is known.
+
 ### genus (mandatory)
 
+Syntax: `"genus": "<genus-name>",`
+
+This is the scientific genus-name of the plant.  It should consist of a capital first letter, followed by one or more lower case letters (no characters outsided of `a-z` are allowed).
+
 ### species (mandatory)
+
+
+Syntax: `"species": "<species-name>",`
+
+This is the scientific species-name of the plant.  It should consist of two or more lower case letters (no characters outsided of `a-z` are allowed).
 
 ### taxonomyLink (optional)
 

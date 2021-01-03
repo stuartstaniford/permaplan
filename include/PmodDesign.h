@@ -51,6 +51,7 @@ private:
   // Member functions - private
   
   // Functions associated with validating the OLDF file.
+  bool validateJSONUnixTime(rapidjson::Value& object, char* objName);
   bool validateStringMemberExists(rapidjson::Value& thisObject, char* objName, char* member);
   bool validateOptionalStringMember(rapidjson::Value& thisObject, char* objName, char* member);
   bool validateIntroductoryData(void);

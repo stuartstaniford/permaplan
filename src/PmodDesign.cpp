@@ -166,6 +166,56 @@ bool PmodDesign::validateVersion(Value& introductoryData)
 
 
 // =======================================================================================
+// Function to check if a particular piece of JSON is a correct Unix timeval expressed
+// as an array of [<sec>, <usec>].
+
+bool PmodDesign::validateJSONUnixTime(Value& object, char* objName)
+{
+  bool retVal = true;
+  const PmodConfig& config = PmodConfig::getConfig();
+  
+  if(object.IsArray())
+   {
+    if(object.Size() == 2)
+     {
+      unless(object[0].IsInt())
+       {
+        LogOLDFValidity("%s time field is not integer seconds in OLDF file %s\n",
+                                                    objName, config.designFileName);
+        retVal = false;
+       }
+      unless(object[1].IsInt())
+       {
+        LogOLDFValidity("%s time field is not integer microseconds in OLDF file %s\n",
+                                                    objName, config.designFileName);
+        retVal = false;
+       }
+      int uSec = object[1].GetInt();
+      unless(uSec >= 0 && uSec < 1000000)
+       {
+        LogOLDFValidity("%s time field out of range microseconds in OLDF file %s\n",
+                                                    objName, config.designFileName);
+        retVal = false;
+       }
+     }
+    else
+     {
+      LogOLDFValidity("%s array is wrong size %d in OLDF file %s\n",
+                                          objName, object.Size(), config.designFileName);
+     }
+   }
+  else
+   {
+    LogOLDFValidity("%s is not array in OLDF file %s\n", objName, config.designFileName);
+    retVal = false;
+   }
+  
+ return retVal;
+}
+
+
+
+// =======================================================================================
 // Function to check the OLDF spec file time.
 
 bool PmodDesign::validateFileTime(Value& introductoryData)
@@ -742,9 +792,20 @@ bool PmodDesign::validatePlants(void)
      }
 
     // yearPlanted
-    
-    
-    //timePlanted
+    unless(plants[i].HasMember("yearPlanted") && plants[i]["yearPlanted"].IsInt())
+     {
+      LogOLDFValidity("Missing or invalid yearPlanted for %s in OLDF file %s\n",
+                                      logObjectName, config.designFileName);
+      retVal = false;
+     }
+
+    // timePlanted
+    if(plants[i].HasMember("timePlanted"))
+     {
+      char fieldName[32];
+      sprintf(fieldName, "plants[%d] timePlanted", i);
+      retVal &= validateJSONUnixTime(plants[i]["timePlanted"], fieldName);
+     }
 
     // Genus
     retVal &= validateStringMemberExists(plants[i], logObjectName, (char*)"genus");
