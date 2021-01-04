@@ -54,6 +54,7 @@ private:
   bool validateJSONUnixTime(rapidjson::Value& object, char* objName);
   bool validateStringMemberExists(rapidjson::Value& thisObject, char* objName, char* member);
   bool validateOptionalStringMember(rapidjson::Value& thisObject, char* objName, char* member);
+  bool validateOptionalStringOrArrayString(rapidjson::Value& thisObject, char* objName, char* member);
   bool validateIntroductoryData(void);
   bool validateSpaceUnits(rapidjson::Value& introductoryData);
   bool validateBaseYear(rapidjson::Value& introductoryData);

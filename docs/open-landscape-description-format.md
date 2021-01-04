@@ -247,6 +247,7 @@ be expressed as an empty array (but the plants tag should be present).
      "genus": "Acer",
      "species": "rubrum",
      "taxonomyLink": 
+     "commonName": "Red Maple",
    },
    ...
  ],
@@ -273,16 +274,27 @@ This is the time that this plant was estimated to have been planted, expressed a
 
 Syntax: `"genus": "<genus-name>",`
 
-This is the scientific genus-name of the plant.  It should consist of a capital first letter, followed by one or more lower case letters (no characters outsided of `a-z` are allowed).
+This is the scientific genus-name of the plant.  It should consist of a capital first letter, followed by one or more lower case letters (no characters outsided of `a-z` are allowed).  Species and Genus name are expected to be in ASCII latin.
 
 ### species (mandatory)
 
-
 Syntax: `"species": "<species-name>",`
 
-This is the scientific species-name of the plant.  It should consist of two or more lower case letters (no characters outsided of `a-z` are allowed).
+This is the scientific species-name of the plant.  It should consist of two or more lower case letters (no characters outsided of `a-z` are allowed).  Species name are expected to be in ASCII latin.
 
 ### taxonomyLink (optional)
+
+Syntax: `"taxonomyLink": "<url>",`
+
+or  `"taxonomyLink": ["<url1>", "<url2>", ...],`
+
+This is a url to a formal taxonomic description of the exact species of plant being referenced in this particular plant object.  Eg this might be a link to the online Interagency Taxonomic Information System (itis.gov)
+
+### commonName (optional )
+
+Syntax: `"commonName": "<name>",`
+
+This is a common name of the plant by which the file creator wishes to informally refer to it.  It can be internationalized using UTF8 if appropriate.  File parsing software should only use the common name minimally for clarification to humans - it should not be used for indexing and the like, as scientific names are for more systematic and unique and thus better for most purposes.
 
 ## Fencing
 

@@ -41,7 +41,9 @@
      "timePlanted": [20,20],
      "genus": "Acer",
      "species": "rubrum",
-     "taxonomyLink": "blah"
+     "var": "drummondii",
+     "taxonomyLink": "https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=526853#null",
+     "commonName": "Drummond's Maple"
     }
   ],
  "boundaries":
