@@ -869,6 +869,10 @@ bool PmodDesign::validatePlants(void)
 
     // Common Name
     retVal &= validateOptionalStringMember(plants[i], logObjectName, (char*)"commonName");
+
+    // Notes
+    retVal &= validateOptionalStringOrArrayString(plants[i], logObjectName,
+                                                                    (char*)"notes");
    }
   
   return retVal;

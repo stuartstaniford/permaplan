@@ -296,6 +296,14 @@ Syntax: `"commonName": "<name>",`
 
 This is a common name of the plant by which the file creator wishes to informally refer to it.  It can be internationalized using UTF8 if appropriate.  File parsing software should only use the common name minimally for clarification to humans - it should not be used for indexing and the like, as scientific names are for more systematic and unique and thus better for most purposes.
 
+### notes (optional)
+
+Syntax: `"notes": "<note>",`
+
+or  `"notes": ["<note1>", "<note2>", ...],`
+
+This is a field for unstructured (typically human supplied) information about the particular plant.  It can be a single string or multiple strings.  Implementations should be aware that information in this field may not be very inter-operable.
+
 ## Fencing
 
 ## Buildings

@@ -37,13 +37,14 @@
   [
     {
      "location": [92, 48],
-     "yearPlanted": 2022,
+     "yearPlanted": 1940,
      "timePlanted": [20,20],
      "genus": "Acer",
      "species": "rubrum",
      "var": "drummondii",
      "taxonomyLink": "https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=526853#null",
-     "commonName": "Drummond's Maple"
+     "commonName": "Drummond's Maple",
+     "notes": "The big one up the meadow"
     }
   ],
  "boundaries":
