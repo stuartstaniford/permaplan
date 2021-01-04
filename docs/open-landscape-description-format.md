@@ -282,6 +282,12 @@ Syntax: `"species": "<species-name>",`
 
 This is the scientific species-name of the plant.  It should consist of two or more lower case letters (no characters outsided of `a-z` are allowed).  Species name are expected to be in ASCII latin.
 
+### var (optional)
+
+Syntax: `"var": "<variety-name>",`
+
+This is the specific scientific variety name of the plant if known. 
+
 ### taxonomyLink (optional)
 
 Syntax: `"taxonomyLink": "<url>",`

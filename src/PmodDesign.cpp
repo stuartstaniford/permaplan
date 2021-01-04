@@ -863,6 +863,10 @@ bool PmodDesign::validatePlants(void)
     retVal &= validateStringMemberExists(plants[i], logObjectName, (char*)"species");
     retVal &= validateSpeciesName(logObjectName, plants[i]["species"].GetString());
 
+    // Variety
+    retVal &= validateOptionalStringMember(plants[i], logObjectName, (char*)"var");
+
+
     // Taxonomy link
     retVal &= validateOptionalStringOrArrayString(plants[i], logObjectName,
                                                                     (char*)"taxonomyLink");
