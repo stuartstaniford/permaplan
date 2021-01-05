@@ -44,6 +44,7 @@
      "var": "drummondii",
      "taxonomyLink": "https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=526853#null",
      "commonName": "Drummond's Maple",
+     "treeDiameter": [6.33, 2019.18],
      "notes": "The big one up the meadow"
     }
   ],

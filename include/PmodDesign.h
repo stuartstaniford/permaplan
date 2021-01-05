@@ -55,6 +55,7 @@ private:
   bool validateStringMemberExists(rapidjson::Value& thisObject, char* objName, char* member);
   bool validateOptionalStringMember(rapidjson::Value& thisObject, char* objName, char* member);
   bool validateOptionalStringOrArrayString(rapidjson::Value& thisObject, char* objName, char* member);
+  bool validateTreeDiameter(rapidjson::Value& treeDiamArray, char* objName);
   bool validateIntroductoryData(void);
   bool validateSpaceUnits(rapidjson::Value& introductoryData);
   bool validateBaseYear(rapidjson::Value& introductoryData);

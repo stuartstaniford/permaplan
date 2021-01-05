@@ -793,6 +793,47 @@ bool validateSpeciesName(char* objName, const char* species)
 
 
 // =======================================================================================
+// Function to check the structure of a tree Diameter field in an OLDF plant object.
+
+#define MAX_TREE_DIAMETER 100 // https://en.wikipedia.org/wiki/List_of_superlative_trees
+
+bool PmodDesign::validateTreeDiameter(rapidjson::Value& treeDiamArray, char* objName)
+{
+  bool retVal  = true;
+  const PmodConfig& config = PmodConfig::getConfig();
+
+  unless(treeDiamArray.Size() == 2)
+   {
+    LogOLDFValidity("%s treeDiameter array is wrong size %d in OLDF file %s\n",
+                    objName,  treeDiamArray.Size(), config.designFileName);
+    retVal = false;
+   }
+
+  unless(treeDiamArray[0].IsNumber() && treeDiamArray[1].IsNumber())
+   {
+    LogOLDFValidity("%s treeDiameter array values non-numerical in OLDF file %s\n",
+                                                          objName, config.designFileName);
+    retVal = false;
+   }
+
+  float treeDiam = treeDiamArray[0].GetFloat();
+  unless(treeDiam > 0.0f && treeDiam < MAX_TREE_DIAMETER) //XX ideally would adjust if meters
+   {
+    LogOLDFValidity("%s treeDiameter size out of range in OLDF file %s\n",
+                                                          objName, config.designFileName);
+    retVal = false;
+   }
+
+  if(retVal)
+   {
+    LogOLDFDetails("%s diameter %.2f at breast height measured at %.2f\n",
+                                    objName, treeDiam, treeDiamArray[1].GetFloat());
+   }
+  return retVal;
+}
+
+
+// =======================================================================================
 // Function to check the structure of any OLDF plant objects present.
 
 bool PmodDesign::validatePlants(void)
@@ -872,6 +913,16 @@ bool PmodDesign::validatePlants(void)
 
     // Common Name
     retVal &= validateOptionalStringMember(plants[i], logObjectName, (char*)"commonName");
+
+    // Tree Diameter
+    unless(plants[i].HasMember("treeDiameter") && plants[i]["treeDiameter"].IsArray())
+     {
+      LogOLDFValidity("Missing or invalid treeDiameter for %s in OLDF file %s\n",
+                                      logObjectName, config.designFileName);
+      retVal = false;
+     }
+    else
+      retVal &= validateTreeDiameter(plants[i]["treeDiameter"], logObjectName);
 
     // Notes
     retVal &= validateOptionalStringOrArrayString(plants[i], logObjectName,

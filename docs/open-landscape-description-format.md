@@ -248,6 +248,7 @@ be expressed as an empty array (but the plants tag should be present).
      "species": "rubrum",
      "taxonomyLink": 
      "commonName": "Red Maple",
+     "treeDiameter": [6.33, 2019.18],
    },
    ...
  ],
@@ -303,11 +304,11 @@ Syntax: `"commonName": "<name>",`
 This is a common name of the plant by which the file creator wishes to informally refer to it.  It can be internationalized using UTF8 if appropriate.  File parsing software should only use the common name minimally for clarification to humans - it should not be used for indexing and the like, as scientific names are for more systematic and unique and thus better for most purposes.
 
 
-### treeDiameter (optional)
+### treeDiameter (mandatory)
 
 Syntax: `"treeDiameter": [<diameter>, <year>],`
 
-This records the diameter of the tree (generally taken to be at chest height - 54").  `<diameter>` is expressed in spaceUnits and may have a decimal part.  `<year>` expresses the year at which this observation was made, and may also have a decimal part (with 0 being the start of Jan 1st, and 1 being the end of December 31st).
+This records the diameter of the tree (generally taken to be at breast height - 54").  `<diameter>` is expressed in spaceUnits and may have a decimal part.  `<year>` expresses the year at which this observation was made, and may also have a decimal part (with 0 being the start of Jan 1st, and 1 being the end of December 31st).
 
 
 ### notes (optional)
