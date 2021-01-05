@@ -866,7 +866,6 @@ bool PmodDesign::validatePlants(void)
     // Variety
     retVal &= validateOptionalStringMember(plants[i], logObjectName, (char*)"var");
 
-
     // Taxonomy link
     retVal &= validateOptionalStringOrArrayString(plants[i], logObjectName,
                                                                     (char*)"taxonomyLink");
