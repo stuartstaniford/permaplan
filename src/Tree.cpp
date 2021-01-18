@@ -3,6 +3,7 @@
 
 #include "Tree.h"
 #include <err.h>
+#include "loadFileToBuf.h"
 
 
 // =======================================================================================
@@ -125,8 +126,44 @@ bool Tree::matchRay(vec3& position, vec3& direction, float& lambda)
 void Tree::updateBoundingBox(void)
 {
 }
-                                                                
 
+
+// =======================================================================================
+// Read a particular file containing an OTDL description of the type of tree we are.
+
+using namespace rapidjson;
+
+void Tree::readOTDLFromFile(char* fileName)
+{
+  unsigned bufSize;
+  char* buf = loadFileToBuf(fileName, &bufSize);
+  Document doc;
+
+  ParseResult ok = doc.ParseInsitu<kParseCommentsFlag>(buf);
+  if (!ok)
+   {
+    fprintf(stderr, "JSON parse error on OTDL file %s: %s (%u)\n", fileName,
+          GetParseError_En(ok.Code()), (unsigned)(ok.Offset()));
+    exit(1);
+   }
+  if(!doc.IsObject())
+    err(-1, "Base of OTDL file %s is not JSON object.\n", fileName);
+  if(!validateOTDL(doc))
+    err(-1, "Invalid OTDL file %s - see log for details\n", fileName);
+}
+
+
+// =======================================================================================
+// Validate OTDL/JSON structure of the type of tree we are.
+
+bool Tree::validateOTDL(Document& doc)
+{
+  bool retVal = true;
+  
+  return retVal;
+}
+
+        
 // =======================================================================================
 // Tell callers our name at runtime.
 
