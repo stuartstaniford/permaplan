@@ -22,7 +22,11 @@ class WoodySegment: public TreePart
   bool        diagnosticHTML(HttpDebug* serv);
 
  private:
-  
+  float heartRadius;    // expressed in mm
+  float sapThickness;   // mm
+  float barkThickness;  // mm phloem currently part of bark
+  float length;         // mm
+
   // Instance variables - private
   
   // Member functions - private
