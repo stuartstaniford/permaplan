@@ -10,13 +10,17 @@
 #include "rapidjson/stringbuffer.h"
 #include "rapidjson/error/en.h"
 
+#define TREE_ARRAY_SIZE 16384 // cannot exceed size of unsigned short
 
 // =======================================================================================
 // Class variable initialization
 
+class WoodySegment;
 
 class Tree: public VisualObject
 {
+  friend WoodySegment;
+  
  public:
   
   // Instance variables - public
@@ -44,6 +48,10 @@ class Tree: public VisualObject
   char iterI, iterJ, iterK;
   int  index;
   
+  // static array used to allow a short index from treeParts
+  static Tree** treePtrArray;
+  static unsigned short treeCount;
+
   // Member functions - private
   Tree(const Tree&);                 // Prevent copy-construction
   Tree& operator=(const Tree&);      // Prevent assignment

@@ -5,6 +5,8 @@
 #include <err.h>
 #include "loadFileToBuf.h"
 
+unsigned short Tree::treeCount = 0u;
+Tree** Tree::treePtrArray = new Tree*[TREE_ARRAY_SIZE];
 
 // =======================================================================================
 // Constructors.
@@ -13,6 +15,7 @@ Tree::Tree(mat4 transform)
 {
   glm_mat4_copy(transform, trans);
   updateBoundingBox();
+  treePtrArray[treeCount++] = this;
 }
 
 
