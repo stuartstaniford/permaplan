@@ -5,10 +5,6 @@
 #define TREE_H
 
 #include "VisualObject.h"
-#include "rapidjson/document.h"
-#include "rapidjson/writer.h"
-#include "rapidjson/stringbuffer.h"
-#include "rapidjson/error/en.h"
 
 #define TREE_ARRAY_SIZE 16384 // cannot exceed size of unsigned short
 
@@ -37,8 +33,6 @@ class Tree: public VisualObject
   bool        matchRay(vec3& position, vec3& direction, float& lambda);
   void        updateBoundingBox(void);
   void        triangleBufferSizes(unsigned& vCount, unsigned& iCount);
-  void        readOTDLFromFile(char* fileName);
-  bool        validateOTDL(rapidjson::Document& doc);
   const char* objectName(void);
   bool        diagnosticHTML(HttpDebug* serv);
 
