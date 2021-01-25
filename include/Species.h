@@ -11,9 +11,11 @@
 #include "rapidjson/stringbuffer.h"
 #include "rapidjson/error/en.h"
 
+#define SPECIES_ARRAY_SIZE   2048 // max number of species in a design
+
+
 // =======================================================================================
 // Class variable initialization
-
 
 class Species
 {
@@ -31,7 +33,9 @@ class Species
   // Static functions and variables
   static rapidjson::Document speciesIndex;
   static Species* getSpeciesByPath(char* speciesPath);
-  
+  static Species** speciesPtrArray;
+  static unsigned short speciesCount;
+
  private:
   
   // Instance variables - private

@@ -10,14 +10,15 @@
 using namespace rapidjson;
 
 rapidjson::Document Species::speciesIndex;
+unsigned short Species::speciesCount = 0u;
+Species** Species::speciesPtrArray = new Species*[SPECIES_ARRAY_SIZE];
+
 
 // =======================================================================================
 // Constructors.
 
 Species::Species(void)
 {
-  unless(speciesIndex.IsObject())
-    speciesIndex.SetObject();
 }
 
 
@@ -70,6 +71,14 @@ bool Species::validateOTDL(Document& doc)
 
 Species* Species::getSpeciesByPath(char* speciesPath)
 {
+  unless(speciesIndex.IsObject())
+    speciesIndex.SetObject();
+
+  if(speciesIndex.HasMember(speciesPath))
+    return speciesPtrArray[speciesIndex[speciesPath].GetInt()];
+  
+  // Handle the case where the species has not been seen before.
+  
   return NULL;
 }
 
