@@ -36,6 +36,9 @@ class Tree: public VisualObject
   const char* objectName(void);
   bool        diagnosticHTML(HttpDebug* serv);
 
+  // static functions
+  static void readTreesFromDesign(void);
+
  private:
   
   // Instance variables - private

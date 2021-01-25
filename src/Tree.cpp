@@ -2,7 +2,12 @@
 // Class for storing and rendering trees.
 
 #include "Tree.h"
+#include "PmodDesign.h"
 #include <err.h>
+#include "rapidjson/document.h"
+#include "rapidjson/writer.h"
+#include "rapidjson/stringbuffer.h"
+#include "rapidjson/error/en.h"
 
 unsigned short Tree::treeCount = 0u;
 Tree** Tree::treePtrArray = new Tree*[TREE_ARRAY_SIZE];
@@ -129,7 +134,24 @@ void Tree::updateBoundingBox(void)
 {
 }
 
-      
+ 
+// =======================================================================================
+// Stub definition this should be overwritten by implementing subclasses
+
+void Tree::readTreesFromDesign(void)
+{
+  using namespace rapidjson;
+
+  PmodDesign& design = PmodDesign::getDesign();
+ 
+  unless(design.doc.HasMember("plants")) // plants are optional
+    return;
+  
+  // The structure was checked in PmodDesign::validatePlants(), so we assume it's correct.
+
+}
+
+
 // =======================================================================================
 // Tell callers our name at runtime.
 

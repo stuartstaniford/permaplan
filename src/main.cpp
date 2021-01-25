@@ -8,6 +8,7 @@
 #include "HttpDebug.h"
 #include "TextureAtlas.h"
 #include "Material.h"
+#include "Tree.h"
 
 // =======================================================================================
 // C function to launder C++ method into pthread_create
@@ -39,6 +40,7 @@ int main (int argc, char* argv[])
   Window3D window(800, 600);
   Shader shader("src/pmodVert.glsl", "src/pmodFrag.glsl");
   PmodDesign design;
+  Tree::readTreesFromDesign();
   Scene scene;
   window.scene = &scene;
   window.scriptController = new ScriptController();
