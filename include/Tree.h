@@ -5,6 +5,10 @@
 #define TREE_H
 
 #include "VisualObject.h"
+#include "rapidjson/document.h"
+#include "rapidjson/writer.h"
+#include "rapidjson/stringbuffer.h"
+#include "rapidjson/error/en.h"
 
 #define TREE_ARRAY_SIZE 16384 // cannot exceed size of unsigned short
 
@@ -23,7 +27,9 @@ class Tree: public VisualObject
   mat4 trans;
 
   // Member functions - public
-  Tree(mat4 transform);   // We take the unit box on [0,0,0] to [1,1,1] and apply transform to it.
+  Tree(rapidjson::Value& otdlObject);
+  // We take the unit box on [0,0,0] to [1,1,1] and apply transform to it.
+  // Tree(mat4 transform);
   ~Tree(void);
   bool        getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
   bool        getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail);

@@ -4,21 +4,26 @@
 #include "Tree.h"
 #include "PmodDesign.h"
 #include <err.h>
-#include "rapidjson/document.h"
-#include "rapidjson/writer.h"
-#include "rapidjson/stringbuffer.h"
-#include "rapidjson/error/en.h"
 
 unsigned short Tree::treeCount = 0u;
 Tree** Tree::treePtrArray = new Tree*[TREE_ARRAY_SIZE];
 
+using namespace rapidjson;
+
 // =======================================================================================
 // Constructors.
 
+/*
 Tree::Tree(mat4 transform)
 {
   glm_mat4_copy(transform, trans);
   updateBoundingBox();
+  treePtrArray[treeCount++] = this;
+}
+*/
+
+Tree::Tree(Value& otdlObject)
+{
   treePtrArray[treeCount++] = this;
 }
 
@@ -136,19 +141,22 @@ void Tree::updateBoundingBox(void)
 
  
 // =======================================================================================
-// Stub definition this should be overwritten by implementing subclasses
+// Static function which reads a bunch of entries from the plants section in the pmod
+// design and instantiates the trees.
 
 void Tree::readTreesFromDesign(void)
 {
-  using namespace rapidjson;
-
   PmodDesign& design = PmodDesign::getDesign();
  
   unless(design.doc.HasMember("plants")) // plants are optional
     return;
-  
-  // The structure was checked in PmodDesign::validatePlants(), so we assume it's correct.
 
+  // The structure was checked in PmodDesign::validatePlants(), so we assume it's correct.
+  Value& plants = design.doc["plants"];
+  int N = plants.Size();
+  Tree* tree;
+  for(int i=0; i<N; i++)
+    tree = new Tree(plants[i]);
 }
 
 
