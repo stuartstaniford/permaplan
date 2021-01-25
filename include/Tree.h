@@ -10,7 +10,8 @@
 #include "rapidjson/stringbuffer.h"
 #include "rapidjson/error/en.h"
 
-#define TREE_ARRAY_SIZE 16384 // cannot exceed size of unsigned short
+#define TREE_ARRAY_SIZE   16384 // cannot exceed size of unsigned short
+#define MAX_SPECIES_PATH  96   //https://en.wikipedia.org/wiki/List_of_long_species_names
 
 // =======================================================================================
 // Class variable initialization
@@ -24,10 +25,12 @@ class Tree: public VisualObject
  public:
   
   // Instance variables - public
-  mat4 trans;
+  mat4            trans;
+  char            speciesPath[MAX_SPECIES_PATH];
+  unsigned short  treePtrArrayIndex;
 
   // Member functions - public
-  Tree(rapidjson::Value& otdlObject);
+  Tree(rapidjson::Value& plantObject);
   // We take the unit box on [0,0,0] to [1,1,1] and apply transform to it.
   // Tree(mat4 transform);
   ~Tree(void);

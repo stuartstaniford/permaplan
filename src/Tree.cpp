@@ -18,13 +18,15 @@ Tree::Tree(mat4 transform)
 {
   glm_mat4_copy(transform, trans);
   updateBoundingBox();
-  treePtrArray[treeCount++] = this;
+  treePtrArray[(treePtrArrayIndex = treeCount++)] = this;
 }
 */
 
-Tree::Tree(Value& otdlObject)
+Tree::Tree(Value& plantObject)
 {
-  treePtrArray[treeCount++] = this;
+  sprintf(speciesPath, "%s/%s", plantObject["genus"].GetString(),
+                                            plantObject["species"].GetString());
+  treePtrArray[(treePtrArrayIndex = treeCount++)] = this;
 }
 
 
