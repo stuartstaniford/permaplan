@@ -36,6 +36,16 @@
  "plants":
   [
     {
+     "location": [150, 150],
+     "yearPlanted": 1900,
+     "timePlanted": [20,20],
+     "genus": "Pinus",
+     "species": "strobus",
+     "commonName": "Eastern White Pine",
+     "treeDiameter": [12.5, 2019.18],
+     "notes": "Big old pine in the center"
+    },
+    {
      "location": [92, 48],
      "yearPlanted": 1940,
      "timePlanted": [20,20],
@@ -46,8 +56,7 @@
      "commonName": "Drummond's Maple",
      "treeDiameter": [6.33, 2019.18],
      "notes": "The big one up the meadow"
-    }
-  ],
+    }  ],
  "boundaries":
   {
    "referencePoint": [40.7831, -73.9712],
