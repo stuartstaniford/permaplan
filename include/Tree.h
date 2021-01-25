@@ -5,6 +5,7 @@
 #define TREE_H
 
 #include "VisualObject.h"
+#include "Species.h"
 #include "rapidjson/document.h"
 #include "rapidjson/writer.h"
 #include "rapidjson/stringbuffer.h"
@@ -27,7 +28,8 @@ class Tree: public VisualObject
   // Instance variables - public
   mat4            trans;
   char            speciesPath[MAX_SPECIES_PATH];
-  unsigned short  treePtrArrayIndex;
+  unsigned short  treePtrArrayIndex; // used by all our subparts to find us
+  Species*        species;
 
   // Member functions - public
   Tree(rapidjson::Value& plantObject);
@@ -45,7 +47,8 @@ class Tree: public VisualObject
   const char* objectName(void);
   bool        diagnosticHTML(HttpDebug* serv);
 
-  // static functions
+ public:
+  // static functions and variables
   static void readTreesFromDesign(void);
 
  private:

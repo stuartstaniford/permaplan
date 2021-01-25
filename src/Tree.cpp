@@ -26,6 +26,7 @@ Tree::Tree(Value& plantObject)
 {
   sprintf(speciesPath, "%s/%s", plantObject["genus"].GetString(),
                                             plantObject["species"].GetString());
+  species = Species::getSpeciesByPath(speciesPath);
   treePtrArray[(treePtrArrayIndex = treeCount++)] = this;
 }
 

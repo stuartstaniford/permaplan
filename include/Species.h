@@ -27,13 +27,18 @@ class Species
   virtual const char* objectName(void);
   virtual bool        diagnosticHTML(HttpDebug* serv);
 
+ public:
+  // Static functions and variables
+  static rapidjson::Document speciesIndex;
+  static Species* getSpeciesByPath(char* speciesPath);
+  
  private:
   
   // Instance variables - private
   
   // Member functions - private
   Species(const Species&);                 // Prevent copy-construction
-  Species& operator=(const Species&);      // Prevent assignment
+  //Species& operator=(const Species&);      // Prevent assignment
 };
 
 #endif

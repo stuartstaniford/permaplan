@@ -5,13 +5,19 @@
 #include "Species.h"
 #include <err.h>
 #include "loadFileToBuf.h"
+#include "GlobalMacros.h"
 
+using namespace rapidjson;
+
+rapidjson::Document Species::speciesIndex;
 
 // =======================================================================================
 // Constructors.
 
 Species::Species(void)
 {
+  unless(speciesIndex.IsObject())
+    speciesIndex.SetObject();
 }
 
 
@@ -58,7 +64,16 @@ bool Species::validateOTDL(Document& doc)
   return retVal;
 }
 
-  
+
+// =======================================================================================
+// Static function to find the entry for a particular "genus/species".
+
+Species* Species::getSpeciesByPath(char* speciesPath)
+{
+  return NULL;
+}
+
+
 // =======================================================================================
 // Tell callers our name at runtime.
 
