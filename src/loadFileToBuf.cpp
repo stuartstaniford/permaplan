@@ -10,6 +10,21 @@
 // Load a file into a freshly allocated string.  Null terminate the string.
 // Will pick up most file errors, but will silently load an empty file into string "\0"
 
+bool regularFileExists(char* fileName)
+{
+  struct stat params;
+  if(stat(fileName, &params)<0)
+    return false;
+  if(!(params.st_mode&S_IFREG))
+    return false;
+  return true;
+}
+
+
+// =======================================================================================
+// Load a file into a freshly allocated string.  Null terminate the string.
+// Will pick up most file errors, but will silently load an empty file into string "\0"
+
 char* loadFileToBuf(const char* fileName, unsigned* size)
 {
   struct stat params;

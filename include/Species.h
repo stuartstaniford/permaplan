@@ -22,17 +22,18 @@ class Species
  public:
   
   // Member functions - public
-  Species(void);
+  Species(rapidjson::Document& otdlDoc);
   virtual ~Species(void);
-  void                readOTDLFromFile(char* fileName);
-  bool                validateOTDL(rapidjson::Document& doc);
   virtual const char* objectName(void);
   virtual bool        diagnosticHTML(HttpDebug* serv);
 
  public:
   // Static functions and variables
   static rapidjson::Document speciesIndex;
+  static rapidjson::Document& readOTDLFromBuf(char* buf, char* sourceName);
+  static bool validateOTDL(rapidjson::Document& doc);
   static Species* getSpeciesByPath(char* speciesPath);
+  static Species* loadLocalOTDLEntry(char* speciesPath);
   static Species** speciesPtrArray;
   static unsigned short speciesCount;
 

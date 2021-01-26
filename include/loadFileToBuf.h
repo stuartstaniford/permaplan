@@ -3,4 +3,6 @@
 
 #include <stdio.h>
 
+bool regularFileExists(char* fileName);
+
 char* loadFileToBuf(const char* fileName, unsigned* size);

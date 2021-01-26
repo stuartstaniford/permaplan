@@ -21,6 +21,7 @@ class PmodConfig
   char*           bezReadFileName;
   char*           bezWriteFileName;
   char*           writeDesignFileName;
+  char*           speciesDirectory;
   
   private:
   

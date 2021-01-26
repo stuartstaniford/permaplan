@@ -94,6 +94,10 @@ bool fileNameAndExtensionCheck(char* fileName)
     return false;
   if(strcmp(extension, "rtf")==0)
     return false;
+  if(strcmp(extension, "oldf")==0)
+    return false;
+  if(strcmp(extension, "otdl")==0)
+    return false;
 
   LogAtlasAnomalies("Texture Atlas file with unknown extension %s.\n", fileName);
   return true; // default to trying to see if it will work

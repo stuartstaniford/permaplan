@@ -6,6 +6,7 @@
 #include <err.h>
 #include "loadFileToBuf.h"
 #include "GlobalMacros.h"
+#include "PmodConfig.h"
 
 using namespace rapidjson;
 
@@ -17,7 +18,7 @@ Species** Species::speciesPtrArray = new Species*[SPECIES_ARRAY_SIZE];
 // =======================================================================================
 // Constructors.
 
-Species::Species(void)
+Species::Species(Document& otdlDoc)
 {
 }
 
@@ -31,27 +32,25 @@ Species::~Species(void)
 
 
 // =======================================================================================
-// Read a particular file containing an OTDL description of the type of tree we are.
+// Read a buffer containing an OTDL description of the type of tree we are.
 
-using namespace rapidjson;
-
-void Species::readOTDLFromFile(char* fileName)
+Document& Species::readOTDLFromBuf(char* buf, char* sourceName)
 {
-  unsigned bufSize;
-  char* buf = loadFileToBuf(fileName, &bufSize);
-  Document doc;
+  Document* doc = new Document;
 
-  ParseResult ok = doc.ParseInsitu<kParseCommentsFlag>(buf);
+  ParseResult ok = doc->ParseInsitu<kParseCommentsFlag>(buf);
   if (!ok)
    {
-    fprintf(stderr, "JSON parse error on OTDL file %s: %s (%u)\n", fileName,
+    fprintf(stderr, "JSON parse error on OTDL file %s: %s (%u)\n", sourceName,
           GetParseError_En(ok.Code()), (unsigned)(ok.Offset()));
     exit(1);
    }
-  if(!doc.IsObject())
-    err(-1, "Base of OTDL file %s is not JSON object.\n", fileName);
-  if(!validateOTDL(doc))
-    err(-1, "Invalid OTDL file %s - see log for details\n", fileName);
+  if(!doc->IsObject())
+    err(-1, "Base of OTDL file %s is not JSON object.\n", sourceName);
+  if(!validateOTDL(*doc))
+    err(-1, "Invalid OTDL file %s - see log for details\n", sourceName);
+ 
+  return *doc;
 }
 
 
@@ -78,8 +77,35 @@ Species* Species::getSpeciesByPath(char* speciesPath)
     return speciesPtrArray[speciesIndex[speciesPath].GetInt()];
   
   // Handle the case where the species has not been seen before.
+  // First Check local OTDL directories
+  Species* species;
+  if( (species = loadLocalOTDLEntry(speciesPath)) )
+    return species;
+  
+  // XX should go out to central web repository
+  err(-1, "Couldn't find species %s\n", speciesPath);
   
   return NULL;
+}
+
+
+// =======================================================================================
+// Static function to try and load a particular "genus/species" from local disk
+
+Species* Species::loadLocalOTDLEntry(char* speciesPath)
+{
+  const PmodConfig& config = PmodConfig::getConfig();
+  char path[256];
+  snprintf(path, 256, "%s/%s/default.otdl", config.speciesDirectory, speciesPath);
+  unless(regularFileExists(path))
+    return NULL;
+  unsigned bufSize;
+  char* buf = loadFileToBuf(path, &bufSize);
+  Document& doc = readOTDLFromBuf(buf, path);
+  
+  // At this point we are confident we have valid OTDL, so create the new species
+  Species* newSpecies = new Species(doc);
+  return newSpecies;
 }
 
 

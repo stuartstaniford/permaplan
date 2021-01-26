@@ -22,10 +22,12 @@ void PmodConfig::usage()
   printf("\t-A\tPlot X (red), Y (green), and Z (blue) axes.\n");
   printf("\t-b F\tRead Bezier patch state from file F.\n");
   printf("\t-B F\tWrite the Bezier patch state to file F.\n");
-  printf("\t-d F\tRead design file F.\n");
+  printf("\t-d F\tRead OLDF design file F.\n");
+  printf("\t-D F\tUse F as file to write out OLDF design.\n");
   printf("\t-g f\tAdd square gridlines every f units.\n");
   printf("\t-L\tLeave land surface as a plane.\n");
   printf("\t-p P\tRun debug server on port P .\n");
+  printf("\t-P S\tUse S as plant species directory.\n");
   printf("\n");
   exit(0);
 }
@@ -53,50 +55,57 @@ PmodConfig::PmodConfig(int argc, char* argv[])
   bezReadFileName     = NULL;
   bezWriteFileName    = NULL;
   writeDesignFileName = NULL;
-  
-  while( (optionChar = getopt(argc, argv, "Ab:B:d:D:g:Lp:")) != -1)
-  switch (optionChar)
-   {
-    case 'A':
-      plotAxes = true;
-      break;
+  speciesDirectory    = NULL;
 
-     case 'b':
-      bezReadFileName = optarg;
-      break;
+  while( (optionChar = getopt(argc, argv, "Ab:B:d:D:g:Lp:P:")) != -1)
+    switch (optionChar)
+     {
+      case 'A':
+        plotAxes = true;
+        break;
 
-     case 'B':
-      bezWriteFileName = optarg;
-      break;
+       case 'b':
+         bezReadFileName = optarg;
+         break;
 
-    case 'd':
-      designFileName = optarg;
-      break;
+       case 'B':
+         bezWriteFileName = optarg;
+         break;
 
-    case 'D':
-      writeDesignFileName = optarg;
-      break;
+       case 'd':
+         designFileName = optarg;
+         break;
 
-     case 'g':
-      plotGrid    = true;
-      gridSpacing = atof(optarg);
-      if(gridSpacing <= 0.0f)
-        err(-1, "Bad gridspacing via -g: %s\n", optarg);
-      break;
+       case 'D':
+         writeDesignFileName = optarg;
+         break;
 
-     case 'L':
-      levelPlane = true;
-      break;
+       case 'g':
+         plotGrid    = true;
+         gridSpacing = atof(optarg);
+         if(gridSpacing <= 0.0f)
+            err(-1, "Bad gridspacing via -g: %s\n", optarg);
+         break;
+
+       case 'L':
+         levelPlane = true;
+         break;
       
-     case 'p':
-      debugPort = atoi(optarg);
-      if(!debugPort)
-        err(-1, "Bad port number via -p: %s\n", optarg);
-      break;
+       case 'p':
+         debugPort = atoi(optarg);
+         if(!debugPort)
+           err(-1, "Bad port number via -p: %s\n", optarg);
+         break;
 
-    default:
-      usage();
-   }
+       case 'S':
+         speciesDirectory = optarg;
+         break;
+
+       default:
+         usage();
+      }
+  if(!speciesDirectory)
+    speciesDirectory = (char*)"./Materials/Trees";
 }
 
 
