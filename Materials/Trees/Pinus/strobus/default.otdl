@@ -1,0 +1,25 @@
+// OTDL for Pinus strobus (Eastern White Pine)
+{
+  "overviewData":
+    {
+     "genus":       "Pinus",
+     "species":     "strobus",
+     "commonNames":
+       {
+        "en-US": "Eastern White Pine",
+        "en-UK": "Weymouth Pine"
+       },
+     "version":     [0, 0, 1],
+     "fileTime":    [20,0],
+     "authors":     ["Stuart Staniford"]
+    },
+ "trunk":
+  {
+  },
+ "branches":
+  {
+  },
+ "foliage":
+  {
+  }
+}

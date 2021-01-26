@@ -1,0 +1,25 @@
+// OTDL for Acer rubrum (Red Maple)
+{
+  "overviewData":
+    {
+     "genus":       "Acer",
+     "species":     "rubrum",
+     "commonNames":
+       {
+        "en-US": "Red Maple"
+       },
+     "version":     [0, 0, 1],
+     "fileTime":    [20,0],
+     "authors":     ["Stuart Staniford"]
+    },
+ "trunk":
+  {
+  },
+ "branches":
+  {
+  },
+ "foliage":
+  {
+  }
+}
+
