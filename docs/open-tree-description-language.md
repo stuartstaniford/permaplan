@@ -2,7 +2,7 @@
 
 ## Stuart Staniford
 
-## v 0.0.1 1/5/2021
+## v 0.0.1 1/26/2021
 
 ***
 
@@ -35,7 +35,7 @@ The repository may get very large, but individual landscapes are only likely to 
 
 Thus this specification defines an abstract file tree structure which all OTDL implementations must share and use to manage data.
 
-  ## Overall Structure of the File
+  ## Overall Structure of an OTDL object
 
   An OTDL file consists of a single JSON object which represents one particular species (or variant, hybrid, etc).  The OTDL object consists of a series of JSON objects which are the values of subobjects inside, and associated with names of the master OTDL object.  Various of these subobjects are described in the remaining sections of this specification.  
 
@@ -44,24 +44,27 @@ However, the important master principle is that implementations coming across su
 ### Overview Example
 
 This gives an example showing the major sections of an OTDL object in a file (details are suppressed with ellipses).  Each of these sections is treated at length in subsequent sections, but the example should serve to make the overall structure clearer.  
-  * The `introductoryData` section has metadata about the file and global information required to interpret the file (eg choices of units).  
-  * The `landSurface` section describes the shape of the relief of this particular piece of land.
-  * The `plants` section describes plants either present on the land, or planned for the future.
-  * The `boundaries` section contains the coordinates of an enclosing polygon of the land described by this OLDF object.
-  * The `fencing` section describes the geometry of fencing present or planned on the land.
+  * The `overviewData` section has metadata about the object and global information about this particular species or variety of plant (eg names, file version, etc).  
+  * The `trunk` section describes information associated with the main trunk of the plant.
+  * The `branches` section describes information about branching.
+  * The `foliage` section describes the foliage of this particular species.
 
 ```
 // Example OTDL object 
 {
   "overviewData":
     {
-     "spaceUnits":        "feet",
-     "version":           [0, 0, 2],
-     "fileTime":          [<seconds>, <microseconds>],
-     "baseYear":          2020,
-     "software":          "permaplan",
-     "softwareVersion":   "1.2.3",
-     "author":            "Stuart Staniford"
+     "genus":       "Pinus",
+     "species":     "strobus",
+     "commonNames":  
+       {
+        "en-US": "Eastern White Pine",
+        "en-UK": "Weymouth Pine",
+        ...
+       }
+     "version":     [0, 0, 1],
+     "fileTime":    [<seconds>, <microseconds>],
+     "authors":     ["Stuart Staniford", ...]
     },
  "trunk":
   {
@@ -71,7 +74,7 @@ This gives an example showing the major sections of an OTDL object in a file (de
   {
    ...
   },
- "leaves":
+ "foliage":
   {
    ...
   },  
