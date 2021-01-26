@@ -19,9 +19,11 @@
 // =======================================================================================
 // Class variable initialization
 
+class Species;
 
 class PmodDesign
 {
+  friend Species; //XX temp hack - need to generalize validation function instead.
   public:
   
   // Instance variables - public

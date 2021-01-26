@@ -7,6 +7,7 @@
 #include "loadFileToBuf.h"
 #include "GlobalMacros.h"
 #include "PmodConfig.h"
+#include "PmodDesign.h"
 
 using namespace rapidjson;
 
@@ -47,7 +48,7 @@ Document& Species::readOTDLFromBuf(char* buf, char* sourceName)
    }
   if(!doc->IsObject())
     err(-1, "Base of OTDL file %s is not JSON object.\n", sourceName);
-  if(!validateOTDL(*doc))
+  if(!validateOTDL(*doc, sourceName))
     err(-1, "Invalid OTDL file %s - see log for details\n", sourceName);
  
   return *doc;
@@ -55,12 +56,35 @@ Document& Species::readOTDLFromBuf(char* buf, char* sourceName)
 
 
 // =======================================================================================
+// Validate the overviewData section of an OTDL object.
+
+bool Species::validateOverviewData(Document& doc, char* sourceName)
+{
+  bool   retVal       = true;
+  Value& overviewData = doc["overviewData"];
+
+  //XX - UP TO HERE - need to generalize, this will give misleading error messages.
+  PmodDesign& design = PmodDesign::getDesign();
+  retVal &= design.validateFileTime(overviewData);
+
+  return retVal;
+}
+
+
+// =======================================================================================
 // Validate OTDL/JSON structure of the type of tree we are.
 
-bool Species::validateOTDL(Document& doc)
+bool Species::validateOTDL(Document& doc, char* sourceName)
 {
   bool retVal = true;
-  
+  if(!(doc.HasMember("overviewData") && doc["overviewData"].IsObject()))
+   {
+    LogOLDFValidity("No overviewData in OTDL file %s\n", sourceName);
+    retVal = false;
+   }
+  else
+    retVal &= validateOverviewData(doc, sourceName);
+
   return retVal;
 }
 

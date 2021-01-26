@@ -85,6 +85,18 @@ This gives an example showing the major sections of an OTDL object in a file (de
 
 All JSON names in objects should be expressed in 8 bit ASCII characters, as should all JSON numerical values and JSON structure such as {, }, [, etc.  However, the contents of strings in values are expressed in UTF8 characters and thus may represent any language or alphabet that can be captured via UTF8.  UTF8 is as described in [RFC 3629](https://tools.ietf.org/html/rfc3629).  The OTDL specification provides facilities for internationalization (such as, for example, providing common names of a given tree species in a range of languages and character sets).
 
+## Overview Data
+
+The `overviewData` section has metadata about the file and global information required to interpret the file.  It has certain mandatory name/value pairs that must be present, and then others that are optional.  We here take them in turn.
+
+### fileTime (mandatory)
+
+Syntax: `"fileTime":  [<seconds>, <microseconds>]`
+
+The fileTime value is a JSON array of exactly two integers which denote the time at which the file was written.  The first integer is the number of seconds since the beginning of 1970, UTC (aka "Unix time") and the second integer is a number of microseconds (expressing the fractional part of a second).
+
+
+
 ## File Structure for OTDL.
 
 This file structure is described with respect to <ROOT>, which may be different in different places- for example, it may be a local subdirectory for an instance of OTDL software or it may be relative to some URL over HTTP(S).  This specification does not specify where <ROOT> is, but rather specifies a subdirectory tree underneath it.  Subdirectory names must be ASCII alpha-numeric plus `._-`.  The `/` character is used as a path divider, with the understanding that on file systems using a different path divider the correct one for local circumstances will be used (eg `\` on Microsoft Windows).

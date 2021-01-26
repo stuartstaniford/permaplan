@@ -13,10 +13,12 @@
 
 
 // =======================================================================================
-// Logging options to do with parsing and validating the OLDF file
+// Logging options to do with parsing and validating OLDF and OTDL files
 
 #define LOG_OLDF_VALIDITY      // Log validity problems in the file
 #define LOG_OLDF_DETAILS       // Log details of valid OLDF objects
+#define LOG_OTDL_VALIDITY      // Log validity problems in an OTDL object
+#define LOG_OTDL_DETAILS       // Log details of valid OTDL objects
 
 
 // =======================================================================================
@@ -100,7 +102,7 @@ extern FILE* LogFile;
 
 
 // =======================================================================================
-// Logging options to do with parsing and validating the OLDF file
+// Logging options to do with parsing and validating OLDF and OTDL files
 
 // Log validity problems in the file
 #ifdef LOG_OLDF_VALIDITY
@@ -114,6 +116,20 @@ extern FILE* LogFile;
 #define LogOLDFDetails(...) LogStatement(__VA_ARGS__)
 #else
 #define LogOLDFDetails(...)
+#endif
+
+// Log validity problems in an OTDL object
+#ifdef LOG_OTDL_VALIDITY
+#define LogOTDLValidity(...) LogStatement(__VA_ARGS__)
+#else
+#define LogOTDLValidity(...)
+#endif
+
+// Log details of valid OTDL objects
+#ifdef LOG_OTDL_DETAILS
+#define LogOTDLDetails(...) LogStatement(__VA_ARGS__)
+#else
+#define LogOTDLDetails(...)
 #endif
 
 
