@@ -10,6 +10,7 @@
 #include "rapidjson/writer.h"
 #include "rapidjson/stringbuffer.h"
 #include "rapidjson/error/en.h"
+#include "JSONStructureChecker.h"
 
 #define SPECIES_ARRAY_SIZE   2048 // max number of species in a design
 
@@ -21,6 +22,8 @@ class Species
 {
  public:
   
+  // Instance variables - public;
+
   // Member functions - public
   Species(rapidjson::Document& otdlDoc);
   virtual ~Species(void);
@@ -31,7 +34,7 @@ class Species
   // Static functions and variables
   static rapidjson::Document speciesIndex;
   static rapidjson::Document& readOTDLFromBuf(char* buf, char* sourceName);
-  static bool validateOverviewData(rapidjson::Document& doc, char* sourceName);
+  static bool validateOverviewData(rapidjson::Document& doc, JSONStructureChecker* jCheck);
   static bool validateOTDL(rapidjson::Document& doc, char* sourceName);
   static Species* getSpeciesByPath(char* speciesPath);
   static Species* loadLocalOTDLEntry(char* speciesPath);

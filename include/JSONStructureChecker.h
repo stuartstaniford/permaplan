@@ -17,23 +17,29 @@
 // =======================================================================================
 // Class variable initialization
 
+enum JSONType {OLDF, OTDL};
+
 class JSONStructureChecker
 {
   public:
   
   // Instance variables - public
+  char*    sourcePhrase;
 
   // Member functions - public
-  JSONStructureChecker(void);
+  JSONStructureChecker(char* sPhrase, JSONType jType);
   ~JSONStructureChecker(void);
+  void makeLog(bool isErr);
+  bool validateFileTime(rapidjson::Value& containObj);
 
 private:
 
   // Member functions - private
   
   // Instance variables - private
-  rapidjson::Document doc;
-
+  JSONType type;
+  char     logBuf[512];
+  
   JSONStructureChecker(const JSONStructureChecker&);            // Prevent copy-construction
   JSONStructureChecker& operator=(const JSONStructureChecker&); // Prevent assignment
 

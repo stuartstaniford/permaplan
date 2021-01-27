@@ -13,6 +13,7 @@
 #include "LandSurface.h"
 #include "PmodConfig.h"
 #include "Timeval.h"
+#include "JSONStructureChecker.h"
 
 // =======================================================================================
 // Class variable initialization
@@ -26,10 +27,11 @@ class PmodDesign
   
   // Instance variables - public
   rapidjson::Document doc;
-  int                 baseYear;
-  Timeval             fileTime;
-  FILE*               writeFile;
-  bool                metricUnits;
+  int                   baseYear;
+  Timeval               fileTime;
+  FILE*                 writeFile;
+  bool                  metricUnits;
+  JSONStructureChecker* jCheck;
   
 private:
   

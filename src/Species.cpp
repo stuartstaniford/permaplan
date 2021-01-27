@@ -58,14 +58,12 @@ Document& Species::readOTDLFromBuf(char* buf, char* sourceName)
 // =======================================================================================
 // Validate the overviewData section of an OTDL object.
 
-bool Species::validateOverviewData(Document& doc, char* sourceName)
+bool Species::validateOverviewData(Document& doc, JSONStructureChecker* jCheck)
 {
   bool   retVal       = true;
   Value& overviewData = doc["overviewData"];
 
-  //XX - UP TO HERE - need to generalize, this will give misleading error messages.
-  PmodDesign& design = PmodDesign::getDesign();
-  retVal &= design.validateFileTime(overviewData);
+  retVal &= jCheck->validateFileTime(overviewData);
 
   return retVal;
 }
@@ -77,14 +75,19 @@ bool Species::validateOverviewData(Document& doc, char* sourceName)
 bool Species::validateOTDL(Document& doc, char* sourceName)
 {
   bool retVal = true;
+  char phrase[128];
+  snprintf(phrase, 128, "OTDL object %s", sourceName);
+  JSONStructureChecker* jCheck = new JSONStructureChecker(phrase, OTDL);
+  
   if(!(doc.HasMember("overviewData") && doc["overviewData"].IsObject()))
    {
-    LogOLDFValidity("No overviewData in OTDL file %s\n", sourceName);
+    LogOLDFValidity("No overviewData in %s\n", phrase);
     retVal = false;
    }
   else
-    retVal &= validateOverviewData(doc, sourceName);
+    retVal &= validateOverviewData(doc, jCheck);
 
+  delete jCheck; jCheck = NULL;
   return retVal;
 }
 
