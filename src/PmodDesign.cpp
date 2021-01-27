@@ -12,7 +12,7 @@
 #include "loadFileToBuf.h"
 #include "Logging.h"
 #include "GlobalMacros.h"
-
+#include "JSONStructureChecker.h"
 
 using namespace rapidjson;
 
