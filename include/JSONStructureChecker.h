@@ -29,6 +29,7 @@ class JSONStructureChecker
   
   // Instance variables - public
   char*    sourcePhrase;
+  rapidjson::Value* languageTags;
 
   // Member functions - public
   JSONStructureChecker(char* sPhrase, JSONType jType);
@@ -42,7 +43,8 @@ class JSONStructureChecker
   bool validateGenusName(char* objName, const char* genus);
   bool validateSpeciesName(char* objName, const char* species);
   bool validateOptionalStringOrArrayString(rapidjson::Value& thisObject, char* objName, char* member);
-
+  bool loadRFC5646LanguageTags(void);
+  
 private:
 
   // Member functions - private

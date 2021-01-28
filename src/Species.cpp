@@ -80,6 +80,9 @@ bool Species::validateCommonNames(Value& containObj, JSONStructureChecker* jChec
       printf("foo");
    }
   
+  unless(jCheck->languageTags)
+    jCheck->loadRFC5646LanguageTags();
+  
   return retVal;
 }
 

@@ -21,6 +21,7 @@ using namespace rapidjson;
 
 JSONStructureChecker::JSONStructureChecker(char* sPhrase, JSONType jType):
                                           sourcePhrase(sPhrase),
+                                          languageTags(NULL),
                                           type(jType)
 {
   if(type == OLDF)
@@ -37,6 +38,20 @@ JSONStructureChecker::JSONStructureChecker(char* sPhrase, JSONType jType):
    }
   else
     err(-1, "Unknown type in JSONStructureChecker::JSONStructureChecker");
+}
+
+
+// =======================================================================================
+// Function to load the known language tags (per RFC 5646 into a JSON object for use
+// in parsing stuff that needs to know about different languages (eg commonNames).
+
+bool JSONStructureChecker::loadRFC5646LanguageTags(void)
+{
+  bool retVal  = true;
+
+  // UP TO HERE.
+  
+  return retVal;
 }
 
 
