@@ -39,6 +39,7 @@ class JSONStructureChecker
   bool validateVersion(rapidjson::Value& containObj);
   bool validateGenusName(char* objName, const char* genus);
   bool validateSpeciesName(char* objName, const char* species);
+  bool validateOptionalStringOrArrayString(rapidjson::Value& thisObject, char* objName, char* member);
 
 private:
 

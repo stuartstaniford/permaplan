@@ -201,54 +201,6 @@ bool PmodDesign::validateOptionalStringMember(Value& thisObject, char* objName, 
 
 
 // =======================================================================================
-// Function to check that if a particular member exists, it is either a JSON string, or
-// an array of JSON strings (an idiom used in several places in OLDF to allow multi-valued
-// things.
-
-bool PmodDesign::validateOptionalStringOrArrayString(Value& thisObject,
-                                                            char* objName, char* member)
-{
-  bool retVal = true;
-  const PmodConfig& config = PmodConfig::getConfig();
-  
-  if(thisObject.HasMember(member))
-   {
-    if(thisObject[member].IsString())
-     {
-      const char* token = thisObject[member].GetString();
-      LogOLDFDetails("\"%s\" is \"%s\" in %s object in OLDF file %s\n", member, token,
-                                                      objName, config.designFileName);
-     }
-    else if(thisObject[member].IsArray())
-     {
-      int N = thisObject[member].Size();
-      for(int i=0; i<N; i++)
-       {
-        unless(thisObject[member][i].IsString())
-         {
-          LogOLDFValidity("%s:%s token is not string at array position %d in OLDF file %s\n",
-                          objName, member, i, config.designFileName);
-          retVal = false;
-         }
-       }
-     }
-    else
-     {
-      retVal = false;
-      LogOLDFValidity("%s:%s token is not string or array of strings in OLDF file %s\n", objName, member,
-                                                            config.designFileName);
-     }
-   }
-  else
-   {
-    LogOLDFDetails("Non-required %s:%s token not present in OLDF file %s\n",
-                                      objName, member, config.designFileName);
-   }
- return retVal;
-}
-
-
-// =======================================================================================
 // Function to check the structure of the OLDF introductoryData object.
 
 bool PmodDesign::validateIntroductoryData(void)
@@ -721,7 +673,7 @@ bool PmodDesign::validatePlants(void)
     retVal &= validateOptionalStringMember(plants[i], logObjectName, (char*)"var");
 
     // Taxonomy link
-    retVal &= validateOptionalStringOrArrayString(plants[i], logObjectName,
+    retVal &= jCheck->validateOptionalStringOrArrayString(plants[i], logObjectName,
                                                                     (char*)"taxonomyLink");
 
     // Common Name
@@ -738,7 +690,7 @@ bool PmodDesign::validatePlants(void)
       retVal &= validateTreeDiameter(plants[i]["treeDiameter"], logObjectName);
 
     // Notes
-    retVal &= validateOptionalStringOrArrayString(plants[i], logObjectName,
+    retVal &= jCheck->validateOptionalStringOrArrayString(plants[i], logObjectName,
                                                                     (char*)"notes");
    }
   

@@ -78,6 +78,10 @@ bool Species::validateOverviewData(Document& doc, JSONStructureChecker* jCheck)
   // version
   retVal &= jCheck->validateVersion(overviewData);
 
+  // authors
+  retVal &= jCheck->validateOptionalStringOrArrayString(overviewData, logObjectName,
+                                                                  (char*)"authors");
+
   return retVal;
 }
 

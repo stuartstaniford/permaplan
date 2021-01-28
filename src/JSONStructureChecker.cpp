@@ -262,6 +262,63 @@ bool JSONStructureChecker::validateFileTime(Value& containObj)
 
 
 // =======================================================================================
+// Function to check that if a particular member exists, it is either a JSON string, or
+// an array of JSON strings (an idiom used in several places in OLDF/OTDL to allow
+// multi-valued things.
+
+bool JSONStructureChecker::validateOptionalStringOrArrayString(Value& thisObject,
+                                                            char* objName, char* member)
+{
+  bool retVal = true;
+  
+  if(thisObject.HasMember(member))
+   {
+    if(thisObject[member].IsString())
+     {
+      const char* token = thisObject[member].GetString();
+      sprintBuf("\"%s\" is \"%s\" in %s object in %s\n", member, token,
+                                                      objName, sourcePhrase);
+      makeLog(true);
+     }
+    else if(thisObject[member].IsArray())
+     {
+      int N = thisObject[member].Size();
+      for(int i=0; i<N; i++)
+       {
+        unless(thisObject[member][i].IsString())
+         {
+          sprintBuf("%s:%s token is not string at array position %d in %s\n",
+                          objName, member, i, sourcePhrase);
+          makeLog(false);
+          retVal = false;
+         }
+       }
+      if(retVal) // Multiple correct authors present.
+       {
+        sprintBuf("\"%s\" has %d values in %s object in %s\n", member, N,
+                                                        objName, sourcePhrase);
+        makeLog(true);
+       }
+     }
+    else
+     {
+      retVal = false;
+      sprintBuf("%s:%s token is not string or array of strings in %s\n",
+                                                        objName, member, sourcePhrase);
+      makeLog(false);
+     }
+   }
+  else
+   {
+    sprintBuf("Non-required %s:%s token not present in %s\n",
+                                                          objName, member, sourcePhrase);
+    makeLog(true);
+   }
+ return retVal;
+}
+
+
+// =======================================================================================
 // Destructor
 
 JSONStructureChecker::~JSONStructureChecker()
