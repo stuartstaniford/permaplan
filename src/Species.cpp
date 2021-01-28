@@ -62,8 +62,16 @@ bool Species::validateOverviewData(Document& doc, JSONStructureChecker* jCheck)
 {
   bool   retVal       = true;
   Value& overviewData = doc["overviewData"];
-
+  char* logObjectName = (char*)"overviewData";
+  
   retVal &= jCheck->validateFileTime(overviewData);
+
+  retVal &= jCheck->validateStringMemberExists(overviewData, logObjectName, (char*)"genus");
+  retVal &= jCheck->validateGenusName(logObjectName, overviewData["genus"].GetString());
+  
+  // Species
+  retVal &= jCheck->validateStringMemberExists(overviewData, logObjectName, (char*)"species");
+  retVal &= jCheck->validateSpeciesName(logObjectName, overviewData["species"].GetString());
 
   return retVal;
 }

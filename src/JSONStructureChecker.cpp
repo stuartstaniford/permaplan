@@ -29,21 +29,21 @@ JSONStructureChecker::JSONStructureChecker(char* sPhrase, JSONType jType):
 // =======================================================================================
 // Function to do the right kind of logging based on the kind of JSON this is.
 
-void JSONStructureChecker::makeLog(bool isErr)
+void JSONStructureChecker::makeLog(bool isGood)
 {
   if(type == OLDF)
    {
-    if(isErr)
-      LogOLDFValidity("%s", logBuf);
-    else
+    if(isGood)
       LogOLDFDetails("%s", logBuf);
+    else
+      LogOLDFValidity("%s", logBuf);
    }
   else if(type == OTDL)
    {
-    if(isErr)
-      LogOTDLValidity("%s", logBuf);
-    else
+    if(isGood)
       LogOTDLDetails("%s", logBuf);
+    else
+      LogOTDLValidity("%s", logBuf);
    }
   else
     err(-1, "Unsupported type in JSONStructureChecker::makeLog\n");
@@ -51,7 +51,104 @@ void JSONStructureChecker::makeLog(bool isErr)
 
 
 // =======================================================================================
-// Function to check and object has a valid file time.
+// Utility function to test that a genus name starts with an upper case letter, and
+// otherwise only has lower case letters.
+
+bool JSONStructureChecker::validateGenusName(char* objName, const char* genus)
+{
+  bool retVal  = true;
+
+  int N = strlen(genus);
+  
+  unless(N > 1)
+   {
+    sprintBuf("Genus name %s too short in %s in %s\n", genus, objName, sourcePhrase);
+    makeLog(false);
+    return false;
+   }
+
+  unless(genus[0] >= 'A' && genus[0] <= 'Z')
+   {
+    sprintBuf("Genus name %s not capitalized in %s in %s\n", genus, objName, sourcePhrase);
+    makeLog(false);
+    retVal = false;
+   }
+  
+  bool allLower = true;
+  for(int i=1; i<N; i++)
+    unless(genus[i] >= 'a' && genus[i] <= 'z')
+      allLower = false;
+  unless(allLower)
+   {
+    sprintBuf("Genus name %s not has non-alpha chars or upper case in %s "
+                            "in %s\n", genus, objName, sourcePhrase);
+    makeLog(false);
+    retVal = false;
+   }
+
+  return retVal;
+}
+
+
+// =======================================================================================
+// Utility function to test that a species name starts only has lower case letters.
+
+bool JSONStructureChecker::validateSpeciesName(char* objName, const char* species)
+{
+  bool retVal  = true;
+
+  int N = strlen(species);
+  
+  unless(N > 1)
+   {
+    sprintBuf("Species name %s too short in %s in %s\n", species, objName, sourcePhrase);
+    makeLog(false);
+    return false;
+   }
+  
+  bool allLower = true;
+  for(int i=0; i<N; i++)
+    unless(species[i] >= 'a' && species[i] <= 'z')
+      allLower = false;
+  unless(allLower)
+   {
+    sprintBuf("Species name %s not has non-alpha chars or upper case in %s "
+                            "in %s\n", species, objName, sourcePhrase);
+    makeLog(false);
+    retVal = false;
+   }
+
+  return retVal;
+}
+
+
+// =======================================================================================
+// Function to check that a particular member exists and is a JSON string.
+
+bool JSONStructureChecker::validateStringMemberExists(Value& thisObject,
+                                                              char* objName, char* member)
+{
+  bool retVal = true;
+  
+  if(thisObject.HasMember(member) && thisObject[member].IsString())
+   {
+    const char* token = thisObject[member].GetString();
+    sprintBuf("\"%s\" is \"%s\" in %s object in %s\n", member, token, objName, sourcePhrase);
+    makeLog(true);
+   }
+  else
+   {
+    sprintBuf("No %s:%s token in %s\n", objName, member, sourcePhrase);
+    makeLog(false);
+    retVal = false;
+   }
+
+ return retVal;
+}
+
+
+// =======================================================================================
+// Function to check an object has a valid file time.
 
 bool JSONStructureChecker::validateFileTime(Value& containObj)
 {
@@ -69,30 +166,30 @@ bool JSONStructureChecker::validateFileTime(Value& containObj)
         if(!(fileTimeArray[i].IsInt()))
          {
           fileTimeGood = false;
-          sprintf(logBuf, "fileTime array is not int at pos %d in %s\n", i, sourcePhrase);
-          makeLog(true);
+          sprintBuf("fileTime array is not int at pos %d in %s\n", i, sourcePhrase);
+          makeLog(false);
          }
        }
       if(fileTimeGood)
        {
         fileT.set(fileTimeArray[0].GetInt(), fileTimeArray[1].GetInt());
-        sprintf(logBuf, "file time of %s is %s", sourcePhrase, fileT.ctimeString());
-        makeLog(false);
+        sprintBuf("file time of %s is %s", sourcePhrase, fileT.ctimeString());
+        makeLog(true);
        }
       else
         retVal = false;
      }
     else
      {
-      sprintf(logBuf, "fileTime array is wrong size %d in %s\n",
+      sprintBuf("fileTime array is wrong size %d in %s\n",
                                                     fileTimeArray.Size(), sourcePhrase);
-      makeLog(true);
+      makeLog(false);
      }
    }
   else
    {
-    sprintf(logBuf, "No fileTime array in %s\n", sourcePhrase);
-    makeLog(true);
+    sprintBuf("No fileTime array in %s\n", sourcePhrase);
+    makeLog(false);
     retVal = false;
    }
   

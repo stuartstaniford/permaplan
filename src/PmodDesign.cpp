@@ -215,31 +215,6 @@ bool PmodDesign::validateJSONUnixTime(Value& object, char* objName)
 
 
 // =======================================================================================
-// Function to check that a particular member exists and is a JSON string.
-
-bool PmodDesign::validateStringMemberExists(Value& thisObject, char* objName, char* member)
-{
-  bool retVal = true;
-  const PmodConfig& config = PmodConfig::getConfig();
-  
-  if(thisObject.HasMember(member) && thisObject[member].IsString())
-   {
-    const char* token = thisObject[member].GetString();
-    LogOLDFDetails("\"%s\" is \"%s\" in %s object in OLDF file %s\n", member, token,
-                                                      objName, config.designFileName);
-   }
-  else
-   {
-    LogOLDFValidity("No %s:%s token in OLDF file %s\n", objName, member,
-                                                            config.designFileName);
-    retVal = false;
-   }
-
- return retVal;
-}
-
-
-// =======================================================================================
 // Function to check that if a particular member exists, it is a JSON string.
 
 bool PmodDesign::validateOptionalStringMember(Value& thisObject, char* objName, char* member)
@@ -334,7 +309,7 @@ bool PmodDesign::validateIntroductoryData(void)
   fileTime.set(introductoryData["fileTime"][0].GetInt(),
                                     introductoryData["fileTime"][1].GetInt());
 
-  retVal &= validateStringMemberExists(introductoryData,
+  retVal &= jCheck->validateStringMemberExists(introductoryData,
                                     (char*)"introductoryData", (char*)"software");
   retVal &= validateOptionalStringMember(introductoryData,
                                     (char*)"introductoryData", (char*)"softwareVersion");
@@ -677,78 +652,6 @@ bool PmodDesign::validateLandSurface(void)
 
 
 // =======================================================================================
-// Utility function to test that a genus name starts with an upper case letter, and
-// otherwise only has lower case letters.
-
-bool validateGenusName(char* objName, const char* genus)
-{
-  bool retVal  = true;
-  const PmodConfig& config = PmodConfig::getConfig();
-
-  int N = strlen(genus);
-  
-  unless(N > 1)
-   {
-    LogOLDFValidity("Genus name %s too short in %s in OLDF file %s\n",
-                                                    genus, objName, config.designFileName);
-    return false;
-   }
-
-  unless(genus[0] >= 'A' && genus[0] <= 'Z')
-   {
-    LogOLDFValidity("Genus name %s not capitalized in %s in OLDF file %s\n",
-                                                    genus, objName, config.designFileName);
-    retVal = false;
-   }
-  
-  bool allLower = true;
-  for(int i=1; i<N; i++)
-    unless(genus[i] >= 'a' && genus[i] <= 'z')
-      allLower = false;
-  unless(allLower)
-   {
-    LogOLDFValidity("Genus name %s not has non-alpha chars or upper case in %s "
-                            "in OLDF file %s\n", genus, objName, config.designFileName);
-    retVal = false;
-   }
-
-  return retVal;
-}
-
-
-// =======================================================================================
-// Utility function to test that a species name starts only has lower case letters.
-
-bool validateSpeciesName(char* objName, const char* species)
-{
-  bool retVal  = true;
-  const PmodConfig& config = PmodConfig::getConfig();
-
-  int N = strlen(species);
-  
-  unless(N > 1)
-   {
-    LogOLDFValidity("Species name %s too short in %s in OLDF file %s\n",
-                                                    species, objName, config.designFileName);
-    return false;
-   }
-  
-  bool allLower = true;
-  for(int i=0; i<N; i++)
-    unless(species[i] >= 'a' && species[i] <= 'z')
-      allLower = false;
-  unless(allLower)
-   {
-    LogOLDFValidity("Species name %s not has non-alpha chars or upper case in %s "
-                            "in OLDF file %s\n", species, objName, config.designFileName);
-    retVal = false;
-   }
-
-  return retVal;
-}
-
-
-// =======================================================================================
 // Function to check the structure of a tree Diameter field in an OLDF plant object.
 
 #define MAX_TREE_DIAMETER 100 // https://en.wikipedia.org/wiki/List_of_superlative_trees
@@ -853,12 +756,12 @@ bool PmodDesign::validatePlants(void)
      }
 
     // Genus
-    retVal &= validateStringMemberExists(plants[i], logObjectName, (char*)"genus");
-    retVal &= validateGenusName(logObjectName, plants[i]["genus"].GetString());
+    retVal &= jCheck->validateStringMemberExists(plants[i], logObjectName, (char*)"genus");
+    retVal &= jCheck->validateGenusName(logObjectName, plants[i]["genus"].GetString());
     
     // Species
-    retVal &= validateStringMemberExists(plants[i], logObjectName, (char*)"species");
-    retVal &= validateSpeciesName(logObjectName, plants[i]["species"].GetString());
+    retVal &= jCheck->validateStringMemberExists(plants[i], logObjectName, (char*)"species");
+    retVal &= jCheck->validateSpeciesName(logObjectName, plants[i]["species"].GetString());
 
     // Variety
     retVal &= validateOptionalStringMember(plants[i], logObjectName, (char*)"var");

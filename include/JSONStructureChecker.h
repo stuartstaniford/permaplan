@@ -14,6 +14,10 @@
 
 #define spaceUnitsText(x) ((x)?(char*)"meters":(char*)"feet")
 
+#define LOG_BUF_SIZE 512
+#define sprintBuf(...) snprintf(logBuf, LOG_BUF_SIZE, __VA_ARGS__)
+
+
 // =======================================================================================
 // Class variable initialization
 
@@ -30,7 +34,10 @@ class JSONStructureChecker
   JSONStructureChecker(char* sPhrase, JSONType jType);
   ~JSONStructureChecker(void);
   void makeLog(bool isErr);
+  bool validateStringMemberExists(rapidjson::Value& thisObject, char* objName, char* member);
   bool validateFileTime(rapidjson::Value& containObj);
+  bool validateGenusName(char* objName, const char* genus);
+  bool validateSpeciesName(char* objName, const char* species);
 
 private:
 
@@ -38,12 +45,17 @@ private:
   
   // Instance variables - private
   JSONType type;
-  char     logBuf[512];
+  char     logBuf[LOG_BUF_SIZE];
   
   JSONStructureChecker(const JSONStructureChecker&);            // Prevent copy-construction
   JSONStructureChecker& operator=(const JSONStructureChecker&); // Prevent assignment
 
 };
+
+
+// =======================================================================================
+// Utility functions not in class.
+
 
 #endif
 
