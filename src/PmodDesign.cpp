@@ -120,52 +120,6 @@ bool PmodDesign::validateBaseYear(Value& introductoryData)
 
 
 // =======================================================================================
-// Function to check the OLDF spec version array.
-
-bool PmodDesign::validateVersion(Value& introductoryData)
-{
-  bool retVal = true;
-  int expectedVersion[3] = {0,0,2};
-  const PmodConfig& config = PmodConfig::getConfig();
-  
-  if(introductoryData.HasMember("version") && introductoryData["version"].IsArray())
-   {
-    Value& versionArray = introductoryData["version"];
-    if(versionArray.Size() == 3)
-     {
-      bool versionGood = true;
-      for (int i = 0; i < versionArray.Size(); i++)
-       {
-        if(!(versionArray[i].IsInt() && versionArray[i].GetInt() == expectedVersion[i]))
-         {
-          versionGood = false;
-          LogOLDFValidity("introductoryData:version array is not %d at pos %d in OLDF file %s\n",
-                                                    expectedVersion[i], i, config.designFileName);
-         }
-       }
-      if(versionGood)
-        LogOLDFDetails("version is [%d,%d,%d] in OLDF file %s\n", expectedVersion[0],
-                                  expectedVersion[1], expectedVersion[2], config.designFileName);
-      else
-        retVal = false;
-     }
-    else
-     {
-      LogOLDFValidity("introductoryData:version array is wrong size %d in OLDF file %s\n",
-                                                    versionArray.Size(), config.designFileName);
-     }
-   }
-  else
-   {
-    LogOLDFValidity("No introductoryData:version array in OLDF file %s\n", config.designFileName);
-    retVal = false;
-   }
-  
- return retVal;
-}
-
-
-// =======================================================================================
 // Function to check if a particular piece of JSON is a correct Unix timeval expressed
 // as an array of [<sec>, <usec>].
 
@@ -304,7 +258,7 @@ bool PmodDesign::validateIntroductoryData(void)
 
   retVal &= validateSpaceUnits(introductoryData);
   retVal &= validateBaseYear(introductoryData);
-  retVal &= validateVersion(introductoryData);
+  retVal &= jCheck->validateVersion(introductoryData);
   retVal &= jCheck->validateFileTime(introductoryData);
   fileTime.set(introductoryData["fileTime"][0].GetInt(),
                                     introductoryData["fileTime"][1].GetInt());

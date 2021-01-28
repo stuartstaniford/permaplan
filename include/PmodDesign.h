@@ -60,7 +60,6 @@ private:
   bool validateIntroductoryData(void);
   bool validateSpaceUnits(rapidjson::Value& introductoryData);
   bool validateBaseYear(rapidjson::Value& introductoryData);
-  bool validateVersion(rapidjson::Value& introductoryData);
   bool validateFileTime(rapidjson::Value& introductoryData);
   bool validateReferencePoint(rapidjson::Value& boundaries);
   bool validateArcs(rapidjson::Value& boundaries);

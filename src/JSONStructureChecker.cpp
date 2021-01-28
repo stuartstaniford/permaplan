@@ -23,6 +23,20 @@ JSONStructureChecker::JSONStructureChecker(char* sPhrase, JSONType jType):
                                           sourcePhrase(sPhrase),
                                           type(jType)
 {
+  if(type == OLDF)
+   {
+    expectedVersion[0] = 0;
+    expectedVersion[1] = 0;
+    expectedVersion[2] = 2;
+   }
+  else if(type == OTDL)
+   {
+    expectedVersion[0] = 0;
+    expectedVersion[1] = 0;
+    expectedVersion[2] = 1;
+   }
+  else
+    err(-1, "Unknown type in JSONStructureChecker::JSONStructureChecker");
 }
 
 
@@ -144,6 +158,56 @@ bool JSONStructureChecker::validateStringMemberExists(Value& thisObject,
    }
 
  return retVal;
+}
+
+
+// =======================================================================================
+// Function to check the OLDF spec version array.
+
+bool JSONStructureChecker::validateVersion(Value& containObj)
+{
+  bool retVal = true;
+  
+  if(containObj.HasMember("version") && containObj["version"].IsArray())
+   {
+    Value& versionArray = containObj["version"];
+    if(versionArray.Size() == 3)
+     {
+      bool versionGood = true;
+      for (int i = 0; i < versionArray.Size(); i++)
+       {
+        if(!(versionArray[i].IsInt() && versionArray[i].GetInt() == expectedVersion[i]))
+         {
+          versionGood = false;
+          sprintBuf("version array is not %d at pos %d in %s\n",
+                                                    expectedVersion[i], i, sourcePhrase);
+          makeLog(false);
+         }
+       }
+      if(versionGood)
+       {
+        sprintBuf("version is [%d,%d,%d] in %s\n", expectedVersion[0],
+                                  expectedVersion[1], expectedVersion[2], sourcePhrase);
+        makeLog(true);
+       }
+      else
+        retVal = false;
+     }
+    else
+     {
+      sprintBuf("version array is wrong size %d in  %s\n",
+                                                      versionArray.Size(), sourcePhrase);
+      makeLog(false);
+     }
+   }
+  else
+   {
+    sprintBuf("No version array in %s\n", sourcePhrase);
+    makeLog(false);
+    retVal = false;
+   }
+  
+  return retVal;
 }
 
 

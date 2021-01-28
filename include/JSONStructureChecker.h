@@ -36,6 +36,7 @@ class JSONStructureChecker
   void makeLog(bool isErr);
   bool validateStringMemberExists(rapidjson::Value& thisObject, char* objName, char* member);
   bool validateFileTime(rapidjson::Value& containObj);
+  bool validateVersion(rapidjson::Value& containObj);
   bool validateGenusName(char* objName, const char* genus);
   bool validateSpeciesName(char* objName, const char* species);
 
@@ -46,7 +47,8 @@ private:
   // Instance variables - private
   JSONType type;
   char     logBuf[LOG_BUF_SIZE];
-  
+  int      expectedVersion[3];
+
   JSONStructureChecker(const JSONStructureChecker&);            // Prevent copy-construction
   JSONStructureChecker& operator=(const JSONStructureChecker&); // Prevent assignment
 
