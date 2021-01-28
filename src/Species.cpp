@@ -56,6 +56,35 @@ Document& Species::readOTDLFromBuf(char* buf, char* sourceName)
 
 
 // =======================================================================================
+// Function to check the mandatory OTDL commonNames object inside overviewData.
+
+bool Species::validateCommonNames(Value& containObj, JSONStructureChecker* jCheck)
+{
+  bool retVal = true;
+  
+  if(!containObj.HasMember("commonNames"))
+   {
+    LogOTDLValidity("No commonNames object in %s\n", jCheck->sourcePhrase);
+    return false;
+   }
+  
+  if(!containObj["commonNames"].IsObject())
+   {
+    LogOTDLValidity("commonNames is not object in %s\n", jCheck->sourcePhrase);
+    retVal = false;
+   }
+  else
+   {
+    Value& cNames  = containObj["commonNames"];
+    if(cNames.HasMember("en-us"))
+      printf("foo");
+   }
+  
+  return retVal;
+}
+
+
+// =======================================================================================
 // Validate the overviewData section of an OTDL object.
 
 bool Species::validateOverviewData(Document& doc, JSONStructureChecker* jCheck)
@@ -75,7 +104,7 @@ bool Species::validateOverviewData(Document& doc, JSONStructureChecker* jCheck)
   retVal &= jCheck->validateStringMemberExists(overviewData, logObjectName, (char*)"species");
   retVal &= jCheck->validateSpeciesName(logObjectName, overviewData["species"].GetString());
 
-  // Variety
+  // variety
   retVal &= jCheck->validateOptionalStringMember(overviewData, logObjectName, (char*)"var");
 
   // version
@@ -84,6 +113,8 @@ bool Species::validateOverviewData(Document& doc, JSONStructureChecker* jCheck)
   // authors
   retVal &= jCheck->validateOptionalStringOrArrayString(overviewData, logObjectName,
                                                                   (char*)"authors");
+  // common names object.
+  retVal &= validateCommonNames(overviewData, jCheck);
 
   return retVal;
 }

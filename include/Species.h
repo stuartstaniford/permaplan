@@ -26,9 +26,9 @@ class Species
 
   // Member functions - public
   Species(rapidjson::Document& otdlDoc);
-  virtual ~Species(void);
-  virtual const char* objectName(void);
-  virtual bool        diagnosticHTML(HttpDebug* serv);
+  ~Species(void);
+  const char* objectName(void);
+  bool        diagnosticHTML(HttpDebug* serv);
 
  public:
   // Static functions and variables
@@ -39,6 +39,7 @@ class Species
   static Species* getSpeciesByPath(char* speciesPath);
   static Species* loadLocalOTDLEntry(char* speciesPath);
   static Species** speciesPtrArray;
+  static bool validateCommonNames(rapidjson::Value& containObj, JSONStructureChecker* jCheck);
   static unsigned short speciesCount;
 
  private:
