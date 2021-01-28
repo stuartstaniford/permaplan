@@ -95,6 +95,15 @@ Syntax: `"fileTime":  [<seconds>, <microseconds>]`
 
 The fileTime value is a JSON array of exactly two integers which denote the time at which the file was written.  The first integer is the number of seconds since the beginning of 1970, UTC (aka "Unix time") and the second integer is a number of microseconds (expressing the fractional part of a second).
 
+### authors (optional)
+
+Syntax: `"authors":  "First Last",`
+or
+Syntax: `"authors":  {"F1 L1", "F2 L2", ...]`
+
+The authors value is a JSON string to denote the human author of a particular OTDL object.  
+The specification allows any UTF8 string and does not constrain to any particular convention of naming humans or organizations.  It's also legitimate to have authors go to an array of 
+names, giving credit to multiple human authors who have worked on a particular file.
 
 
 ## File Structure for OTDL.
