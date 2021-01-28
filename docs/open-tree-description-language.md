@@ -95,6 +95,13 @@ Syntax: `"fileTime":  [<seconds>, <microseconds>]`
 
 The fileTime value is a JSON array of exactly two integers which denote the time at which the file was written.  The first integer is the number of seconds since the beginning of 1970, UTC (aka "Unix time") and the second integer is a number of microseconds (expressing the fractional part of a second).
 
+### version (mandatory)
+
+Syntax: `"version":  [<majorversion>, <minorversion1>, <minorversion2>]`
+
+The version value is a JSON array of exactly three integers which denote the version of this specification that governs the format of the file.  The current version is `[0,0,1]`.  Version numbers will be incremented as the file format continues to evolve over time.  A general convention is that changes in minor version numbers will be expected to preserve backward compatability with older versions of OLDF parsing software.  However, this may not be the case with changes in major version number.  Major version 0 is used for versions of the specification prior to general release, while it is in early development and testing.
+
+
 ### authors (optional)
 
 Syntax: `"authors":  "First Last",`
