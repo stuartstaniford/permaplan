@@ -301,7 +301,9 @@ This is a url to a formal taxonomic description of the exact species of plant be
 
 Syntax: `"commonName": "<name>",`
 
-This is a common name of the plant by which the file creator wishes to informally refer to it.  It can be internationalized using UTF8 if appropriate.  File parsing software should only use the common name minimally for clarification to humans - it should not be used for indexing and the like, as scientific names are for more systematic and unique and thus better for most purposes.
+This is a common name of the plant by which the file creator wishes to informally refer to it.  It can be internationalized using UTF8 if appropriate.  File parsing software should only use the common name minimally for clarification to humans - it should not be used for indexing and the like, as scientific names are for more systematic and unique and thus better for most purposes.  
+
+In general, it's better to rely on the detailed commonName information in the OTDL spec for a plant, but this field in the plants array allows specification of a preferred name of the local user, and if specified should be used instead of something drawn from the array in the OTDL object.
 
 
 ### treeDiameter (mandatory)

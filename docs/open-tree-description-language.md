@@ -101,6 +101,31 @@ Syntax: `"version":  [<majorversion>, <minorversion1>, <minorversion2>]`
 
 The version value is a JSON array of exactly three integers which denote the version of this specification that governs the format of the file.  The current version is `[0,0,1]`.  Version numbers will be incremented as the file format continues to evolve over time.  A general convention is that changes in minor version numbers will be expected to preserve backward compatability with older versions of OLDF parsing software.  However, this may not be the case with changes in major version number.  Major version 0 is used for versions of the specification prior to general release, while it is in early development and testing.
 
+### genus (mandatory)
+
+Syntax: `"genus": "<genus-name>",`
+
+This is the scientific genus-name of the plant.  It should consist of a capital first letter, followed by one or more lower case letters (no characters outsided of `a-z` are allowed).  Species and Genus name are expected to be in ASCII latin.
+
+### species (mandatory)
+
+Syntax: `"species": "<species-name>",`
+
+This is the scientific species-name of the plant.  It should consist of two or more lower case letters (no characters outsided of `a-z` are allowed).  Species name are expected to be in ASCII latin.
+
+### var (optional)
+
+Syntax: `"var": "<variety-name>",`
+
+This is the specific scientific variety name of the plant if known. 
+
+### taxonomyLink (optional)
+
+Syntax: `"taxonomyLink": "<url>",`
+
+or  `"taxonomyLink": ["<url1>", "<url2>", ...],`
+
+This is a url to a formal taxonomic description of the exact species of plant being referenced in this particular plant object.  Eg this might be a link to the online Interagency Taxonomic Information System (itis.gov)
 
 ### authors (optional)
 
