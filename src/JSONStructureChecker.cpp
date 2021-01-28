@@ -262,6 +262,37 @@ bool JSONStructureChecker::validateFileTime(Value& containObj)
 
 
 // =======================================================================================
+// Function to check that if a particular member exists, it is a JSON string.
+
+bool JSONStructureChecker::validateOptionalStringMember(Value& thisObject, char* objName, char* member)
+{
+  bool retVal = true;
+  
+  if(thisObject.HasMember(member))
+   {
+    if(thisObject[member].IsString())
+     {
+      const char* token = thisObject[member].GetString();
+      sprintBuf("\"%s\" is \"%s\" in %s object in %s\n", member, token, objName, sourcePhrase);
+      makeLog(true);
+     }
+    else
+     {
+      retVal = false;
+      sprintBuf("%s:%s token is not string in %s\n", objName, member, sourcePhrase);
+      makeLog(false);
+     }
+   }
+  else
+   {
+    sprintBuf("Non-required %s:%s token not present in %s\n", objName, member, sourcePhrase);
+    makeLog(true);
+  }
+ return retVal;
+}
+
+
+// =======================================================================================
 // Function to check that if a particular member exists, it is either a JSON string, or
 // an array of JSON strings (an idiom used in several places in OLDF/OTDL to allow
 // multi-valued things.

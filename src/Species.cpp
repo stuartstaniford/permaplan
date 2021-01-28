@@ -75,6 +75,9 @@ bool Species::validateOverviewData(Document& doc, JSONStructureChecker* jCheck)
   retVal &= jCheck->validateStringMemberExists(overviewData, logObjectName, (char*)"species");
   retVal &= jCheck->validateSpeciesName(logObjectName, overviewData["species"].GetString());
 
+  // Variety
+  retVal &= jCheck->validateOptionalStringMember(overviewData, logObjectName, (char*)"var");
+
   // version
   retVal &= jCheck->validateVersion(overviewData);
 

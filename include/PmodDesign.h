@@ -54,7 +54,6 @@ private:
   
   // Functions associated with validating the OLDF file.
   bool validateJSONUnixTime(rapidjson::Value& object, char* objName);
-  bool validateOptionalStringMember(rapidjson::Value& thisObject, char* objName, char* member);
   bool validateTreeDiameter(rapidjson::Value& treeDiamArray, char* objName);
   bool validateIntroductoryData(void);
   bool validateSpaceUnits(rapidjson::Value& introductoryData);

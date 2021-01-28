@@ -34,6 +34,8 @@ class JSONStructureChecker
   JSONStructureChecker(char* sPhrase, JSONType jType);
   ~JSONStructureChecker(void);
   void makeLog(bool isErr);
+  bool validateOptionalStringMember(rapidjson::Value& thisObject, char* objName,
+                                                                              char* member);
   bool validateStringMemberExists(rapidjson::Value& thisObject, char* objName, char* member);
   bool validateFileTime(rapidjson::Value& containObj);
   bool validateVersion(rapidjson::Value& containObj);

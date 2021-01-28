@@ -169,38 +169,6 @@ bool PmodDesign::validateJSONUnixTime(Value& object, char* objName)
 
 
 // =======================================================================================
-// Function to check that if a particular member exists, it is a JSON string.
-
-bool PmodDesign::validateOptionalStringMember(Value& thisObject, char* objName, char* member)
-{
-  bool retVal = true;
-  const PmodConfig& config = PmodConfig::getConfig();
-  
-  if(thisObject.HasMember(member))
-   {
-    if(thisObject[member].IsString())
-     {
-      const char* token = thisObject[member].GetString();
-      LogOLDFDetails("\"%s\" is \"%s\" in %s object in OLDF file %s\n", member, token,
-                                                      objName, config.designFileName);
-     }
-    else
-     {
-      retVal = false;
-      LogOLDFValidity("%s:%s token is not string in OLDF file %s\n", objName, member,
-                                                            config.designFileName);
-     }
-   }
-  else
-   {
-    LogOLDFDetails("Non-required %s:%s token not present in OLDF file %s\n",
-                                      objName, member, config.designFileName);
-   }
- return retVal;
-}
-
-
-// =======================================================================================
 // Function to check the structure of the OLDF introductoryData object.
 
 bool PmodDesign::validateIntroductoryData(void)
@@ -217,9 +185,9 @@ bool PmodDesign::validateIntroductoryData(void)
 
   retVal &= jCheck->validateStringMemberExists(introductoryData,
                                     (char*)"introductoryData", (char*)"software");
-  retVal &= validateOptionalStringMember(introductoryData,
+  retVal &= jCheck->validateOptionalStringMember(introductoryData,
                                     (char*)"introductoryData", (char*)"softwareVersion");
-  retVal &= validateOptionalStringMember(introductoryData,
+  retVal &= jCheck->validateOptionalStringMember(introductoryData,
                                     (char*)"introductoryData", (char*)"author");
   return retVal;
 }
@@ -670,14 +638,15 @@ bool PmodDesign::validatePlants(void)
     retVal &= jCheck->validateSpeciesName(logObjectName, plants[i]["species"].GetString());
 
     // Variety
-    retVal &= validateOptionalStringMember(plants[i], logObjectName, (char*)"var");
+    retVal &= jCheck->validateOptionalStringMember(plants[i], logObjectName, (char*)"var");
 
     // Taxonomy link
     retVal &= jCheck->validateOptionalStringOrArrayString(plants[i], logObjectName,
                                                                     (char*)"taxonomyLink");
 
     // Common Name
-    retVal &= validateOptionalStringMember(plants[i], logObjectName, (char*)"commonName");
+    retVal &= jCheck->validateOptionalStringMember(plants[i], logObjectName,
+                                                                        (char*)"commonName");
 
     // Tree Diameter
     unless(plants[i].HasMember("treeDiameter") && plants[i]["treeDiameter"].IsArray())
