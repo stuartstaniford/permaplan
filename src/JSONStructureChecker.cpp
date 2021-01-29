@@ -21,8 +21,8 @@ using namespace rapidjson;
 
 JSONStructureChecker::JSONStructureChecker(char* sPhrase, JSONType jType):
                                           sourcePhrase(sPhrase),
-                                          languageTags(NULL),
-                                          type(jType)
+                                          type(jType),
+                                          languageTags(NULL)
 {
   if(type == OLDF)
    {
@@ -48,9 +48,21 @@ JSONStructureChecker::JSONStructureChecker(char* sPhrase, JSONType jType):
 bool JSONStructureChecker::loadRFC5646LanguageTags(void)
 {
   bool retVal  = true;
-
-  // UP TO HERE.
+  char* langFile = (char*)"rfc5646-language-tags.json";
+  unsigned bufSize;
+  char* buf = loadFileToBuf(langFile, &bufSize);
+  languageTags = new Document;
   
+  ParseResult ok = languageTags->ParseInsitu<kParseCommentsFlag>(buf);
+  if (!ok)
+   {
+    fprintf(stderr, "JSON parse error on RFC 5646 language file %s: %s (%u)\n",
+            langFile, GetParseError_En(ok.Code()), (unsigned)(ok.Offset()));
+    exit(1);
+   }
+  if(!languageTags->IsObject())
+    err(-1, "Base of %s is not JSON object.\n", langFile);
+
   return retVal;
 }
 

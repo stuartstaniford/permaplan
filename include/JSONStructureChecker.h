@@ -29,7 +29,6 @@ class JSONStructureChecker
   
   // Instance variables - public
   char*    sourcePhrase;
-  rapidjson::Value* languageTags;
 
   // Member functions - public
   JSONStructureChecker(char* sPhrase, JSONType jType);
@@ -50,9 +49,10 @@ private:
   // Member functions - private
   
   // Instance variables - private
-  JSONType type;
-  char     logBuf[LOG_BUF_SIZE];
-  int      expectedVersion[3];
+  JSONType              type;
+  char                  logBuf[LOG_BUF_SIZE];
+  int                   expectedVersion[3];
+  rapidjson::Document*  languageTags;
 
   JSONStructureChecker(const JSONStructureChecker&);            // Prevent copy-construction
   JSONStructureChecker& operator=(const JSONStructureChecker&); // Prevent assignment
