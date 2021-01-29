@@ -85,7 +85,38 @@ bool JSONStructureChecker::checkLanguageObject(Value& thisObject, char* objName)
 
   if(!languageTags)
     loadRFC5646LanguageTags();
+  Value& langTags = *languageTags;
   
+  Value::ConstMemberIterator iter;
+  for (iter = thisObject.MemberBegin(); iter != thisObject.MemberEnd(); ++iter)
+   {
+    const char* lang = iter->name.GetString();
+   
+    unless(langTags.HasMember(lang))
+     {
+      sprintBuf("\"%s\" in %s is not a valid language in %s\n", lang, objName,
+                                                                        sourcePhrase);
+      makeLog(false);
+      retVal = false;
+     }
+
+    unless(iter->value.IsString())
+     {
+      sprintBuf("\"%s\" value in %s is not string in %s\n", lang, objName, sourcePhrase);
+      makeLog(false);
+      retVal = false;
+     }
+    
+    //XX ideally we would here check that iter->value is actually in the right language.
+    
+    if(retVal)
+     {
+      sprintBuf("\"%s\" value in %s is %s in %s\n", langTags[lang].GetString(), objName,
+                                        iter->value.GetString(), sourcePhrase);
+      makeLog(true);
+     }
+   }
+
   return retVal;
 }
 

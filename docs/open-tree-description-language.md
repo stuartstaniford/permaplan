@@ -59,7 +59,7 @@ This gives an example showing the major sections of an OTDL object in a file (de
      "commonNames":  
        {
         "en-US": "Eastern White Pine",
-        "en-UK": "Weymouth Pine",
+        "en-GB": "Weymouth Pine",
         ...
        }
      "version":     [0, 0, 1],
