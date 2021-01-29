@@ -40,6 +40,8 @@ class Species
   static Species* loadLocalOTDLEntry(char* speciesPath);
   static Species** speciesPtrArray;
   static bool validateCommonNames(rapidjson::Value& containObj, JSONStructureChecker* jCheck);
+  static bool validateFoliage(rapidjson::Document& doc, JSONStructureChecker* jCheck);
+  static bool validateWood(rapidjson::Document& doc, JSONStructureChecker* jCheck);
   static unsigned short speciesCount;
 
  private:

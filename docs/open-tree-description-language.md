@@ -66,18 +66,12 @@ This gives an example showing the major sections of an OTDL object in a file (de
      "fileTime":    [<seconds>, <microseconds>],
      "authors":     ["Stuart Staniford", ...]
     },
- "trunk":
-  {
-   ...
-  },
- "branches":
-  {
-   ...
-  },
- "foliage":
-  {
-   ...
-  },  
+   "wood":
+    {
+    },
+   "foliage":
+    {
+    }
 }
 ```
 

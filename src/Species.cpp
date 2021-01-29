@@ -113,6 +113,32 @@ bool Species::validateOverviewData(Document& doc, JSONStructureChecker* jCheck)
 
 
 // =======================================================================================
+// Validate the wood section of an OTDL object.
+
+bool Species::validateWood(Document& doc, JSONStructureChecker* jCheck)
+{
+  bool   retVal       = true;
+  //Value& woodObject = doc["wood"];
+  //char* logObjectName = (char*)"wood";
+  
+  return retVal;
+}
+
+
+// =======================================================================================
+// Validate the foliage section of an OTDL object.
+
+bool Species::validateFoliage(Document& doc, JSONStructureChecker* jCheck)
+{
+  bool   retVal       = true;
+  //Value& foliageObject = doc["foliage"];
+  //char* logObjectName = (char*)"foliage";
+  
+  return retVal;
+}
+
+
+// =======================================================================================
 // Validate OTDL/JSON structure of the type of tree we are.
 
 bool Species::validateOTDL(Document& doc, char* sourceName)
@@ -122,13 +148,29 @@ bool Species::validateOTDL(Document& doc, char* sourceName)
   snprintf(phrase, 128, "OTDL object %s", sourceName);
   JSONStructureChecker* jCheck = new JSONStructureChecker(phrase, OTDL);
   
-  if(!(doc.HasMember("overviewData") && doc["overviewData"].IsObject()))
+  unless(doc.HasMember("overviewData") && doc["overviewData"].IsObject())
    {
-    LogOLDFValidity("No overviewData in %s\n", phrase);
+    LogOTDLValidity("No overviewData in %s\n", phrase);
     retVal = false;
    }
   else
     retVal &= validateOverviewData(doc, jCheck);
+
+  unless(doc.HasMember("wood") && doc["wood"].IsObject())
+   {
+    LogOTDLValidity("No wood data in %s\n", phrase);
+    retVal = false;
+   }
+  else
+    retVal &= validateWood(doc, jCheck);
+
+  unless(doc.HasMember("foliage") && doc["foliage"].IsObject())
+   {
+    LogOTDLValidity("No foliage data in %s\n", phrase);
+    retVal = false;
+   }
+  else
+    retVal &= validateFoliage(doc, jCheck);
 
   delete jCheck; jCheck = NULL;
   return retVal;
