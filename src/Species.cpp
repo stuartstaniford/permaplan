@@ -113,14 +113,54 @@ bool Species::validateOverviewData(Document& doc, JSONStructureChecker* jCheck)
 
 
 // =======================================================================================
+// Validate the bark textures section of an OTDL object.
+
+bool Species::validateBarkTextures(Value& obj, JSONStructureChecker* jCheck)
+{
+  bool   retVal       = true;
+  
+  return retVal;
+}
+
+
+// =======================================================================================
+// Validate the bark textures section of an OTDL object.
+
+bool Species::validateBarkColors(Value& obj, JSONStructureChecker* jCheck)
+{
+  bool   retVal       = true;
+  
+  return retVal;
+}
+
+
+// =======================================================================================
 // Validate the wood section of an OTDL object.
 
 bool Species::validateWood(Document& doc, JSONStructureChecker* jCheck)
 {
   bool   retVal       = true;
-  //Value& woodObject = doc["wood"];
-  //char* logObjectName = (char*)"wood";
-  
+  Value& woodObject = doc["wood"];
+
+  if(woodObject.HasMember("barkTextures")) // this is optional
+   {
+    unless(woodObject["barkTextures"].IsObject())
+     {
+      LogOTDLValidity("barkTextures is not object in %s\n", jCheck->sourcePhrase);
+      retVal = false;
+     }
+    else
+      retVal &= validateBarkTextures(woodObject["barkTextures"], jCheck);
+  }
+
+  unless(woodObject.HasMember("barkColors") && woodObject["barkColors"].IsObject())
+   {
+    LogOTDLValidity("No barkColors data in %s\n", jCheck->sourcePhrase);
+    retVal = false;
+   }
+  else
+    retVal &= validateBarkColors(woodObject["barkColors"], jCheck);
+
   return retVal;
 }
 

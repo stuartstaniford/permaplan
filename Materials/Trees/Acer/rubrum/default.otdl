@@ -14,7 +14,15 @@
     },
  "wood":
   {
-  },
+   "barkTextures":
+    {
+    
+    },
+   "barkColors":
+    {
+    
+    }
+ },
  "foliage":
   {
   }
