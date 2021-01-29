@@ -43,6 +43,8 @@ class JSONStructureChecker
   bool validateSpeciesName(char* objName, const char* species);
   bool validateOptionalStringOrArrayString(rapidjson::Value& thisObject, char* objName, char* member);
   bool loadRFC5646LanguageTags(void);
+  bool checkLanguageObject(rapidjson::Value& thisObject, char* objName);
+
   
 private:
 

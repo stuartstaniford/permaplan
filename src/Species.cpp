@@ -60,30 +60,19 @@ Document& Species::readOTDLFromBuf(char* buf, char* sourceName)
 
 bool Species::validateCommonNames(Value& containObj, JSONStructureChecker* jCheck)
 {
-  bool retVal = true;
-  
-  if(!containObj.HasMember("commonNames"))
+  unless(containObj.HasMember("commonNames"))
    {
     LogOTDLValidity("No commonNames object in %s\n", jCheck->sourcePhrase);
     return false;
    }
-  
-  if(!containObj["commonNames"].IsObject())
+  unless(containObj["commonNames"].IsObject())
    {
     LogOTDLValidity("commonNames is not object in %s\n", jCheck->sourcePhrase);
-    retVal = false;
-   }
-  else
-   {
-    Value& cNames  = containObj["commonNames"];
-    if(cNames.HasMember("en-us"))
-      printf("foo");
+    return false;
    }
   
-  unless(jCheck->languageTags)
-    jCheck->loadRFC5646LanguageTags();
-  
-  return retVal;
+  Value& cNames = containObj["commonNames"];
+  return jCheck->checkLanguageObject(cNames, (char*)"commonNames");
 }
 
 

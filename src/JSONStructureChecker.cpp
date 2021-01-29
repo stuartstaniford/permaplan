@@ -68,6 +68,29 @@ bool JSONStructureChecker::loadRFC5646LanguageTags(void)
 
 
 // =======================================================================================
+// Function to check that an object exists and is of the form of a series of RFC 5646
+// language tags, followed by values associated with those languages (eg commonNames).
+// Caller is responsible for checking the object exists.
+
+bool JSONStructureChecker::checkLanguageObject(Value& thisObject, char* objName)
+{
+  bool retVal  = true;
+
+  unless(thisObject.IsObject())
+   {
+    sprintBuf("\"%s\" is not object in %s\n", objName, sourcePhrase);
+    makeLog(false);
+    return false;
+   }
+
+  if(!languageTags)
+    loadRFC5646LanguageTags();
+  
+  return retVal;
+}
+
+
+// =======================================================================================
 // Function to do the right kind of logging based on the kind of JSON this is.
 
 void JSONStructureChecker::makeLog(bool isGood)
