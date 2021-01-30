@@ -67,6 +67,7 @@ private:
 // =======================================================================================
 // Utility functions not in class.
 
+unsigned colorFromRGBArray(rapidjson::Value& array);
 
 #endif
 

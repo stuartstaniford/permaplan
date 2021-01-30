@@ -333,7 +333,7 @@ bool JSONStructureChecker::validateRGBArray(Value& array, char* objName)
 
 // =======================================================================================
 // Utility function to produce a color as a 4 byte quantity from a RGB json array.  RGB array
-// is assumed valid, no checking is done.
+// is assumed valid, no checking is done in here (see validateRGBArray for that).
 
 unsigned colorFromRGBArray(Value& array)
 {

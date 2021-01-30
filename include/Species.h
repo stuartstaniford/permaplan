@@ -27,6 +27,7 @@ class Species
   // Member functions - public
   Species(rapidjson::Document& otdlDoc);
   ~Species(void);
+  void extractBarkColors(rapidjson::Value& colorsArray);
   const char* objectName(void);
   bool        diagnosticHTML(HttpDebug* serv);
 
@@ -49,7 +50,10 @@ class Species
  private:
   
   // Instance variables - private
-  
+  unsigned  barkColorSize;
+  unsigned* barkColors;
+  float*    barkDividers;
+
   // Member functions - private
   Species(const Species&);                 // Prevent copy-construction
   //Species& operator=(const Species&);      // Prevent assignment
@@ -59,8 +63,6 @@ class Species
 
 // =======================================================================================
 // Utility functions
-
-unsigned colorFromRGBArray(rapidjson::Value& array)
 
 
 

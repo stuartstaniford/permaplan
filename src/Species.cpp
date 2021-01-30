@@ -21,6 +21,7 @@ Species** Species::speciesPtrArray = new Species*[SPECIES_ARRAY_SIZE];
 
 Species::Species(Document& otdlDoc)
 {
+  extractBarkColors(otdlDoc["wood"]["barkColors"]);
 }
 
 
@@ -29,6 +30,25 @@ Species::Species(Document& otdlDoc)
 
 Species::~Species(void)
 {
+}
+
+
+// =======================================================================================
+// Extract and store the bark colors for later use in visualization.
+
+void Species::extractBarkColors(Value& colorsArray)
+{
+  barkColorSize = colorsArray.Size();
+  barkColors = new unsigned[barkColorSize];
+  barkDividers = new float[barkColorSize];
+
+  unless(barkColors && barkDividers)
+    err(-1, "Couldn't allocate memory in Species::extractBarkColors");
+  for(int i=0; i<barkColorSize; i++)
+   {
+    barkDividers[i] = colorsArray[i]["ages"][1].GetFloat();
+    barkColors[i] = colorFromRGBArray(colorsArray[i]["rgb"]);
+   }
 }
 
 
