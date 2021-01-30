@@ -57,6 +57,11 @@ class Species
 
 #endif
 
+// =======================================================================================
+// Utility functions
+
+unsigned colorFromRGBArray(rapidjson::Value& array)
+
 
 
 

@@ -332,6 +332,22 @@ bool JSONStructureChecker::validateRGBArray(Value& array, char* objName)
 
 
 // =======================================================================================
+// Utility function to produce a color as a 4 byte quantity from a RGB json array.  RGB array
+// is assumed valid, no checking is done.
+
+unsigned colorFromRGBArray(Value& array)
+{
+  unsigned color = 0x000000ff;
+  char* colorBytes = (char*)&color;
+
+  for(int i = 0; i<3; i++)
+   colorBytes[i] = array[i].GetInt();
+
+  return color;
+}
+
+
+// =======================================================================================
 // Function to check the a three member spec version array.
 
 bool JSONStructureChecker::validateVersion(Value& containObj)
