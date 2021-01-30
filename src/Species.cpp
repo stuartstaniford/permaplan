@@ -153,7 +153,7 @@ bool Species::validateWood(Document& doc, JSONStructureChecker* jCheck)
       retVal &= validateBarkTextures(woodObject["barkTextures"], jCheck);
   }
 
-  unless(woodObject.HasMember("barkColors") && woodObject["barkColors"].IsObject())
+  unless(woodObject.HasMember("barkColors") && woodObject["barkColors"].IsArray())
    {
     LogOTDLValidity("No barkColors data in %s\n", jCheck->sourcePhrase);
     retVal = false;

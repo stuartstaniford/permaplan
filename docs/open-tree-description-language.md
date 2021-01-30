@@ -132,6 +132,36 @@ The specification allows any UTF8 string and does not constrain to any particula
 names, giving credit to multiple human authors who have worked on a particular file.
 
 
+## Wood
+
+The wood sub-object encomasses all information required to describe the woody parts of the plant.
+
+### barkColors (mandatory)
+
+Syntax:
+```
+"barkColors":
+ [
+   {
+    "ages": [0.0, 2.0],
+    "rgb": [200, 200, 200]
+   },
+   {
+    "ages": [2.0, 10000.0],
+    "rgb": [230, 230, 230]
+   }
+ ]
+```
+barkColors specifies the colors of bark for woody stems, branches, etc for this species.  This information is used in situations where bark texture data is not available or else not advised to use
+(eg from sufficient distance).
+
+barkColors is an array of objects each of which specify the color based on the ages of the stems/branches in question.  Each object has an "ages" tag which has an array of two values, the age at which this entry becomes operative, and the age at which it becomes inoperative.  The second tag in each object is "rgb" which species an array of three values giving the red, green, and blue bytes of the color.
+
+Note that
+* In the barkColors array, the first entry must start at age 0.0.
+* The intervals of successive entries in the array must touch (ie the next starts at the same place the last leaves off with no gap or overlap.
+* The last array must end at 10000.0 (taken to be infinite age of the tree trunk).
+
 ## File Structure for OTDL.
 
 This file structure is described with respect to <ROOT>, which may be different in different places- for example, it may be a local subdirectory for an instance of OTDL software or it may be relative to some URL over HTTP(S).  This specification does not specify where <ROOT> is, but rather specifies a subdirectory tree underneath it.  Subdirectory names must be ASCII alpha-numeric plus `._-`.  The `/` character is used as a path divider, with the understanding that on file systems using a different path divider the correct one for local circumstances will be used (eg `\` on Microsoft Windows).
