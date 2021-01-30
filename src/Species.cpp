@@ -167,9 +167,7 @@ bool Species::validateBarkColors(Value& colorsArray, JSONStructureChecker* jChec
       retVal = false;
      }
     snprintf(objName, 32, "barkColors[%d]:rgb", i);
-    retVal &= jCheck->validateNumberArray(entry["rgb"], 3, objName);
-    
-    //XX check valid color values
+    retVal &= jCheck->validateRGBArray(entry["rgb"], objName);
    }
   
   return retVal;

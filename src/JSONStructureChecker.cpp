@@ -280,6 +280,58 @@ bool JSONStructureChecker::validateNumberArray(Value& array, int desiredSize, ch
 
 
 // =======================================================================================
+// Function to check that a value is an array of integers of a desired size.
+
+bool JSONStructureChecker::validateIntegerArray(Value& array, int desiredSize, char* objName)
+{
+  bool retVal = validateNumberArray(array, desiredSize, objName);
+
+  if(retVal)
+   {
+    int N = array.Size();
+    for(int i = 0; i<N; i++)
+     {
+      unless(array[i].IsInt())
+       {
+        sprintBuf("%s array[%d] is not numerical in %s\n", objName, i, sourcePhrase);
+        makeLog(false);
+        retVal = false;
+       }
+     }
+   }
+
+  return retVal;
+}
+
+
+// =======================================================================================
+// Function to check that a value is a valid array of RGB values.
+
+bool JSONStructureChecker::validateRGBArray(Value& array, char* objName)
+{
+  bool retVal = validateIntegerArray(array, 3, objName);
+
+  if(retVal)
+   {
+    int N = array.Size();
+    for(int i = 0; i<N; i++)
+     {
+      int value = array[i].GetInt();
+      unless(value >= 0 && value < 256)
+       {
+        sprintBuf("%s array[%d] is %d, out of range [0,255] in %s\n",
+                                              objName, i, value, sourcePhrase);
+        makeLog(false);
+        retVal = false;
+       }
+     }
+   }
+
+  return retVal;
+}
+
+
+// =======================================================================================
 // Function to check the a three member spec version array.
 
 bool JSONStructureChecker::validateVersion(Value& containObj)
