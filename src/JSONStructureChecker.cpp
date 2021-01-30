@@ -243,7 +243,44 @@ bool JSONStructureChecker::validateStringMemberExists(Value& thisObject,
 
 
 // =======================================================================================
-// Function to check the OLDF spec version array.
+// Function to check that a value is an array of numbers of a desired size.
+
+bool JSONStructureChecker::validateNumberArray(Value& array, int desiredSize, char* objName)
+{
+  bool retVal = true;
+
+  unless(array.IsArray())
+   {
+    sprintBuf("%s is not array in  %s\n", objName, sourcePhrase);
+    makeLog(false);
+    return false;
+   }
+  
+  int N = array.Size();
+  unless(N == desiredSize)
+   {
+    sprintBuf("%s is wrong size (%d instead of %d in  %s\n",
+                                                objName, N, desiredSize, sourcePhrase);
+    makeLog(false);
+    retVal = false;
+   }
+  
+  for(int i = 0; i<N; i++)
+   {
+    unless(array[i].IsNumber())
+     {
+      sprintBuf("%s array[%d] is not numerical in %s\n", objName, i, sourcePhrase);
+      makeLog(false);
+      retVal = false;
+     }
+   }
+
+  return retVal;
+}
+
+
+// =======================================================================================
+// Function to check the a three member spec version array.
 
 bool JSONStructureChecker::validateVersion(Value& containObj)
 {

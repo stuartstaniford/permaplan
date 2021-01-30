@@ -124,11 +124,53 @@ bool Species::validateBarkTextures(Value& obj, JSONStructureChecker* jCheck)
 
 
 // =======================================================================================
-// Validate the bark textures section of an OTDL object.
+// Validate the bark colors section of an OTDL object.
 
-bool Species::validateBarkColors(Value& obj, JSONStructureChecker* jCheck)
+bool Species::validateBarkColors(Value& colorsArray, JSONStructureChecker* jCheck)
 {
   bool   retVal       = true;
+  
+  int N = colorsArray.Size();
+
+  unless(N > 0)
+   {
+    LogOTDLValidity("barkColors array is empty in %s\n", jCheck->sourcePhrase);
+    retVal = false;
+   }
+
+  for(int i=0; i<N; i++)
+   {
+    Value& entry = colorsArray[i];
+    char objName[32];
+    snprintf(objName, 32, "barkColors[%d]", i);
+    unless(entry.IsObject())
+     {
+      LogOTDLValidity("%s is not object in %s\n", objName, jCheck->sourcePhrase);
+      retVal = false;
+     }
+    
+    // Deal with ages
+    unless(entry.HasMember("ages"))
+     {
+      LogOTDLValidity("%s has no ages in %s\n", objName, jCheck->sourcePhrase);
+      retVal = false;
+     }
+    snprintf(objName, 32, "barkColors[%d]:ages", i);
+    retVal &= jCheck->validateNumberArray(entry["ages"], 2, objName);
+
+    // XX check age overlap conditions
+    
+    // Deal with rgb array
+    unless(entry.HasMember("rgb"))
+     {
+      LogOTDLValidity("%s has no rgb in %s\n", objName, jCheck->sourcePhrase);
+      retVal = false;
+     }
+    snprintf(objName, 32, "barkColors[%d]:rgb", i);
+    retVal &= jCheck->validateNumberArray(entry["rgb"], 3, objName);
+    
+    //XX check valid color values
+   }
   
   return retVal;
 }

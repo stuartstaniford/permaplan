@@ -43,7 +43,7 @@ class Species
   static bool validateFoliage(rapidjson::Document& doc, JSONStructureChecker* jCheck);
   static bool validateWood(rapidjson::Document& doc, JSONStructureChecker* jCheck);
   static bool validateBarkTextures(rapidjson::Value& obj, JSONStructureChecker* jCheck);
-  static bool validateBarkColors(rapidjson::Value& obj, JSONStructureChecker* jCheck);
+  static bool validateBarkColors(rapidjson::Value& colorsArray, JSONStructureChecker* jCheck);
   static unsigned short speciesCount;
 
  private:

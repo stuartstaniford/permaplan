@@ -161,6 +161,7 @@ Note that
 * In the barkColors array, the first entry must start at age 0.0.
 * The intervals of successive entries in the array must touch (ie the next starts at the same place the last leaves off with no gap or overlap.
 * The last array must end at 10000.0 (taken to be infinite age of the tree trunk).
+* As a corollory of the above, the array must have at least one member (if there was exactly one member it should be [0,10000]).
 
 ## File Structure for OTDL.
 
