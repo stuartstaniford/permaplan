@@ -158,8 +158,19 @@ bool Species::validateBarkColors(Value& colorsArray, JSONStructureChecker* jChec
     snprintf(objName, 32, "barkColors[%d]:ages", i);
     retVal &= jCheck->validateNumberArray(entry["ages"], 2, objName);
 
-    // XX check age overlap conditions
-    
+    if(i==0 && 0.0f != entry["ages"][0].GetFloat())
+     {
+      LogOTDLValidity("%s ages don't start at 0 (%.2f) in %s\n",
+                        objName, entry["ages"][0].GetFloat(), jCheck->sourcePhrase);
+      retVal = false;
+     }
+    if(i==N-1 && 10000.0f != entry["ages"][1].GetFloat())
+     {
+      LogOTDLValidity("%s ages don't end at 10000.0 (%.2f) in %s\n",
+                        objName, entry["ages"][1].GetFloat(), jCheck->sourcePhrase);
+      retVal = false;
+     }
+
     // Deal with rgb array
     unless(entry.HasMember("rgb"))
      {
