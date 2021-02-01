@@ -38,17 +38,11 @@ Species::~Species(void)
 
 void Species::extractBarkColors(Value& colorsArray)
 {
-  barkColorSize = colorsArray.Size();
-  barkColors = new unsigned[barkColorSize];
-  barkDividers = new float[barkColorSize];
+  int barkColorSize = colorsArray.Size();
 
-  unless(barkColors && barkDividers)
-    err(-1, "Couldn't allocate memory in Species::extractBarkColors");
   for(int i=0; i<barkColorSize; i++)
-   {
-    barkDividers[i] = colorsArray[i]["ages"][1].GetFloat();
-    barkColors[i] = colorFromRGBArray(colorsArray[i]["rgb"]);
-   }
+    barkColorMap[colorsArray[i]["ages"][1].GetFloat()]
+                                                  = colorFromRGBArray(colorsArray[i]["rgb"]);
 }
 
 

@@ -11,6 +11,7 @@
 #include "rapidjson/stringbuffer.h"
 #include "rapidjson/error/en.h"
 #include "JSONStructureChecker.h"
+#include <map>
 
 #define SPECIES_ARRAY_SIZE   2048 // max number of species in a design
 
@@ -50,9 +51,7 @@ class Species
  private:
   
   // Instance variables - private
-  unsigned  barkColorSize;
-  unsigned* barkColors;
-  float*    barkDividers;
+  std::map<float, unsigned> barkColorMap;
 
   // Member functions - private
   Species(const Species&);                 // Prevent copy-construction
