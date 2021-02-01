@@ -521,8 +521,89 @@ src/HttpDebug.o: include/rapidjson/internal/itoa.h
 src/HttpDebug.o: include/rapidjson/stringbuffer.h
 src/HttpDebug.o: include/rapidjson/stringbuffer.h
 src/HttpDebug.o: include/rapidjson/error/en.h include/rapidjson/error/error.h
-src/HttpDebug.o: include/Timeval.h include/Grid.h include/Material.h
-src/HttpDebug.o: include/LightingModel.h
+src/HttpDebug.o: include/Timeval.h include/JSONStructureChecker.h
+src/HttpDebug.o: include/Grid.h include/Material.h include/LightingModel.h
+src/JSONStructureChecker.o: include/PmodDesign.h include/rapidjson/document.h
+src/JSONStructureChecker.o: include/rapidjson/reader.h
+src/JSONStructureChecker.o: include/rapidjson/allocators.h
+src/JSONStructureChecker.o: include/rapidjson/rapidjson.h
+src/JSONStructureChecker.o: include/rapidjson/stream.h
+src/JSONStructureChecker.o: include/rapidjson/encodings.h
+src/JSONStructureChecker.o: include/rapidjson/encodedstream.h
+src/JSONStructureChecker.o: include/rapidjson/memorystream.h
+src/JSONStructureChecker.o: include/rapidjson/internal/clzll.h
+src/JSONStructureChecker.o: include/rapidjson/rapidjson.h
+src/JSONStructureChecker.o: include/rapidjson/internal/meta.h
+src/JSONStructureChecker.o: include/rapidjson/internal/stack.h
+src/JSONStructureChecker.o: include/rapidjson/allocators.h
+src/JSONStructureChecker.o: include/rapidjson/internal/swap.h
+src/JSONStructureChecker.o: include/rapidjson/internal/strtod.h
+src/JSONStructureChecker.o: include/rapidjson/internal/ieee754.h
+src/JSONStructureChecker.o: include/rapidjson/internal/biginteger.h
+src/JSONStructureChecker.o: include/rapidjson/internal/diyfp.h
+src/JSONStructureChecker.o: include/rapidjson/internal/clzll.h
+src/JSONStructureChecker.o: include/rapidjson/internal/pow10.h
+src/JSONStructureChecker.o: include/rapidjson/error/error.h
+src/JSONStructureChecker.o: include/rapidjson/internal/strfunc.h
+src/JSONStructureChecker.o: include/rapidjson/stream.h
+src/JSONStructureChecker.o: include/rapidjson/writer.h
+src/JSONStructureChecker.o: include/rapidjson/internal/dtoa.h
+src/JSONStructureChecker.o: include/rapidjson/internal/itoa.h
+src/JSONStructureChecker.o: include/rapidjson/internal/itoa.h
+src/JSONStructureChecker.o: include/rapidjson/stringbuffer.h
+src/JSONStructureChecker.o: include/rapidjson/stringbuffer.h
+src/JSONStructureChecker.o: include/rapidjson/error/en.h
+src/JSONStructureChecker.o: include/rapidjson/error/error.h
+src/JSONStructureChecker.o: include/LandSurface.h
+src/JSONStructureChecker.o: /usr/local/include/cglm/cglm.h
+src/JSONStructureChecker.o: /usr/local/include/cglm/common.h
+src/JSONStructureChecker.o: /usr/local/include/cglm/types.h
+src/JSONStructureChecker.o: /usr/local/include/cglm/simd/intrin.h
+src/JSONStructureChecker.o: /usr/local/include/cglm/vec2.h
+src/JSONStructureChecker.o: /usr/local/include/cglm/util.h
+src/JSONStructureChecker.o: /usr/local/include/cglm/vec2-ext.h
+src/JSONStructureChecker.o: /usr/local/include/cglm/vec3.h
+src/JSONStructureChecker.o: /usr/local/include/cglm/vec4.h
+src/JSONStructureChecker.o: /usr/local/include/cglm/vec4-ext.h
+src/JSONStructureChecker.o: /usr/local/include/cglm/vec3-ext.h
+src/JSONStructureChecker.o: /usr/local/include/cglm/mat4.h
+src/JSONStructureChecker.o: /usr/local/include/cglm/mat3.h
+src/JSONStructureChecker.o: /usr/local/include/cglm/mat2.h
+src/JSONStructureChecker.o: /usr/local/include/cglm/affine.h
+src/JSONStructureChecker.o: /usr/local/include/cglm/affine-mat.h
+src/JSONStructureChecker.o: /usr/local/include/cglm/cam.h
+src/JSONStructureChecker.o: /usr/local/include/cglm/plane.h
+src/JSONStructureChecker.o: /usr/local/include/cglm/frustum.h
+src/JSONStructureChecker.o: /usr/local/include/cglm/quat.h
+src/JSONStructureChecker.o: /usr/local/include/cglm/euler.h
+src/JSONStructureChecker.o: /usr/local/include/cglm/box.h
+src/JSONStructureChecker.o: /usr/local/include/cglm/color.h
+src/JSONStructureChecker.o: /usr/local/include/cglm/io.h
+src/JSONStructureChecker.o: /usr/local/include/cglm/project.h
+src/JSONStructureChecker.o: /usr/local/include/cglm/sphere.h
+src/JSONStructureChecker.o: /usr/local/include/cglm/ease.h
+src/JSONStructureChecker.o: /usr/local/include/cglm/curve.h
+src/JSONStructureChecker.o: /usr/local/include/cglm/bezier.h
+src/JSONStructureChecker.o: /usr/local/include/cglm/ray.h
+src/JSONStructureChecker.o: /usr/local/include/cglm/affine2d.h
+src/JSONStructureChecker.o: include/Shader.h include/VertexArrayObject.h
+src/JSONStructureChecker.o: include/VertexBufferObject.h
+src/JSONStructureChecker.o: /usr/local/include/GL/glew.h
+src/JSONStructureChecker.o: /usr/local/include/GLFW/glfw3.h
+src/JSONStructureChecker.o: include/GlobalMacros.h include/Logging.h
+src/JSONStructureChecker.o: include/Vertex.h include/TexturedRect.h
+src/JSONStructureChecker.o: include/Texture.h include/Quadtree.h
+src/JSONStructureChecker.o: include/DisplayList.h include/VisualObject.h
+src/JSONStructureChecker.o: include/BoundingBox.h include/VertexBufferCombo.h
+src/JSONStructureChecker.o: include/HttpDebug.h include/TriangleBuffer.h
+src/JSONStructureChecker.o: include/ElementBufferCombo.h
+src/JSONStructureChecker.o: include/ElementBufferObject.h
+src/JSONStructureChecker.o: include/LandSurfaceRegionPlanar.h
+src/JSONStructureChecker.o: include/LandSurfaceRegion.h include/Camera.h
+src/JSONStructureChecker.o: include/HeightMarker.h include/BezierPatch.h
+src/JSONStructureChecker.o: include/PmodConfig.h include/Timeval.h
+src/JSONStructureChecker.o: include/JSONStructureChecker.h
+src/JSONStructureChecker.o: include/loadFileToBuf.h
 src/LandSurface.o: /usr/local/include/GL/glew.h
 src/LandSurface.o: /usr/local/include/GLFW/glfw3.h include/Camera.h
 src/LandSurface.o: /usr/local/include/cglm/cglm.h
@@ -595,7 +676,7 @@ src/LandSurface.o: include/rapidjson/stringbuffer.h
 src/LandSurface.o: include/rapidjson/stringbuffer.h
 src/LandSurface.o: include/rapidjson/error/en.h
 src/LandSurface.o: include/rapidjson/error/error.h include/PmodConfig.h
-src/LandSurface.o: include/Timeval.h
+src/LandSurface.o: include/Timeval.h include/JSONStructureChecker.h
 src/LandSurfaceRegion.o: include/LandSurfaceRegion.h include/VisualObject.h
 src/LandSurfaceRegion.o: include/BoundingBox.h /usr/local/include/cglm/cglm.h
 src/LandSurfaceRegion.o: /usr/local/include/cglm/common.h
@@ -875,7 +956,7 @@ src/PmodDesign.o: include/LandSurfaceRegionPlanar.h
 src/PmodDesign.o: include/LandSurfaceRegion.h include/Camera.h
 src/PmodDesign.o: include/HeightMarker.h include/BezierPatch.h
 src/PmodDesign.o: include/PmodConfig.h include/Timeval.h
-src/PmodDesign.o: include/loadFileToBuf.h
+src/PmodDesign.o: include/JSONStructureChecker.h include/loadFileToBuf.h
 src/Quadtree.o: /usr/local/include/GL/glew.h /usr/local/include/GLFW/glfw3.h
 src/Quadtree.o: include/Quadtree.h include/Shader.h
 src/Quadtree.o: /usr/local/include/cglm/cglm.h
@@ -940,7 +1021,8 @@ src/Quadtree.o: include/rapidjson/internal/itoa.h
 src/Quadtree.o: include/rapidjson/stringbuffer.h
 src/Quadtree.o: include/rapidjson/stringbuffer.h include/rapidjson/error/en.h
 src/Quadtree.o: include/rapidjson/error/error.h include/Timeval.h
-src/Quadtree.o: include/Grid.h include/Material.h include/LightingModel.h
+src/Quadtree.o: include/JSONStructureChecker.h include/Grid.h
+src/Quadtree.o: include/Material.h include/LightingModel.h
 src/Scene.o: /usr/local/include/GL/glew.h include/Scene.h include/Shader.h
 src/Scene.o: /usr/local/include/cglm/cglm.h /usr/local/include/cglm/common.h
 src/Scene.o: /usr/local/include/cglm/types.h
@@ -995,8 +1077,9 @@ src/Scene.o: include/rapidjson/internal/itoa.h
 src/Scene.o: include/rapidjson/internal/itoa.h
 src/Scene.o: include/rapidjson/stringbuffer.h
 src/Scene.o: include/rapidjson/stringbuffer.h include/rapidjson/error/en.h
-src/Scene.o: include/rapidjson/error/error.h include/Timeval.h include/Grid.h
-src/Scene.o: include/Material.h include/LightingModel.h include/Box.h
+src/Scene.o: include/rapidjson/error/error.h include/Timeval.h
+src/Scene.o: include/JSONStructureChecker.h include/Grid.h include/Material.h
+src/Scene.o: include/LightingModel.h include/Box.h
 src/ScriptController.o: include/VertexBufferObject.h
 src/ScriptController.o: /usr/local/include/cglm/cglm.h
 src/ScriptController.o: /usr/local/include/cglm/common.h
@@ -1075,6 +1158,7 @@ src/ScriptController.o: include/LandSurfaceRegionPlanar.h
 src/ScriptController.o: include/LandSurfaceRegion.h include/Camera.h
 src/ScriptController.o: include/HeightMarker.h include/BezierPatch.h
 src/ScriptController.o: include/PmodConfig.h include/Timeval.h
+src/ScriptController.o: include/JSONStructureChecker.h
 src/Shader.o: /usr/local/include/GL/glew.h include/loadFileToBuf.h
 src/Shader.o: include/Shader.h /usr/local/include/cglm/cglm.h
 src/Shader.o: /usr/local/include/cglm/common.h
@@ -1097,6 +1181,67 @@ src/Shader.o: /usr/local/include/cglm/sphere.h /usr/local/include/cglm/ease.h
 src/Shader.o: /usr/local/include/cglm/curve.h
 src/Shader.o: /usr/local/include/cglm/bezier.h /usr/local/include/cglm/ray.h
 src/Shader.o: /usr/local/include/cglm/affine2d.h
+src/Species.o: include/Species.h include/HttpDebug.h
+src/Species.o: include/rapidjson/document.h include/rapidjson/reader.h
+src/Species.o: include/rapidjson/allocators.h include/rapidjson/rapidjson.h
+src/Species.o: include/rapidjson/stream.h include/rapidjson/encodings.h
+src/Species.o: include/rapidjson/encodedstream.h
+src/Species.o: include/rapidjson/memorystream.h
+src/Species.o: include/rapidjson/internal/clzll.h
+src/Species.o: include/rapidjson/rapidjson.h
+src/Species.o: include/rapidjson/internal/meta.h
+src/Species.o: include/rapidjson/internal/stack.h
+src/Species.o: include/rapidjson/allocators.h
+src/Species.o: include/rapidjson/internal/swap.h
+src/Species.o: include/rapidjson/internal/strtod.h
+src/Species.o: include/rapidjson/internal/ieee754.h
+src/Species.o: include/rapidjson/internal/biginteger.h
+src/Species.o: include/rapidjson/internal/diyfp.h
+src/Species.o: include/rapidjson/internal/clzll.h
+src/Species.o: include/rapidjson/internal/pow10.h
+src/Species.o: include/rapidjson/error/error.h
+src/Species.o: include/rapidjson/internal/strfunc.h
+src/Species.o: include/rapidjson/stream.h include/rapidjson/writer.h
+src/Species.o: include/rapidjson/internal/dtoa.h
+src/Species.o: include/rapidjson/internal/itoa.h
+src/Species.o: include/rapidjson/internal/itoa.h
+src/Species.o: include/rapidjson/stringbuffer.h
+src/Species.o: include/rapidjson/stringbuffer.h include/rapidjson/error/en.h
+src/Species.o: include/rapidjson/error/error.h include/JSONStructureChecker.h
+src/Species.o: include/Timeval.h include/loadFileToBuf.h
+src/Species.o: include/GlobalMacros.h include/PmodConfig.h
+src/Species.o: include/PmodDesign.h include/LandSurface.h
+src/Species.o: /usr/local/include/cglm/cglm.h
+src/Species.o: /usr/local/include/cglm/common.h
+src/Species.o: /usr/local/include/cglm/types.h
+src/Species.o: /usr/local/include/cglm/simd/intrin.h
+src/Species.o: /usr/local/include/cglm/vec2.h /usr/local/include/cglm/util.h
+src/Species.o: /usr/local/include/cglm/vec2-ext.h
+src/Species.o: /usr/local/include/cglm/vec3.h /usr/local/include/cglm/vec4.h
+src/Species.o: /usr/local/include/cglm/vec4-ext.h
+src/Species.o: /usr/local/include/cglm/vec3-ext.h
+src/Species.o: /usr/local/include/cglm/mat4.h /usr/local/include/cglm/mat3.h
+src/Species.o: /usr/local/include/cglm/mat2.h
+src/Species.o: /usr/local/include/cglm/affine.h
+src/Species.o: /usr/local/include/cglm/affine-mat.h
+src/Species.o: /usr/local/include/cglm/cam.h /usr/local/include/cglm/plane.h
+src/Species.o: /usr/local/include/cglm/frustum.h
+src/Species.o: /usr/local/include/cglm/quat.h /usr/local/include/cglm/euler.h
+src/Species.o: /usr/local/include/cglm/box.h /usr/local/include/cglm/color.h
+src/Species.o: /usr/local/include/cglm/io.h /usr/local/include/cglm/project.h
+src/Species.o: /usr/local/include/cglm/sphere.h
+src/Species.o: /usr/local/include/cglm/ease.h /usr/local/include/cglm/curve.h
+src/Species.o: /usr/local/include/cglm/bezier.h /usr/local/include/cglm/ray.h
+src/Species.o: /usr/local/include/cglm/affine2d.h include/Shader.h
+src/Species.o: include/VertexArrayObject.h include/VertexBufferObject.h
+src/Species.o: /usr/local/include/GL/glew.h /usr/local/include/GLFW/glfw3.h
+src/Species.o: include/Logging.h include/Vertex.h include/TexturedRect.h
+src/Species.o: include/Texture.h include/Quadtree.h include/DisplayList.h
+src/Species.o: include/VisualObject.h include/BoundingBox.h
+src/Species.o: include/VertexBufferCombo.h include/TriangleBuffer.h
+src/Species.o: include/ElementBufferCombo.h include/ElementBufferObject.h
+src/Species.o: include/LandSurfaceRegionPlanar.h include/LandSurfaceRegion.h
+src/Species.o: include/Camera.h include/HeightMarker.h include/BezierPatch.h
 src/Texture.o: /usr/local/include/GL/glew.h include/Texture.h
 src/Texture.o: include/Shader.h /usr/local/include/cglm/cglm.h
 src/Texture.o: /usr/local/include/cglm/common.h
@@ -1216,6 +1361,35 @@ src/Tree.o: /usr/local/include/GL/glew.h /usr/local/include/GLFW/glfw3.h
 src/Tree.o: include/GlobalMacros.h include/Logging.h include/Vertex.h
 src/Tree.o: include/HttpDebug.h include/TriangleBuffer.h
 src/Tree.o: include/ElementBufferCombo.h include/ElementBufferObject.h
+src/Tree.o: include/Species.h include/rapidjson/document.h
+src/Tree.o: include/rapidjson/reader.h include/rapidjson/allocators.h
+src/Tree.o: include/rapidjson/rapidjson.h include/rapidjson/stream.h
+src/Tree.o: include/rapidjson/encodings.h include/rapidjson/encodedstream.h
+src/Tree.o: include/rapidjson/memorystream.h
+src/Tree.o: include/rapidjson/internal/clzll.h include/rapidjson/rapidjson.h
+src/Tree.o: include/rapidjson/internal/meta.h
+src/Tree.o: include/rapidjson/internal/stack.h include/rapidjson/allocators.h
+src/Tree.o: include/rapidjson/internal/swap.h
+src/Tree.o: include/rapidjson/internal/strtod.h
+src/Tree.o: include/rapidjson/internal/ieee754.h
+src/Tree.o: include/rapidjson/internal/biginteger.h
+src/Tree.o: include/rapidjson/internal/diyfp.h
+src/Tree.o: include/rapidjson/internal/clzll.h
+src/Tree.o: include/rapidjson/internal/pow10.h
+src/Tree.o: include/rapidjson/error/error.h
+src/Tree.o: include/rapidjson/internal/strfunc.h include/rapidjson/stream.h
+src/Tree.o: include/rapidjson/writer.h include/rapidjson/internal/dtoa.h
+src/Tree.o: include/rapidjson/internal/itoa.h
+src/Tree.o: include/rapidjson/internal/itoa.h
+src/Tree.o: include/rapidjson/stringbuffer.h include/rapidjson/stringbuffer.h
+src/Tree.o: include/rapidjson/error/en.h include/rapidjson/error/error.h
+src/Tree.o: include/JSONStructureChecker.h include/Timeval.h
+src/Tree.o: include/PmodDesign.h include/LandSurface.h include/TexturedRect.h
+src/Tree.o: include/Texture.h include/Quadtree.h include/DisplayList.h
+src/Tree.o: include/LandSurfaceRegionPlanar.h include/LandSurfaceRegion.h
+src/Tree.o: include/Camera.h include/HeightMarker.h include/BezierPatch.h
+src/Tree.o: include/PmodConfig.h
+src/TreePart.o: include/TreePart.h include/HttpDebug.h
 src/TriangleBuffer.o: include/Shader.h /usr/local/include/cglm/cglm.h
 src/TriangleBuffer.o: /usr/local/include/cglm/common.h
 src/TriangleBuffer.o: /usr/local/include/cglm/types.h
@@ -1489,8 +1663,11 @@ src/Window3D.o: include/rapidjson/internal/itoa.h
 src/Window3D.o: include/rapidjson/stringbuffer.h
 src/Window3D.o: include/rapidjson/stringbuffer.h include/rapidjson/error/en.h
 src/Window3D.o: include/rapidjson/error/error.h include/Timeval.h
-src/Window3D.o: include/Grid.h include/Material.h include/LightingModel.h
+src/Window3D.o: include/JSONStructureChecker.h include/Grid.h
+src/Window3D.o: include/Material.h include/LightingModel.h
 src/Window3D.o: include/ScriptController.h include/PmodException.h
+src/WoodySegment.o: include/WoodySegment.h include/TreePart.h
+src/WoodySegment.o: include/HttpDebug.h
 src/imgui.o: imgui/imgui.h imgui/imconfig.h imgui/imgui_internal.h
 src/imgui.o: imgui/imstb_textedit.h
 src/imgui_demo.o: imgui/imgui.h imgui/imconfig.h
@@ -1561,6 +1738,7 @@ src/main.o: include/rapidjson/internal/itoa.h
 src/main.o: include/rapidjson/internal/itoa.h
 src/main.o: include/rapidjson/stringbuffer.h include/rapidjson/stringbuffer.h
 src/main.o: include/rapidjson/error/en.h include/rapidjson/error/error.h
-src/main.o: include/Timeval.h include/Grid.h include/Material.h
-src/main.o: include/LightingModel.h imgui/imgui.h imgui/imconfig.h
-src/main.o: include/ScriptController.h include/TextureAtlas.h
+src/main.o: include/Timeval.h include/JSONStructureChecker.h include/Grid.h
+src/main.o: include/Material.h include/LightingModel.h imgui/imgui.h
+src/main.o: imgui/imconfig.h include/ScriptController.h
+src/main.o: include/TextureAtlas.h include/Tree.h include/Species.h

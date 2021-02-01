@@ -15,6 +15,7 @@
 #include "Window3D.h"
 #include "PmodException.h"
 #include "Material.h"
+#include "Species.h"
 
 
 // =======================================================================================
@@ -66,6 +67,8 @@ Window3D::Window3D(int pixWidth, int pixHeight):
                         lastMouseX(HUGE_VAL),
                         lastMouseY(HUGE_VAL),
                         show_insert_menu(false),
+                        show_materials_menu(false),
+                        show_tree_menu(false),
                         show_focus_overlay(true),
                         inClick(false),
                         testingDoubleClick(false),
@@ -160,6 +163,13 @@ void Window3D::imguiInsertMenu(void)
     show_insert_menu = false;
     show_materials_menu = true;
    }
+  if(ImGui::Button("Tree"))
+   {
+    heightBuf[0] = '\0';
+    show_insert_menu = false;
+    show_tree_menu = true;
+   }
+
   ImGui::End();
 }
 
@@ -184,6 +194,30 @@ void Window3D::imguiMaterialsMenu(void)
       LogMaterialSelections("Material %s selected for block, carbon density %.2f.\n",
                             materials[i]->name, materials[i]->carbonDensity);
      }
+  ImGui::End();
+}
+
+
+// =======================================================================================
+// The floating menu to select a particular tree to insert (by latin/scientific name)
+//XX this is not a very scalable solution and will have to be extended over time.
+
+void Window3D::imguiTreeMenu(void)
+{
+  if(!show_tree_menu)
+    return;
+  ImGui::Begin("Select Tree", &show_tree_menu, ImGuiWindowFlags_AlwaysAutoResize);
+  
+  for(auto& iter: Species::genusList)
+   {
+    char genusOption[128];
+    snprintf(genusOption, 128, "%s (%u)", iter.first, iter.second);
+    if(ImGui::Button(genusOption))
+     {
+      printf("%s\n", iter.first);
+     }
+   }
+  
   ImGui::End();
 }
 
@@ -291,6 +325,7 @@ void Window3D::imguiInterface(void)
   
   imguiInsertMenu();
   imguiMaterialsMenu();
+  imguiTreeMenu();
 
   imguiFocusOverlay();
 

@@ -10,6 +10,7 @@
 // =======================================================================================
 // Class variable initialization
 
+class Tree;
 
 class WoodySegment: public TreePart
 {

@@ -12,6 +12,7 @@
 #include "rapidjson/error/en.h"
 #include "JSONStructureChecker.h"
 #include <map>
+#include <unordered_map>
 
 #define SPECIES_ARRAY_SIZE   2048 // max number of species in a design
 
@@ -47,6 +48,7 @@ class Species
   static bool validateBarkTextures(rapidjson::Value& obj, JSONStructureChecker* jCheck);
   static bool validateBarkColors(rapidjson::Value& colorsArray, JSONStructureChecker* jCheck);
   static unsigned short speciesCount;
+  static std::unordered_map<const char*, unsigned> genusList;
 
  private:
   

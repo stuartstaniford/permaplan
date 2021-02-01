@@ -42,6 +42,7 @@ class Window3D
   Timeval         mouseUpTime;
   bool            show_insert_menu;
   bool            show_materials_menu;
+  bool            show_tree_menu;
   bool            show_focus_overlay;
   bool            inClick;
   bool            testingDoubleClick;
@@ -62,6 +63,7 @@ class Window3D
   void          imguiInterface(void);
   void          imguiInsertMenu(void);
   void          imguiMaterialsMenu(void);
+  void          imguiTreeMenu(void);
   void          imguiFocusOverlay(void);
   void          mouseOverlayDisplays(vec3 mouseSceneLoc);
   Window3D(const Window3D&);                 // Prevent copy-construction
