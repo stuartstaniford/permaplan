@@ -15,6 +15,7 @@ rapidjson::Document Species::speciesIndex;
 unsigned short Species::speciesCount = 0u;
 Species** Species::speciesPtrArray = new Species*[SPECIES_ARRAY_SIZE];
 std::unordered_map<const char*, unsigned> Species::genusList;
+std::unordered_map<const char*, SpeciesList*> Species::genusSpeciesList;
 
 
 // =======================================================================================
@@ -23,7 +24,14 @@ std::unordered_map<const char*, unsigned> Species::genusList;
 Species::Species(Document& otdlDoc)
 {
   extractBarkColors(otdlDoc["wood"]["barkColors"]);
-  genusList[otdlDoc["overviewData"]["genus"].GetString()]++;
+  genusName = otdlDoc["overviewData"]["genus"].GetString();
+  speciesName = otdlDoc["overviewData"]["species"].GetString();
+  genusList[genusName]++;
+  if(genusSpeciesList.find(genusName) != genusSpeciesList.end())
+   {
+    genusSpeciesList[genusName] = new SpeciesList;
+    (*genusSpeciesList[genusName])[speciesName] = this;
+   }
 }
 
 

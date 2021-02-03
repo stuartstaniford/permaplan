@@ -69,6 +69,7 @@ Window3D::Window3D(int pixWidth, int pixHeight):
                         show_insert_menu(false),
                         show_materials_menu(false),
                         show_tree_menu(false),
+                        genusSelected(NULL),
                         show_focus_overlay(true),
                         inClick(false),
                         testingDoubleClick(false),
@@ -206,7 +207,7 @@ void Window3D::imguiTreeMenu(void)
 {
   if(!show_tree_menu)
     return;
-  ImGui::Begin("Select Tree", &show_tree_menu, ImGuiWindowFlags_AlwaysAutoResize);
+  ImGui::Begin("Tree Genus", &show_tree_menu, ImGuiWindowFlags_AlwaysAutoResize);
   
   for(auto& iter: Species::genusList)
    {

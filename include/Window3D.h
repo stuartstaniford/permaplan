@@ -43,6 +43,7 @@ class Window3D
   bool            show_insert_menu;
   bool            show_materials_menu;
   bool            show_tree_menu;
+  char*           genusSelected;
   bool            show_focus_overlay;
   bool            inClick;
   bool            testingDoubleClick;

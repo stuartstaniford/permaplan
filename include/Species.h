@@ -20,12 +20,20 @@
 // =======================================================================================
 // Class variable initialization
 
+class Species;
+class SpeciesList: public std::unordered_map<const char*, Species*>
+{
+  
+};
+
 class Species
 {
  public:
   
   // Instance variables - public;
-
+  const char* genusName;
+  const char* speciesName;
+  
   // Member functions - public
   Species(rapidjson::Document& otdlDoc);
   ~Species(void);
@@ -49,6 +57,7 @@ class Species
   static bool validateBarkColors(rapidjson::Value& colorsArray, JSONStructureChecker* jCheck);
   static unsigned short speciesCount;
   static std::unordered_map<const char*, unsigned> genusList;
+  static std::unordered_map<const char*, SpeciesList*> genusSpeciesList;
 
  private:
   
