@@ -24,19 +24,20 @@ std::unordered_map<const char*, SpeciesList*> Species::genusSpeciesList;
 Species::Species(Document& otdlDoc)
 {
   extractBarkColors(otdlDoc["wood"]["barkColors"]);
+  
+  // store this species/genus in the static arrays for looking us up.
   genusName = otdlDoc["overviewData"]["genus"].GetString();
   speciesName = otdlDoc["overviewData"]["species"].GetString();
   genusList[genusName]++;
-  if(genusSpeciesList.find(genusName) != genusSpeciesList.end())
-   {
+  if(genusSpeciesList.find(genusName) == genusSpeciesList.end())
     genusSpeciesList[genusName] = new SpeciesList;
-    (*genusSpeciesList[genusName])[speciesName] = this;
-   }
+  (*genusSpeciesList[genusName])[speciesName] = this;
 }
 
 
 // =======================================================================================
-// Destructor
+// Destructor - currently should never be called as species stay around for the life of
+// the program.
 
 Species::~Species(void)
 {

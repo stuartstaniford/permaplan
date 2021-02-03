@@ -43,7 +43,7 @@ class Window3D
   bool            show_insert_menu;
   bool            show_materials_menu;
   bool            show_tree_menu;
-  char*           genusSelected;
+  const char*     genusSelected;
   bool            show_focus_overlay;
   bool            inClick;
   bool            testingDoubleClick;
@@ -64,6 +64,7 @@ class Window3D
   void          imguiInterface(void);
   void          imguiInsertMenu(void);
   void          imguiMaterialsMenu(void);
+  void          imguiGenusMenu(void);
   void          imguiTreeMenu(void);
   void          imguiFocusOverlay(void);
   void          mouseOverlayDisplays(vec3 mouseSceneLoc);

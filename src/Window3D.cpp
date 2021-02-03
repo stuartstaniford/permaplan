@@ -200,6 +200,31 @@ void Window3D::imguiMaterialsMenu(void)
 
 
 // =======================================================================================
+// The floating menu to select a particular speces to insert after a genus has been
+// selected in imguiTreeMenu.
+
+void Window3D::imguiGenusMenu(void)
+{
+  unless(show_tree_menu && genusSelected)
+    return;
+      
+  ImGui::Begin("Tree Species", &show_tree_menu, ImGuiWindowFlags_AlwaysAutoResize);
+  
+  for(auto& iter: *(Species::genusSpeciesList[genusSelected]))
+    if(ImGui::Button(iter.first))
+     {
+      Species* S = iter.second;
+      genusSelected = NULL;
+      show_tree_menu = false;
+      LogTreeSelections("Tree %s %s inserted.\n", S->genusName, S->speciesName);
+     }
+  
+  ImGui::End();
+}
+
+
+
+// =======================================================================================
 // The floating menu to select a particular tree to insert (by latin/scientific name)
 //XX this is not a very scalable solution and will have to be extended over time.
 
@@ -207,6 +232,10 @@ void Window3D::imguiTreeMenu(void)
 {
   if(!show_tree_menu)
     return;
+  
+  if(genusSelected)
+    return imguiGenusMenu();
+    
   ImGui::Begin("Tree Genus", &show_tree_menu, ImGuiWindowFlags_AlwaysAutoResize);
   
   for(auto& iter: Species::genusList)
@@ -214,9 +243,7 @@ void Window3D::imguiTreeMenu(void)
     char genusOption[128];
     snprintf(genusOption, 128, "%s (%u)", iter.first, iter.second);
     if(ImGui::Button(genusOption))
-     {
-      printf("%s\n", iter.first);
-     }
+      genusSelected = iter.first;
    }
   
   ImGui::End();
