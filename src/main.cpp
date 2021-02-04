@@ -43,6 +43,7 @@ int main (int argc, char* argv[])
   Tree::readTreesFromDesign();
   Scene scene;
   window.scene = &scene;
+  window.imgMenu->scene = &scene;
   window.scriptController = new ScriptController();
   TextureAtlas textureAtlas((char*)"Materials");
   MaterialList materials;
