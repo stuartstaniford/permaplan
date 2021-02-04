@@ -9,6 +9,7 @@
 #include "Shader.h"
 #include "HeightMarker.h"
 #include "Box.h"
+#include "Tree.h"
 
 
 // =======================================================================================
@@ -207,6 +208,20 @@ void Scene::insertVisibleObject(char* objType, float size, vec3 loc, Material* m
   LogObjectInsertions("Object inserted: %s (size %.1f) at %.1f, %.1f, %.1f\n",
                       objType, size, loc[0], loc[1], loc[2]);
   qtree->storeVisualObject(newObj);
+  rebuildVisualObjectBuffer(&sceneObjectTbuf);
+}
+
+
+// =======================================================================================
+// Handle a UI call to insert a new object in the scene (from the insert menu in Window3D)
+
+void Scene::insertTree(Species* species, vec3 loc)
+{
+  //mat4 transform;
+  //newObjectTransform(transform, size, loc);
+  //VisualObject* newObj = getFreshObject(objType, transform);
+  
+  //qtree->storeVisualObject(newObj);
   rebuildVisualObjectBuffer(&sceneObjectTbuf);
 }
 
