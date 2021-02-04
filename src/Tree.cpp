@@ -11,7 +11,7 @@ Tree** Tree::treePtrArray = new Tree*[TREE_ARRAY_SIZE];
 using namespace rapidjson;
 
 // =======================================================================================
-// Constructors.
+// Constructors.  NB MORE THAN ONE CONSTRUCTOR!!!
 
 /*
 Tree::Tree(mat4 transform)
@@ -22,8 +22,19 @@ Tree::Tree(mat4 transform)
 }
 */
 
+// Constructor used when starting a seedling from the interface
+Tree::Tree(Species* S, vec3 loc):
+                  species(S)
+{
+  glm_vec3_copy(loc, location);
+  treePtrArray[(treePtrArrayIndex = treeCount++)] = this;
+}
+
+
+// This is the constructor generally used when reading from OLDF.
 Tree::Tree(Value& plantObject)
 {
+  char speciesPath[MAX_SPECIES_PATH];
   sprintf(speciesPath, "%s/%s", plantObject["genus"].GetString(),
                                             plantObject["species"].GetString());
   species = Species::getSpeciesByPath(speciesPath);

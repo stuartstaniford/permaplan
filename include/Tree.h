@@ -27,11 +27,11 @@ class Tree: public VisualObject
   
   // Instance variables - public
   mat4            trans;
-  char            speciesPath[MAX_SPECIES_PATH];
   unsigned short  treePtrArrayIndex; // used by all our subparts to find us
   Species*        species;
 
   // Member functions - public
+  Tree(Species* S, vec3 loc);
   Tree(rapidjson::Value& plantObject);
   // We take the unit box on [0,0,0] to [1,1,1] and apply transform to it.
   // Tree(mat4 transform);
@@ -56,6 +56,7 @@ class Tree: public VisualObject
   // Instance variables - private
   char iterI, iterJ, iterK;
   int  index;
+  vec3 location;
   
   // static array used to allow a short index from treeParts
   static Tree** treePtrArray;
