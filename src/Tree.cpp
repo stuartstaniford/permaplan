@@ -51,6 +51,22 @@ Tree::~Tree(void)
 
 
 // =======================================================================================
+// Function that is applied to grow the tree by a certain number of years (possibly
+// fractional).
+
+void Tree::growStep(float years)
+{
+}
+
+
+void Tree::growAllTrees(float years)
+{
+  for(int i=0; i<treeCount; i++)
+    treePtrArray[i]->growStep(years);
+}
+
+
+// =======================================================================================
 // Iterator over vertices with each unique.  Doesn't do textures, normals, as they aren't
 // very well defined for this purpose.
 

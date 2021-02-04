@@ -33,9 +33,8 @@ class Tree: public VisualObject
   // Member functions - public
   Tree(Species* S, vec3 loc);
   Tree(rapidjson::Value& plantObject);
-  // We take the unit box on [0,0,0] to [1,1,1] and apply transform to it.
-  // Tree(mat4 transform);
   ~Tree(void);
+  void        growStep(float years);
   bool        getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
   bool        getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
   int         getNextIndex(bool resetToFirst);
@@ -50,6 +49,7 @@ class Tree: public VisualObject
  public:
   // static functions and variables
   static void readTreesFromDesign(void);
+  static void growAllTrees(float years);
 
  private:
   

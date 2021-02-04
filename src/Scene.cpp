@@ -262,6 +262,9 @@ void Scene::draw(bool mouseMoved)
     newLandHeight(L);
   land.draw(camera);
   
+  // Update the trees
+  Tree::growAllTrees(1.0f);
+  
   // Draw all the objects stored in the quadtree
   if(sceneObjectTbuf)
     sceneObjectTbuf->draw(Lighted, NULL);
