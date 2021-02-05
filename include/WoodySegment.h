@@ -19,7 +19,7 @@ class WoodySegment: public TreePart
  public:
   
   // Member functions - public
-  WoodySegment(void);
+  WoodySegment(Species& species, unsigned short treeIndex, float years);
   ~WoodySegment(void);
   const char* objectName(void);
   bool        diagnosticHTML(HttpDebug* serv);
@@ -28,8 +28,7 @@ class WoodySegment: public TreePart
   float           length;         // mm
   float           heartRadius;    // expressed in mm
   float           sapThickness;   // mm
-  float           barkThickness;  // mm phloem currently part of bark
-  unsigned short  treeIndex;      // find the tree we are part of
+  float           barkThickness;  // mm.  Phloem currently part of bark
 
   // Instance variables - private
   

@@ -8,7 +8,8 @@
 // =======================================================================================
 // Constructors.
 
-TreePart::TreePart(void)
+TreePart::TreePart(unsigned short treeIndex):
+                                      ourTreeIndex(treeIndex)
 {
 }
 

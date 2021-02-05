@@ -31,9 +31,13 @@ class Species
  public:
   
   // Instance variables - public;
-  const char* genusName;
-  const char* speciesName;
-  
+  const char*               genusName;
+  const char*               speciesName;
+  float                     stemRate;           // in mm/year
+  float                     initSapThickness;   // in mm
+  float                     initBarkThickness;  // in mm
+  std::map<float, unsigned> barkColorMap;
+
   // Member functions - public
   Species(rapidjson::Document& otdlDoc);
   ~Species(void);
@@ -62,10 +66,6 @@ class Species
  private:
   
   // Instance variables - private
-  float                     stemRate;           // in mm/year
-  float                     initSapThickness;   // in mm
-  float                     initBarkThickness;  // in mm
-  std::map<float, unsigned> barkColorMap;
 
   // Member functions - private
   Species(const Species&);                 // Prevent copy-construction

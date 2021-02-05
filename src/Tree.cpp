@@ -62,7 +62,7 @@ void Tree::growStep(float years)
   // Handle the case of a brand new tree
   if(!trunk)
    {
-    trunk = new WoodySegment();
+    trunk = new WoodySegment(*species, treePtrArrayIndex, years);
     return;
    }
   

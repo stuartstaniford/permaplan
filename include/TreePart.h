@@ -5,6 +5,7 @@
 #define TREE_PART_H
 
 #include "HttpDebug.h"
+#include "Species.h"
 
 // =======================================================================================
 // Class variable initialization
@@ -15,7 +16,7 @@ class TreePart
  public:
   
   // Member functions - public
-  TreePart(void);
+  TreePart(unsigned short treeIndex);
   virtual ~TreePart(void);
   virtual const char* objectName(void);
   virtual bool        diagnosticHTML(HttpDebug* serv);
@@ -23,7 +24,8 @@ class TreePart
  private:
   
   // Instance variables - private
-  
+  unsigned short ourTreeIndex;
+
   // Member functions - private
   TreePart(const TreePart&);                 // Prevent copy-construction
   TreePart& operator=(const TreePart&);      // Prevent assignment

@@ -9,9 +9,12 @@
 // =======================================================================================
 // Constructors.
 
-WoodySegment::WoodySegment(void):
-                              //length(len),
-                              heartRadius(0.0f)
+WoodySegment::WoodySegment(Species& species, unsigned short treeIndex, float years):
+                              TreePart(treeIndex),
+                              length(years*species.stemRate),
+                              heartRadius(0.0f),
+                              sapThickness(species.initSapThickness),
+                              barkThickness(species.initBarkThickness)
 {
 }
 
