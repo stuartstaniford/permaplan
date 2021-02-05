@@ -23,7 +23,8 @@ class WoodySegment: public TreePart
   // Member functions - public
   WoodySegment(Species& species, unsigned short treeIndex, float years);
   ~WoodySegment(void);
-  void triangleBufferSizesRecurse(unsigned& vCount, unsigned& iCount);
+  bool bufferGeometry(TriangleBuffer* T);
+ void triangleBufferSizesRecurse(unsigned& vCount, unsigned& iCount);
   const char* objectName(void);
   bool        diagnosticHTML(HttpDebug* serv);
 

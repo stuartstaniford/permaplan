@@ -28,6 +28,19 @@ WoodySegment::~WoodySegment(void)
 
 
 // =======================================================================================
+// Buffer the vertices/indices for this part.
+
+bool WoodySegment::bufferGeometry(TriangleBuffer* T)
+{
+  //XX TBD
+  
+  // XX do recursion
+  return true;
+}
+
+
+
+// =======================================================================================
 // Assess the number of vertices/indices required in a triangle buffer to render us
 // and all our children.
 

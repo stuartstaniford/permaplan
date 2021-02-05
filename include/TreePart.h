@@ -6,6 +6,7 @@
 
 #include "HttpDebug.h"
 #include "Species.h"
+#include "TriangleBuffer.h"
 
 // =======================================================================================
 // Class variable initialization
@@ -18,6 +19,7 @@ class TreePart
   // Member functions - public
   TreePart(unsigned short treeIndex);
   virtual ~TreePart(void);
+  virtual bool bufferGeometry(TriangleBuffer* T);
   virtual void triangleBufferSizesRecurse(unsigned& vCount, unsigned& iCount);
   virtual const char* objectName(void);
   virtual bool        diagnosticHTML(HttpDebug* serv);

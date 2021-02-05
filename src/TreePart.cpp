@@ -23,6 +23,18 @@ TreePart::~TreePart(void)
 
 
 // =======================================================================================
+// Buffer the vertices/indices for this part - stub here, as base class for interface.
+
+bool TreePart::bufferGeometry(TriangleBuffer* T)
+{
+  // Add nothing in this base class
+  
+  // XX do recursion
+  return true;
+}
+
+
+// =======================================================================================
 // Assess the number of vertices/indices required in a triangle buffer to render us
 // and all our children.
 
