@@ -4,12 +4,12 @@
 
 #include <cstdio>
 #include <err.h>
+#include "Cylinder.h"
 #include "Arrow.h"
 
 
 // =======================================================================================
 // Constructors.
-
 
 Arrow::Arrow(vec3 root, vec3 dir)
 {
@@ -73,37 +73,7 @@ bool Arrow::bufferGeometry(TriangleBuffer* T)
   float arrowRadius   = glm_vec3_norm(direction)*ARROW_RADIUS;
 
   vec3 f1, f2; // Set up axes perpendicular to direction, which will be called f1 and f2.
-  vec3 f0; // starting place, will be z-axis unless dir is parallel when we use x-axis.
-  
-  //Eg if ARROW_SIDES == 8 the cross section of the arrow shaft looks like
-  /*
-       ^
-       | f1 direction
-   
-     -----
-    /     \
-   /       \
-  |         |  ---->
-  |         |  f2 direction
-   \       /
-    \     /
-     -----
-*/
-  
-  if(direction[0] < EPSILON && direction[1] < EPSILON)
-   {
-    f0[0] = 1.0f;
-    f0[1] = f0[2] = 0.0f;
-   }
-  else
-   {
-    f0[0] = f0[1] = 0.0f;
-    f0[2] = 1.0f;
-   }
-  
-  glm_vec3_cross(f0, direction, f1);
-  glm_vec3_cross(direction, f1, f2);
-
+  getCrossVectors(direction, f1, f2);
   glm_vec3_scale_as(f1, arrowRadius, f1);
   glm_vec3_scale_as(f2, arrowRadius, f2);
 
