@@ -23,8 +23,6 @@ std::unordered_map<const char*, SpeciesList*> Species::genusSpeciesList;
 
 Species::Species(Document& otdlDoc)
 {
-  extractBarkColors(otdlDoc["wood"]["barkColors"]);
-  
   // store this species/genus in the static arrays for looking us up.
   genusName = otdlDoc["overviewData"]["genus"].GetString();
   speciesName = otdlDoc["overviewData"]["species"].GetString();
@@ -32,6 +30,12 @@ Species::Species(Document& otdlDoc)
   if(genusSpeciesList.find(genusName) == genusSpeciesList.end())
     genusSpeciesList[genusName] = new SpeciesList;
   (*genusSpeciesList[genusName])[speciesName] = this;
+
+  // fill out the barkColorMap array (dedicated function for this)
+  extractBarkColors(otdlDoc["wood"]["barkColors"]);
+
+  // stemRate
+  stemRate = otdlDoc["wood"]["stemRate"].GetFloat();
 }
 
 
@@ -218,7 +222,24 @@ bool Species::validateWood(Document& doc, JSONStructureChecker* jCheck)
   bool   retVal       = true;
   Value& woodObject = doc["wood"];
 
-  if(woodObject.HasMember("barkTextures")) // this is optional
+  // stemRate - mandatory
+  unless(woodObject.HasMember("stemRate") && woodObject["stemRate"].IsNumber())
+   {
+    LogOTDLValidity("No stemRate or invalid stemRate in %s\n", jCheck->sourcePhrase);
+    retVal = false;
+   }
+
+  // barkColors - mandatory
+  unless(woodObject.HasMember("barkColors") && woodObject["barkColors"].IsArray())
+   {
+    LogOTDLValidity("No barkColors data in %s\n", jCheck->sourcePhrase);
+    retVal = false;
+   }
+  else
+    retVal &= validateBarkColors(woodObject["barkColors"], jCheck);
+
+  // barkTextures - optional
+  if(woodObject.HasMember("barkTextures"))
    {
     unless(woodObject["barkTextures"].IsObject())
      {
@@ -228,14 +249,6 @@ bool Species::validateWood(Document& doc, JSONStructureChecker* jCheck)
     else
       retVal &= validateBarkTextures(woodObject["barkTextures"], jCheck);
   }
-
-  unless(woodObject.HasMember("barkColors") && woodObject["barkColors"].IsArray())
-   {
-    LogOTDLValidity("No barkColors data in %s\n", jCheck->sourcePhrase);
-    retVal = false;
-   }
-  else
-    retVal &= validateBarkColors(woodObject["barkColors"], jCheck);
 
   return retVal;
 }
