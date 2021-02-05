@@ -134,7 +134,13 @@ names, giving credit to multiple human authors who have worked on a particular f
 
 ## Wood
 
-The wood sub-object encomasses all information required to describe the woody parts of the plant.
+The wood sub-object encomasses all information required to describe the woody parts of the plant.  The following tags are defined within the wood object.
+
+### stemRate (mandatory)
+
+Syntax: `"stemRate":  <sRate>,`
+
+The stemRate is the maximum rate at which stems grow in length (ie the rate when all is well).  It is expressed in meters/year.
 
 ### barkColors (mandatory)
 

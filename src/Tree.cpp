@@ -59,6 +59,9 @@ void Tree::growStep(float years)
 }
 
 
+// =======================================================================================
+// Static function that just grows all the trees known to treePtrArray.
+
 void Tree::growAllTrees(float years)
 {
   for(int i=0; i<treeCount; i++)

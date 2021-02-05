@@ -14,6 +14,7 @@
     },
  "wood":
   {
+   "stemRate": 0.7,
    "barkTextures":
     {
     
