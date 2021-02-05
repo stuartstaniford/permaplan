@@ -27,7 +27,19 @@ WoodySegment::~WoodySegment(void)
 }
 
 
-        
+// =======================================================================================
+// Assess the number of vertices/indices required in a triangle buffer to render us
+// and all our children.
+
+void WoodySegment::triangleBufferSizesRecurse(unsigned& vCount, unsigned& iCount)
+{
+  vCount += WOOD_SEG_SIDES*3+1;
+  iCount += WOOD_SEG_SIDES*9;
+  
+  // XX do recursion
+}
+
+
 // =======================================================================================
 // Tell callers our name at runtime.
 

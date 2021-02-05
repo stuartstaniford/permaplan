@@ -7,6 +7,8 @@
 
 #include "TreePart.h"
 
+#define WOOD_SEG_SIDES 10   //XX initial hack that needs to be made more LOD
+
 // =======================================================================================
 // Class variable initialization
 
@@ -21,6 +23,7 @@ class WoodySegment: public TreePart
   // Member functions - public
   WoodySegment(Species& species, unsigned short treeIndex, float years);
   ~WoodySegment(void);
+  void triangleBufferSizesRecurse(unsigned& vCount, unsigned& iCount);
   const char* objectName(void);
   bool        diagnosticHTML(HttpDebug* serv);
 

@@ -22,7 +22,18 @@ TreePart::~TreePart(void)
 }
 
 
-        
+// =======================================================================================
+// Assess the number of vertices/indices required in a triangle buffer to render us
+// and all our children.
+
+void TreePart::triangleBufferSizesRecurse(unsigned& vCount, unsigned& iCount)
+{
+  // Add nothing in this base class
+  
+  // XX do recursion
+}
+
+
 // =======================================================================================
 // Tell callers our name at runtime.
 

@@ -148,6 +148,7 @@ void Tree::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 {
   vCount = 0u;
   iCount = 0u;
+  trunk->triangleBufferSizesRecurse(vCount, iCount);
 }
 
 
