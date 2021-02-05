@@ -9,7 +9,9 @@
 // =======================================================================================
 // Constructors.
 
-WoodySegment::WoodySegment(void)
+WoodySegment::WoodySegment(void):
+                              //length(len),
+                              heartRadius(0.0f)
 {
 }
 

@@ -10,6 +10,7 @@
 #include "rapidjson/writer.h"
 #include "rapidjson/stringbuffer.h"
 #include "rapidjson/error/en.h"
+#include "TreePart.h"
 
 #define TREE_ARRAY_SIZE   16384 // cannot exceed size of unsigned short
 #define MAX_SPECIES_PATH  96   //https://en.wikipedia.org/wiki/List_of_long_species_names
@@ -54,9 +55,8 @@ class Tree: public VisualObject
  private:
   
   // Instance variables - private
-  char iterI, iterJ, iterK;
-  int  index;
-  vec3 location;
+  vec3      location;
+  TreePart* trunk;
   
   // static array used to allow a short index from treeParts
   static Tree** treePtrArray;

@@ -62,7 +62,9 @@ class Species
  private:
   
   // Instance variables - private
-  float                     stemRate;
+  float                     stemRate;           // in mm/year
+  float                     initSapThickness;   // in mm
+  float                     initBarkThickness;  // in mm
   std::map<float, unsigned> barkColorMap;
 
   // Member functions - private

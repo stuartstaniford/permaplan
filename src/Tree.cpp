@@ -2,6 +2,7 @@
 // Class for storing and rendering trees.
 
 #include "Tree.h"
+#include "WoodySegment.h"
 #include "PmodDesign.h"
 #include <err.h>
 
@@ -24,7 +25,8 @@ Tree::Tree(mat4 transform)
 
 // Constructor used when starting a seedling from the interface
 Tree::Tree(Species* S, vec3 loc):
-                  species(S)
+                          species(S),
+                          trunk(NULL)
 {
   glm_vec3_copy(loc, location);
   treePtrArray[(treePtrArrayIndex = treeCount++)] = this;
@@ -32,7 +34,8 @@ Tree::Tree(Species* S, vec3 loc):
 
 
 // This is the constructor generally used when reading from OLDF.
-Tree::Tree(Value& plantObject)
+Tree::Tree(Value& plantObject):
+                          trunk(NULL)
 {
   char speciesPath[MAX_SPECIES_PATH];
   sprintf(speciesPath, "%s/%s", plantObject["genus"].GetString(),
@@ -56,6 +59,14 @@ Tree::~Tree(void)
 
 void Tree::growStep(float years)
 {
+  // Handle the case of a brand new tree
+  if(!trunk)
+   {
+    trunk = new WoodySegment();
+    return;
+   }
+  
+  // Handle the case of an existing tree by recursing into the trunk
 }
 
 

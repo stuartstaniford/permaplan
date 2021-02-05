@@ -34,8 +34,10 @@ Species::Species(Document& otdlDoc)
   // fill out the barkColorMap array (dedicated function for this)
   extractBarkColors(otdlDoc["wood"]["barkColors"]);
 
-  // stemRate
-  stemRate = otdlDoc["wood"]["stemRate"].GetFloat();
+  // stemRate, initSapThickness, initBarkThickness
+  stemRate          = otdlDoc["wood"]["stemRate"].GetFloat();
+  initSapThickness  = otdlDoc["wood"]["initSapThickness"].GetFloat();
+  initBarkThickness = otdlDoc["wood"]["initBarkThickness"].GetFloat();
 }
 
 
@@ -226,6 +228,24 @@ bool Species::validateWood(Document& doc, JSONStructureChecker* jCheck)
   unless(woodObject.HasMember("stemRate") && woodObject["stemRate"].IsNumber())
    {
     LogOTDLValidity("No stemRate or invalid stemRate in %s\n", jCheck->sourcePhrase);
+    retVal = false;
+   }
+
+  // initSapThickness - mandatory
+  unless(woodObject.HasMember("initSapThickness")
+                                            && woodObject["initSapThickness"].IsNumber())
+   {
+    LogOTDLValidity("No initSapThickness or invalid initSapThickness in %s\n",
+                                                                      jCheck->sourcePhrase);
+    retVal = false;
+   }
+
+  // initBarkThickness - mandatory
+  unless(woodObject.HasMember("initBarkThickness") &&
+                                                  woodObject["initBarkThickness"].IsNumber())
+   {
+    LogOTDLValidity("No initBarkThickness or invalid initBarkThickness in %s\n",
+                                                                      jCheck->sourcePhrase);
     retVal = false;
    }
 
