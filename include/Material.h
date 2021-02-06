@@ -7,7 +7,7 @@
 #define MATERIAL_H
 
 #include <cglm/cglm.h>
-#include <vector>
+#include <map>
 #include "Texture.h"
 #include "HttpDebug.h"
 
@@ -22,6 +22,8 @@ public:
   // Instance variables - public
   const char* name;
   float       carbonDensity;
+  vec2        textureURange;          // where our texture will be found in atlas
+  vec2        textureVRange;          // ditto for vertical texcoord
 
   // Member functions - public
   Material(float carbonD, char* matName, char* tFileName);
@@ -38,7 +40,7 @@ private:
 
 };
 
-class MaterialList: public std::vector<Material*>
+class MaterialList: public std::map<char*, Material*>
 {
 private:
   

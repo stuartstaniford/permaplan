@@ -92,15 +92,14 @@ void MenuInterface::imguiMaterialsMenu(void)
   ImGui::Begin("Select Material", &show_materials_menu, ImGuiWindowFlags_AlwaysAutoResize);
   
   const MaterialList& materials = MaterialList::getMaterials();
-  int i, N = materials.size();
   
-  for(i=0; i<N; i++)
-    if(ImGui::Button(materials[i]->name))
+  for(auto& iter: materials)
+    if(ImGui::Button(iter.first))
      {
       show_materials_menu = false;
-      scene->insertVisibleObject((char*)"Block", size, scene->lastDoubleClick, materials[i]);
+      scene->insertVisibleObject((char*)"Block", size, scene->lastDoubleClick, iter.second);
       LogMaterialSelections("Material %s selected for block, carbon density %.2f.\n",
-                            materials[i]->name, materials[i]->carbonDensity);
+                            iter.first, iter.second->carbonDensity);
      }
   ImGui::End();
 }

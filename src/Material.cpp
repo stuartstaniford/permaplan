@@ -43,13 +43,13 @@ MaterialList::MaterialList(void)
   else
     theMaterialList = this;
   
-  Material* strawBale = new Material(0.0, (char*)"Straw Bale",
+  Material* strawBale = new Material(0.0, (char*)"StrawBale",
                                           (char*)"Materials/Blocks/StrawBale/Bale.png");
-  push_back(strawBale);
+  (*theMaterialList)[(char*)"StrawBale"] = strawBale;
   
   Material* nexcem = new Material(0.0, (char*)"Nexcem",
                                        (char*)"Materials/Blocks/Nexcem/nexcem.png");
-  push_back(nexcem);
+  (*theMaterialList)[(char*)"Nexcem"] = nexcem;
 }
 
 
