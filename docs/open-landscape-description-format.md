@@ -139,7 +139,7 @@ Syntax: `"referencePoint":  [<latitude>,<longtitude>],`
 
 The referentPoint object value is a JSON arry with exactly two numeric members, the first representing the latitude and the second of the longtitude of the reference point in degrees.  Minutes and seconds are not represented directly by as decimal parts of the latitude and longtitude (of course parsing applications may display these values to users however they like, but the representation in the file is via decimal parts of a degree).  Longtitudes east of the Greenwich meridian are positive, whereas longtitudes west of it are negative.
 
-### arcs (mandatory)
+### arcs (optional)
 
 Syntax: `"arcs":  [ [<x1>, <y1>], [<x2>, <y2>], ...,`
 

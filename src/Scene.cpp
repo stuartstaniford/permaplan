@@ -152,7 +152,8 @@ void Scene::newLandHeight(vec3 location)
 {
   HeightMarker* H = new HeightMarker(location);
   qtree->storeVisualObject(H);
-  grid->newHeight(location[2]);
+  if(grid)
+    grid->newHeight(location[2]);
   
   rebuildVisualObjectBuffer(&indicatorTbuf);
   //XX also need to rebuild rest of objects once their heights are relative

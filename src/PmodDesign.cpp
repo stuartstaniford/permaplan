@@ -273,7 +273,13 @@ bool PmodDesign::validateArcs(Value& boundaries)
   const PmodConfig& config = PmodConfig::getConfig();
   float sumDist[2] = {0.0f, 0.0f};
   
-  if(boundaries.HasMember("arcs") && boundaries["arcs"].IsArray())
+  unless(boundaries.HasMember("arcs"))
+   {
+    LogOLDFDetails("No boundaries:arcs object in OLDF file %s\n", config.designFileName);
+    return true;
+   }
+  
+  if(boundaries["arcs"].IsArray())
    {
     Value& arcArray = boundaries["arcs"];
     if(arcArray.Size() >= 3)
