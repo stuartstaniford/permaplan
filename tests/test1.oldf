@@ -56,7 +56,8 @@
      "commonName": "Drummond's Maple",
      "treeDiameter": [6.33, 2019.18],
      "notes": "The big one up the meadow"
-    }  ],
+    }
+  ],
  "boundaries":
   {
    "referencePoint": [40.7831, -73.9712],

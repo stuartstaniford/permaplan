@@ -231,11 +231,12 @@ void Tree::writeToOLDF(FILE* file, char* indent)
   
   // commonName - XX incomplete
   fprintf(file, "%s%s\"commonName\": \"\",\n", indent, indent);
-  
-  // treeDiameter - XX incomplete
-  fprintf(file, "%s%s\"treeDiameter\": \"\"\n", indent, indent);
-  
+
   // notes - XX missing
+
+  // treeDiameter - XX incomplete
+  // Note this is the last one and shouldn't have the trailing comma.
+  fprintf(file, "%s%s\"treeDiameter\": \"\"\n", indent, indent);
 
   fprintf(file, "%s }", indent);
 }

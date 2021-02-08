@@ -1,5 +1,5 @@
 
-// Copyright Staniford Systems.  All Rights Reserved.  Sep 2020 -
+// Copyright Staniford Systems.  All Rights Reserved.  Feb 2021 -
 // Class for rendering a simple straight arrow.
 
 #include <cstdio>
