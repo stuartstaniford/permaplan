@@ -210,11 +210,16 @@ void Tree::readTreesFromDesign(void)
 
 void Tree::writeToOLDF(FILE* file, char* indent)
 {
+  fprintf(file, "%s {\n", indent);
+
   // location
   fprintf(file, "%s%s\"location\": [%f, %f],\n", indent, indent, location[0], location[1]);
   
-  // yearPlanted - XX missing
-  // timePlanted - XX missing
+  // yearPlanted - XX incomplete
+  fprintf(file, "%s%s\"yearPlanted\": \"\",\n", indent, indent);
+
+  // timePlanted - XX incomplete
+  fprintf(file, "%s%s\"timePlanted\": \"[0,0]\",\n", indent, indent);
 
   // genus
   fprintf(file, "%s%s\"genus\": \"%s\",\n", indent, indent, species->genusName);
@@ -223,11 +228,16 @@ void Tree::writeToOLDF(FILE* file, char* indent)
   fprintf(file, "%s%s\"species\": \"%s\",\n", indent, indent, species->speciesName);
 
   // var - XX missing
-  // commonName - XX missing
-  // treeDiameter - XX missing
+  
+  // commonName - XX incomplete
+  fprintf(file, "%s%s\"commonName\": \"\",\n", indent, indent);
+  
+  // treeDiameter - XX incomplete
+  fprintf(file, "%s%s\"treeDiameter\": \"\"\n", indent, indent);
+  
   // notes - XX missing
 
-  fprintf(file, "%s%s }", indent, indent);
+  fprintf(file, "%s }", indent);
 }
 
 

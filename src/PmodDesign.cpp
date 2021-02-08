@@ -12,6 +12,7 @@
 #include "loadFileToBuf.h"
 #include "Logging.h"
 #include "GlobalMacros.h"
+#include "Tree.h"
 
 using namespace rapidjson;
 
@@ -785,6 +786,7 @@ void PmodDesign::writeOLDFFile(LandSurface& land)
   land.writeOLDFSection(writeFile, indent);
   
   // Plants
+  Tree::writeTreesToOLDF(writeFile, indent);
   
   // Go home, we are done.
   fprintf(writeFile, "}\n");
