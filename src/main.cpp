@@ -45,7 +45,8 @@ int main (int argc, char* argv[])
   window.scene = &scene;
   window.imgMenu->scene = &scene;
   window.scriptController = new ScriptController();
-  TextureAtlas textureAtlas((char*)"Materials");
+  TextureAtlas blocksAtlas((char*)"Materials/Blocks");
+  TextureAtlas treesAtlas((char*)"Materials/Trees");
   MaterialList materials;
   
   // Start up the debugging http server

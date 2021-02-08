@@ -18,10 +18,9 @@ Texture::Texture(const char* fileName, bool flip):
   //fprintf(stderr, "File name of size %lu\n", strlen(fileName));
   //fprintf(stderr, "File name is %s\n",fileName);
   
-  textureFileName = new char[strlen(fileName)+1];
-  strcpy(textureFileName, fileName);
+  strncpy(textureFileName, fileName, TexPathLimit);
   stbi_set_flip_vertically_on_load((int)flip);
-  data = stbi_load(fileName, &width, &height, &nrChannels, 0);
+  data = stbi_load(fileName, (int*)&width, (int*)&height, &nrChannels, 0);
   if(!data)
     err(-1, "Couldn't load texture file %s", fileName);
   if(4==nrChannels)
@@ -36,6 +35,19 @@ Texture::Texture(const char* fileName, bool flip):
 
 
 // =======================================================================================
+// Alternate constructer used for creating an empty texture (eg used by TextureAtlas)
+
+Texture::Texture(void):
+                    width(0u),
+                    height(0u),
+                    nrChannels(4),
+                    format(GL_RGBA),
+                    data(NULL)
+{
+}
+
+
+// =======================================================================================
 // Destructor
 
 Texture::~Texture(void)
@@ -44,7 +56,6 @@ Texture::~Texture(void)
     stbi_image_free(data);
   else
     glDeleteTextures(1, &textureId);
-  delete[] textureFileName;
 }
 
 

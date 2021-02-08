@@ -17,42 +17,62 @@
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "stb_image_write.h"
 
-#define TexPathLimit 2048
-
 
 // =======================================================================================
 // Constructor
 
 TextureAtlas::TextureAtlas(char* dirName):
-                treeRoot(NULL)
+                                Texture(),
+                                treeRoot(NULL)
 {
-  // Open the base directory
-  DIR* atlasRoot = opendir(dirName);
-  if(!atlasRoot)
+  DIR* dir;
+  strncpy(textureFileName, dirName, TexPathLimit);
+  dir = opendir(dirName);
+  if(!dir)
     err(-1, "Couldn't open directory %s in TextureAtlas::TextureAtlas", dirName);
-  
-  //Traverse the base directory for subdirectories
-  struct dirent* dirEntry;
-  DIR* subDir;
-  char subDirName[TexPathLimit];
-  while( (dirEntry = readdir(atlasRoot)) )
-   {
-    if(dirEntry->d_type != DT_DIR)   // ignore regular files and other non-directories
-      continue;
-    if(strcmp(dirEntry->d_name, ".") == 0  || strcmp(dirEntry->d_name, "..") == 0)
-      continue;
-    sprintf(subDirName, "%s/%s", dirName, dirEntry->d_name);
-    subDir = opendir(subDirName);
-    if(!subDir)
-      err(-1, "Couldn't open directory %s in TextureAtlas::TextureAtlas", subDirName);
-    LogTextureAtlas("Creating texture atlas for %s.\n", subDirName);
-    processOneAtlas(subDir, subDirName);
-    closedir(subDir);
-    createImageTree(subDirName);
-   }
-  closedir(atlasRoot);
+  LogTextureAtlas("Creating texture atlas for %s.\n", dirName);
+  searchForTextures(dir, textureFileName);
+  closedir(dir);
+  createImageTree(dirName);
 }
 
+
+// =======================================================================================
+// Old code for traversing a base directory and making separate texture atlases from
+// each subdir.  We now have only a single atlas per instance of the class.
+
+/*
+// Open the base directory
+DIR* atlasRoot = opendir(dirName);
+if(!atlasRoot)
+  err(-1, "Couldn't open directory %s in TextureAtlas::TextureAtlas", dirName);
+
+//Traverse the base directory for subdirectories
+struct dirent* dirEntry;
+DIR* subDir;
+char subDirName[TexPathLimit];
+while( (dirEntry = readdir(atlasRoot)) )
+ {
+  if(dirEntry->d_type != DT_DIR)   // ignore regular files and other non-directories
+    continue;
+  if(strcmp(dirEntry->d_name, ".") == 0  || strcmp(dirEntry->d_name, "..") == 0)
+    continue;
+  sprintf(subDirName, "%s/%s", dirName, dirEntry->d_name);
+  if(textureFileName)
+    delete[] textureFileName;
+  textureFileName = new char[strlen(subDirName)+1];
+  assert(textureFileName);
+  strcpy(textureFileName, subDirName);
+  subDir = opendir(subDirName);
+  if(!subDir)
+    err(-1, "Couldn't open directory %s in TextureAtlas::TextureAtlas", subDirName);
+  LogTextureAtlas("Creating texture atlas for %s.\n", subDirName);
+ searchForTextures(subDir, subDirName);
+  closedir(subDir);
+  createImageTree(subDirName);
+ }
+closedir(atlasRoot);
+*/
 
 // =======================================================================================
 // Helper function to see if the file name of an extension might reasonably be an image.
@@ -115,9 +135,9 @@ bool perimeterCompare (TANode* t, TANode* u)
 
 
 // =======================================================================================
-// Deal with one particular directory, and the atlas created from the textures in it.
+// Recursively search one particular directory, and stack the textures in it.
 
-void TextureAtlas::processOneAtlas(DIR* dir, char* path)
+void TextureAtlas::searchForTextures(DIR* dir, char* path)
 {
   struct dirent* dirEntry;
   Texture* texture;
@@ -151,7 +171,7 @@ void TextureAtlas::processOneAtlas(DIR* dir, char* path)
       DIR* subDir = opendir(path);
       if(!subDir)
         err(-1, "Couldn't open directory %s in TextureAtlas::TextureAtlas", path);
-      processOneAtlas(subDir, path);
+      searchForTextures(subDir, path);
       closedir(subDir);
      }
     path[len] = '\0'; // reset path
@@ -165,20 +185,20 @@ void TextureAtlas::processOneAtlas(DIR* dir, char* path)
 bool TextureAtlas::saveAtlasImage(char* name)
 {
   bool retVal = false;
-  unsigned char* buf = new unsigned char[4*width*height];
-  for(int i=0; i<4*width*height; i++)
-    buf[i] = '\0';
+  data = new unsigned char[4*width*height];
+  memset(data, 0, 4*width*height);
   
   // Put the tree of images into the buffer
-  treeRoot->insertIntoImageRecursively(buf, width, height);
+  treeRoot->insertIntoImageRecursively(data, width, height);
   
   // Write the buffer out to the file
   //strncat(name, (char*)"/atlas.png", TexPathLimit);
   //retVal = (bool)stbi_write_png(name, width, height, 4, buf, 4*width);
-  strncat(name, (char*)"/atlas.jpg", TexPathLimit);
-  retVal = (bool)stbi_write_jpg(name, width, height, 4, buf, 50);
+  char atlasName[TexPathLimit];
+  snprintf(atlasName, TexPathLimit, "%s/atlas.jpg", name);
+  retVal = (bool)stbi_write_jpg(atlasName, width, height, 4, data, 50);
 
-  delete[] buf; buf = NULL;
+  delete[] data; data = NULL;
   return retVal;
 }
 

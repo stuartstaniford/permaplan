@@ -48,7 +48,7 @@ class TANode
 // Main Atlas class with the code for processing the texture directory
 // tree and building that Atlas.
 
-class TextureAtlas
+class TextureAtlas: public Texture
 {
  public:
   
@@ -57,7 +57,7 @@ class TextureAtlas
   // Member functions - public
   TextureAtlas(char* dirName);
   ~TextureAtlas(void);
-  void processOneAtlas(DIR* dir, char* path);
+  void searchForTextures(DIR* dir, char* path);
   void createImageTree(char* name);
   bool saveAtlasImage(char* name);
   
@@ -67,8 +67,6 @@ class TextureAtlas
   // Instance variables - private
   TANode* treeRoot;
   std::vector<TANode*> nodeList;
-  unsigned width;
-  unsigned height;
   
   // Member functions - private
   TextureAtlas(const TextureAtlas&);                 // Prevent copy-construction

@@ -7,6 +7,8 @@
 #include <GL/glew.h>
 #include "Shader.h"
 
+#define TexPathLimit 2048
+
 // =======================================================================================
 // Class variable initialization
 
@@ -16,15 +18,16 @@ class Texture
  public:
   
   // Instance variables - public
-  int             width;            // these are the internal ones
-  int             height;           // from the image
+  unsigned        width;                          // these are the internal ones
+  unsigned        height;                         // from the image
   int             nrChannels;
-  char*           textureFileName;  // remember where we came from
-  GLenum          format;           // GL_RGBA etc
-  unsigned char*  data;             // holding area for the data
+  char            textureFileName[TexPathLimit];  // remember where we came from
+  GLenum          format;                         // GL_RGBA etc
+  unsigned char*  data;                           // holding area for the data
   
   // Member functions - public
   Texture(const char* fileName, bool flip);
+  Texture(void);
   ~Texture(void);
   void bind(unsigned textureUnit, const char* name);
   void sendToGpu(void);
