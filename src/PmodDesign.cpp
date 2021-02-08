@@ -776,9 +776,15 @@ void PmodDesign::writeOLDFFile(LandSurface& land)
                 "\n{\n");
   
   // Write out the different sections.
+  
+  // Introductory Data
   char* indent = (char*)"  ";
   writeIntroductoryData(indent);
+  
+  // Landsurface
   land.writeOLDFSection(writeFile, indent);
+  
+  // Plants
   
   // Go home, we are done.
   fprintf(writeFile, "}\n");

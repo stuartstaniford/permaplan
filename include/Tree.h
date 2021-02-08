@@ -44,6 +44,7 @@ class Tree: public VisualObject
   bool        matchRay(vec3& position, vec3& direction, float& lambda);
   void        updateBoundingBox(void);
   void        triangleBufferSizes(unsigned& vCount, unsigned& iCount);
+  void        writeToOLDF(FILE* file, char* indent);
   const char* objectName(void);
   bool        diagnosticHTML(HttpDebug* serv);
 
@@ -51,6 +52,7 @@ class Tree: public VisualObject
   // static functions and variables
   static void readTreesFromDesign(void);
   static void growAllTrees(float years);
+  static void writeTreesToOLDF(FILE* file, char* indent);
 
  private:
   

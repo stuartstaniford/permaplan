@@ -206,6 +206,57 @@ void Tree::readTreesFromDesign(void)
 
 
 // =======================================================================================
+// Write out one Tree's data to a plants object in OLDF JSON file.
+
+void Tree::writeToOLDF(FILE* file, char* indent)
+{
+  // location
+  fprintf(file, "%s%s\"location\": [%f, %f],\n", indent, indent, location[0], location[1]);
+  
+  // yearPlanted - XX missing
+  // timePlanted - XX missing
+
+  // genus
+  fprintf(file, "%s%s\"genus\": \"%s\",\n", indent, indent, species->genusName);
+
+  // species
+  fprintf(file, "%s%s\"species\": \"%s\",\n", indent, indent, species->speciesName);
+
+  // var - XX missing
+  // commonName - XX missing
+  // treeDiameter - XX missing
+  // notes - XX missing
+
+  fprintf(file, "%s%s }", indent, indent);
+}
+
+
+// =======================================================================================
+// Write out all the Tree data to a plants object in OLDF JSON file.
+
+void Tree::writeTreesToOLDF(FILE* file, char* indent)
+{
+  // Open the object
+  fprintf(file, "%s\"plants\":\n", indent);
+  fprintf(file, "%s [\n", indent);
+
+  for(int i=0; i<treeCount-1; i++)
+   {
+    treePtrArray[i]->writeToOLDF(file, indent);
+    fprintf(file, ",\n");
+   }
+  if(treeCount > 0)
+   {
+    treePtrArray[treeCount-1]->writeToOLDF(file, indent);
+    fprintf(file, "\n");
+   }
+
+  // Close out the plants object
+  fprintf(file, "%s ],\n", indent);
+}
+
+
+// =======================================================================================
 // Tell callers our name at runtime.
 
 const char* Tree::objectName(void)
