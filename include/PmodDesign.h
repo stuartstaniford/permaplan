@@ -14,6 +14,7 @@
 #include "PmodConfig.h"
 #include "Timeval.h"
 #include "JSONStructureChecker.h"
+#include "Boundary.h"
 
 // =======================================================================================
 // Class variable initialization
@@ -26,12 +27,13 @@ class PmodDesign
   public:
   
   // Instance variables - public
-  rapidjson::Document doc;
+  rapidjson::Document   doc;
   int                   baseYear;
   Timeval               fileTime;
   FILE*                 writeFile;
   bool                  metricUnits;
   JSONStructureChecker* jCheck;
+  Boundary              boundary;
   
 private:
   
@@ -59,9 +61,6 @@ private:
   bool validateSpaceUnits(rapidjson::Value& introductoryData);
   bool validateBaseYear(rapidjson::Value& introductoryData);
   bool validateFileTime(rapidjson::Value& introductoryData);
-  bool validateReferencePoint(rapidjson::Value& boundaries);
-  bool validateArcs(rapidjson::Value& boundaries);
-  bool validateBoundaries(void);
   bool validateTexture(rapidjson::Value& landSurface);
   bool validateAltitudes(rapidjson::Value& landSurface);
   bool validateLandSurface(void);
