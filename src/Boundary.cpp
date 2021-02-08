@@ -32,8 +32,10 @@ using namespace rapidjson;
 
 void Boundary::setFromOLDF(Value& boundaries)
 {
-  
+  referencePoint[0] = boundaries["referencePoint"][0].GetFloat();
+  referencePoint[1] = boundaries["referencePoint"][1].GetFloat();
 }
+
 
 // =======================================================================================
 // Function to check the OLDF boundary reference point.
@@ -200,6 +202,7 @@ bool Boundary::validateBoundaries(Value&  boundaries)
 
   return retVal;
 }
+
 
 // =======================================================================================
 // Not implemented
