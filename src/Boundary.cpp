@@ -205,6 +205,26 @@ bool Boundary::validateBoundaries(Value&  boundaries)
 
 
 // =======================================================================================
+// Write out the boundary data to a file in OLDF JSON format.
+
+void Boundary::writeOLDFSection(FILE* file, char* indent)
+{
+  // Open the object
+  fprintf(file, "%s\"boundaries\":\n", indent);
+  fprintf(file, "%s {\n", indent);
+
+  // Reference point
+  fprintf(file, "%s%s\"referencePoint\": [%f, %f],\n", indent, indent,
+                                                    referencePoint[0], referencePoint[1]);
+
+  fprintf(file, "%s%s\"arcs\": []\n", indent, indent);
+
+  // Close out the boundaries object
+  fprintf(file, "%s },\n", indent);
+}
+
+
+// =======================================================================================
 // Not implemented
 
 bool Boundary::diagnosticHTML(HttpDebug* serv)

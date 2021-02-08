@@ -617,7 +617,10 @@ void PmodDesign::writeOLDFFile(LandSurface& land)
   
   // Landsurface
   land.writeOLDFSection(writeFile, indent);
-  
+
+  // Landsurface
+  boundary.writeOLDFSection(writeFile, indent);
+
   // Plants
   Tree::writeTreesToOLDF(writeFile, indent);
   

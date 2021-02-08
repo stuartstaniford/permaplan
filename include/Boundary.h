@@ -32,6 +32,8 @@ class Boundary
   bool validateReferencePoint(rapidjson::Value& boundaries);
   bool validateArcs(rapidjson::Value& boundaries);
   bool validateBoundaries(rapidjson::Value&  boundaries);
+  void writeOLDFSection(FILE* file, char* indent);
+
   bool diagnosticHTML(HttpDebug* serv);
 
  private:
