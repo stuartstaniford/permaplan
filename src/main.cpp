@@ -41,6 +41,7 @@ int main (int argc, char* argv[])
   Shader shader("src/pmodVert.glsl", "src/pmodFrag.glsl");
   PmodDesign design;
   Tree::readTreesFromDesign();
+  //checkGLError(stderr, "after Tree\n");
   Scene scene;
   window.scene = &scene;
   window.imgMenu->scene = &scene;

@@ -34,6 +34,13 @@ void Boundary::setFromOLDF(Value& boundaries)
 {
   referencePoint[0] = boundaries["referencePoint"][0].GetFloat();
   referencePoint[1] = boundaries["referencePoint"][1].GetFloat();
+  int N = boundaries["arcs"].Size();
+  arcs.reserve(2*N);
+  for(int i=0; i<N; i++)
+   {
+    arcs.push_back(boundaries["arcs"][i][0].GetFloat());
+    arcs.push_back(boundaries["arcs"][i][1].GetFloat());
+   }
 }
 
 
@@ -109,7 +116,7 @@ bool Boundary::validateReferencePoint(Value& boundaries)
 
 
 // =======================================================================================
-// Function to check the OLDF arcs.
+// Function to check the OLDF boundary arcs.
 
 bool Boundary::validateArcs(Value& boundaries)
 {
@@ -191,7 +198,7 @@ bool Boundary::validateArcs(Value& boundaries)
 
 
 // =======================================================================================
-// Function to check the structure of the OLDF introductoryData object.
+// Function to check the structure of the OLDF boundaries object.
 
 bool Boundary::validateBoundaries(Value&  boundaries)
 {

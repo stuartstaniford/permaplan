@@ -24,6 +24,7 @@ class Boundary
   
   // Instance variables - public
   vec2 referencePoint;
+  std::vector<float> arcs;
 
   // Member functions - public
   Boundary(void);
