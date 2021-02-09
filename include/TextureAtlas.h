@@ -13,6 +13,7 @@
 
 #include <dirent.h>
 #include <unordered_map>
+#include <vector>
 #include "Texture.h"
 
 // =======================================================================================

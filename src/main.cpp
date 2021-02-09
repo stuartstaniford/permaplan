@@ -48,7 +48,7 @@ int main (int argc, char* argv[])
   window.scriptController = new ScriptController();
   TextureAtlas blocksAtlas((char*)"Materials/Blocks");
   TextureAtlas treesAtlas((char*)"Materials/Trees");
-  MaterialList materials;
+  MaterialList materials(blocksAtlas);
   
   // Start up the debugging http server
   HttpDebug   httpServer(config.debugPort, scene);

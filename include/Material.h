@@ -8,7 +8,7 @@
 
 #include <cglm/cglm.h>
 #include <map>
-#include "Texture.h"
+#include "TextureAtlas.h"
 #include "HttpDebug.h"
 
 // =======================================================================================
@@ -51,7 +51,7 @@ public:
   // Instance variables - public
   
   // Member functions - public
-  MaterialList(void);
+  MaterialList(TextureAtlas& blocksAtlas);
   ~MaterialList();
   bool diagnosticHTML(HttpDebug* serv);
   static const MaterialList& getMaterials(void) // Get the singleton instance

@@ -34,7 +34,7 @@ Material::~Material(void)
 // XX Currently this is hard-coded in a local location.  Ultimate plan is this stuff
 // should be downloaded from a shared repository at startup and cached.
 
-MaterialList::MaterialList(void)
+MaterialList::MaterialList(TextureAtlas& blocksAtlas)
 {
   // Constructor should only be called once at startup.  Everyone else gets us via
   // getMaterials()
@@ -43,8 +43,15 @@ MaterialList::MaterialList(void)
   else
     theMaterialList = this;
   
-  Material* strawBale = new Material(0.0, (char*)"StrawBale",
-                                          (char*)"Materials/Blocks/StrawBale/Bale.png");
+  char* strawBalePath = (char*)"Materials/Blocks/StrawBale/Bale.png";
+  
+  if(blocksAtlas.pathMap.find(strawBalePath) != blocksAtlas.pathMap.end())
+   {
+    // found it
+    fprintf(stderr, "Got %s\n", strawBalePath);
+   }
+  
+  Material* strawBale = new Material(0.0, (char*)"StrawBale", strawBalePath);
   (*theMaterialList)[(char*)"StrawBale"] = strawBale;
   
   Material* nexcem = new Material(0.0, (char*)"Nexcem",
