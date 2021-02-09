@@ -236,6 +236,9 @@ void TextureAtlas::createImageTree(char* name)
                       node->tex->textureFileName, node->tex->width, node->tex->height);
    }
   
+  if(treeRoot)
+    treeRoot->addToPathMap(*this);
+  
   if(saveAtlasImage(name))
     LogTextureAtlas("Texture atlas creation for %s succeeded (width %d, height %d).\n",
                                         name, width, height);
@@ -264,6 +267,38 @@ TANode::~TANode(void)
   delete child[0];
   delete child[1];
   // note that we don't delete tex, since we don't own it.
+}
+
+
+// =======================================================================================
+// Traverse the TA Node tree and create the pathMap so we can later figure out what image
+// is where in the atlas.
+
+void TANode::addToPathMap(TextureAtlas& atlas)
+{
+  if(tex)
+   {
+    // create the stuff to go in the pathMap
+    int N = strlen(tex->textureFileName);
+    char* path = new char[N+1];
+    assert(path);
+    strcpy(path,tex->textureFileName);
+    TexCoordsEntry* T = new TexCoordsEntry;
+    assert(T);
+    
+    // Set the TexCoordsEntry variables (note that tex coords run [0.0, 1.0]
+    T->top  = (float)top/atlas.height;  // casting is higher precedence than division
+    T->h    = (float)h/atlas.height;
+    T->left = (float)left/atlas.width;
+    T->w    = (float)w/atlas.width;
+
+    atlas.pathMap[path] = T;  // put the pair in the pathMap
+   }
+  
+  // Now do the same recursively in our kids
+  for(int i=0; i<2; i++)
+    if(child[i])
+      child[i]->addToPathMap(atlas);
 }
 
 
@@ -318,8 +353,8 @@ TANode* TANode::insert(TANode* T, unsigned& wd, unsigned& ht)
     // if we're just right, accept
     if(T->tex->width == w && T->tex->height == h)
      {
-      // Note this is the place in the code in which a new image is actually entered
-      // into the tree.
+      // Note this is the one and only place in the code in which a new image is
+      // actually entered into the TANode tree.
       tex = T->tex;
       delete T; T=NULL;
       if(left + tex->width > wd)
@@ -351,6 +386,7 @@ TANode* TANode::insert(TANode* T, unsigned& wd, unsigned& ht)
       child[1]->w     = dw;
       child[1]->top   = top;
       child[1]->left  = left + T->tex->width;
+      child[0]->tex = child[1]->tex = NULL;
       LogAtlasPlacement("Splitting (w:%d, h:%d) horizontally at %d\n",
               w, h, T->tex->width);
      }
@@ -365,6 +401,7 @@ TANode* TANode::insert(TANode* T, unsigned& wd, unsigned& ht)
       child[1]->w     = w;
       child[1]->top   = top + T->tex->height;
       child[1]->left  = left;
+      child[0]->tex = child[1]->tex = NULL;
       LogAtlasPlacement("Splitting (w:%d, h:%d) vertically at %d\n",
               w, h, T->tex->height);
      }

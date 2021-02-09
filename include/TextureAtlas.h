@@ -20,6 +20,22 @@
 
 
 // =======================================================================================
+// Helper class that is the entry for long term storage of which paths have been put
+// where.
+
+class TexCoordsEntry
+{
+ public:
+  
+  float  top;
+  float  left;
+  float  w;
+  float  h;
+};
+
+class TextureAtlas;
+
+// =======================================================================================
 // Helper class that is used to hold additional information about a given texture,
 // temporarily, while we are in the process of building the Atlas.
 
@@ -34,6 +50,7 @@ class TANode
   TANode* insert(TANode* T, unsigned& wd, unsigned& ht);
   void insertIntoImageRecursively(unsigned char* buf, unsigned width, unsigned height);
   void insertIntoImage(unsigned char* buf, unsigned width, unsigned height);
+  void addToPathMap(TextureAtlas& atlas);
 
   private:
     TANode*   child[2];
@@ -46,21 +63,6 @@ class TANode
 
 
 // =======================================================================================
-// Helper class that is the entry for long term storage of which paths have been put
-// where.
-
-class texCoordsEntry
-{
- public:
-  
-  float  top;
-  float  left;
-  float  w;
-  float  h;
-};
-
-
-// =======================================================================================
 // Main Atlas class with the code for processing the texture directory
 // tree and building that Atlas.
 
@@ -69,7 +71,7 @@ class TextureAtlas: public Texture
  public:
   
   // Instance variables - public
-  std::unordered_map<char*, texCoordsEntry> pathMap;
+  std::unordered_map<char*, TexCoordsEntry*> pathMap;
   
   // Member functions - public
   TextureAtlas(char* dirName);
