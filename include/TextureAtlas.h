@@ -12,6 +12,7 @@
 #define TEXTURE_ATLAS_H
 
 #include <dirent.h>
+#include <unordered_map>
 #include "Texture.h"
 
 // =======================================================================================
@@ -45,6 +46,21 @@ class TANode
 
 
 // =======================================================================================
+// Helper class that is the entry for long term storage of which paths have been put
+// where.
+
+class texCoordsEntry
+{
+ public:
+  
+  float  top;
+  float  left;
+  float  w;
+  float  h;
+};
+
+
+// =======================================================================================
 // Main Atlas class with the code for processing the texture directory
 // tree and building that Atlas.
 
@@ -53,7 +69,8 @@ class TextureAtlas: public Texture
  public:
   
   // Instance variables - public
-
+  std::unordered_map<char*, texCoordsEntry> pathMap;
+  
   // Member functions - public
   TextureAtlas(char* dirName);
   ~TextureAtlas(void);
