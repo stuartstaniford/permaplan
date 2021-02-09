@@ -29,6 +29,7 @@ class MenuInterface
   ~MenuInterface(void);
   void  imguiInterface(void);
   void  imguiInsertMenu(void);
+  void  imguiHeightInputDialog(void);
   void  imguiMaterialsMenu(void);
   void  imguiGenusMenu(void);
   void  imguiTreeMenu(void);
@@ -41,6 +42,7 @@ class MenuInterface
   
   // Instance variables - private
   Window3D&       win3D;
+  bool            show_height_input_dialog;
   bool            show_materials_menu;
   bool            show_tree_menu;
   const char*     genusSelected;

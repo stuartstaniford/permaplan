@@ -17,6 +17,7 @@ MenuInterface::MenuInterface(GLFWwindow* window, Window3D& W):
                         scene(NULL),
                         show_insert_menu(false),
                         win3D(W),
+                        show_height_input_dialog(false),
                         show_materials_menu(false),
                         show_tree_menu(false),
                         genusSelected(NULL),
@@ -35,17 +36,19 @@ MenuInterface::MenuInterface(GLFWwindow* window, Window3D& W):
   ImGui_ImplOpenGL3_Init("#version 410");
   // Setup Dear ImGui style
   ImGui::StyleColorsClassic();
+
+  heightBuf[0] = '\0'; // clear the buffer
 }
 
 
 // =======================================================================================
-// The floating menu to insert stuff at the focus point
+// Users wants to insert a height, and we need to know more
 
-void MenuInterface::imguiInsertMenu(void)
+void MenuInterface::imguiHeightInputDialog(void)
 {
-  if(!show_insert_menu)
+  if(!show_height_input_dialog)
     return;
-  ImGui::Begin("Insert", &show_insert_menu, ImGuiWindowFlags_AlwaysAutoResize);
+  ImGui::Begin("Insert Height", &show_insert_menu, ImGuiWindowFlags_AlwaysAutoResize);
   
   ImGui::InputText("", heightBuf, 8, ImGuiInputTextFlags_CharsDecimal);
   
@@ -62,18 +65,34 @@ void MenuInterface::imguiInsertMenu(void)
     heightBuf[0] = '\0';
     scene->lastDoubleClick[2] = z;
     scene->newLandHeight(scene->lastDoubleClick);
+    show_height_input_dialog = false;
+   }
+
+  ImGui::End();
+}
+
+
+// =======================================================================================
+// The floating menu to insert stuff at the focus point
+
+void MenuInterface::imguiInsertMenu(void)
+{
+  if(!show_insert_menu)
+    return;
+  ImGui::Begin("Insert", &show_insert_menu, ImGuiWindowFlags_AlwaysAutoResize);
+    
+  if(ImGui::Button("Height"))
+   {
+    show_height_input_dialog = true;
     show_insert_menu = false;
    }
   if(ImGui::Button("Block"))
    {
-    size = atof(heightBuf);
-    heightBuf[0] = '\0';
     show_insert_menu = false;
     show_materials_menu = true;
    }
   if(ImGui::Button("Tree"))
    {
-    heightBuf[0] = '\0';
     show_insert_menu = false;
     show_tree_menu = true;
    }
@@ -89,14 +108,18 @@ void MenuInterface::imguiMaterialsMenu(void)
 {
   if(!show_materials_menu)
     return;
-  ImGui::Begin("Select Material", &show_materials_menu, ImGuiWindowFlags_AlwaysAutoResize);
-  
+  ImGui::Begin("Block Size and Material", &show_materials_menu, ImGuiWindowFlags_AlwaysAutoResize);
+
+  ImGui::InputText("", heightBuf, 8, ImGuiInputTextFlags_CharsDecimal);
+
   const MaterialList& materials = MaterialList::getMaterials();
   
   for(auto& iter: materials)
     if(ImGui::Button(iter.first))
      {
       show_materials_menu = false;
+      size = atof(heightBuf);
+      heightBuf[0] = '\0';
       scene->insertVisibleObject((char*)"Block", size, scene->lastDoubleClick, iter.second);
       LogMaterialSelections("Material %s selected for block, carbon density %.2f.\n",
                             iter.first, iter.second->carbonDensity);
@@ -262,6 +285,7 @@ void MenuInterface::imguiInterface(void)
   imguiInsertMenu();
   imguiMaterialsMenu();
   imguiTreeMenu();
+  imguiHeightInputDialog();
 
   imguiFocusOverlay();
 
