@@ -224,7 +224,19 @@ void Boundary::writeOLDFSection(FILE* file, char* indent)
   fprintf(file, "%s%s\"referencePoint\": [%f, %f],\n", indent, indent,
                                                     referencePoint[0], referencePoint[1]);
 
-  fprintf(file, "%s%s\"arcs\": []\n", indent, indent);
+  // Arcs
+  fprintf(file, "%s%s\"arcs\":\n", indent, indent);
+  fprintf(file, "%s%s [\n", indent, indent);
+  int N = arcs.size()/2;
+  for(int i=0; i<N; i++)
+   {
+    fprintf(file, "%s%s%s[%f, %f]", indent, indent, indent, arcs[2*i], arcs[2*i+1]);
+    if(i<N-1)
+      fprintf(file, ",\n");
+    else
+      fprintf(file, "\n");
+   }
+  fprintf(file, "%s%s ]\n", indent, indent);
 
   // Close out the boundaries object
   fprintf(file, "%s },\n", indent);
