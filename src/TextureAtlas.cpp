@@ -286,15 +286,16 @@ void TANode::addToPathMap(TextureAtlas& atlas)
     TexCoordsEntry* T = new TexCoordsEntry;
     assert(T);
     
-    // Set the TexCoordsEntry variables (note that tex coords run [0.0, 1.0]
-    T->top  = (float)top/atlas.height;  // casting is higher precedence than division
-    T->h    = (float)h/atlas.height;
-    T->left = (float)left/atlas.width;
-    T->w    = (float)w/atlas.width;
+    // Set the TexCoordsEntry variables (note that tex coords run [0.0, 1.0] from lower
+    // left, while the image coords we are translating from run from top right
+    T->left   = (float)left/atlas.width;
+    T->right  = T->left + (float)w/atlas.width;
+    T->top    = 1.0f - (float)top/atlas.height;  // casting is higher precedence than division
+    T->bottom = T->top - (float)h/atlas.height;
 
     atlas.pathMap[path] = T;  // put the pair in the pathMap
     LogPathMap("Placed %s in path map, u:[%f,%f] v:[%f,%f]\n", path,
-                    T->left, T->left+T->w, T->top-T->h, T->top);
+                    T->left, T->right, T->bottom, T->top);
    }
   
   // Now do the same recursively in our kids

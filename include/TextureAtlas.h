@@ -29,10 +29,10 @@ class TexCoordsEntry
 {
  public:
   
-  float  top;
   float  left;
-  float  w;
-  float  h;
+  float  right;
+  float  bottom;
+  float  top;
 };
 
 class TextureAtlas;
