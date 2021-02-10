@@ -41,6 +41,10 @@ Tree::Tree(Value& plantObject):
   sprintf(speciesPath, "%s/%s", plantObject["genus"].GetString(),
                                             plantObject["species"].GetString());
   species = Species::getSpeciesByPath(speciesPath);
+  
+  location[0] = plantObject["location"][0].GetFloat();
+  location[1] = plantObject["location"][1].GetFloat();
+
   treePtrArray[(treePtrArrayIndex = treeCount++)] = this;
 }
 
@@ -283,8 +287,11 @@ const char* Tree::objectName(void)
 
 bool Tree::diagnosticHTML(HttpDebug* serv)
 {
-  serv->respPtr += sprintf(serv->respPtr, "<tr><td>%d</td><td>%s %s</td></tr>\n",
+  serv->respPtr += sprintf(serv->respPtr, "<tr><td>%d</td><td>%s %s</td>",
                            treePtrArrayIndex, species->genusName, species->speciesName);
+  serv->respPtr += sprintf(serv->respPtr, "<td>[%.2f, %.2f]</td></tr>\n",
+                                location[0], location[1]);
+  
   return true;
 }
 
@@ -298,7 +305,7 @@ bool Tree::allTreeDiagnosticHTML(HttpDebug* serv)
   
   serv->addResponseData("<center>\n");
   serv->startTable();
-  serv->addResponseData("<tr><th>Index</th><th>Species</th></tr>\n");
+  serv->addResponseData("<tr><th>Index</th><th>Species</th><th>Location</th></tr>\n");
   
   for(int i=0; i< treeCount; i++)
     treePtrArray[i]->diagnosticHTML(serv);
