@@ -248,12 +248,28 @@ void Boundary::writeOLDFSection(FILE* file, char* indent)
 
 
 // =======================================================================================
-// Not implemented
+// Put the boundary data in a page section
 
 bool Boundary::diagnosticHTML(HttpDebug* serv)
 {
+  serv->addResponseData("<h2>Boundary</h2>\n");
+  
+  // Reference Point
+  serv->respPtr += sprintf(serv->respPtr, "<b>Reference Point:</b> [%f, %f]<br><br>\n",
+                           referencePoint[0], referencePoint[1]);
 
-  return false;
+  // Arcs
+  serv->addResponseData("<b>Arcs</b><br>\n");
+  serv->addResponseData("<center>\n");
+  serv->startTable();
+  serv->addResponseData("<tr><th>Index</th><th>Location</th></tr>\n");
+  int N = arcs.size()/2;
+  for(int i=0; i<N; i++)
+    serv->respPtr += sprintf(serv->respPtr, "<tr><th>%d</th><th>[%f, %f]</th></tr>\n",
+                                          i, arcs[2*i], arcs[2*i+1]);
+  serv->addResponseData("</table></center><hr>\n");
+
+  return true;
 }
 
 
