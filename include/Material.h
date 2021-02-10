@@ -26,14 +26,15 @@ public:
   vec2        textureVRange;          // ditto for vertical texcoord
 
   // Member functions - public
-  Material(float carbonD, char* matName, char* tFileName);
+  Material(float carbonD, char* matName, TextureAtlas& atlas, char* tFileName);
   ~Material(void);
   
 private:
   
   // Instance variables - private
   Texture texture;
-  
+  TexCoordsEntry*  texCoords;
+
   // Member functions - private
   Material(const Material&);                 // Prevent copy-construction
   Material& operator=(const Material&);      // Prevent assignment
@@ -51,7 +52,7 @@ public:
   // Instance variables - public
   
   // Member functions - public
-  MaterialList(TextureAtlas& blocksAtlas);
+  MaterialList(TextureAtlas& atlas);
   ~MaterialList();
   bool diagnosticHTML(HttpDebug* serv);
   static const MaterialList& getMaterials(void) // Get the singleton instance

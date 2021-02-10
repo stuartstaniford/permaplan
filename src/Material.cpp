@@ -12,11 +12,21 @@ MaterialList* MaterialList::theMaterialList = NULL;
 // =======================================================================================
 // Constructor for individual material
 
-Material::Material(float carbonD, char* matName, char* tFileName):
+Material::Material(float carbonD, char* matName, TextureAtlas& atlas, char* tFileName):
                       name(matName),
                       carbonDensity(carbonD),
                       texture(tFileName, 0)
 {
+  if(atlas.pathMap.find(tFileName) != atlas.pathMap.end())
+   {
+    LogPathMap("Found %s in path map\n", tFileName);
+    texCoords = atlas.pathMap[tFileName];
+   }
+  else
+   {
+    LogPathMap("Failed to find %s in path map\n", tFileName);
+    texCoords = NULL;
+   }
 }
 
 
@@ -33,7 +43,7 @@ Material::~Material(void)
 // XX Currently this is hard-coded in a local location.  Ultimate plan is this stuff
 // should be downloaded from a shared repository at startup and cached.
 
-MaterialList::MaterialList(TextureAtlas& blocksAtlas)
+MaterialList::MaterialList(TextureAtlas& atlas)
 {
   // Constructor should only be called once at startup.  Everyone else gets us via
   // getMaterials()
@@ -42,28 +52,11 @@ MaterialList::MaterialList(TextureAtlas& blocksAtlas)
   else
     theMaterialList = this;
   
-  // StrawBale
-  char* strawBalePath = (char*)"Materials/Blocks/StrawBale/Bale.png";
-  if(blocksAtlas.pathMap.find(strawBalePath) != blocksAtlas.pathMap.end())
-   {
-    LogPathMap("Found %s in path map\n", strawBalePath);
-   }
-  else
-    LogPathMap("Failed to find %s in path map\n", strawBalePath);
+  (*theMaterialList)[(char*)"StrawBale"] = new Material(0.0, (char*)"StrawBale", atlas,
+                                                    (char*)"Materials/Blocks/StrawBale/Bale.png");
 
-  Material* strawBale = new Material(0.0, (char*)"StrawBale", strawBalePath);
-  (*theMaterialList)[(char*)"StrawBale"] = strawBale;
-
-  //Nexcem
-  char* nexcemPath = (char*)"Materials/Blocks/Nexcem/nexcem.png";
-  if(blocksAtlas.pathMap.find(nexcemPath) != blocksAtlas.pathMap.end())
-   {
-    LogPathMap("Found %s in path map\n", nexcemPath);
-   }
-  else
-    LogPathMap("Failed to find %s in path map\n", nexcemPath);
-  Material* nexcem = new Material(0.0, (char*)"Nexcem", nexcemPath);
-  (*theMaterialList)[(char*)"Nexcem"] = nexcem;
+  (*theMaterialList)[(char*)"Nexcem"] = new Material(0.0, (char*)"Nexcem", atlas,
+                                                    (char*)"Materials/Blocks/Nexcem/nexcem.png");
 }
 
 
