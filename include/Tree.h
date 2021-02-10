@@ -53,6 +53,7 @@ class Tree: public VisualObject
   static void readTreesFromDesign(void);
   static void growAllTrees(float years);
   static void writeTreesToOLDF(FILE* file, char* indent);
+  static bool allTreeDiagnosticHTML(HttpDebug* serv);
 
  private:
   

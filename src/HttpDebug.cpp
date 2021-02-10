@@ -16,6 +16,7 @@
 #include <GLFW/glfw3.h>
 #include "HttpDebug.h"
 #include "Scene.h"
+#include "Tree.h"
 #define SA struct sockaddr
 
 
@@ -113,6 +114,10 @@ bool HttpDebug::indexPage(void)
   addResponseData("<tr><td><a href=\"/land/\">land/</a></td>");
   addResponseData("<td>Information about the land surface model.</td></tr>\n");
 
+  // Plants
+  addResponseData("<tr><td><a href=\"/plants/\">plants/</a></td>");
+  addResponseData("<td>Table of all trees and other plants</td></tr>\n");
+
   // Camera
   addResponseData("<tr><td><a href=\"/camera/\">camera/</a></td>");
   addResponseData("<td>Current camera variables</td></tr>\n");
@@ -185,6 +190,9 @@ bool HttpDebug::processRequestHeader(void)
 
   if( strlen(url) == 6 && strncmp(url, "/land/", 6) == 0)
     return scene.land.diagnosticHTML(this);
+
+  if( strlen(url) == 8 && strncmp(url, "/plants/", 8) == 0)
+    return Tree::allTreeDiagnosticHTML(this);
 
   if( strlen(url) ==8 && strncmp(url, "/camera/", 8) == 0)
     return scene.camera.diagnosticHTML(this);

@@ -283,8 +283,28 @@ const char* Tree::objectName(void)
 
 bool Tree::diagnosticHTML(HttpDebug* serv)
 {
+  serv->respPtr += sprintf(serv->respPtr, "<tr><td>%d</td><td>%s %s</td></tr>\n",
+                           treePtrArrayIndex, species->genusName, species->speciesName);
+  return true;
+}
+
+
+// =======================================================================================
+// Provide a diagnostic page about all the trees/plants
+
+bool Tree::allTreeDiagnosticHTML(HttpDebug* serv)
+{
+  serv->startResponsePage("Trees");
   
-  serv->addResponseData("<tr><td>Tree</td>");
+  serv->addResponseData("<center>\n");
+  serv->startTable();
+  serv->addResponseData("<tr><th>Index</th><th>Species</th></tr>\n");
+  
+  for(int i=0; i< treeCount; i++)
+    treePtrArray[i]->diagnosticHTML(serv);
+  
+  serv->addResponseData("</table></center><hr>\n");
+  serv->endResponsePage();
   return true;
 }
 
