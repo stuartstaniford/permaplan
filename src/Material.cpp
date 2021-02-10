@@ -5,6 +5,7 @@
 #include <cstdio>
 #include <err.h>
 #include "Material.h"
+#include "Logging.h"
 
 MaterialList* MaterialList::theMaterialList = NULL;
 
@@ -41,19 +42,27 @@ MaterialList::MaterialList(TextureAtlas& blocksAtlas)
   else
     theMaterialList = this;
   
+  // StrawBale
   char* strawBalePath = (char*)"Materials/Blocks/StrawBale/Bale.png";
-  
   if(blocksAtlas.pathMap.find(strawBalePath) != blocksAtlas.pathMap.end())
    {
-    // found it
-    fprintf(stderr, "Got %s\n", strawBalePath);
+    LogPathMap("Found %s in path map\n", strawBalePath);
    }
-  
+  else
+    LogPathMap("Failed to find %s in path map\n", strawBalePath);
+
   Material* strawBale = new Material(0.0, (char*)"StrawBale", strawBalePath);
   (*theMaterialList)[(char*)"StrawBale"] = strawBale;
-  
-  Material* nexcem = new Material(0.0, (char*)"Nexcem",
-                                       (char*)"Materials/Blocks/Nexcem/nexcem.png");
+
+  //Nexcem
+  char* nexcemPath = (char*)"Materials/Blocks/Nexcem/nexcem.png";
+  if(blocksAtlas.pathMap.find(nexcemPath) != blocksAtlas.pathMap.end())
+   {
+    LogPathMap("Found %s in path map\n", nexcemPath);
+   }
+  else
+    LogPathMap("Failed to find %s in path map\n", nexcemPath);
+  Material* nexcem = new Material(0.0, (char*)"Nexcem", nexcemPath);
   (*theMaterialList)[(char*)"Nexcem"] = nexcem;
 }
 

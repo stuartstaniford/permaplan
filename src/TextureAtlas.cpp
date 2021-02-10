@@ -293,6 +293,8 @@ void TANode::addToPathMap(TextureAtlas& atlas)
     T->w    = (float)w/atlas.width;
 
     atlas.pathMap[path] = T;  // put the pair in the pathMap
+    LogPathMap("Placed %s in path map, u:[%f,%f] v:[%f,%f]\n", path,
+                    T->left, T->left+T->w, T->top-T->h, T->top);
    }
   
   // Now do the same recursively in our kids
