@@ -14,6 +14,7 @@
 #include <dirent.h>
 #include <unordered_map>
 #include <vector>
+#include <string>
 #include "Texture.h"
 
 // =======================================================================================
@@ -72,7 +73,7 @@ class TextureAtlas: public Texture
  public:
   
   // Instance variables - public
-  std::unordered_map<char*, TexCoordsEntry*> pathMap;
+  std::unordered_map<std::string, TexCoordsEntry*> pathMap;
   
   // Member functions - public
   TextureAtlas(char* dirName);

@@ -35,11 +35,11 @@
 // =======================================================================================
 // Logging options to do with materials and textures
 
-#define LOG_TEXTURE_ATLAS       // Log texture atlas creation
-#define LOG_ATLAS_ANOMALIES     // Log weird conditions in texture atlas creation
-#define LOG_ATLAS_PLACEMENT     // Log details of which image is where in atlas
-#define LOG_MATERIAL_SELECTIONS // Log when a material is selected.
-#define LOG_TREE_SELECTIONS     // Log when a tree is selected.
+//#define LOG_TEXTURE_ATLAS       // Log texture atlas creation
+//#define LOG_ATLAS_ANOMALIES     // Log weird conditions in texture atlas creation
+//#define LOG_ATLAS_PLACEMENT     // Log details of which image is where in atlas
+//#define LOG_MATERIAL_SELECTIONS // Log when a material is selected.
+//#define LOG_TREE_SELECTIONS     // Log when a tree is selected.
 #define LOG_PATH_MAP            // Log storage and use of the path map
 
 
