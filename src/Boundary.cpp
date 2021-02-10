@@ -50,7 +50,9 @@ void Boundary::setFromOLDF(Value& boundaries)
 bool Boundary::validateReferencePoint(Value& boundaries)
 {
   bool retVal = true;
+#if defined LOG_OLDF_VALIDITY || defined LOG_OLDF_DETAILS
   const PmodConfig& config = PmodConfig::getConfig();
+#endif
   
   if(boundaries.HasMember("referencePoint") && boundaries["referencePoint"].IsArray())
    {
@@ -121,7 +123,9 @@ bool Boundary::validateReferencePoint(Value& boundaries)
 bool Boundary::validateArcs(Value& boundaries)
 {
   bool retVal = true;
+#if defined LOG_OLDF_VALIDITY || defined LOG_OLDF_DETAILS
   const PmodConfig& config = PmodConfig::getConfig();
+#endif
   float sumDist[2] = {0.0f, 0.0f};
   
   unless(boundaries.HasMember("arcs"))

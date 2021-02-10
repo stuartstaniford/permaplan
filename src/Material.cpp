@@ -19,8 +19,6 @@ Material::Material(float carbonD, char* matName, char* tFileName):
 }
 
 
-
-
 // =======================================================================================
 // Destructor for individual material
 

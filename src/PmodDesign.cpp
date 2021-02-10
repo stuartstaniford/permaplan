@@ -57,7 +57,9 @@ PmodDesign::PmodDesign(void):
 bool PmodDesign::validateSpaceUnits(Value& introductoryData)
 {
   bool retVal = true;
+#if defined LOG_OLDF_VALIDITY || defined LOG_OLDF_DETAILS
   const PmodConfig& config = PmodConfig::getConfig();
+#endif
   
   if(introductoryData.HasMember("spaceUnits") && introductoryData["spaceUnits"].IsString())
    {
@@ -96,7 +98,9 @@ bool PmodDesign::validateSpaceUnits(Value& introductoryData)
 bool PmodDesign::validateBaseYear(Value& introductoryData)
 {
   bool retVal = true;
+#if defined LOG_OLDF_VALIDITY || defined LOG_OLDF_DETAILS
   const PmodConfig& config = PmodConfig::getConfig();
+#endif
   
   if(introductoryData.HasMember("baseYear") && introductoryData["baseYear"].IsInt())
    {
@@ -128,7 +132,9 @@ bool PmodDesign::validateBaseYear(Value& introductoryData)
 bool PmodDesign::validateJSONUnixTime(Value& object, char* objName)
 {
   bool retVal = true;
+#if defined LOG_OLDF_VALIDITY //|| defined LOG_OLDF_DETAILS
   const PmodConfig& config = PmodConfig::getConfig();
+#endif
   
   if(object.IsArray())
    {
@@ -201,7 +207,9 @@ bool PmodDesign::validateIntroductoryData(void)
 bool PmodDesign::validateTexture(Value& landSurface)
 {
   bool retVal = true;
+#if defined LOG_OLDF_VALIDITY || defined LOG_OLDF_DETAILS
   const PmodConfig& config = PmodConfig::getConfig();
+#endif
   
   if(!landSurface.HasMember("texture"))
    {
@@ -290,8 +298,10 @@ bool PmodDesign::validateTexture(Value& landSurface)
 bool PmodDesign::validateAltitudes(Value& landSurface)
 {
   bool retVal = true;
+#if defined LOG_OLDF_VALIDITY || defined LOG_OLDF_DETAILS
   const PmodConfig& config = PmodConfig::getConfig();
-
+#endif
+  
   if(!landSurface.HasMember("altitudes"))
    {
     LogOLDFDetails("No landSurface:altitudes object in OLDF file %s\n", config.designFileName);
@@ -373,8 +383,10 @@ bool PmodDesign::validateLandSurface(void)
 bool PmodDesign::validateTreeDiameter(rapidjson::Value& treeDiamArray, char* objName)
 {
   bool retVal  = true;
+#if defined LOG_OLDF_VALIDITY //|| defined LOG_OLDF_DETAILS
   const PmodConfig& config = PmodConfig::getConfig();
-
+#endif
+  
   unless(treeDiamArray.Size() == 2)
    {
     LogOLDFValidity("%s treeDiameter array is wrong size %d in OLDF file %s\n",
@@ -412,7 +424,9 @@ bool PmodDesign::validateTreeDiameter(rapidjson::Value& treeDiamArray, char* obj
 bool PmodDesign::validatePlants(void)
 {
   bool    retVal  = true;
+#if defined LOG_OLDF_VALIDITY //|| defined LOG_OLDF_DETAILS
   const PmodConfig& config = PmodConfig::getConfig();
+#endif
   Value&  plants  = doc["plants"];
   
   unless(plants.IsArray())

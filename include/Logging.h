@@ -6,54 +6,55 @@
 // =======================================================================================
 // Logging options to do with overall control flow and speed
 
-#define LOG_FRAME_STARTS      // Log each frame as it begins
-#define LOG_CLOSE_DOWN        // Log when we exit.
-#define LOG_STRUCTURE_SIZES   // Log the size of structures on this platform at startup.
-#define LOG_OPENGL_CONSTANTS  // Log various openGL parameters
+//#define LOG_FRAME_STARTS      // Log each frame as it begins
+//#define LOG_CLOSE_DOWN        // Log when we exit.
+//#define LOG_STRUCTURE_SIZES   // Log the size of structures on this platform at startup.
+//#define LOG_OPENGL_CONSTANTS  // Log various openGL parameters
 
 
 // =======================================================================================
 // Logging options to do with parsing and validating OLDF and OTDL files
 
-#define LOG_OLDF_VALIDITY      // Log validity problems in the file
-#define LOG_OLDF_DETAILS       // Log details of valid OLDF objects
-#define LOG_OTDL_VALIDITY      // Log validity problems in an OTDL object
-#define LOG_OTDL_DETAILS       // Log details of valid OTDL objects
+//#define LOG_OLDF_VALIDITY      // Log validity problems in the file
+//#define LOG_OLDF_DETAILS       // Log details of valid OLDF objects
+//#define LOG_OTDL_VALIDITY      // Log validity problems in an OTDL object
+//#define LOG_OTDL_DETAILS       // Log details of valid OTDL objects
 
 
 // =======================================================================================
 // Logging options to do with interface controls
 
-#define LOG_MOUSE_LOCATION      // where the mouse is on the screen each frame
-#define LOG_MOUSE_CLICK         // Location of single mouse clicks
-#define LOG_DOUBLE_CLICK        // Location and intra-click timing of mouse double clicks
-#define LOG_MOUSE_RAY_POINT     // Where the mouse is pointing in 3d space
-#define LOG_LAND_HEIGHTS        // Log when a new land height is entered.
-#define LOG_OBJECT_INSERTIONS   // Log when a new object is inserted in scene.
+//#define LOG_MOUSE_LOCATION      // where the mouse is on the screen each frame
+//#define LOG_MOUSE_CLICK         // Location of single mouse clicks
+//#define LOG_DOUBLE_CLICK        // Location and intra-click timing of mouse double clicks
+//#define LOG_MOUSE_RAY_POINT     // Where the mouse is pointing in 3d space
+//#define LOG_LAND_HEIGHTS        // Log when a new land height is entered.
+//#define LOG_OBJECT_INSERTIONS   // Log when a new object is inserted in scene.
 
 
 // =======================================================================================
 // Logging options to do with materials and textures
 
-#define LOG_TEXTURE_ATLAS       // Log texture atlas creation
-#define LOG_ATLAS_ANOMALIES     // Log weird conditions in texture atlas creation
-#define LOG_ATLAS_PLACEMENT     // Log details of which image is where in atlas
-#define LOG_MATERIAL_SELECTIONS // Log when a material is selected.
-#define LOG_TREE_SELECTIONS     // Log when a tree is selected.
+//#define LOG_TEXTURE_ATLAS       // Log texture atlas creation
+//#define LOG_ATLAS_ANOMALIES     // Log weird conditions in texture atlas creation
+//#define LOG_ATLAS_PLACEMENT     // Log details of which image is where in atlas
+//#define LOG_MATERIAL_SELECTIONS // Log when a material is selected.
+//#define LOG_TREE_SELECTIONS     // Log when a tree is selected.
+//#define LOG_PATH_MAP            // Log storage and use of the path map
 
 
 // =======================================================================================
 // Logging options to do with quadtree operations
 
-#define LOG_QUADTREE_INSERTIONS // Log the process of a new object being put in the quadtree.
-#define LOG_DISPLAYLIST_BUFFER  // Log the process of objects being buffered for display.
+//#define LOG_QUADTREE_INSERTIONS // Log the process of a new object being put in the quadtree.
+//#define LOG_DISPLAYLIST_BUFFER  // Log the process of objects being buffered for display.
 
 
 // =======================================================================================
 // Logging options to do with the Bezier Patch code
 
-#define LOG_BEZIER_FIT        // Log the process of fitting the Bezier patch to height data
-#define LOG_BEZIER_MATCH_RAY  // Log the process of matching a ray to the patch.
+//#define LOG_BEZIER_FIT        // Log the process of fitting the Bezier patch to height data
+//#define LOG_BEZIER_MATCH_RAY  // Log the process of matching a ray to the patch.
 
 
 // =======================================================================================
@@ -211,12 +212,18 @@ extern FILE* LogFile;
 #define LogMaterialSelections(...)
 #endif
 
-
 // Log when a tree is selected.
 #ifdef LOG_TREE_SELECTIONS
 #define LogTreeSelections(...) LogStatement(__VA_ARGS__)
 #else
 #define LogTreeSelections(...)
+#endif
+
+// Log storage and use of the path map
+#ifdef LOG_PATH_MAP
+#define LogPathMap(...) LogStatement(__VA_ARGS__)
+#else
+#define LogPathMap(...)
 #endif
 
 
