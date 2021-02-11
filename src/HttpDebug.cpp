@@ -160,6 +160,7 @@ bool HttpDebug::processRequestHeader(void)
   if(strncmp(reqBuf, "GET ", 4) !=0 )
    {
     errorPage("Unsupported method in HTTP request");
+    LogRequestErrors("Unsupported method in HTTP request.\n");
     return false;
    }
   char* url = reqBuf + 4;
@@ -168,10 +169,12 @@ bool HttpDebug::processRequestHeader(void)
   if(lastToken - reqBuf + 256 > reqBufSize)
    {
     errorPage("Bad header format");
+    LogRequestErrors("Header too large in HTTP request.\n");
     return false;
    }
   if( (strncmp(lastToken, "HTTP/1.1", 8) != 0) && (strncmp(lastToken, "HTTP/1.0", 8) != 0) )
    {
+    LogRequestErrors("Unsupported HTTP version %s\n", lastToken);
     errorPage("Unsupported HTTP version");
     return false;
    }
@@ -201,6 +204,7 @@ bool HttpDebug::processRequestHeader(void)
   if( strlen(url) ==8 && strncmp(url, "/camera/", 8) == 0)
     return scene.camera.diagnosticHTML(this);
 
+  LogRequestErrors("Request for unknown resource %s", url);
   errorPage("Resource not found");
   return false;
 }
@@ -221,19 +225,22 @@ void HttpDebug::processOneHTTP1_1()
      {
       // No data, so give up on this particular connection
       close(connfd);
+      LogRequestErrors("Couldn't read data from socket.\n");
       return;
      }
     //XX we need to handle this properly
     reqBuf[nBytes] = '\0';
     
-    printf("Got from client: %s\n", reqBuf);
+    LogHTTPDetails("Got from client: %s", reqBuf);
     resetResponse();
 
     unsigned headerLen;
     if(processRequestHeader())
       headerLen = generateHeader(respPtr-respBuf, 200, "OK");
     else
+     {
       headerLen = generateHeader(respPtr-respBuf, 404, "NOT FOUND");
+     }
     
     // respond to client
     write(connfd, headBuf, headerLen);
