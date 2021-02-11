@@ -140,7 +140,7 @@ void MenuInterface::imguiGenusMenu(void)
   ImGui::Begin("Tree Species", &show_tree_menu, ImGuiWindowFlags_AlwaysAutoResize);
   
   for(auto& iter: *(Species::genusSpeciesList[genusSelected]))
-    if(ImGui::Button(iter.first))
+    if(ImGui::Button(iter.first.c_str()))
      {
       Species* S = iter.second;
       genusSelected = NULL;
@@ -171,9 +171,9 @@ void MenuInterface::imguiTreeMenu(void)
   for(auto& iter: Species::genusList)
    {
     char genusOption[128];
-    snprintf(genusOption, 128, "%s (%u)", iter.first, iter.second);
+    snprintf(genusOption, 128, "%s (%u)", iter.first.c_str(), iter.second);
     if(ImGui::Button(genusOption))
-      genusSelected = iter.first;
+      genusSelected = iter.first.c_str();
    }
   
   ImGui::End();

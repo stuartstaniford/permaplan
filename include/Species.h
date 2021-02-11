@@ -13,6 +13,7 @@
 #include "JSONStructureChecker.h"
 #include <map>
 #include <unordered_map>
+#include <string>
 
 #define SPECIES_ARRAY_SIZE   2048 // max number of species in a design
 
@@ -21,7 +22,7 @@
 // Class variable initialization
 
 class Species;
-class SpeciesList: public std::unordered_map<const char*, Species*>
+class SpeciesList: public std::unordered_map<std::string, Species*>
 {
   
 };
@@ -49,7 +50,7 @@ class Species
   bool        diagnosticHTML(HttpDebug* serv);
 
  public:
-  // Static functions and variables
+  // Static public functions
   static rapidjson::Document speciesIndex;
   static rapidjson::Document& readOTDLFromBuf(char* buf, char* sourceName);
   static bool validateOverviewData(rapidjson::Document& doc, JSONStructureChecker* jCheck);
@@ -62,9 +63,12 @@ class Species
   static bool validateWood(rapidjson::Document& doc, JSONStructureChecker* jCheck);
   static bool validateBarkTextures(rapidjson::Value& obj, JSONStructureChecker* jCheck);
   static bool validateBarkColors(rapidjson::Value& colorsArray, JSONStructureChecker* jCheck);
+  static bool findSpeciesForHTTPDebug(HttpDebug* serv, char* path);
+  
+  // statics public variables
   static unsigned short speciesCount;
-  static std::unordered_map<const char*, unsigned> genusList;
-  static std::unordered_map<const char*, SpeciesList*> genusSpeciesList;
+  static std::unordered_map<std::string, unsigned> genusList;
+  static std::unordered_map<std::string, SpeciesList*> genusSpeciesList;
 
  private:
   

@@ -14,8 +14,8 @@ using namespace rapidjson;
 rapidjson::Document Species::speciesIndex;
 unsigned short Species::speciesCount = 0u;
 Species** Species::speciesPtrArray = new Species*[SPECIES_ARRAY_SIZE];
-std::unordered_map<const char*, unsigned> Species::genusList;
-std::unordered_map<const char*, SpeciesList*> Species::genusSpeciesList;
+std::unordered_map<std::string, unsigned> Species::genusList;
+std::unordered_map<std::string, SpeciesList*> Species::genusSpeciesList;
 unsigned Species::OTDLVersion[] = {0, 0, 1};
 
 
@@ -432,6 +432,27 @@ bool Species::diagnosticHTML(HttpDebug* serv)
 {
   serv->addResponseData("<tr><td>Species</td>");
   return true;
+}
+
+
+// =======================================================================================
+// Simple static function just to find the right species, and then return the
+// diagnosticHTML for it.
+
+bool Species::findSpeciesForHTTPDebug(HttpDebug* serv, char* path)
+{
+  char* endGenus   = index(path, '/');
+  char* endSpecies = index(endGenus+1, '/');
+  *endGenus = *endSpecies = '\0';
+  
+  if(genusList.find(path) == genusList.end())
+    return false;
+
+  if(genusSpeciesList[path]->find(endGenus+1) == genusSpeciesList[path]->end())
+    return false;
+
+  Species* species = (*genusSpeciesList[path])[endGenus+1];
+  return species->diagnosticHTML(serv);
 }
 
 

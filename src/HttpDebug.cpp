@@ -194,6 +194,9 @@ bool HttpDebug::processRequestHeader(void)
   if( strlen(url) == 8 && strncmp(url, "/plants/", 8) == 0)
     return Tree::allTreeDiagnosticHTML(this);
 
+  if( strlen(url) > 14 && strncmp(url, "/species/", 9) == 0)
+    return Species::findSpeciesForHTTPDebug(this, url+9);
+
   if( strlen(url) ==8 && strncmp(url, "/camera/", 8) == 0)
     return scene.camera.diagnosticHTML(this);
 
