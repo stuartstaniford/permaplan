@@ -16,6 +16,7 @@ unsigned short Species::speciesCount = 0u;
 Species** Species::speciesPtrArray = new Species*[SPECIES_ARRAY_SIZE];
 std::unordered_map<const char*, unsigned> Species::genusList;
 std::unordered_map<const char*, SpeciesList*> Species::genusSpeciesList;
+unsigned Species::OTDLVersion[] = {0, 0, 1};
 
 
 // =======================================================================================
@@ -373,17 +374,35 @@ Species* Species::loadLocalOTDLEntry(char* speciesPath)
 // =======================================================================================
 // Write out the OTDL object to a buffer (eg used by diagnosticHTML for Species page).
 
+#define bufprintf(...) if((buf += snprintf(buf, end-buf,  __VA_ARGS__)) > end) return false;
+
 bool Species::writeOTDL(char* buf, unsigned bufSize)
 {
-  // initial comment
+  char* end = buf + bufSize;
+
+  // initial comment, opening brace
+  bufprintf("// OTDL for %s %s (Common Name Needed Here)\n{\n", genusName, speciesName);
   
   // overviewData
-  
+  bufprintf("  \"overviewData\":\n   {\n");
+  bufprintf("   \"genus\":       \"%s\",\n", genusName);
+  bufprintf("   \"species\":     \"%s\",\n", speciesName);
+  bufprintf("   \"commonName\":\n");
+  bufprintf("    {\n");
+  bufprintf("    },\n");
+  Timeval T;
+  T.now();
+  bufprintf("   \"fileTime\": [%lu, %u],\n", T.tv_sec, T.tv_usec);
+  bufprintf("   \"version\":  [%u, %u, %u],\n", OTDLVersion[0], OTDLVersion[1], OTDLVersion[2]);
+  bufprintf("   \"authors\":  []\n");
+  bufprintf("   },\n");
+
   // wood
   
   // foliage
   
-  
+  // closing
+  bufprintf("}\n");
   return true;
 }
 

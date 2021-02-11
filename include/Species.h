@@ -29,7 +29,9 @@ class SpeciesList: public std::unordered_map<const char*, Species*>
 class Species
 {
  public:
-  
+
+  static unsigned OTDLVersion[];
+
   // Instance variables - public;
   const char*               genusName;
   const char*               speciesName;

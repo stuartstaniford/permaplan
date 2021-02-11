@@ -17,6 +17,7 @@
 using namespace rapidjson;
 
 PmodDesign* PmodDesign::design = NULL;
+unsigned PmodDesign::OLDFVersion[] = {0, 0, 2};
 
 // =======================================================================================
 // Constructor: parse the json file
@@ -582,7 +583,8 @@ void PmodDesign::writeIntroductoryData(char* indent)
                                               indent, indent, spaceUnitsText(metricUnits));
 
   // version
-  fprintf(writeFile, "%s%s\"version\": [0, 0, 2],\n", indent, indent);
+  fprintf(writeFile, "%s%s\"version\": [%u, %u, %u],\n", indent, indent,
+                                          OLDFVersion[0], OLDFVersion[1], OLDFVersion[2]);
 
   // fileTime
   Timeval T;

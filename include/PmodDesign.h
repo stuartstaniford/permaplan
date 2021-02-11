@@ -24,6 +24,9 @@ class Species;
 class PmodDesign
 {
   friend Species; //XX temp hack - need to generalize validation function instead.
+  
+  static unsigned OLDFVersion[];
+  
   public:
   
   // Instance variables - public
@@ -73,7 +76,6 @@ private:
   PmodDesign& operator=(const PmodDesign&);      // Prevent assignment
 
 };
-
 
 #endif
 
