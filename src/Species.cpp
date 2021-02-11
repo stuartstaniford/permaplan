@@ -415,7 +415,6 @@ int Species::writeOTDL(char* buf, unsigned bufSize)
   bufprintf("}\n");
   LogHTTPDetails("Wrote %ld bytes of OTDL in HTTP response.\n", bufSize - (end-buf));
   return (bufSize - (int)(end-buf));
-;
 }
 
 

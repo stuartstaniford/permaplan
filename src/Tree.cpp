@@ -287,8 +287,10 @@ const char* Tree::objectName(void)
 
 bool Tree::diagnosticHTML(HttpDebug* serv)
 {
-  serv->respPtr += sprintf(serv->respPtr, "<tr><td>%d</td><td>%s %s</td>",
-                           treePtrArrayIndex, species->genusName, species->speciesName);
+  serv->respPtr += sprintf(serv->respPtr, "<tr><td>%d</td><td>"
+                                          "<a href=\"/species/%s/%s/\">%s %s</a></td>",
+                                treePtrArrayIndex, species->genusName, species->speciesName,
+                                species->genusName, species->speciesName);
   serv->respPtr += sprintf(serv->respPtr, "<td>[%.2f, %.2f]</td></tr>\n",
                                 location[0], location[1]);
   
