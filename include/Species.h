@@ -45,9 +45,9 @@ class Species
   // Member functions - public
   Species(rapidjson::Document& otdlDoc);
   ~Species(void);
-  void extractBarkColors(rapidjson::Value& colorsArray);
+  void        extractBarkColors(rapidjson::Value& colorsArray);
   const char* objectName(void);
-  bool        writeOTDL(char* buf, unsigned bufSize);
+  int         writeOTDL(char* buf, unsigned bufSize);
   bool        diagnosticHTML(HttpDebug* serv);
 
  public:

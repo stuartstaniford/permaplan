@@ -374,9 +374,9 @@ Species* Species::loadLocalOTDLEntry(char* speciesPath)
 // =======================================================================================
 // Write out the OTDL object to a buffer (eg used by diagnosticHTML for Species page).
 
-#define bufprintf(...) if((buf += snprintf(buf, end-buf,  __VA_ARGS__)) >= end) return false;
+#define bufprintf(...) if((buf += snprintf(buf, end-buf,  __VA_ARGS__)) >= end) return -1;
 
-bool Species::writeOTDL(char* buf, unsigned bufSize)
+int Species::writeOTDL(char* buf, unsigned bufSize)
 {
   char* end = buf + bufSize;
 
@@ -402,6 +402,9 @@ bool Species::writeOTDL(char* buf, unsigned bufSize)
   bufprintf("   \"stemRate\":           \"%f\",\n", stemRate);
   bufprintf("   \"initSapThickness\":   \"%f\",\n", initSapThickness);
   bufprintf("   \"initBarkThickness\":  \"%f\",\n", initBarkThickness);
+  
+  //XX Need barkColors, barkTextures
+  
   bufprintf("   },\n");
 
   // foliage
@@ -410,7 +413,9 @@ bool Species::writeOTDL(char* buf, unsigned bufSize)
 
   // closing
   bufprintf("}\n");
-  return true;
+  LogHTTPDetails("Wrote %ld bytes of OTDL in HTTP response.\n", bufSize - (end-buf));
+  return (bufSize - (int)(end-buf));
+;
 }
 
 
@@ -436,7 +441,10 @@ bool Species::diagnosticHTML(HttpDebug* serv)
   
   serv->addResponseData("<h2>OTDL spec</h2>\n");
   serv->addResponseData("<pre>\n");
-  unless(writeOTDL(serv->respPtr, serv->respEnd - serv->respPtr))
+  int size;
+  if((size = writeOTDL(serv->respPtr, serv->respEnd - serv->respPtr)) >= 0)
+    serv->respPtr += size;
+  else
     return false;
   serv->addResponseData("</pre>\n");
   serv->endResponsePage();
