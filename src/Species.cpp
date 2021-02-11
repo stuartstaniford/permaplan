@@ -402,8 +402,13 @@ int Species::writeOTDL(char* buf, unsigned bufSize)
   bufprintf("   \"stemRate\":           \"%f\",\n", stemRate);
   bufprintf("   \"initSapThickness\":   \"%f\",\n", initSapThickness);
   bufprintf("   \"initBarkThickness\":  \"%f\",\n", initBarkThickness);
-  
-  //XX Need barkColors, barkTextures
+  bufprintf("   \"barkColors\":\n");
+  bufprintf("    [\n");
+  //XX need to iterate over barkcolors
+  bufprintf("    ],\n");
+  bufprintf("   \"barkTextures\":\n");
+  bufprintf("    {\n");
+  bufprintf("    }\n");
   
   bufprintf("   },\n");
 
