@@ -36,6 +36,7 @@ HttpDebug::HttpDebug(unsigned short servPort, Scene& S):
   if(!reqBuf || !respBuf || !headBuf)
     err(-1, "Couldn't allocate memory in __func__\n");
   respPtr = respBuf;
+  respEnd = respBuf + respBufSize;
 
   // Get a socket
   if((sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0)

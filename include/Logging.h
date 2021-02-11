@@ -40,7 +40,15 @@
 //#define LOG_ATLAS_PLACEMENT     // Log details of which image is where in atlas
 //#define LOG_MATERIAL_SELECTIONS // Log when a material is selected.
 //#define LOG_TREE_SELECTIONS     // Log when a tree is selected.
-#define LOG_PATH_MAP            // Log storage and use of the path map
+//#define LOG_PATH_MAP            // Log storage and use of the path map
+
+
+// =======================================================================================
+// Logging options for the HTTP debug interface
+
+#define LOG_REQUEST_ERRORS      // Log validity problems in the HTTP request
+#define LOG_RESPONSE_ERRORS     // Log problems encountered building the response
+#define LOG_HTTP_DETAILS        // Log normal details of HTTP operations
 
 
 // =======================================================================================
@@ -224,6 +232,31 @@ extern FILE* LogFile;
 #define LogPathMap(...) LogStatement(__VA_ARGS__)
 #else
 #define LogPathMap(...)
+#endif
+
+
+// =======================================================================================
+// Logging options for the HTTP debug interface
+
+// Log validity problems in the HTTP request
+#ifdef LOG_REQUEST_ERRORS
+#define LogRequestErrors(...) LogStatement(__VA_ARGS__)
+#else
+#define LogRequestErrors(...)
+#endif
+
+// Log problems encountered building the response
+#ifdef LOG_RESPONSE_ERRORS
+#define LogResponseErrors(...) LogStatement(__VA_ARGS__)
+#else
+#define LogResponseErrors(...)
+#endif
+
+// Log normal details of HTTP operations
+#ifdef LOG_HTTP_DETAILS
+#define LogHTTPDetails(...) LogStatement(__VA_ARGS__)
+#else
+#define LogHTTPDetails(...)
 #endif
 
 

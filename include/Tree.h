@@ -13,7 +13,6 @@
 #include "TreePart.h"
 
 #define TREE_ARRAY_SIZE   16384 // cannot exceed size of unsigned short
-#define MAX_SPECIES_PATH  96   //https://en.wikipedia.org/wiki/List_of_long_species_names
 
 // =======================================================================================
 // Class variable initialization

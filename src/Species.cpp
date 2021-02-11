@@ -430,7 +430,16 @@ const char* Species::objectName(void)
 
 bool Species::diagnosticHTML(HttpDebug* serv)
 {
-  serv->addResponseData("<tr><td>Species</td>");
+  char title[MAX_SPECIES_PATH+16];
+  snprintf(title, MAX_SPECIES_PATH+16, "Species: %s %s", genusName, speciesName);
+  serv->startResponsePage(title);
+  
+  serv->addResponseData("<h2>OTDL spec</h2>\n");
+  serv->addResponseData("<pre>\n");
+  unless(writeOTDL(serv->respPtr, serv->respEnd - serv->respPtr))
+    return false;
+  serv->addResponseData("</pre>\n");
+  serv->endResponsePage();
   return true;
 }
 
@@ -442,8 +451,10 @@ bool Species::diagnosticHTML(HttpDebug* serv)
 bool Species::findSpeciesForHTTPDebug(HttpDebug* serv, char* path)
 {
   char* endGenus   = index(path, '/');
+  *endGenus = '\0';
   char* endSpecies = index(endGenus+1, '/');
-  *endGenus = *endSpecies = '\0';
+  if(endSpecies)
+    *endSpecies = '\0';
   
   if(genusList.find(path) == genusList.end())
     return false;

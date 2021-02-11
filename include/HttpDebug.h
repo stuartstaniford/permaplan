@@ -25,6 +25,7 @@ public:
   
   // Instance variables - public
   char*               respPtr;
+  char*               respEnd;
   Scene&              scene;
   bool                shutDownNow; // by convention, this thread only reads, others set
                                    // this variable to true to shut it down.  So no lock.

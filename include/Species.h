@@ -16,6 +16,7 @@
 #include <string>
 
 #define SPECIES_ARRAY_SIZE   2048 // max number of species in a design
+#define MAX_SPECIES_PATH  96   //https://en.wikipedia.org/wiki/List_of_long_species_names
 
 
 // =======================================================================================
