@@ -371,6 +371,24 @@ Species* Species::loadLocalOTDLEntry(char* speciesPath)
 
 
 // =======================================================================================
+// Write out the OTDL object to a buffer (eg used by diagnosticHTML for Species page).
+
+bool Species::writeOTDL(char* buf, unsigned bufSize)
+{
+  // initial comment
+  
+  // overviewData
+  
+  // wood
+  
+  // foliage
+  
+  
+  return true;
+}
+
+
+// =======================================================================================
 // Tell callers our name at runtime.
 
 const char* Species::objectName(void)
