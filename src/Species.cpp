@@ -374,7 +374,7 @@ Species* Species::loadLocalOTDLEntry(char* speciesPath)
 // =======================================================================================
 // Write out the OTDL object to a buffer (eg used by diagnosticHTML for Species page).
 
-#define bufprintf(...) if((buf += snprintf(buf, end-buf,  __VA_ARGS__)) > end) return false;
+#define bufprintf(...) if((buf += snprintf(buf, end-buf,  __VA_ARGS__)) >= end) return false;
 
 bool Species::writeOTDL(char* buf, unsigned bufSize)
 {
@@ -398,9 +398,16 @@ bool Species::writeOTDL(char* buf, unsigned bufSize)
   bufprintf("   },\n");
 
   // wood
-  
+  bufprintf("  \"wood\":\n   {\n");
+  bufprintf("   \"stemRate\":           \"%f\",\n", stemRate);
+  bufprintf("   \"initSapThickness\":   \"%f\",\n", initSapThickness);
+  bufprintf("   \"initBarkThickness\":  \"%f\",\n", initBarkThickness);
+  bufprintf("   },\n");
+
   // foliage
-  
+  bufprintf("  \"foliage\":\n   {\n");
+  bufprintf("   },\n");
+
   // closing
   bufprintf("}\n");
   return true;
