@@ -30,6 +30,7 @@ Tree::Tree(Species* S, vec3 loc):
 {
   glm_vec3_copy(loc, location);
   treePtrArray[(treePtrArrayIndex = treeCount++)] = this;
+  updateBoundingBox();
 }
 
 
@@ -46,6 +47,7 @@ Tree::Tree(Value& plantObject):
   location[1] = plantObject["location"][1].GetFloat();
 
   treePtrArray[(treePtrArrayIndex = treeCount++)] = this;
+  updateBoundingBox();
 }
 
 
@@ -152,7 +154,8 @@ void Tree::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 {
   vCount = 0u;
   iCount = 0u;
-  trunk->triangleBufferSizesRecurse(vCount, iCount);
+  if(trunk)
+    trunk->triangleBufferSizesRecurse(vCount, iCount);
 }
 
 
@@ -178,14 +181,6 @@ bool Tree::matchRay(vec3& position, vec3& direction, float& lambda)
   //XXX NOT DONE
   
   return true;
-}
-
-
-// =======================================================================================
-// Compute the bounding box.
-                                                                
-void Tree::updateBoundingBox(void)
-{
 }
 
  

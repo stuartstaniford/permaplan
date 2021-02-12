@@ -41,7 +41,7 @@ class Tree: public VisualObject
   bool        bufferGeometry(TriangleBuffer* T);
   void        draw(void);
   bool        matchRay(vec3& position, vec3& direction, float& lambda);
-  void        updateBoundingBox(void);
+  //void        updateBoundingBox(void);
   void        triangleBufferSizes(unsigned& vCount, unsigned& iCount);
   void        writeToOLDF(FILE* file, char* indent);
   const char* objectName(void);

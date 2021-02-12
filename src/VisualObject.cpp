@@ -84,15 +84,29 @@ bool VisualObject::matchRay(vec3& position, vec3& direction, float& lambda)
 
 
 // =======================================================================================
-// Stub definition this should be overwritten by implementing subclasses
+// Compute the bounding box.
 
 void VisualObject::updateBoundingBox(void)
 {
-  if(box)
+  if(!box)
+    box = new BoundingBox();
+  else
+    box->hugeValify();
+    
+  Vertex v3;
+  bool result;
+  for(result = getNextUniqueVertex(true, &v3, PositionOnly); result;
+                                    result = getNextUniqueVertex(false, &v3, PositionOnly))
    {
-    delete box;
-    box = NULL;
+    for(int m=0; m<3; m++)
+     {
+      if(v3.pos[m] < box->lower[m])
+        box->lower[m] = v3.pos[m];
+      if(v3.pos[m] > box->upper[m])
+        box->upper[m] = v3.pos[m];
+     }
    }
+
   return;
 }
 

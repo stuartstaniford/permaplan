@@ -145,7 +145,8 @@ void MenuInterface::imguiGenusMenu(void)
       Species* S = iter.second;
       genusSelected = NULL;
       show_tree_menu = false;
-      LogTreeSelections("Tree %s %s inserted.\n", S->genusName, S->speciesName);
+      LogTreeSelections("Tree %s %s inserted at [%f, %f].\n",S->genusName, S->speciesName,
+                                          scene->lastDoubleClick[0], scene->lastDoubleClick[1]);
       scene->insertTree(S, scene->lastDoubleClick);
      }
   

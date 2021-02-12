@@ -218,11 +218,9 @@ void Scene::insertVisibleObject(char* objType, float size, vec3 loc, Material* m
 
 void Scene::insertTree(Species* species, vec3 loc)
 {
-  //mat4 transform;
-  //newObjectTransform(transform, size, loc);
-  //VisualObject* newObj = getFreshObject(objType, transform);
+  Tree* tree = new Tree(species, loc);
   
-  //qtree->storeVisualObject(newObj);
+  qtree->storeVisualObject(tree);
   rebuildVisualObjectBuffer(&sceneObjectTbuf);
 }
 

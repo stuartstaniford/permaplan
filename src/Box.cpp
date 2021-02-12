@@ -282,34 +282,6 @@ bool Box::matchRay(vec3& position, vec3& direction, float& lambda)
 
 
 // =======================================================================================
-// Compute the bounding box.
-                                                                
-void Box::updateBoundingBox(void)
-{
-  if(!box)
-    box = new BoundingBox();
-  else
-    box->hugeValify();
-  
-  Vertex v3;
-  bool result;
-  for(result = getNextUniqueVertex(true, &v3, PositionOnly); result;
-                                  result = getNextUniqueVertex(false, &v3, PositionOnly))
-   {
-    for(int m=0; m<3; m++)
-     {
-      if(v3.pos[m] < box->lower[m])
-        box->lower[m] = v3.pos[m];
-      if(v3.pos[m] > box->upper[m])
-        box->upper[m] = v3.pos[m];
-     }
-   }
-  
-  return;
-}
-                                                                
-
-// =======================================================================================
 // Tell callers our name at runtime.
 
 const char* Box::objectName(void)
