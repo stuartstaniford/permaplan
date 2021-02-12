@@ -194,12 +194,10 @@ const char* Arrow::objectName(void)
 
 bool Arrow::diagnosticHTML(HttpDebug* serv)
 {
-  serv->addResponseData("<tr><td>Arrow</td>");
-  serv->respPtr += sprintf(serv->respPtr,
-                           "<td><b>Location:</b> (%.1f, %.1f, %.1f)<br>" ,
-                           location[0], location[1], location[2]);
-  serv->respPtr += sprintf(serv->respPtr,
-                           "Direction:</b> (%.1f, %.1f, %.1f)</td></tr>\n" ,
+  httPrintf("<tr><td>Arrow</td>");
+  httPrintf("<td><b>Location:</b> (%.1f, %.1f, %.1f)<br>" ,
+                                  location[0], location[1], location[2]);
+  httPrintf("Direction:</b> (%.1f, %.1f, %.1f)</td></tr>\n" ,
                            direction[0], direction[1], direction[2]);
   return true;
 }
