@@ -367,20 +367,20 @@ bool LandSurface::diagnosticHTML(HttpDebug* serv)
 {
   serv->startResponsePage("Land");
   
-  serv->addResponseData("<center>\n");
+  httPrintf("<center>\n");
   serv->startTable();
-  serv->addResponseData("<tr><th>Heightmarker index</th><th>X</th>");
-  serv->addResponseData("<th>Y</th><th>Z</th></tr>\n");
+  httPrintf("<tr><th>Heightmarker index</th><th>X</th>");
+  httPrintf("<th>Y</th><th>Z</th></tr>\n");
   
   for(int i=0; i< locationCount; i++)
    {
-    serv->respPtr += sprintf(serv->respPtr, "<tr><th>%d</td>", i);
+    httPrintf("<tr><th>%d</td>", i);
     for(int j=0; j<3; j++)
-      serv->respPtr += sprintf(serv->respPtr, "<td>%.1f</td>", heightLocations[i][j]);
-    serv->addResponseData("</tr>\n");
+      httPrintf("<td>%.1f</td>", heightLocations[i][j]);
+    httPrintf("</tr>\n");
    }
   
-  serv->addResponseData("</table></center><hr>\n");
+  httPrintf("</table></center><hr>\n");
   serv->endResponsePage();
   return true;
 }
