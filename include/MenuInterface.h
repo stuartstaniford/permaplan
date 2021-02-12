@@ -34,6 +34,7 @@ class MenuInterface
   void  imguiGenusMenu(void);
   void  imguiTreeMenu(void);
   void  imguiFocusOverlay(void);
+  void  imguiSimulationController(void);
   void  mouseOverlayDisplays(vec3 mouseSceneLoc);
 
  private:
@@ -47,6 +48,7 @@ class MenuInterface
   bool            show_tree_menu;
   const char*     genusSelected;
   bool            show_focus_overlay;
+  bool            show_simulation_controller;
 #ifdef SHOW_DEMO_WINDOW
   bool            show_demo_window;
 #endif

@@ -279,6 +279,9 @@ const char* Tree::objectName(void)
 // =======================================================================================
 // Build a page about this particular tree with all the gory details of its treeparts.
 
+// XX right now this is the version being called from the Qtree, which is not giving
+// the correct result.
+
 bool Tree::diagnosticHTML(HttpDebug* serv)
 {
   // Page header

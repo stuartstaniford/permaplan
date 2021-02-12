@@ -21,7 +21,8 @@ MenuInterface::MenuInterface(GLFWwindow* window, Window3D& W):
                         show_materials_menu(false),
                         show_tree_menu(false),
                         genusSelected(NULL),
-                        show_focus_overlay(true)
+                        show_focus_overlay(true),
+                        show_simulation_controller(true)
 #ifdef SHOW_DEMO_WINDOW
                         , show_demo_window(true)
 #endif
@@ -225,6 +226,25 @@ void MenuInterface::mouseOverlayDisplays(vec3 mouseSceneLoc)
   //displayImguiMatrix("Invert Matrix:", scene->invert);
 }
 
+
+// =======================================================================================
+// Utility function for handling menus in the corners of the window
+
+void setCorner(int& corner)
+{
+  const float DISTANCE = 10.0f;
+  ImGuiIO& io = ImGui::GetIO();
+
+  if (corner != -1)
+   {
+    ImVec2 window_pos = ImVec2((corner & 1) ? io.DisplaySize.x - DISTANCE :
+                             DISTANCE, (corner & 2) ? io.DisplaySize.y - DISTANCE : DISTANCE);
+    ImVec2 window_pos_pivot = ImVec2((corner & 1) ? 1.0f : 0.0f, (corner & 2) ? 1.0f : 0.0f);
+    ImGui::SetNextWindowPos(window_pos, ImGuiCond_Always, window_pos_pivot);
+   }
+}
+
+
 // =======================================================================================
 // Transparent overlay that displays information about the thing currently in focus
 
@@ -232,17 +252,9 @@ void MenuInterface::imguiFocusOverlay(void)
 {
   if(!show_focus_overlay)
     return;
-  const float DISTANCE = 10.0f;
   static int corner = 0;
-  ImGuiIO& io = ImGui::GetIO();
   
-  if (corner != -1)
-   {
-    ImVec2 window_pos = ImVec2((corner & 1) ? io.DisplaySize.x - DISTANCE :
-                               DISTANCE, (corner & 2) ? io.DisplaySize.y - DISTANCE : DISTANCE);
-    ImVec2 window_pos_pivot = ImVec2((corner & 1) ? 1.0f : 0.0f, (corner & 2) ? 1.0f : 0.0f);
-    ImGui::SetNextWindowPos(window_pos, ImGuiCond_Always, window_pos_pivot);
-   }
+  setCorner(corner);
   ImGui::SetNextWindowBgAlpha(0.35f); // Transparent background
   ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoDecoration |
                 ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings |
@@ -275,6 +287,31 @@ void MenuInterface::imguiFocusOverlay(void)
 
 
 // =======================================================================================
+// Transparent overlay that displays information about the thing currently in focus
+
+void MenuInterface::imguiSimulationController(void)
+{
+  if(!show_simulation_controller)
+    return;
+  static int corner = 1;
+  
+  setCorner(corner);
+  ImGui::SetNextWindowBgAlpha(0.35f); // Transparent background
+  ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoDecoration |
+                ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings |
+                ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav;
+  if (corner != -1)
+    window_flags |= ImGuiWindowFlags_NoMove;
+  if (ImGui::Begin("Simulation Control", &show_focus_overlay, window_flags))
+   {
+    ImGui::Text("Current Year: %.1f\n", 1920.0f);
+    ImGui::Separator();
+   }
+  ImGui::End();
+}
+
+
+// =======================================================================================
 // Top level function to organize the rendering of all the imguiInterface stuff
 
 void MenuInterface::imguiInterface(void)
@@ -287,7 +324,8 @@ void MenuInterface::imguiInterface(void)
   imguiMaterialsMenu();
   imguiTreeMenu();
   imguiHeightInputDialog();
-
+  
+  imguiSimulationController();
   imguiFocusOverlay();
 
 #ifdef SHOW_DEMO_WINDOW
