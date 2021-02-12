@@ -15,6 +15,12 @@
 
 
 // =======================================================================================
+// Useful macros
+
+#define httPrintf(...) if((serv->respPtr += snprintf(serv->respPtr, \
+              serv->respEnd-serv->respPtr,  __VA_ARGS__)) >= serv->respEnd) return false;
+
+// =======================================================================================
 // Class variable initialization
 
 class Scene; // forward declaration

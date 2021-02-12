@@ -45,6 +45,7 @@ class Tree: public VisualObject
   void        triangleBufferSizes(unsigned& vCount, unsigned& iCount);
   void        writeToOLDF(FILE* file, char* indent);
   const char* objectName(void);
+  bool        diagnosticHTMLRow(HttpDebug* serv);
   bool        diagnosticHTML(HttpDebug* serv);
 
  public:
@@ -53,6 +54,7 @@ class Tree: public VisualObject
   static void growAllTrees(float years);
   static void writeTreesToOLDF(FILE* file, char* indent);
   static bool allTreeDiagnosticHTML(HttpDebug* serv);
+  static bool treePageGateway(HttpDebug* serv, char* path);
 
  private:
   

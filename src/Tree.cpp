@@ -277,17 +277,30 @@ const char* Tree::objectName(void)
 
 
 // =======================================================================================
-// We assume we are part of a table of visual objects and we just contribute one row
-// about this particular object.
+// Build a page about this particular tree with all the gory details of its treeparts.
 
 bool Tree::diagnosticHTML(HttpDebug* serv)
 {
-  serv->respPtr += sprintf(serv->respPtr, "<tr><td>%d</td><td>"
-                                          "<a href=\"/species/%s/%s/\">%s %s</a></td>",
-                                treePtrArrayIndex, species->genusName, species->speciesName,
-                                species->genusName, species->speciesName);
-  serv->respPtr += sprintf(serv->respPtr, "<td>[%.2f, %.2f]</td></tr>\n",
-                                location[0], location[1]);
+  char title[32];
+  snprintf(title, 32, "Detail Page for Tree %d", treePtrArrayIndex);
+  serv->startResponsePage(title);
+
+  serv->endResponsePage();
+  return true;
+}
+
+
+// =======================================================================================
+// We assume we are part of a table of visual objects and we just contribute one row
+// about this particular object.
+
+bool Tree::diagnosticHTMLRow(HttpDebug* serv)
+{
+  httPrintf("<tr><td><a href=\"/plants/%d\">%d</a></td>", treePtrArrayIndex,
+                                                                    treePtrArrayIndex)
+  httPrintf("<td><a href=\"/species/%s/%s/\">%s %s</a></td>", species->genusName,
+                            species->speciesName, species->genusName, species->speciesName);
+  httPrintf("<td>[%.2f, %.2f]</td></tr>\n", location[0], location[1]);
   
   return true;
 }
@@ -305,11 +318,32 @@ bool Tree::allTreeDiagnosticHTML(HttpDebug* serv)
   serv->addResponseData("<tr><th>Index</th><th>Species</th><th>Location</th></tr>\n");
   
   for(int i=0; i< treeCount; i++)
-    treePtrArray[i]->diagnosticHTML(serv);
+    treePtrArray[i]->diagnosticHTMLRow(serv);
   
   serv->addResponseData("</table></center><hr>\n");
   serv->endResponsePage();
   return true;
+}
+
+
+// =======================================================================================
+// Figure out which kind of tree page is required, and call the appropriate method
+
+bool Tree::treePageGateway(HttpDebug* serv, char* path)
+{
+  // No more path after plants/ so return table of all trees
+  if(0 == strlen(path))
+    return allTreeDiagnosticHTML(serv);
+  
+  // if only digits after plants/ return that tree if valid
+  for(char* check = path; *check; check++)
+    if(!isdigit(*check))
+      return false;
+  unsigned T = atoi(path);
+  if(T<treeCount && treePtrArray[T])
+    return treePtrArray[T]->diagnosticHTML(serv);
+  
+  return false;
 }
 
 
