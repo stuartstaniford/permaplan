@@ -11,7 +11,7 @@
 
 WoodySegment::WoodySegment(Species& species, unsigned short treeIndex, float years):
                               TreePart(treeIndex),
-                              length(years*species.stemRate),
+                              //length(years*species.stemRate),
                               heartRadius(0.0f),
                               sapThickness(species.initSapThickness),
                               barkThickness(species.initBarkThickness)
@@ -69,8 +69,10 @@ const char* WoodySegment::objectName(void)
 
 bool WoodySegment::diagnosticHTML(HttpDebug* serv)
 {
+  httPrintf("<tr><td>WoodySegment</td><td>[%f, %f, %f]</td><td>[%f, %f, %f]</td><tr>",
+              location[0], location[1], location[2], direction[0], direction[1], direction[2]);
   
-  serv->addResponseData("<tr><td>WoodySegment</td>");
+  //XX recurse on children
   return true;
 }
 

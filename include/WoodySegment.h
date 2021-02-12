@@ -29,7 +29,8 @@ class WoodySegment: public TreePart
   bool        diagnosticHTML(HttpDebug* serv);
 
  private:
-  float           length;         // mm
+  vec3            location;       // mm
+  vec3            direction;      // mm
   float           heartRadius;    // expressed in mm
   float           sapThickness;   // mm
   float           barkThickness;  // mm.  Phloem currently part of bark

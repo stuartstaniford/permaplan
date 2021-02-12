@@ -281,10 +281,29 @@ const char* Tree::objectName(void)
 
 bool Tree::diagnosticHTML(HttpDebug* serv)
 {
-  char title[32];
-  snprintf(title, 32, "Detail Page for Tree %d", treePtrArrayIndex);
+  // Page header
+  char title[32+MAX_SPECIES_PATH];
+  snprintf(title, 32+MAX_SPECIES_PATH, "Detail Page for Tree %d: %s %s",
+                              treePtrArrayIndex, species->genusName, species->speciesName);
   serv->startResponsePage(title);
+  
+  // Summary Data about the tree
+  httPrintf("<h2>Summary Data</h2>");
+  httPrintf("<b>Location</b>: [%f, %f, %f]<br>", location[0], location[1], location[2]);
+  httPrintf("<b>Species</b>: <a href=\"/species/%s/%s\">%s %s</a><br>",
+            species->genusName, species->speciesName, species->genusName, species->speciesName);
+  httPrintf("<hr>");
+  
+  // Table of treeparts
+  httPrintf("<h2>Table of parts of this tree</h2>");
+  serv->startTable();
+  httPrintf("<tr><th>Type</th><th>Location</th><th>Direction</th></tr>\n");
+  if(trunk)
+    unless(trunk->diagnosticHTML(serv))
+      return false;
+  serv->addResponseData("</table></center><hr>\n");
 
+  // Page closing
   serv->endResponsePage();
   return true;
 }
@@ -307,7 +326,7 @@ bool Tree::diagnosticHTMLRow(HttpDebug* serv)
 
 
 // =======================================================================================
-// Provide a diagnostic page about all the trees/plants
+// Provide a diagnostic page with a table about all the trees/plants
 
 bool Tree::allTreeDiagnosticHTML(HttpDebug* serv)
 {

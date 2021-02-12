@@ -22,7 +22,7 @@ class TreePart
   virtual bool bufferGeometry(TriangleBuffer* T);
   virtual void triangleBufferSizesRecurse(unsigned& vCount, unsigned& iCount);
   virtual const char* objectName(void);
-  virtual bool        diagnosticHTML(HttpDebug* serv);
+  virtual bool diagnosticHTML(HttpDebug* serv);
 
  private:
   
