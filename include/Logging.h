@@ -30,6 +30,7 @@
 //#define LOG_MOUSE_RAY_POINT     // Where the mouse is pointing in 3d space
 //#define LOG_LAND_HEIGHTS        // Log when a new land height is entered.
 //#define LOG_OBJECT_INSERTIONS   // Log when a new object is inserted in scene.
+#define LOG_SIMULATION_CONTROLS // Log control operations on the simulation.
 
 
 // =======================================================================================
@@ -46,9 +47,9 @@
 // =======================================================================================
 // Logging options for the HTTP debug interface
 
-#define LOG_REQUEST_ERRORS      // Log validity problems in the HTTP request
-#define LOG_RESPONSE_ERRORS     // Log problems encountered building the response
-#define LOG_HTTP_DETAILS        // Log normal details of HTTP operations
+//#define LOG_REQUEST_ERRORS      // Log validity problems in the HTTP request
+//#define LOG_RESPONSE_ERRORS     // Log problems encountered building the response
+//#define LOG_HTTP_DETAILS        // Log normal details of HTTP operations
 
 
 // =======================================================================================
@@ -181,11 +182,18 @@ extern FILE* LogFile;
 #define LogLandHeights(...)
 #endif
 
-// Log when a new land height is entered.
+// Log when a new object is inserted.
 #ifdef LOG_OBJECT_INSERTIONS
 #define LogObjectInsertions(...) LogStatement(__VA_ARGS__)
 #else
 #define LogObjectInsertions(...)
+#endif
+
+// Log control operations on the simulation.
+#ifdef LOG_SIMULATION_CONTROLS
+#define LogSimulationControls(...) LogStatement(__VA_ARGS__)
+#else
+#define LogSimulationControls(...)
 #endif
 
 

@@ -12,7 +12,7 @@
 #include "ScriptController.h"
 #include "Scene.h"
 
-//#define SHOW_DEMO_WINDOW
+#define SHOW_DEMO_WINDOW
 
 class Window3D;
 

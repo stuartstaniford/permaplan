@@ -302,9 +302,31 @@ void MenuInterface::imguiSimulationController(void)
                 ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav;
   if (corner != -1)
     window_flags |= ImGuiWindowFlags_NoMove;
-  if (ImGui::Begin("Simulation Control", &show_focus_overlay, window_flags))
+  if (ImGui::Begin("Simulation Control", &show_simulation_controller, window_flags))
    {
-    ImGui::Text("Current Year: %.1f\n", 1920.0f);
+    // XX Imgui not displaying Unicode symbols:
+    // Check https://en.wikipedia.org/wiki/Media_control_symbols and
+    // https://www.branah.com/unicode-converter
+    // Play is U+25B6, (\xe2\x96\xb6 in UTF8)
+    // Pause is U+23F8, (\xe2\x8f\xb8 in UTF8)
+    // Skip to start is U+23EE, (\xe2\x8f\xae in UTF8)
+    ImGui::Separator();
+    ImGui::Text("Simulation Control");
+    if(ImGui::Button("Simulate"))
+     {
+      LogSimulationControls("Simulate Button \xe2\x96\xb6 pressed.\n");
+     }
+    ImGui::SameLine();
+    if(ImGui::Button("Pause"))
+     {
+      LogSimulationControls("Pause Button \xe2\x8f\xb8 pressed.\n");
+     }
+    ImGui::SameLine();
+    if(ImGui::Button("Restart"))
+     {
+      LogSimulationControls("Restart Button \xe2\x8f\xae pressed.\n");
+     }
+    ImGui::Text("Year: %.1f\n", 1920.0f);
     ImGui::Separator();
    }
   ImGui::End();
