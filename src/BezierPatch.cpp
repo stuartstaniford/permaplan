@@ -917,29 +917,28 @@ const char* BezierPatch::objectName(void)
 
 bool BezierPatch::diagnosticHTML(HttpDebug* serv)
 {
-  serv->addResponseData("<tr><td>BezierPatch</td><td>");
-  serv->addResponseData("<table cellpadding=1 border=1><tr><th>i</th><th>j</th><th>X</th><th>Y</th><th>Z</th></tr>");
+  httPrintf("<tr><td>BezierPatch</td><td>");
+  httPrintf("<table cellpadding=1 border=1><tr><th>i</th><th>j</th><th>X</th><th>Y</th><th>Z</th></tr>");
   forAllControlIndices(i,j)
-    serv->respPtr += sprintf(serv->respPtr,
-              "<tr><td>%d</td><td>%d</td><td>%.1f</td><td>%.1f</td><td>%.1f</td></tr>",
+  httPrintf("<tr><td>%d</td><td>%d</td><td>%.1f</td><td>%.1f</td><td>%.1f</td></tr>",
               i, j, controlPoints[i][j][0], controlPoints[i][j][1], controlPoints[i][j][2]);
-  serv->addResponseData("</table>\n");
+  httPrintf("</table>\n");
 #ifdef VISUALIZE_FITTING
-  serv->addResponseData("Fit Points<br>");
-  serv->addResponseData("<table cellpadding=1 border=1><tr><th>k</th><th>u</th><th>v</th><th>X</th><th>Y</th><th>Z</th></tr>");
+  httPrintf("Fit Points<br>");
+  httPrintf("<table cellpadding=1 border=1><tr><th>k</th><th>u</th>"
+                                          "<th>v</th><th>X</th><th>Y</th><th>Z</th></tr>");
   int k, N = fitPointUVVals.size();
   for(k=0; k<N; k++)
    {
-    serv->respPtr += sprintf(serv->respPtr, "<tr><td>%d</td><td>%.3f</td><td>%.3f</td>\n",
-                            k, fitPointUVVals[k][0], fitPointUVVals[k][1]);
+    httPrintf("<tr><td>%d</td><td>%.3f</td><td>%.3f</td>\n",
+                                            k, fitPointUVVals[k][0], fitPointUVVals[k][1]);
     vec3 xyz;
     surfacePoint(fitPointUVVals[k][0], fitPointUVVals[k][1], xyz);
-    serv->respPtr += sprintf(serv->respPtr, "<td>%.1f</td><td>%.1f</td><td>%.1f</td></tr>\n",
-                             xyz[0], xyz[1], xyz[2]);
+    httPrintf("<td>%.1f</td><td>%.1f</td><td>%.1f</td></tr>\n", xyz[0], xyz[1], xyz[2]);
    }
-  serv->addResponseData("</table>\n");
+  httPrintf("</table>\n");
 #endif
-  serv->addResponseData("</td></tr>\n");
+  httPrintf("</td></tr>\n");
 
   return true;
 }
