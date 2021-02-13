@@ -241,24 +241,25 @@ bool BoundingBox::extendZ(const BoundingBox& otherBox)
 
 bool BoundingBox::diagnosticHTML(HttpDebug* serv)
 {
-  serv->addResponseData("<center><h3>Bounds</h3>\n");
+  // Start the section/table
+  httPrintf("<center><h3>Bounds</h3>\n");
   serv->startTable();
-  serv->addResponseData("<tr><th></th><th>Bottom Coords</th><th>Top Coords</th>\n");
+  httPrintf("<tr><th></th><th>Bottom Coords</th><th>Top Coords</th>\n");
   
   // X co-ords
-  serv->addResponseData("<tr><td>X</td><td>");
-  serv->respPtr += sprintf(serv->respPtr, "%.1f</td><td>%.1f</td></tr>\n",
-                      lower[0], upper[0]);
+  httPrintf("<tr><td>X</td><td>");
+  httPrintf("%.1f</td><td>%.1f</td></tr>\n", lower[0], upper[0]);
+  
   // Y co-ords
-  serv->addResponseData("<tr><td>Y</td><td>");
-  serv->respPtr += sprintf(serv->respPtr, "%.1f</td><td>%.1f</td></tr>\n",
-                             lower[1], upper[1]);
+  httPrintf("<tr><td>Y</td><td>");
+  httPrintf("%.1f</td><td>%.1f</td></tr>\n", lower[1], upper[1]);
+  
   // Z co-ords
-  serv->addResponseData("<tr><td>Z</td><td>");
-  serv->respPtr += sprintf(serv->respPtr, "%.1f</td><td>%.1f</td></tr>\n",
-                             lower[2], upper[2]);
+  httPrintf("<tr><td>Z</td><td>");
+  httPrintf("%.1f</td><td>%.1f</td></tr>\n", lower[2], upper[2]);
+  
+  // Conclude
   serv->addResponseData("</table></center><hr>\n");
-
   return true;
 }
 
