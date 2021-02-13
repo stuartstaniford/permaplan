@@ -207,18 +207,14 @@ const char* LandSurfaceRegionPlanar::objectName(void)
 
 bool LandSurfaceRegionPlanar::diagnosticHTML(HttpDebug* serv)
 {
-  serv->addResponseData("<tr><td>LandSurfaceRegionPlanar</td><td>");
-  serv->respPtr += sprintf(serv->respPtr, "<b>XY Position:</b> (%.1f, %.1f)<br>",
-                           xyPos[0], xyPos[1]);
-  serv->respPtr += sprintf(serv->respPtr, "<b>Extent:</b> (%.1f, %.1f)<br>",
-                           extent[0], extent[1]);
-  serv->respPtr += sprintf(serv->respPtr, "<b>Heights:</b> (%.1f, %.1f, %.1f, %.1f)<br>",
-                           heights[0], heights[1], heights[2], heights[3]);
-  serv->respPtr += sprintf(serv->respPtr, "<b>ST Position:</b> (%.4f, %.4f)<br>",
-                           stPos[0], stPos[1]);
-  serv->respPtr += sprintf(serv->respPtr, "<b>ST Extent:</b> (%.4f, %.4f)<br>",
-                           stExtent[0], stExtent[1]);
-  serv->addResponseData("</td></tr>\n");
+  httPrintf("<tr><td>LandSurfaceRegionPlanar</td><td>");
+  httPrintf("<b>XY Position:</b> (%.1f, %.1f)<br>", xyPos[0], xyPos[1]);
+  httPrintf("<b>Extent:</b> (%.1f, %.1f)<br>", extent[0], extent[1]);
+  httPrintf("<b>Heights:</b> (%.1f, %.1f, %.1f, %.1f)<br>",
+                                              heights[0], heights[1], heights[2], heights[3]);
+  httPrintf( "<b>ST Position:</b> (%.4f, %.4f)<br>", stPos[0], stPos[1]);
+  httPrintf( "<b>ST Extent:</b> (%.4f, %.4f)<br>", stExtent[0], stExtent[1]);
+  httPrintf("</td></tr>\n");
 
  return true;
 }
