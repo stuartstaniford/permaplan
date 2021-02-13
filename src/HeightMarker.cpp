@@ -205,11 +205,9 @@ const char* HeightMarker::objectName(void)
 
 bool HeightMarker::diagnosticHTML(HttpDebug* serv)
 {
-  
-  serv->addResponseData("<tr><td>HeightMarker</td>");
-  serv->respPtr += sprintf(serv->respPtr,
-                           "<td><b>Location:</b> (%.1f, %.1f, %.1f)</td></tr>\n",
-                           location[0], location[1], location[2]);
+  httPrintf("<tr><td>HeightMarker</td>");
+  httPrintf("<td><b>Location:</b> (%.1f, %.1f, %.1f)</td></tr>\n",
+                                                    location[0], location[1], location[2]);
   return true;
 }
 
