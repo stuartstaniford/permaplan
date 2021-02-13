@@ -128,10 +128,12 @@ void Window3D::loop(HttpDebug& httpServer)
 
   start.now();
 
+  // Main event loop
   while(!glfwWindowShouldClose(window))
    {
+    // Timing measurements and logging
     frameTime.now();
-    frameDouble = frameTime - start;
+    frameDouble = frameTime - start;  // in seconds
     if(firstTime)
      {
       LogFrameStarts("Frame %u starting at %.6lfs\n", frameCount, frameDouble);
@@ -146,24 +148,31 @@ void Window3D::loop(HttpDebug& httpServer)
       else
         frameTimeAvg = 0.001f*(frameDouble - lastFrameDouble) + 0.999f*frameTimeAvg;
      }
+    
+    // OpenGL calls to clear buffer
     glClearColor(0.6f, 0.7f, 0.7f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glfwGetWindowSize(window, &width, &height); // make sure we know current size
     
+    // Do our actual drawing and deliver to screen window
     scene->draw(mouseMoved, (float)(frameDouble - lastFrameDouble));
-    lastFrameDouble = frameDouble;
     imgMenu->imguiInterface();
-    ImGuiIO& io = ImGui::GetIO();
-
     glfwSwapBuffers(window);
+    
+    // Process IO
+    ImGuiIO& io = ImGui::GetIO();
     glfwPollEvents();
     unless(io.WantCaptureMouse)
       processInput(scene->camera);
     else
       LogMouseLocation("ImGui has mouse\n");
 
+    // Final book-keeping for this spin of the loop
+    lastFrameDouble = frameDouble;
     frameCount++;
    }
+  
+  // Shutdown stuff after main event loop is done.
   httpServer.shutDownNow = true;
   scene->saveState();
   frameTime.now();

@@ -85,10 +85,10 @@ void Scene::pauseSimulation(void)
 // =======================================================================================
 // Set a rotation matrix to match the currently specified angles
 
-void Scene::restartSimulation(void)
+void Scene::resetSimulation(void)
 {
   simYear = SIMULATION_BASE_YEAR;
-  doSimulation = true;
+  doSimulation = false;
 }
 
 
@@ -293,7 +293,11 @@ void Scene::draw(bool mouseMoved, float timeElapsed)
   
   // Update the trees
   // XX this should be done through quadtree to only simulate currently visible
-  Tree::growAllTrees(simulationSpeed/timeElapsed);
+  if(doSimulation)
+   {
+    simYear += timeElapsed/simulationSpeed;
+    Tree::growAllTrees(timeElapsed/simulationSpeed);
+   }
   
   // Draw all the objects stored in the quadtree
   if(sceneObjectTbuf)

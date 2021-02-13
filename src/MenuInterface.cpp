@@ -327,14 +327,14 @@ void MenuInterface::imguiSimulationController(void)
       scene->pauseSimulation();
      }
     ImGui::SameLine();
-    if(ImGui::Button("Restart"))
+    if(ImGui::Button("Reset"))
      {
-      LogSimulationControls("Restart Button \xe2\x8f\xae pressed.\n");
-      scene->restartSimulation();
+      LogSimulationControls("Reset Button \xe2\x8f\xae pressed.\n");
+      scene->resetSimulation();
      }
     
-    // Auxiliary information
-    ImGui::Text("Year: %.1f\n", 1920.0f);
+    // Auxiliary status information
+    ImGui::Text("Year: %.1f\n", scene->getSimYear());
     if(scene->simulationActive())
       ImGui::Text("Simulation Speed: %.2f\n", scene->simulationSpeed);
     else

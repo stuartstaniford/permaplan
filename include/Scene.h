@@ -49,7 +49,7 @@ class Scene
   void          draw(bool mouseMoved, float timeElapsed);
   void          startSimulation(void);
   void          pauseSimulation(void);
-  void          restartSimulation(void);
+  void          resetSimulation(void);
   inline float  getSimYear(void) {return simYear;};
   inline bool   simulationActive(void) {return doSimulation;};
   void          findCameraObject(vec3 location);
