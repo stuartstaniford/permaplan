@@ -315,16 +315,19 @@ void MenuInterface::imguiSimulationController(void)
     if(ImGui::Button("Simulate"))
      {
       LogSimulationControls("Simulate Button \xe2\x96\xb6 pressed.\n");
+      scene->startSimulation();
      }
     ImGui::SameLine();
     if(ImGui::Button("Pause"))
      {
       LogSimulationControls("Pause Button \xe2\x8f\xb8 pressed.\n");
+      scene->pauseSimulation();
      }
     ImGui::SameLine();
     if(ImGui::Button("Restart"))
      {
       LogSimulationControls("Restart Button \xe2\x8f\xae pressed.\n");
+      scene->restartSimulation();
      }
     ImGui::Text("Year: %.1f\n", 1920.0f);
     ImGui::Separator();

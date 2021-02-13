@@ -22,7 +22,9 @@ Scene::Scene():
                 land(),
                 lighting(),
                 axes(NULL),
-                grid(NULL)
+                grid(NULL),
+                doSimulation(false),
+                simYear(SIMULATION_BASE_YEAR)
 {
   unsigned minSize = 10;
   // Note that land and qtree have mutual dependencies that means there
@@ -58,6 +60,34 @@ void Scene::saveState(void)
     PmodDesign& theDesign = PmodDesign::getDesign();
     theDesign.writeOLDFFile(land);
    }
+}
+
+
+// =======================================================================================
+// Set a rotation matrix to match the currently specified angles
+
+void Scene::startSimulation(void)
+{
+  doSimulation = true;
+}
+
+
+// =======================================================================================
+// Set a rotation matrix to match the currently specified angles
+
+void Scene::pauseSimulation(void)
+{
+  doSimulation = false;
+}
+
+
+// =======================================================================================
+// Set a rotation matrix to match the currently specified angles
+
+void Scene::restartSimulation(void)
+{
+  simYear = SIMULATION_BASE_YEAR;
+  doSimulation = true;
 }
 
 

@@ -20,6 +20,8 @@
 #include "Species.h"
 
 
+#define SIMULATION_BASE_YEAR 1900.0f
+
 // =======================================================================================
 // Class variable initialization
 
@@ -44,6 +46,10 @@ class Scene
   Scene(void);
   ~Scene(void);
   void          draw(bool mouseMoved);
+  void          startSimulation(void);
+  void          pauseSimulation(void);
+  void          restartSimulation(void);
+  inline float  getSimYear(void) {return simYear;};
   void          findCameraObject(vec3 location);
   float         findCameraHeight(void);
   void          newLandHeight(vec3 location);
@@ -60,6 +66,8 @@ class Scene
   // Instance variables - private
   ColoredAxes*      axes;
   Grid*             grid;
+  bool              doSimulation;
+  float             simYear;
 
   // Member functions - private
   void setModelMatrix(float latt, float longt);
