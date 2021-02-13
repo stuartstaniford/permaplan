@@ -204,9 +204,31 @@ bool HttpDebug::processRequestHeader(void)
   if( strlen(url) ==8 && strncmp(url, "/camera/", 8) == 0)
     return scene.camera.diagnosticHTML(this);
 
-  LogRequestErrors("Request for unknown resource %s", url);
+  LogRequestErrors("Request for unknown resource %s\n", url);
   errorPage("Resource not found");
   return false;
+}
+
+
+// =======================================================================================
+// Utility function to keep writing till we've gotten it done, or encounter error
+
+bool writeLoop(int fildes, char *buf, size_t nbyte)
+{
+  char* p = buf;
+  int bytesWritten;
+  
+  while(p-buf < nbyte)
+   {
+    bytesWritten = write(fildes, p, nbyte - (p-buf));
+    if(bytesWritten < 0)
+     {
+      LogRequestErrors("Write call failed in writeLoop\n");
+      return false;
+     }
+    p += bytesWritten;
+   }
+  return true;
 }
 
 
@@ -243,10 +265,10 @@ void HttpDebug::processOneHTTP1_1()
      }
     
     // respond to client
-    write(connfd, headBuf, headerLen);
-    write(connfd, respBuf, respPtr-respBuf);
-
-    //XX need to check errors on write
+    unless(writeLoop(connfd, headBuf, headerLen))
+      break;
+    unless(writeLoop(connfd, respBuf, respPtr-respBuf))
+      break;
   }
 }
 
