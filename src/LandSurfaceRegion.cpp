@@ -131,13 +131,11 @@ const char* LandSurfaceRegion::objectName(void)
 
 bool LandSurfaceRegion::diagnosticHTML(HttpDebug* serv)
 {
-  serv->addResponseData("<tr><td>LandSurfaceRegion</td><td>");
-  serv->addResponseData("<b>Why no subclass?\?\?</b><br>");
-  serv->respPtr += sprintf(serv->respPtr, "<b>XY Position:</b> (%.1f, %.1f)<br>",
-                           xyPos[0], xyPos[1]);
-  serv->respPtr += sprintf(serv->respPtr, "<b>Extent:</b> (%.1f, %.1f)<br>",
-                           extent[0], extent[1]);
-  serv->addResponseData("</td></tr>\n");
+  httPrintf("<tr><td>LandSurfaceRegion</td><td>");
+  httPrintf("<b>Why no subclass?\?\?</b><br>");
+  httPrintf("<b>XY Position:</b> (%.1f, %.1f)<br>", xyPos[0], xyPos[1]);
+  httPrintf("<b>Extent:</b> (%.1f, %.1f)<br>", extent[0], extent[1]);
+  httPrintf("</td></tr>\n");
   
   return true;
 }
