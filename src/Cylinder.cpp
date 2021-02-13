@@ -190,14 +190,12 @@ const char* Cylinder::objectName(void)
 bool Cylinder::diagnosticHTML(HttpDebug* serv)
 {
   serv->addResponseData("<tr><td>Cylinder</td>");
-  serv->respPtr += sprintf(serv->respPtr,
-                           "<td><b>Location:</b> (%.1f, %.1f, %.1f)<br>" ,
-                           location[0], location[1], location[2]);
-  serv->respPtr += sprintf(serv->respPtr, "<b>Radius:</b> %.1f<br>", radius);
-  serv->respPtr += sprintf(serv->respPtr, "<b>Sides:</b> %u<br>", sides);
-  serv->respPtr += sprintf(serv->respPtr,
-                           "Direction:</b> (%.1f, %.1f, %.1f)</td></tr>\n" ,
-                           direction[0], direction[1], direction[2]);
+  httPrintf("<td><b>Location:</b> (%.1f, %.1f, %.1f)<br>",
+                                            location[0], location[1], location[2]);
+  httPrintf("<b>Radius:</b> %.1f<br>", radius);
+  httPrintf("<b>Sides:</b> %u<br>", sides);
+  httPrintf("Direction:</b> (%.1f, %.1f, %.1f)</td></tr>\n" ,
+                                            direction[0], direction[1], direction[2]);
   return true;
 }
 
