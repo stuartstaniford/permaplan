@@ -21,6 +21,7 @@ Scene::Scene():
                 indicatorTbuf(NULL),
                 land(),
                 lighting(),
+                simulationSpeed(1.0f),
                 axes(NULL),
                 grid(NULL),
                 doSimulation(false),
@@ -260,7 +261,7 @@ void Scene::insertTree(Species* species, vec3 loc)
 
 vec4  objColor      = {0.0f, 0.5f, 0.9f, 1.0f};
 
-void Scene::draw(bool mouseMoved)
+void Scene::draw(bool mouseMoved, float timeElapsed)
 {
   Shader& shader = Shader::getMainShader();
   shader.useProgram();
@@ -283,7 +284,6 @@ void Scene::draw(bool mouseMoved)
       grid = new Grid(land, config.gridSpacing);
     grid->draw();
    }
-
  
   // Display the main textured land surface
   vec3 L;
@@ -292,7 +292,8 @@ void Scene::draw(bool mouseMoved)
   land.draw(camera);
   
   // Update the trees
-  Tree::growAllTrees(1.0f);
+  // XX this should be done through quadtree to only simulate currently visible
+  Tree::growAllTrees(simulationSpeed/timeElapsed);
   
   // Draw all the objects stored in the quadtree
   if(sceneObjectTbuf)

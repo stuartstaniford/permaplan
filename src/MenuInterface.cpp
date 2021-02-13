@@ -336,7 +336,7 @@ void MenuInterface::imguiSimulationController(void)
     // Auxiliary information
     ImGui::Text("Year: %.1f\n", 1920.0f);
     if(scene->simulationActive())
-      ImGui::Text("Simulation: Active\n");
+      ImGui::Text("Simulation Speed: %.2f\n", scene->simulationSpeed);
     else
       ImGui::Text("Simulation: Paused\n");
     ImGui::Separator();

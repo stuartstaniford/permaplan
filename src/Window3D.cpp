@@ -146,12 +146,12 @@ void Window3D::loop(HttpDebug& httpServer)
       else
         frameTimeAvg = 0.001f*(frameDouble - lastFrameDouble) + 0.999f*frameTimeAvg;
      }
-    lastFrameDouble = frameDouble;
     glClearColor(0.6f, 0.7f, 0.7f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glfwGetWindowSize(window, &width, &height); // make sure we know current size
     
-    scene->draw(mouseMoved);
+    scene->draw(mouseMoved, (float)(frameDouble - lastFrameDouble));
+    lastFrameDouble = frameDouble;
     imgMenu->imguiInterface();
     ImGuiIO& io = ImGui::GetIO();
 
