@@ -264,31 +264,26 @@ bool Camera::diagnosticHTML(HttpDebug* serv)
 {
   serv->startResponsePage("Camera");
     
-  serv->addResponseData("<center>\n");
+  httPrintf("<center>\n");
   serv->startTable();
-  serv->addResponseData("<tr><th></th><th>X</th><th>Y</th><th>Y</th></tr>\n");
+  httPrintf("<tr><th></th><th>X</th><th>Y</th><th>Y</th></tr>\n");
 
   //Position
-  serv->addResponseData("<tr><td>Position</td><td>");
-  serv->respPtr += sprintf(serv->respPtr, "%.1f</td><td>%.1f</td><td>%.1f</td></tr>\n",
-                             pos[0], pos[1], pos[2]);
+  httPrintf("<tr><td>Position</td><td>");
+  httPrintf("%.1f</td><td>%.1f</td><td>%.1f</td></tr>\n", pos[0], pos[1], pos[2]);
 
   //Front
-  serv->addResponseData("<tr><td>Front</td><td>");
-  serv->respPtr += sprintf(serv->respPtr, "%.4f</td><td>%.4f</td><td>%.4f</td></tr>\n",
-                           front[0], front[1], front[2]);
+  httPrintf("<tr><td>Front</td><td>");
+  httPrintf("%.4f</td><td>%.4f</td><td>%.4f</td></tr>\n", front[0], front[1], front[2]);
 
   //Up
-  serv->addResponseData("<tr><td>Up</td><td>");
-  serv->respPtr += sprintf(serv->respPtr, "%.4f</td><td>%.4f</td><td>%.4f</td></tr>\n",
-                           up[0], up[1], up[2]);
+  httPrintf("<tr><td>Up</td><td>");
+  httPrintf("%.4f</td><td>%.4f</td><td>%.4f</td></tr>\n", up[0], up[1], up[2]);
 
-  serv->addResponseData("</table></center><hr>\n");
-    
+  httPrintf("</table></center><hr>\n");
 
-  serv->addResponseData("<b>viewAngle:</b> ");
-  serv->respPtr += sprintf(serv->respPtr, "%.1f<br>\n",viewAngle);
-
+  httPrintf("<b>viewAngle:</b> ");
+  httPrintf("%.1f<br>\n", viewAngle);
   
   serv->endResponsePage();
   return true;
