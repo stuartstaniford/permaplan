@@ -177,6 +177,8 @@ void Window3D::loop(HttpDebug& httpServer)
 void Window3D::processDoubleClick(float mouseX, float mouseY, float timeDiff)
 {
   imgMenu->show_insert_menu = true;
+  if(scene->simulationActive())
+    scene->pauseSimulation();
   scene->findObjectFromWindowCoords(scene->lastDoubleClick,
                           mouseX/width*2.0f-1.0f, 1.0f - mouseY/height*2.0f);
   LogDoubleClick("Double click (%.3fs) at %.2f, %.2f\n", timeDiff, mouseX, mouseY);

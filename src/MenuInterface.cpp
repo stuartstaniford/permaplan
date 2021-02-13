@@ -295,6 +295,7 @@ void MenuInterface::imguiSimulationController(void)
     return;
   static int corner = 1;
   
+  // Basic window setup
   setCorner(corner);
   ImGui::SetNextWindowBgAlpha(0.35f); // Transparent background
   ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoDecoration |
@@ -312,6 +313,8 @@ void MenuInterface::imguiSimulationController(void)
     // Skip to start is U+23EE, (\xe2\x8f\xae in UTF8)
     ImGui::Separator();
     ImGui::Text("Simulation Control");
+    
+    // Simulation controls
     if(ImGui::Button("Simulate"))
      {
       LogSimulationControls("Simulate Button \xe2\x96\xb6 pressed.\n");
@@ -329,7 +332,13 @@ void MenuInterface::imguiSimulationController(void)
       LogSimulationControls("Restart Button \xe2\x8f\xae pressed.\n");
       scene->restartSimulation();
      }
+    
+    // Auxiliary information
     ImGui::Text("Year: %.1f\n", 1920.0f);
+    if(scene->simulationActive())
+      ImGui::Text("Simulation: Active\n");
+    else
+      ImGui::Text("Simulation: Paused\n");
     ImGui::Separator();
    }
   ImGui::End();
