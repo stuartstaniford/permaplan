@@ -252,22 +252,20 @@ void Boundary::writeOLDFSection(FILE* file, char* indent)
 
 bool Boundary::diagnosticHTML(HttpDebug* serv)
 {
-  serv->addResponseData("<h2>Boundary</h2>\n");
+  httPrintf("<h2>Boundary</h2>\n");
   
   // Reference Point
-  serv->respPtr += sprintf(serv->respPtr, "<b>Reference Point:</b> [%f, %f]<br><br>\n",
-                           referencePoint[0], referencePoint[1]);
-
+  httPrintf("<b>Reference Point:</b> [%f, %f]<br><br>\n", referencePoint[0],
+                                                                    referencePoint[1]);
   // Arcs
-  serv->addResponseData("<b>Arcs</b><br>\n");
-  serv->addResponseData("<center>\n");
+  httPrintf("<b>Arcs</b><br>\n");
+  httPrintf("<center>\n");
   serv->startTable();
-  serv->addResponseData("<tr><th>Index</th><th>Location</th></tr>\n");
+  httPrintf("<tr><th>Index</th><th>Location</th></tr>\n");
   int N = arcs.size()/2;
   for(int i=0; i<N; i++)
-    serv->respPtr += sprintf(serv->respPtr, "<tr><th>%d</th><th>[%f, %f]</th></tr>\n",
-                                          i, arcs[2*i], arcs[2*i+1]);
-  serv->addResponseData("</table></center><hr>\n");
+  httPrintf("<tr><th>%d</th><th>[%f, %f]</th></tr>\n", i, arcs[2*i], arcs[2*i+1]);
+  httPrintf("</table></center><hr>\n");
 
   return true;
 }
