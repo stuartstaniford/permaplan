@@ -413,33 +413,30 @@ bool Quadtree::diagnosticHTML(HttpDebug* serv, char* path)
  
     serv->newSection("Texture Bounds");
     serv->startTable();
-    serv->addResponseData("<tr><th></th><th>Bottom Left</th><th>Top Right</th></tr>\n");
+    httPrintf("<tr><th></th><th>Bottom Left</th><th>Top Right</th></tr>\n");
 
     // S co-ords
-    serv->addResponseData("<tr><td>S</td><td>");
-    serv->respPtr += sprintf(serv->respPtr, "%.4f</td><td>%.4f</td></tr>\n",
-                             textureBL[0], textureTR[0]);
+    httPrintf("<tr><td>S</td><td>");
+    httPrintf("%.4f</td><td>%.4f</td></tr>\n", textureBL[0], textureTR[0]);
+    
     // T co-ords
-    serv->addResponseData("<tr><td>T</td><td>");
-    serv->respPtr += sprintf(serv->respPtr, "%.4f</td><td>%.4f</td></tr>\n",
-                             textureBL[1], textureTR[1]);
-    serv->addResponseData("</table></center><hr>\n");
+    httPrintf("<tr><td>T</td><td>");
+    httPrintf("%.4f</td><td>%.4f</td></tr>\n", textureBL[1], textureTR[1]);
+    httPrintf("</table></center><hr>\n");
 
     // Kids
     serv->newSection("Child Nodes");
     serv->startTable();
-    serv->addResponseData("<tr><th>Index</th><th>X Bounds</th><th>Y Bounds</th>\n");
+    httPrintf("<tr><th>Index</th><th>X Bounds</th><th>Y Bounds</th>\n");
+    
     forAllKids(i)
      {
-      serv->respPtr += sprintf(serv->respPtr,
-                          "<tr><td><a href=\"%d/\">%d</a></td>",i, i);
-      serv->respPtr += sprintf(serv->respPtr, "<td>(%.1f, %.1f)</td>",
-                            kids[i]->bbox.lower[0], kids[i]->bbox.upper[0]);
-      serv->respPtr += sprintf(serv->respPtr, "<td>(%.1f, %.1f)</td>",
-                            kids[i]->bbox.lower[1], kids[i]->bbox.upper[1]);
-      serv->addResponseData("</td></tr>\n");
+      httPrintf("<tr><td><a href=\"%d/\">%d</a></td>", i, i);
+      httPrintf("<td>(%.1f, %.1f)</td>", kids[i]->bbox.lower[0], kids[i]->bbox.upper[0]);
+      httPrintf("<td>(%.1f, %.1f)</td>", kids[i]->bbox.lower[1], kids[i]->bbox.upper[1]);
+      httPrintf("</td></tr>\n");
      }
-    serv->addResponseData("</table></center>\n");
+    httPrintf("</table></center>\n");
     
     // Visual objects
     serv->newSection("Objects Stored at this Quadtree Node");
@@ -447,31 +444,34 @@ bool Quadtree::diagnosticHTML(HttpDebug* serv, char* path)
     if(surface)
       surface->diagnosticHTML(serv);
     vObjects.diagnosticHTML(serv);
-    serv->addResponseData("</table></center>\n");
+    httPrintf("</table></center>\n");
 
     // Vertex Data
     serv->newSection("Vertex Data");
-    serv->addResponseData("</center>\n");
-    serv->respPtr += sprintf(serv->respPtr, "<b>Vertex Count:</b> %u<br>\n", landVBOSize);
-    serv->respPtr += sprintf(serv->respPtr, "<b>Vertex Offset:</b> %u<br>\n", bufferOffset);
-
+    httPrintf("</center>\n");
+    httPrintf("<b>Vertex Count:</b> %u<br>\n", landVBOSize);
+    httPrintf("<b>Vertex Offset:</b> %u<br>\n", bufferOffset);
     
     // Other data
     serv->newSection("Other Data");
-    serv->addResponseData("</center>\n");
+    httPrintf("</center>\n");
 
     // Camera intersection
     float lambda;
     vec3 pos, dir;
     serv->scene.camera.copyDirection(pos, dir);
     if(matchRay(pos, dir, lambda))
-      serv->respPtr += sprintf(serv->respPtr, "<b>Camera intersects, Lambda:</b> %.3f<br>\n",
-                               lambda);
+     {
+      httPrintf("<b>Camera intersects, Lambda:</b> %.3f<br>\n", lambda);
+     }
     else
-      serv->addResponseData("Camera doesn't intersect.<br>\n");
-
+     {
+      httPrintf("Camera doesn't intersect.<br>\n");
+     }
+    
     serv->endResponsePage();
    }
+              
   return true;
 }
 

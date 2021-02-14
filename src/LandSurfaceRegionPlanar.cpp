@@ -200,7 +200,6 @@ const char* LandSurfaceRegionPlanar::objectName(void)
 }
 
 
-
 // =======================================================================================
 // We assume we are part of a table of visual objects and we just contribute one row
 // about this particular chunk of land surface.

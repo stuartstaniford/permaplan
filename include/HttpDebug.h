@@ -39,7 +39,7 @@ public:
   // Member functions - public
   HttpDebug(unsigned short servPort, Scene& S);
   ~HttpDebug(void);
-  void* processConnections(void);
+  void*       processConnections(void);
   void        startResponsePage(const char* title);
   void        endResponsePage(void);
   bool        errorPage(const char* error);
