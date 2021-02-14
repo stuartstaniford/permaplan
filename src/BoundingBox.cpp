@@ -259,7 +259,7 @@ bool BoundingBox::diagnosticHTML(HttpDebug* serv)
   httPrintf("%.1f</td><td>%.1f</td></tr>\n", lower[2], upper[2]);
   
   // Conclude
-  serv->addResponseData("</table></center><hr>\n");
+  httPrintf("</table></center><hr>\n");
   return true;
 }
 

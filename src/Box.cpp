@@ -298,10 +298,10 @@ const char* Box::objectName(void)
 bool Box::diagnosticHTML(HttpDebug* serv)
 {
   
-  serv->addResponseData("<tr><td>Box</td>");
-  /*serv->respPtr += sprintf(serv->respPtr,
-                           "<td><b>Location:</b> (%.1f, %.1f, %.1f)</td></tr>\n",
+  httPrintf("<tr><td>Box</td>");
+  /*httPrintf("<td><b>Location:</b> (%.1f, %.1f, %.1f)</td></tr>\n",
                            location[0], location[1], location[2]);*/
+  
   return true;
 }
 

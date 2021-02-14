@@ -103,36 +103,36 @@ bool HttpDebug::indexPage(void)
   startResponsePage("App Debugging Interface");
   
   // Beginning of table
-  addResponseData("<center>\n");
+  internalPrintf("<center>\n");
   startTable();
-  addResponseData("<tr><th>Link</th><th>notes</th></tr>\n");
+  internalPrintf("<tr><th>Link</th><th>notes</th></tr>\n");
   
   // Quadtree
-  addResponseData("<tr><td><a href=\"/quad/\">quad/</a></td>");
-  addResponseData("<td>Examine the quadtree</td></tr>\n");
+  internalPrintf("<tr><td><a href=\"/quad/\">quad/</a></td>");
+  internalPrintf("<td>Examine the quadtree</td></tr>\n");
 
   // Land Surface
-  addResponseData("<tr><td><a href=\"/land/\">land/</a></td>");
-  addResponseData("<td>Information about the land surface model.</td></tr>\n");
+  internalPrintf("<tr><td><a href=\"/land/\">land/</a></td>");
+  internalPrintf("<td>Information about the land surface model.</td></tr>\n");
 
   // Plants
-  addResponseData("<tr><td><a href=\"/plants/\">plants/</a></td>");
-  addResponseData("<td>Table of all trees and other plants</td></tr>\n");
+  internalPrintf("<tr><td><a href=\"/plants/\">plants/</a></td>");
+  internalPrintf("<td>Table of all trees and other plants</td></tr>\n");
 
   // Camera
-  addResponseData("<tr><td><a href=\"/camera/\">camera/</a></td>");
-  addResponseData("<td>Current camera variables</td></tr>\n");
+  internalPrintf("<tr><td><a href=\"/camera/\">camera/</a></td>");
+  internalPrintf("<td>Current camera variables</td></tr>\n");
   
   // Scene indicator tbuf
-  addResponseData("<tr><td><a href=\"/stbuf/\">tbuf/</a></td>");
-  addResponseData("<td>Scene indicator triangle buffer</td></tr>\n");
+  internalPrintf("<tr><td><a href=\"/stbuf/\">tbuf/</a></td>");
+  internalPrintf("<td>Scene indicator triangle buffer</td></tr>\n");
 
   // Scene object tbuf
-  addResponseData("<tr><td><a href=\"/otbuf/\">tbuf/</a></td>");
-  addResponseData("<td>Scene object triangle buffer</td></tr>\n");
+  internalPrintf("<tr><td><a href=\"/otbuf/\">tbuf/</a></td>");
+  internalPrintf("<td>Scene object triangle buffer</td></tr>\n");
 
   // End table and page
-  addResponseData("</table></center>\n");
+  internalPrintf("</table></center>\n");
   endResponsePage();
   return true;
 }
@@ -144,9 +144,9 @@ bool HttpDebug::indexPage(void)
 bool HttpDebug::errorPage(const char* error)
 {
   startResponsePage("Error");
-  addResponseData("Sorry, an error has occurred: <b>");
-  addResponseData(error);
-  addResponseData(".</b>\n");
+  internalPrintf("Sorry, an error has occurred: <b>");
+  internalPrintf("%s", error);
+  internalPrintf(".</b>\n");
   endResponsePage();
   return true;
 }
@@ -290,26 +290,24 @@ unsigned HttpDebug::generateHeader(unsigned bodySize, unsigned code, const char*
 // =======================================================================================
 // Generate an HTML page opening into the response buffer.
 
-void HttpDebug::startResponsePage(const char* title)
+bool HttpDebug::startResponsePage(const char* title)
 {
-  respPtr += sprintf(respPtr, "<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n");
-  respPtr += sprintf(respPtr, "<title>%s</title>\n", title);
-  respPtr += sprintf(respPtr, "<link rel=\"stylesheet\" href=\"css/styles.css\">\n");
-  respPtr += sprintf(respPtr, "</head>\n<body>\n");
-  respPtr += sprintf(respPtr, "<center><h1>%s</h1></center>\n", title);
-  if(respPtr - respBuf + 256 > respBufSize)
-    err(-1, "Overflowing response buffer in __func__\n");
+  internalPrintf("<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n");
+  internalPrintf("<title>%s</title>\n", title);
+  internalPrintf("<link rel=\"stylesheet\" href=\"css/styles.css\">\n");
+  internalPrintf("</head>\n<body>\n");
+  internalPrintf("<center><h1>%s</h1></center>\n", title);
+  return true;
 }
 
 
 // =======================================================================================
 // Generate an HTML page ending into the response buffer.
 
-void HttpDebug::endResponsePage(void)
+bool HttpDebug::endResponsePage(void)
 {
-  respPtr += sprintf(respPtr, "</body>\n</html>\n");
-  if(respPtr - respBuf + 256 > respBufSize)
-    err(-1, "Overflowing response buffer in __func__\n");
+  internalPrintf("</body>\n</html>\n");
+  return true;
 }
 
 // =======================================================================================

@@ -304,7 +304,7 @@ bool Tree::diagnosticHTML(HttpDebug* serv)
   if(trunk)
     unless(trunk->diagnosticHTML(serv))
       return false;
-  serv->addResponseData("</table></center><hr>\n");
+  httPrintf("</table></center><hr>\n");
 
   // Page closing
   serv->endResponsePage();
@@ -335,7 +335,7 @@ bool Tree::allTreeDiagnosticHTML(HttpDebug* serv)
 {
   httPrintf("Trees");
   
-  serv->addResponseData("<center>\n");
+  httPrintf("<center>\n");
   serv->startTable();
   httPrintf("<tr><th>Index</th><th>Species</th><th>Location</th></tr>\n");
   

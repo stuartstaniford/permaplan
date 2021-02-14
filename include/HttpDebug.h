@@ -19,6 +19,8 @@
 
 #define httPrintf(...) if((serv->respPtr += snprintf(serv->respPtr, \
               serv->respEnd-serv->respPtr,  __VA_ARGS__)) >= serv->respEnd) return false;
+#define internalPrintf(...) if((respPtr += snprintf(respPtr, \
+              respEnd-respPtr,  __VA_ARGS__)) >= respEnd) return false;
 
 // =======================================================================================
 // Class variable initialization
@@ -40,24 +42,18 @@ public:
   HttpDebug(unsigned short servPort, Scene& S);
   ~HttpDebug(void);
   void*       processConnections(void);
-  void        startResponsePage(const char* title);
-  void        endResponsePage(void);
+  bool        startResponsePage(const char* title);
+  bool        endResponsePage(void);
   bool        errorPage(const char* error);
-  inline void addResponseData(const char* data)
+  inline bool startTable(void)
    {
-    respPtr += sprintf(respPtr, "%s", data);
-    if(respPtr - respBuf + 256 > respBufSize)
-     err(-1, "Overflowing response buffer in __func__\n");
+    internalPrintf("<table cellpadding=\"1\" border=\"1\">\n");
+    return true;
    }
-  inline void startTable(void)
+  inline bool newSection(const char* title)
    {
-    addResponseData("<table cellpadding=\"1\" border=\"1\">\n");
-   }
-  inline void newSection(const char* title)
-   {
-    respPtr += sprintf(respPtr, "<hr><center><h3>%s</h3>\n", title);
-    if(respPtr - respBuf + 256 > respBufSize)
-      err(-1, "Overflowing response buffer in __func__\n");
+    internalPrintf("<hr><center><h3>%s</h3>\n", title);
+    return true;
    }
 
 private:

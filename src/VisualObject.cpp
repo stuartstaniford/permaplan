@@ -140,8 +140,8 @@ const char* VisualObject::objectName(void)
 
 bool VisualObject::diagnosticHTML(HttpDebug* serv)
 {
-  serv->addResponseData("<tr><td>VisualObject</td>");
-  serv->addResponseData("<td>Unsubclassed: something is wrong.</td></tr>\n");
+  httPrintf("<tr><td>VisualObject</td>");
+  httPrintf("<td>Unsubclassed: something is wrong.</td></tr>\n");
 
   return false;
 }

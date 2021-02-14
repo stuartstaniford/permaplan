@@ -189,7 +189,7 @@ const char* Cylinder::objectName(void)
 
 bool Cylinder::diagnosticHTML(HttpDebug* serv)
 {
-  serv->addResponseData("<tr><td>Cylinder</td>");
+  httPrintf("<tr><td>Cylinder</td>");
   httPrintf("<td><b>Location:</b> (%.1f, %.1f, %.1f)<br>",
                                             location[0], location[1], location[2]);
   httPrintf("<b>Radius:</b> %.1f<br>", radius);

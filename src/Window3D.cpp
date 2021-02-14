@@ -331,7 +331,9 @@ float Window3D::timeDelta(void)
 // =======================================================================================
 // Print instance debugging output
 
-void Window3D::diagnosticHTML(void)
+bool Window3D::diagnosticHTML(HttpDebug* serv)
 {
-  printf("Window3D: width: %d, height: %d<br>\n", width, height);
+  httPrintf("Window3D: width: %d, height: %d<br>\n", width, height);
+  
+  return true;
 }
