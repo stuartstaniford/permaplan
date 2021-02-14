@@ -63,7 +63,7 @@ const char* TreePart::objectName(void)
 bool TreePart::diagnosticHTML(HttpDebug* serv)
 {
   
-  serv->addResponseData("<tr><td>Abstract TreePart</td>");
+  httPrintf("<tr><td>Abstract TreePart</td>");
   return true;
 }
 

@@ -150,43 +150,41 @@ bool TriangleBuffer::diagnosticHTML(HttpDebug* serv)
     return false;
   serv->newSection("Vertices");
   serv->startTable();
-  serv->addResponseData("<tr><th>Index</th><th>X</th><th>Y</th><th>Z</th>");
-  serv->addResponseData("<th>S</th><th>T</th><th>Accent</th></tr>\n");
+  httPrintf("<tr><th>Index</th><th>X</th><th>Y</th><th>Z</th>");
+  httPrintf("<th>S</th><th>T</th><th>Accent</th></tr>\n");
   for(int v = 0; v < vCount; v++)
    {
-    serv->addResponseData("<tr>");
+    httPrintf("<tr>");
     
     // Index
-    serv->respPtr += sprintf(serv->respPtr, "<td><a name = %d>%d</td>", v,v);
+    httPrintf("<td><a name = %d>%d</td>", v,v);
     
     // X,Y,Z
     for(int i = 0; i < 3; i++)
-      serv->respPtr += sprintf(serv->respPtr, "<td>%.1f</td>", vertices[v].pos[i]);
+    httPrintf("<td>%.1f</td>", vertices[v].pos[i]);
 
     // S,T, accent
     for(int i = 4; i <= 5; i++)
-      serv->respPtr += sprintf(serv->respPtr, "<td>%.4f</td>", vertices[v].tex[i]);
-    serv->respPtr += sprintf(serv->respPtr, "<td>%.4f</td>", vertices[v].accent);
+    httPrintf("<td>%.4f</td>", vertices[v].tex[i]);
+    httPrintf("<td>%.4f</td>", vertices[v].accent);
 
-    serv->addResponseData("</tr>\n");
+    httPrintf("</tr>\n");
    }
-  serv->addResponseData("</table></center>\n");
+  httPrintf("</table></center>\n");
 
   // Table of the indices we store in rows of three, one row per triangle
   serv->newSection("Triangles");
   serv->startTable();
-  serv->addResponseData("<tr><th>Index</th><th>1st</th><th>2nd</th><th>3rd</th></tr>\n");
+  httPrintf("<tr><th>Index</th><th>1st</th><th>2nd</th><th>3rd</th></tr>\n");
   for(int i = 0; i < iCount; i+=3)
    {
-    serv->addResponseData("<tr>");
-    serv->respPtr += sprintf(serv->respPtr, "<td>%d</td>", i/3);
+    httPrintf("<tr>");
+    httPrintf("<td>%d</td>", i/3);
     for(int j = 0; j < 3; j++)
-      serv->respPtr += sprintf(serv->respPtr, "<td><a href=\"#%d\">%d</a></td>",
-                               indices[i+j], indices[i+j]);
-    serv->addResponseData("</tr>\n");
-
+    httPrintf("<td><a href=\"#%d\">%d</a></td>", indices[i+j], indices[i+j]);
+    httPrintf("</tr>\n");
    }
-  serv->addResponseData("</table></center>\n");
+  httPrintf("</table></center>\n");
 
   return true;
 }
