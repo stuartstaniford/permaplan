@@ -333,16 +333,16 @@ bool Tree::diagnosticHTMLRow(HttpDebug* serv)
 
 bool Tree::allTreeDiagnosticHTML(HttpDebug* serv)
 {
-  serv->startResponsePage("Trees");
+  httPrintf("Trees");
   
   serv->addResponseData("<center>\n");
   serv->startTable();
-  serv->addResponseData("<tr><th>Index</th><th>Species</th><th>Location</th></tr>\n");
+  httPrintf("<tr><th>Index</th><th>Species</th><th>Location</th></tr>\n");
   
   for(int i=0; i< treeCount; i++)
     treePtrArray[i]->diagnosticHTMLRow(serv);
   
-  serv->addResponseData("</table></center><hr>\n");
+  httPrintf("</table></center><hr>\n");
   serv->endResponsePage();
   return true;
 }
