@@ -443,14 +443,14 @@ bool Species::diagnosticHTML(HttpDebug* serv)
   snprintf(title, MAX_SPECIES_PATH+16, "Species: %s %s", genusName, speciesName);
   serv->startResponsePage(title);
   
-  serv->addResponseData("<h2>OTDL spec</h2>\n");
-  serv->addResponseData("<pre>\n");
+  httPrintf("<h2>OTDL spec</h2>\n");
+  httPrintf("<pre>\n");
   int size;
   if((size = writeOTDL(serv->respPtr, serv->respEnd - serv->respPtr)) >= 0)
     serv->respPtr += size;
   else
     return false;
-  serv->addResponseData("</pre>\n");
+  httPrintf("</pre>\n");
   serv->endResponsePage();
   return true;
 }
