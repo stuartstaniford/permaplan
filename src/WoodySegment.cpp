@@ -9,13 +9,19 @@
 // =======================================================================================
 // Constructors.
 
-WoodySegment::WoodySegment(Species& species, unsigned short treeIndex, float years):
+WoodySegment::WoodySegment(Species& species, unsigned short treeIndex, float years,
+                           vec3 location):
                               TreePart(treeIndex),
-                              //length(years*species.stemRate),
                               heartRadius(0.0f),
                               sapThickness(species.initSapThickness),
                               barkThickness(species.initBarkThickness)
 {
+  vec3 direction;
+  direction[0] = 0.0f;
+  direction[1] = 0.0f;
+  direction[2] = years*species.stemRate;
+  cylinder = new Cylinder(location, direction,
+                          heartRadius + sapThickness + barkThickness, WOOD_SEG_SIDES);
 }
 
 
@@ -46,9 +52,6 @@ bool WoodySegment::bufferGeometry(TriangleBuffer* T)
 
 void WoodySegment::triangleBufferSizesRecurse(unsigned& vCount, unsigned& iCount)
 {
-  vCount += WOOD_SEG_SIDES*3+1;
-  iCount += WOOD_SEG_SIDES*9;
-  
   // XX do recursion
 }
 
@@ -70,7 +73,8 @@ const char* WoodySegment::objectName(void)
 bool WoodySegment::diagnosticHTML(HttpDebug* serv)
 {
   httPrintf("<tr><td>WoodySegment</td><td>[%f, %f, %f]</td><td>[%f, %f, %f]</td><tr>",
-              location[0], location[1], location[2], direction[0], direction[1], direction[2]);
+              cylinder->location[0], cylinder->location[1], cylinder->location[2],
+              cylinder->direction[0], cylinder->direction[1], cylinder->direction[2]);
   
   //XX recurse on children
   return true;

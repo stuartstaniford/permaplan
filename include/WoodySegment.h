@@ -5,7 +5,9 @@
 #ifndef WOODY_SEGMENT_H
 #define WOODY_SEGMENT_H
 
+#include <vector>
 #include "TreePart.h"
+#include "Cylinder.h"
 
 #define WOOD_SEG_SIDES 10   //XX initial hack that needs to be made more LOD
 
@@ -21,7 +23,7 @@ class WoodySegment: public TreePart
  public:
   
   // Member functions - public
-  WoodySegment(Species& species, unsigned short treeIndex, float years);
+  WoodySegment(Species& species, unsigned short treeIndex, float years, vec3 location);
   ~WoodySegment(void);
   bool bufferGeometry(TriangleBuffer* T);
  void triangleBufferSizesRecurse(unsigned& vCount, unsigned& iCount);
@@ -29,12 +31,12 @@ class WoodySegment: public TreePart
   bool        diagnosticHTML(HttpDebug* serv);
 
  private:
-  vec3            location;       // mm
-  vec3            direction;      // mm
-  float           heartRadius;    // expressed in mm
-  float           sapThickness;   // mm
-  float           barkThickness;  // mm.  Phloem currently part of bark
-
+  float                   heartRadius;    // expressed in mm
+  float                   sapThickness;   // mm
+  float                   barkThickness;  // mm.  Phloem currently part of bark
+  Cylinder*               cylinder;
+  std::vector<TreePart*>  kids;
+  
   // Instance variables - private
   
   // Member functions - private

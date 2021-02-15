@@ -46,6 +46,15 @@
      "notes": "Big old pine in the center"
     },
     {
+     "location": [200, 200],
+     "yearPlanted": 1950,
+     "timePlanted": [20,20],
+     "genus": "Fagus",
+     "species": "grandifolia",
+     "commonName": "American beech",
+     "treeDiameter": [10.2, 2019.18],
+     "notes": "Beech tree"
+    },    {
      "location": [92, 48],
      "yearPlanted": 1940,
      "timePlanted": [20,20],
