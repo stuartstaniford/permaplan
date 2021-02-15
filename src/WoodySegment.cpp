@@ -52,7 +52,17 @@ bool WoodySegment::bufferGeometry(TriangleBuffer* T)
 
 void WoodySegment::triangleBufferSizesRecurse(unsigned& vCount, unsigned& iCount)
 {
-  // XX do recursion
+  // Add ourselves
+  unsigned V, I;
+  cylinder->triangleBufferSizes(V, I);
+  vCount += V;
+  iCount += I;
+  
+  // Add our branches, etc
+  int N = kids.size();
+  for(int i=0; i<N; i++)
+    if(kids[i])
+      triangleBufferSizesRecurse(vCount, iCount);
 }
 
 
