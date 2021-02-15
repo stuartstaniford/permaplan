@@ -1,0 +1,37 @@
+// OTDL for Fagus grandifolia (American Beech)
+{
+  "overviewData":
+    {
+     "genus":       "Fagus",
+     "species":     "grandifolia",
+     "commonNames":
+       {
+        "en-US": "American Beech",
+        "en-GB": "American Beech"
+       },
+     "version":     [0, 0, 1],
+     "fileTime":    [1613393672, 991],
+     "authors":     ["Stuart Staniford"]
+    },
+ "wood":
+  {
+   "stemRate": 700,
+   "initSapThickness": 1.5,
+   "initBarkThickness": 0.5,
+   "barkTextures":
+    {
+    
+    },
+   "barkColors":
+    [
+      {
+       "ages": [0.0, 10000.0],
+       "rgb": [220, 100, 100]
+      }
+    ]
+ },
+ "foliage":
+  {
+  }
+}
+

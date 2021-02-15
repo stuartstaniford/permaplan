@@ -2,7 +2,7 @@
 
 $detail = 0;
 
-open(FILE, "wc src/*.cpp include/*.h *.pl 812/*.oldf src/*.glsl CMakeLists.txt web/*.js web/views/*js docs/*.md tests/*.oldf tests/*.pl /Users/stuarts/permaplan/Materials/Trees/Acer/rubrum/default.otdl /Users/stuarts/permaplan/Materials/Trees/Pinus/strobus/default.otdl|")
+open(FILE, "wc unixTime.cpp src/*.cpp include/*.h *.pl 812/*.oldf src/*.glsl CMakeLists.txt web/*.js web/views/*js docs/*.md tests/*.oldf tests/*.pl Materials/Trees/Acer/rubrum/default.otdl Materials/Trees/Pinus/strobus/default.otdl Materials/Trees/Fagus/grandifolia/default.otdl|")
 || die("Couldn't run wc.\n");
 
 open(OUT, "|open -a XCode -f") || die("Couldn't open XCode.\n") if $detail;
