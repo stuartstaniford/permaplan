@@ -21,6 +21,8 @@ class TreePart
   virtual ~TreePart(void);
   virtual bool bufferGeometry(TriangleBuffer* T);
   virtual void triangleBufferSizesRecurse(unsigned& vCount, unsigned& iCount);
+  virtual void growStep(float years);
+
   virtual const char* objectName(void);
   virtual bool diagnosticHTML(HttpDebug* serv);
 

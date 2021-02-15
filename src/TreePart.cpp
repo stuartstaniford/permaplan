@@ -28,8 +28,7 @@ TreePart::~TreePart(void)
 bool TreePart::bufferGeometry(TriangleBuffer* T)
 {
   // Add nothing in this base class
-  
-  // XX do recursion
+  err(-1, "Bad call to TreePart::bufferGeometry");
   return true;
 }
 
@@ -41,11 +40,20 @@ bool TreePart::bufferGeometry(TriangleBuffer* T)
 void TreePart::triangleBufferSizesRecurse(unsigned& vCount, unsigned& iCount)
 {
   // Add nothing in this base class
-  
-  // XX do recursion
+  err(-1, "Bad call to TreePart::triangleBufferSizesRecurse");
 }
 
 
+// =======================================================================================
+// Function that is applied to grow the tree by a certain number of years (possibly
+// fractional).
+
+void TreePart::growStep(float years)
+{
+  err(-1, "Bad call to TreePart::growStep");
+}
+
+  
 // =======================================================================================
 // Tell callers our name at runtime.
 
@@ -62,7 +70,6 @@ const char* TreePart::objectName(void)
 
 bool TreePart::diagnosticHTML(HttpDebug* serv)
 {
-  
   httPrintf("<tr><td>Abstract TreePart</td>");
   return true;
 }

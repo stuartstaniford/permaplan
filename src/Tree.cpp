@@ -66,13 +66,10 @@ Tree::~Tree(void)
 void Tree::growStep(float years)
 {
   // Handle the case of a brand new tree
-  if(!trunk)
-   {
+  unless(trunk)
     trunk = new WoodySegment(*species, treePtrArrayIndex, years, location);
-    return;
-   }
-  
-  // Handle the case of an existing tree by recursing into the trunk
+  else
+    trunk->growStep(years);
 }
 
 

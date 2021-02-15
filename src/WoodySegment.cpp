@@ -56,7 +56,6 @@ bool WoodySegment::bufferGeometry(TriangleBuffer* T)
 }
 
 
-
 // =======================================================================================
 // Assess the number of vertices/indices required in a triangle buffer to render us
 // and all our children.
@@ -77,6 +76,22 @@ void WoodySegment::triangleBufferSizesRecurse(unsigned& vCount, unsigned& iCount
 }
 
 
+// =======================================================================================
+// Function that is applied to grow the tree by a certain number of years (possibly
+// fractional).
+
+void WoodySegment::growStep(float years)
+{
+  // Do ourselves
+  
+  // Recurse into our kids
+  int N = kids.size();
+  for(int i=0; i<N; i++)
+    if(kids[i])
+      kids[i]->growStep(years);
+}
+
+  
 // =======================================================================================
 // Tell callers our name at runtime.
 
