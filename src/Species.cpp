@@ -374,7 +374,7 @@ Species* Species::loadLocalOTDLEntry(char* speciesPath)
 // =======================================================================================
 // Write out the OTDL object to a buffer (eg used by diagnosticHTML for Species page).
 
-#define bufprintf(...) if((buf += snprintf(buf, end-buf,  __VA_ARGS__)) >= end) return -1;
+#define bufprintf(...) if((buf += snprintf(buf, end-buf,  __VA_ARGS__)) >= end) {return -1;}
 
 int Species::writeOTDL(char* buf, unsigned bufSize)
 {

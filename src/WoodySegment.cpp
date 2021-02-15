@@ -93,6 +93,41 @@ void WoodySegment::growStep(float years)
 
   
 // =======================================================================================
+// Function to print out in JSON format.
+
+#define bufprintf(...) if((buf += snprintf(buf, end-buf,  __VA_ARGS__)) >= end) {return -1;}
+
+int WoodySegment::printOPSF(char*& buf, unsigned bufSize)
+{
+  char* end = buf + bufSize;
+
+  // Our own information
+  bufprintf("\"woodySegment\": {\n");
+  bufprintf("\"heartRadius\": %f,\n", heartRadius);
+  bufprintf("\"sapThickness\": %f,\n", sapThickness);
+  bufprintf("\"barkThickness\": %f,\n", barkThickness);
+  
+  // Cylinder info
+  cylinder->printOPSF(buf, (unsigned)(end-buf));
+  bufprintf(",\n");
+
+  // Our kids
+  bufprintf("kids = [\n");
+  int N = kids.size();
+  for(int i=0; i<N; i++)
+    if(kids[i])
+     {
+      
+     }
+  bufprintf("]\n"); // kids array is last thing inside our object, so no comma
+
+  // Close up and go home.
+  bufprintf("}"); // Note no ",\n" - caller must supply if necessary
+  return (bufSize - (int)(end-buf));
+}
+
+
+// =======================================================================================
 // Tell callers our name at runtime.
 
 const char* WoodySegment::objectName(void)

@@ -174,6 +174,19 @@ bool Cylinder::matchRay(vec3& position, vec3& direction, float& lambda)
 
 
 // =======================================================================================
+// Function to print out in JSON format.
+
+#define bufprintf(...) if((buf += snprintf(buf, end-buf,  __VA_ARGS__)) >= end) {return -1;}
+
+int Cylinder::printOPSF(char*& buf, unsigned bufSize)
+{
+  char* end = buf + bufSize;
+
+  return (bufSize - (int)(end-buf));
+}
+
+
+// =======================================================================================
 // Tell callers our name at runtime.
 
 const char* Cylinder::objectName(void)
