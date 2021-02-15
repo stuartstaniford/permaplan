@@ -62,7 +62,7 @@ void WoodySegment::triangleBufferSizesRecurse(unsigned& vCount, unsigned& iCount
   int N = kids.size();
   for(int i=0; i<N; i++)
     if(kids[i])
-      triangleBufferSizesRecurse(vCount, iCount);
+      kids[i]->triangleBufferSizesRecurse(vCount, iCount);
 }
 
 
@@ -86,7 +86,12 @@ bool WoodySegment::diagnosticHTML(HttpDebug* serv)
               cylinder->location[0], cylinder->location[1], cylinder->location[2],
               cylinder->direction[0], cylinder->direction[1], cylinder->direction[2]);
   
-  //XX recurse on children
+  int N = kids.size();
+  for(int i=0; i<N; i++)
+    if(kids[i])
+      if(!kids[i]->diagnosticHTML(serv))
+        return false;
+         
   return true;
 }
 
