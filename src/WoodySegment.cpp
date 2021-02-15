@@ -30,6 +30,11 @@ WoodySegment::WoodySegment(Species& species, unsigned short treeIndex, float yea
 
 WoodySegment::~WoodySegment(void)
 {
+  delete cylinder;
+  int N = kids.size();
+  for(int i=0; i<N; i++)
+    if(kids[i])
+      delete kids[i];
 }
 
 
@@ -38,9 +43,15 @@ WoodySegment::~WoodySegment(void)
 
 bool WoodySegment::bufferGeometry(TriangleBuffer* T)
 {
-  //XX TBD
+  unless(cylinder->bufferGeometry(T))
+    return false;
   
-  // XX do recursion
+  int N = kids.size();
+  for(int i=0; i<N; i++)
+    if(kids[i])
+      unless(kids[i]->bufferGeometry(T))
+        return false;
+  
   return true;
 }
 
@@ -89,7 +100,7 @@ bool WoodySegment::diagnosticHTML(HttpDebug* serv)
   int N = kids.size();
   for(int i=0; i<N; i++)
     if(kids[i])
-      if(!kids[i]->diagnosticHTML(serv))
+      unless(kids[i]->diagnosticHTML(serv))
         return false;
          
   return true;
