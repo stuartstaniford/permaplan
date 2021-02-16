@@ -47,6 +47,7 @@
 // Logging options for Trees/Plants
 
 #define LOG_TREE_SELECTIONS     // Log when a tree is selected.
+#define LOG_TREE_READS          // Log when a tree is read in from a file or url
 #define LOG_TREE_SIM_OVERVIEW   // Log high level actions in simulating tree growth.
 #define LOG_TREE_SIM_DETAILS    // Log all the gory details of simulated tree growth.
 #define LOG_TREE_VISUALIZATION  // Log trees being rendered.
@@ -252,6 +253,13 @@ extern FILE* LogFile;
 #define LogTreeSelections(...) LogStatement(__VA_ARGS__)
 #else
 #define LogTreeSelections(...)
+#endif
+
+// Log when a tree is read in from a file or url
+#ifdef LOG_TREE_READS
+#define LogTreeReads(...) LogStatement(__VA_ARGS__)
+#else
+#define LogTreeReads(...)
 #endif
 
 // Log high level actions in simulating tree growth.

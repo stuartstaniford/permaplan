@@ -43,6 +43,8 @@ Tree::Tree(Value& plantObject):
 
   treePtrArray[(treePtrArrayIndex = treeCount++)] = this;
   updateBoundingBox();
+  LogTreeReads("Tree %d (%s %s) read in from file.\n", treePtrArrayIndex,
+                                            species->genusName, species->speciesName);
 }
 
 
@@ -60,11 +62,21 @@ Tree::~Tree(void)
 
 void Tree::growStep(float years)
 {
+  LogTreeSimOverview("Growing tree %d (%s %s) by %.2f years.\n", treePtrArrayIndex,
+                                                species->genusName, species->speciesName, years);
+
   // Handle the case of a brand new tree
   unless(trunk)
+   {
+    LogTreeSimDetails("Tree %d getting its new trunk.\n", treePtrArrayIndex);
     trunk = new WoodySegment(*species, treePtrArrayIndex, years, location);
+   }
   else
+   {
+    LogTreeSimDetails("Tree %d growing trunk by %.2f years.\n",
+                                    treePtrArrayIndex, years);
     trunk->growStep(years);
+   }
 }
 
 
@@ -73,6 +85,7 @@ void Tree::growStep(float years)
 
 void Tree::growAllTrees(float years)
 {
+  LogTreeSimOverview("Growing %d trees by %.2f years.\n", treeCount, years);
   for(int i=0; i<treeCount; i++)
     treePtrArray[i]->growStep(years);
 }
