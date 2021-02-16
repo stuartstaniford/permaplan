@@ -1,3 +1,7 @@
-open -a XCode src/*.cpp src/*.c
-open -a XCode include/*.h
-open -a XCode Makefile README.md openSrc *.pl compilePmod 812/812.oldf src/*.glsl CMakeLists.txt web/*.js web/views/*.ejs web/views/*.js docs/*.md tests/*.oldf tests/*.pl Materials/Trees/Pinus/strobus/default.otdl Materials/Trees/Acer/rubrum/default.otdl Materials/Trees/Fagus/grandifolia/default.otdl rfc5646-language-tags.json
+#!/usr/bin/perl
+
+system("open -a XCode src/*.cpp src/*.c");
+system("open -a XCode include/*.h");
+$otdlFiles = `find Materials/Trees -name default.otdl`;
+$otdlFiles =~ s/\n/ /g;
+system("open -a XCode Makefile README.md openSrc *.pl compilePmod 812/812.oldf src/*.glsl CMakeLists.txt web/*.js web/views/*.ejs web/views/*.js docs/*.md tests/*.oldf tests/*.pl rfc5646-language-tags.json $otdlFiles");

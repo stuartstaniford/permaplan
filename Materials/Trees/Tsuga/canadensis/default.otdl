@@ -1,0 +1,40 @@
+// OTDL for Tsuga canadensis (Eastern Hemlock)
+{
+  "overviewData":
+    {
+     "genus":       "Tsuga",
+     "species":     "canadensis",
+     "commonNames":
+       {
+        "en-US": "Eastern Hemlock",
+        "fr-CA": "pruche du Canada"
+       },
+     "version":     [0, 0, 1],
+     "fileTime":    [1613492928, 373562],
+     "authors":     ["Stuart Staniford"]
+    },
+ "wood":
+  {
+   "stemRate": 800,
+   "initSapThickness": 1.5,
+   "initBarkThickness": 0.5,
+   "barkTextures":
+    {
+    
+    },
+   "barkColors":
+    [
+      {
+       "ages": [0.0, 2.0],
+       "rgb": [200, 200, 200]
+      },
+      {
+       "ages": [2.0, 10000.0],
+       "rgb": [230, 230, 230]
+      }
+    ]
+  },
+ "foliage":
+  {
+  }
+}
