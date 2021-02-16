@@ -40,8 +40,16 @@
 //#define LOG_ATLAS_ANOMALIES     // Log weird conditions in texture atlas creation
 //#define LOG_ATLAS_PLACEMENT     // Log details of which image is where in atlas
 //#define LOG_MATERIAL_SELECTIONS // Log when a material is selected.
-//#define LOG_TREE_SELECTIONS     // Log when a tree is selected.
 //#define LOG_PATH_MAP            // Log storage and use of the path map
+
+
+// =======================================================================================
+// Logging options for Trees/Plants
+
+#define LOG_TREE_SELECTIONS     // Log when a tree is selected.
+#define LOG_TREE_SIM_OVERVIEW   // Log high level actions in simulating tree growth.
+#define LOG_TREE_SIM_DETAILS    // Log all the gory details of simulated tree growth.
+#define LOG_TREE_VISUALIZATION  // Log trees being rendered.
 
 
 // =======================================================================================
@@ -228,6 +236,17 @@ extern FILE* LogFile;
 #define LogMaterialSelections(...)
 #endif
 
+// Log storage and use of the path map
+#ifdef LOG_PATH_MAP
+#define LogPathMap(...) LogStatement(__VA_ARGS__)
+#else
+#define LogPathMap(...)
+#endif
+
+
+// =======================================================================================
+// Logging options for Trees/Plants
+
 // Log when a tree is selected.
 #ifdef LOG_TREE_SELECTIONS
 #define LogTreeSelections(...) LogStatement(__VA_ARGS__)
@@ -235,11 +254,25 @@ extern FILE* LogFile;
 #define LogTreeSelections(...)
 #endif
 
-// Log storage and use of the path map
-#ifdef LOG_PATH_MAP
-#define LogPathMap(...) LogStatement(__VA_ARGS__)
+// Log high level actions in simulating tree growth.
+#ifdef LOG_TREE_SIM_OVERVIEW
+#define LogTreeSimOverview(...) LogStatement(__VA_ARGS__)
 #else
-#define LogPathMap(...)
+#define LogTreeSimOverview(...)
+#endif
+
+// Log all the gory details of simulated tree growth.
+#ifdef LOG_TREE_SIM_DETAILS
+#define LogTreeSimDetails(...) LogStatement(__VA_ARGS__)
+#else
+#define LogTreeSimDetails(...)
+#endif
+
+// Log trees being rendered.
+#ifdef LOG_TREE_VISUALIZATION
+#define LogTreeVisualization(...) LogStatement(__VA_ARGS__)
+#else
+#define LogTreeVisualization(...)
 #endif
 
 

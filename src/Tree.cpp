@@ -14,16 +14,8 @@ using namespace rapidjson;
 // =======================================================================================
 // Constructors.  NB MORE THAN ONE CONSTRUCTOR!!!
 
-/*
-Tree::Tree(mat4 transform)
-{
-  glm_mat4_copy(transform, trans);
-  updateBoundingBox();
-  treePtrArray[(treePtrArrayIndex = treeCount++)] = this;
-}
-*/
-
 // Constructor used when starting a seedling from the interface
+
 Tree::Tree(Species* S, vec3 loc, float age):
                           species(S),
                           trunk(NULL)
@@ -35,7 +27,9 @@ Tree::Tree(Species* S, vec3 loc, float age):
 }
 
 
+// =======================================================================================
 // This is the constructor generally used when reading from OLDF.
+
 Tree::Tree(Value& plantObject):
                           trunk(NULL)
 {

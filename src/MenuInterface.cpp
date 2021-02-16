@@ -155,7 +155,7 @@ void MenuInterface::imguiGenusMenu(void)
       Species* S = iter.second;
       genusSelected = NULL;
       show_tree_menu = false;
-      LogTreeSelections("Tree %s %s (age %.1f) inserted at [%f, %f].\n",
+      LogTreeSelections("Tree %s %s (age %.1f years) inserted at [%f, %f].\n",
                         S->genusName, S->speciesName, atof(heightBuf),
                                           scene->lastDoubleClick[0], scene->lastDoubleClick[1]);
       scene->insertTree(S, scene->lastDoubleClick, atof(heightBuf));
