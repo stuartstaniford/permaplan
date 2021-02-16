@@ -297,6 +297,7 @@ void Scene::draw(bool mouseMoved, float timeElapsed)
    {
     simYear += timeElapsed/simulationSpeed;
     Tree::growAllTrees(timeElapsed/simulationSpeed);
+    rebuildVisualObjectBuffer(&sceneObjectTbuf);
    }
   
   // Draw all the objects stored in the quadtree

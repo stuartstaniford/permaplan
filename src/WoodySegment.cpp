@@ -101,6 +101,9 @@ int WoodySegment::printOPSF(char*& buf, unsigned bufSize)
 {
   char* end = buf + bufSize;
 
+  // XX this isn't quite formulated right at present.  We are starting as though we are within
+  // an object, yet putting the kids in an array.
+  
   // Our own information
   bufprintf("\"woodySegment\": {\n");
   bufprintf("\"heartRadius\": %f,\n", heartRadius);
@@ -117,7 +120,6 @@ int WoodySegment::printOPSF(char*& buf, unsigned bufSize)
   for(int i=0; i<N; i++)
     if(kids[i])
      {
-      
      }
   bufprintf("]\n"); // kids array is last thing inside our object, so no comma
 
