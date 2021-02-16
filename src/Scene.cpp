@@ -247,9 +247,9 @@ void Scene::insertVisibleObject(char* objType, float size, vec3 loc, Material* m
 // =======================================================================================
 // Handle a UI call to insert a new object in the scene (from the insert menu in Window3D)
 
-void Scene::insertTree(Species* species, vec3 loc)
+void Scene::insertTree(Species* species, vec3 loc, float age)
 {
-  Tree* tree = new Tree(species, loc);
+  Tree* tree = new Tree(species, loc, age);
   
   qtree->storeVisualObject(tree);
   rebuildVisualObjectBuffer(&sceneObjectTbuf);

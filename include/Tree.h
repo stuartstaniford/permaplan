@@ -31,7 +31,7 @@ class Tree: public VisualObject
   Species*        species;
 
   // Member functions - public
-  Tree(Species* S, vec3 loc);
+  Tree(Species* S, vec3 loc, float age);
   Tree(rapidjson::Value& plantObject);
   ~Tree(void);
   void        growStep(float years);

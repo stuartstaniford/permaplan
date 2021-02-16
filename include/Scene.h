@@ -60,7 +60,7 @@ class Scene
   VisualObject* getFreshObject(char* objTypeName, mat4 transform);
   void          newObjectTransform(mat4 transform, float initSize, vec3 location);
   void          insertVisibleObject(char* objType, float size, vec3 loc, Material* material);
-  void          insertTree(Species* species, vec3 loc);
+  void          insertTree(Species* species, vec3 loc, float age);
   void          rebuildVisualObjectBuffer(TriangleBuffer** tbuf);
   VisualObject* findObjectFromWindowCoords(vec3 location, float clipX, float clipY);
 

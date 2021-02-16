@@ -24,12 +24,13 @@ Tree::Tree(mat4 transform)
 */
 
 // Constructor used when starting a seedling from the interface
-Tree::Tree(Species* S, vec3 loc):
+Tree::Tree(Species* S, vec3 loc, float age):
                           species(S),
                           trunk(NULL)
 {
   glm_vec3_copy(loc, location);
   treePtrArray[(treePtrArrayIndex = treeCount++)] = this;
+  growStep(age);
   updateBoundingBox();
 }
 

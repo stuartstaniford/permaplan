@@ -131,26 +131,36 @@ void MenuInterface::imguiMaterialsMenu(void)
 
 // =======================================================================================
 // The floating menu to select a particular species to insert after a genus has been
-// selected in imguiTreeMenu.
+// selected in imguiTreeMenu.  Also gets the tree age at planting time.
 
 void MenuInterface::imguiGenusMenu(void)
 {
   unless(show_tree_menu && genusSelected)
     return;
-      
+
   ImGui::Begin("Tree Species", &show_tree_menu, ImGuiWindowFlags_AlwaysAutoResize);
-  
+
+  // Age field
+  ImGui::Text("Tree age at planting: ");
+  ImGui::SameLine();
+  ImGui::InputText("1.0", heightBuf, 5, ImGuiInputTextFlags_CharsDecimal);
+
+  //Species selector
+  ImGui::Text("Species: ");
   for(auto& iter: *(Species::genusSpeciesList[genusSelected]))
+   {
+    ImGui::SameLine();
     if(ImGui::Button(iter.first.c_str()))
      {
       Species* S = iter.second;
       genusSelected = NULL;
       show_tree_menu = false;
-      LogTreeSelections("Tree %s %s inserted at [%f, %f].\n",S->genusName, S->speciesName,
+      LogTreeSelections("Tree %s %s (age %.1f) inserted at [%f, %f].\n",
+                        S->genusName, S->speciesName, atof(heightBuf),
                                           scene->lastDoubleClick[0], scene->lastDoubleClick[1]);
-      scene->insertTree(S, scene->lastDoubleClick);
+      scene->insertTree(S, scene->lastDoubleClick, atof(heightBuf));
      }
-  
+   }
   ImGui::End();
 }
 
