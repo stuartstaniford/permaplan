@@ -23,6 +23,7 @@ class Timeval: public timeval
   ~Timeval();
   void    now();
   void    set(time_t tv_sec_in, suseconds_t tv_usec_in);
+  bool    setFromJSON(char* buf);
   char*   ctimeString(void);
   void    localtime(struct tm *result);
   float   floatYear(void);

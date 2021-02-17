@@ -2,8 +2,10 @@
 // Wrapper around struct timeval to make manipulations a little easier.
 
 #include "Timeval.h"
+#include "GlobalMacros.h"
 #include <time.h>
 #include <sys/time.h>
+#include <stdlib.h>
 
 // =======================================================================================
 // Constructors
@@ -36,6 +38,67 @@ void Timeval::set(time_t tv_sec_in, suseconds_t tv_usec_in)
 {
   tv_sec = tv_sec_in;
   tv_usec = tv_usec_in;
+}
+
+
+// =======================================================================================
+// Setting the inner timeval based on a JSON array in a character buffer.  Returns false
+// if buffer contents are not valid.  Should look like [<secs>, <usecs>]
+
+bool Timeval::setFromJSON(char* buf)
+{
+  if(buf[0] != '[' || buf[1] == '\0')
+    return false;
+  
+  // Read the first number with strtol and handle errors
+  char* endPtr;
+  tv_sec = strtol(buf+1, &endPtr, 10);
+  if(*endPtr == '\0')
+    return false;   // string ended before we got to comma
+  if(endPtr == buf+1)
+    return false;  // no valid digits in string
+  
+  //We are past the first number.  Now expecting comma, after possible white space
+  while(*endPtr != '\0')
+   {
+    if(isWhiteSpace(*endPtr))
+     {
+      endPtr++;
+      continue;
+     }
+    if(*endPtr == ',')
+     {
+      // We have correctly found the comma after the first number
+      buf = endPtr + 1;
+      if(buf[0] == '\0')
+        return false;  // second number is empty
+      tv_usec = strtol(buf, &endPtr, 10);
+      if(*endPtr == '\0')
+        return false;   // string ended before we got to ]
+      if(endPtr == buf)
+        return false;  // no valid digits in string
+
+      // Now we have the second number, but we still check that there is a closing ']'
+      while(*endPtr != '\0')
+       {
+        if(isWhiteSpace(*endPtr))
+         {
+          endPtr++;
+          continue;
+         }
+        if(*endPtr == ']')
+          // we are golden
+          return true;
+        return false; // weird character instead of ws or ]
+       }
+      return false; // string ended prematurely
+     }
+    else
+      return false; // weird character instead of ws or ,
+   }
+  
+  // if we get down here, string ended prematurely
+  return false;
 }
 
 

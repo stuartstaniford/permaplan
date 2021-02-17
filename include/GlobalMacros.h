@@ -8,6 +8,7 @@
 
 #define unless(X) if(!(X))
 #define EPSILON 0.000000001f
+#define isWhiteSpace(x) ( (x)==' ' || (x)=='\t' || (x)=='\n' || (x)=='\r' || (x)=='\f' )
 
 #endif
 
