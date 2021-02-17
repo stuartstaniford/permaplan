@@ -11,6 +11,7 @@
 #include "rapidjson/stringbuffer.h"
 #include "rapidjson/error/en.h"
 #include "TreePart.h"
+#include "Quadtree.h"
 
 #define TREE_ARRAY_SIZE   16384 // cannot exceed size of unsigned short
 
@@ -51,7 +52,7 @@ class Tree: public VisualObject
 
  public:
   // static functions and variables
-  static void readTreesFromDesign(void);
+  static void readTreesFromDesign(Quadtree* qtree);
   static void growAllTrees(float years);
   static void writeTreesToOLDF(FILE* file, char* indent);
   static bool allTreeDiagnosticHTML(HttpDebug* serv);

@@ -141,8 +141,9 @@ void Window3D::loop(HttpDebug& httpServer)
      }
     else
      {
-      LogFrameStarts("Frame %u starting at %.6lfs (%.1fms gap)\n",
-                     frameCount, frameDouble, (frameDouble - lastFrameDouble)*1000.0f);
+      LogFrameStarts("Frame %u starting at %.6lfs (%.1fms gap, year %.2f)\n",
+                     frameCount, frameDouble, (frameDouble - lastFrameDouble)*1000.0f,
+                     scene->getSimYear());
       if(frameTimeAvg == 0.0f)
         frameTimeAvg = frameDouble - lastFrameDouble;
       else

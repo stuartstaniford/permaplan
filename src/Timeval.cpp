@@ -43,7 +43,9 @@ void Timeval::set(time_t tv_sec_in, suseconds_t tv_usec_in)
 
 // =======================================================================================
 // Setting the inner timeval based on a JSON array in a character buffer.  Returns false
-// if buffer contents are not valid.  Should look like [<secs>, <usecs>]
+// if buffer contents are not valid.  Should look like [<secs>, <usecs>].
+
+// This function has not been used/tested yet.
 
 bool Timeval::setFromJSON(char* buf)
 {

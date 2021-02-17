@@ -206,7 +206,7 @@ bool Tree::matchRay(vec3& position, vec3& direction, float& lambda)
 // Static function which reads a bunch of entries from the plants section in the pmod
 // design and instantiates the trees.
 
-void Tree::readTreesFromDesign(void)
+void Tree::readTreesFromDesign(Quadtree* qtree)
 {
   PmodDesign& design = PmodDesign::getDesign();
  
@@ -218,7 +218,10 @@ void Tree::readTreesFromDesign(void)
   int N = plants.Size();
   Tree* tree;
   for(int i=0; i<N; i++)
+   {
     tree = new Tree(plants[i]);
+    qtree->storeVisualObject(tree);
+   }
 }
 
 
