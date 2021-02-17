@@ -131,11 +131,11 @@ float Timeval::floatYear(void)
   if(T.tm_year%4)
     // not leap year
     return 1900.0f + T.tm_year + (T.tm_yday + (T.tm_hour +
-                            (T.tm_min + T.tm_sec/60.0f)/60.0f)/24.0f)/365.0;
+                            (T.tm_min + T.tm_sec/60.0f)/60.0f)/24.0f)/365.0f;
   else
     // leap year
     return 1900.0f + T.tm_year + (T.tm_yday + (T.tm_hour +
-                            (T.tm_min + T.tm_sec/60.0f)/60.0f)/24.0f)/366.0;
+                            (T.tm_min + T.tm_sec/60.0f)/60.0f)/24.0f)/366.0f;
 }
 
 

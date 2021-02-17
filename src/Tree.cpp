@@ -41,7 +41,14 @@ Tree::Tree(Value& plantObject):
   
   location[0] = plantObject["location"][0].GetFloat();
   location[1] = plantObject["location"][1].GetFloat();
-  yearPlanted = plantObject["yearPlanted"].GetFloat();
+  if(plantObject.HasMember("timePlanted"))
+   {
+    Timeval T;
+    T.set(plantObject["timePlanted"][0].GetInt(), plantObject["timePlanted"][1].GetInt());
+    yearPlanted = T.floatYear();
+   }
+  else
+    yearPlanted = plantObject["yearPlanted"].GetFloat();
 
   treePtrArray[(treePtrArrayIndex = treeCount++)] = this;
   updateBoundingBox();
@@ -329,8 +336,9 @@ bool Tree::diagnosticHTMLRow(HttpDebug* serv)
                                                                     treePtrArrayIndex)
   httPrintf("<td><a href=\"/species/%s/%s/\">%s %s</a></td>", species->genusName,
                             species->speciesName, species->genusName, species->speciesName);
-  httPrintf("<td>[%.2f, %.2f]</td></tr>\n", location[0], location[1]);
-  
+  httPrintf("<td>[%.2f, %.2f]</td>\n", location[0], location[1]);
+  httPrintf("<td>%.2f</td></tr>\n", yearPlanted);
+
   return true;
 }
 
@@ -344,7 +352,8 @@ bool Tree::allTreeDiagnosticHTML(HttpDebug* serv)
   
   httPrintf("<center>\n");
   serv->startTable();
-  httPrintf("<tr><th>Index</th><th>Species</th><th>Location</th></tr>\n");
+  httPrintf("<tr><th>Index</th><th>Species</th><th>Location</th>"
+                                                      "<th>Planted</th></tr>\n");
   
   for(int i=0; i< treeCount; i++)
     treePtrArray[i]->diagnosticHTMLRow(serv);
