@@ -249,7 +249,7 @@ void Scene::insertVisibleObject(char* objType, float size, vec3 loc, Material* m
 
 void Scene::insertTree(Species* species, vec3 loc, float age)
 {
-  Tree* tree = new Tree(species, loc, age);
+  Tree* tree = new Tree(species, loc, age, simYear);
   
   qtree->storeVisualObject(tree);
   rebuildVisualObjectBuffer(&sceneObjectTbuf);

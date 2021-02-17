@@ -2,6 +2,7 @@
 // Wrapper around struct timeval to make manipulations a little easier.
 
 #include "Timeval.h"
+#include <time.h>
 #include <sys/time.h>
 
 // =======================================================================================
@@ -45,6 +46,33 @@ void Timeval::set(time_t tv_sec_in, suseconds_t tv_usec_in)
 char* Timeval::ctimeString(void)
 {
   return ctime(&tv_sec);
+}
+
+
+// =======================================================================================
+// Fill out a "struct tm" (see "man localtime") based on our current time.
+
+void Timeval::localtime(struct tm *result)
+{
+  localtime_r(&tv_sec, result);
+}
+
+
+// =======================================================================================
+// Return the time expressed as a fractional year.
+
+float Timeval::floatYear(void)
+{
+  struct tm T;
+  localtime_r(&tv_sec, &T);
+  if(T.tm_year%4)
+    // not leap year
+    return 1900.0f + T.tm_year + (T.tm_yday + (T.tm_hour +
+                            (T.tm_min + T.tm_sec/60.0f)/60.0f)/24.0f)/365.0;
+  else
+    // leap year
+    return 1900.0f + T.tm_year + (T.tm_yday + (T.tm_hour +
+                            (T.tm_min + T.tm_sec/60.0f)/60.0f)/24.0f)/366.0;
 }
 
 

@@ -21,9 +21,12 @@ class Timeval: public timeval
   // Member functions - public
   Timeval(void);
   ~Timeval();
-  void now();
-  void set(time_t tv_sec_in, suseconds_t tv_usec_in);
-  char* ctimeString(void);
+  void    now();
+  void    set(time_t tv_sec_in, suseconds_t tv_usec_in);
+  char*   ctimeString(void);
+  void    localtime(struct tm *result);
+  float   floatYear(void);
+
   double operator-(const Timeval& t); // Difference between two times (in seconds)
 
 

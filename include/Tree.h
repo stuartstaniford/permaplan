@@ -27,11 +27,12 @@ class Tree: public VisualObject
   
   // Instance variables - public
   mat4            trans;
-  unsigned short  treePtrArrayIndex; // used by all our subparts to find us
   Species*        species;
+  float           yearPlanted;
+  unsigned short  treePtrArrayIndex; // used by all our subparts to find us
 
   // Member functions - public
-  Tree(Species* S, vec3 loc, float age);
+  Tree(Species* S, vec3 loc, float age, float now);
   Tree(rapidjson::Value& plantObject);
   ~Tree(void);
   void        growStep(float years);

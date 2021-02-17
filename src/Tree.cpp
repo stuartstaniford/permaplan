@@ -16,12 +16,13 @@ using namespace rapidjson;
 
 // Constructor used when starting a seedling from the interface
 
-Tree::Tree(Species* S, vec3 loc, float age):
+Tree::Tree(Species* S, vec3 loc, float age, float now):
                           species(S),
                           trunk(NULL)
 {
   glm_vec3_copy(loc, location);
   treePtrArray[(treePtrArrayIndex = treeCount++)] = this;
+  yearPlanted = now - age;
   growStep(age);
   updateBoundingBox();
 }
@@ -40,6 +41,7 @@ Tree::Tree(Value& plantObject):
   
   location[0] = plantObject["location"][0].GetFloat();
   location[1] = plantObject["location"][1].GetFloat();
+  yearPlanted = plantObject["yearPlanted"].GetFloat();
 
   treePtrArray[(treePtrArrayIndex = treeCount++)] = this;
   updateBoundingBox();
