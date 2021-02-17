@@ -51,6 +51,7 @@
 #define LOG_TREE_SIM_OVERVIEW   // Log high level actions in simulating tree growth.
 #define LOG_TREE_SIM_DETAILS    // Log all the gory details of simulated tree growth.
 #define LOG_TREE_VISUALIZATION  // Log trees being rendered.
+#define LOG_TREE_ERRORS         // Log clear errors in tree related operations.
 
 
 // =======================================================================================
@@ -281,6 +282,13 @@ extern FILE* LogFile;
 #define LogTreeVisualization(...) LogStatement(__VA_ARGS__)
 #else
 #define LogTreeVisualization(...)
+#endif
+
+// Log clear errors in tree related operations.
+#ifdef LOG_TREE_ERRORS
+#define LogTreeErrors(...) LogStatement(__VA_ARGS__)
+#else
+#define LogTreeErrors(...)
 #endif
 
 

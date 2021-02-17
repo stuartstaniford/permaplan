@@ -143,7 +143,10 @@ bool Tree::bufferGeometry(TriangleBuffer* T)
   unsigned vOffset;
   
   unless(T->requestSpace(&vertices, &indices, vOffset, 36u, 36u))
+   {
+    LogTreeErrors("Couldn't buffer tree %d.\n", treePtrArrayIndex);
     return false;
+   }
   
   // Now we know where we are putting stuff and that there is space, so pack
   // in the vertices
@@ -156,6 +159,7 @@ bool Tree::bufferGeometry(TriangleBuffer* T)
       vertices[i].setNoTexColor(noTexColor);
     indices[i] = vOffset + i;
    }
+  LogTreeVisualization("Buffered tree %d.\n", treePtrArrayIndex);
 
   return true;
 }
