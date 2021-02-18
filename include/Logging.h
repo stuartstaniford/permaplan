@@ -91,32 +91,45 @@ void LogInit(void);
 extern FILE* LogFile;
 
 // =======================================================================================
+// Control variables for real time control of which logging is turned on
+
+#ifndef LOGGING_IMPLEMENTATION
+
+// Logging options to do with overall control flow and speed
+extern bool doLogFrameStarts;     // Log each frame as it begins
+extern bool doLogCloseDown;       // Log when we exit
+extern bool doLogStructureSizes;  // Log the size of structures on this platform at startup.
+extern bool doLogOpenGLConstants; // Log various openGL parameters
+
+#endif
+
+// =======================================================================================
 // Logging options to do with overall control flow and speed
 
 // Log each frame as it begins
 #ifdef LOG_FRAME_STARTS
-#define LogFrameStarts(...) LogStatement(__VA_ARGS__)
+#define LogFrameStarts(...) if(doLogFrameStarts) LogStatement(__VA_ARGS__)
 #else
 #define LogFrameStarts(...)
 #endif
 
 // Log when we exit
 #ifdef LOG_CLOSE_DOWN
-#define LogCloseDown(...) LogStatement(__VA_ARGS__)
+#define LogCloseDown(...) if(doLogCloseDown) LogStatement(__VA_ARGS__)
 #else
 #define LogCloseDown(...)
 #endif
 
 // Log the size of structures on this platform at startup.
 #ifdef LOG_STRUCTURE_SIZES
-#define LogStructureSizes(...) LogStatement(__VA_ARGS__)
+#define LogStructureSizes(...) if(doLogStructureSizes) LogStatement(__VA_ARGS__)
 #else
 #define LogStructureSizes(...)
 #endif
 
 // Log various openGL parameters
 #ifdef LOG_OPENGL_CONSTANTS
-#define LogOpenGLConstants(...) LogStatement(__VA_ARGS__)
+#define LogOpenGLConstants(...) if(doLogOpenGLConstants) LogStatement(__VA_ARGS__)
 #else
 #define LogOpenGLConstants(...)
 #endif
