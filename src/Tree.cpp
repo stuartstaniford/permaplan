@@ -103,6 +103,7 @@ void Tree::growAllTrees(float years)
 // =======================================================================================
 // Iterator over vertices with each unique.  Doesn't do textures, normals, as they aren't
 // very well defined for this purpose.
+// Not implemented here as the data is with the kids
 
 bool Tree::getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
 {
@@ -111,10 +112,8 @@ bool Tree::getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail
 
 
 // =======================================================================================
-// Iterator over indices.  Recall the underlying unit cube pre transformation is on axes
-// from [0,0,0] to [1,1,1].  Refer to getNextVertex above for which vertex is which.  This
-// function defines the triangles.  Recall counterclockwise winding order is front facing.
-// https://learnopengl.com/Advanced-OpenGL/Face-culling
+// Iterator over indices.
+// Not implemented here as the data is with the kids
 
 int Tree::getNextIndex(bool resetToFirst)
 {
@@ -123,8 +122,8 @@ int Tree::getNextIndex(bool resetToFirst)
 
 
 // =======================================================================================
-//Generate all the vertices in order, with textures, normals, etc.
-
+// Generate all the vertices in order, with textures, normals, etc.
+// Not implemented here as the data is with the kids
 
 bool Tree::getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
 {
@@ -133,33 +132,19 @@ bool Tree::getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
 
 
 // =======================================================================================
-// This is where the actual geometry is defined - we render it into a buffer
-// on request
+// This routine is generally where the actual geometry is defined - but in our case,
+// Tree itself doesn't directly define any geometry, and instead it's all based on
+// recursion.
 
 bool Tree::bufferGeometry(TriangleBuffer* T)
 {
-  Vertex* vertices;
-  unsigned* indices;
-  unsigned vOffset;
-  
-  unless(T->requestSpace(&vertices, &indices, vOffset, 36u, 36u))
+  if(trunk)
    {
-    LogTreeErrors("Couldn't buffer tree %d.\n", treePtrArrayIndex);
-    return false;
+    trunk->bufferGeometry(T);
+    LogTreeVisualization("Buffered tree %d.\n", treePtrArrayIndex);
    }
-  
-  // Now we know where we are putting stuff and that there is space, so pack
-  // in the vertices
-  int i;
-  bool result;
-  for(i=0, result=getNextVertex(true, vertices+i, IncludeNormal); result;
-                          i++, result = getNextVertex(false, vertices+i, IncludeNormal))
-   {
-    if(useNoTexColor)
-      vertices[i].setNoTexColor(noTexColor);
-    indices[i] = vOffset + i;
-   }
-  LogTreeVisualization("Buffered tree %d.\n", treePtrArrayIndex);
+  else
+    LogTreeVisualization("Couldn't buffer emptry tree %d.\n", treePtrArrayIndex);
 
   return true;
 }
