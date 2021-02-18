@@ -101,6 +101,21 @@ extern bool doLogCloseDown;       // Log when we exit
 extern bool doLogStructureSizes;  // Log the size of structures on this platform at startup.
 extern bool doLogOpenGLConstants; // Log various openGL parameters
 
+// Logging options to do with parsing and validating OLDF and OTDL files
+extern bool doLogOLDFValidity;    // Log validity problems in the file
+extern bool doLogOLDFDetails;     // Log details of valid OLDF objects
+extern bool doLogOTDLValidity;    // Log validity problems in an OTDL object
+extern bool doLogOTDLDetails;     // Log details of valid OTDL objects
+
+// Logging options to do with interface controls
+extern bool doLogMouseLocation;       // where the mouse is on the screen each frame
+extern bool doLogMouseClick;          // Location of single mouse clicks
+extern bool doLogDoubleClick;         // Location and intra-click timing of mouse double clicks
+extern bool doLogMouseRayPoint;       // Where the mouse is pointing in 3d space
+extern bool doLogLandHeights;         // Log when a new land height is entered.
+extern bool doLogObjectInsertions;    // Log when a new object is inserted in scene.
+extern bool doLogSimulationControls;  // Log control operations on the simulation.
+
 #endif
 
 // =======================================================================================
@@ -140,28 +155,28 @@ extern bool doLogOpenGLConstants; // Log various openGL parameters
 
 // Log validity problems in the file
 #ifdef LOG_OLDF_VALIDITY
-#define LogOLDFValidity(...) LogStatement(__VA_ARGS__)
+#define LogOLDFValidity(...) if(doLogOLDFValidity) LogStatement(__VA_ARGS__)
 #else
 #define LogOLDFValidity(...)
 #endif
 
 // Log details of valid OLDF objects
 #ifdef LOG_OLDF_DETAILS
-#define LogOLDFDetails(...) LogStatement(__VA_ARGS__)
+#define LogOLDFDetails(...) if(doLogOLDFDetails) LogStatement(__VA_ARGS__)
 #else
 #define LogOLDFDetails(...)
 #endif
 
 // Log validity problems in an OTDL object
 #ifdef LOG_OTDL_VALIDITY
-#define LogOTDLValidity(...) LogStatement(__VA_ARGS__)
+#define LogOTDLValidity(...) if(doLogOTDLValidity) LogStatement(__VA_ARGS__)
 #else
 #define LogOTDLValidity(...)
 #endif
 
 // Log details of valid OTDL objects
 #ifdef LOG_OTDL_DETAILS
-#define LogOTDLDetails(...) LogStatement(__VA_ARGS__)
+#define LogOTDLDetails(...) if(doLogOTDLDetails) LogStatement(__VA_ARGS__)
 #else
 #define LogOTDLDetails(...)
 #endif
@@ -172,49 +187,49 @@ extern bool doLogOpenGLConstants; // Log various openGL parameters
 
 // where the mouse is on the screen each frame
 #ifdef LOG_MOUSE_LOCATION
-#define LogMouseLocation(...) LogStatement(__VA_ARGS__)
+#define LogMouseLocation(...) if(doLogMouseLocation) LogStatement(__VA_ARGS__)
 #else
 #define LogMouseLocation(...)
 #endif
 
 // Location and intra-click timing of mouse double clicks
 #ifdef LOG_MOUSE_CLICK
-#define LogMouseClick(...) LogStatement(__VA_ARGS__)
+#define LogMouseClick(...) if(doLogMouseClick) LogStatement(__VA_ARGS__)
 #else
 #define LogMouseClick(...)
 #endif
 
 // Location and intra-click timing of mouse double clicks
 #ifdef LOG_DOUBLE_CLICK
-#define LogDoubleClick(...) LogStatement(__VA_ARGS__)
+#define LogDoubleClick(...) if(doLogDoubleClick) LogStatement(__VA_ARGS__)
 #else
 #define LogDoubleClick(...)
 #endif
 
 // Where the mouse is pointing in 3d space
 #ifdef LOG_MOUSE_RAY_POINT
-#define LogMouseRayPoint(...) LogStatement(__VA_ARGS__)
+#define LogMouseRayPoint(...) if(doLogMouseRayPoint) LogStatement(__VA_ARGS__)
 #else
 #define LogMouseRayPoint(...)
 #endif
 
 // Log when a new land height is entered.
 #ifdef LOG_LAND_HEIGHTS
-#define LogLandHeights(...) LogStatement(__VA_ARGS__)
+#define LogLandHeights(...) if(doLogLandHeights) LogStatement(__VA_ARGS__)
 #else
 #define LogLandHeights(...)
 #endif
 
 // Log when a new object is inserted.
 #ifdef LOG_OBJECT_INSERTIONS
-#define LogObjectInsertions(...) LogStatement(__VA_ARGS__)
+#define LogObjectInsertions(...) if(doLogObjectInsertions) LogStatement(__VA_ARGS__)
 #else
 #define LogObjectInsertions(...)
 #endif
 
 // Log control operations on the simulation.
 #ifdef LOG_SIMULATION_CONTROLS
-#define LogSimulationControls(...) LogStatement(__VA_ARGS__)
+#define LogSimulationControls(...) if(doLogSimulationControls) LogStatement(__VA_ARGS__)
 #else
 #define LogSimulationControls(...)
 #endif
