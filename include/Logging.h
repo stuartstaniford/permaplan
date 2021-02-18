@@ -116,7 +116,36 @@ extern bool doLogLandHeights;         // Log when a new land height is entered.
 extern bool doLogObjectInsertions;    // Log when a new object is inserted in scene.
 extern bool doLogSimulationControls;  // Log control operations on the simulation.
 
+// Logging options to do with materials and textures
+extern bool doLogTextureAtlas;        // Log texture atlas creation
+extern bool doLogAtlasAnomalies;      // Log weird conditions in texture atlas creation
+extern bool doLogAtlasPlacement;      // Log details of which image is where in atlas
+extern bool doLogMaterialSelections;  // Log when a material is selected.
+extern bool doLogPathMap;             // Log storage and use of the path map
+
+// Logging options for Trees/Plants
+extern bool doLogTreeSelections;      // Log when a tree is selected.
+extern bool doLogTreeReads;           // Log when a tree is read in from a file or url
+extern bool doLogTreeSimOverview;     // Log high level actions in simulating tree growth.
+extern bool doLogTreeSimDetails;      // Log all the gory details of simulated tree growth.
+extern bool doLogTreeVisualization;   // Log trees being rendered.
+extern bool doLogTreeErrors;          // Log clear errors in tree related operations.
+
+// Logging options for the HTTP debug interface
+extern bool doLogRequestErrors;       // Log validity problems in the HTTP request
+extern bool doLogResponseErrors;      // Log problems encountered building the response
+extern bool doLogHTTPDetails;         // Log normal details of HTTP operations
+
+// Logging options to do with quadtree operations
+extern bool doLogQuadtreeInsertions;  // Log the a new object being put in the quadtree.
+extern bool doLogDisplayListBuffer;   // Log the process of objects being buffered for display.
+
+// Logging options to do with the Bezier Patch code
+extern bool doLogBezierFit;           // Log the fitting of a Bezier patch to height data
+extern bool doLogBezierMatchRay;      // Log the process of matching a ray to the patch.
+
 #endif
+
 
 // =======================================================================================
 // Logging options to do with overall control flow and speed
@@ -240,35 +269,35 @@ extern bool doLogSimulationControls;  // Log control operations on the simulatio
 
 // Log texture atlas creation
 #ifdef LOG_TEXTURE_ATLAS
-#define LogTextureAtlas(...) LogStatement(__VA_ARGS__)
+#define LogTextureAtlas(...) if(doLogTextureAtlas) LogStatement(__VA_ARGS__)
 #else
 #define LogTextureAtlas(...)
 #endif
 
 // Log weird conditions in texture atlas creation
 #ifdef LOG_ATLAS_ANOMALIES
-#define LogAtlasAnomalies(...) LogStatement(__VA_ARGS__)
+#define LogAtlasAnomalies(...) if(doLogAtlasAnomalies) LogStatement(__VA_ARGS__)
 #else
 #define LogAtlasAnomalies(...)
 #endif
 
 // Log details of which image is where in atlas
 #ifdef LOG_ATLAS_PLACEMENT
-#define LogAtlasPlacement(...) LogStatement(__VA_ARGS__)
+#define LogAtlasPlacement(...) if(doLogAtlasPlacement) LogStatement(__VA_ARGS__)
 #else
 #define LogAtlasPlacement(...)
 #endif
 
 // Log when a material is selected.
 #ifdef LOG_MATERIAL_SELECTIONS
-#define LogMaterialSelections(...) LogStatement(__VA_ARGS__)
+#define LogMaterialSelections(...) if(doLogMaterialSelections) LogStatement(__VA_ARGS__)
 #else
 #define LogMaterialSelections(...)
 #endif
 
 // Log storage and use of the path map
 #ifdef LOG_PATH_MAP
-#define LogPathMap(...) LogStatement(__VA_ARGS__)
+#define LogPathMap(...) if(doLogPathMap) LogStatement(__VA_ARGS__)
 #else
 #define LogPathMap(...)
 #endif
@@ -279,42 +308,42 @@ extern bool doLogSimulationControls;  // Log control operations on the simulatio
 
 // Log when a tree is selected.
 #ifdef LOG_TREE_SELECTIONS
-#define LogTreeSelections(...) LogStatement(__VA_ARGS__)
+#define LogTreeSelections(...) if(doLogTreeSelections) LogStatement(__VA_ARGS__)
 #else
 #define LogTreeSelections(...)
 #endif
 
 // Log when a tree is read in from a file or url
 #ifdef LOG_TREE_READS
-#define LogTreeReads(...) LogStatement(__VA_ARGS__)
+#define LogTreeReads(...) if(doLogTreeReads) LogStatement(__VA_ARGS__)
 #else
 #define LogTreeReads(...)
 #endif
 
 // Log high level actions in simulating tree growth.
 #ifdef LOG_TREE_SIM_OVERVIEW
-#define LogTreeSimOverview(...) LogStatement(__VA_ARGS__)
+#define LogTreeSimOverview(...) if(doLogTreeSimOverview) LogStatement(__VA_ARGS__)
 #else
 #define LogTreeSimOverview(...)
 #endif
 
 // Log all the gory details of simulated tree growth.
 #ifdef LOG_TREE_SIM_DETAILS
-#define LogTreeSimDetails(...) LogStatement(__VA_ARGS__)
+#define LogTreeSimDetails(...) if(doLogTreeSimDetails) LogStatement(__VA_ARGS__)
 #else
 #define LogTreeSimDetails(...)
 #endif
 
 // Log trees being rendered.
 #ifdef LOG_TREE_VISUALIZATION
-#define LogTreeVisualization(...) LogStatement(__VA_ARGS__)
+#define LogTreeVisualization(...) if(doLogTreeVisualization) LogStatement(__VA_ARGS__)
 #else
 #define LogTreeVisualization(...)
 #endif
 
 // Log clear errors in tree related operations.
 #ifdef LOG_TREE_ERRORS
-#define LogTreeErrors(...) LogStatement(__VA_ARGS__)
+#define LogTreeErrors(...) if(doLogTreeErrors) LogStatement(__VA_ARGS__)
 #else
 #define LogTreeErrors(...)
 #endif
@@ -325,21 +354,21 @@ extern bool doLogSimulationControls;  // Log control operations on the simulatio
 
 // Log validity problems in the HTTP request
 #ifdef LOG_REQUEST_ERRORS
-#define LogRequestErrors(...) LogStatement(__VA_ARGS__)
+#define LogRequestErrors(...) if(doLogRequestErrors) LogStatement(__VA_ARGS__)
 #else
 #define LogRequestErrors(...)
 #endif
 
 // Log problems encountered building the response
 #ifdef LOG_RESPONSE_ERRORS
-#define LogResponseErrors(...) LogStatement(__VA_ARGS__)
+#define LogResponseErrors(...) if(doLogResponseErrors) LogStatement(__VA_ARGS__)
 #else
 #define LogResponseErrors(...)
 #endif
 
 // Log normal details of HTTP operations
 #ifdef LOG_HTTP_DETAILS
-#define LogHTTPDetails(...) LogStatement(__VA_ARGS__)
+#define LogHTTPDetails(...) if(doLogHTTPDetails) LogStatement(__VA_ARGS__)
 #else
 #define LogHTTPDetails(...)
 #endif
@@ -350,14 +379,14 @@ extern bool doLogSimulationControls;  // Log control operations on the simulatio
 
 // Log the process of a new object being put in the quadtree.
 #ifdef LOG_QUADTREE_INSERTIONS
-#define LogQuadtreeInsertions(...) LogStatement(__VA_ARGS__)
+#define LogQuadtreeInsertions(...) if(doLogQuadtreeInsertions) LogStatement(__VA_ARGS__)
 #else
 #define LogQuadtreeInsertions(...)
 #endif
 
 // Log the process of a new object being put in the quadtree.
 #ifdef LOG_DISPLAYLIST_BUFFER
-#define LogDisplayListBuffer(...) LogStatement(__VA_ARGS__)
+#define LogDisplayListBuffer(...) if(doLogDisplayListBuffer) LogStatement(__VA_ARGS__)
 #else
 #define LogDisplayListBuffer(...)
 #endif
@@ -367,14 +396,15 @@ extern bool doLogSimulationControls;  // Log control operations on the simulatio
 // Logging options to do with the Bezier Patch code
 
 #ifdef LOG_BEZIER_FIT
-#define LogBezierFit(...) LogStatement(__VA_ARGS__)
+#define LogBezierFit(...) if(doLogBezierFit) LogStatement(__VA_ARGS__)
 #else
 #define LogBezierFit(...)
 #endif
 
 #ifdef LOG_BEZIER_MATCH_RAY
-#define LogBezierMatchRay(...) LogStatement(__VA_ARGS__)
+#define LogBezierMatchRay(...) if(doLogBezierMatchRay) LogStatement(__VA_ARGS__)
 #else
 #define LogBezierMatchRay(...)
 #endif
 
+// =======================================================================================
