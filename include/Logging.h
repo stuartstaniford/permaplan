@@ -51,6 +51,7 @@
 #define LOG_TREE_SIM_OVERVIEW   // Log high level actions in simulating tree growth.
 #define LOG_TREE_SIM_DETAILS    // Log all the gory details of simulated tree growth.
 #define LOG_TREE_VISUALIZATION  // Log trees being rendered.
+#define LOG_TREE_VIS_DETAILS    // Log every twig being rendered.
 #define LOG_TREE_ERRORS         // Log clear errors in tree related operations.
 
 
@@ -129,6 +130,7 @@ extern bool doLogTreeReads;           // Log when a tree is read in from a file 
 extern bool doLogTreeSimOverview;     // Log high level actions in simulating tree growth.
 extern bool doLogTreeSimDetails;      // Log all the gory details of simulated tree growth.
 extern bool doLogTreeVisualization;   // Log trees being rendered.
+extern bool doLogTreeVisDetails;      // Log every twig being rendered.
 extern bool doLogTreeErrors;          // Log clear errors in tree related operations.
 
 // Logging options for the HTTP debug interface
@@ -339,6 +341,13 @@ extern bool doLogBezierMatchRay;      // Log the process of matching a ray to th
 #define LogTreeVisualization(...) if(doLogTreeVisualization) LogStatement(__VA_ARGS__)
 #else
 #define LogTreeVisualization(...)
+#endif
+
+// Log every twig being rendered.
+#ifdef LOG_TREE_VIS_DETAILS
+#define LogTreeVisDetails(...) if(doLogTreeVisDetails) LogStatement(__VA_ARGS__)
+#else
+#define LogTreeVisDetails(...)
 #endif
 
 // Log clear errors in tree related operations.

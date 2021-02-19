@@ -46,12 +46,18 @@ bool WoodySegment::bufferGeometry(TriangleBuffer* T)
   unless(cylinder->bufferGeometry(T))
     return false;
   
+  LogTreeVisDetails("Buffering WoodySegment "
+                    "(Loc: [%.1f, %.1f, %.1f], Dir: [%.1f, %.1f, %.1f]\n",
+                    cylinder->location[0], cylinder->location[1], cylinder->location[2],
+                    cylinder->direction[0], cylinder->direction[1], cylinder->direction[2]);
   int N = kids.size();
   for(int i=0; i<N; i++)
     if(kids[i])
+     {
+      LogTreeVisDetails("Trying to buffer kid[%d]\n", i);
       unless(kids[i]->bufferGeometry(T))
         return false;
-  
+     }
   return true;
 }
 

@@ -140,8 +140,10 @@ bool Tree::bufferGeometry(TriangleBuffer* T)
 {
   if(trunk)
    {
-    trunk->bufferGeometry(T);
-    LogTreeVisualization("Buffered tree %d.\n", treePtrArrayIndex);
+    LogTreeVisualization("Buffering tree %d.\n", treePtrArrayIndex);
+    LogTreeVisDetails("Trying to buffer trunk\n");
+    unless(trunk->bufferGeometry(T))
+      return false;
    }
   else
     LogTreeVisualization("Couldn't buffer emptry tree %d.\n", treePtrArrayIndex);
