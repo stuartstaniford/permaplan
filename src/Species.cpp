@@ -405,9 +405,9 @@ int Species::writeOTDL(char* buf, unsigned bufSize)
 
   // wood
   bufprintf("  \"wood\":\n   {\n");
-  bufprintf("   \"stemRate\":           \"%f\",\n", stemRate);
-  bufprintf("   \"initSapThickness\":   \"%f\",\n", initSapThickness);
-  bufprintf("   \"initBarkThickness\":  \"%f\",\n", initBarkThickness);
+  bufprintf("   \"stemRate\":           \"%f\",\n", stemRate*mmPerSpaceUnit);
+  bufprintf("   \"initSapThickness\":   \"%f\",\n", initSapThickness*mmPerSpaceUnit);
+  bufprintf("   \"initBarkThickness\":  \"%f\",\n", initBarkThickness*mmPerSpaceUnit);
   bufprintf("   \"barkColors\":\n");
   bufprintf("    [\n");
   //XX need to iterate over barkcolors

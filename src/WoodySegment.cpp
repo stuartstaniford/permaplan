@@ -3,6 +3,7 @@
 // models the heartwood/sapwood/bark, etc.
 
 #include "WoodySegment.h"
+#include "PmodDesign.h"
 #include <err.h>
 
 
@@ -51,7 +52,8 @@ bool WoodySegment::bufferGeometry(TriangleBuffer* T)
                     "heartR: %.1f, sapT: %.1f, barkT: %.1f\n",
                     cylinder->location[0], cylinder->location[1], cylinder->location[2],
                     cylinder->direction[0], cylinder->direction[1], cylinder->direction[2],
-                    heartRadius, sapThickness, barkThickness);
+                    heartRadius*mmPerSpaceUnit, sapThickness*mmPerSpaceUnit,
+                    barkThickness*mmPerSpaceUnit);
   int N = kids.size();
   for(int i=0; i<N; i++)
     if(kids[i])
@@ -114,9 +116,9 @@ int WoodySegment::printOPSF(char*& buf, unsigned bufSize)
   
   // Our own information
   bufprintf("\"woodySegment\": {\n");
-  bufprintf("\"heartRadius\": %f,\n", heartRadius);
-  bufprintf("\"sapThickness\": %f,\n", sapThickness);
-  bufprintf("\"barkThickness\": %f,\n", barkThickness);
+  bufprintf("\"heartRadius\": %.1f,\n", heartRadius*mmPerSpaceUnit);
+  bufprintf("\"sapThickness\": %.1f,\n", sapThickness*mmPerSpaceUnit);
+  bufprintf("\"barkThickness\": %.1f,\n", barkThickness*mmPerSpaceUnit);
   
   // Cylinder info
   cylinder->printOPSF(buf, (unsigned)(end-buf));
