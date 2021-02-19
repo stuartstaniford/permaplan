@@ -40,6 +40,7 @@ class Species
   float                     stemRate;           // in mm/year
   float                     initSapThickness;   // in mm
   float                     initBarkThickness;  // in mm
+  float                     maxHeight;          // in mm!
   std::map<float, unsigned> barkColorMap;
 
   // Member functions - public

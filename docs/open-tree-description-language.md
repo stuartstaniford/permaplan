@@ -56,6 +56,7 @@ This gives an example showing the major sections of an OTDL object in a file (de
     {
      "genus":       "Pinus",
      "species":     "strobus",
+     "maxHeight":   61000,
      "commonNames":  
        {
         "en-US": "Eastern White Pine",
@@ -106,6 +107,12 @@ This is the scientific genus-name of the plant.  It should consist of a capital 
 Syntax: `"species": "<species-name>",`
 
 This is the scientific species-name of the plant.  It should consist of two or more lower case letters (no characters outsided of `a-z` are allowed).  Species name are expected to be in ASCII latin.
+
+### maxHeight (mandatory)
+
+Syntax: `"maxHeight":   61000,`
+
+The maximum height that this tree species is capable of growing to under ideal circumstances.
 
 ### var (optional)
 

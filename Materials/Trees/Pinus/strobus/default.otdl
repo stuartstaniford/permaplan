@@ -4,6 +4,7 @@
     {
      "genus":       "Pinus",
      "species":     "strobus",
+     "maxHeight":   61000,
      "commonNames":
        {
         "en-US": "Eastern White Pine",
@@ -16,7 +17,7 @@
     },
  "wood":
   {
-   "stemRate": 800,
+   "stemRate": 1000,
    "initSapThickness": 1.5,
    "initBarkThickness": 0.5,
    "barkTextures":

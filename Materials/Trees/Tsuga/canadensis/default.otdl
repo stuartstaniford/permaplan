@@ -4,6 +4,7 @@
     {
      "genus":       "Tsuga",
      "species":     "canadensis",
+     "maxHeight":   53000,
      "commonNames":
        {
         "en-US": "Eastern Hemlock",

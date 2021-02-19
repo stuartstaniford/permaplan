@@ -34,7 +34,9 @@ Species::Species(Document& otdlDoc)
     genusSpeciesList[genusName] = new SpeciesList;
   (*genusSpeciesList[genusName])[speciesName] = this;
 
-  
+  // other overviewdata
+  maxHeight  = otdlDoc["overviewData"]["maxHeight"].GetFloat()/mmPerSpaceUnit;
+
   // fill out the barkColorMap array (dedicated function for this)
   extractBarkColors(otdlDoc["wood"]["barkColors"]);
 
@@ -130,6 +132,13 @@ bool Species::validateOverviewData(Document& doc, JSONStructureChecker* jCheck)
   // Species
   retVal &= jCheck->validateStringMemberExists(overviewData, logObjectName, (char*)"species");
   retVal &= jCheck->validateSpeciesName(logObjectName, overviewData["species"].GetString());
+
+  // maxHeight
+  unless(overviewData.HasMember("maxHeight") && overviewData["maxHeight"].IsNumber())
+   {
+    LogOTDLValidity("No maxHeight or invalid maxHeight in %s\n", jCheck->sourcePhrase);
+    retVal = false;
+   }
 
   // variety
   retVal &= jCheck->validateOptionalStringMember(overviewData, logObjectName, (char*)"var");
@@ -393,6 +402,7 @@ int Species::writeOTDL(char* buf, unsigned bufSize)
   bufprintf("  \"overviewData\":\n   {\n");
   bufprintf("   \"genus\":       \"%s\",\n", genusName);
   bufprintf("   \"species\":     \"%s\",\n", speciesName);
+  bufprintf("   \"maxHeight\":     \"%.0f\",\n", maxHeight);
   bufprintf("   \"commonName\":\n");
   bufprintf("    {\n");
   bufprintf("    },\n");

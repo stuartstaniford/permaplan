@@ -4,6 +4,7 @@
     {
      "genus":       "Acer",
      "species":     "rubrum",
+     "maxHeight":   41000,
      "commonNames":
        {
         "en-US": "Red Maple"

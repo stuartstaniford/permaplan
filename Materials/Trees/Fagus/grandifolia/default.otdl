@@ -4,6 +4,7 @@
     {
      "genus":       "Fagus",
      "species":     "grandifolia",
+     "maxHeight":   35000,
      "commonNames":
        {
         "en-US": "American Beech",
