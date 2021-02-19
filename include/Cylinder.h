@@ -28,6 +28,7 @@ class Cylinder
   bool        bufferGeometry(TriangleBuffer* T);
   bool        matchRay(vec3& position, vec3& direction, float& lambda);
   void        triangleBufferSizes(unsigned& vCount, unsigned& iCount);
+  void        lengthen(float increment);
   int         printOPSF(char*& buf, unsigned bufSize);
   const char* objectName(void);
   bool        diagnosticHTML(HttpDebug* serv);

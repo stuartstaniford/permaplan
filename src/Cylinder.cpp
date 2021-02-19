@@ -163,6 +163,17 @@ void Cylinder::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 
 
 // =======================================================================================
+// Increase the length of the cylinder by a length increment.  Note we don't do anything
+// about rebuffering - caller must track that.
+
+void Cylinder::lengthen(float increment)
+{
+  float lenNow = glm_vec3_norm(direction);
+  glm_vec3_scale(direction, (lenNow+increment)/lenNow, direction);
+}
+
+
+// =======================================================================================
 // Stub definition only at present
 
 bool Cylinder::matchRay(vec3& position, vec3& direction, float& lambda)
