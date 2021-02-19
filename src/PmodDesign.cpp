@@ -4,6 +4,7 @@
 // line is captured in PmodConfig, not in here.
 // See docs/open-landscape-description-format.md for the file format.
 
+#define PMOD_DESIGN_IMPLEMENTATION
 
 #include "PmodDesign.h"
 #include <stdexcept>
@@ -14,10 +15,17 @@
 #include "GlobalMacros.h"
 #include "Tree.h"
 
+
 using namespace rapidjson;
 
 PmodDesign* PmodDesign::design = NULL;
 unsigned PmodDesign::OLDFVersion[] = {0, 0, 2};
+
+// These unit things are used all over the place, so we have them in the global namespace
+// for syntactic convenience (they are externed in PmodDesign.h)
+float          mmPerSpaceUnit;
+char*          spaceUnitName;
+char           spaceUnitAbbr;
 
 // =======================================================================================
 // Constructor: parse the json file
@@ -68,12 +76,18 @@ bool PmodDesign::validateSpaceUnits(Value& introductoryData)
     if(strcmp(token, "feet") == 0)
      {
       LogOLDFDetails("Using feet as spatial units in OLDF file %s\n", config.designFileName);
-      metricUnits = false;
+      metricUnits     = false;
+      mmPerSpaceUnit  = MM_PER_FOOT;
+      spaceUnitName   = (char*)"feet";
+      spaceUnitAbbr   = '\'';
      }
     else if(strcmp(token, "meters") == 0 )
      {
       LogOLDFDetails("Using meters as spatial units in OLDF file %s\n", config.designFileName);
-      metricUnits = true;
+      metricUnits     = true;
+      mmPerSpaceUnit  = 1000.0f;
+      spaceUnitName   = (char*)"meters";
+      spaceUnitAbbr   = 'm';
      }
     else
      {

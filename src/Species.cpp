@@ -18,12 +18,14 @@ std::unordered_map<std::string, unsigned> Species::genusList;
 std::unordered_map<std::string, SpeciesList*> Species::genusSpeciesList;
 unsigned Species::OTDLVersion[] = {0, 0, 1};
 
-
 // =======================================================================================
 // Constructors.
 
 Species::Species(Document& otdlDoc)
 {
+  // NOTE WELL.  Numeric values in OTDL are expressed in mm, but for uniformity in graphic
+  // calculations, internally we must store them in spaceUnits.
+  
   // store this species/genus in the static arrays for looking us up.
   genusName = otdlDoc["overviewData"]["genus"].GetString();
   speciesName = otdlDoc["overviewData"]["species"].GetString();
@@ -32,13 +34,14 @@ Species::Species(Document& otdlDoc)
     genusSpeciesList[genusName] = new SpeciesList;
   (*genusSpeciesList[genusName])[speciesName] = this;
 
+  
   // fill out the barkColorMap array (dedicated function for this)
   extractBarkColors(otdlDoc["wood"]["barkColors"]);
 
   // stemRate, initSapThickness, initBarkThickness
-  stemRate          = otdlDoc["wood"]["stemRate"].GetFloat();
-  initSapThickness  = otdlDoc["wood"]["initSapThickness"].GetFloat();
-  initBarkThickness = otdlDoc["wood"]["initBarkThickness"].GetFloat();
+  stemRate          = otdlDoc["wood"]["stemRate"].GetFloat()/mmPerSpaceUnit;
+  initSapThickness  = otdlDoc["wood"]["initSapThickness"].GetFloat()/mmPerSpaceUnit;
+  initBarkThickness = otdlDoc["wood"]["initBarkThickness"].GetFloat()/mmPerSpaceUnit;
 }
 
 
@@ -375,6 +378,9 @@ Species* Species::loadLocalOTDLEntry(char* speciesPath)
 // Write out the OTDL object to a buffer (eg used by diagnosticHTML for Species page).
 
 #define bufprintf(...) if((buf += snprintf(buf, end-buf,  __VA_ARGS__)) >= end) {return -1;}
+
+// NOTE WELL.  Numeric values in OTDL are expressed in mm, but for uniformity in graphic
+// calculations, internally we must store them in spaceUnits.
 
 int Species::writeOTDL(char* buf, unsigned bufSize)
 {

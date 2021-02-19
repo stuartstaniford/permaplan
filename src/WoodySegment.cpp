@@ -47,9 +47,11 @@ bool WoodySegment::bufferGeometry(TriangleBuffer* T)
     return false;
   
   LogTreeVisDetails("Buffering WoodySegment "
-                    "(Loc: [%.1f, %.1f, %.1f], Dir: [%.1f, %.1f, %.1f]\n",
+                    "(Loc: [%.1f, %.1f, %.1f], Dir: [%.1f, %.1f, %.1f],"
+                    "heartR: %.1f, sapT: %.1f, barkT: %.1f\n",
                     cylinder->location[0], cylinder->location[1], cylinder->location[2],
-                    cylinder->direction[0], cylinder->direction[1], cylinder->direction[2]);
+                    cylinder->direction[0], cylinder->direction[1], cylinder->direction[2],
+                    heartRadius, sapThickness, barkThickness);
   int N = kids.size();
   for(int i=0; i<N; i++)
     if(kids[i])

@@ -16,6 +16,15 @@
 #include "JSONStructureChecker.h"
 #include "Boundary.h"
 
+// These unit things are used all over the place, so we have them in the global namespace
+// for syntactic convenience
+#define MM_PER_FOOT 304.8f
+#ifndef PMOD_DESIGN_IMPLEMENTATION
+extern float          mmPerSpaceUnit;
+extern char*          spaceUnitName;
+extern char           spaceUnitAbbr;
+#endif
+
 // =======================================================================================
 // Class variable initialization
 
@@ -29,7 +38,7 @@ class PmodDesign
   
   public:
   
-  // Instance variables - public
+  // Instance variables - public - don't worry about alignment as only one of these
   rapidjson::Document   doc;
   int                   baseYear;
   Timeval               fileTime;
@@ -37,7 +46,8 @@ class PmodDesign
   bool                  metricUnits;
   JSONStructureChecker* jCheck;
   Boundary              boundary;
-  
+
+
 private:
   
   static PmodDesign* design;
