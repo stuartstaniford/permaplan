@@ -72,7 +72,8 @@ This gives an example showing the major sections of an OTDL object in a file (de
     },
    "foliage":
     {
-    }
+    },
+   "parent": "<path>"
 }
 ```
 
@@ -199,6 +200,15 @@ Note that
 * The intervals of successive entries in the array must touch (ie the next starts at the same place the last leaves off with no gap or overlap.
 * The last array must end at 10000.0 (taken to be infinite age of the tree trunk).
 * As a corollory of the above, the array must have at least one member (if there was exactly one member it should be [0,10000]).
+
+## Parent (optional)
+
+Syntax: `"parent":  "<path>",`
+
+OTDL has a simple inheritance structure implemented by the `parent` option.  If parent is present, it must have a string value which is a path to another OTDL file.  See the section below for the standard OTDL file structure.  If parent is present, and if an OTDL file can be found at `<path>`, then the current OTDL file is considered to inherit from that one.  What this means is that any parts of the OTDL DOM structure which are present in the parent file, but not present in the current file, the parent values will be used.  If values are present in the current OTDL object, they will override the parent ones.  This allows OTDL files for similar species to be more compact because a parent file can carry a lot of the similarities and the child file can only note things that are different in the more specific case.
+
+For example, if Acer rubrum x Autumn Glory inherits from Acer rubrum, and Acer Rubrum has a maxAge of 100 years, but x Autumn Glory doesn't specify a maxAge, the maxAge from Acer rubrum without a varietal will be applied.
+
 
 ## File Structure for OTDL.
 

@@ -333,6 +333,15 @@ bool Species::validateFoliage(Document& doc, JSONStructureChecker* jCheck)
 
 
 // =======================================================================================
+// Validate the parent section of an OTDL object.
+
+bool Species::validateParent(Document& doc, JSONStructureChecker* jCheck)
+{
+  return true;
+}
+
+
+// =======================================================================================
 // Validate OTDL/JSON structure of the type of tree we are.
 
 bool Species::validateOTDL(Document& doc, char* sourceName)
@@ -341,7 +350,20 @@ bool Species::validateOTDL(Document& doc, char* sourceName)
   char phrase[128];
   snprintf(phrase, 128, "OTDL object %s", sourceName);
   JSONStructureChecker* jCheck = new JSONStructureChecker(phrase, OTDL);
-  
+
+  if(doc.HasMember("parent"))
+   {
+    unless(doc["parent"].IsString())
+     {
+      LogOTDLValidity("Invalid parent path in %s\n", phrase);
+      retVal = false;
+     }
+    else
+      retVal &= validateParent(doc, jCheck);
+   }
+  else
+     LogOTDLDetails("No inheritance from parent in %s\n", phrase);
+     
   unless(doc.HasMember("overviewData") && doc["overviewData"].IsObject())
    {
     LogOTDLValidity("No overviewData in %s\n", phrase);
@@ -365,6 +387,7 @@ bool Species::validateOTDL(Document& doc, char* sourceName)
    }
   else
     retVal &= validateFoliage(doc, jCheck);
+
 
   delete jCheck; jCheck = NULL;
   return retVal;
