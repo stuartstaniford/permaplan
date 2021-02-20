@@ -4,7 +4,9 @@
     {
      "genus":       "Fagus",
      "species":     "grandifolia",
-     "maxHeight":   35000,
+     "maxHeight":   35000, // https://en.wikipedia.org/wiki/Fagus_grandifolia
+     "maxGirth":    4800, //https://www.monumentaltrees.com/en/trees/fagusgrandifolia/records/
+     "maxAge":      270, // https://www.monumentaltrees.com/en/trees/fagusgrandifolia/records/
      "commonNames":
        {
         "en-US": "American Beech",

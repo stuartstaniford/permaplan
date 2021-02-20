@@ -114,6 +114,18 @@ Syntax: `"maxHeight":   61000,`
 
 The maximum height that this tree species is capable of growing to under ideal circumstances.
 
+### maxGirth (mandatory)
+
+Syntax: `"maxGirth":   1000,`
+
+The maximum girth that this tree species is capable of growing to under ideal circumstances.  Generally taken to be the girth at chest height (4.5 feet or 1.4m above the ground level).  Note that the girth is the circumference, not the diameter (but is the most widely cited measurement)
+
+### maxAge (mandatory)
+
+Syntax: `"maxAge":   150,`
+
+The maximum age in years that this tree species is capable of growing to under ideal circumstances.  
+
 ### var (optional)
 
 Syntax: `"var": "<variety-name>",`

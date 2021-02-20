@@ -46,6 +46,16 @@
      "notes": "Big old pine in the center"
     },
     {
+     "location": [20, 20],
+     "yearPlanted": 1910,
+     "timePlanted": [20,20],
+     "genus": "Tsuga",
+     "species": "canadensis",
+     "commonName": "Eastern Hemlock",
+     "treeDiameter": [10, 2019.18],
+     "notes": "Sample hemlock"
+    },
+    {
      "location": [200, 200],
      "yearPlanted": 1950,
      "timePlanted": [20,20],
@@ -54,7 +64,8 @@
      "commonName": "American beech",
      "treeDiameter": [10.2, 2019.18],
      "notes": "Beech tree"
-    },    {
+    },
+    {
      "location": [92, 48],
      "yearPlanted": 1940,
      "timePlanted": [20,20],

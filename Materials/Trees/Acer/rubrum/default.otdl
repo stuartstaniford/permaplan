@@ -4,7 +4,9 @@
     {
      "genus":       "Acer",
      "species":     "rubrum",
-     "maxHeight":   41000,
+     "maxHeight":   41000, //https://en.wikipedia.org/wiki/Acer_rubrum
+     "maxGirth":   5000, //https://en.wikipedia.org/wiki/Acer_rubrum
+     "maxAge":   150, //https://en.wikipedia.org/wiki/Acer_rubrum
      "commonNames":
        {
         "en-US": "Red Maple"
