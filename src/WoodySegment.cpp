@@ -4,6 +4,7 @@
 
 #include "WoodySegment.h"
 #include "PmodDesign.h"
+#include "Tree.h"
 #include <err.h>
 
 
@@ -93,10 +94,11 @@ void WoodySegment::triangleBufferSizesRecurse(unsigned& vCount, unsigned& iCount
 void WoodySegment::growStep(float years)
 {
   // Do ourselves.
-  
-  // UP TO HERE
-  
-  // Tree::treePtrArray[ourTreeIndex]
+  Tree* ourTree = Tree::treePtrArray[ourTreeIndex];
+  float len;
+  ourTree->species->logisticGrowthModel(ourTree->ageNow, cylinder->radius, len);
+  cylinder->setLength(len);
+  sapThickness = cylinder->radius - heartRadius - barkThickness; //XX obviously braindead
   
   // Recurse into our kids
   int N = kids.size();

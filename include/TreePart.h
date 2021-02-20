@@ -26,10 +26,12 @@ class TreePart
   virtual const char* objectName(void);
   virtual bool diagnosticHTML(HttpDebug* serv);
 
- private:
+ protected:
   
-  // Instance variables - private
+  // Instance variables - protected
   unsigned short ourTreeIndex;
+
+private:
 
   // Member functions - private
   TreePart(const TreePart&);                 // Prevent copy-construction
