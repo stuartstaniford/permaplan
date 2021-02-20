@@ -326,7 +326,8 @@ bool Tree::diagnosticHTML(HttpDebug* serv)
   // Table of treeparts
   httPrintf("<h2>Table of parts of this tree</h2>");
   serv->startTable();
-  httPrintf("<tr><th>Type</th><th>Location</th><th>Direction</th></tr>\n");
+  httPrintf("<tr><th>Type</th><th>Location</th><th>Direction</th>"
+                                                    "<th>Other Information</th></tr>\n");
   if(trunk)
     unless(trunk->diagnosticHTML(serv))
       return false;
@@ -390,7 +391,7 @@ bool Tree::treePageGateway(HttpDebug* serv, char* path)
     if(!isdigit(*check))
       return false;
   unsigned T = atoi(path);
-  if(T<treeCount && treePtrArray[T])
+  if(T < treeCount && treePtrArray[T])
     return treePtrArray[T]->diagnosticHTML(serv);
   
   return false;

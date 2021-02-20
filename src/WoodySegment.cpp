@@ -100,6 +100,12 @@ void WoodySegment::growStep(float years)
   cylinder->setLength(len);
   sapThickness = cylinder->radius - heartRadius - barkThickness; //XX obviously braindead
   
+  LogTreeSimDetails("Woody Segment at loc [%.1f, %.1f, %.1f] growing to length %.0f,"
+                          "girth %.0f\n",
+                          cylinder->location[0], cylinder->location[1], cylinder->location[2],
+                          cylinder->radius*mmPerSpaceUnit*2.0f*M_PI,
+                          cylinder->getLength()*mmPerSpaceUnit);
+
   // Recurse into our kids
   int N = kids.size();
   for(int i=0; i<N; i++)
@@ -161,10 +167,13 @@ const char* WoodySegment::objectName(void)
 
 bool WoodySegment::diagnosticHTML(HttpDebug* serv)
 {
-  httPrintf("<tr><td>WoodySegment</td><td>[%f, %f, %f]</td><td>[%f, %f, %f]</td><tr>",
+  // Print our info
+  httPrintf("<tr><td>WoodySegment</td><td>[%f, %f, %f]</td><td>[%f, %f, %f]</td>",
               cylinder->location[0], cylinder->location[1], cylinder->location[2],
               cylinder->direction[0], cylinder->direction[1], cylinder->direction[2]);
-  
+  httPrintf("<td><b>Radius:</b> %.0f<br></td></tr>", cylinder->radius*mmPerSpaceUnit);
+
+  // Recurse into our branches, leaves, etc
   int N = kids.size();
   for(int i=0; i<N; i++)
     if(kids[i])

@@ -38,7 +38,7 @@
     {
      "location": [150, 150],
      "yearPlanted": 1900,
-     "timePlanted": [20,20],
+     //"timePlanted": [20,20],
      "genus": "Pinus",
      "species": "strobus",
      "commonName": "Eastern White Pine",
@@ -48,7 +48,7 @@
     {
      "location": [20, 20],
      "yearPlanted": 1910,
-     "timePlanted": [20,20],
+     //"timePlanted": [20,20],
      "genus": "Tsuga",
      "species": "canadensis",
      "commonName": "Eastern Hemlock",
@@ -58,7 +58,7 @@
     {
      "location": [200, 200],
      "yearPlanted": 1950,
-     "timePlanted": [20,20],
+     //"timePlanted": [20,20],
      "genus": "Fagus",
      "species": "grandifolia",
      "commonName": "American beech",
@@ -68,7 +68,7 @@
     {
      "location": [92, 48],
      "yearPlanted": 1940,
-     "timePlanted": [20,20],
+     //"timePlanted": [20,20],
      "genus": "Acer",
      "species": "rubrum",
      "var": "drummondii",

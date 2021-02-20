@@ -295,6 +295,9 @@ void Scene::draw(bool mouseMoved, float timeElapsed)
   
   // Update the trees
   // XX this should be done through quadtree to only simulate currently visible
+  // Note this helpful discussion of floating point precision, which will probably
+  // crop up as an issue:
+  // https://blog.demofox.org/2017/11/21/floating-point-precision/
   if(doSimulation)
    {
     simYear += timeElapsed/simulationSpeed;
