@@ -5,6 +5,7 @@
 #include "WoodySegment.h"
 #include "PmodDesign.h"
 #include <err.h>
+#include "Scene.h"
 
 unsigned short Tree::treeCount = 0u;
 Tree** Tree::treePtrArray = new Tree*[TREE_ARRAY_SIZE];
@@ -22,6 +23,7 @@ Tree::Tree(Species* S, vec3 loc, float age, float now):
 {
   glm_vec3_copy(loc, location);
   treePtrArray[(treePtrArrayIndex = treeCount++)] = this;
+  ageNow      = now;
   yearPlanted = now - age;
   growStep(age);
   updateBoundingBox();
@@ -49,7 +51,12 @@ Tree::Tree(Value& plantObject):
    }
   else
     yearPlanted = plantObject["yearPlanted"].GetFloat();
-
+   
+  if(SIMULATION_BASE_YEAR - yearPlanted > 0.0f)
+    growStep(SIMULATION_BASE_YEAR - yearPlanted);
+  else
+    ageNow = SIMULATION_BASE_YEAR - yearPlanted;
+  
   trunkRadiusObserved = plantObject["treeGirth"][0].GetFloat()*mmPerSpaceUnit/2.0f/M_PI;
   yearTrunkMeasured =   plantObject["treeGirth"][1].GetFloat();
   
@@ -74,20 +81,28 @@ Tree::~Tree(void)
 
 void Tree::growStep(float years)
 {
-  LogTreeSimOverview("Growing tree %d (%s %s) by %.2f years.\n", treePtrArrayIndex,
-                                                species->genusName, species->speciesName, years);
+  // Update age so all our parts know how old the tree is
+  ageNow += years;  //XX precision could get marginal here if the simulation step is
+                    // very small and the tree is hundreds of years old.
 
-  // Handle the case of a brand new tree
-  unless(trunk)
+  LogTreeSimOverview("Growing tree %d (%s %s) by %.2f years to age %.1f.\n",
+                                treePtrArrayIndex, species->genusName, species->speciesName,
+                                years, ageNow);
+
+  unless(ageNow < 0.0f) // the tree is in the future
    {
-    LogTreeSimDetails("Tree %d getting its new trunk.\n", treePtrArrayIndex);
-    trunk = new WoodySegment(*species, treePtrArrayIndex, years, location);
-   }
-  else
-   {
-    LogTreeSimDetails("Tree %d growing trunk by %.2f years.\n",
+    // Handle the case of a brand new tree
+    unless(trunk)
+     {
+      LogTreeSimDetails("Tree %d getting its new trunk.\n", treePtrArrayIndex);
+      trunk = new WoodySegment(*species, treePtrArrayIndex, years, location);
+     }
+    else
+     {
+      LogTreeSimDetails("Tree %d growing trunk by %.2f years.\n",
                                     treePtrArrayIndex, years);
-    trunk->growStep(years);
+      trunk->growStep(years);
+     }
    }
 }
 

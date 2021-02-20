@@ -92,7 +92,11 @@ void WoodySegment::triangleBufferSizesRecurse(unsigned& vCount, unsigned& iCount
 
 void WoodySegment::growStep(float years)
 {
-  // Do ourselves
+  // Do ourselves.
+  
+  // UP TO HERE
+  
+  // Tree::treePtrArray[ourTreeIndex]
   
   // Recurse into our kids
   int N = kids.size();

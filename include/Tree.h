@@ -30,6 +30,7 @@ class Tree: public VisualObject
   mat4            trans;
   Species*        species;
   float           yearPlanted;
+  float           ageNow;
   unsigned short  treePtrArrayIndex; // used by all our subparts to find us
   float           trunkRadiusObserved;
   float           yearTrunkMeasured;

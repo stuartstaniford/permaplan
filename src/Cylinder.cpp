@@ -174,6 +174,17 @@ void Cylinder::lengthen(float increment)
 
 
 // =======================================================================================
+// Set the length of the cylinder to a supplied amount.  Note we don't do anything
+// about rebuffering - caller must track that.
+
+void Cylinder::setLength(float length)
+{
+  float lenNow = glm_vec3_norm(direction);
+  glm_vec3_scale(direction, length/lenNow, direction);
+}
+
+
+// =======================================================================================
 // Stub definition only at present
 
 bool Cylinder::matchRay(vec3& position, vec3& direction, float& lambda)

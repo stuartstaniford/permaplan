@@ -29,6 +29,7 @@ class Cylinder
   bool        matchRay(vec3& position, vec3& direction, float& lambda);
   void        triangleBufferSizes(unsigned& vCount, unsigned& iCount);
   void        lengthen(float increment);
+  void        setLength(float length);
   int         printOPSF(char*& buf, unsigned bufSize);
   const char* objectName(void);
   bool        diagnosticHTML(HttpDebug* serv);

@@ -155,6 +155,8 @@ void MenuInterface::imguiGenusMenu(void)
       Species* S = iter.second;
       genusSelected = NULL;
       show_tree_menu = false;
+      // XX we are not doing any sanity checking on the tree age here.  Need to make sure
+      // it's numerical and non-negative.  Also need a default (eg 1.0f years)
       LogTreeSelections("Tree %s %s (age %.1f years) inserted at [%f, %f].\n",
                         S->genusName, S->speciesName, atof(heightBuf),
                                           scene->lastDoubleClick[0], scene->lastDoubleClick[1]);

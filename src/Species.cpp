@@ -59,12 +59,12 @@ Species::~Species(void)
 
 
 // =======================================================================================
-// Braindead trunk growth model that assumes that growth follows a logistic function, specifically
-// that a tree of age zero corresponds to -5, and that at maxAge/2 (for the species) the
-// tree will have reached maxHeight/2 and maxRadius/2, which will correspond to +5 on the
-// logistic curve.
+// Braindead trunk growth model that assumes that growth follows a logistic function,
+// specifically that a tree of age zero corresponds to -5, and that at maxAge/2 (for the
+// species) the tree will have reached maxHeight/2 and maxRadius/2, which will correspond
+// to +5 on the logistic curve x-axis.
 // See https://en.wikipedia.org/wiki/Logistic_function
-// for further detail.
+// for reference.
 
 void Species::logisticGrowthModel(float age, float& radius, float& height)
 {
