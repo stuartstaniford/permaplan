@@ -36,6 +36,8 @@ Species::Species(Document& otdlDoc)
 
   // other overviewdata
   maxHeight  = otdlDoc["overviewData"]["maxHeight"].GetFloat()/mmPerSpaceUnit;
+  maxRadius  = otdlDoc["overviewData"]["maxGirth"].GetFloat()/mmPerSpaceUnit/M_PI/2.0;
+  maxAge  = otdlDoc["overviewData"]["maxAge"].GetFloat();
 
   // fill out the barkColorMap array (dedicated function for this)
   extractBarkColors(otdlDoc["wood"]["barkColors"]);
@@ -137,6 +139,20 @@ bool Species::validateOverviewData(Document& doc, JSONStructureChecker* jCheck)
   unless(overviewData.HasMember("maxHeight") && overviewData["maxHeight"].IsNumber())
    {
     LogOTDLValidity("No maxHeight or invalid maxHeight in %s\n", jCheck->sourcePhrase);
+    retVal = false;
+   }
+
+  // maxGirth
+  unless(overviewData.HasMember("maxGirth") && overviewData["maxGirth"].IsNumber())
+   {
+    LogOTDLValidity("No maxGirth or invalid maxGirth in %s\n", jCheck->sourcePhrase);
+    retVal = false;
+   }
+
+  // maxAge
+  unless(overviewData.HasMember("maxAge") && overviewData["maxAge"].IsNumber())
+   {
+    LogOTDLValidity("No maxAge or invalid maxAge in %s\n", jCheck->sourcePhrase);
     retVal = false;
    }
 
@@ -402,7 +418,9 @@ int Species::writeOTDL(char* buf, unsigned bufSize)
   bufprintf("  \"overviewData\":\n   {\n");
   bufprintf("   \"genus\":       \"%s\",\n", genusName);
   bufprintf("   \"species\":     \"%s\",\n", speciesName);
-  bufprintf("   \"maxHeight\":     \"%.0f\",\n", maxHeight);
+  bufprintf("   \"maxHeight\":     \"%.0f\",\n", maxHeight*mmPerSpaceUnit);
+  bufprintf("   \"maxGirth\":     \"%.0f\",\n", maxRadius*mmPerSpaceUnit*M_PI*2.0);
+  bufprintf("   \"maxAge\":     \"%.0f\",\n", maxAge);
   bufprintf("   \"commonName\":\n");
   bufprintf("    {\n");
   bufprintf("    },\n");

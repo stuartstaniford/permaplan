@@ -37,10 +37,12 @@ class Species
   // Instance variables - public;
   const char*               genusName;
   const char*               speciesName;
-  float                     stemRate;           // in mm/year
-  float                     initSapThickness;   // in mm
-  float                     initBarkThickness;  // in mm
-  float                     maxHeight;          // in mm!
+  float                     stemRate;           // in spaceUnits/year
+  float                     initSapThickness;   // in spaceUnits
+  float                     initBarkThickness;  // in spaceUnits
+  float                     maxHeight;          // in spaceUnits
+  float                     maxRadius;          // in spaceUnits
+  float                     maxAge;             // in years
   std::map<float, unsigned> barkColorMap;
 
   // Member functions - public
