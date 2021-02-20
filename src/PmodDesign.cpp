@@ -393,41 +393,41 @@ bool PmodDesign::validateLandSurface(void)
 // =======================================================================================
 // Function to check the structure of a tree Diameter field in an OLDF plant object.
 
-#define MAX_TREE_DIAMETER 100 // https://en.wikipedia.org/wiki/List_of_superlative_trees
+#define MAX_TREE_RADIUS 7000 //in mm.  See https://en.wikipedia.org/wiki/List_of_superlative_trees
 
-bool PmodDesign::validateTreeDiameter(rapidjson::Value& treeDiamArray, char* objName)
+bool PmodDesign::validateTreeGirth(rapidjson::Value& treeGirthArray, char* objName)
 {
   bool retVal  = true;
 #if defined LOG_OLDF_VALIDITY //|| defined LOG_OLDF_DETAILS
   const PmodConfig& config = PmodConfig::getConfig();
 #endif
   
-  unless(treeDiamArray.Size() == 2)
+  unless(treeGirthArray.Size() == 2)
    {
-    LogOLDFValidity("%s treeDiameter array is wrong size %d in OLDF file %s\n",
-                    objName,  treeDiamArray.Size(), config.designFileName);
+    LogOLDFValidity("%s treeGirth array is wrong size %d in OLDF file %s\n",
+                    objName,  treeGirthArray.Size(), config.designFileName);
     retVal = false;
    }
 
-  unless(treeDiamArray[0].IsNumber() && treeDiamArray[1].IsNumber())
+  unless(treeGirthArray[0].IsNumber() && treeGirthArray[1].IsNumber())
    {
-    LogOLDFValidity("%s treeDiameter array values non-numerical in OLDF file %s\n",
+    LogOLDFValidity("%s treeGirth array values non-numerical in OLDF file %s\n",
                                                           objName, config.designFileName);
     retVal = false;
    }
 
-  float treeDiam = treeDiamArray[0].GetFloat();
-  unless(treeDiam > 0.0f && treeDiam < MAX_TREE_DIAMETER) //XX ideally would adjust if meters
+  float treeRadius = treeGirthArray[0].GetFloat()*mmPerSpaceUnit/2.0f/M_PI;
+  unless(treeRadius > 0.0f && treeRadius < MAX_TREE_RADIUS)
    {
-    LogOLDFValidity("%s treeDiameter size out of range in OLDF file %s\n",
+    LogOLDFValidity("%s treeGirth size out of range in OLDF file %s\n",
                                                           objName, config.designFileName);
     retVal = false;
    }
 
   if(retVal)
    {
-    LogOLDFDetails("%s diameter %.2f at breast height measured at %.2f\n",
-                                    objName, treeDiam, treeDiamArray[1].GetFloat());
+    LogOLDFDetails("%s radius %.2f at breast height measured at %.2f\n",
+                                    objName, treeRadius, treeDiamArray[1].GetFloat());
    }
   return retVal;
 }
@@ -518,14 +518,14 @@ bool PmodDesign::validatePlants(void)
                                                                         (char*)"commonName");
 
     // Tree Diameter
-    unless(plants[i].HasMember("treeDiameter") && plants[i]["treeDiameter"].IsArray())
+    unless(plants[i].HasMember("treeGirth") && plants[i]["treeGirth"].IsArray())
      {
-      LogOLDFValidity("Missing or invalid treeDiameter for %s in OLDF file %s\n",
+      LogOLDFValidity("Missing or invalid treeGirth for %s in OLDF file %s\n",
                                       logObjectName, config.designFileName);
       retVal = false;
      }
     else
-      retVal &= validateTreeDiameter(plants[i]["treeDiameter"], logObjectName);
+      retVal &= validateTreeGirth(plants[i]["treeGirth"], logObjectName);
 
     // Notes
     retVal &= jCheck->validateOptionalStringOrArrayString(plants[i], logObjectName,

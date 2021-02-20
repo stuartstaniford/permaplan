@@ -50,6 +50,9 @@ Tree::Tree(Value& plantObject):
   else
     yearPlanted = plantObject["yearPlanted"].GetFloat();
 
+  trunkRadiusObserved = plantObject["treeGirth"][0].GetFloat()*mmPerSpaceUnit/2.0f/M_PI;
+  yearTrunkMeasured =   plantObject["treeGirth"][1].GetFloat();
+  
   treePtrArray[(treePtrArrayIndex = treeCount++)] = this;
   updateBoundingBox();
   LogTreeReads("Tree %d (%s %s) read in from file.\n", treePtrArrayIndex,

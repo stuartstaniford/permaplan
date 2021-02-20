@@ -31,6 +31,8 @@ class Tree: public VisualObject
   Species*        species;
   float           yearPlanted;
   unsigned short  treePtrArrayIndex; // used by all our subparts to find us
+  float           trunkRadiusObserved;
+  float           yearTrunkMeasured;
 
   // Member functions - public
   Tree(Species* S, vec3 loc, float age, float now);

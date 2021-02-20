@@ -42,7 +42,7 @@
      "genus": "Pinus",
      "species": "strobus",
      "commonName": "Eastern White Pine",
-     "treeDiameter": [12.5, 2019.18],
+     "treeGirth": [20, 2019.18],
      "notes": "Big old pine in the center"
     },
     {
@@ -52,7 +52,7 @@
      "genus": "Tsuga",
      "species": "canadensis",
      "commonName": "Eastern Hemlock",
-     "treeDiameter": [10, 2019.18],
+     "treeGirth": [10, 2019.18],
      "notes": "Sample hemlock"
     },
     {
@@ -62,7 +62,7 @@
      "genus": "Fagus",
      "species": "grandifolia",
      "commonName": "American beech",
-     "treeDiameter": [10.2, 2019.18],
+     "treeGirth": [15.6, 2019.18],
      "notes": "Beech tree"
     },
     {
@@ -74,7 +74,7 @@
      "var": "drummondii",
      "taxonomyLink": "https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=526853#null",
      "commonName": "Drummond's Maple",
-     "treeDiameter": [6.33, 2019.18],
+     "treeGirth": [14, 2019.18],
      "notes": "The big one up the meadow"
     }
   ],

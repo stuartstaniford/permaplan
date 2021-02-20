@@ -248,7 +248,7 @@ be expressed as an empty array (but the plants tag should be present).
      "species": "rubrum",
      "taxonomyLink": 
      "commonName": "Red Maple",
-     "treeDiameter": [6.33, 2019.18],
+     "treeGirth": [6.33, 2019.18],
    },
    ...
  ],
@@ -305,13 +305,11 @@ This is a common name of the plant by which the file creator wishes to informall
 
 In general, it's better to rely on the detailed commonName information in the OTDL spec for a plant, but this field in the plants array allows specification of a preferred name of the local user, and if specified should be used instead of something drawn from the array in the OTDL object.
 
+### treeGirth (mandatory)
 
-### treeDiameter (mandatory)
+Syntax: `"treeGirth": [<girth>, <year>],`
 
-Syntax: `"treeDiameter": [<diameter>, <year>],`
-
-This records the diameter of the tree (generally taken to be at breast height - 54").  `<diameter>` is expressed in spaceUnits and may have a decimal part.  `<year>` expresses the year at which this observation was made, and may also have a decimal part (with 0 being the start of Jan 1st, and 1 being the end of December 31st).
-
+This records the girth (circumference) of the tree (generally taken to be at breast height - 54").  `<girth>` is expressed in spaceUnits and may have a decimal part.  `<year>` expresses the year at which this observation was made, and may also have a decimal part (with 0 being the start of Jan 1st, and 1 being the end of December 31st).
 
 ### notes (optional)
 
@@ -321,7 +319,9 @@ or  `"notes": ["<note1>", "<note2>", ...],`
 
 This is a field for unstructured (typically human supplied) information about the particular plant.  It can be a single string or multiple strings.  Implementations should be aware that information in this field may not be very inter-operable.
 
+
 ## Fencing
+
 
 ## Buildings
 
