@@ -48,6 +48,7 @@ class Species
   // Member functions - public
   Species(rapidjson::Document& otdlDoc);
   ~Species(void);
+  void        logisticGrowthModel(float age, float& radius, float& height);
   void        extractBarkColors(rapidjson::Value& colorsArray);
   const char* objectName(void);
   int         writeOTDL(char* buf, unsigned bufSize);

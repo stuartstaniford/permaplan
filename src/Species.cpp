@@ -59,6 +59,22 @@ Species::~Species(void)
 
 
 // =======================================================================================
+// Braindead trunk growth model that assumes that growth follows a logistic function, specifically
+// that a tree of age zero corresponds to -5, and that at maxAge/2 (for the species) the
+// tree will have reached maxHeight/2 and maxRadius/2, which will correspond to +5 on the
+// logistic curve.
+// See https://en.wikipedia.org/wiki/Logistic_function
+// for further detail.
+
+void Species::logisticGrowthModel(float age, float& radius, float& height)
+{
+  float logisticVal = 0.5f/(1.0f + expf(10.f*(maxAge/4.0f-age))/(maxAge/2.0f));
+  radius = maxRadius*logisticVal;
+  height = maxHeight*logisticVal;
+}
+
+
+// =======================================================================================
 // Extract and store the bark colors for later use in visualization.
 
 void Species::extractBarkColors(Value& colorsArray)
