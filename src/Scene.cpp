@@ -21,7 +21,7 @@ Scene::Scene():
                 indicatorTbuf(NULL),
                 land(),
                 lighting(),
-                simulationSpeed(1.0f),
+                simulationSpeed(2.5f), // in years/second
                 axes(NULL),
                 grid(NULL),
                 doSimulation(false),
@@ -300,8 +300,8 @@ void Scene::draw(bool mouseMoved, float timeElapsed)
   // https://blog.demofox.org/2017/11/21/floating-point-precision/
   if(doSimulation)
    {
-    simYear += timeElapsed/simulationSpeed;
-    Tree::growAllTrees(timeElapsed/simulationSpeed);
+    simYear += timeElapsed*simulationSpeed;
+    Tree::growAllTrees(timeElapsed*simulationSpeed);
     rebuildVisualObjectBuffer(&sceneObjectTbuf);
    }
   
