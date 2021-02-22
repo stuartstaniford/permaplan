@@ -68,9 +68,12 @@ Species::~Species(void)
 
 void Species::logisticGrowthModel(float age, float& radius, float& height)
 {
-  float logisticVal = 0.5f/(1.0f + expf(10.f*(maxAge/4.0f-age))/(maxAge/2.0f));
+  float xval = 10.f*(age - maxAge/4.0f)/(maxAge/2.0f);
+  float logisticVal = 0.5f/(1.0f + expf(-xval));
   radius = maxRadius*logisticVal;
   height = maxHeight*logisticVal;
+  LogGrowthModel("Growth Model has x-val: %f, logisticVal: %f, radius: %f, height %f\n",
+                                                            xval, logisticVal, radius, height);
 }
 
 
