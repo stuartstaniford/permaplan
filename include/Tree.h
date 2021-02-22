@@ -43,6 +43,8 @@ class Tree: public VisualObject
   bool        getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
   bool        getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
   int         getNextIndex(bool resetToFirst);
+  float       getHeight(void);
+  float       getRadius(void);
   bool        bufferGeometry(TriangleBuffer* T);
   void        draw(void);
   bool        matchRay(vec3& position, vec3& direction, float& lambda);

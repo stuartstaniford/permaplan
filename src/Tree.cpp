@@ -85,7 +85,7 @@ void Tree::growStep(float years)
   ageNow += years;  //XX precision could get marginal here if the simulation step is
                     // very small and the tree is hundreds of years old.
 
-  LogTreeSimOverview("Growing tree %d (%s %s) by %.2f years to age %.1f.\n",
+  LogTreeSimOverview("Growing tree %d (%s %s) by %.2f years to age %.2f.\n",
                                 treePtrArrayIndex, species->genusName, species->speciesName,
                                 years, ageNow);
 
@@ -350,9 +350,38 @@ bool Tree::diagnosticHTMLRow(HttpDebug* serv)
   httPrintf("<td><a href=\"/species/%s/%s/\">%s %s</a></td>", species->genusName,
                             species->speciesName, species->genusName, species->speciesName);
   httPrintf("<td>[%.2f, %.2f]</td>\n", location[0], location[1]);
-  httPrintf("<td>%.2f</td></tr>\n", yearPlanted);
+  httPrintf("<td>%.2f</td>\n", yearPlanted);
+
+  httPrintf("<td>%.2f</td><td>%.2f</td><td>%.2f</td>\n", ageNow,
+            getHeight()*mmPerSpaceUnit, getRadius()*mmPerSpaceUnit*2.0f*M_PI);
+  
+  httPrintf("</tr>\n");
 
   return true;
+}
+
+
+// =======================================================================================
+// Get the total height of the tree (in spaceUnits)
+
+float Tree::getHeight(void)
+{
+  if(trunk)
+    return ((WoodySegment*)trunk)->cylinder->getLength(); //XX maybe use bounding box here?
+  else
+    return 0.0f;
+}
+
+
+// =======================================================================================
+// Get the trunk radio of the tree (in spaceUnits)
+
+float Tree::getRadius(void)
+{
+  if(trunk)
+    return ((WoodySegment*)trunk)->cylinder->radius;
+  else
+    return 0.0f;
 }
 
 
@@ -366,7 +395,7 @@ bool Tree::allTreeDiagnosticHTML(HttpDebug* serv)
   httPrintf("<center>\n");
   serv->startTable();
   httPrintf("<tr><th>Index</th><th>Species</th><th>Location</th>"
-                                                      "<th>Planted</th></tr>\n");
+              "<th>Planted</th><th>Age</th><th>Height</th><th>Girth</th></tr>\n");
   
   for(int i=0; i< treeCount; i++)
     treePtrArray[i]->diagnosticHTMLRow(serv);
