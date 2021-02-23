@@ -11,8 +11,8 @@
 
 VisualObject::VisualObject(bool absHeights, BoundingBox* B):
                                 box(B),
-                                absoluteHeights(absHeights),
-                                useNoTexColor(false)
+                                useNoTexColor(false),
+                                absoluteHeights(absHeights)
 {
 }
 
@@ -24,6 +24,16 @@ VisualObject::~VisualObject(void)
 {
   if(box)
     delete box;
+}
+
+// =======================================================================================
+// This can be overwritten by implementing subclasses, but should do the right thing in
+// most cases.
+
+void VisualObject::setAltitude(float suppliedAltitude)
+{
+  unless(absoluteHeights)
+    altitude = suppliedAltitude;
 }
 
 

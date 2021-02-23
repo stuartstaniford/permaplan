@@ -19,12 +19,12 @@ class VisualObject
   
   // Instance variables - public
   BoundingBox*  box;
-  float         altitude;
 
   // Member functions - public
   VisualObject(bool absHeights, BoundingBox* B = NULL);
   virtual ~VisualObject(void);
   void                setNoTexColor(vec3 color);
+  virtual void        setAltitude(float suppliedAltitude);
   virtual bool        getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
   virtual bool        getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
   virtual int         getNextIndex(bool resetToFirst);
@@ -39,6 +39,7 @@ class VisualObject
   
   // Instance variables - protected
   vec3          noTexColor;
+  float         altitude;
   bool          useNoTexColor;
   bool          absoluteHeights;  // if true, heights are absolute.  Otherwise, they
                                   // are relative to local ground level.
