@@ -326,8 +326,8 @@ bool Tree::diagnosticHTML(HttpDebug* serv)
   // Table of treeparts
   httPrintf("<h2>Table of parts of this tree</h2>");
   serv->startTable();
-  httPrintf("<tr><th>Type</th><th>Location</th><th>Direction</th>"
-                                                    "<th>Other Information</th></tr>\n");
+  httPrintf("<tr><th>Type</th><th>Location (%c)</th><th>Direction (%c)</th>"
+              "<th>Other Information</th></tr>\n", spaceUnitAbbr, spaceUnitAbbr);
   if(trunk)
     unless(trunk->diagnosticHTML(serv))
       return false;
@@ -353,7 +353,7 @@ bool Tree::diagnosticHTMLRow(HttpDebug* serv)
   httPrintf("<td>%.2f</td>\n", yearPlanted);
 
   httPrintf("<td>%.2f</td><td>%.2f</td><td>%.2f</td>\n", ageNow,
-            getHeight()*mmPerSpaceUnit, getRadius()*mmPerSpaceUnit*2.0f*M_PI);
+            getHeight(), getRadius()*2.0f*M_PI);
   
   httPrintf("</tr>\n");
 
@@ -394,8 +394,9 @@ bool Tree::allTreeDiagnosticHTML(HttpDebug* serv)
   
   httPrintf("<center>\n");
   serv->startTable();
-  httPrintf("<tr><th>Index</th><th>Species</th><th>Location</th>"
-              "<th>Planted</th><th>Age</th><th>Height</th><th>Girth</th></tr>\n");
+  httPrintf("<tr><th>Index</th><th>Species</th><th>Location (%c)</th><th>Planted</th>"
+              "<th>Age (yr)</th><th>Height (%c)</th><th>Girth (%c)</th></tr>\n",
+              spaceUnitAbbr, spaceUnitAbbr, spaceUnitAbbr);
   
   for(int i=0; i< treeCount; i++)
     treePtrArray[i]->diagnosticHTMLRow(serv);

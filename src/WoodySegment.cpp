@@ -171,7 +171,7 @@ bool WoodySegment::diagnosticHTML(HttpDebug* serv)
   httPrintf("<tr><td>WoodySegment</td><td>[%f, %f, %f]</td><td>[%f, %f, %f]</td>",
               cylinder->location[0], cylinder->location[1], cylinder->location[2],
               cylinder->direction[0], cylinder->direction[1], cylinder->direction[2]);
-  httPrintf("<td><b>Radius:</b> %.0f<br></td></tr>", cylinder->radius*mmPerSpaceUnit);
+  httPrintf("<td><b>Radius:</b> %.4f%c<br></td></tr>", cylinder->radius, spaceUnitAbbr);
 
   // Recurse into our branches, leaves, etc
   int N = kids.size();
