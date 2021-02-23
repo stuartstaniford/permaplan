@@ -9,8 +9,9 @@
 // =======================================================================================
 // Constructors
 
-VisualObject::VisualObject(BoundingBox* B):
+VisualObject::VisualObject(bool absHeights, BoundingBox* B):
                                 box(B),
+                                absoluteHeights(absHeights),
                                 useNoTexColor(false)
 {
 }

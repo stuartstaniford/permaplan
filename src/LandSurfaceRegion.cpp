@@ -10,7 +10,8 @@
 // Constructors.
 
 LandSurfaceRegion::LandSurfaceRegion(float x, float y, float width, float height,
-                                     float s, float t, float sWidth, float tHeight)
+                                     float s, float t, float sWidth, float tHeight):
+                                                        VisualObject(true)
 {
   xyPos[0]    = x;
   xyPos[1]    = y;

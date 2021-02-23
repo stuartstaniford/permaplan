@@ -10,7 +10,8 @@
 // =======================================================================================
 // Constructors.
 
-Box::Box(mat4 transform)
+Box::Box(mat4 transform):
+                    VisualObject(true)
 {
   glm_mat4_copy(transform, trans);
   updateBoundingBox();

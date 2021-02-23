@@ -11,7 +11,8 @@
 // =======================================================================================
 // Constructors.
 
-Arrow::Arrow(vec3 root, vec3 dir)
+Arrow::Arrow(vec3 root, vec3 dir):
+                  VisualObject(true)
 {
   glm_vec3_copy(root, location);
   glm_vec3_copy(dir, direction);

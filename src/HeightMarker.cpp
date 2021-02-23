@@ -13,7 +13,8 @@ const float heightMarkerHeight = heightMarkerSize*sqrtf(2.0f); // 1/2 the total 
 // Constructors.  Note that typically we are constructed dynamically on a pointer, and
 // pointers to us are stored both in the Qtree and in the LandSurface
 
-HeightMarker::HeightMarker(float x, float y, float z)
+HeightMarker::HeightMarker(float x, float y, float z):
+                                              VisualObject(true)
 {
   location[0] = x;
   location[1] = y;
@@ -22,7 +23,8 @@ HeightMarker::HeightMarker(float x, float y, float z)
 }
 
 
-HeightMarker::HeightMarker(vec3 loc)
+HeightMarker::HeightMarker(vec3 loc):
+                              VisualObject(true)
 {
   location[0] = loc[0];
   location[1] = loc[1];

@@ -18,6 +18,7 @@ using namespace rapidjson;
 // Constructor used when starting a seedling from the interface
 
 Tree::Tree(Species* S, vec3 loc, float age, float now):
+                          VisualObject(false),
                           species(S),
                           trunk(NULL)
 {
@@ -34,6 +35,7 @@ Tree::Tree(Species* S, vec3 loc, float age, float now):
 // This is the constructor generally used when reading from OLDF.
 
 Tree::Tree(Value& plantObject):
+                          VisualObject(false),
                           trunk(NULL)
 {
   char speciesPath[MAX_SPECIES_PATH];
