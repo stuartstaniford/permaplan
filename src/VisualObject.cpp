@@ -40,7 +40,11 @@ void VisualObject::setAltitude(LandSurfaceRegion* surface)
     float x,y;
     getGroundContact(x,y);
     altitude = surface->getAltitude(x,y);
+    LogObjectAltitudes("Object of type %s at %.2f,%.2f has altitude %.2f.\n",
+                       objectName(), x, y, altitude);
    }
+  else
+    LogObjectAltitudes("Object of type %s has absolute altitudes.\n", objectName());
 }
 
 

@@ -102,7 +102,7 @@ bool LandSurfaceRegion::matchRay(vec3& position, vec3& direction, float& lambda)
 // work for any subclass that has implemented a proper matchRay.  Subclasses may wish
 // to override for efficiency reasons.
 
-#define HIGH_UP 30000.0f
+#define HIGH_UP 20000.0f
 #define ALT_STEP 1000.0f
 
 float LandSurfaceRegion::getAltitude(float x, float y)

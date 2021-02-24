@@ -23,6 +23,8 @@ Tree::Tree(Species* S, vec3 loc, float age, float now):
                           trunk(NULL)
 {
   glm_vec3_copy(loc, location);
+  location[2] = 0.0f;
+  altitude = loc[2];
   treePtrArray[(treePtrArrayIndex = treeCount++)] = this;
   ageNow      = now;
   yearPlanted = now - age;
@@ -178,9 +180,15 @@ bool Tree::bufferGeometry(TriangleBuffer* T)
 void Tree::getGroundContact(float& x, float& y)
 {
   if(!trunk)
-    return;
-  x = ((WoodySegment*)trunk)->cylinder->location[0];
-  y = ((WoodySegment*)trunk)->cylinder->location[1];
+   {
+    x = location[0];
+    y = location[1];
+   }
+  else
+   {
+    x = ((WoodySegment*)trunk)->cylinder->location[0];
+    y = ((WoodySegment*)trunk)->cylinder->location[1];
+   }
 }
 
 

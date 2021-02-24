@@ -74,8 +74,8 @@
 // =======================================================================================
 // Logging options to do with the Bezier Patch code
 
-//#define LOG_BEZIER_FIT        // Log the process of fitting the Bezier patch to height data
-//#define LOG_BEZIER_MATCH_RAY  // Log the process of matching a ray to the patch.
+#define LOG_BEZIER_FIT        // Log the process of fitting the Bezier patch to height data
+#define LOG_BEZIER_MATCH_RAY  // Log the process of matching a ray to the patch.
 #define LOG_OBJECT_ALTITUDES   // Log finding the altitudes of objects above the land
 
 
@@ -414,7 +414,7 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
 // =======================================================================================
 // Logging options to do with the Bezier Patch code
 
-// Log fitting the Bezier patch
+// Log the process of fitting the Bezier patch to height data
 #ifdef LOG_BEZIER_FIT
 #define LogBezierFit(...) if(doLogBezierFit) LogStatement(__VA_ARGS__)
 #else

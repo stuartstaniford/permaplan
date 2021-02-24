@@ -35,6 +35,7 @@ Scene::Scene():
                        0.0f, 0.0f, 1.0f, 1.0f, minSize, 0u);
   land.bufferGeometry(qtree);
   Tree::readTreesFromDesign(qtree);
+  qtree->adjustAltitudes();
   rebuildVisualObjectBuffer(&sceneObjectTbuf);
 }
 

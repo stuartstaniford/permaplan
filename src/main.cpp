@@ -40,7 +40,6 @@ int main (int argc, char* argv[])
   Window3D window(800, 600);
   Shader shader("src/pmodVert.glsl", "src/pmodFrag.glsl");
   PmodDesign design;
-  //checkGLError(stderr, "after Tree\n");
   Scene scene;
   window.scene = &scene;
   window.imgMenu->scene = &scene;
