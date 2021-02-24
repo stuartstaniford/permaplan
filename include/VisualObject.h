@@ -9,9 +9,11 @@
 #include "BoundingBox.h"
 #include "TriangleBuffer.h"
 
+
 // =======================================================================================
 // Class variable initialization
 
+class LandSurfaceRegion;
 
 class VisualObject
 {
@@ -24,10 +26,11 @@ class VisualObject
   VisualObject(bool absHeights, BoundingBox* B = NULL);
   virtual ~VisualObject(void);
   void                setNoTexColor(vec3 color);
-  virtual void        setAltitude(float suppliedAltitude);
+  virtual void        setAltitude(LandSurfaceRegion* surface);
   virtual bool        getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
   virtual bool        getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
   virtual int         getNextIndex(bool resetToFirst);
+  virtual void        getGroundContact(float& x, float& y);
   virtual bool        bufferGeometry(TriangleBuffer* T);
   virtual bool        matchRay(vec3& position, vec3& direction, float& lambda);
   virtual void        updateBoundingBox(void);

@@ -6,6 +6,7 @@
 
 #include "DisplayList.h"
 #include "HeightMarker.h"
+#include "LandSurfaceRegion.h"
 
 
 // =======================================================================================
@@ -64,6 +65,18 @@ void DisplayList::bufferGeometry(TriangleBuffer* T)
                          at(i)->objectName(), centroid[0], centroid[1], centroid[2]);
 #endif
    }
+}
+
+
+// =======================================================================================
+// This gets called whenever the shape of the land has changed, and tells all the visual
+// objects in the list to update their idea of their altitude.
+
+void DisplayList::adjustAltitudes(LandSurfaceRegion* surface)
+{
+  int i, N = size();
+  for(i=0; i<N; i++)
+    at(i)->setAltitude(surface);
 }
 
 

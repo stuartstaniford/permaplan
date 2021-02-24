@@ -98,6 +98,26 @@ bool LandSurfaceRegion::matchRay(vec3& position, vec3& direction, float& lambda)
 
 
 // =======================================================================================
+// Obtains the height at a particular location.  This version uses matchRay and should
+// work for any subclass that has implemented a proper matchRay.  Subclasses may wish
+// to override for efficiency reasons.
+
+#define HIGH_UP 30000.0f
+#define ALT_STEP 1000.0f
+
+float LandSurfaceRegion::getAltitude(float x, float y)
+{
+  vec3 position =  {x, y, HIGH_UP};
+  vec3 direction = {0.0f, 0.0f, -ALT_STEP};
+  float lambda;
+  
+  matchRay(position, direction, lambda);
+  
+  return HIGH_UP - lambda*ALT_STEP;
+}
+
+
+// =======================================================================================
 // Stub not done.
                                                                 
 void LandSurfaceRegion::updateBoundingBox(void)

@@ -4,7 +4,7 @@
 // should be displayed and be stored in the quadtree
 
 #include "VisualObject.h"
-
+#include "LandSurfaceRegion.h"
 
 // =======================================================================================
 // Constructors
@@ -27,14 +27,35 @@ VisualObject::~VisualObject(void)
     delete box;
 }
 
-// =======================================================================================
-// This can be overwritten by implementing subclasses, but should do the right thing in
-// most cases.
 
-void VisualObject::setAltitude(float suppliedAltitude)
+// =======================================================================================
+// Function to set our altitude based on the land height where we are.
+// This version can be overwritten by implementing subclasses, but should do the
+// right thing in most cases.
+
+void VisualObject::setAltitude(LandSurfaceRegion* surface)
 {
   unless(absoluteHeights)
-    altitude = suppliedAltitude;
+   {
+    float x,y;
+    getGroundContact(x,y);
+    altitude = surface->getAltitude(x,y);
+   }
+}
+
+
+// =======================================================================================
+// Function to return the location at which we officially contact ground/grade level.
+// This version in this class finds the midpoint of the bounding box.
+// Subclasses may want to override this.
+
+void VisualObject::getGroundContact(float& x, float& y)
+{
+  unless(box)
+    err(-1, "Called VisualObject::getGroundContact with no bounding box.");
+
+  x = (box->lower[0] + box->upper[0])/2.0f;
+  y = (box->lower[1] + box->upper[1])/2.0f;
 }
 
 

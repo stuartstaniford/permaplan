@@ -9,6 +9,7 @@
 
 #include <vector>
 #include "VisualObject.h"
+#include "LandSurfaceRegion.h"
 
 // =======================================================================================
 // Class variable initialization
@@ -28,6 +29,7 @@ class DisplayList: public std::vector<VisualObject*>
   DisplayList(std::vector<float*> locations);
   ~DisplayList();
   void bufferGeometry(TriangleBuffer* T);
+  void adjustAltitudes(LandSurfaceRegion* surface);
   void triangleBufferSizes(unsigned& vCount, unsigned& iCount);
   bool diagnosticHTML(HttpDebug* serv);
 

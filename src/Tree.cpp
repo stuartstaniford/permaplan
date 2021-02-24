@@ -173,6 +173,18 @@ bool Tree::bufferGeometry(TriangleBuffer* T)
 
 
 // =======================================================================================
+// Function to return the location at which we officially contact ground/grade level.
+
+void Tree::getGroundContact(float& x, float& y)
+{
+  if(!trunk)
+    return;
+  x = ((WoodySegment*)trunk)->cylinder->location[0];
+  y = ((WoodySegment*)trunk)->cylinder->location[1];
+}
+
+
+// =======================================================================================
 // How much space we need in a TriangleBuffer
 
 void Tree::triangleBufferSizes(unsigned& vCount, unsigned& iCount)

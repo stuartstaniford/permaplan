@@ -32,6 +32,7 @@ class LandSurfaceRegion: public VisualObject
   virtual int         getNextIndex(bool resetToFirst);
   virtual bool        bufferGeometry(TriangleBuffer* T);
   virtual bool        matchRay(vec3& position, vec3& direction, float& lambda);
+  virtual float       getAltitude(float x, float y);
   virtual void        updateBoundingBox(void);
   virtual void        triangleBufferSize(unsigned& vCount, unsigned& iCount);
   virtual void        fit(std::vector<float*>& locations);
