@@ -19,7 +19,7 @@ class TreePart
   // Member functions - public
   TreePart(unsigned short treeIndex);
   virtual ~TreePart(void);
-  virtual bool bufferGeometry(TriangleBuffer* T);
+  virtual bool bufferGeometry(TriangleBuffer* T, float altitude);
   virtual void triangleBufferSizesRecurse(unsigned& vCount, unsigned& iCount);
   virtual void growStep(float years);
 

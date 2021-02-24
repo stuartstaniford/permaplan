@@ -25,7 +25,7 @@ class WoodySegment: public TreePart
   // Member functions - public
   WoodySegment(Species& species, unsigned short treeIndex, float years, vec3 location);
   ~WoodySegment(void);
-  bool        bufferGeometry(TriangleBuffer* T);
+  bool        bufferGeometry(TriangleBuffer* T, float altitude);
   void        triangleBufferSizesRecurse(unsigned& vCount, unsigned& iCount);
   void        growStep(float years);
   int         printOPSF(char*& buf, unsigned bufSize);

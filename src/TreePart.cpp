@@ -25,7 +25,7 @@ TreePart::~TreePart(void)
 // =======================================================================================
 // Buffer the vertices/indices for this part - stub here, as base class for interface.
 
-bool TreePart::bufferGeometry(TriangleBuffer* T)
+bool TreePart::bufferGeometry(TriangleBuffer* T, float altitude)
 {
   // Add nothing in this base class
   err(-1, "Bad call to TreePart::bufferGeometry");

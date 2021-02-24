@@ -43,16 +43,17 @@ WoodySegment::~WoodySegment(void)
 // =======================================================================================
 // Buffer the vertices/indices for this part.
 
-bool WoodySegment::bufferGeometry(TriangleBuffer* T)
+bool WoodySegment::bufferGeometry(TriangleBuffer* T, float altitude)
 {
-  unless(cylinder->bufferGeometry(T))
+  unless(cylinder->bufferGeometry(T, altitude))
     return false;
   
   LogTreeVisDetails("Buffering WoodySegment "
                     "(Loc: [%.1f, %.1f, %.1f], Dir: [%.1f, %.1f, %.1f],"
                     "heartR: %.1f, sapT: %.1f, barkT: %.1f\n",
-                    cylinder->location[0], cylinder->location[1], cylinder->location[2],
-                    cylinder->direction[0], cylinder->direction[1], cylinder->direction[2],
+                    cylinder->location[0], cylinder->location[1],
+                    cylinder->location[2] + altitude, cylinder->direction[0],
+                    cylinder->direction[1], cylinder->direction[2],
                     heartRadius*mmPerSpaceUnit, sapThickness*mmPerSpaceUnit,
                     barkThickness*mmPerSpaceUnit);
   int N = kids.size();
@@ -60,7 +61,7 @@ bool WoodySegment::bufferGeometry(TriangleBuffer* T)
     if(kids[i])
      {
       LogTreeVisDetails("Trying to buffer kid[%d]\n", i);
-      unless(kids[i]->bufferGeometry(T))
+      unless(kids[i]->bufferGeometry(T, altitude))
         return false;
      }
   return true;

@@ -11,6 +11,7 @@
 
 VisualObject::VisualObject(bool absHeights, BoundingBox* B):
                                 box(B),
+                                altitude(0.0f),
                                 useNoTexColor(false),
                                 absoluteHeights(absHeights)
 {

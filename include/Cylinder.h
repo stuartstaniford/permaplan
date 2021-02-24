@@ -25,7 +25,7 @@ class Cylinder
   bool          getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
   bool          getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
   int           getNextIndex(bool resetToFirst);
-  bool          bufferGeometry(TriangleBuffer* T);
+  bool          bufferGeometry(TriangleBuffer* T, float altitude);
   bool          matchRay(vec3& position, vec3& direction, float& lambda);
   void          triangleBufferSizes(unsigned& vCount, unsigned& iCount);
   void          lengthen(float increment);

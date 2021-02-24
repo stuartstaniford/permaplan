@@ -162,7 +162,7 @@ bool Tree::bufferGeometry(TriangleBuffer* T)
    {
     LogTreeVisualization("Buffering tree %d.\n", treePtrArrayIndex);
     LogTreeVisDetails("Trying to buffer trunk\n");
-    unless(trunk->bufferGeometry(T))
+    unless(trunk->bufferGeometry(T, altitude))
       return false;
    }
   else
