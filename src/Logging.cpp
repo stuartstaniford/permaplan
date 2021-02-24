@@ -65,6 +65,7 @@ bool doLogDisplayListBuffer   = true; // Log the process of objects being buffer
 // Logging options to do with the Bezier Patch code
 bool doLogBezierFit           = true; // Log the fitting of a Bezier patch to height data
 bool doLogBezierMatchRay      = true; // Log the process of matching a ray to the patch.
+bool doLogObjectAltitudes     = true; // Log finding the altitudes of objects above the land
 
 
 // =======================================================================================
