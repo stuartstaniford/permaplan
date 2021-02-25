@@ -68,6 +68,7 @@ private:
 // Utility functions not in class.
 
 unsigned colorFromRGBArray(rapidjson::Value& array);
+void RGBArrayFromColor(unsigned color, char buf[]);
 
 #endif
 

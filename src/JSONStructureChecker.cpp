@@ -332,8 +332,8 @@ bool JSONStructureChecker::validateRGBArray(Value& array, char* objName)
 
 
 // =======================================================================================
-// Utility function to produce a color as a 4 byte quantity from a RGB json array.  RGB array
-// is assumed valid, no checking is done in here (see validateRGBArray for that).
+// Utility function to produce a color as a 4 byte quantity from an RGB json array.
+// RGB array is assumed valid, no checking is done in here (see validateRGBArray for that).
 
 unsigned colorFromRGBArray(Value& array)
 {
@@ -344,6 +344,16 @@ unsigned colorFromRGBArray(Value& array)
    colorBytes[i] = array[i].GetInt();
 
   return color;
+}
+
+
+// =======================================================================================
+// Utility function to produce an RGB json array from a color as a 4 byte quantity.
+
+void RGBArrayFromColor(unsigned color, char buf[])
+{
+  char* colorBytes = (char*)&color;
+  sprintf(buf, "[%d, %d, %d]", colorBytes[0], colorBytes[1], colorBytes[2]);
 }
 
 

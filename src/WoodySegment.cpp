@@ -5,6 +5,7 @@
 #include "WoodySegment.h"
 #include "PmodDesign.h"
 #include "Tree.h"
+#include "JSONStructureChecker.h"
 #include <err.h>
 
 
@@ -16,7 +17,8 @@ WoodySegment::WoodySegment(Species& species, unsigned short treeIndex, float yea
                               TreePart(treeIndex),
                               heartRadius(0.0f),
                               sapThickness(species.initSapThickness),
-                              barkThickness(species.initBarkThickness)
+                              barkThickness(species.initBarkThickness),
+                              barkColor(0u)
 {
   vec3 direction;
   direction[0] = 0.0f;
@@ -101,11 +103,15 @@ void WoodySegment::growStep(float years)
   cylinder->setLength(len);
   sapThickness = cylinder->radius - heartRadius - barkThickness; //XX obviously braindead
   
+#ifdef LOG_TREE_SIM_DETAILS
+  char buf[32];
+  RGBArrayFromColor(barkColor, buf);
   LogTreeSimDetails("Woody Segment at loc [%.1f, %.1f, %.1f] growing to length %.0f,"
-                          "girth %.0f\n",
+                          "girth %.0f, color %s\n",
                           cylinder->location[0], cylinder->location[1], cylinder->location[2],
                           cylinder->radius*mmPerSpaceUnit*2.0f*M_PI,
-                          cylinder->getLength()*mmPerSpaceUnit);
+                          cylinder->getLength()*mmPerSpaceUnit, buf);
+#endif
 
   // Recurse into our kids
   int N = kids.size();

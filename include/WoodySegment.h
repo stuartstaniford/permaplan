@@ -36,6 +36,7 @@ class WoodySegment: public TreePart
   float                   heartRadius;    // expressed in mm
   float                   sapThickness;   // mm
   float                   barkThickness;  // mm.  Phloem currently part of bark
+  unsigned                barkColor;
   Cylinder*               cylinder;
   std::vector<TreePart*>  kids;
   
