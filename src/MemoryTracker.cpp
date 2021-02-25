@@ -7,7 +7,8 @@
 #include <cstdio>
 #include <err.h>
 
-unsigned long  MemoryTracker::arrowMemory = 0u;
+unsigned long   MemoryTracker::arrowMemory          = 0u;
+unsigned long   MemoryTracker::bezierPatchMemory    = 0u;
 
 // =======================================================================================
 // Constructor
@@ -39,6 +40,7 @@ bool MemoryTracker::diagnosticHTML(HttpDebug* serv)
   httPrintf("<tr><th>Category</th><th>Usage (kB)</th></tr>\n");
 
   httPrintf("<tr><th>Arrow Memory</th><th>%.1f</th></tr>\n", arrowMemory/1024.0);
+  httPrintf("<tr><th>Bezier Patch Memory</th><th>%.1f</th></tr>\n", bezierPatchMemory/1024.0);
 
   httPrintf("</table></center><hr>\n");
   serv->endResponsePage();

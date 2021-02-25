@@ -20,6 +20,7 @@ public:
   
   // Instance variables - public
   static unsigned long     arrowMemory;
+  static unsigned long     bezierPatchMemory;
 
   // Member functions - public
   MemoryTracker(void);
@@ -42,6 +43,14 @@ private:
 #else
 #define incrementArrowMemory(x)
 #endif
+
+#ifdef MEMORY_TRACKING_ON
+#define incrementBezierPatchMemory(x) MemoryTracker::bezierPatchMemory += (x)
+#else
+#define incrementBezierPatchMemory(x)
+#endif
+
+
 
 #endif
 

@@ -35,6 +35,8 @@ BezierPatch::BezierPatch(Quadtree* qtree, unsigned gridPoints):
                         , fitIterationCount(0)
 #endif
 {
+  incrementBezierPatchMemory(sizeof(BezierPatch));
+
   if(!gradConstrainedDone)
     computeGradConstraints();
 }
@@ -50,6 +52,8 @@ BezierPatch::BezierPatch(float x, float y, float width, float height,
                             , fitIterationCount(0)
 #endif
 {
+  incrementBezierPatchMemory(sizeof(BezierPatch));
+
   if(!gradConstrainedDone)
     computeGradConstraints();
 }
@@ -60,6 +64,7 @@ BezierPatch::BezierPatch(float x, float y, float width, float height,
 
 BezierPatch::~BezierPatch(void)
 {
+  incrementBezierPatchMemory(-sizeof(BezierPatch));
 }
 
 
@@ -182,6 +187,8 @@ vec3  orangeColor  = {0.8f, 0.5f, 0.2f};
 DisplayList* BezierPatch::newUVLocationList(void)
 {
   DisplayList* D = new DisplayList();
+  incrementBezierPatchMemory(sizeof(DisplayList));
+
   vec3 location;
   int k, N = fitPointUVVals.size();
   HeightMarker* H;
@@ -322,6 +329,7 @@ bool BezierPatch::matchRayAll(vec3& position, vec3& direction, float& lambda)
   if(!lastRayMatch)
    {
     lastRayMatch              = new PatchRayState;
+    incrementBezierPatchMemory(sizeof(PatchRayState));
     copyVer                   = lastRayMatch;
     lastRayMatch->parent      = this;
     lastRayMatch->validMatch  = false;
@@ -493,7 +501,10 @@ void BezierPatch::updateBoundingBox(void)
      }
   
   if(!box)
+   {
     box = new BoundingBox(bottomCorner, topCorner);
+    incrementBezierPatchMemory(sizeof(BoundingBox));
+   }
   else
     box->reset(bottomCorner, topCorner);
 
@@ -581,6 +592,7 @@ void BezierPatch::setUpUVVals(std::vector<float*>& locations)
   for(k=fitPointUVVals.size(); k<N; k++)
    {
     float* uv = new vec2;
+    incrementBezierPatchMemory(sizeof(vec2));
     uv[0] = (locations[k][0] - xyPos[0])/extent[0];
     uv[1] = (locations[k][1] - xyPos[1])/extent[1];
     fitPointUVVals.push_back(uv);
@@ -624,6 +636,7 @@ void BezierPatch::copyFitPointUVVals(void)
     else
      {
       float* uv = new vec2;
+      incrementBezierPatchMemory(sizeof(vec2));
       glm_vec3_copy(fitPointUVVals[i], uv);
       copyOfFitPointUVVals.push_back(uv);
      }
@@ -654,7 +667,8 @@ void BezierPatch::computeGradientVector(std::vector<float*>& locations)
   
   // First precompute a subexpression S[k][m].  See notes in gradient.pdf
   float* S = new float[3*N];
-  
+  incrementBezierPatchMemory(3*N*sizeof(float));
+
   for(k=0; k<N; k++)
     for(m=0; m<3; m++)
      {
@@ -721,12 +735,14 @@ void BezierPatch::computeGradientVector(std::vector<float*>& locations)
     else
      {
       float* newGradient  = new float[2];
+      incrementBezierPatchMemory(2*sizeof(float));
       newGradient[0]    = sumU;
       newGradient[1]    = sumV;
       gradientFitPointUVVals.push_back(newGradient);
      }
    }
   delete[] S; // don't need to set to NULL as going out of scope
+  incrementBezierPatchMemory(-3*N*sizeof(float));
 }
 
 

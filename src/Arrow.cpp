@@ -26,6 +26,9 @@ Arrow::Arrow(vec3 root, vec3 dir):
 
 Arrow::~Arrow(void)
 {
+  incrementArrowMemory(-sizeof(Arrow));
+  if(box)
+    delete box;
 }
 
 
