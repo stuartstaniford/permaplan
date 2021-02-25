@@ -412,7 +412,7 @@ float Tree::getRadius(void)
 
 bool Tree::allTreeDiagnosticHTML(HttpDebug* serv)
 {
-  httPrintf("Trees");
+  serv->startResponsePage("Trees");
   
   httPrintf("<center>\n");
   serv->startTable();

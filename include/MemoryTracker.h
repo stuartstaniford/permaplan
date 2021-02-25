@@ -21,7 +21,7 @@ public:
   // Member functions - public
   MemoryTracker(void);
   ~MemoryTracker(void);
-  bool diagnosticHTML(HttpDebug* serv);
+  static bool diagnosticHTML(HttpDebug* serv);
 
   
 private:

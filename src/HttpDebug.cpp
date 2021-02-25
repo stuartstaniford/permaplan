@@ -17,6 +17,8 @@
 #include "HttpDebug.h"
 #include "Scene.h"
 #include "Tree.h"
+#include "MemoryTracker.h"
+
 #define SA struct sockaddr
 
 
@@ -131,6 +133,10 @@ bool HttpDebug::indexPage(void)
   internalPrintf("<tr><td><a href=\"/otbuf/\">tbuf/</a></td>");
   internalPrintf("<td>Scene object triangle buffer</td></tr>\n");
 
+  // Memory Usage Tracking
+  internalPrintf("<tr><td><a href=\"/memtrack/\">memtrack/</a></td>");
+  internalPrintf("<td>Application memory usage tracking</td></tr>\n");
+
   // End table and page
   internalPrintf("</table></center>\n");
   endResponsePage();
@@ -200,6 +206,9 @@ bool HttpDebug::processRequestHeader(void)
 
   if( strlen(url) > 14 && strncmp(url, "/species/", 9) == 0)
     return Species::findSpeciesForHTTPDebug(this, url+9);
+
+  if( strlen(url) == 10 && strncmp(url, "/memtrack/", 10) == 0)
+    return MemoryTracker::diagnosticHTML(this);
 
   if( strlen(url) ==8 && strncmp(url, "/camera/", 8) == 0)
     return scene.camera.diagnosticHTML(this);

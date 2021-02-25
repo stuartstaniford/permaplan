@@ -611,6 +611,7 @@ src/HttpDebug.o: include/Timeval.h include/JSONStructureChecker.h
 src/HttpDebug.o: include/Boundary.h include/Grid.h include/Material.h
 src/HttpDebug.o: include/TextureAtlas.h include/LightingModel.h
 src/HttpDebug.o: include/Species.h include/Tree.h include/TreePart.h
+src/HttpDebug.o: include/MemoryTracker.h
 src/JSONStructureChecker.o: include/PmodDesign.h include/rapidjson/document.h
 src/JSONStructureChecker.o: include/rapidjson/reader.h
 src/JSONStructureChecker.o: include/rapidjson/allocators.h
@@ -972,6 +973,7 @@ src/Material.o: /usr/local/include/cglm/ray.h
 src/Material.o: /usr/local/include/cglm/affine2d.h include/TextureAtlas.h
 src/Material.o: include/Texture.h /usr/local/include/GL/glew.h
 src/Material.o: include/Shader.h include/HttpDebug.h include/Logging.h
+src/MemoryTracker.o: include/MemoryTracker.h include/HttpDebug.h
 src/MenuInterface.o: imgui/backends/imgui_impl_opengl3.h imgui/imgui.h
 src/MenuInterface.o: imgui/imconfig.h imgui/backends/imgui_impl_glfw.h
 src/MenuInterface.o: include/MenuInterface.h /usr/local/include/cglm/cglm.h
@@ -1834,7 +1836,7 @@ src/VisualObject.o: include/VertexBufferObject.h /usr/local/include/GL/glew.h
 src/VisualObject.o: /usr/local/include/GLFW/glfw3.h include/GlobalMacros.h
 src/VisualObject.o: include/Logging.h include/Vertex.h include/HttpDebug.h
 src/VisualObject.o: include/TriangleBuffer.h include/ElementBufferCombo.h
-src/VisualObject.o: include/ElementBufferObject.h
+src/VisualObject.o: include/ElementBufferObject.h include/LandSurfaceRegion.h
 src/Window3D.o: /usr/local/include/GL/glew.h /usr/local/include/GLFW/glfw3.h
 src/Window3D.o: /usr/local/include/cglm/cglm.h
 src/Window3D.o: /usr/local/include/cglm/common.h

@@ -31,7 +31,15 @@ MemoryTracker::~MemoryTracker(void)
 
 bool MemoryTracker::diagnosticHTML(HttpDebug* serv)
 {
-  return false;
+  serv->startResponsePage("Memory Usage");
+  
+  httPrintf("<center>\n");
+  serv->startTable();
+  httPrintf("<tr><th>Category</th><th>Usage (kB)</th></tr>\n");
+    
+  httPrintf("</table></center><hr>\n");
+  serv->endResponsePage();
+  return true;
 }
 
 
