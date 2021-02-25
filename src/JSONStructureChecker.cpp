@@ -352,8 +352,8 @@ unsigned colorFromRGBArray(Value& array)
 
 void RGBArrayFromColor(unsigned color, char buf[])
 {
-  char* colorBytes = (char*)&color;
-  sprintf(buf, "[%d, %d, %d]", colorBytes[0], colorBytes[1], colorBytes[2]);
+  sprintf(buf, "[%u, %u, %u]", (color>>24)&0x000000ff, (color>>16)&0x000000ff,
+          (color>>8)&0x000000ff);
 }
 
 

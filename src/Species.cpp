@@ -92,6 +92,16 @@ void Species::extractBarkColors(Value& colorsArray)
 
 
 // =======================================================================================
+// Return a barkColor from the array based on the age of the bark in question.
+
+unsigned Species::getBarkColor(float age)
+{
+  auto iter = barkColorMap.lower_bound(age);
+  return iter->second;
+}
+
+
+// =======================================================================================
 // Read a buffer containing an OTDL description of the type of tree we are.
 
 Document& Species::readOTDLFromBuf(char* buf, char* sourceName)

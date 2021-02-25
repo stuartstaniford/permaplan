@@ -99,9 +99,11 @@ void WoodySegment::growStep(float years)
   // Do ourselves.
   Tree* ourTree = Tree::treePtrArray[ourTreeIndex];
   float len;
+  //XX use of ourTree->ageNow is temp hack - need to model ages of each stem/branch
   ourTree->species->logisticGrowthModel(ourTree->ageNow, cylinder->radius, len);
   cylinder->setLength(len);
   sapThickness = cylinder->radius - heartRadius - barkThickness; //XX obviously braindead
+  barkColor = ourTree->species->getBarkColor(ourTree->ageNow);
   
 #ifdef LOG_TREE_SIM_DETAILS
   char buf[32];
