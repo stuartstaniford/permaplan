@@ -180,7 +180,7 @@ bool WoodySegment::diagnosticHTML(HttpDebug* serv)
   httPrintf("<tr><td>WoodySegment</td><td>[%f, %f, %f]</td><td>[%f, %f, %f]</td>",
               cylinder->location[0], cylinder->location[1], cylinder->location[2],
               cylinder->direction[0], cylinder->direction[1], cylinder->direction[2]);
-  httPrintf("<td><b>Radius:</b> %.4f%c<br>", cylinder->radius, spaceUnitAbbr);
+  httPrintf("<td><b>Radius:</b> %.4f%c ", cylinder->radius, spaceUnitAbbr);
   char buf[32];
   RGBArrayFromColor(barkColor, buf);
   httPrintf("<b>Color:</b> %s<br>", buf);
