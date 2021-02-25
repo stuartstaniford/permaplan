@@ -94,7 +94,7 @@ void getCrossVectors(vec3 dir, vec3 f1, vec3 f2)
 // This is where the actual octahedron geometry is defined - we render it into a buffer
 // on request
 
-bool Cylinder::bufferGeometry(TriangleBuffer* T, float altitude)
+bool Cylinder::bufferGeometry(TriangleBuffer* T, float altitude, unsigned color)
 {
   float     angleRadians  = 2.0f*M_PI/sides;
   Vertex*   vertices;
@@ -124,13 +124,15 @@ bool Cylinder::bufferGeometry(TriangleBuffer* T, float altitude)
     x = location[0] + cosAng*f1[0] + sinAng*f2[0];
     y = location[1] + cosAng*f1[1] + sinAng*f2[1];
     z = location[2] + cosAng*f1[2] + sinAng*f2[2] + altitude;
-    vertices[2*i].set(x, y, z);
+    vertices[2*i].set(x, y, z, ((color>>24)&0x000000ff)/256.0,
+                      ((color>>16)&0x000000ff)/256.0, ((color>>8)&0x000000ff)/256.0);
 
     // top of shaft
     x += direction[0];
     y += direction[1];
     z += direction[2] + altitude;
-    vertices[2*i+1].set(x, y, z);
+    vertices[2*i+1].set(x, y, z, ((color>>24)&0x000000ff)/256.0,
+                        ((color>>16)&0x000000ff)/256.0, ((color>>8)&0x000000ff)/256.0);
    }
   
   // Done with vertices, now set up the indices.  As usual, we need triangles

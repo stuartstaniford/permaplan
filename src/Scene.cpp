@@ -307,7 +307,8 @@ void Scene::draw(bool mouseMoved, float timeElapsed)
   
   // Draw all the objects stored in the quadtree
   if(sceneObjectTbuf)
-    sceneObjectTbuf->draw(Lighted, NULL);
+    //sceneObjectTbuf->draw(Lighted, NULL);
+    sceneObjectTbuf->draw(NoTexColor, NULL);
 }
 
 

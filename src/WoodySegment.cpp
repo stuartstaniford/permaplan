@@ -47,7 +47,7 @@ WoodySegment::~WoodySegment(void)
 
 bool WoodySegment::bufferGeometry(TriangleBuffer* T, float altitude)
 {
-  unless(cylinder->bufferGeometry(T, altitude))
+  unless(cylinder->bufferGeometry(T, altitude, barkColor))
     return false;
   
   LogTreeVisDetails("Buffering WoodySegment "
