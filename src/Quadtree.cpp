@@ -194,15 +194,17 @@ void Quadtree::bufferVisualObjects(TriangleBuffer* tbuf)
 // This gets called whenever the shape of the land has changed, and tells all the visual
 // objects in the quadtree to update their idea of their altitude.
 
-void Quadtree::adjustAltitudes(void)
+void Quadtree::adjustAltitudes(LandSurfaceRegion* landsurface)
 {
   // Handle visual objects stored at our level
+  if(!surface)
+    surface = landsurface;
   vObjects.adjustAltitudes(surface);
   
   // Deal with kids
   if(landVBOSize > 6)
     forAllKids(i)
-      kids[i]->adjustAltitudes();
+      kids[i]->adjustAltitudes(surface);
 }
 
 

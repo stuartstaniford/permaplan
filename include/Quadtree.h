@@ -41,7 +41,7 @@ class Quadtree
   ~Quadtree(void);
   void bufferGeometry(Vertex* buf);
   void bufferGeometryLeaf(Vertex* buf);
-  void adjustAltitudes(void);
+  void adjustAltitudes(LandSurfaceRegion* landsurface);
   void bufferVisualObjects(TriangleBuffer* tbuf);
   void bufferLandSurface(TriangleBuffer* tbuf);
   void storeVisualObject(VisualObject* obj);

@@ -232,7 +232,7 @@ void LandSurface::newLandHeight(HeightMarker* hM)
     qtree->surface = bez;
     //bez->randomFit(heightLocations);
     bez->assertCopyVer();
-    if(config.bezReadFileName)
+    if(config.bezReadFileName) // XX note this should probably be folded into the OLDF file
      {
       // Note this is very expensive in a frame, but it only happens very near startup.
       FILE* readFile = fopen(config.bezReadFileName, "r");
@@ -290,6 +290,7 @@ void LandSurface::redoBezierLandSurface(BezierPatch* bez)
   fitTBuf->sendToGPU(GL_STATIC_DRAW);
 #endif
   bez->assertCopyVer();
+  qtree->adjustAltitudes(bez);
 }
 
 
