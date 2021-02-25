@@ -8,6 +8,8 @@
 
 #include "HttpDebug.h"
 
+#define MEMORY_TRACKING_ON
+
 // =======================================================================================
 // Class variable initialization
 
@@ -17,7 +19,8 @@ class MemoryTracker
 public:
   
   // Instance variables - public
-  
+  static unsigned long     arrowMemory;
+
   // Member functions - public
   MemoryTracker(void);
   ~MemoryTracker(void);
@@ -27,13 +30,18 @@ public:
 private:
   
   // Instance variables - private
-
   
   // Member functions - private
   MemoryTracker(const MemoryTracker&);                 // Prevent copy-construction
   MemoryTracker& operator=(const MemoryTracker&);      // Prevent assignment
 
 };
+
+#ifdef MEMORY_TRACKING_ON
+#define incrementArrowMemory(x) MemoryTracker::arrowMemory += (x)
+#else
+#define incrementArrowMemory(x)
+#endif
 
 #endif
 

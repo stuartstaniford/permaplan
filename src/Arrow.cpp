@@ -14,6 +14,7 @@
 Arrow::Arrow(vec3 root, vec3 dir):
                   VisualObject(true)
 {
+  incrementArrowMemory(sizeof(Arrow));
   glm_vec3_copy(root, location);
   glm_vec3_copy(dir, direction);
   updateBoundingBox();
@@ -170,11 +171,15 @@ bool Arrow::matchRay(vec3& position, vec3& direction, float& lambda)
 
 void Arrow::updateBoundingBox(void)
 {
-/*  if(!box)
+/*
+   if(!box)
+    {
     box = new BoundingBox(location[0] - heightMarkerSize, location[1] - heightMarkerSize,
                       location[2], location[0] + heightMarkerSize,
                       location[1] + heightMarkerSize, location[2] + 2.0f*heightMarkerHeight);
-*/
+    incrementArrowMemory(sizeof(BoundingBox));
+    }
+ */
  return;
 }
                                                                 

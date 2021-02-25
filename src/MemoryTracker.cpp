@@ -7,6 +7,7 @@
 #include <cstdio>
 #include <err.h>
 
+unsigned long  MemoryTracker::arrowMemory = 0u;
 
 // =======================================================================================
 // Constructor
@@ -36,7 +37,9 @@ bool MemoryTracker::diagnosticHTML(HttpDebug* serv)
   httPrintf("<center>\n");
   serv->startTable();
   httPrintf("<tr><th>Category</th><th>Usage (kB)</th></tr>\n");
-    
+
+  httPrintf("<tr><th>Arrow Memory</th><th>%.1f</th></tr>\n", arrowMemory/1024.0);
+
   httPrintf("</table></center><hr>\n");
   serv->endResponsePage();
   return true;

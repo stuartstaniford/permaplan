@@ -3,6 +3,8 @@
 // are defined at the beginning that implement conditional compilation of all the
 // different kinds of logging.
 
+#include "MemoryTracker.h"
+
 // =======================================================================================
 // Logging options to do with overall control flow and speed
 
