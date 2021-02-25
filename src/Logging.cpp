@@ -51,6 +51,7 @@ bool doLogTreeSimDetails      = true; // Log all the gory details of simulated t
 bool doLogGrowthModel         = true; // Log details of the growth model.
 bool doLogTreeVisualization   = true; // Log trees being rendered.
 bool doLogTreeVisDetails      = true; // Log every twig being rendered.
+bool doLogBarkDisplay         = true; // Log bark color and texture details.
 bool doLogTreeErrors          = true; // Log clear errors in tree related operations.
 
 // Logging options for the HTTP debug interface

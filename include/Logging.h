@@ -53,6 +53,7 @@
 #define LOG_GROWTH_MODEL        // Log details of the growth model.
 #define LOG_TREE_VISUALIZATION  // Log trees being rendered.
 #define LOG_TREE_VIS_DETAILS    // Log every twig being rendered.
+#define LOG_BARK_DISPLAY        // Log bark color and texture details.
 #define LOG_TREE_ERRORS         // Log clear errors in tree related operations.
 
 
@@ -134,6 +135,7 @@ extern bool doLogTreeSimDetails;      // Log all the gory details of simulated t
 extern bool doLogGrowthModel;         // Log details of the growth model.
 extern bool doLogTreeVisualization;   // Log trees being rendered.
 extern bool doLogTreeVisDetails;      // Log every twig being rendered.
+extern bool doLogBarkDisplay;         // Log bark color and texture details.
 extern bool doLogTreeErrors;          // Log clear errors in tree related operations.
 
 // Logging options for the HTTP debug interface
@@ -358,6 +360,13 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
 #define LogTreeVisDetails(...) if(doLogTreeVisDetails) LogStatement(__VA_ARGS__)
 #else
 #define LogTreeVisDetails(...)
+#endif
+
+// Log bark color and texture details.
+#ifdef LOG_BARK_DISPLAY
+#define LogBarkDisplay(...) if(doLogBarkDisplay) LogStatement(__VA_ARGS__)
+#else
+#define LogBarkDisplay(...)
 #endif
 
 // Log clear errors in tree related operations.
