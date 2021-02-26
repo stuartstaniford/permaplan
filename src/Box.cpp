@@ -15,6 +15,7 @@ Box::Box(mat4 transform):
 {
   glm_mat4_copy(transform, trans);
   updateBoundingBox();
+  incrementBoxMemory(sizeof(Box)+sizeof(BoundingBox));
 }
 
 
@@ -23,6 +24,7 @@ Box::Box(mat4 transform):
 
 Box::~Box(void)
 {
+  incrementBoxMemory(-sizeof(Box)-sizeof(BoundingBox));
 }
 
 

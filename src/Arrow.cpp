@@ -14,7 +14,7 @@
 Arrow::Arrow(vec3 root, vec3 dir):
                   VisualObject(true)
 {
-  incrementArrowMemory(sizeof(Arrow));
+  incrementArrowMemory(sizeof(Arrow)); //+sizeof(BoundingBox));
   glm_vec3_copy(root, location);
   glm_vec3_copy(dir, direction);
   updateBoundingBox();
@@ -28,7 +28,7 @@ Arrow::~Arrow(void)
 {
   incrementArrowMemory(-sizeof(Arrow));
   if(box)
-    delete box;
+    incrementArrowMemory(-sizeof(BoundingBox));
 }
 
 
@@ -180,7 +180,6 @@ void Arrow::updateBoundingBox(void)
     box = new BoundingBox(location[0] - heightMarkerSize, location[1] - heightMarkerSize,
                       location[2], location[0] + heightMarkerSize,
                       location[1] + heightMarkerSize, location[2] + 2.0f*heightMarkerHeight);
-    incrementArrowMemory(sizeof(BoundingBox));
     }
  */
  return;

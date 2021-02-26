@@ -19,8 +19,9 @@ class MemoryTracker
 public:
   
   // Instance variables - public
-  static unsigned long     arrowMemory;
-  static unsigned long     bezierPatchMemory;
+  static long     arrowMemory;
+  static long     bezierPatchMemory;
+  static long     boxMemory;
 
   // Member functions - public
   MemoryTracker(void);
@@ -40,14 +41,12 @@ private:
 
 #ifdef MEMORY_TRACKING_ON
 #define incrementArrowMemory(x) MemoryTracker::arrowMemory += (x)
+#define incrementBezierPatchMemory(x) MemoryTracker::bezierPatchMemory += (x)
+#define incrementBoxMemory(x) MemoryTracker::boxMemory += (x)
 #else
 #define incrementArrowMemory(x)
-#endif
-
-#ifdef MEMORY_TRACKING_ON
-#define incrementBezierPatchMemory(x) MemoryTracker::bezierPatchMemory += (x)
-#else
 #define incrementBezierPatchMemory(x)
+#define incrementBoxMemory(x)
 #endif
 
 
