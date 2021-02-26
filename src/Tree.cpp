@@ -30,6 +30,7 @@ Tree::Tree(Species* S, vec3 loc, float age, float now):
   yearPlanted = now - age;
   growStep(age);
   updateBoundingBox();
+  incrementTreeMemory(sizeof(Tree));
 }
 
 
@@ -68,6 +69,7 @@ Tree::Tree(Value& plantObject):
   updateBoundingBox();
   LogTreeReads("Tree %d (%s %s) read in from file.\n", treePtrArrayIndex,
                                             species->genusName, species->speciesName);
+  incrementTreeMemory(sizeof(Tree));
 }
 
 
@@ -76,6 +78,7 @@ Tree::Tree(Value& plantObject):
 
 Tree::~Tree(void)
 {
+  incrementTreeMemory(-sizeof(Tree));
 }
 
 
@@ -99,7 +102,7 @@ void Tree::growStep(float years)
     unless(trunk)
      {
       LogTreeSimDetails("Tree %d getting its new trunk.\n", treePtrArrayIndex);
-      trunk = new WoodySegment(*species, treePtrArrayIndex, years, location);
+      trunk = new WoodySegment(*species, treePtrArrayIndex, years, location);  // treeMemory
      }
     else
      {
@@ -246,7 +249,7 @@ void Tree::readTreesFromDesign(Quadtree* qtree)
   Tree* tree;
   for(int i=0; i<N; i++)
    {
-    tree = new Tree(plants[i]);
+    tree = new Tree(plants[i]); //treeMemory
     qtree->storeVisualObject(tree);
    }
 }

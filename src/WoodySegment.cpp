@@ -26,6 +26,7 @@ WoodySegment::WoodySegment(Species& species, unsigned short treeIndex, float yea
   direction[2] = years*species.stemRate;
   cylinder = new Cylinder(location, direction,
                           heartRadius + sapThickness + barkThickness, WOOD_SEG_SIDES);
+  incrementTreeMemory(sizeof(WoodySegment)+sizeof(Cylinder));
 }
 
 
@@ -35,6 +36,7 @@ WoodySegment::WoodySegment(Species& species, unsigned short treeIndex, float yea
 WoodySegment::~WoodySegment(void)
 {
   delete cylinder;
+  incrementTreeMemory(-sizeof(WoodySegment)-sizeof(Cylinder));
   int N = kids.size();
   for(int i=0; i<N; i++)
     if(kids[i])
