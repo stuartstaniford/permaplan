@@ -28,6 +28,9 @@ TriangleBuffer::TriangleBuffer(unsigned vertexCount, unsigned indexCount):
 
   unless(indices)
     err(-1, "Couldn't allocated index space in TriangleBuffer::TriangleBuffer");
+  
+  incrementTriangleBufferMemory(sizeof(TriangleBuffer) + vCount*sizeof(Vertex)
+                                                        + iCount*sizeof(unsigned));
 }
 
 
@@ -37,11 +40,21 @@ TriangleBuffer::TriangleBuffer(unsigned vertexCount, unsigned indexCount):
 TriangleBuffer::~TriangleBuffer(void)
 {
   if(vertices)
+   {
     delete[] vertices;
+    incrementTriangleBufferMemory(-vCount*sizeof(Vertex));
+   }
   if(indices)
+   {
     delete[] indices;
+    incrementTriangleBufferMemory(-iCount*sizeof(unsigned));
+  }
   if(combo)
+   {
     delete combo;
+    incrementTriangleBufferMemory(-sizeof(ElementBufferCombo));
+   }
+  incrementTriangleBufferMemory(-sizeof(TriangleBuffer));
 }
 
 
@@ -96,12 +109,17 @@ bool TriangleBuffer::requestSpace(Vertex** verticesAssigned, unsigned** indicesA
 void TriangleBuffer::sendToGPU(GLenum usage)
 {
   if(combo)
+   {
     delete combo;
+    incrementTriangleBufferMemory(-sizeof(ElementBufferCombo));
+   }
   combo = new ElementBufferCombo(vertices, vCount, indices, iCount, usage);
+  incrementTriangleBufferMemory(sizeof(ElementBufferCombo));
   glBufferData(GL_ARRAY_BUFFER, vCount*sizeof(Vertex), vertices, usage);
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, iCount*sizeof(unsigned), indices, usage);
   delete[] vertices;
   delete[] indices;
+  incrementTriangleBufferMemory(vCount*sizeof(Vertex) + iCount*sizeof(unsigned));
   vertices = NULL;
   indices = NULL;
 }

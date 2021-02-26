@@ -22,6 +22,7 @@ public:
   static long     arrowMemory;
   static long     bezierPatchMemory;
   static long     boxMemory;
+  static long     triangleBufferMemory;
 
   // Member functions - public
   MemoryTracker(void);
@@ -43,10 +44,12 @@ private:
 #define incrementArrowMemory(x) MemoryTracker::arrowMemory += (x)
 #define incrementBezierPatchMemory(x) MemoryTracker::bezierPatchMemory += (x)
 #define incrementBoxMemory(x) MemoryTracker::boxMemory += (x)
+#define incrementTriangleBufferMemory(x) MemoryTracker::triangleBufferMemory += (x)
 #else
 #define incrementArrowMemory(x)
 #define incrementBezierPatchMemory(x)
 #define incrementBoxMemory(x)
+#define incrementTriangleBufferMemory(x)
 #endif
 
 
