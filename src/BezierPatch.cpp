@@ -225,7 +225,7 @@ void BezierPatch::addControlPointsToDisplayList(DisplayList* D)
 
 
 // =======================================================================================
-// Add arrows showing the current direction of the
+// Add arrows showing the current direction of movement of the control point
 
 vec3  lighterRedColor  = {0.9f, 0.1f, 0.1f};
 

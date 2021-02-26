@@ -288,6 +288,7 @@ void LandSurface::redoBezierLandSurface(BezierPatch* bez)
   recycleTriangleBuffer(fitTBuf, vCount, iCount);
   D->bufferGeometry(fitTBuf);
   fitTBuf->sendToGPU(GL_STATIC_DRAW);
+  delete D;
 #endif
   bez->assertCopyVer();
   qtree->adjustAltitudes(bez);
