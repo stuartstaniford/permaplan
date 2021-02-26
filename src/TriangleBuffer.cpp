@@ -54,6 +54,21 @@ bool TriangleBuffer::requestSpace(Vertex** verticesAssigned, unsigned** indicesA
 {
   unless(vertices && indices)
    err(-1, "Trying to request space on unallocated TriangleBuffer\n");
+
+#ifdef LOG_TRIANGLE_BUFFER_ERRS
+  if(iRequestCount%3)
+   {
+    LogTriangleBufferErrs("Fractional TriangleBuffer request: iCount: %u\n", iRequestCount);
+    return false;
+   }
+  if(vRequestCount > iRequestCount)
+   {
+    LogTriangleBufferErrs("vCount: %u greater than iCount: %u\n",
+                                                            vRequestCount, iRequestCount);
+    return false;
+   }
+#endif
+  
   if(vNext + vRequestCount <= vCount && iNext + iRequestCount <= iCount)
    {
     *verticesAssigned =  vertices + vNext;
@@ -61,10 +76,16 @@ bool TriangleBuffer::requestSpace(Vertex** verticesAssigned, unsigned** indicesA
     vOffset           =  vNext;
     vNext             += vRequestCount;
     iNext             += iRequestCount;
+    LogTriangleBufferOps("Successful TriangleBuffer request: vCount: %u, iCount: %u\n",
+                                        vRequestCount, iRequestCount);
     return true;
    }
   else
+   {
+    LogTriangleBufferErrs("Failed TriangleBuffer request: vCount: %u, iCount: %u\n",
+                                        vRequestCount, iRequestCount);
     return false;
+   }
 }
 
 

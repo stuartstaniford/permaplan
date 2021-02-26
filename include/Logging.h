@@ -75,11 +75,18 @@
 
 
 // =======================================================================================
+// Logging options to do with other infrastructure
+
+//#define LOG_TRIANGLE_BUFFER_OPS   // Log the workings of the triangle buffers.
+#define LOG_TRIANGLE_BUFFER_ERRS   // Log actual errors the triangle buffers.
+
+
+// =======================================================================================
 // Logging options to do with the Bezier Patch code
 
-#define LOG_BEZIER_FIT        // Log the process of fitting the Bezier patch to height data
-#define LOG_BEZIER_MATCH_RAY  // Log the process of matching a ray to the patch.
-#define LOG_OBJECT_ALTITUDES   // Log finding the altitudes of objects above the land
+//#define LOG_BEZIER_FIT        // Log the process of fitting the Bezier patch to height data
+//#define LOG_BEZIER_MATCH_RAY  // Log the process of matching a ray to the patch.
+//#define LOG_OBJECT_ALTITUDES   // Log finding the altitudes of objects above the land
 
 
 // =======================================================================================
@@ -148,6 +155,10 @@ extern bool doLogHTTPDetails;         // Log normal details of HTTP operations
 // Logging options to do with quadtree operations
 extern bool doLogQuadtreeInsertions;  // Log the a new object being put in the quadtree.
 extern bool doLogDisplayListBuffer;   // Log the process of objects being buffered for display.
+
+// Logging options to do with other infrastructure
+extern bool doLogTriangleBufferOps;   // Log the workings of the triangle buffers.
+extern bool doLogTriangleBufferErrs;  // Log actual errors the triangle buffers.
 
 // Logging options to do with the Bezier Patch code
 extern bool doLogBezierFit;           // Log the fitting of a Bezier patch to height data
@@ -419,6 +430,24 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
 #define LogDisplayListBuffer(...) if(doLogDisplayListBuffer) LogStatement(__VA_ARGS__)
 #else
 #define LogDisplayListBuffer(...)
+#endif
+
+
+// =======================================================================================
+// Logging options to do with other infrastructure
+
+// Log the workings of the triangle buffers.
+#ifdef LOG_TRIANGLE_BUFFER_OPS
+#define LogTriangleBufferOps(...) if(doLogTriangleBufferOps) LogStatement(__VA_ARGS__)
+#else
+#define LogTriangleBufferOps(...)
+#endif
+
+// Log actual errors the triangle buffers.
+#ifdef LOG_TRIANGLE_BUFFER_ERRS
+#define LogTriangleBufferErrs(...) if(doLogTriangleBufferErrs) LogStatement(__VA_ARGS__)
+#else
+#define LogTriangleBufferErrs(...)
 #endif
 
 

@@ -63,6 +63,10 @@ bool doLogHTTPDetails         = true; // Log normal details of HTTP operations
 bool doLogQuadtreeInsertions  = true; // Log the a new object being put in the quadtree.
 bool doLogDisplayListBuffer   = true; // Log the process of objects being buffered for display.
 
+// Logging options to do with other infrastructure
+bool doLogTriangleBufferOps   = true; // Log the workings of the triangle buffers.
+bool doLogTriangleBufferErrs  = true; // Log actual errors the triangle buffers.
+
 // Logging options to do with the Bezier Patch code
 bool doLogBezierFit           = true; // Log the fitting of a Bezier patch to height data
 bool doLogBezierMatchRay      = true; // Log the process of matching a ray to the patch.
