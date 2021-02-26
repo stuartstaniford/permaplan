@@ -269,19 +269,17 @@ void Box::draw(void)
 
 
 // =======================================================================================
-// Stub definition this should be overwritten by implementing subclasses
-
+// Decide if a ray touches us
+/*  Using the VisualObject one at present.
+ 
 bool Box::matchRay(vec3& position, vec3& direction, float& lambda)
 {
-  if(box->matchRay(position, direction, lambda))
+  unless(box->matchRay(position, direction, lambda))
     return false;
-  
-  // So it touches our bounding box, have to test the faces.
-  
+    
   //XXX NOT DONE
-  
   return true;
-}
+}*/
 
 
 // =======================================================================================

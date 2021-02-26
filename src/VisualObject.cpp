@@ -112,16 +112,40 @@ bool VisualObject::bufferGeometry(TriangleBuffer* T)
 
 
 // =======================================================================================
-// Stub definition this should be overwritten by implementing subclasses
+// Decide if a ray touches us.  This version will work in many cases, but there may
+// be more efficient methods possible for specific subclasses.  This will only work
+// if the subclass has implemented getNextVertex.
 
 bool VisualObject::matchRay(vec3& position, vec3& direction, float& lambda)
 {
+  unless(box->matchRay(position, direction, lambda))
+    return false;
+
+  unsigned vCount, iCount;
+  triangleBufferSizes(vCount, iCount);
+  
+  Vertex V[3];
+  for(int i=0; i<iCount; i+=3)  // Loop over the triangles
+   {
+    if(i)
+      getNextVertex(false, V, PositionOnly);
+    else
+      getNextVertex(true, V, PositionOnly);
+    getNextVertex(false, V+1, PositionOnly);
+    getNextVertex(false, V+2, PositionOnly);
+    
+    if(mollerTrumbore(V[0].pos, V[1].pos, V[2].pos, position, direction, lambda))
+      return true;
+   }
+
   return false;
 }
 
 
 // =======================================================================================
-// Compute the bounding box.
+// Compute the bounding box.  This version will work in many cases, but there may
+// be more efficient methods possible for specific subclasses.  This will only work
+// if the subclass has implemented getNextUniqueVertex.
 
 void VisualObject::updateBoundingBox(void)
 {
