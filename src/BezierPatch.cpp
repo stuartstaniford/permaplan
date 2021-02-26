@@ -261,8 +261,8 @@ void BezierPatch::triangleBufferSizes(unsigned& vertexCount, unsigned& indexCoun
 
 void BezierPatch::triangleBufferSize(unsigned& vCount, unsigned& iCount)
 {
-  vCount = 0u;
-  iCount = 0u;
+  vCount = (gridN+1)*(gridN+1);
+  iCount = 6*gridN*gridN;
 }
 
 
