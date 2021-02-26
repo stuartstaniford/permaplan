@@ -11,6 +11,7 @@ long MemoryTracker::arrowMemory           = 0;
 long MemoryTracker::bezierPatchMemory     = 0;
 long MemoryTracker::boxMemory             = 0;
 long MemoryTracker::triangleBufferMemory  = 0;
+long MemoryTracker::treeMemory            = 0;
 
 
 // =======================================================================================
@@ -48,6 +49,7 @@ bool MemoryTracker::diagnosticHTML(HttpDebug* serv)
   httPrintf("<tr><th>Block(box) Memory</th><th>%.1f</th></tr>\n",   boxMemory/1024.0);
   httPrintf("<tr><th>Triangle Buffer Memory</th><th>%.1f</th></tr>\n",
                                                               triangleBufferMemory/1024.0);
+  httPrintf("<tr><th>Tree Memory</th><th>%.1f</th></tr>\n",   treeMemory/1024.0);
 
   httPrintf("</table></center><hr>\n");
   serv->endResponsePage();

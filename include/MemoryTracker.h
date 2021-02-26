@@ -16,28 +16,28 @@
 
 class MemoryTracker
 {
-public:
+ public:
   
   // Instance variables - public
   static long     arrowMemory;
   static long     bezierPatchMemory;
   static long     boxMemory;
   static long     triangleBufferMemory;
+  static long     treeMemory;
 
   // Member functions - public
   MemoryTracker(void);
   ~MemoryTracker(void);
   static bool diagnosticHTML(HttpDebug* serv);
-
   
-private:
+ private:
   
   // Instance variables - private
   
   // Member functions - private
   MemoryTracker(const MemoryTracker&);                 // Prevent copy-construction
   MemoryTracker& operator=(const MemoryTracker&);      // Prevent assignment
-
+  
 };
 
 #ifdef MEMORY_TRACKING_ON
@@ -45,11 +45,13 @@ private:
 #define incrementBezierPatchMemory(x) MemoryTracker::bezierPatchMemory += (x)
 #define incrementBoxMemory(x) MemoryTracker::boxMemory += (x)
 #define incrementTriangleBufferMemory(x) MemoryTracker::triangleBufferMemory += (x)
+#define incrementTreeMemory(x) MemoryTracker::treeMemory += (x)
 #else
 #define incrementArrowMemory(x)
 #define incrementBezierPatchMemory(x)
 #define incrementBoxMemory(x)
 #define incrementTriangleBufferMemory(x)
+#define incrementTreeMemory(x)
 #endif
 
 
