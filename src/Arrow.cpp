@@ -43,6 +43,7 @@ bool Arrow::getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detai
 
 // =======================================================================================
 //XX Stub definition needs to be implemented
+
 bool Arrow::getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
 {
   return false;
@@ -51,6 +52,7 @@ bool Arrow::getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
 
 // =======================================================================================
 //XX Stub definition needs to be implemented
+
 int Arrow::getNextIndex(bool resetToFirst)
 {
   return -1;

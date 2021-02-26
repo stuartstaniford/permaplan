@@ -130,7 +130,7 @@ bool Cylinder::bufferGeometry(TriangleBuffer* T, float altitude, unsigned color)
     // top of shaft
     x += direction[0];
     y += direction[1];
-    z += direction[2] + altitude;
+    z += direction[2];
     vertices[2*i+1].set(x, y, z, ((color>>24)&0x000000ff)/256.0,
                         ((color>>16)&0x000000ff)/256.0, ((color>>8)&0x000000ff)/256.0);
    }
