@@ -15,7 +15,7 @@ class Cylinder
   
   // Instance variables - public
   vec3      location;
-  vec3      direction;
+  vec3      axisDirection;
   float     radius;
   unsigned  sides;
   
@@ -30,7 +30,7 @@ class Cylinder
   void          triangleBufferSizes(unsigned& vCount, unsigned& iCount);
   void          lengthen(float increment);
   void          setLength(float length);
-  inline float  getLength(void) {return glm_vec3_norm(direction);}
+  inline float  getLength(void) {return glm_vec3_norm(axisDirection);}
   int           printOPSF(char*& buf, unsigned bufSize);
   const char*   objectName(void);
   bool          diagnosticHTML(HttpDebug* serv);

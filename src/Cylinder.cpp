@@ -15,7 +15,7 @@ Cylinder::Cylinder(vec3 root, vec3 dir, float R, unsigned S):
                                                   sides(S)
 {
   glm_vec3_copy(root, location);
-  glm_vec3_copy(dir, direction);
+  glm_vec3_copy(dir, axisDirection);
 }
 
 
@@ -107,7 +107,7 @@ bool Cylinder::bufferGeometry(TriangleBuffer* T, float altitude, unsigned color)
     return false;
 
   vec3 f1, f2;
-  getCrossVectors(direction, f1, f2);
+  getCrossVectors(axisDirection, f1, f2);
   glm_vec3_scale_as(f1, radius, f1);
   glm_vec3_scale_as(f2, radius, f2);
 
@@ -128,9 +128,9 @@ bool Cylinder::bufferGeometry(TriangleBuffer* T, float altitude, unsigned color)
                       ((color>>16)&0x000000ff)/256.0, ((color>>8)&0x000000ff)/256.0);
 
     // top of shaft
-    x += direction[0];
-    y += direction[1];
-    z += direction[2];
+    x += axisDirection[0];
+    y += axisDirection[1];
+    z += axisDirection[2];
     vertices[2*i+1].set(x, y, z, ((color>>24)&0x000000ff)/256.0,
                         ((color>>16)&0x000000ff)/256.0, ((color>>8)&0x000000ff)/256.0);
    }
@@ -170,8 +170,8 @@ void Cylinder::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 
 void Cylinder::lengthen(float increment)
 {
-  float lenNow = glm_vec3_norm(direction);
-  glm_vec3_scale(direction, (lenNow+increment)/lenNow, direction);
+  float lenNow = glm_vec3_norm(axisDirection);
+  glm_vec3_scale(axisDirection, (lenNow+increment)/lenNow, axisDirection);
 }
 
 
@@ -181,13 +181,14 @@ void Cylinder::lengthen(float increment)
 
 void Cylinder::setLength(float length)
 {
-  float lenNow = glm_vec3_norm(direction);
-  glm_vec3_scale(direction, length/lenNow, direction);
+  float lenNow = glm_vec3_norm(axisDirection);
+  glm_vec3_scale(axisDirection, length/lenNow, axisDirection);
 }
 
 
 // =======================================================================================
-// Stub definition only at present
+// Figure out whether a ray intersects the cylinder or not
+// https://en.wikipedia.org/wiki/Skew_lines#Distance
 
 bool Cylinder::matchRay(vec3& position, vec3& direction, float& lambda)
 {
@@ -231,8 +232,8 @@ bool Cylinder::diagnosticHTML(HttpDebug* serv)
                                             location[0], location[1], location[2]);
   httPrintf("<b>Radius:</b> %.1f<br>", radius);
   httPrintf("<b>Sides:</b> %u<br>", sides);
-  httPrintf("Direction:</b> (%.1f, %.1f, %.1f)</td></tr>\n" ,
-                                            direction[0], direction[1], direction[2]);
+  httPrintf("axisDirection:</b> (%.1f, %.1f, %.1f)</td></tr>\n" ,
+                                            axisDirection[0], axisDirection[1], axisDirection[2]);
   return true;
 }
 

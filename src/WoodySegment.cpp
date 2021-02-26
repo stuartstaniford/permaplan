@@ -56,8 +56,8 @@ bool WoodySegment::bufferGeometry(TriangleBuffer* T, float altitude)
                     "(Loc: [%.1f, %.1f, %.1f], Dir: [%.1f, %.1f, %.1f],"
                     "heartR: %.1f, sapT: %.1f, barkT: %.1f\n",
                     cylinder->location[0], cylinder->location[1],
-                    cylinder->location[2] + altitude, cylinder->direction[0],
-                    cylinder->direction[1], cylinder->direction[2],
+                    cylinder->location[2] + altitude, cylinder->axisDirection[0],
+                    cylinder->axisDirection[1], cylinder->axisDirection[2],
                     heartRadius*mmPerSpaceUnit, sapThickness*mmPerSpaceUnit,
                     barkThickness*mmPerSpaceUnit);
   int N = kids.size();
@@ -181,7 +181,8 @@ bool WoodySegment::diagnosticHTML(HttpDebug* serv)
   // Print our info
   httPrintf("<tr><td>WoodySegment</td><td>[%f, %f, %f]</td><td>[%f, %f, %f]</td>",
               cylinder->location[0], cylinder->location[1], cylinder->location[2],
-              cylinder->direction[0], cylinder->direction[1], cylinder->direction[2]);
+              cylinder->axisDirection[0], cylinder->axisDirection[1],
+              cylinder->axisDirection[2]);
   httPrintf("<td><b>Radius:</b> %.4f%c ", cylinder->radius, spaceUnitAbbr);
   char buf[32];
   RGBArrayFromColor(barkColor, buf);
