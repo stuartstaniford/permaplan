@@ -171,7 +171,8 @@ void Scene::rebuildVisualObjectBuffer(TriangleBuffer** tbuf)
 {
   if(*tbuf)
     delete *tbuf;
-  *tbuf = new TriangleBuffer(qtree->vertexTBufSize, qtree->indexTBufSize);
+  *tbuf = new TriangleBuffer(qtree->vertexTBufSize, qtree->indexTBufSize,
+                              (char*)"vObj tbuf");
   qtree->bufferVisualObjects(*tbuf);
   (*tbuf)->sendToGPU(GL_STATIC_DRAW);
 }

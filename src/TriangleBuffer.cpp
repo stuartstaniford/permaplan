@@ -13,12 +13,13 @@
 // =======================================================================================
 // Constructor allocates the buffers for both vertices and indices into the vertex array
 
-TriangleBuffer::TriangleBuffer(unsigned vertexCount, unsigned indexCount):
+TriangleBuffer::TriangleBuffer(unsigned vertexCount, unsigned indexCount, char* name):
                                   vCount(vertexCount),
                                   iCount(indexCount),
                                   vNext(0u),
                                   iNext(0u),
-                                  combo(NULL)
+                                  combo(NULL),
+                                  bufName(name)
 {
   //fprintf(stderr, "Triangle buffer of size %d,%d allocated\n", vCount, iCount);
   vertices = new Vertex[vCount];
@@ -28,7 +29,9 @@ TriangleBuffer::TriangleBuffer(unsigned vertexCount, unsigned indexCount):
 
   unless(indices)
     err(-1, "Couldn't allocated index space in TriangleBuffer::TriangleBuffer");
-  
+  LogTriangleBufferOps("New TriangleBuffer %s sizes: [%u, %u]\n",
+                                                    bufName, vCount, iCount);
+
   incrementTriangleBufferMemory(sizeof(TriangleBuffer) + vCount*sizeof(Vertex)
                                                         + iCount*sizeof(unsigned));
 }
@@ -71,13 +74,14 @@ bool TriangleBuffer::requestSpace(Vertex** verticesAssigned, unsigned** indicesA
 #ifdef LOG_TRIANGLE_BUFFER_ERRS
   if(iRequestCount%3)
    {
-    LogTriangleBufferErrs("Fractional TriangleBuffer request: iCount: %u\n", iRequestCount);
+    LogTriangleBufferErrs("Fractional TriangleBuffer %s request: iCount: %u\n",
+                                                              bufName, iRequestCount);
     return false;
    }
   if(vRequestCount > iRequestCount)
    {
-    LogTriangleBufferErrs("vCount: %u greater than iCount: %u\n",
-                                                            vRequestCount, iRequestCount);
+    LogTriangleBufferErrs("TriangleBuffer %s, vCount: %u greater than iCount: %u\n",
+                                            bufName, vRequestCount, iRequestCount);
     return false;
    }
 #endif
@@ -89,14 +93,16 @@ bool TriangleBuffer::requestSpace(Vertex** verticesAssigned, unsigned** indicesA
     vOffset           =  vNext;
     vNext             += vRequestCount;
     iNext             += iRequestCount;
-    LogTriangleBufferOps("Successful TriangleBuffer request: vCount: %u, iCount: %u\n",
-                                        vRequestCount, iRequestCount);
+    LogTriangleBufferOps("Successful TriangleBuffer %s request: [%u, %u] now "
+                         "[%u, %u] of [%u, %u]\n", bufName,
+                         vRequestCount, iRequestCount,
+                         vNext, iNext, vCount, iCount);
     return true;
    }
   else
    {
-    LogTriangleBufferErrs("Failed TriangleBuffer request: vCount: %u, iCount: %u\n",
-                                        vRequestCount, iRequestCount);
+    LogTriangleBufferErrs("Failed TriangleBuffer %s request: vCount: %u, iCount: %u\n",
+                                        bufName, vRequestCount, iRequestCount);
     return false;
    }
 }
@@ -119,7 +125,7 @@ void TriangleBuffer::sendToGPU(GLenum usage)
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, iCount*sizeof(unsigned), indices, usage);
   delete[] vertices;
   delete[] indices;
-  incrementTriangleBufferMemory(vCount*sizeof(Vertex) + iCount*sizeof(unsigned));
+  incrementTriangleBufferMemory(-vCount*sizeof(Vertex) - iCount*sizeof(unsigned));
   vertices = NULL;
   indices = NULL;
 }

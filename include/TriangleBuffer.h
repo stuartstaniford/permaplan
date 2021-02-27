@@ -18,6 +18,7 @@
 
 class TriangleBuffer
 {
+  friend void recycleTriangleBuffer(TriangleBuffer*& tbuf, int vCount, int iCount);
  public:
   
   // Instance variables - public
@@ -25,7 +26,7 @@ class TriangleBuffer
   unsigned              iCount;
 
   // Member functions - public
-  TriangleBuffer(unsigned vertexCount, unsigned indexCount);
+  TriangleBuffer(unsigned vertexCount, unsigned indexCount, char* name);
   ~TriangleBuffer(void);
   bool requestSpace(Vertex** verticesAssigned, unsigned** indicesAssigned,
                     unsigned& vOffset, unsigned vRequestCount, unsigned iRequestCount);
@@ -42,6 +43,7 @@ class TriangleBuffer
   unsigned              vNext;
   unsigned              iNext;
   ElementBufferCombo*   combo;
+  char*                 bufName;
 
   // Member functions - private
   TriangleBuffer(const TriangleBuffer&);                 // Prevent copy-construction
@@ -51,11 +53,11 @@ class TriangleBuffer
 
 // Helper functions
 
-inline void recycleTriangleBuffer(TriangleBuffer*& tbuf, int vCount, int iCount)
+inline void recycleTriangleBuffer(TriangleBuffer*& tbuf, int vCount, int iCount, char* name)
 {
   if(tbuf)
-    delete tbuf;
-  tbuf = new TriangleBuffer(vCount, iCount);
+    delete tbuf; //triangleBufferMemory //triangleBufferMemory
+  tbuf = new TriangleBuffer(vCount, iCount, name);
   if(!tbuf)
     err(-1, "Can't allocate memory in __func__\n");
   //fprintf(stderr, "Triangle buffer of size %d,%d obtained\n", tbuf->vCount, tbuf->iCount);

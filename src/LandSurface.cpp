@@ -82,7 +82,7 @@ void LandSurface::bufferGeometry(Quadtree* q)
     delete tbuf;
   //XXX note sizing here is inefficient, needs to be replaced with more dynamic
   // approach
-  tbuf = new TriangleBuffer(qtree->landVBOSize, qtree->landVBOSize);
+  tbuf = new TriangleBuffer(qtree->landVBOSize, qtree->landVBOSize, (char*)"land tBuf");
   if(!tbuf)
     err(-1, "Can't allocate memory in __func__\n");
   qtree->bufferLandSurface(tbuf);
@@ -276,7 +276,7 @@ void LandSurface::redoBezierLandSurface(BezierPatch* bez)
   bez->assertCopyVer();
 
   bez->triangleBufferSizes(vCount, iCount);
-  recycleTriangleBuffer(tbuf, vCount, iCount);
+  recycleTriangleBuffer(tbuf, vCount, iCount, (char*)"bez tbuf");
   bez->bufferGeometry(tbuf);
   tbuf->sendToGPU(GL_STATIC_DRAW);
 
@@ -285,7 +285,7 @@ void LandSurface::redoBezierLandSurface(BezierPatch* bez)
   bez->addControlPointsToDisplayList(D);
   bez->addControlGradientsToDisplayList(D);
   D->triangleBufferSizes(vCount, iCount);
-  recycleTriangleBuffer(fitTBuf, vCount, iCount);
+  recycleTriangleBuffer(fitTBuf, vCount, iCount, (char*)"fit tbuf");
   D->bufferGeometry(fitTBuf);
   fitTBuf->sendToGPU(GL_STATIC_DRAW);
   delete D;
