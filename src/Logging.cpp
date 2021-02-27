@@ -60,6 +60,7 @@ bool doLogResponseErrors      = true; // Log problems encountered building the r
 bool doLogHTTPDetails         = true; // Log normal details of HTTP operations
 
 // Logging options to do with quadtree operations
+bool doLogQuadtreeCreation    = true; // Log the initial setup of the quadtree.
 bool doLogQuadtreeInsertions  = true; // Log the a new object being put in the quadtree.
 bool doLogDisplayListBuffer   = true; // Log objects being buffered for display.
 bool doLogQuadtreeObjSizes    = true; // Log the process of estimating/changing object sizes

@@ -32,7 +32,7 @@ Scene::Scene():
   // are several steps in setting them up.
   qtree = new Quadtree(0.0f, 0.0f, (unsigned)(land.rect->width),
                        (unsigned)(land.rect->height),
-                       0.0f, 0.0f, 1.0f, 1.0f, minSize, 0u);
+                       0.0f, 0.0f, 1.0f, 1.0f, minSize, 0u, 0u);
   land.bufferGeometry(qtree);
   Tree::readTreesFromDesign(qtree);
   rebuildVisualObjectBuffer(&sceneObjectTbuf);

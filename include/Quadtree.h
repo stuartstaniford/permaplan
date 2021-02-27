@@ -38,7 +38,7 @@ class Quadtree
   // Member functions - public
   Quadtree(float x, float y, unsigned width, unsigned height, float s, float t,
            float sWidth, float tHeight, unsigned& minSize, unsigned offset,
-           unsigned lev = 0);
+           unsigned lev);
   ~Quadtree(void);
   void bufferGeometry(Vertex* buf);
   void bufferGeometryLeaf(Vertex* buf);

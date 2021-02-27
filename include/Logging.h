@@ -70,6 +70,7 @@
 // =======================================================================================
 // Logging options to do with quadtree operations
 
+//#define LOG_QUADTREE_CREATION   // Log the initial setup of the quadtree.
 #define LOG_QUADTREE_INSERTIONS // Log the process of a new object being put in the quadtree.
 #define LOG_DISPLAYLIST_BUFFER  // Log the process of objects being buffered for display.
 #define LOG_QUADTREE_OBJ_SIZES  // Log the process of estimating/changing object sizes
@@ -154,6 +155,8 @@ extern bool doLogResponseErrors;      // Log problems encountered building the r
 extern bool doLogHTTPDetails;         // Log normal details of HTTP operations
 
 // Logging options to do with quadtree operations
+
+extern bool doLogQuadtreeCreation;    // Log the initial setup of the quadtree.
 extern bool doLogQuadtreeInsertions;  // Log the a new object being put in the quadtree.
 extern bool doLogDisplayListBuffer;   // Log the process of objects being buffered for display.
 extern bool doLogQuadtreeObjSizes;    // Log the process of estimating/changing object sizes
@@ -421,6 +424,13 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
 
 // =======================================================================================
 // Logging options to do with quadtree insertions
+
+// Log the initial setup of the quadtree.
+#ifdef LOG_QUADTREE_CREATION
+#define LogQuadtreeCreation(...) if(doLogQuadtreeCreation) LogStatement(__VA_ARGS__)
+#else
+#define LogQuadtreeCreation(...)
+#endif
 
 // Log the process of a new object being put in the quadtree.
 #ifdef LOG_QUADTREE_INSERTIONS

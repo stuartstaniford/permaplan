@@ -50,7 +50,8 @@ Quadtree::Quadtree(float x, float y, unsigned width, unsigned height,
   unsigned h1, h2, w1, w2;
   float    th1, th2, sw1, sw2;
 
-  //printf("Creating Quadtree at [%.1f, %.1f] with dims [%u, %u]\n", x, y, width, height);
+  LogQuadtreeCreation("Creating Quadtree[level %u] at [%.1f, %.1f] with dims [%u, %u]\n",
+                                                            level, x, y, width, height);
   if(height > minSize)
    {
     h1  = height/2;
@@ -107,9 +108,9 @@ Quadtree::Quadtree(float x, float y, unsigned width, unsigned height,
     else
      {
       // We are splitting on y, but not on x
-      kids[0] = new Quadtree(x, y, w1, h1, s, t, sw1, th1, minSize, offset);
+      kids[0] = new Quadtree(x, y, w1, h1, s, t, sw1, th1, minSize, offset, level+1);
       offset += kids[0]->landVBOSize;
-      kids[2] = new Quadtree(x, y+h1, w1, h2, s, t+th1, sw1, th2, minSize, offset);
+      kids[2] = new Quadtree(x, y+h1, w1, h2, s, t+th1, sw1, th2, minSize, offset, level+1);
       landVBOSize += kids[0]->landVBOSize + kids[2]->landVBOSize;
      }
    }
@@ -266,10 +267,10 @@ void Quadtree::rebuildTBufSizes(void)
     vObjects.triangleBufferSizes(vertexTBufSize, indexTBufSize);
 
 #ifdef LOG_QUADTREE_OBJ_SIZES
-  if(level == 0)
+  if(!level)
    {
-    LogQuadtreeObjSizes("Quadtree obj sizes recomputed to [%u, %u].\n",
-                        vertexTBufSize, indexTBufSize);
+    LogQuadtreeObjSizes("Quadtree obj sizes at level %u recomputed to [%u, %u].\n",
+                        level, vertexTBufSize, indexTBufSize);
    }
 #endif
 }
