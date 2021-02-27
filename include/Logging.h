@@ -77,8 +77,9 @@
 // =======================================================================================
 // Logging options to do with other infrastructure
 
-#define LOG_TRIANGLE_BUFFER_OPS   // Log the workings of the triangle buffers.
-#define LOG_TRIANGLE_BUFFER_ERRS   // Log actual errors the triangle buffers.
+#define LOG_TRIANGLE_BUFFER_OPS     // Log the workings of the triangle buffers.
+#define LOG_TRIANGLE_BUF_ESTIMATES  // Log estimates of sizes needed.
+#define LOG_TRIANGLE_BUFFER_ERRS    // Log actual errors the triangle buffers.
 
 
 // =======================================================================================
@@ -157,8 +158,9 @@ extern bool doLogQuadtreeInsertions;  // Log the a new object being put in the q
 extern bool doLogDisplayListBuffer;   // Log the process of objects being buffered for display.
 
 // Logging options to do with other infrastructure
-extern bool doLogTriangleBufferOps;   // Log the workings of the triangle buffers.
-extern bool doLogTriangleBufferErrs;  // Log actual errors the triangle buffers.
+extern bool doLogTriangleBufferOps;     // Log the workings of the triangle buffers.
+extern bool doLogTriangleBufEstimates;  // Log estimates of sizes needed.
+extern bool doLogTriangleBufferErrs;    // Log actual errors the triangle buffers.
 
 // Logging options to do with the Bezier Patch code
 extern bool doLogBezierFit;           // Log the fitting of a Bezier patch to height data
@@ -441,6 +443,13 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
 #define LogTriangleBufferOps(...) if(doLogTriangleBufferOps) LogStatement(__VA_ARGS__)
 #else
 #define LogTriangleBufferOps(...)
+#endif
+
+// Log estimates of sizes needed.
+#ifdef LOG_TRIANGLE_BUF_ESTIMATES
+#define LogTriangleBufEstimates(...) if(doLogTriangleBufEstimates) LogStatement(__VA_ARGS__)
+#else
+#define LogTriangleBufEstimates(...)
 #endif
 
 // Log actual errors the triangle buffers.

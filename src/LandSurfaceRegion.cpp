@@ -65,8 +65,7 @@ int LandSurfaceRegion::getNextIndex(bool resetToFirst)
 
 bool LandSurfaceRegion::bufferGeometry(TriangleBuffer* T)
 {
-
-
+  err(-1, "Called unimplemented LandSurfaceRegion::bufferGeometry");
   return false;
 }
 
@@ -78,6 +77,7 @@ void LandSurfaceRegion::triangleBufferSize(unsigned& vCount, unsigned& iCount)
 {
   vCount = 0u;
   iCount = 0u;
+  err(-1, "Called unimplemented LandSurfaceRegion::triangleBufferSize");
 }
 
 

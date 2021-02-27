@@ -253,6 +253,8 @@ void BezierPatch::triangleBufferSizes(unsigned& vertexCount, unsigned& indexCoun
 {
   vertexCount = (gridN+1)*(gridN+1);
   indexCount = 6*gridN*gridN;
+  LogTriangleBufEstimates("BezierPatch TriangleBuffer estimate: [%u, %u]",
+                                                            vertexCount, indexCount);
 }
 
 

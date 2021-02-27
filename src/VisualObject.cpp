@@ -107,6 +107,7 @@ void VisualObject::setNoTexColor(vec3 color)
 
 bool VisualObject::bufferGeometry(TriangleBuffer* T)
 {
+  err(-1, "Called unimplemented superclass VisualObject::bufferGeometry.\n");
   return false;
 }
 
@@ -177,6 +178,7 @@ void VisualObject::updateBoundingBox(void)
 
 void VisualObject::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 {
+  err(-1, "Called unimplemented superclass VisualObject::triangleBufferSizes.\n");
   vCount = 0u;
   iCount = 0u;
 }

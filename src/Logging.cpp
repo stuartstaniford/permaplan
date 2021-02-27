@@ -64,8 +64,9 @@ bool doLogQuadtreeInsertions  = true; // Log the a new object being put in the q
 bool doLogDisplayListBuffer   = true; // Log the process of objects being buffered for display.
 
 // Logging options to do with other infrastructure
-bool doLogTriangleBufferOps   = true; // Log the workings of the triangle buffers.
-bool doLogTriangleBufferErrs  = true; // Log actual errors the triangle buffers.
+bool doLogTriangleBufferOps     = true; // Log the workings of the triangle buffers.
+bool doLogTriangleBufEstimates  = true; // Log estimates of sizes needed.
+bool doLogTriangleBufferErrs    = true; // Log actual errors the triangle buffers.
 
 // Logging options to do with the Bezier Patch code
 bool doLogBezierFit           = true; // Log the fitting of a Bezier patch to height data
