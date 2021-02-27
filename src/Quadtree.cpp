@@ -166,16 +166,22 @@ void Quadtree::storeVisualObject(VisualObject* obj)
   indexTBufSize += iSize;
   LogQuadtreeObjSizes("Quadtree node obj size estimates increasing by [%u, %u] "
                         "to [%u, %u]\n", vSize, iSize, vertexTBufSize, indexTBufSize);
-  
+#ifdef LOG_QUADTREE_INSERTIONS
+  float x, y;
+  obj->getGroundContact(x,y);
+#endif
+
   bbox.extendZ(*(obj->box));
   forAllKids(i)
     if(kids[i]->bbox.xyContains(*(obj->box)))
      {
-      LogQuadtreeInsertions("Passing %s object to child %d.\n", obj->objectName(), i);
+      LogQuadtreeInsertions("Passing %s object at %.1f, %.1f to child %d, level %u.\n",
+                            obj->objectName(), x, y, i, level);
       kids[i]->storeVisualObject(obj);
       return;
      }
-  LogQuadtreeInsertions("Final storage of %s object.\n", obj->objectName());
+  LogQuadtreeInsertions("Final storage of %s object at %.1f, %.1f, level %u.\n",
+                          obj->objectName(), x, y, level);
   vObjects.push_back(obj);
 }
 
