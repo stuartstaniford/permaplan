@@ -243,6 +243,27 @@ void Quadtree::recomputeBoundingBox(void)
 
 
 // =======================================================================================
+// Redo our idea of the size we need to render ourselves in a Tbuf.  This is called
+// for example after a simulation step in which objects may change their size/form.
+
+void Quadtree::rebuildTBufSizes(void)
+{
+  if(landVBOSize > 6)
+   {
+    vertexTBufSize = indexTBufSize = 0u;
+    forAllKids(i)
+     {
+      kids[i]->rebuildTBufSizes();
+      vertexTBufSize  += kids[i]->vertexTBufSize;
+      indexTBufSize   += kids[i]->indexTBufSize;
+     }
+   }
+  else
+    vObjects.triangleBufferSizes(vertexTBufSize, indexTBufSize);
+}
+
+
+// =======================================================================================
 // Redo the landsurface in the quadtree with a plane specified by the parameters
 // (The plane goes through position, with normal being perpendicular to it).
 // Note this function makes the assumption that our surface is already an

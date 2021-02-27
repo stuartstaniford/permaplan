@@ -303,6 +303,7 @@ void Scene::draw(bool mouseMoved, float timeElapsed)
    {
     simYear += timeElapsed*simulationSpeed;
     Tree::growAllTrees(timeElapsed*simulationSpeed);
+    qtree->rebuildTBufSizes();
     rebuildVisualObjectBuffer(&sceneObjectTbuf);
    }
   

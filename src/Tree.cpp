@@ -171,7 +171,7 @@ bool Tree::bufferGeometry(TriangleBuffer* T)
       return false;
    }
   else
-    LogTreeVisualization("Couldn't buffer emptry tree %d.\n", treePtrArrayIndex);
+    LogTreeVisualization("Couldn't buffer empty tree %d.\n", treePtrArrayIndex);
 
   return true;
 }
