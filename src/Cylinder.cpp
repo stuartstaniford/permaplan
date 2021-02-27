@@ -192,9 +192,17 @@ void Cylinder::setLength(float length)
 
 bool Cylinder::matchRay(vec3& position, vec3& direction, float& lambda)
 {
-  //XXX NOT DONE
+  vec3 joinLine, originDiff;
   
-  return true;
+  glm_vec3_crossn(direction, axisDirection, joinLine);
+  glm_vec3_sub(position, location, originDiff);
+  float dist = fabs(glm_vec3_dot(joinLine, originDiff));
+  if(dist <= radius)
+   {
+    lambda = NAN;  //XX haven't calculated this
+    return true;
+   }
+  return false;
 }
 
 
