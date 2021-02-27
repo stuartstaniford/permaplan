@@ -70,9 +70,9 @@
 // =======================================================================================
 // Logging options to do with quadtree operations
 
-//#define LOG_QUADTREE_INSERTIONS // Log the process of a new object being put in the quadtree.
-//#define LOG_DISPLAYLIST_BUFFER  // Log the process of objects being buffered for display.
-
+#define LOG_QUADTREE_INSERTIONS // Log the process of a new object being put in the quadtree.
+#define LOG_DISPLAYLIST_BUFFER  // Log the process of objects being buffered for display.
+#define LOG_QUADTREE_OBJ_SIZES  // Log the process of estimating/changing object sizes
 
 // =======================================================================================
 // Logging options to do with other infrastructure
@@ -156,6 +156,7 @@ extern bool doLogHTTPDetails;         // Log normal details of HTTP operations
 // Logging options to do with quadtree operations
 extern bool doLogQuadtreeInsertions;  // Log the a new object being put in the quadtree.
 extern bool doLogDisplayListBuffer;   // Log the process of objects being buffered for display.
+extern bool doLogQuadtreeObjSizes;    // Log the process of estimating/changing object sizes
 
 // Logging options to do with other infrastructure
 extern bool doLogTriangleBufferOps;     // Log the workings of the triangle buffers.
@@ -168,6 +169,7 @@ extern bool doLogBezierMatchRay;      // Log the process of matching a ray to th
 extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects above the land
 
 #endif  //LOGGING_IMPLEMENTATION - need this here.
+
 
 // =======================================================================================
 // Logging options to do with overall control flow and speed
@@ -432,6 +434,13 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
 #define LogDisplayListBuffer(...) if(doLogDisplayListBuffer) LogStatement(__VA_ARGS__)
 #else
 #define LogDisplayListBuffer(...)
+#endif
+
+// Log the process of estimating/changing object sizes
+#ifdef LOG_QUADTREE_OBJ_SIZES
+#define LogQuadtreeObjSizes(...) if(doLogQuadtreeObjSizes) LogStatement(__VA_ARGS__)
+#else
+#define LogQuadtreeObjSizes(...)
 #endif
 
 

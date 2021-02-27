@@ -61,7 +61,8 @@ bool doLogHTTPDetails         = true; // Log normal details of HTTP operations
 
 // Logging options to do with quadtree operations
 bool doLogQuadtreeInsertions  = true; // Log the a new object being put in the quadtree.
-bool doLogDisplayListBuffer   = true; // Log the process of objects being buffered for display.
+bool doLogDisplayListBuffer   = true; // Log objects being buffered for display.
+bool doLogQuadtreeObjSizes    = true; // Log the process of estimating/changing object sizes
 
 // Logging options to do with other infrastructure
 bool doLogTriangleBufferOps     = true; // Log the workings of the triangle buffers.

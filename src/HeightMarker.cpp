@@ -149,7 +149,7 @@ void HeightMarker::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 {
   vCount = 6u;
   iCount = 24u;
-  LogTriangleBufEstimates("HeightMarker TriangleBuffer estimate: [%u, %u]", vCount, iCount);
+  LogTriangleBufEstimates("HeightMarker TriangleBuffer estimate: [%u, %u]\n", vCount, iCount);
 }
 
 

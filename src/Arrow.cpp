@@ -149,7 +149,7 @@ void Arrow::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 {
   vCount = ARROW_SIDES*3+1;
   iCount = ARROW_SIDES*9;
-  LogTriangleBufEstimates("Arrow TriangleBuffer estimate: [%u, %u]", vCount, iCount);
+  LogTriangleBufEstimates("Arrow TriangleBuffer estimate: [%u, %u]\n", vCount, iCount);
 }
 
 

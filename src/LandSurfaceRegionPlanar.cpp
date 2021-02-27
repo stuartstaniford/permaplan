@@ -128,7 +128,7 @@ void LandSurfaceRegionPlanar::triangleBufferSize(unsigned& vCount, unsigned& iCo
 {
   vCount = 4u;
   iCount = 6u;
-  LogTriangleBufEstimates("LandSurfaceRegionPlanar TriangleBuffer estimate: [%u, %u]", vCount, iCount);
+  LogTriangleBufEstimates("LandSurfaceRegionPlanar TriangleBuffer estimate: [%u, %u]\n", vCount, iCount);
 }
 
 

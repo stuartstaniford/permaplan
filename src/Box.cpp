@@ -256,7 +256,7 @@ void Box::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 {
   vCount = 8u;
   iCount = 36u;
-  LogTriangleBufEstimates("Box TriangleBuffer estimate: [%u, %u]", vCount, iCount);
+  LogTriangleBufEstimates("Box TriangleBuffer estimate: [%u, %u]\n", vCount, iCount);
 }
 
 

@@ -204,7 +204,7 @@ void Tree::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
   iCount = 0u;
   if(trunk)
     trunk->triangleBufferSizesRecurse(vCount, iCount);
-  LogTriangleBufEstimates("Tree TriangleBuffer estimate: [%u, %u]", vCount, iCount);
+  LogTriangleBufEstimates("Tree TriangleBuffer estimate: [%u, %u]\n", vCount, iCount);
 }
 
 
