@@ -27,7 +27,7 @@ Scene::Scene():
                 doSimulation(false),
                 simYear(SIMULATION_BASE_YEAR)
 {
-  unsigned minSize = 10;
+  unsigned minSize = 50;
   // Note that land and qtree have mutual dependencies that means there
   // are several steps in setting them up.
   qtree = new Quadtree(0.0f, 0.0f, (unsigned)(land.rect->width),

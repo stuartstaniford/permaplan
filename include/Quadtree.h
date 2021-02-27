@@ -37,7 +37,8 @@ class Quadtree
 
   // Member functions - public
   Quadtree(float x, float y, unsigned width, unsigned height, float s, float t,
-           float sWidth, float tHeight, unsigned& minSize, unsigned offset);
+           float sWidth, float tHeight, unsigned& minSize, unsigned offset,
+           unsigned lev = 0);
   ~Quadtree(void);
   void bufferGeometry(Vertex* buf);
   void bufferGeometryLeaf(Vertex* buf);
@@ -61,12 +62,13 @@ class Quadtree
   //XXX deprecate
   float                     topLeftZ;
   float                     bottomRightZ;
-
-  vec2                      textureBL;    // bottom left corner of our region in texture s-t space
+  
+  vec2                      textureBL;    // bottom left of our region in texture s-t space
   vec2                      textureTR;    // top right corner of our region in texture s-t space
   Quadtree*                 kids[4];      // our four child quadtree nodes
   LandSurfaceRegion*        surface;
   DisplayList               vObjects;     // objects for display that we own
+  unsigned char             level;        // zero at root, increasing down tree
   
   // Member functions - private
   VisualObject* matchChild(vec3& position, vec3& direction, float& lambda);
