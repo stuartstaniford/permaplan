@@ -71,15 +71,15 @@
 // Logging options to do with quadtree operations
 
 //#define LOG_QUADTREE_CREATION   // Log the initial setup of the quadtree.
-#define LOG_QUADTREE_INSERTIONS // Log the process of a new object being put in the quadtree.
-#define LOG_DISPLAYLIST_BUFFER  // Log the process of objects being buffered for display.
-#define LOG_QUADTREE_OBJ_SIZES  // Log the process of estimating/changing object sizes
+//#define LOG_QUADTREE_INSERTIONS // Log the process of a new object being put in the quadtree.
+//#define LOG_DISPLAYLIST_BUFFER  // Log the process of objects being buffered for display.
+//#define LOG_QUADTREE_OBJ_SIZES  // Log the process of estimating/changing object sizes
 
 // =======================================================================================
 // Logging options to do with other infrastructure
 
-#define LOG_TRIANGLE_BUFFER_OPS     // Log the workings of the triangle buffers.
-#define LOG_TRIANGLE_BUF_ESTIMATES  // Log estimates of sizes needed.
+//#define LOG_TRIANGLE_BUFFER_OPS     // Log the workings of the triangle buffers.
+//#define LOG_TRIANGLE_BUF_ESTIMATES  // Log estimates of sizes needed.
 #define LOG_TRIANGLE_BUFFER_ERRS    // Log actual errors the triangle buffers.
 
 
@@ -100,6 +100,7 @@
 // =======================================================================================
 // General logging mechanism
 
+//XX __DATE__ and __TIME__ are compile times, not run times!!
 #define LogStatement(...) fprintf(LogFile, __DATE__ " " __TIME__ ": " __VA_ARGS__)
 
 void LogInit(void);

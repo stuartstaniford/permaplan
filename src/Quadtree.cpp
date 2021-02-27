@@ -259,9 +259,9 @@ void Quadtree::recomputeBoundingBox(void)
 
 void Quadtree::rebuildTBufSizes(void)
 {
+  vObjects.triangleBufferSizes(vertexTBufSize, indexTBufSize);
   if(landVBOSize > 6)
    {
-    vertexTBufSize = indexTBufSize = 0u;
     forAllKids(i)
      {
       kids[i]->rebuildTBufSizes();
@@ -269,8 +269,6 @@ void Quadtree::rebuildTBufSizes(void)
       indexTBufSize   += kids[i]->indexTBufSize;
      }
    }
-  else
-    vObjects.triangleBufferSizes(vertexTBufSize, indexTBufSize);
 
 #ifdef LOG_QUADTREE_OBJ_SIZES
   if(!level)
