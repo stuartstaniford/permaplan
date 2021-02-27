@@ -506,6 +506,7 @@ bool Quadtree::diagnosticHTML(HttpDebug* serv, char* path)
     // Other data
     serv->newSection("Other Data");
     httPrintf("</center>\n");
+    httPrintf("<b>Level:</b> %u<br>\n", level);
 
     // Camera intersection
     float lambda;
