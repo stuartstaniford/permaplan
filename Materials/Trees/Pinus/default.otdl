@@ -1,0 +1,45 @@
+// OTDL for Pinus (generic, no species, parent for specific cases)
+{
+  "overviewData":
+    {
+     "genus":       "Pinus",
+     "maxHeight":   50000,
+     "maxGirth":   4000,
+     "maxAge":   300,
+     "commonNames":
+       {
+        "en-US": "Pine",
+        "en-GB": "Pine",
+        "fr-FR": "Pin",
+        "fr-CA": "Pin",
+        "de-DE": "Kiefer"
+       },
+     "version":     [0, 0, 1],
+     "fileTime":    [20,0],
+     "authors":     ["Stuart Staniford"]
+    },
+ "wood":
+  {
+   "stemRate": 1000,
+   "initSapThickness": 1.5,
+   "initBarkThickness": 0.5,
+   "barkTextures":
+    {
+    
+    },
+   "barkColors":
+    [
+      {
+       "ages": [0.0, 2.0],
+       "rgb": [200, 0, 0]
+      },
+      {
+       "ages": [2.0, 10000.0],
+       "rgb": [100, 0, 0]
+      }
+    ]
+  },
+ "foliage":
+  {
+  }
+}

@@ -276,7 +276,8 @@ bool Species::validateBarkColors(Value& colorsArray, JSONStructureChecker* jChec
 
 
 // =======================================================================================
-// Validate the wood section of an OTDL object.
+// Validate the wood section of an OTDL object.  This is the version for a standalone
+// object with no parent.
 
 bool Species::validateWood(Document& doc, JSONStructureChecker* jCheck)
 {

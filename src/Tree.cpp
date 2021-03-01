@@ -35,7 +35,9 @@ Tree::Tree(Species* S, vec3 loc, float age, float now):
 
 
 // =======================================================================================
-// This is the constructor generally used when reading from OLDF.
+// This is the constructor generally used when reading from OLDF.  Note that validation
+// was done already by PmodDesign, so here we can safely assume the JSON is all
+// syntactically correct.
 
 Tree::Tree(Value& plantObject):
                           VisualObject(false),
