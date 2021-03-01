@@ -61,18 +61,18 @@ class Species
   static rapidjson::Document& readOTDLFromBuf(char* buf, char* sourceName);
   static bool validateOverviewData(rapidjson::Document& doc, JSONStructureChecker* jCheck);
   static bool validateOTDL(rapidjson::Document& doc, char* sourceName);
-  static Species* getSpeciesByPath(char* speciesPath);
-  static Species* loadLocalOTDLEntry(char* speciesPath);
-  static Species** speciesPtrArray;
+  static Species* getSpeciesByPath(const char* speciesPath);
+  static Species* loadLocalOTDLEntry(const char* speciesPath);
+  static Species* getParent(rapidjson::Document& doc, JSONStructureChecker* jCheck);
   static bool validateCommonNames(rapidjson::Value& containObj, JSONStructureChecker* jCheck);
   static bool validateFoliage(rapidjson::Document& doc, JSONStructureChecker* jCheck);
-  static bool validateParent(rapidjson::Document& doc, JSONStructureChecker* jCheck);
   static bool validateWood(rapidjson::Document& doc, JSONStructureChecker* jCheck);
   static bool validateBarkTextures(rapidjson::Value& obj, JSONStructureChecker* jCheck);
   static bool validateBarkColors(rapidjson::Value& colorsArray, JSONStructureChecker* jCheck);
   static bool findSpeciesForHTTPDebug(HttpDebug* serv, char* path);
   
-  // statics public variables
+  // static public variables
+  static Species** speciesPtrArray;
   static unsigned short speciesCount;
   static std::unordered_map<std::string, unsigned> genusList;
   static std::unordered_map<std::string, SpeciesList*> genusSpeciesList;

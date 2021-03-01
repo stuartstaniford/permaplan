@@ -1,5 +1,6 @@
 // OTDL for Pinus strobus (Eastern White Pine)
 {
+  "parent": "Pinus",
   "overviewData":
     {
      "genus":       "Pinus",

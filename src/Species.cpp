@@ -158,13 +158,17 @@ bool Species::validateOverviewData(Document& doc, JSONStructureChecker* jCheck)
   retVal &= jCheck->validateFileTime(overviewData);
 
   // Genus
-  retVal &= jCheck->validateStringMemberExists(overviewData, logObjectName, (char*)"genus");
-  retVal &= jCheck->validateGenusName(logObjectName, overviewData["genus"].GetString());
+  if(jCheck->validateStringMemberExists(overviewData, logObjectName, (char*)"genus"))
+    retVal &= jCheck->validateGenusName(logObjectName, overviewData["genus"].GetString());
+  else
+    retVal = false;
   
   // Species
-  retVal &= jCheck->validateStringMemberExists(overviewData, logObjectName, (char*)"species");
-  retVal &= jCheck->validateSpeciesName(logObjectName, overviewData["species"].GetString());
-
+  if(jCheck->validateStringMemberExists(overviewData, logObjectName, (char*)"species"))
+    retVal &= jCheck->validateSpeciesName(logObjectName, overviewData["species"].GetString());
+  else
+    retVal = false;
+  
   // maxHeight
   unless(overviewData.HasMember("maxHeight") && overviewData["maxHeight"].IsNumber())
    {
@@ -350,9 +354,10 @@ bool Species::validateFoliage(Document& doc, JSONStructureChecker* jCheck)
 // =======================================================================================
 // Validate the parent section of an OTDL object.
 
-bool Species::validateParent(Document& doc, JSONStructureChecker* jCheck)
+Species* Species::getParent(Document& doc, JSONStructureChecker* jCheck)
 {
-  return true;
+  Species* parent = Species::getSpeciesByPath(doc["parent"].GetString());
+  return parent;
 }
 
 
@@ -365,7 +370,8 @@ bool Species::validateOTDL(Document& doc, char* sourceName)
   char phrase[128];
   snprintf(phrase, 128, "OTDL object %s", sourceName);
   JSONStructureChecker* jCheck = new JSONStructureChecker(phrase, OTDL);
-
+  Species* parent = NULL;
+  
   if(doc.HasMember("parent"))
    {
     unless(doc["parent"].IsString())
@@ -374,7 +380,11 @@ bool Species::validateOTDL(Document& doc, char* sourceName)
       retVal = false;
      }
     else
-      retVal &= validateParent(doc, jCheck);
+     {
+      parent = getParent(doc, jCheck);
+      if(!parent)
+        return false;
+     }
    }
   else
      LogOTDLDetails("No inheritance from parent in %s\n", phrase);
@@ -412,7 +422,7 @@ bool Species::validateOTDL(Document& doc, char* sourceName)
 // =======================================================================================
 // Static function to find the entry for a particular "genus/species".
 
-Species* Species::getSpeciesByPath(char* speciesPath)
+Species* Species::getSpeciesByPath(const char* speciesPath)
 {
   unless(speciesIndex.IsObject())
     speciesIndex.SetObject();
@@ -436,7 +446,7 @@ Species* Species::getSpeciesByPath(char* speciesPath)
 // =======================================================================================
 // Static function to try and load a particular "genus/species" from local disk
 
-Species* Species::loadLocalOTDLEntry(char* speciesPath)
+Species* Species::loadLocalOTDLEntry(const char* speciesPath)
 {
   const PmodConfig& config = PmodConfig::getConfig();
   char path[256];

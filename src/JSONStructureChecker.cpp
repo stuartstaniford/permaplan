@@ -129,14 +129,18 @@ void JSONStructureChecker::makeLog(bool isGood)
   if(type == OLDF)
    {
     if(isGood)
+     {
       LogOLDFDetails("%s", logBuf);
+     }
     else
       LogOLDFValidity("%s", logBuf);
    }
   else if(type == OTDL)
    {
     if(isGood)
+     {
       LogOTDLDetails("%s", logBuf);
+     }
     else
       LogOTDLValidity("%s", logBuf);
    }
