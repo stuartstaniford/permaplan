@@ -1,0 +1,44 @@
+// OTDL for Pinus strobus 'Pendula'
+// (weeping varietal of Eastern White Pine)
+{
+  "parent": "Pinus/strobus",
+  "overviewData":
+    {
+     "varietal":     "strobus",
+     "maxHeight":   61000, //https://en.wikipedia.org/wiki/Pinus_strobus
+     "maxGirth":   5000, //https://en.wikipedia.org/wiki/Pinus_strobus
+     "maxAge":   500, //https://en.wikipedia.org/wiki/Pinus_strobus
+     "commonNames":
+       {
+        "en-US": "Eastern White Pine 'Pendula'",
+        "en-GB": "Weymouth Pine 'Pendula'",
+       },
+     "version":     [0, 0, 1],
+     "fileTime":    [20,0],
+     "authors":     ["Stuart Staniford"]
+    },
+ "wood":
+  {
+   "stemRate": 1000,
+   "initSapThickness": 1.5,
+   "initBarkThickness": 0.5,
+   "barkTextures":
+    {
+    
+    },
+   "barkColors":
+    [
+      {
+       "ages": [0.0, 2.0],
+       "rgb": [200, 200, 200]
+      },
+      {
+       "ages": [2.0, 10000.0],
+       "rgb": [100, 100, 200]
+      }
+    ]
+  },
+ "foliage":
+  {
+  }
+}
