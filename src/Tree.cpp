@@ -20,14 +20,14 @@ using namespace rapidjson;
 Tree::Tree(Species* S, vec3 loc, float age, float now):
                           VisualObject(false),
                           species(S),
+                          yearPlanted(now - age),
+                          ageNow(age),
                           trunk(NULL)
 {
   glm_vec3_copy(loc, location);
   location[2] = 0.0f;
   altitude = loc[2];
   treePtrArray[(treePtrArrayIndex = treeCount++)] = this;
-  ageNow      = now;
-  yearPlanted = now - age;
   growStep(age);
   updateBoundingBox();
   incrementTreeMemory(sizeof(Tree));
