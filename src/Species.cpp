@@ -21,13 +21,16 @@ unsigned Species::OTDLVersion[] = {0, 0, 1};
 // =======================================================================================
 // Constructors.
 
-Species::Species(Document& otdlDoc)
+Species::Species(Document& otdlDoc, Species* parent)
 {
   // NOTE WELL.  Numeric values in OTDL are expressed in mm, but for uniformity in graphic
   // calculations, internally we must store them in spaceUnits.
   
   // store this species/genus in the static arrays for looking us up.
-  genusName = otdlDoc["overviewData"]["genus"].GetString();
+  if(otdlDoc["overviewData"].HasMember("genus"))
+    genusName = otdlDoc["overviewData"]["genus"].GetString();
+  else
+    genusName = parent->genusName;
   speciesName = otdlDoc["overviewData"]["species"].GetString();
   genusList[genusName]++;
   if(genusSpeciesList.find(genusName) == genusSpeciesList.end())
@@ -104,7 +107,7 @@ unsigned Species::getBarkColor(float age)
 // =======================================================================================
 // Read a buffer containing an OTDL description of the type of tree we are.
 
-Document& Species::readOTDLFromBuf(char* buf, char* sourceName)
+Document& Species::readOTDLFromBuf(char* buf, char* sourceName, Species** parent)
 {
   Document* doc = new Document;
 
@@ -117,7 +120,7 @@ Document& Species::readOTDLFromBuf(char* buf, char* sourceName)
    }
   if(!doc->IsObject())
     err(-1, "Base of OTDL file %s is not JSON object.\n", sourceName);
-  if(!validateOTDL(*doc, sourceName))
+  if(!validateOTDL(*doc, sourceName, parent))
     err(-1, "Invalid OTDL file %s - see log for details\n", sourceName);
  
   return *doc;
@@ -148,7 +151,8 @@ bool Species::validateCommonNames(Value& containObj, JSONStructureChecker* jChec
 // =======================================================================================
 // Validate the overviewData section of an OTDL object.
 
-bool Species::validateOverviewData(Document& doc, JSONStructureChecker* jCheck)
+bool Species::validateOverviewData(Document& doc, JSONStructureChecker* jCheck,
+                                                                          Species* parent)
 {
   bool   retVal       = true;
   Value& overviewData = doc["overviewData"];
@@ -160,9 +164,16 @@ bool Species::validateOverviewData(Document& doc, JSONStructureChecker* jCheck)
   // Genus
   if(jCheck->validateStringMemberExists(overviewData, logObjectName, (char*)"genus"))
     retVal &= jCheck->validateGenusName(logObjectName, overviewData["genus"].GetString());
+  else if(parent)
+   {
+    LogOTDLDetails("Inheriting genus from parent in %s\n", jCheck->sourcePhrase);
+   }
   else
+   {
+    LogOTDLValidity("No genus available for %s\n", jCheck->sourcePhrase);
     retVal = false;
-  
+   }
+   
   // Species
   if(jCheck->validateStringMemberExists(overviewData, logObjectName, (char*)"species"))
     retVal &= jCheck->validateSpeciesName(logObjectName, overviewData["species"].GetString());
@@ -364,7 +375,7 @@ Species* Species::getParent(Document& doc, JSONStructureChecker* jCheck)
 // =======================================================================================
 // Validate OTDL/JSON structure of the type of tree we are.
 
-bool Species::validateOTDL(Document& doc, char* sourceName)
+bool Species::validateOTDL(Document& doc, char* sourceName, Species** parentBack)
 {
   bool retVal = true;
   char phrase[128];
@@ -388,14 +399,17 @@ bool Species::validateOTDL(Document& doc, char* sourceName)
    }
   else
      LogOTDLDetails("No inheritance from parent in %s\n", phrase);
-     
+  *parentBack = parent;
+  
+  // overviewData is mandatory even if an object has a parent, as it needs to
+  // be at least somewhat different in naming.
   unless(doc.HasMember("overviewData") && doc["overviewData"].IsObject())
    {
     LogOTDLValidity("No overviewData in %s\n", phrase);
     retVal = false;
    }
   else
-    retVal &= validateOverviewData(doc, jCheck);
+    retVal &= validateOverviewData(doc, jCheck, parent);
 
   unless(doc.HasMember("wood") && doc["wood"].IsObject())
    {
@@ -455,10 +469,11 @@ Species* Species::loadLocalOTDLEntry(const char* speciesPath)
     return NULL;
   unsigned bufSize;
   char* buf = loadFileToBuf(path, &bufSize);
-  Document& doc = readOTDLFromBuf(buf, path);
+  Species* parent;
+  Document& doc = readOTDLFromBuf(buf, path, &parent);
   
   // At this point we are confident we have valid OTDL, so create the new species
-  Species* newSpecies = new Species(doc);
+  Species* newSpecies = new Species(doc, parent);
   return newSpecies;
 }
 

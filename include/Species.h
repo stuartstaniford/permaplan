@@ -46,7 +46,7 @@ class Species
   std::map<float, unsigned> barkColorMap;
 
   // Member functions - public
-  Species(rapidjson::Document& otdlDoc);
+  Species(rapidjson::Document& otdlDoc, Species* parent);
   ~Species(void);
   void        logisticGrowthModel(float age, float& radius, float& height);
   void        extractBarkColors(rapidjson::Value& colorsArray);
@@ -58,9 +58,11 @@ class Species
  public:
   // Static public functions
   static rapidjson::Document speciesIndex;
-  static rapidjson::Document& readOTDLFromBuf(char* buf, char* sourceName);
-  static bool validateOverviewData(rapidjson::Document& doc, JSONStructureChecker* jCheck);
-  static bool validateOTDL(rapidjson::Document& doc, char* sourceName);
+  static rapidjson::Document& readOTDLFromBuf(char* buf, char* sourceName,
+                                                                    Species** parentBack);
+  static bool validateOverviewData(rapidjson::Document& doc, JSONStructureChecker* jCheck,
+                                                                          Species* parent);
+  static bool validateOTDL(rapidjson::Document& doc, char* sourceName, Species** parentBack);
   static Species* getSpeciesByPath(const char* speciesPath);
   static Species* loadLocalOTDLEntry(const char* speciesPath);
   static Species* getParent(rapidjson::Document& doc, JSONStructureChecker* jCheck);
