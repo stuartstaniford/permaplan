@@ -26,17 +26,35 @@ Species::Species(Document& otdlDoc, Species* parent)
   // NOTE WELL.  Numeric values in OTDL are expressed in mm, but for uniformity in graphic
   // calculations, internally we must store them in spaceUnits.
   
-  // store this species/genus in the static arrays for looking us up.
+  // Genus - mandatory, heritable
   if(otdlDoc["overviewData"].HasMember("genus"))
     genusName = otdlDoc["overviewData"]["genus"].GetString();
   else
     genusName = parent->genusName;
-  speciesName = otdlDoc["overviewData"]["species"].GetString();
   genusList[genusName]++;
   if(genusSpeciesList.find(genusName) == genusSpeciesList.end())
     genusSpeciesList[genusName] = new SpeciesList;
-  (*genusSpeciesList[genusName])[speciesName] = this;
+    
+  //Species - mandatory, heritable
+  if(otdlDoc["overviewData"].HasMember("species"))
+    speciesName = otdlDoc["overviewData"]["species"].GetString();
+  else
+    speciesName = parent->speciesName;
 
+  //Var - optional, non-heritable
+  if(otdlDoc["overviewData"].HasMember("var"))
+   {
+    varName = otdlDoc["overviewData"]["var"].GetString();
+    char buf[MAX_SPECIES_PATH];
+    snprintf(buf, MAX_SPECIES_PATH, "%s %s", speciesName, varName);
+    (*genusSpeciesList[genusName])[buf] = this;
+   }
+  else // no variety
+   {
+    varName = NULL;
+    (*genusSpeciesList[genusName])[speciesName] = this;
+   }
+   
   // other overviewdata
   maxHeight  = otdlDoc["overviewData"]["maxHeight"].GetFloat()/mmPerSpaceUnit;
   maxRadius  = otdlDoc["overviewData"]["maxGirth"].GetFloat()/mmPerSpaceUnit/M_PI/2.0;
@@ -75,9 +93,14 @@ void Species::logisticGrowthModel(float age, float& radius, float& height)
   float logisticVal = 1.0f/(1.0f + expf(-xval)) - 0.5f;
   radius = maxRadius*logisticVal;
   height = maxHeight*logisticVal;
-  LogGrowthModel("Growth Model for %s %s has x-val: %f, logisticVal: %f, "
-                              "radius: %f, height %f\n",
-                              genusName, speciesName, xval, logisticVal, radius, height);
+  if(varName)
+    LogGrowthModel("Growth Model for %s %s %s has x-val: %f, logisticVal: %f, "
+                              "radius: %f, height %f\n", genusName, speciesName, varName,
+                              xval, logisticVal, radius, height);
+  else
+    LogGrowthModel("Growth Model for %s %s has x-val: %f, logisticVal: %f, "
+                              "radius: %f, height %f\n", genusName, speciesName,
+                              xval, logisticVal, radius, height);
 }
 
 
@@ -161,7 +184,7 @@ bool Species::validateOverviewData(Document& doc, JSONStructureChecker* jCheck,
   // fileTime
   retVal &= jCheck->validateFileTime(overviewData);
 
-  // Genus
+  // Genus - mandatory, inheritable
   if(jCheck->validateStringMemberExists(overviewData, logObjectName, (char*)"genus"))
     retVal &= jCheck->validateGenusName(logObjectName, overviewData["genus"].GetString());
   else if(parent)
@@ -174,12 +197,19 @@ bool Species::validateOverviewData(Document& doc, JSONStructureChecker* jCheck,
     retVal = false;
    }
    
-  // Species
+  // Species - mandatory, inheritable
   if(jCheck->validateStringMemberExists(overviewData, logObjectName, (char*)"species"))
     retVal &= jCheck->validateSpeciesName(logObjectName, overviewData["species"].GetString());
+  else if(parent)
+   {
+    LogOTDLDetails("Inheriting species from parent in %s\n", jCheck->sourcePhrase);
+   }
   else
     retVal = false;
-  
+    
+  // variety - optional, non-sinheritable
+  retVal &= jCheck->validateOptionalStringMember(overviewData, logObjectName, (char*)"var");
+
   // maxHeight
   unless(overviewData.HasMember("maxHeight") && overviewData["maxHeight"].IsNumber())
    {
@@ -200,9 +230,6 @@ bool Species::validateOverviewData(Document& doc, JSONStructureChecker* jCheck,
     LogOTDLValidity("No maxAge or invalid maxAge in %s\n", jCheck->sourcePhrase);
     retVal = false;
    }
-
-  // variety
-  retVal &= jCheck->validateOptionalStringMember(overviewData, logObjectName, (char*)"var");
 
   // version
   retVal &= jCheck->validateVersion(overviewData);
@@ -553,7 +580,11 @@ const char* Species::objectName(void)
 bool Species::diagnosticHTML(HttpDebug* serv)
 {
   char title[MAX_SPECIES_PATH+16];
-  snprintf(title, MAX_SPECIES_PATH+16, "Species: %s %s", genusName, speciesName);
+  if(varName)
+    snprintf(title, MAX_SPECIES_PATH+16, "Species: %s %s %s", genusName,
+                                                                speciesName, varName);
+  else
+    snprintf(title, MAX_SPECIES_PATH+16, "Species: %s %s", genusName, speciesName);
   serv->startResponsePage(title);
   
   httPrintf("<h2>OTDL spec</h2>\n");

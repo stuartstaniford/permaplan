@@ -16,7 +16,9 @@
 #include <string>
 
 #define SPECIES_ARRAY_SIZE   2048 // max number of species in a design
-#define MAX_SPECIES_PATH  96   //https://en.wikipedia.org/wiki/List_of_long_species_names
+#define MAX_SPECIES_PATH     256  // the following considers genus/species, then we allow
+                                   // a fudge factor for variety names.
+                                   //https://en.wikipedia.org/wiki/List_of_long_species_names
 
 
 // =======================================================================================
@@ -37,6 +39,7 @@ class Species
   // Instance variables - public;
   const char*               genusName;
   const char*               speciesName;
+  const char*               varName;
   float                     stemRate;           // in spaceUnits/year
   float                     initSapThickness;   // in spaceUnits
   float                     initBarkThickness;  // in spaceUnits

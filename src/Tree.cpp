@@ -44,7 +44,11 @@ Tree::Tree(Value& plantObject):
                           trunk(NULL)
 {
   char speciesPath[MAX_SPECIES_PATH];
-  sprintf(speciesPath, "%s/%s", plantObject["genus"].GetString(),
+  if(plantObject.HasMember("var"))
+    snprintf(speciesPath, MAX_SPECIES_PATH, "%s/%s/%s", plantObject["genus"].GetString(),
+                plantObject["species"].GetString(), plantObject["var"].GetString());
+  else
+    snprintf(speciesPath, MAX_SPECIES_PATH, "%s/%s", plantObject["genus"].GetString(),
                                             plantObject["species"].GetString());
   species = Species::getSpeciesByPath(speciesPath);
   

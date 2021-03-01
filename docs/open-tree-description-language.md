@@ -85,29 +85,35 @@ All JSON names in objects should be expressed in 8 bit ASCII characters, as shou
 
 The `overviewData` section has metadata about the file and global information required to interpret the file.  It has certain mandatory name/value pairs that must be present, and then others that are optional.  We here take them in turn.
 
-### fileTime (mandatory)
+### fileTime (mandatory, non-heritable)
 
 Syntax: `"fileTime":  [<seconds>, <microseconds>]`
 
 The fileTime value is a JSON array of exactly two integers which denote the time at which the file was written.  The first integer is the number of seconds since the beginning of 1970, UTC (aka "Unix time") and the second integer is a number of microseconds (expressing the fractional part of a second).
 
-### version (mandatory)
+### version (mandatory, non-heritable)
 
 Syntax: `"version":  [<majorversion>, <minorversion1>, <minorversion2>]`
 
 The version value is a JSON array of exactly three integers which denote the version of this specification that governs the format of the file.  The current version is `[0,0,1]`.  Version numbers will be incremented as the file format continues to evolve over time.  A general convention is that changes in minor version numbers will be expected to preserve backward compatability with older versions of OLDF parsing software.  However, this may not be the case with changes in major version number.  Major version 0 is used for versions of the specification prior to general release, while it is in early development and testing.
 
-### genus (mandatory)
+### genus (mandatory, heritable)
 
 Syntax: `"genus": "<genus-name>",`
 
 This is the scientific genus-name of the plant.  It should consist of a capital first letter, followed by one or more lower case letters (no characters outsided of `a-z` are allowed).  Species and Genus name are expected to be in ASCII latin.
 
-### species (mandatory)
+### species (mandatory, heritable)
 
 Syntax: `"species": "<species-name>",`
 
 This is the scientific species-name of the plant.  It should consist of two or more lower case letters (no characters outsided of `a-z` are allowed).  Species name are expected to be in ASCII latin.
+
+### var (optional, non-heritable)
+
+Syntax: `"var": "<var-name>",`
+
+This is a varietal, subspecies, or hybrid name of the plant.  It should consist of two or more characters which must be alphabetical (upper or lower case) or space, or the punctuation character '-'.
 
 ### maxHeight (mandatory)
 

@@ -4,14 +4,14 @@
   "parent": "Pinus/strobus",
   "overviewData":
     {
-     "varietal":     "strobus",
+     "var":     "Pendula",
      "maxHeight":   61000, //https://en.wikipedia.org/wiki/Pinus_strobus
      "maxGirth":   5000, //https://en.wikipedia.org/wiki/Pinus_strobus
      "maxAge":   500, //https://en.wikipedia.org/wiki/Pinus_strobus
      "commonNames":
        {
         "en-US": "Eastern White Pine 'Pendula'",
-        "en-GB": "Weymouth Pine 'Pendula'",
+        "en-GB": "Weymouth Pine 'Pendula'"
        },
      "version":     [0, 0, 1],
      "fileTime":    [20,0],

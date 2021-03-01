@@ -41,9 +41,10 @@
      //"timePlanted": [20,20],
      "genus": "Pinus",
      "species": "strobus",
+     "var": "Pendula",
      "commonName": "Eastern White Pine",
      "treeGirth": [20, 2019.18],
-     "notes": "Big old pine in the center"
+     "notes": "Big old weeping pine in the center"
     },
     {
      "location": [20, 20],
@@ -71,7 +72,7 @@
      //"timePlanted": [20,20],
      "genus": "Acer",
      "species": "rubrum",
-     "var": "drummondii",
+     //"var": "drummondii",
      "taxonomyLink": "https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=526853#null",
      "commonName": "Drummond's Maple",
      "treeGirth": [14, 2019.18],
