@@ -241,7 +241,7 @@ bool Species::validateOverviewData(Document& doc, JSONStructureChecker* jCheck,
    {
     unless(overviewData["maxHeight"].IsNumber())
      {
-      LogOTDLValidity("Non-numeric maxHeight in %s\n", jCheck->sourcePhrase);
+      LogOTDLValidity("maxHeight is not numeric in %s\n", jCheck->sourcePhrase);
       retVal = false;
      }
    }
@@ -254,13 +254,13 @@ bool Species::validateOverviewData(Document& doc, JSONStructureChecker* jCheck,
     LogOTDLValidity("No maxHeight available for %s\n", jCheck->sourcePhrase);
     retVal = false;
    }
-
+  
   // maxGirth - mandatory, heritable
   if(overviewData.HasMember("maxGirth"))
    {
     unless(overviewData["maxGirth"].IsNumber())
      {
-      LogOTDLValidity("maxGirth non-numeric in %s\n", jCheck->sourcePhrase);
+      LogOTDLValidity("maxGirth is not numeric in %s\n", jCheck->sourcePhrase);
       retVal = false;
      }
    }
@@ -279,27 +279,29 @@ bool Species::validateOverviewData(Document& doc, JSONStructureChecker* jCheck,
    {
     unless(overviewData["maxAge"].IsNumber())
      {
-      LogOTDLValidity("maxAge non-numeric in %s\n", jCheck->sourcePhrase);
+      LogOTDLValidity("maxGirth is not numeric in %s\n", jCheck->sourcePhrase);
       retVal = false;
      }
    }
   else if(parent)
    {
-    LogOTDLDetails("Inheriting maxAge from parent in %s\n", jCheck->sourcePhrase);
+    LogOTDLDetails("Inheriting maxGirth from parent in %s\n", jCheck->sourcePhrase);
    }
   else
    {
-    LogOTDLValidity("No maxAge available for %s\n", jCheck->sourcePhrase);
+    LogOTDLValidity("No maxGirth available for %s\n", jCheck->sourcePhrase);
     retVal = false;
    }
 
-  // version
+  // version - mandatory, non-heritable
   retVal &= jCheck->validateVersion(overviewData);
 
-  // authors
+  // authors - optional, heritable
+  // XX no internal representation of authors yet
   retVal &= jCheck->validateOptionalStringOrArrayString(overviewData, logObjectName,
                                                                   (char*)"authors");
-  // common names object.
+  // common names object - optional, hereditable
+  // XX no internal representation of commonNames yet
   retVal &= validateCommonNames(overviewData, jCheck);
 
   return retVal;

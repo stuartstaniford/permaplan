@@ -115,6 +115,12 @@ Syntax: `"var": "<var-name>",`
 
 This is a varietal, subspecies, or hybrid name of the plant.  It should consist of two or more characters which must be alphabetical (upper or lower case) or space, or the punctuation character '-'.
 
+### commonNames (optional, heritable)
+
+Syntax:  `"commonNames": { "en-US": "American Beech", "en-GB": "American Beech"},`
+
+This is an object which has a number of language tags (drawn from RFC 5646), together with a common name for the tree in that particular language community.
+
 ### maxHeight (mandatory, heritable)
 
 Syntax: `"maxHeight":   61000,`
