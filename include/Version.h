@@ -5,6 +5,12 @@
 #ifndef VERSION_H
 #define VERSION_H
 
+#include "rapidjson/document.h"
+#include "rapidjson/writer.h"
+#include "rapidjson/stringbuffer.h"
+#include "rapidjson/error/en.h"
+
+
 // =======================================================================================
 // Class variable initialization
 
@@ -20,8 +26,10 @@ class Version
   inline Version() {};
   Version(unsigned major, unsigned minor, unsigned increment);
   ~Version();
-  void set(unsigned major, unsigned minor, unsigned increment);
   char* printJSON(void);
+  void set(unsigned major, unsigned minor, unsigned increment);
+  inline void set(rapidjson::Value& V)
+    { set(V[0].GetInt(), V[1].GetInt(), V[2].GetInt()); }
 
   // Operators - public
   void operator=(const Version& inward);      // assignment

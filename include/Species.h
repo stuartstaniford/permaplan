@@ -11,6 +11,7 @@
 #include "rapidjson/stringbuffer.h"
 #include "rapidjson/error/en.h"
 #include "JSONStructureChecker.h"
+#include "Version.h"
 #include <map>
 #include <unordered_map>
 #include <string>
@@ -46,6 +47,7 @@ class Species
   float                     maxHeight;          // in spaceUnits
   float                     maxRadius;          // in spaceUnits
   float                     maxAge;             // in years
+  Version                   version;
   std::map<float, unsigned> barkColorMap;
 
   // Member functions - public

@@ -16,7 +16,6 @@ unsigned short Species::speciesCount = 0u;
 Species** Species::speciesPtrArray = new Species*[SPECIES_ARRAY_SIZE];
 std::unordered_map<std::string, unsigned> Species::genusList;
 std::unordered_map<std::string, SpeciesList*> Species::genusSpeciesList;
-unsigned Species::OTDLVersion[] = {0, 0, 1};
 
 // =======================================================================================
 // Constructors.
@@ -55,6 +54,12 @@ Species::Species(Document& otdlDoc, Species* parent)
     varName = NULL;
     (*genusSpeciesList[genusName])[speciesName] = this;
    }
+  
+  //version - mandatory, heritable
+  if(otdlDoc["overviewData"].HasMember("version"))
+    version.set(otdlDoc["overviewData"]["version"]);
+  else
+    version = parent->version;
    
   //maxHeight - mandatory, heritable
   if(otdlDoc["overviewData"].HasMember("maxHeight"))
@@ -294,8 +299,18 @@ bool Species::validateOverviewData(Document& doc, JSONStructureChecker* jCheck,
     retVal = false;
    }
 
-  // version - mandatory, non-heritable
-  retVal &= jCheck->validateVersion(overviewData);
+  // version - mandatory, heritable
+  if(overviewData.HasMember("version"))
+    retVal &= jCheck->validateVersion(overviewData);
+  else if(parent)
+   {
+    LogOTDLDetails("Inheriting version from parent in %s\n", jCheck->sourcePhrase);
+   }
+  else
+   {
+    LogOTDLValidity("No version available for %s\n", jCheck->sourcePhrase);
+    retVal = false;
+   }
 
   // authors - optional, heritable
   // XX no internal representation of authors yet
@@ -610,7 +625,7 @@ int Species::writeOTDL(char* buf, unsigned bufSize)
   Timeval T;
   T.now();
   bufprintf("   \"fileTime\": [%lu, %u],\n", T.tv_sec, T.tv_usec);
-  bufprintf("   \"version\":  [%u, %u, %u],\n", OTDLVersion[0], OTDLVersion[1], OTDLVersion[2]);
+  bufprintf("   \"version\":  %s,\n", currentOTDLVersion.printJSON());
   bufprintf("   \"authors\":  []\n");
   bufprintf("   },\n");
 
