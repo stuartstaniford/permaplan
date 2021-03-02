@@ -73,13 +73,26 @@ Species::Species(Document& otdlDoc, Species* parent)
   else
     maxAge = parent->maxAge;
 
-  // fill out the barkColorMap array (dedicated function for this)
-  extractBarkColors(otdlDoc["wood"]["barkColors"]);
+  // The wood object is heritable in it's entirety, so if we don't have one, we have
+  // to copy everything over from the parent.
+  
+  unless(otdlDoc.HasMember("wood"))
+   {
+    stemRate          = parent->stemRate;
+    initSapThickness  = parent->initSapThickness;
+    initBarkThickness = parent->initBarkThickness;
+    barkColorMap      = parent->barkColorMap;
+   }
+  else
+   {
+    // fill out the barkColorMap array (dedicated function for this)
+    extractBarkColors(otdlDoc["wood"]["barkColors"]);
 
-  // stemRate, initSapThickness, initBarkThickness
-  stemRate          = otdlDoc["wood"]["stemRate"].GetFloat()/mmPerSpaceUnit;
-  initSapThickness  = otdlDoc["wood"]["initSapThickness"].GetFloat()/mmPerSpaceUnit;
-  initBarkThickness = otdlDoc["wood"]["initBarkThickness"].GetFloat()/mmPerSpaceUnit;
+    // stemRate, initSapThickness, initBarkThickness
+    stemRate          = otdlDoc["wood"]["stemRate"].GetFloat()/mmPerSpaceUnit;
+    initSapThickness  = otdlDoc["wood"]["initSapThickness"].GetFloat()/mmPerSpaceUnit;
+    initBarkThickness = otdlDoc["wood"]["initBarkThickness"].GetFloat()/mmPerSpaceUnit;
+   }
 }
 
 
@@ -487,14 +500,27 @@ bool Species::validateOTDL(Document& doc, char* sourceName, Species** parentBack
   else
     retVal &= validateOverviewData(doc, jCheck, parent);
 
-  unless(doc.HasMember("wood") && doc["wood"].IsObject())
+  // wood is mandatory but heritable, so we might be getting it from parent
+  if(doc.HasMember("wood"))
+   {
+    unless(doc["wood"].IsObject())
+     {
+      LogOTDLValidity("Wood is not object in %s\n", phrase);
+      retVal = false;
+     }
+    else
+      retVal &= validateWood(doc, jCheck);
+   }
+  else if(parent)
+   {
+    LogOTDLDetails("Inheriting wood data from parent in %s\n", phrase);
+   }
+  else
    {
     LogOTDLValidity("No wood data in %s\n", phrase);
     retVal = false;
    }
-  else
-    retVal &= validateWood(doc, jCheck);
-
+     
   unless(doc.HasMember("foliage") && doc["foliage"].IsObject())
    {
     LogOTDLValidity("No foliage data in %s\n", phrase);
@@ -502,7 +528,6 @@ bool Species::validateOTDL(Document& doc, char* sourceName, Species** parentBack
    }
   else
     retVal &= validateFoliage(doc, jCheck);
-
 
   delete jCheck; jCheck = NULL;
   return retVal;

@@ -81,7 +81,7 @@ This gives an example showing the major sections of an OTDL object in a file (de
 
 All JSON names in objects should be expressed in 8 bit ASCII characters, as should all JSON numerical values and JSON structure such as {, }, [, etc.  However, the contents of strings in values are expressed in UTF8 characters and thus may represent any language or alphabet that can be captured via UTF8.  UTF8 is as described in [RFC 3629](https://tools.ietf.org/html/rfc3629).  The OTDL specification provides facilities for internationalization (such as, for example, providing common names of a given tree species in a range of languages and character sets).
 
-## Overview Data
+## Overview Data (mandatory, non-heritable)
 
 The `overviewData` section has metadata about the file and global information required to interpret the file.  It has certain mandatory name/value pairs that must be present, and then others that are optional.  We here take them in turn.
 
@@ -133,13 +133,9 @@ Syntax: `"maxAge":   150,`
 
 The maximum age in years that this tree species is capable of growing to under ideal circumstances.  
 
-### var (optional)
-
-Syntax: `"var": "<variety-name>",`
-
 This is the specific scientific variety name of the plant if known. 
 
-### taxonomyLink (optional)
+### taxonomyLink (optional, non-heritable)
 
 Syntax: `"taxonomyLink": "<url>",`
 
@@ -147,7 +143,7 @@ or  `"taxonomyLink": ["<url1>", "<url2>", ...],`
 
 This is a url to a formal taxonomic description of the exact species of plant being referenced in this particular plant object.  Eg this might be a link to the online Interagency Taxonomic Information System (itis.gov)
 
-### authors (optional)
+### authors (optional, heritable)
 
 Syntax: `"authors":  "First Last",`
 or
@@ -158,11 +154,11 @@ The specification allows any UTF8 string and does not constrain to any particula
 names, giving credit to multiple human authors who have worked on a particular file.
 
 
-## Wood
+## Wood (mandatory, heritable)
 
 The wood sub-object encomasses all information required to describe the woody parts of the plant.  The following tags are defined within the wood object.
 
-### stemRate (mandatory)
+### stemRate (mandatory, heritable)
 
 Syntax: `"stemRate":  <sRate>,`
 
