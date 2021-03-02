@@ -91,7 +91,7 @@ Syntax: `"fileTime":  [<seconds>, <microseconds>]`
 
 The fileTime value is a JSON array of exactly two integers which denote the time at which the file was written.  The first integer is the number of seconds since the beginning of 1970, UTC (aka "Unix time") and the second integer is a number of microseconds (expressing the fractional part of a second).
 
-### version (mandatory, non-heritable)
+### version (mandatory, heritable)
 
 Syntax: `"version":  [<majorversion>, <minorversion1>, <minorversion2>]`
 
