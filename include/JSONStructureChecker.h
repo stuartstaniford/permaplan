@@ -11,6 +11,7 @@
 #include "rapidjson/stringbuffer.h"
 #include "rapidjson/error/en.h"
 #include "Timeval.h"
+#include "Version.h"
 
 #define spaceUnitsText(x) ((x)?(char*)"meters":(char*)"feet")
 
@@ -55,7 +56,7 @@ private:
   // Instance variables - private
   JSONType              type;
   char                  logBuf[LOG_BUF_SIZE];
-  int                   expectedVersion[3];
+  Version               expectedVersion;
   rapidjson::Document*  languageTags;
 
   JSONStructureChecker(const JSONStructureChecker&);            // Prevent copy-construction

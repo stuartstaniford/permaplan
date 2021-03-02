@@ -33,9 +33,7 @@ class Species;
 class PmodDesign
 {
   friend Species; //XX temp hack - need to generalize validation function instead.
-  
-  static unsigned OLDFVersion[];
-  
+    
   public:
   
   // Instance variables - public - don't worry about alignment as only one of these

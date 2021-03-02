@@ -19,7 +19,6 @@
 using namespace rapidjson;
 
 PmodDesign* PmodDesign::design = NULL;
-unsigned PmodDesign::OLDFVersion[] = {0, 0, 2};
 
 // These unit things are used all over the place, so we have them in the global namespace
 // for syntactic convenience (they are externed in PmodDesign.h)
@@ -595,11 +594,9 @@ void PmodDesign::writeIntroductoryData(char* indent)
   // spaceUnits
   fprintf(writeFile, "%s%s\"spaceUnits\": \"%s\",\n",
                                               indent, indent, spaceUnitsText(metricUnits));
-
   // version
-  fprintf(writeFile, "%s%s\"version\": [%u, %u, %u],\n", indent, indent,
-                                          OLDFVersion[0], OLDFVersion[1], OLDFVersion[2]);
-
+  fprintf(writeFile, "%s%s\"version\": %s,\n", indent, indent,
+                                                            currentOLDFVersion.printJSON());
   // fileTime
   Timeval T;
   T.now();

@@ -25,17 +25,9 @@ JSONStructureChecker::JSONStructureChecker(char* sPhrase, JSONType jType):
                                           languageTags(NULL)
 {
   if(type == OLDF)
-   {
-    expectedVersion[0] = 0;
-    expectedVersion[1] = 0;
-    expectedVersion[2] = 2;
-   }
+    expectedVersion = currentOLDFVersion;
   else if(type == OTDL)
-   {
-    expectedVersion[0] = 0;
-    expectedVersion[1] = 0;
-    expectedVersion[2] = 1;
-   }
+    expectedVersion = currentOTDLVersion;
   else
     err(-1, "Unknown type in JSONStructureChecker::JSONStructureChecker");
 }
@@ -386,8 +378,7 @@ bool JSONStructureChecker::validateVersion(Value& containObj)
        }
       if(versionGood)
        {
-        sprintBuf("version is [%d,%d,%d] in %s\n", expectedVersion[0],
-                                  expectedVersion[1], expectedVersion[2], sourcePhrase);
+        sprintBuf("version is %s in %s\n", expectedVersion.printJSON(), sourcePhrase);
         makeLog(true);
        }
       else
