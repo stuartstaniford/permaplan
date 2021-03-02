@@ -5,7 +5,6 @@
   "overviewData":
     {
      "var":     "Pendula",
-     "maxHeight":   61000, //https://en.wikipedia.org/wiki/Pinus_strobus
      "maxGirth":   5000, //https://en.wikipedia.org/wiki/Pinus_strobus
      "maxAge":   500, //https://en.wikipedia.org/wiki/Pinus_strobus
      "commonNames":

@@ -115,19 +115,19 @@ Syntax: `"var": "<var-name>",`
 
 This is a varietal, subspecies, or hybrid name of the plant.  It should consist of two or more characters which must be alphabetical (upper or lower case) or space, or the punctuation character '-'.
 
-### maxHeight (mandatory)
+### maxHeight (mandatory, heritable)
 
 Syntax: `"maxHeight":   61000,`
 
 The maximum height that this tree species is capable of growing to under ideal circumstances.
 
-### maxGirth (mandatory)
+### maxGirth (mandatory, heritable)
 
 Syntax: `"maxGirth":   1000,`
 
 The maximum girth that this tree species is capable of growing to under ideal circumstances.  Generally taken to be the girth at chest height (4.5 feet or 1.4m above the ground level).  Note that the girth is the circumference, not the diameter (but is the most widely cited measurement)
 
-### maxAge (mandatory)
+### maxAge (mandatory, heritable)
 
 Syntax: `"maxAge":   150,`
 

@@ -55,10 +55,23 @@ Species::Species(Document& otdlDoc, Species* parent)
     (*genusSpeciesList[genusName])[speciesName] = this;
    }
    
-  // other overviewdata
-  maxHeight  = otdlDoc["overviewData"]["maxHeight"].GetFloat()/mmPerSpaceUnit;
-  maxRadius  = otdlDoc["overviewData"]["maxGirth"].GetFloat()/mmPerSpaceUnit/M_PI/2.0;
-  maxAge  = otdlDoc["overviewData"]["maxAge"].GetFloat();
+  //maxHeight - mandatory, heritable
+  if(otdlDoc["overviewData"].HasMember("maxHeight"))
+    maxHeight  = otdlDoc["overviewData"]["maxHeight"].GetFloat()/mmPerSpaceUnit;
+  else
+    maxHeight = parent->maxHeight;
+
+  //maxGirth - mandatory, heritable
+  if(otdlDoc["overviewData"].HasMember("maxGirth"))
+    maxRadius  = otdlDoc["overviewData"]["maxGirth"].GetFloat()/mmPerSpaceUnit/M_PI/2.0;
+  else
+    maxRadius = parent->maxRadius;
+
+  //maxAge - mandatory, heritable
+  if(otdlDoc["overviewData"].HasMember("maxAge"))
+    maxAge  = otdlDoc["overviewData"]["maxAge"].GetFloat();
+  else
+    maxAge = parent->maxAge;
 
   // fill out the barkColorMap array (dedicated function for this)
   extractBarkColors(otdlDoc["wood"]["barkColors"]);
@@ -181,9 +194,6 @@ bool Species::validateOverviewData(Document& doc, JSONStructureChecker* jCheck,
   Value& overviewData = doc["overviewData"];
   char* logObjectName = (char*)"overviewData";
   
-  // fileTime
-  retVal &= jCheck->validateFileTime(overviewData);
-
   // Genus - mandatory, inheritable
   if(jCheck->validateStringMemberExists(overviewData, logObjectName, (char*)"genus"))
     retVal &= jCheck->validateGenusName(logObjectName, overviewData["genus"].GetString());
@@ -207,27 +217,66 @@ bool Species::validateOverviewData(Document& doc, JSONStructureChecker* jCheck,
   else
     retVal = false;
     
-  // variety - optional, non-sinheritable
+  // variety - optional, non-heritable
   retVal &= jCheck->validateOptionalStringMember(overviewData, logObjectName, (char*)"var");
 
-  // maxHeight
-  unless(overviewData.HasMember("maxHeight") && overviewData["maxHeight"].IsNumber())
+  // fileTime - mandatory, non-heritable
+  retVal &= jCheck->validateFileTime(overviewData);
+
+  // maxHeight - mandatory, heritable
+  if(overviewData.HasMember("maxHeight"))
    {
-    LogOTDLValidity("No maxHeight or invalid maxHeight in %s\n", jCheck->sourcePhrase);
+    unless(overviewData["maxHeight"].IsNumber())
+     {
+      LogOTDLValidity("Non-numeric maxHeight in %s\n", jCheck->sourcePhrase);
+      retVal = false;
+     }
+   }
+  else if(parent)
+   {
+    LogOTDLDetails("Inheriting maxHeight from parent in %s\n", jCheck->sourcePhrase);
+   }
+  else
+   {
+    LogOTDLValidity("No maxHeight available for %s\n", jCheck->sourcePhrase);
     retVal = false;
    }
 
-  // maxGirth
-  unless(overviewData.HasMember("maxGirth") && overviewData["maxGirth"].IsNumber())
+  // maxGirth - mandatory, heritable
+  if(overviewData.HasMember("maxGirth"))
    {
-    LogOTDLValidity("No maxGirth or invalid maxGirth in %s\n", jCheck->sourcePhrase);
+    unless(overviewData["maxGirth"].IsNumber())
+     {
+      LogOTDLValidity("maxGirth non-numeric in %s\n", jCheck->sourcePhrase);
+      retVal = false;
+     }
+   }
+  else if(parent)
+   {
+    LogOTDLDetails("Inheriting maxGirth from parent in %s\n", jCheck->sourcePhrase);
+   }
+  else
+   {
+    LogOTDLValidity("No maxGirth available for %s\n", jCheck->sourcePhrase);
     retVal = false;
    }
 
-  // maxAge
-  unless(overviewData.HasMember("maxAge") && overviewData["maxAge"].IsNumber())
+  // maxAge - mandatory, heritable
+  if(overviewData.HasMember("maxAge"))
    {
-    LogOTDLValidity("No maxAge or invalid maxAge in %s\n", jCheck->sourcePhrase);
+    unless(overviewData["maxAge"].IsNumber())
+     {
+      LogOTDLValidity("maxAge non-numeric in %s\n", jCheck->sourcePhrase);
+      retVal = false;
+     }
+   }
+  else if(parent)
+   {
+    LogOTDLDetails("Inheriting maxAge from parent in %s\n", jCheck->sourcePhrase);
+   }
+  else
+   {
+    LogOTDLValidity("No maxAge available for %s\n", jCheck->sourcePhrase);
     retVal = false;
    }
 
