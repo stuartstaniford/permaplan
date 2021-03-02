@@ -1,0 +1,39 @@
+// OTDL for generic Conifers, from which all conifer trees are likely to inherit
+{
+  "overviewData":
+   {
+    "genus":       "Nosuchgenus",
+    "species":      "nosuchspecies",
+    "maxHeight":   10000,
+    "maxGirth":   1000,
+    "maxAge":   300,
+    "commonNames":
+      {
+       "en-US": "Conifer Tree",
+       "en-GB": "Conifer Tree"
+      },
+    "version":     [0, 0, 1],
+    "fileTime":    [20,0],
+    "authors":     ["Stuart Staniford"]
+  },
+ "wood":
+  {
+   "stemRate": 1000,
+   "initSapThickness": 1.5,
+   "initBarkThickness": 0.5,
+   "barkTextures":
+    {
+    
+    },
+   "barkColors":
+    [
+      {
+       "ages": [0.0, 10000.0],
+       "rgb": [200, 0, 0]
+      }
+    ]
+  },
+ "foliage":
+  {
+  }
+}

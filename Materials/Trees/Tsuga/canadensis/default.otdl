@@ -1,5 +1,6 @@
 // OTDL for Tsuga canadensis (Eastern Hemlock)
 {
+  "parent": "Coniferae",
   "overviewData":
     {
      "genus":       "Tsuga",
@@ -13,8 +14,7 @@
         "fr-CA": "pruche du Canada"
        },
      "version":     [0, 0, 1],
-     "fileTime":    [1613492928, 373562],
-     "authors":     ["Stuart Staniford"]
+     "fileTime":    [1613492928, 373562]
     },
  "wood":
   {

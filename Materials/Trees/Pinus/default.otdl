@@ -1,5 +1,6 @@
 // OTDL for Pinus (generic, no species, parent for specific cases)
 {
+  "parent": "Coniferae",
   "overviewData":
     {
      "genus":       "Pinus",
@@ -16,8 +17,7 @@
         "de-DE": "Kiefer"
        },
      "version":     [0, 0, 1],
-     "fileTime":    [20,0],
-     "authors":     ["Stuart Staniford"]
+     "fileTime":    [20,0]
     },
  "wood":
   {
