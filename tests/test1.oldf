@@ -67,6 +67,15 @@
      "notes": "Beech tree"
     },
     {
+     "location": [250, 250],
+     "yearPlanted": 1930,
+     //"timePlanted": [20,20],
+     "genus": "Pinus",
+     "species": "resinosa",
+     "treeGirth": [20, 2019.18],
+     "notes": "Test red pine"
+    },
+    {
      "location": [92, 48],
      "yearPlanted": 1940,
      //"timePlanted": [20,20],

@@ -1,0 +1,38 @@
+// OTDL for Pinus resinosa (Red Pine)
+// https://mywoodlot.com/item/look-alike-leaves-red-white-and-scotch-pines
+{
+  "parent": "Pinus",
+  "overviewData":
+    {
+     "species":     "resinosa",
+      //https://en.wikipedia.org/wiki/Pinus_resinosa
+     "maxHeight":   44000,
+     "maxGirth":   1500, //http://www.efloras.org/florataxon.aspx?flora_id=1&taxon_id=233500952
+     "maxAge":   500,
+     "commonNames":
+       {
+        "en-US": "Red Pine"
+       },
+     "fileTime":    [20,0]
+    },
+ "wood":
+  {
+   "stemRate": 1000,
+   "initSapThickness": 1.5,
+   "initBarkThickness": 0.5,
+   "barkTextures":
+    {
+    
+    },
+   "barkColors":
+    [
+      {
+       "ages": [0.0, 10000.0],
+       "rgb": [200, 100, 100]
+      }
+    ]
+  },
+ "foliage":
+  {
+  }
+}
