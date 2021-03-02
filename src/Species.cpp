@@ -31,15 +31,16 @@ Species::Species(Document& otdlDoc, Species* parent)
     genusName = otdlDoc["overviewData"]["genus"].GetString();
   else
     genusName = parent->genusName;
-  genusList[genusName]++;
   if(genusSpeciesList.find(genusName) == genusSpeciesList.end())
     genusSpeciesList[genusName] = new SpeciesList;
-    
+
   //Species - mandatory, heritable
   if(otdlDoc["overviewData"].HasMember("species"))
     speciesName = otdlDoc["overviewData"]["species"].GetString();
   else
     speciesName = parent->speciesName;
+  unless(strcmp(speciesName, "nosuchspecies") == 0)
+    genusList[genusName]++;
 
   //Var - optional, non-heritable
   if(otdlDoc["overviewData"].HasMember("var"))

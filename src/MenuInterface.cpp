@@ -149,6 +149,8 @@ void MenuInterface::imguiGenusMenu(void)
   ImGui::Text("Species: ");
   for(auto& iter: *(Species::genusSpeciesList[genusSelected]))
    {
+    if(strcmp(iter.first.c_str(), "nosuchspecies") == 0)
+      continue;
     ImGui::SameLine();
     if(ImGui::Button(iter.first.c_str()))
      {
@@ -184,6 +186,8 @@ void MenuInterface::imguiTreeMenu(void)
   
   for(auto& iter: Species::genusList)
    {
+    if(strcmp(iter.first.c_str(), "Nosuchgenus") == 0)
+      continue;
     char genusOption[128];
     snprintf(genusOption, 128, "%s (%u)", iter.first.c_str(), iter.second);
     if(ImGui::Button(genusOption))
