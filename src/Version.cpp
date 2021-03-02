@@ -30,8 +30,6 @@ void setExternVersions(void)
 
 Version::Version(unsigned major, unsigned minor, unsigned increment)
 {
-  if(!externVersionsSet)
-    setExternVersions();
   version[0] = major;
   version[1] = minor;
   version[2] = increment;

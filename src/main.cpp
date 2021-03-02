@@ -9,6 +9,7 @@
 #include "TextureAtlas.h"
 #include "Material.h"
 #include "Tree.h"
+#include "Version.h"
 
 // =======================================================================================
 // C function to launder C++ method into pthread_create
@@ -37,6 +38,7 @@ int main (int argc, char* argv[])
    }
 
   // Initialize everything
+  setExternVersions();
   Window3D window(800, 600);
   Shader shader("src/pmodVert.glsl", "src/pmodFrag.glsl");
   PmodDesign design;

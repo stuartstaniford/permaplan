@@ -43,3 +43,5 @@ class Version
 extern Version currentOLDFVersion;
 extern Version currentOTDLVersion;
 #endif
+
+void setExternVersions(void);
