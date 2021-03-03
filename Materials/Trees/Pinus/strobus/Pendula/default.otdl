@@ -16,17 +16,6 @@
     },
  "wood":
   {
-   "barkTextures":
-    {
-    
-    },
-   "barkColors":
-    [
-      {
-       "ages": [0.0, 10000.0],
-       "rgb": [100, 100, 200]
-      }
-    ]
   },
  "foliage":
   {

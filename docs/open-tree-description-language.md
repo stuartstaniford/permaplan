@@ -170,19 +170,19 @@ Syntax: `"stemRate":  <sRate>,`
 
 The stemRate is the maximum rate at which stems grow in length (ie the rate when all is well).  It is expressed in mm/year.
 
-### initSapThickness (mandatory)
+### initSapThickness (mandatory, heritable)
 
 Syntax: `"initSapThickness":  <iST>,`
 
 The initSapThickness (initial sapwood thickness) is the thickness (radius) of the sapwood in a new stem (ie one in which there is no heartwood yet.  It is expressed in mm.
 
-### initBarkThickness (mandatory)
+### initBarkThickness (mandatory, heritable)
 
 Syntax: `"initBarkThickness":  <iBT>,`
 
 The initBarkThickness (initial bark thickness) is the thickness of the bark in a new stem (ie one in which there is no heartwood yet.  It is expressed in mm.  Bark includes phloem for this purpose.
 
-### barkColors (mandatory)
+### barkColors (mandatory, heritable)
 
 Syntax:
 ```

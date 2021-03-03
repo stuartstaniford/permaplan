@@ -90,11 +90,11 @@ Species::Species(Document& otdlDoc, char* source):
   else
     maxAge = parent->maxAge;
 
-  // The wood object is heritable in it's entirety, so if we don't have one, we have
-  // to copy everything over from the parent.
   
   unless(otdlDoc.HasMember("wood"))
    {
+    // The wood object is heritable in it's entirety, so if we don't have one, we have
+    // to copy everything over from the parent.
     stemRate          = parent->stemRate;
     initSapThickness  = parent->initSapThickness;
     initBarkThickness = parent->initBarkThickness;
@@ -102,8 +102,14 @@ Species::Species(Document& otdlDoc, char* source):
    }
   else
    {
-    // fill out the barkColorMap array (dedicated function for this)
-    extractBarkColors(otdlDoc["wood"]["barkColors"]);
+    // We have a wood object.  We might be getting some pieces from it, but
+    // inheriting others.
+    
+    // barkColors - mandatory, heritable
+    if(otdlDoc["wood"].HasMember("barkColors"))
+      extractBarkColors(otdlDoc["wood"]["barkColors"]);
+    else
+      barkColorMap      = parent->barkColorMap;
 
     // stemRate - mandatory, heritable
     if(otdlDoc["wood"].HasMember("stemRate"))
@@ -344,12 +350,17 @@ bool Species::validateBarkColors(Value& colorsArray)
 {
   bool   retVal       = true;
   
-  int N = colorsArray.Size();
+  unless(colorsArray.IsArray())
+   {
+    LogOTDLValidity("barkColors is not array in %s\n", jCheck->sourcePhrase);
+    return false;
+   }
 
+  int N = colorsArray.Size();
   unless(N > 0)
    {
     LogOTDLValidity("barkColors array is empty in %s\n", jCheck->sourcePhrase);
-    retVal = false;
+    return false;
    }
 
   for(int i=0; i<N; i++)
@@ -420,14 +431,18 @@ bool Species::validateWood(Document& doc)
   // initBarkThickness - mandatory, heritable
   retVal &= checkMandatoryHeritableFloatValue(woodObject, (char*)"initBarkThickness");
   
-  // barkColors - mandatory
-  unless(woodObject.HasMember("barkColors") && woodObject["barkColors"].IsArray())
+  // barkColors - mandatory, heritable
+  if(woodObject.HasMember("barkColors"))
+    retVal &= validateBarkColors(woodObject["barkColors"]);
+  else if(parent)
    {
-    LogOTDLValidity("No barkColors data in %s\n", jCheck->sourcePhrase);
-    retVal = false;
+    LogOTDLDetails("Inheriting barkColors from parent in %s\n", jCheck->sourcePhrase);
    }
   else
-    retVal &= validateBarkColors(woodObject["barkColors"]);
+   {
+    LogOTDLValidity("No barkColors array for %s\n", jCheck->sourcePhrase);
+    retVal = false;
+   }
 
   // barkTextures - optional
   if(woodObject.HasMember("barkTextures"))
