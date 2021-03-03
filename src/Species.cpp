@@ -286,14 +286,14 @@ bool Species::validateOverviewData(Document& doc, JSONStructureChecker* jCheck,
   retVal &= jCheck->validateFileTime(overviewData);
 
   // maxHeight - mandatory, heritable
-  checkMandatoryHeritableFloatValue(overviewData, jCheck, parent, (char*)"maxHeight");
-  
+  retVal &= checkMandatoryHeritableFloatValue(overviewData, jCheck, parent,
+                                                                    (char*)"maxHeight");
   // maxGirth - mandatory, heritable
-  checkMandatoryHeritableFloatValue(overviewData, jCheck, parent, (char*)"maxGirth");
-
+  retVal &= checkMandatoryHeritableFloatValue(overviewData, jCheck, parent,
+                                                                      (char*)"maxGirth");
   // maxAge - mandatory, heritable
-  checkMandatoryHeritableFloatValue(overviewData, jCheck, parent, (char*)"maxAge");
-
+  retVal &= checkMandatoryHeritableFloatValue(overviewData, jCheck, parent,
+                                                                        (char*)"maxAge");
   // version - mandatory, heritable
   if(overviewData.HasMember("version"))
     retVal &= jCheck->validateVersion(overviewData);
@@ -405,14 +405,14 @@ bool Species::validateWood(Document& doc, JSONStructureChecker* jCheck, Species*
   // but there also may be a parent
 
   // stemRate - mandatory, heritable
-  checkMandatoryHeritableFloatValue(woodObject, jCheck, parent, (char*)"stemRate");
-
+  retVal &= checkMandatoryHeritableFloatValue(woodObject, jCheck, parent,
+                                                                      (char*)"stemRate");
   // initSapThickness - mandatory, heritable
-  checkMandatoryHeritableFloatValue(woodObject, jCheck, parent, (char*)"initSapThickness");
-
+  retVal &= checkMandatoryHeritableFloatValue(woodObject, jCheck, parent,
+                                                                (char*)"initSapThickness");
   // initBarkThickness - mandatory, heritable
-  checkMandatoryHeritableFloatValue(woodObject, jCheck, parent, (char*)"initBarkThickness");
-
+  retVal &= checkMandatoryHeritableFloatValue(woodObject, jCheck, parent,
+                                                              (char*)"initBarkThickness");
   // barkColors - mandatory
   unless(woodObject.HasMember("barkColors") && woodObject["barkColors"].IsArray())
    {
