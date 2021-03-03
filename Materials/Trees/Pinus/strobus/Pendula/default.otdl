@@ -16,7 +16,7 @@
     },
  "wood":
   {
-   "stemRate": 1000,
+   //"stemRate": 1000,
    "initSapThickness": 1.5,
    "initBarkThickness": 0.5,
    "barkTextures":
@@ -26,11 +26,7 @@
    "barkColors":
     [
       {
-       "ages": [0.0, 2.0],
-       "rgb": [200, 200, 200]
-      },
-      {
-       "ages": [2.0, 10000.0],
+       "ages": [0.0, 10000.0],
        "rgb": [100, 100, 200]
       }
     ]

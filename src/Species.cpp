@@ -94,9 +94,16 @@ Species::Species(Document& otdlDoc, Species* parent)
     // fill out the barkColorMap array (dedicated function for this)
     extractBarkColors(otdlDoc["wood"]["barkColors"]);
 
-    // stemRate, initSapThickness, initBarkThickness
-    stemRate          = otdlDoc["wood"]["stemRate"].GetFloat()/mmPerSpaceUnit;
+    // stemRate - mandatory, heritable
+    if(otdlDoc["wood"].HasMember("stemRate"))
+      stemRate  = otdlDoc["wood"]["stemRate"].GetFloat()/mmPerSpaceUnit;
+    else
+      stemRate  = parent->stemRate;
+    
+    // initSapThickness - mandatory, heritable
     initSapThickness  = otdlDoc["wood"]["initSapThickness"].GetFloat()/mmPerSpaceUnit;
+    
+    // initBarkThickness - mandatory, heritable
     initBarkThickness = otdlDoc["wood"]["initBarkThickness"].GetFloat()/mmPerSpaceUnit;
    }
 }
@@ -401,15 +408,30 @@ bool Species::validateBarkColors(Value& colorsArray, JSONStructureChecker* jChec
 // Validate the wood section of an OTDL object.  This is the version for a standalone
 // object with no parent.
 
-bool Species::validateWood(Document& doc, JSONStructureChecker* jCheck)
+bool Species::validateWood(Document& doc, JSONStructureChecker* jCheck, Species* parent)
 {
   bool   retVal       = true;
   Value& woodObject = doc["wood"];
+  
+  // if we get in here, there is likely at least some wood data in the child,
+  // but there also may be a parent
 
-  // stemRate - mandatory
-  unless(woodObject.HasMember("stemRate") && woodObject["stemRate"].IsNumber())
+  // stemRate - mandatory, heritable
+  if(woodObject.HasMember("stemRate"))
    {
-    LogOTDLValidity("No stemRate or invalid stemRate in %s\n", jCheck->sourcePhrase);
+    unless(woodObject["stemRate"].IsNumber())
+     {
+      LogOTDLValidity("stemRate non-numeric in %s\n", jCheck->sourcePhrase);
+      retVal = false;
+     }
+   }
+  else if(parent)
+   {
+    LogOTDLDetails("Inheriting stemRate from parent in %s\n", jCheck->sourcePhrase);
+   }
+  else
+   {
+    LogOTDLValidity("No stemRate available for %s\n", jCheck->sourcePhrase);
     retVal = false;
    }
 
@@ -526,15 +548,17 @@ bool Species::validateOTDL(Document& doc, char* sourceName, Species** parentBack
       LogOTDLValidity("Wood is not object in %s\n", phrase);
       retVal = false;
      }
-    else
-      retVal &= validateWood(doc, jCheck);
+    else // hopefully there is at least some wood data here.
+      retVal &= validateWood(doc, jCheck, parent);
    }
   else if(parent)
    {
+    // there is no wood data in child, so get it from the parent
     LogOTDLDetails("Inheriting wood data from parent in %s\n", phrase);
    }
   else
    {
+    // we are just SOL.
     LogOTDLValidity("No wood data in %s\n", phrase);
     retVal = false;
    }

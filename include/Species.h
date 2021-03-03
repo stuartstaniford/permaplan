@@ -73,7 +73,8 @@ class Species
   static Species* getParent(rapidjson::Document& doc, JSONStructureChecker* jCheck);
   static bool validateCommonNames(rapidjson::Value& containObj, JSONStructureChecker* jCheck);
   static bool validateFoliage(rapidjson::Document& doc, JSONStructureChecker* jCheck);
-  static bool validateWood(rapidjson::Document& doc, JSONStructureChecker* jCheck);
+  static bool validateWood(rapidjson::Document& doc, JSONStructureChecker* jCheck,
+                                                                          Species* parent);
   static bool validateBarkTextures(rapidjson::Value& obj, JSONStructureChecker* jCheck);
   static bool validateBarkColors(rapidjson::Value& colorsArray, JSONStructureChecker* jCheck);
   static bool findSpeciesForHTTPDebug(HttpDebug* serv, char* path);
