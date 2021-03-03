@@ -217,6 +217,36 @@ bool Species::validateCommonNames(Value& containObj, JSONStructureChecker* jChec
 
 
 // =======================================================================================
+// Function to check that a mandatory but heritable thing is available.
+
+bool checkMandatoryHeritableFloatValue(Value& jsonObject, JSONStructureChecker* jCheck,
+                                       Species* parent, char* name)
+{
+  bool retVal = true;
+  
+  if(jsonObject.HasMember(name))
+   {
+    unless(jsonObject[name].IsNumber())
+     {
+      LogOTDLValidity("%s is not numeric in %s\n", name, jCheck->sourcePhrase);
+      retVal = false;
+     }
+   }
+  else if(parent)
+   {
+    LogOTDLDetails("Inheriting %s from parent in %s\n", name, jCheck->sourcePhrase);
+   }
+  else
+   {
+    LogOTDLValidity("No %s available for %s\n", name, jCheck->sourcePhrase);
+    retVal = false;
+   }
+  
+  return retVal;
+}
+
+
+// =======================================================================================
 // Validate the overviewData section of an OTDL object.
 
 bool Species::validateOverviewData(Document& doc, JSONStructureChecker* jCheck,
@@ -256,61 +286,13 @@ bool Species::validateOverviewData(Document& doc, JSONStructureChecker* jCheck,
   retVal &= jCheck->validateFileTime(overviewData);
 
   // maxHeight - mandatory, heritable
-  if(overviewData.HasMember("maxHeight"))
-   {
-    unless(overviewData["maxHeight"].IsNumber())
-     {
-      LogOTDLValidity("maxHeight is not numeric in %s\n", jCheck->sourcePhrase);
-      retVal = false;
-     }
-   }
-  else if(parent)
-   {
-    LogOTDLDetails("Inheriting maxHeight from parent in %s\n", jCheck->sourcePhrase);
-   }
-  else
-   {
-    LogOTDLValidity("No maxHeight available for %s\n", jCheck->sourcePhrase);
-    retVal = false;
-   }
+  checkMandatoryHeritableFloatValue(overviewData, jCheck, parent, (char*)"maxHeight");
   
   // maxGirth - mandatory, heritable
-  if(overviewData.HasMember("maxGirth"))
-   {
-    unless(overviewData["maxGirth"].IsNumber())
-     {
-      LogOTDLValidity("maxGirth is not numeric in %s\n", jCheck->sourcePhrase);
-      retVal = false;
-     }
-   }
-  else if(parent)
-   {
-    LogOTDLDetails("Inheriting maxGirth from parent in %s\n", jCheck->sourcePhrase);
-   }
-  else
-   {
-    LogOTDLValidity("No maxGirth available for %s\n", jCheck->sourcePhrase);
-    retVal = false;
-   }
+  checkMandatoryHeritableFloatValue(overviewData, jCheck, parent, (char*)"maxGirth");
 
   // maxAge - mandatory, heritable
-  if(overviewData.HasMember("maxAge"))
-   {
-    unless(overviewData["maxAge"].IsNumber())
-     {
-      LogOTDLValidity("maxGirth is not numeric in %s\n", jCheck->sourcePhrase);
-      retVal = false;
-     }
-   }
-  else if(parent)
-   {
-    LogOTDLDetails("Inheriting maxGirth from parent in %s\n", jCheck->sourcePhrase);
-   }
-  else
-   {
-    LogOTDLValidity("No maxGirth available for %s\n", jCheck->sourcePhrase);
-    retVal = false;
-   }
+  checkMandatoryHeritableFloatValue(overviewData, jCheck, parent, (char*)"maxAge");
 
   // version - mandatory, heritable
   if(overviewData.HasMember("version"))
@@ -423,61 +405,13 @@ bool Species::validateWood(Document& doc, JSONStructureChecker* jCheck, Species*
   // but there also may be a parent
 
   // stemRate - mandatory, heritable
-  if(woodObject.HasMember("stemRate"))
-   {
-    unless(woodObject["stemRate"].IsNumber())
-     {
-      LogOTDLValidity("stemRate non-numeric in %s\n", jCheck->sourcePhrase);
-      retVal = false;
-     }
-   }
-  else if(parent)
-   {
-    LogOTDLDetails("Inheriting stemRate from parent in %s\n", jCheck->sourcePhrase);
-   }
-  else
-   {
-    LogOTDLValidity("No stemRate available for %s\n", jCheck->sourcePhrase);
-    retVal = false;
-   }
+  checkMandatoryHeritableFloatValue(woodObject, jCheck, parent, (char*)"stemRate");
 
   // initSapThickness - mandatory, heritable
-  if(woodObject.HasMember("initSapThickness"))
-   {
-    unless(woodObject["initSapThickness"].IsNumber())
-     {
-      LogOTDLValidity("initSapThickness is not numeric in %s\n", jCheck->sourcePhrase);
-      retVal = false;
-     }
-   }
-  else if(parent)
-   {
-    LogOTDLDetails("Inheriting initSapThickness from parent in %s\n", jCheck->sourcePhrase);
-   }
-  else
-   {
-    LogOTDLValidity("No initSapThickness available for %s\n", jCheck->sourcePhrase);
-    retVal = false;
-   }
+  checkMandatoryHeritableFloatValue(woodObject, jCheck, parent, (char*)"initSapThickness");
 
   // initBarkThickness - mandatory, heritable
-  if(woodObject.HasMember("initBarkThickness"))
-   {
-    unless(woodObject["initBarkThickness"].IsNumber())
-     {
-      LogOTDLValidity("initBarkThickness is not numeric in %s\n", jCheck->sourcePhrase);
-      retVal = false;
-     }
-   }
-  else if(parent)
-   {
-    LogOTDLDetails("Inheriting initBarkThickness from parent in %s\n", jCheck->sourcePhrase);
-   }
-  else
-   {
-    LogOTDLValidity("No initBarkThickness available for %s\n", jCheck->sourcePhrase);
-    retVal = false;
-   }
+  checkMandatoryHeritableFloatValue(woodObject, jCheck, parent, (char*)"initBarkThickness");
 
   // barkColors - mandatory
   unless(woodObject.HasMember("barkColors") && woodObject["barkColors"].IsArray())
