@@ -176,6 +176,18 @@ Syntax: `"stemRate":  <sRate>,`
 
 The stemRate is the maximum rate at which stems grow in length (ie the rate when all is well).  It is expressed in mm/year.
 
+### branchSpacing (mandatory, heritable)
+
+Syntax: `"branchSpacing":  <bspace>,`
+
+The branchSpacing is the rate at which branches form along an existing branch (when all is well).  It is expressed in mm.
+
+### branchFactor (mandatory, heritable)
+
+Syntax: `"branchFactor":  <bfac>,`
+
+The branchFactor is the number of branches which form at a branch point from an existing branch.  It is a small integer.
+
 ### initSapThickness (mandatory, heritable)
 
 Syntax: `"initSapThickness":  <iST>,`

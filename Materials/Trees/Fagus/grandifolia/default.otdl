@@ -20,6 +20,8 @@
  "wood":
   {
    "stemRate": 700,
+   "branchSpacing": 400,
+   "branchFactor": 1,
    "initSapThickness": 1.5,
    "initBarkThickness": 0.5,
    "barkTextures":

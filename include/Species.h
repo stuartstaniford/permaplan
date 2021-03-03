@@ -44,6 +44,8 @@ class Species
   Species*                  parent;
   JSONStructureChecker*     jCheck;
   float                     stemRate;           // in spaceUnits/year
+  float                     branchSpacing;      // in spaceUnits
+  unsigned short            branchFactor;
   float                     initSapThickness;   // in spaceUnits
   float                     initBarkThickness;  // in spaceUnits
   float                     maxHeight;          // in spaceUnits
@@ -70,6 +72,8 @@ class Species
   bool        validateBarkTextures(rapidjson::Value& obj);
   bool        validateBarkColors(rapidjson::Value& colorsArray);
   bool        checkMandatoryHeritableFloatValue(rapidjson::Value& jsonObject, char* name);
+  bool        checkMandatoryHeritableUnsignedValue(rapidjson::Value& jsonObject,
+                                                                              char* name);
 
   inline bool isValid(void) {return validOTDL;}
   

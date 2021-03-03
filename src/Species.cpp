@@ -102,6 +102,8 @@ Species::Species(Document& otdlDoc, char* source):
     // The wood object is heritable in it's entirety, so if we don't have one, we have
     // to copy everything over from the parent.
     stemRate          = parent->stemRate;
+    branchSpacing     = parent->branchSpacing;
+    branchFactor      = parent->branchFactor;
     initSapThickness  = parent->initSapThickness;
     initBarkThickness = parent->initBarkThickness;
     barkColorMap      = parent->barkColorMap;
@@ -122,12 +124,24 @@ Species::Species(Document& otdlDoc, char* source):
       stemRate  = otdlDoc["wood"]["stemRate"].GetFloat()/mmPerSpaceUnit;
     else
       stemRate  = parent->stemRate;
-    
+
+    // branchSpacing - mandatory, heritable
+    if(otdlDoc["wood"].HasMember("branchSpacing"))
+      branchSpacing  = otdlDoc["wood"]["branchSpacing"].GetFloat()/mmPerSpaceUnit;
+    else
+      branchSpacing  = parent->branchSpacing;
+
+    // branchFactor - mandatory, heritable
+    if(otdlDoc["wood"].HasMember("branchFactor"))
+      branchFactor  = otdlDoc["wood"]["branchFactor"].GetInt();
+    else
+      branchFactor  = parent->branchFactor;
+
     // initSapThickness - mandatory, heritable
     if(otdlDoc["wood"].HasMember("initSapThickness"))
       initSapThickness  = otdlDoc["wood"]["initSapThickness"].GetFloat()/mmPerSpaceUnit;
     else
-      initSapThickness  = parent->stemRate;
+      initSapThickness  = parent->initSapThickness;
 
     // initBarkThickness - mandatory, heritable
     if(otdlDoc["wood"].HasMember("initBarkThickness"))
@@ -249,6 +263,35 @@ bool Species::checkMandatoryHeritableFloatValue(Value& jsonObject, char* name)
     unless(jsonObject[name].IsNumber())
      {
       LogOTDLValidity("%s is not numeric in %s\n", name, jCheck->sourcePhrase);
+      retVal = false;
+     }
+   }
+  else if(parent)
+   {
+    LogOTDLDetails("Inheriting %s from parent in %s\n", name, jCheck->sourcePhrase);
+   }
+  else
+   {
+    LogOTDLValidity("No %s available for %s\n", name, jCheck->sourcePhrase);
+    retVal = false;
+   }
+  
+  return retVal;
+}
+
+
+// =======================================================================================
+// Function to check that a mandatory but heritable thing is available.
+
+bool Species::checkMandatoryHeritableUnsignedValue(Value& jsonObject, char* name)
+{
+  bool retVal = true;
+  
+  if(jsonObject.HasMember(name))
+   {
+    unless(jsonObject[name].IsInt() && jsonObject[name].GetInt() >= 0)
+     {
+      LogOTDLValidity("%s is not non-negative integer in %s\n", name, jCheck->sourcePhrase);
       retVal = false;
      }
    }
@@ -433,6 +476,12 @@ bool Species::validateWood(Document& doc)
 
   // stemRate - mandatory, heritable
   retVal &= checkMandatoryHeritableFloatValue(woodObject, (char*)"stemRate");
+
+  // branchSpacing - mandatory, heritable
+  retVal &= checkMandatoryHeritableFloatValue(woodObject, (char*)"branchSpacing");
+
+  // branchFactor - mandatory, heritable
+  retVal &= checkMandatoryHeritableUnsignedValue(woodObject, (char*)"branchFactor");
 
   // initSapThickness - mandatory, heritable
   retVal &= checkMandatoryHeritableFloatValue(woodObject, (char*)"initSapThickness");
@@ -639,6 +688,8 @@ int Species::writeOTDL(char* buf, unsigned bufSize)
   // wood
   bufprintf("  \"wood\":\n   {\n");
   bufprintf("   \"stemRate\":           \"%f\",\n", stemRate*mmPerSpaceUnit);
+  bufprintf("   \"branchSpacing\":           \"%f\",\n", branchSpacing*mmPerSpaceUnit);
+  bufprintf("   \"branchFactor\":           \"%u\",\n", branchFactor);
   bufprintf("   \"initSapThickness\":   \"%f\",\n", initSapThickness*mmPerSpaceUnit);
   bufprintf("   \"initBarkThickness\":  \"%f\",\n", initBarkThickness*mmPerSpaceUnit);
   bufprintf("   \"barkColors\":\n");
