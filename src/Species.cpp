@@ -20,11 +20,22 @@ std::unordered_map<std::string, SpeciesList*> Species::genusSpeciesList;
 // =======================================================================================
 // Constructors.
 
-Species::Species(Document& otdlDoc, Species* parent)
+Species::Species(Document& otdlDoc, char* source):
+                                sourceName(source),
+                                parent(NULL),
+                                jCheck(NULL)
 {
   // NOTE WELL.  Numeric values in OTDL are expressed in mm, but for uniformity in graphic
   // calculations, internally we must store them in spaceUnits.
   
+  if(validateOTDL(otdlDoc))
+    validOTDL = true;
+  else
+   {
+    validOTDL = false;
+    return;
+   }
+    
   // Genus - mandatory, heritable
   if(otdlDoc["overviewData"].HasMember("genus"))
     genusName = otdlDoc["overviewData"]["genus"].GetString();
@@ -175,7 +186,7 @@ unsigned Species::getBarkColor(float age)
 // =======================================================================================
 // Read a buffer containing an OTDL description of the type of tree we are.
 
-Document& Species::readOTDLFromBuf(char* buf, char* sourceName, Species** parent)
+Document& Species::readOTDLFromBuf(char* buf, char* sourceName)
 {
   Document* doc = new Document;
 
@@ -188,8 +199,6 @@ Document& Species::readOTDLFromBuf(char* buf, char* sourceName, Species** parent
    }
   if(!doc->IsObject())
     err(-1, "Base of OTDL file %s is not JSON object.\n", sourceName);
-  if(!validateOTDL(*doc, sourceName, parent))
-    err(-1, "Invalid OTDL file %s - see log for details\n", sourceName);
  
   return *doc;
 }
@@ -198,7 +207,7 @@ Document& Species::readOTDLFromBuf(char* buf, char* sourceName, Species** parent
 // =======================================================================================
 // Function to check the mandatory OTDL commonNames object inside overviewData.
 
-bool Species::validateCommonNames(Value& containObj, JSONStructureChecker* jCheck)
+bool Species::validateCommonNames(Value& containObj)
 {
   unless(containObj.HasMember("commonNames"))
    {
@@ -219,8 +228,7 @@ bool Species::validateCommonNames(Value& containObj, JSONStructureChecker* jChec
 // =======================================================================================
 // Function to check that a mandatory but heritable thing is available.
 
-bool checkMandatoryHeritableFloatValue(Value& jsonObject, JSONStructureChecker* jCheck,
-                                       Species* parent, char* name)
+bool Species::checkMandatoryHeritableFloatValue(Value& jsonObject, char* name)
 {
   bool retVal = true;
   
@@ -249,8 +257,7 @@ bool checkMandatoryHeritableFloatValue(Value& jsonObject, JSONStructureChecker* 
 // =======================================================================================
 // Validate the overviewData section of an OTDL object.
 
-bool Species::validateOverviewData(Document& doc, JSONStructureChecker* jCheck,
-                                                                          Species* parent)
+bool Species::validateOverviewData(Document& doc)
 {
   bool   retVal       = true;
   Value& overviewData = doc["overviewData"];
@@ -286,14 +293,14 @@ bool Species::validateOverviewData(Document& doc, JSONStructureChecker* jCheck,
   retVal &= jCheck->validateFileTime(overviewData);
 
   // maxHeight - mandatory, heritable
-  retVal &= checkMandatoryHeritableFloatValue(overviewData, jCheck, parent,
-                                                                    (char*)"maxHeight");
+  retVal &= checkMandatoryHeritableFloatValue(overviewData, (char*)"maxHeight");
+  
   // maxGirth - mandatory, heritable
-  retVal &= checkMandatoryHeritableFloatValue(overviewData, jCheck, parent,
-                                                                      (char*)"maxGirth");
+  retVal &= checkMandatoryHeritableFloatValue(overviewData, (char*)"maxGirth");
+  
   // maxAge - mandatory, heritable
-  retVal &= checkMandatoryHeritableFloatValue(overviewData, jCheck, parent,
-                                                                        (char*)"maxAge");
+  retVal &= checkMandatoryHeritableFloatValue(overviewData, (char*)"maxAge");
+  
   // version - mandatory, heritable
   if(overviewData.HasMember("version"))
     retVal &= jCheck->validateVersion(overviewData);
@@ -313,7 +320,7 @@ bool Species::validateOverviewData(Document& doc, JSONStructureChecker* jCheck,
                                                                   (char*)"authors");
   // common names object - optional, hereditable
   // XX no internal representation of commonNames yet
-  retVal &= validateCommonNames(overviewData, jCheck);
+  retVal &= validateCommonNames(overviewData);
 
   return retVal;
 }
@@ -322,7 +329,7 @@ bool Species::validateOverviewData(Document& doc, JSONStructureChecker* jCheck,
 // =======================================================================================
 // Validate the bark textures section of an OTDL object.
 
-bool Species::validateBarkTextures(Value& obj, JSONStructureChecker* jCheck)
+bool Species::validateBarkTextures(Value& obj)
 {
   bool   retVal       = true;
   
@@ -333,7 +340,7 @@ bool Species::validateBarkTextures(Value& obj, JSONStructureChecker* jCheck)
 // =======================================================================================
 // Validate the bark colors section of an OTDL object.
 
-bool Species::validateBarkColors(Value& colorsArray, JSONStructureChecker* jCheck)
+bool Species::validateBarkColors(Value& colorsArray)
 {
   bool   retVal       = true;
   
@@ -396,7 +403,7 @@ bool Species::validateBarkColors(Value& colorsArray, JSONStructureChecker* jChec
 // Validate the wood section of an OTDL object.  This is the version for a standalone
 // object with no parent.
 
-bool Species::validateWood(Document& doc, JSONStructureChecker* jCheck, Species* parent)
+bool Species::validateWood(Document& doc)
 {
   bool   retVal       = true;
   Value& woodObject = doc["wood"];
@@ -405,14 +412,14 @@ bool Species::validateWood(Document& doc, JSONStructureChecker* jCheck, Species*
   // but there also may be a parent
 
   // stemRate - mandatory, heritable
-  retVal &= checkMandatoryHeritableFloatValue(woodObject, jCheck, parent,
-                                                                      (char*)"stemRate");
+  retVal &= checkMandatoryHeritableFloatValue(woodObject, (char*)"stemRate");
+
   // initSapThickness - mandatory, heritable
-  retVal &= checkMandatoryHeritableFloatValue(woodObject, jCheck, parent,
-                                                                (char*)"initSapThickness");
+  retVal &= checkMandatoryHeritableFloatValue(woodObject, (char*)"initSapThickness");
+  
   // initBarkThickness - mandatory, heritable
-  retVal &= checkMandatoryHeritableFloatValue(woodObject, jCheck, parent,
-                                                              (char*)"initBarkThickness");
+  retVal &= checkMandatoryHeritableFloatValue(woodObject, (char*)"initBarkThickness");
+  
   // barkColors - mandatory
   unless(woodObject.HasMember("barkColors") && woodObject["barkColors"].IsArray())
    {
@@ -420,7 +427,7 @@ bool Species::validateWood(Document& doc, JSONStructureChecker* jCheck, Species*
     retVal = false;
    }
   else
-    retVal &= validateBarkColors(woodObject["barkColors"], jCheck);
+    retVal &= validateBarkColors(woodObject["barkColors"]);
 
   // barkTextures - optional
   if(woodObject.HasMember("barkTextures"))
@@ -431,7 +438,7 @@ bool Species::validateWood(Document& doc, JSONStructureChecker* jCheck, Species*
       retVal = false;
      }
     else
-      retVal &= validateBarkTextures(woodObject["barkTextures"], jCheck);
+      retVal &= validateBarkTextures(woodObject["barkTextures"]);
   }
 
   return retVal;
@@ -441,7 +448,7 @@ bool Species::validateWood(Document& doc, JSONStructureChecker* jCheck, Species*
 // =======================================================================================
 // Validate the foliage section of an OTDL object.
 
-bool Species::validateFoliage(Document& doc, JSONStructureChecker* jCheck)
+bool Species::validateFoliage(Document& doc)
 {
   bool   retVal       = true;
   //Value& foliageObject = doc["foliage"];
@@ -452,25 +459,14 @@ bool Species::validateFoliage(Document& doc, JSONStructureChecker* jCheck)
 
 
 // =======================================================================================
-// Validate the parent section of an OTDL object.
-
-Species* Species::getParent(Document& doc, JSONStructureChecker* jCheck)
-{
-  Species* parent = Species::getSpeciesByPath(doc["parent"].GetString());
-  return parent;
-}
-
-
-// =======================================================================================
 // Validate OTDL/JSON structure of the type of tree we are.
 
-bool Species::validateOTDL(Document& doc, char* sourceName, Species** parentBack)
+bool Species::validateOTDL(Document& doc)
 {
   bool retVal = true;
   char phrase[128];
   snprintf(phrase, 128, "OTDL object %s", sourceName);
-  JSONStructureChecker* jCheck = new JSONStructureChecker(phrase, OTDL);
-  Species* parent = NULL;
+  jCheck = new JSONStructureChecker(phrase, OTDL);
   
   if(doc.HasMember("parent"))
    {
@@ -481,14 +477,13 @@ bool Species::validateOTDL(Document& doc, char* sourceName, Species** parentBack
      }
     else
      {
-      parent = getParent(doc, jCheck);
+      parent = Species::getSpeciesByPath(doc["parent"].GetString());
       if(!parent)
         return false;
      }
    }
   else
-     LogOTDLDetails("No inheritance from parent in %s\n", phrase);
-  *parentBack = parent;
+    LogOTDLDetails("No inheritance from parent in %s\n", phrase);
   
   // overviewData is mandatory even if an object has a parent, as it needs to
   // be at least somewhat different in naming.
@@ -498,7 +493,7 @@ bool Species::validateOTDL(Document& doc, char* sourceName, Species** parentBack
     retVal = false;
    }
   else
-    retVal &= validateOverviewData(doc, jCheck, parent);
+    retVal &= validateOverviewData(doc);
 
   // wood is mandatory but heritable, so we might be getting it from parent
   if(doc.HasMember("wood"))
@@ -509,7 +504,7 @@ bool Species::validateOTDL(Document& doc, char* sourceName, Species** parentBack
       retVal = false;
      }
     else // hopefully there is at least some wood data here.
-      retVal &= validateWood(doc, jCheck, parent);
+      retVal &= validateWood(doc);
    }
   else if(parent)
    {
@@ -529,7 +524,7 @@ bool Species::validateOTDL(Document& doc, char* sourceName, Species** parentBack
     retVal = false;
    }
   else
-    retVal &= validateFoliage(doc, jCheck);
+    retVal &= validateFoliage(doc);
 
   delete jCheck; jCheck = NULL;
   return retVal;
@@ -572,12 +567,15 @@ Species* Species::loadLocalOTDLEntry(const char* speciesPath)
     return NULL;
   unsigned bufSize;
   char* buf = loadFileToBuf(path, &bufSize);
-  Species* parent;
-  Document& doc = readOTDLFromBuf(buf, path, &parent);
+  Document& doc = readOTDLFromBuf(buf, path);
   
   // At this point we are confident we have valid OTDL, so create the new species
-  Species* newSpecies = new Species(doc, parent);
-  return newSpecies;
+  Species* newSpecies = new Species(doc, path);
+  
+  if(newSpecies->isValid())
+    return newSpecies;
+  else
+    return NULL;
 }
 
 

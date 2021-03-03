@@ -41,6 +41,9 @@ class Species
   const char*               genusName;
   const char*               speciesName;
   const char*               varName;
+  const char*               sourceName;
+  Species*                  parent;
+  JSONStructureChecker*     jCheck;
   float                     stemRate;           // in spaceUnits/year
   float                     initSapThickness;   // in spaceUnits
   float                     initBarkThickness;  // in spaceUnits
@@ -51,7 +54,7 @@ class Species
   std::map<float, unsigned> barkColorMap;
 
   // Member functions - public
-  Species(rapidjson::Document& otdlDoc, Species* parent);
+  Species(rapidjson::Document& otdlDoc, char* source);
   ~Species(void);
   void        logisticGrowthModel(float age, float& radius, float& height);
   void        extractBarkColors(rapidjson::Value& colorsArray);
@@ -59,26 +62,24 @@ class Species
   const char* objectName(void);
   int         writeOTDL(char* buf, unsigned bufSize);
   bool        diagnosticHTML(HttpDebug* serv);
+  bool        validateOverviewData(rapidjson::Document& doc);
+  bool        validateOTDL(rapidjson::Document& doc);
+  bool        validateCommonNames(rapidjson::Value& containObj);
+  bool        validateFoliage(rapidjson::Document& doc);
+  bool        validateWood(rapidjson::Document& doc);
+  bool        validateBarkTextures(rapidjson::Value& obj);
+  bool        validateBarkColors(rapidjson::Value& colorsArray);
+  bool        checkMandatoryHeritableFloatValue(rapidjson::Value& jsonObject, char* name);
 
- public:
+  inline bool isValid(void) {return validOTDL;}
+  
   // Static public functions
   static rapidjson::Document speciesIndex;
-  static rapidjson::Document& readOTDLFromBuf(char* buf, char* sourceName,
-                                                                    Species** parentBack);
-  static bool validateOverviewData(rapidjson::Document& doc, JSONStructureChecker* jCheck,
-                                                                          Species* parent);
-  static bool validateOTDL(rapidjson::Document& doc, char* sourceName, Species** parentBack);
+  static rapidjson::Document& readOTDLFromBuf(char* buf, char* sourceName);
   static Species* getSpeciesByPath(const char* speciesPath);
   static Species* loadLocalOTDLEntry(const char* speciesPath);
-  static Species* getParent(rapidjson::Document& doc, JSONStructureChecker* jCheck);
-  static bool validateCommonNames(rapidjson::Value& containObj, JSONStructureChecker* jCheck);
-  static bool validateFoliage(rapidjson::Document& doc, JSONStructureChecker* jCheck);
-  static bool validateWood(rapidjson::Document& doc, JSONStructureChecker* jCheck,
-                                                                          Species* parent);
-  static bool validateBarkTextures(rapidjson::Value& obj, JSONStructureChecker* jCheck);
-  static bool validateBarkColors(rapidjson::Value& colorsArray, JSONStructureChecker* jCheck);
   static bool findSpeciesForHTTPDebug(HttpDebug* serv, char* path);
-  
+
   // static public variables
   static Species** speciesPtrArray;
   static unsigned short speciesCount;
@@ -88,6 +89,7 @@ class Species
  private:
   
   // Instance variables - private
+  bool                      validOTDL;
 
   // Member functions - private
   Species(const Species&);                 // Prevent copy-construction
