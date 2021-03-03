@@ -101,10 +101,16 @@ Species::Species(Document& otdlDoc, Species* parent)
       stemRate  = parent->stemRate;
     
     // initSapThickness - mandatory, heritable
-    initSapThickness  = otdlDoc["wood"]["initSapThickness"].GetFloat()/mmPerSpaceUnit;
-    
+    if(otdlDoc["wood"].HasMember("initSapThickness"))
+      initSapThickness  = otdlDoc["wood"]["initSapThickness"].GetFloat()/mmPerSpaceUnit;
+    else
+      initSapThickness  = parent->stemRate;
+
     // initBarkThickness - mandatory, heritable
-    initBarkThickness = otdlDoc["wood"]["initBarkThickness"].GetFloat()/mmPerSpaceUnit;
+    if(otdlDoc["wood"].HasMember("initBarkThickness"))
+      initBarkThickness = otdlDoc["wood"]["initBarkThickness"].GetFloat()/mmPerSpaceUnit;
+    else
+      initBarkThickness  = parent->initBarkThickness;
    }
 }
 
@@ -435,21 +441,41 @@ bool Species::validateWood(Document& doc, JSONStructureChecker* jCheck, Species*
     retVal = false;
    }
 
-  // initSapThickness - mandatory
-  unless(woodObject.HasMember("initSapThickness")
-                                            && woodObject["initSapThickness"].IsNumber())
+  // initSapThickness - mandatory, heritable
+  if(woodObject.HasMember("initSapThickness"))
    {
-    LogOTDLValidity("No initSapThickness or invalid initSapThickness in %s\n",
-                                                                      jCheck->sourcePhrase);
+    unless(woodObject["initSapThickness"].IsNumber())
+     {
+      LogOTDLValidity("initSapThickness is not numeric in %s\n", jCheck->sourcePhrase);
+      retVal = false;
+     }
+   }
+  else if(parent)
+   {
+    LogOTDLDetails("Inheriting initSapThickness from parent in %s\n", jCheck->sourcePhrase);
+   }
+  else
+   {
+    LogOTDLValidity("No initSapThickness available for %s\n", jCheck->sourcePhrase);
     retVal = false;
    }
 
-  // initBarkThickness - mandatory
-  unless(woodObject.HasMember("initBarkThickness") &&
-                                                  woodObject["initBarkThickness"].IsNumber())
+  // initBarkThickness - mandatory, heritable
+  if(woodObject.HasMember("initBarkThickness"))
    {
-    LogOTDLValidity("No initBarkThickness or invalid initBarkThickness in %s\n",
-                                                                      jCheck->sourcePhrase);
+    unless(woodObject["initBarkThickness"].IsNumber())
+     {
+      LogOTDLValidity("initBarkThickness is not numeric in %s\n", jCheck->sourcePhrase);
+      retVal = false;
+     }
+   }
+  else if(parent)
+   {
+    LogOTDLDetails("Inheriting initBarkThickness from parent in %s\n", jCheck->sourcePhrase);
+   }
+  else
+   {
+    LogOTDLValidity("No initBarkThickness available for %s\n", jCheck->sourcePhrase);
     retVal = false;
    }
 

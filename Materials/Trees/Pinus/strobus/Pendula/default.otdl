@@ -16,9 +16,6 @@
     },
  "wood":
   {
-   //"stemRate": 1000,
-   "initSapThickness": 1.5,
-   "initBarkThickness": 0.5,
    "barkTextures":
     {
     
