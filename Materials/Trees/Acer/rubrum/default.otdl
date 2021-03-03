@@ -5,7 +5,8 @@
      "genus":       "Acer",
      "species":     "rubrum",
      "maxHeight":   41000, //https://en.wikipedia.org/wiki/Acer_rubrum
-     "maxGirth":   5000, //https://en.wikipedia.org/wiki/Acer_rubrum
+     "maxWidth":    0.8,
+    "maxGirth":   5000, //https://en.wikipedia.org/wiki/Acer_rubrum
      "maxAge":   150, //https://en.wikipedia.org/wiki/Acer_rubrum
      "commonNames":
        {

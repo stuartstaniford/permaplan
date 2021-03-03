@@ -78,6 +78,12 @@ Species::Species(Document& otdlDoc, char* source):
   else
     maxHeight = parent->maxHeight;
 
+  //maxWidth - mandatory, heritable
+  if(otdlDoc["overviewData"].HasMember("maxWidth"))
+    maxWidth  = otdlDoc["overviewData"]["maxWidth"].GetFloat()*maxHeight;
+  else
+    maxWidth = parent->maxWidth;
+
   //maxGirth - mandatory, heritable
   if(otdlDoc["overviewData"].HasMember("maxGirth"))
     maxRadius  = otdlDoc["overviewData"]["maxGirth"].GetFloat()/mmPerSpaceUnit/M_PI/2.0;
@@ -300,7 +306,10 @@ bool Species::validateOverviewData(Document& doc)
 
   // maxHeight - mandatory, heritable
   retVal &= checkMandatoryHeritableFloatValue(overviewData, (char*)"maxHeight");
-  
+
+  // maxWidth - mandatory, heritable
+  retVal &= checkMandatoryHeritableFloatValue(overviewData, (char*)"maxWidth");
+
   // maxGirth - mandatory, heritable
   retVal &= checkMandatoryHeritableFloatValue(overviewData, (char*)"maxGirth");
   
@@ -614,6 +623,7 @@ int Species::writeOTDL(char* buf, unsigned bufSize)
   bufprintf("   \"genus\":       \"%s\",\n", genusName);
   bufprintf("   \"species\":     \"%s\",\n", speciesName);
   bufprintf("   \"maxHeight\":     \"%.0f\",\n", maxHeight*mmPerSpaceUnit);
+  bufprintf("   \"maxWidth\":     \"%.2f\",\n", maxWidth/maxHeight);
   bufprintf("   \"maxGirth\":     \"%.0f\",\n", maxRadius*mmPerSpaceUnit*M_PI*2.0);
   bufprintf("   \"maxAge\":     \"%.0f\",\n", maxAge);
   bufprintf("   \"commonName\":\n");

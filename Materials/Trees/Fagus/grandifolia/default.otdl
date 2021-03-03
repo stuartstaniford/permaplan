@@ -5,6 +5,7 @@
      "genus":       "Fagus",
      "species":     "grandifolia",
      "maxHeight":   35000, // https://en.wikipedia.org/wiki/Fagus_grandifolia
+     "maxWidth":    0.8,
      "maxGirth":    4800, //https://www.monumentaltrees.com/en/trees/fagusgrandifolia/records/
      "maxAge":      270, // https://www.monumentaltrees.com/en/trees/fagusgrandifolia/records/
      "commonNames":

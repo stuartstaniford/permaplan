@@ -133,6 +133,12 @@ Syntax: `"maxGirth":   1000,`
 
 The maximum girth that this tree species is capable of growing to under ideal circumstances.  Generally taken to be the girth at chest height (4.5 feet or 1.4m above the ground level).  Note that the girth is the circumference, not the diameter (but is the most widely cited measurement)
 
+### maxWidth (mandatory, heritable)
+
+Syntax: `"maxWidth":   0.7,`
+
+The maximum width (diameter) of the canopy that this tree species is capable of growing to under ideal circumstances (ie in an open field with excellent soil etc - trees growing in a forest stand will generally be much narrower).  This is expressed as a fraction of the maxHeight and this fraction is used to make sure trees are of roughly the right macro-shape.
+
 ### maxAge (mandatory, heritable)
 
 Syntax: `"maxAge":   150,`

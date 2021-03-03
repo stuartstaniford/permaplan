@@ -21,7 +21,6 @@
                                    // a fudge factor for variety names.
                                    //https://en.wikipedia.org/wiki/List_of_long_species_names
 
-
 // =======================================================================================
 // Class variable initialization
 
@@ -49,6 +48,7 @@ class Species
   float                     initBarkThickness;  // in spaceUnits
   float                     maxHeight;          // in spaceUnits
   float                     maxRadius;          // in spaceUnits
+  float                     maxWidth;           // in spaceUnits
   float                     maxAge;             // in years
   Version                   version;
   std::map<float, unsigned> barkColorMap;

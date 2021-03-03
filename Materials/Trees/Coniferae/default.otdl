@@ -6,6 +6,7 @@
     "genus":       "Nosuchgenus",
     "species":      "nosuchspecies",
     "maxHeight":   10000,
+    "maxWidth":    0.3,  // conifers are narrow
     "maxGirth":   1000,
     "maxAge":   300,
     "commonNames":
