@@ -192,6 +192,12 @@ Syntax: `"branchAngle":  <angleDegrees>,`
 
 The branchAngle is the angle at which a new branch initially heads away from the axis of the trunk or branch it is starting from.  It is expressed in degrees.
 
+### branchSpiralAngle (mandatory, heritable)
+
+Syntax: `"branchSpiralAngle":  <angleDegrees>,`
+
+The branchSpiralAngle is the angle around the tree at which one set of branches will be offset from the last set of branches.  It is expressed in degrees.
+
 ### initSapThickness (mandatory, heritable)
 
 Syntax: `"initSapThickness":  <iST>,`

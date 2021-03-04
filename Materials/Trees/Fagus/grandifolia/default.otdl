@@ -23,6 +23,7 @@
    "branchSpacing": 400,
    "branchFactor": 1,
    "branchAngle": 40,
+   "branchSpiralAngle": 180,
    "initSapThickness": 1.5,
    "initBarkThickness": 0.5,
    "barkTextures":

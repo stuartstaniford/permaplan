@@ -105,6 +105,7 @@ Species::Species(Document& otdlDoc, char* source):
     branchSpacing     = parent->branchSpacing;
     branchFactor      = parent->branchFactor;
     branchAngle       = parent->branchAngle;
+    branchSpiralAngle = parent->branchSpiralAngle;
     initSapThickness  = parent->initSapThickness;
     initBarkThickness = parent->initBarkThickness;
     barkColorMap      = parent->barkColorMap;
@@ -137,12 +138,18 @@ Species::Species(Document& otdlDoc, char* source):
       branchFactor  = otdlDoc["wood"]["branchFactor"].GetInt();
     else
       branchFactor  = parent->branchFactor;
-
+    
     // branchAngle - mandatory, heritable
     if(otdlDoc["wood"].HasMember("branchAngle"))
       branchAngle  = otdlDoc["wood"]["branchAngle"].GetFloat();
     else
       branchAngle  = parent->branchAngle;
+
+    // branchSpiralAngle - mandatory, heritable
+    if(otdlDoc["wood"].HasMember("branchSpiralAngle"))
+      branchSpiralAngle  = otdlDoc["wood"]["branchSpiralAngle"].GetFloat();
+    else
+      branchSpiralAngle  = parent->branchSpiralAngle;
 
     // initSapThickness - mandatory, heritable
     if(otdlDoc["wood"].HasMember("initSapThickness"))
@@ -493,6 +500,9 @@ bool Species::validateWood(Document& doc)
   // branchAngle - mandatory, heritable
   retVal &= checkMandatoryHeritableFloatValue(woodObject, (char*)"branchAngle");
 
+  // branchSpiralAngle - mandatory, heritable
+  retVal &= checkMandatoryHeritableFloatValue(woodObject, (char*)"branchSpiralAngle");
+
   // initSapThickness - mandatory, heritable
   retVal &= checkMandatoryHeritableFloatValue(woodObject, (char*)"initSapThickness");
   
@@ -701,6 +711,7 @@ int Species::writeOTDL(char* buf, unsigned bufSize)
   bufprintf("   \"branchSpacing\":           \"%f\",\n", branchSpacing*mmPerSpaceUnit);
   bufprintf("   \"branchFactor\":           \"%u\",\n", branchFactor);
   bufprintf("   \"branchAngle\":           \"%.0f\",\n", branchAngle);
+  bufprintf("   \"branchSpiralAngle\":           \"%.0f\",\n", branchSpiralAngle);
   bufprintf("   \"initSapThickness\":   \"%f\",\n", initSapThickness*mmPerSpaceUnit);
   bufprintf("   \"initBarkThickness\":  \"%f\",\n", initBarkThickness*mmPerSpaceUnit);
   bufprintf("   \"barkColors\":\n");
