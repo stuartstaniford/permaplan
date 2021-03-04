@@ -21,6 +21,7 @@
    "stemRate": 700,
    "branchSpacing": 800,
    "branchFactor": 2,
+   "branchAngle": 30,
    "initSapThickness": 1.5,
    "initBarkThickness": 0.5,
    "barkTextures":

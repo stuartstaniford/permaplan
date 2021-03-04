@@ -186,7 +186,11 @@ The branchSpacing is the rate at which branches form along an existing branch (w
 
 Syntax: `"branchFactor":  <bfac>,`
 
-The branchFactor is the number of branches which form at a branch point from an existing branch.  It is a small integer.
+### branchAngle (mandatory, heritable)
+
+Syntax: `"branchAngle":  <angleDegrees>,`
+
+The branchAngle is the angle at which a new branch initially heads away from the axis of the trunk or branch it is starting from.  It is expressed in degrees.
 
 ### initSapThickness (mandatory, heritable)
 

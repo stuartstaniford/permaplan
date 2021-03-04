@@ -104,6 +104,7 @@ Species::Species(Document& otdlDoc, char* source):
     stemRate          = parent->stemRate;
     branchSpacing     = parent->branchSpacing;
     branchFactor      = parent->branchFactor;
+    branchAngle       = parent->branchAngle;
     initSapThickness  = parent->initSapThickness;
     initBarkThickness = parent->initBarkThickness;
     barkColorMap      = parent->barkColorMap;
@@ -136,6 +137,12 @@ Species::Species(Document& otdlDoc, char* source):
       branchFactor  = otdlDoc["wood"]["branchFactor"].GetInt();
     else
       branchFactor  = parent->branchFactor;
+
+    // branchAngle - mandatory, heritable
+    if(otdlDoc["wood"].HasMember("branchAngle"))
+      branchAngle  = otdlDoc["wood"]["branchAngle"].GetFloat();
+    else
+      branchAngle  = parent->branchAngle;
 
     // initSapThickness - mandatory, heritable
     if(otdlDoc["wood"].HasMember("initSapThickness"))
@@ -483,6 +490,9 @@ bool Species::validateWood(Document& doc)
   // branchFactor - mandatory, heritable
   retVal &= checkMandatoryHeritableUnsignedValue(woodObject, (char*)"branchFactor");
 
+  // branchAngle - mandatory, heritable
+  retVal &= checkMandatoryHeritableFloatValue(woodObject, (char*)"branchAngle");
+
   // initSapThickness - mandatory, heritable
   retVal &= checkMandatoryHeritableFloatValue(woodObject, (char*)"initSapThickness");
   
@@ -690,6 +700,7 @@ int Species::writeOTDL(char* buf, unsigned bufSize)
   bufprintf("   \"stemRate\":           \"%f\",\n", stemRate*mmPerSpaceUnit);
   bufprintf("   \"branchSpacing\":           \"%f\",\n", branchSpacing*mmPerSpaceUnit);
   bufprintf("   \"branchFactor\":           \"%u\",\n", branchFactor);
+  bufprintf("   \"branchAngle\":           \"%.0f\",\n", branchAngle);
   bufprintf("   \"initSapThickness\":   \"%f\",\n", initSapThickness*mmPerSpaceUnit);
   bufprintf("   \"initBarkThickness\":  \"%f\",\n", initBarkThickness*mmPerSpaceUnit);
   bufprintf("   \"barkColors\":\n");

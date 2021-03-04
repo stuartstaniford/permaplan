@@ -46,6 +46,7 @@ class Species
   float                     stemRate;           // in spaceUnits/year
   float                     branchSpacing;      // in spaceUnits
   unsigned short            branchFactor;
+  float                     branchAngle;        // in degrees
   float                     initSapThickness;   // in spaceUnits
   float                     initBarkThickness;  // in spaceUnits
   float                     maxHeight;          // in spaceUnits
