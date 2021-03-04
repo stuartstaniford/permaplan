@@ -190,13 +190,17 @@ void Species::logisticGrowthModel(float age, float& radius, float& height)
   radius = maxRadius*logisticVal;
   height = maxHeight*logisticVal;
   if(varName)
+   {
     LogGrowthModel("Growth Model for %s %s %s has x-val: %f, logisticVal: %f, "
                               "radius: %f, height %f\n", genusName, speciesName, varName,
                               xval, logisticVal, radius, height);
+   }
   else
+   {
     LogGrowthModel("Growth Model for %s %s has x-val: %f, logisticVal: %f, "
                               "radius: %f, height %f\n", genusName, speciesName,
                               xval, logisticVal, radius, height);
+   }
 }
 
 

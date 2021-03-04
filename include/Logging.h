@@ -17,10 +17,10 @@
 // =======================================================================================
 // Logging options to do with parsing and validating OLDF and OTDL files
 
-//#define LOG_OLDF_VALIDITY      // Log validity problems in the file
+#define LOG_OLDF_VALIDITY      // Log validity problems in the file
 //#define LOG_OLDF_DETAILS       // Log details of valid OLDF objects
 #define LOG_OTDL_VALIDITY      // Log validity problems in an OTDL object
-#define LOG_OTDL_DETAILS       // Log details of valid OTDL objects
+//#define LOG_OTDL_DETAILS       // Log details of valid OTDL objects
 
 
 // =======================================================================================
@@ -50,9 +50,9 @@
 
 #define LOG_TREE_SELECTIONS     // Log when a tree is selected.
 #define LOG_TREE_READS          // Log when a tree is read in from a file or url
-//#define LOG_TREE_SIM_OVERVIEW   // Log high level actions in simulating tree growth.
-//#define LOG_TREE_SIM_DETAILS    // Log all the gory details of simulated tree growth.
-//#define LOG_GROWTH_MODEL        // Log details of the growth model.
+#define LOG_TREE_SIM_OVERVIEW   // Log high level actions in simulating tree growth.
+#define LOG_TREE_SIM_DETAILS    // Log all the gory details of simulated tree growth.
+#define LOG_GROWTH_MODEL        // Log details of the growth model.
 //#define LOG_TREE_VISUALIZATION  // Log trees being rendered.
 //#define LOG_TREE_VIS_DETAILS    // Log every twig being rendered.
 //#define LOG_BARK_DISPLAY        // Log bark color and texture details.

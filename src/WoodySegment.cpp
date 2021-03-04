@@ -98,7 +98,10 @@ void WoodySegment::triangleBufferSizesRecurse(unsigned& vCount, unsigned& iCount
 
 unsigned WoodySegment::expectedKids(float len)
 {
-  return kids.size();
+  const Species& ourSpecies = *(Tree::treePtrArray[ourTreeIndex]->species);
+  
+  return lround(len/ourSpecies.branchSpacing-0.5f) // never round up
+                                        *ourSpecies.branchFactor;
 }
 
 // =======================================================================================
@@ -108,22 +111,25 @@ unsigned WoodySegment::expectedKids(float len)
 void WoodySegment::growStep(float years)
 {
   // Do ourselves.
-  Tree* ourTree = Tree::treePtrArray[ourTreeIndex];
+  Tree&     ourTree = *(Tree::treePtrArray[ourTreeIndex]);
+  Species&  ourSpecies = *(ourTree.species);
   float len;
-  //XX use of ourTree->ageNow is temp hack - need to model ages of each stem/branch
-  ourTree->species->logisticGrowthModel(ourTree->ageNow, cylinder->radius, len);
+  //XX use of ourTree.ageNow is temp hack - need to model ages of each stem/branch
+  ourSpecies.logisticGrowthModel(ourTree.ageNow, cylinder->radius, len);
   cylinder->setLength(len);
   sapThickness = cylinder->radius - heartRadius - barkThickness; //XX obviously braindead
-  barkColor = ourTree->species->getBarkColor(ourTree->ageNow);
+  barkColor = ourSpecies.getBarkColor(ourTree.ageNow);
   
 #ifdef LOG_TREE_SIM_DETAILS
   char buf[32];
+  vec3& loc = cylinder->location;
   RGBArrayFromColor(barkColor, buf);
-  LogTreeSimDetails("Woody Segment at loc [%.1f, %.1f, %.1f] growing to length %.0f,"
-                          "girth %.0f, color %s\n",
-                          cylinder->location[0], cylinder->location[1], cylinder->location[2],
-                          cylinder->radius*mmPerSpaceUnit*2.0f*M_PI,
-                          cylinder->getLength()*mmPerSpaceUnit, buf);
+  LogTreeSimDetails("Woody Segment at loc [%.1f, %.1f, %.1f] growing to length %.1f%c,"
+                          "girth %.1f%c, color %s\n",
+                          loc[0], loc[1], loc[2],
+                          cylinder->getLength(), spaceUnitAbbr,
+                          cylinder->radius*2.0f*M_PI, spaceUnitAbbr,
+                          buf);
 #endif
 
 
@@ -134,7 +140,20 @@ void WoodySegment::growStep(float years)
     unsigned e = expectedKids(len);
     if(e > N)
      {
-      printf("Want kids.\n");
+      LogTreeSimDetails("WoodySegment at [%.1f, %.1f, %.1f] will create %d kids\n",
+                                                            loc[0], loc[1], loc[2], e-N);
+      for(int i=N; i<e; i++)
+       {
+        /*
+        int branchPoint = i/ourSpecies.branchFactor;
+        vec3 branchLoc, branchDir;
+        WoodySegment* branch = new WoodySegment(ourSpecies,
+                                                  ,//XX need years
+                                                ourTreeIndex,
+                                                level + 1, branchLoc);*/
+        LogTreeSimDetails("WoodySegment at [%.1f, %.1f, %.1f] created branch %d\n",
+                          loc[0], loc[1], loc[2], i);
+       }
      }
    }
   
