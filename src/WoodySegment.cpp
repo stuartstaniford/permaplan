@@ -94,6 +94,14 @@ void WoodySegment::triangleBufferSizesRecurse(unsigned& vCount, unsigned& iCount
 
 
 // =======================================================================================
+// Function that defines how many branches we should now have, based on our length, etc.
+
+unsigned WoodySegment::expectedKids(float len)
+{
+  return kids.size();
+}
+
+// =======================================================================================
 // Function that is applied to grow the tree by a certain number of years (possibly
 // fractional).
 
@@ -118,8 +126,19 @@ void WoodySegment::growStep(float years)
                           cylinder->getLength()*mmPerSpaceUnit, buf);
 #endif
 
-  // Recurse into our kids
+
+  // See if we need to make new kids
   int N = kids.size();
+  if(level == 0) // only branching from the trunk right now
+   {
+    unsigned e = expectedKids(len);
+    if(e > N)
+     {
+      printf("Want kids.\n");
+     }
+   }
+  
+  // Recurse into our kids
   for(int i=0; i<N; i++)
     if(kids[i])
       kids[i]->growStep(years);

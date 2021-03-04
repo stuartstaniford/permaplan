@@ -28,6 +28,7 @@ class WoodySegment: public TreePart
   ~WoodySegment(void);
   bool        bufferGeometry(TriangleBuffer* T, float altitude);
   void        triangleBufferSizesRecurse(unsigned& vCount, unsigned& iCount);
+  unsigned    expectedKids(float len);
   void        growStep(float years);
   int         printOPSF(char*& buf, unsigned bufSize);
   const char* objectName(void);
