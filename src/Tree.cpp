@@ -108,7 +108,8 @@ void Tree::growStep(float years)
     unless(trunk)
      {
       LogTreeSimDetails("Tree %d getting its new trunk.\n", treePtrArrayIndex);
-      trunk = new WoodySegment(*species, treePtrArrayIndex, years, location);  // treeMemory
+      trunk = new WoodySegment(*species, years, treePtrArrayIndex,
+                                                        0x0000, location);  // treeMemory
      }
     else
      {

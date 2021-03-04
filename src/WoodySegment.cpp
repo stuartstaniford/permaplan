@@ -12,13 +12,14 @@
 // =======================================================================================
 // Constructors.
 
-WoodySegment::WoodySegment(Species& species, unsigned short treeIndex, float years,
-                           vec3 location):
+WoodySegment::WoodySegment(Species& species, float years, unsigned short treeIndex,
+                           unsigned short lev, vec3 location):
                               TreePart(treeIndex),
                               heartRadius(0.0f),
                               sapThickness(species.initSapThickness),
                               barkThickness(species.initBarkThickness),
-                              barkColor(0u)
+                              barkColor(0u),
+                              level(lev)
 {
   vec3 direction;
   direction[0] = 0.0f;
@@ -179,14 +180,16 @@ const char* WoodySegment::objectName(void)
 bool WoodySegment::diagnosticHTML(HttpDebug* serv)
 {
   // Print our info
-  httPrintf("<tr><td>WoodySegment</td><td>[%f, %f, %f]</td><td>[%f, %f, %f]</td>",
+  httPrintf("<tr><td>WoodySegment</td><td>[%.1f, %.1f, %.1f]</td><td>[%.1f, %.1f, %.1f]</td>",
               cylinder->location[0], cylinder->location[1], cylinder->location[2],
               cylinder->axisDirection[0], cylinder->axisDirection[1],
               cylinder->axisDirection[2]);
-  httPrintf("<td><b>Radius:</b> %.4f%c ", cylinder->radius, spaceUnitAbbr);
+  httPrintf("<td>");
+  httPrintf("<b>Level:</b> %u; ", level);
+  httPrintf("<b>Radius:</b> %.4f%c; ", cylinder->radius, spaceUnitAbbr);
   char buf[32];
   RGBArrayFromColor(barkColor, buf);
-  httPrintf("<b>Color:</b> %s<br>", buf);
+  httPrintf("<b>Color:</b> %s", buf);
   httPrintf("</td></tr>");
 
   // Recurse into our branches, leaves, etc
