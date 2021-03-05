@@ -12,8 +12,8 @@
 // =======================================================================================
 // Constructors.
 
-WoodySegment::WoodySegment(Species& species, float years, unsigned short treeIndex,
-                           unsigned short lev, vec3 location):
+WoodySegment::WoodySegment(Species& species, unsigned short treeIndex,
+                                                  unsigned short lev, vec3 loc, vec3 dir):
                               TreePart(treeIndex),
                               heartRadius(0.0f),
                               sapThickness(species.initSapThickness),
@@ -21,12 +21,7 @@ WoodySegment::WoodySegment(Species& species, float years, unsigned short treeInd
                               barkColor(0u),
                               level(lev)
 {
-  vec3 direction;
-  direction[0] = 0.0f;
-  direction[1] = 0.0f;
-  direction[2] = years*species.stemRate;
-  cylinder = new Cylinder(location, direction,
-                          heartRadius + sapThickness + barkThickness, WOOD_SEG_SIDES);
+  cylinder = new Cylinder(loc, dir, heartRadius + sapThickness + barkThickness, WOOD_SEG_SIDES);
   incrementTreeMemory(sizeof(WoodySegment)+sizeof(Cylinder));
 }
 
@@ -104,6 +99,7 @@ unsigned WoodySegment::expectedKids(float len)
                                         *ourSpecies.branchFactor;
 }
 
+
 // =======================================================================================
 // Function that is applied to grow the tree by a certain number of years (possibly
 // fractional).
@@ -114,8 +110,20 @@ void WoodySegment::growStep(float years)
   Tree&     ourTree = *(Tree::treePtrArray[ourTreeIndex]);
   Species&  ourSpecies = *(ourTree.species);
   float len;
-  //XX use of ourTree.ageNow is temp hack - need to model ages of each stem/branch
-  ourSpecies.logisticGrowthModel(ourTree.ageNow, cylinder->radius, len);
+  
+  if(level == 0)  // trunk case
+   {
+    //XX use of ourTree.ageNow is temp hack - need to model ages of each stem/branch
+    ourSpecies.logisticGrowthModel(ourTree.ageNow, cylinder->radius, len);
+   }
+  else // branches
+   {
+    len = cylinder->getLength() + years*ourSpecies.stemRate;
+    if(len > ourSpecies.maxWidth/3.0f)
+      len = ourSpecies.maxWidth/3.0f;
+    cylinder->radius = len/15.0f;   //XX braindead branch thickness
+   }
+  
   cylinder->setLength(len);
   sapThickness = cylinder->radius - heartRadius - barkThickness; //XX obviously braindead
   barkColor = ourSpecies.getBarkColor(ourTree.ageNow);
@@ -132,7 +140,6 @@ void WoodySegment::growStep(float years)
                           buf);
 #endif
 
-
   // See if we need to make new kids
   int N = kids.size();
   if(level == 0) // only branching from the trunk right now
@@ -144,15 +151,45 @@ void WoodySegment::growStep(float years)
                                                             loc[0], loc[1], loc[2], e-N);
       for(int i=N; i<e; i++)
        {
-        /*
-        int branchPoint = i/ourSpecies.branchFactor;
-        vec3 branchLoc, branchDir;
-        WoodySegment* branch = new WoodySegment(ourSpecies,
-                                                  ,//XX need years
-                                                ourTreeIndex,
-                                                level + 1, branchLoc);*/
-        LogTreeSimDetails("WoodySegment at [%.1f, %.1f, %.1f] created branch %d\n",
-                          loc[0], loc[1], loc[2], i);
+        vec3 tempDir, branchLoc, branchDir;
+        // Compute location of root of branch, branchDir is intermediate variable
+        int branchPoint = i/ourSpecies.branchFactor;  // integer division intended
+        glm_vec3_scale_as(cylinder->axisDirection,
+                                      branchPoint*ourSpecies.branchSpacing, tempDir);
+        glm_vec3_add(cylinder->location, tempDir, branchLoc);
+        
+        // now compute branchDir as the direction of the new branch
+        vec3 currentDir;
+        glm_vec3_copy(cylinder->axisDirection, currentDir);
+  
+        if(i==0) // first branch, no prior branch to work with.
+         {
+          //XX this approach to first branch direction needs work.
+          //XX only works for trunk case.
+          vec3 northVec = {0.0f, 1.0f, 0.0f};
+          glm_vec3_copy(currentDir, tempDir);
+          glm_vec3_rotate(tempDir, ourSpecies.branchAngle*M_PI/180.0f, northVec);
+          
+         }
+        else // easier case, just working from the prior branch
+         {
+          glm_vec3_copy(((WoodySegment*)kids[i-1])->cylinder->axisDirection, tempDir);
+          if(i%ourSpecies.branchFactor) // middle of a set of branches circling the tree
+            glm_vec3_rotate(tempDir, 2.0f*M_PI/ourSpecies.branchFactor, currentDir);
+          else // first of a new set of branches - use spiral angle
+            glm_vec3_rotate(tempDir, ourSpecies.branchSpiralAngle*M_PI/180.0f, currentDir);
+         }
+        glm_vec3_scale_as(tempDir, years*ourSpecies.stemRate, branchDir); //XX stem born mid-step
+
+        // Now we have everything needed to add the new child to our kids
+        WoodySegment* branch = new WoodySegment(ourSpecies, ourTreeIndex,
+                                                level + 1, branchLoc, branchDir);
+        kids.push_back(branch);
+        LogTreeSimDetails("WoodySegment at [%.1f, %.1f, %.1f] created branch %d with "
+                          "loc: [%.1f, %.1f, %.1f]; dir [%.1f, %.1f, %.1f]\n",
+                          loc[0], loc[1], loc[2], i,
+                          branchLoc[0], branchLoc[1], branchLoc[2],
+                          branchDir[0], branchDir[1], branchDir[2]);
        }
      }
    }

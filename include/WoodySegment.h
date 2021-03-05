@@ -23,8 +23,8 @@ class WoodySegment: public TreePart
  public:
   
   // Member functions - public
-  WoodySegment(Species& species, float years, unsigned short treeIndex,
-                                                      unsigned short lev, vec3 location);
+  WoodySegment(Species& species, unsigned short treeIndex,
+                                unsigned short lev, vec3 loc, vec3 dir);
   ~WoodySegment(void);
   bool        bufferGeometry(TriangleBuffer* T, float altitude);
   void        triangleBufferSizesRecurse(unsigned& vCount, unsigned& iCount);

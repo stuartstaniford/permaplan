@@ -107,9 +107,14 @@ void Tree::growStep(float years)
     // Handle the case of a brand new tree
     unless(trunk)
      {
-      LogTreeSimDetails("Tree %d getting its new trunk.\n", treePtrArrayIndex);
-      trunk = new WoodySegment(*species, years, treePtrArrayIndex,
-                                                        0x0000, location);  // treeMemory
+      vec3 direction;
+      direction[0] = 0.0f;
+      direction[1] = 0.0f;
+      direction[2] = years*species->stemRate; //XX not quite right if tree born mid-step
+      trunk = new WoodySegment(*species, treePtrArrayIndex,
+                                        0x0000, location, direction);  // treeMemory
+      LogTreeSimDetails("Tree %d getting its new trunk, height %.2f.\n",
+                        treePtrArrayIndex, years*species->stemRate);
      }
     else
      {
