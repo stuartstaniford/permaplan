@@ -356,8 +356,15 @@ void Tree::writeTreesToOLDF(FILE* file, char* indent)
 
 const char* Tree::objectName(void)
 {
-  static char* name = (char*)"Tree";
-  return name;
+  static char nameBuf[32+MAX_SPECIES_PATH];
+  
+  if(species->varName)
+    snprintf(nameBuf, 32+MAX_SPECIES_PATH, "Tree (%s %s %s)", species->genusName,
+                                                      species->speciesName, species->varName);
+  else
+    snprintf(nameBuf, 32+MAX_SPECIES_PATH, "Tree (%s %s)", species->genusName,
+                                                                      species->speciesName);
+  return nameBuf;
 }
 
 
