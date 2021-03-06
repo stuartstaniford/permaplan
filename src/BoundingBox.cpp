@@ -237,6 +237,30 @@ bool BoundingBox::extendZ(const BoundingBox& otherBox)
 
 
 // =======================================================================================
+// Extend any or all of our dimensions to include a supplied point.  Returns whether or
+// not any extension occurred.
+
+bool BoundingBox::extends(const vec3 point)
+{
+  bool retVal = false;
+  for(int i=0; i<3; i++)
+   {
+    if(point[i] < lower[i])
+     {
+      lower[i] = point[i];
+      retVal = true;
+     }
+    else if(point[i] > upper[i])
+     {
+      upper[i] = point[i];
+      retVal = true;
+     }
+   }
+  return retVal;
+}
+
+
+// =======================================================================================
 // Provide a section of a diagnostic page about our parameters
 
 bool BoundingBox::diagnosticHTML(HttpDebug* serv)

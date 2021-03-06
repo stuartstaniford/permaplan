@@ -28,6 +28,44 @@ Cylinder::~Cylinder(void)
 
 
 // =======================================================================================
+// Update a supplied bounding box with all our points, so that we are fully encompassed
+// within it.  Returns whether or not any extension was required
+
+bool Cylinder::updateBoundingBox(BoundingBox* box, float altitude)
+{
+  bool  retVal        = false;
+  float angleRadians  = 2.0f*M_PI/sides;
+  float ang, cosAng, sinAng;
+  vec3 point;
+
+  getCrossVectors(axisDirection, f1, f2, radius);
+
+  for(int i=0; i<sides; i++)
+   {
+    ang = i*angleRadians;
+    cosAng = cosf(ang);
+    sinAng = sinf(ang);
+    
+    // base of shaft of the cylinder on this particular radial slice
+    point[0] = location[0] + cosAng*f1[0] + sinAng*f2[0];
+    point[2] = location[1] + cosAng*f1[1] + sinAng*f2[1];
+    point[2] = location[2] + cosAng*f1[2] + sinAng*f2[2] + altitude;
+    if(box->extends(point))
+      retVal = true;
+    
+    // top of shaft
+    point[0] += axisDirection[0];
+    point[2] += axisDirection[1];
+    point[2] += axisDirection[2];
+    if(box->extends(point))
+      retVal = true;
+   }
+  
+  return retVal;
+}
+
+
+// =======================================================================================
 //XX Stub definition needs to be implemented
 
 bool Cylinder::getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
@@ -70,7 +108,7 @@ int Cylinder::getNextIndex(bool resetToFirst)
    -----
 */
 
-void getCrossVectors(vec3 dir, vec3 f1, vec3 f2)
+void getCrossVectors(vec3 dir, vec3 f1, vec3 f2, float radius)
 {
   vec3 f0; // starting place, will be z-axis unless dir is parallel when we use x-axis.
 
@@ -87,6 +125,8 @@ void getCrossVectors(vec3 dir, vec3 f1, vec3 f2)
 
   glm_vec3_cross(f0, dir, f1);
   glm_vec3_cross(dir, f1, f2);
+  glm_vec3_scale_as(f1, radius, f1);
+  glm_vec3_scale_as(f2, radius, f2);
 }
 
 
@@ -106,19 +146,15 @@ bool Cylinder::bufferGeometry(TriangleBuffer* T, float altitude, unsigned color)
                          sides*6))  // indices of vertices of triangles
     return false;
 
-  vec3 f1, f2;
-  getCrossVectors(axisDirection, f1, f2);
-  glm_vec3_scale_as(f1, radius, f1);
-  glm_vec3_scale_as(f2, radius, f2);
+  getCrossVectors(axisDirection, f1, f2, radius);
 
   // Now that we've done some initial setup, we can compute all the vertices.
-
   float ang, cosAng, sinAng, x, y, z;
   for(int i=0; i<sides; i++)
    {
     ang = i*angleRadians;
-    cosAng = cos(ang);
-    sinAng = sin(ang);
+    cosAng = cosf(ang);
+    sinAng = sinf(ang);
     
     // base of shaft of the cylinder on this particular radial slice
     x = location[0] + cosAng*f1[0] + sinAng*f2[0];

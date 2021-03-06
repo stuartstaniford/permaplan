@@ -80,9 +80,7 @@ bool Arrow::bufferGeometry(TriangleBuffer* T)
   float arrowRadius   = glm_vec3_norm(direction)*ARROW_RADIUS;
 
   vec3 f1, f2; // Set up axes perpendicular to direction, which will be called f1 and f2.
-  getCrossVectors(direction, f1, f2);
-  glm_vec3_scale_as(f1, arrowRadius, f1);
-  glm_vec3_scale_as(f2, arrowRadius, f2);
+  getCrossVectors(direction, f1, f2, arrowRadius);
 
   // Now that we've done some initial setup, we can compute all the vertices.
 

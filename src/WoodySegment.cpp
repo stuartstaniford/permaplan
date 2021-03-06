@@ -121,7 +121,7 @@ void WoodySegment::growStep(float years)
     len = cylinder->getLength() + years*ourSpecies.stemRate;
     if(len > ourSpecies.maxWidth/3.0f)
       len = ourSpecies.maxWidth/3.0f;
-    cylinder->radius = len/15.0f;   //XX braindead branch thickness
+    cylinder->radius = len/40.0f;   //XX braindead branch thickness
    }
   
   cylinder->setLength(len);
