@@ -74,6 +74,8 @@
 
 //#define LOG_QUADTREE_CREATION   // Log the initial setup of the quadtree.
 //#define LOG_QUADTREE_INSERTIONS // Log the process of a new object being put in the quadtree.
+//#define LOG_QUADTREE_BOUND_BOX  // Log changes to the quadtree bounding boxes.
+//#define LOG_QUADTREE_MATCH_RAY  // Log the process of matching a ray in the quadtree.
 //#define LOG_DISPLAYLIST_BUFFER  // Log the process of objects being buffered for display.
 //#define LOG_QUADTREE_OBJ_SIZES  // Log the process of estimating/changing object sizes
 
@@ -163,6 +165,8 @@ extern bool doLogHTTPDetails;         // Log normal details of HTTP operations
 
 extern bool doLogQuadtreeCreation;    // Log the initial setup of the quadtree.
 extern bool doLogQuadtreeInsertions;  // Log the a new object being put in the quadtree.
+extern bool doLogQuadtreeBoundBox;    // Log changes to the quadtree bounding boxes.
+extern bool doLogQuadtreeMatchRay;    // Log the process of matching a ray in the quadtree.
 extern bool doLogDisplayListBuffer;   // Log the process of objects being buffered for display.
 extern bool doLogQuadtreeObjSizes;    // Log the process of estimating/changing object sizes
 
@@ -456,6 +460,20 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
 #define LogQuadtreeInsertions(...) if(doLogQuadtreeInsertions) LogStatement(__VA_ARGS__)
 #else
 #define LogQuadtreeInsertions(...)
+#endif
+
+// Log changes to the quadtree bounding boxes.
+#ifdef LOG_QUADTREE_BOUND_BOX
+#define LogQuadtreeBoundBox(...) if(doLogQuadtreeBoundBox) LogStatement(__VA_ARGS__)
+#else
+#define LogQuadtreeBoundBox(...)
+#endif
+
+// Log the process of matching a ray in the quadtree.
+#ifdef LOG_QUADTREE_MATCH_RAY
+#define LogQuadtreeMatchRay(...) if(doLogQuadtreeMatchRay) LogStatement(__VA_ARGS__)
+#else
+#define LogQuadtreeMatchRay(...)
 #endif
 
 // Log the process of a new object being put in the quadtree.
