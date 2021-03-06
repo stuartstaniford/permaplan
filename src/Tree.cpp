@@ -122,6 +122,7 @@ void Tree::growStep(float years)
                                     treePtrArrayIndex, years);
       trunk->growStep(years);
      }
+    updateBoundingBox();
    }
 }
 
@@ -234,6 +235,8 @@ void Tree::draw(void)
 
 void Tree::updateBoundingBox(void)
 {
+  LogTreeBoundingBox("Updating the bounding box for tree %d.\n", treePtrArrayIndex);
+  
   if(!box)
     box = new BoundingBox(location[0], location[1], altitude,
                           location[0], location[1], altitude);
@@ -249,9 +252,12 @@ void Tree::updateBoundingBox(void)
 
 bool Tree::matchRay(vec3& position, vec3& direction, float& lambda)
 {
+  LogTreeMatchRay("Testing tree %d (box %.1f, %.1f; %.1f, %.1f; %.1f, %.1f) for ray match.\n",                       treePtrArrayIndex, box->lower[0], box->upper[0],
+                          box->lower[1], box->upper[1], box->lower[2], box->upper[1]);
   unless(box->matchRay(position, direction, lambda))
     return false;
-  
+  LogTreeMatchRay("Tree %d ray matches box.\n", treePtrArrayIndex);
+
   // So it touches our bounding box, have to test the faces.
   
   //XXX NOT DONE

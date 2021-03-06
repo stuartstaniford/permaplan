@@ -45,9 +45,15 @@ WoodySegment::~WoodySegment(void)
 
 bool WoodySegment::updateBoundingBox(BoundingBox* box, float altitude)
 {
+  LogTreeBoundingBox("Updating the bounding box for tree %d, WoodySegment at level %u.\n",
+                                                                          ourTreeIndex, level);
   bool retVal = false;
   if(cylinder->updateBoundingBox(box, altitude))
+   {
+    LogTreeBoundingBox("Bounding box changed! for tree %d, WoodySegment at level %u.\n",
+                                                                            ourTreeIndex, level);
     retVal = true;
+   }
   int N = kids.size();
   for(int i=0; i<N; i++)
     if(kids[i] && kids[i]->updateBoundingBox(box, altitude))
