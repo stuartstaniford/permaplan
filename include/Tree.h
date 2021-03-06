@@ -42,6 +42,7 @@ class Tree: public VisualObject
   void        growStep(float years);
   bool        getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
   bool        getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
+  void        updateBoundingBox(void);
   int         getNextIndex(bool resetToFirst);
   float       getHeight(void);
   float       getRadius(void);

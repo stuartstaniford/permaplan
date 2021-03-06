@@ -7,6 +7,7 @@
 #include "HttpDebug.h"
 #include "Species.h"
 #include "TriangleBuffer.h"
+#include "BoundingBox.h"
 
 // =======================================================================================
 // Class variable initialization
@@ -22,6 +23,7 @@ class TreePart
   virtual bool bufferGeometry(TriangleBuffer* T, float altitude);
   virtual void triangleBufferSizesRecurse(unsigned& vCount, unsigned& iCount);
   virtual void growStep(float years);
+  virtual bool updateBoundingBox(BoundingBox* box, float altitude);
 
   virtual const char* objectName(void);
   virtual bool diagnosticHTML(HttpDebug* serv);

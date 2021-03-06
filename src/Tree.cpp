@@ -230,11 +230,24 @@ void Tree::draw(void)
 
 
 // =======================================================================================
+// Recurse into all our parts and update our bounding box
+
+void Tree::updateBoundingBox(void)
+{
+  if(!box)
+    box = new BoundingBox(location[0], location[1], altitude,
+                          location[0], location[1], altitude);
+  if(trunk)
+    trunk->updateBoundingBox(box, altitude);
+}
+
+
+// =======================================================================================
 // Stub definition this should be overwritten by implementing subclasses
 
 bool Tree::matchRay(vec3& position, vec3& direction, float& lambda)
 {
-  if(box->matchRay(position, direction, lambda))
+  unless(box->matchRay(position, direction, lambda))
     return false;
   
   // So it touches our bounding box, have to test the faces.

@@ -53,7 +53,16 @@ void TreePart::growStep(float years)
   err(-1, "Bad call to TreePart::growStep");
 }
 
-  
+// =======================================================================================
+// We cannot update the bounding box at this virtual level and should never be called.
+
+ bool TreePart::updateBoundingBox(BoundingBox* box, float altitude)
+{
+  err(-1, "Bad call to TreePart::updateBoundingBox");
+  return false;
+}
+
+
 // =======================================================================================
 // Tell callers our name at runtime.
 

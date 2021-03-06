@@ -26,6 +26,7 @@ class WoodySegment: public TreePart
   WoodySegment(Species& species, unsigned short treeIndex,
                                 unsigned short lev, vec3 loc, vec3 dir);
   ~WoodySegment(void);
+  bool        updateBoundingBox(BoundingBox* box, float altitude);
   bool        bufferGeometry(TriangleBuffer* T, float altitude);
   void        triangleBufferSizesRecurse(unsigned& vCount, unsigned& iCount);
   unsigned    expectedKids(float len);

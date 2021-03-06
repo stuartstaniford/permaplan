@@ -41,6 +41,22 @@ WoodySegment::~WoodySegment(void)
 
 
 // =======================================================================================
+// Update a supplied bounding box.
+
+bool WoodySegment::updateBoundingBox(BoundingBox* box, float altitude)
+{
+  bool retVal = false;
+  if(cylinder->updateBoundingBox(box, altitude))
+    retVal = true;
+  int N = kids.size();
+  for(int i=0; i<N; i++)
+    if(kids[i] && kids[i]->updateBoundingBox(box, altitude))
+      retVal = true;
+  return retVal;
+}
+
+
+// =======================================================================================
 // Buffer the vertices/indices for this part.
 
 bool WoodySegment::bufferGeometry(TriangleBuffer* T, float altitude)
