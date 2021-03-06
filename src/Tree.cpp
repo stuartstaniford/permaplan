@@ -243,7 +243,9 @@ void Tree::updateBoundingBox(void)
 
 
 // =======================================================================================
-// Stub definition this should be overwritten by implementing subclasses
+// Test if a ray intersects us or not.  For trees we follow a hybrid approach - at a
+// long distance, we just rely on the bounding box.  But close up, we recurse into the
+// structure (which is expensive, especially if we don't match).
 
 bool Tree::matchRay(vec3& position, vec3& direction, float& lambda)
 {

@@ -49,6 +49,7 @@ bool doLogTreeReads           = true; // Log when a tree is read in from a file 
 bool doLogTreeSimOverview     = true; // Log high level actions in simulating tree growth.
 bool doLogTreeSimDetails      = true; // Log all the gory details of simulated tree growth.
 bool doLogGrowthModel         = true; // Log details of the growth model.
+bool doLogTreeMatchRay        = true; // Log matching a ray to a tree
 bool doLogTreeVisualization   = true; // Log trees being rendered.
 bool doLogTreeVisDetails      = true; // Log every twig being rendered.
 bool doLogBarkDisplay         = true; // Log bark color and texture details.
