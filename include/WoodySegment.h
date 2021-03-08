@@ -34,6 +34,9 @@ class WoodySegment: public TreePart
   int         printOPSF(char*& buf, unsigned bufSize);
   const char* objectName(void);
   bool        diagnosticHTML(HttpDebug* serv);
+#ifdef LOG_TREE_VALIDATION
+  void        selfValidate(unsigned l);
+#endif
 
  private:
   float                   heartRadius;    // expressed in mm

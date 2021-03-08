@@ -23,13 +23,16 @@ class TreePart
   // Member functions - public
   TreePart(unsigned short treeIndex);
   virtual ~TreePart(void);
-  virtual bool bufferGeometry(TriangleBuffer* T, float altitude);
-  virtual void triangleBufferSizesRecurse(unsigned& vCount, unsigned& iCount);
-  virtual void growStep(float years);
-  virtual bool updateBoundingBox(BoundingBox* box, float altitude);
-
+  virtual bool        bufferGeometry(TriangleBuffer* T, float altitude);
+  virtual void        triangleBufferSizesRecurse(unsigned& vCount, unsigned& iCount);
+  virtual void        growStep(float years);
+  virtual bool        updateBoundingBox(BoundingBox* box, float altitude);
   virtual const char* objectName(void);
-  virtual bool diagnosticHTML(HttpDebug* serv);
+  virtual bool        diagnosticHTML(HttpDebug* serv);
+  inline  unsigned short getTreeIndex(void){return ourTreeIndex;}
+#ifdef LOG_TREE_VALIDATION
+  virtual void        selfValidate(unsigned l);
+#endif
 
  protected:
   

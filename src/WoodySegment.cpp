@@ -63,6 +63,27 @@ bool WoodySegment::updateBoundingBox(BoundingBox* box, float altitude)
 
 
 // =======================================================================================
+// Function to validate the tree.
+
+#ifdef LOG_TREE_VALIDATION
+
+void WoodySegment::selfValidate(unsigned l)
+{
+  assert(cylinder);
+  
+  int N = kids.size();
+  for(int i=0; i< N; i++)
+   {
+    assert(kids[i]);
+    assert(kids[i]->getTreeIndex() == ourTreeIndex);
+    kids[i]->selfValidate(l+1);
+   }
+}
+
+#endif
+
+
+// =======================================================================================
 // Buffer the vertices/indices for this part.
 
 bool WoodySegment::bufferGeometry(TriangleBuffer* T, float altitude)

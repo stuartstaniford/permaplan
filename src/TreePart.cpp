@@ -45,6 +45,19 @@ void TreePart::triangleBufferSizesRecurse(unsigned& vCount, unsigned& iCount)
 
 
 // =======================================================================================
+// Function to validate this kind of object.  Subclasses must implement.
+
+#ifdef LOG_TREE_VALIDATION
+
+void TreePart::selfValidate(unsigned l)
+{
+  err(-1, "Bad call to TreePart::selfValidate");
+}
+
+#endif
+
+
+// =======================================================================================
 // Function that is applied to grow the tree by a certain number of years (possibly
 // fractional).
 

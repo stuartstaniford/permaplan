@@ -240,6 +240,7 @@ void Tree::selfValidate(unsigned l)
   if(trunk)
    {
     assert(trunk->ourTreeIndex == treePtrArrayIndex);
+    trunk->selfValidate(0u);
    }
   else
     assert(ageNow <= 0.0f);
