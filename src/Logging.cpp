@@ -20,6 +20,7 @@ bool doLogFrameStarts         = true; // Log each frame as it begins
 bool doLogCloseDown           = true; // Log when we exit
 bool doLogStructureSizes      = true; // Log the size of structures on this platform at startup.
 bool doLogOpenGLConstants     = true; // Log various openGL parameters
+bool doLogTreeValidation      = true; // Validate data structures after every frame
 
 // Logging options to do with parsing and validating OLDF and OTDL files
 bool doLogOLDFValidity        = true; // Log validity problems in the file

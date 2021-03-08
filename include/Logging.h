@@ -12,6 +12,7 @@
 #define LOG_CLOSE_DOWN        // Log when we exit.
 #define LOG_STRUCTURE_SIZES   // Log the size of structures on this platform at startup.
 #define LOG_OPENGL_CONSTANTS  // Log various openGL parameters
+#define LOG_TREE_VALIDATION   // Validate data structures after every frame
 
 
 // =======================================================================================
@@ -73,11 +74,12 @@
 // Logging options to do with quadtree operations
 
 //#define LOG_QUADTREE_CREATION   // Log the initial setup of the quadtree.
-//#define LOG_QUADTREE_INSERTIONS // Log the process of a new object being put in the quadtree.
+//#define LOG_QUADTREE_INSERTIONS // Log a new object being put in the quadtree.
 //#define LOG_QUADTREE_BOUND_BOX  // Log changes to the quadtree bounding boxes.
 //#define LOG_QUADTREE_MATCH_RAY  // Log the process of matching a ray in the quadtree.
 //#define LOG_DISPLAYLIST_BUFFER  // Log the process of objects being buffered for display.
 //#define LOG_QUADTREE_OBJ_SIZES  // Log the process of estimating/changing object sizes
+
 
 // =======================================================================================
 // Logging options to do with other infrastructure
@@ -120,6 +122,7 @@ extern bool doLogFrameStarts;     // Log each frame as it begins
 extern bool doLogCloseDown;       // Log when we exit
 extern bool doLogStructureSizes;  // Log the size of structures on this platform at startup.
 extern bool doLogOpenGLConstants; // Log various openGL parameters
+extern bool doLogTreeValidation;  // Validate data structures after every frame
 
 // Logging options to do with parsing and validating OLDF and OTDL files
 extern bool doLogOLDFValidity;    // Log validity problems in the file
@@ -214,6 +217,12 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
 #define LogOpenGLConstants(...)
 #endif
 
+// Validate data structures after every frame
+#ifdef LOG_TREE_VALIDATION
+#define LogTreeValidation(...) if(doLogTreeValidation) LogStatement(__VA_ARGS__)
+#else
+#define LogTreeValidation(...)
+#endif
 
 // =======================================================================================
 // Logging options to do with parsing and validating OLDF and OTDL files

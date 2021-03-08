@@ -307,6 +307,10 @@ void Scene::draw(bool mouseMoved, float timeElapsed)
     rebuildVisualObjectBuffer(&sceneObjectTbuf);
    }
   
+#ifdef LOG_TREE_VALIDATION
+  //qtree->selfValidate();
+#endif
+  
   // Draw all the objects stored in the quadtree
   if(sceneObjectTbuf)
     //sceneObjectTbuf->draw(Lighted, NULL);
