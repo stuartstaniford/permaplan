@@ -183,6 +183,7 @@ void Quadtree::storeVisualObject(VisualObject* obj)
   LogQuadtreeInsertions("Final storage of %s object at %.1f, %.1f, level %u.\n",
                           obj->objectName(), x, y, level);
   vObjects.push_back(obj);
+  obj->qTreeNode = this;
 }
 
 

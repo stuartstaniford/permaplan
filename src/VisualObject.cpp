@@ -12,6 +12,7 @@
 VisualObject::VisualObject(bool absHeights, BoundingBox* B):
                                 box(B),
                                 altitude(0.0f),
+                                qTreeNode(NULL),
                                 useNoTexColor(false),
                                 absoluteHeights(absHeights)
 {

@@ -9,14 +9,15 @@
 #include "BoundingBox.h"
 #include "TriangleBuffer.h"
 
-
 // =======================================================================================
 // Class variable initialization
 
 class LandSurfaceRegion;
+class Quadtree;
 
 class VisualObject
 {
+  friend Quadtree;
  public:
   
   // Instance variables - public
@@ -43,6 +44,7 @@ class VisualObject
   // Instance variables - protected
   vec3          noTexColor;
   float         altitude;
+  Quadtree*     qTreeNode;
   bool          useNoTexColor;
   bool          absoluteHeights;  // if true, heights are absolute.  Otherwise, they
                                   // are relative to local ground level.
