@@ -308,7 +308,7 @@ void Scene::draw(bool mouseMoved, float timeElapsed)
    }
   
 #ifdef LOG_TREE_VALIDATION
-  //qtree->selfValidate();
+  qtree->selfValidate(0u);
 #endif
   
   // Draw all the objects stored in the quadtree

@@ -192,6 +192,35 @@ void Quadtree::storeVisualObject(VisualObject* obj)
 
 
 // =======================================================================================
+// Go through the quadtree and everything in it and double check that everything is
+// self consistent.  Called per frame if compiled in.  Should not be turned on in
+// production releases
+
+#ifdef LOG_TREE_VALIDATION
+
+void Quadtree::selfValidate(unsigned l)
+{
+  if(l==0) // special cases at the root
+   {
+    assert(level == 0);
+    assert(parent == NULL);
+   }
+  else
+    assert(level == l);
+  
+  int kidCount = 0;
+  forAllKids(i)
+   {
+    assert(kids[i]->parent == this);
+    kids[i]->selfValidate(l+1);
+    kidCount++;
+   }
+  assert(kidCount == 0 || kidCount == 2 || kidCount == 4);
+}
+
+#endif
+
+// =======================================================================================
 // When a visual object has changed it's dimensions (eg a tree grew bigger, or a box
 // rotated and increased the size of it's bounding box) it calls this function to notify
 // us.  We decide if the object still fits in us, or needs to be transferred up to our

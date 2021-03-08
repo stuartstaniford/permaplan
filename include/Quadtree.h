@@ -55,6 +55,10 @@ class Quadtree
   VisualObject* matchRay(vec3& position, vec3& direction, float& lambda);
   void saveSurfaceState(char* fileName);
   bool diagnosticHTML(HttpDebug* serv, char* path);
+#ifdef LOG_TREE_VALIDATION
+  void selfValidate(unsigned l);
+#endif
+
 
  private:
   
