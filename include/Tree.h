@@ -56,6 +56,9 @@ class Tree: public VisualObject
   const char* objectName(void);
   bool        diagnosticHTMLRow(HttpDebug* serv);
   bool        diagnosticHTML(HttpDebug* serv);
+#ifdef LOG_TREE_VALIDATION
+  void        selfValidate(unsigned l);
+#endif
 
  public:
   // static functions and variables

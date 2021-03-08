@@ -12,9 +12,12 @@
 // =======================================================================================
 // Class variable initialization
 
+class Tree;
 
 class TreePart
 {
+  friend Tree;
+  
  public:
   
   // Member functions - public
