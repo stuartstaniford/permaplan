@@ -222,21 +222,13 @@ void Tree::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 
 
 // =======================================================================================
-// Stub definition
-
-void Tree::draw(void)
-{
-  return;
-}
-
-
-// =======================================================================================
 // Function to validate the tree.
 
 #ifdef LOG_TREE_VALIDATION
 
 void Tree::selfValidate(unsigned l)
 {
+  assert(species);
   if(trunk)
    {
     assert(trunk->ourTreeIndex == treePtrArrayIndex);

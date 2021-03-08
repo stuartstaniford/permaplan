@@ -241,7 +241,10 @@ void Quadtree::selfValidate(unsigned l)
 
 void Quadtree::notifyObjectBoxChange(VisualObject* obj)
 {
-  LogQuadtreeBoundBox("notifyObjectBoxChange called.");
+  LogQuadtreeBoundBox("notifyObjectBoxChange needs to do something.");
+  if(bbox.xyContains(*(obj->box)))
+    return; // nothing to do here
+  
 }
 
 
@@ -467,18 +470,36 @@ VisualObject* Quadtree::matchRay(vec3& position, vec3& direction, float& lambda)
         bestLambda    = objLambda;
         returnObject  = vObjects[i];
        }
-
+  
+#ifdef LOG_QUADTREE_MATCH_RAY
+  if(returnObject)
+    LogQuadtreeMatchRay("Quadtree matchRay: best object at level %d has lambda %.2f and "
+                        "type %s\n", level, bestLambda, returnObject->objectName());
+#endif
+  
+  if(VisualObject* bestKidObject = matchChild(position, direction, objLambda))
+   {
+    if(objLambda < bestLambda)
+     {
+      bestLambda    = objLambda;
+      returnObject  = bestKidObject;
+      LogQuadtreeMatchRay("Quadtree matchRay: best object at level %d superseded: "
+                          "lambda %.2f and type %s\n", level, bestLambda,
+                          returnObject->objectName());
+     }
+   }
+  
   if(returnObject)
    {
     lambda = bestLambda;
     return returnObject;
    }
-  
-  if( (returnObject = matchChild(position, direction, lambda)) )
-    return returnObject;
-  
+    
   if(surface && surface->matchRay(position, direction, lambda))
+   {
+    LogQuadtreeMatchRay("Quadtree matchRay: returning surface at level %d", level);
     return surface;
+   }
   
   return NULL;
 }
