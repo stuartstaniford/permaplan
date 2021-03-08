@@ -200,6 +200,7 @@ void Quadtree::storeVisualObject(VisualObject* obj)
 
 void Quadtree::selfValidate(unsigned l)
 {
+  // Checks at our own level
   if(l==0) // special cases at the root
    {
     assert(level == 0);
@@ -208,6 +209,14 @@ void Quadtree::selfValidate(unsigned l)
   else
     assert(level == l);
   
+  // Check our VisualObjects
+  int N = vObjects.size();
+  for(int i=0; i<N; i++)
+   {
+    assert(vObjects[i]->qTreeNode == this);
+   }
+  
+  // Recursively check our kids
   int kidCount = 0;
   forAllKids(i)
    {
