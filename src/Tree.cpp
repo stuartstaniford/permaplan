@@ -240,8 +240,11 @@ void Tree::updateBoundingBox(void)
   if(!box)
     box = new BoundingBox(location[0], location[1], altitude,
                           location[0], location[1], altitude);
-  if(trunk)
-    trunk->updateBoundingBox(box, altitude);
+ 
+  if(trunk && trunk->updateBoundingBox(box, altitude))
+    if(qTreeNode)
+      qTreeNode->notifyObjectBoxChange(this);
+
 }
 
 

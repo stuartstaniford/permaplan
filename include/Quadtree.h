@@ -46,6 +46,7 @@ class Quadtree
   void bufferVisualObjects(TriangleBuffer* tbuf);
   void bufferLandSurface(TriangleBuffer* tbuf);
   void storeVisualObject(VisualObject* obj);
+  void notifyObjectBoxChange(VisualObject* obj);
   void recomputeBoundingBox(void);
   void rebuildTBufSizes(void);
   void redoLandPlanar(vec3 plane);

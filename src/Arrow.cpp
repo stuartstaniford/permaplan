@@ -182,6 +182,9 @@ void Arrow::updateBoundingBox(void)
                       location[2], location[0] + heightMarkerSize,
                       location[1] + heightMarkerSize, location[2] + 2.0f*heightMarkerHeight);
     }
+
+ if(boxChanged && qTreeNode)
+   qTreeNode->notifyObjectBoxChange(this)
  */
  return;
 }

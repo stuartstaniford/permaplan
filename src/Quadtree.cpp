@@ -192,6 +192,21 @@ void Quadtree::storeVisualObject(VisualObject* obj)
 
 
 // =======================================================================================
+// When a visual object has changed it's dimensions (eg a tree grew bigger, or a box
+// rotated and increased the size of it's bounding box) it calls this function to notify
+// us.  We decide if the object still fits in us, or needs to be transferred up to our
+// parent.
+
+// XX don't currently handle the case of an object that shrinks and should be passed down
+// to a child (which is mainly an efficiency issue).
+
+void Quadtree::notifyObjectBoxChange(VisualObject* obj)
+{
+  LogQuadtreeBoundBox("notifyObjectBoxChange called.");
+}
+
+
+// =======================================================================================
 // Put all of the quadtree visual objects into a buffer in depth first order.
 
 void Quadtree::bufferVisualObjects(TriangleBuffer* tbuf)

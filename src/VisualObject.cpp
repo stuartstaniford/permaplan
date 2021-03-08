@@ -5,6 +5,7 @@
 
 #include "VisualObject.h"
 #include "LandSurfaceRegion.h"
+#include "Quadtree.h"
 
 // =======================================================================================
 // Constructors
@@ -149,10 +150,17 @@ bool VisualObject::matchRay(vec3& position, vec3& direction, float& lambda)
 // be more efficient methods possible for specific subclasses.  This will only work
 // if the subclass has implemented getNextUniqueVertex.
 
+// Note that subclass version of this must also take on the responsibility of notifying
+// our qTreeNode if we've changed our extent.
+
 void VisualObject::updateBoundingBox(void)
 {
+  bool boxChanged = false;
   if(!box)
+   {
     box = new BoundingBox();
+    boxChanged = true;
+   }
   else
     box->hugeValify();
     
@@ -164,12 +172,20 @@ void VisualObject::updateBoundingBox(void)
     for(int m=0; m<3; m++)
      {
       if(v3.pos[m] < box->lower[m])
+       {
         box->lower[m] = v3.pos[m];
+        boxChanged = true;
+       }
       if(v3.pos[m] > box->upper[m])
+       {
         box->upper[m] = v3.pos[m];
+        boxChanged = true;
+       }
      }
    }
 
+  if(boxChanged && qTreeNode)
+    qTreeNode->notifyObjectBoxChange(this);
   return;
 }
 
