@@ -38,6 +38,9 @@ class VisualObject
   virtual void        triangleBufferSizes(unsigned& vCount, unsigned& iCount);
   virtual const char* objectName(void);
   virtual bool        diagnosticHTML(HttpDebug* serv);
+#ifdef LOG_TREE_VALIDATION
+  virtual void        selfValidate(unsigned l);
+#endif
 
  protected:
   

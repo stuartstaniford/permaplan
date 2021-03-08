@@ -29,6 +29,19 @@ VisualObject::~VisualObject(void)
     delete box;
 }
 
+// =======================================================================================
+// Function to validate this kind of object.  Right now, the VisualObject version just
+// returns happily to cover for subclasses that haven't implemented this yet.
+// XX We should make it so this err()s, and the subclasses have to to their own.
+
+#ifdef LOG_TREE_VALIDATION
+
+void VisualObject::selfValidate(unsigned l)
+{
+  return;
+}
+
+#endif
 
 // =======================================================================================
 // Function to set our altitude based on the land height where we are.

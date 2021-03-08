@@ -214,6 +214,7 @@ void Quadtree::selfValidate(unsigned l)
   for(int i=0; i<N; i++)
    {
     assert(vObjects[i]->qTreeNode == this);
+    vObjects[i]->selfValidate(0u);
    }
   
   // Recursively check our kids
