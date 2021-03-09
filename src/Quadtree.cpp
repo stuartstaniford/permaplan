@@ -205,10 +205,33 @@ void Quadtree::storeVisualObject(VisualObject* obj)
 
 void Quadtree::notifyObjectBoxChange(VisualObject* obj)
 {
-  LogQuadtreeBoundBox("notifyObjectBoxChange needs to do something.");
+  LogQuadtreeBoundBox("notifyObjectBoxChange at level %d needs to do something.", level);
+
+  if(!parent)
+    return; // we are the root so we are stuck with this thing, regardless
+
   if(bbox.xyContains(*(obj->box)))
     return; // nothing to do here
-  
+    
+  vObjects.erase(obj);
+  parent->newObjectFromChild(obj);
+}
+
+
+// =======================================================================================
+// A child is ejecting an object that has grown too big for it and wants us to handle it.
+
+void Quadtree::newObjectFromChild(VisualObject* obj)
+{
+  LogQuadtreeBoundBox("newObjectFromChild at level %d needs to do something.", level);
+
+  if(!parent || bbox.xyContains(*(obj->box)))
+   {
+    vObjects.emplace(obj);
+    obj->qTreeNode = this;
+   }
+  else
+    parent->newObjectFromChild(obj);
 }
 
 

@@ -38,7 +38,6 @@ DisplayList::DisplayList(std::vector<float*> locations): std::unordered_set<Visu
 
 DisplayList::~DisplayList(void)
 {
-  //for(auto iter = begin(); iter != end(); ++iter)
   for(VisualObject* V: *this)
     delete V;
 }
