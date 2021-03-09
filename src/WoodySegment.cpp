@@ -84,6 +84,23 @@ void WoodySegment::selfValidate(unsigned l)
 
 
 // =======================================================================================
+// Match a ray.  Subclassses need to implement this so we can tell whether the mouse
+// is over the tree or not.
+
+bool WoodySegment::matchRay(vec3& position, vec3& direction)
+{
+  float L;
+  if(cylinder->matchRay(position, direction, L))
+    return true;
+  int N = kids.size();
+  for(int i=0; i<N; i++)
+    if(kids[i]->matchRay(position, direction))
+      return true;
+  return false;
+}
+
+
+// =======================================================================================
 // Buffer the vertices/indices for this part.
 
 bool WoodySegment::bufferGeometry(TriangleBuffer* T, float altitude)

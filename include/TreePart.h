@@ -29,6 +29,7 @@ class TreePart
   virtual bool        updateBoundingBox(BoundingBox* box, float altitude);
   virtual const char* objectName(void);
   virtual bool        diagnosticHTML(HttpDebug* serv);
+  virtual bool        matchRay(vec3& position, vec3& direction);
   inline  unsigned short getTreeIndex(void){return ourTreeIndex;}
 #ifdef LOG_TREE_VALIDATION
   virtual void        selfValidate(unsigned l);

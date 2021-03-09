@@ -32,6 +32,7 @@ class WoodySegment: public TreePart
   unsigned    expectedKids(float len);
   void        growStep(float years);
   int         printOPSF(char*& buf, unsigned bufSize);
+  bool        matchRay(vec3& position, vec3& direction);
   const char* objectName(void);
   bool        diagnosticHTML(HttpDebug* serv);
 #ifdef LOG_TREE_VALIDATION

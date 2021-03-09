@@ -271,11 +271,11 @@ bool Tree::matchRay(vec3& position, vec3& direction, float& lambda)
     return false;
   LogTreeMatchRay("Tree %d ray matches box.\n", treePtrArrayIndex);
 
-  // So it touches our bounding box, have to test the faces.
+  // So it touches our bounding box, have to test all the branches.
+  if(trunk->matchRay(position, direction))
+    return true;  // XX note lambda based on bounding box not actual branch hit
   
-  //XXX NOT DONE
-  
-  return true;
+  return false;
 }
 
  

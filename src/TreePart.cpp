@@ -45,6 +45,17 @@ void TreePart::triangleBufferSizesRecurse(unsigned& vCount, unsigned& iCount)
 
 
 // =======================================================================================
+// Match a ray.  Subclassses need to implement this so we can tell whether the mouse
+// is over the tree or not.
+
+bool TreePart::matchRay(vec3& position, vec3& direction)
+{
+  err(-1, "Bad call to TreePart::matchRay");
+  return false;
+}
+
+
+// =======================================================================================
 // Function to validate this kind of object.  Subclasses must implement.
 
 #ifdef LOG_TREE_VALIDATION
