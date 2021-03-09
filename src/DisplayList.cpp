@@ -12,13 +12,13 @@
 // =======================================================================================
 // Constructors
 
-DisplayList::DisplayList(void): std::vector<VisualObject*>()
+DisplayList::DisplayList(void): std::unordered_set<VisualObject*>()
 {
 }
 
 //NB!!! Two constructors!
 
-DisplayList::DisplayList(std::vector<float*> locations): std::vector<VisualObject*>()
+DisplayList::DisplayList(std::vector<float*> locations): std::unordered_set<VisualObject*>()
 {
   //XX Right now this just creates display lists of HeightMarkers, but it should be
   // templated so we can create display lists of anything.
@@ -26,9 +26,8 @@ DisplayList::DisplayList(std::vector<float*> locations): std::vector<VisualObjec
   for(i=0; i<N; i++)
    {
     HeightMarker* H = new HeightMarker(locations[i]);
-    push_back(H);
+    emplace(H);
    }
-
 }
 
 // Note remaining methods do not have any specificity to HeightMarker and should work
@@ -39,9 +38,9 @@ DisplayList::DisplayList(std::vector<float*> locations): std::vector<VisualObjec
 
 DisplayList::~DisplayList(void)
 {
-  int i, N = size();
-  for(i=0; i<N; i++)
-    delete at(i);
+  //for(auto iter = begin(); iter != end(); ++iter)
+  for(VisualObject* V: *this)
+    delete V;
 }
 
 
@@ -50,19 +49,18 @@ DisplayList::~DisplayList(void)
 
 void DisplayList::bufferGeometry(TriangleBuffer* T)
 {
-  int i, N = size();
-  for(i=0; i<N; i++)
+  for(VisualObject* V: *this)
    {
-    at(i)->bufferGeometry(T);
+    V->bufferGeometry(T);
 
 #ifdef LOG_DISPLAYLIST_BUFFER
-    if(strcmp(at(i)->objectName(), (char*)"Arrow") == 0) //XX no arrow bounding box yet.
+    if(strcmp(V->objectName(), (char*)"Arrow") == 0) //XX no arrow bounding box yet.
       continue;
     float centroid[3];
     for(int m=0; m<3; m++)
-      centroid[m] = (at(i)->box->lower[m] + at(i)->box->upper[m])/2.0f;
+      centroid[m] = (V->box->lower[m] + V->box->upper[m])/2.0f;
     LogDisplayListBuffer("Buffering %s object at %.1f, %.1f, %.1f.\n",
-                         at(i)->objectName(), centroid[0], centroid[1], centroid[2]);
+                         V->objectName(), centroid[0], centroid[1], centroid[2]);
 #endif
    }
 }
@@ -74,9 +72,8 @@ void DisplayList::bufferGeometry(TriangleBuffer* T)
 
 void DisplayList::adjustAltitudes(LandSurfaceRegion* surface)
 {
-  int i, N = size();
-  for(i=0; i<N; i++)
-    at(i)->setAltitude(surface);
+  for(VisualObject* V: *this)
+    V->setAltitude(surface);
 }
 
 
@@ -88,10 +85,9 @@ void DisplayList::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
   vCount = 0u;
   iCount = 0u;
   unsigned vObjectSize, iObjectSize;
-  int i, N = size();
-  for(i=0; i<N; i++)
+  for(VisualObject* V: *this)
    {
-    at(i)->triangleBufferSizes(vObjectSize, iObjectSize);
+    V->triangleBufferSizes(vObjectSize, iObjectSize);
     vCount += vObjectSize;
     iCount += iObjectSize;
    }
@@ -103,9 +99,8 @@ void DisplayList::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 
 bool DisplayList::diagnosticHTML(HttpDebug* serv)
 {
-  int i, N = size();
-  for(i=0; i<N; i++)
-    at(i)->diagnosticHTML(serv);
+  for(VisualObject* V: *this)
+    V->diagnosticHTML(serv);
 
   return false;
 }

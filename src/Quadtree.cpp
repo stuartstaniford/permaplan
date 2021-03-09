@@ -186,8 +186,29 @@ void Quadtree::storeVisualObject(VisualObject* obj)
      }
   LogQuadtreeInsertions("Final storage of %s object at %.1f, %.1f, level %u.\n",
                           obj->objectName(), x, y, level);
-  vObjects.push_back(obj);
+  vObjects.emplace(obj);
   obj->qTreeNode = this;
+}
+
+
+// =======================================================================================
+// When a visual object has changed it's dimensions (eg a tree grew bigger, or a box
+// rotated and increased the size of it's bounding box) it calls this function to notify
+// us.  We decide if the object still fits in us, or needs to be transferred up to our
+// parent.
+
+// XX don't currently handle the case of an object that shrinks and should be passed down
+// to a child (which is mainly an efficiency issue).
+
+// Note that after this is called, there must be a call to rebuildTBufSizes, as we don't
+// keep track of the effects of our changes on vertexTBufSize and indexTBufSize
+
+void Quadtree::notifyObjectBoxChange(VisualObject* obj)
+{
+  LogQuadtreeBoundBox("notifyObjectBoxChange needs to do something.");
+  if(bbox.xyContains(*(obj->box)))
+    return; // nothing to do here
+  
 }
 
 
@@ -210,11 +231,10 @@ void Quadtree::selfValidate(unsigned l)
     assert(level == l);
   
   // Check our VisualObjects
-  int N = vObjects.size();
-  for(int i=0; i<N; i++)
+  for(VisualObject* v: vObjects)
    {
-    assert(vObjects[i]->qTreeNode == this);
-    vObjects[i]->selfValidate(0u);
+    assert(v->qTreeNode == this);
+    v->selfValidate(0u);
    }
   
   // Recursively check our kids
@@ -227,25 +247,7 @@ void Quadtree::selfValidate(unsigned l)
    }
   assert(kidCount == 0 || kidCount == 2 || kidCount == 4);
 }
-
 #endif
-
-// =======================================================================================
-// When a visual object has changed it's dimensions (eg a tree grew bigger, or a box
-// rotated and increased the size of it's bounding box) it calls this function to notify
-// us.  We decide if the object still fits in us, or needs to be transferred up to our
-// parent.
-
-// XX don't currently handle the case of an object that shrinks and should be passed down
-// to a child (which is mainly an efficiency issue).
-
-void Quadtree::notifyObjectBoxChange(VisualObject* obj)
-{
-  LogQuadtreeBoundBox("notifyObjectBoxChange needs to do something.");
-  if(bbox.xyContains(*(obj->box)))
-    return; // nothing to do here
-  
-}
 
 
 // =======================================================================================
@@ -461,14 +463,13 @@ VisualObject* Quadtree::matchRay(vec3& position, vec3& direction, float& lambda)
   unless(bbox.matchRay(position, direction, lambda))
     return NULL;
   
-  int           i, N = vObjects.size();
   float         objLambda, bestLambda = HUGE_VALF;
-  for(i=0; i<N; i++)
-    if(vObjects[i]->matchRay(position, direction, objLambda))
+  for(VisualObject* v: vObjects)
+    if(v->matchRay(position, direction, objLambda))
       if(objLambda < bestLambda)
        {
         bestLambda    = objLambda;
-        returnObject  = vObjects[i];
+        returnObject  = v;
        }
   
 #ifdef LOG_QUADTREE_MATCH_RAY

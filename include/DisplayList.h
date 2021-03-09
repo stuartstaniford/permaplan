@@ -7,7 +7,7 @@
 #ifndef DISPLAY_LIST_H
 #define DISPLAY_LIST_H
 
-#include <vector>
+#include <unordered_set>
 #include "VisualObject.h"
 #include "LandSurfaceRegion.h"
 
@@ -18,7 +18,7 @@
 // list in a constructor, but it should be templated so we can create display lists
 // of anything as the default in that scenario.
 
-class DisplayList: public std::vector<VisualObject*>
+class DisplayList: public std::unordered_set<VisualObject*>
 {
  public:
   

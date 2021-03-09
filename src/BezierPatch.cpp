@@ -198,7 +198,7 @@ DisplayList* BezierPatch::newUVLocationList(void)
     surfacePoint(fitPointUVVals[k][0], fitPointUVVals[k][1], location);
     H = new HeightMarker(location);
     H->setNoTexColor(orangeColor);
-    D->push_back(H);
+    D->emplace(H);
    }
     
   return D;
@@ -219,7 +219,7 @@ void BezierPatch::addControlPointsToDisplayList(DisplayList* D)
      {
       H = new HeightMarker(controlPoints[i][j]);
       H->setNoTexColor(darkRedColor);
-      D->push_back(H);
+      D->emplace(H);
      }
 }
 
@@ -241,7 +241,7 @@ void BezierPatch::addControlGradientsToDisplayList(DisplayList* D)
     glm_vec3_negate(direction);
     A = new Arrow(controlPoints[i][j], direction);
     A->setNoTexColor(lighterRedColor);
-    D->push_back(A);
+    D->emplace(A);
    }
 }
 
