@@ -91,7 +91,14 @@ bool WoodySegment::matchRay(vec3& position, vec3& direction)
 {
   float L;
   if(cylinder->matchRay(position, direction, L))
+   {
+    LogTreeMatchRay("Tree %d ray matches WoodySegment (level %d) at "
+                    "[%.1f, %.1f, %.1f] dir [%.1f, %.1f, %.1f].\n", ourTreeIndex, level,
+                    cylinder->location[0], cylinder->location[1],
+                    cylinder->location[2], cylinder->axisDirection[0],
+                    cylinder->axisDirection[1], cylinder->axisDirection[2]);
     return true;
+   }
   int N = kids.size();
   for(int i=0; i<N; i++)
     if(kids[i]->matchRay(position, direction))
