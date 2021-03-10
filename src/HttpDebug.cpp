@@ -72,6 +72,20 @@ HttpDebug::~HttpDebug(void)
 }
 
 
+// ======================================================================================
+// For when the response buf is not big enough
+
+bool HttpDebug::reallocateResponseBuf(void)
+{
+  respBufSize *= 2;
+  if(respBufSize > 16*1024*1024)
+    return false;
+  delete[] respBuf;
+  respBuf = new char[respBufSize];
+  return true;
+}
+
+
 // =======================================================================================
 // Loop sitting on the socket accepting connections, process requests and reply to them.
 // Arguments and return type are set up to be used in pthread_create
@@ -171,6 +185,12 @@ bool HttpDebug::processRequestHeader(void)
    }
   char* url = reqBuf + 4;
   char* lastToken = index(url, ' ');
+  if(!lastToken)
+   {
+    errorPage("Bad header format");
+    LogRequestErrors("No HTTP version in request.\n");
+    return false;
+   }
   *(lastToken++) = '\0';
   if(lastToken - reqBuf + 256 > reqBufSize)
    {
@@ -275,18 +295,21 @@ void HttpDebug::processOneHTTP1_1()
     resetResponse();
 
     unsigned headerLen;
-    if(processRequestHeader())
+    bool returnOK;
+    while(!(returnOK = processRequestHeader()))
+      unless(reallocateResponseBuf())
+        break;
+    if(returnOK)
       headerLen = generateHeader(respPtr-respBuf, 200, "OK");
     else
-     {
-      headerLen = generateHeader(respPtr-respBuf, 404, "NOT FOUND");
-     }
+      headerLen = generateHeader(0u, 500, "ERROR");
     
     // respond to client
     unless(writeLoop(connfd, headBuf, headerLen))
       break;
-    unless(writeLoop(connfd, respBuf, respPtr-respBuf))
-      break;
+    if(returnOK)
+      unless(writeLoop(connfd, respBuf, respPtr-respBuf))
+        break;
   }
 }
 

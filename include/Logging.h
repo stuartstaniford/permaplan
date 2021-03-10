@@ -65,8 +65,8 @@
 // =======================================================================================
 // Logging options for the HTTP debug interface
 
-//#define LOG_REQUEST_ERRORS      // Log validity problems in the HTTP request
-//#define LOG_RESPONSE_ERRORS     // Log problems encountered building the response
+#define LOG_REQUEST_ERRORS      // Log validity problems in the HTTP request
+#define LOG_RESPONSE_ERRORS     // Log problems encountered building the response
 //#define LOG_HTTP_DETAILS        // Log normal details of HTTP operations
 
 

@@ -413,7 +413,8 @@ bool Tree::diagnosticHTML(HttpDebug* serv)
   httPrintf("</table></center><hr>\n");
 
   // Page closing
-  serv->endResponsePage();
+  unless(serv->endResponsePage())
+    return false;
   return true;
 }
 

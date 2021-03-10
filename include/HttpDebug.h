@@ -75,6 +75,7 @@ private:
   void        processOneHTTP1_1(void);
   unsigned    generateHeader(unsigned bodySize, unsigned code, const char* msg);
   bool        processRequestHeader(void);
+  bool        reallocateResponseBuf(void);
   bool        indexPage(void);
   HttpDebug(const HttpDebug&);                 // Prevent copy-construction
   HttpDebug& operator=(const HttpDebug&);      // Prevent assignment
