@@ -393,7 +393,7 @@ bool Tree::diagnosticHTML(HttpDebug* serv)
   char title[32+MAX_SPECIES_PATH];
   snprintf(title, 32+MAX_SPECIES_PATH, "Detail Page for Tree %d: %s %s",
                               treePtrArrayIndex, species->genusName, species->speciesName);
-  serv->startResponsePage(title);
+  serv->startResponsePage(title, 4);
   
   // Summary Data about the tree
   httPrintf("<h2>Summary Data</h2>");

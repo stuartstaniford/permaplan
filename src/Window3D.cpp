@@ -150,6 +150,7 @@ void Window3D::loop(HttpDebug& httpServer)
         frameTimeAvg = 0.001f*(frameDouble - lastFrameDouble) + 0.999f*frameTimeAvg;
      }
     
+    getMainLock();
     // OpenGL calls to clear buffer
     glClearColor(0.6f, 0.7f, 0.7f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

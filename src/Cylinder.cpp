@@ -233,6 +233,10 @@ bool Cylinder::matchRay(vec3& position, vec3& direction, float& lambda)
   glm_vec3_crossn(direction, axisDirection, joinLine);
   glm_vec3_sub(position, location, originDiff);
   float dist = fabs(glm_vec3_dot(joinLine, originDiff));
+#ifdef LOG_TREE_MATCH_RAY
+  lastRayMatch = dist;
+#endif
+
   if(dist <= radius)
    {
     lambda = NAN;  //XX haven't calculated this

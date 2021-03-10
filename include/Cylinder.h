@@ -20,6 +20,9 @@ class Cylinder
   unsigned  sides;
   vec3      f1;    // f1 and f2 are cross-vectors to axisDirection
   vec3      f2;
+#ifdef LOG_TREE_MATCH_RAY
+  float     lastRayMatch;
+#endif
 
   // Member functions - public
   Cylinder(vec3 root, vec3 dir, float R, unsigned sides);

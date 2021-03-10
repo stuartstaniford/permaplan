@@ -299,11 +299,13 @@ unsigned HttpDebug::generateHeader(unsigned bodySize, unsigned code, const char*
 // =======================================================================================
 // Generate an HTML page opening into the response buffer.
 
-bool HttpDebug::startResponsePage(const char* title)
+bool HttpDebug::startResponsePage(const char* title, unsigned refresh)
 {
   internalPrintf("<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n");
   internalPrintf("<title>%s</title>\n", title);
   internalPrintf("<link rel=\"stylesheet\" href=\"css/styles.css\">\n");
+  if(refresh > 0)
+    internalPrintf("<meta http-equiv=\"refresh\" content=\"%u\">\n", refresh);
   internalPrintf("</head>\n<body>\n");
   internalPrintf("<center><h1>%s</h1></center>\n", title);
   return true;

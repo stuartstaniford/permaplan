@@ -329,10 +329,13 @@ bool WoodySegment::diagnosticHTML(HttpDebug* serv)
   httPrintf("<td>");
   httPrintf("<b>Level:</b> %u; ", level);
   httPrintf("<b>Radius:</b> %.4f%c; ", cylinder->radius, spaceUnitAbbr);
+#ifdef LOG_TREE_MATCH_RAY
+  httPrintf("<b>Ray dist:</b> %.1f%c; ", cylinder->lastRayMatch, spaceUnitAbbr);
+#endif
   char buf[32];
   RGBArrayFromColor(barkColor, buf);
   httPrintf("<b>Color:</b> %s", buf);
-  httPrintf("</td></tr>");
+  httPrintf("</td></tr>\n");
 
   // Recurse into our branches, leaves, etc
   int N = kids.size();

@@ -42,7 +42,7 @@ public:
   HttpDebug(unsigned short servPort, Scene& S);
   ~HttpDebug(void);
   void*       processConnections(void);
-  bool        startResponsePage(const char* title);
+  bool        startResponsePage(const char* title, unsigned refresh = 0u);
   bool        endResponsePage(void);
   bool        errorPage(const char* error);
   inline bool startTable(void)
