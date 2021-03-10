@@ -482,7 +482,8 @@ bool Tree::allTreeDiagnosticHTML(HttpDebug* serv)
     treePtrArray[i]->diagnosticHTMLRow(serv);
   
   httPrintf("</table></center><hr>\n");
-  serv->endResponsePage();
+  if(!serv->endResponsePage())
+    return false;
   return true;
 }
 
@@ -499,11 +500,15 @@ bool Tree::treePageGateway(HttpDebug* serv, char* path)
   // if only digits after plants/ return that tree if valid
   for(char* check = path; *check; check++)
     if(!isdigit(*check))
+     {
+      LogRequestErrors("Bad HTTP request path %s treePageGateway\n", path);
       return false;
+     }
   unsigned T = atoi(path);
   if(T < treeCount && treePtrArray[T])
     return treePtrArray[T]->diagnosticHTML(serv);
   
+  LogRequestErrors("Unhandled HTTP request %s in treePageGateway\n", path);
   return false;
 }
 

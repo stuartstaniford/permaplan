@@ -18,9 +18,11 @@
 // Useful macros
 
 #define httPrintf(...) if((serv->respPtr += snprintf(serv->respPtr, \
-              serv->respEnd-serv->respPtr,  __VA_ARGS__)) >= serv->respEnd) return false;
+              serv->respEnd-serv->respPtr,  __VA_ARGS__)) >= serv->respEnd) \
+                {serv->respBufOverflow = true; return false;}
 #define internalPrintf(...) if((respPtr += snprintf(respPtr, \
-              respEnd-respPtr,  __VA_ARGS__)) >= respEnd) return false;
+              respEnd-respPtr,  __VA_ARGS__)) >= respEnd) \
+                {respBufOverflow = true; return false;}
 
 // =======================================================================================
 // Class variable initialization
@@ -37,6 +39,7 @@ public:
   Scene&              scene;
   bool                shutDownNow; // by convention, this thread only reads, others set
                                    // this variable to true to shut it down.  So no lock.
+  bool                respBufOverflow;
 
   // Member functions - public
   HttpDebug(unsigned short servPort, Scene& S);

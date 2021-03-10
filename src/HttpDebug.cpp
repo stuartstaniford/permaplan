@@ -28,6 +28,7 @@
 HttpDebug::HttpDebug(unsigned short servPort, Scene& S):
                         scene(S),
                         shutDownNow(false),
+                        respBufOverflow(false),
                         reqBufSize(8192),
                         respBufSize(16384),
                         port(servPort)
@@ -82,6 +83,7 @@ bool HttpDebug::reallocateResponseBuf(void)
     return false;
   delete[] respBuf;
   respBuf = new char[respBufSize];
+  respBufOverflow = false;
   return true;
 }
 
@@ -116,11 +118,13 @@ void* HttpDebug::processConnections(void)
 
 bool HttpDebug::indexPage(void)
 {
-  startResponsePage("App Debugging Interface");
+  unless(startResponsePage("App Debugging Interface"))
+    return false;
   
   // Beginning of table
   internalPrintf("<center>\n");
-  startTable();
+  unless(startTable())
+    return false;
   internalPrintf("<tr><th>Link</th><th>notes</th></tr>\n");
   
   // Quadtree
@@ -163,11 +167,13 @@ bool HttpDebug::indexPage(void)
 
 bool HttpDebug::errorPage(const char* error)
 {
-  startResponsePage("Error");
+  unless(startResponsePage("Error"))
+    return false;
   internalPrintf("Sorry, an error has occurred: <b>");
   internalPrintf("%s", error);
   internalPrintf(".</b>\n");
-  endResponsePage();
+  unless(endResponsePage())
+    return false;
   return true;
 }
 
@@ -185,13 +191,13 @@ bool HttpDebug::processRequestHeader(void)
    }
   char* url = reqBuf + 4;
   char* lastToken = index(url, ' ');
-  if(!lastToken)
+  if(lastToken)
+    *(lastToken++) = '\0';
+  else
    {
-    errorPage("Bad header format");
-    LogRequestErrors("No HTTP version in request.\n");
-    return false;
+    // This happens when we are rerunning a prior request after growing the buffer
+    lastToken = url+strlen(url)+1;
    }
-  *(lastToken++) = '\0';
   if(lastToken - reqBuf + 256 > reqBufSize)
    {
     errorPage("Bad header format");
@@ -296,13 +302,23 @@ void HttpDebug::processOneHTTP1_1()
 
     unsigned headerLen;
     bool returnOK;
-    while(!(returnOK = processRequestHeader()))
+    while(1)
+     {
+      returnOK = processRequestHeader();
+      if(returnOK)
+        break;
+      unless(respBufOverflow)
+        break;
       unless(reallocateResponseBuf())
         break;
+      }
     if(returnOK)
       headerLen = generateHeader(respPtr-respBuf, 200, "OK");
     else
+     {
+      LogRequestErrors("500 error being returned on HTTP request.\n");
       headerLen = generateHeader(0u, 500, "ERROR");
+     }
     
     // respond to client
     unless(writeLoop(connfd, headBuf, headerLen))
