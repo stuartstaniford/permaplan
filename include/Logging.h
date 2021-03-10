@@ -67,6 +67,7 @@
 
 #define LOG_REQUEST_ERRORS      // Log validity problems in the HTTP request
 #define LOG_RESPONSE_ERRORS     // Log problems encountered building the response
+#define LOG_HTTP_BUFFER_OPS        // Log operations on the main HTTP buffers
 //#define LOG_HTTP_DETAILS        // Log normal details of HTTP operations
 
 
@@ -162,6 +163,7 @@ extern bool doLogTreeErrors;          // Log clear errors in tree related operat
 // Logging options for the HTTP debug interface
 extern bool doLogRequestErrors;       // Log validity problems in the HTTP request
 extern bool doLogResponseErrors;      // Log problems encountered building the response
+extern bool doLogHTTPBufferOps;       // Log operations on the main HTTP buffers
 extern bool doLogHTTPDetails;         // Log normal details of HTTP operations
 
 // Logging options to do with quadtree operations
@@ -444,6 +446,13 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
 #define LogResponseErrors(...) if(doLogResponseErrors) LogStatement(__VA_ARGS__)
 #else
 #define LogResponseErrors(...)
+#endif
+
+// Log operations on the main HTTP buffers
+#ifdef LOG_HTTP_BUFFER_OPS
+#define LogHTTPBufferOps(...) if(doLogHTTPBufferOps) LogStatement(__VA_ARGS__)
+#else
+#define LogHTTPBufferOps(...)
 #endif
 
 // Log normal details of HTTP operations

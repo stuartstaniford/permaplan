@@ -80,7 +80,11 @@ bool HttpDebug::reallocateResponseBuf(void)
 {
   respBufSize *= 2;
   if(respBufSize > 16*1024*1024)
+   {
+    LogHTTPBufferOps("HTTP max response buffer exceeded at %u.\n", respBufSize);
     return false;
+   }
+  LogHTTPBufferOps("HTTP response buffer size increased to %u.\n", respBufSize);
   delete[] respBuf;
   respBuf = new char[respBufSize];
   respBufOverflow = false;
@@ -308,7 +312,10 @@ void HttpDebug::processOneHTTP1_1()
       if(returnOK)
         break;
       unless(respBufOverflow)
+       {
+        LogHTTPBufferOps("None size related false return from processRequestHeader.\n");
         break;
+       }
       unless(reallocateResponseBuf())
         break;
       }

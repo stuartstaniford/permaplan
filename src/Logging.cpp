@@ -60,6 +60,7 @@ bool doLogTreeErrors          = true; // Log clear errors in tree related operat
 // Logging options for the HTTP debug interface
 bool doLogRequestErrors       = true; // Log validity problems in the HTTP request
 bool doLogResponseErrors      = true; // Log problems encountered building the response
+bool doLogHTTPBufferOps       = true; // Log operations on the main HTTP buffers
 bool doLogHTTPDetails         = true; // Log normal details of HTTP operations
 
 // Logging options to do with quadtree operations
