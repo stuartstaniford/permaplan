@@ -38,8 +38,7 @@ HttpDebug::HttpDebug(unsigned short servPort, Scene& S):
   headBuf = new char[headBufSize];
   if(!reqBuf || !respBuf || !headBuf)
     err(-1, "Couldn't allocate memory in __func__\n");
-  respPtr = respBuf;
-  respEnd = respBuf + respBufSize;
+  resetResponse();
 
   // Get a socket
   if((sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0)
@@ -88,6 +87,7 @@ bool HttpDebug::reallocateResponseBuf(void)
   delete[] respBuf;
   respBuf = new char[respBufSize];
   respBufOverflow = false;
+  resetResponse();
   return true;
 }
 

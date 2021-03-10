@@ -86,6 +86,7 @@ private:
   inline void resetResponse(void)
    {
     respPtr = respBuf;
+    respEnd = respBuf + respBufSize;
    }
 };
 
