@@ -10,7 +10,7 @@
 #include "HeightMarker.h"
 #include "Box.h"
 #include "Tree.h"
-
+#include <pthread.h>
 
 // =======================================================================================
 // Constructor, which initializes the geometry
@@ -35,6 +35,7 @@ Scene::Scene():
                        0.0f, 0.0f, 1.0f, 1.0f, minSize, 0u, 0u, NULL);
   land.bufferGeometry(qtree);
   Tree::readTreesFromDesign(qtree);
+  pthread_mutex_init(&lock, NULL);
   rebuildVisualObjectBuffer(&sceneObjectTbuf);
 }
 
@@ -47,6 +48,24 @@ Scene::~Scene(void)
   if(axes)
     delete axes;
   saveState();
+}
+
+
+// =======================================================================================
+// Lock the main scene lock.
+
+void Scene::getLock(void)
+{
+  pthread_mutex_lock(&lock);
+}
+
+
+// =======================================================================================
+// Release the main scene lock.
+
+void Scene::releaseLock(void)
+{
+  pthread_mutex_unlock(&lock);
 }
 
 

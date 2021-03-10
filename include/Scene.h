@@ -56,6 +56,8 @@ class Scene
   float         findCameraHeight(void);
   void          newLandHeight(vec3 location);
   void          saveState(void);
+  void          getLock(void);
+  void          releaseLock(void);
   void          updateLightSourcesOnGPU(void);
   VisualObject* getFreshObject(char* objTypeName, mat4 transform);
   void          newObjectTransform(mat4 transform, float initSize, vec3 location);
@@ -70,6 +72,7 @@ class Scene
   Grid*             grid;
   bool              doSimulation;
   float             simYear;
+  pthread_mutex_t   lock;
 
   // Member functions - private
   void setModelMatrix(float latt, float longt);

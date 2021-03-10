@@ -188,34 +188,43 @@ bool HttpDebug::processRequestHeader(void)
   // Start processing the url
   if( (strlen(url) == 1 && url[0] == '/') || strncmp(url, "/index.", 7) == 0)
     return indexPage();
+
+  scene.getLock();
+  bool retVal = false;
   
   if( strlen(url) >= 6 && strncmp(url, "/quad/", 6) == 0)
-    return scene.qtree->diagnosticHTML(this, url+6);
+    retVal = scene.qtree->diagnosticHTML(this, url+6);
 
-  if( strlen(url) == 7 && strncmp(url, "/stbuf/", 7) == 0)
-    return scene.indicatorTbuf->diagnosticHTML(this);
+  else if( strlen(url) == 7 && strncmp(url, "/stbuf/", 7) == 0)
+    retVal =  scene.indicatorTbuf->diagnosticHTML(this);
   
-  if( strlen(url) == 7 && strncmp(url, "/otbuf/", 7) == 0)
-    return scene.sceneObjectTbuf->diagnosticHTML(this);
+  else if( strlen(url) == 7 && strncmp(url, "/otbuf/", 7) == 0)
+    retVal =  scene.sceneObjectTbuf->diagnosticHTML(this);
 
-  if( strlen(url) == 6 && strncmp(url, "/land/", 6) == 0)
-    return scene.land.diagnosticHTML(this);
+  else if( strlen(url) == 6 && strncmp(url, "/land/", 6) == 0)
+    retVal =  scene.land.diagnosticHTML(this);
 
-  if( strlen(url) >= 8 && strncmp(url, "/plants/", 8) == 0)
-    return Tree::treePageGateway(this, url+8);
+  else if( strlen(url) >= 8 && strncmp(url, "/plants/", 8) == 0)
+    retVal =  Tree::treePageGateway(this, url+8);
 
-  if( strlen(url) > 14 && strncmp(url, "/species/", 9) == 0)
-    return Species::findSpeciesForHTTPDebug(this, url+9);
+  else if( strlen(url) > 14 && strncmp(url, "/species/", 9) == 0)
+    retVal =  Species::findSpeciesForHTTPDebug(this, url+9);
 
-  if( strlen(url) == 10 && strncmp(url, "/memtrack/", 10) == 0)
-    return MemoryTracker::diagnosticHTML(this);
+  else if( strlen(url) == 10 && strncmp(url, "/memtrack/", 10) == 0)
+    retVal =  MemoryTracker::diagnosticHTML(this);
 
-  if( strlen(url) ==8 && strncmp(url, "/camera/", 8) == 0)
-    return scene.camera.diagnosticHTML(this);
+  else if( strlen(url) ==8 && strncmp(url, "/camera/", 8) == 0)
+    retVal =  scene.camera.diagnosticHTML(this);
 
-  LogRequestErrors("Request for unknown resource %s\n", url);
-  errorPage("Resource not found");
-  return false;
+  else
+   {
+    LogRequestErrors("Request for unknown resource %s\n", url);
+    errorPage("Resource not found");
+   }
+  
+  scene.releaseLock();
+
+  return retVal;
 }
 
 
