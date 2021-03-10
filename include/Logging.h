@@ -67,7 +67,7 @@
 
 #define LOG_REQUEST_ERRORS      // Log validity problems in the HTTP request
 #define LOG_RESPONSE_ERRORS     // Log problems encountered building the response
-#define LOG_HTTP_BUFFER_OPS        // Log operations on the main HTTP buffers
+//#define LOG_HTTP_BUFFER_OPS        // Log operations on the main HTTP buffers
 //#define LOG_HTTP_DETAILS        // Log normal details of HTTP operations
 
 

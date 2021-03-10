@@ -46,15 +46,117 @@ HeightMarker::~HeightMarker(void)
 
 bool HeightMarker::getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
 {
+  err(-1, "Not implemented in HeightMarker::getNextVertex");
   return false;
 }
 
 
 // =======================================================================================
-//XX Stub definition needs to be implemented
+// Return the next vertex in our sequence
+
 bool HeightMarker::getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
 {
-  return false;
+  if(detail > PositionOnly)
+    err(-1, "Not implemented in HeightMarker::getNextUniqueVertex");
+  
+  if(resetToFirst)
+    index = 0;
+  else
+    index++;
+    
+  switch(index)
+   {
+    // Lower facing south
+    case 0:
+      goto V0;
+     case 1:
+      goto V2;
+    case 2:
+      goto V1;
+
+    // Lower facing east
+    case 3:
+      goto V0;
+    case 4:
+      goto V3;
+    case 5:
+      goto V2;
+
+    // Lower facing north
+    case 6:
+      goto V0;
+    case 7:
+      goto V4;
+    case 8:
+      goto V3;
+
+    // Lower facing west
+    case 9:
+      goto V0;
+    case 10:
+      goto V1;
+    case 11:
+      goto V4;
+
+    // Upper facing south
+    case 12:
+      goto V5;
+    case 13:
+      goto V1;
+    case 14:
+      goto V2;
+
+    // Upper facing east
+    case 15:
+      goto V5;
+    case 16:
+      goto V2;
+    case 17:
+      goto V3;
+
+    // Upper facing north
+    case 18:
+      goto V5;
+    case 19:
+      goto V3;
+    case 20:
+      goto V4;
+
+    // Upper facing west
+    case 21:
+      goto V5;
+    case 22:
+      goto V4;
+    case 23:
+      goto V1;
+
+    default:
+      return false;
+   }
+
+V0:
+  v->set(location[0], location[1], location[2]);  //bottom vertex
+  return true;
+V1:
+  v->set(location[0] - heightMarkerSize, location[1] - heightMarkerSize,
+                  location[2] + heightMarkerHeight);  // south west corner of center square
+  return true;
+V2:
+  v->set(location[0] + heightMarkerSize, location[1] - heightMarkerSize,
+                  location[2] + heightMarkerHeight);  // south east corner
+  return true;
+V3:
+  v->set(location[0] + heightMarkerSize, location[1] + heightMarkerSize,
+                  location[2] + heightMarkerHeight);  // north east corner
+  return true;
+V4:
+  v->set(location[0] - heightMarkerSize, location[1] + heightMarkerSize,
+                  location[2] + heightMarkerHeight);  // north west corner
+  return true;
+V5:
+  v->set(location[0], location[1],
+                  location[2] + 2.0f*heightMarkerHeight);  //top vertex
+  return true;
 }
 
 
@@ -62,6 +164,7 @@ bool HeightMarker::getNextVertex(bool resetToFirst, Vertex* v, VertexDetail deta
 //XX Stub definition needs to be implemented
 int HeightMarker::getNextIndex(bool resetToFirst)
 {
+  err(-1, "Not implemented in HeightMarker::getNextIndex");
   return -1;
 }
 
@@ -150,31 +253,6 @@ void HeightMarker::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
   vCount = 6u;
   iCount = 24u;
   LogTriangleBufEstimates("HeightMarker TriangleBuffer estimate: [%u, %u]\n", vCount, iCount);
-}
-
-
-// =======================================================================================
-// Stub definition
-
-void HeightMarker::draw(void)
-{
-  return;
-}
-
-
-// =======================================================================================
-// Stub definition this should be overwritten by implementing subclasses
-
-bool HeightMarker::matchRay(vec3& position, vec3& direction, float& lambda)
-{
-  if(!box->matchRay(position, direction, lambda))
-    return false;
-  
-  // So it touches our bounding box, have to test the faces.
-  
-  //XXX NOT DONE
-  
-  return true;
 }
 
 
