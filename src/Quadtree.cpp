@@ -260,11 +260,46 @@ void Quadtree::selfValidate(unsigned l)
     v->selfValidate(0u);
    }
   
+  // Check bounding box x-y constraints.
+  /* Arrangement of kids is as follows:
+   ---------------
+   |      |      |
+   | k[2] | k[3] |
+   |      |      |
+   ---------------
+   |      |      |
+   | k[0] | k[1] |
+   |      |      |
+   ---------------      */
+
+  if(kids[0])
+   {
+    assert(kids[0]->bbox.lower[0] == bbox.lower[0]);
+    assert(kids[0]->bbox.lower[1] == bbox.lower[1]);
+   }
+  if(kids[1])
+   {
+    assert(kids[1]->bbox.upper[0] == bbox.upper[0]);
+    assert(kids[1]->bbox.lower[1] == bbox.lower[1]);
+   }
+  if(kids[2])
+   {
+    assert(kids[2]->bbox.lower[0] == bbox.lower[0]);
+    assert(kids[2]->bbox.upper[1] == bbox.upper[1]);
+   }
+  if(kids[3])
+   {
+    assert(kids[3]->bbox.upper[0] == bbox.upper[0]);
+    assert(kids[3]->bbox.upper[1] == bbox.upper[1]);
+   }
+
   // Recursively check our kids
   int kidCount = 0;
   forAllKids(i)
    {
     assert(kids[i]->parent == this);
+    assert(kids[i]->bbox.lower[2] >= bbox.lower[2]);
+    assert(kids[i]->bbox.upper[2] <= bbox.upper[2]);
     kids[i]->selfValidate(l+1);
     kidCount++;
    }
