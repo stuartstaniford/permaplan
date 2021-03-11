@@ -207,6 +207,13 @@ void Quadtree::notifyObjectBoxChange(VisualObject* obj)
 {
   LogQuadtreeBoundBox("notifyObjectBoxChange at level %d needs to do something.", level);
 
+  Quadtree* q;
+  
+  // Fix Quadtree bounding boxes if necesssary
+  for(q = this; q; q = q->parent)
+    unless(q->bbox.extendZ(*(obj->box)))
+      break;
+      
   if(!parent)
     return; // we are the root so we are stuck with this thing, regardless
 
