@@ -55,7 +55,7 @@
 //#define LOG_TREE_SIM_DETAILS      // Log all the gory details of simulated tree growth.
 //#define LOG_GROWTH_MODEL          // Log details of the growth model.
 //#define LOG_TREE_BOUNDING_BOX     // Log updating the tree's bounding box
-#define LOG_TREE_MATCH_RAY        // Log matching a ray to a tree
+//#define LOG_TREE_MATCH_RAY        // Log matching a ray to a tree
 //#define LOG_TREE_VISUALIZATION    // Log trees being rendered.
 //#define LOG_TREE_VIS_DETAILS      // Log every twig being rendered.
 //#define LOG_BARK_DISPLAY          // Log bark color and texture details.

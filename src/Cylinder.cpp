@@ -228,7 +228,9 @@ void Cylinder::setLength(float length)
 
 bool Cylinder::matchRay(vec3& position, vec3& direction, float& lambda)
 {
-  //vec3 joinLine, originDiff;
+#ifndef LOG_TREE_MATCH_RAY
+  vec3 joinLine, originDiff;
+#endif
   
   glm_vec3_crossn(direction, axisDirection, joinLine);
   glm_vec3_sub(position, location, originDiff);
