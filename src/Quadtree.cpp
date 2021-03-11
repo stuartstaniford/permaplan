@@ -260,7 +260,7 @@ void Quadtree::selfValidate(unsigned l)
     v->selfValidate(0u);
    }
   
-  // Check bounding box x-y constraints.
+  // Check bounding box x-y constraints of kids.
   /* Arrangement of kids is as follows:
    ---------------
    |      |      |

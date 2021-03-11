@@ -228,6 +228,22 @@ bool BoundingBox::xyContains(const BoundingBox& otherBox)
 
 
 // =======================================================================================
+// Whether one box is entirely contained in another
+
+bool BoundingBox::operator<=(const BoundingBox& B)
+{
+  if(lower[0] < B.lower[0] || upper[0] > B.upper[0])
+    return false;
+  if(lower[1] < B.lower[1] || upper[1] > B.upper[1])
+    return false;
+  if(lower[2] < B.lower[2] || upper[2] > B.upper[2])
+    return false;
+  
+  return true;
+}
+
+
+// =======================================================================================
 // Extend our Z dimensions to include those of otherBox
 
 bool BoundingBox::extendZ(const BoundingBox& otherBox)

@@ -43,6 +43,9 @@ class BoundingBox
   void unsetZs(void);
   bool diagnosticHTML(HttpDebug* serv);
 
+  // public operators
+  bool operator<=(const BoundingBox& B);  // Whether one box is entirely contained in another
+
  private:
   
   // Instance variables - private
