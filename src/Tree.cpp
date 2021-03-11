@@ -251,8 +251,7 @@ void Tree::updateBoundingBox(void)
 
   if(!box)
    {
-    box = new BoundingBox(location[0], location[1], altitude,
-                          location[0], location[1], altitude);
+    box = new BoundingBox();
 #ifdef LOG_TREE_BOUNDING_BOX
     box->sprint(buf);
     LogTreeBoundingBox("Creating bounding box for tree %d: %s.\n", treePtrArrayIndex, buf);
