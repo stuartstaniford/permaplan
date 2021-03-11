@@ -48,14 +48,14 @@ bool Cylinder::updateBoundingBox(BoundingBox* box, float altitude)
     
     // base of shaft of the cylinder on this particular radial slice
     point[0] = location[0] + cosAng*f1[0] + sinAng*f2[0];
-    point[2] = location[1] + cosAng*f1[1] + sinAng*f2[1];
+    point[1] = location[1] + cosAng*f1[1] + sinAng*f2[1];
     point[2] = location[2] + cosAng*f1[2] + sinAng*f2[2] + altitude;
     if(box->extends(point))
       retVal = true;
     
     // top of shaft
     point[0] += axisDirection[0];
-    point[2] += axisDirection[1];
+    point[1] += axisDirection[1];
     point[2] += axisDirection[2];
     if(box->extends(point))
       retVal = true;

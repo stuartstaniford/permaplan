@@ -330,10 +330,10 @@ bool WoodySegment::diagnosticHTML(HttpDebug* serv)
   httPrintf("<b>Level:</b> %u; ", level);
   httPrintf("<b>Radius:</b> %.4f%c; ", cylinder->radius, spaceUnitAbbr);
 #ifdef LOG_TREE_MATCH_RAY
-  httPrintf("<b>Ray dist:</b> %.1f%c; ", cylinder->lastRayMatch, spaceUnitAbbr);
-  httPrintf("<b>Joinline:</b> [%.1f, %.1f, %.1f]; ", cylinder->joinLine[0],
+  httPrintf("<b>Ray dist:</b> %.2f%c; ", cylinder->lastRayMatch, spaceUnitAbbr);
+  httPrintf("<b>Joinline:</b> [%.2f, %.2f, %.2f]; ", cylinder->joinLine[0],
             cylinder->joinLine[1], cylinder->joinLine[2]);
-  httPrintf("<b>OrigDiff:</b> [%.1f, %.1f, %.1f]; ", cylinder->originDiff[0],
+  httPrintf("<b>OrigDiff:</b> [%.2f, %.2f, %.2f]; ", cylinder->originDiff[0],
             cylinder->originDiff[1], cylinder->originDiff[2]);
 #endif
   char buf[32];

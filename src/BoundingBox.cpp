@@ -93,6 +93,17 @@ void BoundingBox::unsetZs(void)
   upper[2] = -HUGE_VALF;
 }
 
+
+// =======================================================================================
+// Print short summary of bounding box (mostly for logging).
+
+void BoundingBox::sprint(char* buf)
+{
+  sprintf(buf, "[[%.2f, %.2f, %.2f], [%.2f, %.2f, %.2f]]",
+                      lower[0], lower[1], lower[2], upper[0], upper[1], upper[2]);
+}
+
+
 // =======================================================================================
 // Put a single bounding box into a gpu buffer.  This is generally done with fixed color
 // we don't handle texturing the bounding box.  This is mostly for debugging/diagnostic

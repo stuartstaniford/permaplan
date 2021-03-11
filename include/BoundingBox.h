@@ -39,6 +39,7 @@ class BoundingBox
   bool xyContains(const BoundingBox& otherBox);
   bool extendZ(const BoundingBox& otherBox);
   bool extends(const vec3 point);
+  void sprint(char* buf);
   void unsetZs(void);
   bool diagnosticHTML(HttpDebug* serv);
 

@@ -245,16 +245,29 @@ void Tree::selfValidate(unsigned l)
 
 void Tree::updateBoundingBox(void)
 {
-  LogTreeBoundingBox("Updating the bounding box for tree %d.\n", treePtrArrayIndex);
-  
+#ifdef LOG_TREE_BOUNDING_BOX
+  char buf[128];
+#endif
+
   if(!box)
+   {
     box = new BoundingBox(location[0], location[1], altitude,
                           location[0], location[1], altitude);
- 
+#ifdef LOG_TREE_BOUNDING_BOX
+    box->sprint(buf);
+    LogTreeBoundingBox("Creating bounding box for tree %d: %s.\n", treePtrArrayIndex, buf);
+#endif
+   }
+  
   if(trunk && trunk->updateBoundingBox(box, altitude))
+   {
+#ifdef LOG_TREE_BOUNDING_BOX
+    box->sprint(buf);
+    LogTreeBoundingBox("Updating bounding box for tree %d: %s\n", treePtrArrayIndex, buf);
+#endif
     if(qTreeNode)
       qTreeNode->notifyObjectBoxChange(this);
-
+   }
 }
 
 
@@ -394,18 +407,30 @@ bool Tree::diagnosticHTML(HttpDebug* serv)
   char title[32+MAX_SPECIES_PATH];
   snprintf(title, 32+MAX_SPECIES_PATH, "Detail Page for Tree %d: %s %s",
                               treePtrArrayIndex, species->genusName, species->speciesName);
-  serv->startResponsePage(title, 4);
+  unless(serv->startResponsePage(title, 4))
+    return false;
   
   // Summary Data about the tree
   httPrintf("<h2>Summary Data</h2>");
   httPrintf("<b>Location</b>: [%f, %f, %f]<br>", location[0], location[1], location[2]);
-  httPrintf("<b>Species</b>: <a href=\"/species/%s/%s\">%s %s</a><br>",
+  if(species->varName)
+   {
+    httPrintf("<b>Species</b>: <a href=\"/species/%s/%s/%s\">%s %s %s</a><br>",
+                            species->genusName, species->speciesName, species->varName,
+                            species->genusName, species->speciesName, species->varName);
+   }
+  else
+    httPrintf("<b>Species</b>: <a href=\"/species/%s/%s\">%s %s</a><br>",
             species->genusName, species->speciesName, species->genusName, species->speciesName);
   httPrintf("<hr>");
   
+  unless(box->diagnosticHTML(serv))
+    return false;
+  
   // Table of treeparts
   httPrintf("<h2>Table of parts of this tree</h2>");
-  serv->startTable();
+  unless(serv->startTable())
+    return false;
   httPrintf("<tr><th>Type</th><th>Location (%c)</th><th>Direction (%c)</th>"
               "<th>Other Information</th></tr>\n", spaceUnitAbbr, spaceUnitAbbr);
   if(trunk)
