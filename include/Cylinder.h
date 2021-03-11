@@ -23,6 +23,7 @@ class Cylinder
 #ifdef LOG_TREE_MATCH_RAY
   float     lastRayMatch;
 #endif
+  vec3 joinLine, originDiff;
 
   // Member functions - public
   Cylinder(vec3 root, vec3 dir, float R, unsigned sides);
