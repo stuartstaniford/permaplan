@@ -257,6 +257,8 @@ void Quadtree::selfValidate(unsigned l)
   for(VisualObject* v: vObjects)
    {
     assert(v->qTreeNode == this);
+    if(v->box->isDefined())
+      assert(*(v->box) <= bbox);
     v->selfValidate(0u);
    }
   

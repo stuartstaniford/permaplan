@@ -85,6 +85,17 @@ void BoundingBox::hugeValify(void)
 
 
 // =======================================================================================
+// Make sure a bounding box has sensible values
+
+bool BoundingBox::isDefined(void)
+{
+  if(lower[0] == HUGE_VALF)
+    return false;
+  return true;
+}
+
+
+// =======================================================================================
 // Set Zs to nonsense values (to be overriden by assembling values from other boxes
 
 void BoundingBox::unsetZs(void)
