@@ -36,7 +36,7 @@ Quadtree::Quadtree(float x, float y, unsigned width, unsigned height,
                         bufferOffset(offset),
                         vertexTBufSize(0u),
                         indexTBufSize(0u),
-                        bbox(x, y, 0.0f, x + (float)width, y+ (float)height, 0.1f),
+                        bbox(x, y, HUGE_VALF, x + (float)width, y+ (float)height, -HUGE_VALF),
                         parent(prt),
                         surface(NULL),
                         vObjects(),
@@ -162,6 +162,9 @@ void Quadtree::bufferGeometryLeaf(Vertex* buf)
 // in an x-y sense, we will have the kid store it (and on down recursively).  However
 // if it crosses over our kids, we will store it.
 
+// Note outsiders should only call this function on the root of the quadtree, or there
+// will be problems with bounding box book-keeping.
+
 void Quadtree::storeVisualObject(VisualObject* obj)
 {
   unsigned vSize, iSize;
@@ -234,7 +237,7 @@ void Quadtree::newObjectFromChild(VisualObject* obj)
 
   if(!parent || bbox.xyContains(*(obj->box)))
    {
-    vObjects.emplace(obj);
+    vObjects.emplace(obj);  // don't fix boundingBox as notifyObjectBoxChange did it.
     obj->qTreeNode = this;
    }
   else
@@ -380,7 +383,11 @@ void Quadtree::recomputeBoundingBox(void)
   else
     bbox.extendZ(*(surface->box));
   
-  //XXX need to recompute the effect of visual objects
+  for(VisualObject* v: vObjects)
+   {
+    if(v->box->isDefined())
+      bbox.extendZ(*(v->box));
+   }
 }
 
 
