@@ -99,9 +99,10 @@ void DisplayList::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 bool DisplayList::diagnosticHTML(HttpDebug* serv)
 {
   for(VisualObject* V: *this)
-    V->diagnosticHTML(serv);
+    unless(V->diagnosticHTML(serv))
+      return false;
 
-  return false;
+  return true;
 }
 
 
