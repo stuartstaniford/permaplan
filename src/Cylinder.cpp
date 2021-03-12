@@ -242,6 +242,8 @@ bool Cylinder::matchRay(vec3& position, vec3& direction, float& lambda)
   if(dist <= radius)
    {
     lambda = NAN;  //XX haven't calculated this
+    
+    //XX Need to detect when the ray is past the end caps
     return true;
    }
   return false;

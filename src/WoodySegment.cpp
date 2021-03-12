@@ -185,9 +185,10 @@ void WoodySegment::growStep(float years)
    }
   else // branches
    {
-    len = cylinder->getLength() + years*ourSpecies.stemRate;
-    if(len > ourSpecies.maxWidth/3.0f)
-      len = ourSpecies.maxWidth/3.0f;
+    float treeHeight = ((WoodySegment*)ourTree.trunk)->cylinder->getLength();
+    float ourHeight = cylinder->location[2] -
+                                    ((WoodySegment*)ourTree.trunk)->cylinder->location[2];
+    len = (treeHeight-ourHeight)*ourSpecies.maxWidth/(2.0f*ourSpecies.maxHeight);
     cylinder->radius = len/40.0f;   //XX braindead branch thickness
    }
   

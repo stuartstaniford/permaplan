@@ -7,6 +7,7 @@
      "species":     "canadensis",
      "maxHeight":   53000, //https://en.wikipedia.org/wiki/Tsuga_canadensis
      "maxGirth":   1750, //https://en.wikipedia.org/wiki/Tsuga_canadensis
+     "maxWidth": 0.4,
      "maxAge":   550,
      "commonNames":
        {
