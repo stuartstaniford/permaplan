@@ -618,8 +618,11 @@ bool Quadtree::diagnosticHTML(HttpDebug* serv, char* path)
 
     // Bounding box
     unless(bbox.diagnosticHTML(serv))
+     {
+      LogResponseErrors("Couldn't output bbox HTTP at quadtree level %d\n", level);
       return false;
- 
+     }
+    
     unless(serv->newSection("Texture Bounds"))
       return false;
     unless(serv->startTable())
@@ -658,9 +661,15 @@ bool Quadtree::diagnosticHTML(HttpDebug* serv, char* path)
       return false;
     if(surface)
       unless(surface->diagnosticHTML(serv))
+       {
+        LogResponseErrors("Couldn't output surface HTTP at quadtree level %d\n", level);
         return false;
+       }
     unless(vObjects.diagnosticHTML(serv))
+     {
+      LogResponseErrors("Couldn't output vObjects HTTP at quadtree level %d\n", level);
       return false;
+     }
     httPrintf("</table></center>\n");
 
     // Vertex Data
