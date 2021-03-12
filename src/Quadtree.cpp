@@ -271,7 +271,12 @@ void Quadtree::selfValidate(unsigned l)
    {
     assert(v->qTreeNode == this);
     if(v->box->isDefined())
-      assert(*(v->box) <= bbox);
+     {
+      if(level>0)
+        assert(*(v->box) <= bbox);
+      else
+        assert(bbox.zContains(*(v->box))); // objects at root are allowed to overlap the edge
+     }
     v->selfValidate(0u);
    }
   

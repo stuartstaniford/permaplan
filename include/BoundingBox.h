@@ -38,6 +38,7 @@ class BoundingBox
   void draw(Shader& shader, VertexBufferCombo* combo, vec4 color);
   bool matchRay(vec3& position, vec3& direction, float& lambda);
   bool xyContains(const BoundingBox& otherBox);
+  bool zContains(const BoundingBox& otherBox);
   bool extendZ(const BoundingBox& otherBox);
   bool extends(const vec3 point);
   void sprint(char* buf);

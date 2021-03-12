@@ -239,6 +239,20 @@ bool BoundingBox::xyContains(const BoundingBox& otherBox)
 
 
 // =======================================================================================
+// Find out if otherBox fits inside us (but only considering the z dimensions,
+// not the x-y dimension.
+
+bool BoundingBox::zContains(const BoundingBox& otherBox)
+{
+  if(otherBox.lower[2] < lower[2])
+    return false;
+  if(otherBox.upper[2] > upper[2])
+    return false;
+  return true;
+}
+
+
+// =======================================================================================
 // Whether one box is entirely contained in another
 
 bool BoundingBox::operator<=(const BoundingBox& B)
