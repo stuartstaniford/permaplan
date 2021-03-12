@@ -76,6 +76,7 @@ class Quadtree
   LandSurfaceRegion*        surface;
   DisplayList               vObjects;     // objects for display that we own
   unsigned char             level;        // zero at root, increasing down tree
+  bool                      isLeaf;
   
   // Member functions - private
   VisualObject* matchChild(vec3& position, vec3& direction, float& lambda);
