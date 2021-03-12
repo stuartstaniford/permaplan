@@ -613,13 +613,17 @@ bool Quadtree::diagnosticHTML(HttpDebug* serv, char* path)
   else
    {
     // We are to provide information about ourself
-    serv->startResponsePage("Quadtree Node");
+    unless(serv->startResponsePage("Quadtree Node"))
+      return false;
 
     // Bounding box
-    bbox.diagnosticHTML(serv);
+    unless(bbox.diagnosticHTML(serv))
+      return false;
  
-    serv->newSection("Texture Bounds");
-    serv->startTable();
+    unless(serv->newSection("Texture Bounds"))
+      return false;
+    unless(serv->startTable())
+      return false;
     httPrintf("<tr><th></th><th>Bottom Left</th><th>Top Right</th></tr>\n");
 
     // S co-ords
@@ -632,8 +636,10 @@ bool Quadtree::diagnosticHTML(HttpDebug* serv, char* path)
     httPrintf("</table></center><hr>\n");
 
     // Kids
-    serv->newSection("Child Nodes");
-    serv->startTable();
+    unless(serv->newSection("Child Nodes"))
+      return false;
+    unless(serv->startTable())
+      return false;
     httPrintf("<tr><th>Index</th><th>X Bounds</th><th>Y Bounds</th>\n");
     
     forAllKids(i)
@@ -646,21 +652,27 @@ bool Quadtree::diagnosticHTML(HttpDebug* serv, char* path)
     httPrintf("</table></center>\n");
     
     // Visual objects
-    serv->newSection("Objects Stored at this Quadtree Node");
-    serv->startTable();
+    unless(serv->newSection("Objects Stored at this Quadtree Node"))
+      return false;
+    unless(serv->startTable())
+      return false;
     if(surface)
-      surface->diagnosticHTML(serv);
-    vObjects.diagnosticHTML(serv);
+      unless(surface->diagnosticHTML(serv))
+        return false;
+    unless(vObjects.diagnosticHTML(serv))
+      return false;
     httPrintf("</table></center>\n");
 
     // Vertex Data
-    serv->newSection("Vertex Data");
+    unless(serv->newSection("Vertex Data"))
+      return false;
     httPrintf("</center>\n");
     httPrintf("<b>Vertex Count:</b> %u<br>\n", landVBOSize);
     httPrintf("<b>Vertex Offset:</b> %u<br>\n", bufferOffset);
     
     // Other data
-    serv->newSection("Other Data");
+    unless(serv->newSection("Other Data"))
+      return false;
     httPrintf("</center>\n");
     httPrintf("<b>Level:</b> %u<br>\n", level);
 
@@ -677,7 +689,8 @@ bool Quadtree::diagnosticHTML(HttpDebug* serv, char* path)
       httPrintf("Camera doesn't intersect.<br>\n");
      }
     
-    serv->endResponsePage();
+    unless(serv->endResponsePage())
+      return false;
    }
               
   return true;
