@@ -22,7 +22,8 @@ MenuInterface::MenuInterface(GLFWwindow* window, Window3D& W):
                         show_tree_menu(false),
                         genusSelected(NULL),
                         show_focus_overlay(true),
-                        show_simulation_controller(true)
+                        show_simulation_controller(true),
+                        all_tree_selector(false)
 #ifdef SHOW_DEMO_WINDOW
                         , show_demo_window(true)
 #endif
@@ -169,10 +170,8 @@ void MenuInterface::imguiGenusMenu(void)
 }
 
 
-
 // =======================================================================================
 // The floating menu to select a particular tree to insert (by latin/scientific name)
-//XX this is not a very scalable solution and will have to be extended over time.
 
 void MenuInterface::imguiTreeMenu(void)
 {
@@ -193,6 +192,27 @@ void MenuInterface::imguiTreeMenu(void)
     if(ImGui::Button(genusOption))
       genusSelected = iter.first.c_str();
    }
+  if(ImGui::Button("All Tree Selector"))
+   {
+    genusSelected = NULL;
+    show_tree_menu = false;
+    all_tree_selector = true;
+   }
+
+  ImGui::End();
+}
+
+
+// =======================================================================================
+// This menu is the entry point into a set of menu's (based on JSON files) that ultimately
+// aspire to be able to select any tree species in the world.
+
+void MenuInterface::imguiAllTreeSelector(void)
+{
+  if(!all_tree_selector)
+    return;
+      
+  ImGui::Begin("Tree Regions", &all_tree_selector, ImGuiWindowFlags_AlwaysAutoResize);
   
   ImGui::End();
 }
@@ -373,6 +393,7 @@ void MenuInterface::imguiInterface(void)
   imguiInsertMenu();
   imguiMaterialsMenu();
   imguiTreeMenu();
+  imguiAllTreeSelector();
   imguiHeightInputDialog();
   
   imguiSimulationController();

@@ -5,7 +5,7 @@ $detail = 0;
 $otdlFiles = `find Materials/Trees -name default.otdl`;
 $otdlFiles =~ s/\n/ /g;
 
-open(FILE, "wc unixTime.cpp src/*.cpp include/*.h *.pl 812/*.oldf src/*.glsl CMakeLists.txt web/*.js web/views/*js docs/*.md tests/test?.oldf tests/*.pl $otdlFiles|")
+open(FILE, "wc unixTime.cpp src/*.cpp include/*.h *.pl 812/*.oldf src/*.glsl CMakeLists.txt web/*.js web/views/*js docs/*.md tests/test?.oldf tests/*.pl Materials/Trees/Regions/*.json $otdlFiles|")
 || die("Couldn't run wc.\n");
 
 open(OUT, "|open -a XCode -f") || die("Couldn't open XCode.\n") if $detail;

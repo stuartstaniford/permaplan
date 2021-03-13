@@ -33,6 +33,7 @@ class MenuInterface
   void  imguiMaterialsMenu(void);
   void  imguiGenusMenu(void);
   void  imguiTreeMenu(void);
+  void  imguiAllTreeSelector(void);
   void  imguiFocusOverlay(void);
   void  imguiSimulationController(void);
   void  mouseOverlayDisplays(vec3 mouseSceneLoc);
@@ -49,6 +50,7 @@ class MenuInterface
   const char*     genusSelected;
   bool            show_focus_overlay;
   bool            show_simulation_controller;
+  bool            all_tree_selector;
 #ifdef SHOW_DEMO_WINDOW
   bool            show_demo_window;
 #endif

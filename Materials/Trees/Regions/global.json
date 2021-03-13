@@ -1,0 +1,11 @@
+{
+  "Eastern North America": "easternNorthAmerica.json",
+  "Western North America": "westernNorthAmerica.json",
+  "Central America": "centralAmerica.json",
+  "South America": "southAmerica.json",
+  "Northern Europe": "northernEurope.json",
+  "Mediteranean & Middle East": "medMidEast.json",
+  "TropicalAfrica": "tropicalAfrica.json",
+  "SouthernAfrica": "tropicalAfrica.json",
+  "Asia": "asia.json"
+}
