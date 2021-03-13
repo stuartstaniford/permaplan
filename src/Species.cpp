@@ -551,7 +551,36 @@ bool Species::validateWood(Document& doc)
 
 bool Species::validateLeafColorSeason(Value& leafColorObject, int s)
 {
-  return true;
+  bool   retVal       = true;
+  
+  if(leafColorObject[seasonNames[s]].IsString())
+   {
+    if(strcmp("none", leafColorObject[seasonNames[s]].GetString()) == 0)
+     {
+      LogOTDLDetails("leafColors no leaves in %s for %s\n",
+                                                    seasonNames[s], jCheck->sourcePhrase);
+     }
+    else
+     {
+      LogOTDLValidity("leafColors has invalid value for %s for %s\n",
+                                                    seasonNames[s], jCheck->sourcePhrase);
+      retVal = false;
+     }
+   }
+  else if(leafColorObject[seasonNames[s]].IsArray())
+   {
+    char objName[32];
+    snprintf(objName, 32, "leafColor:%s", seasonNames[s]);
+    retVal &= jCheck->validateRGBArray(leafColorObject[seasonNames[s]], objName);
+   }
+  else
+   {
+    LogOTDLValidity("leafColors has invalid type for %s for %s\n",
+                                                    seasonNames[s], jCheck->sourcePhrase);
+    retVal = false;
+   }
+
+  return retVal;
 }
 
 
