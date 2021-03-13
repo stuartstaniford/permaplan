@@ -2,6 +2,8 @@
 // This class is a container for the factors governing the evolution of a particular
 // species (mainly extracted from an OTDL JSON object).
 
+#define SPECIES_IMPLEMENTATION
+
 #include "Species.h"
 #include <err.h>
 #include "loadFileToBuf.h"
@@ -16,6 +18,8 @@ unsigned short Species::speciesCount = 0u;
 Species** Species::speciesPtrArray = new Species*[SPECIES_ARRAY_SIZE];
 std::unordered_map<std::string, unsigned> Species::genusList;
 std::unordered_map<std::string, SpeciesList*> Species::genusSpeciesList;
+
+char* seasonNames[4] = {(char*)"spring", (char*)"summer", (char*)"fall", (char*)"winter"};
 
 // =======================================================================================
 // Constructors.
@@ -543,7 +547,16 @@ bool Species::validateWood(Document& doc)
 
 
 // =======================================================================================
-// Validate the foliage section of an OTDL object.
+// Validate foliage:leafColors for one season.
+
+bool Species::validateLeafColorSeason(Value& leafColorObject, int s)
+{
+  return true;
+}
+
+
+// =======================================================================================
+// Validate the foliage:leafColors section of an OTDL object.
 
 bool Species::validateLeafColors(Value& leafColorObject)
 {
@@ -553,6 +566,23 @@ bool Species::validateLeafColors(Value& leafColorObject)
    {
     LogOTDLValidity("leafColors is not object in %s\n", jCheck->sourcePhrase);
     return false;
+   }
+  
+  for(int s=0; s<4; s++) // loop over seasons
+   {
+    if(leafColorObject.HasMember(seasonNames[s]))
+      retVal &= validateLeafColorSeason(leafColorObject, s);
+    else if(parent)
+     {
+      LogOTDLDetails("Inheriting leafColors for %s from parent in %s\n",
+                                                  seasonNames[s], jCheck->sourcePhrase);
+     }
+    else
+     {
+      LogOTDLValidity("No value for %s in leafColors object for %s\n",
+                                                  seasonNames[s], jCheck->sourcePhrase);
+      retVal = false;
+     }
    }
 
   return retVal;
@@ -576,7 +606,7 @@ bool Species::validateFoliage(Document& doc)
    }
   else
    {
-    LogOTDLValidity("No leafColors array for %s\n", jCheck->sourcePhrase);
+    LogOTDLValidity("No leafColors object for %s\n", jCheck->sourcePhrase);
     retVal = false;
    }
 

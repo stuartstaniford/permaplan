@@ -20,6 +20,9 @@
 #define MAX_SPECIES_PATH     256  // the following considers genus/species, then we allow
                                    // a fudge factor for variety names.
                                    //https://en.wikipedia.org/wiki/List_of_long_species_names
+#ifndef SPECIES_IMPLEMENTATION
+extern char* seasonNames[4];
+#endif
 
 // =======================================================================================
 // Class variable initialization
@@ -74,6 +77,7 @@ class Species
   bool        validateBarkTextures(rapidjson::Value& obj);
   bool        validateBarkColors(rapidjson::Value& colorsArray);
   bool        validateLeafColors(rapidjson::Value& leafColorObject);
+  bool        validateLeafColorSeason(rapidjson::Value& leafColorObject, int s);
   bool        checkMandatoryHeritableFloatValue(rapidjson::Value& jsonObject, char* name);
   bool        checkMandatoryHeritableUnsignedValue(rapidjson::Value& jsonObject,
                                                                               char* name);
