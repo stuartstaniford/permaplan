@@ -615,13 +615,28 @@ bool Species::validateOTDL(Document& doc)
     retVal = false;
    }
      
-  unless(doc.HasMember("foliage") && doc["foliage"].IsObject())
+  // wood is mandatory but heritable, so we might be getting it from parent
+  if(doc.HasMember("foliage"))
    {
+    unless(doc["foliage"].IsObject())
+     {
+      LogOTDLValidity("Foliage is not object in %s\n", phrase);
+      retVal = false;
+     }
+    else
+      retVal &= validateFoliage(doc);
+   }
+  else if(parent)
+   {
+    // there is no foliage data in child, so get it from the parent
+    LogOTDLDetails("Inheriting foliage data from parent in %s\n", phrase);
+   }
+  else
+   {
+    // we are just SOL.
     LogOTDLValidity("No foliage data in %s\n", phrase);
     retVal = false;
    }
-  else
-    retVal &= validateFoliage(doc);
 
   delete jCheck; jCheck = NULL;
   return retVal;
