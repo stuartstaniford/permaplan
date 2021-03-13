@@ -40,67 +40,16 @@ Species::Species(Document& otdlDoc, char* source):
     return;
    }
     
-  // Genus - mandatory, heritable
-  if(otdlDoc["overviewData"].HasMember("genus"))
-    genusName = otdlDoc["overviewData"]["genus"].GetString();
-  else
-    genusName = parent->genusName;
-  if(genusSpeciesList.find(genusName) == genusSpeciesList.end())
-    genusSpeciesList[genusName] = new SpeciesList;
+  initializeOverViewData(otdlDoc["overviewData"]);
+  initializeWoodData(otdlDoc);
+}
 
-  //Species - mandatory, heritable
-  if(otdlDoc["overviewData"].HasMember("species"))
-    speciesName = otdlDoc["overviewData"]["species"].GetString();
-  else
-    speciesName = parent->speciesName;
-  unless(strcmp(speciesName, "nosuchspecies") == 0)
-    genusList[genusName]++;
 
-  //Var - optional, non-heritable
-  if(otdlDoc["overviewData"].HasMember("var"))
-   {
-    varName = otdlDoc["overviewData"]["var"].GetString();
-    char buf[MAX_SPECIES_PATH];
-    snprintf(buf, MAX_SPECIES_PATH, "%s %s", speciesName, varName);
-    (*genusSpeciesList[genusName])[buf] = this;
-   }
-  else // no variety
-   {
-    varName = NULL;
-    (*genusSpeciesList[genusName])[speciesName] = this;
-   }
-  
-  //version - mandatory, heritable
-  if(otdlDoc["overviewData"].HasMember("version"))
-    version.set(otdlDoc["overviewData"]["version"]);
-  else
-    version = parent->version;
-   
-  //maxHeight - mandatory, heritable
-  if(otdlDoc["overviewData"].HasMember("maxHeight"))
-    maxHeight  = otdlDoc["overviewData"]["maxHeight"].GetFloat()/mmPerSpaceUnit;
-  else
-    maxHeight = parent->maxHeight;
+// =======================================================================================
+// Subroutine for the constructor to handle the wood data
 
-  //maxWidth - mandatory, heritable
-  if(otdlDoc["overviewData"].HasMember("maxWidth"))
-    maxWidth  = otdlDoc["overviewData"]["maxWidth"].GetFloat()*maxHeight;
-  else
-    maxWidth = parent->maxWidth;
-
-  //maxGirth - mandatory, heritable
-  if(otdlDoc["overviewData"].HasMember("maxGirth"))
-    maxRadius  = otdlDoc["overviewData"]["maxGirth"].GetFloat()/mmPerSpaceUnit/M_PI/2.0;
-  else
-    maxRadius = parent->maxRadius;
-
-  //maxAge - mandatory, heritable
-  if(otdlDoc["overviewData"].HasMember("maxAge"))
-    maxAge  = otdlDoc["overviewData"]["maxAge"].GetFloat();
-  else
-    maxAge = parent->maxAge;
-
-  
+void Species::initializeWoodData(Document& otdlDoc)
+{
   unless(otdlDoc.HasMember("wood"))
    {
     // The wood object is heritable in it's entirety, so if we don't have one, we have
@@ -118,55 +67,123 @@ Species::Species(Document& otdlDoc, char* source):
    {
     // We have a wood object.  We might be getting some pieces from it, but
     // inheriting others.
+    Value& woodData = otdlDoc["wood"];
     
     // barkColors - mandatory, heritable
-    if(otdlDoc["wood"].HasMember("barkColors"))
-      extractBarkColors(otdlDoc["wood"]["barkColors"]);
+    if(woodData.HasMember("barkColors"))
+      extractBarkColors(woodData["barkColors"]);
     else
       barkColorMap      = parent->barkColorMap;
 
     // stemRate - mandatory, heritable
-    if(otdlDoc["wood"].HasMember("stemRate"))
-      stemRate  = otdlDoc["wood"]["stemRate"].GetFloat()/mmPerSpaceUnit;
+    if(woodData.HasMember("stemRate"))
+      stemRate  = woodData["stemRate"].GetFloat()/mmPerSpaceUnit;
     else
       stemRate  = parent->stemRate;
 
     // branchSpacing - mandatory, heritable
-    if(otdlDoc["wood"].HasMember("branchSpacing"))
-      branchSpacing  = otdlDoc["wood"]["branchSpacing"].GetFloat()/mmPerSpaceUnit;
+    if(woodData.HasMember("branchSpacing"))
+      branchSpacing  = woodData["branchSpacing"].GetFloat()/mmPerSpaceUnit;
     else
       branchSpacing  = parent->branchSpacing;
 
     // branchFactor - mandatory, heritable
-    if(otdlDoc["wood"].HasMember("branchFactor"))
-      branchFactor  = otdlDoc["wood"]["branchFactor"].GetInt();
+    if(woodData.HasMember("branchFactor"))
+      branchFactor  = woodData["branchFactor"].GetInt();
     else
       branchFactor  = parent->branchFactor;
     
     // branchAngle - mandatory, heritable
-    if(otdlDoc["wood"].HasMember("branchAngle"))
-      branchAngle  = otdlDoc["wood"]["branchAngle"].GetFloat();
+    if(woodData.HasMember("branchAngle"))
+      branchAngle  = woodData["branchAngle"].GetFloat();
     else
       branchAngle  = parent->branchAngle;
 
     // branchSpiralAngle - mandatory, heritable
-    if(otdlDoc["wood"].HasMember("branchSpiralAngle"))
-      branchSpiralAngle  = otdlDoc["wood"]["branchSpiralAngle"].GetFloat();
+    if(woodData.HasMember("branchSpiralAngle"))
+      branchSpiralAngle  = woodData["branchSpiralAngle"].GetFloat();
     else
       branchSpiralAngle  = parent->branchSpiralAngle;
 
     // initSapThickness - mandatory, heritable
-    if(otdlDoc["wood"].HasMember("initSapThickness"))
-      initSapThickness  = otdlDoc["wood"]["initSapThickness"].GetFloat()/mmPerSpaceUnit;
+    if(woodData.HasMember("initSapThickness"))
+      initSapThickness  = woodData["initSapThickness"].GetFloat()/mmPerSpaceUnit;
     else
       initSapThickness  = parent->initSapThickness;
 
     // initBarkThickness - mandatory, heritable
-    if(otdlDoc["wood"].HasMember("initBarkThickness"))
-      initBarkThickness = otdlDoc["wood"]["initBarkThickness"].GetFloat()/mmPerSpaceUnit;
+    if(woodData.HasMember("initBarkThickness"))
+      initBarkThickness = woodData["initBarkThickness"].GetFloat()/mmPerSpaceUnit;
     else
       initBarkThickness  = parent->initBarkThickness;
    }
+}
+
+
+// =======================================================================================
+// Subroutine for the constructor to handle the overviewData
+
+void Species::initializeOverViewData(Value& overviewData)
+{
+  // Genus - mandatory, heritable
+  if(overviewData.HasMember("genus"))
+    genusName = overviewData["genus"].GetString();
+  else
+    genusName = parent->genusName;
+  if(genusSpeciesList.find(genusName) == genusSpeciesList.end())
+    genusSpeciesList[genusName] = new SpeciesList;
+
+  //Species - mandatory, heritable
+  if(overviewData.HasMember("species"))
+    speciesName = overviewData["species"].GetString();
+  else
+    speciesName = parent->speciesName;
+  unless(strcmp(speciesName, "nosuchspecies") == 0)
+    genusList[genusName]++;
+
+  //Var - optional, non-heritable
+  if(overviewData.HasMember("var"))
+   {
+    varName = overviewData["var"].GetString();
+    char buf[MAX_SPECIES_PATH];
+    snprintf(buf, MAX_SPECIES_PATH, "%s %s", speciesName, varName);
+    (*genusSpeciesList[genusName])[buf] = this;
+   }
+  else // no variety
+   {
+    varName = NULL;
+    (*genusSpeciesList[genusName])[speciesName] = this;
+   }
+  
+  //version - mandatory, heritable
+  if(overviewData.HasMember("version"))
+    version.set(overviewData["version"]);
+  else
+    version = parent->version;
+   
+  //maxHeight - mandatory, heritable
+  if(overviewData.HasMember("maxHeight"))
+    maxHeight  = overviewData["maxHeight"].GetFloat()/mmPerSpaceUnit;
+  else
+    maxHeight = parent->maxHeight;
+
+  //maxWidth - mandatory, heritable
+  if(overviewData.HasMember("maxWidth"))
+    maxWidth  = overviewData["maxWidth"].GetFloat()*maxHeight;
+  else
+    maxWidth = parent->maxWidth;
+
+  //maxGirth - mandatory, heritable
+  if(overviewData.HasMember("maxGirth"))
+    maxRadius  = overviewData["maxGirth"].GetFloat()/mmPerSpaceUnit/M_PI/2.0;
+  else
+    maxRadius = parent->maxRadius;
+
+  //maxAge - mandatory, heritable
+  if(overviewData.HasMember("maxAge"))
+    maxAge  = overviewData["maxAge"].GetFloat();
+  else
+    maxAge = parent->maxAge;
 }
 
 

@@ -59,9 +59,12 @@ class Species
   float                     maxAge;             // in years
   Version                   version;
   std::map<float, unsigned> barkColorMap;
+  unsigned                  leafColors[4];
 
   // Member functions - public
   Species(rapidjson::Document& otdlDoc, char* source);
+  void initializeOverViewData(rapidjson::Value& overviewData);
+  void initializeWoodData(rapidjson::Document& otdlDoc);
   ~Species(void);
   void        logisticGrowthModel(float age, float& radius, float& height);
   void        extractBarkColors(rapidjson::Value& colorsArray);
