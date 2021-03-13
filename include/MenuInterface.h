@@ -11,6 +11,11 @@
 #include <GLFW/glfw3.h>
 #include "ScriptController.h"
 #include "Scene.h"
+#include "rapidjson/document.h"
+#include "rapidjson/writer.h"
+#include "rapidjson/stringbuffer.h"
+#include "rapidjson/error/en.h"
+
 
 //#define SHOW_DEMO_WINDOW
 
@@ -43,19 +48,21 @@ class MenuInterface
   // Class variables - private
   
   // Instance variables - private
-  Window3D&       win3D;
-  bool            show_height_input_dialog;
-  bool            show_materials_menu;
-  bool            show_tree_menu;
-  const char*     genusSelected;
-  bool            show_focus_overlay;
-  bool            show_simulation_controller;
-  bool            all_tree_selector;
+  Window3D&           win3D;
+  bool                show_height_input_dialog;
+  bool                show_materials_menu;
+  bool                show_tree_menu;
+  const char*         genusSelected;
+  bool                show_focus_overlay;
+  bool                show_simulation_controller;
+  bool                all_tree_selector;
+  char                heightBuf[16];
+  float               size;
+  rapidjson::Document globalRegions;
+  bool                globalRegionsLoaded;
 #ifdef SHOW_DEMO_WINDOW
-  bool            show_demo_window;
+  bool                show_demo_window;
 #endif
-  char            heightBuf[16];
-  float           size;
 
   // Private methods
   

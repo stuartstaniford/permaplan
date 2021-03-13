@@ -9,6 +9,7 @@
 #include "Material.h"
 #include "Species.h"
 #include "Window3D.h"
+#include "loadFileToBuf.h"
 
 // =======================================================================================
 // Constructor for a Window3D
@@ -23,7 +24,8 @@ MenuInterface::MenuInterface(GLFWwindow* window, Window3D& W):
                         genusSelected(NULL),
                         show_focus_overlay(true),
                         show_simulation_controller(true),
-                        all_tree_selector(false)
+                        all_tree_selector(false),
+                        globalRegionsLoaded(false)
 #ifdef SHOW_DEMO_WINDOW
                         , show_demo_window(true)
 #endif
@@ -207,11 +209,31 @@ void MenuInterface::imguiTreeMenu(void)
 // This menu is the entry point into a set of menu's (based on JSON files) that ultimately
 // aspire to be able to select any tree species in the world.
 
+using namespace rapidjson;
+
 void MenuInterface::imguiAllTreeSelector(void)
 {
   if(!all_tree_selector)
     return;
-      
+
+  unless(globalRegionsLoaded)
+   {
+    unsigned bufSize;
+    char* fileName = (char*)"Materials/Trees/Regions/global.json";
+    char* buf = loadFileToBuf(fileName, &bufSize);
+    
+    ParseResult ok = globalRegions.ParseInsitu<kParseCommentsFlag>(buf);
+    if (!ok)
+     {
+      fprintf(stderr, "JSON parse error on %s: %s (%u)\n", fileName,
+              GetParseError_En(ok.Code()), (unsigned)(ok.Offset()));
+      exit(1);
+     }
+    if(!globalRegions.IsObject())
+      err(-1, "Base of file %s is not JSON object.\n", fileName);
+
+    globalRegionsLoaded = true;
+   }
   ImGui::Begin("Tree Regions", &all_tree_selector, ImGuiWindowFlags_AlwaysAutoResize);
   
   ImGui::End();
