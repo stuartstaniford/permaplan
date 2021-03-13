@@ -545,12 +545,41 @@ bool Species::validateWood(Document& doc)
 // =======================================================================================
 // Validate the foliage section of an OTDL object.
 
-bool Species::validateFoliage(Document& doc)
+bool Species::validateLeafColors(Value& leafColorObject)
 {
   bool   retVal       = true;
-  //Value& foliageObject = doc["foliage"];
-  //char* logObjectName = (char*)"foliage";
   
+  unless(leafColorObject.IsObject())
+   {
+    LogOTDLValidity("leafColors is not object in %s\n", jCheck->sourcePhrase);
+    return false;
+   }
+
+  return retVal;
+}
+  
+
+// =======================================================================================
+// Validate the foliage section of an OTDL object.
+
+bool Species::validateFoliage(Document& doc)
+ {
+  bool   retVal       = true;
+  Value& foliageObject = doc["foliage"];
+  
+  // leafColors - mandatory, heritable
+  if(foliageObject.HasMember("leafColors"))
+    retVal &= validateLeafColors(foliageObject["leafColors"]);
+  else if(parent)
+   {
+    LogOTDLDetails("Inheriting leafColors from parent in %s\n", jCheck->sourcePhrase);
+   }
+  else
+   {
+    LogOTDLValidity("No leafColors array for %s\n", jCheck->sourcePhrase);
+    retVal = false;
+   }
+
   return retVal;
 }
 
