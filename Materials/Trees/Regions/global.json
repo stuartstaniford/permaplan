@@ -1,4 +1,6 @@
 {
+  "Domesticated Fruit/Nut": "domesticated.json",
+  "Popular Ornamentals": "ornamentals.json",
   "Eastern North America": "easternNorthAmerica.json",
   "Western North America": "westernNorthAmerica.json",
   "Central America": "centralAmerica.json",

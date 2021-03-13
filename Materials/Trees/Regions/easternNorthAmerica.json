@@ -1,0 +1,15 @@
+{
+  "Quercus (Oaks)": "eNAQuercus.json",
+  "Fagus (Beeches)": "eNAFagus.json",
+  "Acer (Maples)": "eNAcer.json",
+  "Alnus (Birches)": "eNAAlnus.json",
+  "Fraxinus (Ashes)": "eNAFraxinus.json",
+  "Populus (Poplar/Aspen)": "eNAPopulus.json","
+  "Ulmus (Elms)": "eNAUlmus.json",
+  "Platanus (Plane/Sycamore)": "eNPlatanus.json",
+  "Pinus (Pines)": "eNAPinus.json",
+  "Abies (Firs)": "eNAAbies.json",
+  "Tsuga (Hemlocks)": "eNATsuga.json",
+  "Picea (Spruces)": "eNAPicea.json",
+}
+
