@@ -237,6 +237,22 @@ Note that
 * The last array must end at 10000.0 (taken to be infinite age of the tree trunk).
 * As a corollory of the above, the array must have at least one member (if there was exactly one member it should be [0,10000]).
 
+## Foliage (mandatory, heritable)
+
+### leafColors (mandatory, heritable)
+
+Syntax:
+```
+"leafColors":
+ {
+    "spring": [40, 200, 50],
+    "summer": [10, 200, 50],
+    "fall": [200, 100, 10],
+    "winter": "none"
+  }
+```
+leafColors specifies the color of foliage (leaves, needles, etc).  It does so by the four separate seasons, which are tags in an object as above, each followed by an integer RGB array, or the special value "none" indicating that the tree has no leaves in that season (usually winter in temperate places, but sometimes a a dry season in other climates)
+
 ## Parent (optional)
 
 Syntax: `"parent":  "<path>",`

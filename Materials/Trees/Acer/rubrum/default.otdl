@@ -1,5 +1,6 @@
 // OTDL for Acer rubrum (Red Maple)
 {
+  "parent": "Deciduous",
   "overviewData":
     {
      "genus":       "Acer",

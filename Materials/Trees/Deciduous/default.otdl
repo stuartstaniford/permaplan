@@ -1,18 +1,17 @@
-// OTDL for generic Conifers, from which all conifer trees are likely to inherit
-// https://en.wikipedia.org/wiki/Pinophyta
+// OTDL for generic deciduous trees
 {
   "overviewData":
    {
     "genus":       "Nosuchgenus",
     "species":      "nosuchspecies",
     "maxHeight":   10000,
-    "maxWidth":    0.4,  // conifers are narrow
-    "maxGirth":   1000,
-    "maxAge":   300,
+    "maxWidth":    0.7,
+    "maxGirth":   2000,
+    "maxAge":   400,
     "commonNames":
       {
-       "en-US": "Conifer Tree",
-       "en-GB": "Conifer Tree"
+       "en-US": "Deciduous Tree",
+       "en-GB": "Deciduous Tree"
       },
     "version":     [0, 0, 1],
     "fileTime":    [20,0],
@@ -22,8 +21,8 @@
   {
    "stemRate": 1000,
    "branchSpacing": 1000,
-   "branchFactor": 5,
-   "branchAngle": 80,
+   "branchFactor": 4,
+   "branchAngle": 40,
    "branchSpiralAngle": 10,
    "initSapThickness": 1.5,
    "initBarkThickness": 0.5,
@@ -42,10 +41,10 @@
   {
    "leafColors":
     {
-     "spring": [10, 200, 120],
-     "summer": [10, 200, 120],
-     "fall": [10, 200, 120],
-     "winter": [10, 200, 120]
+     "spring": [40, 200, 50],
+     "summer": [10, 200, 50],
+     "fall": [200, 100, 10],
+     "winter": "none"
     }
   }
 }

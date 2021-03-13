@@ -1,5 +1,6 @@
 // OTDL for Fagus grandifolia (American Beech)
 {
+  "parent": "Deciduous",
   "overviewData":
     {
      "genus":       "Fagus",
