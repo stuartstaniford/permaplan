@@ -65,6 +65,7 @@ class Species
   Species(rapidjson::Document& otdlDoc, char* source);
   void initializeOverViewData(rapidjson::Value& overviewData);
   void initializeWoodData(rapidjson::Document& otdlDoc);
+  void initializeFoliageData(rapidjson::Document& otdlDoc);
   ~Species(void);
   void        logisticGrowthModel(float age, float& radius, float& height);
   void        extractBarkColors(rapidjson::Value& colorsArray);

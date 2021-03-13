@@ -42,6 +42,7 @@ Species::Species(Document& otdlDoc, char* source):
     
   initializeOverViewData(otdlDoc["overviewData"]);
   initializeWoodData(otdlDoc);
+  initializeFoliageData(otdlDoc);
 }
 
 
@@ -116,6 +117,40 @@ void Species::initializeWoodData(Document& otdlDoc)
       initBarkThickness = woodData["initBarkThickness"].GetFloat()/mmPerSpaceUnit;
     else
       initBarkThickness  = parent->initBarkThickness;
+   }
+}
+
+
+// =======================================================================================
+// Subroutine for the constructor to handle the foliage data
+
+void Species::initializeFoliageData(Document& otdlDoc)
+{
+  unless(otdlDoc.HasMember("foliage"))
+   {
+    // The foliage object is heritable in it's entirety, so if we don't have one, we have
+    // to copy everything over from the parent.
+    memcpy(leafColors, parent->leafColors, 4*sizeof(unsigned));
+   }
+  else
+   {
+    // We have a foliage object.  We might be getting some pieces from it, but
+    // inheriting others.
+    Value& foliageData = otdlDoc["foliage"];
+    
+    // leafColors - mandatory, heritable
+    if(foliageData.HasMember("leafColors"))
+     {
+      for(int s=0; s<3; s++)  //loop over seasons
+       {
+        if(foliageData["leafColors"].HasMember(seasonNames[s]))
+          leafColors[s] = colorFromRGBArray(foliageData["leafColors"][seasonNames[s]]);
+        else
+          leafColors[s] = parent->leafColors[s];
+       }
+     }
+    else
+      memcpy(leafColors, parent->leafColors, 4*sizeof(unsigned));
    }
 }
 
