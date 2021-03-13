@@ -297,12 +297,12 @@ const char* Box::objectName(void)
 // We assume we are part of a table of visual objects and we just contribute one row
 // about this particular HeightMarker.
 
-bool Box::diagnosticHTML(HttpDebug* serv)
+bool Box::diagnosticHTMLSummary(HttpDebug* serv)
 {
   
   httPrintf("<tr><td>Box</td>");
-  /*httPrintf("<td><b>Location:</b> (%.1f, %.1f, %.1f)</td></tr>\n",
-                           location[0], location[1], location[2]);*/
+  httPrintf("<td><b>Location:</b> (%.1f, %.1f, %.1f)</td></tr>\n",
+                           box->lower[0], box->lower[1], box->lower[2]);
   
   return true;
 }

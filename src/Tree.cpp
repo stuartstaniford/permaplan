@@ -397,9 +397,6 @@ const char* Tree::objectName(void)
 // =======================================================================================
 // Build a page about this particular tree with all the gory details of its treeparts.
 
-// XX right now this is the version being called from the Qtree, which is not giving
-// the correct result.
-
 bool Tree::diagnosticHTML(HttpDebug* serv)
 {
   // Page header
@@ -446,7 +443,23 @@ bool Tree::diagnosticHTML(HttpDebug* serv)
 
 // =======================================================================================
 // We assume we are part of a table of visual objects and we just contribute one row
-// about this particular object.
+// about this particular object.  This is the version called from Quadtree pages
+
+bool Tree::diagnosticHTMLSummary(HttpDebug* serv)
+{
+  httPrintf("<tr><td><a href=\"/plants/%d\">Tree %d</a></td>", treePtrArrayIndex,
+                                                                    treePtrArrayIndex)
+  httPrintf("<td><a href=\"/species/%s/%s/\">%s %s</a></td>", species->genusName,
+                            species->speciesName, species->genusName, species->speciesName);  
+  httPrintf("</tr>\n");
+
+  return true;
+}
+
+
+// =======================================================================================
+// We assume we are part of a table of visual objects and we just contribute one row
+// about this particular object.  This is the version in the "/plants" url.
 
 bool Tree::diagnosticHTMLRow(HttpDebug* serv)
 {

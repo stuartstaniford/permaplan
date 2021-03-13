@@ -29,7 +29,7 @@ class HeightMarker: public VisualObject
   void        updateBoundingBox(void);
   void        triangleBufferSizes(unsigned& vCount, unsigned& iCount);
   const char* objectName(void);
-  bool        diagnosticHTML(HttpDebug* serv);
+  bool        diagnosticHTMLSummary(HttpDebug* serv);
 
  private:
   int    index;

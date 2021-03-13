@@ -284,7 +284,7 @@ const char* HeightMarker::objectName(void)
 // We assume we are part of a table of visual objects and we just contribute one row
 // about this particular HeightMarker.
 
-bool HeightMarker::diagnosticHTML(HttpDebug* serv)
+bool HeightMarker::diagnosticHTMLSummary(HttpDebug* serv)
 {
   httPrintf("<tr><td>HeightMarker</td>");
   httPrintf("<td><b>Location:</b> (%.1f, %.1f, %.1f)</td></tr>\n",

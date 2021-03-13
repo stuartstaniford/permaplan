@@ -233,6 +233,19 @@ const char* VisualObject::objectName(void)
 
 bool VisualObject::diagnosticHTML(HttpDebug* serv)
 {
+  return false;
+}
+
+
+// =======================================================================================
+// Stub definition this should be overwritten by implementing subclasses
+// But in general, this class should own a single row in a table, with
+// the type of visual object in the first column, and any details provided
+// in the second column.  A link should be provided to whatever URL serves
+// diagnosticHTML (above).
+
+bool VisualObject::diagnosticHTMLSummary(HttpDebug* serv)
+{
   httPrintf("<tr><td>VisualObject</td>");
   httPrintf("<td>Unsubclassed: something is wrong.</td></tr>\n");
 
