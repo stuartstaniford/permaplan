@@ -115,6 +115,7 @@ class Species
 // =======================================================================================
 // Utility functions
 
+// compute the season (0..4) from a floating point year.
 inline unsigned season(float year)
 { return (int)((year - floorf(year)-1.0f/6.0f)*4.0f)%4;}
 
