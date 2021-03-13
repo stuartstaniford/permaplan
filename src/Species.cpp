@@ -21,6 +21,9 @@ std::unordered_map<std::string, SpeciesList*> Species::genusSpeciesList;
 
 char* seasonNames[4] = {(char*)"spring", (char*)"summer", (char*)"fall", (char*)"winter"};
 
+// NOTE WELL.  Numeric values in OTDL are expressed in mm, but for uniformity in graphic
+// calculations, internally we must store them in spaceUnits.
+
 // =======================================================================================
 // Constructors.
 
@@ -29,9 +32,6 @@ Species::Species(Document& otdlDoc, char* source):
                                 parent(NULL),
                                 jCheck(NULL)
 {
-  // NOTE WELL.  Numeric values in OTDL are expressed in mm, but for uniformity in graphic
-  // calculations, internally we must store them in spaceUnits.
-  
   if(validateOTDL(otdlDoc))
     validOTDL = true;
   else
@@ -43,6 +43,73 @@ Species::Species(Document& otdlDoc, char* source):
   initializeOverViewData(otdlDoc["overviewData"]);
   initializeWoodData(otdlDoc);
   initializeFoliageData(otdlDoc);
+}
+
+
+// =======================================================================================
+// Subroutine for the constructor to handle the overviewData
+
+void Species::initializeOverViewData(Value& overviewData)
+{
+  // Genus - mandatory, heritable
+  if(overviewData.HasMember("genus"))
+    genusName = overviewData["genus"].GetString();
+  else
+    genusName = parent->genusName;
+  if(genusSpeciesList.find(genusName) == genusSpeciesList.end())
+    genusSpeciesList[genusName] = new SpeciesList;
+
+  //Species - mandatory, heritable
+  if(overviewData.HasMember("species"))
+    speciesName = overviewData["species"].GetString();
+  else
+    speciesName = parent->speciesName;
+  unless(strcmp(speciesName, "nosuchspecies") == 0)
+    genusList[genusName]++;
+
+  //Var - optional, non-heritable
+  if(overviewData.HasMember("var"))
+   {
+    varName = overviewData["var"].GetString();
+    char buf[MAX_SPECIES_PATH];
+    snprintf(buf, MAX_SPECIES_PATH, "%s %s", speciesName, varName);
+    (*genusSpeciesList[genusName])[buf] = this;
+   }
+  else // no variety
+   {
+    varName = NULL;
+    (*genusSpeciesList[genusName])[speciesName] = this;
+   }
+  
+  //version - mandatory, heritable
+  if(overviewData.HasMember("version"))
+    version.set(overviewData["version"]);
+  else
+    version = parent->version;
+   
+  //maxHeight - mandatory, heritable
+  if(overviewData.HasMember("maxHeight"))
+    maxHeight  = overviewData["maxHeight"].GetFloat()/mmPerSpaceUnit;
+  else
+    maxHeight = parent->maxHeight;
+
+  //maxWidth - mandatory, heritable
+  if(overviewData.HasMember("maxWidth"))
+    maxWidth  = overviewData["maxWidth"].GetFloat()*maxHeight;
+  else
+    maxWidth = parent->maxWidth;
+
+  //maxGirth - mandatory, heritable
+  if(overviewData.HasMember("maxGirth"))
+    maxRadius  = overviewData["maxGirth"].GetFloat()/mmPerSpaceUnit/M_PI/2.0;
+  else
+    maxRadius = parent->maxRadius;
+
+  //maxAge - mandatory, heritable
+  if(overviewData.HasMember("maxAge"))
+    maxAge  = overviewData["maxAge"].GetFloat();
+  else
+    maxAge = parent->maxAge;
 }
 
 
@@ -152,73 +219,6 @@ void Species::initializeFoliageData(Document& otdlDoc)
     else
       memcpy(leafColors, parent->leafColors, 4*sizeof(unsigned));
    }
-}
-
-
-// =======================================================================================
-// Subroutine for the constructor to handle the overviewData
-
-void Species::initializeOverViewData(Value& overviewData)
-{
-  // Genus - mandatory, heritable
-  if(overviewData.HasMember("genus"))
-    genusName = overviewData["genus"].GetString();
-  else
-    genusName = parent->genusName;
-  if(genusSpeciesList.find(genusName) == genusSpeciesList.end())
-    genusSpeciesList[genusName] = new SpeciesList;
-
-  //Species - mandatory, heritable
-  if(overviewData.HasMember("species"))
-    speciesName = overviewData["species"].GetString();
-  else
-    speciesName = parent->speciesName;
-  unless(strcmp(speciesName, "nosuchspecies") == 0)
-    genusList[genusName]++;
-
-  //Var - optional, non-heritable
-  if(overviewData.HasMember("var"))
-   {
-    varName = overviewData["var"].GetString();
-    char buf[MAX_SPECIES_PATH];
-    snprintf(buf, MAX_SPECIES_PATH, "%s %s", speciesName, varName);
-    (*genusSpeciesList[genusName])[buf] = this;
-   }
-  else // no variety
-   {
-    varName = NULL;
-    (*genusSpeciesList[genusName])[speciesName] = this;
-   }
-  
-  //version - mandatory, heritable
-  if(overviewData.HasMember("version"))
-    version.set(overviewData["version"]);
-  else
-    version = parent->version;
-   
-  //maxHeight - mandatory, heritable
-  if(overviewData.HasMember("maxHeight"))
-    maxHeight  = overviewData["maxHeight"].GetFloat()/mmPerSpaceUnit;
-  else
-    maxHeight = parent->maxHeight;
-
-  //maxWidth - mandatory, heritable
-  if(overviewData.HasMember("maxWidth"))
-    maxWidth  = overviewData["maxWidth"].GetFloat()*maxHeight;
-  else
-    maxWidth = parent->maxWidth;
-
-  //maxGirth - mandatory, heritable
-  if(overviewData.HasMember("maxGirth"))
-    maxRadius  = overviewData["maxGirth"].GetFloat()/mmPerSpaceUnit/M_PI/2.0;
-  else
-    maxRadius = parent->maxRadius;
-
-  //maxAge - mandatory, heritable
-  if(overviewData.HasMember("maxAge"))
-    maxAge  = overviewData["maxAge"].GetFloat();
-  else
-    maxAge = parent->maxAge;
 }
 
 

@@ -21,7 +21,7 @@
                                    // a fudge factor for variety names.
                                    //https://en.wikipedia.org/wiki/List_of_long_species_names
 #ifndef SPECIES_IMPLEMENTATION
-extern char* seasonNames[4];
+extern char* seasonNames[4]; // 0 = spring, 1 = summer, etc.
 #endif
 
 // =======================================================================================
@@ -111,11 +111,12 @@ class Species
   //Species& operator=(const Species&);      // Prevent assignment
 };
 
-#endif
 
 // =======================================================================================
 // Utility functions
 
+inline unsigned season(float year)
+{ return (int)((year - floorf(year)-1.0f/6.0f)*4.0f)%4;}
 
 
-
+#endif
