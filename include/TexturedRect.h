@@ -53,14 +53,18 @@ inline void bufferRectangle(Vertex* buf, float x, float y,
                   float width, float height, float s, float t, float texW, float texH)
 {
   // First triangle
-  buf[0].set(x,       y,        0.0f,   s,      t);       //lower left
-  buf[1].set(x+width, y,        0.0f,   s+texW, t);       //lower right
-  buf[2].set(x,       y+height, 0.0f,   s,      t+texH);  //upper left
+  buf[0].setPosition(x, y, 0.0f);         //lower left
+  buf[0].setTexCoords(s, t);
+  buf[1].setPosition(x+width, y, 0.0f);   //lower right
+  buf[1].setTexCoords(s+texW, t);
+  buf[2].setPosition(x, y+height, 0.0f);  //upper left
+  buf[1].setTexCoords(s, t+texH);
   
   // Second triangle
   buf[3].copy(buf+2);//upper left
   buf[4].copy(buf+1);//lower right
-  buf[5].set(x+width, y+height, 0.0f, s+texW, t+texH);   //upper right
+  buf[5].setPosition(x+width, y+height, 0.0f);  //upper right
+  buf[5].setTexCoords(s+texW, t+texH);
 }
 
 #endif

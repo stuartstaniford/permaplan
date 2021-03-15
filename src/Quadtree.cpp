@@ -144,18 +144,18 @@ Quadtree::~Quadtree(void)
 void Quadtree::bufferGeometryLeaf(Vertex* buf)
 {
   // First triangle
-  buf[0].set(bbox.lower[0], bbox.lower[1], bbox.lower[2],   //lower left
-                                                    textureBL[0], textureBL[1]);
-  buf[1].set(bbox.upper[0], bbox.lower[1], bottomRightZ,          //lower right
-                                                    textureTR[0], textureBL[1]);
-  buf[2].set(bbox.lower[0], bbox.upper[1], topLeftZ,   //upper left
-                                                    textureBL[0], textureTR[1]);
+  buf[0].setPosition(bbox.lower[0], bbox.lower[1], bbox.lower[2]);   //lower left
+  buf[0].setTexCoords(textureBL[0], textureBL[1]);
+  buf[1].setPosition(bbox.upper[0], bbox.lower[1], bottomRightZ);          //lower right
+  buf[1].setTexCoords(textureTR[0], textureBL[1]);
+  buf[2].setPosition(bbox.lower[0], bbox.upper[1], topLeftZ);   //upper left
+  buf[2].setTexCoords(textureBL[0], textureTR[1]);
   
   // Second triangle
   buf[3].copy(buf+2);//upper left
   buf[4].copy(buf+1);//lower right
-  buf[5].set(bbox.upper[0], bbox.upper[1], bbox.upper[2],  //upper right
-                                                    textureTR[0], textureTR[1]);
+  buf[5].setPosition(bbox.upper[0], bbox.upper[1], bbox.upper[2]);  //upper right
+  buf[5].setTexCoords(textureTR[0], textureTR[1]);
 }
 
 

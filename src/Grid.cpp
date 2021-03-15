@@ -12,10 +12,10 @@
 
 // Useful constants that define how the grid works and looks.
 
-vec4 gridColor[3] = { {0.6f, 0.5f, 0.0f, 0.5f},  // transparent yellowy orange
-                      {0.85f, 0.35f, 0.0f, 0.7f},  // redder and less transparent
-                      {0.95f, 0.15f, 0.0f, 0.85f}  // even more so
-                     };
+unsigned gridColor[3] = { 0x90800080, // transparent yellowy orange
+                          0xc06000b0, // redder and less transparent
+                          0xf03000d0 // even more so
+                        };
 
 float gridHeights[3] = {0.2f, 0.4f, 0.6f};
 

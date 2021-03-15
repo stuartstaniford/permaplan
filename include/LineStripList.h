@@ -25,7 +25,7 @@ class LineStripList: public std::vector<Vertex>
   // Member functions - public
   LineStripList(GLenum usage = GL_STATIC_DRAW);
   ~LineStripList();
-  void addLine(vec3 pos, vec3 dir, vec4 color);
+  void addLine(vec3 pos, vec3 dir, unsigned color);
   void sendToGPU(void);
   void draw(void);
   bool diagnosticHTML(HttpDebug* serv);

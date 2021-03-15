@@ -122,24 +122,24 @@ void BoundingBox::sprint(char* buf)
 
 void BoundingBox::bufferGeometry(Vertex* buf)
 {
-  buf[0].set(lower[0], upper[1], upper[2]); // Front-top-left
-  buf[1].set(upper[0], upper[1], upper[2]); // Front-top-right
-  buf[2].set(lower[0], lower[1], upper[2]); // Front-bottom-left
+  buf[0].setPosition(lower[0], upper[1], upper[2]); // Front-top-left
+  buf[1].setPosition(upper[0], upper[1], upper[2]); // Front-top-right
+  buf[2].setPosition(lower[0], lower[1], upper[2]); // Front-bottom-left
   
-  buf[3].set(upper[0], lower[1], upper[2]);     // Front-bottom-right
-  buf[4].set(upper[0], lower[1], lower[2]);    // Back-bottom-right
-  buf[5].set(upper[0], upper[1], upper[2]);      // Front-top-right
+  buf[3].setPosition(upper[0], lower[1], upper[2]);     // Front-bottom-right
+  buf[4].setPosition(upper[0], lower[1], lower[2]);    // Back-bottom-right
+  buf[5].setPosition(upper[0], upper[1], upper[2]);      // Front-top-right
   
-  buf[6].set(upper[0], upper[1], lower[2]);     // Back-top-right
-  buf[7].set(lower[0], upper[1], upper[2]);     // Front-top-left
-  buf[8].set(lower[0], upper[1], lower[2]);    // Back-top-left
+  buf[6].setPosition(upper[0], upper[1], lower[2]);     // Back-top-right
+  buf[7].setPosition(lower[0], upper[1], upper[2]);     // Front-top-left
+  buf[8].setPosition(lower[0], upper[1], lower[2]);    // Back-top-left
   
-  buf[9].set(lower[0], lower[1], upper[2]);    // Front-bottom-left
-  buf[10].set(lower[0], lower[1], lower[2]);   // Back-bottom-left
-  buf[11].set(upper[0], lower[1], lower[2]);    // Back-bottom-right
+  buf[9].setPosition(lower[0], lower[1], upper[2]);    // Front-bottom-left
+  buf[10].setPosition(lower[0], lower[1], lower[2]);   // Back-bottom-left
+  buf[11].setPosition(upper[0], lower[1], lower[2]);    // Back-bottom-right
   
-  buf[12].set(lower[0], upper[1], lower[2]);    // Back-top-left
-  buf[13].set(upper[0], upper[1], lower[2]);      // Back-top-right
+  buf[12].setPosition(lower[0], upper[1], lower[2]);    // Back-top-left
+  buf[13].setPosition(upper[0], upper[1], lower[2]);      // Back-top-right
 }
 
 

@@ -54,59 +54,49 @@ class Vertex
  public:
   
   // public instance variables
-  vec3    pos;
-  vec2    tex;
-  __fp16  normal[3];
-  __fp16  accent;
+  vec3      pos;
+  unsigned  color;
+  vec2      tex;
+  __fp16    normal[3];
   
   // public methods
-  inline void set(float x, float y, float z, float s, float t, float a)
+  inline void setPosition(float x, float y, float z)
   {
    pos[0] = x;
    pos[1] = y;
    pos[2] = z;
-   tex[0] = s;
-   tex[1] = t;
-   accent = a;
   }
 
-  inline void set(float x, float y, float z, float s, float t)
+  inline void setPosition(vec3 v)
+  {
+   glm_vec3_copy(v, pos);
+  }
+                           
+  inline void setTexCoords(float s, float t)
    {
-    pos[0] = x;
-    pos[1] = y;
-    pos[2] = z;
     tex[0] = s;
     tex[1] = t;
-    accent = 0.0f;
    }
 
-  inline void set(vec3 v, vec3 c)
+  inline void setColor(unsigned u)
    {
-    pos[0] = v[0];
-    pos[1] = v[1];
-    pos[2] = v[2];
-    tex[0] = c[0];
-    tex[1] = c[1];
-    accent = c[2];
+    color = u;
    }
   
-  inline void set(float x, float y, float z)
+  inline void setNormal(float x, float y, float z)
   {
-   pos[0] = x;
-   pos[1] = y;
-   pos[2] = z;
-   tex[0] = 0.0f;
-   tex[1] = 0.0f;
-   accent = 0.0f;
+   normal[0] = x;
+   normal[1] = y;
+   normal[2] = z;
   }
-  
-  inline void setNoTexColor(vec3 C)
-   {
-    tex[0]  = C[0];
-    tex[1]  = C[1];
-    accent  = C[2];
-   }
-  
+
+  inline void setNormal(vec3 n)
+  {
+   normal[0] = n[0];
+   normal[1] = n[1];
+   normal[2] = n[2];
+  }
+
   inline void fprint(FILE* file)
    {
     fprintf(file, "pos:\t%.1f,\t%.1f,\t%.1f\ttex:\t%.3f\t%.3f\n",

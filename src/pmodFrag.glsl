@@ -7,7 +7,7 @@ out vec4  FragColor;
 // Stuff coming from the vertex shader
 in vec2   texCoord;
 in vec3   normal;
-in float  accent;
+in vec4   color;
 in vec3   fragPosition;
 
 // The main earth texture
@@ -28,8 +28,8 @@ uniform vec3      sunColor;
 void main()
 {
   vec4 ambient      = vec4(ambientStrength * sunColor, 1.0);
-  vec4 objectColor;
   vec3 norm         = normalize(normal);
+  vec4 objectColor;
   vec3 sunDir       = normalize(sunPosition - fragPosition);
   float diff        = max(dot(norm, sunDir), 0.0);
   vec4 diffuse      = vec4(diff * sunColor, 1.0);
@@ -43,15 +43,13 @@ void main()
    {
     if(noTexColor)
      {
-      // We use the tex coordinate and accent as a color vector.  This is generally
-      // used for non-real visual indicators.
-      objectColor = vec4(texCoord.x, texCoord.y, accent, 1.0);
+      objectColor = color;
      }
     else
      {
       // Earth texture, modified by lighting model and accentColor.  This is the
       // branch for actual scenery/objects in the scene.
-      objectColor   = (1.0f-accent)*texture(earthTexture, texCoord) + accent*accentColor;
+      objectColor           = texture(earthTexture, texCoord);
      }
     FragColor         = (ambient+diffuse) * objectColor;
    }

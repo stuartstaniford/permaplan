@@ -95,15 +95,15 @@ bool Cylinder::bufferGeometry(TriangleBuffer* T, float altitude, unsigned color)
     x = location[0] + cosAng*f1[0] + sinAng*f2[0];
     y = location[1] + cosAng*f1[1] + sinAng*f2[1];
     z = location[2] + cosAng*f1[2] + sinAng*f2[2] + altitude;
-    vertices[2*i].set(x, y, z, ((color>>24)&0x000000ff)/256.0,
-                      ((color>>16)&0x000000ff)/256.0, ((color>>8)&0x000000ff)/256.0);
+    vertices[2*i].setPosition(x, y, z);
+    vertices[2*i].setColor(color);
 
     // top of shaft
     x += axisDirection[0];
     y += axisDirection[1];
     z += axisDirection[2];
-    vertices[2*i+1].set(x, y, z, ((color>>24)&0x000000ff)/256.0,
-                        ((color>>16)&0x000000ff)/256.0, ((color>>8)&0x000000ff)/256.0);
+    vertices[2*i+1].setPosition(x, y, z);
+    vertices[2*i+1].setColor(color);
    }
   
   // Done with vertices, now set up the indices.  As usual, we need triangles

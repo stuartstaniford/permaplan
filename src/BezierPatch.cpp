@@ -182,7 +182,7 @@ void BezierPatch::surfacePoint(float u, float v, vec3 result)
 // =======================================================================================
 // Create a new display list with markers for all the fit locations.
 
-vec3  orangeColor  = {0.8f, 0.5f, 0.2f};
+unsigned  orangeColor  = 0xc08038ff; //{0.8f, 0.5f, 0.2f};
 
 DisplayList* BezierPatch::newUVLocationList(void)
 {
@@ -208,7 +208,7 @@ DisplayList* BezierPatch::newUVLocationList(void)
 // =======================================================================================
 // Add the control points to a display list.
 
-vec3  darkRedColor  = {0.6f, 0.1f, 0.1f};
+unsigned  darkRedColor  = 0xa01818ff;  //{0.6f, 0.1f, 0.1f};
 
 void BezierPatch::addControlPointsToDisplayList(DisplayList* D)
 {
@@ -227,7 +227,7 @@ void BezierPatch::addControlPointsToDisplayList(DisplayList* D)
 // =======================================================================================
 // Add arrows showing the current direction of movement of the control point
 
-vec3  lighterRedColor  = {0.9f, 0.1f, 0.1f};
+unsigned  lighterRedColor  = 0xe81818ff; //{0.9f, 0.1f, 0.1f};
 
 void BezierPatch::addControlGradientsToDisplayList(DisplayList* D)
 {
@@ -292,9 +292,9 @@ bool BezierPatch::bufferGeometry(TriangleBuffer* T)
    {
     Vertex* bufEl = vertices + i*(gridN + 1) + j;
     surfacePoint(u, v, bufEl->pos);
-    bufEl->tex[0] = stPos[0] + stExtent[0]*spacing*(float)i;
-    bufEl->tex[1] = stPos[1] + stExtent[1]*spacing*(float)j;
-    bufEl->accent = 0.0f;
+    bufEl->setTexCoords(stPos[0] + stExtent[0]*spacing*(float)i,
+                                stPos[1] + stExtent[1]*spacing*(float)j);
+    bufEl->setColor(0u);
     //printf("u,v: %.3f, %.3f\t", u, v);
     //bufEl->fprint(stdout);
    }

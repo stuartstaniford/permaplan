@@ -95,28 +95,28 @@ bool Arrow::bufferGeometry(TriangleBuffer* T)
     x = location[0] + cosAng*f1[0] + sinAng*f2[0];
     y = location[1] + cosAng*f1[1] + sinAng*f2[1];
     z = location[2] + cosAng*f1[2] + sinAng*f2[2];
-    vertices[3*i].set(x, y, z);
+    vertices[3*i].setPosition(x, y, z);
 
     // top of shaft
     x += arrowBody*direction[0];
     y += arrowBody*direction[1];
     z += arrowBody*direction[2];
-    vertices[3*i+1].set(x, y, z);
+    vertices[3*i+1].setPosition(x, y, z);
     
     // base of arrow head
     x += ARROW_HEAD_WIDTH*(cosAng*f1[0] + sinAng*f2[0]);
     y += ARROW_HEAD_WIDTH*(cosAng*f1[1] + sinAng*f2[1]);
     z += ARROW_HEAD_WIDTH*(cosAng*f1[2] + sinAng*f2[2]);
-    vertices[3*i+2].set(x, y, z);
+    vertices[3*i+2].setPosition(x, y, z);
    }
  
   // tip of the arrow
-  vertices[3*ARROW_SIDES].set(location[0]+direction[0], location[1]+direction[1],
+  vertices[3*ARROW_SIDES].setPosition(location[0]+direction[0], location[1]+direction[1],
                               location[2]+direction[2]);
  
   if(useNoTexColor)
     for(int i=0; i<ARROW_SIDES*3+1; i++)
-      vertices[i].setNoTexColor(noTexColor);
+      vertices[i].setColor(noTexColor);
 
   // Done with vertices, now set up the indices.  As usual, we need triangles
   // to be clockwise looking from outside the arrow, because of OpenGL faceculling.

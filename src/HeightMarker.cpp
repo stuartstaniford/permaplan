@@ -135,26 +135,26 @@ bool HeightMarker::getNextVertex(bool resetToFirst, Vertex* v, VertexDetail deta
    }
 
 V0:
-  v->set(location[0], location[1], location[2]);  //bottom vertex
+  v->setPosition(location[0], location[1], location[2]);  //bottom vertex
   return true;
 V1:
-  v->set(location[0] - heightMarkerSize, location[1] - heightMarkerSize,
+  v->setPosition(location[0] - heightMarkerSize, location[1] - heightMarkerSize,
                   location[2] + heightMarkerHeight);  // south west corner of center square
   return true;
 V2:
-  v->set(location[0] + heightMarkerSize, location[1] - heightMarkerSize,
+  v->setPosition(location[0] + heightMarkerSize, location[1] - heightMarkerSize,
                   location[2] + heightMarkerHeight);  // south east corner
   return true;
 V3:
-  v->set(location[0] + heightMarkerSize, location[1] + heightMarkerSize,
+  v->setPosition(location[0] + heightMarkerSize, location[1] + heightMarkerSize,
                   location[2] + heightMarkerHeight);  // north east corner
   return true;
 V4:
-  v->set(location[0] - heightMarkerSize, location[1] + heightMarkerSize,
+  v->setPosition(location[0] - heightMarkerSize, location[1] + heightMarkerSize,
                   location[2] + heightMarkerHeight);  // north west corner
   return true;
 V5:
-  v->set(location[0], location[1],
+  v->setPosition(location[0], location[1],
                   location[2] + 2.0f*heightMarkerHeight);  //top vertex
   return true;
 }
@@ -184,22 +184,22 @@ bool HeightMarker::bufferGeometry(TriangleBuffer* T)
   
   // Now we know where we are putting stuff and that there is space, so pack
   // in the vertices
-  vertices[0].set(location[0], location[1],
+  vertices[0].setPosition(location[0], location[1],
                   location[2]);  //bottom vertex
-  vertices[1].set(location[0] - heightMarkerSize, location[1] - heightMarkerSize,
+  vertices[1].setPosition(location[0] - heightMarkerSize, location[1] - heightMarkerSize,
                   location[2] + heightMarkerHeight);  // south west corner of center square
-  vertices[2].set(location[0] + heightMarkerSize, location[1] - heightMarkerSize,
+  vertices[2].setPosition(location[0] + heightMarkerSize, location[1] - heightMarkerSize,
                   location[2] + heightMarkerHeight);  // south east corner
-  vertices[3].set(location[0] + heightMarkerSize, location[1] + heightMarkerSize,
+  vertices[3].setPosition(location[0] + heightMarkerSize, location[1] + heightMarkerSize,
                   location[2] + heightMarkerHeight);  // north east corner
-  vertices[4].set(location[0] - heightMarkerSize, location[1] + heightMarkerSize,
+  vertices[4].setPosition(location[0] - heightMarkerSize, location[1] + heightMarkerSize,
                   location[2] + heightMarkerHeight);  // north west corner
-  vertices[5].set(location[0], location[1],
+  vertices[5].setPosition(location[0], location[1],
                   location[2] + 2.0f*heightMarkerHeight);  //top vertex
 
   if(useNoTexColor)
     for(int i=0; i<6; i++)
-      vertices[i].setNoTexColor(noTexColor);
+      vertices[i].setColor(noTexColor);
   
   // Lower facing south
   indices[0] = vOffset;

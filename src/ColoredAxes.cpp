@@ -15,16 +15,17 @@
 ColoredAxes::ColoredAxes(float axesLen):
                                         LineStripList()
 {
-  vec3 theColor = {0.0f, 0.0f, 0.0f};
+  unsigned theColor;
+  unsigned char* bytes = (unsigned char*)(&theColor);
   vec3 pos      = {0.0f, 0.0f, 0.0f};
   vec3 dir      = {0.0f, 0.0f, 0.0f};
   
   for(int i = 0; i < 3; i++)
    {
-    theColor[i] = 1.0f;
+    theColor = 0u;
+    bytes[i] = 0xff;
     dir[i]      = axesLen;
     addLine(pos, dir, theColor);
-    theColor[i] = 0.0f;
     dir[i]      = 0.0f;
    }
   sendToGPU();

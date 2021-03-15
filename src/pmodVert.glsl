@@ -1,13 +1,13 @@
 //VERTEX SHADER
 #version 410 core
 layout (location = 0) in vec3 aPos;
-layout (location = 1) in vec2 aTexCoord;
-layout (location = 2) in vec3 aNormal;
-layout (location = 3) in float aAccent;
+layout (location = 1) in vec4 aColor;
+layout (location = 2) in vec2 aTexCoord;
+layout (location = 3) in vec3 aNormal;
 
 out vec2  texCoord;
 out vec3  normal;
-out float accent;
+out vec4  color;
 out vec3  fragPosition; // passing world space coords to frag shader
 
 uniform mat4  model;
@@ -21,6 +21,6 @@ void main()
   fragPosition  = vec3(worldPos);
   texCoord      = aTexCoord;
   normal        = aNormal;
-  accent        = aAccent;
+  color         = aColor;
 }
 

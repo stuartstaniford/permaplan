@@ -32,14 +32,16 @@ LineStripList::~LineStripList(void)
 // =======================================================================================
 // Add an additional line on the end of the buffer
 
-void LineStripList::addLine(vec3 pos, vec3 dir, vec3 color)
+void LineStripList::addLine(vec3 pos, vec3 dir, unsigned color)
 {
   N = this->size();
   this->resize(N+2);
-  this->at(N).set(pos, color);
+  this->at(N).setPosition(pos);
+  this->at(N).setColor(color);
   vec3 otherEnd;
   glm_vec3_add(pos, dir, otherEnd);
-  this->at(N+1).set(otherEnd, color);
+  this->at(N+1).setPosition(otherEnd);
+  this->at(N+1).setColor(color);
   N+=2;
 }
 

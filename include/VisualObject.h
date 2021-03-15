@@ -26,7 +26,7 @@ class VisualObject
   // Member functions - public
   VisualObject(bool absHeights, BoundingBox* B = NULL);
   virtual ~VisualObject(void);
-  void                setNoTexColor(vec3 color);
+  void                setNoTexColor(unsigned color);
   virtual void        setAltitude(LandSurfaceRegion* surface);
   virtual bool        getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
   virtual bool        getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
@@ -46,7 +46,7 @@ class VisualObject
  protected:
   
   // Instance variables - protected
-  vec3          noTexColor;
+  unsigned      noTexColor;
   float         altitude;
   Quadtree*     qTreeNode;
   bool          useNoTexColor;

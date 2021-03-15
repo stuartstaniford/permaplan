@@ -167,8 +167,8 @@ void TriangleBuffer::fprint(FILE* file)
   for(int v = 0; v < vCount; v++)
    {
     Vertex* b = vertices + v;
-    fprintf(file, "%d\txyz: %.1f %.1f %.1f\tst: %.3f, %.3f\tacc: %.3f\n",
-             v, b->pos[0], b->pos[1], b->pos[2], b->tex[0], b->tex[1], b->accent);
+    fprintf(file, "%d\txyz: %.1f %.1f %.1f\tst: %.3f, %.3f\tcolor: %X\n",
+             v, b->pos[0], b->pos[1], b->pos[2], b->tex[0], b->tex[1], b->color);
    }
   
   // Output all the indices, one triangle per row
@@ -196,7 +196,7 @@ bool TriangleBuffer::diagnosticHTML(HttpDebug* serv)
   serv->newSection("Vertices");
   serv->startTable();
   httPrintf("<tr><th>Index</th><th>X</th><th>Y</th><th>Z</th>");
-  httPrintf("<th>S</th><th>T</th><th>Accent</th></tr>\n");
+  httPrintf("<th>S</th><th>T</th><th>Color</th></tr>\n");
   for(int v = 0; v < vCount; v++)
    {
     httPrintf("<tr>");
@@ -206,12 +206,12 @@ bool TriangleBuffer::diagnosticHTML(HttpDebug* serv)
     
     // X,Y,Z
     for(int i = 0; i < 3; i++)
-    httPrintf("<td>%.1f</td>", vertices[v].pos[i]);
+      httPrintf("<td>%.1f</td>", vertices[v].pos[i]);
 
     // S,T, accent
     for(int i = 4; i <= 5; i++)
-    httPrintf("<td>%.4f</td>", vertices[v].tex[i]);
-    httPrintf("<td>%.4f</td>", vertices[v].accent);
+      httPrintf("<td>%.4f</td>", vertices[v].tex[i]);
+    httPrintf("<td>%X</td>", vertices[v].color);
 
     httPrintf("</tr>\n");
    }

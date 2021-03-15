@@ -222,7 +222,7 @@ bool TruncatedCone::matchRay(vec3& position, vec3& direction, float& lambda)
   lastRayMatch = dist;
 #endif
 
-  if(dist <= bigRadius)
+  if(dist <= bigRadius) // XX this isn't right yet - just treating it like a cylinder.
    {
     lambda = NAN;  //XX haven't calculated this
     

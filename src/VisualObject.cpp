@@ -110,9 +110,9 @@ int VisualObject::getNextIndex(bool resetToFirst)
 // XX - should this be hived off into a different class, that could use multiple
 // inheritance to pull in, so this isn't present in non-visual indicator subclasses?
 
-void VisualObject::setNoTexColor(vec3 color)
+void VisualObject::setNoTexColor(unsigned color)
 {
-  glm_vec3_copy(color, noTexColor);
+  noTexColor    = color;
   useNoTexColor = true;
 }
 
