@@ -1,26 +1,25 @@
-// Copyright Staniford Systems.  All Rights Reserved.  Feb 2021 -
-// Class for rendering a cylinder
+// Copyright Staniford Systems.  All Rights Reserved.  Mar 2021 -
+// Class for rendering a section of a cone cut off at right angles at both ends.
+// Used for rendering sections of tree-trunks and the like.
 
-#ifndef CYLINDER_H
-#define CYLINDER_H
+#ifndef TRUNCATED_CONE_H
+#define TRUNCATED_CONE_H
 
 #include "VisualObject.h"
-#include "TruncatedCone.h"
 
 // =======================================================================================
 // Class variable initialization
 
-class Cylinder
+class TruncatedCone
 {
  public:
   
   // Instance variables - public
   vec3      location;
   vec3      axisDirection;
-  float     radius;
+  float     bigRadius;
+  float     smallRadius;
   unsigned  sides;
-  vec3      f1;    // f1 and f2 are cross-vectors to axisDirection
-  vec3      f2;
 #ifdef LOG_TREE_MATCH_RAY
   float     lastRayMatch;
   vec3      joinLine;
@@ -28,8 +27,8 @@ class Cylinder
 #endif
 
   // Member functions - public
-  Cylinder(vec3 root, vec3 dir, float R, unsigned sides);
-  ~Cylinder(void);
+  TruncatedCone(vec3 root, vec3 dir, float smallR, float bigR, unsigned S);
+  ~TruncatedCone(void);
   bool          updateBoundingBox(BoundingBox* box, float altitude);
   bool          bufferGeometry(TriangleBuffer* T, float altitude, unsigned color);
   bool          matchRay(vec3& position, vec3& direction, float& lambda);
@@ -46,9 +45,16 @@ class Cylinder
   // Instance variables - private
   
   // Member functions - private
-  Cylinder(const Cylinder&);                 // Prevent copy-construction
-  Cylinder& operator=(const Cylinder&);      // Prevent assignment
+  TruncatedCone(const TruncatedCone&);                 // Prevent copy-construction
+  TruncatedCone& operator=(const TruncatedCone&);      // Prevent assignment
 };
+
+
+// =======================================================================================
+// Utility function declarations
+
+void  getCrossVectors(vec3 dir, vec3 f1, vec3 f2, float radius);
+
 
 #endif
 

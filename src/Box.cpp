@@ -261,29 +261,13 @@ void Box::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 
 
 // =======================================================================================
-// Stub definition
-
-void Box::draw(void)
-{
-  return;
-}
-
-
-// =======================================================================================
 // Decide if a ray touches us
 /*  Using the VisualObject one at present.
  
-bool Box::matchRay(vec3& position, vec3& direction, float& lambda)
-{
-  unless(box->matchRay(position, direction, lambda))
-    return false;
-    
-  //XXX NOT DONE
-  return true;
-}*/
+bool Box::matchRay(vec3& position, vec3& direction, float& lambda)*/
 
 
-// =======================================================================================
+ // =======================================================================================
 // Tell callers our name at runtime.
 
 const char* Box::objectName(void)

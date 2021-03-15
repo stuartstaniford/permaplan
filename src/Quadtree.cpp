@@ -478,19 +478,6 @@ void Quadtree::bufferGeometry(Vertex* buf)
 
 
 // =======================================================================================
-// Render our part of the scene
-
-void Quadtree::draw(void)
-{
-  forAllKids(i)
-    kids[i]->draw();
-  
-  if(checkGLError(stderr, "Quadtree::draw"))
-    exit(-1);
-}
-
-
-// =======================================================================================
 // Used by matchRay, in the situation in which we know that we have matched, and we want
 // to know if there's a more specific match to our child.
 

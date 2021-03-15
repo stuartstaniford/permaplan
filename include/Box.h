@@ -25,7 +25,6 @@ class Box: public VisualObject
   bool        getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
   int         getNextIndex(bool resetToFirst);
   bool        bufferGeometry(TriangleBuffer* T);
-  void        draw(void);
   //bool        matchRay(vec3& position, vec3& direction, float& lambda);
   void        triangleBufferSizes(unsigned& vCount, unsigned& iCount);
   const char* objectName(void);

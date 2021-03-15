@@ -52,7 +52,6 @@ class Quadtree
   void rebuildTBufSizes(void);
   void redoLandPlanar(vec3 plane);
   void stripSurface(void);
-  void draw(void);
   VisualObject* matchRay(vec3& position, vec3& direction, float& lambda);
   void saveSurfaceState(char* fileName);
   bool diagnosticHTML(HttpDebug* serv, char* path);
