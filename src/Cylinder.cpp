@@ -90,13 +90,17 @@ bool Cylinder::bufferGeometry(TriangleBuffer* T, float altitude, unsigned color)
     ang = i*angleRadians;
     cosAng = cosf(ang);
     sinAng = sinf(ang);
+    vec3 norm = {cosAng*f1[0] + sinAng*f2[0],
+                    cosAng*f1[1] + sinAng*f2[1],
+                    cosAng*f1[2] + sinAng*f2[2]};
     
     // base of shaft of the cylinder on this particular radial slice
-    x = location[0] + cosAng*f1[0] + sinAng*f2[0];
-    y = location[1] + cosAng*f1[1] + sinAng*f2[1];
-    z = location[2] + cosAng*f1[2] + sinAng*f2[2] + altitude;
+    x = location[0] + norm[0];
+    y = location[1] + norm[1];
+    z = location[2] + norm[2] + altitude;
     vertices[2*i].setPosition(x, y, z);
     vertices[2*i].setColor(color);
+    vertices[2*i].setNormal(norm); // to be normalized in gpu
 
     // top of shaft
     x += axisDirection[0];
@@ -104,6 +108,7 @@ bool Cylinder::bufferGeometry(TriangleBuffer* T, float altitude, unsigned color)
     z += axisDirection[2];
     vertices[2*i+1].setPosition(x, y, z);
     vertices[2*i+1].setColor(color);
+    vertices[2*i+1].setNormal(norm);
    }
   
   // Done with vertices, now set up the indices.  As usual, we need triangles
