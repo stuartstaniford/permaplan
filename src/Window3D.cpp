@@ -252,11 +252,13 @@ void Window3D::processMouse(Camera& camera)
     if(!inClick)  // it *just* got pressed and this is our first frame processing that fact
      {
       clickTime.now();
+      LogClickDetails("Mouse press started at %s", clickTime.ctimeString());
       inClick = true;
       if(testingDoubleClick)
        {
         justNow.now();
         clickSpacing = justNow - mouseUpTime;
+        LogClickDetails("Testing for double-click after %.3f.\n", clickSpacing);
         if(clickSpacing < 0.25)
          {
           testingDoubleClick = false;
@@ -270,6 +272,7 @@ void Window3D::processMouse(Camera& camera)
       double yDelta = (mouseY - lastMouseY)/height;
       if(xDelta < -1.0 || xDelta > 1.0 || yDelta < -1.0 || yDelta > 1.0)
         goto processMouseExit; // weird, don't know what to do.
+      LogClickDetails("Mouse move detected by %.4lf,%.4lf.\n", xDelta, yDelta);
       camera.mouseDrag((float)xDelta, (float)yDelta);
      }
    }
@@ -279,6 +282,7 @@ void Window3D::processMouse(Camera& camera)
     testingDoubleClick = true;
     mouseUpTime.now();
     clickLength = mouseUpTime - clickTime;
+    LogClickDetails("Mouse lifted after click length of %.3f.\n", clickLength);
    }
   else if(testingDoubleClick) // see if we timed out on double click detection
    {
@@ -286,6 +290,7 @@ void Window3D::processMouse(Camera& camera)
     clickSpacing = justNow - mouseUpTime;
     if(clickSpacing > 0.25)
      {
+      LogClickDetails("Timing out double-click detection after %.3f.\n", clickSpacing);
       // This isn't a double click, so see if it's a single click.
       testingDoubleClick = false;
       if(clickLength < 0.2) // don't treat drags as a click
