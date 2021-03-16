@@ -29,7 +29,8 @@
 
 //#define LOG_MOUSE_LOCATION      // where the mouse is on the screen each frame
 #define LOG_MOUSE_CLICK         // Location of single mouse clicks
-//#define LOG_DOUBLE_CLICK        // Location and intra-click timing of mouse double clicks
+#define LOG_DOUBLE_CLICK        // Location and intra-click timing of mouse double clicks
+#define LOG_CLICK_DETAILS        // Extra detailed recording of parts of click detection
 //#define LOG_MOUSE_RAY_POINT     // Where the mouse is pointing in 3d space
 //#define LOG_LAND_HEIGHTS        // Log when a new land height is entered.
 //#define LOG_OBJECT_INSERTIONS   // Log when a new object is inserted in scene.
@@ -134,7 +135,8 @@ extern bool doLogOTDLDetails;     // Log details of valid OTDL objects
 // Logging options to do with interface controls
 extern bool doLogMouseLocation;       // where the mouse is on the screen each frame
 extern bool doLogMouseClick;          // Location of single mouse clicks
-extern bool doLogDoubleClick;         // Location and intra-click timing of mouse double clicks
+extern bool doLogDoubleClick;         // Location and intra-click timing of double clicks
+extern bool doLogClickDetails;        // Extra detailed recording of parts of click detection
 extern bool doLogMouseRayPoint;       // Where the mouse is pointing in 3d space
 extern bool doLogLandHeights;         // Log when a new land height is entered.
 extern bool doLogObjectInsertions;    // Log when a new object is inserted in scene.
@@ -280,6 +282,13 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
 #define LogDoubleClick(...) if(doLogDoubleClick) LogStatement(__VA_ARGS__)
 #else
 #define LogDoubleClick(...)
+#endif
+
+// Extra detailed recording of parts of click detection
+#ifdef LOG_CLICK_DETAILS
+#define LogClickDetails(...) if(doLogClickDetails) LogStatement(__VA_ARGS__)
+#else
+#define LogClickDetails(...)
 #endif
 
 // Where the mouse is pointing in 3d space

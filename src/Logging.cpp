@@ -32,6 +32,7 @@ bool doLogOTDLDetails         = true; // Log details of valid OTDL objects
 bool doLogMouseLocation       = true; // where the mouse is on the screen each frame
 bool doLogMouseClick          = true; // Location of single mouse clicks
 bool doLogDoubleClick         = true; // Location and intra-click timing of double clicks
+bool doLogClickDetails        = true; // Extra detailed recording of parts of click detection
 bool doLogMouseRayPoint       = true; // Where the mouse is pointing in 3d space
 bool doLogLandHeights         = true; // Log when a new land height is entered.
 bool doLogObjectInsertions    = true; // Log when a new object is inserted in scene.

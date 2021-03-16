@@ -222,7 +222,7 @@ void Window3D::processDoubleClick(float mouseX, float mouseY, float timeDiff)
 void Window3D::processMouse(Camera& camera)
 {
   Timeval justNow, clickTime;
-  float timeDiff, clickLength = HUGE_VALF;
+  float clickSpacing, clickLength = HUGE_VALF;
   
   if (!glfwGetWindowAttrib(window, GLFW_HOVERED))
    {
@@ -246,22 +246,25 @@ void Window3D::processMouse(Camera& camera)
    }
   
   int state = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT);
-  if (state == GLFW_PRESS)
+  
+  if (state == GLFW_PRESS) // mouse button is pressed
    {
-    if(!inClick)
+    if(!inClick)  // it *just* got pressed and this is our first frame processing that fact
      {
       clickTime.now();
       inClick = true;
       if(testingDoubleClick)
        {
-        testingDoubleClick = false;
         justNow.now();
-        timeDiff = justNow - mouseUpTime;
-        if(timeDiff < 0.25)
-          processDoubleClick((float)mouseX, (float)mouseY, timeDiff);
+        clickSpacing = justNow - mouseUpTime;
+        if(clickSpacing < 0.25)
+         {
+          testingDoubleClick = false;
+          processDoubleClick((float)mouseX, (float)mouseY, clickSpacing);
+         }
        }
      }
-    else if(mouseMoved)
+    else if(mouseMoved) // drag the camera
      {
       double xDelta = (mouseX - lastMouseX)/width;
       double yDelta = (mouseY - lastMouseY)/height;
@@ -270,18 +273,18 @@ void Window3D::processMouse(Camera& camera)
       camera.mouseDrag((float)xDelta, (float)yDelta);
      }
    }
-  else if(inClick)
+  else if(inClick)  // mouse button must have just been released
    {
     inClick            = false;
     testingDoubleClick = true;
     mouseUpTime.now();
     clickLength = mouseUpTime - clickTime;
    }
-  else if(testingDoubleClick)
+  else if(testingDoubleClick) // see if we timed out on double click detection
    {
     justNow.now();
-    timeDiff = justNow - mouseUpTime;
-    if(timeDiff > 0.25)
+    clickSpacing = justNow - mouseUpTime;
+    if(clickSpacing > 0.25)
      {
       // This isn't a double click, so see if it's a single click.
       testingDoubleClick = false;
