@@ -243,12 +243,12 @@ void MenuInterface::imguiLockOverlay(void)
     window_flags |= ImGuiWindowFlags_NoMove;
   if (ImGui::Begin("Lock Overlay", &show_lock_overlay, window_flags))
    {
-    if(scene->focusObject)
+    if(scene->lockObject)
      {
-      ImGui::Text("Object Type: %s\n", scene->focusObject->objectName());
+      ImGui::Text("Object Type: %s\n", scene->lockObject->objectName());
       ImGui::Text("Coords: %.1f' east, %.1f' north\nAltitude: %.1f'\n",
-                  scene->focusObjectLocation[0], scene->focusObjectLocation[1],
-                  scene->focusObjectLocation[2]);
+                  scene->lockObjectLocation[0], scene->lockObjectLocation[1],
+                  scene->lockObjectLocation[2]);
      }
     else
       ImGui::Text("No focus object.\n");

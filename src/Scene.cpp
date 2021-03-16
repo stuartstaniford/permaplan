@@ -21,6 +21,7 @@ Scene::Scene():
                 indicatorTbuf(NULL),
                 land(),
                 focusObject(NULL),
+                lockObject(NULL),
                 lighting(),
                 simulationSpeed(2.5f), // in years/second
                 axes(NULL),

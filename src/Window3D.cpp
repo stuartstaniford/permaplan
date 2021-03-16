@@ -197,6 +197,8 @@ void Window3D::processClick(float mouseX, float mouseY)
     LogMouseClick("Focussing on %s object at %.1f, %.1f, %.1f\n",
                   scene->focusObject->objectName(), scene->focusObjectLocation[0],
                   scene->focusObjectLocation[1], scene->focusObjectLocation[2]);
+    scene->lockObject = scene->focusObject;
+    glm_vec3_copy(scene->focusObjectLocation, scene->lockObjectLocation);
     imgMenu->show_lock_overlay = true;
    }
 }
@@ -221,8 +223,8 @@ void Window3D::processDoubleClick(float mouseX, float mouseY, float timeDiff)
 
 void Window3D::processMouse(Camera& camera)
 {
-  Timeval justNow, clickTime;
-  float clickSpacing, clickLength = HUGE_VALF;
+  Timeval justNow;
+  float clickSpacing;
   
   if (!glfwGetWindowAttrib(window, GLFW_HOVERED))
    {
@@ -282,7 +284,8 @@ void Window3D::processMouse(Camera& camera)
     testingDoubleClick = true;
     mouseUpTime.now();
     clickLength = mouseUpTime - clickTime;
-    LogClickDetails("Mouse lifted after click length of %.3f.\n", clickLength);
+    LogClickDetails("Mouse lifted after click length of %.3f at %lu from %lu.\n", clickLength,
+                    mouseUpTime.tv_sec, clickTime.tv_sec);
    }
   else if(testingDoubleClick) // see if we timed out on double click detection
    {

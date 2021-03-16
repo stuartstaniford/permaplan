@@ -41,6 +41,8 @@ class Window3D
   GLFWwindow*     window;
   Timeval         lastTime;
   Timeval         mouseUpTime;
+  Timeval         clickTime;
+  float           clickLength;
   bool            inClick;
   bool            testingDoubleClick;
   bool            mouseMoved;

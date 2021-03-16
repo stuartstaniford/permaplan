@@ -42,6 +42,8 @@ class Scene
   vec3            lastDoubleClick;
   vec3            focusObjectLocation;
   VisualObject*   focusObject;
+  vec3            lockObjectLocation;
+  VisualObject*   lockObject;
   LightingModel   lighting;
   float           simulationSpeed;          //years/sec
 

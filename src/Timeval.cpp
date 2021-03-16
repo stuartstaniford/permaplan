@@ -147,7 +147,7 @@ float Timeval::floatYear(void)
 double Timeval::operator-(const Timeval& t)
 {
   double diff;
-  diff = (tv_sec - t.tv_sec);
+  diff = (double)((long long)tv_sec - (long long)t.tv_sec);
   diff += tv_usec/1e6 ;
   diff -= t.tv_usec/1e6;
   return diff;
