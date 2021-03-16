@@ -111,19 +111,18 @@ bool Cylinder::bufferGeometry(TriangleBuffer* T, float altitude, unsigned color)
     vertices[2*i+1].setNormal(norm);
    }
   
-  // Done with vertices, now set up the indices.  As usual, we need triangles
-  // to be clockwise looking from outside the cylinder, because of OpenGL faceculling.
-  
+  // Done with vertices, now set up the indices.  As usual, we need triangles to be
+  // counter-clockwise looking from outside the cylinder, because of OpenGL faceculling.
   int iPlus;
   for(int i=0; i<sides; i++)
    {
     iPlus = (i+1)%sides;
     indices[6*i]    = vOffset + 2*i;            // base of this radius
-    indices[6*i+1]  = vOffset + 2*i + 1;        // top of shaft at this radius
-    indices[6*i+2]  = vOffset + 2*iPlus;        // base of shaft at next radius
-    indices[6*i+3]  = indices[6*i+2];           // base of shaft at next radius
-    indices[6*i+4]  = indices[6*i+1];           // top of shaft at this radius
-    indices[6*i+5]  = vOffset + 2*iPlus + 1;    // top of shaft at next radius
+    indices[6*i+1]  = vOffset + 2*iPlus;        // base of shaft at next radius
+    indices[6*i+2]  = vOffset + 2*i + 1;        // top of shaft at this radius
+    indices[6*i+3]  = indices[6*i+1];           // base of shaft at next radius
+    indices[6*i+4]  = vOffset + 2*iPlus + 1;    // top of shaft at next radius
+    indices[6*i+5]  = indices[6*i+2];           // top of shaft at this radius
    }
 
   return true;
