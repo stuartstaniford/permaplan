@@ -357,17 +357,17 @@ void MenuInterface::imguiFocusOverlay(void)
     window_flags |= ImGuiWindowFlags_NoMove;
   if (ImGui::Begin("Focus Overlay", &show_focus_overlay, window_flags))
    {
-    vec3 mouseSceneLoc;
     //scene->findCameraObject(camF);
-    VisualObject* mouseObject = scene->findObjectFromWindowCoords(mouseSceneLoc,
+    scene->focusObject = scene->findObjectFromWindowCoords(scene->focusObjectLocation,
                     win3D.lastMouseX/win3D.width*2.0f-1.0f,
                     1.0f - win3D.lastMouseY/win3D.height*2.0f);
-    if(mouseObject)
+    if(scene->focusObject)
      {
-      ImGui::Text("Object Type: %s\n", mouseObject->objectName());
+      ImGui::Text("Object Type: %s\n", scene->focusObject->objectName());
       ImGui::Text("Coords: %.1f' east, %.1f' north\nAltitude: %.1f'\n",
-                  mouseSceneLoc[0], mouseSceneLoc[1], mouseSceneLoc[2]);
-      mouseOverlayDisplays(mouseSceneLoc);
+                  scene->focusObjectLocation[0], scene->focusObjectLocation[1],
+                  scene->focusObjectLocation[2]);
+      mouseOverlayDisplays(scene->focusObjectLocation);
      }
     else
       ImGui::Text("Mouse out of scene.\n");

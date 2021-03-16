@@ -192,8 +192,6 @@ void Window3D::loop(HttpDebug& httpServer)
 void Window3D::processClick(float mouseX, float mouseY)
 {
   LogMouseClick("Mouse click at %.2f, %.2f.\n", mouseX, mouseY);
-  scene->focusObject = scene->findObjectFromWindowCoords(scene->focusObjectLocation,
-                          mouseX/width*2.0f-1.0f, 1.0f - mouseY/height*2.0f);
   if(scene->focusObject)
    {
     LogMouseClick("Focussing on %s object at %.1f, %.1f, %.1f\n",
@@ -212,7 +210,6 @@ void Window3D::processDoubleClick(float mouseX, float mouseY, float timeDiff)
   imgMenu->show_insert_menu = true;
   if(scene->simulationActive())
     scene->pauseSimulation();
-  scene->focusObject = NULL;
   scene->findObjectFromWindowCoords(scene->lastDoubleClick,
                           mouseX/width*2.0f-1.0f, 1.0f - mouseY/height*2.0f);
   LogDoubleClick("Double click (%.3fs) at %.2f, %.2f\n", timeDiff, mouseX, mouseY);
@@ -225,7 +222,7 @@ void Window3D::processDoubleClick(float mouseX, float mouseY, float timeDiff)
 void Window3D::processMouse(Camera& camera)
 {
   Timeval justNow, clickTime;
-  float timeDiff, clickLength;
+  float timeDiff, clickLength = HUGE_VALF;
   
   if (!glfwGetWindowAttrib(window, GLFW_HOVERED))
    {
