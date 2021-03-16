@@ -195,9 +195,12 @@ void Window3D::processClick(float mouseX, float mouseY)
   scene->focusObject = scene->findObjectFromWindowCoords(scene->focusObjectLocation,
                           mouseX/width*2.0f-1.0f, 1.0f - mouseY/height*2.0f);
   if(scene->focusObject)
+   {
     LogMouseClick("Focussing on %s object at %.1f, %.1f, %.1f\n",
                   scene->focusObject->objectName(), scene->focusObjectLocation[0],
                   scene->focusObjectLocation[1], scene->focusObjectLocation[2]);
+    imgMenu->show_lock_overlay = true;
+   }
 }
 
 

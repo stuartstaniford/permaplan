@@ -28,20 +28,12 @@ class MenuInterface
   // Public instance variables
   Scene*          scene;
   bool            show_insert_menu;
+  bool            show_lock_overlay;
 
   // Public methods
   MenuInterface(GLFWwindow* window, Window3D& W);
   ~MenuInterface(void);
   void  imguiInterface(void);
-  void  imguiInsertMenu(void);
-  void  imguiHeightInputDialog(void);
-  void  imguiMaterialsMenu(void);
-  void  imguiGenusMenu(void);
-  void  imguiTreeMenu(void);
-  void  imguiAllTreeSelector(void);
-  void  imguiFocusOverlay(void);
-  void  imguiSimulationController(void);
-  void  mouseOverlayDisplays(vec3 mouseSceneLoc);
 
  private:
   
@@ -65,7 +57,17 @@ class MenuInterface
 #endif
 
   // Private methods
-  
+  void  imguiInsertMenu(void);
+  void  imguiHeightInputDialog(void);
+  void  imguiMaterialsMenu(void);
+  void  imguiGenusMenu(void);
+  void  imguiTreeMenu(void);
+  void  imguiAllTreeSelector(void);
+  void  imguiFocusOverlay(void);
+  void  imguiSimulationController(void);
+  void  mouseOverlayDisplays(vec3 mouseSceneLoc);
+  void  imguiLockOverlay(void);
+
   MenuInterface(const MenuInterface&);                 // Prevent copy-construction
   MenuInterface& operator=(const MenuInterface&);      // Prevent assignment
 

@@ -17,6 +17,7 @@
 MenuInterface::MenuInterface(GLFWwindow* window, Window3D& W):
                         scene(NULL),
                         show_insert_menu(false),
+                        show_lock_overlay(false),
                         win3D(W),
                         show_height_input_dialog(false),
                         show_materials_menu(false),
@@ -42,6 +43,24 @@ MenuInterface::MenuInterface(GLFWwindow* window, Window3D& W):
   ImGui::StyleColorsClassic();
 
   heightBuf[0] = '\0'; // clear the buffer
+}
+
+
+// =======================================================================================
+// Utility function for handling menus in the corners of the window
+
+void setCorner(int& corner)
+{
+  const float DISTANCE = 10.0f;
+  ImGuiIO& io = ImGui::GetIO();
+
+  if (corner != -1)
+   {
+    ImVec2 window_pos = ImVec2((corner & 1) ? io.DisplaySize.x - DISTANCE :
+                             DISTANCE, (corner & 2) ? io.DisplaySize.y - DISTANCE : DISTANCE);
+    ImVec2 window_pos_pivot = ImVec2((corner & 1) ? 1.0f : 0.0f, (corner & 2) ? 1.0f : 0.0f);
+    ImGui::SetNextWindowPos(window_pos, ImGuiCond_Always, window_pos_pivot);
+   }
 }
 
 
@@ -206,6 +225,41 @@ void MenuInterface::imguiTreeMenu(void)
 
 
 // =======================================================================================
+// Transparent overlay that shows when we have clicked on an object that is now
+// the basis for motion.
+
+void MenuInterface::imguiLockOverlay(void)
+{
+  if(!show_lock_overlay)
+    return;
+  static int corner = 3;
+  
+  setCorner(corner);
+  ImGui::SetNextWindowBgAlpha(0.35f); // Transparent background
+  ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoDecoration |
+                ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings |
+                ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav;
+  if (corner != -1)
+    window_flags |= ImGuiWindowFlags_NoMove;
+  if (ImGui::Begin("Lock Overlay", &show_lock_overlay, window_flags))
+   {
+    if(scene->focusObject)
+     {
+      ImGui::Text("Object Type: %s\n", scene->focusObject->objectName());
+      ImGui::Text("Coords: %.1f' east, %.1f' north\nAltitude: %.1f'\n",
+                  scene->focusObjectLocation[0], scene->focusObjectLocation[1],
+                  scene->focusObjectLocation[2]);
+     }
+    else
+      ImGui::Text("No focus object.\n");
+
+    ImGui::Separator();
+   }
+  ImGui::End();
+}
+
+
+// =======================================================================================
 // This menu is the entry point into a set of menu's (based on JSON files) that ultimately
 // aspire to be able to select any tree species in the world.
 
@@ -282,24 +336,6 @@ void MenuInterface::mouseOverlayDisplays(vec3 mouseSceneLoc)
   
   // Invert matrix
   //displayImguiMatrix("Invert Matrix:", scene->invert);
-}
-
-
-// =======================================================================================
-// Utility function for handling menus in the corners of the window
-
-void setCorner(int& corner)
-{
-  const float DISTANCE = 10.0f;
-  ImGuiIO& io = ImGui::GetIO();
-
-  if (corner != -1)
-   {
-    ImVec2 window_pos = ImVec2((corner & 1) ? io.DisplaySize.x - DISTANCE :
-                             DISTANCE, (corner & 2) ? io.DisplaySize.y - DISTANCE : DISTANCE);
-    ImVec2 window_pos_pivot = ImVec2((corner & 1) ? 1.0f : 0.0f, (corner & 2) ? 1.0f : 0.0f);
-    ImGui::SetNextWindowPos(window_pos, ImGuiCond_Always, window_pos_pivot);
-   }
 }
 
 
@@ -420,6 +456,7 @@ void MenuInterface::imguiInterface(void)
   
   imguiSimulationController();
   imguiFocusOverlay();
+  imguiLockOverlay();
 
 #ifdef SHOW_DEMO_WINDOW
   if (show_demo_window)
