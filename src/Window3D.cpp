@@ -224,6 +224,9 @@ void Window3D::processDoubleClick(float mouseX, float mouseY, float timeDiff)
 
 void Window3D::processMouse(Camera& camera)
 {
+  Timeval justNow, clickTime;
+  float timeDiff, clickLength;
+  
   if (!glfwGetWindowAttrib(window, GLFW_HOVERED))
    {
     LogMouseLocation("Mouse cursor out of window\n");
@@ -248,17 +251,18 @@ void Window3D::processMouse(Camera& camera)
   int state = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT);
   if (state == GLFW_PRESS)
    {
-    if(!inClick && !testingDoubleClick)
-      processClick((float)mouseX, (float)mouseY);
-    inClick = true;
-    if(testingDoubleClick)
+    if(!inClick)
      {
-      testingDoubleClick = false;
-      Timeval justNow;
-      justNow.now();
-      float timeDiff = justNow - mouseUpTime;
-      if(timeDiff < 0.25)
-        processDoubleClick((float)mouseX, (float)mouseY, timeDiff);
+      clickTime.now();
+      inClick = true;
+      if(testingDoubleClick)
+       {
+        testingDoubleClick = false;
+        justNow.now();
+        timeDiff = justNow - mouseUpTime;
+        if(timeDiff < 0.25)
+          processDoubleClick((float)mouseX, (float)mouseY, timeDiff);
+       }
      }
     else if(mouseMoved)
      {
@@ -274,8 +278,21 @@ void Window3D::processMouse(Camera& camera)
     inClick            = false;
     testingDoubleClick = true;
     mouseUpTime.now();
+    clickLength = mouseUpTime - clickTime;
    }
-  
+  else if(testingDoubleClick)
+   {
+    justNow.now();
+    timeDiff = justNow - mouseUpTime;
+    if(timeDiff > 0.25)
+     {
+      // This isn't a double click, so see if it's a single click.
+      testingDoubleClick = false;
+      if(clickLength < 0.2) // don't treat drags as a click
+        processClick((float)mouseX, (float)mouseY);
+     }
+   }
+
 processMouseExit:
   lastMouseX = mouseX;
   lastMouseY = mouseY;
