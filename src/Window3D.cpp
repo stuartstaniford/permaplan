@@ -187,6 +187,21 @@ void Window3D::loop(HttpDebug& httpServer)
 
 
 // =======================================================================================
+// We have detected a mouse click in the window - figure out what we should do.
+
+void Window3D::processClick(float mouseX, float mouseY)
+{
+  LogMouseClick("Mouse click at %.2f, %.2f.\n", mouseX, mouseY);
+  scene->focusObject = scene->findObjectFromWindowCoords(scene->focusObjectLocation,
+                          mouseX/width*2.0f-1.0f, 1.0f - mouseY/height*2.0f);
+  if(scene->focusObject)
+    LogMouseClick("Focussing on %s object at %.1f, %.1f, %.1f\n",
+                  scene->focusObject->objectName(), scene->focusObjectLocation[0],
+                  scene->focusObjectLocation[1], scene->focusObjectLocation[2]);
+}
+
+
+// =======================================================================================
 // We have detected a mouse double-click in the window - figure out what we should do.
 
 void Window3D::processDoubleClick(float mouseX, float mouseY, float timeDiff)
@@ -194,6 +209,7 @@ void Window3D::processDoubleClick(float mouseX, float mouseY, float timeDiff)
   imgMenu->show_insert_menu = true;
   if(scene->simulationActive())
     scene->pauseSimulation();
+  scene->focusObject = NULL;
   scene->findObjectFromWindowCoords(scene->lastDoubleClick,
                           mouseX/width*2.0f-1.0f, 1.0f - mouseY/height*2.0f);
   LogDoubleClick("Double click (%.3fs) at %.2f, %.2f\n", timeDiff, mouseX, mouseY);
@@ -230,7 +246,7 @@ void Window3D::processMouse(Camera& camera)
   if (state == GLFW_PRESS)
    {
     if(!inClick && !testingDoubleClick)
-      LogMouseClick("Mouse click started.\n");
+      processClick((float)mouseX, (float)mouseY);
     inClick = true;
     if(testingDoubleClick)
      {

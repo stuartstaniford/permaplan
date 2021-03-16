@@ -49,6 +49,7 @@ class Window3D
   // Private methods
   void          processInput(Camera& camera);
   void          processMouse(Camera& camera);
+  void          processClick(float mouseX, float mouseY);
   void          processDoubleClick(float mouseX, float mouseY, float timeDiff);
   float         timeDelta(void);           // number of microseconds since last call
 

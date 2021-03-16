@@ -20,6 +20,7 @@ Scene::Scene():
                 sceneObjectTbuf(NULL),
                 indicatorTbuf(NULL),
                 land(),
+                focusObject(NULL),
                 lighting(),
                 simulationSpeed(2.5f), // in years/second
                 axes(NULL),

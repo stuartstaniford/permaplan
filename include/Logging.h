@@ -28,7 +28,7 @@
 // Logging options to do with interface controls
 
 //#define LOG_MOUSE_LOCATION      // where the mouse is on the screen each frame
-//#define LOG_MOUSE_CLICK         // Location of single mouse clicks
+#define LOG_MOUSE_CLICK         // Location of single mouse clicks
 //#define LOG_DOUBLE_CLICK        // Location and intra-click timing of mouse double clicks
 //#define LOG_MOUSE_RAY_POINT     // Where the mouse is pointing in 3d space
 //#define LOG_LAND_HEIGHTS        // Log when a new land height is entered.
