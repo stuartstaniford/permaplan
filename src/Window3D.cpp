@@ -194,12 +194,26 @@ void Window3D::processClick(float mouseX, float mouseY)
   LogMouseClick("Mouse click at %.2f, %.2f.\n", mouseX, mouseY);
   if(scene->focusObject)
    {
-    LogMouseClick("Focussing on %s object at %.1f, %.1f, %.1f\n",
+    unless(scene->focusObject == scene->lockObject)
+     {
+      // This is a new click-selection of an object
+      LogMouseClick("Focussing on %s object at %.1f, %.1f, %.1f\n",
                   scene->focusObject->objectName(), scene->focusObjectLocation[0],
                   scene->focusObjectLocation[1], scene->focusObjectLocation[2]);
-    scene->lockObject = scene->focusObject;
-    glm_vec3_copy(scene->focusObjectLocation, scene->lockObjectLocation);
-    imgMenu->show_lock_overlay = true;
+      scene->lockObject = scene->focusObject;
+      glm_vec3_copy(scene->focusObjectLocation, scene->lockObjectLocation);
+      imgMenu->show_lock_overlay = true;
+     }
+    else
+     {
+      // Clicking on a previouly selected object deselects it and means we have no
+      // selection now.
+      scene->lockObject = NULL;
+      imgMenu->show_lock_overlay = false;
+      LogMouseClick("User deselected %s object at %.1f, %.1f, %.1f\n",
+                  scene->focusObject->objectName(), scene->focusObjectLocation[0],
+                  scene->focusObjectLocation[1], scene->focusObjectLocation[2]);
+     }
    }
 }
 
