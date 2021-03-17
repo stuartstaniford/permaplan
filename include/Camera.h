@@ -56,6 +56,7 @@ class Camera
   vec3      front;
   vec3      up;
   float     speed;             // feet/sec
+  float     percentageSpeed;   // percent/sec
   float     rotationalSpeed;  // degrees/second
   float     mouseRotation;  // degrees/window size
   float     viewAngle;  // degrees

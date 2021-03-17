@@ -22,7 +22,8 @@ vec3 zAxis = {0.0f, 0.0f, 1.0f};
 
 Camera::Camera(float distance, float viewAngleDegrees):
                   speed(200.0f),
-                  rotationalSpeed(30.0f),
+                  percentageSpeed(75.0f),
+                  rotationalSpeed(60.0f),
                   mouseRotation(180.0f),
                   viewAngle(viewAngleDegrees),
                   aspectRatio(0.0f),
@@ -160,12 +161,16 @@ void Camera::adjust(unsigned opFlags, float timeLapseUsec)
 void Camera::adjustWithPivot(unsigned opFlags, float timeLapseUsec)
 {
   // The amount of angle for the various rotational commands
-  float rotAngle = glm_rad(rotationalSpeed*timeLapseUsec/1.0e6);
+  float rotAngle = glm_rad(rotationalSpeed*timeLapseUsec/1.0e6f);
 
+  // The distance ratio for percentage based changes.
+  float distRatio = 1.0f + percentageSpeed/100.0f*timeLapseUsec/1.0e6f;
+  
   // The vector from the pivot location to the camera
   vec3 relativeCam;
   glm_vec3_sub(pos, pivotLocation, relativeCam);
-  
+  vec3 newRelativeCam;
+
   // Rotate camera left around the pivot
   if(CAM_MOVE_LEFT & opFlags || CAM_YAW_LEFT & opFlags)
    {
@@ -183,6 +188,21 @@ void Camera::adjustWithPivot(unsigned opFlags, float timeLapseUsec)
     glm_vec3_rotate(relativeCam, rotAngle, zAxis);
     glm_vec3_add(pivotLocation, relativeCam, pos);
     glm_vec3_copy(zAxis, up);
+   }
+
+  // Move camera towards the pivot point
+  if(CAM_MOVE_FORWARD & opFlags)
+   {
+    glm_vec3_scale(relativeCam, 1.0f/distRatio, newRelativeCam);
+    glm_vec3_add(pivotLocation, newRelativeCam, pos);
+   }
+    
+  // Move camera away from the pivot point
+  // Note the else if forward *and* back are set, forward wins
+  else if(CAM_MOVE_BACK & opFlags)
+   {
+    glm_vec3_scale(relativeCam, distRatio, newRelativeCam);
+    glm_vec3_add(pivotLocation, newRelativeCam, pos);
    }
 
   // Update the camera matrices in the shader
