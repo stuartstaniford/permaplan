@@ -202,6 +202,7 @@ void Window3D::processClick(float mouseX, float mouseY)
                   scene->focusObjectLocation[1], scene->focusObjectLocation[2]);
       scene->lockObject = scene->focusObject;
       glm_vec3_copy(scene->focusObjectLocation, scene->lockObjectLocation);
+      scene->camera.setPivotLocation(scene->focusObjectLocation);
       imgMenu->show_lock_overlay = true;
      }
     else
@@ -209,6 +210,7 @@ void Window3D::processClick(float mouseX, float mouseY)
       // Clicking on a previouly selected object deselects it and means we have no
       // selection now.
       scene->lockObject = NULL;
+      scene->camera.setPivotLocation(NULL);
       imgMenu->show_lock_overlay = false;
       LogMouseClick("User deselected %s object at %.1f, %.1f, %.1f\n",
                   scene->focusObject->objectName(), scene->focusObjectLocation[0],

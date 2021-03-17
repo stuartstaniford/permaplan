@@ -65,6 +65,9 @@ Camera::~Camera(void)
 
 void Camera::adjust(unsigned opFlags, float timeLapseUsec)
 {
+  if(pivotLocation)
+    return adjustWithPivot(opFlags, timeLapseUsec);
+  
   // Compute the vector to the left side of the way the camera is currently oriented
   vec3 sideways;
   glm_vec3_cross(up, front, sideways);
@@ -146,6 +149,18 @@ void Camera::adjust(unsigned opFlags, float timeLapseUsec)
   // Update the camera matrices in the shader
   setProjectionMatrix();
   updateViewMatrix();
+}
+
+
+// =======================================================================================
+// Function to implement all the supported keyboard camera operations when a pivot
+// location has been established and now we are going to move relative to that location.
+
+void Camera::adjustWithPivot(unsigned opFlags, float timeLapseUsec)
+{
+  // The amount of angle for the various rotational commands
+  //float rotAngle = glm_rad(rotationalSpeed*timeLapseUsec/1.0e6);
+
 }
 
 
