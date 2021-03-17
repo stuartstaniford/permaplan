@@ -7,6 +7,8 @@
 #include <cglm/cglm.h>
 #include "Shader.h"
 #include "HttpDebug.h"
+#include "GlobalMacros.h"
+
 
 // Define flags used for passing multiple camera ops in parallel.  Intended to go
 // in an unsigned 32 bit opFlags variable.
@@ -55,6 +57,7 @@ class Camera
   vec3      pos;
   vec3      front;
   vec3      up;
+  vec3      sideways;
   float     speed;             // feet/sec
   float     percentageSpeed;   // percent/sec
   float     rotationalSpeed;  // degrees/second

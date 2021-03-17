@@ -71,7 +71,6 @@ void Camera::adjust(unsigned opFlags, float timeLapseUsec)
     return adjustWithPivot(opFlags, timeLapseUsec);
   
   // Compute the vector to the left side of the way the camera is currently oriented
-  vec3 sideways;
   glm_vec3_cross(up, front, sideways);
   
   // move forward/back in the front direction but parallel to the x-y plane
@@ -170,14 +169,20 @@ void Camera::adjustWithPivot(unsigned opFlags, float timeLapseUsec)
   vec3 relativeCam;
   glm_vec3_sub(pos, pivotLocation, relativeCam);
   vec3 newRelativeCam;
+  
+  // Vector at right angles to the above and the zAxis
+  if(glm_vec3_dot(relativeCam, zAxis) > EPSILON)
+    glm_vec3_cross(relativeCam, zAxis, sideways);
+  else
+    glm_vec3_cross(relativeCam, up, sideways);
 
   // Rotate camera left around the pivot
   if(CAM_MOVE_LEFT & opFlags || CAM_YAW_LEFT & opFlags)
    {
     glm_vec3_rotate(front, -rotAngle, zAxis);
+    glm_vec3_rotate(up, -rotAngle, zAxis);
     glm_vec3_rotate(relativeCam, -rotAngle, zAxis);
     glm_vec3_add(pivotLocation, relativeCam, pos);
-    glm_vec3_copy(zAxis, up);
    }
   
   // Rotate camera right around the pivot
@@ -185,9 +190,9 @@ void Camera::adjustWithPivot(unsigned opFlags, float timeLapseUsec)
   else if(CAM_MOVE_RIGHT & opFlags || CAM_YAW_RIGHT & opFlags)
    {
     glm_vec3_rotate(front, rotAngle, zAxis);
+    glm_vec3_rotate(up, rotAngle, zAxis);
     glm_vec3_rotate(relativeCam, rotAngle, zAxis);
     glm_vec3_add(pivotLocation, relativeCam, pos);
-    glm_vec3_copy(zAxis, up);
    }
 
   // Move camera towards the pivot point
@@ -203,6 +208,25 @@ void Camera::adjustWithPivot(unsigned opFlags, float timeLapseUsec)
    {
     glm_vec3_scale(relativeCam, distRatio, newRelativeCam);
     glm_vec3_add(pivotLocation, newRelativeCam, pos);
+   }
+
+  // Rotate camera above the pivot point
+  if(CAM_PITCH_UP & opFlags || CAM_MOVE_UP & opFlags)
+   {
+    glm_vec3_rotate(front, rotAngle, sideways);
+    glm_vec3_rotate(up, rotAngle, sideways);
+    glm_vec3_rotate(relativeCam, rotAngle, sideways);
+    glm_vec3_add(pivotLocation, relativeCam, pos);
+   }
+    
+  // Rotate camera to the horizontal plane from the pivot point
+  // Note the else if up and down are set, up wins
+  else if(CAM_PITCH_DOWN & opFlags || CAM_MOVE_DOWN & opFlags)
+   {
+    glm_vec3_rotate(front, -rotAngle, sideways);
+    glm_vec3_rotate(up, -rotAngle, sideways);
+    glm_vec3_rotate(relativeCam, -rotAngle, sideways);
+    glm_vec3_add(pivotLocation, relativeCam, pos);
    }
 
   // Update the camera matrices in the shader
