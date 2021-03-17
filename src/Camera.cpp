@@ -56,6 +56,7 @@ Camera::Camera(float distance, float viewAngleDegrees):
 
 Camera::~Camera(void)
 {
+  
 }
 
 
@@ -159,8 +160,34 @@ void Camera::adjust(unsigned opFlags, float timeLapseUsec)
 void Camera::adjustWithPivot(unsigned opFlags, float timeLapseUsec)
 {
   // The amount of angle for the various rotational commands
-  //float rotAngle = glm_rad(rotationalSpeed*timeLapseUsec/1.0e6);
+  float rotAngle = glm_rad(rotationalSpeed*timeLapseUsec/1.0e6);
 
+  // The vector from the pivot location to the camera
+  vec3 relativeCam;
+  glm_vec3_sub(pos, pivotLocation, relativeCam);
+  
+  // Rotate camera left around the pivot
+  if(CAM_MOVE_LEFT & opFlags || CAM_YAW_LEFT & opFlags)
+   {
+    glm_vec3_rotate(front, -rotAngle, zAxis);
+    glm_vec3_rotate(relativeCam, -rotAngle, zAxis);
+    glm_vec3_add(pivotLocation, relativeCam, pos);
+    glm_vec3_copy(zAxis, up);
+   }
+  
+  // Rotate camera right around the pivot
+  // Note the else - if left *and* right are set, left wins
+  else if(CAM_MOVE_RIGHT & opFlags || CAM_YAW_RIGHT & opFlags)
+   {
+    glm_vec3_rotate(front, rotAngle, zAxis);
+    glm_vec3_rotate(relativeCam, rotAngle, zAxis);
+    glm_vec3_add(pivotLocation, relativeCam, pos);
+    glm_vec3_copy(zAxis, up);
+   }
+
+  // Update the camera matrices in the shader
+  setProjectionMatrix();
+  updateViewMatrix();
 }
 
 
