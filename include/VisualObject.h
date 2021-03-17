@@ -6,8 +6,7 @@
 #ifndef VISUAL_OBJECT_H
 #define VISUAL_OBJECT_H
 
-#include "BoundingBox.h"
-#include "TriangleBuffer.h"
+#include "VisualElement.h"
 
 // =======================================================================================
 // Class variable initialization
@@ -15,7 +14,7 @@
 class LandSurfaceRegion;
 class Quadtree;
 
-class VisualObject
+class VisualObject: public VisualElement
 {
   friend Quadtree;
  public:
@@ -26,19 +25,25 @@ class VisualObject
   // Member functions - public
   VisualObject(bool absHeights, BoundingBox* B = NULL);
   virtual ~VisualObject(void);
-  void                setNoTexColor(unsigned color);
-  virtual void        setAltitude(LandSurfaceRegion* surface);
+
+  // Public member functions coming from VisualElement
+  inline bool updateBoundingBox(BoundingBox* B)
+                    {return VisualElement::updateBoundingBox(B);}
   virtual bool        getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
   virtual bool        getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
   virtual int         getNextIndex(bool resetToFirst);
-  virtual void        getGroundContact(float& x, float& y);
   virtual bool        bufferGeometry(TriangleBuffer* T);
   virtual bool        matchRay(vec3& position, vec3& direction, float& lambda);
-  virtual void        updateBoundingBox(void);
   virtual void        triangleBufferSizes(unsigned& vCount, unsigned& iCount);
   virtual const char* objectName(void);
   virtual bool        diagnosticHTML(HttpDebug* serv);
   virtual bool        diagnosticHTMLSummary(HttpDebug* serv);
+
+  // Public member functions arising here
+  void                setNoTexColor(unsigned color);
+  virtual void        setAltitude(LandSurfaceRegion* surface);
+  virtual void        getGroundContact(float& x, float& y);
+  virtual void        updateBoundingBox(void);
 #ifdef LOG_TREE_VALIDATION
   virtual void        selfValidate(unsigned l);
 #endif

@@ -7,8 +7,8 @@
 // to be in some frame relative to the larger object of which they are part.
 
 
-#ifndef VISUAL_OBJECT_H
-#define VISUAL_OBJECT_H
+#ifndef VISUAL_ELEMENT_H
+#define VISUAL_ELEMENT_H
 
 #include "TriangleBuffer.h"
 #include "BoundingBox.h"

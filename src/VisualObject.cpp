@@ -137,24 +137,7 @@ bool VisualObject::matchRay(vec3& position, vec3& direction, float& lambda)
   unless(box->matchRay(position, direction, lambda))
     return false;
 
-  unsigned vCount, iCount;
-  triangleBufferSizes(vCount, iCount);
-  
-  Vertex V[3];
-  for(int i=0; i<iCount; i+=3)  // Loop over the triangles
-   {
-    if(i)
-      getNextVertex(false, V, PositionOnly);
-    else
-      getNextVertex(true, V, PositionOnly);
-    getNextVertex(false, V+1, PositionOnly);
-    getNextVertex(false, V+2, PositionOnly);
-    
-    if(mollerTrumbore(V[0].pos, V[1].pos, V[2].pos, position, direction, lambda))
-      return true;
-   }
-
-  return false;
+  return VisualElement::matchRay(position, direction, lambda);
 }
 
 
@@ -176,27 +159,8 @@ void VisualObject::updateBoundingBox(void)
    }
   else
     box->hugeValify();
-    
-  Vertex v3;
-  bool result;
-  for(result = getNextUniqueVertex(true, &v3, PositionOnly); result;
-                                    result = getNextUniqueVertex(false, &v3, PositionOnly))
-   {
-    for(int m=0; m<3; m++)
-     {
-      if(v3.pos[m] < box->lower[m])
-       {
-        box->lower[m] = v3.pos[m];
-        boxChanged = true;
-       }
-      if(v3.pos[m] > box->upper[m])
-       {
-        box->upper[m] = v3.pos[m];
-        boxChanged = true;
-       }
-     }
-   }
 
+  VisualElement::updateBoundingBox(box);
   if(boxChanged && qTreeNode)
     qTreeNode->notifyObjectBoxChange(this);
   return;
@@ -209,8 +173,6 @@ void VisualObject::updateBoundingBox(void)
 void VisualObject::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 {
   err(-1, "Called unimplemented superclass VisualObject::triangleBufferSizes.\n");
-  vCount = 0u;
-  iCount = 0u;
 }
 
 
@@ -219,8 +181,7 @@ void VisualObject::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 
 const char* VisualObject::objectName(void)
 {
-  static char* name = (char*)"VisualObject";
-  return name;
+  err(-1, "Called unimplemented superclass VisualObject::objectName.\n");
 }
 
 
@@ -233,7 +194,7 @@ const char* VisualObject::objectName(void)
 
 bool VisualObject::diagnosticHTML(HttpDebug* serv)
 {
-  return false;
+  err(-1, "Called unimplemented superclass VisualObject::diagnosticHTML.\n");
 }
 
 
@@ -246,10 +207,7 @@ bool VisualObject::diagnosticHTML(HttpDebug* serv)
 
 bool VisualObject::diagnosticHTMLSummary(HttpDebug* serv)
 {
-  httPrintf("<tr><td>VisualObject</td>");
-  httPrintf("<td>Unsubclassed: something is wrong.</td></tr>\n");
-
-  return false;
+  err(-1, "Called unimplemented superclass VisualObject::diagnosticHTMLSummary.\n");
 }
 
 

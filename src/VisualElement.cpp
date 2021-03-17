@@ -66,7 +66,6 @@ int VisualElement::getNextIndex(bool resetToFirst)
 bool VisualElement::bufferGeometry(TriangleBuffer* T)
 {
   err(-1, "Called unimplemented superclass VisualElement::bufferGeometry.\n");
-  return false;
 }
 
 
@@ -177,7 +176,6 @@ bool VisualElement::diagnosticHTML(HttpDebug* serv)
 bool VisualElement::diagnosticHTMLSummary(HttpDebug* serv)
 {
   err(-1, "Called unimplemented superclass VisualElement::diagnosticHTMLSummary.\n");
-  return false;
 }
 
 
