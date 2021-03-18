@@ -27,12 +27,13 @@ class VisualObject: public VisualElement
   virtual ~VisualObject(void);
 
   // Public member functions coming from VisualElement
-  inline bool updateBoundingBox(BoundingBox* B)
-                    {return VisualElement::updateBoundingBox(B);}
+  inline bool         updateBoundingBox(BoundingBox* B, vec3 offset)
+                    {return VisualElement::updateBoundingBox(B, offset);}
   virtual bool        getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
   virtual bool        getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
   virtual int         getNextIndex(bool resetToFirst);
   virtual bool        bufferGeometry(TriangleBuffer* T);
+  virtual bool        bufferGeometry(TriangleBuffer* T, vec3 offset);
   virtual bool        matchRay(vec3& position, vec3& direction, float& lambda);
   virtual void        triangleBufferSizes(unsigned& vCount, unsigned& iCount);
   virtual const char* objectName(void);

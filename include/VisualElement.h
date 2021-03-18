@@ -26,9 +26,9 @@ class VisualElement
   virtual bool        getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
   virtual bool        getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
   virtual int         getNextIndex(bool resetToFirst);
-  virtual bool        bufferGeometry(TriangleBuffer* T);
+  virtual bool        bufferGeometry(TriangleBuffer* T, vec3 offset);
   virtual bool        matchRay(vec3& position, vec3& direction, float& lambda);
-  virtual bool        updateBoundingBox(BoundingBox* box);
+  virtual bool        updateBoundingBox(BoundingBox* box, vec3 offset);
   virtual void        triangleBufferSizes(unsigned& vCount, unsigned& iCount);
   virtual const char* elementName(void);
   virtual bool        diagnosticHTML(HttpDebug* serv);

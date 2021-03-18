@@ -83,7 +83,7 @@ void VisualObject::getGroundContact(float& x, float& y)
 
 bool VisualObject::getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
 {
-  return false;
+  err(-1, "Call to unimplemented VisualObject::getNextUniqueVertex.\n");
 }
 
 
@@ -92,7 +92,7 @@ bool VisualObject::getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetai
 
 bool VisualObject::getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
 {
-  return false;
+  err(-1, "Call to unimplemented VisualObject::getNextVertex.\n");
 }
 
 
@@ -101,7 +101,7 @@ bool VisualObject::getNextVertex(bool resetToFirst, Vertex* v, VertexDetail deta
 
 int VisualObject::getNextIndex(bool resetToFirst)
 {
-  return -1;
+  err(-1, "Call to unimplemented VisualObject::getNextIndex.\n");
 }
 
 
@@ -121,6 +121,16 @@ void VisualObject::setNoTexColor(unsigned color)
 // Stub definition this should be overwritten by implementing subclasses
 
 bool VisualObject::bufferGeometry(TriangleBuffer* T)
+{
+  err(-1, "Called unimplemented superclass VisualObject::bufferGeometry.\n");
+  return false;
+}
+
+
+// =======================================================================================
+// Stub definition this should be overwritten by implementing subclasses
+
+bool VisualObject::bufferGeometry(TriangleBuffer* T, vec3 offset)
 {
   err(-1, "Called unimplemented superclass VisualObject::bufferGeometry.\n");
   return false;
@@ -149,6 +159,8 @@ bool VisualObject::matchRay(vec3& position, vec3& direction, float& lambda)
 // Note that subclass version of this must also take on the responsibility of notifying
 // our qTreeNode if we've changed our extent.
 
+vec3 zeroVec = {0.0f, 0.0f, 0.0f};
+
 void VisualObject::updateBoundingBox(void)
 {
   bool boxChanged = false;
@@ -160,7 +172,7 @@ void VisualObject::updateBoundingBox(void)
   else
     box->hugeValify();
 
-  VisualElement::updateBoundingBox(box);
+  VisualElement::updateBoundingBox(box, zeroVec);
   if(boxChanged && qTreeNode)
     qTreeNode->notifyObjectBoxChange(this);
   return;

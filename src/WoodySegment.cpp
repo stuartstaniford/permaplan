@@ -48,7 +48,8 @@ bool WoodySegment::updateBoundingBox(BoundingBox* box, float altitude)
   LogTreeBoundingBox("Updating the bounding box for tree %d, WoodySegment at level %u.\n",
                                                                           ourTreeIndex, level);
   bool retVal = false;
-  if(cylinder->updateBoundingBox(box, altitude))
+  vec3 offset = {0.0f, 0.0f, altitude};
+  if(cylinder->updateBoundingBox(box, offset))
    {
     LogTreeBoundingBox("Bounding box changed! for tree %d, WoodySegment at level %u.\n",
                                                                             ourTreeIndex, level);
@@ -110,9 +111,10 @@ bool WoodySegment::matchRay(vec3& position, vec3& direction)
 // =======================================================================================
 // Buffer the vertices/indices for this part.
 
-bool WoodySegment::bufferGeometry(TriangleBuffer* T, float altitude)
+bool WoodySegment::bufferGeometry(TriangleBuffer* T, vec3 offset)
 {
-  unless(cylinder->bufferGeometry(T, altitude, barkColor))
+  cylinder->color = barkColor;
+  unless(cylinder->bufferGeometry(T, offset))
     return false;
   
   LogTreeVisDetails("Buffering WoodySegment "
@@ -128,7 +130,7 @@ bool WoodySegment::bufferGeometry(TriangleBuffer* T, float altitude)
     if(kids[i])
      {
       LogTreeVisDetails("Trying to buffer kid[%d]\n", i);
-      unless(kids[i]->bufferGeometry(T, altitude))
+      unless(kids[i]->bufferGeometry(T, offset))
         return false;
      }
   return true;

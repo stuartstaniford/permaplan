@@ -63,7 +63,7 @@ int VisualElement::getNextIndex(bool resetToFirst)
 // =======================================================================================
 // Stub definition this should be overwritten by implementing subclasses
 
-bool VisualElement::bufferGeometry(TriangleBuffer* T)
+bool VisualElement::bufferGeometry(TriangleBuffer* T, vec3 offset)
 {
   err(-1, "Called unimplemented superclass VisualElement::bufferGeometry.\n");
 }
@@ -105,7 +105,7 @@ bool VisualElement::matchRay(vec3& position, vec3& direction, float& lambda)
 // Note that subclass version of this must also take on the responsibility of notifying
 // our qTreeNode if we've changed our extent.
 
-bool VisualElement::updateBoundingBox(BoundingBox* box)
+bool VisualElement::updateBoundingBox(BoundingBox* box, vec3 offset)
 {
   bool boxChanged = false;
   assert(box);
@@ -117,14 +117,14 @@ bool VisualElement::updateBoundingBox(BoundingBox* box)
    {
     for(int m=0; m<3; m++)
      {
-      if(v3.pos[m] < box->lower[m])
+      if(v3.pos[m] + offset[m] < box->lower[m])
        {
-        box->lower[m] = v3.pos[m];
+        box->lower[m] = v3.pos[m] + offset[m];
         boxChanged = true;
        }
-      if(v3.pos[m] > box->upper[m])
+      if(v3.pos[m] + offset[m] > box->upper[m])
        {
-        box->upper[m] = v3.pos[m];
+        box->upper[m] = v3.pos[m] + offset[m];
         boxChanged = true;
        }
      }

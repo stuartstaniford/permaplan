@@ -4,13 +4,13 @@
 #ifndef CYLINDER_H
 #define CYLINDER_H
 
-#include "VisualObject.h"
+#include "VisualElement.h"
 #include "TruncatedCone.h"
 
 // =======================================================================================
 // Class variable initialization
 
-class Cylinder
+class Cylinder: public VisualElement
 {
  public:
   
@@ -19,6 +19,7 @@ class Cylinder
   vec3      axisDirection;
   float     radius;
   unsigned  sides;
+  unsigned  color;
   vec3      f1;    // f1 and f2 are cross-vectors to axisDirection
   vec3      f2;
 #ifdef LOG_TREE_MATCH_RAY
@@ -30,8 +31,8 @@ class Cylinder
   // Member functions - public
   Cylinder(vec3 root, vec3 dir, float R, unsigned sides);
   ~Cylinder(void);
-  bool          updateBoundingBox(BoundingBox* box, float altitude);
-  bool          bufferGeometry(TriangleBuffer* T, float altitude, unsigned color);
+  bool          updateBoundingBox(BoundingBox* box, vec3 offset);
+  bool          bufferGeometry(TriangleBuffer* T, vec3 offset);
   bool          matchRay(vec3& position, vec3& direction, float& lambda);
   void          triangleBufferSizes(unsigned& vCount, unsigned& iCount);
   void          lengthen(float increment);

@@ -180,7 +180,8 @@ bool Tree::bufferGeometry(TriangleBuffer* T)
    {
     LogTreeVisualization("Buffering tree %d.\n", treePtrArrayIndex);
     LogTreeVisDetails("Trying to buffer trunk\n");
-    unless(trunk->bufferGeometry(T, altitude))
+    vec3 offset = {0.0f, 0.0f, altitude};
+    unless(trunk->bufferGeometry(T, offset))
       return false;
    }
   else

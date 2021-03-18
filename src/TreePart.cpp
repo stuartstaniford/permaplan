@@ -25,11 +25,10 @@ TreePart::~TreePart(void)
 // =======================================================================================
 // Buffer the vertices/indices for this part - stub here, as base class for interface.
 
-bool TreePart::bufferGeometry(TriangleBuffer* T, float altitude)
+bool TreePart::bufferGeometry(TriangleBuffer* T, vec3 offset)
 {
   // Add nothing in this base class
   err(-1, "Bad call to TreePart::bufferGeometry");
-  return true;
 }
 
 
@@ -51,7 +50,6 @@ void TreePart::triangleBufferSizesRecurse(unsigned& vCount, unsigned& iCount)
 bool TreePart::matchRay(vec3& position, vec3& direction)
 {
   err(-1, "Bad call to TreePart::matchRay");
-  return false;
 }
 
 

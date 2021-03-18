@@ -31,7 +31,7 @@ Cylinder::~Cylinder(void)
 // Update a supplied bounding box with all our points, so that we are fully encompassed
 // within it.  Returns whether or not any extension was required
 
-bool Cylinder::updateBoundingBox(BoundingBox* box, float altitude)
+bool Cylinder::updateBoundingBox(BoundingBox* box, vec3 offset)
 {
   bool  retVal        = false;
   float angleRadians  = 2.0f*M_PI/sides;
@@ -47,9 +47,9 @@ bool Cylinder::updateBoundingBox(BoundingBox* box, float altitude)
     sinAng = sinf(ang);
     
     // base of shaft of the cylinder on this particular radial slice
-    point[0] = location[0] + cosAng*f1[0] + sinAng*f2[0];
-    point[1] = location[1] + cosAng*f1[1] + sinAng*f2[1];
-    point[2] = location[2] + cosAng*f1[2] + sinAng*f2[2] + altitude;
+    point[0] = location[0] + cosAng*f1[0] + sinAng*f2[0] + offset[0];
+    point[1] = location[1] + cosAng*f1[1] + sinAng*f2[1] + offset[1];
+    point[2] = location[2] + cosAng*f1[2] + sinAng*f2[2] + offset[2];
     if(box->extends(point))
       retVal = true;
     
@@ -69,7 +69,7 @@ bool Cylinder::updateBoundingBox(BoundingBox* box, float altitude)
 // This is where the actual octahedron geometry is defined - we render it into a buffer
 // on request
 
-bool Cylinder::bufferGeometry(TriangleBuffer* T, float altitude, unsigned color)
+bool Cylinder::bufferGeometry(TriangleBuffer* T, vec3 offset)
 {
   float     angleRadians  = 2.0f*M_PI/sides;
   Vertex*   vertices;
@@ -95,9 +95,9 @@ bool Cylinder::bufferGeometry(TriangleBuffer* T, float altitude, unsigned color)
                     cosAng*f1[2] + sinAng*f2[2]};
     
     // base of shaft of the cylinder on this particular radial slice
-    x = location[0] + norm[0];
-    y = location[1] + norm[1];
-    z = location[2] + norm[2] + altitude;
+    x = location[0] + norm[0] + offset[0];
+    y = location[1] + norm[1] + offset[1];
+    z = location[2] + norm[2] + offset[2];
     vertices[2*i].setPosition(x, y, z);
     vertices[2*i].setColor(color);
     vertices[2*i].setNormal(norm); // to be normalized in gpu
