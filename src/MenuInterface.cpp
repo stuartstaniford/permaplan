@@ -428,11 +428,37 @@ void MenuInterface::imguiSimulationController(void)
      }
     
     // Auxiliary status information
-    ImGui::Text("Year: %.1f\n", scene->getSimYear());
+    ImGui::Text("Year: %.0f\n", scene->getSimYear());
     if(scene->simulationActive())
       ImGui::Text("Simulation Speed: %.2f\n", scene->simulationSpeed);
     else
       ImGui::Text("Simulation: Paused\n");
+    
+    // Season selection
+    if(ImGui::Button("Spring"))
+     {
+      LogSimulationControls("Spring season selected.\n");
+      displaySeason = 0u;
+     }
+    ImGui::SameLine();
+    if(ImGui::Button("Summer"))
+     {
+      LogSimulationControls("Summer season selected.\n");
+      displaySeason = 1u;
+     }
+    ImGui::SameLine();
+    if(ImGui::Button("Fall"))
+     {
+      LogSimulationControls("Fall season selected.\n");
+      displaySeason = 2u;
+     }
+    ImGui::SameLine();
+    if(ImGui::Button("Winter"))
+     {
+      LogSimulationControls("Winter season selected.\n");
+      displaySeason = 3u;
+     }
+    
     ImGui::Separator();
    }
   ImGui::End();

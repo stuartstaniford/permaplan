@@ -19,7 +19,10 @@ Species** Species::speciesPtrArray = new Species*[SPECIES_ARRAY_SIZE];
 std::unordered_map<std::string, unsigned> Species::genusList;
 std::unordered_map<std::string, SpeciesList*> Species::genusSpeciesList;
 
+// global variables to be used by parts of plants
 char* seasonNames[4] = {(char*)"spring", (char*)"summer", (char*)"fall", (char*)"winter"};
+unsigned displaySeason = 1u;
+
 
 // NOTE WELL.  Numeric values in OTDL are expressed in mm, but for uniformity in graphic
 // calculations, internally we must store them in spaceUnits.

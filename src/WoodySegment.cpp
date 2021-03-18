@@ -191,7 +191,7 @@ void WoodySegment::growStep(float years)
                                     ((WoodySegment*)ourTree.trunk)->cylinder->location[2];
     len = (treeHeight-ourHeight)*ourSpecies.maxWidth/(2.0f*ourSpecies.maxHeight);
     cylinder->radius = len/40.0f;   //XX braindead branch thickness
-    barkColor = ourSpecies.leafColors[season(ourTree.ageNow + ourTree.yearPlanted)];
+    barkColor = ourSpecies.leafColors[displaySeason];
    }
   
   cylinder->setLength(len);

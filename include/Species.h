@@ -21,7 +21,9 @@
                                    // a fudge factor for variety names.
                                    //https://en.wikipedia.org/wiki/List_of_long_species_names
 #ifndef SPECIES_IMPLEMENTATION
+// These are basically global variables
 extern char* seasonNames[4]; // 0 = spring, 1 = summer, etc.
+extern unsigned displaySeason;
 #endif
 
 // =======================================================================================
