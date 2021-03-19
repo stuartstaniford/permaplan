@@ -66,8 +66,7 @@ bool Cylinder::updateBoundingBox(BoundingBox* box, vec3 offset)
 
 
 // =======================================================================================
-// This is where the actual octahedron geometry is defined - we render it into a buffer
-// on request
+// This is where the actual geometry is defined - we render it into a buffer on request
 
 bool Cylinder::bufferGeometry(TriangleBuffer* T, vec3 offset)
 {
@@ -165,26 +164,86 @@ void Cylinder::setLength(float length)
 // Figure out whether a ray intersects the cylinder or not
 // https://en.wikipedia.org/wiki/Skew_lines#Distance
 
-bool Cylinder::matchRay(vec3& position, vec3& direction, float& lambda)
+bool Cylinder::matchRay(vec3& position, vec3& direction, float& lambda, vec3 offset)
 {
 #ifndef LOG_TREE_MATCH_RAY
   vec3 joinLine, originDiff;
 #endif
-  
+  vec3 relativePos;
+
+  glm_vec3_sub(position, offset, relativePos);
   glm_vec3_crossn(direction, axisDirection, joinLine);
-  glm_vec3_sub(position, location, originDiff);
+  glm_vec3_sub(relativePos, location, originDiff);
   float dist = fabs(glm_vec3_dot(joinLine, originDiff));
 #ifdef LOG_TREE_MATCH_RAY
   lastRayMatch = dist;
 #endif
 
   if(dist <= radius)
+    return matchRayBruteForce(position, direction, lambda, offset);
+  else
+    return false;
+}
+
+
+// =======================================================================================
+// This matches every triangle to be certain whether the ray hits or not
+// XX might return a hit on far side of cylinder, instead of nearest.
+
+bool Cylinder::matchRayBruteForce(vec3& position, vec3& direction, float& lambda, vec3 offset)
+{
+  float     angleRadians  = 2.0f*M_PI/sides;
+  vec3      triangle[3];
+  
+  getCrossVectors(axisDirection, f1, f2, radius);
+
+  // Now that we've done some initial setup, we can compute all the vertices.
+  float ang, cosAng, sinAng;
+  for(int i=0; i<sides; i++)
    {
-    lambda = NAN;  //XX haven't calculated this
+    ang = i*angleRadians;
+    cosAng = cosf(ang);
+    sinAng = sinf(ang);
+    vec3 norm = {cosAng*f1[0] + sinAng*f2[0],
+                    cosAng*f1[1] + sinAng*f2[1],
+                    cosAng*f1[2] + sinAng*f2[2]};
     
-    //XX Need to detect when the ray is past the end caps
-    return true;
+    // base of shaft of the cylinder on this particular radial slice
+    triangle[0][0] = location[0] + norm[0] + offset[0];
+    triangle[0][1] = location[1] + norm[1] + offset[1];
+    triangle[0][2] = location[2] + norm[2] + offset[2];
+
+    // top of shaft
+    triangle[1][0] = triangle[0][0] + axisDirection[0];
+    triangle[1][1] = triangle[0][1] + axisDirection[1];
+    triangle[1][2] = triangle[0][2] + axisDirection[2];
+
+    // Now complete the triangle with base of next radial slice
+    ang = ((i+1)%sides)*angleRadians;
+    cosAng = cosf(ang);
+    sinAng = sinf(ang);
+    norm[0] = cosAng*f1[0] + sinAng*f2[0];
+    norm[1] = cosAng*f1[1] + sinAng*f2[1];
+    norm[2] = cosAng*f1[2] + sinAng*f2[2];
+
+    triangle[2][0] = location[0] + norm[0] + offset[0];
+    triangle[2][1] = location[1] + norm[1] + offset[1];
+    triangle[2][2] = location[2] + norm[2] + offset[2];
+
+    // test the triangle
+    if(mollerTrumbore(triangle, position, direction, lambda))
+      return true;
+
+    // top of shaft
+    triangle[2][0] += axisDirection[0];
+    triangle[2][1] += axisDirection[1];
+    triangle[2][2] += axisDirection[2];
+  
+    // ok test again
+    if(mollerTrumbore(triangle, position, direction, lambda))
+      return true;
    }
+  
   return false;
 }
 

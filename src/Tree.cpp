@@ -285,9 +285,9 @@ bool Tree::matchRay(vec3& position, vec3& direction, float& lambda)
   LogTreeMatchRay("Tree %d ray matches box.\n", treePtrArrayIndex);
 
   // So it touches our bounding box, have to test all the branches.
-  vec3 relativePos = {position[0], position[1], position[2]-altitude};
-  if(trunk->matchRay(relativePos, direction))
-    return true;  // XX note lambda based on bounding box not actual branch hit
+  vec3 offset = {0.0f, 0.0f, altitude};
+  if(trunk->matchRay(position, direction, offset))
+    return true;
   
   return false;
 }

@@ -33,7 +33,9 @@ class Cylinder: public VisualElement
   ~Cylinder(void);
   bool          updateBoundingBox(BoundingBox* box, vec3 offset);
   bool          bufferGeometry(TriangleBuffer* T, vec3 offset);
-  bool          matchRay(vec3& position, vec3& direction, float& lambda);
+  bool          matchRay(vec3& position, vec3& direction, float& lambda, vec3 offset);
+  bool          matchRayBruteForce(vec3& position, vec3& direction,
+                                                            float& lambda, vec3 offset);
   void          triangleBufferSizes(unsigned& vCount, unsigned& iCount);
   void          lengthen(float increment);
   void          setLength(float length);

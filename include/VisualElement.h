@@ -4,7 +4,9 @@
 // This class is typically for "parts" of things - ie they don't have their own
 // bounding box and can't be directly stored in the Quadtree themselves, but they
 // may be elements of larger objects which can be.  Their co-ordinates are expected
-// to be in some frame relative to the larger object of which they are part.
+// to be in some frame relative to the larger object of which they are part, so they
+// have to be supplied an offset location before operations like buffering geometry,
+// matching rays, etc.
 
 
 #ifndef VISUAL_ELEMENT_H
@@ -27,7 +29,7 @@ class VisualElement
   virtual bool        getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
   virtual int         getNextIndex(bool resetToFirst);
   virtual bool        bufferGeometry(TriangleBuffer* T, vec3 offset);
-  virtual bool        matchRay(vec3& position, vec3& direction, float& lambda);
+  virtual bool        matchRay(vec3& position, vec3& direction, float& lambda, vec3 offset);
   virtual bool        updateBoundingBox(BoundingBox* box, vec3 offset);
   virtual void        triangleBufferSizes(unsigned& vCount, unsigned& iCount);
   virtual const char* elementName(void);

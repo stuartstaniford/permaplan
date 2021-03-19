@@ -88,10 +88,10 @@ void WoodySegment::selfValidate(unsigned l)
 // Match a ray.  Subclassses need to implement this so we can tell whether the mouse
 // is over the tree or not.
 
-bool WoodySegment::matchRay(vec3& position, vec3& direction)
+bool WoodySegment::matchRay(vec3& position, vec3& direction, vec3 offset)
 {
   float L;
-  if(cylinder->matchRay(position, direction, L))
+  if(cylinder->matchRay(position, direction, L, offset))
    {
     LogTreeMatchRay("Tree %d ray matches WoodySegment (level %d) at "
                     "[%.1f, %.1f, %.1f] dir [%.1f, %.1f, %.1f].\n", ourTreeIndex, level,
@@ -102,7 +102,7 @@ bool WoodySegment::matchRay(vec3& position, vec3& direction)
    }
   int N = kids.size();
   for(int i=0; i<N; i++)
-    if(kids[i]->matchRay(position, direction))
+    if(kids[i]->matchRay(position, direction, offset))
       return true;
   return false;
 }

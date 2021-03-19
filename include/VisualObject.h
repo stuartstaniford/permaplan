@@ -1,6 +1,9 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Jun 2020 -
 // This class is not used directly, but instead is a superclass for anything that
-// should be displayed and be stored in the quadtree
+// should be displayed and be stored in the quadtree.  A VisualObject is expected
+// to be a "whole object" in some sense (even though it may also be a part of a larger
+// group.  But it knows it's own absolute location and is capabable of standing on
+// it's own in the Quadtree etc.
 
 
 #ifndef VISUAL_OBJECT_H
@@ -35,6 +38,7 @@ class VisualObject: public VisualElement
   virtual bool        bufferGeometry(TriangleBuffer* T);
   virtual bool        bufferGeometry(TriangleBuffer* T, vec3 offset);
   virtual bool        matchRay(vec3& position, vec3& direction, float& lambda);
+  virtual bool        matchRay(vec3& position, vec3& direction, float& lambda, vec3 offset);
   virtual void        triangleBufferSizes(unsigned& vCount, unsigned& iCount);
   virtual const char* objectName(void);
   virtual bool        diagnosticHTML(HttpDebug* serv);

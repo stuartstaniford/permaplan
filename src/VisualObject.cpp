@@ -7,6 +7,8 @@
 #include "LandSurfaceRegion.h"
 #include "Quadtree.h"
 
+vec3 zeroVec = {0.0f, 0.0f, 0.0f};
+
 // =======================================================================================
 // Constructors
 
@@ -146,10 +148,17 @@ bool VisualObject::matchRay(vec3& position, vec3& direction, float& lambda)
 {
   unless(box->matchRay(position, direction, lambda))
     return false;
-
-  return VisualElement::matchRay(position, direction, lambda);
+  return VisualElement::matchRay(position, direction, lambda, zeroVec);
 }
 
+// =======================================================================================
+// Stub don't use
+
+bool VisualObject::matchRay(vec3& position, vec3& direction, float& lambda, vec3 offset)
+{
+  err(-1, "Called unimplemented superclass VisualObject::matchRay with offset.\n");
+
+}
 
 // =======================================================================================
 // Compute the bounding box.  This version will work in many cases, but there may
@@ -158,8 +167,6 @@ bool VisualObject::matchRay(vec3& position, vec3& direction, float& lambda)
 
 // Note that subclass version of this must also take on the responsibility of notifying
 // our qTreeNode if we've changed our extent.
-
-vec3 zeroVec = {0.0f, 0.0f, 0.0f};
 
 void VisualObject::updateBoundingBox(void)
 {
