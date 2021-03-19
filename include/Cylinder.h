@@ -4,29 +4,18 @@
 #ifndef CYLINDER_H
 #define CYLINDER_H
 
-#include "VisualElement.h"
+#include "AxialElement.h"
 #include "TruncatedCone.h"
 
 // =======================================================================================
 // Class variable initialization
 
-class Cylinder: public VisualElement
+class Cylinder: public AxialElement
 {
  public:
   
   // Instance variables - public
-  vec3      location;
-  vec3      axisDirection;
   float     radius;
-  unsigned  sides;
-  unsigned  color;
-  vec3      f1;    // f1 and f2 are cross-vectors to axisDirection
-  vec3      f2;
-#ifdef LOG_TREE_MATCH_RAY
-  float     lastRayMatch;
-  vec3      joinLine;
-  vec3      originDiff;
-#endif
 
   // Member functions - public
   Cylinder(vec3 root, vec3 dir, float R, unsigned sides);

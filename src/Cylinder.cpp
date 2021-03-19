@@ -11,11 +11,9 @@
 // Constructors.
 
 Cylinder::Cylinder(vec3 root, vec3 dir, float R, unsigned S):
-                                                  radius(R),
-                                                  sides(S)
+                                                  AxialElement(root, dir, S),
+                                                  radius(R)
 {
-  glm_vec3_copy(root, location);
-  glm_vec3_copy(dir, axisDirection);
 }
 
 
