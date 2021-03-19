@@ -137,28 +137,6 @@ void Cylinder::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 
 
 // =======================================================================================
-// Increase the length of the cylinder by a length increment.  Note we don't do anything
-// about rebuffering - caller must track that.
-
-void Cylinder::lengthen(float increment)
-{
-  float lenNow = glm_vec3_norm(axisDirection);
-  glm_vec3_scale(axisDirection, (lenNow+increment)/lenNow, axisDirection);
-}
-
-
-// =======================================================================================
-// Set the length of the cylinder to a supplied amount.  Note we don't do anything
-// about rebuffering - caller must track that.
-
-void Cylinder::setLength(float length)
-{
-  float lenNow = glm_vec3_norm(axisDirection);
-  glm_vec3_scale(axisDirection, length/lenNow, axisDirection);
-}
-
-
-// =======================================================================================
 // Figure out whether a ray intersects the cylinder or not
 // https://en.wikipedia.org/wiki/Skew_lines#Distance
 

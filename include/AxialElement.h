@@ -30,6 +30,8 @@ class AxialElement: public VisualElement
   // Member functions - public
   AxialElement(vec3 root, vec3 dir, unsigned sides);
   virtual ~AxialElement(void);
+  
+  // The VisualElement API
   virtual bool        getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
   virtual bool        getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
   virtual int         getNextIndex(bool resetToFirst);
@@ -40,6 +42,11 @@ class AxialElement: public VisualElement
   virtual const char* elementName(void);
   virtual bool        diagnosticHTML(HttpDebug* serv);
   virtual bool        diagnosticHTMLSummary(HttpDebug* serv);
+
+  // Additional functions we define
+  void                lengthen(float increment);
+  void                setLength(float length);
+  inline float        getLength(void) {return glm_vec3_norm(axisDirection);}
 
  protected:
   

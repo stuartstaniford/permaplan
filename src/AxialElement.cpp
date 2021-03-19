@@ -40,6 +40,28 @@ bool AxialElement::getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetai
 
 
 // =======================================================================================
+// Increase the length of the AxialElement by a length increment.  Note we don't do anything
+// about rebuffering - caller must track that.
+
+void AxialElement::lengthen(float increment)
+{
+  float lenNow = glm_vec3_norm(axisDirection);
+  glm_vec3_scale(axisDirection, (lenNow+increment)/lenNow, axisDirection);
+}
+
+
+// =======================================================================================
+// Set the length of the AxialElement to a supplied amount.  Note we don't do anything
+// about rebuffering - caller must track that.
+
+void AxialElement::setLength(float length)
+{
+  float lenNow = glm_vec3_norm(axisDirection);
+  glm_vec3_scale(axisDirection, length/lenNow, axisDirection);
+}
+
+
+// =======================================================================================
 // This returns the vertices, but in an order which each successive group of three defines
 // a triangle, normals are expected to be functional, etc.
 // Stub definition this should be overwritten by implementing subclasses
