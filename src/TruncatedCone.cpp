@@ -11,13 +11,11 @@
 // =======================================================================================
 // Constructors.
 
-TruncatedCone::TruncatedCone(vec3 root, vec3 dir, float smallR, float bigR, unsigned S):
-                                                  bigRadius(bigR),
-                                                  smallRadius(smallR),
-                                                  sides(S)
+TruncatedCone::TruncatedCone(vec3 root, vec3 dir, float r, float R, unsigned S):
+                                                  AxialElement(root, dir, S),
+                                                  bigRadius(R),
+                                                  smallRadius(r)
 {
-  glm_vec3_copy(root, location);
-  glm_vec3_copy(dir, axisDirection);
 }
 
 

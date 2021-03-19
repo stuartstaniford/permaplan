@@ -5,30 +5,21 @@
 #ifndef TRUNCATED_CONE_H
 #define TRUNCATED_CONE_H
 
-#include "VisualObject.h"
+#include "AxialElement.h"
 
 // =======================================================================================
 // Class variable initialization
 
-class TruncatedCone: public VisualElement
+class TruncatedCone: public AxialElement
 {
  public:
   
   // Instance variables - public
-  vec3      location;
-  vec3      axisDirection;
   float     bigRadius;
   float     smallRadius;
-  unsigned  sides;
-  unsigned  color;
-#ifdef LOG_TREE_MATCH_RAY
-  float     lastRayMatch;
-  vec3      joinLine;
-  vec3      originDiff;
-#endif
 
   // Member functions - public
-  TruncatedCone(vec3 root, vec3 dir, float smallR, float bigR, unsigned S);
+  TruncatedCone(vec3 root, vec3 dir, float r, float R, unsigned S);
   ~TruncatedCone(void);
   bool          updateBoundingBox(BoundingBox* box, vec3 offset);
   bool          bufferGeometry(TriangleBuffer* T, vec3 offset);
