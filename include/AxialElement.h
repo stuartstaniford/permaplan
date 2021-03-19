@@ -17,8 +17,10 @@ class AxialElement: public VisualElement
  public:
   vec3      location;
   vec3      axisDirection;
-  unsigned  sides;
+  vec3*     vectorPath;
   unsigned  color;
+  unsigned short sides;
+  unsigned short NVecs;
   vec3      f1;    // f1 and f2 are cross-vectors to axisDirection
   vec3      f2;
 #ifdef LOG_TREE_MATCH_RAY
@@ -36,6 +38,7 @@ class AxialElement: public VisualElement
   virtual bool        getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
   virtual int         getNextIndex(bool resetToFirst);
   virtual bool        bufferGeometry(TriangleBuffer* T, vec3 offset);
+  virtual void        refreshVectorPath(void);
   virtual bool        matchRay(vec3& position, vec3& direction, float& lambda, vec3 offset);
   virtual bool        updateBoundingBox(BoundingBox* box, vec3 offset);
   virtual void        triangleBufferSizes(unsigned& vCount, unsigned& iCount);

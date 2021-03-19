@@ -71,11 +71,11 @@ depend: $(SRCS)
 
 # DO NOT DELETE THIS LINE -- make depend needs it
 
-src/Arrow.o: include/Cylinder.h include/VisualElement.h
-src/Arrow.o: include/TriangleBuffer.h include/ElementBufferCombo.h
-src/Arrow.o: include/VertexArrayObject.h include/VertexBufferObject.h
-src/Arrow.o: /usr/local/include/cglm/cglm.h /usr/local/include/cglm/common.h
-src/Arrow.o: /usr/local/include/cglm/types.h
+src/Arrow.o: include/Cylinder.h include/AxialElement.h
+src/Arrow.o: include/VisualElement.h include/TriangleBuffer.h
+src/Arrow.o: include/ElementBufferCombo.h include/VertexArrayObject.h
+src/Arrow.o: include/VertexBufferObject.h /usr/local/include/cglm/cglm.h
+src/Arrow.o: /usr/local/include/cglm/common.h /usr/local/include/cglm/types.h
 src/Arrow.o: /usr/local/include/cglm/simd/intrin.h
 src/Arrow.o: /usr/local/include/cglm/vec2.h /usr/local/include/cglm/util.h
 src/Arrow.o: /usr/local/include/cglm/vec2-ext.h
@@ -98,7 +98,47 @@ src/Arrow.o: include/GlobalMacros.h include/Logging.h include/MemoryTracker.h
 src/Arrow.o: include/HttpDebug.h include/Vertex.h
 src/Arrow.o: include/ElementBufferObject.h include/BoundingBox.h
 src/Arrow.o: include/Shader.h include/VertexBufferCombo.h
-src/Arrow.o: include/TruncatedCone.h include/VisualObject.h include/Arrow.h
+src/Arrow.o: include/TruncatedCone.h include/Arrow.h include/VisualObject.h
+src/AxialElement.o: include/AxialElement.h include/VisualElement.h
+src/AxialElement.o: include/TriangleBuffer.h include/ElementBufferCombo.h
+src/AxialElement.o: include/VertexArrayObject.h include/VertexBufferObject.h
+src/AxialElement.o: /usr/local/include/cglm/cglm.h
+src/AxialElement.o: /usr/local/include/cglm/common.h
+src/AxialElement.o: /usr/local/include/cglm/types.h
+src/AxialElement.o: /usr/local/include/cglm/simd/intrin.h
+src/AxialElement.o: /usr/local/include/cglm/vec2.h
+src/AxialElement.o: /usr/local/include/cglm/util.h
+src/AxialElement.o: /usr/local/include/cglm/vec2-ext.h
+src/AxialElement.o: /usr/local/include/cglm/vec3.h
+src/AxialElement.o: /usr/local/include/cglm/vec4.h
+src/AxialElement.o: /usr/local/include/cglm/vec4-ext.h
+src/AxialElement.o: /usr/local/include/cglm/vec3-ext.h
+src/AxialElement.o: /usr/local/include/cglm/mat4.h
+src/AxialElement.o: /usr/local/include/cglm/mat3.h
+src/AxialElement.o: /usr/local/include/cglm/mat2.h
+src/AxialElement.o: /usr/local/include/cglm/affine.h
+src/AxialElement.o: /usr/local/include/cglm/affine-mat.h
+src/AxialElement.o: /usr/local/include/cglm/cam.h
+src/AxialElement.o: /usr/local/include/cglm/plane.h
+src/AxialElement.o: /usr/local/include/cglm/frustum.h
+src/AxialElement.o: /usr/local/include/cglm/quat.h
+src/AxialElement.o: /usr/local/include/cglm/euler.h
+src/AxialElement.o: /usr/local/include/cglm/box.h
+src/AxialElement.o: /usr/local/include/cglm/color.h
+src/AxialElement.o: /usr/local/include/cglm/io.h
+src/AxialElement.o: /usr/local/include/cglm/project.h
+src/AxialElement.o: /usr/local/include/cglm/sphere.h
+src/AxialElement.o: /usr/local/include/cglm/ease.h
+src/AxialElement.o: /usr/local/include/cglm/curve.h
+src/AxialElement.o: /usr/local/include/cglm/bezier.h
+src/AxialElement.o: /usr/local/include/cglm/ray.h
+src/AxialElement.o: /usr/local/include/cglm/affine2d.h
+src/AxialElement.o: /usr/local/include/GL/glew.h
+src/AxialElement.o: /usr/local/include/GLFW/glfw3.h include/GlobalMacros.h
+src/AxialElement.o: include/Logging.h include/MemoryTracker.h
+src/AxialElement.o: include/HttpDebug.h include/Vertex.h
+src/AxialElement.o: include/ElementBufferObject.h include/BoundingBox.h
+src/AxialElement.o: include/Shader.h include/VertexBufferCombo.h
 src/BezierPatch.o: include/BezierPatch.h include/LandSurfaceRegion.h
 src/BezierPatch.o: include/VisualObject.h include/VisualElement.h
 src/BezierPatch.o: include/TriangleBuffer.h include/ElementBufferCombo.h
@@ -316,10 +356,10 @@ src/ColoredAxes.o: include/VertexBufferCombo.h include/VertexArrayObject.h
 src/ColoredAxes.o: include/VertexBufferObject.h include/GlobalMacros.h
 src/ColoredAxes.o: include/Logging.h include/MemoryTracker.h
 src/ColoredAxes.o: include/HttpDebug.h include/Vertex.h include/Shader.h
-src/Cylinder.o: include/Cylinder.h include/VisualElement.h
-src/Cylinder.o: include/TriangleBuffer.h include/ElementBufferCombo.h
-src/Cylinder.o: include/VertexArrayObject.h include/VertexBufferObject.h
-src/Cylinder.o: /usr/local/include/cglm/cglm.h
+src/Cylinder.o: include/Cylinder.h include/AxialElement.h
+src/Cylinder.o: include/VisualElement.h include/TriangleBuffer.h
+src/Cylinder.o: include/ElementBufferCombo.h include/VertexArrayObject.h
+src/Cylinder.o: include/VertexBufferObject.h /usr/local/include/cglm/cglm.h
 src/Cylinder.o: /usr/local/include/cglm/common.h
 src/Cylinder.o: /usr/local/include/cglm/types.h
 src/Cylinder.o: /usr/local/include/cglm/simd/intrin.h
@@ -349,7 +389,7 @@ src/Cylinder.o: include/GlobalMacros.h include/Logging.h
 src/Cylinder.o: include/MemoryTracker.h include/HttpDebug.h include/Vertex.h
 src/Cylinder.o: include/ElementBufferObject.h include/BoundingBox.h
 src/Cylinder.o: include/Shader.h include/VertexBufferCombo.h
-src/Cylinder.o: include/TruncatedCone.h include/VisualObject.h
+src/Cylinder.o: include/TruncatedCone.h
 src/DisplayList.o: include/DisplayList.h include/VisualObject.h
 src/DisplayList.o: include/VisualElement.h include/TriangleBuffer.h
 src/DisplayList.o: include/ElementBufferCombo.h include/VertexArrayObject.h
@@ -1599,12 +1639,13 @@ src/Tree.o: include/JSONStructureChecker.h include/Timeval.h
 src/Tree.o: include/Version.h include/TreePart.h include/Quadtree.h
 src/Tree.o: include/DisplayList.h include/LandSurfaceRegion.h
 src/Tree.o: include/LandSurfaceRegionPlanar.h include/WoodySegment.h
-src/Tree.o: include/Cylinder.h include/TruncatedCone.h include/PmodDesign.h
-src/Tree.o: include/LandSurface.h include/TexturedRect.h include/Texture.h
-src/Tree.o: include/Camera.h include/HeightMarker.h include/BezierPatch.h
-src/Tree.o: include/PmodConfig.h include/Boundary.h include/Scene.h
-src/Tree.o: include/ColoredAxes.h include/LineStripList.h include/Grid.h
-src/Tree.o: include/Material.h include/TextureAtlas.h include/LightingModel.h
+src/Tree.o: include/Cylinder.h include/AxialElement.h include/TruncatedCone.h
+src/Tree.o: include/PmodDesign.h include/LandSurface.h include/TexturedRect.h
+src/Tree.o: include/Texture.h include/Camera.h include/HeightMarker.h
+src/Tree.o: include/BezierPatch.h include/PmodConfig.h include/Boundary.h
+src/Tree.o: include/Scene.h include/ColoredAxes.h include/LineStripList.h
+src/Tree.o: include/Grid.h include/Material.h include/TextureAtlas.h
+src/Tree.o: include/LightingModel.h
 src/TreePart.o: include/TreePart.h include/HttpDebug.h include/Species.h
 src/TreePart.o: include/rapidjson/document.h include/rapidjson/reader.h
 src/TreePart.o: include/rapidjson/allocators.h include/rapidjson/rapidjson.h
@@ -1704,7 +1745,7 @@ src/TriangleBuffer.o: /usr/local/include/GLFW/glfw3.h include/GlobalMacros.h
 src/TriangleBuffer.o: include/Logging.h include/MemoryTracker.h
 src/TriangleBuffer.o: include/HttpDebug.h include/Vertex.h
 src/TriangleBuffer.o: include/ElementBufferObject.h
-src/TruncatedCone.o: include/TruncatedCone.h include/VisualObject.h
+src/TruncatedCone.o: include/TruncatedCone.h include/AxialElement.h
 src/TruncatedCone.o: include/VisualElement.h include/TriangleBuffer.h
 src/TruncatedCone.o: include/ElementBufferCombo.h include/VertexArrayObject.h
 src/TruncatedCone.o: include/VertexBufferObject.h
@@ -2131,11 +2172,12 @@ src/WoodySegment.o: include/Logging.h include/MemoryTracker.h
 src/WoodySegment.o: include/Vertex.h include/ElementBufferObject.h
 src/WoodySegment.o: include/BoundingBox.h include/Shader.h
 src/WoodySegment.o: include/VertexBufferCombo.h include/Cylinder.h
-src/WoodySegment.o: include/VisualElement.h include/TruncatedCone.h
-src/WoodySegment.o: include/VisualObject.h include/PmodDesign.h
+src/WoodySegment.o: include/AxialElement.h include/VisualElement.h
+src/WoodySegment.o: include/TruncatedCone.h include/PmodDesign.h
 src/WoodySegment.o: include/LandSurface.h include/TexturedRect.h
 src/WoodySegment.o: include/Texture.h include/Quadtree.h
-src/WoodySegment.o: include/DisplayList.h include/LandSurfaceRegion.h
+src/WoodySegment.o: include/DisplayList.h include/VisualObject.h
+src/WoodySegment.o: include/LandSurfaceRegion.h
 src/WoodySegment.o: include/LandSurfaceRegionPlanar.h include/Camera.h
 src/WoodySegment.o: include/HeightMarker.h include/BezierPatch.h
 src/WoodySegment.o: include/PmodConfig.h include/Boundary.h include/Tree.h

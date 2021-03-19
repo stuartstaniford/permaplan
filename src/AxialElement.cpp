@@ -27,6 +27,17 @@ AxialElement::~AxialElement(void)
 
 
 // =======================================================================================
+// We rely on subclasses to point us to the swept path in vectorPath.  This function,
+// which must be overloaded by subclasses, tells them to update it because we are about
+// to do something based on it.
+
+void AxialElement::refreshVectorPath(void)
+{
+  err(-1, "Invalid call to AxialElement::refreshVectorPath");
+}
+
+
+// =======================================================================================
 // Method to return the vertices, with each one being only returned a single time, and
 // in an order consistent with getNextIndex.  Normals are generally not well defined from
 // calling this method and shouldn't be relied on.
