@@ -41,13 +41,6 @@ class TruncatedCone: public AxialElement
   TruncatedCone& operator=(const TruncatedCone&);      // Prevent assignment
 };
 
-
-// =======================================================================================
-// Utility function declarations
-
-void  getCrossVectors(vec3 dir, vec3 f1, vec3 f2, float radius);
-
-
 #endif
 
 
