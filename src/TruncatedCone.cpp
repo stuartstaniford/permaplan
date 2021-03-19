@@ -33,7 +33,7 @@ TruncatedCone::~TruncatedCone(void)
 // Update a supplied bounding box with all our points, so that we are fully encompassed
 // within it.  Returns whether or not any extension was required
 
-bool TruncatedCone::updateBoundingBox(BoundingBox* box, float altitude)
+bool TruncatedCone::updateBoundingBox(BoundingBox* box, vec3 offset)
 {
   bool  retVal        = false;
   float angleRadians  = 2.0f*M_PI/sides;
@@ -52,16 +52,16 @@ bool TruncatedCone::updateBoundingBox(BoundingBox* box, float altitude)
     sinAng = sinf(ang);
     
     // base of shaft of the TruncatedCone on this particular radial slice
-    point[0] = location[0] + cosAng*f1[0] + sinAng*f2[0];
-    point[1] = location[1] + cosAng*f1[1] + sinAng*f2[1];
-    point[2] = location[2] + cosAng*f1[2] + sinAng*f2[2] + altitude;
+    point[0] = location[0] + cosAng*f1[0] + sinAng*f2[0] + offset[0];
+    point[1] = location[1] + cosAng*f1[1] + sinAng*f2[1] + offset[1];
+    point[2] = location[2] + cosAng*f1[2] + sinAng*f2[2] + offset[2];
     if(box->extends(point))
       retVal = true;
     
     // top of shaft
-    point[0] = location[0] + cosAng*g1[0] + sinAng*g2[0];
-    point[1] = location[1] + cosAng*g1[1] + sinAng*g2[1];
-    point[2] = location[2] + cosAng*g1[2] + sinAng*g2[2] + altitude;
+    point[0] = location[0] + cosAng*g1[0] + sinAng*g2[0] + offset[0];
+    point[1] = location[1] + cosAng*g1[1] + sinAng*g2[1] + offset[1];
+    point[2] = location[2] + cosAng*g1[2] + sinAng*g2[2] + offset[2];
     if(box->extends(point))
       retVal = true;
    }
@@ -114,7 +114,7 @@ void getCrossVectors(vec3 dir, vec3 f1, vec3 f2, float radius)
 // This is where the actual octahedron geometry is defined - we render it into a buffer
 // on request
 
-bool TruncatedCone::bufferGeometry(TriangleBuffer* T, float altitude, unsigned color)
+bool TruncatedCone::bufferGeometry(TriangleBuffer* T, vec3 offset)
 {
   float     angleRadians  = 2.0f*M_PI/sides;
   Vertex*   vertices;
@@ -140,18 +140,18 @@ bool TruncatedCone::bufferGeometry(TriangleBuffer* T, float altitude, unsigned c
     sinAng = sinf(ang);
     
     // base of shaft of the TruncatedCone on this particular radial slice
-    x = location[0] + cosAng*f1[0] + sinAng*f2[0];
-    y = location[1] + cosAng*f1[1] + sinAng*f2[1];
-    z = location[2] + cosAng*f1[2] + sinAng*f2[2] + altitude;
-    vertices[2*i].set(x, y, z, ((color>>24)&0x000000ff)/256.0,
-                      ((color>>16)&0x000000ff)/256.0, ((color>>8)&0x000000ff)/256.0);
+    x = location[0] + cosAng*f1[0] + sinAng*f2[0] + offset[0];
+    y = location[1] + cosAng*f1[1] + sinAng*f2[1] + offset[1];
+    z = location[2] + cosAng*f1[2] + sinAng*f2[2] + offset[2];
+    vertices[2*i].setPosition(x, y, z);
+    vertices[2*i].setColor(color);
 
     // top of shaft
-    x = location[0] + cosAng*g1[0] + sinAng*g2[0];
-    y = location[1] + cosAng*g1[1] + sinAng*g2[1];
-    z = location[2] + cosAng*g1[2] + sinAng*g2[2] + altitude;
-    vertices[2*i+1].set(x, y, z, ((color>>24)&0x000000ff)/256.0,
-                        ((color>>16)&0x000000ff)/256.0, ((color>>8)&0x000000ff)/256.0);
+    x = location[0] + cosAng*g1[0] + sinAng*g2[0] + offset[0];
+    y = location[1] + cosAng*g1[1] + sinAng*g2[1] + offset[1];
+    z = location[2] + cosAng*g1[2] + sinAng*g2[2] + offset[2];
+    vertices[2*i+1].setPosition(x, y, z);
+    vertices[2*i+1].setColor(color);
    }
   
   // Done with vertices, now set up the indices.  As usual, we need triangles
@@ -209,14 +209,17 @@ void TruncatedCone::setLength(float length)
 // Figure out whether a ray intersects the TruncatedCone or not
 // https://en.wikipedia.org/wiki/Skew_lines#Distance
 
-bool TruncatedCone::matchRay(vec3& position, vec3& direction, float& lambda)
+bool TruncatedCone::matchRay(vec3& position, vec3& direction, float& lambda, vec3 offset)
 {
 #ifndef LOG_TREE_MATCH_RAY
   vec3 joinLine, originDiff;
 #endif
+  vec3 relativePos;
+  
+  glm_vec3_sub(position, offset, relativePos);
   
   glm_vec3_crossn(direction, axisDirection, joinLine);
-  glm_vec3_sub(position, location, originDiff);
+  glm_vec3_sub(relativePos, location, originDiff);
   float dist = fabs(glm_vec3_dot(joinLine, originDiff));
 #ifdef LOG_TREE_MATCH_RAY
   lastRayMatch = dist;

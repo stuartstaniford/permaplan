@@ -10,7 +10,7 @@
 // =======================================================================================
 // Class variable initialization
 
-class TruncatedCone
+class TruncatedCone: public VisualElement
 {
  public:
   
@@ -20,6 +20,7 @@ class TruncatedCone
   float     bigRadius;
   float     smallRadius;
   unsigned  sides;
+  unsigned  color;
 #ifdef LOG_TREE_MATCH_RAY
   float     lastRayMatch;
   vec3      joinLine;
@@ -29,9 +30,9 @@ class TruncatedCone
   // Member functions - public
   TruncatedCone(vec3 root, vec3 dir, float smallR, float bigR, unsigned S);
   ~TruncatedCone(void);
-  bool          updateBoundingBox(BoundingBox* box, float altitude);
-  bool          bufferGeometry(TriangleBuffer* T, float altitude, unsigned color);
-  bool          matchRay(vec3& position, vec3& direction, float& lambda);
+  bool          updateBoundingBox(BoundingBox* box, vec3 offset);
+  bool          bufferGeometry(TriangleBuffer* T, vec3 offset);
+  bool          matchRay(vec3& position, vec3& direction, float& lambda, vec3 offset);
   void          triangleBufferSizes(unsigned& vCount, unsigned& iCount);
   void          lengthen(float increment);
   void          setLength(float length);
