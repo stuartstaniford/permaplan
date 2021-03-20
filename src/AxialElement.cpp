@@ -242,18 +242,18 @@ bool AxialElement::updateBoundingBox(BoundingBox* box, vec3 offset)
 void AxialElement::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 {
   vCount = sides*NVecs;
-  iCount = 2*sides*(NVecs-1);
+  iCount = 6*sides*(NVecs-1);
   
   if(closedBase)
    {
     vCount++;
-    iCount += sides;
+    iCount += 3*sides;
    }
 
   if(closedTop)
    {
     vCount++;
-    iCount += sides;
+    iCount += 3*sides;
    }
 }
 

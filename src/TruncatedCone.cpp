@@ -94,16 +94,6 @@ bool TruncatedCone::bufferGeometry(TriangleBuffer* T, vec3 offset)
 
 
 // =======================================================================================
-// How much space we need in a TriangleBuffer
-
-void TruncatedCone::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
-{
-  vCount = sides*2;
-  iCount = sides*6;
-}
-
-
-// =======================================================================================
 // Function to print out in JSON format.
 
 #define bufprintf(...) if((buf += snprintf(buf, end-buf,  __VA_ARGS__)) >= end) {return -1;}

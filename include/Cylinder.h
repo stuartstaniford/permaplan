@@ -20,7 +20,6 @@ class Cylinder: public AxialElement
   Cylinder(vec3 root, vec3 dir, float R, unsigned sides);
   ~Cylinder(void);
   bool          bufferGeometry(TriangleBuffer* T, vec3 offset);
-  void          triangleBufferSizes(unsigned& vCount, unsigned& iCount);
   int           printOPSF(char*& buf, unsigned bufSize);
   const char*   objectName(void);
   bool          diagnosticHTML(HttpDebug* serv);
