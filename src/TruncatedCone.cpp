@@ -14,8 +14,11 @@
 TruncatedCone::TruncatedCone(vec3 root, vec3 dir, float r, float R, unsigned S):
                                                   AxialElement(root, dir, R, S),
                                                   bigRadius(R),
-                                                  smallRadius(r)
+                                                  smallRadius(r),
+                                                  conePoints{{1.0f, 0.0f}, {r/R, 1.0f}}
 {
+  NVecs       = 2u;
+  vectorPath  = conePoints;
 }
 
 
@@ -24,47 +27,6 @@ TruncatedCone::TruncatedCone(vec3 root, vec3 dir, float r, float R, unsigned S):
 
 TruncatedCone::~TruncatedCone(void)
 {
-}
-
-
-// =======================================================================================
-// Update a supplied bounding box with all our points, so that we are fully encompassed
-// within it.  Returns whether or not any extension was required
-
-bool TruncatedCone::updateBoundingBox(BoundingBox* box, vec3 offset)
-{
-  bool  retVal        = false;
-  float angleRadians  = 2.0f*M_PI/sides;
-  float ang, cosAng, sinAng;
-  vec3 point;
-  vec3      f1, f2, g1, g2;
-
-  getCrossVectors(axisDirection, f1, f2, bigRadius);
-  glm_vec3_scale_as(f1, smallRadius, g1);
-  glm_vec3_scale_as(f2, smallRadius, g2);
-
-  for(int i=0; i<sides; i++)
-   {
-    ang = i*angleRadians;
-    cosAng = cosf(ang);
-    sinAng = sinf(ang);
-    
-    // base of shaft of the TruncatedCone on this particular radial slice
-    point[0] = location[0] + cosAng*f1[0] + sinAng*f2[0] + offset[0];
-    point[1] = location[1] + cosAng*f1[1] + sinAng*f2[1] + offset[1];
-    point[2] = location[2] + cosAng*f1[2] + sinAng*f2[2] + offset[2];
-    if(box->extends(point))
-      retVal = true;
-    
-    // top of shaft
-    point[0] = location[0] + cosAng*g1[0] + sinAng*g2[0] + offset[0];
-    point[1] = location[1] + cosAng*g1[1] + sinAng*g2[1] + offset[1];
-    point[2] = location[2] + cosAng*g1[2] + sinAng*g2[2] + offset[2];
-    if(box->extends(point))
-      retVal = true;
-   }
-  
-  return retVal;
 }
 
 

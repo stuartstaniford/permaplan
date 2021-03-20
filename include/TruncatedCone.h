@@ -21,7 +21,6 @@ class TruncatedCone: public AxialElement
   // Member functions - public
   TruncatedCone(vec3 root, vec3 dir, float r, float R, unsigned S);
   ~TruncatedCone(void);
-  bool          updateBoundingBox(BoundingBox* box, vec3 offset);
   bool          bufferGeometry(TriangleBuffer* T, vec3 offset);
   bool          matchRay(vec3& position, vec3& direction, float& lambda, vec3 offset);
   void          triangleBufferSizes(unsigned& vCount, unsigned& iCount);
@@ -32,7 +31,8 @@ class TruncatedCone: public AxialElement
  private:
   
   // Instance variables - private
-  
+  vec2          conePoints[2];
+
   // Member functions - private
   TruncatedCone(const TruncatedCone&);                 // Prevent copy-construction
   TruncatedCone& operator=(const TruncatedCone&);      // Prevent assignment
