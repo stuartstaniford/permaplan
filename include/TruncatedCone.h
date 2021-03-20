@@ -22,7 +22,6 @@ class TruncatedCone: public AxialElement
   TruncatedCone(vec3 root, vec3 dir, float r, float R, unsigned S);
   ~TruncatedCone(void);
   bool          bufferGeometry(TriangleBuffer* T, vec3 offset);
-  bool          matchRay(vec3& position, vec3& direction, float& lambda, vec3 offset);
   void          triangleBufferSizes(unsigned& vCount, unsigned& iCount);
   int           printOPSF(char*& buf, unsigned bufSize);
   const char*   objectName(void);
