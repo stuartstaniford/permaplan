@@ -127,68 +127,6 @@ bool Cylinder::matchRay(vec3& position, vec3& direction, float& lambda, vec3 off
 
 
 // =======================================================================================
-// This matches every triangle to be certain whether the ray hits or not
-// XX might return a hit on far side of cylinder, instead of nearest.
-
-bool Cylinder::matchRayBruteForce(vec3& position, vec3& direction, float& lambda, vec3 offset)
-{
-  float     angleRadians  = 2.0f*M_PI/sides;
-  vec3      triangle[3];
-  
-  getCrossVectors(axisDirection, f1, f2, radius);
-
-  // Now that we've done some initial setup, we can compute all the vertices.
-  float ang, cosAng, sinAng;
-  for(int i=0; i<sides; i++)
-   {
-    ang = i*angleRadians;
-    cosAng = cosf(ang);
-    sinAng = sinf(ang);
-    vec3 norm = {cosAng*f1[0] + sinAng*f2[0],
-                    cosAng*f1[1] + sinAng*f2[1],
-                    cosAng*f1[2] + sinAng*f2[2]};
-    
-    // base of shaft of the cylinder on this particular radial slice
-    triangle[0][0] = location[0] + norm[0] + offset[0];
-    triangle[0][1] = location[1] + norm[1] + offset[1];
-    triangle[0][2] = location[2] + norm[2] + offset[2];
-
-    // top of shaft
-    triangle[1][0] = triangle[0][0] + axisDirection[0];
-    triangle[1][1] = triangle[0][1] + axisDirection[1];
-    triangle[1][2] = triangle[0][2] + axisDirection[2];
-
-    // Now complete the triangle with base of next radial slice
-    ang = ((i+1)%sides)*angleRadians;
-    cosAng = cosf(ang);
-    sinAng = sinf(ang);
-    norm[0] = cosAng*f1[0] + sinAng*f2[0];
-    norm[1] = cosAng*f1[1] + sinAng*f2[1];
-    norm[2] = cosAng*f1[2] + sinAng*f2[2];
-
-    triangle[2][0] = location[0] + norm[0] + offset[0];
-    triangle[2][1] = location[1] + norm[1] + offset[1];
-    triangle[2][2] = location[2] + norm[2] + offset[2];
-
-    // test the triangle
-    if(mollerTrumbore(triangle, position, direction, lambda))
-      return true;
-
-    // top of shaft
-    triangle[2][0] += axisDirection[0];
-    triangle[2][1] += axisDirection[1];
-    triangle[2][2] += axisDirection[2];
-  
-    // ok test again
-    if(mollerTrumbore(triangle, position, direction, lambda))
-      return true;
-   }
-  
-  return false;
-}
-
-
-// =======================================================================================
 // Function to print out in JSON format.
 
 #define bufprintf(...) if((buf += snprintf(buf, end-buf,  __VA_ARGS__)) >= end) {return -1;}

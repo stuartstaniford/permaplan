@@ -45,7 +45,11 @@ class AxialElement: public VisualElement
   inline float        getLength(void) {return glm_vec3_norm(axisDirection);}
 
  protected:
-  
+
+  // Protected functions only for use by us or subclasses
+  bool          matchRayBruteForce(vec3& position, vec3& direction,
+                                                            float& lambda, vec3 offset);
+
   // Instance variables - protected
   unsigned short  NVecs;
   vec2*           vectorPath;

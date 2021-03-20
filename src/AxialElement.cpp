@@ -107,6 +107,74 @@ bool AxialElement::matchRay(vec3& position, vec3& direction, float& lambda, vec3
 
 
 // =======================================================================================
+// This matches every triangle to be certain whether the ray hits or not
+// XX might return a hit on far side of the element, instead of nearest.
+// XX Also this routine causes us to compute every vertex twice.  There might be some
+// clever optimization that could cut down on that.
+bool AxialElement::matchRayBruteForce(vec3& position, vec3& direction, float& lambda,
+                                                                                vec3 offset)
+{
+  float     angleRadians  = 2.0f*M_PI/sides;
+  vec3      triangle[3];
+  
+  getCrossVectors(axisDirection, f1, f2, radius);
+
+  // Now that we've done some initial setup, we can compute all the vertices.
+  float ang, cosAng, sinAng;
+  for(int i=0; i<sides; i++)
+   {
+    ang = i*angleRadians;
+    cosAng = cosf(ang);
+    sinAng = sinf(ang);
+    vec3 norm = {cosAng*f1[0] + sinAng*f2[0],
+                    cosAng*f1[1] + sinAng*f2[1],
+                    cosAng*f1[2] + sinAng*f2[2]}; // note this is scaled to radius
+    
+    // Now work over all the points in the vectorPath
+    for(int j=0; j<NVecs-1;j++)
+     {
+      // The point right here on this slice, this vectorPath
+      for(int m=0; m<3;m++)
+        triangle[0][m] = location[m] + vectorPath[j][0]*norm[m]
+                                        + vectorPath[j][1]*axisDirection[m] + offset[m];
+ 
+      // Next point up this radial slice (ie j+1)
+      for(int m=0; m<3;m++)
+        triangle[1][m] = location[m] + vectorPath[j+1][0]*norm[m]
+                                        + vectorPath[j+1][1]*axisDirection[m] + offset[m];
+      
+      // Setup to work with points from next radial slice
+      ang = ((i+1)%sides)*angleRadians;
+      cosAng = cosf(ang);
+      sinAng = sinf(ang);
+      for(int m=0; m<3; m++)
+        norm[m] = cosAng*f1[m] + sinAng*f2[m];
+
+      // Now complete the triangle with base of next radial slice i+1, but j still
+      for(int m=0; m<3; m++)
+        triangle[2][m] = location[m] + vectorPath[j][0]*norm[m]
+                                      + vectorPath[j][1]*axisDirection[m] + offset[m];
+
+      // test the triangle
+      if(mollerTrumbore(triangle, position, direction, lambda))
+        return true;
+
+      // Now move up on next radial slice to j+1
+      for(int m=0; m<3; m++)
+        triangle[2][m] = location[m] + vectorPath[j+1][0]*norm[m]
+                                        + vectorPath[j+1][1]*axisDirection[m] + offset[m];
+
+      // ok test again
+      if(mollerTrumbore(triangle, position, direction, lambda))
+        return true;
+     }
+   }
+  
+  return false;
+}
+
+
+// =======================================================================================
 // Compute the bounding box.
 
 bool AxialElement::updateBoundingBox(BoundingBox* box, vec3 offset)
