@@ -15,22 +15,16 @@
 class AxialElement: public VisualElement
 {
  public:
-  vec3      location;
-  vec3      axisDirection;
-  vec3*     vectorPath;
-  unsigned  color;
-  unsigned short sides;
-  unsigned short NVecs;
-  vec3      f1;    // f1 and f2 are cross-vectors to axisDirection
-  vec3      f2;
-#ifdef LOG_TREE_MATCH_RAY
-  float     lastRayMatch;
-  vec3      joinLine;
-  vec3      originDiff;
-#endif
+  vec3            location;
+  vec3            axisDirection;
+  float           radius;
+  unsigned        color;
+  unsigned short  sides;
+  bool            closedTop;
+  bool            closedBase;
 
   // Member functions - public
-  AxialElement(vec3 root, vec3 dir, unsigned sides);
+  AxialElement(vec3 root, vec3 dir, float R, unsigned sides);
   virtual ~AxialElement(void);
   
   // The VisualElement API
@@ -38,7 +32,6 @@ class AxialElement: public VisualElement
   virtual bool        getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
   virtual int         getNextIndex(bool resetToFirst);
   virtual bool        bufferGeometry(TriangleBuffer* T, vec3 offset);
-  virtual void        refreshVectorPath(void);
   virtual bool        matchRay(vec3& position, vec3& direction, float& lambda, vec3 offset);
   virtual bool        updateBoundingBox(BoundingBox* box, vec3 offset);
   virtual void        triangleBufferSizes(unsigned& vCount, unsigned& iCount);
@@ -54,6 +47,15 @@ class AxialElement: public VisualElement
  protected:
   
   // Instance variables - protected
+  unsigned short  NVecs;
+  vec2*           vectorPath;
+  vec3            f1;    // f1 and f2 are cross-vectors to axisDirection
+  vec3            f2;
+#ifdef LOG_TREE_MATCH_RAY
+  float           lastRayMatch;
+  vec3            joinLine;
+  vec3            originDiff;
+#endif
 
 private:
   

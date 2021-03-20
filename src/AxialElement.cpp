@@ -10,8 +10,13 @@
 // =======================================================================================
 // Constructors
 
-AxialElement::AxialElement(vec3 root, vec3 dir, unsigned S):
-                                                  sides(S)
+AxialElement::AxialElement(vec3 root, vec3 dir, float R, unsigned S):
+                                                  radius(R),
+                                                  sides(S),
+                                                  closedTop(false),
+                                                  closedBase(false),
+                                                  NVecs(0u),        // subclasses need to set
+                                                  vectorPath(NULL)  // ditto
 {
   glm_vec3_copy(root, location);
   glm_vec3_copy(dir, axisDirection);
@@ -23,17 +28,6 @@ AxialElement::AxialElement(vec3 root, vec3 dir, unsigned S):
 
 AxialElement::~AxialElement(void)
 {
-}
-
-
-// =======================================================================================
-// We rely on subclasses to point us to the swept path in vectorPath.  This function,
-// which must be overloaded by subclasses, tells them to update it because we are about
-// to do something based on it.
-
-void AxialElement::refreshVectorPath(void)
-{
-  err(-1, "Invalid call to AxialElement::refreshVectorPath");
 }
 
 
@@ -117,7 +111,43 @@ bool AxialElement::matchRay(vec3& position, vec3& direction, float& lambda, vec3
 
 bool AxialElement::updateBoundingBox(BoundingBox* box, vec3 offset)
 {
-  return false;
+  bool  retVal        = false;
+  float angleRadians  = 2.0f*M_PI/sides;
+  float ang, cosAng, sinAng;
+  vec3 point;
+
+  // bottom end point
+  if(closedBase)
+    if(box->extends(location))
+      retVal = true;
+  
+  // top end point
+  if(closedTop)
+    glm_vec3_add(location, axisDirection, point);
+      if(box->extends(point))
+        retVal = true;
+
+  getCrossVectors(axisDirection, f1, f2, radius);
+  
+  for(int i=0; i<sides; i++)
+   {
+    // Do the setup for this radial slice
+    ang = i*angleRadians;
+    cosAng = cosf(ang);
+    sinAng = sinf(ang);
+
+    // Now do each point in the vectorPath
+    for(int j=0; j<NVecs; j++)
+     {
+      for(int m=0; m<3; m++)
+        point[m] = location[m] + vectorPath[j][0]*(cosAng*f1[m] + sinAng*f2[m])
+                          + vectorPath[j][1]*axisDirection[m] +  + offset[m];
+      if(box->extends(point))
+        retVal = true;
+     }
+   }
+
+  return retVal;
 }
 
 
@@ -126,7 +156,20 @@ bool AxialElement::updateBoundingBox(BoundingBox* box, vec3 offset)
 
 void AxialElement::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 {
-  err(-1, "Called unimplemented superclass VisualElement::triangleBufferSizes.\n");
+  vCount = sides*NVecs;
+  iCount = 2*sides*(NVecs-1);
+  
+  if(closedBase)
+   {
+    vCount++;
+    iCount += sides;
+   }
+
+  if(closedTop)
+   {
+    vCount++;
+    iCount += sides;
+   }
 }
 
 

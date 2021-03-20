@@ -15,7 +15,6 @@ class Cylinder: public AxialElement
  public:
   
   // Instance variables - public
-  float     radius;
 
   // Member functions - public
   Cylinder(vec3 root, vec3 dir, float R, unsigned sides);

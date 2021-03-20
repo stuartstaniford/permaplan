@@ -11,8 +11,7 @@
 // Constructors.
 
 Cylinder::Cylinder(vec3 root, vec3 dir, float R, unsigned S):
-                                                  AxialElement(root, dir, S),
-                                                  radius(R)
+                                                  AxialElement(root, dir, R, S)
 {
 }
 

@@ -12,7 +12,7 @@
 // Constructors.
 
 TruncatedCone::TruncatedCone(vec3 root, vec3 dir, float r, float R, unsigned S):
-                                                  AxialElement(root, dir, S),
+                                                  AxialElement(root, dir, R, S),
                                                   bigRadius(R),
                                                   smallRadius(r)
 {
