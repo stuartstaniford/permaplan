@@ -98,11 +98,28 @@ bool AxialElement::bufferGeometry(TriangleBuffer* T, vec3 offset)
 
 
 // =======================================================================================
-// Decide if a ray touches us.
+// Figure out whether a ray intersects the element or not
+// https://en.wikipedia.org/wiki/Skew_lines#Distance
 
 bool AxialElement::matchRay(vec3& position, vec3& direction, float& lambda, vec3 offset)
 {
-  return false;
+#ifndef LOG_TREE_MATCH_RAY
+  vec3 joinLine, originDiff;
+#endif
+  vec3 relativePos;
+
+  glm_vec3_sub(position, offset, relativePos);
+  glm_vec3_crossn(direction, axisDirection, joinLine);
+  glm_vec3_sub(relativePos, location, originDiff);
+  float dist = fabs(glm_vec3_dot(joinLine, originDiff));
+#ifdef LOG_TREE_MATCH_RAY
+  lastRayMatch = dist;
+#endif
+
+  if(dist <= radius)
+    return matchRayBruteForce(position, direction, lambda, offset);
+  else
+    return false;
 }
 
 
@@ -246,7 +263,7 @@ void AxialElement::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 
 const char* AxialElement::elementName(void)
 {
-  static char* name = (char*)"VisualElement";
+  static char* name = (char*)"AxialElement";
   return name;
 }
 
@@ -260,7 +277,7 @@ const char* AxialElement::elementName(void)
 
 bool AxialElement::diagnosticHTML(HttpDebug* serv)
 {
-  err(-1, "Called unimplemented superclass VisualElement::diagnosticHTML.\n");
+  err(-1, "Called unimplemented superclass AxialElement::diagnosticHTML.\n");
 }
 
 
@@ -273,7 +290,7 @@ bool AxialElement::diagnosticHTML(HttpDebug* serv)
 
 bool AxialElement::diagnosticHTMLSummary(HttpDebug* serv)
 {
-  err(-1, "Called unimplemented superclass VisualElement::diagnosticHTMLSummary.\n");
+  err(-1, "Called unimplemented superclass AxialElement::diagnosticHTMLSummary.\n");
 }
 
 // =======================================================================================

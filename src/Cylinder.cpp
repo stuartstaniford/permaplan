@@ -101,32 +101,6 @@ void Cylinder::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 
 
 // =======================================================================================
-// Figure out whether a ray intersects the cylinder or not
-// https://en.wikipedia.org/wiki/Skew_lines#Distance
-
-bool Cylinder::matchRay(vec3& position, vec3& direction, float& lambda, vec3 offset)
-{
-#ifndef LOG_TREE_MATCH_RAY
-  vec3 joinLine, originDiff;
-#endif
-  vec3 relativePos;
-
-  glm_vec3_sub(position, offset, relativePos);
-  glm_vec3_crossn(direction, axisDirection, joinLine);
-  glm_vec3_sub(relativePos, location, originDiff);
-  float dist = fabs(glm_vec3_dot(joinLine, originDiff));
-#ifdef LOG_TREE_MATCH_RAY
-  lastRayMatch = dist;
-#endif
-
-  if(dist <= radius)
-    return matchRayBruteForce(position, direction, lambda, offset);
-  else
-    return false;
-}
-
-
-// =======================================================================================
 // Function to print out in JSON format.
 
 #define bufprintf(...) if((buf += snprintf(buf, end-buf,  __VA_ARGS__)) >= end) {return -1;}
