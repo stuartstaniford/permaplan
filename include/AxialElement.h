@@ -43,6 +43,7 @@ class AxialElement: public VisualElement
   void                lengthen(float increment);
   void                setLength(float length);
   inline float        getLength(void) {return glm_vec3_norm(axisDirection);}
+  virtual int         printOPSF(char*& buf, unsigned bufSize);
 
  protected:
 

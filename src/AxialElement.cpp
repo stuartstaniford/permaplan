@@ -361,6 +361,18 @@ const char* AxialElement::elementName(void)
 }
 
 
+// =======================================================================================
+// Function to print out in JSON format.
+
+#define bufprintf(...) if((buf += snprintf(buf, end-buf,  __VA_ARGS__)) >= end) {return -1;}
+
+int AxialElement::printOPSF(char*& buf, unsigned bufSize)
+{
+  char* end = buf + bufSize;
+
+  return (bufSize - (int)(end-buf));
+}
+
 
 // =======================================================================================
 // Stub definition this should be overwritten by implementing subclasses

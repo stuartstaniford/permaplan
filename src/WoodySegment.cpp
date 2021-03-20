@@ -21,7 +21,12 @@ WoodySegment::WoodySegment(Species& species, unsigned short treeIndex,
                               barkColor(0u),
                               level(lev)
 {
-  cylinder = new Cylinder(loc, dir, heartRadius + sapThickness + barkThickness, WOOD_SEG_SIDES);
+  float radius = heartRadius + sapThickness + barkThickness;
+  if(level == 0)
+    cylinder = (AxialElement*)new TruncatedCone(loc, dir, radius/10.0f, radius, WOOD_SEG_SIDES);
+  else
+    cylinder = (AxialElement*)new Cylinder(loc, dir, radius, WOOD_SEG_SIDES);
+
   cylinder->closedTop = true;
   incrementTreeMemory(sizeof(WoodySegment)+sizeof(Cylinder));
 }

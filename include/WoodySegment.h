@@ -45,7 +45,7 @@ class WoodySegment: public TreePart
   float                   barkThickness;  // mm.  Phloem currently part of bark
   unsigned                barkColor;
   unsigned short          level;
-  Cylinder*               cylinder;
+  AxialElement*            cylinder;
   std::vector<TreePart*>  kids;
   
   // Instance variables - private
