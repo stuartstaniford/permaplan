@@ -19,7 +19,6 @@ class Cylinder: public AxialElement
   // Member functions - public
   Cylinder(vec3 root, vec3 dir, float R, unsigned sides);
   ~Cylinder(void);
-  bool          updateBoundingBox(BoundingBox* box, vec3 offset);
   bool          bufferGeometry(TriangleBuffer* T, vec3 offset);
   bool          matchRay(vec3& position, vec3& direction, float& lambda, vec3 offset);
   bool          matchRayBruteForce(vec3& position, vec3& direction,
@@ -32,6 +31,7 @@ class Cylinder: public AxialElement
  private:
   
   // Instance variables - private
+  vec2          cylinderPoints[2];
   
   // Member functions - private
   Cylinder(const Cylinder&);                 // Prevent copy-construction
