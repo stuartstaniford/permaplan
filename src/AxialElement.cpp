@@ -128,15 +128,14 @@ bool AxialElement::bufferGeometry(TriangleBuffer* T, vec3 offset)
 
     // Now that we've done some initial setup, we can start looping over the radial slices.
     float ang, cosAng, sinAng;
-    vec3 point;
+    vec3 point, norm;
     for(int i=0; i<sides; i++)
      {
       ang = i*angleRadians;
       cosAng = cosf(ang);
       sinAng = sinf(ang);
-      vec3 norm = {cosAng*f1[0] + sinAng*f2[0],
-                      cosAng*f1[1] + sinAng*f2[1],
-                      cosAng*f1[2] + sinAng*f2[2]}; // scaled to radius
+      for(int m=0; m<3; m++)
+        norm[m] = cosAng*f1[m] + sinAng*f2[m]; // scaled to radius
       
       // Now loop over the points in the vertexPath on this slice
       for(int j=0; j<NVecs; j++)
@@ -152,7 +151,26 @@ bool AxialElement::bufferGeometry(TriangleBuffer* T, vec3 offset)
         vertices[NVecs*i+j].setNormal(norm); // to be normalized in gpu
        }
      }
-    
+ 
+    if(closedBase)
+     {
+      glm_vec3_scale(axisDirection, -1.0f, norm);
+      for(int m=0; m<3; m++)
+        point[m] = location[m] + offset[m];
+      vertices[NVecs*sides].setPosition(point);
+      vertices[NVecs*sides].setNormal(norm);
+      vertices[NVecs*sides].setColor(color);
+     }
+
+    if(closedTop)
+     {
+      for(int m=0; m<3; m++)
+        point[m] = location[m] + axisDirection[m] + offset[m];
+      vertices[vCount-1].setPosition(point);
+      vertices[vCount-1].setNormal(axisDirection);
+      vertices[vCount-1].setColor(color);
+     }
+
     // Done with vertices, now set up the indices.  As usual, we need triangles to be
     // counter-clockwise looking from outside the element, because of OpenGL faceculling.
     int iPlus, iBase;
@@ -168,6 +186,24 @@ bool AxialElement::bufferGeometry(TriangleBuffer* T, vec3 offset)
         indices[iBase+3]  = indices[iBase + 1];             // base of shaft at next radius
         indices[iBase+4]  = vOffset + NVecs*iPlus + j + 1;  // top of shaft at next radius
         indices[iBase+5]  = indices[iBase+2];               // top of shaft at this radius
+       }
+      
+      if(closedBase)
+       {
+        int triBase = 6*sides*(NVecs-1) + 3*i;
+        iBase = 6*(NVecs-1)*i;
+        indices[triBase]      = vOffset + NVecs*sides;  // bottom center
+        indices[triBase + 1]  = indices[iBase + 1];     //
+        indices[triBase + 2]  = indices[iBase];         // bottom center
+       }
+      
+      if(closedTop)
+       {
+        int triBase = iCount - 3*sides + 3*i;
+        iBase = 6*((NVecs-1)*i + NVecs-2);
+        indices[triBase]      = vOffset + vCount - 1;   // top center
+        indices[triBase + 1]  = indices[iBase + 2];     // top of shaft at this radius
+        indices[triBase + 2]  = indices[iBase + 4];     // top of shaft at next radius
        }
      }
 

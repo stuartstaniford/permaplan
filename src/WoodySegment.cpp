@@ -22,6 +22,7 @@ WoodySegment::WoodySegment(Species& species, unsigned short treeIndex,
                               level(lev)
 {
   cylinder = new Cylinder(loc, dir, heartRadius + sapThickness + barkThickness, WOOD_SEG_SIDES);
+  cylinder->closedTop = true;
   incrementTreeMemory(sizeof(WoodySegment)+sizeof(Cylinder));
 }
 
