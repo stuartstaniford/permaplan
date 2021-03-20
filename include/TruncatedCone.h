@@ -15,13 +15,11 @@ class TruncatedCone: public AxialElement
  public:
   
   // Instance variables - public
-  float     bigRadius;
   float     smallRadius;
 
   // Member functions - public
   TruncatedCone(vec3 root, vec3 dir, float r, float R, unsigned S);
   ~TruncatedCone(void);
-  bool          bufferGeometry(TriangleBuffer* T, vec3 offset);
   int           printOPSF(char*& buf, unsigned bufSize);
   const char*   objectName(void);
   bool          diagnosticHTML(HttpDebug* serv);
