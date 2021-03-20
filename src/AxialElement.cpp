@@ -89,11 +89,89 @@ int AxialElement::getNextIndex(bool resetToFirst)
 
 
 // =======================================================================================
-// Stub definition this should be overwritten by implementing subclasses
+// The amount of vertex and index space we would need in a triangle buffer
+
+void AxialElement::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
+{
+  vCount = sides*NVecs;
+  iCount = 6*sides*(NVecs-1);
+  
+  if(closedBase)
+   {
+    vCount++;
+    iCount += 3*sides;
+   }
+
+  if(closedTop)
+   {
+    vCount++;
+    iCount += 3*sides;
+   }
+}
+
+
+// =======================================================================================
+// This is where the actual geometry is defined - we render it into a buffer on request
 
 bool AxialElement::bufferGeometry(TriangleBuffer* T, vec3 offset)
 {
-  err(-1, "Called unimplemented superclass AxialElement::bufferGeometry.\n");
+    float     angleRadians  = 2.0f*M_PI/sides;
+    Vertex*   vertices;
+    unsigned* indices;
+    unsigned  vOffset, vCount, iCount;
+    
+    triangleBufferSizes(vCount, iCount);
+    unless(T->requestSpace(&vertices, &indices, vOffset, vCount, iCount))
+      return false;
+
+    getCrossVectors(axisDirection, f1, f2, radius);
+
+    // Now that we've done some initial setup, we can start looping over the radial slices.
+    float ang, cosAng, sinAng;
+    vec3 point;
+    for(int i=0; i<sides; i++)
+     {
+      ang = i*angleRadians;
+      cosAng = cosf(ang);
+      sinAng = sinf(ang);
+      vec3 norm = {cosAng*f1[0] + sinAng*f2[0],
+                      cosAng*f1[1] + sinAng*f2[1],
+                      cosAng*f1[2] + sinAng*f2[2]}; // scaled to radius
+      
+      // Now loop over the points in the vertexPath on this slice
+      for(int j=0; j<NVecs; j++)
+       {
+        // this point (j) on this particular radial slice (i)
+        for(int m=0; m<3; m++)
+          point[m] = location[m] + vectorPath[j][0]*norm[m]
+                                        + vectorPath[j][1]*axisDirection[m] + offset[m];
+        vertices[NVecs*i+j].setPosition(point);
+        vertices[NVecs*i+j].setColor(color);
+        
+        //XX This is still cylindrical, norm lacks a possible component in the axis direction
+        vertices[NVecs*i+j].setNormal(norm); // to be normalized in gpu
+       }
+     }
+    
+    // Done with vertices, now set up the indices.  As usual, we need triangles to be
+    // counter-clockwise looking from outside the element, because of OpenGL faceculling.
+    int iPlus, iBase;
+    for(int i=0; i<sides; i++)
+     {
+      iPlus = (i+1)%sides;
+      for(int j=0; j<NVecs-1;j++)
+       {
+        iBase = 6*((NVecs-1)*i + j);
+        indices[iBase]    = vOffset + NVecs*i + j;          // base of this radius
+        indices[iBase+1]  = vOffset + NVecs*iPlus + j;      // base of shaft at next radius
+        indices[iBase+2]  = vOffset + NVecs*i + j + 1;      // top of shaft at this radius
+        indices[iBase+3]  = indices[iBase + 1];             // base of shaft at next radius
+        indices[iBase+4]  = vOffset + NVecs*iPlus + j + 1;  // top of shaft at next radius
+        indices[iBase+5]  = indices[iBase+2];               // top of shaft at this radius
+       }
+     }
+
+  return true;
 }
 
 
@@ -128,6 +206,7 @@ bool AxialElement::matchRay(vec3& position, vec3& direction, float& lambda, vec3
 // XX might return a hit on far side of the element, instead of nearest.
 // XX Also this routine causes us to compute every vertex twice.  There might be some
 // clever optimization that could cut down on that.
+
 bool AxialElement::matchRayBruteForce(vec3& position, vec3& direction, float& lambda,
                                                                                 vec3 offset)
 {
@@ -233,28 +312,6 @@ bool AxialElement::updateBoundingBox(BoundingBox* box, vec3 offset)
    }
 
   return retVal;
-}
-
-
-// =======================================================================================
-// Stub definition this should be overwritten by implementing subclasses
-
-void AxialElement::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
-{
-  vCount = sides*NVecs;
-  iCount = 6*sides*(NVecs-1);
-  
-  if(closedBase)
-   {
-    vCount++;
-    iCount += 3*sides;
-   }
-
-  if(closedTop)
-   {
-    vCount++;
-    iCount += 3*sides;
-   }
 }
 
 
