@@ -27,7 +27,8 @@ Scene::Scene():
                 axes(NULL),
                 grid(NULL),
                 doSimulation(false),
-                simYear(SIMULATION_BASE_YEAR)
+                simYear(SIMULATION_BASE_YEAR),
+                simThreads(NULL)                // initialized later in startSimulationThreads
 {
   unsigned minSize = 50;
   // Note that land and qtree have mutual dependencies that means there
@@ -50,6 +51,36 @@ Scene::~Scene(void)
   if(axes)
     delete axes;
   saveState();
+}
+
+
+// =======================================================================================
+// C function to launder C++ method into pthread_create
+
+void* spawnSimThread(void* arg)
+{
+  // Scene* scene = (Scene*)arg;
+
+  LogSimulationControls("Starting simulation thread.");
+  return NULL;
+}
+
+
+// =======================================================================================
+// Start up the simulation threads
+
+void Scene::startSimulationThreads(void)
+{
+  const PmodConfig& config = PmodConfig::getConfig();
+
+  simThreads = new pthread_t[config.nSimThreads];
+  assert(simThreads);
+  
+  int pthreadErr;
+
+  for(int s=0; s<config.nSimThreads; s++)
+    if((pthreadErr = pthread_create(simThreads + s, NULL, spawnSimThread, this)) != 0)
+      err(-1, "Couldn't spawn simulation thread %d.\n", s);
 }
 
 

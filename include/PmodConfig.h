@@ -22,7 +22,8 @@ class PmodConfig
   char*           bezWriteFileName;
   char*           writeDesignFileName;
   char*           speciesDirectory;
-  
+  unsigned        nSimThreads;
+
   private:
   
   static PmodConfig* config;

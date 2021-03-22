@@ -28,6 +28,7 @@ void PmodConfig::usage()
   printf("\t-L\tLeave land surface as a plane.\n");
   printf("\t-p P\tRun debug server on port P .\n");
   printf("\t-P S\tUse S as plant species directory.\n");
+  printf("\t-s N\tUse s simulation threads.\n");
   printf("\n");
   exit(0);
 }
@@ -56,8 +57,9 @@ PmodConfig::PmodConfig(int argc, char* argv[])
   bezWriteFileName    = NULL;
   writeDesignFileName = NULL;
   speciesDirectory    = NULL;
-
-  while( (optionChar = getopt(argc, argv, "Ab:B:d:D:g:Lp:P:")) != -1)
+  nSimThreads         = 4;
+  
+  while( (optionChar = getopt(argc, argv, "Ab:B:d:D:g:Lp:P:s:")) != -1)
     switch (optionChar)
      {
       case 'A':
@@ -97,8 +99,14 @@ PmodConfig::PmodConfig(int argc, char* argv[])
            err(-1, "Bad port number via -p: %s\n", optarg);
          break;
 
-       case 'S':
+       case 'P':
          speciesDirectory = optarg;
+         break;
+
+       case 's':
+        nSimThreads = atoi(optarg);
+         if(nSimThreads <= 0)
+           err(-1, "Bad simulation thread number via -s: %s\n", optarg);
          break;
 
        default:

@@ -51,6 +51,7 @@ class Scene
   Scene(void);
   ~Scene(void);
   void          draw(bool mouseMoved, float timeElapsed);
+  void          startSimulationThreads(void);
   void          startSimulation(void);
   void          pauseSimulation(void);
   void          resetSimulation(void);
@@ -77,6 +78,7 @@ class Scene
   bool              doSimulation;
   float             simYear;
   pthread_mutex_t   lock;
+  pthread_t*        simThreads;
 
   // Member functions - private
   void setModelMatrix(float latt, float longt);
