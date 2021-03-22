@@ -59,9 +59,9 @@ Scene::~Scene(void)
 
 void* spawnSimThread(void* arg)
 {
-  // Scene* scene = (Scene*)arg;
+  long long s = (long long)arg;
 
-  LogSimulationControls("Starting simulation thread.");
+  LogSimulationControls("Starting simulation thread %lld.\n", s);
   return NULL;
 }
 
@@ -78,9 +78,9 @@ void Scene::startSimulationThreads(void)
   
   int pthreadErr;
 
-  for(int s=0; s<config.nSimThreads; s++)
-    if((pthreadErr = pthread_create(simThreads + s, NULL, spawnSimThread, this)) != 0)
-      err(-1, "Couldn't spawn simulation thread %d.\n", s);
+  for(long long s=0; s<config.nSimThreads; s++)
+    if((pthreadErr = pthread_create(simThreads + s, NULL, spawnSimThread, (void*)s)) != 0)
+      err(-1, "Couldn't spawn simulation thread %lld.\n", s);
 }
 
 
