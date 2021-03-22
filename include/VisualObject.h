@@ -41,10 +41,6 @@ class VisualObject: public VisualElement
   virtual bool        matchRay(vec3& position, vec3& direction, float& lambda);
   virtual bool        matchRay(vec3& position, vec3& direction, float& lambda, vec3 offset);
   virtual void        triangleBufferSizes(unsigned& vCount, unsigned& iCount);
-#ifdef MULTI_THREADED_SIMULATION
-  inline void         lock(void) {if(pthread_mutex_lock(&mutex)) err(-1, "Lock failure.\n");}
-  inline void         unlock(void) {if(pthread_mutex_unlock(&mutex)) err(-1, "Unlock failure.\n");}
-#endif
   virtual const char* objectName(void);
   virtual bool        diagnosticHTML(HttpDebug* serv);
   virtual bool        diagnosticHTMLSummary(HttpDebug* serv);
@@ -57,6 +53,18 @@ class VisualObject: public VisualElement
 #ifdef LOG_TREE_VALIDATION
   virtual void        selfValidate(unsigned l);
 #endif
+  inline void lock(void)
+   {
+#ifdef MULTI_THREADED_SIMULATION
+    if(pthread_mutex_lock(&mutex)) err(-1, "Lock failure.\n");
+#endif
+   }
+  inline void unlock(void)
+   {
+#ifdef MULTI_THREADED_SIMULATION
+    if(pthread_mutex_unlock(&mutex)) err(-1, "Unlock failure.\n");
+#endif
+   }
 
  protected:
   

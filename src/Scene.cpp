@@ -67,7 +67,7 @@ void* spawnSimThread(void* arg)
 
   LogSimulationControls("Starting simulation thread %d.", s);
   Tree::simulationThreadBase(s);
-  return;
+  return NULL;
 }
 
 
@@ -361,7 +361,9 @@ void Scene::draw(bool mouseMoved, float timeElapsed)
   if(doSimulation)
    {
     simYear += timeElapsed*simulationSpeed;
+#ifndef MULTI_THREADED_SIMULATION
     Tree::growAllTrees(timeElapsed*simulationSpeed);
+#endif
     qtree->rebuildTBufSizes();
     rebuildVisualObjectBuffer(&sceneObjectTbuf);
    }

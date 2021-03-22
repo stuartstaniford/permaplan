@@ -51,10 +51,6 @@ class Quadtree
   void recomputeBoundingBox(void);
   void rebuildTBufSizes(void);
   void redoLandPlanar(vec3 plane);
-#ifdef MULTI_THREADED_SIMULATION
-  inline void lock(void) {if(pthread_mutex_lock(&mutex)) err(-1, "Lock failure.\n");}
-  inline void unlock(void) {if(pthread_mutex_unlock(&mutex)) err(-1, "Unlock failure.\n");}
-#endif
   void stripSurface(void);
   VisualObject* matchRay(vec3& position, vec3& direction, float& lambda);
   void saveSurfaceState(char* fileName);
@@ -62,6 +58,18 @@ class Quadtree
 #ifdef LOG_TREE_VALIDATION
   void selfValidate(unsigned l);
 #endif
+  inline void lock(void)
+   {
+#ifdef MULTI_THREADED_SIMULATION
+    if(pthread_mutex_lock(&mutex)) err(-1, "Lock failure.\n");
+#endif
+   }
+  inline void unlock(void)
+   {
+#ifdef MULTI_THREADED_SIMULATION
+    if(pthread_mutex_unlock(&mutex)) err(-1, "Unlock failure.\n");
+#endif
+   }
 
 
  private:

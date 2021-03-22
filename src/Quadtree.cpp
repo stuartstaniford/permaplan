@@ -48,7 +48,7 @@ Quadtree::Quadtree(float x, float y, unsigned width, unsigned height,
 
   setVec2(textureBL, s, t);
   setVec2(textureTR, s + sWidth, t + tHeight);
-
+  
 #ifdef MULTI_THREADED_SIMULATION
   pthread_mutex_init(&mutex, NULL);
 #endif
