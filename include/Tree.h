@@ -63,7 +63,11 @@ class Tree: public VisualObject
  public:
   // static functions and variables
   static void readTreesFromDesign(Quadtree* qtree);
+#ifdef MULTI_THREADED_SIMULATION
+  static void simulationThreadBase(int s);
+#else
   static void growAllTrees(float years);
+#endif
   static void writeTreesToOLDF(FILE* file, char* indent);
   static bool allTreeDiagnosticHTML(HttpDebug* serv);
   static bool treePageGateway(HttpDebug* serv, char* path);

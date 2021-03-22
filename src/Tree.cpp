@@ -128,6 +128,19 @@ void Tree::growStep(float years)
 
 
 // =======================================================================================
+// Static function that handles a single tree simulation thread.
+
+#ifdef MULTI_THREADED_SIMULATION
+
+void Tree::simulationThreadBase(int s)
+{
+
+}
+
+#else
+
+
+// =======================================================================================
 // Static function that just grows all the trees known to treePtrArray.
 
 void Tree::growAllTrees(float years)
@@ -136,6 +149,8 @@ void Tree::growAllTrees(float years)
   for(int i=0; i<treeCount; i++)
     treePtrArray[i]->growStep(years);
 }
+
+#endif
 
 
 // =======================================================================================

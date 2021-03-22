@@ -51,8 +51,6 @@ class Quadtree
   void recomputeBoundingBox(void);
   void rebuildTBufSizes(void);
   void redoLandPlanar(vec3 plane);
-  inline void lock(void) {if(pthread_mutex_lock(&mutex)) err(-1, "Lock failure.\n");}
-  inline void unlock(void) {if(pthread_mutex_unlock(&mutex)) err(-1, "Unlock failure.\n");}
   void stripSurface(void);
   VisualObject* matchRay(vec3& position, vec3& direction, float& lambda);
   void saveSurfaceState(char* fileName);
@@ -60,6 +58,18 @@ class Quadtree
 #ifdef LOG_TREE_VALIDATION
   void selfValidate(unsigned l);
 #endif
+  inline void lock(void)
+   {
+#ifdef MULTI_THREADED_SIMULATION
+    if(pthread_mutex_lock(&mutex)) err(-1, "Lock failure.\n");
+#endif
+   }
+  inline void unlock(void)
+   {
+#ifdef MULTI_THREADED_SIMULATION
+    if(pthread_mutex_unlock(&mutex)) err(-1, "Unlock failure.\n");
+#endif
+   }
 
 
  private:
@@ -78,8 +88,10 @@ class Quadtree
   DisplayList               vObjects;     // objects for display that we own
   unsigned char             level;        // zero at root, increasing down tree
   bool                      isLeaf;
+#ifdef MULTI_THREADED_SIMULATION
   pthread_mutex_t           mutex;
-  
+#endif
+
   // Member functions - private
   VisualObject* matchChild(vec3& position, vec3& direction, float& lambda);
   Quadtree(const Quadtree&);                 // Prevent copy-construction
