@@ -23,7 +23,7 @@ Scene::Scene():
                 focusObject(NULL),
                 lockObject(NULL),
                 lighting(),
-                simulationSpeed(2.5f), // in years/second
+                simulationSpeed(1.0f), // in years/second
                 axes(NULL),
                 grid(NULL),
                 doSimulation(false),

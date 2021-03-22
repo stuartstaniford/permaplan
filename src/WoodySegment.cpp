@@ -22,7 +22,7 @@ WoodySegment::WoodySegment(Species& species, unsigned short treeIndex,
                               level(lev)
 {
   float radius = heartRadius + sapThickness + barkThickness;
-  if(level == 0)
+  if(level < 2)
     cylinder = (AxialElement*)new TruncatedCone(loc, dir, radius/10.0f, radius, WOOD_SEG_SIDES);
   else
     cylinder = (AxialElement*)new Cylinder(loc, dir, radius, WOOD_SEG_SIDES);
@@ -197,9 +197,18 @@ void WoodySegment::growStep(float years)
     float treeHeight = ((WoodySegment*)ourTree.trunk)->cylinder->getLength();
     float ourHeight = cylinder->location[2] -
                                     ((WoodySegment*)ourTree.trunk)->cylinder->location[2];
-    len = (treeHeight-ourHeight)*ourSpecies.maxWidth/(2.0f*ourSpecies.maxHeight);
+    if(level == 1)
+     {
+      barkColor = ourSpecies.getBarkColor(ourTree.ageNow);
+      len = (treeHeight-ourHeight)*ourSpecies.maxWidth/(2.0f*ourSpecies.maxHeight);
+     }
+    else
+     {
+      barkColor = ourSpecies.leafColors[displaySeason];
+      len = (treeHeight-ourHeight)*ourSpecies.maxWidth/(6.0f*ourSpecies.maxHeight);
+     }
     cylinder->radius = len/40.0f;   //XX braindead branch thickness
-    barkColor = ourSpecies.leafColors[displaySeason];
+
    }
   
   cylinder->setLength(len);
@@ -219,7 +228,7 @@ void WoodySegment::growStep(float years)
 
   // See if we need to make new kids
   int N = kids.size();
-  if(level == 0) // only branching from the trunk right now
+  if(level < 2) // only branching from the trunk and primary branches right now
    {
     unsigned e = expectedKids(len);
     if(e > N)
