@@ -51,7 +51,6 @@ class Scene
   Scene(void);
   ~Scene(void);
   void          draw(bool mouseMoved, float timeElapsed);
-  void          startSimulationThreads(void);
   void          startSimulation(void);
   void          pauseSimulation(void);
   void          resetSimulation(void);
@@ -70,6 +69,9 @@ class Scene
   void          insertTree(Species* species, vec3 loc, float age);
   void          rebuildVisualObjectBuffer(TriangleBuffer** tbuf);
   VisualObject* findObjectFromWindowCoords(vec3 location, float clipX, float clipY);
+#ifdef MULTI_THREADED_SIMULATION
+  void          startSimulationThreads(void);
+#endif
 
  private:
   // Instance variables - private
@@ -78,7 +80,9 @@ class Scene
   bool              doSimulation;
   float             simYear;
   pthread_mutex_t   lock;
+#ifdef MULTI_THREADED_SIMULATION
   pthread_t*        simThreads;
+#endif
 
   // Member functions - private
   void setModelMatrix(float latt, float longt);

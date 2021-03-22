@@ -43,12 +43,15 @@ Quadtree::Quadtree(float x, float y, unsigned width, unsigned height,
                         level(lev),
                         isLeaf(true)
 {
-  pthread_mutex_init(&mutex, NULL);
   topLeftZ      = 0.05f;
   bottomRightZ  = 0.05f;
 
   setVec2(textureBL, s, t);
   setVec2(textureTR, s + sWidth, t + tHeight);
+
+#ifdef MULTI_THREADED_SIMULATION
+  pthread_mutex_init(&mutex, NULL);
+#endif
 
   unsigned h1, h2, w1, w2;
   float    th1, th2, sw1, sw2;
@@ -133,7 +136,10 @@ Quadtree::Quadtree(float x, float y, unsigned width, unsigned height,
 
 Quadtree::~Quadtree(void)
 {
+#ifdef MULTI_THREADED_SIMULATION
   pthread_mutex_destroy(&mutex);
+#endif
+
   forAllKids(i)
     delete kids[i];
   if(surface != parent->surface)

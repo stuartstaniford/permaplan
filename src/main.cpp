@@ -58,10 +58,12 @@ int main (int argc, char* argv[])
   //pthread_mutex_init(&glLock, NULL);
   if((pthreadErr = pthread_create(&httpThread, NULL, callProcessConn, &httpServer)) != 0)
     err(-1, "Couldn't spawn HTTP server thread in %s.\n", argv[0]);
-  
+
   // Start up the simulation threads
+#ifdef MULTI_THREADED_SIMULATION
   scene.startSimulationThreads();
-  
+#endif
+
   // Main display loop
   window.loop(httpServer);
 

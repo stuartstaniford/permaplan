@@ -27,8 +27,10 @@ Scene::Scene():
                 axes(NULL),
                 grid(NULL),
                 doSimulation(false),
-                simYear(SIMULATION_BASE_YEAR),
-                simThreads(NULL)                // initialized later in startSimulationThreads
+                simYear(SIMULATION_BASE_YEAR)
+#ifdef MULTI_THREADED_SIMULATION
+                , simThreads(NULL)                // initialized later in startSimulationThreads
+#endif
 {
   unsigned minSize = 50;
   // Note that land and qtree have mutual dependencies that means there
@@ -57,12 +59,15 @@ Scene::~Scene(void)
 // =======================================================================================
 // C function to launder C++ method into pthread_create
 
+#ifdef MULTI_THREADED_SIMULATION
+
 void* spawnSimThread(void* arg)
 {
-  // Scene* scene = (Scene*)arg;
+  int s = (long long)arg;
 
-  LogSimulationControls("Starting simulation thread.");
-  return NULL;
+  LogSimulationControls("Starting simulation thread %d.", s);
+  Tree::simulationThreadBase(s);
+  return;
 }
 
 
@@ -78,10 +83,12 @@ void Scene::startSimulationThreads(void)
   
   int pthreadErr;
 
-  for(int s=0; s<config.nSimThreads; s++)
+  for(long long s=0; s<config.nSimThreads; s++)
     if((pthreadErr = pthread_create(simThreads + s, NULL, spawnSimThread, this)) != 0)
-      err(-1, "Couldn't spawn simulation thread %d.\n", s);
+      err(-1, "Couldn't spawn simulation thread %lld.\n", s);
 }
+
+#endif
 
 
 // =======================================================================================
