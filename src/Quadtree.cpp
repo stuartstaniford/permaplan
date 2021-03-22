@@ -43,6 +43,7 @@ Quadtree::Quadtree(float x, float y, unsigned width, unsigned height,
                         level(lev),
                         isLeaf(true)
 {
+  pthread_mutex_init(&mutex, NULL);
   topLeftZ      = 0.05f;
   bottomRightZ  = 0.05f;
 
@@ -132,8 +133,11 @@ Quadtree::Quadtree(float x, float y, unsigned width, unsigned height,
 
 Quadtree::~Quadtree(void)
 {
-    forAllKids(i)
-      delete kids[i];
+  pthread_mutex_destroy(&mutex);
+  forAllKids(i)
+    delete kids[i];
+  if(surface != parent->surface)
+    delete surface;
 }
 
 

@@ -10,6 +10,7 @@
 #define VISUAL_OBJECT_H
 
 #include "VisualElement.h"
+#include <pthread.h>
 
 // =======================================================================================
 // Class variable initialization
@@ -40,6 +41,8 @@ class VisualObject: public VisualElement
   virtual bool        matchRay(vec3& position, vec3& direction, float& lambda);
   virtual bool        matchRay(vec3& position, vec3& direction, float& lambda, vec3 offset);
   virtual void        triangleBufferSizes(unsigned& vCount, unsigned& iCount);
+  inline void         lock(void) {if(pthread_mutex_lock(&mutex)) err(-1, "Lock failure.\n");}
+  inline void         unlock(void) {if(pthread_mutex_unlock(&mutex)) err(-1, "Unlock failure.\n");}
   virtual const char* objectName(void);
   virtual bool        diagnosticHTML(HttpDebug* serv);
   virtual bool        diagnosticHTMLSummary(HttpDebug* serv);
@@ -56,12 +59,13 @@ class VisualObject: public VisualElement
  protected:
   
   // Instance variables - protected
-  unsigned      noTexColor;
-  float         altitude;
-  Quadtree*     qTreeNode;
-  bool          useNoTexColor;
-  bool          absoluteHeights;  // if true, heights are absolute.  Otherwise, they
+  unsigned        noTexColor;
+  float           altitude;
+  Quadtree*       qTreeNode;
+  bool            useNoTexColor;
+  bool            absoluteHeights;  // if true, heights are absolute.  Otherwise, they
                                   // are relative to local ground level.
+  pthread_mutex_t mutex;
 
 private:
   

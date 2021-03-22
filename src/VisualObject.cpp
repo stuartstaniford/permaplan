@@ -19,6 +19,7 @@ VisualObject::VisualObject(bool absHeights, BoundingBox* B):
                                 useNoTexColor(false),
                                 absoluteHeights(absHeights)
 {
+  pthread_mutex_init(&mutex, NULL);
 }
 
 
@@ -29,6 +30,7 @@ VisualObject::~VisualObject(void)
 {
   if(box)
     delete box;
+  pthread_mutex_destroy(&mutex);
 }
 
 // =======================================================================================

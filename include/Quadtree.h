@@ -8,12 +8,12 @@
 #include "Shader.h"
 #include "VertexArrayObject.h"
 #include "VertexBufferObject.h"
+#include "DisplayList.h"
+#include "LandSurfaceRegionPlanar.h"
+#include <pthread.h>
 #include <cglm/cglm.h>
 #include <algorithm>
 #include <list>
-#include "DisplayList.h"
-#include "LandSurfaceRegionPlanar.h"
-
 
 // =======================================================================================
 // Class variable initialization
@@ -51,6 +51,8 @@ class Quadtree
   void recomputeBoundingBox(void);
   void rebuildTBufSizes(void);
   void redoLandPlanar(vec3 plane);
+  inline void lock(void) {if(pthread_mutex_lock(&mutex)) err(-1, "Lock failure.\n");}
+  inline void unlock(void) {if(pthread_mutex_unlock(&mutex)) err(-1, "Unlock failure.\n");}
   void stripSurface(void);
   VisualObject* matchRay(vec3& position, vec3& direction, float& lambda);
   void saveSurfaceState(char* fileName);
@@ -76,6 +78,7 @@ class Quadtree
   DisplayList               vObjects;     // objects for display that we own
   unsigned char             level;        // zero at root, increasing down tree
   bool                      isLeaf;
+  pthread_mutex_t           mutex;
   
   // Member functions - private
   VisualObject* matchChild(vec3& position, vec3& direction, float& lambda);
