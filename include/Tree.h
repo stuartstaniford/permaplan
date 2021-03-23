@@ -14,7 +14,7 @@
 #include "Quadtree.h"
 
 #define TREE_ARRAY_SIZE   16384 // cannot exceed size of unsigned short
-#define TRANSPARENCY_ESTIMATE 10
+#define OPACITY_ESTIMATE_FACTOR 10
 
 // =======================================================================================
 // Class variable initialization

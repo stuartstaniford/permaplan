@@ -131,10 +131,25 @@ void Tree::growStep(float years)
 // Estimate the likilihood that a ray of light will make it through our bounding box in
 // a direction aligned with the specified axis.
 
-float estimateOpacityAxially(int axis)
+float Tree::estimateOpacityAxially(int axis)
 {
   return 0.0f;
-
+  int iDir = (axis+1)%3;
+  int jDir = (axis+2)%3;
+  vec3 position, direction;
+  int total = 0;
+  direction[axis] = 1.0f;
+  direction[iDir] = direction[jDir] = 0.0f;
+  
+  for(int i=0; i<OPACITY_ESTIMATE_FACTOR; i++)
+    for(int j=0; j<OPACITY_ESTIMATE_FACTOR; j++)
+     {
+     // if(matchRay())
+      position[axis] = box->lower[axis] - 1.0f;
+        total++;
+     }
+  
+  return (float)total/OPACITY_ESTIMATE_FACTOR/OPACITY_ESTIMATE_FACTOR;
 }
 
 // =======================================================================================
