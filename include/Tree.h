@@ -14,6 +14,7 @@
 #include "Quadtree.h"
 
 #define TREE_ARRAY_SIZE   16384 // cannot exceed size of unsigned short
+#define TRANSPARENCY_ESTIMATE 10
 
 // =======================================================================================
 // Class variable initialization
@@ -50,6 +51,7 @@ class Tree: public VisualObject
   void        getGroundContact(float& x, float& y);
   bool        matchRay(vec3& position, vec3& direction, float& lambda);
   //void        updateBoundingBox(void);
+  float       estimateOpacity(vec3 direction);
   void        triangleBufferSizes(unsigned& vCount, unsigned& iCount);
   void        writeToOLDF(FILE* file, char* indent);
   const char* objectName(void);
@@ -83,6 +85,7 @@ class Tree: public VisualObject
   static unsigned short treeCount;
 
   // Member functions - private
+  float estimateOpacityAxially(int axis);
   Tree(const Tree&);                 // Prevent copy-construction
   Tree& operator=(const Tree&);      // Prevent assignment
 };

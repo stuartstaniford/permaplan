@@ -172,7 +172,7 @@ bool VisualObject::matchRay(vec3& position, vec3& direction, float& lambda, vec3
 // =======================================================================================
 // Stub don't use
 
-float VisualObject::estimateTransparency(vec3 direction)
+float VisualObject::estimateOpacity(vec3 direction)
 {
   err(-1, "Called unimplemented superclass VisualObject::estimateTransparency.\n");
 }

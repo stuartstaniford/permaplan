@@ -128,6 +128,29 @@ void Tree::growStep(float years)
 
 
 // =======================================================================================
+// Estimate the likilihood that a ray of light will make it through our bounding box in
+// a direction aligned with the specified axis.
+
+float estimateOpacityAxially(int axis)
+{
+  return 0.0f;
+
+}
+
+// =======================================================================================
+// Estimate the likilihood that a ray of light will make it through our bounding box
+// in a particular direction.  Returns a value from 0 (completely transparent) to
+// 1.0 (completely opaque).
+
+// Currentltly works by interpolating between the values from estimateOpacityAxially
+
+float Tree::estimateOpacity(vec3 direction)
+{
+  return 0.0f;
+}
+
+
+// =======================================================================================
 // Static function that handles a single tree simulation thread.
 
 #ifdef MULTI_THREADED_SIMULATION

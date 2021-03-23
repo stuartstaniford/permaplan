@@ -41,7 +41,7 @@ class VisualObject: public VisualElement
   virtual bool        matchRay(vec3& position, vec3& direction, float& lambda);
   virtual bool        matchRay(vec3& position, vec3& direction, float& lambda, vec3 offset);
   virtual void        triangleBufferSizes(unsigned& vCount, unsigned& iCount);
-  virtual float       estimateTransparency(vec3 direction);
+  virtual float       estimateOpacity(vec3 direction);
   virtual const char* objectName(void);
   virtual bool        diagnosticHTML(HttpDebug* serv);
   virtual bool        diagnosticHTMLSummary(HttpDebug* serv);
