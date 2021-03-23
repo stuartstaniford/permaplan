@@ -158,6 +158,7 @@ bool VisualObject::matchRay(vec3& position, vec3& direction, float& lambda)
   return VisualElement::matchRay(position, direction, lambda, zeroVec);
 }
 
+
 // =======================================================================================
 // Stub don't use
 
@@ -166,6 +167,16 @@ bool VisualObject::matchRay(vec3& position, vec3& direction, float& lambda, vec3
   err(-1, "Called unimplemented superclass VisualObject::matchRay with offset.\n");
 
 }
+
+
+// =======================================================================================
+// Stub don't use
+
+float VisualObject::estimateTransparency(vec3 direction)
+{
+  err(-1, "Called unimplemented superclass VisualObject::estimateTransparency.\n");
+}
+
 
 // =======================================================================================
 // Compute the bounding box.  This version will work in many cases, but there may
