@@ -133,7 +133,6 @@ void Tree::growStep(float years)
 
 float Tree::estimateOpacityAxially(int axis)
 {
-  return 0.0f;
   int iDir = (axis+1)%3;
   int jDir = (axis+2)%3;
   vec3 position, direction;

@@ -314,16 +314,19 @@ bool AxialElement::updateBoundingBox(BoundingBox* box, vec3 offset)
   bool  retVal        = false;
   float angleRadians  = 2.0f*M_PI/sides;
   float ang, cosAng, sinAng;
+  vec3 relativeLoc;
   vec3 point;
 
+  glm_vec3_add(location, offset, relativeLoc);
+  
   // bottom end point
   if(closedBase)
-    if(box->extends(location))
+    if(box->extends(relativeLoc))
       retVal = true;
   
   // top end point
   if(closedTop)
-    glm_vec3_add(location, axisDirection, point);
+    glm_vec3_add(relativeLoc, axisDirection, point);
       if(box->extends(point))
         retVal = true;
 
@@ -340,8 +343,8 @@ bool AxialElement::updateBoundingBox(BoundingBox* box, vec3 offset)
     for(int j=0; j<NVecs; j++)
      {
       for(int m=0; m<3; m++)
-        point[m] = location[m] + vectorPath[j][0]*(cosAng*f1[m] + sinAng*f2[m])
-                          + vectorPath[j][1]*axisDirection[m] +  + offset[m];
+        point[m] = relativeLoc[m] + vectorPath[j][0]*(cosAng*f1[m] + sinAng*f2[m])
+                          + vectorPath[j][1]*axisDirection[m];
       if(box->extends(point))
         retVal = true;
      }
