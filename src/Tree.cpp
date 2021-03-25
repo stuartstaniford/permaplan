@@ -137,15 +137,20 @@ float Tree::estimateOpacityAxially(int axis)
   int iDir = (axis+1)%3;
   int jDir = (axis+2)%3;
   vec3 position, direction;
+  float lambda;
   int total = 0;
   direction[axis] = 1.0f;
   direction[iDir] = direction[jDir] = 0.0f;
-  
+  float iDirExtent = (box->upper[iDir] - box->lower[iDir])/OPACITY_ESTIMATE_FACTOR;
+  float jDirExtent = (box->upper[jDir] - box->lower[jDir])/OPACITY_ESTIMATE_FACTOR;
+
   for(int i=0; i<OPACITY_ESTIMATE_FACTOR; i++)
     for(int j=0; j<OPACITY_ESTIMATE_FACTOR; j++)
      {
-     // if(matchRay())
       position[axis] = box->lower[axis] - 1.0f;
+      position[iDir] = box->lower[iDir] + (i+0.05f)*iDirExtent;
+      position[jDir] = box->lower[jDir] + (j+0.05f)*jDirExtent;
+      if(matchRay(position, direction, lambda))
         total++;
      }
   
