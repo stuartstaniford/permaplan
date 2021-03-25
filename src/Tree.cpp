@@ -102,28 +102,28 @@ void Tree::growStep(float years)
                                 treePtrArrayIndex, species->genusName, species->speciesName,
                                 years, ageNow);
 
-  unless(ageNow < 0.0f) // the tree is in the future
+  if(ageNow < 0.0f) // the tree is in the future
+    return;
+    
+  unless(trunk)
    {
     // Handle the case of a brand new tree
-    unless(trunk)
-     {
-      vec3 direction;
-      direction[0] = 0.0f;
-      direction[1] = 0.0f;
-      direction[2] = years*species->stemRate; //XX not quite right if tree born mid-step
-      trunk = new WoodySegment(*species, treePtrArrayIndex,
+    vec3 direction;
+    direction[0] = 0.0f;
+    direction[1] = 0.0f;
+    direction[2] = years*species->stemRate; //XX not quite right if tree born mid-step
+    trunk = new WoodySegment(*species, treePtrArrayIndex,
                                         0x0000, location, direction);  // treeMemory
-      LogTreeSimDetails("Tree %d getting its new trunk, height %.2f.\n",
+    LogTreeSimDetails("Tree %d getting its new trunk, height %.2f.\n",
                         treePtrArrayIndex, years*species->stemRate);
-     }
-    else
-     {
-      LogTreeSimDetails("Tree %d growing trunk by %.2f years.\n",
-                                    treePtrArrayIndex, years);
-      trunk->growStep(years);
-     }
-    updateBoundingBox();
    }
+  else
+   {
+    LogTreeSimDetails("Tree %d growing trunk by %.2f years.\n",
+                                    treePtrArrayIndex, years);
+    trunk->growStep(years);
+   }
+  updateBoundingBox();
 }
 
 
@@ -190,7 +190,16 @@ void Tree::growAllTrees(float years)
 {
   LogTreeSimOverview("Growing %d trees by %.2f years.\n", treeCount, years);
   for(int i=0; i<treeCount; i++)
+   {
     treePtrArray[i]->growStep(years);
+#ifdef LOG_TREE_OPACITY
+    vec3 opacity;
+    for(int m=0; m<3; m++)
+      opacity[m] = treePtrArray[i]->estimateOpacityAxially(m);
+    LogTreeOpacity("Tree %d has opacities x:%.1f%%, y:%.1f%%, z:%.1f%%.\n", i,
+                   opacity[0]*100.0f, opacity[1]*100.0f, opacity[2]*100.0f);
+#endif
+   }
 }
 
 #endif
