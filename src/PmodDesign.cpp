@@ -26,6 +26,7 @@ float          mmPerSpaceUnit;
 char*          spaceUnitName;
 char           spaceUnitAbbr;
 
+
 // =======================================================================================
 // Constructor: parse the json file
 

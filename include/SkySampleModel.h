@@ -52,11 +52,22 @@ public:
   
   // Instance variables - public
   vec4 samples[SKY_SAMPLES];
+
+private:
+  
+  static SkySampleModel* theSingleton;
+
+public:
   
   // Member functions - public
   SkySampleModel(float lat);
   ~SkySampleModel(void);
   
+  static SkySampleModel& getSkySampleModel(void) // Get the singleton instance
+  {
+   return *theSingleton;
+  }
+
 private:
   
   // Instance variables - private
