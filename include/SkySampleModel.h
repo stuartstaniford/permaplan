@@ -45,9 +45,9 @@ private:
   
   // Instance variables - private
   float   latitude;         // in degrees
-  float   gHI;              //global horizontal irradiance - kWH/m^2
-  float   dNI;              //direct normal irradiance - kWH/m^2
-  float   dFI;              //diffuse horizontal irradiance - kWH/m^2
+  float   gHI[12];          //global horizontal irradiance - kWH/m^2/day
+  float   dNI[12];          //direct normal irradiance - kWH/m^2/day
+  float   dFI[12];          //diffuse horizontal irradiance - kWH/m^2/day
 
 
   // Member functions - private
