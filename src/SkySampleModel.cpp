@@ -11,8 +11,12 @@
 // =======================================================================================
 // Constructor
 
-SkySampleModel::SkySampleModel(void)
+SkySampleModel::SkySampleModel(float lat):
+                                  latitude(lat)
 {
+  // Currently hard-coded Ithaca values (approx).
+  // XX need to actually look up based on latitude in available dataset.
+  
 }
 
 
