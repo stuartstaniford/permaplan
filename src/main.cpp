@@ -10,6 +10,7 @@
 #include "Material.h"
 #include "Tree.h"
 #include "Version.h"
+#include "SkySampleModel.h"
 
 
 // =======================================================================================
@@ -43,6 +44,7 @@ int main (int argc, char* argv[])
   Window3D window(800, 600);
   Shader shader("src/pmodVert.glsl", "src/pmodFrag.glsl");
   PmodDesign design;
+  SkySampleModel skySampler(design.boundary.referencePoint[0]);
   Scene scene;
   window.scene = &scene;
   window.imgMenu->scene = &scene;

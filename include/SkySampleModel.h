@@ -7,6 +7,7 @@
 // Useful resources:
 // https://www.nrel.gov/gis/solar.html
 // https://globalsolaratlas.info/download/world
+// https://www.accuracyproject.org/w-FreezeFrost.html
 
 // Global Horizontal Irradiance is the total amount of shortwave radiation received
 // from above by a horizontal surface. This value is of particular interest to
@@ -22,6 +23,13 @@
 // path from the sun, but has been scattered by molecules and particles in the
 // atmosphere and comes equally from all directions.
 
+// Growing season start is here taken to run from four weeks before last frost to
+// four weeks after last frost.  This is rather imprecise and in particular in reality
+// is very species dependent - things like grass/conifers that have leaves ready to
+// go can have a longer season than deciduous plants.  Meanwhile, non-hardy plants
+// will stop dead as soon as there's a frost.  It is assumed that no light is put
+// to use outside of the growing season.
+
 // The main useful output of this class is the 'samples' array, which is an array
 // of vec4.  The first three values are a direction to sample in, and the fourth
 // component is the growing season total irradiance from that direction, in kWH/m^2.
@@ -30,6 +38,7 @@
 #define SKY_SAMPLE_MODEL_H
 
 #define SKY_SAMPLES 64
+#define EARTH_TILT  23.4
 
 #include <cglm/cglm.h>
 
@@ -55,7 +64,8 @@ private:
   float   gHI[12];          //global horizontal irradiance - kWH/m^2/day
   float   dNI[12];          //direct normal irradiance - kWH/m^2/day
   float   dFI[12];          //diffuse horizontal irradiance - kWH/m^2/day
-
+  int     seasonStart;      // day of the year growing season starts
+  int     seasonEnd;        // ditto day it ends.
 
   // Member functions - private
   SkySampleModel(const SkySampleModel&);                 // Prevent copy-construction

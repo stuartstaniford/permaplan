@@ -45,6 +45,9 @@ bool doLogAtlasPlacement      = true; // Log details of which image is where in 
 bool doLogMaterialSelections  = true; // Log when a material is selected.
 bool doLogPathMap             = true; // Log storage and use of the path map
 
+// Logging options to do with sky sampling and lighting
+bool doLogSkySampleInit       = true; // Log the setup of the sky sampling model
+
 // Logging options for Trees/Plants
 bool doLogTreeSelections      = true; // Log when a tree is selected.
 bool doLogTreeReads           = true; // Log when a tree is read in from a file or url

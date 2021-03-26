@@ -48,6 +48,11 @@
 
 
 // =======================================================================================
+// Logging options to do with sky sampling and lighting
+
+#define LOG_SKY_SAMPLE_INIT      // Log the setup of the sky sampling model
+
+// =======================================================================================
 // Logging options for Trees/Plants
 
 #define LOG_TREE_SELECTIONS       // Log when a tree is selected.
@@ -149,6 +154,9 @@ extern bool doLogAtlasAnomalies;      // Log weird conditions in texture atlas c
 extern bool doLogAtlasPlacement;      // Log details of which image is where in atlas
 extern bool doLogMaterialSelections;  // Log when a material is selected.
 extern bool doLogPathMap;             // Log storage and use of the path map
+
+// Logging options to do with sky sampling and lighting
+extern bool doLogSkySampleInit;       // Log the setup of the sky sampling model
 
 // Logging options for Trees/Plants
 extern bool doLogTreeSelections;      // Log when a tree is selected.
@@ -357,6 +365,17 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
 #define LogPathMap(...) if(doLogPathMap) LogStatement(__VA_ARGS__)
 #else
 #define LogPathMap(...)
+#endif
+
+
+// =======================================================================================
+// Logging options to do with sky sampling and lighting
+
+// Log the setup of the sky sampling model
+#ifdef LOG_SKY_SAMPLE_INIT
+#define LogSkySampleInit(...) if(doLogSkySampleInit) LogStatement(__VA_ARGS__)
+#else
+#define LogSkySampleInit(...)
 #endif
 
 
