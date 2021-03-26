@@ -4,6 +4,8 @@
 // provides a method to come up with a series of directions, and a weight in each of
 // those directions if a ray can in fact reach the sky in that direction.
 
+// https://en.wikipedia.org/wiki/Position_of_the_Sun
+
 #include "SkySampleModel.h"
 
 // Useful constants.
@@ -32,6 +34,8 @@ SkySampleModel::SkySampleModel(float lat):
 
   // We use half the SKY_SAMPLES to estimate the effect of direct sunlight, and the
   // other half to estimate the effect of indirect (scattered) sunlight.
+  
+  
 }
 
 
@@ -42,5 +46,15 @@ SkySampleModel::~SkySampleModel(void)
 {
 }
 
+// =======================================================================================
+// Function to return the declination angle of the sun based on day of year.
+// See https://en.wikipedia.org/wiki/Position_of_the_Sun
+
+float SkySampleModel::declination(float dayOfYear)
+{
+  return -asinf(0.39779*cosf(0.017202838*(dayOfYear+10.0f)
+                          +0.033405602*sinf(0.017202838*(dayOfYear-2.0f))))/2/M_PI*360.0f;
+  
+}
 
 // =======================================================================================

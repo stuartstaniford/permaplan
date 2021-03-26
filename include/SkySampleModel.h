@@ -37,8 +37,8 @@
 #ifndef SKY_SAMPLE_MODEL_H
 #define SKY_SAMPLE_MODEL_H
 
-#define SKY_SAMPLES 64
-#define EARTH_TILT  23.4
+#define SKY_SAMPLES 64        //
+#define EARTH_TILT  23.44     // degrees
 
 #include <cglm/cglm.h>
 
@@ -62,7 +62,7 @@ public:
   // Member functions - public
   SkySampleModel(float lat);
   ~SkySampleModel(void);
-  
+
   static SkySampleModel& getSkySampleModel(void) // Get the singleton instance
   {
    return *theSingleton;
@@ -71,14 +71,19 @@ public:
 private:
   
   // Instance variables - private
-  float   latitude;         // in degrees
-  float   gHI[12];          //global horizontal irradiance - kWH/m^2/day
-  float   dNI[12];          //direct normal irradiance - kWH/m^2/day
-  float   dFI[12];          //diffuse horizontal irradiance - kWH/m^2/day
-  int     seasonStart;      // day of the year growing season starts
-  int     seasonEnd;        // ditto day it ends.
+  float   latitude;              // in degrees
+  float   gHI[12];               // global horizontal irradiance - kWH/m^2/day
+  float   dNI[12];               // direct normal irradiance - kWH/m^2/day
+  float   dFI[12];               // diffuse horizontal irradiance - kWH/m^2/day
+  float   directElevations[5];   // the elevation ang
+  float   indirectElevations[5]; // the elevation ang
+  int     seasonStart;           // day of the year growing season starts
+  int     seasonEnd;             // ditto day it ends.
 
-  // Member functions - private
+
+    // Member functions - private
+  float declination(float dayOfYear);
+
   SkySampleModel(const SkySampleModel&);                 // Prevent copy-construction
   SkySampleModel& operator=(const SkySampleModel&);      // Prevent assignment
 };
