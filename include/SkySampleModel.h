@@ -22,8 +22,14 @@
 // path from the sun, but has been scattered by molecules and particles in the
 // atmosphere and comes equally from all directions.
 
+// The main useful output of this class is the 'samples' array, which is an array
+// of vec4.  The first three values are a direction to sample in, and the fourth
+// component is the growing season total irradiance from that direction, in kWH/m^2.
+
 #ifndef SKY_SAMPLE_MODEL_H
 #define SKY_SAMPLE_MODEL_H
+
+#define SKY_SAMPLES 64
 
 #include <cglm/cglm.h>
 
@@ -36,6 +42,7 @@ class SkySampleModel
 public:
   
   // Instance variables - public
+  vec4 samples[SKY_SAMPLES];
   
   // Member functions - public
   SkySampleModel(float lat);
