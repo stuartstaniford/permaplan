@@ -259,14 +259,31 @@ Syntax:
 ```
 "pICurve":
  {
-    "pMax": 10.3s
+    "pMax": 10.3,
+    "pSlope",
+    "NRHM": 
+     {
+     }
+}
   }
 ```
 The piCurve element within foliage specifices various values that parametrize the relationship between solar irradiance incident on a leaf, and the amount of photosynthesis performed at the leaf.
 
 The following are the individual parameters within the pICurve object:
 * pMax (mandatory, heritable) is the maximum value for photosynthesis for this species, at which the leaves or stems are saturated and more intense light will not produce any additional sugars.
+* pSlope (mandatory, heritable) is the slope of the PI curve where it intersects the origin - ie, the linear rate at which photosynthetic production increases with irradiance at very low light levels.
 
+Beyond the two parameters above (which are meaningful in almost situation), a variety of models occur in the literature, and thus we allow for more than one model, with different parameters depending on the model.  We now consider different possible models.  Although each individual model is optional, at least one model must be present (at least by inheritance.  A model present in the current document will override any inherited model.  If more than one model is present, an implementation may pick any.
+
+#### NRHN (optional, heritable)
+
+NRHN stands for Non-rectangular Hyperbola, which is a widely popular choice for the PI curve.
+
+Syntax:
+
+"NRHM": 
+ {
+ }
 
 ## Parent (optional)
 
