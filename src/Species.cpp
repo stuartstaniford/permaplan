@@ -921,6 +921,13 @@ int Species::writeOTDL(char* buf, unsigned bufSize)
 
   // foliage
   bufprintf("  \"foliage\":\n   {\n");
+  bufprintf("    \"leafColors\":\n     {\n");
+  //XX iterate over seasons
+  bufprintf("     },\n");
+  bufprintf("    \"pICurve\":\n     {\n");
+  bufprintf("      \"pMax\": %f\n", pMax);
+  bufprintf("     }\n");
+
   bufprintf("   },\n");
 
   // closing
