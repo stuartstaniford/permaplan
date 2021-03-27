@@ -674,6 +674,26 @@ bool Species::validateLeafColors(Value& leafColorObject)
   
 
 // =======================================================================================
+// Validate the foliage:pICurve section of an OTDL object.
+
+bool Species::validatePICurve(Value& pICurveObject)
+{
+  bool   retVal       = true;
+  
+  unless(pICurveObject.IsObject())
+   {
+    LogOTDLValidity("pICurveObject is not object in %s\n", jCheck->sourcePhrase);
+    return false;
+   }
+  
+  // pMax - mandatory, heritable
+  retVal &= checkMandatoryHeritableFloatValue(pICurveObject, (char*)"pMax");
+
+  return retVal;
+}
+  
+
+// =======================================================================================
 // Validate the foliage section of an OTDL object.
 
 bool Species::validateFoliage(Document& doc)
@@ -691,6 +711,19 @@ bool Species::validateFoliage(Document& doc)
   else
    {
     LogOTDLValidity("No leafColors object for %s\n", jCheck->sourcePhrase);
+    retVal = false;
+   }
+
+  // pICurve - mandatory, heritable
+  if(foliageObject.HasMember("pICurve"))
+    retVal &= validatePICurve(foliageObject["pICurve"]);
+  else if(parent)
+   {
+    LogOTDLDetails("Inheriting pICurve from parent in %s\n", jCheck->sourcePhrase);
+   }
+  else
+   {
+    LogOTDLValidity("No pICurve object for %s\n", jCheck->sourcePhrase);
     retVal = false;
    }
 

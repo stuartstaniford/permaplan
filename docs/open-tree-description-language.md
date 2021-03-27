@@ -265,7 +265,7 @@ Syntax:
 The piCurve element within foliage specifices various values that parametrize the relationship between solar irradiance incident on a leaf, and the amount of photosynthesis performed at the leaf.
 
 The following are the individual parameters within the pICurve object:
-* pMax is the maximum value for photosynthesis for this species, at which the leaves or stems are saturated and more intense light will not produce any additional sugars.
+* pMax (mandatory, heritable) is the maximum value for photosynthesis for this species, at which the leaves or stems are saturated and more intense light will not produce any additional sugars.
 
 
 ## Parent (optional)

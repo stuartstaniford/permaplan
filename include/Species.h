@@ -84,6 +84,7 @@ class Species
   bool        validateBarkColors(rapidjson::Value& colorsArray);
   bool        validateLeafColors(rapidjson::Value& leafColorObject);
   bool        validateLeafColorSeason(rapidjson::Value& leafColorObject, int s);
+  bool        validatePICurve(rapidjson::Value& pICurveObject);
   bool        checkMandatoryHeritableFloatValue(rapidjson::Value& jsonObject, char* name);
   bool        checkMandatoryHeritableUnsignedValue(rapidjson::Value& jsonObject,
                                                                               char* name);
