@@ -230,6 +230,11 @@ void Species::initializeFoliageData(Document& otdlDoc)
       pMax = foliageData["pICurve"]["pMax"].GetFloat();
     else
       pMax = parent->pMax;
+
+    if(foliageData["pICurve"].HasMember("pSlope"))
+      pSlope = foliageData["pICurve"]["pSlope"].GetFloat();
+    else
+      pSlope = parent->pSlope;
    }
   else
    {
@@ -703,6 +708,9 @@ bool Species::validatePICurve(Value& pICurveObject)
   // pMax - mandatory, heritable
   retVal &= checkMandatoryHeritableFloatValue(pICurveObject, (char*)"pMax");
 
+  // pSlope - mandatory, heritable
+  retVal &= checkMandatoryHeritableFloatValue(pICurveObject, (char*)"pSlope");
+
   return retVal;
 }
   
@@ -939,7 +947,8 @@ int Species::writeOTDL(char* buf, unsigned bufSize)
   //XX iterate over seasons
   bufprintf("     },\n");
   bufprintf("    \"pICurve\":\n     {\n");
-  bufprintf("      \"pMax\": %f\n", pMax);
+  bufprintf("      \"pMax\": %f,\n", pMax);
+  bufprintf("      \"pSlope\": %f\n", pSlope);
   bufprintf("     }\n");
 
   bufprintf("   },\n");
