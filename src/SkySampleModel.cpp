@@ -5,6 +5,8 @@
 // those directions if a ray can in fact reach the sky in that direction.
 
 // https://en.wikipedia.org/wiki/Position_of_the_Sun
+// https://en.wikipedia.org/wiki/Solar_azimuth_angle
+// https://en.wikipedia.org/wiki/Hour_angle
 
 #include "Logging.h"
 #include "SkySampleModel.h"
@@ -45,6 +47,29 @@ SkySampleModel::SkySampleModel(float lat):
    {
     directElevations[i] = 90.0f - latitude + declination(day);
     LogSkySampleInit("Elevations[%d] at day %d is %.1f.\n", i, day, directElevations[i]);
+   }
+
+  //XX still to do
+  int pointsAchieved = SKY_SAMPLES/2;
+
+  // Deal with non DNI samples
+  // Strategy is to pick random points in the celestial sphere, filter them out
+  // if they don't work, then project into directions.
+  float sphereRadius = 1000.0f;
+  vec3 point;
+  while(pointsAchieved < SKY_SAMPLES)
+   {
+    // Generate a point in the upper half cube
+    point[0] = (float)( (double)random()/(double)RAND_MAX*sphereRadius*2.0f - sphereRadius);
+    point[1] = (float)( (double)random()/(double)RAND_MAX*sphereRadius*2.0f - sphereRadius);
+    point[2] = (float)( (double)random()/(double)RAND_MAX*sphereRadius);
+
+    // Get rid of ones that aren't in the upper half sphere
+    if(point[0]*point[0] + point[1]*point[1] + point[2]*point[2] > sphereRadius*sphereRadius)
+      continue;
+    
+    samples[pointsAchieved][0] = 1.0f;
+    pointsAchieved++;
    }
 }
 
