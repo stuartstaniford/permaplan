@@ -24,7 +24,7 @@
 // atmosphere and comes equally from all directions.
 
 // Growing season start is here taken to run from four weeks before last frost to
-// four weeks after last frost.  This is rather imprecise and in particular in reality
+// two weeks after first frost.  This is rather imprecise and in particular in reality
 // is very species dependent - things like grass/conifers that have leaves ready to
 // go can have a longer season than deciduous plants.  Meanwhile, non-hardy plants
 // will stop dead as soon as there's a frost.  It is assumed that no light is put
@@ -76,7 +76,6 @@ private:
   float   dNI[12];               // direct normal irradiance - kWH/m^2/day
   float   dFI[12];               // diffuse horizontal irradiance - kWH/m^2/day
   float   directElevations[5];   // the elevation ang
-  float   indirectElevations[5]; // the elevation ang
   int     seasonStart;           // day of the year growing season starts
   int     seasonEnd;             // ditto day it ends.
 

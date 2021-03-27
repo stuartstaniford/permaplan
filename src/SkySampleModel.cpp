@@ -6,6 +6,7 @@
 
 // https://en.wikipedia.org/wiki/Position_of_the_Sun
 
+#include "Logging.h"
 #include "SkySampleModel.h"
 
 // Useful constants.
@@ -16,14 +17,16 @@ SkySampleModel* SkySampleModel::theSingleton = NULL;
 // Constructor
 
 // Currently hard-coded Ithaca values (approx).
-// XX need to actually look up based on latitude in available dataset.
+// XX need to actually look up based on latitude in a suitable dataset.
 
 SkySampleModel::SkySampleModel(float lat):
                                   latitude(lat),
                                   gHI{1.0f, 1.5f, 3.5f, 4.5f, 5.6f, 5.8f,
                                       5.8f, 5.4f, 4.25f, 3.5f, 1.8f, 1.0f},
                                   dNI{3.1f, 3.2f, 4.2f, 4.7f, 4.7f, 5.0f,
-                                      5.3f, 5.2f, 4.7f, 3.8f, 3.5f, 3.2f}
+                                      5.3f, 5.2f, 4.7f, 3.8f, 3.5f, 3.2f},
+                                  seasonStart(105),
+                                  seasonEnd(303)
 {
   // Constructor should only be called once at startup.  Everyone else gets us via
   // getSkySampleModel()
@@ -35,7 +38,14 @@ SkySampleModel::SkySampleModel(float lat):
   // We use half the SKY_SAMPLES to estimate the effect of direct sunlight, and the
   // other half to estimate the effect of indirect (scattered) sunlight.
   
-  
+  // Deal with the DNI samples
+  int seasonLength = seasonEnd - seasonStart;
+  int day, i;
+  for(day = seasonStart + seasonLength/10, i=0; i<5; day += seasonLength/5, i++)
+   {
+    directElevations[i] = 90.0f - latitude + declination(day);
+    LogSkySampleInit("Elevations[%d] at day %d is %.1f.\n", i, day, directElevations[i]);
+   }
 }
 
 
