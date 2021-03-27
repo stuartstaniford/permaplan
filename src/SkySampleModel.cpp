@@ -68,6 +68,8 @@ SkySampleModel::SkySampleModel(float lat):
     if(point[0]*point[0] + point[1]*point[1] + point[2]*point[2] > sphereRadius*sphereRadius)
       continue;
     
+    //XX need to finish up in here
+    
     samples[pointsAchieved][0] = 1.0f;
     pointsAchieved++;
    }

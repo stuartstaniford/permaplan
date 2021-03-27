@@ -253,6 +253,21 @@ Syntax:
 ```
 leafColors specifies the color of foliage (leaves, needles, etc).  It does so by the four separate seasons, which are tags in an object as above, each followed by an integer RGB array, or the special value "none" indicating that the tree has no leaves in that season (usually winter in temperate places, but sometimes a a dry season in other climates)
 
+### pICurve (mandatory, heritable)
+
+Syntax:
+```
+"pICurve":
+ {
+    "pMax": 10.3s
+  }
+```
+The piCurve element within foliage specifices various values that parametrize the relationship between solar irradiance incident on a leaf, and the amount of photosynthesis performed at the leaf.
+
+The following are the individual parameters within the pICurve object:
+* pMax is the maximum value for photosynthesis for this species, at which the leaves or stems are saturated and more intense light will not produce any additional sugars.
+
+
 ## Parent (optional)
 
 Syntax: `"parent":  "<path>",`
