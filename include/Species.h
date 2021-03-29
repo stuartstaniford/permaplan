@@ -62,8 +62,10 @@ class Species
   Version                   version;
   std::map<float, unsigned> barkColorMap;
   unsigned                  leafColors[4];
-  float                     pMax;
-  float                     pSlope;
+  float                     photosynthesisMax;
+  float                     quantumEfficiency;
+  float                     darkRespiration;
+  float                     NRHM_phi;
 
   // Member functions - public
   Species(rapidjson::Document& otdlDoc, char* source);

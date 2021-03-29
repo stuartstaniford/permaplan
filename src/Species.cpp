@@ -201,7 +201,10 @@ void Species::initializeFoliageData(Document& otdlDoc)
     // The foliage object is heritable in it's entirety, so if we don't have one, we have
     // to copy everything over from the parent.
     memcpy(leafColors, parent->leafColors, 4*sizeof(unsigned));
-    pMax = parent->pMax;
+    photosynthesisMax = parent->photosynthesisMax;
+    quantumEfficiency = parent->quantumEfficiency;
+    darkRespiration   = parent->darkRespiration;
+    NRHM_phi          = parent->NRHM_phi;
     return;
    }
   
@@ -226,19 +229,39 @@ void Species::initializeFoliageData(Document& otdlDoc)
   // piCurve - mandatory, heritable
   if(foliageData.HasMember("pICurve"))
    {
-    if(foliageData["pICurve"].HasMember("pMax"))
-      pMax = foliageData["pICurve"]["pMax"].GetFloat();
+    // photosynthesisMax - mandatory, heritable
+    if(foliageData["pICurve"].HasMember("photosynthesisMax"))
+      photosynthesisMax = foliageData["pICurve"]["photosynthesisMax"].GetFloat();
     else
-      pMax = parent->pMax;
+      photosynthesisMax = parent->photosynthesisMax;
 
-    if(foliageData["pICurve"].HasMember("pSlope"))
-      pSlope = foliageData["pICurve"]["pSlope"].GetFloat();
+    // quantumEfficiency - mandatory, heritable
+    if(foliageData["pICurve"].HasMember("quantumEfficiency"))
+      quantumEfficiency = foliageData["pICurve"]["quantumEfficiency"].GetFloat();
     else
-      pSlope = parent->pSlope;
+      quantumEfficiency = parent->quantumEfficiency;
+
+    // darkRespiration - mandatory, heritable
+    if(foliageData["pICurve"].HasMember("darkRespiration"))
+      darkRespiration = foliageData["pICurve"]["darkRespiration"].GetFloat();
+    else
+      darkRespiration = parent->darkRespiration;
+
+    // NRHM_Phi - mandatory, heritable
+    // XX interchangeable models is not implemented yet, only handle NRHM
+    if(foliageData["pICurve"].HasMember("NRHM")
+                          && foliageData["pICurve"]["NRHM"].IsObject()
+                          && foliageData["pICurve"]["NRHM"].HasMember("phi"))
+      NRHM_phi = foliageData["pICurve"]["NRHM"]["phi"].GetFloat();
+    else
+      NRHM_phi = parent->NRHM_phi;
    }
   else
    {
-    pMax = parent->pMax;
+    photosynthesisMax = parent->photosynthesisMax;
+    quantumEfficiency = parent->quantumEfficiency;
+    darkRespiration = parent->darkRespiration;
+    NRHM_phi = parent->NRHM_phi;
    }
 
 }
@@ -705,11 +728,34 @@ bool Species::validatePICurve(Value& pICurveObject)
     return false;
    }
   
-  // pMax - mandatory, heritable
-  retVal &= checkMandatoryHeritableFloatValue(pICurveObject, (char*)"pMax");
+  // photosynthesisMax - mandatory, heritable
+  retVal &= checkMandatoryHeritableFloatValue(pICurveObject, (char*)"photosynthesisMax");
 
-  // pSlope - mandatory, heritable
-  retVal &= checkMandatoryHeritableFloatValue(pICurveObject, (char*)"pSlope");
+  // quantumEfficiency - mandatory, heritable
+  retVal &= checkMandatoryHeritableFloatValue(pICurveObject, (char*)"quantumEfficiency");
+
+  // darkRespiration - mandatory, heritable
+  retVal &= checkMandatoryHeritableFloatValue(pICurveObject, (char*)"darkRespiration");
+
+  // NRHM - mandatory, heritable - XX only because other models not supported yet
+  if(pICurveObject.HasMember("NRHM"))
+   {
+    unless(pICurveObject["NRHM"].IsObject())
+     {
+      LogOTDLValidity("NRHM is not object in %s\n", jCheck->sourcePhrase);
+      return false;
+     }
+    retVal &= checkMandatoryHeritableFloatValue(pICurveObject["NRHM"], (char*)"phi");
+   }
+  else if(parent)
+   {
+    LogOTDLDetails("Inheriting NRHM from parent in %s\n", jCheck->sourcePhrase);
+   }
+  else
+   {
+    LogOTDLValidity("No NRHM object for %s\n", jCheck->sourcePhrase);
+    retVal = false;
+   }
 
   return retVal;
 }
@@ -947,8 +993,10 @@ int Species::writeOTDL(char* buf, unsigned bufSize)
   //XX iterate over seasons
   bufprintf("     },\n");
   bufprintf("    \"pICurve\":\n     {\n");
-  bufprintf("      \"pMax\": %f,\n", pMax);
-  bufprintf("      \"pSlope\": %f\n", pSlope);
+  bufprintf("      \"photosynthesisMax\": %f,\n", photosynthesisMax);
+  bufprintf("      \"quantumEfficiency\": %f\n", quantumEfficiency);
+  bufprintf("      \"darkRespiration\": %f\n", darkRespiration);
+  bufprintf("      \"NRHM_phi\": %f\n", NRHM_phi);
   bufprintf("     }\n");
 
   bufprintf("   },\n");

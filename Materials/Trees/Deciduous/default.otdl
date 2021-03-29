@@ -46,10 +46,15 @@
      "fall": [200, 100, 10],
      "winter": "none"
     },
-  "pICurve":
-   {
-    "pMax": 10.3,
-    "pSlope": 10.3
-   }
+   "pICurve":
+    {
+     "photosynthesisMax": 10.3,
+     "quantumEfficiency": 1.0,
+     "darkRespiration": 5.2,
+     "NRHM":
+      {
+       "phi": 0.8
+      }
+    }
   }
 }

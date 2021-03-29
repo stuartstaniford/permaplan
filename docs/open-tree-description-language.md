@@ -259,10 +259,12 @@ Syntax:
 ```
 "pICurve":
  {
-    "pMax": 10.3,
-    "pSlope",
+    "photosynthesisMax": 10.3,
+    "quantumEfficiency": 1.0,
+    "darkRespiration": 5.2,
     "NRHM": 
      {
+      "phi": 0.8
      }
 }
   }
@@ -270,20 +272,23 @@ Syntax:
 The piCurve element within foliage specifices various values that parametrize the relationship between solar irradiance incident on a leaf, and the amount of photosynthesis performed at the leaf.
 
 The following are the individual parameters within the pICurve object:
-* pMax (mandatory, heritable) is the maximum value for photosynthesis for this species, at which the leaves or stems are saturated and more intense light will not produce any additional sugars.
-* pSlope (mandatory, heritable) is the slope of the PI curve where it intersects the origin - ie, the linear rate at which photosynthetic production increases with irradiance at very low light levels.
+* photosynthesisMax (mandatory, heritable) is the maximum value for photosynthesis for this species, at which the leaves or stems are saturated and more intense light will not produce any additional sugars.  This is expressed in micro-moles CO2/m^2/second .
+* quantumEfficiency (mandatory, heritable) is the slope of the PI curve where it intersects the origin - ie, the linear rate at which photosynthetic production increases with irradiance at very low light levels.  This is dimensionless.
+* darkRespiration (mandatory, heritable) is the amount of photosynthetic product consumed in respiration by the leaf.  This is expressed in micro-moles CO2/m^2/second.
 
-Beyond the two parameters above (which are meaningful in almost situation), a variety of models occur in the literature, and thus we allow for more than one model, with different parameters depending on the model.  We now consider different possible models.  Although each individual model is optional, at least one model must be present (at least by inheritance.  A model present in the current document will override any inherited model.  If more than one model is present, an implementation may pick any.
+Beyond the three parameters above (which are meaningful in almost all situations), a variety of models occur in the literature, and thus we allow for more than one model, with different parameters depending on the model.  We now consider different possible models.  Although each individual model is optional, at least one model must be present (at least by inheritance).  A model present in the current OTDL object will override any inherited model.  If more than one model is present, an implementation may pick any.
 
 #### NRHN (optional, heritable)
 
 NRHN stands for Non-rectangular Hyperbola, which is a widely popular choice for the PI curve.
 
 Syntax:
-
+```
 "NRHM": 
  {
+  "phi": 0.8
  }
+```
 
 ## Parent (optional)
 
