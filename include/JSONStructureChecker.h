@@ -48,7 +48,11 @@ class JSONStructureChecker
   bool validateOptionalStringOrArrayString(rapidjson::Value& thisObject, char* objName, char* member);
   bool loadRFC5646LanguageTags(void);
   bool checkLanguageObject(rapidjson::Value& thisObject, char* objName);
-  
+  bool checkMandatoryHeritableFloatValue(rapidjson::Value& jsonObject,
+                                                              void* parent, char* name);
+  bool checkMandatoryHeritableUnsignedValue(rapidjson::Value& jsonObject,
+                                                              void* parent, char* name);
+                                                                      
 private:
 
   // Member functions - private

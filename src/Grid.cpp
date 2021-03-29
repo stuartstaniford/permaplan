@@ -48,6 +48,14 @@ Grid::Grid(LandSurface& L, float gridSpacing, float alt):
 
 
 // =======================================================================================
+// Destructor
+
+Grid::~Grid(void)
+{
+}
+
+
+// =======================================================================================
 // Redo us at a different height
 
 void Grid::resetAltitude(float alt)
@@ -97,15 +105,6 @@ void Grid::newHeight(float z)
   sumHeights += z;
   resetAltitude(sumHeights/NHeights);
 }
-
-
-// =======================================================================================
-// Destructor
-
-Grid::~Grid(void)
-{
-}
-
 
 
 // =======================================================================================

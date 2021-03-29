@@ -60,6 +60,66 @@ bool JSONStructureChecker::loadRFC5646LanguageTags(void)
 
 
 // =======================================================================================
+// Function to check that a mandatory but heritable thing is available.
+
+bool JSONStructureChecker::checkMandatoryHeritableFloatValue(Value& jsonObject,
+                                                                    void* parent, char* name)
+{
+  bool retVal = true;
+  
+  if(jsonObject.HasMember(name))
+   {
+    unless(jsonObject[name].IsNumber())
+     {
+      LogOTDLValidity("%s is not numeric in %s\n", name, sourcePhrase);
+      retVal = false;
+     }
+   }
+  else if(parent)
+   {
+    LogOTDLDetails("Inheriting %s from parent in %s\n", name, sourcePhrase);
+   }
+  else
+   {
+    LogOTDLValidity("No %s available for %s\n", name, sourcePhrase);
+    retVal = false;
+   }
+  
+  return retVal;
+}
+
+
+// =======================================================================================
+// Function to check that a mandatory but heritable thing is available.
+
+bool JSONStructureChecker::checkMandatoryHeritableUnsignedValue(Value& jsonObject,
+                                                                    void* parent, char* name)
+{
+  bool retVal = true;
+  
+  if(jsonObject.HasMember(name))
+   {
+    unless(jsonObject[name].IsInt() && jsonObject[name].GetInt() >= 0)
+     {
+      LogOTDLValidity("%s is not non-negative integer in %s\n", name, sourcePhrase);
+      retVal = false;
+     }
+   }
+  else if(parent)
+   {
+    LogOTDLDetails("Inheriting %s from parent in %s\n", name, sourcePhrase);
+   }
+  else
+   {
+    LogOTDLValidity("No %s available for %s\n", name, sourcePhrase);
+    retVal = false;
+   }
+  
+  return retVal;
+}
+
+
+// =======================================================================================
 // Function to check that an object exists and is of the form of a series of RFC 5646
 // language tags, followed by values associated with those languages (eg commonNames).
 // Caller is responsible for checking the object exists.

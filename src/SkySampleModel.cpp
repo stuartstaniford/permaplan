@@ -8,6 +8,9 @@
 // https://en.wikipedia.org/wiki/Solar_azimuth_angle
 // https://en.wikipedia.org/wiki/Hour_angle
 
+// For converting W/m^2 to photon fluxes:
+//https://www.researchgate.net/post/Can-I-convert-PAR-photo-active-radiation-value-of-micro-mole-M2-S-to-Solar-radiation-in-Watt-m2/59ca6422217e201e2b23415f/citation/download
+
 #include "Logging.h"
 #include "SkySampleModel.h"
 
