@@ -47,6 +47,24 @@ CO2Scenario::~CO2Scenario(void)
 
 
 // =======================================================================================
+// Function to get the concentration at a particular time.  Note that we use geometric
+// interpolation not linear, as this function is not expected to be performance critical
+
+float CO2Scenario::getConcentration(float year)
+{
+  auto iter = lower_bound(year);
+  float yearAbove = iter->first;
+  float concAbove = iter->second;
+  iter--;
+  float yearBelow = iter->first;
+  float concBelow = iter->second;
+  
+  return powf( powf(concAbove, year-yearBelow) * powf(concBelow, yearAbove-year),
+                                                      1.0f/(yearAbove-yearBelow));
+}
+
+
+// =======================================================================================
 // Load CO2 scenario file
 
 
@@ -64,7 +82,6 @@ void CO2Scenario::loadScenarioFile(void)
                           fileName, GetParseError_En(ok.Code()), (unsigned)(ok.Offset()));
     exit(1);
    }
-
 }
 
 

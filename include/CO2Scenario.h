@@ -23,6 +23,7 @@ public:
   
   // Member functions - public
   CO2Scenario(char* scenarioName);
+  float getConcentration(float year);
   ~CO2Scenario(void);
   
 private:
