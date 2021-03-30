@@ -93,10 +93,24 @@ SkySampleModel::~SkySampleModel(void)
 // or no B1 is possibly shaded by B2, and the second byte being whether B2 is possibly
 // shaded by B1.
 
+float minimalAngleAboveHorizon = atanf(10.0f/180.0f*M_PI);
+
 unsigned short SkySampleModel::treesInteract(BoundingBox* B1, BoundingBox* B2)
 {
   unsigned short retVal = 0x0000;
-  
+  float xDist = (B1->lower[0] + B1->upper[0] - B1->lower[0] - B1->upper[0])/2.0f;
+  float yDist = (B1->lower[1] + B1->upper[1] - B1->lower[1] - B1->upper[1])/2.0f;
+  float horizDist = sqrtf(xDist*xDist + yDist*yDist); // Pythagoras
+               
+  //XX would be better to model the crown bottom here 
+  if((B2->upper[2] - B1->lower[2])/horizDist > minimalAngleAboveHorizon)
+    //B2 might shade B1
+    retVal |= 0x0100;
+
+  if((B1->upper[2] - B2->lower[2])/horizDist > minimalAngleAboveHorizon)
+    //B1 might shade B1
+    retVal |= 0x0001;
+
   return retVal;
 }
 
