@@ -64,6 +64,7 @@ public:
   SkySampleModel(float lat);
   ~SkySampleModel(void);
   unsigned short treesInteract(BoundingBox* B1, BoundingBox* B2);
+  bool treesCluster(BoundingBox* B1, BoundingBox* B2);
 
   static SkySampleModel& getSkySampleModel(void) // Get the singleton instance
   {
