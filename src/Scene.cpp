@@ -9,10 +9,6 @@
 #include "Tree.h"
 #include "loadFileToBuf.h"
 #include <pthread.h>
-#include "rapidjson/document.h"
-#include "rapidjson/writer.h"
-#include "rapidjson/stringbuffer.h"
-#include "rapidjson/error/en.h"
 #include <stdlib.h>
 #include <err.h>
 #include <GL/glew.h>
@@ -58,30 +54,6 @@ Scene::~Scene(void)
   if(axes)
     delete axes;
   saveState();
-}
-
-
-// =======================================================================================
-// Load CO2 scenario file
-
-using namespace rapidjson;
-
-void Scene::loadScenarioFile(void)
-{
-  unsigned  bufSize;
-  Document  doc;
-  char*     fileName = (char*)"co2-scenarios.json";
-  
-  char* buf = loadFileToBuf(fileName, &bufSize);
-
-  ParseResult ok = doc.ParseInsitu<kParseCommentsFlag>(buf);
-  unless(ok)
-   {
-    fprintf(stderr, "JSON parse error on co2 scenarios file %s: %s (%u)\n",
-                          fileName, GetParseError_En(ok.Code()), (unsigned)(ok.Offset()));
-    exit(1);
-   }
-
 }
 
 
