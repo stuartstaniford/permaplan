@@ -428,7 +428,10 @@ void MenuInterface::imguiSimulationController(void)
      }
     
     // Auxiliary status information
-    ImGui::Text("Year: %.0f\n", scene->getSimYear());
+    float year = scene->getSimYear();
+    float CO2 = scene->rcp8_5.getConcentration(year);
+    ImGui::Text("Year: %.0f (CO2: %.0fppm)\n", year, CO2);
+    
     if(scene->simulationActive())
       ImGui::Text("Simulation Speed: %.2f\n", scene->simulationSpeed);
     else
