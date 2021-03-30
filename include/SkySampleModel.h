@@ -41,6 +41,7 @@
 #define EARTH_TILT  23.44     // degrees
 
 #include <cglm/cglm.h>
+#include "BoundingBox.h"
 
 // =======================================================================================
 // Class variable initialization
@@ -62,6 +63,7 @@ public:
   // Member functions - public
   SkySampleModel(float lat);
   ~SkySampleModel(void);
+  unsigned short treesInteract(BoundingBox* B1, BoundingBox* B2);
 
   static SkySampleModel& getSkySampleModel(void) // Get the singleton instance
   {

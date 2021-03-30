@@ -87,6 +87,21 @@ SkySampleModel::~SkySampleModel(void)
 }
 
 // =======================================================================================
+// Function to determine, based on bounding box positions, whether tree1 and tree2
+// might need to consider their mutual interaction in terms of shading one another.
+// Returns two chars wrapped as an unsigned short, with the first byte being yes
+// or no B1 is possibly shaded by B2, and the second byte being whether B2 is possibly
+// shaded by B1.
+
+unsigned short SkySampleModel::treesInteract(BoundingBox* B1, BoundingBox* B2)
+{
+  unsigned short retVal = 0x0000;
+  
+  return retVal;
+}
+
+
+// =======================================================================================
 // Function to return the declination angle of the sun based on day of year.
 // See https://en.wikipedia.org/wiki/Position_of_the_Sun
 
