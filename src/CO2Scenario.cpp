@@ -32,6 +32,9 @@ CO2Scenario::CO2Scenario(char* scenarioName)
   int i, N = doc["Historical"].Size();
   for(i=0; i< N; i++)
     (*this)[doc["Historical"][i][0].GetFloat()] = doc["Historical"][i][1].GetFloat();
+  N = doc[scenarioName].Size();
+  for(i=0; i< N; i++)
+    (*this)[doc[scenarioName][i][0].GetFloat()] = doc[scenarioName][i][1].GetFloat();
 }
 
 

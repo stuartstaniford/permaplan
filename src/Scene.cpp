@@ -25,6 +25,7 @@ Scene::Scene():
                 lockObject(NULL),
                 lighting(),
                 simulationSpeed(1.0f), // in years/second
+                rcp8_5((char*)"RCP8.5"),
                 axes(NULL),
                 grid(NULL),
                 doSimulation(false),

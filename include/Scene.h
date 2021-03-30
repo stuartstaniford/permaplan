@@ -18,6 +18,7 @@
 #include "Material.h"
 #include "LightingModel.h"
 #include "Species.h"
+#include "CO2Scenario.h"
 
 
 #define SIMULATION_BASE_YEAR 1900.0f
@@ -46,6 +47,7 @@ class Scene
   VisualObject*   lockObject;
   LightingModel   lighting;
   float           simulationSpeed;          //years/sec
+  CO2Scenario     rcp8_5;
 
   // Member functions - public
   Scene(void);
