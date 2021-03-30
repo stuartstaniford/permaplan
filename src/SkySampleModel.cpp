@@ -94,6 +94,7 @@ SkySampleModel::~SkySampleModel(void)
 // or no B1 is possibly shaded by B2, and the second byte being whether B2 is possibly
 // shaded by B1.  Can also be applied to clusters of trees.
 
+//XX in general this is crude and needs refinement over time.
 float minimalAngleAboveHorizon = atanf(22.5f/180.0f*M_PI);
 
 unsigned short SkySampleModel::treesInteract(BoundingBox* B1, BoundingBox* B2)
@@ -110,9 +111,7 @@ unsigned short SkySampleModel::treesInteract(BoundingBox* B1, BoundingBox* B2)
 
   if((B1->upper[2] - B2->lower[2])/horizDist > minimalAngleAboveHorizon)
     //B1 might shade B1
-    retVal |= 0x0001;
-  
-  //XX in general this is crude and needs refinement over time.
+    retVal |= 0x0001;  
 
   return retVal;
 }
