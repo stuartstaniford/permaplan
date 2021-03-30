@@ -363,7 +363,9 @@ void Scene::draw(bool mouseMoved, float timeElapsed)
   if(doSimulation)
    {
     simYear += timeElapsed*simulationSpeed;
-#ifndef MULTI_THREADED_SIMULATION
+#ifdef MULTI_THREADED_SIMULATION
+    Tree::analyzeTreeGraph();
+#else
     Tree::growAllTrees(timeElapsed*simulationSpeed);
 #endif
     qtree->rebuildTBufSizes();

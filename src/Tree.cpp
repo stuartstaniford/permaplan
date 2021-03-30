@@ -161,7 +161,7 @@ float Tree::estimateOpacityAxially(int axis)
 // in a particular direction.  Returns a value from 0 (completely transparent) to
 // 1.0 (completely opaque).
 
-// Currentltly works by interpolating between the values from estimateOpacityAxially
+// Currently works by interpolating between the values from estimateOpacityAxially
 
 float Tree::estimateOpacity(vec3 direction)
 {
@@ -179,11 +179,22 @@ void Tree::simulationThreadBase(int s)
 
 }
 
-#else
+
+// =======================================================================================
+// Static function that processes all the trees into a graph of copses, and assigns
+// the simulation work to different threads.
+
+void Tree::analyzeTreeGraph(void)
+{
+  
+}
+
 
 
 // =======================================================================================
 // Static function that just grows all the trees known to treePtrArray.
+
+#else  // that is, not MULTI_THREADED_SIMULATION
 
 void Tree::growAllTrees(float years)
 {
@@ -201,7 +212,7 @@ void Tree::growAllTrees(float years)
    }
 }
 
-#endif
+#endif // MULTI_THREADED_SIMULATION
 
 
 // =======================================================================================

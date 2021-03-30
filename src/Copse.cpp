@@ -8,6 +8,7 @@
 
 Copse::Copse(void)
 {
+  box = new BoundingBox(); // will hugevalify
 }
 
 
@@ -16,6 +17,7 @@ Copse::Copse(void)
 
 Copse::~Copse(void)
 {
+  delete box;
 }
 
 
