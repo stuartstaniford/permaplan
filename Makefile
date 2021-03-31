@@ -297,7 +297,36 @@ src/Box.o: /usr/local/include/GL/glew.h /usr/local/include/GLFW/glfw3.h
 src/Box.o: include/GlobalMacros.h include/Logging.h include/MemoryTracker.h
 src/Box.o: include/HttpDebug.h include/Vertex.h include/ElementBufferObject.h
 src/Box.o: include/BoundingBox.h include/Shader.h include/VertexBufferCombo.h
-src/CO2Scenario.o: include/CO2Scenario.h
+src/CO2Scenario.o: include/CO2Scenario.h include/rapidjson/document.h
+src/CO2Scenario.o: include/rapidjson/reader.h include/rapidjson/allocators.h
+src/CO2Scenario.o: include/rapidjson/rapidjson.h include/rapidjson/stream.h
+src/CO2Scenario.o: include/rapidjson/encodings.h
+src/CO2Scenario.o: include/rapidjson/encodedstream.h
+src/CO2Scenario.o: include/rapidjson/memorystream.h
+src/CO2Scenario.o: include/rapidjson/internal/clzll.h
+src/CO2Scenario.o: include/rapidjson/rapidjson.h
+src/CO2Scenario.o: include/rapidjson/internal/meta.h
+src/CO2Scenario.o: include/rapidjson/internal/stack.h
+src/CO2Scenario.o: include/rapidjson/allocators.h
+src/CO2Scenario.o: include/rapidjson/internal/swap.h
+src/CO2Scenario.o: include/rapidjson/internal/strtod.h
+src/CO2Scenario.o: include/rapidjson/internal/ieee754.h
+src/CO2Scenario.o: include/rapidjson/internal/biginteger.h
+src/CO2Scenario.o: include/rapidjson/internal/diyfp.h
+src/CO2Scenario.o: include/rapidjson/internal/clzll.h
+src/CO2Scenario.o: include/rapidjson/internal/pow10.h
+src/CO2Scenario.o: include/rapidjson/error/error.h
+src/CO2Scenario.o: include/rapidjson/internal/strfunc.h
+src/CO2Scenario.o: include/rapidjson/stream.h include/rapidjson/writer.h
+src/CO2Scenario.o: include/rapidjson/internal/dtoa.h
+src/CO2Scenario.o: include/rapidjson/internal/itoa.h
+src/CO2Scenario.o: include/rapidjson/internal/itoa.h
+src/CO2Scenario.o: include/rapidjson/stringbuffer.h
+src/CO2Scenario.o: include/rapidjson/stringbuffer.h
+src/CO2Scenario.o: include/rapidjson/error/en.h
+src/CO2Scenario.o: include/rapidjson/error/error.h include/Logging.h
+src/CO2Scenario.o: include/MemoryTracker.h include/HttpDebug.h
+src/CO2Scenario.o: include/GlobalMacros.h include/loadFileToBuf.h
 src/Camera.o: /usr/local/include/GL/glew.h /usr/local/include/cglm/cglm.h
 src/Camera.o: /usr/local/include/cglm/common.h
 src/Camera.o: /usr/local/include/cglm/types.h
@@ -357,6 +386,34 @@ src/ColoredAxes.o: include/VertexBufferCombo.h include/VertexArrayObject.h
 src/ColoredAxes.o: include/VertexBufferObject.h include/GlobalMacros.h
 src/ColoredAxes.o: include/Logging.h include/MemoryTracker.h
 src/ColoredAxes.o: include/HttpDebug.h include/Vertex.h include/Shader.h
+src/Copse.o: include/Copse.h include/DisplayList.h include/VisualObject.h
+src/Copse.o: include/VisualElement.h include/TriangleBuffer.h
+src/Copse.o: include/ElementBufferCombo.h include/VertexArrayObject.h
+src/Copse.o: include/VertexBufferObject.h /usr/local/include/cglm/cglm.h
+src/Copse.o: /usr/local/include/cglm/common.h /usr/local/include/cglm/types.h
+src/Copse.o: /usr/local/include/cglm/simd/intrin.h
+src/Copse.o: /usr/local/include/cglm/vec2.h /usr/local/include/cglm/util.h
+src/Copse.o: /usr/local/include/cglm/vec2-ext.h
+src/Copse.o: /usr/local/include/cglm/vec3.h /usr/local/include/cglm/vec4.h
+src/Copse.o: /usr/local/include/cglm/vec4-ext.h
+src/Copse.o: /usr/local/include/cglm/vec3-ext.h
+src/Copse.o: /usr/local/include/cglm/mat4.h /usr/local/include/cglm/mat3.h
+src/Copse.o: /usr/local/include/cglm/mat2.h /usr/local/include/cglm/affine.h
+src/Copse.o: /usr/local/include/cglm/affine-mat.h
+src/Copse.o: /usr/local/include/cglm/cam.h /usr/local/include/cglm/plane.h
+src/Copse.o: /usr/local/include/cglm/frustum.h /usr/local/include/cglm/quat.h
+src/Copse.o: /usr/local/include/cglm/euler.h /usr/local/include/cglm/box.h
+src/Copse.o: /usr/local/include/cglm/color.h /usr/local/include/cglm/io.h
+src/Copse.o: /usr/local/include/cglm/project.h
+src/Copse.o: /usr/local/include/cglm/sphere.h /usr/local/include/cglm/ease.h
+src/Copse.o: /usr/local/include/cglm/curve.h /usr/local/include/cglm/bezier.h
+src/Copse.o: /usr/local/include/cglm/ray.h /usr/local/include/cglm/affine2d.h
+src/Copse.o: /usr/local/include/GL/glew.h /usr/local/include/GLFW/glfw3.h
+src/Copse.o: include/GlobalMacros.h include/Logging.h include/MemoryTracker.h
+src/Copse.o: include/HttpDebug.h include/Vertex.h
+src/Copse.o: include/ElementBufferObject.h include/BoundingBox.h
+src/Copse.o: include/Shader.h include/VertexBufferCombo.h
+src/Copse.o: include/LandSurfaceRegion.h
 src/Cylinder.o: include/Cylinder.h include/AxialElement.h
 src/Cylinder.o: include/VisualElement.h include/TriangleBuffer.h
 src/Cylinder.o: include/ElementBufferCombo.h include/VertexArrayObject.h
@@ -506,6 +563,7 @@ src/ElementBufferObject.o: /usr/local/include/cglm/curve.h
 src/ElementBufferObject.o: /usr/local/include/cglm/bezier.h
 src/ElementBufferObject.o: /usr/local/include/cglm/ray.h
 src/ElementBufferObject.o: /usr/local/include/cglm/affine2d.h
+src/EmptyClass.o: include/EmptyClass.h
 src/Grid.o: /usr/local/include/GL/glew.h /usr/local/include/GLFW/glfw3.h
 src/Grid.o: include/Grid.h /usr/local/include/cglm/cglm.h
 src/Grid.o: /usr/local/include/cglm/common.h /usr/local/include/cglm/types.h
@@ -669,7 +727,8 @@ src/HttpDebug.o: include/Timeval.h include/JSONStructureChecker.h
 src/HttpDebug.o: include/Version.h include/Boundary.h include/Grid.h
 src/HttpDebug.o: include/Material.h include/TextureAtlas.h
 src/HttpDebug.o: include/LightingModel.h include/Species.h
-src/HttpDebug.o: include/LeafModel.h include/Tree.h include/TreePart.h
+src/HttpDebug.o: include/LeafModel.h include/CO2Scenario.h include/Tree.h
+src/HttpDebug.o: include/TreePart.h
 src/JSONStructureChecker.o: include/PmodDesign.h include/rapidjson/document.h
 src/JSONStructureChecker.o: include/rapidjson/reader.h
 src/JSONStructureChecker.o: include/rapidjson/allocators.h
@@ -1181,8 +1240,8 @@ src/MenuInterface.o: include/Boundary.h include/Scene.h include/ColoredAxes.h
 src/MenuInterface.o: include/LineStripList.h include/Grid.h
 src/MenuInterface.o: include/Material.h include/TextureAtlas.h
 src/MenuInterface.o: include/LightingModel.h include/Species.h
-src/MenuInterface.o: include/LeafModel.h include/Window3D.h
-src/MenuInterface.o: include/loadFileToBuf.h
+src/MenuInterface.o: include/LeafModel.h include/CO2Scenario.h
+src/MenuInterface.o: include/Window3D.h include/loadFileToBuf.h
 src/PmodConfig.o: include/PmodConfig.h
 src/PmodDesign.o: include/PmodDesign.h include/rapidjson/document.h
 src/PmodDesign.o: include/rapidjson/reader.h include/rapidjson/allocators.h
@@ -1327,7 +1386,7 @@ src/Quadtree.o: include/rapidjson/error/error.h include/Timeval.h
 src/Quadtree.o: include/JSONStructureChecker.h include/Version.h
 src/Quadtree.o: include/Boundary.h include/Grid.h include/Material.h
 src/Quadtree.o: include/TextureAtlas.h include/LightingModel.h
-src/Quadtree.o: include/Species.h include/LeafModel.h
+src/Quadtree.o: include/Species.h include/LeafModel.h include/CO2Scenario.h
 src/Scene.o: include/Scene.h include/Shader.h /usr/local/include/cglm/cglm.h
 src/Scene.o: /usr/local/include/cglm/common.h /usr/local/include/cglm/types.h
 src/Scene.o: /usr/local/include/cglm/simd/intrin.h
@@ -1387,8 +1446,8 @@ src/Scene.o: include/rapidjson/error/error.h include/Timeval.h
 src/Scene.o: include/JSONStructureChecker.h include/Version.h
 src/Scene.o: include/Boundary.h include/Grid.h include/Material.h
 src/Scene.o: include/TextureAtlas.h include/LightingModel.h include/Species.h
-src/Scene.o: include/LeafModel.h include/Box.h include/Tree.h
-src/Scene.o: include/TreePart.h include/loadFileToBuf.h
+src/Scene.o: include/LeafModel.h include/CO2Scenario.h include/Box.h
+src/Scene.o: include/Tree.h include/TreePart.h include/loadFileToBuf.h
 src/ScriptController.o: include/VertexBufferObject.h
 src/ScriptController.o: /usr/local/include/cglm/cglm.h
 src/ScriptController.o: /usr/local/include/cglm/common.h
@@ -1524,6 +1583,12 @@ src/SkySampleModel.o: /usr/local/include/cglm/curve.h
 src/SkySampleModel.o: /usr/local/include/cglm/bezier.h
 src/SkySampleModel.o: /usr/local/include/cglm/ray.h
 src/SkySampleModel.o: /usr/local/include/cglm/affine2d.h
+src/SkySampleModel.o: include/BoundingBox.h include/Shader.h
+src/SkySampleModel.o: include/VertexBufferCombo.h include/VertexArrayObject.h
+src/SkySampleModel.o: include/VertexBufferObject.h
+src/SkySampleModel.o: /usr/local/include/GL/glew.h
+src/SkySampleModel.o: /usr/local/include/GLFW/glfw3.h include/GlobalMacros.h
+src/SkySampleModel.o: include/Vertex.h
 src/Species.o: include/Species.h include/HttpDebug.h
 src/Species.o: include/rapidjson/document.h include/rapidjson/reader.h
 src/Species.o: include/rapidjson/allocators.h include/rapidjson/rapidjson.h
@@ -1742,6 +1807,7 @@ src/Tree.o: include/Camera.h include/HeightMarker.h include/BezierPatch.h
 src/Tree.o: include/PmodConfig.h include/Boundary.h include/Scene.h
 src/Tree.o: include/ColoredAxes.h include/LineStripList.h include/Grid.h
 src/Tree.o: include/Material.h include/TextureAtlas.h include/LightingModel.h
+src/Tree.o: include/CO2Scenario.h include/SkySampleModel.h
 src/TreePart.o: include/TreePart.h include/HttpDebug.h include/Species.h
 src/TreePart.o: include/rapidjson/document.h include/rapidjson/reader.h
 src/TreePart.o: include/rapidjson/allocators.h include/rapidjson/rapidjson.h
@@ -2194,8 +2260,9 @@ src/Window3D.o: include/rapidjson/error/error.h include/Timeval.h
 src/Window3D.o: include/JSONStructureChecker.h include/Version.h
 src/Window3D.o: include/Boundary.h include/Grid.h include/Material.h
 src/Window3D.o: include/TextureAtlas.h include/LightingModel.h
-src/Window3D.o: include/Species.h include/LeafModel.h include/MenuInterface.h
-src/Window3D.o: include/ScriptController.h include/PmodException.h
+src/Window3D.o: include/Species.h include/LeafModel.h include/CO2Scenario.h
+src/Window3D.o: include/MenuInterface.h include/ScriptController.h
+src/Window3D.o: include/PmodException.h
 src/WoodySegment.o: include/WoodySegment.h include/TreePart.h
 src/WoodySegment.o: include/HttpDebug.h include/Species.h
 src/WoodySegment.o: include/rapidjson/document.h include/rapidjson/reader.h
@@ -2349,6 +2416,7 @@ src/main.o: include/rapidjson/error/en.h include/rapidjson/error/error.h
 src/main.o: include/Timeval.h include/JSONStructureChecker.h
 src/main.o: include/Version.h include/Boundary.h include/Grid.h
 src/main.o: include/Material.h include/TextureAtlas.h include/LightingModel.h
-src/main.o: include/Species.h include/LeafModel.h include/MenuInterface.h
-src/main.o: imgui/imgui.h imgui/imconfig.h include/ScriptController.h
-src/main.o: include/Tree.h include/TreePart.h include/SkySampleModel.h
+src/main.o: include/Species.h include/LeafModel.h include/CO2Scenario.h
+src/main.o: include/MenuInterface.h imgui/imgui.h imgui/imconfig.h
+src/main.o: include/ScriptController.h include/Tree.h include/TreePart.h
+src/main.o: include/SkySampleModel.h

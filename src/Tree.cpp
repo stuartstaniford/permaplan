@@ -1,11 +1,12 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Dec 2020 -
 // Class for storing and rendering trees.
 
+#include <err.h>
 #include "Tree.h"
 #include "WoodySegment.h"
 #include "PmodDesign.h"
-#include <err.h>
 #include "Scene.h"
+#include "SkySampleModel.h"
 
 unsigned short Tree::treeCount = 0u;
 Tree** Tree::treePtrArray = new Tree*[TREE_ARRAY_SIZE];
@@ -186,7 +187,17 @@ void Tree::simulationThreadBase(int s)
 
 void Tree::analyzeTreeGraph(void)
 {
+  SkySampleModel& sky = SkySampleModel::getSkySampleModel();
+  unsigned short edges[treeCount][treeCount]; // more than half of this space is unused
+  bool clusterMap[treeCount][treeCount];       // ditto
   
+  //XX could we perhaps use quadtree to perform fewer comparisons here?
+  for(int i=0; i<treeCount; i++)
+    for(int j=0; j<i; j++)
+     {
+      edges[i][j] = sky.treesInteract(treePtrArray[i]->box, treePtrArray[j]->box);
+      clusterMap[i][j] = sky.treesCluster(treePtrArray[i]->box, treePtrArray[j]->box);
+     }
 }
 
 
