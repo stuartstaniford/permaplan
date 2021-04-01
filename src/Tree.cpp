@@ -199,6 +199,10 @@ void Tree::analyzeTreeGraph(void)
      {
       edges[base+j] = sky.treesInteract(treePtrArray[i]->box, treePtrArray[j]->box);
      }
+
+  // Now need to analyze the matrix
+  //unsigned short taskID = 0u;
+
 }
 
 
@@ -221,6 +225,7 @@ void Tree::growAllTrees(float years)
                    opacity[0]*100.0f, opacity[1]*100.0f, opacity[2]*100.0f);
 #endif
    }
+  
 }
 
 #endif // MULTI_THREADED_SIMULATION

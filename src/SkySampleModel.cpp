@@ -118,19 +118,19 @@ unsigned SkySampleModel::treesInteract(BoundingBox* B1, BoundingBox* B2)
   //XX would be better to model the crown bottom here 
   if((B2->upper[2] - B1->lower[2])/horizDist > minimalAngleAboveHorizon)
     //B2 might shade B1
-    retVal |= 0x01000000;
+    retVal |= TREEi_SHADES_TREEj;
 
   if((B1->upper[2] - B2->lower[2])/horizDist > minimalAngleAboveHorizon)
     //B1 might shade B1
-    retVal |= 0x00010000;  
+    retVal |= TREEj_SHADES_TREEi;  
 
   float minHeight = B1->upper[2] = B1->lower[2];
   if(B1->upper[2] - B1->lower[2] < minHeight)
     minHeight = B1->upper[2] - B1->lower[2];        //XX not going to work across a cliff
   
   if(horizDist/minHeight < minDistOverHeight)
-    retVal |= 0x00000100;  
-    
+    retVal |= TREES_CLUSTER;  
+  
   return retVal;
 }
 

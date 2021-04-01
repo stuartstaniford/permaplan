@@ -66,6 +66,7 @@
 //#define LOG_TREE_VIS_DETAILS      // Log every twig being rendered.
 //#define LOG_BARK_DISPLAY          // Log bark color and texture details.
 //#define LOG_TREE_OPACITY          // Log tree bounding box opacity.
+#define LOG_TREE_GRAPH            // Log tree thread analysis graph.
 #define LOG_TREE_ERRORS           // Log clear errors in tree related operations.
 
 
@@ -169,7 +170,8 @@ extern bool doLogTreeMatchRay;        // Log matching a ray to a tree
 extern bool doLogTreeVisualization;   // Log trees being rendered.
 extern bool doLogTreeVisDetails;      // Log every twig being rendered.
 extern bool doLogBarkDisplay;         // Log bark color and texture details.
-extern bool doLogTreeOpacity;          // Log tree bounding box opacity.
+extern bool doLogTreeOpacity;         // Log tree bounding box opacity.
+extern bool doLogTreeGraph;           // Log tree thread analysis graph.
 extern bool doLogTreeErrors;          // Log clear errors in tree related operations.
 
 // Logging options for the HTTP debug interface
@@ -457,6 +459,13 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
 #define LogTreeOpacity(...) if(doLogTreeOpacity) LogStatement(__VA_ARGS__)
 #else
 #define LogTreeOpacity(...)
+#endif
+
+// Log tree thread analysis graph.
+#ifdef LOG_TREE_GRAPH
+#define LogTreeGraph(...) if(doLogTreeGraph) LogStatement(__VA_ARGS__)
+#else
+#define LogTreeGraph(...)
 #endif
 
 // Log clear errors in tree related operations.

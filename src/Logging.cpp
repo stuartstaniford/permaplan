@@ -60,6 +60,7 @@ bool doLogTreeVisualization   = true; // Log trees being rendered.
 bool doLogTreeVisDetails      = true; // Log every twig being rendered.
 bool doLogBarkDisplay         = true; // Log bark color and texture details.
 bool doLogTreeOpacity         = true; // Log tree bounding box opacity.
+bool doLogTreeGraph           = true; // Log tree thread analysis graph.
 bool doLogTreeErrors          = true; // Log clear errors in tree related operations.
 
 // Logging options for the HTTP debug interface
