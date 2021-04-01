@@ -90,16 +90,27 @@ SkySampleModel::~SkySampleModel(void)
 // =======================================================================================
 // Function to determine, based on bounding box positions, whether tree1 and tree2
 // might need to consider their mutual interaction in terms of shading one another.
-// Returns two chars wrapped as an unsigned short, with the first byte being yes
+
+// Also to determine, based on bounding boxes whether tree1 and tree2
+// are so close to each other that for purposes of shading, they should be considered
+// as a single cluster (a "copse").  Can also be applied to clusters of trees.
+
+// These two somewhat distinct concepts are combined in this function to avoid doing
+// all the same calculations twice (eg the sqrtf() in the distance between the trees).
+
+// Returns three chars wrapped in an unsigned, with the first byte being yes
 // or no B1 is possibly shaded by B2, and the second byte being whether B2 is possibly
-// shaded by B1.  Can also be applied to clusters of trees.
+// shaded by B1, and the third byte being whether they should be combined for shading
+// purposes.  Can also be applied to clusters of trees.
 
 //XX in general this is crude and needs refinement over time.
-float minimalAngleAboveHorizon = atanf(22.5f/180.0f*M_PI);
 
-unsigned short SkySampleModel::treesInteract(BoundingBox* B1, BoundingBox* B2)
+float minimalAngleAboveHorizon = atanf(22.5f/180.0f*M_PI);
+float minDistOverHeight = 0.33f;
+
+unsigned SkySampleModel::treesInteract(BoundingBox* B1, BoundingBox* B2)
 {
-  unsigned short retVal = 0x0000;
+  unsigned retVal = 0x00000000;
   float xDist = (B1->lower[0] + B1->upper[0] - B1->lower[0] - B1->upper[0])/2.0f;
   float yDist = (B1->lower[1] + B1->upper[1] - B1->lower[1] - B1->upper[1])/2.0f;
   float horizDist = sqrtf(xDist*xDist + yDist*yDist); // Pythagoras
@@ -107,24 +118,20 @@ unsigned short SkySampleModel::treesInteract(BoundingBox* B1, BoundingBox* B2)
   //XX would be better to model the crown bottom here 
   if((B2->upper[2] - B1->lower[2])/horizDist > minimalAngleAboveHorizon)
     //B2 might shade B1
-    retVal |= 0x0100;
+    retVal |= 0x01000000;
 
   if((B1->upper[2] - B2->lower[2])/horizDist > minimalAngleAboveHorizon)
     //B1 might shade B1
-    retVal |= 0x0001;  
+    retVal |= 0x00010000;  
 
+  float minHeight = B1->upper[2] = B1->lower[2];
+  if(B1->upper[2] - B1->lower[2] < minHeight)
+    minHeight = B1->upper[2] - B1->lower[2];        //XX not going to work across a cliff
+  
+  if(horizDist/minHeight < minDistOverHeight)
+    retVal |= 0x00000100;  
+    
   return retVal;
-}
-
-
-// =======================================================================================
-// Function to determine, based on bounding boxes whether tree1 and tree2
-// are so close to each other that for purposes of shading, they should be considered
-// as a single cluster (a "copse").  Can also be applied to clusters of trees.
-
-bool SkySampleModel::treesCluster(BoundingBox* B1, BoundingBox* B2)
-{
-  return false;
 }
 
 

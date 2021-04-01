@@ -189,16 +189,15 @@ void Tree::analyzeTreeGraph(void)
 {
   SkySampleModel& sky = SkySampleModel::getSkySampleModel();
   int arraySize = treeCount*(treeCount-1)/2;  // store only below the diagonal of matrix
-  unsigned short edges[arraySize]; 
-  bool clusterMap[arraySize];
+  unsigned edges[arraySize]; 
   
   //XX could we perhaps use quadtree to perform fewer comparisons here?
+  //XX at least if the land was large compared to the biggest tree height
   int i, j, base;
   for(i=0, base = 0; i<treeCount; i++, base+=i)
     for(j=0; j<i; j++)
      {
       edges[base+j] = sky.treesInteract(treePtrArray[i]->box, treePtrArray[j]->box);
-      clusterMap[base+j] = sky.treesCluster(treePtrArray[i]->box, treePtrArray[j]->box);
      }
 }
 
