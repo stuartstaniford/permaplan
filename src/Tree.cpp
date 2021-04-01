@@ -185,7 +185,7 @@ void Tree::simulationThreadBase(int s)
 // Static function that processes all the trees into a graph of copses, and assigns
 // the simulation work to different threads.
 
-void Tree::analyzeTreeGraph(void)
+void Tree::analyzeTreeGraph(float years)
 {
   SkySampleModel& sky = SkySampleModel::getSkySampleModel();
   int arraySize = treeCount*(treeCount-1)/2;  // store only below the diagonal of matrix
@@ -194,12 +194,29 @@ void Tree::analyzeTreeGraph(void)
   //XX could we perhaps use quadtree to perform fewer comparisons here?
   //XX at least if the land was large compared to the biggest tree height
   int i, j, base;
-  for(i=0, base = 0; i<treeCount; i++, base+=i)
+  for(i=0, base = 0; i<treeCount; base+=i, i++)
+   {
     for(j=0; j<i; j++)
      {
+      if(treePtrArray[i]->ageNow < 0.0f || treePtrArray[j]->ageNow < 0.0f)
+       {
+        edges[base+j] = TREES_INVALID;
+        continue;
+       }
       edges[base+j] = sky.treesInteract(treePtrArray[i]->box, treePtrArray[j]->box);
+#ifdef LOG_TREE_GRAPH
+      if(edges[base+j] & TREEi_SHADES_TREEj)
+        LogTreeGraph("Tree %d shades tree %d.\n", i, j);
+      if(edges[base+j] & TREEj_SHADES_TREEi)
+        LogTreeGraph("Tree %d shades tree %d.\n", j, i);
+      if(edges[base+j] & TREES_CLUSTER)
+        LogTreeGraph("Trees %d and %d are together as copse.\n", j, i);
+      unless(edges[base+j])
+        LogTreeGraph("Trees %d and %d are unrelated.\n", j, i);      
+#endif
      }
-
+    treePtrArray[i]->growStep(years);
+   }
   // Now need to analyze the matrix
   //unsigned short taskID = 0u;
 

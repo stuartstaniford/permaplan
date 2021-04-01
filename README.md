@@ -26,6 +26,14 @@ Additional appreciations:
 
 Sean Barrett for stb_image.h and stb_image_write.h.
 
+## Note on target expertise levels
+
+The application interface should be usable by anyone with an interest in gardening or land management who is generally computer literate as a user of modern applications (browers, word processors, etc).  It shouldn't require detailed knowledge of botany, quantitative skills (like spreadsheet generation or data analysis), or ability to edit text files.
+
+Extending the application with new OTDL files to add additional species is a task where the target expertise level is someone with a scientific background in botany, forestry, plant physiology, or something similar (or the ability and willingness to acquire that expertise as they go) as well as the ability to edit text files and maintain a structured data file (ie JSON).  Eg a grad student in forestry is the target level expected here.  But OTDL should be manageable without any knowledge of programming, C++, computer graphics, etc.
+
+Extending the source code of the application itself requires a good knowledge of multi-threaded programming in C/C++ as well as a decent knowledge of computer graphics and of botany.
+
 
 
 

@@ -67,7 +67,7 @@ void* spawnSimThread(void* arg)
 {
   int s = (long long)arg;
 
-  LogSimulationControls("Starting simulation thread %d.", s);
+  LogSimulationControls("Starting simulation thread %d.\n", s);
   Tree::simulationThreadBase(s);
   return NULL;
 }
@@ -86,7 +86,7 @@ void Scene::startSimulationThreads(void)
   int pthreadErr;
 
   for(long long s=0; s<config.nSimThreads; s++)
-    if((pthreadErr = pthread_create(simThreads + s, NULL, spawnSimThread, this)) != 0)
+    if((pthreadErr = pthread_create(simThreads + s, NULL, spawnSimThread, (void*)s)) != 0)
       err(-1, "Couldn't spawn simulation thread %lld.\n", s);
 }
 
@@ -364,7 +364,7 @@ void Scene::draw(bool mouseMoved, float timeElapsed)
    {
     simYear += timeElapsed*simulationSpeed;
 #ifdef MULTI_THREADED_SIMULATION
-    Tree::analyzeTreeGraph();
+    Tree::analyzeTreeGraph(timeElapsed*simulationSpeed);
 #else
     Tree::growAllTrees(timeElapsed*simulationSpeed);
 #endif

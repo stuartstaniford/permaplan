@@ -8,7 +8,7 @@
 // =======================================================================================
 // Logging options to do with overall control flow and speed
 
-//#define LOG_FRAME_STARTS      // Log each frame as it begins
+#define LOG_FRAME_STARTS      // Log each frame as it begins
 #define LOG_CLOSE_DOWN        // Log when we exit.
 #define LOG_STRUCTURE_SIZES   // Log the size of structures on this platform at startup.
 #define LOG_OPENGL_CONSTANTS  // Log various openGL parameters

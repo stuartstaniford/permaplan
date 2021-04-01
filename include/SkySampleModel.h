@@ -43,6 +43,7 @@
 #define TREEi_SHADES_TREEj 0x00100000
 #define TREEj_SHADES_TREEi 0x00200000
 #define TREES_CLUSTER      0x00400000
+#define TREES_INVALID      0x00800000
 
 #include <cglm/cglm.h>
 #include "BoundingBox.h"

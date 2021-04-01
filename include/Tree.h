@@ -67,7 +67,7 @@ class Tree: public VisualObject
   static void readTreesFromDesign(Quadtree* qtree);
 #ifdef MULTI_THREADED_SIMULATION
   static void simulationThreadBase(int s);
-  static void analyzeTreeGraph(void);
+  static void analyzeTreeGraph(float years);
 #else
   static void growAllTrees(float years);
 #endif
