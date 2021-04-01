@@ -98,10 +98,8 @@ SkySampleModel::~SkySampleModel(void)
 // These two somewhat distinct concepts are combined in this function to avoid doing
 // all the same calculations twice (eg the sqrtf() in the distance between the trees).
 
-// Returns three chars wrapped in an unsigned, with the first byte being yes
-// or no B1 is possibly shaded by B2, and the second byte being whether B2 is possibly
-// shaded by B1, and the third byte being whether they should be combined for shading
-// purposes.  Can also be applied to clusters of trees.
+// Returns an unsigned with bit fields set (defined in SkySampleModel.h.  
+// Can also be applied to clusters of trees.
 
 //XX in general this is crude and needs refinement over time.
 
@@ -111,8 +109,8 @@ float minDistOverHeight = 0.33f;
 unsigned SkySampleModel::treesInteract(BoundingBox* B1, BoundingBox* B2)
 {
   unsigned retVal = 0x00000000;
-  float xDist = (B1->lower[0] + B1->upper[0] - B1->lower[0] - B1->upper[0])/2.0f;
-  float yDist = (B1->lower[1] + B1->upper[1] - B1->lower[1] - B1->upper[1])/2.0f;
+  float xDist = (B1->lower[0] + B1->upper[0] - B2->lower[0] - B2->upper[0])/2.0f;
+  float yDist = (B1->lower[1] + B1->upper[1] - B2->lower[1] - B2->upper[1])/2.0f;
   float horizDist = sqrtf(xDist*xDist + yDist*yDist); // Pythagoras
                
   //XX would be better to model the crown bottom here 
@@ -124,12 +122,15 @@ unsigned SkySampleModel::treesInteract(BoundingBox* B1, BoundingBox* B2)
     //B1 might shade B1
     retVal |= TREEj_SHADES_TREEi;  
 
-  float minHeight = B1->upper[2] = B1->lower[2];
+  float minHeight = B1->upper[2] - B1->lower[2];
   if(B1->upper[2] - B1->lower[2] < minHeight)
     minHeight = B1->upper[2] - B1->lower[2];        //XX not going to work across a cliff
   
   if(horizDist/minHeight < minDistOverHeight)
     retVal |= TREES_CLUSTER;  
+
+  LogTreeGraph("Tree horiz dist %.1f, B2-B1 %.1f, B1-B2, %.1f, minHeight, %.1f.\n",
+               horizDist, B2->upper[2] - B1->lower[2], B1->upper[2] - B2->lower[2], minHeight);
   
   return retVal;
 }
