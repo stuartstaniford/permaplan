@@ -216,7 +216,6 @@ void Tree::analyzeTreeGraph(float years)
         LogTreeGraph("Trees %d and %d are unrelated.\n", j, i);      
 #endif
      }
-    treePtrArray[i]->growStep(years);
    }
   
   // Now need to analyze the matrix
@@ -224,20 +223,27 @@ void Tree::analyzeTreeGraph(float years)
   for(int i=0; i<treeCount; i++)
     taskIds[i] = -1;
   
-  unsigned short taskId = 0u;
+  unsigned taskId = 0u;
   for(int j=0; j<treeCount; j++)
-  {
-   if(taskIds[j] < 0)
-     taskIds[j] = taskId;
-   // work down the columns
-   for(int i=j+1; i < treeCount; i++)
-    {
-     unsigned edge = edges[bases[i] + j];
-     if(edge & TREES_CLUSTER)
-       taskIds[i] = taskIds[j];
-    }
-   
-  }  
+   {
+    if(taskIds[j] < 0)
+     {
+      LogTreeGraph("Assigning task-id %u to tree %d.\n", taskId, j);     
+      taskIds[j] = taskId++;
+     }
+    // work down the columns
+    for(int i=j+1; i < treeCount; i++)
+     {
+      unsigned edge = edges[bases[i] + j];
+      if(edge & TREES_CLUSTER)
+        taskIds[i] = taskIds[j];
+      else if ((edge & TREEj_SHADES_TREEi) && (edge & TREEi_SHADES_TREEj)) // both way shading
+        taskIds[i] = taskIds[j];
+     }
+   }  
+
+  for(int i=0; i<treeCount;i++)  
+    treePtrArray[i]->growStep(years);
 }
 
 
