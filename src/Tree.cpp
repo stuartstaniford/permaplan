@@ -190,11 +190,13 @@ void Tree::analyzeTreeGraph(float years)
   SkySampleModel& sky = SkySampleModel::getSkySampleModel();
   int arraySize = treeCount*(treeCount-1)/2;  // store only below the diagonal of matrix
   unsigned edges[arraySize]; 
+  unsigned bases[treeCount];
   
   //XX could we perhaps use quadtree to perform fewer comparisons here?
   //XX at least if the land was large compared to the biggest tree height
   for(int i=0, base = 0; i<treeCount; base+=i, i++)
    {
+    bases[i] = base;
     for(int j=0; j<i; j++)
      {
       if(treePtrArray[i]->ageNow < 0.0f || treePtrArray[j]->ageNow < 0.0f)
@@ -218,13 +220,22 @@ void Tree::analyzeTreeGraph(float years)
    }
   
   // Now need to analyze the matrix
-  //unsigned short taskID = 0u;
   int taskIds[treeCount];
   for(int i=0; i<treeCount; i++)
     taskIds[i] = -1;
   
-  for(int i=0; i<treeCount; i++)
+  unsigned short taskId = 0u;
+  for(int j=0; j<treeCount; j++)
   {
+   if(taskIds[j] < 0)
+     taskIds[j] = taskId;
+   // work down the columns
+   for(int i=j+1; i < treeCount; i++)
+    {
+     unsigned edge = edges[bases[i] + j];
+     if(edge & TREES_CLUSTER)
+       taskIds[i] = taskIds[j];
+    }
    
   }  
 }
