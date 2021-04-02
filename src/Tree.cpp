@@ -219,17 +219,16 @@ void Tree::analyzeTreeGraph(float years)
    }
   
   // Now need to analyze the matrix
-  int taskIds[treeCount];
   for(int i=0; i<treeCount; i++)
-    taskIds[i] = -1;
+    treePtrArray[i]->taskId = -1;
   
-  unsigned taskId = 0u;
+  unsigned nextTaskId = 0u;
   for(int j=0; j<treeCount; j++)
    {
-    if(taskIds[j] < 0)
+    if(treePtrArray[j]->taskId < 0)
      {
-      LogTreeGraph("Assigning task-id %u to tree %d.\n", taskId, j);     
-      taskIds[j] = taskId++;
+      LogTreeGraph("Assigning task-id %u to tree %d.\n", nextTaskId, j);     
+      treePtrArray[j]->taskId = nextTaskId++;
      }
     // work down the columns
     for(int i=j+1; i < treeCount; i++)
@@ -237,8 +236,8 @@ void Tree::analyzeTreeGraph(float years)
       unsigned edge = edges[bases[i] + j];
       if(edge & TREES_CLUSTER || ((edge & TREEj_SHADES_TREEi) && (edge & TREEi_SHADES_TREEj)))
        {
-        LogTreeGraph("Assigning task-id %d to tree %d.\n", taskIds[j], i);     
-        taskIds[i] = taskIds[j];
+        LogTreeGraph("Assigning task-id %d to tree %d.\n", treePtrArray[j]->taskId, i);     
+        treePtrArray[i]->taskId = treePtrArray[j]->taskId;
        }
      }
    }  
@@ -608,6 +607,7 @@ bool Tree::diagnosticHTMLRow(HttpDebug* serv)
 
   httPrintf("<td>%.2f</td><td>%.2f</td><td>%.2f</td>\n", ageNow,
             getHeight(), getRadius()*2.0f*M_PI);
+  httPrintf("<td>%d</td>\n", taskId);
   
   httPrintf("</tr>\n");
 
@@ -649,10 +649,10 @@ bool Tree::allTreeDiagnosticHTML(HttpDebug* serv)
   httPrintf("<center>\n");
   serv->startTable();
   httPrintf("<tr><th>Index</th><th>Species</th><th>Location (%c)</th><th>Planted</th>"
-              "<th>Age (yr)</th><th>Height (%c)</th><th>Girth (%c)</th></tr>\n",
+              "<th>Age (yr)</th><th>Height (%c)</th><th>Girth (%c)</th><th>Task-id</th></tr>\n",
               spaceUnitAbbr, spaceUnitAbbr, spaceUnitAbbr);
   
-  for(int i=0; i< treeCount; i++)
+  for(int i=0; i < treeCount; i++)
     treePtrArray[i]->diagnosticHTMLRow(serv);
   
   httPrintf("</table></center><hr>\n");

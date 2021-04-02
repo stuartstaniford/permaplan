@@ -33,6 +33,7 @@ class Tree: public VisualObject
   float           yearPlanted;
   float           ageNow;
   unsigned short  treePtrArrayIndex; // used by all our subparts to find us
+  short           taskId;             // which thread has us
   float           trunkRadiusObserved;
   float           yearTrunkMeasured;
 
