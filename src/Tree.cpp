@@ -193,10 +193,9 @@ void Tree::analyzeTreeGraph(float years)
   
   //XX could we perhaps use quadtree to perform fewer comparisons here?
   //XX at least if the land was large compared to the biggest tree height
-  int i, j, base;
-  for(i=0, base = 0; i<treeCount; base+=i, i++)
+  for(int i=0, base = 0; i<treeCount; base+=i, i++)
    {
-    for(j=0; j<i; j++)
+    for(int j=0; j<i; j++)
      {
       if(treePtrArray[i]->ageNow < 0.0f || treePtrArray[j]->ageNow < 0.0f)
        {
@@ -217,9 +216,17 @@ void Tree::analyzeTreeGraph(float years)
      }
     treePtrArray[i]->growStep(years);
    }
+  
   // Now need to analyze the matrix
   //unsigned short taskID = 0u;
-
+  int taskIds[treeCount];
+  for(int i=0; i<treeCount; i++)
+    taskIds[i] = -1;
+  
+  for(int i=0; i<treeCount; i++)
+  {
+   
+  }  
 }
 
 
