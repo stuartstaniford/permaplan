@@ -47,12 +47,12 @@
      "notes": "Big old weeping pine in the center"
     },
     {
-     "location": [150, 120],
+     "location": [150, 130],
      "yearPlanted": 1900,
      //"timePlanted": [20,20],
      "genus": "Pinus",
-     "species": "resinosa",
-     "commonName": "Red pine",
+     "species": "strobus",
+     "commonName": "Eastern White Pine",
      "treeGirth": [20, 2019.18],
      "notes": "Partner to the weeping white pine to test interaction"
     },    
