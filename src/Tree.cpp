@@ -235,10 +235,11 @@ void Tree::analyzeTreeGraph(float years)
     for(int i=j+1; i < treeCount; i++)
      {
       unsigned edge = edges[bases[i] + j];
-      if(edge & TREES_CLUSTER)
+      if(edge & TREES_CLUSTER || ((edge & TREEj_SHADES_TREEi) && (edge & TREEi_SHADES_TREEj)))
+       {
+        LogTreeGraph("Assigning task-id %d to tree %d.\n", taskIds[j], i);     
         taskIds[i] = taskIds[j];
-      else if ((edge & TREEj_SHADES_TREEi) && (edge & TREEi_SHADES_TREEj)) // both way shading
-        taskIds[i] = taskIds[j];
+       }
      }
    }  
 
