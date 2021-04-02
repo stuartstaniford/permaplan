@@ -4,6 +4,7 @@
   "parent": "Pinus",
   "overviewData":
     {
+     "genus":   "Pinus",
      "species":     "resinosa",
       //https://en.wikipedia.org/wiki/Pinus_resinosa
      "maxHeight":   44000,
@@ -25,7 +26,7 @@
     [
       {
        "ages": [0.0, 10000.0],
-       "rgb": [200, 100, 100]
+       "rgb": [70, 60, 20]
       }
     ]
   },
