@@ -62,10 +62,10 @@ TaskQueue::~TaskQueue(void)
 
 void TaskQueue::workLoop(void)
 {
-  while(!timeToDie)
+  until(timeToDie)
    {
     lock();
-    while (!tasksQueued)
+    until(tasksQueued > 0)
       pthread_cond_wait(&taskWait, &mutex);
 
     // remove a task from the queue
