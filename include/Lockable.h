@@ -31,11 +31,10 @@ public:
     if(pthread_mutex_unlock(&mutex)) err(-1, "Unlock failure.\n");
 #endif
    }
+    
+protected:
   
-private:
-  
-  // Instance variables - private
-  
+  // Instance variables - protected
 #ifdef MULTI_THREADED_SIMULATION
   pthread_mutex_t           mutex;
 #endif

@@ -22,7 +22,8 @@ public:
   void addTask(void);
   
 private:
-  
+  pthread_cond_t           taskWait;
+
   // Instance variables - private
   
   // Member functions - private

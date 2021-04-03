@@ -2,12 +2,15 @@
 // Task queue class for use in multi-threaded version.
 
 #include "TaskQueue.h"
+#include <err.h>
 
 // =======================================================================================
 // Constructor
 
 TaskQueue::TaskQueue(void)
 {
+  if(pthread_cond_init(&taskWait, NULL))
+    err(-1, "Couldn't initialize taskWait in TaskQueue::TaskQueue.");
 }
 
 
