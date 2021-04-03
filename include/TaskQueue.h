@@ -5,11 +5,12 @@
 #define TASK_QUEUE_H
 
 #include "Lockable.h"
+#include <forward_list>
 
 // =======================================================================================
 // Class variable initialization
 
-class TaskQueue: public Lockable
+class TaskQueue: public std::forward_list<void*>, public Lockable
 {
 public:
   

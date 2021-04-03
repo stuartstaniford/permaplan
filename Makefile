@@ -99,6 +99,7 @@ src/Arrow.o: include/HttpDebug.h include/Vertex.h
 src/Arrow.o: include/ElementBufferObject.h include/BoundingBox.h
 src/Arrow.o: include/Shader.h include/VertexBufferCombo.h
 src/Arrow.o: include/TruncatedCone.h include/Arrow.h include/VisualObject.h
+src/Arrow.o: include/Lockable.h
 src/AxialElement.o: include/AxialElement.h include/VisualElement.h
 src/AxialElement.o: include/TriangleBuffer.h include/ElementBufferCombo.h
 src/AxialElement.o: include/VertexArrayObject.h include/VertexBufferObject.h
@@ -180,9 +181,9 @@ src/BezierPatch.o: include/Logging.h include/MemoryTracker.h
 src/BezierPatch.o: include/HttpDebug.h include/Vertex.h
 src/BezierPatch.o: include/ElementBufferObject.h include/BoundingBox.h
 src/BezierPatch.o: include/Shader.h include/VertexBufferCombo.h
-src/BezierPatch.o: include/Quadtree.h include/DisplayList.h
-src/BezierPatch.o: include/LandSurfaceRegionPlanar.h include/HeightMarker.h
-src/BezierPatch.o: include/Arrow.h
+src/BezierPatch.o: include/Lockable.h include/Quadtree.h
+src/BezierPatch.o: include/DisplayList.h include/LandSurfaceRegionPlanar.h
+src/BezierPatch.o: include/HeightMarker.h include/Arrow.h
 src/Boundary.o: include/Boundary.h /usr/local/include/cglm/cglm.h
 src/Boundary.o: /usr/local/include/cglm/common.h
 src/Boundary.o: /usr/local/include/cglm/types.h
@@ -297,6 +298,7 @@ src/Box.o: /usr/local/include/GL/glew.h /usr/local/include/GLFW/glfw3.h
 src/Box.o: include/GlobalMacros.h include/Logging.h include/MemoryTracker.h
 src/Box.o: include/HttpDebug.h include/Vertex.h include/ElementBufferObject.h
 src/Box.o: include/BoundingBox.h include/Shader.h include/VertexBufferCombo.h
+src/Box.o: include/Lockable.h
 src/CO2Scenario.o: include/CO2Scenario.h include/rapidjson/document.h
 src/CO2Scenario.o: include/rapidjson/reader.h include/rapidjson/allocators.h
 src/CO2Scenario.o: include/rapidjson/rapidjson.h include/rapidjson/stream.h
@@ -412,7 +414,7 @@ src/Copse.o: /usr/local/include/GL/glew.h /usr/local/include/GLFW/glfw3.h
 src/Copse.o: include/GlobalMacros.h include/Logging.h include/MemoryTracker.h
 src/Copse.o: include/HttpDebug.h include/Vertex.h
 src/Copse.o: include/ElementBufferObject.h include/BoundingBox.h
-src/Copse.o: include/Shader.h include/VertexBufferCombo.h
+src/Copse.o: include/Shader.h include/VertexBufferCombo.h include/Lockable.h
 src/Copse.o: include/LandSurfaceRegion.h
 src/Cylinder.o: include/Cylinder.h include/AxialElement.h
 src/Cylinder.o: include/VisualElement.h include/TriangleBuffer.h
@@ -489,7 +491,8 @@ src/DisplayList.o: include/Logging.h include/MemoryTracker.h
 src/DisplayList.o: include/HttpDebug.h include/Vertex.h
 src/DisplayList.o: include/ElementBufferObject.h include/BoundingBox.h
 src/DisplayList.o: include/Shader.h include/VertexBufferCombo.h
-src/DisplayList.o: include/LandSurfaceRegion.h include/HeightMarker.h
+src/DisplayList.o: include/Lockable.h include/LandSurfaceRegion.h
+src/DisplayList.o: include/HeightMarker.h
 src/ElementBufferCombo.o: /usr/local/include/GL/glew.h
 src/ElementBufferCombo.o: /usr/local/include/GLFW/glfw3.h
 src/ElementBufferCombo.o: include/ElementBufferCombo.h
@@ -591,9 +594,9 @@ src/Grid.o: include/Texture.h include/Quadtree.h include/DisplayList.h
 src/Grid.o: include/VisualObject.h include/VisualElement.h
 src/Grid.o: include/TriangleBuffer.h include/ElementBufferCombo.h
 src/Grid.o: include/ElementBufferObject.h include/BoundingBox.h
-src/Grid.o: include/VertexBufferCombo.h include/LandSurfaceRegion.h
-src/Grid.o: include/LandSurfaceRegionPlanar.h include/Camera.h
-src/Grid.o: include/HeightMarker.h include/BezierPatch.h
+src/Grid.o: include/VertexBufferCombo.h include/Lockable.h
+src/Grid.o: include/LandSurfaceRegion.h include/LandSurfaceRegionPlanar.h
+src/Grid.o: include/Camera.h include/HeightMarker.h include/BezierPatch.h
 src/Grid.o: include/rapidjson/document.h include/rapidjson/reader.h
 src/Grid.o: include/rapidjson/allocators.h include/rapidjson/rapidjson.h
 src/Grid.o: include/rapidjson/stream.h include/rapidjson/encodings.h
@@ -653,6 +656,7 @@ src/HeightMarker.o: include/Logging.h include/MemoryTracker.h
 src/HeightMarker.o: include/HttpDebug.h include/Vertex.h
 src/HeightMarker.o: include/ElementBufferObject.h include/BoundingBox.h
 src/HeightMarker.o: include/Shader.h include/VertexBufferCombo.h
+src/HeightMarker.o: include/Lockable.h
 src/HttpDebug.o: /usr/local/include/GL/glew.h /usr/local/include/GLFW/glfw3.h
 src/HttpDebug.o: include/HttpDebug.h include/Scene.h include/Shader.h
 src/HttpDebug.o: /usr/local/include/cglm/cglm.h
@@ -694,7 +698,8 @@ src/HttpDebug.o: include/TexturedRect.h include/Texture.h include/Quadtree.h
 src/HttpDebug.o: include/DisplayList.h include/VisualObject.h
 src/HttpDebug.o: include/VisualElement.h include/TriangleBuffer.h
 src/HttpDebug.o: include/ElementBufferCombo.h include/ElementBufferObject.h
-src/HttpDebug.o: include/BoundingBox.h include/LandSurfaceRegion.h
+src/HttpDebug.o: include/BoundingBox.h include/Lockable.h
+src/HttpDebug.o: include/LandSurfaceRegion.h
 src/HttpDebug.o: include/LandSurfaceRegionPlanar.h include/Camera.h
 src/HttpDebug.o: include/HeightMarker.h include/BezierPatch.h
 src/HttpDebug.o: include/rapidjson/document.h include/rapidjson/reader.h
@@ -805,7 +810,7 @@ src/JSONStructureChecker.o: include/VisualElement.h include/TriangleBuffer.h
 src/JSONStructureChecker.o: include/ElementBufferCombo.h
 src/JSONStructureChecker.o: include/ElementBufferObject.h
 src/JSONStructureChecker.o: include/BoundingBox.h include/VertexBufferCombo.h
-src/JSONStructureChecker.o: include/LandSurfaceRegion.h
+src/JSONStructureChecker.o: include/Lockable.h include/LandSurfaceRegion.h
 src/JSONStructureChecker.o: include/LandSurfaceRegionPlanar.h
 src/JSONStructureChecker.o: include/Camera.h include/HeightMarker.h
 src/JSONStructureChecker.o: include/BezierPatch.h include/PmodConfig.h
@@ -854,7 +859,8 @@ src/LandSurface.o: include/Quadtree.h include/DisplayList.h
 src/LandSurface.o: include/VisualObject.h include/VisualElement.h
 src/LandSurface.o: include/TriangleBuffer.h include/ElementBufferCombo.h
 src/LandSurface.o: include/ElementBufferObject.h include/BoundingBox.h
-src/LandSurface.o: include/VertexBufferCombo.h include/LandSurfaceRegion.h
+src/LandSurface.o: include/VertexBufferCombo.h include/Lockable.h
+src/LandSurface.o: include/LandSurfaceRegion.h
 src/LandSurface.o: include/LandSurfaceRegionPlanar.h include/HeightMarker.h
 src/LandSurface.o: include/BezierPatch.h include/rapidjson/document.h
 src/LandSurface.o: include/rapidjson/reader.h include/rapidjson/allocators.h
@@ -929,7 +935,7 @@ src/LandSurfaceRegion.o: include/GlobalMacros.h include/Logging.h
 src/LandSurfaceRegion.o: include/MemoryTracker.h include/HttpDebug.h
 src/LandSurfaceRegion.o: include/Vertex.h include/ElementBufferObject.h
 src/LandSurfaceRegion.o: include/BoundingBox.h include/Shader.h
-src/LandSurfaceRegion.o: include/VertexBufferCombo.h
+src/LandSurfaceRegion.o: include/VertexBufferCombo.h include/Lockable.h
 src/LandSurfaceRegionPlanar.o: include/LandSurfaceRegionPlanar.h
 src/LandSurfaceRegionPlanar.o: include/LandSurfaceRegion.h
 src/LandSurfaceRegionPlanar.o: include/VisualObject.h include/VisualElement.h
@@ -974,7 +980,7 @@ src/LandSurfaceRegionPlanar.o: include/GlobalMacros.h include/Logging.h
 src/LandSurfaceRegionPlanar.o: include/MemoryTracker.h include/HttpDebug.h
 src/LandSurfaceRegionPlanar.o: include/Vertex.h include/ElementBufferObject.h
 src/LandSurfaceRegionPlanar.o: include/BoundingBox.h include/Shader.h
-src/LandSurfaceRegionPlanar.o: include/VertexBufferCombo.h
+src/LandSurfaceRegionPlanar.o: include/VertexBufferCombo.h include/Lockable.h
 src/LeafModel.o: include/LeafModel.h include/JSONStructureChecker.h
 src/LeafModel.o: include/rapidjson/document.h include/rapidjson/reader.h
 src/LeafModel.o: include/rapidjson/allocators.h include/rapidjson/rapidjson.h
@@ -1103,6 +1109,7 @@ src/LineStripList.o: /usr/local/include/GL/glew.h
 src/LineStripList.o: /usr/local/include/GLFW/glfw3.h include/GlobalMacros.h
 src/LineStripList.o: include/Logging.h include/MemoryTracker.h
 src/LineStripList.o: include/HttpDebug.h include/Vertex.h include/Shader.h
+src/Lockable.o: include/Lockable.h include/GlobalMacros.h
 src/Logging.o: include/Logging.h include/MemoryTracker.h include/HttpDebug.h
 src/Logging.o: include/Vertex.h /usr/local/include/cglm/cglm.h
 src/Logging.o: /usr/local/include/cglm/common.h
@@ -1231,7 +1238,8 @@ src/MenuInterface.o: include/DisplayList.h include/VisualObject.h
 src/MenuInterface.o: include/VisualElement.h include/TriangleBuffer.h
 src/MenuInterface.o: include/ElementBufferCombo.h
 src/MenuInterface.o: include/ElementBufferObject.h include/BoundingBox.h
-src/MenuInterface.o: include/VertexBufferCombo.h include/LandSurfaceRegion.h
+src/MenuInterface.o: include/VertexBufferCombo.h include/Lockable.h
+src/MenuInterface.o: include/LandSurfaceRegion.h
 src/MenuInterface.o: include/LandSurfaceRegionPlanar.h include/Camera.h
 src/MenuInterface.o: include/HeightMarker.h include/BezierPatch.h
 src/MenuInterface.o: include/PmodConfig.h include/Timeval.h
@@ -1311,7 +1319,8 @@ src/PmodDesign.o: include/Texture.h include/Quadtree.h include/DisplayList.h
 src/PmodDesign.o: include/VisualObject.h include/VisualElement.h
 src/PmodDesign.o: include/TriangleBuffer.h include/ElementBufferCombo.h
 src/PmodDesign.o: include/ElementBufferObject.h include/BoundingBox.h
-src/PmodDesign.o: include/VertexBufferCombo.h include/LandSurfaceRegion.h
+src/PmodDesign.o: include/VertexBufferCombo.h include/Lockable.h
+src/PmodDesign.o: include/LandSurfaceRegion.h
 src/PmodDesign.o: include/LandSurfaceRegionPlanar.h include/Camera.h
 src/PmodDesign.o: include/HeightMarker.h include/BezierPatch.h
 src/PmodDesign.o: include/PmodConfig.h include/Timeval.h
@@ -1352,8 +1361,9 @@ src/Quadtree.o: include/DisplayList.h include/VisualObject.h
 src/Quadtree.o: include/VisualElement.h include/TriangleBuffer.h
 src/Quadtree.o: include/ElementBufferCombo.h include/ElementBufferObject.h
 src/Quadtree.o: include/BoundingBox.h include/VertexBufferCombo.h
-src/Quadtree.o: include/LandSurfaceRegion.h include/LandSurfaceRegionPlanar.h
-src/Quadtree.o: include/Scene.h include/ColoredAxes.h include/LineStripList.h
+src/Quadtree.o: include/Lockable.h include/LandSurfaceRegion.h
+src/Quadtree.o: include/LandSurfaceRegionPlanar.h include/Scene.h
+src/Quadtree.o: include/ColoredAxes.h include/LineStripList.h
 src/Quadtree.o: include/PmodConfig.h include/LandSurface.h
 src/Quadtree.o: include/TexturedRect.h include/Texture.h include/Camera.h
 src/Quadtree.o: include/HeightMarker.h include/BezierPatch.h
@@ -1416,9 +1426,9 @@ src/Scene.o: include/TexturedRect.h include/Texture.h include/Quadtree.h
 src/Scene.o: include/DisplayList.h include/VisualObject.h
 src/Scene.o: include/VisualElement.h include/TriangleBuffer.h
 src/Scene.o: include/ElementBufferCombo.h include/ElementBufferObject.h
-src/Scene.o: include/BoundingBox.h include/LandSurfaceRegion.h
-src/Scene.o: include/LandSurfaceRegionPlanar.h include/Camera.h
-src/Scene.o: include/HeightMarker.h include/BezierPatch.h
+src/Scene.o: include/BoundingBox.h include/Lockable.h
+src/Scene.o: include/LandSurfaceRegion.h include/LandSurfaceRegionPlanar.h
+src/Scene.o: include/Camera.h include/HeightMarker.h include/BezierPatch.h
 src/Scene.o: include/rapidjson/document.h include/rapidjson/reader.h
 src/Scene.o: include/rapidjson/allocators.h include/rapidjson/rapidjson.h
 src/Scene.o: include/rapidjson/stream.h include/rapidjson/encodings.h
@@ -1521,7 +1531,7 @@ src/ScriptController.o: include/Quadtree.h include/DisplayList.h
 src/ScriptController.o: include/VisualObject.h include/VisualElement.h
 src/ScriptController.o: include/TriangleBuffer.h include/ElementBufferCombo.h
 src/ScriptController.o: include/ElementBufferObject.h include/BoundingBox.h
-src/ScriptController.o: include/VertexBufferCombo.h
+src/ScriptController.o: include/VertexBufferCombo.h include/Lockable.h
 src/ScriptController.o: include/LandSurfaceRegion.h
 src/ScriptController.o: include/LandSurfaceRegionPlanar.h include/Camera.h
 src/ScriptController.o: include/HeightMarker.h include/BezierPatch.h
@@ -1649,9 +1659,12 @@ src/Species.o: include/DisplayList.h include/VisualObject.h
 src/Species.o: include/VisualElement.h include/TriangleBuffer.h
 src/Species.o: include/ElementBufferCombo.h include/ElementBufferObject.h
 src/Species.o: include/BoundingBox.h include/VertexBufferCombo.h
-src/Species.o: include/LandSurfaceRegion.h include/LandSurfaceRegionPlanar.h
-src/Species.o: include/Camera.h include/HeightMarker.h include/BezierPatch.h
+src/Species.o: include/Lockable.h include/LandSurfaceRegion.h
+src/Species.o: include/LandSurfaceRegionPlanar.h include/Camera.h
+src/Species.o: include/HeightMarker.h include/BezierPatch.h
 src/Species.o: include/Boundary.h
+src/TaskQueue.o: include/TaskQueue.h include/Lockable.h
+src/TaskQueue.o: include/GlobalMacros.h
 src/Texture.o: /usr/local/include/GL/glew.h include/Texture.h
 src/Texture.o: include/Shader.h /usr/local/include/cglm/cglm.h
 src/Texture.o: /usr/local/include/cglm/common.h
@@ -1773,11 +1786,11 @@ src/Tree.o: /usr/local/include/GL/glew.h /usr/local/include/GLFW/glfw3.h
 src/Tree.o: include/GlobalMacros.h include/Logging.h include/MemoryTracker.h
 src/Tree.o: include/HttpDebug.h include/Vertex.h
 src/Tree.o: include/ElementBufferObject.h include/BoundingBox.h
-src/Tree.o: include/Shader.h include/VertexBufferCombo.h include/Species.h
-src/Tree.o: include/rapidjson/document.h include/rapidjson/reader.h
-src/Tree.o: include/rapidjson/allocators.h include/rapidjson/rapidjson.h
-src/Tree.o: include/rapidjson/stream.h include/rapidjson/encodings.h
-src/Tree.o: include/rapidjson/encodedstream.h
+src/Tree.o: include/Shader.h include/VertexBufferCombo.h include/Lockable.h
+src/Tree.o: include/Species.h include/rapidjson/document.h
+src/Tree.o: include/rapidjson/reader.h include/rapidjson/allocators.h
+src/Tree.o: include/rapidjson/rapidjson.h include/rapidjson/stream.h
+src/Tree.o: include/rapidjson/encodings.h include/rapidjson/encodedstream.h
 src/Tree.o: include/rapidjson/memorystream.h
 src/Tree.o: include/rapidjson/internal/clzll.h include/rapidjson/rapidjson.h
 src/Tree.o: include/rapidjson/internal/meta.h
@@ -2188,8 +2201,9 @@ src/VisualObject.o: include/Logging.h include/MemoryTracker.h
 src/VisualObject.o: include/HttpDebug.h include/Vertex.h
 src/VisualObject.o: include/ElementBufferObject.h include/BoundingBox.h
 src/VisualObject.o: include/Shader.h include/VertexBufferCombo.h
-src/VisualObject.o: include/LandSurfaceRegion.h include/Quadtree.h
-src/VisualObject.o: include/DisplayList.h include/LandSurfaceRegionPlanar.h
+src/VisualObject.o: include/Lockable.h include/LandSurfaceRegion.h
+src/VisualObject.o: include/Quadtree.h include/DisplayList.h
+src/VisualObject.o: include/LandSurfaceRegionPlanar.h
 src/Window3D.o: /usr/local/include/GL/glew.h /usr/local/include/GLFW/glfw3.h
 src/Window3D.o: /usr/local/include/cglm/cglm.h
 src/Window3D.o: /usr/local/include/cglm/common.h
@@ -2228,9 +2242,9 @@ src/Window3D.o: include/TexturedRect.h include/Texture.h include/Quadtree.h
 src/Window3D.o: include/DisplayList.h include/VisualObject.h
 src/Window3D.o: include/VisualElement.h include/TriangleBuffer.h
 src/Window3D.o: include/ElementBufferCombo.h include/ElementBufferObject.h
-src/Window3D.o: include/BoundingBox.h include/LandSurfaceRegion.h
-src/Window3D.o: include/LandSurfaceRegionPlanar.h include/Camera.h
-src/Window3D.o: include/HeightMarker.h include/BezierPatch.h
+src/Window3D.o: include/BoundingBox.h include/Lockable.h
+src/Window3D.o: include/LandSurfaceRegion.h include/LandSurfaceRegionPlanar.h
+src/Window3D.o: include/Camera.h include/HeightMarker.h include/BezierPatch.h
 src/Window3D.o: include/rapidjson/document.h include/rapidjson/reader.h
 src/Window3D.o: include/rapidjson/allocators.h include/rapidjson/rapidjson.h
 src/Window3D.o: include/rapidjson/stream.h include/rapidjson/encodings.h
@@ -2338,7 +2352,7 @@ src/WoodySegment.o: include/TruncatedCone.h include/PmodDesign.h
 src/WoodySegment.o: include/LandSurface.h include/TexturedRect.h
 src/WoodySegment.o: include/Texture.h include/Quadtree.h
 src/WoodySegment.o: include/DisplayList.h include/VisualObject.h
-src/WoodySegment.o: include/LandSurfaceRegion.h
+src/WoodySegment.o: include/Lockable.h include/LandSurfaceRegion.h
 src/WoodySegment.o: include/LandSurfaceRegionPlanar.h include/Camera.h
 src/WoodySegment.o: include/HeightMarker.h include/BezierPatch.h
 src/WoodySegment.o: include/PmodConfig.h include/Boundary.h include/Tree.h
@@ -2387,9 +2401,9 @@ src/main.o: include/TexturedRect.h include/Texture.h include/Quadtree.h
 src/main.o: include/DisplayList.h include/VisualObject.h
 src/main.o: include/VisualElement.h include/TriangleBuffer.h
 src/main.o: include/ElementBufferCombo.h include/ElementBufferObject.h
-src/main.o: include/BoundingBox.h include/LandSurfaceRegion.h
-src/main.o: include/LandSurfaceRegionPlanar.h include/Camera.h
-src/main.o: include/HeightMarker.h include/BezierPatch.h
+src/main.o: include/BoundingBox.h include/Lockable.h
+src/main.o: include/LandSurfaceRegion.h include/LandSurfaceRegionPlanar.h
+src/main.o: include/Camera.h include/HeightMarker.h include/BezierPatch.h
 src/main.o: include/rapidjson/document.h include/rapidjson/reader.h
 src/main.o: include/rapidjson/allocators.h include/rapidjson/rapidjson.h
 src/main.o: include/rapidjson/stream.h include/rapidjson/encodings.h
