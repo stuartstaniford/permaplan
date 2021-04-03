@@ -4,10 +4,12 @@
 #ifndef TASK_QUEUE_H
 #define TASK_QUEUE_H
 
+#include "Lockable.h"
+
 // =======================================================================================
 // Class variable initialization
 
-class TaskQueue
+class TaskQueue: public Lockable
 {
 public:
   
@@ -16,6 +18,8 @@ public:
   // Member functions - public
   TaskQueue(void);
   ~TaskQueue(void);
+  void workLoop(void);
+  void addTask(void);
   
 private:
   
