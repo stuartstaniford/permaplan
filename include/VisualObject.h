@@ -10,7 +10,7 @@
 #define VISUAL_OBJECT_H
 
 #include "VisualElement.h"
-#include <pthread.h>
+#include "Lockable.h"
 
 // =======================================================================================
 // Class variable initialization
@@ -18,7 +18,7 @@
 class LandSurfaceRegion;
 class Quadtree;
 
-class VisualObject: public VisualElement
+class VisualObject: public Lockable, public VisualElement 
 {
   friend Quadtree;
  public:
@@ -54,18 +54,6 @@ class VisualObject: public VisualElement
 #ifdef LOG_TREE_VALIDATION
   virtual void        selfValidate(unsigned l);
 #endif
-  inline void lock(void)
-   {
-#ifdef MULTI_THREADED_SIMULATION
-    if(pthread_mutex_lock(&mutex)) err(-1, "Lock failure.\n");
-#endif
-   }
-  inline void unlock(void)
-   {
-#ifdef MULTI_THREADED_SIMULATION
-    if(pthread_mutex_unlock(&mutex)) err(-1, "Unlock failure.\n");
-#endif
-   }
 
  protected:
   
@@ -76,9 +64,6 @@ class VisualObject: public VisualElement
   bool            useNoTexColor;
   bool            absoluteHeights;  // if true, heights are absolute.  Otherwise, they
                                   // are relative to local ground level.
-#ifdef MULTI_THREADED_SIMULATION
-  pthread_mutex_t mutex;
-#endif
 
 private:
   

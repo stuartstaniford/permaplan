@@ -9,6 +9,9 @@
 
 Lockable::Lockable(void)
 {
+#ifdef MULTI_THREADED_SIMULATION
+  pthread_mutex_init(&mutex, NULL);
+#endif
 }
 
 
@@ -17,6 +20,9 @@ Lockable::Lockable(void)
 
 Lockable::~Lockable(void)
 {
+#ifdef MULTI_THREADED_SIMULATION
+  pthread_mutex_destroy(&mutex);
+#endif
 }
 
 
