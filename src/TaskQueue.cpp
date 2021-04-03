@@ -7,7 +7,9 @@
 // =======================================================================================
 // Constructor
 
-TaskQueue::TaskQueue(void)
+TaskQueue::TaskQueue(void):
+                    tasksQueued(0u),
+                    timeToDie(false)
 {
   if(pthread_cond_init(&taskWait, NULL))
     err(-1, "Couldn't initialize taskWait in TaskQueue::TaskQueue.");
@@ -19,6 +21,8 @@ TaskQueue::TaskQueue(void)
 
 TaskQueue::~TaskQueue(void)
 {
+  if(pthread_cond_destroy(&taskWait))
+    err(-1, "Couldn't destroy taskWait in TaskQueue::~TaskQueue.");
 }
 
 
@@ -29,6 +33,18 @@ TaskQueue::~TaskQueue(void)
 
 void TaskQueue::workLoop(void)
 {
+  while(!timeToDie)
+   {
+    lock();
+    while (!tasksQueued)
+      pthread_cond_wait(&taskWait, &mutex);
+
+    // remove the task from the queue
+    tasksQueued--;
+    unlock();
+    
+    // perform the task
+   }
 }
 
 
@@ -37,6 +53,14 @@ void TaskQueue::workLoop(void)
 
 void TaskQueue::addTask(void)
 {
+  lock();
+  
+  // add a task to the queue
+  
+  tasksQueued++;
+  pthread_cond_signal(&taskWait);
+  unlock();
+
 }
 
 

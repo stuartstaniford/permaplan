@@ -4,7 +4,9 @@
 
 #ifndef LOCKABLE_H
 #define LOCKABLE_H
+#include "GlobalMacros.h"
 #include <pthread.h>
+#include <err.h>
 
 // =======================================================================================
 // Class variable initialization

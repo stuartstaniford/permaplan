@@ -20,10 +20,13 @@ public:
   ~TaskQueue(void);
   void workLoop(void);
   void addTask(void);
+  inline void die(void){timeToDie = true;}
   
 private:
   pthread_cond_t           taskWait;
-
+  unsigned                 tasksQueued;
+  bool                     timeToDie;
+  
   // Instance variables - private
   
   // Member functions - private
