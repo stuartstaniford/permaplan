@@ -4,8 +4,31 @@
 #include "TaskQueue.h"
 #include <err.h>
 
+
 // =======================================================================================
-// Constructor
+// Constructor for individual task
+
+Task::Task(void (*work)(void*), void* arg):
+                            doWork(work),
+                            theArg(arg)
+{
+  
+}
+
+
+// =======================================================================================
+// C wrapper for pthread_create
+
+void* startWorkThread(void* arg)
+{
+  TaskQueue* queue = (TaskQueue*)arg;
+  queue->workLoop();
+  return NULL;
+}
+
+
+// =======================================================================================
+// Constructor for entire task queue
 
 TaskQueue::TaskQueue(void):
                     tasksQueued(0u),
@@ -13,6 +36,12 @@ TaskQueue::TaskQueue(void):
 {
   if(pthread_cond_init(&taskWait, NULL))
     err(-1, "Couldn't initialize taskWait in TaskQueue::TaskQueue.");
+
+  // Start the worker thread  
+  int pthreadErr;
+
+  if((pthreadErr = pthread_create(&workerThread, NULL, startWorkThread, (void*)this)) != 0)
+    err(-1, "Couldn't spawn worker thread for TaskQueue.\n");
 }
 
 
@@ -39,11 +68,15 @@ void TaskQueue::workLoop(void)
     while (!tasksQueued)
       pthread_cond_wait(&taskWait, &mutex);
 
-    // remove the task from the queue
+    // remove a task from the queue
+    Task* task = back();
+    pop_back();
     tasksQueued--;
     unlock();
     
-    // perform the task
+    // perform the task (having released the taskqueue lock)
+    task->doWork(task->theArg);
+    delete task;
    }
 }
 
@@ -51,16 +84,16 @@ void TaskQueue::workLoop(void)
 // =======================================================================================
 // Function called to add a task to this particular queue.
 
-void TaskQueue::addTask(void)
+void TaskQueue::addTask(Task* task)
 {
   lock();
   
   // add a task to the queue
-  
+  push_front(task);  
   tasksQueued++;
+  
   pthread_cond_signal(&taskWait);
   unlock();
-
 }
 
 

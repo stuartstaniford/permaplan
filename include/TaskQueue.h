@@ -5,12 +5,25 @@
 #define TASK_QUEUE_H
 
 #include "Lockable.h"
-#include <forward_list>
+#include <list>
 
 // =======================================================================================
 // Class variable initialization
 
-class TaskQueue: public std::forward_list<void*>, public Lockable
+class Task
+{
+ public:
+  
+  // public methods
+  Task(void (*work)(void*), void* arg);
+  
+  // member variables
+  void (*doWork)(void*);
+  void* theArg;  
+};
+
+
+class TaskQueue: public std::list<Task*>, public Lockable
 {
 public:
   
@@ -20,13 +33,14 @@ public:
   TaskQueue(void);
   ~TaskQueue(void);
   void workLoop(void);
-  void addTask(void);
+  void addTask(Task* task);
   inline void die(void){timeToDie = true;}
   
 private:
   pthread_cond_t           taskWait;
   unsigned                 tasksQueued;
   bool                     timeToDie;
+  pthread_t                workerThread;
   
   // Instance variables - private
   
