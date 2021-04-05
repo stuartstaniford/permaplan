@@ -37,9 +37,7 @@ public:
 protected:
   
   // Instance variables - protected
-#ifdef MULTI_THREADED_SIMULATION
   pthread_mutex_t           mutex;
-#endif
 
   // Member functions - private
   Lockable(const Lockable&);                 // Prevent copy-construction
