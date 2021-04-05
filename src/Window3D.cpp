@@ -156,7 +156,7 @@ void Window3D::loop(HttpDebug& httpServer)
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glfwGetWindowSize(window, &width, &height); // make sure we know current size
     
-    scene->getLock();
+    scene->lock();
 
     // Do our actual drawing and deliver to screen window
     scene->draw(mouseMoved, (float)(frameDouble - lastFrameDouble));
@@ -171,7 +171,7 @@ void Window3D::loop(HttpDebug& httpServer)
     else
       LogMouseLocation("ImGui has mouse\n");
 
-    scene->releaseLock();
+    scene->unlock();
 
     // Final book-keeping for this spin of the loop
     lastFrameDouble = frameDouble;

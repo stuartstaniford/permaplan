@@ -42,7 +42,6 @@ Scene::Scene():
                        0.0f, 0.0f, 1.0f, 1.0f, minSize, 0u, 0u, NULL);
   land.bufferGeometry(qtree);
   Tree::readTreesFromDesign(qtree);
-  pthread_mutex_init(&lock, NULL);
   rebuildVisualObjectBuffer(&sceneObjectTbuf);
 }
 
@@ -82,24 +81,6 @@ void Scene::startSimulationThreads(void)
 }
 
 #endif
-
-
-// =======================================================================================
-// Lock the main scene lock.
-
-void Scene::getLock(void)
-{
-  pthread_mutex_lock(&lock);
-}
-
-
-// =======================================================================================
-// Release the main scene lock.
-
-void Scene::releaseLock(void)
-{
-  pthread_mutex_unlock(&lock);
-}
 
 
 // =======================================================================================

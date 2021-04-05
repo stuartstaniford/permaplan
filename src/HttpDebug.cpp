@@ -219,7 +219,7 @@ bool HttpDebug::processRequestHeader(void)
   if( (strlen(url) == 1 && url[0] == '/') || strncmp(url, "/index.", 7) == 0)
     return indexPage();
 
-  scene.getLock();
+  scene.lock();
   bool retVal = false;
   
   if( strlen(url) >= 6 && strncmp(url, "/quad/", 6) == 0)
@@ -252,7 +252,7 @@ bool HttpDebug::processRequestHeader(void)
     errorPage("Resource not found");
    }
   
-  scene.releaseLock();
+  scene.unlock();
 
   return retVal;
 }
