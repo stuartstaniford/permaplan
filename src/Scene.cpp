@@ -31,7 +31,8 @@ Scene::Scene():
                 doSimulation(false),
                 simYear(SIMULATION_BASE_YEAR)
 #ifdef MULTI_THREADED_SIMULATION
-                , taskQueues(NULL)                // initialized later in startSimulationThreads
+                , tasksOutstanding(0u),
+                taskQueues(NULL)                // initialized later in startSimulationThreads
 #endif
 {
   unsigned minSize = 50;
@@ -43,6 +44,10 @@ Scene::Scene():
   land.bufferGeometry(qtree);
   Tree::readTreesFromDesign(qtree);
   rebuildVisualObjectBuffer(&sceneObjectTbuf);
+#ifdef MULTI_THREADED_SIMULATION
+  if(pthread_cond_init(&tasksUnfinished, NULL))
+    err(-1, "Couldn't initialize tasksUnfinished in Scene::Scene.");
+#endif
 }
 
 
@@ -54,13 +59,21 @@ Scene::~Scene(void)
   if(axes)
     delete axes;
 
+#ifdef MULTI_THREADED_SIMULATION
   const PmodConfig& config = PmodConfig::getConfig();
   for(int s=0; s<config.nSimThreads; s++)
     taskQueues[s]->die();
+  if(pthread_cond_destroy(&tasksUnfinished))
+    err(-1, "Couldn't destroy tasksUnfinished in Scene::~Scene.");
+#endif
+  
   saveState();
+
+#ifdef MULTI_THREADED_SIMULATION
   for(int s=0; s<config.nSimThreads; s++)
     delete taskQueues[s];
-  delete taskQueues;  
+  delete[] taskQueues;  
+#endif
 }
 
 

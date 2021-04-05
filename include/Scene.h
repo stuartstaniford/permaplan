@@ -82,6 +82,8 @@ class Scene: public Lockable
   bool              doSimulation;
   float             simYear;
 #ifdef MULTI_THREADED_SIMULATION
+  pthread_cond_t    tasksUnfinished;
+  unsigned          tasksOutstanding;
   TaskQueue**       taskQueues;
 #endif
 
