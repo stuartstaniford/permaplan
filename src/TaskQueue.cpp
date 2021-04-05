@@ -2,6 +2,7 @@
 // Task queue class for use in multi-threaded version.
 
 #include "TaskQueue.h"
+#include "Logging.h"
 #include <err.h>
 
 
@@ -30,8 +31,9 @@ void* startWorkThread(void* arg)
 // =======================================================================================
 // Constructor for entire task queue
 
-TaskQueue::TaskQueue(void):
+TaskQueue::TaskQueue(unsigned index):
                     tasksQueued(0u),
+                    queueIndex(index),
                     timeToDie(false)
 {
   if(pthread_cond_init(&taskWait, NULL))
@@ -42,6 +44,8 @@ TaskQueue::TaskQueue(void):
 
   if((pthreadErr = pthread_create(&workerThread, NULL, startWorkThread, (void*)this)) != 0)
     err(-1, "Couldn't spawn worker thread for TaskQueue.\n");
+
+  LogSimulationControls("Starting simulation thread %u.\n", queueIndex);
 }
 
 
@@ -84,8 +88,10 @@ void TaskQueue::workLoop(void)
 // =======================================================================================
 // Function called to add a task to this particular queue.
 
-void TaskQueue::addTask(Task* task)
+void TaskQueue::addTask(void (*work)(void*), void* arg)
 {
+  Task* task = new Task(work, arg);
+
   lock();
   
   // add a task to the queue

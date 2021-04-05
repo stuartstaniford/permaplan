@@ -31,7 +31,7 @@ Scene::Scene():
                 doSimulation(false),
                 simYear(SIMULATION_BASE_YEAR)
 #ifdef MULTI_THREADED_SIMULATION
-                , simThreads(NULL)                // initialized later in startSimulationThreads
+                , taskQueues(NULL)                // initialized later in startSimulationThreads
 #endif
 {
   unsigned minSize = 50;
@@ -54,40 +54,31 @@ Scene::~Scene(void)
 {
   if(axes)
     delete axes;
+
+  const PmodConfig& config = PmodConfig::getConfig();
+  for(int s=0; s<config.nSimThreads; s++)
+    taskQueues[s]->die();
   saveState();
-}
-
-
-// =======================================================================================
-// C function to launder C++ method into pthread_create
-
-#ifdef MULTI_THREADED_SIMULATION
-
-void* spawnSimThread(void* arg)
-{
-  int s = (long long)arg;
-
-  LogSimulationControls("Starting simulation thread %d.\n", s);
-  Tree::simulationThreadBase(s);
-  return NULL;
+  for(int s=0; s<config.nSimThreads; s++)
+    delete taskQueues[s];
+  delete taskQueues;  
 }
 
 
 // =======================================================================================
 // Start up the simulation threads
 
+#ifdef MULTI_THREADED_SIMULATION
+
 void Scene::startSimulationThreads(void)
 {
   const PmodConfig& config = PmodConfig::getConfig();
 
-  simThreads = new pthread_t[config.nSimThreads];
-  assert(simThreads);
+  taskQueues = new TaskQueue*[config.nSimThreads];
+  assert(taskQueues);
   
-  int pthreadErr;
-
-  for(long long s=0; s<config.nSimThreads; s++)
-    if((pthreadErr = pthread_create(simThreads + s, NULL, spawnSimThread, (void*)s)) != 0)
-      err(-1, "Couldn't spawn simulation thread %lld.\n", s);
+  for(unsigned s=0; s<config.nSimThreads; s++)
+    taskQueues[s] = new TaskQueue(s);
 }
 
 #endif

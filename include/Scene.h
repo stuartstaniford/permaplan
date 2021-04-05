@@ -19,6 +19,7 @@
 #include "LightingModel.h"
 #include "Species.h"
 #include "CO2Scenario.h"
+#include "TaskQueue.h"
 
 
 #define SIMULATION_BASE_YEAR 1900.0f
@@ -84,7 +85,7 @@ class Scene
   float             simYear;
   pthread_mutex_t   lock;
 #ifdef MULTI_THREADED_SIMULATION
-  pthread_t*        simThreads;
+  TaskQueue**       taskQueues;
 #endif
 
   // Member functions - private

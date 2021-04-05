@@ -25,20 +25,21 @@ class Task
 
 class TaskQueue: public std::list<Task*>, public Lockable
 {
-public:
+ public:
   
   // Instance variables - public
   
   // Member functions - public
-  TaskQueue(void);
+  TaskQueue(unsigned index);
   ~TaskQueue(void);
   void workLoop(void);
-  void addTask(Task* task);
+  void addTask(void (*work)(void*), void* arg);
   inline void die(void){timeToDie = true;}
   
 private:
   pthread_cond_t           taskWait;
   unsigned                 tasksQueued;
+  unsigned                 queueIndex;
   bool                     timeToDie;
   pthread_t                workerThread;
   
