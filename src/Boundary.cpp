@@ -6,7 +6,7 @@
 #include "Boundary.h"
 #include "PmodConfig.h"
 #include "Logging.h"
-#include "GlobalMacros.h"
+#include "Global.h"
 
 // =======================================================================================
 // Constructors

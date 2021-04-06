@@ -25,6 +25,7 @@ class Task
 
 class TaskQueue: public std::list<Task*>, public Lockable
 {
+  
  public:
   
   // Instance variables - public

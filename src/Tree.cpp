@@ -7,6 +7,7 @@
 #include "PmodDesign.h"
 #include "Scene.h"
 #include "SkySampleModel.h"
+#include "TaskQueueFarm.h"
 
 unsigned short Tree::treeCount = 0u;
 Tree** Tree::treePtrArray = new Tree*[TREE_ARRAY_SIZE];
@@ -171,13 +172,16 @@ float Tree::estimateOpacity(vec3 direction)
 
 
 // =======================================================================================
-// Static function that handles a single tree simulation thread.
+// C function to pass to TaskQueue.
 
 #ifdef MULTI_THREADED_SIMULATION
 
-void Tree::simulationThreadBase(int s)
+void growOneTree(void* arg)
 {
-
+  Tree* tree = (Tree*)arg;
+  tree->growStep(tree->yearsToSim);
+  
+  threadFarm->notifyTaskDone();   
 }
 
 
@@ -185,7 +189,7 @@ void Tree::simulationThreadBase(int s)
 // Static function that processes all the trees into a graph of copses, and assigns
 // the simulation work to different threads.
 
-void Tree::analyzeTreeGraph(float years)
+void Tree::analyzeTreeGraph(float years, Scene& scene)
 {
   SkySampleModel& sky = SkySampleModel::getSkySampleModel();
   int arraySize = treeCount*(treeCount-1)/2;  // store only below the diagonal of matrix
@@ -242,8 +246,15 @@ void Tree::analyzeTreeGraph(float years)
      }
    }  
 
+  // Now apportion the work to the threads
+
   for(int i=0; i<treeCount;i++)  
-    treePtrArray[i]->growStep(years);
+   {
+    treePtrArray[i]->yearsToSim = years;
+    threadFarm->addTask(i, growOneTree, treePtrArray+i);
+   }
+  
+  threadFarm->waitOnEmptyFarm();
 }
 
 

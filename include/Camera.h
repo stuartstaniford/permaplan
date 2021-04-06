@@ -7,7 +7,7 @@
 #include <cglm/cglm.h>
 #include "Shader.h"
 #include "HttpDebug.h"
-#include "GlobalMacros.h"
+#include "Global.h"
 
 
 // Define flags used for passing multiple camera ops in parallel.  Intended to go

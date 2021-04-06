@@ -5,7 +5,7 @@
 #define LEAF_MODEL_IMPLEMENTATION
 
 #include "LeafModel.h"
-#include "GlobalMacros.h"
+#include "Global.h"
 #include "Logging.h"
 #include <cstdio>
 #include <err.h>

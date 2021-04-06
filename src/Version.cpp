@@ -4,7 +4,7 @@
 #define VERSION_IMPLEMENTATION
 
 #include "Version.h"
-#include "GlobalMacros.h"
+#include "Global.h"
 #include <cstdio>
 #include <err.h>
 

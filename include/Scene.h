@@ -81,11 +81,6 @@ class Scene: public Lockable
   Grid*             grid;
   bool              doSimulation;
   float             simYear;
-#ifdef MULTI_THREADED_SIMULATION
-  pthread_cond_t    tasksUnfinished;
-  unsigned          tasksOutstanding;
-  TaskQueue**       taskQueues;
-#endif
 
   // Member functions - private
   void setModelMatrix(float latt, float longt);

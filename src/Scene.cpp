@@ -30,10 +30,6 @@ Scene::Scene():
                 grid(NULL),
                 doSimulation(false),
                 simYear(SIMULATION_BASE_YEAR)
-#ifdef MULTI_THREADED_SIMULATION
-                , tasksOutstanding(0u),
-                taskQueues(NULL)                // initialized later in startSimulationThreads
-#endif
 {
   unsigned minSize = 50;
   // Note that land and qtree have mutual dependencies that means there
@@ -44,10 +40,6 @@ Scene::Scene():
   land.bufferGeometry(qtree);
   Tree::readTreesFromDesign(qtree);
   rebuildVisualObjectBuffer(&sceneObjectTbuf);
-#ifdef MULTI_THREADED_SIMULATION
-  if(pthread_cond_init(&tasksUnfinished, NULL))
-    err(-1, "Couldn't initialize tasksUnfinished in Scene::Scene.");
-#endif
 }
 
 
@@ -57,43 +49,9 @@ Scene::Scene():
 Scene::~Scene(void)
 {
   if(axes)
-    delete axes;
-
-#ifdef MULTI_THREADED_SIMULATION
-  const PmodConfig& config = PmodConfig::getConfig();
-  for(int s=0; s<config.nSimThreads; s++)
-    taskQueues[s]->die();
-  if(pthread_cond_destroy(&tasksUnfinished))
-    err(-1, "Couldn't destroy tasksUnfinished in Scene::~Scene.");
-#endif
-  
+    delete axes;  
   saveState();
-
-#ifdef MULTI_THREADED_SIMULATION
-  for(int s=0; s<config.nSimThreads; s++)
-    delete taskQueues[s];
-  delete[] taskQueues;  
-#endif
 }
-
-
-// =======================================================================================
-// Start up the simulation threads
-
-#ifdef MULTI_THREADED_SIMULATION
-
-void Scene::startSimulationThreads(void)
-{
-  const PmodConfig& config = PmodConfig::getConfig();
-
-  taskQueues = new TaskQueue*[config.nSimThreads];
-  assert(taskQueues);
-  
-  for(unsigned s=0; s<config.nSimThreads; s++)
-    taskQueues[s] = new TaskQueue(s);
-}
-
-#endif
 
 
 // =======================================================================================
@@ -349,7 +307,7 @@ void Scene::draw(bool mouseMoved, float timeElapsed)
    {
     simYear += timeElapsed*simulationSpeed;
 #ifdef MULTI_THREADED_SIMULATION
-    Tree::analyzeTreeGraph(timeElapsed*simulationSpeed);
+    Tree::analyzeTreeGraph(timeElapsed*simulationSpeed, *this);
 #else
     Tree::growAllTrees(timeElapsed*simulationSpeed);
 #endif

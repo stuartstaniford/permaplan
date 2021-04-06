@@ -12,7 +12,7 @@
 #include <math.h>
 #include "loadFileToBuf.h"
 #include "Logging.h"
-#include "GlobalMacros.h"
+#include "Global.h"
 #include "Tree.h"
 
 

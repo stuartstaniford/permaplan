@@ -13,7 +13,7 @@
 #include <vector>
 #include "TextureAtlas.h"
 #include "Logging.h"
-#include "GlobalMacros.h"
+#include "Global.h"
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "stb_image_write.h"
 

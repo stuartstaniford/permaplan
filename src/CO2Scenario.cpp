@@ -4,7 +4,7 @@
 
 #include "CO2Scenario.h"
 #include "Logging.h"
-#include "GlobalMacros.h"
+#include "Global.h"
 #include "loadFileToBuf.h"
 
 // =======================================================================================

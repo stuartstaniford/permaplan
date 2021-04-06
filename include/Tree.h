@@ -21,10 +21,13 @@
 
 class WoodySegment;
 
+void growOneTree(void* arg);
+
 class Tree: public VisualObject
 {
   friend WoodySegment;
-  
+  friend void growOneTree(void* arg);
+
  public:
   
   // Instance variables - public
@@ -68,7 +71,7 @@ class Tree: public VisualObject
   static void readTreesFromDesign(Quadtree* qtree);
 #ifdef MULTI_THREADED_SIMULATION
   static void simulationThreadBase(int s);
-  static void analyzeTreeGraph(float years);
+  static void analyzeTreeGraph(float years, Scene& scene);
 #else
   static void growAllTrees(float years);
 #endif
@@ -81,6 +84,7 @@ class Tree: public VisualObject
   // Instance variables - private
   vec3      location;
   TreePart* trunk;
+  float     yearsToSim;
   
   // static array used to allow a short index from treeParts
   static Tree** treePtrArray;

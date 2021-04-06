@@ -6,7 +6,7 @@
 #include "Species.h"
 #include <err.h>
 #include "loadFileToBuf.h"
-#include "GlobalMacros.h"
+#include "Global.h"
 #include "PmodConfig.h"
 #include "PmodDesign.h"
 

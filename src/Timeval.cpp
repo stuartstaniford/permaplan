@@ -2,7 +2,7 @@
 // Wrapper around struct timeval to make manipulations a little easier.
 
 #include "Timeval.h"
-#include "GlobalMacros.h"
+#include "Global.h"
 #include <time.h>
 #include <sys/time.h>
 #include <stdlib.h>

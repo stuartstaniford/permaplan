@@ -4,7 +4,7 @@
 
 #ifndef LOCKABLE_H
 #define LOCKABLE_H
-#include "GlobalMacros.h"
+#include "Global.h"
 #include <pthread.h>
 #include <err.h>
 
