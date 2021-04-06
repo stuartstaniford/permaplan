@@ -251,7 +251,7 @@ void Tree::analyzeTreeGraph(float years, Scene& scene)
   for(int i=0; i<treeCount;i++)  
    {
     treePtrArray[i]->yearsToSim = years;
-    threadFarm->addTask(i, growOneTree, treePtrArray+i);
+    threadFarm->addTask(i, growOneTree, treePtrArray[i]);
    }
   
   threadFarm->waitOnEmptyFarm();
