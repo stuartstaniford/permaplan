@@ -6,6 +6,7 @@
 #define TASK_QUEUE_FARM_H
 
 #include "TaskQueue.h"
+#include "HttpDebug.h"
 
 // =======================================================================================
 // Class variable initialization
@@ -22,7 +23,8 @@ public:
   void addTask(unsigned i, void (*work)(void*), void* arg);
   void notifyTaskDone(void);
   void waitOnEmptyFarm(void);
- 
+  bool diagnosticHTML(HttpDebug* serv);
+
 private:
   
   // Instance variables - private

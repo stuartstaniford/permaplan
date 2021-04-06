@@ -77,3 +77,31 @@ void TaskQueueFarm::waitOnEmptyFarm(void)
 
 
 // =======================================================================================
+// Provide a diagnostic page with a table about all the task queues
+
+bool TaskQueueFarm::diagnosticHTML(HttpDebug* serv)
+{
+  serv->startResponsePage("Task Queues");
+  
+  httPrintf("<center>\n");
+  lock();
+  httPrintf("<b>Overall tasks:</b> %u\n", tasksOutstanding);
+  unlock();
+  
+  serv->startTable();
+  httPrintf("<tr><th>Index</th><th>Task Count</th></tr>\n");
+  
+  for(int i=0; i < nQ; i++)
+   {
+    taskQueues[i]->lock();
+    httPrintf("<tr><td>%d</td><td>%u</td></tr>\n", i, taskQueues[i]->queueSize());
+    taskQueues[i]->unlock();
+   }
+  
+  httPrintf("</table></center><hr>\n");
+  if(!serv->endResponsePage())
+    return false;
+  return true;
+}
+
+// =======================================================================================

@@ -34,6 +34,7 @@ class TaskQueue: public std::list<Task*>, public Lockable
   TaskQueue(unsigned index);
   ~TaskQueue(void);
   void workLoop(void);
+  inline unsigned queueSize(void) {return tasksQueued;}
   void addTask(void (*work)(void*), void* arg);
   inline void die(void){timeToDie = true;}
   
