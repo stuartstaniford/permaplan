@@ -90,6 +90,10 @@ void SkySampleModel::setSamples(void)
     if(point[0]*point[0] + point[1]*point[1] + point[2]*point[2] > sphereRadius*sphereRadius)
       continue;
     
+    // get rid of things that will cause numerical blow-ups.
+    if(fabs(point[1]) < EPSILON)
+      continue;
+      
     glm_vec3_scale_as(point, 1.0f, samples[pointsAchieved]);
     samples[pointsAchieved][3] = 3.14159f;
     
@@ -159,24 +163,50 @@ float SkySampleModel::declination(float dayOfYear)
 
 
 // =======================================================================================
+// Helper function for diagnosticHTML to do one row of main tables
+
+bool SkySampleModel::oneSampleRow(HttpDebug* serv, int i)
+{
+  vec4& sample = samples[i];
+  float azimuth = atanf(sample[0]/sample[1])*180.0f/M_PI;
+  float elevation = atanf(sample[2]
+                          /sqrt(sample[0]*sample[0] + sample[1]*sample[1]))*180.0f/M_PI;
+    
+  httPrintf("<tr><td>%d</td><td>%.1f</td><td>%.1f</td><td>%.1f</td>",
+            i, azimuth, elevation, sample[3]);
+  httPrintf("<td>%.3f</td><td>%.3f</td><td>%.3f</td></tr>\n", sample[0], sample[1], sample[2]);
+  return true;
+}
+
+
+// =======================================================================================
 // Provide a diagnostic page with a table about all the current sky samples
 
 bool SkySampleModel::diagnosticHTML(HttpDebug* serv)
 {
-  serv->startResponsePage("Sky Samples");
+  unless(serv->startResponsePage("Sky Samples"))
+    return false;
   
   httPrintf("<center>\n");
   
-  serv->startTable();
-  httPrintf("<tr><th>Sample</th><th>Azimuth</th><th>Altitude</th><th>Photon Flux</th><th>X</th><th>Y</th><th>Z</th></tr>\n");
-  
-  for(int i=0; i < SKY_SAMPLES; i++)
-   {
-    vec4& sample = samples[i];
-    httPrintf("<tr>%d<td></td><td>Azimuth</td><td>Altitude</td><td>%.1f</td>",
-              i, sample[3]);
-    httPrintf("<td>%.3f</td><td>%.3f</td><td>%.3f</td></tr>\n", sample[0], sample[1], sample[2]);
-   }
+  // The direct (sunlit) samples
+  httPrintf("<h2>Direct/Sunlit sample vectors</h2>\n");
+  unless(serv->startTable())
+    return false;
+  httPrintf("<tr><th>Sample</th><th>Azimuth</th><th>Elevation</th><th>Photon Flux</th><th>X</th><th>Y</th><th>Z</th></tr>\n");
+  for(int i=0; i < SKY_SAMPLES/2; i++)
+    unless(oneSampleRow(serv, i))
+      return false;
+  httPrintf("</table><hr>\n");
+
+  // The indirect (scattered/overcast) samples
+  httPrintf("<h2>Indirect (scattered/overcast) sample vectors</h2>\n");
+  unless(serv->startTable())
+    return false;
+  httPrintf("<tr><th>Sample</th><th>Azimuth</th><th>Elevation</th><th>Photon Flux</th><th>X</th><th>Y</th><th>Z</th></tr>\n");
+  for(int i=SKY_SAMPLES/2; i < SKY_SAMPLES; i++)
+    unless(oneSampleRow(serv, i))
+      return false;
   
   httPrintf("</table></center><hr>\n");
   if(!serv->endResponsePage())

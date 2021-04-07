@@ -72,6 +72,7 @@ public:
   void setSamples(void);
   unsigned treesInteract(BoundingBox* B1, BoundingBox* B2);
   bool treesCluster(BoundingBox* B1, BoundingBox* B2);
+  bool oneSampleRow(HttpDebug* serv, int i);
   bool diagnosticHTML(HttpDebug* serv);
 
   static SkySampleModel& getSkySampleModel(void) // Get the singleton instance
