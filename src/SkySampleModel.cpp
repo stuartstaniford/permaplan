@@ -90,9 +90,9 @@ void SkySampleModel::setSamples(void)
     if(point[0]*point[0] + point[1]*point[1] + point[2]*point[2] > sphereRadius*sphereRadius)
       continue;
     
-    //XX need to finish up in here
+    glm_vec3_scale_as(point, 1.0f, samples[pointsAchieved]);
+    samples[pointsAchieved][3] = 3.14159f;
     
-    samples[pointsAchieved][0] = 1.0f;
     pointsAchieved++;
    }
 }
@@ -155,7 +155,30 @@ float SkySampleModel::declination(float dayOfYear)
 {
   return -asinf(0.39779*cosf(0.017202838*(dayOfYear+10.0f)
                           +0.033405602*sinf(0.017202838*(dayOfYear-2.0f))))/2/M_PI*360.0f;
-  
 }
+
+
+// =======================================================================================
+// Provide a diagnostic page with a table about all the current sky samples
+
+bool SkySampleModel::diagnosticHTML(HttpDebug* serv)
+{
+  serv->startResponsePage("Sky Samples");
+  
+  httPrintf("<center>\n");
+  
+  serv->startTable();
+  httPrintf("<tr><th>Azimuth</th><th>Altitude</th><th>Photon Flux</th><th>X</th><th>Y</th><th>Z</th></tr>\n");
+  
+  for(int i=0; i < SKY_SAMPLES; i++)
+   {
+   }
+  
+  httPrintf("</table></center><hr>\n");
+  if(!serv->endResponsePage())
+    return false;
+  return true;
+}
+
 
 // =======================================================================================

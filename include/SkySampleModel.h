@@ -47,6 +47,7 @@
 
 #include <cglm/cglm.h>
 #include "BoundingBox.h"
+#include "HttpDebug.h"
 
 // =======================================================================================
 // Class variable initialization
@@ -71,6 +72,7 @@ public:
   void setSamples(void);
   unsigned treesInteract(BoundingBox* B1, BoundingBox* B2);
   bool treesCluster(BoundingBox* B1, BoundingBox* B2);
+  bool diagnosticHTML(HttpDebug* serv);
 
   static SkySampleModel& getSkySampleModel(void) // Get the singleton instance
   {

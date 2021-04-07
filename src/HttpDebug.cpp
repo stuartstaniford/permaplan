@@ -19,6 +19,7 @@
 #include "Tree.h"
 #include "MemoryTracker.h"
 #include "TaskQueueFarm.h"
+#include "SkySampleModel.h"
 
 #define SA struct sockaddr
 
@@ -164,6 +165,10 @@ bool HttpDebug::indexPage(void)
   internalPrintf("<tr><td><a href=\"/taskqueues/\">taskqueues/</a></td>");
   internalPrintf("<td>Task Queue status</td></tr>\n");
 
+  // Sky Samples
+  internalPrintf("<tr><td><a href=\"/skysamples/\">skysamples/</a></td>");
+  internalPrintf("<td>Current sky sampling vectors</td></tr>\n");
+
   // End table and page
   internalPrintf("</table></center>\n");
   endResponsePage();
@@ -254,6 +259,12 @@ bool HttpDebug::processRequestHeader(void)
   else if( strlen(url) == 12 && strncmp(url, "/taskqueues/", 12) == 0)
     retVal =  threadFarm->diagnosticHTML(this);
 
+  else if( strlen(url) == 12 && strncmp(url, "/skysamples/", 12) == 0)
+   {
+    SkySampleModel& sky = SkySampleModel::getSkySampleModel();
+    retVal =  sky.diagnosticHTML(this);
+   }
+  
   else
    {
     LogRequestErrors("Request for unknown resource %s\n", url);
