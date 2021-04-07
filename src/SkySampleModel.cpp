@@ -40,6 +40,25 @@ SkySampleModel::SkySampleModel(float lat):
   else
     theSingleton = this;
 
+  setSamples();
+}
+
+
+// =======================================================================================
+// Destructor
+
+SkySampleModel::~SkySampleModel(void)
+{
+}
+
+
+// =======================================================================================
+// Function that gives us a new random distribution in the samples (which we do 
+// periodically throughout the simulation to increase overall sampling power, rather than 
+// using the same ones year after simulated year.
+
+void SkySampleModel::setSamples(void)
+{
   // We use half the SKY_SAMPLES to estimate the effect of direct sunlight, and the
   // other half to estimate the effect of indirect (scattered) sunlight.
   
@@ -76,14 +95,6 @@ SkySampleModel::SkySampleModel(float lat):
     samples[pointsAchieved][0] = 1.0f;
     pointsAchieved++;
    }
-}
-
-
-// =======================================================================================
-// Destructor
-
-SkySampleModel::~SkySampleModel(void)
-{
 }
 
 

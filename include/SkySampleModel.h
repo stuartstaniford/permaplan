@@ -68,6 +68,7 @@ public:
   // Member functions - public
   SkySampleModel(float lat);
   ~SkySampleModel(void);
+  void setSamples(void);
   unsigned treesInteract(BoundingBox* B1, BoundingBox* B2);
   bool treesCluster(BoundingBox* B1, BoundingBox* B2);
 
