@@ -168,10 +168,14 @@ bool SkySampleModel::diagnosticHTML(HttpDebug* serv)
   httPrintf("<center>\n");
   
   serv->startTable();
-  httPrintf("<tr><th>Azimuth</th><th>Altitude</th><th>Photon Flux</th><th>X</th><th>Y</th><th>Z</th></tr>\n");
+  httPrintf("<tr><th>Sample</th><th>Azimuth</th><th>Altitude</th><th>Photon Flux</th><th>X</th><th>Y</th><th>Z</th></tr>\n");
   
   for(int i=0; i < SKY_SAMPLES; i++)
    {
+    vec4& sample = samples[i];
+    httPrintf("<tr>%d<td></td><td>Azimuth</td><td>Altitude</td><td>%.1f</td>",
+              i, sample[3]);
+    httPrintf("<td>%.3f</td><td>%.3f</td><td>%.3f</td></tr>\n", sample[0], sample[1], sample[2]);
    }
   
   httPrintf("</table></center><hr>\n");
