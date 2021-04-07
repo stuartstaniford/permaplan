@@ -87,7 +87,6 @@ private:
   float   gHI[12];               // global horizontal irradiance - kWH/m^2/day
   float   dNI[12];               // direct normal irradiance - kWH/m^2/day
   float   dFI[12];               // diffuse horizontal irradiance - kWH/m^2/day
-  float   directElevations[5];   // the elevation ang
   int     seasonStart;           // day of the year growing season starts
   int     seasonEnd;             // ditto day it ends.
 

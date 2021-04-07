@@ -64,15 +64,24 @@ void SkySampleModel::setSamples(void)
   
   // Deal with the DNI samples
   int seasonLength = seasonEnd - seasonStart;
-  int day, i;
-  for(day = seasonStart + seasonLength/10, i=0; i<5; day += seasonLength/5, i++)
+  int day;
+  int pointsAchieved = 0;
+
+  while(pointsAchieved < SKY_SAMPLES/2)
    {
-    directElevations[i] = 90.0f - latitude + declination(day);
-    LogSkySampleInit("Elevations[%d] at day %d is %.1f.\n", i, day, directElevations[i]);
+    day = seasonStart + (int)((double)seasonLength*random()/(double)RAND_MAX);
+    float elevation = 90.0f - latitude + declination(day);
+    //LogSkySampleInit("Elevations[%d] at day %d is %.1f.\n", i, day, directElevations[i]);
+    
+    // XX up to here
+    samples[pointsAchieved][0] = elevation;
+    samples[pointsAchieved][1] = elevation;
+    samples[pointsAchieved][2] = elevation;
+    samples[pointsAchieved][3] = elevation;
+    pointsAchieved++;
    }
 
   //XX still to do
-  int pointsAchieved = SKY_SAMPLES/2;
 
   // Deal with non DNI samples
   // Strategy is to pick random points in the celestial sphere, filter them out
