@@ -29,7 +29,7 @@
 
 //#define LOG_MOUSE_LOCATION      // where the mouse is on the screen each frame
 //#define LOG_MOUSE_CLICK         // Location of single mouse clicks
-//#define LOG_DOUBLE_CLICK        // Location and intra-click timing of mouse double clicks
+#define LOG_DOUBLE_CLICK        // Location and intra-click timing of mouse double clicks
 //#define LOG_CLICK_DETAILS        // Extra detailed recording of parts of click detection
 //#define LOG_MOUSE_RAY_POINT     // Where the mouse is pointing in 3d space
 //#define LOG_LAND_HEIGHTS        // Log when a new land height is entered.
@@ -66,7 +66,7 @@
 //#define LOG_TREE_VIS_DETAILS      // Log every twig being rendered.
 //#define LOG_BARK_DISPLAY          // Log bark color and texture details.
 //#define LOG_TREE_OPACITY          // Log tree bounding box opacity.
-#define LOG_TREE_GRAPH            // Log tree thread analysis graph.
+//#define LOG_TREE_GRAPH            // Log tree thread analysis graph.
 #define LOG_TREE_ERRORS           // Log clear errors in tree related operations.
 
 

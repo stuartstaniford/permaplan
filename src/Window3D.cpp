@@ -225,12 +225,26 @@ void Window3D::processClick(float mouseX, float mouseY)
 
 void Window3D::processDoubleClick(float mouseX, float mouseY, float timeDiff)
 {
-  imgMenu->show_insert_menu = true;
   if(scene->simulationActive())
     scene->pauseSimulation();
-  scene->findObjectFromWindowCoords(scene->lastDoubleClick,
+  VisualObject* obj = scene->findObjectFromWindowCoords(scene->lastDoubleClick,
                           mouseX/width*2.0f-1.0f, 1.0f - mouseY/height*2.0f);
-  LogDoubleClick("Double click (%.3fs) at %.2f, %.2f\n", timeDiff, mouseX, mouseY);
+  unless(obj)
+   {
+    LogDoubleClick("Double click (%.3fs) on nothing at %.2f, %.2f\n", 
+                                                    timeDiff, mouseX, mouseY);
+    return;
+   }
+  if(strcmp("Bezier Patch", obj->objectName())==0)
+   {
+    imgMenu->show_insert_menu = true;
+    LogDoubleClick("Double click insertion (%.3fs) at %.2f, %.2f\n", timeDiff, 
+                                                                          mouseX, mouseY);
+    return;
+   }
+  LogDoubleClick("Double click (%.3fs) to edit %s at %.2f, %.2f\n", timeDiff, 
+                                                    obj->objectName(), mouseX, mouseY);
+  // Go into edit mode on the object.
 }
 
 
