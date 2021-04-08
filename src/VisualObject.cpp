@@ -6,6 +6,7 @@
 #include "VisualObject.h"
 #include "LandSurfaceRegion.h"
 #include "Quadtree.h"
+#include "ObjectGroup.h"
 
 vec3 zeroVec = {0.0f, 0.0f, 0.0f};
 
@@ -14,8 +15,9 @@ vec3 zeroVec = {0.0f, 0.0f, 0.0f};
 
 VisualObject::VisualObject(bool absHeights, BoundingBox* B):
                                 box(B),
-                                altitude(0.0f),
                                 qTreeNode(NULL),
+                                groupOwner(NULL),
+                                altitude(0.0f),
                                 useNoTexColor(false),
                                 absoluteHeights(absHeights)
 {

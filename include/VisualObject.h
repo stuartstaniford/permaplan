@@ -18,6 +18,8 @@
 class LandSurfaceRegion;
 class Quadtree;
 
+class ObjectGroup;
+
 class VisualObject: public Lockable, public VisualElement 
 {
   friend Quadtree;
@@ -58,9 +60,10 @@ class VisualObject: public Lockable, public VisualElement
  protected:
   
   // Instance variables - protected
+  Quadtree*       qTreeNode;
+  ObjectGroup*    groupOwner;
   unsigned        noTexColor;
   float           altitude;
-  Quadtree*       qTreeNode;
   bool            useNoTexColor;
   bool            absoluteHeights;  // if true, heights are absolute.  Otherwise, they
                                   // are relative to local ground level.
