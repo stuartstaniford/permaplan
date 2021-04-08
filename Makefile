@@ -387,6 +387,7 @@ src/ColoredAxes.o: include/VertexBufferCombo.h include/VertexArrayObject.h
 src/ColoredAxes.o: include/VertexBufferObject.h include/Global.h
 src/ColoredAxes.o: include/Logging.h include/MemoryTracker.h
 src/ColoredAxes.o: include/HttpDebug.h include/Vertex.h include/Shader.h
+src/ControlGroup.o: include/ControlGroup.h
 src/Copse.o: include/Copse.h include/DisplayList.h include/VisualObject.h
 src/Copse.o: include/VisualElement.h include/TriangleBuffer.h
 src/Copse.o: include/ElementBufferCombo.h include/VertexArrayObject.h
@@ -566,7 +567,8 @@ src/ElementBufferObject.o: /usr/local/include/cglm/bezier.h
 src/ElementBufferObject.o: /usr/local/include/cglm/ray.h
 src/ElementBufferObject.o: /usr/local/include/cglm/affine2d.h
 src/EmptyClass.o: include/EmptyClass.h
-src/Global.o: include/Global.h
+src/Global.o: include/Global.h include/TaskQueueFarm.h include/TaskQueue.h
+src/Global.o: include/Lockable.h include/HttpDebug.h
 src/Grid.o: /usr/local/include/GL/glew.h /usr/local/include/GLFW/glfw3.h
 src/Grid.o: include/Grid.h /usr/local/include/cglm/cglm.h
 src/Grid.o: /usr/local/include/cglm/common.h /usr/local/include/cglm/types.h
@@ -733,6 +735,7 @@ src/HttpDebug.o: include/Material.h include/TextureAtlas.h
 src/HttpDebug.o: include/LightingModel.h include/Species.h
 src/HttpDebug.o: include/LeafModel.h include/CO2Scenario.h
 src/HttpDebug.o: include/TaskQueue.h include/Tree.h include/TreePart.h
+src/HttpDebug.o: include/TaskQueueFarm.h include/SkySampleModel.h
 src/JSONStructureChecker.o: include/PmodDesign.h include/rapidjson/document.h
 src/JSONStructureChecker.o: include/rapidjson/reader.h
 src/JSONStructureChecker.o: include/rapidjson/allocators.h
@@ -1249,6 +1252,7 @@ src/MenuInterface.o: include/LightingModel.h include/Species.h
 src/MenuInterface.o: include/LeafModel.h include/CO2Scenario.h
 src/MenuInterface.o: include/TaskQueue.h include/Window3D.h
 src/MenuInterface.o: include/loadFileToBuf.h
+src/ObjectGroup.o: include/ObjectGroup.h
 src/PmodConfig.o: include/PmodConfig.h
 src/PmodDesign.o: include/PmodDesign.h include/rapidjson/document.h
 src/PmodDesign.o: include/rapidjson/reader.h include/rapidjson/allocators.h
@@ -1667,7 +1671,7 @@ src/TaskQueue.o: include/TaskQueue.h include/Lockable.h include/Global.h
 src/TaskQueue.o: include/Logging.h include/MemoryTracker.h
 src/TaskQueue.o: include/HttpDebug.h
 src/TaskQueueFarm.o: include/TaskQueueFarm.h include/TaskQueue.h
-src/TaskQueueFarm.o: include/Lockable.h include/Global.h
+src/TaskQueueFarm.o: include/Lockable.h include/Global.h include/HttpDebug.h
 src/Texture.o: /usr/local/include/GL/glew.h include/Texture.h
 src/Texture.o: include/Shader.h /usr/local/include/cglm/cglm.h
 src/Texture.o: /usr/local/include/cglm/common.h
@@ -1824,7 +1828,7 @@ src/Tree.o: include/PmodConfig.h include/Boundary.h include/Scene.h
 src/Tree.o: include/ColoredAxes.h include/LineStripList.h include/Grid.h
 src/Tree.o: include/Material.h include/TextureAtlas.h include/LightingModel.h
 src/Tree.o: include/CO2Scenario.h include/TaskQueue.h
-src/Tree.o: include/SkySampleModel.h
+src/Tree.o: include/SkySampleModel.h include/TaskQueueFarm.h
 src/TreePart.o: include/TreePart.h include/HttpDebug.h include/Species.h
 src/TreePart.o: include/rapidjson/document.h include/rapidjson/reader.h
 src/TreePart.o: include/rapidjson/allocators.h include/rapidjson/rapidjson.h

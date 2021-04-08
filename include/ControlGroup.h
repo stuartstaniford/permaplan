@@ -5,10 +5,12 @@
 #ifndef CONTROL_GROUP_H
 #define CONTROL_GROUP_H
 
+#include "ObjectGroup.h"
+
 // =======================================================================================
 // Class variable initialization
 
-class ControlGroup
+class ControlGroup: public ObjectGroup
 {
 public:
   

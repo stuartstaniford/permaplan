@@ -5,10 +5,13 @@
 #ifndef OBJECT_GROUP_H
 #define OBJECT_GROUP_H
 
+#include "VisualObject.h"
+#include "DisplayList.h"
+
 // =======================================================================================
 // Class variable initialization
 
-class ObjectGroup
+class ObjectGroup: public VisualObject, public DisplayList
 {
 public:
   

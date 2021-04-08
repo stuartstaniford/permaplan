@@ -7,7 +7,8 @@
 // =======================================================================================
 // Constructor
 
-ObjectGroup::ObjectGroup(void)
+ObjectGroup::ObjectGroup(void):
+                        VisualObject(false)
 {
 }
 
