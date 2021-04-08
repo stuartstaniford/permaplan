@@ -46,6 +46,8 @@ class Scene: public Lockable
   VisualObject*   focusObject;
   vec3            lockObjectLocation;
   VisualObject*   lockObject;
+  VisualObject*   editModeObject;
+  vec3            editModeLocation;
   LightingModel   lighting;
   float           simulationSpeed;          //years/sec
   CO2Scenario     rcp8_5;
@@ -70,6 +72,8 @@ class Scene: public Lockable
   void          insertVisibleObject(char* objType, float size, vec3 loc, Material* material);
   void          insertTree(Species* species, vec3 loc, float age);
   void          rebuildVisualObjectBuffer(TriangleBuffer** tbuf);
+  void          processEditModeObjectDeselection(void);
+  void          processNewEditModeObject(void);
   VisualObject* findObjectFromWindowCoords(vec3 location, float clipX, float clipY);
 #ifdef MULTI_THREADED_SIMULATION
   void          startSimulationThreads(void);

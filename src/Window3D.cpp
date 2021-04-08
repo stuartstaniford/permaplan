@@ -235,16 +235,26 @@ void Window3D::processDoubleClick(float mouseX, float mouseY, float timeDiff)
                                                     timeDiff, mouseX, mouseY);
     return;
    }
+  if(obj == scene->editModeObject)
+   {
+    // Double clicking again means we are deselecting it
+    scene->processEditModeObjectDeselection();
+   }
   if(strcmp("Bezier Patch", obj->objectName())==0)
    {
+    // Clicking on the land surface means we offer the option to insert something.
     imgMenu->show_insert_menu = true;
     LogDoubleClick("Double click insertion (%.3fs) at %.2f, %.2f\n", timeDiff, 
                                                                           mouseX, mouseY);
     return;
    }
+
+  // Go into edit mode on the selected object.
   LogDoubleClick("Double click (%.3fs) to edit %s at %.2f, %.2f\n", timeDiff, 
                                                     obj->objectName(), mouseX, mouseY);
-  // Go into edit mode on the object.
+  scene->editModeObject = obj;
+  glm_vec3_copy(scene->lastDoubleClick, scene->editModeLocation);
+  scene->processNewEditModeObject();
 }
 
 

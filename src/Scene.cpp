@@ -23,6 +23,7 @@ Scene::Scene():
                 land(),
                 focusObject(NULL),
                 lockObject(NULL),
+                editModeObject(NULL),
                 lighting(),
                 simulationSpeed(1.0f), // in years/second
                 rcp8_5((char*)"RCP8.5"),
@@ -231,6 +232,26 @@ void Scene::newObjectTransform(mat4 transform, float initSize, vec3 location)
   glm_mat4_identity(transform);
   glm_translate(transform, location);
   glm_scale_uni(transform, initSize);
+}
+
+
+// =======================================================================================
+// This is called when an object has just been double-clicked on, and now we need to set
+// up controls to allow it to be moved around, rescaled, etc.
+
+void Scene::processEditModeObjectDeselection(void)
+{
+
+}
+
+
+// =======================================================================================
+// This is called when an object has just been double-clicked on, and now we need to set
+// up controls to allow it to be moved around, rescaled, etc.
+
+void Scene::processNewEditModeObject(void)
+{
+  
 }
 
 
