@@ -11,6 +11,8 @@ ControlGroup::ControlGroup(VisualObject* firstObject):
                                   ObjectGroup(firstObject)
 {
   masterObject = firstObject; // the main object - everything else is ephemeral controls
+  LogControlGroupInit("Started new control group around object of type %s.\n",
+                        firstObject->objectName());
 }
 
 
