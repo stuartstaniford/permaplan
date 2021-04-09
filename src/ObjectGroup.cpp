@@ -14,6 +14,7 @@ ObjectGroup::ObjectGroup(VisualObject* firstObject):
 {
   insert(firstObject);
   firstObject->groupOwner = this;
+  updateBoundingBox();
 }
 
 
@@ -32,6 +33,8 @@ void ObjectGroup::add(VisualObject* nextObject)
 {
   insert(nextObject);
   nextObject->groupOwner = this;
+  vec3 offset = {0.0f, 0.0f, 0.0f};
+  nextObject->updateBoundingBox(box, offset);
 }
 
 
@@ -48,6 +51,20 @@ bool ObjectGroup::updateBoundingBox(BoundingBox* B, vec3 offset)
   
   return retVal;
 } 
+
+
+// =======================================================================================
+// Recurse into all our parts and update our bounding box
+
+void ObjectGroup::updateBoundingBox(void)
+{
+  vec3 offset = {0.0f, 0.0f, 0.0f};
+  
+  if(!box)
+    box = new BoundingBox();
+  for(VisualObject* V: *this)
+    V->updateBoundingBox(box, offset);
+}
 
 
 // =======================================================================================

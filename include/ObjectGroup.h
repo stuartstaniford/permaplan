@@ -22,6 +22,7 @@ public:
   ~ObjectGroup(void);
   void  add(VisualObject* nextObject);
   bool  updateBoundingBox(BoundingBox* B, vec3 offset);
+  void  updateBoundingBox(void);
   inline bool bufferGeometry(TriangleBuffer* T)
     {return DisplayList::bufferGeometry(T);}
   inline void adjustAltitudes(LandSurfaceRegion* surface)
