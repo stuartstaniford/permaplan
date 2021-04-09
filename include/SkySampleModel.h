@@ -93,6 +93,8 @@ private:
 
     // Member functions - private
   float declination(float dayOfYear);
+  float sunrise(float declination);
+
 
   SkySampleModel(const SkySampleModel&);                 // Prevent copy-construction
   SkySampleModel& operator=(const SkySampleModel&);      // Prevent assignment

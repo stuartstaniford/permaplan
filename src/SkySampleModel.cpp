@@ -7,6 +7,7 @@
 // https://en.wikipedia.org/wiki/Position_of_the_Sun
 // https://en.wikipedia.org/wiki/Solar_azimuth_angle
 // https://en.wikipedia.org/wiki/Hour_angle
+// https://en.wikipedia.org/wiki/Sunrise_equation
 
 // For converting W/m^2 to photon fluxes:
 //https://www.researchgate.net/post/Can-I-convert-PAR-photo-active-radiation-value-of-micro-mole-M2-S-to-Solar-radiation-in-Watt-m2/59ca6422217e201e2b23415f/citation/download
@@ -168,6 +169,16 @@ float SkySampleModel::declination(float dayOfYear)
 {
   return -asinf(0.39779*cosf(0.017202838*(dayOfYear+10.0f)
                           +0.033405602*sinf(0.017202838*(dayOfYear-2.0f))))/2/M_PI*360.0f;
+}
+
+
+// =======================================================================================
+// Helper function for diagnosticHTML to do one row of main tables
+// https://en.wikipedia.org/wiki/Sunrise_equation
+
+float SkySampleModel::sunrise(float declination)
+{
+  return 0.0f;
 }
 
 
