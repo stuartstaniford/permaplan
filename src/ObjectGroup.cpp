@@ -15,6 +15,8 @@ ObjectGroup::ObjectGroup(VisualObject* firstObject):
   insert(firstObject);
   firstObject->groupOwner = this;
   updateBoundingBox();
+  LogGroupAdditions("Creating new object group with object of type %s.\n", 
+                                                                firstObject->objectName());
 }
 
 
@@ -34,7 +36,17 @@ void ObjectGroup::add(VisualObject* nextObject)
   insert(nextObject);
   nextObject->groupOwner = this;
   vec3 offset = {0.0f, 0.0f, 0.0f};
-  nextObject->updateBoundingBox(box, offset);
+  bool change = nextObject->updateBoundingBox(box, offset);
+  if(change)
+   {
+    LogGroupAdditions("Add to group, object of type %s (changed bbox).\n", 
+                                                              nextObject->objectName());
+   }
+  else
+   {
+    LogGroupAdditions("Add to group, object of type %s (no change in bbox).\n", 
+                                                              nextObject->objectName());
+   }
 }
 
 
