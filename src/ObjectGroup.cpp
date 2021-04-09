@@ -24,3 +24,13 @@ ObjectGroup::~ObjectGroup(void)
 
 
 // =======================================================================================
+// Add an additional object into this group
+
+void ObjectGroup::add(VisualObject* nextObject)
+{
+  insert(nextObject);
+  nextObject->groupOwner = this;
+}
+
+
+// =======================================================================================

@@ -20,6 +20,7 @@ public:
   // Member functions - public
   ObjectGroup(VisualObject* firstObject);
   ~ObjectGroup(void);
+  void add(VisualObject* nextObject);
   
 private:
   
