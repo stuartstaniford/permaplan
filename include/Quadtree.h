@@ -45,6 +45,7 @@ class Quadtree: public Lockable
   void bufferVisualObjects(TriangleBuffer* tbuf);
   void bufferLandSurface(TriangleBuffer* tbuf);
   void storeVisualObject(VisualObject* obj);
+  bool removeVisualObject(VisualObject* obj);
   void notifyObjectBoxChange(VisualObject* obj);
   void newObjectFromChild(VisualObject* obj);
   void recomputeBoundingBox(void);

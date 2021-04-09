@@ -194,8 +194,27 @@ void Quadtree::storeVisualObject(VisualObject* obj)
      }
   LogQuadtreeInsertions("Final storage of %s object at %.1f, %.1f, level %u.\n",
                           obj->objectName(), x, y, level);
-  vObjects.emplace(obj);
+  vObjects.insert(obj);
   obj->qTreeNode = this;
+}
+
+
+// =======================================================================================
+// This function removes a visual object from the Quadtree.  If it can find it at this
+// level, removes it here.  If not, searches through kids.  Does not shrink bounding
+// boxes.
+
+bool Quadtree::removeVisualObject(VisualObject* obj)
+{
+  if(vObjects.count(obj))
+   {
+    vObjects.erase(obj);
+    return true;
+   }
+  forAllKids(i)
+    if(kids[i]->removeVisualObject(obj))
+      return true;
+  return false;
 }
 
 
