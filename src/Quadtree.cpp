@@ -247,8 +247,9 @@ void Quadtree::notifyObjectBoxChange(VisualObject* obj)
 
   if(bbox.xyContains(*(obj->box)))
     return; // nothing to do here
-    
+  lock();   
   vObjects.erase(obj);
+  unlock();
   parent->newObjectFromChild(obj);
 }
 
@@ -258,15 +259,20 @@ void Quadtree::notifyObjectBoxChange(VisualObject* obj)
 
 void Quadtree::newObjectFromChild(VisualObject* obj)
 {
+  lock();
   LogQuadtreeBoundBox("newObjectFromChild at level %d needs to do something.", level);
 
   if(!parent || bbox.xyContains(*(obj->box)))
    {
-    vObjects.emplace(obj);  // don't fix boundingBox as notifyObjectBoxChange did it.
+    vObjects.insert(obj);  // don't fix boundingBox as notifyObjectBoxChange did it.
     obj->qTreeNode = this;
+    unlock();
    }
   else
+   {
+    unlock();
     parent->newObjectFromChild(obj);
+   }
 }
 
 
