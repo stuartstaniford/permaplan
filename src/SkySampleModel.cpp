@@ -178,6 +178,12 @@ float SkySampleModel::declination(float dayOfYear)
 
 float SkySampleModel::sunrise(float declination)
 {
+  // Case of 24 hour daylight
+  
+  // Case of 24 hour nighttime
+  
+  // Compute sunrise offset
+  
   return 0.0f;
 }
 
