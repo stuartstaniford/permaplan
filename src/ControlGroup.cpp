@@ -10,6 +10,7 @@
 ControlGroup::ControlGroup(VisualObject* firstObject):
                                   ObjectGroup(firstObject)
 {
+  masterObject = firstObject; // the main object - everything else is ephemeral controls
 }
 
 

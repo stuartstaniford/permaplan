@@ -2,6 +2,7 @@
 // This class is the one responsible for drawing the current state of
 // the scene at an overall level.
 
+#include "ControlGroup.h"
 #include "Scene.h"
 #include "Shader.h"
 #include "HeightMarker.h"
@@ -251,7 +252,7 @@ void Scene::processEditModeObjectDeselection(void)
 
 void Scene::processNewEditModeObject(void)
 {
-  
+  ControlGroup* controlGroup = new ControlGroup(editModeObject);
 }
 
 

@@ -23,6 +23,7 @@ public:
 private:
   
   // Instance variables - private
+  VisualObject* masterObject;
   
   // Member functions - private
   ControlGroup(const ControlGroup&);                 // Prevent copy-construction

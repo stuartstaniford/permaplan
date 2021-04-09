@@ -20,7 +20,9 @@ public:
   // Member functions - public
   ObjectGroup(VisualObject* firstObject);
   ~ObjectGroup(void);
-  void add(VisualObject* nextObject);
+  void  add(VisualObject* nextObject);
+  bool  updateBoundingBox(BoundingBox* B, vec3 offset);
+
   
 private:
   
