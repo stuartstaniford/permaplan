@@ -209,6 +209,7 @@ bool Quadtree::removeVisualObject(VisualObject* obj)
   if(vObjects.count(obj))
    {
     vObjects.erase(obj);
+    obj->qTreeNode = NULL;
     return true;
    }
   forAllKids(i)

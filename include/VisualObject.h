@@ -54,6 +54,7 @@ class VisualObject: public Lockable, public VisualElement
   virtual void        setAltitude(LandSurfaceRegion* surface);
   virtual void        getGroundContact(float& x, float& y);
   virtual void        updateBoundingBox(void);
+  void                removeFromQuadtree(void);
 #ifdef LOG_TREE_VALIDATION
   virtual void        selfValidate(unsigned l);
 #endif

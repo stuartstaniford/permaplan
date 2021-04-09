@@ -83,6 +83,16 @@ void VisualObject::getGroundContact(float& x, float& y)
 
 
 // =======================================================================================
+// Function to remove ourself from the quadtree
+
+void VisualObject::removeFromQuadtree(void)
+{
+ {if(qTreeNode) 
+   qTreeNode->removeVisualObject(this);}
+}
+
+
+// =======================================================================================
 // Stub definition this should be overwritten by implementing subclasses
 
 bool VisualObject::getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail)

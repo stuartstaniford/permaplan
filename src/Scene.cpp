@@ -253,7 +253,9 @@ void Scene::processEditModeObjectDeselection(void)
 void Scene::processNewEditModeObject(void)
 {
   ControlGroup* controlGroup = new ControlGroup(editModeObject);
-  controlGroup->add(NULL); //XX temp shut the warning up.
+  // controlGroup->add( -- stuff --);
+  editModeObject->removeFromQuadtree();
+  qtree->storeVisualObject(controlGroup);
 }
 
 
