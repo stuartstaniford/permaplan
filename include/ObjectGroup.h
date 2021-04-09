@@ -22,6 +22,12 @@ public:
   ~ObjectGroup(void);
   void  add(VisualObject* nextObject);
   bool  updateBoundingBox(BoundingBox* B, vec3 offset);
+  inline bool bufferGeometry(TriangleBuffer* T)
+    {return DisplayList::bufferGeometry(T);}
+  inline void adjustAltitudes(LandSurfaceRegion* surface)
+    {DisplayList::adjustAltitudes(surface);}
+  inline void triangleBufferSizes(unsigned& vCount, unsigned& iCount)
+    {DisplayList::triangleBufferSizes(vCount, iCount);}
 
   
 private:

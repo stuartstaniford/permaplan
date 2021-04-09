@@ -46,11 +46,12 @@ DisplayList::~DisplayList(void)
 // =======================================================================================
 // Puts all the visualobject contents in a buffer
 
-void DisplayList::bufferGeometry(TriangleBuffer* T)
+bool DisplayList::bufferGeometry(TriangleBuffer* T)
 {
   for(VisualObject* V: *this)
    {
-    V->bufferGeometry(T);
+    unless(V->bufferGeometry(T))
+      return false;
 
 #ifdef LOG_DISPLAYLIST_BUFFER
     if(strcmp(V->objectName(), (char*)"Arrow") == 0) //XX no arrow bounding box yet.
@@ -62,6 +63,7 @@ void DisplayList::bufferGeometry(TriangleBuffer* T)
                          V->objectName(), centroid[0], centroid[1], centroid[2]);
 #endif
    }
+  return true;
 }
 
 
