@@ -63,6 +63,9 @@ bool doLogTreeOpacity         = true; // Log tree bounding box opacity.
 bool doLogTreeGraph           = true; // Log tree thread analysis graph.
 bool doLogTreeErrors          = true; // Log clear errors in tree related operations.
 
+// Logging options for groups of objects
+bool doLogGroupAdditions      = true; // Log when groups are created and objects are added.
+
 // Logging options for the HTTP debug interface
 bool doLogRequestErrors       = true; // Log validity problems in the HTTP request
 bool doLogResponseErrors      = true; // Log problems encountered building the response

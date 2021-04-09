@@ -267,7 +267,7 @@ void Box::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 bool Box::matchRay(vec3& position, vec3& direction, float& lambda)*/
 
 
- // =======================================================================================
+// =======================================================================================
 // Tell callers our name at runtime.
 
 const char* Box::objectName(void)

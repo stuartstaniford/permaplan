@@ -29,6 +29,7 @@ public:
     {DisplayList::adjustAltitudes(surface);}
   inline void triangleBufferSizes(unsigned& vCount, unsigned& iCount)
     {DisplayList::triangleBufferSizes(vCount, iCount);}
+  const char* objectName(void);
 
   
 private:

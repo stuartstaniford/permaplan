@@ -68,3 +68,13 @@ void ObjectGroup::updateBoundingBox(void)
 
 
 // =======================================================================================
+// Tell callers our name at runtime.
+
+const char* ObjectGroup::objectName(void)
+{
+  static char* name = (char*)"Object Group";
+  return name;
+}
+
+
+// =======================================================================================

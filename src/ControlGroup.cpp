@@ -23,3 +23,13 @@ ControlGroup::~ControlGroup(void)
 
 
 // =======================================================================================
+// Tell callers our name at runtime.
+
+const char* ControlGroup::objectName(void)
+{
+  static char* name = (char*)"Control Group";
+  return name;
+}
+
+
+// =======================================================================================

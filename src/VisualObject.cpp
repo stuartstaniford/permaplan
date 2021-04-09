@@ -227,7 +227,6 @@ const char* VisualObject::objectName(void)
 }
 
 
-
 // =======================================================================================
 // Stub definition this should be overwritten by implementing subclasses
 // But in general, this class should own a single row in a table, with

@@ -71,6 +71,12 @@
 
 
 // =======================================================================================
+// Logging options for groups of objects
+
+#define LOG_GROUP_ADDITIONS       // Log when groups are created and objects are added.
+
+
+// =======================================================================================
 // Logging options for the HTTP debug interface
 
 #define LOG_REQUEST_ERRORS      // Log validity problems in the HTTP request
@@ -173,6 +179,9 @@ extern bool doLogBarkDisplay;         // Log bark color and texture details.
 extern bool doLogTreeOpacity;         // Log tree bounding box opacity.
 extern bool doLogTreeGraph;           // Log tree thread analysis graph.
 extern bool doLogTreeErrors;          // Log clear errors in tree related operations.
+
+// Logging options for groups of objects
+extern bool doLogGroupAdditions;      // Log when groups are created and objects are added.
 
 // Logging options for the HTTP debug interface
 extern bool doLogRequestErrors;       // Log validity problems in the HTTP request
@@ -473,6 +482,17 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
 #define LogTreeErrors(...) if(doLogTreeErrors) LogStatement(__VA_ARGS__)
 #else
 #define LogTreeErrors(...)
+#endif
+
+
+// =======================================================================================
+// Logging options for groups of objects
+
+// Log when groups are created and objects are added.
+#ifdef LOG_GROUP_ADDITIONS
+#define LogGroupAdditions(...) if(doLogGroupAdditions) LogStatement(__VA_ARGS__)
+#else
+#define LogGroupAdditions(...)
 #endif
 
 
