@@ -23,6 +23,7 @@ class ObjectGroup;
 class VisualObject: public Lockable, public VisualElement 
 {
   friend Quadtree;
+  friend ObjectGroup;
  public:
   
   // Instance variables - public

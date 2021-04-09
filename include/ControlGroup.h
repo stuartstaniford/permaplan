@@ -17,7 +17,7 @@ public:
   // Instance variables - public
   
   // Member functions - public
-  ControlGroup(void);
+  ControlGroup(VisualObject* firstObject);
   ~ControlGroup(void);
   
 private:

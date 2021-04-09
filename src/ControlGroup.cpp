@@ -7,7 +7,8 @@
 // =======================================================================================
 // Constructor
 
-ControlGroup::ControlGroup(void)
+ControlGroup::ControlGroup(VisualObject* firstObject):
+                                  ObjectGroup(firstObject)
 {
 }
 

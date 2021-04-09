@@ -7,9 +7,11 @@
 // =======================================================================================
 // Constructor
 
-ObjectGroup::ObjectGroup(void):
+ObjectGroup::ObjectGroup(VisualObject* firstObject):
                         VisualObject(false)
 {
+  insert(firstObject);
+  firstObject->groupOwner = this;
 }
 
 

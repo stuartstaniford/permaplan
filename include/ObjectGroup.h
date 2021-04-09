@@ -18,7 +18,7 @@ public:
   // Instance variables - public
   
   // Member functions - public
-  ObjectGroup(void);
+  ObjectGroup(VisualObject* firstObject);
   ~ObjectGroup(void);
   
 private:
