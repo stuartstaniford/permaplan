@@ -75,6 +75,7 @@
 
 #define LOG_GROUP_ADDITIONS       // Log when groups are created and objects are added.
 #define LOG_CONTROL_GROUP_INIT    // Log the process of initiating a new control group.
+#define LOG_GROUP_MATCH_RAY       // Log ray matching in groups.
 
 
 // =======================================================================================
@@ -184,6 +185,7 @@ extern bool doLogTreeErrors;          // Log clear errors in tree related operat
 // Logging options for groups of objects
 extern bool doLogGroupAdditions;      // Log when groups are created and objects are added.
 extern bool doLogControlGroupInit;    // Log the process of initiating a new control group.
+extern bool doLogGroupMatchRay;       // Log ray matching in groups.
 
 // Logging options for the HTTP debug interface
 extern bool doLogRequestErrors;       // Log validity problems in the HTTP request
@@ -502,6 +504,13 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
 #define LogControlGroupInit(...) if(doLogControlGroupInit) LogStatement(__VA_ARGS__)
 #else
 #define LogControlGroupInit(...)
+#endif
+
+// Log ray matching in groups.
+#ifdef LOG_GROUP_MATCH_RAY
+#define LogGroupMatchRay(...) if(doLogGroupMatchRay) LogStatement(__VA_ARGS__)
+#else
+#define LogGroupMatchRay(...)
 #endif
 
 
