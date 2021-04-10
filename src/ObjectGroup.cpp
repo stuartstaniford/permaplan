@@ -87,6 +87,8 @@ bool ObjectGroup::matchRay(vec3& position, vec3& direction, float& lambda)
   unless(box->matchRay(position, direction, lambda))
     return false;
   
+  LogGroupMatchRay("Ray matched bounding box of group %s.\n", this->objectName());
+  
   float bestLambda = HUGE_VALF;
   float thisLambda;
   bool retVal = false;
@@ -95,6 +97,8 @@ bool ObjectGroup::matchRay(vec3& position, vec3& direction, float& lambda)
     if(V->matchRay(position, direction, thisLambda))
      {
       retVal = true;
+      LogGroupMatchRay("Ray matched contained object (%s) in group (%s).\n", 
+                       V->objectName(), this->objectName());
       if(thisLambda < bestLambda)
         bestLambda = thisLambda;
      }
