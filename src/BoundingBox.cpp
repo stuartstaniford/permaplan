@@ -289,10 +289,10 @@ BoundingBox& BoundingBox::operator+=(const BoundingBox& B)
 {
   for(int m=0; m<3; m++)
    {
-    if(B.lower[0] < lower[0])
-      lower[0] = B.lower[0];
-    if(B.upper[0] > upper[0])
-      upper[0] = B.upper[0];
+    if(B.lower[m] < lower[m])
+      lower[m] = B.lower[m];
+    if(B.upper[m] > upper[m])
+      upper[m] = B.upper[m];
    }
   return *this;
 }
