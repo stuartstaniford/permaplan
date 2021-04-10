@@ -80,6 +80,30 @@ void ObjectGroup::updateBoundingBox(void)
 
 
 // =======================================================================================
+// Decide if a ray touches us.  Check all the kids and return the closest.
+
+bool ObjectGroup::matchRay(vec3& position, vec3& direction, float& lambda)
+{
+  unless(box->matchRay(position, direction, lambda))
+    return false;
+  
+  float bestLambda = HUGE_VALF;
+  float thisLambda;
+  bool retVal = false;
+  for(VisualObject* V: *this)
+   {
+    if(V->matchRay(position, direction, thisLambda))
+     {
+      retVal = true;
+      if(thisLambda < bestLambda)
+        bestLambda = thisLambda;
+     }
+   }
+  return retVal;
+}
+
+
+// =======================================================================================
 // Tell callers our name at runtime.
 
 const char* ObjectGroup::objectName(void)

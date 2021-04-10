@@ -26,7 +26,7 @@ public:
   inline void triangleBufferSizes(unsigned& vCount, unsigned& iCount)
     {DisplayList::triangleBufferSizes(vCount, iCount);}
   const char* objectName(void);
- 
+
 private:
   
   // Instance variables - private
