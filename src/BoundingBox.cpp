@@ -2,15 +2,15 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Jun 2020 -
 // This manages the quadtree used for efficient organization of visual rendering
 
+#include "BoundingBox.h"
+#include "Shader.h"
+#include <assert.h>
 #include <math.h>
 #include <cstdio>
 #include <stdexcept>
 #include <err.h>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include "BoundingBox.h"
-#include "Shader.h"
-
 
 // =======================================================================================
 // Constructors
@@ -92,6 +92,20 @@ bool BoundingBox::isDefined(void)
   if(lower[0] == HUGE_VALF)
     return false;
   return true;
+}
+
+
+// =======================================================================================
+// Double check that all box values make sense as part of Quadtree::selfValidate
+
+void BoundingBox::selfValidate(void)
+{
+  for(int m=0; m<3; m++)
+   {
+    assert(lower[0] > -HUGE_VALF);
+    assert(upper[0] < HUGE_VALF);
+    assert(lower[0] < upper[0]);
+   }
 }
 
 
