@@ -12,6 +12,7 @@
 ObjectGroup::ObjectGroup(VisualObject* firstObject):
                         VisualObject(false)
 {
+  isGroup = true;
   insert(firstObject);
   firstObject->groupOwner = this;
   updateBoundingBox();
@@ -84,6 +85,7 @@ void ObjectGroup::updateBoundingBox(void)
 
 bool ObjectGroup::matchRay(vec3& position, vec3& direction, float& lambda)
 {
+  LogGroupMatchRay("Trying to ray match group %s.\n", this->objectName());
   unless(box->matchRay(position, direction, lambda))
     return false;
   
@@ -105,6 +107,31 @@ bool ObjectGroup::matchRay(vec3& position, vec3& direction, float& lambda)
    }
   return retVal;
 }
+
+
+// =======================================================================================
+// Function to validate the quadtree and visual objects in it.
+
+#ifdef LOG_TREE_VALIDATION
+
+void ObjectGroup::selfValidate(unsigned l)
+{
+  unless(l)
+   {
+    assert(qTreeNode);
+    assert(!groupOwner);
+   }
+  for(VisualObject* V: *this)
+   {
+    assert(V->groupOwner = this);
+    assert(!qTreeNode);
+    if(V->isGroup)
+      V->selfValidate(l+1);
+    else
+      V->selfValidate(0u);
+   }
+}
+#endif
 
 
 // =======================================================================================

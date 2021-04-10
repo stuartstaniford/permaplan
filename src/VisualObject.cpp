@@ -18,6 +18,7 @@ VisualObject::VisualObject(bool absHeights, BoundingBox* B):
                                 qTreeNode(NULL),
                                 groupOwner(NULL),
                                 altitude(0.0f),
+                                isGroup(false),
                                 useNoTexColor(false),
                                 absoluteHeights(absHeights)
 {

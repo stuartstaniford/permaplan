@@ -31,6 +31,9 @@ public:
     {DisplayList::triangleBufferSizes(vCount, iCount);}
   virtual bool matchRay(vec3& position, vec3& direction, float& lambda);
   const char* objectName(void);
+#ifdef LOG_TREE_VALIDATION
+  void        selfValidate(unsigned l);
+#endif
 
   
 private:

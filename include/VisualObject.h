@@ -66,6 +66,7 @@ class VisualObject: public Lockable, public VisualElement
   ObjectGroup*    groupOwner;
   unsigned        noTexColor;
   float           altitude;
+  bool            isGroup;
   bool            useNoTexColor;
   bool            absoluteHeights;  // if true, heights are absolute.  Otherwise, they
                                   // are relative to local ground level.
