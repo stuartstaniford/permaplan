@@ -70,13 +70,11 @@ bool ObjectGroup::updateBoundingBox(BoundingBox* B, vec3 offset)
 // Recurse into all our parts and update our bounding box
 
 void ObjectGroup::updateBoundingBox(void)
-{
-  vec3 offset = {0.0f, 0.0f, 0.0f};
-  
+{  
   if(!box)
     box = new BoundingBox();
   for(VisualObject* V: *this)
-    V->updateBoundingBox(box, offset);
+    *box += *(V->box);
 }
 
 

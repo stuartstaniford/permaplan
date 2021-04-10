@@ -283,6 +283,22 @@ bool BoundingBox::operator<=(const BoundingBox& B)
 
 
 // =======================================================================================
+// Extend a box to include another
+
+BoundingBox& BoundingBox::operator+=(const BoundingBox& B)
+{
+  for(int m=0; m<3; m++)
+   {
+    if(B.lower[0] < lower[0])
+      lower[0] = B.lower[0];
+    if(B.upper[0] > upper[0])
+      upper[0] = B.upper[0];
+   }
+  return *this;
+}
+
+
+// =======================================================================================
 // Extend our Z dimensions to include those of otherBox
 
 bool BoundingBox::extendZ(const BoundingBox& otherBox)

@@ -47,7 +47,8 @@ class BoundingBox
   bool diagnosticHTML(HttpDebug* serv);
 
   // public operators
-  bool operator<=(const BoundingBox& B);  // Whether one box is entirely contained in another
+  bool operator<=(const BoundingBox& B);    // Whether one box is entirely contained in another
+  BoundingBox& operator+=(const BoundingBox& B);  // Extend a box to include another
 
  private:
   
