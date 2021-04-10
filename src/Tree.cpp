@@ -375,6 +375,7 @@ void Tree::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 void Tree::selfValidate(unsigned l)
 {
   assert(species);
+  box->selfValidate();
   if(trunk)
    {
     assert(trunk->ourTreeIndex == treePtrArrayIndex);

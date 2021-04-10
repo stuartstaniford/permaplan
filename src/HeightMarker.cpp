@@ -170,6 +170,18 @@ int HeightMarker::getNextIndex(bool resetToFirst)
 
 
 // =======================================================================================
+// Function to validate the tree.
+
+#ifdef LOG_TREE_VALIDATION
+
+void HeightMarker::selfValidate(unsigned l)
+{
+  box->selfValidate();
+}
+
+#endif
+
+// =======================================================================================
 // This is where the actual octahedron geometry is defined - we render it into a buffer
 // on request
 

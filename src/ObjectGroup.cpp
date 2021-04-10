@@ -122,6 +122,8 @@ void ObjectGroup::selfValidate(unsigned l)
     assert(qTreeNode);
     assert(!groupOwner);
    }
+  box->selfValidate();
+
   for(VisualObject* V: *this)
    {
     assert(V->groupOwner = this);
@@ -130,6 +132,7 @@ void ObjectGroup::selfValidate(unsigned l)
       V->selfValidate(l+1);
     else
       V->selfValidate(0u);
+    assert(*(V->box) <= *box);
    }
 }
 #endif

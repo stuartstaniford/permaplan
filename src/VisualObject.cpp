@@ -35,15 +35,13 @@ VisualObject::~VisualObject(void)
 }
 
 // =======================================================================================
-// Function to validate this kind of object.  Right now, the VisualObject version just
-// returns happily to cover for subclasses that haven't implemented this yet.
-// XX We should make it so this err()s, and the subclasses have to to their own.
+// Function to validate this kind of object.  This needs to be over-ridden by subclasses.
 
 #ifdef LOG_TREE_VALIDATION
 
 void VisualObject::selfValidate(unsigned l)
 {
-  return;
+  err(-1, "Call to unimplemented VisualObject::selfValidate.\n");
 }
 
 #endif
