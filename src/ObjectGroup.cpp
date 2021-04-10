@@ -85,11 +85,11 @@ void ObjectGroup::updateBoundingBox(void)
 
 bool ObjectGroup::matchRay(vec3& position, vec3& direction, float& lambda)
 {
-  LogGroupMatchRay("Trying to ray match group %s.\n", this->objectName());
+  LogGroupMatchRay("Trying to ray match group %s.\n", objectName());
   unless(box->matchRay(position, direction, lambda))
     return false;
   
-  LogGroupMatchRay("Ray matched bounding box of group %s.\n", this->objectName());
+  LogGroupMatchRay("Ray matched bounding box of group %s.\n", objectName());
   
   float bestLambda = HUGE_VALF;
   float thisLambda;
@@ -100,7 +100,7 @@ bool ObjectGroup::matchRay(vec3& position, vec3& direction, float& lambda)
      {
       retVal = true;
       LogGroupMatchRay("Ray matched contained object (%s) in group (%s).\n", 
-                       V->objectName(), this->objectName());
+                       V->objectName(), objectName());
       if(thisLambda < bestLambda)
         bestLambda = thisLambda;
      }
@@ -116,6 +116,7 @@ bool ObjectGroup::matchRay(vec3& position, vec3& direction, float& lambda)
 
 void ObjectGroup::selfValidate(unsigned l)
 {
+  LogFindGroups("Found group of type %s at level %u.\n", objectName(), l);
   unless(l)
    {
     assert(qTreeNode);
