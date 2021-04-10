@@ -147,3 +147,37 @@ const char* ObjectGroup::objectName(void)
 
 
 // =======================================================================================
+// Provide a diagnostic page about this group.
+
+bool ObjectGroup::diagnosticHTML(HttpDebug* serv)
+{
+  unless(serv->startResponsePage("Object Group"))
+    return false;
+
+  // Bounding box
+  unless(box->diagnosticHTML(serv))
+   {
+    LogResponseErrors("Couldn't output box HTTP for object group\n");
+    return false;
+   }
+        
+  // Visual objects
+  unless(serv->newSection("Objects in this group"))
+    return false;
+  unless(serv->startTable())
+    return false;
+  unless(DisplayList::diagnosticHTML(serv))
+   {
+    LogResponseErrors("Couldn't output objects HTTP in group \n");
+    return false;
+   }
+  httPrintf("</table></center>\n");
+    
+  unless(serv->endResponsePage())
+    return false;
+              
+  return true;
+}
+
+
+// =======================================================================================
