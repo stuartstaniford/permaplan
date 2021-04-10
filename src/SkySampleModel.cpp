@@ -71,7 +71,11 @@ void SkySampleModel::setSamples(void)
   while(pointsAchieved < SKY_SAMPLES/2)
    {
     day = seasonStart + (int)((double)seasonLength*random()/(double)RAND_MAX);
-    float elevation = 90.0f - latitude + declination(day);
+    float decl = declination(day);
+    float elevation = 90.0f - latitude + decl;
+    float sunriseOffset = sunrise(decl); // in degrees , 15deg/hr
+    float hourAngle = sunriseOffset*(-1.0 + 2.0*random()/(double)RAND_MAX);
+    
     //LogSkySampleInit("Elevations[%d] at day %d is %.1f.\n", i, day, directElevations[i]);
     
     // XX up to here
@@ -183,8 +187,7 @@ float SkySampleModel::sunrise(float declination)
   // Case of 24 hour nighttime
   
   // Compute sunrise offset
-  
-  return 0.0f;
+  return acosf(-tanf(declination)*tanf(latitude));
 }
 
 
