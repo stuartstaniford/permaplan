@@ -75,7 +75,7 @@ Tree::Tree(Value& plantObject):
   
   treePtrArray[(treePtrArrayIndex = treeCount++)] = this;
   updateBoundingBox();
-  LogTreeReads("Tree %d (%s %s) read in from file.\n", treePtrArrayIndex,
+  LogTreeReads("Tree %d (%s %s) read in from OLDF file.\n", treePtrArrayIndex,
                                             species->genusName, species->speciesName);
   incrementTreeMemory(sizeof(Tree));
 }

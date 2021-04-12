@@ -16,7 +16,6 @@
 #include <unordered_map>
 #include <string>
 
-#define SPECIES_ARRAY_SIZE   2048 // max number of species in a design
 #define MAX_SPECIES_PATH     256  // the following considers genus/species, then we allow
                                    // a fudge factor for variety names.
                                    //https://en.wikipedia.org/wiki/List_of_long_species_names
@@ -86,7 +85,7 @@ class Species
   static bool findSpeciesForHTTPDebug(HttpDebug* serv, char* path);
 
   // static public variables
-  static Species** speciesPtrArray;
+  static SpeciesList* cachedSpecies;
   static unsigned short speciesCount;
   static std::unordered_map<std::string, unsigned> genusList;
   static std::unordered_map<std::string, SpeciesList*> genusSpeciesList;

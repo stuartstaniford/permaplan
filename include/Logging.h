@@ -67,7 +67,7 @@
 //#define LOG_BARK_DISPLAY          // Log bark color and texture details.
 //#define LOG_TREE_OPACITY          // Log tree bounding box opacity.
 //#define LOG_TREE_GRAPH            // Log tree thread analysis graph.
-#define LOG_OTDL_FILE_SEARCH      // Log process of looking for OTDL files.
+//#define LOG_OTDL_FILE_SEARCH      // Log process of looking for OTDL files.
 #define LOG_TREE_ERRORS           // Log clear errors in tree related operations.
 
 
@@ -183,6 +183,7 @@ extern bool doLogBarkDisplay;         // Log bark color and texture details.
 extern bool doLogTreeOpacity;         // Log tree bounding box opacity.
 extern bool doLogTreeGraph;           // Log tree thread analysis graph.
 extern bool doLogOTDLFileSearch;      // Log process of looking for OTDL files.
+extern bool doLogTreeErrors;          // Log clear errors in tree related operations.
 
 // Logging options for groups of objects
 extern bool doLogGroupAdditions;      // Log when groups are created and objects are added.

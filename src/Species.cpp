@@ -14,9 +14,8 @@
 
 using namespace rapidjson;
 
-rapidjson::Document Species::speciesIndex;
 unsigned short Species::speciesCount = 0u;
-Species** Species::speciesPtrArray = new Species*[SPECIES_ARRAY_SIZE];
+SpeciesList* Species::cachedSpecies = new SpeciesList;
 std::unordered_map<std::string, unsigned> Species::genusList;
 std::unordered_map<std::string, SpeciesList*> Species::genusSpeciesList;
 
@@ -596,17 +595,20 @@ bool Species::validateOTDL(Document& doc)
 
 Species* Species::getSpeciesByPath(const char* speciesPath)
 {
-  unless(speciesIndex.IsObject())
-    speciesIndex.SetObject();
-
-  if(speciesIndex.HasMember(speciesPath))
-    return speciesPtrArray[speciesIndex[speciesPath].GetInt()];
+  if(cachedSpecies->count(speciesPath))
+   {
+    LogOTDLFileSearch("Species %s is cached in memory.\n", speciesPath);
+    return (*cachedSpecies)[speciesPath];
+   }
   
   // Handle the case where the species has not been seen before.
   // First Check local OTDL directories
   Species* species;
   if( (species = loadLocalOTDLEntry(speciesPath)) )
+   {
+    (*cachedSpecies)[speciesPath] = species;
     return species;
+   }
   
   // XX should go out to central web repository
   err(-1, "Couldn't find species %s\n", speciesPath);
