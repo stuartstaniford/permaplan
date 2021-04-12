@@ -50,9 +50,9 @@
      "location": [150, 130],
      "yearPlanted": 1900,
      //"timePlanted": [20,20],
-     "genus": "Pinus",
-     "species": "strobus",
-     "commonName": "Eastern White Pine",
+     "genus": "Liriodendron",
+     "species": "tulipifera",
+     "commonName": "Tulip Tree",
      "treeGirth": [20, 2019.18],
      "notes": "Partner to the weeping white pine to test interaction"
     },    
