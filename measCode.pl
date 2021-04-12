@@ -2,7 +2,7 @@
 
 $detail = 0;
 
-$otdlFiles = `find Materials/Trees -name default.otdl`;
+$otdlFiles = `find Materials/Trees -name *.otdl`;
 $otdlFiles =~ s/\n/ /g;
 
 open(FILE, "wc unixTime.cpp src/*.cpp include/*.h *.pl 812/*.oldf src/*.glsl CMakeLists.txt web/*.js web/views/*js README.md docs/*.md tests/test?.oldf tests/*.pl Materials/Trees/Regions/*.json co2-scenarios.json $otdlFiles|")

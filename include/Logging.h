@@ -67,6 +67,7 @@
 //#define LOG_BARK_DISPLAY          // Log bark color and texture details.
 //#define LOG_TREE_OPACITY          // Log tree bounding box opacity.
 //#define LOG_TREE_GRAPH            // Log tree thread analysis graph.
+#define LOG_OTDL_FILE_SEARCH      // Log process of looking for OTDL files.
 #define LOG_TREE_ERRORS           // Log clear errors in tree related operations.
 
 
@@ -181,7 +182,7 @@ extern bool doLogTreeVisDetails;      // Log every twig being rendered.
 extern bool doLogBarkDisplay;         // Log bark color and texture details.
 extern bool doLogTreeOpacity;         // Log tree bounding box opacity.
 extern bool doLogTreeGraph;           // Log tree thread analysis graph.
-extern bool doLogTreeErrors;          // Log clear errors in tree related operations.
+extern bool doLogOTDLFileSearch;      // Log process of looking for OTDL files.
 
 // Logging options for groups of objects
 extern bool doLogGroupAdditions;      // Log when groups are created and objects are added.
@@ -481,6 +482,13 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
 #define LogTreeGraph(...) if(doLogTreeGraph) LogStatement(__VA_ARGS__)
 #else
 #define LogTreeGraph(...)
+#endif
+
+// Log process of looking for OTDL files.
+#ifdef LOG_OTDL_FILE_SEARCH
+#define LogOTDLFileSearch(...) if(doLogOTDLFileSearch) LogStatement(__VA_ARGS__)
+#else
+#define LogOTDLFileSearch(...)
 #endif
 
 // Log clear errors in tree related operations.

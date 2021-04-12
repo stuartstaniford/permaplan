@@ -80,7 +80,7 @@ void SkySampleModel::setSamples(void)
     
     // XX up to here
     samples[pointsAchieved][0] = elevation;
-    samples[pointsAchieved][1] = elevation;
+    samples[pointsAchieved][1] = hourAngle;
     samples[pointsAchieved][2] = elevation;
     samples[pointsAchieved][3] = elevation;
     pointsAchieved++;

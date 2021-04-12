@@ -4,11 +4,13 @@
 
 
 #include "Species.h"
-#include <err.h>
 #include "loadFileToBuf.h"
 #include "Global.h"
 #include "PmodConfig.h"
 #include "PmodDesign.h"
+#include <dirent.h>
+#include <err.h>
+
 
 using namespace rapidjson;
 
@@ -614,13 +616,73 @@ Species* Species::getSpeciesByPath(const char* speciesPath)
 
 
 // =======================================================================================
+// Utility function to find an OTDL file in a directory.
+// XX We currently just return the first one found.
+
+void findOTDLFileName(char* path, unsigned pathSize)
+{
+  bool found = false;
+  
+  // Open the directory
+  DIR* dir = opendir(path);
+  if(!dir)
+    err(-1, "Couldn't open directory %s in findOTDLFileName", path);
+
+  LogOTDLFileSearch("Checking %s for OTDL files.\n", path);
+
+  // Traverse it looking for the file
+  struct dirent* dirEntry;
+  while( (dirEntry = readdir(dir)) )
+   {
+    unless(dirEntry->d_type == DT_REG)   // ignore everything but regular files
+     {
+      LogOTDLFileSearch("%s is not a regular file.\n", dirEntry->d_name);
+      continue;
+     }
+    if(dirEntry->d_name[0]  == '.')  // ignore hidden files
+     {
+      LogOTDLFileSearch("%s is a hidden file.\n", dirEntry->d_name);
+      continue;
+     }
+    char* dot = rindex(dirEntry->d_name, '.');
+    unless(dot)
+     {
+      LogOTDLFileSearch("%s has no extension.\n", dirEntry->d_name);
+      continue;
+     }
+    if(*(dot+1) == '\0')
+     {
+      LogOTDLFileSearch("%s ends in '.'.\n", dirEntry->d_name);
+      continue;
+     }
+    unless(strcmp(dot+1, "otdl") == 0)
+     {
+      LogOTDLFileSearch("%s has wrong extension.\n", dirEntry->d_name);
+      continue;
+     }
+    // if we get this far, we've found an OTDL file.
+    if(strlen(path) + strlen(dirEntry->d_name) > pathSize-1)
+      err(-1, "Path too long for %s in findOTDLFileName.", dirEntry->d_name);
+    strcat(path, dirEntry->d_name);
+    LogOTDLFileSearch("Found OTDL file %s\n", path);
+    found = true;
+    break;
+   }
+  closedir(dir);
+  if(!found)
+    err(-1, "Couldn't find OTDL file in %s\n", path);
+}
+
+
+// =======================================================================================
 // Static function to try and load a particular "genus/species" from local disk
 
 Species* Species::loadLocalOTDLEntry(const char* speciesPath)
 {
   const PmodConfig& config = PmodConfig::getConfig();
   char path[256];
-  snprintf(path, 256, "%s/%s/default.otdl", config.speciesDirectory, speciesPath);
+  snprintf(path, 256, "%s/%s/", config.speciesDirectory, speciesPath);
+  findOTDLFileName(path, 256);
   unless(regularFileExists(path))
     return NULL;
   unsigned bufSize;
