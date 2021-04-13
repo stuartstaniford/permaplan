@@ -25,6 +25,8 @@ extern char*          spaceUnitName;
 extern char           spaceUnitAbbr;
 #endif
 
+#define spaceUnitsFromFeet(f) (metricUnits?f/3.28084:f)
+
 // =======================================================================================
 // Class variable initialization
 
