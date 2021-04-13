@@ -55,6 +55,7 @@ class Quadtree: public Lockable
   VisualObject* matchRay(vec3& position, vec3& direction, float& lambda);
   void saveSurfaceState(char* fileName);
   bool quadSearchHTML(HttpDebug* serv, char* path);
+  bool quadSearchRecursive(HttpDebug* serv, char* path, char* quadPath);
   bool diagnosticHTML(HttpDebug* serv, char* path);
 #ifdef LOG_TREE_VALIDATION
   void selfValidate(unsigned l);

@@ -607,6 +607,15 @@ void Quadtree::saveSurfaceState(char* fileName)
 
 
 // =======================================================================================
+// Helper function for quadSearchHTML below
+
+bool Quadtree::quadSearchRecursive(HttpDebug* serv, char* path, char* quadPath)
+{
+  return true;
+}
+
+
+// =======================================================================================
 // This function allows the HTTP debugging interface to search for all instances of some
 // particular type of visual object in the quadtree, and reports on their location and
 // summary.  Useful for finding missing/lost objects.
@@ -615,7 +624,8 @@ bool Quadtree::quadSearchHTML(HttpDebug* serv, char* path)
 {
   unless(strcmp(path, "Arrow") == 0 
          || strcmp(path, "HeightMarker") == 0 
-         || strcmp(path, "Tree") == 0 )
+         || strcmp(path, "Tree") == 0 
+         || strcmp(path, "Box") == 0 )
     return false; // only get to search for certain specific things.
 
   char buf[128];
@@ -623,7 +633,18 @@ bool Quadtree::quadSearchHTML(HttpDebug* serv, char* path)
   
   unless(serv->startResponsePage(buf))
     return false;
+  unless(serv->startTable())
+    return false;
 
+  httPrintf("<tr><th>Index</th><th>Quadtree Path</th>");
+  httPrintf("<th>Object Type</th><th>Object Details</th></tr>\n");
+  
+  char quadPath[128];
+  sprintf(quadPath, "/");
+  unless(quadSearchRecursive(serv, path, quadPath))
+    return false;
+  
+  httPrintf("</table></center>\n");
   unless(serv->endResponsePage())
     return false;
   
