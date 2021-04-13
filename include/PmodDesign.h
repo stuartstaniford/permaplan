@@ -25,8 +25,6 @@ extern char*          spaceUnitName;
 extern char           spaceUnitAbbr;
 #endif
 
-#define spaceUnitsFromFeet(f) (metricUnits?f/3.28084:f)
-
 // =======================================================================================
 // Class variable initialization
 
@@ -63,6 +61,9 @@ public:
   {
    return *design;
   }
+  inline float spaceUnitsFromFeet(float f) {return metricUnits?f/3.28084:f;}
+
+  
 private:
 
   // Member functions - private
