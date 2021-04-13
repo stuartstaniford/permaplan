@@ -56,9 +56,8 @@ bool DisplayList::bufferGeometry(TriangleBuffer* T)
 #ifdef LOG_DISPLAYLIST_BUFFER
     if(strcmp(V->objectName(), (char*)"Arrow") == 0) //XX no arrow bounding box yet.
       continue;
-    float centroid[3];
-    for(int m=0; m<3; m++)
-      centroid[m] = (V->box->lower[m] + V->box->upper[m])/2.0f;
+    vec3 centroid;
+    V->box->getCentroid(centroid);
     LogDisplayListBuffer("Buffering %s object at %.1f, %.1f, %.1f.\n",
                          V->objectName(), centroid[0], centroid[1], centroid[2]);
 #endif

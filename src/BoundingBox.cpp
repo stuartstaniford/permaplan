@@ -186,6 +186,16 @@ void BoundingBox::draw(Shader& shader, VertexBufferCombo* combo, vec4 color)
 
 
 // =======================================================================================
+// Find the centroid of this bounding box
+
+void BoundingBox::getCentroid(vec3 centroid)
+{
+  for(int m=0; m<3; m++)
+    centroid[m] = (lower[m] + upper[m])/2.0f;
+}
+
+
+// =======================================================================================
 // Give a ray specified by a position vector and a direction vector, determine if the
 // ray intersects us.  Returns true or false.  Note, matches at negative multiples of
 // the direction vector will not be counted - we seek the smallest positive multiple of

@@ -13,6 +13,18 @@ ControlGroup::ControlGroup(VisualObject* firstObject):
   masterObject = firstObject; // the main object - everything else is ephemeral controls
   LogControlGroupInit("Started new control group around object of type %s.\n",
                         firstObject->objectName());
+  
+  // Add the horizonal movement arrows
+/*  float arrowLength = masterObject->box->height()*0.5f;
+  float arrowSpacing = arrowLength*0.4f;
+  vec3 pos, dir;
+  vec3 centroid;
+  masterObject->box->getCentroid(centroid);
+  pos[2] = 
+  */
+  // North arrow
+  
+  
 }
 
 
