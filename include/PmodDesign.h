@@ -58,9 +58,7 @@ public:
   void writeOLDFFile(LandSurface& land);
   ~PmodDesign(void);
   static PmodDesign& getDesign(void) // Get the singleton instance
-  {
-   return *design;
-  }
+   { return *design; }
   inline float spaceUnitsFromFeet(float f) {return metricUnits?f/3.28084:f;}
 
   

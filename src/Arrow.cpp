@@ -24,6 +24,8 @@ Arrow::Arrow(vec3 root, vec3 dir, float radius, int sides):
   NVecs       = 4u;
   vectorPath  = arrowPoints;
   incrementArrowMemory(sizeof(Arrow)); //+sizeof(BoundingBox));
+  box = new BoundingBox();
+  AxialElement::updateBoundingBox(box, zeroVec);
 }
 
 
@@ -46,6 +48,17 @@ const char* Arrow::objectName(void)
 }
 
 
+// =======================================================================================
+// Function to validate the quadtree and all the objects.
+
+#ifdef LOG_TREE_VALIDATION
+
+void Arrow::selfValidate(unsigned l)
+{
+   box->selfValidate();
+}
+
+#endif
 // =======================================================================================
 // We assume we are part of a table of visual objects and we just contribute one row
 // about this particular HeightMarker.

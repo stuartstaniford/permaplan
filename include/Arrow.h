@@ -29,7 +29,8 @@ class Arrow: public AxialElement, public VisualObject
     {return AxialElement::bufferGeometry(T, zeroVec);}
   inline bool bufferGeometry(TriangleBuffer* T, vec3 offset)
     {return AxialElement::bufferGeometry(T, offset);}
-
+  void selfValidate(unsigned l);
+  
   const char* objectName(void);
   bool        diagnosticHTML(HttpDebug* serv);
 
