@@ -54,6 +54,28 @@ void ControlGroup::createTranslationArrows(void)
   insert(arrow);
   *box += *(arrow->box);
   
+  // South arrow
+  pos[1] = masterObject->box->lower[1] - arrowSpacing;
+  dir[1] = -arrowLength;
+  arrow = new Arrow(pos, dir, design.spaceUnitsFromFeet(1.0f), 10);
+  insert(arrow);
+  *box += *(arrow->box);
+
+  // East arrow
+  pos[0] = masterObject->box->upper[1] + arrowSpacing;
+  dir[0] = arrowLength;
+  pos[1] = centroid[1];
+  dir[1] = 0.0f;
+  arrow = new Arrow(pos, dir, design.spaceUnitsFromFeet(1.0f), 10);
+  insert(arrow);
+  *box += *(arrow->box);
+
+  // West arrow
+  pos[0] = masterObject->box->lower[1] - arrowSpacing;
+  dir[0] = -arrowLength;
+  arrow = new Arrow(pos, dir, design.spaceUnitsFromFeet(1.0f), 10);
+  insert(arrow);
+  *box += *(arrow->box);
 }
 
 
