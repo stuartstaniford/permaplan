@@ -15,6 +15,10 @@
 #include "TriangleBuffer.h"
 #include "BoundingBox.h"
 
+#ifndef VISUAL_ELEMENT_IMPLEMENTATION
+extern vec3 zeroVec;
+#endif
+
 // =======================================================================================
 // Class variable initialization
 

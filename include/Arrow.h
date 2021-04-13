@@ -4,49 +4,44 @@
 #ifndef ARROW_H
 #define ARROW_H
 
+#include "AxialElement.h"
 #include "VisualObject.h"
 
 // =======================================================================================
 // Class variable initialization
 
-//XX this should perhaps be a template parameter to the class
-#define ARROW_SIDES 6
-#define ARROW_RADIUS 0.07        // as a multiple of length (which is norm(direction)).
+//XX probably these shouldn't be hard coded
 #define ARROW_HEAD 0.25          // fraction of the arrow in the head.
 #define ARROW_HEAD_WIDTH 1.0f    // multiple of the radius for the overhang over the shaft.
 
-class Arrow: public VisualObject
+class Arrow: public AxialElement, public VisualObject
 {
  public:
   
   // Instance variables - public
-  vec3 location;
-  vec3 direction;
   
   // Member functions - public
-  Arrow(vec3 root, vec3 dir);
+  Arrow(vec3 root, vec3 dir, float radius, int sides);
   ~Arrow(void);
-  bool        getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
-  bool        getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
-  int         getNextIndex(bool resetToFirst);
-  bool        bufferGeometry(TriangleBuffer* T);
-  bool        matchRay(vec3& position, vec3& direction, float& lambda);
-  void        updateBoundingBox(void);
-  void        triangleBufferSizes(unsigned& vCount, unsigned& iCount);
+  inline void triangleBufferSizes(unsigned& vCount, unsigned& iCount)
+    {AxialElement::triangleBufferSizes(vCount, iCount);}
+  inline bool bufferGeometry(TriangleBuffer* T)
+    {return AxialElement::bufferGeometry(T, zeroVec);}
+  inline bool bufferGeometry(TriangleBuffer* T, vec3 offset)
+    {return AxialElement::bufferGeometry(T, offset);}
+
   const char* objectName(void);
   bool        diagnosticHTML(HttpDebug* serv);
 
  private:
   
   // Instance variables - private
-  
+  vec2          arrowPoints[4];
+
   // Member functions - private
   Arrow(const Arrow&);                 // Prevent copy-construction
   Arrow& operator=(const Arrow&);      // Prevent assignment
 };
 
 #endif
-
-
-
 

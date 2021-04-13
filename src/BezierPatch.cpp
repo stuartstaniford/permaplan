@@ -239,7 +239,8 @@ void BezierPatch::addControlGradientsToDisplayList(DisplayList* D)
     //currentDelta
     glm_vec3_copy(gradientControlPoints[i][j], direction);
     glm_vec3_negate(direction);
-    A = new Arrow(controlPoints[i][j], direction);
+    float rad = glm_vec3_norm(direction)*0.12;
+    A = new Arrow(controlPoints[i][j], direction, rad, 6);
     A->setNoTexColor(lighterRedColor);
     D->emplace(A);
    }

@@ -6,8 +6,12 @@
 // may be elements of larger objects which can be.  Their co-ordinates are expected
 // to be in some frame relative to the larger object of which they are part.
 
+#define VISUAL_ELEMENT_IMPLEMENTATION
+
 #include "VisualElement.h"
 #include <assert.h>
+
+vec3 zeroVec = {0.0f, 0.0f, 0.0f};
 
 // =======================================================================================
 // Constructors

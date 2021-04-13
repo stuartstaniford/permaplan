@@ -8,8 +8,6 @@
 #include "Quadtree.h"
 #include "ObjectGroup.h"
 
-vec3 zeroVec = {0.0f, 0.0f, 0.0f};
-
 // =======================================================================================
 // Constructors
 
