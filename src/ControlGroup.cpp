@@ -52,6 +52,8 @@ void ControlGroup::createTranslationArrows(void)
   dir[1] = arrowLength;
   arrow = new Arrow(pos, dir, design.spaceUnitsFromFeet(1.0f), 10);
   insert(arrow);
+  *box += *(arrow->box);
+  
 }
 
 
