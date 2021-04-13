@@ -607,6 +607,31 @@ void Quadtree::saveSurfaceState(char* fileName)
 
 
 // =======================================================================================
+// This function allows the HTTP debugging interface to search for all instances of some
+// particular type of visual object in the quadtree, and reports on their location and
+// summary.  Useful for finding missing/lost objects.
+
+bool Quadtree::quadSearchHTML(HttpDebug* serv, char* path)
+{
+  unless(strcmp(path, "Arrow") == 0 
+         || strcmp(path, "HeightMarker") == 0 
+         || strcmp(path, "Tree") == 0 )
+    return false; // only get to search for certain specific things.
+
+  char buf[128];
+  snprintf(buf, 128, "Quadtree search result for: %s", path);
+  
+  unless(serv->startResponsePage(buf))
+    return false;
+
+  unless(serv->endResponsePage())
+    return false;
+  
+  return true;
+}
+
+
+// =======================================================================================
 // Provide a diagnostic page about this node in the tree (or possibly refer to one of our kids)
 
 bool Quadtree::diagnosticHTML(HttpDebug* serv, char* path)

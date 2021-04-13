@@ -235,6 +235,9 @@ bool HttpDebug::processRequestHeader(void)
   if( strlen(url) >= 6 && strncmp(url, "/quad/", 6) == 0)
     retVal = scene.qtree->diagnosticHTML(this, url+6);
 
+  if( strlen(url) > 12 && strncmp(url, "/quadsearch/", 12) == 0)
+    retVal = scene.qtree->quadSearchHTML(this, url+12);
+
   else if( strlen(url) == 7 && strncmp(url, "/stbuf/", 7) == 0)
     retVal =  scene.indicatorTbuf->diagnosticHTML(this);
   
