@@ -623,9 +623,11 @@ bool Quadtree::quadSearchRecursive(HttpDebug* serv, char* path, char* quadPath)
 bool Quadtree::quadSearchHTML(HttpDebug* serv, char* path)
 {
   unless(strcmp(path, "Arrow") == 0 
-         || strcmp(path, "HeightMarker") == 0 
-         || strcmp(path, "Tree") == 0 
-         || strcmp(path, "Box") == 0 )
+          || strcmp(path, "HeightMarker") == 0 
+          || strcmp(path, "Tree") == 0 
+          || strcmp(path, "Box") == 0
+          || strcmp(path, "ObjectGroup") == 0
+          || strcmp(path, "ControlGroup") == 0 )
     return false; // only get to search for certain specific things.
 
   char buf[128];
