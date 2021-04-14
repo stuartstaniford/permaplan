@@ -1,0 +1,34 @@
+// OTDL for Pinus sylvestris (Scotch Pine)
+{
+  "parent": "Pinus",
+  "overviewData":
+    {
+     "species":     "sylvestris",
+     "maxHeight":   45000, //https://en.wikipedia.org/wiki/Pinus_sylvestris
+     "maxWidth":    0.5,
+     "maxGirth":   5350, //https://en.wikipedia.org/wiki/Pinus_sylvestris
+     "maxAge":   750, //https://en.wikipedia.org/wiki/Pinus_sylvestris
+     "commonNames":
+       {
+        "en-US": "Scotch Pine",
+        "en-GB": "Scots Pine",
+       },
+     "fileTime":    [20,0]
+    },
+ "wood":
+  {
+   "stemRate": 1000,
+   "initSapThickness": 1.5,
+   "initBarkThickness": 0.5,
+   "barkColors":
+    [
+      {
+       "ages": [0.0, 10000.0],
+       "rgb": [150, 60, 15]
+      }
+    ]
+  },
+ "foliage":
+  {
+  }
+}
