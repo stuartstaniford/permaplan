@@ -1,0 +1,45 @@
+// OTDL for Malus (Apple trees - generic, including mainly crabapples)
+{
+  "parent": "Deciduous",
+  "overviewData":
+    {
+     "genus":       "Malus",
+     "species":     "nosuchspecies",
+     "maxHeight":   8000, //https://en.wikipedia.org/wiki/Malus
+     "maxWidth":    1.0,  //https://www.gardenguides.com/105492-lifespan-flowering-crabapple-tree.html
+     "maxGirth":   750, 
+     "maxAge":   70, //https://www.gardenguides.com/131272-lifespan-flowering-crabapple-trees.html
+     "commonNames":
+       {
+        "en-US": "Red Maple"
+       },
+     "version":     [0, 0, 1],
+     "fileTime":    [20,0],
+     "authors":     ["Stuart Staniford"]
+    },
+ "wood":
+  {
+   "stemRate": 650,    //https://homeguides.sfgate.com/crabapple-tree-growth-rate-57110.html
+   "branchSpacing": 500,
+   "branchFactor": 3,
+   "branchAngle": 30,
+   "branchSpiralAngle": 15,
+   "initSapThickness": 1.5,
+   "initBarkThickness": 0.5,
+   "barkTextures":
+    {
+    
+    },
+   "barkColors":
+    [
+      {
+       "ages": [0.0, 10000.0],
+       "rgb": [50, 50, 50]
+      }
+    ]
+ },
+ "foliage":
+  {
+  }
+}
+
