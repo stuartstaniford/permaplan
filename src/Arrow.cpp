@@ -59,9 +59,28 @@ void Arrow::selfValidate(unsigned l)
 }
 
 #endif
+
+
+// =======================================================================================
+// We assume we are part of a table of visual objects and we just contribute one row
+// about this particular object.  This is the version called from Quadtree pages
+
+bool Arrow::diagnosticHTMLSummary(HttpDebug* serv)
+{
+  httPrintf("<tr><td>Arrow</a></td>");
+  httPrintf("<td>Location: [%.1f, %.1f, %.1f]<br>Direction: [%.1f, %.1f, %.1f]</td>",
+                      location[0], location[1], location[2], 
+                      axisDirection[0], axisDirection[1], axisDirection[2]);  
+  httPrintf("</tr>\n");
+
+  return true;
+}
+
+
 // =======================================================================================
 // We assume we are part of a table of visual objects and we just contribute one row
 // about this particular HeightMarker.
+// XX needs to be fixed to be a proper page.
 
 bool Arrow::diagnosticHTML(HttpDebug* serv)
 {

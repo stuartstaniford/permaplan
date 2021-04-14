@@ -38,6 +38,7 @@ class Arrow: public AxialElement, public VisualObject
   void selfValidate(unsigned l);
   
   const char* objectName(void);
+  bool        diagnosticHTMLSummary(HttpDebug* serv);
   bool        diagnosticHTML(HttpDebug* serv);
 
  private:
