@@ -609,8 +609,27 @@ void Quadtree::saveSurfaceState(char* fileName)
 // =======================================================================================
 // Helper function for quadSearchHTML below
 
-bool Quadtree::quadSearchRecursive(HttpDebug* serv, char* path, char* quadPath)
+bool Quadtree::quadSearchRecursive(HttpDebug* serv, char* searchTerm, char* quadPath)
 {
+  for(VisualObject* v: vObjects)
+   {
+    if(strcmp(v->objectName(), searchTerm)==0)
+     {
+      // We found one
+     }
+    if(v->isGroup)
+     {
+      // recurse into group
+     }
+   }
+  
+  strcat(quadPath, " /");
+  int pos = strlen(quadPath) - 2;
+  forAllKids(i)
+   {
+    quadPath[pos] = '0' + (char)i;
+    kids[i]->quadSearchRecursive(serv, searchTerm, quadPath);
+   } 
   return true;
 }
 
@@ -620,18 +639,18 @@ bool Quadtree::quadSearchRecursive(HttpDebug* serv, char* path, char* quadPath)
 // particular type of visual object in the quadtree, and reports on their location and
 // summary.  Useful for finding missing/lost objects.
 
-bool Quadtree::quadSearchHTML(HttpDebug* serv, char* path)
+bool Quadtree::quadSearchHTML(HttpDebug* serv, char* searchTerm)
 {
-  unless(strcmp(path, "Arrow") == 0 
-          || strcmp(path, "HeightMarker") == 0 
-          || strcmp(path, "Tree") == 0 
-          || strcmp(path, "Box") == 0
-          || strcmp(path, "ObjectGroup") == 0
-          || strcmp(path, "ControlGroup") == 0 )
+  unless(strcmp(searchTerm, "Arrow") == 0 
+          || strcmp(searchTerm, "HeightMarker") == 0 
+          || strcmp(searchTerm, "Tree") == 0 
+          || strcmp(searchTerm, "Box") == 0
+          || strcmp(searchTerm, "ObjectGroup") == 0
+          || strcmp(searchTerm, "ControlGroup") == 0 )
     return false; // only get to search for certain specific things.
 
   char buf[128];
-  snprintf(buf, 128, "Quadtree search result for: %s", path);
+  snprintf(buf, 128, "Quadtree search result for: %s", searchTerm);
   
   unless(serv->startResponsePage(buf))
     return false;
@@ -643,7 +662,7 @@ bool Quadtree::quadSearchHTML(HttpDebug* serv, char* path)
   
   char quadPath[128];
   sprintf(quadPath, "/");
-  unless(quadSearchRecursive(serv, path, quadPath))
+  unless(quadSearchRecursive(serv, searchTerm, quadPath))
     return false;
   
   httPrintf("</table></center>\n");
