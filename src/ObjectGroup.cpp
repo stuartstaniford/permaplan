@@ -147,6 +147,31 @@ const char* ObjectGroup::objectName(void)
 
 
 // =======================================================================================
+// Helper function for Quadtree::quadSearchHTML
+
+bool ObjectGroup::quadSearchRecursive(HttpDebug* serv, int& nextRow, 
+                                                          char* searchTerm, char* quadPath)
+{
+  for(VisualObject* v: *this)
+   {
+    const char* objName = v->objectName();
+    if(strcmp(objName, searchTerm)==0)
+     {
+      // We found one
+      httPrintf("<tr><th>%d</th><th>%s</th>", nextRow++, quadPath);
+      httPrintf("<th>%s</th><th>Object Details</th></tr>\n", objName);
+     }
+    if(v->isGroup)
+     {
+      ObjectGroup* O = (ObjectGroup*)v;
+      O->quadSearchRecursive(serv, nextRow, searchTerm, quadPath);
+     }
+   }
+  return true;
+}
+
+
+// =======================================================================================
 // Provide a diagnostic page about this group.
 
 bool ObjectGroup::diagnosticHTML(HttpDebug* serv)

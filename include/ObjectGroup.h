@@ -31,6 +31,7 @@ public:
     {DisplayList::triangleBufferSizes(vCount, iCount);}
   virtual bool matchRay(vec3& position, vec3& direction, float& lambda);
   const char* objectName(void);
+  bool quadSearchRecursive(HttpDebug* serv, int& nextRow, char* searchTerm, char* quadPath);
   bool diagnosticHTML(HttpDebug* serv);
 
 #ifdef LOG_TREE_VALIDATION

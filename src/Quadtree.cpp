@@ -9,6 +9,7 @@
 #include <GLFW/glfw3.h>
 #include "Quadtree.h"
 #include "Scene.h"
+#include "ObjectGroup.h"
 
 
 /* Arrangement of kids is as follows:
@@ -609,17 +610,22 @@ void Quadtree::saveSurfaceState(char* fileName)
 // =======================================================================================
 // Helper function for quadSearchHTML below
 
-bool Quadtree::quadSearchRecursive(HttpDebug* serv, char* searchTerm, char* quadPath)
+bool Quadtree::quadSearchRecursive(HttpDebug* serv, int& nextRow, 
+                                                          char* searchTerm, char* quadPath)
 {
   for(VisualObject* v: vObjects)
    {
-    if(strcmp(v->objectName(), searchTerm)==0)
+    const char* objName = v->objectName();
+    if(strcmp(objName, searchTerm)==0)
      {
       // We found one
+      httPrintf("<tr><th>%d</th><th>%s</th>", nextRow++, quadPath);
+      httPrintf("<th>%s</th><th>Object Details</th></tr>\n", objName);
      }
     if(v->isGroup)
      {
-      // recurse into group
+      ObjectGroup* O = (ObjectGroup*)v;
+      O->quadSearchRecursive(serv, nextRow, searchTerm, quadPath);
      }
    }
   
@@ -628,7 +634,7 @@ bool Quadtree::quadSearchRecursive(HttpDebug* serv, char* searchTerm, char* quad
   forAllKids(i)
    {
     quadPath[pos] = '0' + (char)i;
-    kids[i]->quadSearchRecursive(serv, searchTerm, quadPath);
+    kids[i]->quadSearchRecursive(serv, nextRow, searchTerm, quadPath);
    } 
   return true;
 }
@@ -662,7 +668,8 @@ bool Quadtree::quadSearchHTML(HttpDebug* serv, char* searchTerm)
   
   char quadPath[128];
   sprintf(quadPath, "/");
-  unless(quadSearchRecursive(serv, searchTerm, quadPath))
+  int nextRow = 1u;
+  unless(quadSearchRecursive(serv, nextRow, searchTerm, quadPath))
     return false;
   
   httPrintf("</table></center>\n");
