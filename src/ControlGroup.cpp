@@ -90,3 +90,25 @@ const char* ControlGroup::objectName(void)
 
 
 // =======================================================================================
+// We assume we are part of a table of visual objects and we just contribute one row
+// about this particular object.  This is the version called from Quadtree pages
+
+bool ControlGroup::diagnosticHTMLSummary(HttpDebug* serv)
+{
+  httPrintf("<tr><td>Control Group</a></td>");
+  httPrintf("<td>");
+  unless(serv->startTable())
+    return false;
+  httPrintf("<tr><th>Type</th><th>Details</th></tr>");
+  
+  for(VisualObject* v: *this)
+    unless(v->diagnosticHTMLSummary(serv))
+      return false;
+
+  httPrintf("</table></td></tr>\n");
+
+  return true;
+}
+
+
+// =======================================================================================

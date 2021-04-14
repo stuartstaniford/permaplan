@@ -27,6 +27,7 @@ public:
     {DisplayList::triangleBufferSizes(vCount, iCount);}
   const char* objectName(void);
   void createTranslationArrows(void);
+  bool  diagnosticHTMLSummary(HttpDebug* serv);
 
 private:
   
