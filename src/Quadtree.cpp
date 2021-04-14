@@ -619,8 +619,9 @@ bool Quadtree::quadSearchRecursive(HttpDebug* serv, int& nextRow,
     if(strcmp(objName, searchTerm)==0)
      {
       // We found one
-      httPrintf("<tr><th>%d</th><th>%s</th>", nextRow++, quadPath);
-      httPrintf("<th>%s</th><th>Object Details</th></tr>\n", objName);
+      httPrintf("<tr><td>%d</td><td>%s</td>", nextRow, quadPath);
+      httPrintf("<td>%s</td><td>Object Details</td></tr>\n", objName);
+      nextRow++;
      }
     if(v->isGroup)
      {
@@ -635,7 +636,8 @@ bool Quadtree::quadSearchRecursive(HttpDebug* serv, int& nextRow,
    {
     quadPath[pos] = '0' + (char)i;
     kids[i]->quadSearchRecursive(serv, nextRow, searchTerm, quadPath);
-   } 
+   }
+  quadPath[pos] = '\0';
   return true;
 }
 
@@ -673,6 +675,7 @@ bool Quadtree::quadSearchHTML(HttpDebug* serv, char* searchTerm)
     return false;
   
   httPrintf("</table></center>\n");
+
   unless(serv->endResponsePage())
     return false;
   

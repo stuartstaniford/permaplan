@@ -184,6 +184,7 @@ src/BezierPatch.o: include/Shader.h include/VertexBufferCombo.h
 src/BezierPatch.o: include/Lockable.h include/Quadtree.h
 src/BezierPatch.o: include/DisplayList.h include/LandSurfaceRegionPlanar.h
 src/BezierPatch.o: include/HeightMarker.h include/Arrow.h
+src/BezierPatch.o: include/AxialElement.h
 src/Boundary.o: include/Boundary.h /usr/local/include/cglm/cglm.h
 src/Boundary.o: /usr/local/include/cglm/common.h
 src/Boundary.o: /usr/local/include/cglm/types.h
@@ -236,9 +237,7 @@ src/Boundary.o: include/rapidjson/stringbuffer.h
 src/Boundary.o: include/rapidjson/stringbuffer.h include/rapidjson/error/en.h
 src/Boundary.o: include/rapidjson/error/error.h include/PmodConfig.h
 src/Boundary.o: include/Logging.h include/MemoryTracker.h include/Global.h
-src/BoundingBox.o: /usr/local/include/GL/glew.h
-src/BoundingBox.o: /usr/local/include/GLFW/glfw3.h include/BoundingBox.h
-src/BoundingBox.o: /usr/local/include/cglm/cglm.h
+src/BoundingBox.o: include/BoundingBox.h /usr/local/include/cglm/cglm.h
 src/BoundingBox.o: /usr/local/include/cglm/common.h
 src/BoundingBox.o: /usr/local/include/cglm/types.h
 src/BoundingBox.o: /usr/local/include/cglm/simd/intrin.h
@@ -270,7 +269,8 @@ src/BoundingBox.o: /usr/local/include/cglm/bezier.h
 src/BoundingBox.o: /usr/local/include/cglm/ray.h
 src/BoundingBox.o: /usr/local/include/cglm/affine2d.h include/Shader.h
 src/BoundingBox.o: include/VertexBufferCombo.h include/VertexArrayObject.h
-src/BoundingBox.o: include/VertexBufferObject.h include/Global.h
+src/BoundingBox.o: include/VertexBufferObject.h /usr/local/include/GL/glew.h
+src/BoundingBox.o: /usr/local/include/GLFW/glfw3.h include/Global.h
 src/BoundingBox.o: include/Logging.h include/MemoryTracker.h
 src/BoundingBox.o: include/HttpDebug.h include/Vertex.h
 src/Box.o: include/Box.h include/VisualObject.h include/VisualElement.h
@@ -429,7 +429,42 @@ src/ControlGroup.o: include/HttpDebug.h include/Vertex.h
 src/ControlGroup.o: include/ElementBufferObject.h include/BoundingBox.h
 src/ControlGroup.o: include/Shader.h include/VertexBufferCombo.h
 src/ControlGroup.o: include/Lockable.h include/DisplayList.h
-src/ControlGroup.o: include/LandSurfaceRegion.h
+src/ControlGroup.o: include/LandSurfaceRegion.h include/Arrow.h
+src/ControlGroup.o: include/AxialElement.h include/PmodDesign.h
+src/ControlGroup.o: include/rapidjson/document.h include/rapidjson/reader.h
+src/ControlGroup.o: include/rapidjson/allocators.h
+src/ControlGroup.o: include/rapidjson/rapidjson.h include/rapidjson/stream.h
+src/ControlGroup.o: include/rapidjson/encodings.h
+src/ControlGroup.o: include/rapidjson/encodedstream.h
+src/ControlGroup.o: include/rapidjson/memorystream.h
+src/ControlGroup.o: include/rapidjson/internal/clzll.h
+src/ControlGroup.o: include/rapidjson/rapidjson.h
+src/ControlGroup.o: include/rapidjson/internal/meta.h
+src/ControlGroup.o: include/rapidjson/internal/stack.h
+src/ControlGroup.o: include/rapidjson/allocators.h
+src/ControlGroup.o: include/rapidjson/internal/swap.h
+src/ControlGroup.o: include/rapidjson/internal/strtod.h
+src/ControlGroup.o: include/rapidjson/internal/ieee754.h
+src/ControlGroup.o: include/rapidjson/internal/biginteger.h
+src/ControlGroup.o: include/rapidjson/internal/diyfp.h
+src/ControlGroup.o: include/rapidjson/internal/clzll.h
+src/ControlGroup.o: include/rapidjson/internal/pow10.h
+src/ControlGroup.o: include/rapidjson/error/error.h
+src/ControlGroup.o: include/rapidjson/internal/strfunc.h
+src/ControlGroup.o: include/rapidjson/stream.h include/rapidjson/writer.h
+src/ControlGroup.o: include/rapidjson/internal/dtoa.h
+src/ControlGroup.o: include/rapidjson/internal/itoa.h
+src/ControlGroup.o: include/rapidjson/internal/itoa.h
+src/ControlGroup.o: include/rapidjson/stringbuffer.h
+src/ControlGroup.o: include/rapidjson/stringbuffer.h
+src/ControlGroup.o: include/rapidjson/error/en.h
+src/ControlGroup.o: include/rapidjson/error/error.h include/LandSurface.h
+src/ControlGroup.o: include/TexturedRect.h include/Texture.h
+src/ControlGroup.o: include/Quadtree.h include/LandSurfaceRegionPlanar.h
+src/ControlGroup.o: include/Camera.h include/HeightMarker.h
+src/ControlGroup.o: include/BezierPatch.h include/PmodConfig.h
+src/ControlGroup.o: include/Timeval.h include/JSONStructureChecker.h
+src/ControlGroup.o: include/Version.h include/Boundary.h
 src/Copse.o: include/Copse.h include/DisplayList.h include/VisualObject.h
 src/Copse.o: include/VisualElement.h include/TriangleBuffer.h
 src/Copse.o: include/ElementBufferCombo.h include/VertexArrayObject.h
@@ -1483,7 +1518,7 @@ src/Quadtree.o: include/JSONStructureChecker.h include/Version.h
 src/Quadtree.o: include/Boundary.h include/Grid.h include/Material.h
 src/Quadtree.o: include/TextureAtlas.h include/LightingModel.h
 src/Quadtree.o: include/Species.h include/LeafModel.h include/CO2Scenario.h
-src/Quadtree.o: include/TaskQueue.h
+src/Quadtree.o: include/TaskQueue.h include/ObjectGroup.h
 src/Scene.o: include/ControlGroup.h include/ObjectGroup.h
 src/Scene.o: include/VisualObject.h include/VisualElement.h
 src/Scene.o: include/TriangleBuffer.h include/ElementBufferCombo.h
