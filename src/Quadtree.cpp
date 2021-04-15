@@ -616,7 +616,8 @@ bool Quadtree::quadSearchRecursive(HttpDebug* serv, int& nextRow,
   for(VisualObject* v: vObjects)
    {
     const char* objName = v->objectName();
-    if(strcmp(objName, searchTerm)==0)
+    if(strcmp(objName, searchTerm)==0 || 
+          (strcmp(searchTerm, "Tree") == 0 && strncmp(objName, "Tree", 4) == 0))
      {
       // We found one
       httPrintf("<tr><td>%d</td><td>%s</td>", nextRow, quadPath);
