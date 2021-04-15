@@ -27,6 +27,7 @@ class Box: public VisualObject
   bool        bufferGeometry(TriangleBuffer* T);
   //bool        matchRay(vec3& position, vec3& direction, float& lambda);
   void        triangleBufferSizes(unsigned& vCount, unsigned& iCount);
+  void        selfValidate(unsigned l);
   const char* objectName(void);
   bool        diagnosticHTMLSummary(HttpDebug* serv);
 

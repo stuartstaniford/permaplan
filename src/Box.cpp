@@ -268,6 +268,19 @@ bool Box::matchRay(vec3& position, vec3& direction, float& lambda)*/
 
 
 // =======================================================================================
+// Function to validate the quadtree and all the objects.
+
+#ifdef LOG_TREE_VALIDATION
+
+void Box::selfValidate(unsigned l)
+{
+   box->selfValidate();
+}
+
+#endif
+
+
+// =======================================================================================
 // Tell callers our name at runtime.
 
 const char* Box::objectName(void)
