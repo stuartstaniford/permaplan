@@ -765,6 +765,23 @@ bool Quadtree::diagnosticHTML(HttpDebug* serv, char* path)
      }
     httPrintf("</table></center>\n");
 
+    // Provide search tree links if at the root    
+    if(level == '\0')
+     {
+      unless(serv->newSection("Search the Quadtree for different types of objects"))
+        return false;
+      unless(serv->startTable())
+        return false;
+      httPrintf("<tr>");
+      httPrintf("<td><a href=\"/quadsearch/Arrow\">Arrow</a></td>");
+      httPrintf("<td><a href=\"/quadsearch/HeightMarker\">HeightMarker</a></td>");
+      httPrintf("<td><a href=\"/quadsearch/Tree\">Tree</a></td>");
+      httPrintf("<td><a href=\"/quadsearch/Box\">Box</a></td>");
+      httPrintf("<td><a href=\"/quadsearch/ObjectGroup\">ObjectGroup</a></td>");
+      httPrintf("<td><a href=\"/quadsearch/ControlGroup\">ControlGroup</a></td>");  
+      httPrintf("</tr></table></center>\n");
+     }
+    
     // Vertex Data
     unless(serv->newSection("Vertex Data"))
       return false;
