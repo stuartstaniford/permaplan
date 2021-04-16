@@ -429,6 +429,8 @@ void Quadtree::recomputeBoundingBox(void)
 
 void Quadtree::rebuildTBufSizes(void)
 {
+  vertexTBufSize = 0u;
+  indexTBufSize = 0u;
   vObjects.triangleBufferSizes(vertexTBufSize, indexTBufSize);
   forAllKids(i)
    {

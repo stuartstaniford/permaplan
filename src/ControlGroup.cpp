@@ -83,7 +83,6 @@ void ControlGroup::createTranslationArrows(void)
   pos[0] = masterObject->box->lower[0] - arrowSpacing;
   dir[0] = -arrowLength;
   addOneArrow(pos, dir);
-
 }
 
 

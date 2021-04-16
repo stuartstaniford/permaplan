@@ -79,8 +79,6 @@ void DisplayList::adjustAltitudes(LandSurfaceRegion* surface)
 
 void DisplayList::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 {
-  vCount = 0u;
-  iCount = 0u;
   unsigned vObjectSize, iObjectSize;
   for(VisualObject* V: *this)
    {
