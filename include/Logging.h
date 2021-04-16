@@ -76,7 +76,7 @@
 
 #define LOG_GROUP_ADDITIONS       // Log when groups are created and objects are added.
 #define LOG_CONTROL_GROUP_INIT    // Log the process of initiating a new control group.
-//#define LOG_GROUP_MATCH_RAY       // Log ray matching in groups.
+#define LOG_GROUP_MATCH_RAY       // Log ray matching in groups.
 //#define LOG_FIND_GROUPS           // Log groups found during self validation.
 
 

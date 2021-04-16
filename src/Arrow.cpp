@@ -15,15 +15,16 @@ Arrow::Arrow(vec3 root, vec3 dir, float radius, int sides):
                       AxialElement(root, dir, radius, sides),
                       VisualObject(true),
                       arrowPoints{
-                        {0.5f, 0.0f}, 
                         {0.5f, 0.75f},
                         {1.0f, 0.75f},
                         {0.0f, 1.0f}                        
                       }
 {
-  NVecs       = 4u;
+  NVecs       = 3u;
   vectorPath  = arrowPoints;
   incrementArrowMemory(sizeof(Arrow)); //+sizeof(BoundingBox));
+  closedBase = true;
+  closedTop = true;
   box = new BoundingBox();
   AxialElement::updateBoundingBox(box, zeroVec);
 }

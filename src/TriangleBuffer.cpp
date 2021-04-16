@@ -42,6 +42,11 @@ TriangleBuffer::TriangleBuffer(unsigned vertexCount, unsigned indexCount, char* 
 
 TriangleBuffer::~TriangleBuffer(void)
 {
+  unless(vNext == vCount && iNext == iCount)
+    LogTriangleBufferErrs("Deallocating partially used TriangleBuffer %s: "
+                                                    "[%u, %u]/[%u,%u].\n",
+                                                    bufName, vNext, iNext, vCount, iCount);
+  
   if(vertices)
    {
     delete[] vertices;

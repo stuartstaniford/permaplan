@@ -39,7 +39,6 @@ void ControlGroup::addOneArrow(vec3 pos, vec3 dir)
   PmodDesign& design = PmodDesign::getDesign();
   Arrow* arrow = new Arrow(pos, dir, design.spaceUnitsFromFeet(1.0f), 10);
   arrow->color = arrowRed;
-  arrow->closedBase = true;
   insert(arrow);
   *box += *(arrow->box);
 }

@@ -80,9 +80,7 @@ void LandSurface::bufferGeometry(Quadtree* q)
   
   if(tbuf)
     delete tbuf;
-  //XXX note sizing here is inefficient, needs to be replaced with more dynamic
-  // approach
-  tbuf = new TriangleBuffer(qtree->landVBOSize, qtree->landVBOSize, (char*)"land tBuf");
+  tbuf = new TriangleBuffer(2*qtree->landVBOSize/3, qtree->landVBOSize, (char*)"land tBuf");
   if(!tbuf)
     err(-1, "Can't allocate memory in __func__\n");
   qtree->bufferLandSurface(tbuf);
