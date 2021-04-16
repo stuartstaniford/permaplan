@@ -50,17 +50,14 @@ bool DisplayList::bufferGeometry(TriangleBuffer* T)
 {
   for(VisualObject* V: *this)
    {
-    unless(V->bufferGeometry(T))
-      return false;
-
 #ifdef LOG_DISPLAYLIST_BUFFER
-    if(strcmp(V->objectName(), (char*)"Arrow") == 0) //XX no arrow bounding box yet.
-      continue;
     vec3 centroid;
     V->box->getCentroid(centroid);
     LogDisplayListBuffer("Buffering %s object at %.1f, %.1f, %.1f.\n",
                          V->objectName(), centroid[0], centroid[1], centroid[2]);
 #endif
+    unless(V->bufferGeometry(T))
+      return false;
    }
   return true;
 }

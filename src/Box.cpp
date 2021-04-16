@@ -274,7 +274,7 @@ bool Box::matchRay(vec3& position, vec3& direction, float& lambda)*/
 
 void Box::selfValidate(unsigned l)
 {
-   box->selfValidate();
+  box->selfValidate();
 }
 
 #endif

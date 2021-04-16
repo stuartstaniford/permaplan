@@ -96,7 +96,7 @@
 //#define LOG_QUADTREE_INSERTIONS // Log a new object being put in the quadtree.
 //#define LOG_QUADTREE_BOUND_BOX  // Log changes to the quadtree bounding boxes.
 //#define LOG_QUADTREE_MATCH_RAY  // Log the process of matching a ray in the quadtree.
-//#define LOG_DISPLAYLIST_BUFFER  // Log the process of objects being buffered for display.
+#define LOG_DISPLAYLIST_BUFFER  // Log the process of objects being buffered for display.
 //#define LOG_QUADTREE_OBJ_SIZES  // Log the process of estimating/changing object sizes
 
 

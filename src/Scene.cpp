@@ -253,9 +253,9 @@ void Scene::processEditModeObjectDeselection(void)
 void Scene::processNewEditModeObject(void)
 {
   ControlGroup* controlGroup = new ControlGroup(editModeObject);
-  // controlGroup->add( -- stuff --);
   editModeObject->removeFromQuadtree();
   qtree->storeVisualObject(controlGroup);
+  rebuildVisualObjectBuffer(&sceneObjectTbuf);
 }
 
 
