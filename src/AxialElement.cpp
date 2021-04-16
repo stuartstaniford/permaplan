@@ -326,9 +326,11 @@ bool AxialElement::updateBoundingBox(BoundingBox* box, vec3 offset)
   
   // top end point
   if(closedTop)
+   {
     glm_vec3_add(relativeLoc, axisDirection, point);
-      if(box->extends(point))
-        retVal = true;
+    if(box->extends(point))
+      retVal = true;
+   }
 
   getCrossVectors(axisDirection, f1, f2, radius);
   
