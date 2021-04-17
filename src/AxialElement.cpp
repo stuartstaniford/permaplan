@@ -107,6 +107,7 @@ void AxialElement::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
     vCount++;
     iCount += 3*sides;
    }
+  LogTriangleBufEstimates("AxialElement TriangleBuffer estimate: [%u, %u]\n", vCount, iCount);
 }
 
 

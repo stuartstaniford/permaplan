@@ -282,6 +282,8 @@ void LandSurface::redoBezierLandSurface(BezierPatch* bez)
   DisplayList* D = bez->newUVLocationList();
   bez->addControlPointsToDisplayList(D);
   bez->addControlGradientsToDisplayList(D);
+  vCount = 0u;
+  iCount = 0u;
   D->triangleBufferSizes(vCount, iCount);
   recycleTriangleBuffer(fitTBuf, vCount, iCount, (char*)"fit tbuf");
   D->bufferGeometry(fitTBuf);

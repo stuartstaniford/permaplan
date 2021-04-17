@@ -86,6 +86,7 @@ void DisplayList::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
     vCount += vObjectSize;
     iCount += iObjectSize;
    }
+  LogTriangleBufEstimates("DisplayList TriangleBuffer estimate: [%u, %u]\n", vCount, iCount);
 }
 
 

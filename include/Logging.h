@@ -103,8 +103,8 @@
 // =======================================================================================
 // Logging options to do with other infrastructure
 
-//#define LOG_TRIANGLE_BUFFER_OPS     // Log the workings of the triangle buffers.
-//#define LOG_TRIANGLE_BUF_ESTIMATES  // Log estimates of sizes needed.
+#define LOG_TRIANGLE_BUFFER_OPS     // Log the workings of the triangle buffers.
+#define LOG_TRIANGLE_BUF_ESTIMATES  // Log estimates of sizes needed.
 #define LOG_TRIANGLE_BUFFER_ERRS    // Log actual errors the triangle buffers.
 
 
