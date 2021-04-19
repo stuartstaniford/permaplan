@@ -96,15 +96,15 @@
 //#define LOG_QUADTREE_INSERTIONS // Log a new object being put in the quadtree.
 //#define LOG_QUADTREE_BOUND_BOX  // Log changes to the quadtree bounding boxes.
 //#define LOG_QUADTREE_MATCH_RAY  // Log the process of matching a ray in the quadtree.
-#define LOG_DISPLAYLIST_BUFFER  // Log the process of objects being buffered for display.
+//#define LOG_DISPLAYLIST_BUFFER  // Log the process of objects being buffered for display.
 //#define LOG_QUADTREE_OBJ_SIZES  // Log the process of estimating/changing object sizes
 
 
 // =======================================================================================
 // Logging options to do with other infrastructure
 
-#define LOG_TRIANGLE_BUFFER_OPS     // Log the workings of the triangle buffers.
-#define LOG_TRIANGLE_BUF_ESTIMATES  // Log estimates of sizes needed.
+//#define LOG_TRIANGLE_BUFFER_OPS     // Log the workings of the triangle buffers.
+//#define LOG_TRIANGLE_BUF_ESTIMATES  // Log estimates of sizes needed.
 #define LOG_TRIANGLE_BUFFER_ERRS    // Log actual errors the triangle buffers.
 
 

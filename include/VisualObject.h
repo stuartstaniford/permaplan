@@ -11,6 +11,7 @@
 
 #include "VisualElement.h"
 #include "Lockable.h"
+#include <unordered_map>
 
 // =======================================================================================
 // Class variable initialization
@@ -65,12 +66,17 @@ class VisualObject: public Lockable, public VisualElement
   Quadtree*       qTreeNode;
   ObjectGroup*    groupOwner;
   unsigned        noTexColor;
+  unsigned        objIndex;
   float           altitude;
   bool            isGroup;
   bool            useNoTexColor;
   bool            absoluteHeights;  // if true, heights are absolute.  Otherwise, they
                                   // are relative to local ground level.
-
+  
+  // static (class) protected variables
+  static          unsigned nextIndex;
+  static          std::unordered_map<unsigned, VisualObject*> allObjects;
+  
 private:
   
   // Member functions - private

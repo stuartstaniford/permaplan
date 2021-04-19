@@ -8,6 +8,10 @@
 #include "Quadtree.h"
 #include "ObjectGroup.h"
 
+
+unsigned VisualObject::nextIndex = 1;
+std::unordered_map<unsigned, VisualObject*> VisualObject::allObjects;
+
 // =======================================================================================
 // Constructors
 
@@ -15,11 +19,13 @@ VisualObject::VisualObject(bool absHeights, BoundingBox* B):
                                 box(B),
                                 qTreeNode(NULL),
                                 groupOwner(NULL),
+                                objIndex(nextIndex++),
                                 altitude(0.0f),
                                 isGroup(false),
                                 useNoTexColor(false),
                                 absoluteHeights(absHeights)
 {
+  allObjects[objIndex] = this;
 }
 
 
