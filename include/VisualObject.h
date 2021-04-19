@@ -49,7 +49,8 @@ class VisualObject: public Lockable, public VisualElement
   virtual const char* objectName(void);
   virtual bool        diagnosticHTML(HttpDebug* serv);
   virtual bool        diagnosticHTMLSummary(HttpDebug* serv);
-
+  static bool         diagnosticHTMLSelection(HttpDebug* serv, char* path);
+  
   // Public member functions arising here
   void                setNoTexColor(unsigned color);
   virtual void        setAltitude(LandSurfaceRegion* surface);
@@ -74,6 +75,7 @@ class VisualObject: public Lockable, public VisualElement
                                   // are relative to local ground level.
   
   // static (class) protected variables
+  static          Lockable staticLock;
   static          unsigned nextIndex;
   static          std::unordered_map<unsigned, VisualObject*> allObjects;
   

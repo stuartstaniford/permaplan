@@ -267,6 +267,8 @@ bool HttpDebug::processRequestHeader(void)
     SkySampleModel& sky = SkySampleModel::getSkySampleModel();
     retVal =  sky.diagnosticHTML(this);
    }
+  else if( strlen(url) > 8 && strncmp(url, "/object/", 8) == 0)
+    retVal =  VisualObject::diagnosticHTMLSelection(this, url+8);
   
   else
    {

@@ -101,7 +101,7 @@ const char* ControlGroup::objectName(void)
 
 bool ControlGroup::diagnosticHTMLSummary(HttpDebug* serv)
 {
-  httPrintf("<tr><td>Control Group</a></td>");
+  httPrintf("<tr><td><a href=\"/object/%d\">Control Group</a></td>", objIndex);
   httPrintf("<td>");
   unless(serv->startTable())
     return false;

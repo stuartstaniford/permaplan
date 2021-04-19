@@ -657,10 +657,12 @@ float Tree::getRadius(void)
 
 bool Tree::allTreeDiagnosticHTML(HttpDebug* serv)
 {
-  serv->startResponsePage("Trees");
+  unless(serv->startResponsePage("Trees"))
+    return false;
   
   httPrintf("<center>\n");
-  serv->startTable();
+  unless(serv->startTable())
+    return false;
   httPrintf("<tr><th>Index</th><th>Species</th><th>Location (%c)</th><th>Planted</th>"
               "<th>Age (yr)</th><th>Height (%c)</th><th>Girth (%c)</th><th>Task-id</th></tr>\n",
               spaceUnitAbbr, spaceUnitAbbr, spaceUnitAbbr);
@@ -669,7 +671,7 @@ bool Tree::allTreeDiagnosticHTML(HttpDebug* serv)
     treePtrArray[i]->diagnosticHTMLRow(serv);
   
   httPrintf("</table></center><hr>\n");
-  if(!serv->endResponsePage())
+  unless(serv->endResponsePage())
     return false;
   return true;
 }

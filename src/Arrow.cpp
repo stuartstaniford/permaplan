@@ -66,7 +66,7 @@ void Arrow::selfValidate(unsigned l)
 
 bool Arrow::diagnosticHTMLSummary(HttpDebug* serv)
 {
-  httPrintf("<tr><td>Arrow</a></td>");
+  httPrintf("<tr><td><a href=\"/object/%d\">Arrow</a></td>", objIndex);
   httPrintf("<td>Location: [%.1f, %.1f, %.1f]<br>Direction: [%.1f, %.1f, %.1f]</td>",
                       location[0], location[1], location[2], 
                       axisDirection[0], axisDirection[1], axisDirection[2]);  
@@ -83,11 +83,22 @@ bool Arrow::diagnosticHTMLSummary(HttpDebug* serv)
 
 bool Arrow::diagnosticHTML(HttpDebug* serv)
 {
-  httPrintf("<tr><td>Arrow</td>");
-  httPrintf("<td><b>Location:</b> (%.1f, %.1f, %.1f)<br>" ,
+  unless(serv->startResponsePage("Arrow"))
+    return false;
+  
+  httPrintf("<b>Object Id:</b> %u<br>", objIndex);
+  httPrintf("<b>Location:</b> (%.1f, %.1f, %.1f)<br>" ,
                                   location[0], location[1], location[2]);
-  httPrintf("Direction:</b> (%.1f, %.1f, %.1f)</td></tr>\n" ,
+  httPrintf("Direction:</b> (%.1f, %.1f, %.1f)</td>\n" ,
                            axisDirection[0], axisDirection[1], axisDirection[2]);
+  
+  unless(serv->newSection("Bounding Box"))
+    return false;
+  unless(box->diagnosticHTML(serv))
+    return false;
+  
+  unless(serv->endResponsePage())
+    return false;
   return true;
 }
 

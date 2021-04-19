@@ -11,6 +11,7 @@
 
 unsigned VisualObject::nextIndex = 1;
 std::unordered_map<unsigned, VisualObject*> VisualObject::allObjects;
+Lockable VisualObject::staticLock;
 
 // =======================================================================================
 // Constructors
@@ -19,13 +20,15 @@ VisualObject::VisualObject(bool absHeights, BoundingBox* B):
                                 box(B),
                                 qTreeNode(NULL),
                                 groupOwner(NULL),
-                                objIndex(nextIndex++),
                                 altitude(0.0f),
                                 isGroup(false),
                                 useNoTexColor(false),
                                 absoluteHeights(absHeights)
 {
+  staticLock.lock();
+  objIndex = nextIndex++;
   allObjects[objIndex] = this;
+  staticLock.unlock();
 }
 
 
@@ -232,9 +235,8 @@ const char* VisualObject::objectName(void)
 
 // =======================================================================================
 // Stub definition this should be overwritten by implementing subclasses
-// But in general, this class should own a single row in a table, with
-// the type of visual object in the first column, and any details provided
-// in the second column.
+// But in general, this class should provide a whole page with details about the 
+// object.
 
 bool VisualObject::diagnosticHTML(HttpDebug* serv)
 {
@@ -252,6 +254,29 @@ bool VisualObject::diagnosticHTML(HttpDebug* serv)
 bool VisualObject::diagnosticHTMLSummary(HttpDebug* serv)
 {
   err(-1, "Called unimplemented superclass VisualObject::diagnosticHTMLSummary.\n");
+}
+
+
+// =======================================================================================
+// This provides access to the diagnosticHTML page of any object via it's objIndex
+
+
+bool VisualObject::diagnosticHTMLSelection(HttpDebug* serv, char* path)
+{
+  unsigned index = atoi(path);
+  staticLock.lock();
+  if(allObjects.count(index))
+   {
+    VisualObject* V = allObjects[index];
+    staticLock.unlock();
+    return V->diagnosticHTML(serv);
+   }
+  else
+   {
+    staticLock.unlock();
+    LogRequestErrors("Request for unknown visual object index: %s\n", path);
+    return false;
+   }
 }
 
 

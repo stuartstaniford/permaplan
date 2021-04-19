@@ -296,8 +296,7 @@ const char* Box::objectName(void)
 
 bool Box::diagnosticHTMLSummary(HttpDebug* serv)
 {
-  
-  httPrintf("<tr><td>Box</td>");
+  httPrintf("<tr><td><a href=\"/object/%d\">Box</a></td>", objIndex);
   httPrintf("<td><b>Location:</b> (%.1f, %.1f, %.1f)</td></tr>\n",
                            box->lower[0], box->lower[1], box->lower[2]);
   
