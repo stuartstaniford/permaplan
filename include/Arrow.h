@@ -34,7 +34,8 @@ class Arrow: public AxialElement, public VisualObject
   inline bool matchRay(vec3& position, vec3& direction, float& lambda, vec3 offset)
     {return AxialElement::matchRay(position, direction, lambda, offset);}
 
-
+  static vec2 arrowPoints[3];
+  
   void selfValidate(unsigned l);
   
   const char* objectName(void);
@@ -44,7 +45,6 @@ class Arrow: public AxialElement, public VisualObject
  private:
   
   // Instance variables - private
-  vec2          arrowPoints[4];
 
   // Member functions - private
   Arrow(const Arrow&);                 // Prevent copy-construction

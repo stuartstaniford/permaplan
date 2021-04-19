@@ -7,18 +7,16 @@
 #include "Cylinder.h"
 #include "Arrow.h"
 
+vec2 Arrow::arrowPoints[3] = {  {0.5f, 0.0f},
+                                    {0.5f, 0.75f},
+                                    {1.0f, 0.75f}};
 
 // =======================================================================================
 // Constructors.
 
 Arrow::Arrow(vec3 root, vec3 dir, float radius, int sides):
                       AxialElement(root, dir, radius, sides),
-                      VisualObject(true),
-                      arrowPoints{
-                        {0.5f, 0.75f},
-                        {1.0f, 0.75f},
-                        {0.0f, 1.0f}                        
-                      }
+                      VisualObject(true)
 {
   NVecs       = 3u;
   vectorPath  = arrowPoints;
