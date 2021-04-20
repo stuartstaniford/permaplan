@@ -295,7 +295,7 @@ void Quadtree::selfValidate(unsigned l)
    }
   else
     assert(level == l);
-  bbox.selfValidate();
+  bbox.selfValidate(false);
   
   // Check our VisualObjects
   for(VisualObject* v: vObjects)

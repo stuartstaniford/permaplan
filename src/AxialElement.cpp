@@ -426,7 +426,7 @@ void getCrossVectors(vec3 dir, vec3 f1, vec3 f2, float radius)
 {
   vec3 f0; // starting place, will be z-axis unless dir is parallel when we use x-axis.
 
-  if(dir[0] < EPSILON && dir[1] < EPSILON)
+  if(fabs(dir[0]) < EPSILON && fabs(dir[1]) < EPSILON)
    {
     f0[0] = 1.0f;
     f0[1] = f0[2] = 0.0f;

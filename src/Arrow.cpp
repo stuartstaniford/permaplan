@@ -54,7 +54,7 @@ const char* Arrow::objectName(void)
 
 void Arrow::selfValidate(unsigned l)
 {
-   box->selfValidate();
+   box->selfValidate(true);
 }
 
 #endif

@@ -98,13 +98,14 @@ bool BoundingBox::isDefined(void)
 // =======================================================================================
 // Double check that all box values make sense as part of Quadtree::selfValidate
 
-void BoundingBox::selfValidate(void)
+void BoundingBox::selfValidate(bool checkFlatBox)
 {
   for(int m=0; m<3; m++)
    {
-    assert(lower[0] > -HUGE_VALF);
-    assert(upper[0] < HUGE_VALF);
-    assert(lower[0] < upper[0]);
+    assert(lower[m] > -HUGE_VALF); // XX we should figure out some tighter bounds on these
+    assert(upper[m] < HUGE_VALF);
+    if(checkFlatBox)
+      assert(lower[m] < upper[m]);
    }
 }
 

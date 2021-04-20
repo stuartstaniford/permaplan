@@ -176,7 +176,7 @@ int HeightMarker::getNextIndex(bool resetToFirst)
 
 void HeightMarker::selfValidate(unsigned l)
 {
-  box->selfValidate();
+  box->selfValidate(true);
 }
 
 #endif

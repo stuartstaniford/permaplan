@@ -376,7 +376,7 @@ void Tree::selfValidate(unsigned l)
 {
   assert(species);
   if(ageNow > 0.0f)
-    box->selfValidate();
+    box->selfValidate(true);
   if(trunk)
    {
     assert(trunk->ourTreeIndex == treePtrArrayIndex);

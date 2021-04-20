@@ -31,7 +31,7 @@ class BoundingBox
   ~BoundingBox(void);
   void hugeValify(void);
   bool isDefined(void);
-  void selfValidate(void);
+  void selfValidate(bool checkFlatBox);
   void reset(float x_l, float y_l, float z_l, float x_u, float y_u, float z_u);
   inline void reset(vec3& bC, vec3& tC) {glm_vec3_copy(bC, lower);glm_vec3_copy(tC, upper);}
   inline float height(void) {return (upper[2] - lower[2]);}
