@@ -16,7 +16,9 @@ SemicircularArrow::SemicircularArrow(vec3 pos, vec3 axis,
 {
   glm_vec3_copy(pos, centroid);
   glm_vec3_copy(axis, axisDirection);
-
+  box = new BoundingBox();
+  box->unitCube(pos);
+  PathTube::updateBoundingBox(box, zeroVec);
 }
 
 

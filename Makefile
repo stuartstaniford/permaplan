@@ -1372,6 +1372,39 @@ src/ObjectGroup.o: include/ElementBufferObject.h include/BoundingBox.h
 src/ObjectGroup.o: include/Shader.h include/VertexBufferCombo.h
 src/ObjectGroup.o: include/Lockable.h include/DisplayList.h
 src/ObjectGroup.o: include/LandSurfaceRegion.h
+src/PathTube.o: include/PathTube.h include/VisualElement.h
+src/PathTube.o: include/TriangleBuffer.h include/ElementBufferCombo.h
+src/PathTube.o: include/VertexArrayObject.h include/VertexBufferObject.h
+src/PathTube.o: /usr/local/include/cglm/cglm.h
+src/PathTube.o: /usr/local/include/cglm/common.h
+src/PathTube.o: /usr/local/include/cglm/types.h
+src/PathTube.o: /usr/local/include/cglm/simd/intrin.h
+src/PathTube.o: /usr/local/include/cglm/vec2.h /usr/local/include/cglm/util.h
+src/PathTube.o: /usr/local/include/cglm/vec2-ext.h
+src/PathTube.o: /usr/local/include/cglm/vec3.h /usr/local/include/cglm/vec4.h
+src/PathTube.o: /usr/local/include/cglm/vec4-ext.h
+src/PathTube.o: /usr/local/include/cglm/vec3-ext.h
+src/PathTube.o: /usr/local/include/cglm/mat4.h /usr/local/include/cglm/mat3.h
+src/PathTube.o: /usr/local/include/cglm/mat2.h
+src/PathTube.o: /usr/local/include/cglm/affine.h
+src/PathTube.o: /usr/local/include/cglm/affine-mat.h
+src/PathTube.o: /usr/local/include/cglm/cam.h /usr/local/include/cglm/plane.h
+src/PathTube.o: /usr/local/include/cglm/frustum.h
+src/PathTube.o: /usr/local/include/cglm/quat.h
+src/PathTube.o: /usr/local/include/cglm/euler.h /usr/local/include/cglm/box.h
+src/PathTube.o: /usr/local/include/cglm/color.h /usr/local/include/cglm/io.h
+src/PathTube.o: /usr/local/include/cglm/project.h
+src/PathTube.o: /usr/local/include/cglm/sphere.h
+src/PathTube.o: /usr/local/include/cglm/ease.h
+src/PathTube.o: /usr/local/include/cglm/curve.h
+src/PathTube.o: /usr/local/include/cglm/bezier.h
+src/PathTube.o: /usr/local/include/cglm/ray.h
+src/PathTube.o: /usr/local/include/cglm/affine2d.h
+src/PathTube.o: /usr/local/include/GL/glew.h /usr/local/include/GLFW/glfw3.h
+src/PathTube.o: include/Global.h include/Logging.h include/MemoryTracker.h
+src/PathTube.o: include/HttpDebug.h include/Vertex.h
+src/PathTube.o: include/ElementBufferObject.h include/BoundingBox.h
+src/PathTube.o: include/Shader.h include/VertexBufferCombo.h
 src/PmodConfig.o: include/PmodConfig.h
 src/PmodDesign.o: include/PmodDesign.h include/rapidjson/document.h
 src/PmodDesign.o: include/rapidjson/reader.h include/rapidjson/allocators.h
@@ -1663,6 +1696,49 @@ src/ScriptController.o: include/HeightMarker.h include/BezierPatch.h
 src/ScriptController.o: include/PmodConfig.h include/Timeval.h
 src/ScriptController.o: include/JSONStructureChecker.h include/Version.h
 src/ScriptController.o: include/Boundary.h
+src/SemicircularArrow.o: include/SemicircularArrow.h include/PathTube.h
+src/SemicircularArrow.o: include/VisualElement.h include/TriangleBuffer.h
+src/SemicircularArrow.o: include/ElementBufferCombo.h
+src/SemicircularArrow.o: include/VertexArrayObject.h
+src/SemicircularArrow.o: include/VertexBufferObject.h
+src/SemicircularArrow.o: /usr/local/include/cglm/cglm.h
+src/SemicircularArrow.o: /usr/local/include/cglm/common.h
+src/SemicircularArrow.o: /usr/local/include/cglm/types.h
+src/SemicircularArrow.o: /usr/local/include/cglm/simd/intrin.h
+src/SemicircularArrow.o: /usr/local/include/cglm/vec2.h
+src/SemicircularArrow.o: /usr/local/include/cglm/util.h
+src/SemicircularArrow.o: /usr/local/include/cglm/vec2-ext.h
+src/SemicircularArrow.o: /usr/local/include/cglm/vec3.h
+src/SemicircularArrow.o: /usr/local/include/cglm/vec4.h
+src/SemicircularArrow.o: /usr/local/include/cglm/vec4-ext.h
+src/SemicircularArrow.o: /usr/local/include/cglm/vec3-ext.h
+src/SemicircularArrow.o: /usr/local/include/cglm/mat4.h
+src/SemicircularArrow.o: /usr/local/include/cglm/mat3.h
+src/SemicircularArrow.o: /usr/local/include/cglm/mat2.h
+src/SemicircularArrow.o: /usr/local/include/cglm/affine.h
+src/SemicircularArrow.o: /usr/local/include/cglm/affine-mat.h
+src/SemicircularArrow.o: /usr/local/include/cglm/cam.h
+src/SemicircularArrow.o: /usr/local/include/cglm/plane.h
+src/SemicircularArrow.o: /usr/local/include/cglm/frustum.h
+src/SemicircularArrow.o: /usr/local/include/cglm/quat.h
+src/SemicircularArrow.o: /usr/local/include/cglm/euler.h
+src/SemicircularArrow.o: /usr/local/include/cglm/box.h
+src/SemicircularArrow.o: /usr/local/include/cglm/color.h
+src/SemicircularArrow.o: /usr/local/include/cglm/io.h
+src/SemicircularArrow.o: /usr/local/include/cglm/project.h
+src/SemicircularArrow.o: /usr/local/include/cglm/sphere.h
+src/SemicircularArrow.o: /usr/local/include/cglm/ease.h
+src/SemicircularArrow.o: /usr/local/include/cglm/curve.h
+src/SemicircularArrow.o: /usr/local/include/cglm/bezier.h
+src/SemicircularArrow.o: /usr/local/include/cglm/ray.h
+src/SemicircularArrow.o: /usr/local/include/cglm/affine2d.h
+src/SemicircularArrow.o: /usr/local/include/GL/glew.h
+src/SemicircularArrow.o: /usr/local/include/GLFW/glfw3.h include/Global.h
+src/SemicircularArrow.o: include/Logging.h include/MemoryTracker.h
+src/SemicircularArrow.o: include/HttpDebug.h include/Vertex.h
+src/SemicircularArrow.o: include/ElementBufferObject.h include/BoundingBox.h
+src/SemicircularArrow.o: include/Shader.h include/VertexBufferCombo.h
+src/SemicircularArrow.o: include/VisualObject.h include/Lockable.h
 src/Shader.o: /usr/local/include/GL/glew.h include/loadFileToBuf.h
 src/Shader.o: include/Shader.h /usr/local/include/cglm/cglm.h
 src/Shader.o: /usr/local/include/cglm/common.h

@@ -20,7 +20,11 @@ public:
   // Member functions - public
   PathTube(void);
   ~PathTube(void);
-  
+  virtual void triangleBufferSizes(unsigned& vCount, unsigned& iCount);
+  virtual bool bufferGeometry(TriangleBuffer* T, vec3 offset);
+  virtual bool matchRay(vec3& position, vec3& direction, float& lambda, vec3 offset);
+  virtual bool updateBoundingBox(BoundingBox* box, vec3 offset);
+
 private:
   
   // Instance variables - private

@@ -85,6 +85,19 @@ void BoundingBox::hugeValify(void)
 
 
 // =======================================================================================
+// Create a simple default valid box being a unit cube at some position.
+
+void BoundingBox::unitCube(vec3 pos)
+{
+  for(int m=0; m<3; m++)
+   {
+    lower[m] = pos[m] - 0.5f;
+    upper[m] = pos[m] + 0.5f;
+   }
+}
+
+
+// =======================================================================================
 // Make sure a bounding box has sensible values
 
 bool BoundingBox::isDefined(void)

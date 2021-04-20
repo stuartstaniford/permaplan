@@ -20,6 +20,16 @@ public:
   SemicircularArrow(vec3 pos, vec3 axis, float arcD, float arcR, float tubeR, int s);
   ~SemicircularArrow(void);
   const char* objectName(void);
+  inline void triangleBufferSizes(unsigned& vCount, unsigned& iCount)
+    {PathTube::triangleBufferSizes(vCount, iCount);}
+  inline bool bufferGeometry(TriangleBuffer* T)
+    {return PathTube::bufferGeometry(T, zeroVec);}
+  inline bool bufferGeometry(TriangleBuffer* T, vec3 offset)
+    {return PathTube::bufferGeometry(T, offset);}
+  inline bool matchRay(vec3& position, vec3& direction, float& lambda)
+    {return PathTube::matchRay(position, direction, lambda, zeroVec);}
+  inline bool matchRay(vec3& position, vec3& direction, float& lambda, vec3 offset)
+    {return PathTube::matchRay(position, direction, lambda, offset);}
 #ifdef LOG_TREE_VALIDATION
   void selfValidate(unsigned l);
 #endif
