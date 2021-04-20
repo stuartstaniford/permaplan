@@ -39,6 +39,10 @@ VisualObject::~VisualObject(void)
 {
   if(box)
     delete box;
+  staticLock.lock();
+  allObjects.erase(objIndex);
+  staticLock.unlock();
+
 }
 
 // =======================================================================================
