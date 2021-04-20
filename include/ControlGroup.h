@@ -26,8 +26,9 @@ public:
   inline void triangleBufferSizes(unsigned& vCount, unsigned& iCount)
     {DisplayList::triangleBufferSizes(vCount, iCount);}
   const char* objectName(void);
-  void addOneArrow(vec3 pos, vec3 dir);
-  void createTranslationArrows(void);
+  void  addOneArrow(vec3 pos, vec3 dir);
+  void  createTranslationArrows(void);
+  void  createRotationArrows(void);
   bool  diagnosticHTMLSummary(HttpDebug* serv);
 
 private:

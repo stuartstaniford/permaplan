@@ -16,7 +16,8 @@ class PathTube: public VisualElement
 public:
   
   // Instance variables - public
-  
+  unsigned        color;
+
   // Member functions - public
   PathTube(void);
   ~PathTube(void);

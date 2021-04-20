@@ -5,6 +5,7 @@
 #include "ControlGroup.h"
 #include "Arrow.h"
 #include "PmodDesign.h"
+#include "SemicircularArrow.h"
 
 
 // =======================================================================================
@@ -18,6 +19,7 @@ ControlGroup::ControlGroup(VisualObject* firstObject):
                         firstObject->objectName());
   
   createTranslationArrows();
+  createRotationArrows();
 }
 
 
@@ -46,7 +48,6 @@ void ControlGroup::addOneArrow(vec3 pos, vec3 dir)
 
 // =======================================================================================
 // Create the horizonal movement arrows
-
 
 void ControlGroup::createTranslationArrows(void)
 {
@@ -82,6 +83,23 @@ void ControlGroup::createTranslationArrows(void)
   pos[0] = masterObject->box->lower[0] - arrowSpacing;
   dir[0] = -arrowLength;
   addOneArrow(pos, dir);
+}
+
+
+// =======================================================================================
+// Create the arrows allowing us to rotate the object around a vertical axis
+
+void ControlGroup::createRotationArrows(void)
+{
+  vec3 centroid;
+  masterObject->box->getCentroid(centroid);
+  vec3 dir = {0.0f, 0.0f, 1.0f};
+  float arcR = 0.8f*masterObject->box->avgDiam();
+  
+  SemicircularArrow* arrow = new SemicircularArrow(centroid, dir, 60.0f, arcR, 1.0f, 10);
+  arrow->color = arrowRed;
+  insert(arrow);
+  *box += *(arrow->box);
 }
 
 
