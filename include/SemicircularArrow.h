@@ -16,13 +16,19 @@ public:
   // Instance variables - public
   
   // Member functions - public
-  SemicircularArrow(void);
+  SemicircularArrow(vec3 pos, vec3 axis, float arcD, float arcR, float tubeR, int s);
   ~SemicircularArrow(void);
   
 private:
   
   // Instance variables - private
-  
+  vec3 centroid;
+  vec3 axisDirection;
+  float arcDegrees;
+  float arcRadius; 
+  float tubeRadius; 
+  int sides;
+
   // Member functions - private
   SemicircularArrow(const SemicircularArrow&);                 // Prevent copy-construction
   SemicircularArrow& operator=(const SemicircularArrow&);      // Prevent assignment

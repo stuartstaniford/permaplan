@@ -24,6 +24,9 @@ public:
 private:
   
   // Instance variables - private
+  vec4*     path;
+  unsigned  N;
+  unsigned  sides;
   
   // Member functions - private
   PathTube(const PathTube&);                 // Prevent copy-construction
