@@ -5,11 +5,12 @@
 #define SEMI_CIRCULAR_ARROW_H
 
 #include "PathTube.h"
+#include "VisualObject.h"
 
 // =======================================================================================
 // Class variable initialization
 
-class SemicircularArrow: public PathTube
+class SemicircularArrow: public PathTube, public VisualObject
 {
 public:
   
@@ -18,6 +19,10 @@ public:
   // Member functions - public
   SemicircularArrow(vec3 pos, vec3 axis, float arcD, float arcR, float tubeR, int s);
   ~SemicircularArrow(void);
+  const char* objectName(void);
+#ifdef LOG_TREE_VALIDATION
+  void selfValidate(unsigned l);
+#endif
   
 private:
   

@@ -8,6 +8,7 @@
 
 SemicircularArrow::SemicircularArrow(vec3 pos, vec3 axis, 
                                      float arcD, float arcR, float tubeR, int s):
+                                      VisualObject(true),
                                       arcDegrees(arcD),
                                       arcRadius(arcR), 
                                       tubeRadius(tubeR), 
@@ -25,6 +26,29 @@ SemicircularArrow::SemicircularArrow(vec3 pos, vec3 axis,
 SemicircularArrow::~SemicircularArrow(void)
 {
 }
+
+
+// =======================================================================================
+// Tell callers our name at runtime.
+
+const char* SemicircularArrow::objectName(void)
+{
+  static char* name = (char*)"SemicircularArrow";
+  return name;
+}
+
+
+// =======================================================================================
+// Function to validate the quadtree and all the objects.
+
+#ifdef LOG_TREE_VALIDATION
+
+void SemicircularArrow::selfValidate(unsigned l)
+{
+   box->selfValidate(true);
+}
+
+#endif
 
 
 // =======================================================================================
