@@ -51,6 +51,59 @@ void PathTube::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 
 bool PathTube::bufferGeometry(TriangleBuffer* T, vec3 offset)
 {
+  float     angleRadians  = 2.0f*M_PI/sides;
+  Vertex*   vertices;
+  unsigned* indices;
+  unsigned  vOffset, vCount, iCount;
+  unsigned  startRow, endRow;
+  float ang, cosAng, sinAng;
+  
+  triangleBufferSizes(vCount, iCount);
+  unless(T->requestSpace(&vertices, &indices, vOffset, vCount, iCount))
+    return false;
+
+  unsigned vertex = 0u;
+  unsigned index = 0u;
+  vec3      norm;
+  
+  if(closedBase)
+   {
+    vertices[vertex].setPosition(path[0]);
+    vertices[vertex].setColor(color);
+    //XX set norm
+    vertices[vertex].setNormal(norm); // to be normalized in gpu
+    vertex++;
+    for(int j=0; j<sides; j++)
+     {
+      ang = j*angleRadians;
+      cosAng = cosf(ang);
+      sinAng = sinf(ang);
+
+      index+=3;
+     }
+    startRow = 1u;
+   }
+  else
+    startRow = 0u;
+
+  if(closedTop)
+   {
+    
+    endRow = NPath-1;
+   }
+  else
+    endRow = NPath;
+  
+  for(int i=startRow; i< endRow; i++)
+   {
+    for(int j=0; j<sides; j++)
+     {
+      ang = j*angleRadians;
+      cosAng = cosf(ang);
+      sinAng = sinf(ang);     
+     }
+   }
+  
   return true;
 }
 
