@@ -2,6 +2,7 @@
 // Claff for rendering an arrow that follows part of the arc of a circle.
 
 #include "PathTube.h"
+#include "AxialElement.h"
 #include <assert.h>
 
 // =======================================================================================
@@ -64,22 +65,42 @@ bool PathTube::bufferGeometry(TriangleBuffer* T, vec3 offset)
 
   unsigned vertex = 0u;
   unsigned index = 0u;
-  vec3      norm;
+  vec3      localAxis, firstDelt, secondDelt, norm, f1, f2, point;
   
   if(closedBase)
    {
+    // Make the single vertex at the bottom of the closed tube.
     vertices[vertex].setPosition(path[0]);
     vertices[vertex].setColor(color);
-    //XX set norm
+    glm_vec3_sub(path[0], path[1], norm);
     vertices[vertex].setNormal(norm); // to be normalized in gpu
     vertex++;
+    
+    // Compute the local tangent to the path at the second point in the path
+    glm_vec3_sub(path[1], path[0], firstDelt);
+    glm_vec3_sub(path[2], path[1], secondDelt);
+    glm_vec3_add(firstDelt, secondDelt, localAxis); // don't care about scale of this
+    
+    // f1 and f2 are a basis at right angles to localAxis
+    getCrossVectors(localAxis, f1, f2, path[1][3]);  //fourth float of vec4 path is radius
+
+    // Loop over triangles from the single vertex up to the first ring of tube vertices.
     for(int j=0; j<sides; j++)
      {
+      // Compute the j'th vertex around 
       ang = j*angleRadians;
       cosAng = cosf(ang);
       sinAng = sinf(ang);
+      for(int m=0; m<3; m++)
+        norm[m] = cosAng*f1[m] + sinAng*f2[m]; // scaled to radius
+      glm_vec3_add(path[1], norm, point);
+      vertices[vertex].setPosition(point);
+      vertices[vertex].setColor(color);
+      vertices[vertex].setNormal(norm); // to be normalized in gpu
 
+      indices[index] = vOffset; // triangle base is bottom vertex
       index+=3;
+      vertex++;
      }
     startRow = 1u;
    }
