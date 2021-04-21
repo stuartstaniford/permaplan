@@ -17,7 +17,9 @@ public:
   
   // Instance variables - public
   unsigned        color;
-
+  bool            closedBase;
+  bool            closedTop;
+  
   // Member functions - public
   PathTube(void);
   ~PathTube(void);
@@ -30,7 +32,7 @@ private:
   
   // Instance variables - private
   vec4*     path;
-  unsigned  N;
+  unsigned  NPath;
   unsigned  sides;
   
   // Member functions - private

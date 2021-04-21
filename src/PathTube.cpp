@@ -2,12 +2,16 @@
 // Claff for rendering an arrow that follows part of the arc of a circle.
 
 #include "PathTube.h"
+#include <assert.h>
 
 // =======================================================================================
 // Constructor
 
 PathTube::PathTube(void)
 {
+  NPath = 5;  //XX temp
+  
+  assert(NPath > 2);
 }
 
 
@@ -24,8 +28,20 @@ PathTube::~PathTube(void)
 
 void PathTube::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 {
-  vCount = 0u;
-  iCount = 0u;
+  vCount = NPath*sides;  
+  iCount = 6*(NPath-1)*sides;
+  
+  if(closedTop)
+   {
+    vCount -= sides-1;
+    iCount -= 3*sides;
+   }
+  if(closedBase)
+   {
+    vCount -= sides-1;
+    iCount -= sides;
+   }
+
   LogTriangleBufEstimates("PathTube TriangleBuffer estimate: [%u, %u]\n", vCount, iCount);
 }
 
