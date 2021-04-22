@@ -98,11 +98,16 @@ bool PathTube::bufferGeometry(TriangleBuffer* T, vec3 offset)
       vertices[vertex].setColor(color);
       vertices[vertex].setNormal(norm); // to be normalized in gpu
 
-      indices[index] = vOffset; // triangle base is bottom vertex
+      // Now compute the indices
+      indices[index]   = vOffset;     // triangle base is bottom vertex
+      indices[index+1] = vOffset+1+j; // the j vertex
+      indices[index+2] = vOffset+1+(j+sides-1)%sides; // the j-1 vertex (triangle is counterclockwise)
+
+      //Increment vertex, index before next vertex/triangle
       index+=3;
       vertex++;
      }
-    startRow = 1u;
+    startRow = 1u;  // Because we already did one row
    }
   else
     startRow = 0u;
@@ -115,14 +120,39 @@ bool PathTube::bufferGeometry(TriangleBuffer* T, vec3 offset)
   else
     endRow = NPath;
   
-  for(int i=startRow; i< endRow; i++)
+  for(int i=startRow; i<endRow-1; i++)
    {
+    // Compute the local tangent to the path at the second point in the path
+    if(i>1)
+     {
+      glm_vec3_sub(path[i], path[i-1], firstDelt);
+      glm_vec3_sub(path[i+1], path[i], secondDelt);
+      glm_vec3_add(firstDelt, secondDelt, localAxis); // don't care about scale of this
+     }
+    else
+      glm_vec3_sub(path[i+1], path[i], localAxis);
+
+    // f1 and f2 are a basis at right angles to localAxis
+    //XX concern about the stability of f1, f2 as we go up the tube.
+    getCrossVectors(localAxis, f1, f2, path[i][3]);  //fourth float of vec4 path is radius
+
     for(int j=0; j<sides; j++)
      {
+      // Compute the j'th vertex around 
       ang = j*angleRadians;
       cosAng = cosf(ang);
       sinAng = sinf(ang);     
+      for(int m=0; m<3; m++)
+        norm[m] = cosAng*f1[m] + sinAng*f2[m]; // scaled to radius
+      glm_vec3_add(path[i+startRow], norm, point);
+      vertices[vertex].setPosition(point);
+      vertices[vertex].setColor(color);
+      vertices[vertex].setNormal(norm); // to be normalized in gpu
+
+      index+=6;
+      vertex++;
      }
+    
    }
   
   return true;
