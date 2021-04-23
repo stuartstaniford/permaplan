@@ -48,9 +48,9 @@ void PathTube::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 
 // =======================================================================================
 // This function is used te ensure the stability of f1, f2 as we go up the tube, we use the 
-// last f1,f2 as the starting point for the next set
-// Eg if sides == 8 the cross section of the PathTube which points in the instantaneous dir
-// direction looks like this (dir points into the screen):
+// last f1,f2 as the starting point for the next set.  Eg if sides == 8 the cross section 
+// of the PathTube which points in the instantaneous dir direction looks like this (dir 
+// points into the screen):
 /*
      ^
      | f1 direction
@@ -141,7 +141,7 @@ bool PathTube::bufferGeometry(TriangleBuffer* T, vec3 offset)
   else
     startRow = 0u;
 
-  // Need to know how many rows of tube sides to do, based on whether there is a closed top or now
+  // Need to know how many rows of tube sides to do, based on whether there is a closed top or not
   if(closedTop)
     endRow = NPath-1;
   else
@@ -201,7 +201,21 @@ bool PathTube::bufferGeometry(TriangleBuffer* T, vec3 offset)
   // Now deal with the single vertex and cone of triangles at the closed top if present.
   if(closedTop)
    {
-    
+    // Create the vertex for the top of the cone
+    glm_vec3_sub(path[NPath-1], path[NPath-2], norm);
+    vertices[vertex].setPosition(path[NPath-1]);
+    vertices[vertex].setColor(color);
+    vertices[vertex].setNormal(norm); // to be normalized in gpu
+
+    unsigned nRows = endRow-startRow;
+    for(int j=0; j<sides; j++)
+     {
+      // Compute the indices round each cone triangle 
+      indices[index]   = vOffset + nRows*sides;         // new top of cone vertex we just added
+      indices[index+1] = vOffset + (nRows-1)*sides + (j+sides-1)%sides; // last row, j one less
+      indices[index+2] = vOffset + (nRows-1)*sides + j;                 // last row, this j
+      index+=3;
+     }
    }
 
   // Phew!! Go home! 
