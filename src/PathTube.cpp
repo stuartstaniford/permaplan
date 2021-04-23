@@ -95,6 +95,8 @@ bool PathTube::bufferGeometry(TriangleBuffer* T, vec3 offset)
   unsigned index = 0u;
   vec3      localAxis, firstDelt, secondDelt, norm, f1, f2, point;
   
+  // XX need to add offset in here
+  
   if(closedBase)
    {
     // Make the single vertex at the bottom of the closed tube.
@@ -148,7 +150,7 @@ bool PathTube::bufferGeometry(TriangleBuffer* T, vec3 offset)
     endRow = NPath;
   
   // Loop over the rows of tube sides
-  for(int i=startRow; i<endRow-1; i++)
+  for(int i=startRow; i<endRow; i++)
    {
     // Compute the local tangent to the path at the second point in the path
     if(i>1)
@@ -239,7 +241,68 @@ bool PathTube::matchRay(vec3& position, vec3& direction, float& lambda, vec3 off
 bool PathTube::updateBoundingBox(BoundingBox* box, vec3 offset)
 {
   bool  retVal        = false;
+  float     angleRadians  = 2.0f*M_PI/sides;
+  unsigned  startRow, endRow;
+  float ang, cosAng, sinAng;
+  
+  vec3 localAxis, firstDelt, secondDelt, norm, f1, f2, point;
+  
+  // bottom end point
+  if(closedBase)
+   {
+    // Make the single vertex at the bottom of the closed tube.
+    glm_vec3_add(path[0], offset, point);
+    if(box->extends(point))
+      retVal = true;
+    startRow = 1u;  // Because we already did one row
+   }
+  else
+    startRow = 0u;
 
+  // Handle the single vertex at top if there is a closed top
+  if(closedTop)
+   {    
+    glm_vec3_add(path[NPath-1], offset, point);
+     if(box->extends(point))
+       retVal = true;
+    endRow = NPath-1;
+   }
+  else
+    endRow = NPath;
+  
+  // Loop over the rows of tube sides
+  for(int i=startRow; i<endRow; i++)
+   {
+    // Compute the local tangent to the path at the second point in the path
+    if(i>1)
+     {
+      glm_vec3_sub(path[i], path[i-1], firstDelt);
+      glm_vec3_sub(path[i+1], path[i], secondDelt);
+      glm_vec3_add(firstDelt, secondDelt, localAxis); // don't care about scale of this
+      updateCrossVectors(localAxis, f1, f2, path[i][3]);  //fourth float of vec4 path is radius
+     }
+    else
+     {
+      glm_vec3_sub(path[i+1], path[i], localAxis);
+      getCrossVectors(localAxis, f1, f2, path[i][3]);  //fourth float of vec4 path is radius
+     }
+    
+    for(int j=0; j<sides; j++)
+     {
+      // Compute the j'th vertex around 
+      ang = j*angleRadians;
+      cosAng = cosf(ang);
+      sinAng = sinf(ang);     
+      for(int m=0; m<3; m++)
+       {
+        norm[m] = cosAng*f1[m] + sinAng*f2[m]; // scaled to radius
+        point[m] = path[i+startRow][m] + norm[m] + offset[m];
+       }
+      if(box->extends(point))
+        retVal = true;
+     }
+   }
+  
   return retVal;
 }
 
