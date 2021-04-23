@@ -76,6 +76,7 @@ void updateCrossVectors(vec3 dir, vec3 f1, vec3 f2, float radius)
 
 // =======================================================================================
 // This is where the actual geometry is defined - we render it into a buffer on request
+// N.B. OpenGL faceculling: triangles are counterclockwise viewed from outside the tube
 
 bool PathTube::bufferGeometry(TriangleBuffer* T, vec3 offset)
 {
@@ -135,7 +136,7 @@ bool PathTube::bufferGeometry(TriangleBuffer* T, vec3 offset)
       vertex++;
      }
     startRow = 1u;  // Because we already did one row
-    vOffset += sides+1; // We used up j+1 of the vertex space, so indices now need to allow for that
+    vOffset += 1u; //  We used up a slot of the vertex space, so indices now need to allow for that
    }
   else
     startRow = 0u;
@@ -178,14 +179,22 @@ bool PathTube::bufferGeometry(TriangleBuffer* T, vec3 offset)
 
       if(i>1) // if !closedBase, need to do first row of vertices without doing triangles
        {
-        // Now compute the indices for the first triangle
+        // Now compute the indices for the first triangle.  This is between us and the prior
+        // row, first triangle has two vertices in prior, one in this
+        indices[index]   = vOffset + i*sides + j;                     // new vertex we just added
+        indices[index+1] = vOffset + (i-1)*sides + (j+sides-1)%sides; // prior row, j one less
+        indices[index+2] = vOffset + (i-1)*sides + j;                 // same vertex in prior row
 
-        // Now compute the indices for the second triangle
+        // Now compute the indices for the second triangle, which has two vertices in this row
+        // one in the prior row
+        indices[index+3]  = vOffset + i*sides + j;                     // new vertex we just added
+        indices[index+4]  = vOffset + i*sides + (j+sides-1)%sides;     // this row, j one less
+        indices[index+5]  = vOffset + (i-1)*sides + (j+sides-1)%sides; // prior row, j one less
 
-        //Increment vertex, index before next vertex/triangle
+        //Increment index before next vertex/triangle
         index+=6;
        }
-      vertex++;
+      vertex++;   //Increment vertex before next vertex/triangle
      }
    }
   
