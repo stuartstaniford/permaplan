@@ -94,13 +94,12 @@ bool PathTube::bufferGeometry(TriangleBuffer* T, vec3 offset)
   unsigned vertex = 0u;
   unsigned index = 0u;
   vec3      localAxis, firstDelt, secondDelt, norm, f1, f2, point;
-  
-  // XX need to add offset in here
-  
+    
   if(closedBase)
    {
     // Make the single vertex at the bottom of the closed tube.
-    vertices[vertex].setPosition(path[0]);
+    glm_vec3_add(path[0], offset, point);
+    vertices[vertex].setPosition(point);
     vertices[vertex].setColor(color);
     glm_vec3_sub(path[0], path[1], norm);
     vertices[vertex].setNormal(norm); // to be normalized in gpu
@@ -122,8 +121,10 @@ bool PathTube::bufferGeometry(TriangleBuffer* T, vec3 offset)
       cosAng = cosf(ang);
       sinAng = sinf(ang);
       for(int m=0; m<3; m++)
+       {
         norm[m] = cosAng*f1[m] + sinAng*f2[m]; // scaled to radius
-      glm_vec3_add(path[1], norm, point);
+        point[m] = path[1][m] + norm[m] + offset[m];
+       }
       vertices[vertex].setPosition(point);
       vertices[vertex].setColor(color);
       vertices[vertex].setNormal(norm); // to be normalized in gpu
@@ -173,8 +174,10 @@ bool PathTube::bufferGeometry(TriangleBuffer* T, vec3 offset)
       cosAng = cosf(ang);
       sinAng = sinf(ang);     
       for(int m=0; m<3; m++)
+       {
         norm[m] = cosAng*f1[m] + sinAng*f2[m]; // scaled to radius
-      glm_vec3_add(path[i+startRow], norm, point);
+        point[m] = path[i+startRow][m] + norm[m] + offset[m];
+       }
       vertices[vertex].setPosition(point);
       vertices[vertex].setColor(color);
       vertices[vertex].setNormal(norm); // to be normalized in gpu
@@ -205,7 +208,8 @@ bool PathTube::bufferGeometry(TriangleBuffer* T, vec3 offset)
    {
     // Create the vertex for the top of the cone
     glm_vec3_sub(path[NPath-1], path[NPath-2], norm);
-    vertices[vertex].setPosition(path[NPath-1]);
+    glm_vec3_add(path[NPath-1], offset, point);
+    vertices[vertex].setPosition(point);
     vertices[vertex].setColor(color);
     vertices[vertex].setNormal(norm); // to be normalized in gpu
 
@@ -231,6 +235,121 @@ bool PathTube::bufferGeometry(TriangleBuffer* T, vec3 offset)
 
 bool PathTube::matchRay(vec3& position, vec3& direction, float& lambda, vec3 offset)
 {
+  float     angleRadians  = 2.0f*M_PI/sides;
+  unsigned  startRow, endRow;
+  float     ang, cosAng, sinAng;  
+  vec3      localAxis, firstDelt, secondDelt, norm, f1, f2, point;
+  //vec3      triangle[3];
+  
+  if(closedBase)
+   {
+    // Make the single vertex at the bottom of the closed tube.
+    glm_vec3_add(path[0], offset, point);
+    //XX set triangle here
+    
+    // Compute the local tangent to the path at the second point in the path
+    glm_vec3_sub(path[1], path[0], firstDelt);
+    glm_vec3_sub(path[2], path[1], secondDelt);
+    glm_vec3_add(firstDelt, secondDelt, localAxis); // don't care about scale of this
+    
+    // f1 and f2 are a basis at right angles to localAxis
+    getCrossVectors(localAxis, f1, f2, path[1][3]);  //fourth float of vec4 path is radius
+
+    // Loop over triangles from the single vertex up to the first ring of tube vertices.
+    for(int j=0; j<sides; j++)
+     {
+      // Compute the j'th vertex around 
+      ang = j*angleRadians;
+      cosAng = cosf(ang);
+      sinAng = sinf(ang);
+      for(int m=0; m<3; m++)
+       {
+        norm[m] = cosAng*f1[m] + sinAng*f2[m]; // scaled to radius
+        point[m] = path[1][m] + norm[m] + offset[m];
+       }
+      //set the triangle here      
+      //indices[index]   = vOffset;     // triangle base is bottom vertex
+      //indices[index+1] = vOffset+1+j; // the j vertex
+      //indices[index+2] = vOffset+1+(j+sides-1)%sides; // the j-1 vertex (triangle is counterclockwise)
+     }
+    startRow = 1u;  // Because we already did one row
+   }
+  else
+    startRow = 0u;
+
+  // Need to know how many rows of tube sides to do, based on whether there is a closed top or not
+  if(closedTop)
+    endRow = NPath-1;
+  else
+    endRow = NPath;
+  
+  // Loop over the rows of tube sides
+  for(int i=startRow; i<endRow; i++)
+   {
+    // Compute the local tangent to the path at the second point in the path
+    if(i>1)
+     {
+      glm_vec3_sub(path[i], path[i-1], firstDelt);
+      glm_vec3_sub(path[i+1], path[i], secondDelt);
+      glm_vec3_add(firstDelt, secondDelt, localAxis); // don't care about scale of this
+      updateCrossVectors(localAxis, f1, f2, path[i][3]);  //fourth float of vec4 path is radius
+     }
+    else
+     {
+      glm_vec3_sub(path[i+1], path[i], localAxis);
+      getCrossVectors(localAxis, f1, f2, path[i][3]);  //fourth float of vec4 path is radius
+     }
+    
+    for(int j=0; j<sides; j++)
+     {
+      // Compute the j'th vertex around 
+      ang = j*angleRadians;
+      cosAng = cosf(ang);
+      sinAng = sinf(ang);     
+      for(int m=0; m<3; m++)
+       {
+        norm[m] = cosAng*f1[m] + sinAng*f2[m]; // scaled to radius
+        point[m] = path[i+startRow][m] + norm[m] + offset[m];
+       }
+      // set triangle here
+      
+      if(i>1) // if !closedBase, need to do first row of vertices without doing triangles
+       {
+        // Now compute the indices for the first triangle.  This is between us and the prior
+        // row, first triangle has two vertices in prior, one in this
+        //indices[index]   = vOffset + i*sides + j;                     // new vertex we just added
+        //indices[index+1] = vOffset + (i-1)*sides + (j+sides-1)%sides; // prior row, j one less
+        //indices[index+2] = vOffset + (i-1)*sides + j;                 // same vertex in prior row
+
+        // Now compute the indices for the second triangle, which has two vertices in this row
+        // one in the prior row
+        //indices[index+3]  = vOffset + i*sides + j;                     // new vertex we just added
+        //indices[index+4]  = vOffset + i*sides + (j+sides-1)%sides;     // this row, j one less
+        //indices[index+5]  = vOffset + (i-1)*sides + (j+sides-1)%sides; // prior row, j one less
+
+        //Increment index before next vertex/triangle
+       }
+     }
+   }
+  
+  // Now deal with the single vertex and cone of triangles at the closed top if present.
+  if(closedTop)
+   {
+    // Create the vertex for the top of the cone
+    glm_vec3_sub(path[NPath-1], path[NPath-2], norm);
+    glm_vec3_add(path[NPath-1], offset, point);
+    // set the triangle here
+    
+    //unsigned nRows = endRow-startRow;
+    for(int j=0; j<sides; j++)
+     {
+      // Compute the indices round each cone triangle 
+      //indices[index]   = vOffset + nRows*sides;         // new top of cone vertex we just added
+      //indices[index+1] = vOffset + (nRows-1)*sides + (j+sides-1)%sides; // last row, j one less
+      //indices[index+2] = vOffset + (nRows-1)*sides + j;                 // last row, this j
+     }
+   }
+
   return false;
 }
 

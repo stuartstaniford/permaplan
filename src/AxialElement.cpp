@@ -303,6 +303,9 @@ bool AxialElement::matchRayBruteForce(vec3& position, vec3& direction, float& la
      }
    }
   
+  //XX this is not testing the closed base or top, so there is a rare case when it fails
+  // due to the ray going through the middle of the tube
+  
   return false;
 }
 

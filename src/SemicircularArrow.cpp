@@ -39,6 +39,16 @@ const char* SemicircularArrow::objectName(void)
   return name;
 }
 
+// =======================================================================================
+// Function to match a ray 
+
+//XX SemicircularArrow:matchRay()
+
+//unless(box->matchRay(position, direction, lambda, offset))
+//  return false;
+
+// check PathTube:: matchRay
+
 
 // =======================================================================================
 // Function to validate the quadtree and all the objects.
