@@ -46,6 +46,33 @@ void PathTube::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
   LogTriangleBufEstimates("PathTube TriangleBuffer estimate: [%u, %u]\n", vCount, iCount);
 }
 
+// =======================================================================================
+// This function is used te ensure the stability of f1, f2 as we go up the tube, we use the 
+// last f1,f2 as the starting point for the next set
+// Eg if sides == 8 the cross section of the PathTube which points in the instantaneous dir
+// direction looks like this (dir points into the screen):
+/*
+     ^
+     | f1 direction
+ 
+   -----
+  /     \
+ /       \
+|         |  ---->
+|         |  f2 direction
+ \       /
+  \     /
+   -----
+*/
+
+void updateCrossVectors(vec3 dir, vec3 f1, vec3 f2, float radius)
+{
+  glm_vec3_cross(dir, f1, f2);
+  glm_vec3_cross(f2, dir, f1);
+  glm_vec3_scale_as(f1, radius, f1);
+  glm_vec3_scale_as(f2, radius, f2);
+}
+
 
 // =======================================================================================
 // This is where the actual geometry is defined - we render it into a buffer on request
@@ -108,18 +135,18 @@ bool PathTube::bufferGeometry(TriangleBuffer* T, vec3 offset)
       vertex++;
      }
     startRow = 1u;  // Because we already did one row
+    vOffset += sides+1; // We used up j+1 of the vertex space, so indices now need to allow for that
    }
   else
     startRow = 0u;
 
+  // Need to know how many rows of tube sides to do, based on whether there is a closed top or now
   if(closedTop)
-   {
-    
     endRow = NPath-1;
-   }
   else
     endRow = NPath;
   
+  // Loop over the rows of tube sides
   for(int i=startRow; i<endRow-1; i++)
    {
     // Compute the local tangent to the path at the second point in the path
@@ -128,14 +155,14 @@ bool PathTube::bufferGeometry(TriangleBuffer* T, vec3 offset)
       glm_vec3_sub(path[i], path[i-1], firstDelt);
       glm_vec3_sub(path[i+1], path[i], secondDelt);
       glm_vec3_add(firstDelt, secondDelt, localAxis); // don't care about scale of this
+      updateCrossVectors(localAxis, f1, f2, path[i][3]);  //fourth float of vec4 path is radius
      }
     else
+     {
       glm_vec3_sub(path[i+1], path[i], localAxis);
-
-    // f1 and f2 are a basis at right angles to localAxis
-    //XX concern about the stability of f1, f2 as we go up the tube.
-    getCrossVectors(localAxis, f1, f2, path[i][3]);  //fourth float of vec4 path is radius
-
+      getCrossVectors(localAxis, f1, f2, path[i][3]);  //fourth float of vec4 path is radius
+     }
+    
     for(int j=0; j<sides; j++)
      {
       // Compute the j'th vertex around 
@@ -149,12 +176,26 @@ bool PathTube::bufferGeometry(TriangleBuffer* T, vec3 offset)
       vertices[vertex].setColor(color);
       vertices[vertex].setNormal(norm); // to be normalized in gpu
 
-      index+=6;
+      if(i>1) // if !closedBase, need to do first row of vertices without doing triangles
+       {
+        // Now compute the indices for the first triangle
+
+        // Now compute the indices for the second triangle
+
+        //Increment vertex, index before next vertex/triangle
+        index+=6;
+       }
       vertex++;
      }
-    
    }
   
+  // Now deal with the single vertex and cone of triangles at the closed top if present.
+  if(closedTop)
+   {
+    
+   }
+
+  // Phew!! Go home! 
   return true;
 }
 

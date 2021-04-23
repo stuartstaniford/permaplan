@@ -407,7 +407,7 @@ bool AxialElement::diagnosticHTMLSummary(HttpDebug* serv)
 // =======================================================================================
 // Utility function to get two vectors perpendicular to a specified one.
 // Eg if sides == 8 the cross section of the TruncatedCone which points in the dir
-// direction looks like
+// direction looks like this (dir points into the screen):
 /*
      ^
      | f1 direction
