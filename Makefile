@@ -140,6 +140,7 @@ src/AxialElement.o: include/Logging.h include/MemoryTracker.h
 src/AxialElement.o: include/HttpDebug.h include/Vertex.h
 src/AxialElement.o: include/ElementBufferObject.h include/BoundingBox.h
 src/AxialElement.o: include/Shader.h include/VertexBufferCombo.h
+src/AxialElement.o: include/CircleIterator.h
 src/BezierPatch.o: include/BezierPatch.h include/LandSurfaceRegion.h
 src/BezierPatch.o: include/VisualObject.h include/VisualElement.h
 src/BezierPatch.o: include/TriangleBuffer.h include/ElementBufferCombo.h
@@ -350,6 +351,7 @@ src/Camera.o: /usr/local/include/cglm/curve.h
 src/Camera.o: /usr/local/include/cglm/bezier.h /usr/local/include/cglm/ray.h
 src/Camera.o: /usr/local/include/cglm/affine2d.h include/Camera.h
 src/Camera.o: include/Shader.h include/HttpDebug.h include/Global.h
+src/CircleIterator.o: include/CircleIterator.h
 src/ColoredAxes.o: /usr/local/include/GL/glew.h
 src/ColoredAxes.o: /usr/local/include/GLFW/glfw3.h include/ColoredAxes.h
 src/ColoredAxes.o: include/LineStripList.h /usr/local/include/cglm/cglm.h
@@ -465,6 +467,7 @@ src/ControlGroup.o: include/Camera.h include/HeightMarker.h
 src/ControlGroup.o: include/BezierPatch.h include/PmodConfig.h
 src/ControlGroup.o: include/Timeval.h include/JSONStructureChecker.h
 src/ControlGroup.o: include/Version.h include/Boundary.h
+src/ControlGroup.o: include/SemicircularArrow.h include/PathTube.h
 src/Copse.o: include/Copse.h include/DisplayList.h include/VisualObject.h
 src/Copse.o: include/VisualElement.h include/TriangleBuffer.h
 src/Copse.o: include/ElementBufferCombo.h include/VertexArrayObject.h
@@ -1405,6 +1408,7 @@ src/PathTube.o: include/Global.h include/Logging.h include/MemoryTracker.h
 src/PathTube.o: include/HttpDebug.h include/Vertex.h
 src/PathTube.o: include/ElementBufferObject.h include/BoundingBox.h
 src/PathTube.o: include/Shader.h include/VertexBufferCombo.h
+src/PathTube.o: include/CircleIterator.h
 src/PmodConfig.o: include/PmodConfig.h
 src/PmodDesign.o: include/PmodDesign.h include/rapidjson/document.h
 src/PmodDesign.o: include/rapidjson/reader.h include/rapidjson/allocators.h
@@ -1739,6 +1743,7 @@ src/SemicircularArrow.o: include/HttpDebug.h include/Vertex.h
 src/SemicircularArrow.o: include/ElementBufferObject.h include/BoundingBox.h
 src/SemicircularArrow.o: include/Shader.h include/VertexBufferCombo.h
 src/SemicircularArrow.o: include/VisualObject.h include/Lockable.h
+src/SemicircularArrow.o: include/CircleIterator.h
 src/Shader.o: /usr/local/include/GL/glew.h include/loadFileToBuf.h
 src/Shader.o: include/Shader.h /usr/local/include/cglm/cglm.h
 src/Shader.o: /usr/local/include/cglm/common.h

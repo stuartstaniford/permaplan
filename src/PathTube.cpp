@@ -2,7 +2,7 @@
 // Claff for rendering an arrow that follows part of the arc of a circle.
 
 #include "PathTube.h"
-#include "AxialElement.h"
+#include "CircleIterator.h"
 #include <assert.h>
 
 // =======================================================================================
@@ -44,34 +44,6 @@ void PathTube::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
    }
 
   LogTriangleBufEstimates("PathTube TriangleBuffer estimate: [%u, %u]\n", vCount, iCount);
-}
-
-
-// =======================================================================================
-// This function is used te ensure the stability of f1, f2 as we go up the tube, we use the 
-// last f1,f2 as the starting point for the next set.  Eg if sides == 8 the cross section 
-// of the PathTube which points in the instantaneous dir direction looks like this (dir 
-// points into the screen):
-/*
-     ^
-     | f1 direction
- 
-   -----
-  /     \
- /       \
-|         |  ---->
-|         |  f2 direction
- \       /
-  \     /
-   -----
-*/
-
-void updateCrossVectors(vec3 dir, vec3 f1, vec3 f2, float radius)
-{
-  glm_vec3_cross(dir, f1, f2);
-  glm_vec3_cross(f2, dir, f1);
-  glm_vec3_scale_as(f1, radius, f1);
-  glm_vec3_scale_as(f2, radius, f2);
 }
 
 

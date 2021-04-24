@@ -2,7 +2,8 @@
 // This class ..... is a template for real classes
 
 #include "SemicircularArrow.h"
-#include "AxialElement.h"       // for crossVectors functions
+#include "CircleIterator.h"
+
 
 // =======================================================================================
 // Constructor

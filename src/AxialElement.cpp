@@ -5,6 +5,7 @@
 
 
 #include "AxialElement.h"
+#include "CircleIterator.h"
 #include <assert.h>
 
 // =======================================================================================
@@ -405,45 +406,6 @@ bool AxialElement::diagnosticHTML(HttpDebug* serv)
 bool AxialElement::diagnosticHTMLSummary(HttpDebug* serv)
 {
   err(-1, "Called unimplemented superclass AxialElement::diagnosticHTMLSummary.\n");
-}
-
-// =======================================================================================
-// Utility function to get two vectors perpendicular to a specified one.
-// Eg if sides == 8 the cross section of the TruncatedCone which points in the dir
-// direction looks like this (dir points into the screen):
-/*
-     ^
-     | f1 direction
- 
-   -----
-  /     \
- /       \
-|         |  ---->
-|         |  f2 direction
- \       /
-  \     /
-   -----
-*/
-
-void getCrossVectors(vec3 dir, vec3 f1, vec3 f2, float radius)
-{
-  vec3 f0; // starting place, will be z-axis unless dir is parallel when we use x-axis.
-
-  if(fabs(dir[0]) < EPSILON && fabs(dir[1]) < EPSILON)
-   {
-    f0[0] = 1.0f;
-    f0[1] = f0[2] = 0.0f;
-   }
-  else
-   {
-    f0[0] = f0[1] = 0.0f;
-    f0[2] = 1.0f;
-   }
-
-  glm_vec3_cross(f0, dir, f1);
-  glm_vec3_cross(dir, f1, f2);
-  glm_vec3_scale_as(f1, radius, f1);
-  glm_vec3_scale_as(f2, radius, f2);
 }
 
 
