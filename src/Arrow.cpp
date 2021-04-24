@@ -24,7 +24,7 @@ Arrow::Arrow(vec3 root, vec3 dir, float radius, int sides):
   closedBase = true;
   closedTop = true;
   box = new BoundingBox();
-  AxialElement::updateBoundingBox(box, zeroVec);
+  AxialElement::updateBoundingBox(box, zeroVec); //XX can this zerovec here be right?
 }
 
 

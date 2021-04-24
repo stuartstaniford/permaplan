@@ -28,12 +28,14 @@ public:
   virtual bool matchRay(vec3& position, vec3& direction, float& lambda, vec3 offset);
   virtual bool updateBoundingBox(BoundingBox* box, vec3 offset);
 
-private:
+protected:
   
-  // Instance variables - private
+  // Instance variables - protected
   vec4*     path;
   unsigned  NPath;
   unsigned  sides;
+  
+private:
   
   // Member functions - private
   PathTube(const PathTube&);                 // Prevent copy-construction

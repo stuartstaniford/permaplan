@@ -19,6 +19,7 @@ public:
   // Member functions - public
   SemicircularArrow(vec3 pos, vec3 axis, float arcD, float arcR, float tubeR, int s);
   ~SemicircularArrow(void);
+  void generatePath(void);
   const char* objectName(void);
   inline void triangleBufferSizes(unsigned& vCount, unsigned& iCount)
     {PathTube::triangleBufferSizes(vCount, iCount);}

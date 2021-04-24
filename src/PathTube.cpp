@@ -46,6 +46,7 @@ void PathTube::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
   LogTriangleBufEstimates("PathTube TriangleBuffer estimate: [%u, %u]\n", vCount, iCount);
 }
 
+
 // =======================================================================================
 // This function is used te ensure the stability of f1, f2 as we go up the tube, we use the 
 // last f1,f2 as the starting point for the next set.  Eg if sides == 8 the cross section 
