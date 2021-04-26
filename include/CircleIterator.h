@@ -20,7 +20,9 @@ public:
   
   // Member functions - public
   CircleIterator(float* centroid, float* dir, float R, float* offset = NULL);
+  CircleIterator(void);
   ~CircleIterator(void);
+  void update(float* centroid, float* dir, float R, float* offset = NULL);
   void getPoint(float degrees, float* pos, float* norm);
   
 private:
@@ -38,7 +40,7 @@ private:
   // Member functions - private
   CircleIterator(const CircleIterator&);                 // Prevent copy-construction
   CircleIterator& operator=(const CircleIterator&);      // Prevent assignment
-
+  
 };
 
 #endif

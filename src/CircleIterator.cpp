@@ -21,10 +21,40 @@ CircleIterator::CircleIterator(float* centroid, float* dir, float R, float* offs
 
 
 // =======================================================================================
+// Void constructor.  Objects instantiated this way will not be usable until after a call 
+// to update();
+
+CircleIterator::CircleIterator(void):
+                                center(NULL),
+                                direction(NULL)
+{
+  
+}
+
+
+// =======================================================================================
 // Destructor
 
 CircleIterator::~CircleIterator(void)
 {
+}
+
+
+// =======================================================================================
+// Function to recompute our state when our parameters have changed
+
+void CircleIterator::update(float* centroid, float* dir, float R, float* offset)
+{
+  bool firstTime = center?false:true;
+  center    = centroid;
+  direction = dir;
+  arcRadius = R;
+  if(offset)
+    glm_vec3_add(centroid, offset, centroid);
+  if(firstTime)
+    getCrossVectors(center, f1, f2, arcRadius);
+  else
+    updateCrossVectors(center, f1, f2, arcRadius);
 }
 
 

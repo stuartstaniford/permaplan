@@ -332,12 +332,10 @@ bool PathTube::matchRay(vec3& position, vec3& direction, float& lambda, vec3 off
 
 bool PathTube::updateBoundingBox(BoundingBox* box, vec3 offset)
 {
-  bool  retVal        = false;
-  float     angleRadians  = 2.0f*M_PI/sides;
-  unsigned  startRow, endRow;
-  float ang, cosAng, sinAng;
-  
-  vec3 localAxis, firstDelt, secondDelt, norm, f1, f2, point;
+  bool      retVal        = false;
+  float     angleDegrees  = 360.0f/sides;
+  unsigned  startRow, endRow;  
+  vec3 localAxis, firstDelt, secondDelt, norm, point;
   
   // bottom end point
   if(closedBase)
@@ -363,33 +361,26 @@ bool PathTube::updateBoundingBox(BoundingBox* box, vec3 offset)
     endRow = NPath;
   
   // Loop over the rows of tube sides
+  CircleIterator circIter;
   for(int i=startRow; i<endRow; i++)
    {
     // Compute the local tangent to the path at the second point in the path
-    if(i>1)
+    if(i==0)
+      glm_vec3_sub(path[i+1], path[i], localAxis);
+    else if(i==NPath-1)
+      glm_vec3_sub(path[i], path[i-1], localAxis);
+    else
      {
       glm_vec3_sub(path[i], path[i-1], firstDelt);
       glm_vec3_sub(path[i+1], path[i], secondDelt);
       glm_vec3_add(firstDelt, secondDelt, localAxis); // don't care about scale of this
-      updateCrossVectors(localAxis, f1, f2, path[i][3]);  //fourth float of vec4 path is radius
      }
-    else
-     {
-      glm_vec3_sub(path[i+1], path[i], localAxis);
-      getCrossVectors(localAxis, f1, f2, path[i][3]);  //fourth float of vec4 path is radius
-     }
+    circIter.update(path[i+startRow], localAxis, path[i+startRow][3], offset);
     
     for(int j=0; j<sides; j++)
      {
       // Compute the j'th vertex around 
-      ang = j*angleRadians;
-      cosAng = cosf(ang);
-      sinAng = sinf(ang);     
-      for(int m=0; m<3; m++)
-       {
-        norm[m] = cosAng*f1[m] + sinAng*f2[m]; // scaled to radius
-        point[m] = path[i+startRow][m] + norm[m] + offset[m];
-       }
+      circIter.getPoint(j*angleDegrees, point, norm);
       if(box->extends(point))
         retVal = true;
      }

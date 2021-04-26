@@ -19,7 +19,7 @@ ControlGroup::ControlGroup(VisualObject* firstObject):
                         firstObject->objectName());
   
   createTranslationArrows();
-  createRotationArrows();
+  //createRotationArrows();
 }
 
 
@@ -95,7 +95,7 @@ void ControlGroup::createRotationArrows(void)
   masterObject->box->getCentroid(centroid);
   vec3 dir = {0.0f, 0.0f, 1.0f};
   float arcR = 0.8f*masterObject->box->avgDiam();
-  
+
   SemicircularArrow* arrow = new SemicircularArrow(centroid, dir, 60.0f, arcR, 1.0f, 10);
   arrow->color = arrowRed;
   insert(arrow);
