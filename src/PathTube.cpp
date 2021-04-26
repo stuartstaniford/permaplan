@@ -375,7 +375,10 @@ bool PathTube::updateBoundingBox(BoundingBox* box, vec3 offset)
       glm_vec3_sub(path[i+1], path[i], secondDelt);
       glm_vec3_add(firstDelt, secondDelt, localAxis); // don't care about scale of this
      }
-    circIter.update(path[i+startRow], localAxis, path[i+startRow][3], offset);
+    
+    // XX use of i here is inconsistent
+    
+    circIter.update(path[i], localAxis, path[i][3], offset);
     
     for(int j=0; j<sides; j++)
      {
