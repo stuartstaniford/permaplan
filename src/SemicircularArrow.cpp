@@ -12,11 +12,13 @@ SemicircularArrow::SemicircularArrow(vec3 pos, vec3 axis,
                                       VisualObject(true),
                                       circIter(pos, axis, arcR),
                                       arcDegrees(arcD),
-                                      tubeRadius(tubeR), 
-                                      sides(s)
+                                      tubeRadius(tubeR)
 {
-  closedBase = true;
-  closedTop  = true;
+  // Things in PathTube;
+  sides       = s;
+  closedBase  = true;
+  closedTop   = true;
+  
   box = new BoundingBox();
   box->unitCube(pos); //XX temp
   generatePath();

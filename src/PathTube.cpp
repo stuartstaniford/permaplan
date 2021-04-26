@@ -8,11 +8,11 @@
 // =======================================================================================
 // Constructor
 
-PathTube::PathTube(void)
-{
-  NPath = 5;  //XX temp
-  
-  assert(NPath > 2);
+PathTube::PathTube(void):
+                  path(NULL),
+                  NPath(0u),
+                  sides(10)  // sensible default
+{  
 }
 
 

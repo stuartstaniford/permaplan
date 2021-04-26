@@ -42,7 +42,6 @@ private:
   CircleIterator circIter;
   float arcDegrees;
   float tubeRadius; 
-  int sides;
 
   // Member functions - private
   SemicircularArrow(const SemicircularArrow&);                 // Prevent copy-construction
