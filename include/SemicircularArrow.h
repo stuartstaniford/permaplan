@@ -6,6 +6,7 @@
 
 #include "PathTube.h"
 #include "VisualObject.h"
+#include "CircleIterator.h"
 
 // =======================================================================================
 // Class variable initialization
@@ -38,10 +39,8 @@ public:
 private:
   
   // Instance variables - private
-  vec3 centroid;
-  vec3 axisDirection;
+  CircleIterator circIter;
   float arcDegrees;
-  float arcRadius; 
   float tubeRadius; 
   int sides;
 

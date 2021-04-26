@@ -9,8 +9,14 @@
 // =======================================================================================
 // Constructor
 
-CircleIterator::CircleIterator(void)
+CircleIterator::CircleIterator(float* centroid, float* dir, float R, float* offset):
+                                    arcRadius(R),
+                                    center(centroid),
+                                    direction(dir)
 {
+  if(offset)
+    glm_vec3_add(centroid, offset, centroid);
+  getCrossVectors(center, f1, f2, arcRadius);
 }
 
 
@@ -19,6 +25,21 @@ CircleIterator::CircleIterator(void)
 
 CircleIterator::~CircleIterator(void)
 {
+}
+
+
+// =======================================================================================
+// Function to get a new position (and norm) so many degrees around the circle
+
+void CircleIterator::getPoint(float degrees, float* pos, float* norm)
+{
+  float angleRadians  = degrees*M_PI/180.0f;
+
+  for(int m=0; m<3; m++)
+   {
+    norm[m] = cosf(angleRadians)*f1[m] + sinf(angleRadians)*f2[m]; // scaled to radius
+    pos[m] = center[m] + norm[m];
+   }
 }
 
 
