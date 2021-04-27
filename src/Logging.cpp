@@ -85,6 +85,7 @@ bool doLogDisplayListBuffer   = true; // Log objects being buffered for display.
 bool doLogQuadtreeObjSizes    = true; // Log the process of estimating/changing object sizes
 
 // Logging options to do with other infrastructure
+bool doLogObjectCreation        = true; // Log the id of each newly created oject.
 bool doLogTriangleBufferOps     = true; // Log the workings of the triangle buffers.
 bool doLogTriangleBufEstimates  = true; // Log estimates of sizes needed.
 bool doLogTriangleBufferErrs    = true; // Log actual errors the triangle buffers.

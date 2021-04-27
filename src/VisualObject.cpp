@@ -37,12 +37,12 @@ VisualObject::VisualObject(bool absHeights, BoundingBox* B):
 
 VisualObject::~VisualObject(void)
 {
+  LogObjectCreation("Object destroyed with id %u.\n", objIndex);
   if(box)
     delete box;
   staticLock.lock();
   allObjects.erase(objIndex);
   staticLock.unlock();
-
 }
 
 // =======================================================================================

@@ -40,7 +40,7 @@ void PathTube::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
   if(closedBase)
    {
     vCount -= sides-1;
-    iCount -= sides;
+    iCount -= 3*sides;
    }
 
   LogTriangleBufEstimates("PathTube TriangleBuffer estimate: [%u, %u]\n", vCount, iCount);

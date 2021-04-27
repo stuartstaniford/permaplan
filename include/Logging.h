@@ -8,12 +8,11 @@
 // =======================================================================================
 // Logging options to do with overall control flow and speed
 
-#define LOG_FRAME_STARTS      // Log each frame as it begins
-#define LOG_CLOSE_DOWN        // Log when we exit.
-#define LOG_STRUCTURE_SIZES   // Log the size of structures on this platform at startup.
-#define LOG_OPENGL_CONSTANTS  // Log various openGL parameters
-#define LOG_TREE_VALIDATION   // Validate data structures after every frame
-
+#define LOG_FRAME_STARTS        // Log each frame as it begins
+#define LOG_CLOSE_DOWN          // Log when we exit.
+#define LOG_STRUCTURE_SIZES     // Log the size of structures on this platform at startup.
+#define LOG_OPENGL_CONSTANTS    // Log various openGL parameters
+#define LOG_TREE_VALIDATION     // Validate data structures after every frame
 
 // =======================================================================================
 // Logging options to do with parsing and validating OLDF and OTDL files
@@ -103,8 +102,10 @@
 // =======================================================================================
 // Logging options to do with other infrastructure
 
+#define LOG_OBJECT_CREATION            // Log the id of each newly created oject
 //#define LOG_TRIANGLE_BUFFER_OPS     // Log the workings of the triangle buffers.
 //#define LOG_TRIANGLE_BUF_ESTIMATES  // Log estimates of sizes needed.
+#define LOG_VALID_TRIANGLE_BUFS // Validate the condition of triangle buffers on gpu send
 #define LOG_TRIANGLE_BUFFER_ERRS    // Log actual errors the triangle buffers.
 
 
@@ -202,10 +203,11 @@ extern bool doLogQuadtreeCreation;    // Log the initial setup of the quadtree.
 extern bool doLogQuadtreeInsertions;  // Log the a new object being put in the quadtree.
 extern bool doLogQuadtreeBoundBox;    // Log changes to the quadtree bounding boxes.
 extern bool doLogQuadtreeMatchRay;    // Log the process of matching a ray in the quadtree.
-extern bool doLogDisplayListBuffer;   // Log the process of objects being buffered for display.
+extern bool doLogDisplayListBuffer;   // Log process of objects being buffered for display.
 extern bool doLogQuadtreeObjSizes;    // Log the process of estimating/changing object sizes
 
 // Logging options to do with other infrastructure
+extern bool doLogObjectCreation;        // Log the id of each newly created oject.
 extern bool doLogTriangleBufferOps;     // Log the workings of the triangle buffers.
 extern bool doLogTriangleBufEstimates;  // Log estimates of sizes needed.
 extern bool doLogTriangleBufferErrs;    // Log actual errors the triangle buffers.
@@ -612,6 +614,13 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
 
 // =======================================================================================
 // Logging options to do with other infrastructure
+
+// Log the id of each newly created oject
+#ifdef LOG_OBJECT_CREATION
+#define LogObjectCreation(...) if(doLogObjectCreation) LogStatement(__VA_ARGS__)
+#else
+#define LogObjectCreation(...)
+#endif
 
 // Log the workings of the triangle buffers.
 #ifdef LOG_TRIANGLE_BUFFER_OPS

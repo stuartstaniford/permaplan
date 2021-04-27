@@ -58,6 +58,9 @@ class Vertex
   unsigned  color;
   vec2      tex;
   __fp16    normal[3];
+#ifdef LOG_VALID_TRIANGLE_BUFS
+  unsigned short objectId;
+#endif
   
   // public methods
   inline void setPosition(float x, float y, float z)
@@ -97,6 +100,13 @@ class Vertex
    normal[2] = n[2];
   }
 
+  inline void setObjectId(unsigned oid)
+   {
+#ifdef LOG_VALID_TRIANGLE_BUFS
+    objectId = 0x0000ffff&oid;
+#endif
+   }
+  
   inline void fprint(FILE* file)
    {
     fprintf(file, "pos:\t%.1f,\t%.1f,\t%.1f\ttex:\t%.3f\t%.3f\n",

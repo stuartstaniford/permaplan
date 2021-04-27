@@ -21,6 +21,7 @@ LandSurfaceRegion::LandSurfaceRegion(float x, float y, float width, float height
   stPos[1]    = t;
   stExtent[0] = sWidth;
   stExtent[1] = tHeight;
+  LogObjectCreation("Object created of type %s with id %u.\n", objectName(), objIndex);
 
   //updateBoundingBox();  // implementing subclass should do this once it's known.
 }
