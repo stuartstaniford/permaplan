@@ -223,24 +223,35 @@ void TriangleBuffer::dumpBuffer(void)
   FILE* file = fopen("dumpTriangleBuf.html", "w");
   assert(file);
   
-  // Output all the vertices
-  for(int v = 0; v < vCount; v++)
-   {
-    Vertex* b = vertices + v;
-    fprintf(file, "%d\txyz: %.1f %.1f %.1f\tst: %.3f, %.3f\tcolor: %X\n",
-             v, b->pos[0], b->pos[1], b->pos[2], b->tex[0], b->tex[1], b->color);
-   }
+  fprintf(file, "<html><head><title>Triangle Buffer Dump of %s</title></head>\n", bufName);
+  fprintf(file, "<body><h1>Triangle Buffer Dump of %s</h1>\n", bufName);
+  fprintf(file, "<b>vCount (used):</b> %u (%u)\n", vCount, vNext);
+  fprintf(file, "<b>iCount (used):</b> %u (%u)\n", iCount, iNext);
+
+
+  // Output all the vertices in a table
+  fprintf(file, "<table border = 1 cellpadding = 1>\n");
+  Vertex::printVertexTableHeader(file);
+  for(int v = 0; v < vNext; v++)
+    vertices[v].printVertexTableRow(file);
+  fprintf(file, "</table>\n");
   
   // Output all the indices, one triangle per row
+  fprintf(file, "<table border = 1 cellpadding = 1>\n");
+  fprintf(file, "<tr><th>Triangle</th><th>Vertex indices</th></tr>\n");
   for(int i = 0; i < iCount; i+=3)
    {
-    fprintf(file, "%d:\t",i/3);
+    fprintf(file, "<tr><td>%d</td><td>",i/3);
     for(int j = 0; j < 3; j++)
       fprintf(file,"%d ", indices[i+j]);
-    fprintf(file, "\n");
+    fprintf(file, "</td></tr>\n");
    }
-  
+  fprintf(file, "</table>\n");
+
+  // Close out the page and file
+  fprintf(file, "</body></html>\n");
   fflush(file);
+  fclose(file);
 }
 
 
