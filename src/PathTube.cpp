@@ -79,6 +79,8 @@ bool PathTube::bufferGeometry(TriangleBuffer* T, vec3 offset)
     vertices[vertex].setColor(color);
     glm_vec3_sub(path[0], path[1], norm);
     vertices[vertex].setNormal(norm); // to be normalized in gpu
+    vertices[vertex].setObjectId(getObjectIndex());
+
     vertex++;
     
     // Compute the local tangent to the path at the second point in the path
@@ -95,6 +97,7 @@ bool PathTube::bufferGeometry(TriangleBuffer* T, vec3 offset)
       circIter.getPoint(j*angleDegrees, vertices[vertex].pos, norm);
       vertices[vertex].setColor(color);
       vertices[vertex].setNormal(norm); // to be normalized in gpu
+      vertices[vertex].setObjectId(getObjectIndex());
 
       // Now compute the indices
       indices[index]   = vOffset;     // triangle base is bottom vertex
@@ -139,6 +142,7 @@ bool PathTube::bufferGeometry(TriangleBuffer* T, vec3 offset)
       circIter.getPoint(j*angleDegrees, vertices[vertex].pos, norm);
       vertices[vertex].setColor(color);
       vertices[vertex].setNormal(norm); // to be normalized in gpu
+      vertices[vertex].setObjectId(getObjectIndex());
 
       if(i>1) // if !closedBase, need to do first row of vertices without doing triangles
        {
@@ -169,6 +173,7 @@ bool PathTube::bufferGeometry(TriangleBuffer* T, vec3 offset)
     glm_vec3_add(path[NPath-1], offset, vertices[vertex].pos);
     vertices[vertex].setColor(color);
     vertices[vertex].setNormal(norm); // to be normalized in gpu
+    vertices[vertex].setObjectId(getObjectIndex());
 
     unsigned nRows = endRow-startRow;
     for(int j=0; j<sides; j++)

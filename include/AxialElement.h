@@ -36,6 +36,7 @@ class AxialElement: public VisualElement
   virtual bool        updateBoundingBox(BoundingBox* box, vec3 offset);
   virtual void        triangleBufferSizes(unsigned& vCount, unsigned& iCount);
   virtual const char* elementName(void);
+  inline virtual unsigned getObjectIndex(void) {return 0u;}
   virtual bool        diagnosticHTML(HttpDebug* serv);
   virtual bool        diagnosticHTMLSummary(HttpDebug* serv);
 

@@ -217,7 +217,7 @@ extern bool doLogBezierFit;           // Log the fitting of a Bezier patch to he
 extern bool doLogBezierMatchRay;      // Log the process of matching a ray to the patch.
 extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects above the land
 
-#endif  //LOGGING_IMPLEMENTATION - need this here.
+#endif  //ifndef LOGGING_IMPLEMENTATION - need this here.
 
 
 // =======================================================================================
@@ -257,6 +257,7 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
 #else
 #define LogTreeValidation(...)
 #endif
+
 
 // =======================================================================================
 // Logging options to do with parsing and validating OLDF and OTDL files

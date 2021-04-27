@@ -247,6 +247,8 @@ bool Box::bufferGeometry(TriangleBuffer* T)
    {
     if(useNoTexColor)
       vertices[i].setColor(noTexColor);
+    vertices[i].setObjectId(objIndex);
+
     indices[i] = vOffset + i;
    }
 

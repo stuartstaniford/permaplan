@@ -33,6 +33,7 @@ class Arrow: public AxialElement, public VisualObject
     {return AxialElement::matchRay(position, direction, lambda, zeroVec);}
   inline bool matchRay(vec3& position, vec3& direction, float& lambda, vec3 offset)
     {return AxialElement::matchRay(position, direction, lambda, offset);}
+  inline virtual unsigned getObjectIndex(void) {return objIndex;};
 
   static vec2 arrowPoints[3];
   

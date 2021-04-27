@@ -32,6 +32,7 @@ public:
     {return PathTube::matchRay(position, direction, lambda, zeroVec);}
   inline bool matchRay(vec3& position, vec3& direction, float& lambda, vec3 offset)
     {return PathTube::matchRay(position, direction, lambda, offset);}
+  inline virtual unsigned getObjectIndex(void) {return objIndex;}
 #ifdef LOG_TREE_VALIDATION
   void selfValidate(unsigned l);
 #endif

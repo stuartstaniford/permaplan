@@ -155,6 +155,7 @@ bool AxialElement::bufferGeometry(TriangleBuffer* T, vec3 offset)
         
         //XX This is still cylindrical, norm lacks a possible component in the axis direction
         vertices[NVecs*i+j].setNormal(norm); // to be normalized in gpu
+        vertices[NVecs*i+j].setObjectId(getObjectIndex());
        }
      }
  
@@ -166,6 +167,7 @@ bool AxialElement::bufferGeometry(TriangleBuffer* T, vec3 offset)
       vertices[NVecs*sides].setPosition(point);
       vertices[NVecs*sides].setNormal(norm);
       vertices[NVecs*sides].setColor(color);
+      vertices[NVecs*sides].setObjectId(getObjectIndex());
      }
 
     if(closedTop)
@@ -175,6 +177,8 @@ bool AxialElement::bufferGeometry(TriangleBuffer* T, vec3 offset)
       vertices[vCount-1].setPosition(point);
       vertices[vCount-1].setNormal(axisDirection);
       vertices[vCount-1].setColor(color);
+      vertices[vCount-1].setObjectId(getObjectIndex());
+
      }
 
     // Done with vertices, now set up the indices.  As usual, we need triangles to be

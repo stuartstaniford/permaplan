@@ -27,6 +27,7 @@ public:
   virtual bool bufferGeometry(TriangleBuffer* T, vec3 offset);
   virtual bool matchRay(vec3& position, vec3& direction, float& lambda, vec3 offset);
   virtual bool updateBoundingBox(BoundingBox* box, vec3 offset);
+  inline virtual unsigned getObjectIndex(void) {return 0u;}
 
 protected:
   

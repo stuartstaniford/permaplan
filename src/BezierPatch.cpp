@@ -302,6 +302,8 @@ bool BezierPatch::bufferGeometry(TriangleBuffer* T)
     bufEl->setTexCoords(stPos[0] + stExtent[0]*spacing*(float)i,
                                 stPos[1] + stExtent[1]*spacing*(float)j);
     bufEl->setColor(0u);
+    bufEl->setObjectId(objIndex);
+
     //printf("u,v: %.3f, %.3f\t", u, v);
     //bufEl->fprint(stdout);
    }
