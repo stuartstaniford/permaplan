@@ -18,13 +18,15 @@
 
 class LandSurfaceRegion;
 class Quadtree;
-
+class Vertex;
 class ObjectGroup;
 
 class VisualObject: public Lockable, public VisualElement 
 {
   friend Quadtree;
   friend ObjectGroup;
+  friend Vertex;
+  
  public:
   
   // Instance variables - public

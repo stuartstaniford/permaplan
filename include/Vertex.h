@@ -6,6 +6,7 @@
 #define VERTEX_H
 
 #include <cstring>
+#include <stdio.h>
 #include <cglm/cglm.h>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -127,6 +128,8 @@ class Vertex
     return mollerTrumbore(this->pos, v1->pos, v2->pos, rayPosition, rayDirection, outT);
    }
   
+  static void printVertexTableHeader(FILE* file);
+  void printVertexTableRow(FILE* file);
 };
 
 #endif
