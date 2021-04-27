@@ -23,7 +23,9 @@ SemicircularArrow::SemicircularArrow(vec3 pos, vec3 axis,
   box->unitCube(pos); //XX temp
   generatePath();
   PathTube::updateBoundingBox(box, zeroVec);  //XX can this zerovec here be right?
+  LogObjectCreation("Object created of type %s with id %u.\n", objectName(), objIndex);
 }
+
 
 
 // =======================================================================================

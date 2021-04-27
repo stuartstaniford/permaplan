@@ -25,6 +25,7 @@ Arrow::Arrow(vec3 root, vec3 dir, float radius, int sides):
   closedTop = true;
   box = new BoundingBox();
   AxialElement::updateBoundingBox(box, zeroVec); //XX can this zerovec here be right?
+  LogObjectCreation("Object created of type %s with id %u.\n", objectName(), objIndex);
 }
 
 

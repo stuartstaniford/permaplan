@@ -35,6 +35,7 @@ LandSurfaceRegionPlanar::LandSurfaceRegionPlanar(float x, float y, float width, 
                           LandSurfaceRegion(x, y, width, height, s, t, sWidth, tHeight)
 {
   resetPlane(plane);
+  LogObjectCreation("Object created of type %s with id %u.\n", objectName(), objIndex);
 }
 
 

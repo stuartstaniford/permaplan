@@ -39,6 +39,7 @@ BezierPatch::BezierPatch(Quadtree* qtree, unsigned gridPoints):
 
   if(!gradConstrainedDone)
     computeGradConstraints();
+  LogObjectCreation("Object created of type %s with id %u.\n", objectName(), objIndex);
 }
 
 
@@ -56,6 +57,7 @@ BezierPatch::BezierPatch(float x, float y, float width, float height,
 
   if(!gradConstrainedDone)
     computeGradConstraints();
+  LogObjectCreation("Object created of type %s with id %u.\n", objectName(), objIndex);
 }
 
 

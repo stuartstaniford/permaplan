@@ -16,6 +16,7 @@ Box::Box(mat4 transform):
   glm_mat4_copy(transform, trans);
   updateBoundingBox();
   incrementBoxMemory(sizeof(Box)+sizeof(BoundingBox));
+  LogObjectCreation("Object created of type %s with id %u.\n", objectName(), objIndex);
 }
 
 

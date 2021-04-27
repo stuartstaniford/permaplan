@@ -33,6 +33,7 @@ Tree::Tree(Species* S, vec3 loc, float age, float now):
   growStep(age);
   updateBoundingBox();
   incrementTreeMemory(sizeof(Tree));
+  LogObjectCreation("Object created of type %s with id %u.\n", objectName(), objIndex);
 }
 
 

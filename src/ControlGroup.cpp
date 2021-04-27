@@ -20,6 +20,7 @@ ControlGroup::ControlGroup(VisualObject* firstObject):
   
   createTranslationArrows();
   createRotationArrows();
+  LogObjectCreation("Object created of type %s with id %u.\n", objectName(), objIndex);
 }
 
 

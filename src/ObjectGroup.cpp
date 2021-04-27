@@ -18,6 +18,7 @@ ObjectGroup::ObjectGroup(VisualObject* firstObject):
   updateBoundingBox();
   LogGroupAdditions("Creating new object group with object of type %s.\n", 
                                                                 firstObject->objectName());
+  LogObjectCreation("Object created of type %s with id %u.\n", objectName(), objIndex);
 }
 
 

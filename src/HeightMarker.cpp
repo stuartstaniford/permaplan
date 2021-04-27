@@ -20,6 +20,7 @@ HeightMarker::HeightMarker(float x, float y, float z):
   location[1] = y;
   location[2] = z;
   updateBoundingBox();
+  LogObjectCreation("Object created of type %s with id %u.\n", objectName(), objIndex);
 }
 
 
@@ -30,6 +31,7 @@ HeightMarker::HeightMarker(vec3 loc):
   location[1] = loc[1];
   location[2] = loc[2];
   updateBoundingBox();
+  LogObjectCreation("Object created of type %s with id %u.\n", objectName(), objIndex);
 }
 
 
