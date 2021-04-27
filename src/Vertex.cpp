@@ -49,6 +49,7 @@ bool mollerTrumbore(vec3 v0, vec3 v1, vec3 v2, vec3 rayPos, vec3 rayDir, float& 
 void Vertex::printVertexTableHeader(FILE* file)
 {
   fprintf(file, "<tr>");
+  fprintf(file, "<th>Row</th>");
   fprintf(file, "<th>Position</th>");
   fprintf(file, "<th>Color (RGBA)</th>");
   fprintf(file, "<th>Texture Coords</th>");
@@ -63,11 +64,12 @@ void Vertex::printVertexTableHeader(FILE* file)
 // =======================================================================================
 // Function for printing a row in an HTML table of vertices
 
-void Vertex::printVertexTableRow(FILE* file)
+void Vertex::printVertexTableRow(FILE* file, unsigned row)
 {
   fprintf(file, "<tr>");
+  fprintf(file, "<td>%u</td>", row);
   fprintf(file, "<td>%.1f, %.1f, %.1f</td>", pos[0], pos[1], pos[2]);
-  fprintf(file, "<td>0x%x</td>", color);
+  fprintf(file, "<td>0x%08x</td>", color);
   fprintf(file, "<td>%.3f, %.3f</td>", tex[0], tex[1]);
   fprintf(file, "<td>%.3f, %.3f, %.3f</td>", normal[0], normal[1], normal[2]);
 #ifdef LOG_VALID_TRIANGLE_BUFS

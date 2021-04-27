@@ -225,21 +225,22 @@ void TriangleBuffer::dumpBuffer(void)
   
   fprintf(file, "<html><head><title>Triangle Buffer Dump of %s</title></head>\n", bufName);
   fprintf(file, "<body><h1>Triangle Buffer Dump of %s</h1>\n", bufName);
-  fprintf(file, "<b>vCount (used):</b> %u (%u)\n", vCount, vNext);
-  fprintf(file, "<b>iCount (used):</b> %u (%u)\n", iCount, iNext);
-
+  fprintf(file, "<b>vCount (used):</b> %u (%u)<br>\n", vCount, vNext);
+  fprintf(file, "<b>iCount (used):</b> %u (%u)<br>\n", iCount, iNext);
 
   // Output all the vertices in a table
+  fprintf(file, "<h2>Table of Vertices</h2>\n");
   fprintf(file, "<table border = 1 cellpadding = 1>\n");
   Vertex::printVertexTableHeader(file);
-  for(int v = 0; v < vNext; v++)
-    vertices[v].printVertexTableRow(file);
+  for(unsigned v = 0; v < vNext; v++)
+    vertices[v].printVertexTableRow(file, v);
   fprintf(file, "</table>\n");
   
   // Output all the indices, one triangle per row
+  fprintf(file, "<h2>Table of Triangles/Indices</h2>\n");
   fprintf(file, "<table border = 1 cellpadding = 1>\n");
   fprintf(file, "<tr><th>Triangle</th><th>Vertex indices</th></tr>\n");
-  for(int i = 0; i < iCount; i+=3)
+  for(int i = 0; i < iNext; i+=3)
    {
     fprintf(file, "<tr><td>%d</td><td>",i/3);
     for(int j = 0; j < 3; j++)

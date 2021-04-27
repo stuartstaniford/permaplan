@@ -129,7 +129,7 @@ class Vertex
    }
   
   static void printVertexTableHeader(FILE* file);
-  void printVertexTableRow(FILE* file);
+  void printVertexTableRow(FILE* file, unsigned row);
 };
 
 #endif
