@@ -239,12 +239,16 @@ void TriangleBuffer::dumpBuffer(void)
   // Output all the indices, one triangle per row
   fprintf(file, "<h2>Table of Triangles/Indices</h2>\n");
   fprintf(file, "<table border = 1 cellpadding = 1>\n");
-  fprintf(file, "<tr><th>Triangle</th><th>Vertex indices</th></tr>\n");
+  fprintf(file, "<tr><th>Triangle</th><th>Vertex indices</th>\n");
+  fprintf(file, "<th>Object Ids</th></tr>\n");
   for(int i = 0; i < iNext; i+=3)
    {
     fprintf(file, "<tr><td>%d</td><td>",i/3);
     for(int j = 0; j < 3; j++)
-      fprintf(file,"%d ", indices[i+j]);
+      fprintf(file,"<a href=\"\#row%u\">%u</a> ", indices[i+j], indices[i+j]);
+    fprintf(file, "</td><td>");
+    for(int j = 0; j < 3; j++)
+      fprintf(file,"%u ", vertices[indices[i+j]].objectId);            
     fprintf(file, "</td></tr>\n");
    }
   fprintf(file, "</table>\n");

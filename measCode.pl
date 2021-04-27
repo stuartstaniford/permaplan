@@ -29,4 +29,5 @@ print OUT "$syms[0]\tMakefile\n" if $detail;
 $total += $syms[0];
 
 print OUT "Total: $total\n" if $detail;
+close(OUT) if $detail;
 print "Total: $total\n";

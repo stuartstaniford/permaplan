@@ -67,7 +67,7 @@ void Vertex::printVertexTableHeader(FILE* file)
 void Vertex::printVertexTableRow(FILE* file, unsigned row)
 {
   fprintf(file, "<tr>");
-  fprintf(file, "<td>%u</td>", row);
+  fprintf(file, "<td><a name=\"row%u\">%u</a></td>", row, row);
   fprintf(file, "<td>%.1f, %.1f, %.1f</td>", pos[0], pos[1], pos[2]);
   fprintf(file, "<td>0x%08x</td>", color);
   fprintf(file, "<td>%.3f, %.3f</td>", tex[0], tex[1]);
