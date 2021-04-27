@@ -231,7 +231,11 @@ bool Box::bufferGeometry(TriangleBuffer* T)
   unsigned vOffset;
   
   unless(T->requestSpace(&vertices, &indices, vOffset, 36u, 36u))
+   {
+    LogTriangleBufferErrs("Box TriangleBuffer request for %u,%u failed at %u.\n",
+                                                      36u, 36u, vOffset);
     return false;
+   }
   
   // Now we know where we are putting stuff and that there is space, so pack
   // in the vertices

@@ -192,7 +192,11 @@ bool HeightMarker::bufferGeometry(TriangleBuffer* T)
   unsigned vOffset;
   
   unless(T->requestSpace(&vertices, &indices, vOffset, 6u, 24u))
+   {
+    LogTriangleBufferErrs("HeightMarker TriangleBuffer request for %u,%u failed at %u.\n",
+                                                    6u, 24u, vOffset);
     return false;
+   }
   
   // Now we know where we are putting stuff and that there is space, so pack
   // in the vertices

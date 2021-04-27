@@ -124,8 +124,12 @@ bool AxialElement::bufferGeometry(TriangleBuffer* T, vec3 offset)
     
     triangleBufferSizes(vCount, iCount);
     unless(T->requestSpace(&vertices, &indices, vOffset, vCount, iCount))
+     {
+      LogTriangleBufferErrs("AxialElement TriangleBuffer request for %u,%u failed at %u.\n",
+                                                            vCount, iCount, vOffset);
       return false;
-
+     }
+  
     getCrossVectors(axisDirection, f1, f2, radius);
 
     // Now that we've done some initial setup, we can start looping over the radial slices.

@@ -61,7 +61,11 @@ bool PathTube::bufferGeometry(TriangleBuffer* T, vec3 offset)
   
   triangleBufferSizes(vCount, iCount);
   unless(T->requestSpace(&vertices, &indices, vOffset, vCount, iCount))
+   {
+    LogTriangleBufferErrs("PathTube TriangleBuffer request for %u,%u failed at %u.\n",
+                                                    vCount, iCount, vOffset);
     return false;
+   }
 
   unsigned        vertex = 0u;
   unsigned        index = 0u;

@@ -286,7 +286,11 @@ bool BezierPatch::bufferGeometry(TriangleBuffer* T)
   unsigned vCount, iCount;
   triangleBufferSizes(vCount, iCount);
   unless(T->requestSpace(&vertices, &indices, vOffset, vCount, iCount))
+   {
+    LogTriangleBufferErrs("BezierPatch TriangleBuffer request for %u,%u failed at %u.\n",
+                                                        vCount, iCount, vOffset);
     return false;
+   }
 
   //Figure out the vertices
   forAllUVGrid(i,j,u,v, gridN+1, spacing)
