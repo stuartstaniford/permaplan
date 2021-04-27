@@ -5,9 +5,10 @@
 // it, and then pass them all to the GPU.
 
 
-#include <err.h>
 #include "Shader.h"
-#include <TriangleBuffer.h>
+#include "TriangleBuffer.h"
+#include <err.h>
+#include <assert.h>
 
 
 // =======================================================================================
@@ -126,6 +127,9 @@ void TriangleBuffer::sendToGPU(GLenum usage)
    }
   combo = new ElementBufferCombo(vertices, vCount, indices, iCount, usage);
   incrementTriangleBufferMemory(sizeof(ElementBufferCombo));
+#ifdef LOG_VALID_TRIANGLE_BUFS
+  selfValidate();
+#endif
   glBufferData(GL_ARRAY_BUFFER, vCount*sizeof(Vertex), vertices, usage);
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, iCount*sizeof(unsigned), indices, usage);
   delete[] vertices;
@@ -134,6 +138,40 @@ void TriangleBuffer::sendToGPU(GLenum usage)
   vertices = NULL;
   indices = NULL;
 }
+
+
+// =======================================================================================
+// Function which will run through all our vertices/indices and sanity check everything.
+// This is done right before dispatch to the GPU so the buffer should be in a sane 
+// condition.
+
+#ifdef LOG_VALID_TRIANGLE_BUFS
+
+void TriangleBuffer::selfValidate(void)
+{
+  // Buffer should be exactly full
+  assert(vNext == vCount);
+  assert(iNext == iCount);
+  
+  // indices should be in groups of 3.
+  assert(!(iNext%3));
+  
+  for(int i=0; i<iNext; i+=3)
+   {
+    for(int j=0; j<3; j++)
+     {
+      // triangles should point to valid vertices
+      assert(indices[i+j] < vNext);
+      
+      // triangles should not cross objects
+      if(j>0)
+        assert(vertices[indices[i+j]].objectId == vertices[indices[i]].objectId);
+     }
+   }
+                                                          
+  // XX should sanity check vertices
+}
+#endif
 
 
 // =======================================================================================

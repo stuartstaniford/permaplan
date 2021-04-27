@@ -32,6 +32,7 @@ class TriangleBuffer
                     unsigned& vOffset, unsigned vRequestCount, unsigned iRequestCount);
   void sendToGPU(GLenum usage);
   void draw(VertexDrawType drawType, vec4 objColor);
+  void selfValidate(void);
   void fprint(FILE* file);
   bool diagnosticHTML(HttpDebug* serv);
   
@@ -48,7 +49,6 @@ class TriangleBuffer
   // Member functions - private
   TriangleBuffer(const TriangleBuffer&);                 // Prevent copy-construction
   TriangleBuffer& operator=(const TriangleBuffer&);      // Prevent assignment
-
 };
 
 // Helper functions
