@@ -150,26 +150,40 @@ void TriangleBuffer::sendToGPU(GLenum usage)
 void TriangleBuffer::selfValidate(void)
 {
   // Buffer should be exactly full
-  assert(vNext == vCount);
-  assert(iNext == iCount);
+  unless(vNext == vCount)
+    goto BadExit;  
+  unless(iNext == iCount)
+    goto BadExit;
   
   // indices should be in groups of 3.
-  assert(!(iNext%3));
+  unless(!(iNext%3))
+    goto BadExit;
   
   for(int i=0; i<iNext; i+=3)
    {
     for(int j=0; j<3; j++)
      {
       // triangles should point to valid vertices
-      assert(indices[i+j] < vNext);
-      
+      unless(indices[i+j] < vNext)
+        goto BadExit;
+ 
       // triangles should not cross objects
       if(j>0)
-        assert(vertices[indices[i+j]].objectId == vertices[indices[i]].objectId);
+       {
+        unless(vertices[indices[i+j]].objectId == vertices[indices[i]].objectId)
+          goto BadExit;
+       }
      }
    }
                                                           
   // XX should sanity check vertices
+
+  return;  // exit function here if all is well
+  
+BadExit:      // stuff to do when we have failed a test
+  
+  dumpBuffer();
+  assert(0);
 }
 #endif
 
@@ -197,6 +211,36 @@ void TriangleBuffer::draw(VertexDrawType drawType, vec4 objColor)
   
   if(checkGLError(stderr, "TriangleBuffer::draw"))
     exit(-1);
+}
+
+
+// =======================================================================================
+// Dump our state to an HTML file for debugging/diagnostic purposes- called from 
+// selfValidate().
+
+void TriangleBuffer::dumpBuffer(void)
+{
+  FILE* file = fopen("dumpTriangleBuf.html", "w");
+  assert(file);
+  
+  // Output all the vertices
+  for(int v = 0; v < vCount; v++)
+   {
+    Vertex* b = vertices + v;
+    fprintf(file, "%d\txyz: %.1f %.1f %.1f\tst: %.3f, %.3f\tcolor: %X\n",
+             v, b->pos[0], b->pos[1], b->pos[2], b->tex[0], b->tex[1], b->color);
+   }
+  
+  // Output all the indices, one triangle per row
+  for(int i = 0; i < iCount; i+=3)
+   {
+    fprintf(file, "%d:\t",i/3);
+    for(int j = 0; j < 3; j++)
+      fprintf(file,"%d ", indices[i+j]);
+    fprintf(file, "\n");
+   }
+  
+  fflush(file);
 }
 
 

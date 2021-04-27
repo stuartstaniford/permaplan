@@ -33,6 +33,7 @@ class TriangleBuffer
   void sendToGPU(GLenum usage);
   void draw(VertexDrawType drawType, vec4 objColor);
   void selfValidate(void);
+  void dumpBuffer(void);
   void fprint(FILE* file);
   bool diagnosticHTML(HttpDebug* serv);
   
