@@ -89,6 +89,7 @@ bool doLogObjectCreation        = true; // Log the id of each newly created ojec
 bool doLogTriangleBufferOps     = true; // Log the workings of the triangle buffers.
 bool doLogTriangleBufEstimates  = true; // Log estimates of sizes needed.
 bool doLogTriangleBufRebuilds   = true; // Log when the triangle buffer is rebuilt.
+bool doLogValidTriangleBufs     = true; // Validate the condition of triangle buffers on gpu send
 bool doLogTriangleBufferErrs    = true; // Log actual errors the triangle buffers.
 
 // Logging options to do with the Bezier Patch code

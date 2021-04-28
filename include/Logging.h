@@ -213,6 +213,7 @@ extern bool doLogObjectCreation;        // Log the id of each newly created ojec
 extern bool doLogTriangleBufferOps;     // Log the workings of the triangle buffers.
 extern bool doLogTriangleBufEstimates;  // Log estimates of sizes needed.
 extern bool doLogTriangleBufRebuilds;   // Log when the triangle buffer is rebuilt.
+extern bool doLogValidTriangleBufs;     // Validate the condition of triangle buffers on gpu send
 extern bool doLogTriangleBufferErrs;    // Log actual errors the triangle buffers.
 
 // Logging options to do with the Bezier Patch code
@@ -645,6 +646,13 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
 #define LogTriangleBufRebuilds(...) if(doLogTriangleBufRebuilds) LogStatement(__VA_ARGS__)
 #else
 #define LogTriangleBufRebuilds(...)
+#endif
+
+// Validate the condition of triangle buffers on gpu send
+#ifdef LOG_VALID_TRIANGLE_BUFS
+#define LogValidTriangleBufs(...) if(doLogValidTriangleBufs) LogStatement(__VA_ARGS__)
+#else
+#define LogValidTriangleBufs(...)
 #endif
 
 // Log actual errors the triangle buffers.

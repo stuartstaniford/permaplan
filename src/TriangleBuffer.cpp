@@ -151,13 +151,24 @@ void TriangleBuffer::selfValidate(void)
 {
   // Buffer should be exactly full
   unless(vNext == vCount)
-    goto BadExit;  
-  unless(iNext == iCount)
+   {
+    LogValidTriangleBufs("TriangleBuffer::selfValidate: buffer vertices not fully "
+                                                                            "utilized.\n");
     goto BadExit;
+   }
+  unless(iNext == iCount)
+   {
+    LogValidTriangleBufs("TriangleBuffer::selfValidate: buffer indices not fully "
+                                                                            "utilized.\n");
+    goto BadExit;
+   }
   
   // indices should be in groups of 3.
   unless(!(iNext%3))
+   {
+    LogValidTriangleBufs("TriangleBuffer::selfValidate: iNext has incomplete triangle.\n");
     goto BadExit;
+   }
   
   for(int i=0; i<iNext; i+=3)
    {
@@ -165,13 +176,22 @@ void TriangleBuffer::selfValidate(void)
      {
       // triangles should point to valid vertices
       unless(indices[i+j] < vNext)
-        goto BadExit;
+      {
+       LogValidTriangleBufs("TriangleBuffer::selfValidate: index %u references "
+                                                  "invalid vertex %u\n", i+j, indices[i+j]);
+       goto BadExit;
+      }
  
       // triangles should not cross objects
       if(j>0)
        {
         unless(vertices[indices[i+j]].objectId == vertices[indices[i]].objectId)
+         {
+          LogValidTriangleBufs("TriangleBuffer::selfValidate: triangle crosses objects "
+                                        "%u and %u.\n", vertices[indices[i+j]].objectId,
+                                        vertices[indices[i]].objectId);
           goto BadExit;
+         }
        }
      }
    }
