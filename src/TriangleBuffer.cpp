@@ -17,10 +17,10 @@
 TriangleBuffer::TriangleBuffer(unsigned vertexCount, unsigned indexCount, char* name):
                                   vCount(vertexCount),
                                   iCount(indexCount),
+                                  bufName(name),
                                   vNext(0u),
                                   iNext(0u),
-                                  combo(NULL),
-                                  bufName(name)
+                                  combo(NULL)
 {
   //fprintf(stderr, "Triangle buffer of size %d,%d allocated\n", vCount, iCount);
   vertices = new Vertex[vCount];
@@ -245,7 +245,7 @@ void TriangleBuffer::dumpBuffer(void)
    {
     fprintf(file, "<tr><td>%d</td><td>",i/3);
     for(int j = 0; j < 3; j++)
-      fprintf(file,"<a href=\"\#row%u\">%u</a> ", indices[i+j], indices[i+j]);
+      fprintf(file,"<a href=\"#row%u\">%u</a> ", indices[i+j], indices[i+j]);
     fprintf(file, "</td><td>");
     for(int j = 0; j < 3; j++)
       fprintf(file,"%u ", vertices[indices[i+j]].objectId);            

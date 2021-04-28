@@ -105,6 +105,7 @@
 #define LOG_OBJECT_CREATION            // Log the id of each newly created oject
 //#define LOG_TRIANGLE_BUFFER_OPS     // Log the workings of the triangle buffers.
 //#define LOG_TRIANGLE_BUF_ESTIMATES  // Log estimates of sizes needed.
+#define LOG_TRIANGLE_BUF_REBUILDS  // Log when the triangle buffer is rebuilt.
 #define LOG_VALID_TRIANGLE_BUFS // Validate the condition of triangle buffers on gpu send
 #define LOG_TRIANGLE_BUFFER_ERRS    // Log actual errors the triangle buffers.
 
@@ -130,6 +131,7 @@
 #define LogStatement(...) fprintf(LogFile, __DATE__ " " __TIME__ ": " __VA_ARGS__)
 
 void LogInit(void);
+void LogFlush(void);
 extern FILE* LogFile;
 
 // =======================================================================================
@@ -210,6 +212,7 @@ extern bool doLogQuadtreeObjSizes;    // Log the process of estimating/changing 
 extern bool doLogObjectCreation;        // Log the id of each newly created oject.
 extern bool doLogTriangleBufferOps;     // Log the workings of the triangle buffers.
 extern bool doLogTriangleBufEstimates;  // Log estimates of sizes needed.
+extern bool doLogTriangleBufRebuilds;   // Log when the triangle buffer is rebuilt.
 extern bool doLogTriangleBufferErrs;    // Log actual errors the triangle buffers.
 
 // Logging options to do with the Bezier Patch code
@@ -635,6 +638,13 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
 #define LogTriangleBufEstimates(...) if(doLogTriangleBufEstimates) LogStatement(__VA_ARGS__)
 #else
 #define LogTriangleBufEstimates(...)
+#endif
+
+// Log when the triangle buffer is rebuilt.
+#ifdef LOG_TRIANGLE_BUF_REBUILDS
+#define LogTriangleBufRebuilds(...) if(doLogTriangleBufRebuilds) LogStatement(__VA_ARGS__)
+#else
+#define LogTriangleBufRebuilds(...)
 #endif
 
 // Log actual errors the triangle buffers.

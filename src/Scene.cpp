@@ -175,10 +175,24 @@ VisualObject* Scene::findObjectFromWindowCoords(vec3 location, float clipX, floa
 
 void Scene::rebuildVisualObjectBuffer(TriangleBuffer** tbuf)
 {
+#ifdef LOG_TRIANGLE_BUF_REBUILDS
+unsigned oldVCount = 0u;
+unsigned oldICount = 0u;
+#endif
+
   if(*tbuf)
+   {
+#ifdef LOG_TRIANGLE_BUF_REBUILDS
+    oldVCount = (*tbuf)->vCount;
+    oldICount = (*tbuf)->iCount;
+#endif
     delete *tbuf;
+   }
+  
   *tbuf = new TriangleBuffer(qtree->vertexTBufSize, qtree->indexTBufSize,
                               (char*)"vObj tbuf");
+  LogTriangleBufRebuilds("TriangleBuffer rebuild of %s: %u,%u to %u,%u.\n", 
+                          (*tbuf)->bufName, oldVCount, oldICount, (*tbuf)->vCount, (*tbuf)->iCount);
   qtree->bufferVisualObjects(*tbuf);
   (*tbuf)->sendToGPU(GL_STATIC_DRAW);
 }
@@ -206,7 +220,7 @@ void Scene::newLandHeight(vec3 location)
 
 
 // =======================================================================================
-// Draw the current state of the scene (called from the main Window3D event loop)
+// Obtain the right kind of object based on the insertion menu text.
 
 VisualObject* Scene::getFreshObject(char* objTypeName, mat4 transform)
 {

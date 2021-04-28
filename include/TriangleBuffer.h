@@ -24,6 +24,7 @@ class TriangleBuffer
   // Instance variables - public
   unsigned              vCount;
   unsigned              iCount;
+  char*                 bufName;
 
   // Member functions - public
   TriangleBuffer(unsigned vertexCount, unsigned indexCount, char* name);
@@ -45,7 +46,6 @@ class TriangleBuffer
   unsigned              vNext;
   unsigned              iNext;
   ElementBufferCombo*   combo;
-  char*                 bufName;
 
   // Member functions - private
   TriangleBuffer(const TriangleBuffer&);                 // Prevent copy-construction
