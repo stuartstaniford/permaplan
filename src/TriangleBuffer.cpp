@@ -183,6 +183,7 @@ void TriangleBuffer::selfValidate(void)
 BadExit:      // stuff to do when we have failed a test
   
   dumpBuffer();
+  LogFlush();
   assert(0);
 }
 #endif
