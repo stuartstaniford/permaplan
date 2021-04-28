@@ -69,6 +69,7 @@ bool doLogGroupAdditions      = true; // Log when groups are created and objects
 bool doLogControlGroupInit    = true; // Log the process of initiating a new control group.
 bool doLogGroupMatchRay       = true; // Log ray matching in groups.
 bool doLogFindGroups          = true; // Log groups found during self validation.
+bool doLogPathTubeBuffer      = true; // Log the process of rendering a pathTube
 
 // Logging options for the HTTP debug interface
 bool doLogRequestErrors       = true; // Log validity problems in the HTTP request

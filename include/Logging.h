@@ -77,6 +77,7 @@
 #define LOG_CONTROL_GROUP_INIT    // Log the process of initiating a new control group.
 //#define LOG_GROUP_MATCH_RAY       // Log ray matching in groups.
 //#define LOG_FIND_GROUPS           // Log groups found during self validation.
+#define LOG_PATHTUBE_BUFFER       // Log the process of rendering a pathTube
 
 
 // =======================================================================================
@@ -193,6 +194,7 @@ extern bool doLogGroupAdditions;      // Log when groups are created and objects
 extern bool doLogControlGroupInit;    // Log the process of initiating a new control group.
 extern bool doLogGroupMatchRay;       // Log ray matching in groups.
 extern bool doLogFindGroups;          // Log groups found during self validation.
+extern bool doLogPathTubeBuffer;      // Log the process of rendering a pathTube
 
 // Logging options for the HTTP debug interface
 extern bool doLogRequestErrors;       // Log validity problems in the HTTP request
@@ -536,6 +538,13 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
 #define LogFindGroups(...) if(doLogFindGroups) LogStatement(__VA_ARGS__)
 #else
 #define LogFindGroups(...)
+#endif
+
+// Log the process of rendering a pathTube
+#ifdef LOG_PATHTUBE_BUFFER
+#define LogPathTubeBuffer(...) if(doLogPathTubeBuffer) LogStatement(__VA_ARGS__)
+#else
+#define LogPathTubeBuffer(...)
 #endif
 
 

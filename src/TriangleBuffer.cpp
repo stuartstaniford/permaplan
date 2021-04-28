@@ -187,9 +187,9 @@ void TriangleBuffer::selfValidate(void)
        {
         unless(vertices[indices[i+j]].objectId == vertices[indices[i]].objectId)
          {
-          LogValidTriangleBufs("TriangleBuffer::selfValidate: triangle crosses objects "
-                                        "%u and %u.\n", vertices[indices[i+j]].objectId,
-                                        vertices[indices[i]].objectId);
+          LogValidTriangleBufs("TriangleBuffer::selfValidate: triangle %u crosses objects "
+                                  "%u and %u.\n", i/3, vertices[indices[i+j]].objectId,
+                                  vertices[indices[i]].objectId);
           goto BadExit;
          }
        }
