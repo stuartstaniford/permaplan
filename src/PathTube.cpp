@@ -80,7 +80,9 @@ bool PathTube::bufferGeometry(TriangleBuffer* T, vec3 offset)
     glm_vec3_sub(path[0], path[1], norm);
     vertices[vertex].setNormal(norm); // to be normalized in gpu
     vertices[vertex].setObjectId(getObjectIndex());
-
+    LogPathTubeBuffer("Pathtube: Added base vertex %u at [%.1f, %.1f, %.1f]\n", 
+                      vertex + vOffset, vertices[vertex].pos[0], vertices[vertex].pos[1],
+                      vertices[vertex].pos[2]);
     vertex++;
     
     // Compute the local tangent to the path at the second point in the path
@@ -98,11 +100,16 @@ bool PathTube::bufferGeometry(TriangleBuffer* T, vec3 offset)
       vertices[vertex].setColor(color);
       vertices[vertex].setNormal(norm); // to be normalized in gpu
       vertices[vertex].setObjectId(getObjectIndex());
+      LogPathTubeBuffer("Pathtube: Added first row vertex %u at [%.1f, %.1f, %.1f]\n", 
+                        vertex + vOffset, vertices[vertex].pos[0], vertices[vertex].pos[1],
+                        vertices[vertex].pos[2]);
 
       // Now compute the indices
       indices[index]   = vOffset;     // triangle base is bottom vertex
       indices[index+1] = vOffset+1+j; // the j vertex
       indices[index+2] = vOffset+1+(j+sides-1)%sides; // the j-1 vertex (triangle is counterclockwise)
+      LogPathTubeBuffer("Pathtube: Added base triangle %u: %u, %u, %u\n", index/3,
+                        vOffset, vOffset+1+j, vOffset+1+(j+sides-1)%sides);
 
       //Increment vertex, index before next vertex/triangle
       index+=3;
@@ -143,6 +150,9 @@ bool PathTube::bufferGeometry(TriangleBuffer* T, vec3 offset)
       vertices[vertex].setColor(color);
       vertices[vertex].setNormal(norm); // to be normalized in gpu
       vertices[vertex].setObjectId(getObjectIndex());
+      LogPathTubeBuffer("Pathtube: Added %u row vertex %u at [%.1f, %.1f, %.1f]\n", i,
+                        vertex + vOffset, vertices[vertex].pos[0], vertices[vertex].pos[1],
+                        vertices[vertex].pos[2]);
 
       if(i>1) // if !closedBase, need to do first row of vertices without doing triangles
        {
@@ -151,12 +161,18 @@ bool PathTube::bufferGeometry(TriangleBuffer* T, vec3 offset)
         indices[index]   = vOffset + i*sides + j;                     // new vertex we just added
         indices[index+1] = vOffset + (i-1)*sides + (j+sides-1)%sides; // prior row, j one less
         indices[index+2] = vOffset + (i-1)*sides + j;                 // same vertex in prior row
+        LogPathTubeBuffer("Pathtube: Added side triangle %u: %u, %u, %u\n", index/3,
+                          vOffset + i*sides + j, vOffset + (i-1)*sides + (j+sides-1)%sides,
+                          vOffset + (i-1)*sides + j);
 
         // Now compute the indices for the second triangle, which has two vertices in this row
         // one in the prior row
         indices[index+3]  = vOffset + i*sides + j;                     // new vertex we just added
         indices[index+4]  = vOffset + i*sides + (j+sides-1)%sides;     // this row, j one less
         indices[index+5]  = vOffset + (i-1)*sides + (j+sides-1)%sides; // prior row, j one less
+        LogPathTubeBuffer("Pathtube: Added side triangle %u: %u, %u, %u\n", index/3+1,
+                          vOffset + i*sides + j, vOffset + i*sides + (j+sides-1)%sides,
+                          vOffset + (i-1)*sides + (j+sides-1)%sides);
 
         //Increment index before next vertex/triangle
         index+=6;
@@ -174,6 +190,9 @@ bool PathTube::bufferGeometry(TriangleBuffer* T, vec3 offset)
     vertices[vertex].setColor(color);
     vertices[vertex].setNormal(norm); // to be normalized in gpu
     vertices[vertex].setObjectId(getObjectIndex());
+    LogPathTubeBuffer("Pathtube: Added top vertex %u at [%.1f, %.1f, %.1f]\n",
+                      vertex + vOffset, vertices[vertex].pos[0], vertices[vertex].pos[1],
+                      vertices[vertex].pos[2]);
 
     unsigned nRows = endRow-startRow;
     for(int j=0; j<sides; j++)
@@ -182,6 +201,9 @@ bool PathTube::bufferGeometry(TriangleBuffer* T, vec3 offset)
       indices[index]   = vOffset + nRows*sides;         // new top of cone vertex we just added
       indices[index+1] = vOffset + (nRows-1)*sides + (j+sides-1)%sides; // last row, j one less
       indices[index+2] = vOffset + (nRows-1)*sides + j;                 // last row, this j
+      LogPathTubeBuffer("Pathtube: Added top cone triangle %u: %u, %u, %u\n", index/3,
+                        vOffset + nRows*sides, vOffset + (nRows-1)*sides + (j+sides-1)%sides,
+                        vOffset + (nRows-1)*sides + j);
       index+=3;
      }
    }
