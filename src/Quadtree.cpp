@@ -210,6 +210,18 @@ bool Quadtree::removeVisualObject(VisualObject* obj)
 {
   if(vObjects.count(obj))
    {
+    // Correct size estimates in the quadtree
+    unsigned vCount = 0u;
+    unsigned iCount = 0u;
+    obj->triangleBufferSizes(vCount, iCount);
+    Quadtree* q;
+    for(q=this; q; q = q->parent)
+     {
+      q->vertexTBufSize -= vCount;
+      q->indexTBufSize  -= iCount;
+     }
+    
+    // Now get rid of the object
     vObjects.erase(obj);
     obj->qTreeNode = NULL;
     return true;
