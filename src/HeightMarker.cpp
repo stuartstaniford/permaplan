@@ -9,6 +9,9 @@
 const float heightMarkerSize   = 1.5f; //0.3f; // 1/2 the side of the square in x and y directions
 const float heightMarkerHeight = heightMarkerSize*sqrtf(2.0f); // 1/2 the total height
 
+#define HM_VCOUNT 6u
+#define HM_ICOUNT 24u
+
 // =======================================================================================
 // Constructors.  Note that typically we are constructed dynamically on a pointer, and
 // pointers to us are stored both in the Qtree and in the LandSurface
@@ -193,10 +196,10 @@ bool HeightMarker::bufferGeometry(TriangleBuffer* T)
   unsigned* indices;
   unsigned vOffset;
   
-  unless(T->requestSpace(&vertices, &indices, vOffset, 6u, 24u))
+  unless(T->requestSpace(&vertices, &indices, vOffset, HM_VCOUNT, HM_ICOUNT))
    {
     LogTriangleBufferErrs("HeightMarker TriangleBuffer request for %u,%u failed at %u.\n",
-                                                    6u, 24u, vOffset);
+                                                    HM_VCOUNT, HM_ICOUNT, vOffset);
     return false;
    }
   
@@ -216,9 +219,9 @@ bool HeightMarker::bufferGeometry(TriangleBuffer* T)
                   location[2] + 2.0f*heightMarkerHeight);  //top vertex
 
   if(useNoTexColor)
-    for(int i=0; i<6; i++)
+    for(int i=0; i<HM_VCOUNT; i++)
       vertices[i].setColor(noTexColor);
-  for(int i=0; i<6; i++)
+  for(int i=0; i<HM_VCOUNT; i++)
     vertices[i].setObjectId(objIndex);
 
   // Lower facing south
@@ -270,8 +273,8 @@ bool HeightMarker::bufferGeometry(TriangleBuffer* T)
 
 void HeightMarker::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 {
-  vCount = 6u;
-  iCount = 24u;
+  vCount = HM_VCOUNT;
+  iCount = HM_ICOUNT; 
   LogTriangleBufEstimates("HeightMarker TriangleBuffer estimate: [%u, %u]\n", vCount, iCount);
 }
 

@@ -6,6 +6,8 @@
 #include <err.h>
 #include "Box.h"
 
+#define BOX_ICOUNT 36u
+#define BOX_VCOUNT 36u
 
 // =======================================================================================
 // Constructors.
@@ -77,7 +79,7 @@ bool Box::getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
 // function defines the triangles.  Recall counterclockwise winding order is front facing.
 // https://learnopengl.com/Advanced-OpenGL/Face-culling
 
-static int indexArray[36] = {
+static int indexArray[BOX_ICOUNT] = {
   // Underside (z=0), close to origin
   0, 2, 4,
   // Underside (z=0), away from origin
@@ -108,7 +110,7 @@ int Box::getNextIndex(bool resetToFirst)
 {
   if(resetToFirst)
     return indexArray[(index = 0)];
-  else if(index >= 36)
+  else if(index >= BOX_ICOUNT)
     return -1;
   else
     return indexArray[++index];
@@ -118,7 +120,7 @@ int Box::getNextIndex(bool resetToFirst)
 // =======================================================================================
 //Generate all the vertices in order, with textures, normals, etc.
 
-static Vertex vertexArray[36] = {
+static Vertex vertexArray[BOX_VCOUNT] = {
 
   // Each line is
   // pos[0], pos[1], pos[2], color, tex[0], tex[1], norm[0], norm[1], norm[2]
@@ -191,7 +193,7 @@ bool Box::getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
     index = 0;
   else
     index++;
-  if(index >= 36)
+  if(index >= BOX_VCOUNT)
     return false;
   
   vec4 workVec4, out;
@@ -231,10 +233,10 @@ bool Box::bufferGeometry(TriangleBuffer* T)
   unsigned* indices;
   unsigned vOffset;
   
-  unless(T->requestSpace(&vertices, &indices, vOffset, 36u, 36u))
+  unless(T->requestSpace(&vertices, &indices, vOffset, BOX_VCOUNT, BOX_ICOUNT))
    {
     LogTriangleBufferErrs("Box TriangleBuffer request for %u,%u failed at %u.\n",
-                                                      36u, 36u, vOffset);
+                          BOX_VCOUNT, BOX_ICOUNT, vOffset);
     return false;
    }
   
@@ -261,8 +263,8 @@ bool Box::bufferGeometry(TriangleBuffer* T)
 
 void Box::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 {
-  vCount = 8u;
-  iCount = 36u;
+  vCount = BOX_VCOUNT;
+  iCount = BOX_ICOUNT;
   LogTriangleBufEstimates("Box TriangleBuffer estimate: [%u, %u]\n", vCount, iCount);
 }
 

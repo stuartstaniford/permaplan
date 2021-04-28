@@ -78,11 +78,11 @@ bool doLogHTTPDetails         = true; // Log normal details of HTTP operations
 
 // Logging options to do with quadtree operations
 bool doLogQuadtreeCreation    = true; // Log the initial setup of the quadtree.
-bool doLogQuadtreeInsertions  = true; // Log the a new object being put in the quadtree.
+bool doLogQuadtreeInsertions  = false; // Log the a new object being put in the quadtree.
 bool doLogQuadtreeBoundBox    = true; // Log changes to the quadtree bounding boxes.
 bool doLogQuadtreeMatchRay    = true; // Log the process of matching a ray in the quadtree.
-bool doLogDisplayListBuffer   = true; // Log objects being buffered for display.
-bool doLogQuadtreeObjSizes    = true; // Log the process of estimating/changing object sizes
+bool doLogDisplayListBuffer   = false; // Log objects being buffered for display.
+bool doLogQuadtreeObjSizes    = false; // Log the process of estimating/changing object sizes
 
 // Logging options to do with other infrastructure
 bool doLogObjectCreation        = true; // Log the id of each newly created oject.

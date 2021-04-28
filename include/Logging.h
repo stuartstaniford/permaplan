@@ -55,7 +55,7 @@
 // Logging options for Trees/Plants
 
 #define LOG_TREE_SELECTIONS       // Log when a tree is selected.
-#define LOG_TREE_READS            // Log when a tree is read in from a file or url
+//#define LOG_TREE_READS            // Log when a tree is read in from a file or url
 //#define LOG_TREE_SIM_OVERVIEW     // Log high level actions in simulating tree growth.
 //#define LOG_TREE_SIM_DETAILS      // Log all the gory details of simulated tree growth.
 //#define LOG_GROWTH_MODEL          // Log details of the growth model.
@@ -75,7 +75,7 @@
 
 #define LOG_GROUP_ADDITIONS       // Log when groups are created and objects are added.
 #define LOG_CONTROL_GROUP_INIT    // Log the process of initiating a new control group.
-#define LOG_GROUP_MATCH_RAY       // Log ray matching in groups.
+//#define LOG_GROUP_MATCH_RAY       // Log ray matching in groups.
 //#define LOG_FIND_GROUPS           // Log groups found during self validation.
 
 
@@ -92,11 +92,11 @@
 // Logging options to do with quadtree operations
 
 //#define LOG_QUADTREE_CREATION   // Log the initial setup of the quadtree.
-//#define LOG_QUADTREE_INSERTIONS // Log a new object being put in the quadtree.
+#define LOG_QUADTREE_INSERTIONS // Log a new object being put in the quadtree.
 //#define LOG_QUADTREE_BOUND_BOX  // Log changes to the quadtree bounding boxes.
 //#define LOG_QUADTREE_MATCH_RAY  // Log the process of matching a ray in the quadtree.
-//#define LOG_DISPLAYLIST_BUFFER  // Log the process of objects being buffered for display.
-//#define LOG_QUADTREE_OBJ_SIZES  // Log the process of estimating/changing object sizes
+#define LOG_DISPLAYLIST_BUFFER  // Log the process of objects being buffered for display.
+#define LOG_QUADTREE_OBJ_SIZES  // Log the process of estimating/changing object sizes
 
 
 // =======================================================================================
@@ -601,7 +601,7 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
 #define LogQuadtreeMatchRay(...)
 #endif
 
-// Log the process of a new object being put in the quadtree.
+// Log process of objects being buffered for display.
 #ifdef LOG_DISPLAYLIST_BUFFER
 #define LogDisplayListBuffer(...) if(doLogDisplayListBuffer) LogStatement(__VA_ARGS__)
 #else

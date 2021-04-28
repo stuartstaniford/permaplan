@@ -227,8 +227,10 @@ VisualObject* Scene::getFreshObject(char* objTypeName, mat4 transform)
   VisualObject* returnVal = NULL;
   
   if(strcmp(objTypeName, "Block") == 0)
+   {
     returnVal = (VisualObject*)new Box(transform);
-
+    doLogQuadtreeInsertions = doLogDisplayListBuffer = doLogQuadtreeObjSizes = true; //XX temp
+   }
   return returnVal;
 }
 
