@@ -309,6 +309,7 @@ vec4  objColor      = {0.0f, 0.5f, 0.9f, 1.0f};
 
 void Scene::draw(bool mouseMoved, float timeElapsed)
 {
+  PmodDesign& design = PmodDesign::getDesign();
   Shader& shader = Shader::getMainShader();
   shader.useProgram();
   setModelMatrix(0.0f, 0.0f);
@@ -332,9 +333,14 @@ void Scene::draw(bool mouseMoved, float timeElapsed)
    }
  
   // Display the main textured land surface
-  vec3 L;
-  if(land.nextInitialHeightLocation(L))
-    newLandHeight(L);
+  unless(design.designBoxValid)
+   {
+    vec3 L;
+    if(land.nextInitialHeightLocation(L))
+      newLandHeight(L);
+    else
+      design.designBoxValid = true;
+   } 
   land.draw(camera);
   
   // Update the trees

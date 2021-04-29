@@ -7,6 +7,8 @@
 
 #include "Shader.h"
 #include "TriangleBuffer.h"
+#include "PmodDesign.h"
+#include "BoundingBox.h"
 #include <err.h>
 #include <assert.h>
 
@@ -141,6 +143,55 @@ void TriangleBuffer::sendToGPU(GLenum usage)
 
 
 // =======================================================================================
+// Function which checks that .
+
+bool TriangleBuffer::sanityCheckPosition(unsigned v)
+{
+  PmodDesign& design = PmodDesign::getDesign();
+  BoundingBox& B = design.designBox;
+  vec3& point = vertices[v].pos;
+
+  if(point[0] < B.lower[0] - TOLERANCE_LATERAL)
+   {
+    LogValidTriangleBufs("TriangleBuffer::selfValidate: vertex %u; X val %.1f is "
+                         "below %.1f.\n", v, point[0], B.lower[0] - TOLERANCE_LATERAL);
+    return false;
+   }
+  if(point[0] > B.upper[0] + TOLERANCE_LATERAL)
+   {
+    LogValidTriangleBufs("TriangleBuffer::selfValidate: vertex %u; X val %.1f is "
+                         "above %.1f.\n", v, point[0], B.upper[0] + TOLERANCE_LATERAL);
+    return false;
+   }
+  if(point[1] < B.lower[1] - TOLERANCE_LATERAL)
+   {
+    LogValidTriangleBufs("TriangleBuffer::selfValidate: vertex %u; Y val %.1f is "
+                         "below %.1f.\n", v, point[1], B.lower[1] - TOLERANCE_LATERAL);
+    return false;
+   }
+  if(point[1] > B.upper[1] + TOLERANCE_LATERAL)
+   {
+    LogValidTriangleBufs("TriangleBuffer::selfValidate: vertex %u; Y val %.1f is "
+                         "above %.1f.\n", v, point[1], B.upper[1] + TOLERANCE_LATERAL);
+    return false;
+   }
+  if(point[2] < B.lower[2] - TOLERANCE_DOWN)
+   {
+    LogValidTriangleBufs("TriangleBuffer::selfValidate: vertex %u; Z val %.1f is "
+                         "below %.1f.\n", v, point[2], B.lower[2] - TOLERANCE_DOWN);
+    return false;
+   }
+  if(point[2] > B.upper[2] + TOLERANCE_UP)
+   {
+    LogValidTriangleBufs("TriangleBuffer::selfValidate: vertex %u; Z val %.1f is "
+                         "above %.1f.\n", v, point[2], B.upper[2] + TOLERANCE_UP);
+    return false;
+   }
+  return true;
+}
+
+
+// =======================================================================================
 // Function which will run through all our vertices/indices and sanity check everything.
 // This is done right before dispatch to the GPU so the buffer should be in a sane 
 // condition.
@@ -195,9 +246,15 @@ void TriangleBuffer::selfValidate(void)
        }
      }
    }
-                                                          
-  // XX should sanity check vertices
-
+   
+  // Check vertices
+  for(int v=0; v < vNext; v++)
+   {
+    unless(sanityCheckPosition(v))
+      goto BadExit;
+   }
+  
+  
   return;  // exit function here if all is well
   
 BadExit:      // stuff to do when we have failed a test

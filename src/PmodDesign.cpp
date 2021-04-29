@@ -33,7 +33,8 @@ char           spaceUnitAbbr;
 PmodDesign::PmodDesign(void):
                   writeFile(NULL),
                   metricUnits(false),
-                  jCheck(NULL)
+                  jCheck(NULL),
+                  designBoxValid(false)
 {
   // Constructor should only be called once at startup.  Everyone else gets us via
   // getDesign()
@@ -344,6 +345,13 @@ bool PmodDesign::validateAltitudes(Value& landSurface)
                       " in OLDF file %s\n", i, j, config.designFileName);
               retVal = false;
              }
+          if(retVal)
+           {
+            vec3 point;
+            for(int j=0; j<3; j++)
+              point[j] = altitudeArray[i][j].GetFloat();
+            designBox.extends(point);
+           }
          }
         else
          {

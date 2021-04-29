@@ -25,6 +25,11 @@ extern char*          spaceUnitName;
 extern char           spaceUnitAbbr;
 #endif
 
+// tolerances for how far things can be allowed to be out of the design box
+#define TOLERANCE_UP      600.0f
+#define TOLERANCE_DOWN    200.0f
+#define TOLERANCE_LATERAL 500.0f
+
 // =======================================================================================
 // Class variable initialization
 
@@ -44,6 +49,8 @@ class PmodDesign
   bool                  metricUnits;
   JSONStructureChecker* jCheck;
   Boundary              boundary;
+  bool                  designBoxValid;
+  BoundingBox           designBox;
 
 
 private:

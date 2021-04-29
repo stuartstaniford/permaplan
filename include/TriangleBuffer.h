@@ -33,6 +33,7 @@ class TriangleBuffer
                     unsigned& vOffset, unsigned vRequestCount, unsigned iRequestCount);
   void sendToGPU(GLenum usage);
   void draw(VertexDrawType drawType, vec4 objColor);
+  bool sanityCheckPosition(unsigned v);
   void selfValidate(void);
   void dumpBuffer(void);
   void fprint(FILE* file);
