@@ -122,10 +122,11 @@ bool PathTube::bufferGeometry(TriangleBuffer* T, vec3 offset)
     startRow = 0u;
 
   // Need to know how many rows of tube sides to do, based on whether there is a closed top or not
+  endRow = NPath;
+  if(closedBase)
+    endRow--;
   if(closedTop)
-    endRow = NPath-1;
-  else
-    endRow = NPath;
+    endRow--;
   
   // Loop over the rows of tube sides
   for(int i=startRow; i<endRow; i++)
@@ -154,7 +155,7 @@ bool PathTube::bufferGeometry(TriangleBuffer* T, vec3 offset)
                         vertex + vOffset, vertices[vertex].pos[0], vertices[vertex].pos[1],
                         vertices[vertex].pos[2]);
 
-      if(i>1) // if !closedBase, need to do first row of vertices without doing triangles
+      if(i>0) // if !closedBase, need to do first row of vertices without doing triangles
        {
         // Now compute the indices for the first triangle.  This is between us and the prior
         // row, first triangle has two vertices in prior, one in this

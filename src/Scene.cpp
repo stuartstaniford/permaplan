@@ -266,8 +266,6 @@ void Scene::processEditModeObjectDeselection(void)
 
 void Scene::processNewEditModeObject(void)
 {
-  doLogQuadtreeInsertions = doLogDisplayListBuffer = doLogQuadtreeObjSizes = true; //XX temp
-
   ControlGroup* controlGroup = new ControlGroup(editModeObject);
   editModeObject->removeFromQuadtree();
   qtree->storeVisualObject(controlGroup);
