@@ -148,9 +148,12 @@ void TriangleBuffer::sendToGPU(GLenum usage)
 bool TriangleBuffer::sanityCheckPosition(unsigned v)
 {
   PmodDesign& design = PmodDesign::getDesign();
+  unless(design.designBoxValid)
+    return true;
   BoundingBox& B = design.designBox;
   vec3& point = vertices[v].pos;
 
+  
   if(point[0] < B.lower[0] - TOLERANCE_LATERAL)
    {
     LogValidTriangleBufs("TriangleBuffer::selfValidate: vertex %u; X val %.1f is "

@@ -25,6 +25,7 @@
 
 class LandSurface
 {
+  friend Scene;
  public:
   
   // Instance variables - public
