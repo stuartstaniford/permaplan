@@ -367,19 +367,31 @@ bool extractColonVec3(char* path, vec3 dest)
 
 bool Camera::setApi(HttpDebug* serv, char* path)
 {
+  vec3 trial;
   unless(strncmp(path, "/set/", 5)== 0)
     return false;
   path += 5;
   
-  unless(strncmp(path, "/pos/", 5)== 0)
+  if(strncmp(path, "/pos/", 5)== 0)
    {
-    vec3 trial;
     if(extractColonVec3(path+5, trial))
      {
       glm_vec3_copy(trial, pos);
       httPrintf("OK\n");
       return true;
      }
+    return false;
+   }
+
+  if(strncmp(path, "/front/", 5)== 0)
+   {
+    if(extractColonVec3(path+5, trial))
+     {
+      glm_vec3_copy(trial, front);
+      httPrintf("OK\n");
+      return true;
+     }
+    return false;
    }
   
   return false;
