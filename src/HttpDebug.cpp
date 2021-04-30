@@ -256,8 +256,8 @@ bool HttpDebug::processRequestHeader(void)
   else if( strlen(url) == 10 && strncmp(url, "/memtrack/", 10) == 0)
     retVal =  MemoryTracker::diagnosticHTML(this);
 
-  else if( strlen(url) == 8 && strncmp(url, "/camera/", 8) == 0)
-    retVal =  scene.camera.diagnosticHTML(this);
+  else if( strlen(url) >= 8 && strncmp(url, "/camera/", 8) == 0)
+    retVal =  scene.camera.diagnosticHTML(this, url+8);
 
   else if( strlen(url) == 12 && strncmp(url, "/taskqueues/", 12) == 0)
     retVal =  threadFarm->diagnosticHTML(this);

@@ -344,10 +344,22 @@ void Camera::rayFromScreenLocation(vec3& position, vec3& direction, float clipX,
 
 
 // =======================================================================================
+// Implement the API for setting camera variables (used extensively by test scripts).
+
+bool Camera::setApi(HttpDebug* serv, char* path)
+{
+ return false; 
+}
+
+
+// =======================================================================================
 // Provide a diagnostic page about this camera
 
-bool Camera::diagnosticHTML(HttpDebug* serv)
+bool Camera::diagnosticHTML(HttpDebug* serv, char* path)
 {
+  if(strlen(path) > 0)
+    return setApi(serv, path);
+  
   serv->startResponsePage("Camera");
     
   httPrintf("<center>\n");
