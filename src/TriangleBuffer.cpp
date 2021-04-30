@@ -154,40 +154,40 @@ bool TriangleBuffer::sanityCheckPosition(unsigned v)
   vec3& point = vertices[v].pos;
 
   
-  if(point[0] < B.lower[0] - TOLERANCE_LATERAL)
+  if(point[0] < B.lower[0])
    {
     LogValidTriangleBufs("TriangleBuffer::selfValidate: vertex %u; X val %.1f is "
-                         "below %.1f.\n", v, point[0], B.lower[0] - TOLERANCE_LATERAL);
+                         "below %.1f.\n", v, point[0], B.lower[0]);
     return false;
    }
-  if(point[0] > B.upper[0] + TOLERANCE_LATERAL)
+  if(point[0] > B.upper[0])
    {
     LogValidTriangleBufs("TriangleBuffer::selfValidate: vertex %u; X val %.1f is "
-                         "above %.1f.\n", v, point[0], B.upper[0] + TOLERANCE_LATERAL);
+                         "above %.1f.\n", v, point[0], B.upper[0]);
     return false;
    }
-  if(point[1] < B.lower[1] - TOLERANCE_LATERAL)
+  if(point[1] < B.lower[1])
    {
     LogValidTriangleBufs("TriangleBuffer::selfValidate: vertex %u; Y val %.1f is "
-                         "below %.1f.\n", v, point[1], B.lower[1] - TOLERANCE_LATERAL);
+                         "below %.1f.\n", v, point[1], B.lower[1]);
     return false;
    }
-  if(point[1] > B.upper[1] + TOLERANCE_LATERAL)
+  if(point[1] > B.upper[1])
    {
     LogValidTriangleBufs("TriangleBuffer::selfValidate: vertex %u; Y val %.1f is "
-                         "above %.1f.\n", v, point[1], B.upper[1] + TOLERANCE_LATERAL);
+                         "above %.1f.\n", v, point[1], B.upper[1]);
     return false;
    }
-  if(point[2] < B.lower[2] - TOLERANCE_DOWN)
+  if(point[2] < B.lower[2])
    {
     LogValidTriangleBufs("TriangleBuffer::selfValidate: vertex %u; Z val %.1f is "
-                         "below %.1f.\n", v, point[2], B.lower[2] - TOLERANCE_DOWN);
+                         "below %.1f.\n", v, point[2], B.lower[2]);
     return false;
    }
-  if(point[2] > B.upper[2] + TOLERANCE_UP)
+  if(point[2] > B.upper[2])
    {
     LogValidTriangleBufs("TriangleBuffer::selfValidate: vertex %u; Z val %.1f is "
-                         "above %.1f.\n", v, point[2], B.upper[2] + TOLERANCE_UP);
+                         "above %.1f.\n", v, point[2], B.upper[2]);
     return false;
    }
   return true;

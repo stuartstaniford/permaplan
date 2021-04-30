@@ -339,7 +339,10 @@ void Scene::draw(bool mouseMoved, float timeElapsed)
     if(land.nextInitialHeightLocation(L))
       newLandHeight(L);
     else
+     {
       design.designBoxValid = true;
+      design.addBoxTolerances();
+     }
    } 
   land.draw(camera);
   

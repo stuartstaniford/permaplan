@@ -304,6 +304,8 @@ void Quadtree::selfValidate(unsigned l)
    {
     assert(level == 0);
     assert(parent == NULL);
+    PmodDesign& design = PmodDesign::getDesign();
+    assert(bbox <= design.designBox);
    }
   else
     assert(level == l);
@@ -318,7 +320,11 @@ void Quadtree::selfValidate(unsigned l)
       if(level>0)
         assert(*(v->box) <= bbox);
       else
+       {
         assert(bbox.zContains(*(v->box))); // objects at root are allowed to overlap the edge
+        PmodDesign& design = PmodDesign::getDesign();
+        assert(*(v->box) <= design.designBox);
+       }
      }
     v->selfValidate(0u);
    }

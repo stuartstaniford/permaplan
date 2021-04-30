@@ -590,6 +590,19 @@ bool PmodDesign::validateOLDF(void)
   return retVal;
 }
 
+// =======================================================================================
+// Add the designated tolerances to our designBox (used for sanity checking stuff later).
+
+void PmodDesign::addBoxTolerances(void)
+{
+  designBox.lower[0] -= TOLERANCE_LATERAL;
+  designBox.upper[0] += TOLERANCE_LATERAL;
+  designBox.lower[1] -= TOLERANCE_LATERAL;
+  designBox.upper[1] += TOLERANCE_LATERAL;
+  designBox.lower[2] -= TOLERANCE_UP;
+  designBox.upper[2] += TOLERANCE_DOWN;
+}
+
 
 // =======================================================================================
 // Write out the introductory data section of the OLDF file.

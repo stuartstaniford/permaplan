@@ -67,7 +67,7 @@ public:
   static PmodDesign& getDesign(void) // Get the singleton instance
    { return *design; }
   inline float spaceUnitsFromFeet(float f) {return metricUnits?f/3.28084:f;}
-
+  void addBoxTolerances(void);
   
 private:
 
