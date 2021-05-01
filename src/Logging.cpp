@@ -129,26 +129,39 @@ void LogFlush(void)
 
 
 // =======================================================================================
+// Helper function for LogControlHTML to check a particular variable.
+
+bool oneLogControl(HttpDebug* serv, char* path, bool& variable)
+{
+  char* next;
+  unless((next = index(path, ':')))
+    return false;
+  next++;
+  if(*next == '1')
+   {
+    httPrintf("OK\n");
+    variable = true;
+   }
+  else if(*next == '0')
+   {
+    httPrintf("OK\n");
+    variable = false;
+   }
+  else
+    return false;
+  return true;
+}
+
+
+// =======================================================================================
 // HTTP interface to turn particular types of logging on and off.
 
 bool LogControlHTML(HttpDebug* serv, char* path)
 {
-  char* next;
 
 #ifdef LOG_FRAME_STARTS // Log each frame as it begins
   if(strncmp(path, "doLogFrameStarts", sizeof("doLogFrameStarts")-1)==0)
-   {
-    unless((next = index(path, ':')))
-      return false;
-    next++;
-    printf("Next is %s\n", next);
-    if(*next == '1')
-      doLogFrameStarts = true;
-    else if(*next == '0')
-      doLogFrameStarts = false;
-    else
-      return false;
-   }
+    return oneLogControl(serv, path, doLogFrameStarts);
 #endif
 
 
