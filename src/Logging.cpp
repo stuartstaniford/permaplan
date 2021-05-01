@@ -446,6 +446,56 @@ bool LogControlHTML(HttpDebug* serv, char* path)
 #endif
 
   
+// Logging options to do with other infrastructure
+  
+#ifdef LOG_OBJECT_CREATION // Log the id of each newly created oject
+  if(strncmp(path, "doLogObjectCreation", sizeof("doLogObjectCreation")-1)==0)
+    return oneLogControl(serv, path, doLogObjectCreation);
+#endif
+  
+#ifdef LOG_TRIANGLE_BUFFER_OPS // Log the workings of the triangle buffers.
+  if(strncmp(path, "doLogTriangleBufferOps", sizeof("doLogTriangleBufferOps")-1)==0)
+    return oneLogControl(serv, path, doLogTriangleBufferOps);
+#endif
+  
+#ifdef LOG_TRIANGLE_BUF_ESTIMATES // Log estimates of sizes needed.
+  if(strncmp(path, "doLogTriangleBufEstimates", sizeof("doLogTriangleBufEstimates")-1)==0)
+    return oneLogControl(serv, path, doLogTriangleBufEstimates);
+#endif
+  
+#ifdef LOG_TRIANGLE_BUF_REBUILDS // Log when the triangle buffer is rebuilt.
+  if(strncmp(path, "doLogTriangleBufRebuilds", sizeof("doLogTriangleBufRebuilds")-1)==0)
+    return oneLogControl(serv, path, doLogTriangleBufRebuilds);
+#endif
+  
+#ifdef LOG_VALID_TRIANGLE_BUFS // Validate the condition of triangle buffers on gpu send
+  if(strncmp(path, "doLogValidTriangleBufs", sizeof("doLogValidTriangleBufs")-1)==0)
+    return oneLogControl(serv, path, doLogValidTriangleBufs);
+#endif
+  
+#ifdef LOG_TRIANGLE_BUFFER_ERRS // Log actual errors in the triangle buffers.
+  if(strncmp(path, "doLogTriangleBufferErrs", sizeof("doLogTriangleBufferErrs")-1)==0)
+    return oneLogControl(serv, path, doLogTriangleBufferErrs);
+#endif
+
+  
+// Logging options to do with the Bezier Patch code
+  
+#ifdef LOG_BEZIER_FIT // Log the process of fitting the Bezier patch to height data
+  if(strncmp(path, "doLogBezierFit", sizeof("doLogBezierFit")-1)==0)
+    return oneLogControl(serv, path, doLogBezierFit);
+#endif
+  
+#ifdef LOG_BEZIER_MATCH_RAY // Log the process of matching ray intersection with a Bezier patch
+  if(strncmp(path, "doLogBezierMatchRay", sizeof("doLogBezierMatchRay")-1)==0)
+    return oneLogControl(serv, path, doLogBezierMatchRay);
+#endif
+  
+#ifdef LOG_OBJECT_ALTITUDES // Log finding the altitudes of objects above the land
+  if(strncmp(path, "doLogObjectAltitudes", sizeof("doLogObjectAltitudes")-1)==0)
+    return oneLogControl(serv, path, doLogObjectAltitudes);
+#endif
+  
   return false;
 }
 
