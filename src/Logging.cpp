@@ -287,6 +287,79 @@ bool LogControlHTML(HttpDebug* serv, char* path)
   if(strncmp(path, "doLogSkySampleInit", sizeof("doLogSkySampleInit")-1)==0)
     return oneLogControl(serv, path, doLogSkySampleInit);
 #endif
+
+
+// Logging options for Trees/Plants
+
+#ifdef LOG_TREE_SELECTIONS // Log when a tree is selected.
+  if(strncmp(path, "doLogTreeSelections", sizeof("doLogTreeSelections")-1)==0)
+    return oneLogControl(serv, path, doLogTreeSelections);
+#endif
+  
+#ifdef LOG_TREE_READS // Log when a tree is read in from a file or url
+  if(strncmp(path, "doLogTreeReads", sizeof("doLogTreeReads")-1)==0)
+    return oneLogControl(serv, path, doLogTreeReads);
+#endif
+  
+#ifdef LOG_TREE_SIM_OVERVIEW // Log high level actions in simulating tree growth.
+  if(strncmp(path, "doLogTreeSimOverview", sizeof("doLogTreeSimOverview")-1)==0)
+    return oneLogControl(serv, path, doLogTreeSimOverview);
+#endif
+  
+#ifdef LOG_TREE_SIM_DETAILS // Log all the gory details of simulated tree growth.
+  if(strncmp(path, "doLogTreeSimDetails", sizeof("doLogTreeSimDetails")-1)==0)
+    return oneLogControl(serv, path, doLogTreeSimDetails);
+#endif
+  
+#ifdef LOG_GROWTH_MODEL // Log details of the growth model.
+  if(strncmp(path, "doLogGrowthModel", sizeof("doLogGrowthModel")-1)==0)
+    return oneLogControl(serv, path, doLogGrowthModel);
+#endif
+  
+#ifdef LOG_TREE_BOUNDING_BOX // Log updating the tree's bounding box
+  if(strncmp(path, "doLogTreeBoundingBox", sizeof("doLogTreeBoundingBox")-1)==0)
+    return oneLogControl(serv, path, doLogTreeBoundingBox);
+#endif
+  
+#ifdef LOG_TREE_MATCH_RAY // Log matching a ray to a tree
+  if(strncmp(path, "doLogTreeMatchRay", sizeof("doLogTreeMatchRay")-1)==0)
+    return oneLogControl(serv, path, doLogTreeMatchRay);
+#endif
+  
+#ifdef LOG_TREE_VISUALIZATION // Log trees being rendered.
+  if(strncmp(path, "doLogTreeVisualization", sizeof("doLogTreeVisualization")-1)==0)
+    return oneLogControl(serv, path, doLogTreeVisualization);
+#endif
+  
+#ifdef LOG_TREE_VIS_DETAILS // Log every twig being rendered.
+  if(strncmp(path, "doLogTreeVisDetails", sizeof("doLogTreeVisDetails")-1)==0)
+    return oneLogControl(serv, path, doLogTreeVisDetails);
+#endif
+  
+#ifdef LOG_BARK_DISPLAY // Log bark color and texture details.
+  if(strncmp(path, "doLogBarkDisplay", sizeof("doLogBarkDisplay")-1)==0)
+    return oneLogControl(serv, path, doLogBarkDisplay);
+#endif
+  
+#ifdef LOG_TREE_OPACITY // Log tree bounding box opacity.
+  if(strncmp(path, "doLogTreeOpacity", sizeof("doLogTreeOpacity")-1)==0)
+    return oneLogControl(serv, path, doLogTreeOpacity);
+#endif
+ 
+#ifdef LOG_TREE_GRAPH  // Log tree thread analysis graph.
+  if(strncmp(path, "doLogTreeGraph", sizeof("doLogTreeGraph")-1)==0)
+    return oneLogControl(serv, path, doLogTreeGraph);
+#endif
+  
+#ifdef LOG_OTDL_FILE_SEARCH // Log process of looking for OTDL files.
+  if(strncmp(path, "doLogOTDLFileSearch", sizeof("doLogOTDLFileSearch")-1)==0)
+    return oneLogControl(serv, path, doLogOTDLFileSearch);
+#endif
+  
+#ifdef LOG_TREE_ERRORS // Log clear errors in tree related operations.
+  if(strncmp(path, "doLogTreeErrors", sizeof("doLogTreeErrors")-1)==0)
+    return oneLogControl(serv, path, doLogTreeErrors);
+#endif
   
   return false;
 }
