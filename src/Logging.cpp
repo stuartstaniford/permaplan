@@ -158,6 +158,9 @@ bool oneLogControl(HttpDebug* serv, char* path, bool& variable)
 
 bool LogControlHTML(HttpDebug* serv, char* path)
 {
+  
+// Logging options to do with overall control flow and speed
+  
 #ifdef LOG_FRAME_STARTS // Log each frame as it begins
   if(strncmp(path, "doLogFrameStarts", sizeof("doLogFrameStarts")-1)==0)
     return oneLogControl(serv, path, doLogFrameStarts);
@@ -177,6 +180,9 @@ bool LogControlHTML(HttpDebug* serv, char* path)
   if(strncmp(path, "doLogOpenGLConstants", sizeof("doLogOpenGLConstants")-1)==0)
     return oneLogControl(serv, path, doLogOpenGLConstants);
 #endif
+
+
+// Logging options to do with parsing and validating OLDF and OTDL files
 
 #ifdef LOG_TREE_VALIDATION // Validate data structures after every frame
   if(strncmp(path, "doLogTreeValidation", sizeof("doLogTreeValidation")-1)==0)
@@ -201,6 +207,49 @@ bool LogControlHTML(HttpDebug* serv, char* path)
 #ifdef LOG_OTDL_DETAILS // Log details of valid OTDL objects
   if(strncmp(path, "doLogOTDLDetails", sizeof("doLogOTDLDetails")-1)==0)
     return oneLogControl(serv, path, doLogOTDLDetails);
+#endif
+
+  
+// Logging options to do with interface controls
+
+#ifdef LOG_MOUSE_LOCATION // where the mouse is on the screen each frame
+  if(strncmp(path, "doLogMouseLocation", sizeof("doLogMouseLocation")-1)==0)
+    return oneLogControl(serv, path, doLogMouseLocation);
+#endif
+  
+#ifdef LOG_MOUSE_CLICK // Location and intra-click timing of mouse double clicks
+  if(strncmp(path, "doLogMouseClick", sizeof("doLogMouseClick")-1)==0)
+    return oneLogControl(serv, path, doLogMouseClick);
+#endif
+   
+#ifdef LOG_DOUBLE_CLICK // Location and intra-click timing of mouse double clicks
+  if(strncmp(path, "doLogDoubleClick", sizeof("doLogDoubleClick")-1)==0)
+    return oneLogControl(serv, path, doLogDoubleClick);
+#endif
+  
+#ifdef LOG_CLICK_DETAILS // Extra detailed recording of parts of click detection
+  if(strncmp(path, "doLogClickDetails", sizeof("doLogClickDetails")-1)==0)
+    return oneLogControl(serv, path, doLogClickDetails);
+#endif
+
+#ifdef LOG_MOUSE_RAY_POINT // Where the mouse is pointing in 3d space
+  if(strncmp(path, "doLogMouseRayPoint", sizeof("doLogMouseRayPoint")-1)==0)
+    return oneLogControl(serv, path, doLogMouseRayPoint);
+#endif
+
+#ifdef LOG_LAND_HEIGHTS // Log when a new land height is entered.
+  if(strncmp(path, "doLogLandHeights", sizeof("doLogLandHeights")-1)==0)
+    return oneLogControl(serv, path, doLogLandHeights);
+#endif
+  
+#ifdef LOG_OBJECT_INSERTIONS // Log when a new object is inserted.
+  if(strncmp(path, "doLogObjectInsertions", sizeof("doLogObjectInsertions")-1)==0)
+    return oneLogControl(serv, path, doLogObjectInsertions);
+#endif
+  
+#ifdef LOG_SIMULATION_CONTROLS // Log control operations on the simulation.
+  if(strncmp(path, "doLogSimulationControls", sizeof("doLogSimulationControls")-1)==0)
+    return oneLogControl(serv, path, doLogSimulationControls);
 #endif
   
   return false;
