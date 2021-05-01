@@ -231,45 +231,50 @@ bool HttpDebug::processRequestHeader(void)
 
   scene.lock();
   bool retVal = false;
-  
-  if( strlen(url) >= 6 && strncmp(url, "/quad/", 6) == 0)
-    retVal = scene.qtree->diagnosticHTML(this, url+6);
 
-  else if( strlen(url) > 12 && strncmp(url, "/quadsearch/", 12) == 0)
-    retVal = scene.qtree->quadSearchHTML(this, url+12);
-
-  else if( strlen(url) == 7 && strncmp(url, "/stbuf/", 7) == 0)
-    retVal =  scene.indicatorTbuf->diagnosticHTML(this);
-  
-  else if( strlen(url) == 7 && strncmp(url, "/otbuf/", 7) == 0)
-    retVal =  scene.sceneObjectTbuf->diagnosticHTML(this);
+  // Possible paths (in alphabetical order  
+  if( strlen(url) >= 8 && strncmp(url, "/camera/", 8) == 0)
+    retVal =  scene.camera.diagnosticHTML(this, url+8);
 
   else if( strlen(url) == 6 && strncmp(url, "/land/", 6) == 0)
     retVal =  scene.land.diagnosticHTML(this);
 
-  else if( strlen(url) >= 8 && strncmp(url, "/plants/", 8) == 0)
-    retVal =  Tree::treePageGateway(this, url+8);
-
-  else if( strlen(url) > 14 && strncmp(url, "/species/", 9) == 0)
-    retVal =  Species::findSpeciesForHTTPDebug(this, url+9);
+  else if( strlen(url) >= 8 && strncmp(url, "/logset/", 8) == 0)
+    retVal =  LogControlHTML(this, url+8);
 
   else if( strlen(url) == 10 && strncmp(url, "/memtrack/", 10) == 0)
     retVal =  MemoryTracker::diagnosticHTML(this);
 
-  else if( strlen(url) >= 8 && strncmp(url, "/camera/", 8) == 0)
-    retVal =  scene.camera.diagnosticHTML(this, url+8);
+  else if( strlen(url) > 8 && strncmp(url, "/object/", 8) == 0)
+    retVal =  VisualObject::diagnosticHTMLSelection(this, url+8);
 
-  else if( strlen(url) == 12 && strncmp(url, "/taskqueues/", 12) == 0)
-    retVal =  threadFarm->diagnosticHTML(this);
+  else if( strlen(url) == 7 && strncmp(url, "/otbuf/", 7) == 0)
+    retVal =  scene.sceneObjectTbuf->diagnosticHTML(this);
+
+  else if( strlen(url) >= 8 && strncmp(url, "/plants/", 8) == 0)
+    retVal =  Tree::treePageGateway(this, url+8);
+
+  else if( strlen(url) >= 6 && strncmp(url, "/quad/", 6) == 0)
+    retVal = scene.qtree->diagnosticHTML(this, url+6);
+
+  else if( strlen(url) > 12 && strncmp(url, "/quadsearch/", 12) == 0)
+    retVal = scene.qtree->quadSearchHTML(this, url+12);
 
   else if( strlen(url) == 12 && strncmp(url, "/skysamples/", 12) == 0)
    {
     SkySampleModel& sky = SkySampleModel::getSkySampleModel();
     retVal =  sky.diagnosticHTML(this);
    }
-  else if( strlen(url) > 8 && strncmp(url, "/object/", 8) == 0)
-    retVal =  VisualObject::diagnosticHTMLSelection(this, url+8);
   
+  else if( strlen(url) > 14 && strncmp(url, "/species/", 9) == 0)
+    retVal =  Species::findSpeciesForHTTPDebug(this, url+9);
+
+  else if( strlen(url) == 7 && strncmp(url, "/stbuf/", 7) == 0)
+    retVal =  scene.indicatorTbuf->diagnosticHTML(this);  
+
+  else if( strlen(url) == 12 && strncmp(url, "/taskqueues/", 12) == 0)
+    retVal =  threadFarm->diagnosticHTML(this);
+
   else
    {
     LogRequestErrors("Request for unknown resource %s\n", url);

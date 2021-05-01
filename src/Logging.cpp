@@ -16,7 +16,7 @@
 // Variables that control real time logging when compiled in
 
 // Logging options to do with overall control flow and speed
-bool doLogFrameStarts         = true; // Log each frame as it begins
+bool doLogFrameStarts         = false; // Log each frame as it begins
 bool doLogCloseDown           = true; // Log when we exit
 bool doLogStructureSizes      = true; // Log the size of structures on this platform at startup.
 bool doLogOpenGLConstants     = true; // Log various openGL parameters
@@ -116,14 +116,44 @@ void LogInit(void)
   LogStructureSizes("Size of unsigned: %lu bytes.\n", sizeof(unsigned));
   LogStructureSizes("Size of unsigned long: %lu bytes.\n", sizeof(unsigned long));
   LogStructureSizes("Size of unsigned long long: %lu bytes.\n", sizeof(unsigned long long));
-
 }
 
+
 // =======================================================================================
+// Flush everythign in the log stream.
 
 void LogFlush(void)
 {
   fflush(LogFile);
+}
+
+
+// =======================================================================================
+// HTTP interface to turn particular types of logging on and off.
+
+bool LogControlHTML(HttpDebug* serv, char* path)
+{
+  char* next;
+
+#ifdef LOG_FRAME_STARTS // Log each frame as it begins
+  if(strncmp(path, "doLogFrameStarts", sizeof("doLogFrameStarts")-1)==0)
+   {
+    unless((next = index(path, ':')))
+      return false;
+    next++;
+    printf("Next is %s\n", next);
+    if(*next == '1')
+      doLogFrameStarts = true;
+    else if(*next == '0')
+      doLogFrameStarts = false;
+    else
+      return false;
+   }
+#endif
+
+
+  
+  return false;
 }
 
 

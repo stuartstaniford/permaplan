@@ -92,7 +92,7 @@
 // =======================================================================================
 // Logging options to do with quadtree operations
 
-#define LOG_QUADTREE_CREATION   // Log the initial setup of the quadtree.
+//#define LOG_QUADTREE_CREATION   // Log the initial setup of the quadtree.
 //#define LOG_QUADTREE_INSERTIONS // Log a new object being put in the quadtree.
 //#define LOG_QUADTREE_BOUND_BOX  // Log changes to the quadtree bounding boxes.
 //#define LOG_QUADTREE_MATCH_RAY  // Log the process of matching a ray in the quadtree.
@@ -103,7 +103,7 @@
 // =======================================================================================
 // Logging options to do with other infrastructure
 
-#define LOG_OBJECT_CREATION            // Log the id of each newly created oject
+//#define LOG_OBJECT_CREATION            // Log the id of each newly created oject
 //#define LOG_TRIANGLE_BUFFER_OPS     // Log the workings of the triangle buffers.
 //#define LOG_TRIANGLE_BUF_ESTIMATES  // Log estimates of sizes needed.
 #define LOG_TRIANGLE_BUF_REBUILDS  // Log when the triangle buffer is rebuilt.
@@ -131,8 +131,10 @@
 //XX __DATE__ and __TIME__ are compile times, not run times!!
 #define LogStatement(...) fprintf(LogFile, __DATE__ " " __TIME__ ": " __VA_ARGS__)
 
+class HTTPDebug;
 void LogInit(void);
 void LogFlush(void);
+bool LogControlHTML(HttpDebug* serv, char* path);
 extern FILE* LogFile;
 
 // =======================================================================================
