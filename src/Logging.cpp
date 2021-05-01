@@ -158,13 +158,50 @@ bool oneLogControl(HttpDebug* serv, char* path, bool& variable)
 
 bool LogControlHTML(HttpDebug* serv, char* path)
 {
-
 #ifdef LOG_FRAME_STARTS // Log each frame as it begins
   if(strncmp(path, "doLogFrameStarts", sizeof("doLogFrameStarts")-1)==0)
     return oneLogControl(serv, path, doLogFrameStarts);
 #endif
+  
+#ifdef LOG_CLOSE_DOWN // Log when we exit
+  if(strncmp(path, "doLogCloseDown", sizeof("doLogCloseDown")-1)==0)
+    return oneLogControl(serv, path, doLogCloseDown);
+#endif
+  
+#ifdef LOG_STRUCTURE_SIZES // Log the size of structures on this platform at startup.
+  if(strncmp(path, "doLogStructureSizes", sizeof("doLogStructureSizes")-1)==0)
+    return oneLogControl(serv, path, doLogStructureSizes);
+#endif
+  
+#ifdef LOG_OPENGL_CONSTANTS // Log various openGL parameters
+  if(strncmp(path, "doLogOpenGLConstants", sizeof("doLogOpenGLConstants")-1)==0)
+    return oneLogControl(serv, path, doLogOpenGLConstants);
+#endif
 
+#ifdef LOG_TREE_VALIDATION // Validate data structures after every frame
+  if(strncmp(path, "doLogTreeValidation", sizeof("doLogTreeValidation")-1)==0)
+    return oneLogControl(serv, path, doLogTreeValidation);
+#endif
 
+#ifdef LOG_OLDF_VALIDITY // Log validity problems in the file
+  if(strncmp(path, "doLogOLDFValidity", sizeof("doLogOLDFValidity")-1)==0)
+    return oneLogControl(serv, path, doLogOLDFValidity);
+#endif
+  
+#ifdef LOG_OLDF_DETAILS // Log details of valid OLDF objects
+  if(strncmp(path, "doLogOLDFDetails", sizeof("doLogOLDFDetails")-1)==0)
+    return oneLogControl(serv, path, doLogOLDFDetails);
+#endif
+  
+#ifdef LOG_OTDL_VALIDITY // Log validity problems in an OTDL object
+  if(strncmp(path, "doLogOTDLValidity", sizeof("doLogOTDLValidity")-1)==0)
+    return oneLogControl(serv, path, doLogOTDLValidity);
+#endif
+  
+#ifdef LOG_OTDL_DETAILS // Log details of valid OTDL objects
+  if(strncmp(path, "doLogOTDLDetails", sizeof("doLogOTDLDetails")-1)==0)
+    return oneLogControl(serv, path, doLogOTDLDetails);
+#endif
   
   return false;
 }
