@@ -251,6 +251,42 @@ bool LogControlHTML(HttpDebug* serv, char* path)
   if(strncmp(path, "doLogSimulationControls", sizeof("doLogSimulationControls")-1)==0)
     return oneLogControl(serv, path, doLogSimulationControls);
 #endif
+
+  
+// Logging options to do with materials and textures
+  
+#ifdef LOG_TEXTURE_ATLAS // Log texture atlas creation
+  if(strncmp(path, "doLogTextureAtlas", sizeof("doLogTextureAtlas")-1)==0)
+    return oneLogControl(serv, path, doLogTextureAtlas);
+#endif
+  
+#ifdef LOG_ATLAS_ANOMALIES // Log weird conditions in texture atlas creation
+  if(strncmp(path, "doLogAtlasAnomalies", sizeof("doLogAtlasAnomalies")-1)==0)
+    return oneLogControl(serv, path, doLogAtlasAnomalies);
+#endif
+  
+#ifdef LOG_ATLAS_PLACEMENT // Log details of which image is where in atlas
+  if(strncmp(path, "doLogAtlasPlacement", sizeof("doLogAtlasPlacement")-1)==0)
+    return oneLogControl(serv, path, doLogAtlasPlacement);
+#endif
+  
+#ifdef LOG_MATERIAL_SELECTIONS // Log when a material is selected.
+  if(strncmp(path, "doLogMaterialSelections", sizeof("doLogMaterialSelections")-1)==0)
+    return oneLogControl(serv, path, doLogMaterialSelections);
+#endif
+  
+#ifdef LOG_PATH_MAP // Log storage and use of the path map
+  if(strncmp(path, "doLogPathMap", sizeof("doLogPathMap")-1)==0)
+    return oneLogControl(serv, path, doLogPathMap);
+#endif
+
+  
+// Logging options to do with sky sampling and lighting
+
+#ifdef LOG_SKY_SAMPLE_INIT // Log the setup of the sky sampling model
+  if(strncmp(path, "doLogSkySampleInit", sizeof("doLogSkySampleInit")-1)==0)
+    return oneLogControl(serv, path, doLogSkySampleInit);
+#endif
   
   return false;
 }
