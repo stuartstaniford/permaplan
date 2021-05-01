@@ -360,6 +360,58 @@ bool LogControlHTML(HttpDebug* serv, char* path)
   if(strncmp(path, "doLogTreeErrors", sizeof("doLogTreeErrors")-1)==0)
     return oneLogControl(serv, path, doLogTreeErrors);
 #endif
+ 
+  
+// Logging options for groups of objects
+
+#ifdef LOG_GROUP_ADDITIONS // Log when groups are created and objects are added.
+  if(strncmp(path, "doLogGroupAdditions", sizeof("doLogGroupAdditions")-1)==0)
+    return oneLogControl(serv, path, doLogGroupAdditions);
+#endif
+  
+#ifdef LOG_CONTROL_GROUP_INIT // Log the process of initiating a new control group.
+  if(strncmp(path, "doLogControlGroupInit", sizeof("doLogControlGroupInit")-1)==0)
+    return oneLogControl(serv, path, doLogControlGroupInit);
+#endif
+  
+#ifdef LOG_GROUP_MATCH_RAY // Log ray matching in groups.
+  if(strncmp(path, "doLogGroupMatchRay", sizeof("doLogGroupMatchRay")-1)==0)
+    return oneLogControl(serv, path, doLogGroupMatchRay);
+#endif
+  
+#ifdef LOG_FIND_GROUPS // Log groups found during self validation.
+  if(strncmp(path, "doLogFindGroups", sizeof("doLogFindGroups")-1)==0)
+    return oneLogControl(serv, path, doLogFindGroups);
+#endif
+  
+#ifdef LOG_PATHTUBE_BUFFER // Log the process of rendering a pathTube
+  if(strncmp(path, "doLogPathTubeBuffer", sizeof("doLogPathTubeBuffer")-1)==0)
+    return oneLogControl(serv, path, doLogPathTubeBuffer);
+#endif
+
+  
+// Logging options for the HTTP debug interface
+  
+#ifdef LOG_REQUEST_ERRORS // Log validity problems in the HTTP request
+  if(strncmp(path, "doLogRequestErrors", sizeof("doLogRequestErrors")-1)==0)
+    return oneLogControl(serv, path, doLogRequestErrors);
+#endif
+  
+#ifdef LOG_RESPONSE_ERRORS // Log problems encountered building the response
+  if(strncmp(path, "doLogResponseErrors", sizeof("doLogResponseErrors")-1)==0)
+    return oneLogControl(serv, path, doLogResponseErrors);
+#endif
+
+#ifdef LOG_HTTP_BUFFER_OPS // Log operations on the main HTTP buffers
+  if(strncmp(path, "doLogHTTPBufferOps", sizeof("doLogHTTPBufferOps")-1)==0)
+    return oneLogControl(serv, path, doLogHTTPBufferOps);
+#endif
+  
+#ifdef LOG_HTTP_DETAILS // Log normal details of HTTP operations
+  if(strncmp(path, "doLogHTTPDetails", sizeof("doLogHTTPDetails")-1)==0)
+    return oneLogControl(serv, path, doLogHTTPDetails);
+#endif
+
   
   return false;
 }
