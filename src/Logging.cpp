@@ -413,6 +413,39 @@ bool LogControlHTML(HttpDebug* serv, char* path)
 #endif
 
   
+// Logging options to do with quadtree insertions
+  
+#ifdef LOG_QUADTREE_CREATION // Log the initial setup of the quadtree.
+  if(strncmp(path, "doLogQuadtreeCreation", sizeof("doLogQuadtreeCreation")-1)==0)
+    return oneLogControl(serv, path, doLogQuadtreeCreation);
+#endif
+  
+#ifdef LOG_QUADTREE_INSERTIONS // Log the process of a new object being put in the quadtree.
+  if(strncmp(path, "doLogQuadtreeInsertions", sizeof("doLogQuadtreeInsertions")-1)==0)
+    return oneLogControl(serv, path, doLogQuadtreeInsertions);
+#endif
+  
+#ifdef LOG_QUADTREE_BOUND_BOX // Log changes to the quadtree bounding boxes.
+  if(strncmp(path, "doLogQuadtreeBoundBox", sizeof("doLogQuadtreeBoundBox")-1)==0)
+    return oneLogControl(serv, path, doLogQuadtreeBoundBox);
+#endif
+  
+#ifdef LOG_QUADTREE_MATCH_RAY // Log the process of matching a ray in the quadtree.
+  if(strncmp(path, "doLogQuadtreeMatchRay", sizeof("doLogQuadtreeMatchRay")-1)==0)
+    return oneLogControl(serv, path, doLogQuadtreeMatchRay);
+#endif
+  
+#ifdef LOG_DISPLAYLIST_BUFFER // Log process of objects being buffered for display.
+  if(strncmp(path, "doLogDisplayListBuffer", sizeof("doLogDisplayListBuffer")-1)==0)
+    return oneLogControl(serv, path, doLogDisplayListBuffer);
+#endif
+  
+#ifdef LOG_QUADTREE_OBJ_SIZES // Log the process of estimating/changing object sizes
+  if(strncmp(path, "doLogQuadtreeObjSizes", sizeof("doLogQuadtreeObjSizes")-1)==0)
+    return oneLogControl(serv, path, doLogQuadtreeObjSizes);
+#endif
+
+  
   return false;
 }
 
