@@ -15,6 +15,8 @@
 # Read the .lctl file 
 
 ($lctlFileName) = @ARGV;
+($loghFileName) = "include/Logging.h";
+($logcppFileName) = "src/Logging.cpp";
 
 open(LCTL, $lctlFileName) || die("Couldn't open $lctlFileName.\n");
 
@@ -24,11 +26,12 @@ while(<LCTL>)
   next if /^\#/; # ignore Perl-style comment lines
   next if /^\//; # ignore C++-style comment lines
   next unless $_; #ignore empty lines
-  if(/^LOG\_\w+)
+  if(/^LOG\_\w+$/)
    {
     $LOGOptionOn{$_} = 1;
+    next;
    }
-  else if(/^doLog\w+/)
+  if(/^doLog\w+$/)
    {
     $doLogOptionOn{$_} = 1;
    }
@@ -40,8 +43,19 @@ while(<LCTL>)
 
 close(LCTL);
 
+#print join(' ', keys %LOGOptionOn)."\n\n";
+#print join(' ', keys %doLogOptionOn)."\n\n";
+
 # =====================================================================================
 # Process the Logging.h file
+
+open(LOGH, $loghFileName) || die("Couldn't open $$loghFileName.\n");
+while(<LOGH>)
+{
+  chomp;
+}
+
+close(LOGH);
 
 # =====================================================================================
 # Process the Logging.cpp file
