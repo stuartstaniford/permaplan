@@ -46,19 +46,65 @@ close(LCTL);
 #print join(' ', keys %LOGOptionOn)."\n\n";
 #print join(' ', keys %doLogOptionOn)."\n\n";
 
+
 # =====================================================================================
 # Process the Logging.h file
 
-open(LOGH, $loghFileName) || die("Couldn't open $$loghFileName.\n");
+open(LOGH, $loghFileName) || die("Couldn't open $loghFileName.\n");
+open(OUT, ">include/Logging.out.h") || die("Couldn't open output for $loghFileName.\n");
 while(<LOGH>)
 {
-  chomp;
+  #define LOG_OTDL_VALIDITY      // Log validity problems in an OTDL object
+  if(/^\/*(\#define\s+)(LOG_\w+)\s(.*)$/)
+   {
+    if($LOGOptionOn{$2})
+     {
+      print OUT "$1$2 $3\n";
+     }
+    else
+     {
+      print OUT "//$1$2 $3\n";      
+     }
+   }
+  else
+   {
+    print OUT;
+   }
 }
 
 close(LOGH);
+close(OUT);
+system("open -a XCode include/Logging.out.h");
+
 
 # =====================================================================================
 # Process the Logging.cpp file
+
+open(LOGCPP, $logcppFileName) || die("Couldn't open $$logcppFileName.\n");
+open(OUT, ">src/Logging.out.cpp") || die("Couldn't open output for $$logcppFileName.\n");
+while(<LOGCPP>)
+{
+  #bool doLogFrameStarts         = false; // Log each frame as it begins
+  if(/^(bool\s+)(doLog\w+)(\s+=\s+)(\w+)(\;.*)$/)
+   {
+    if($doLogOptionOn{$2})
+     {
+      print OUT "$1$2$3true$5\n";
+     }
+    else
+     {
+      print OUT "$1$2$3false$5\n";      
+     }
+   }
+  else
+   {
+    print OUT;
+   }
+}
+
+#close(LOGCPP);
+close(OUT);
+system("open -a XCode src/Logging.out.cpp")
 
 
 # =====================================================================================
