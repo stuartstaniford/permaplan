@@ -4,4 +4,4 @@ system("open -a XCode src/*.cpp src/*.c");
 system("open -a XCode include/*.h");
 $otdlFiles = `find Materials/Trees -name *.otdl`;
 $otdlFiles =~ s/\n/ /g;
-system("open -a XCode ~/.bashrc Makefile README.md openSrc *.pl compilePmod 812/812.oldf src/*.glsl CMakeLists.txt web/*.js web/views/*.ejs web/views/*.js docs/*.md tests/*.oldf tests/*.pl *.json Materials/Trees/Regions/*.json $otdlFiles");
+system("open -a XCode ~/.bashrc Makefile README.md openSrc *.pl compilePmod 812/812.oldf src/*.glsl CMakeLists.txt web/*.js web/views/*.ejs web/views/*.js docs/*.md tests/*.oldf tests/*.lctl tests/*.pl *.json Materials/Trees/Regions/*.json $otdlFiles");

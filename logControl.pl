@@ -21,8 +21,21 @@ open(LCTL, $lctlFileName) || die("Couldn't open $lctlFileName.\n");
 while(<LCTL>)
 {
   chomp;
-  next if /^\#/; # ignore comments
+  next if /^\#/; # ignore Perl-style comment lines
+  next if /^\//; # ignore C++-style comment lines
   next unless $_; #ignore empty lines
+  if(/^LOG\_\w+)
+   {
+    $LOGOptionOn{$_} = 1;
+   }
+  else if(/^doLog\w+/)
+   {
+    $doLogOptionOn{$_} = 1;
+   }
+  else
+   {
+    warn("Bad line $_\n");
+   }
 }
 
 close(LCTL);
