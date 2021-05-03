@@ -80,8 +80,8 @@ system("open -a XCode include/Logging.out.h");
 # =====================================================================================
 # Process the Logging.cpp file
 
-open(LOGCPP, $logcppFileName) || die("Couldn't open $$logcppFileName.\n");
-open(OUT, ">src/Logging.out.cpp") || die("Couldn't open output for $$logcppFileName.\n");
+open(LOGCPP, $logcppFileName) || die("Couldn't open $logcppFileName.\n");
+open(OUT, ">src/Logging.out.cpp") || die("Couldn't open output for $logcppFileName.\n");
 while(<LOGCPP>)
 {
   #bool doLogFrameStarts         = false; // Log each frame as it begins

@@ -16,7 +16,7 @@
 // Variables that control real time logging when compiled in
 
 // Logging options to do with overall control flow and speed
-bool doLogFrameStarts         = false; // Log each frame as it begins
+bool doLogFrameStarts         = true; // Log each frame as it begins
 bool doLogCloseDown           = true; // Log when we exit
 bool doLogStructureSizes      = true; // Log the size of structures on this platform at startup.
 bool doLogOpenGLConstants     = true; // Log various openGL parameters

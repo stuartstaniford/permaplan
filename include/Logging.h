@@ -128,8 +128,7 @@
 // =======================================================================================
 // General logging mechanism
 
-//XX __DATE__ and __TIME__ are compile times, not run times!!
-#define LogStatement(...) fprintf(LogFile, __DATE__ " " __TIME__ ": " __VA_ARGS__)
+#define LogStatement(...) fprintf(LogFile, __VA_ARGS__)
 
 class HTTPDebug;
 void LogInit(void);
@@ -233,35 +232,40 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
 
 // Log each frame as it begins
 #ifdef LOG_FRAME_STARTS
-#define LogFrameStarts(...) if(doLogFrameStarts) LogStatement(__VA_ARGS__)
+#define LogFrameStarts(...) if(doLogFrameStarts) \
+                                            LogStatement("LogFrameStarts: " __VA_ARGS__)
 #else
 #define LogFrameStarts(...)
 #endif
 
 // Log when we exit
 #ifdef LOG_CLOSE_DOWN
-#define LogCloseDown(...) if(doLogCloseDown) LogStatement(__VA_ARGS__)
+#define LogCloseDown(...) if(doLogCloseDown) \
+                                              LogStatement("LogCloseDown: " __VA_ARGS__)
 #else
 #define LogCloseDown(...)
 #endif
 
 // Log the size of structures on this platform at startup.
 #ifdef LOG_STRUCTURE_SIZES
-#define LogStructureSizes(...) if(doLogStructureSizes) LogStatement(__VA_ARGS__)
+#define LogStructureSizes(...) if(doLogStructureSizes) \
+                                        LogStatement("LogStructureSizes: "  __VA_ARGS__)
 #else
 #define LogStructureSizes(...)
 #endif
 
 // Log various openGL parameters
 #ifdef LOG_OPENGL_CONSTANTS
-#define LogOpenGLConstants(...) if(doLogOpenGLConstants) LogStatement(__VA_ARGS__)
+#define LogOpenGLConstants(...) if(doLogOpenGLConstants) \
+                                        LogStatement("LogOpenGLConstants: " __VA_ARGS__)
 #else
 #define LogOpenGLConstants(...)
 #endif
 
 // Validate data structures after every frame
 #ifdef LOG_TREE_VALIDATION
-#define LogTreeValidation(...) if(doLogTreeValidation) LogStatement(__VA_ARGS__)
+#define LogTreeValidation(...) if(doLogTreeValidation) \
+                                            LogStatement("LogTreeValidation: " __VA_ARGS__)
 #else
 #define LogTreeValidation(...)
 #endif
@@ -272,28 +276,32 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
 
 // Log validity problems in the file
 #ifdef LOG_OLDF_VALIDITY
-#define LogOLDFValidity(...) if(doLogOLDFValidity) LogStatement(__VA_ARGS__)
+#define LogOLDFValidity(...) if(doLogOLDFValidity) \
+                                          LogStatement("LogOLDFValidity: " __VA_ARGS__)
 #else
 #define LogOLDFValidity(...)
 #endif
 
 // Log details of valid OLDF objects
 #ifdef LOG_OLDF_DETAILS
-#define LogOLDFDetails(...) if(doLogOLDFDetails) LogStatement(__VA_ARGS__)
+#define LogOLDFDetails(...) if(doLogOLDFDetails) \
+                                          LogStatement("LogOLDFDetails: " __VA_ARGS__)
 #else
 #define LogOLDFDetails(...)
 #endif
 
 // Log validity problems in an OTDL object
 #ifdef LOG_OTDL_VALIDITY
-#define LogOTDLValidity(...) if(doLogOTDLValidity) LogStatement(__VA_ARGS__)
+#define LogOTDLValidity(...) if(doLogOTDLValidity) \
+                                          LogStatement("LogOTDLValidity: " __VA_ARGS__)
 #else
 #define LogOTDLValidity(...)
 #endif
 
 // Log details of valid OTDL objects
 #ifdef LOG_OTDL_DETAILS
-#define LogOTDLDetails(...) if(doLogOTDLDetails) LogStatement(__VA_ARGS__)
+#define LogOTDLDetails(...) if(doLogOTDLDetails) \
+                                            LogStatement("LogOTDLDetails: " __VA_ARGS__)
 #else
 #define LogOTDLDetails(...)
 #endif
@@ -304,56 +312,64 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
 
 // where the mouse is on the screen each frame
 #ifdef LOG_MOUSE_LOCATION
-#define LogMouseLocation(...) if(doLogMouseLocation) LogStatement(__VA_ARGS__)
+#define LogMouseLocation(...) if(doLogMouseLocation) \
+                                          LogStatement("LogMouseLocation: " __VA_ARGS__)
 #else
 #define LogMouseLocation(...)
 #endif
 
 // Location and intra-click timing of mouse double clicks
 #ifdef LOG_MOUSE_CLICK
-#define LogMouseClick(...) if(doLogMouseClick) LogStatement(__VA_ARGS__)
+#define LogMouseClick(...) if(doLogMouseClick) \
+                                          LogStatement("LogMouseClick: " __VA_ARGS__)
 #else
 #define LogMouseClick(...)
 #endif
 
 // Location and intra-click timing of mouse double clicks
 #ifdef LOG_DOUBLE_CLICK
-#define LogDoubleClick(...) if(doLogDoubleClick) LogStatement(__VA_ARGS__)
+#define LogDoubleClick(...) if(doLogDoubleClick) \
+                                          LogStatement("LogDoubleClick: " __VA_ARGS__)
 #else
 #define LogDoubleClick(...)
 #endif
 
 // Extra detailed recording of parts of click detection
 #ifdef LOG_CLICK_DETAILS
-#define LogClickDetails(...) if(doLogClickDetails) LogStatement(__VA_ARGS__)
+#define LogClickDetails(...) if(doLogClickDetails) \
+                                          LogStatement("LogClickDetails: " __VA_ARGS__)
 #else
 #define LogClickDetails(...)
 #endif
 
 // Where the mouse is pointing in 3d space
 #ifdef LOG_MOUSE_RAY_POINT
-#define LogMouseRayPoint(...) if(doLogMouseRayPoint) LogStatement(__VA_ARGS__)
+#define LogMouseRayPoint(...) if(doLogMouseRayPoint) \
+                                        LogStatement("LogMouseRayPoint: " __VA_ARGS__)
 #else
 #define LogMouseRayPoint(...)
 #endif
 
 // Log when a new land height is entered.
 #ifdef LOG_LAND_HEIGHTS
-#define LogLandHeights(...) if(doLogLandHeights) LogStatement(__VA_ARGS__)
+#define LogLandHeights(...) if(doLogLandHeights) \
+                                      LogStatement("LogLandHeights: " __VA_ARGS__)
 #else
 #define LogLandHeights(...)
 #endif
 
 // Log when a new object is inserted.
 #ifdef LOG_OBJECT_INSERTIONS
-#define LogObjectInsertions(...) if(doLogObjectInsertions) LogStatement(__VA_ARGS__)
+#define LogObjectInsertions(...) if(doLogObjectInsertions) \
+                                    LogStatement("LogObjectInsertions: " __VA_ARGS__)
 #else
 #define LogObjectInsertions(...)
 #endif
 
 // Log control operations on the simulation.
 #ifdef LOG_SIMULATION_CONTROLS
-#define LogSimulationControls(...) if(doLogSimulationControls) LogStatement(__VA_ARGS__)
+#define LogSimulationControls(...) if(doLogSimulationControls) \
+                                    LogStatement("LogSimulationControls: " __VA_ARGS__)
 #else
 #define LogSimulationControls(...)
 #endif
@@ -364,35 +380,39 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
 
 // Log texture atlas creation
 #ifdef LOG_TEXTURE_ATLAS
-#define LogTextureAtlas(...) if(doLogTextureAtlas) LogStatement(__VA_ARGS__)
+#define LogTextureAtlas(...) if(doLogTextureAtlas) \
+                                            LogStatement("LogTextureAtlas: " __VA_ARGS__)
 #else
 #define LogTextureAtlas(...)
 #endif
 
 // Log weird conditions in texture atlas creation
 #ifdef LOG_ATLAS_ANOMALIES
-#define LogAtlasAnomalies(...) if(doLogAtlasAnomalies) LogStatement(__VA_ARGS__)
+#define LogAtlasAnomalies(...) if(doLogAtlasAnomalies) \
+                                          LogStatement("LogAtlasAnomalies: " __VA_ARGS__)
 #else
 #define LogAtlasAnomalies(...)
 #endif
 
 // Log details of which image is where in atlas
 #ifdef LOG_ATLAS_PLACEMENT
-#define LogAtlasPlacement(...) if(doLogAtlasPlacement) LogStatement(__VA_ARGS__)
+#define LogAtlasPlacement(...) if(doLogAtlasPlacement) \
+                                          LogStatement("LogAtlasPlacement: " __VA_ARGS__)
 #else
 #define LogAtlasPlacement(...)
 #endif
 
 // Log when a material is selected.
 #ifdef LOG_MATERIAL_SELECTIONS
-#define LogMaterialSelections(...) if(doLogMaterialSelections) LogStatement(__VA_ARGS__)
+#define LogMaterialSelections(...) if(doLogMaterialSelections) \
+                                        LogStatement("LogMaterialSelections: " __VA_ARGS__)
 #else
 #define LogMaterialSelections(...)
 #endif
 
 // Log storage and use of the path map
 #ifdef LOG_PATH_MAP
-#define LogPathMap(...) if(doLogPathMap) LogStatement(__VA_ARGS__)
+#define LogPathMap(...) if(doLogPathMap) LogStatement("LogPathMap: " __VA_ARGS__)
 #else
 #define LogPathMap(...)
 #endif
@@ -403,7 +423,8 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
 
 // Log the setup of the sky sampling model
 #ifdef LOG_SKY_SAMPLE_INIT
-#define LogSkySampleInit(...) if(doLogSkySampleInit) LogStatement(__VA_ARGS__)
+#define LogSkySampleInit(...) if(doLogSkySampleInit) \
+                                            LogStatement("LogSkySampleInit: " __VA_ARGS__)
 #else
 #define LogSkySampleInit(...)
 #endif
@@ -414,98 +435,110 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
 
 // Log when a tree is selected.
 #ifdef LOG_TREE_SELECTIONS
-#define LogTreeSelections(...) if(doLogTreeSelections) LogStatement(__VA_ARGS__)
+#define LogTreeSelections(...) if(doLogTreeSelections) \
+                                            LogStatement("LogTreeSelections: " __VA_ARGS__)
 #else
 #define LogTreeSelections(...)
 #endif
 
 // Log when a tree is read in from a file or url
 #ifdef LOG_TREE_READS
-#define LogTreeReads(...) if(doLogTreeReads) LogStatement(__VA_ARGS__)
+#define LogTreeReads(...) if(doLogTreeReads) LogStatement("LogTreeReads: " __VA_ARGS__)
 #else
 #define LogTreeReads(...)
 #endif
 
 // Log high level actions in simulating tree growth.
 #ifdef LOG_TREE_SIM_OVERVIEW
-#define LogTreeSimOverview(...) if(doLogTreeSimOverview) LogStatement(__VA_ARGS__)
+#define LogTreeSimOverview(...) if(doLogTreeSimOverview) \
+                                        LogStatement("LogTreeSimOverview: " __VA_ARGS__)
 #else
 #define LogTreeSimOverview(...)
 #endif
 
 // Log all the gory details of simulated tree growth.
 #ifdef LOG_TREE_SIM_DETAILS
-#define LogTreeSimDetails(...) if(doLogTreeSimDetails) LogStatement(__VA_ARGS__)
+#define LogTreeSimDetails(...) if(doLogTreeSimDetails) \
+                                          LogStatement("LogTreeSimDetails: " __VA_ARGS__)
 #else
 #define LogTreeSimDetails(...)
 #endif
 
 // Log details of the growth model.
 #ifdef LOG_GROWTH_MODEL
-#define LogGrowthModel(...) if(doLogGrowthModel) LogStatement(__VA_ARGS__)
+#define LogGrowthModel(...) if(doLogGrowthModel) \
+                                              LogStatement("LogGrowthModel: " __VA_ARGS__)
 #else
 #define LogGrowthModel(...)
 #endif
 
 // Log updating the tree's bounding box
 #ifdef LOG_TREE_BOUNDING_BOX
-#define LogTreeBoundingBox(...) if(doLogTreeBoundingBox) LogStatement(__VA_ARGS__)
+#define LogTreeBoundingBox(...) if(doLogTreeBoundingBox) \
+                                          LogStatement("LogTreeBoundingBox: " __VA_ARGS__)
 #else
 #define LogTreeBoundingBox(...)
 #endif
 
 // Log matching a ray to a tree
 #ifdef LOG_TREE_MATCH_RAY
-#define LogTreeMatchRay(...) if(doLogTreeMatchRay) LogStatement(__VA_ARGS__)
+#define LogTreeMatchRay(...) if(doLogTreeMatchRay) \
+                                            LogStatement("LogTreeMatchRay: " __VA_ARGS__)
 #else
 #define LogTreeMatchRay(...)
 #endif
 
 // Log trees being rendered.
 #ifdef LOG_TREE_VISUALIZATION
-#define LogTreeVisualization(...) if(doLogTreeVisualization) LogStatement(__VA_ARGS__)
+#define LogTreeVisualization(...) if(doLogTreeVisualization) \
+                                      LogStatement("LogTreeVisualization: " __VA_ARGS__)
 #else
 #define LogTreeVisualization(...)
 #endif
 
 // Log every twig being rendered.
 #ifdef LOG_TREE_VIS_DETAILS
-#define LogTreeVisDetails(...) if(doLogTreeVisDetails) LogStatement(__VA_ARGS__)
+#define LogTreeVisDetails(...) if(doLogTreeVisDetails) \
+                                          LogStatement("LogTreeVisDetails: " __VA_ARGS__)
 #else
 #define LogTreeVisDetails(...)
 #endif
 
 // Log bark color and texture details.
 #ifdef LOG_BARK_DISPLAY
-#define LogBarkDisplay(...) if(doLogBarkDisplay) LogStatement(__VA_ARGS__)
+#define LogBarkDisplay(...) if(doLogBarkDisplay) \
+                                            LogStatement("LogBarkDisplay: " __VA_ARGS__)
 #else
 #define LogBarkDisplay(...)
 #endif
 
 // Log tree bounding box opacity.
 #ifdef LOG_TREE_OPACITY
-#define LogTreeOpacity(...) if(doLogTreeOpacity) LogStatement(__VA_ARGS__)
+#define LogTreeOpacity(...) if(doLogTreeOpacity) \
+                                            LogStatement("LogTreeOpacity: " __VA_ARGS__)
 #else
 #define LogTreeOpacity(...)
 #endif
 
 // Log tree thread analysis graph.
 #ifdef LOG_TREE_GRAPH
-#define LogTreeGraph(...) if(doLogTreeGraph) LogStatement(__VA_ARGS__)
+#define LogTreeGraph(...) if(doLogTreeGraph) LogStatement("LogTreeGraph: " __VA_ARGS__)
 #else
 #define LogTreeGraph(...)
 #endif
 
 // Log process of looking for OTDL files.
 #ifdef LOG_OTDL_FILE_SEARCH
-#define LogOTDLFileSearch(...) if(doLogOTDLFileSearch) LogStatement(__VA_ARGS__)
+#define LogOTDLFileSearch(...) if(doLogOTDLFileSearch) \
+                                        LogStatement("LogOTDLFileSearch: " __VA_ARGS__)
 #else
 #define LogOTDLFileSearch(...)
 #endif
 
 // Log clear errors in tree related operations.
 #ifdef LOG_TREE_ERRORS
-#define LogTreeErrors(...) if(doLogTreeErrors) LogStatement(__VA_ARGS__)
+#define LogTreeErrors(...) if(doLogTreeErrors) \
+                                            LogStatement("LogTreeErrors: " __VA_ARGS__)
 #else
 #define LogTreeErrors(...)
 #endif
@@ -516,35 +549,39 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
 
 // Log when groups are created and objects are added.
 #ifdef LOG_GROUP_ADDITIONS
-#define LogGroupAdditions(...) if(doLogGroupAdditions) LogStatement(__VA_ARGS__)
+#define LogGroupAdditions(...) if(doLogGroupAdditions) \
+                                          LogStatement("LogGroupAdditions: " __VA_ARGS__)
 #else
 #define LogGroupAdditions(...)
 #endif
 
 // Log the process of initiating a new control group.
 #ifdef LOG_CONTROL_GROUP_INIT
-#define LogControlGroupInit(...) if(doLogControlGroupInit) LogStatement(__VA_ARGS__)
+#define LogControlGroupInit(...) if(doLogControlGroupInit) \
+                                        LogStatement("LogControlGroupInit: " __VA_ARGS__)
 #else
 #define LogControlGroupInit(...)
 #endif
 
 // Log ray matching in groups.
 #ifdef LOG_GROUP_MATCH_RAY
-#define LogGroupMatchRay(...) if(doLogGroupMatchRay) LogStatement(__VA_ARGS__)
+#define LogGroupMatchRay(...) if(doLogGroupMatchRay) \
+                                          LogStatement("LogGroupMatchRay: " __VA_ARGS__)
 #else
 #define LogGroupMatchRay(...)
 #endif
 
 // Log groups found during self validation.
 #ifdef LOG_FIND_GROUPS
-#define LogFindGroups(...) if(doLogFindGroups) LogStatement(__VA_ARGS__)
+#define LogFindGroups(...) if(doLogFindGroups) LogStatement("LogFindGroups: " __VA_ARGS__)
 #else
 #define LogFindGroups(...)
 #endif
 
 // Log the process of rendering a pathTube
 #ifdef LOG_PATHTUBE_BUFFER
-#define LogPathTubeBuffer(...) if(doLogPathTubeBuffer) LogStatement(__VA_ARGS__)
+#define LogPathTubeBuffer(...) if(doLogPathTubeBuffer) \
+                                          LogStatement("LogPathTubeBuffer: " __VA_ARGS__)
 #else
 #define LogPathTubeBuffer(...)
 #endif
@@ -555,28 +592,32 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
 
 // Log validity problems in the HTTP request
 #ifdef LOG_REQUEST_ERRORS
-#define LogRequestErrors(...) if(doLogRequestErrors) LogStatement(__VA_ARGS__)
+#define LogRequestErrors(...) if(doLogRequestErrors) \
+                                          LogStatement("LogRequestErrors: " __VA_ARGS__)
 #else
 #define LogRequestErrors(...)
 #endif
 
 // Log problems encountered building the response
 #ifdef LOG_RESPONSE_ERRORS
-#define LogResponseErrors(...) if(doLogResponseErrors) LogStatement(__VA_ARGS__)
+#define LogResponseErrors(...) if(doLogResponseErrors) \
+                                          LogStatement("LogResponseErrors: " __VA_ARGS__)
 #else
 #define LogResponseErrors(...)
 #endif
 
 // Log operations on the main HTTP buffers
 #ifdef LOG_HTTP_BUFFER_OPS
-#define LogHTTPBufferOps(...) if(doLogHTTPBufferOps) LogStatement(__VA_ARGS__)
+#define LogHTTPBufferOps(...) if(doLogHTTPBufferOps) \
+                                          LogStatement("LogHTTPBufferOps: " __VA_ARGS__)
 #else
 #define LogHTTPBufferOps(...)
 #endif
 
 // Log normal details of HTTP operations
 #ifdef LOG_HTTP_DETAILS
-#define LogHTTPDetails(...) if(doLogHTTPDetails) LogStatement(__VA_ARGS__)
+#define LogHTTPDetails(...) if(doLogHTTPDetails) \
+                                            LogStatement("LogHTTPDetails: " __VA_ARGS__)
 #else
 #define LogHTTPDetails(...)
 #endif
@@ -587,42 +628,48 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
 
 // Log the initial setup of the quadtree.
 #ifdef LOG_QUADTREE_CREATION
-#define LogQuadtreeCreation(...) if(doLogQuadtreeCreation) LogStatement(__VA_ARGS__)
+#define LogQuadtreeCreation(...) if(doLogQuadtreeCreation) \
+                                        LogStatement("LogQuadtreeCreation: " __VA_ARGS__)
 #else
 #define LogQuadtreeCreation(...)
 #endif
 
 // Log the process of a new object being put in the quadtree.
 #ifdef LOG_QUADTREE_INSERTIONS
-#define LogQuadtreeInsertions(...) if(doLogQuadtreeInsertions) LogStatement(__VA_ARGS__)
+#define LogQuadtreeInsertions(...) if(doLogQuadtreeInsertions) \
+                                      LogStatement("LogQuadtreeInsertions: " __VA_ARGS__)
 #else
 #define LogQuadtreeInsertions(...)
 #endif
 
 // Log changes to the quadtree bounding boxes.
 #ifdef LOG_QUADTREE_BOUND_BOX
-#define LogQuadtreeBoundBox(...) if(doLogQuadtreeBoundBox) LogStatement(__VA_ARGS__)
+#define LogQuadtreeBoundBox(...) if(doLogQuadtreeBoundBox) \
+                                        LogStatement("LogQuadtreeBoundBox: " __VA_ARGS__)
 #else
 #define LogQuadtreeBoundBox(...)
 #endif
 
 // Log the process of matching a ray in the quadtree.
 #ifdef LOG_QUADTREE_MATCH_RAY
-#define LogQuadtreeMatchRay(...) if(doLogQuadtreeMatchRay) LogStatement(__VA_ARGS__)
+#define LogQuadtreeMatchRay(...) if(doLogQuadtreeMatchRay) \
+                                        LogStatement("LogQuadtreeMatchRay: " __VA_ARGS__)
 #else
 #define LogQuadtreeMatchRay(...)
 #endif
 
 // Log process of objects being buffered for display.
 #ifdef LOG_DISPLAYLIST_BUFFER
-#define LogDisplayListBuffer(...) if(doLogDisplayListBuffer) LogStatement(__VA_ARGS__)
+#define LogDisplayListBuffer(...) if(doLogDisplayListBuffer) \
+                                      LogStatement("LogDisplayListBuffer: " __VA_ARGS__)
 #else
 #define LogDisplayListBuffer(...)
 #endif
 
 // Log the process of estimating/changing object sizes
 #ifdef LOG_QUADTREE_OBJ_SIZES
-#define LogQuadtreeObjSizes(...) if(doLogQuadtreeObjSizes) LogStatement(__VA_ARGS__)
+#define LogQuadtreeObjSizes(...) if(doLogQuadtreeObjSizes) \
+                                      LogStatement("LogQuadtreeObjSizes: " __VA_ARGS__)
 #else
 #define LogQuadtreeObjSizes(...)
 #endif
@@ -633,42 +680,48 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
 
 // Log the id of each newly created oject
 #ifdef LOG_OBJECT_CREATION
-#define LogObjectCreation(...) if(doLogObjectCreation) LogStatement(__VA_ARGS__)
+#define LogObjectCreation(...) if(doLogObjectCreation) \
+                                          LogStatement("LogObjectCreation: " __VA_ARGS__)
 #else
 #define LogObjectCreation(...)
 #endif
 
 // Log the workings of the triangle buffers.
 #ifdef LOG_TRIANGLE_BUFFER_OPS
-#define LogTriangleBufferOps(...) if(doLogTriangleBufferOps) LogStatement(__VA_ARGS__)
+#define LogTriangleBufferOps(...) if(doLogTriangleBufferOps) \
+                                      LogStatement("LogTriangleBufferOps: " __VA_ARGS__)
 #else
 #define LogTriangleBufferOps(...)
 #endif
 
 // Log estimates of sizes needed.
 #ifdef LOG_TRIANGLE_BUF_ESTIMATES
-#define LogTriangleBufEstimates(...) if(doLogTriangleBufEstimates) LogStatement(__VA_ARGS__)
+#define LogTriangleBufEstimates(...) if(doLogTriangleBufEstimates) \
+                                    LogStatement("LogTriangleBufEstimates: " __VA_ARGS__)
 #else
 #define LogTriangleBufEstimates(...)
 #endif
 
 // Log when the triangle buffer is rebuilt.
 #ifdef LOG_TRIANGLE_BUF_REBUILDS
-#define LogTriangleBufRebuilds(...) if(doLogTriangleBufRebuilds) LogStatement(__VA_ARGS__)
+#define LogTriangleBufRebuilds(...) if(doLogTriangleBufRebuilds) \
+                                    LogStatement("LogTriangleBufRebuilds: " __VA_ARGS__)
 #else
 #define LogTriangleBufRebuilds(...)
 #endif
 
 // Validate the condition of triangle buffers on gpu send
 #ifdef LOG_VALID_TRIANGLE_BUFS
-#define LogValidTriangleBufs(...) if(doLogValidTriangleBufs) LogStatement(__VA_ARGS__)
+#define LogValidTriangleBufs(...) if(doLogValidTriangleBufs) \
+                                      LogStatement("LogValidTriangleBufs: " __VA_ARGS__)
 #else
 #define LogValidTriangleBufs(...)
 #endif
 
 // Log actual errors the triangle buffers.
 #ifdef LOG_TRIANGLE_BUFFER_ERRS
-#define LogTriangleBufferErrs(...) if(doLogTriangleBufferErrs) LogStatement(__VA_ARGS__)
+#define LogTriangleBufferErrs(...) if(doLogTriangleBufferErrs) \
+                                      LogStatement("LogTriangleBufferErrs: " __VA_ARGS__)
 #else
 #define LogTriangleBufferErrs(...)
 #endif
@@ -679,21 +732,23 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
 
 // Log the process of fitting the Bezier patch to height data
 #ifdef LOG_BEZIER_FIT
-#define LogBezierFit(...) if(doLogBezierFit) LogStatement(__VA_ARGS__)
+#define LogBezierFit(...) if(doLogBezierFit) LogStatement("LogBezierFit: " __VA_ARGS__)
 #else
 #define LogBezierFit(...)
 #endif
 
 // Log the process of matching ray intersection with a Bezier patch
 #ifdef LOG_BEZIER_MATCH_RAY
-#define LogBezierMatchRay(...) if(doLogBezierMatchRay) LogStatement(__VA_ARGS__)
+#define LogBezierMatchRay(...) if(doLogBezierMatchRay) \
+                                          LogStatement("LogBezierMatchRay: " __VA_ARGS__)
 #else
 #define LogBezierMatchRay(...)
 #endif
 
 // Log finding the altitudes of objects above the land
 #ifdef LOG_OBJECT_ALTITUDES
-#define LogObjectAltitudes(...) if(doLogObjectAltitudes) LogStatement(__VA_ARGS__)
+#define LogObjectAltitudes(...) if(doLogObjectAltitudes) \
+                                        LogStatement("LogObjectAltitudes: " __VA_ARGS__)
 #else
 #define LogObjectAltitudes(...)
 #endif
