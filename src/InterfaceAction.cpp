@@ -7,7 +7,8 @@
 // =======================================================================================
 // Constructor
 
-InterfaceAction::InterfaceAction(void)
+InterfaceAction::InterfaceAction(ActionType type, char* path):
+                                      actionType(type)
 {
 }
 

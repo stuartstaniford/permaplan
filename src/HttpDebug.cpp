@@ -20,6 +20,7 @@
 #include "MemoryTracker.h"
 #include "TaskQueueFarm.h"
 #include "SkySampleModel.h"
+#include "InterfaceAction.h"
 
 #define SA struct sockaddr
 
@@ -238,11 +239,13 @@ bool HttpDebug::processRequestHeader(void)
 
   else if( strlen(url) >= 7 && strncmp(url, "/click/", 7) == 0)
    {
+    InterfaceAction* action = new InterfaceAction(Click, url+7);
     return false;
    }
 
   else if( strlen(url) >= 13 && strncmp(url, "/doubleclick/", 13) == 0)
    {
+    InterfaceAction* action = new InterfaceAction(DoubleClick, url+13);
     return false;
    }
     

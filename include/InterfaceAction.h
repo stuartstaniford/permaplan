@@ -9,7 +9,7 @@
 // =======================================================================================
 // Enum for different types of action
 
-enum VertexDetail
+enum ActionType
 {
   Click,
   DoubleClick,
@@ -26,12 +26,15 @@ public:
   // Instance variables - public
   
   // Member functions - public
-  InterfaceAction(void);
+  InterfaceAction(ActionType type, char* path);
   ~InterfaceAction(void);
   
 private:
   
   // Instance variables - private
+  ActionType actionType;
+  unsigned mouseX;
+  unsigned mouseY;
   
   // Member functions - private
   InterfaceAction(const InterfaceAction&);                 // Prevent copy-construction
