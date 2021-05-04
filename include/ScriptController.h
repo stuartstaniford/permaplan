@@ -16,7 +16,7 @@
 // =======================================================================================
 // Enum for interface actions to be simulated
 
-enum InterfaceAction
+enum InterfaceActionType
 {
   IA_None,
   IA_HeightMarker,
@@ -41,7 +41,7 @@ class ScriptController
   void      processInterfaceAction(rapidjson::Value& V);
   void      processCameraMovement(const char* type);
   unsigned  simulatedKeys(float delta);
-  bool      checkInterfaceAction(InterfaceAction I);
+  bool      checkInterfaceAction(InterfaceActionType I);
   bool      diagnosticHTML(HttpDebug* serv);
   void      setHeight(rapidjson::Value& V);
   
@@ -50,16 +50,16 @@ class ScriptController
  private:
   
   // Instance variables - private
-  double                                            timeSec;
-  double                                            timeLimit;
-  unsigned                                          index;
-  rapidjson::Value                                  scriptArray;
-  rapidjson::Value                                  nextObject;
-  std::unordered_map<std::string, unsigned>         camActionMap;
-  std::unordered_map<std::string, InterfaceAction>  interfaceActionMap;
-  unsigned                                          currentCamAction;
-  InterfaceAction                                   currentInterfaceAction;
-  float                                             args[16];
+  double                                                timeSec;
+  double                                                timeLimit;
+  unsigned                                              index;
+  rapidjson::Value                                      scriptArray;
+  rapidjson::Value                                      nextObject;
+  std::unordered_map<std::string, unsigned>             camActionMap;
+  std::unordered_map<std::string, InterfaceActionType>  interfaceActionMap;
+  unsigned                                              currentCamAction;
+  InterfaceActionType                                   currentInterfaceAction;
+  float                                                 args[16];
   
   // Member functions - private
   ScriptController(const ScriptController&);                 // Prevent copy-construction

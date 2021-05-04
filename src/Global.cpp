@@ -26,3 +26,22 @@ void initGlobals(int nThreads)
 
 
 // =======================================================================================
+// Extract a ':' separated vec3 from a (URL) string.
+
+bool extractColonVecN(char* path, int N, float* dest)
+{
+  char* next;
+  for(int i=0; i<N; i++)
+   {
+    next = index(path, ':');
+    unless(next)
+      return false;
+    *next = '\0';
+    dest[i] = atof(path);
+    path = next + 1;
+   }
+  return true;
+}
+
+
+// =======================================================================================

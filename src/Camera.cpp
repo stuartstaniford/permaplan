@@ -344,25 +344,6 @@ void Camera::rayFromScreenLocation(vec3& position, vec3& direction, float clipX,
 
 
 // =======================================================================================
-// Extract a ':' separated vec3 from a (URL) string.
-
-bool extractColonVec3(char* path, vec3 dest)
-{
-  char* next;
-  for(int i=0; i<3; i++)
-   {
-    next = index(path, ':');
-    unless(next)
-      return false;
-    *next = '\0';
-    dest[i] = atof(path);
-    path = next + 1;
-   }
-  return true;
-}
-
-
-// =======================================================================================
 // Implement the API for setting camera variables (used extensively by test scripts).
 
 bool Camera::setApi(HttpDebug* serv, char* path)

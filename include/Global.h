@@ -5,6 +5,7 @@
 
 #ifndef GLOBAL_MACRO_DEFNS_H
 #define GLOBAL_MACRO_DEFNS_H
+#include <cglm/cglm.h>
 
 // =======================================================================================
 // Global macro definitions
@@ -20,6 +21,13 @@
 // Function prototypes
 
 void initGlobals(int nThreads);
+bool extractColonVecN(char* path, int N, float* dest);
+inline bool extractColonVec4(char* path, vec4 dest)
+              {return extractColonVecN(path, 4, dest);}
+inline bool extractColonVec3(char* path, vec3 dest)
+              {return extractColonVecN(path, 3, dest);}
+inline bool extractColonVec2(char* path, vec2 dest)
+              {return extractColonVecN(path, 2, dest);}
 
 // =======================================================================================
 // Extern definitions of global variables here

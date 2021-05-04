@@ -5,6 +5,7 @@
 #ifndef INTERFACE_ACTION_H
 #define INTERFACE_ACTION_H
 
+#include "Global.h"
 
 // =======================================================================================
 // Enum for different types of action
@@ -24,6 +25,9 @@ class InterfaceAction
 public:
   
   // Instance variables - public
+  vec2 mousePos;  
+  ActionType actionType;
+  bool valid;
   
   // Member functions - public
   InterfaceAction(ActionType type, char* path);
@@ -32,9 +36,6 @@ public:
 private:
   
   // Instance variables - private
-  ActionType actionType;
-  unsigned mouseX;
-  unsigned mouseY;
   
   // Member functions - private
   InterfaceAction(const InterfaceAction&);                 // Prevent copy-construction

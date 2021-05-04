@@ -8,8 +8,11 @@
 // Constructor
 
 InterfaceAction::InterfaceAction(ActionType type, char* path):
-                                      actionType(type)
+                                      actionType(type),
+                                      valid(true)
 {
+  unless(extractColonVec2(path, mousePos))
+    valid = false;
 }
 
 

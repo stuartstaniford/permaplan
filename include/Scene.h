@@ -21,6 +21,8 @@
 #include "CO2Scenario.h"
 #include "TaskQueue.h"
 #include "Lockable.h"
+#include "InterfaceAction.h"
+#include <vector>
 
 #define SIMULATION_BASE_YEAR 1900.0f
 
@@ -51,7 +53,8 @@ class Scene: public Lockable
   LightingModel   lighting;
   float           simulationSpeed;          //years/sec
   CO2Scenario     rcp8_5;
-
+  std::vector<InterfaceAction*> actions; 
+  
   // Member functions - public
   Scene(void);
   ~Scene(void);

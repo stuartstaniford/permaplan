@@ -240,13 +240,15 @@ bool HttpDebug::processRequestHeader(void)
   else if( strlen(url) >= 7 && strncmp(url, "/click/", 7) == 0)
    {
     InterfaceAction* action = new InterfaceAction(Click, url+7);
-    return false;
+    if(action->valid)
+      scene.actions.push_back(action);
    }
 
   else if( strlen(url) >= 13 && strncmp(url, "/doubleclick/", 13) == 0)
    {
     InterfaceAction* action = new InterfaceAction(DoubleClick, url+13);
-    return false;
+    if(action->valid)
+      scene.actions.push_back(action);   
    }
     
   else if( strlen(url) == 6 && strncmp(url, "/land/", 6) == 0)

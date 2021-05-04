@@ -115,6 +115,18 @@ Window3D::Window3D(int pixWidth, int pixHeight):
 
 
 // =======================================================================================
+// Handle an pseudo-interface event coming from the HTTP Debug interface
+
+void Window3D::processPseudoAction(InterfaceAction* action)
+{
+  if(action->actionType == Click)
+    processClick(action->mousePos[0], action->mousePos[1]);
+  else if(action->actionType == DoubleClick)
+    processDoubleClick(action->mousePos[0], action->mousePos[1], 0.1f);
+}
+
+
+// =======================================================================================
 // Event processing loop for our window
 
 void Window3D::loop(HttpDebug& httpServer)
@@ -162,6 +174,15 @@ void Window3D::loop(HttpDebug& httpServer)
     scene->draw(mouseMoved, (float)(frameDouble - lastFrameDouble));
     imgMenu->imguiInterface();
     glfwSwapBuffers(window);
+    
+    // Process pseudo-IO from HTTP interface
+    while(int n = scene->actions.size())
+     {
+       InterfaceAction* action = scene->actions[n-1];
+       processPseudoAction(action);
+       delete action;
+       scene->actions.pop_back();
+     }
     
     // Process IO
     ImGuiIO& io = ImGui::GetIO();

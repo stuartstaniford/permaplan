@@ -194,7 +194,7 @@ unsigned ScriptController::simulatedKeys(float delta)
 // Interface to determine if the simulation script is calling for any keypresses
 // Uses flags defined in Camera.h.  Arg delta is in microseconds.
 
-bool ScriptController::checkInterfaceAction(InterfaceAction I)
+bool ScriptController::checkInterfaceAction(InterfaceActionType I)
 {
   if(currentCamAction == CAM_INTERFACE_ACTION && currentInterfaceAction == I)
    {
