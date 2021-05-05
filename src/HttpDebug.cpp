@@ -272,7 +272,7 @@ bool HttpDebug::processRequestHeader(void)
     retVal =  MemoryTracker::diagnosticHTML(this);
 
   else if( strlen(url) >=6 && strncmp(url, "/menu/", 6) == 0)
-    retVal =  MenuInterface::HTTPAPi(this, url+6);
+    retVal =  MenuInterface::HTTPAPi(this, url+6, scene);
 
   else if( strlen(url) > 8 && strncmp(url, "/object/", 8) == 0)
     retVal =  VisualObject::diagnosticHTMLSelection(this, url+8);

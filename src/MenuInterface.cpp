@@ -502,19 +502,31 @@ void MenuInterface::imguiInterface(void)
 // Function to handle the parsing of interface actions coming from HTTP (ie for test
 // scripts).
 
-bool MenuInterface::HTTPAPi(HttpDebug* serv, char* path)
+bool MenuInterface::HTTPAPi(HttpDebug* serv, char* path, Scene& scene)
 {  
   if(strncmp(path, "simulate/", 9)== 0)
    {
     path+=9;
     if(strncmp(path, "start", 5)== 0)
      {
-      //XX need to create the InterfaceAction and give it to the scene queue
+      InterfaceAction* action = new InterfaceAction(SimulateStart, path+5);
+      if(!action->valid)
+       {
+        LogRequestErrors("MenuInterface::HTTPAPi couldn't create SimulateStart action.\n");
+        return false;
+       }
+      scene.actions.push_back(action);
       return true;
      }
     else if(strncmp(path, "pause", 5)== 0)
      {
-      //XX need to create the InterfaceAction and give it to the scene queue
+      InterfaceAction* action = new InterfaceAction(SimulatePause, path+5);
+      if(!action->valid)
+       {
+        LogRequestErrors("MenuInterface::HTTPAPi couldn't create SimulatePause action.\n");
+        return false;
+       }
+      scene.actions.push_back(action);
       return true;
      }
     

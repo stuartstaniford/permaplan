@@ -34,7 +34,7 @@ class MenuInterface
   MenuInterface(GLFWwindow* window, Window3D& W);
   ~MenuInterface(void);
   void  imguiInterface(void);
-static bool HTTPAPi(HttpDebug* serv, char* path);
+static bool HTTPAPi(HttpDebug* serv, char* path, Scene& scene);
   
  private:
   
