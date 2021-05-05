@@ -499,3 +499,13 @@ void MenuInterface::imguiInterface(void)
 
 
 // =======================================================================================
+// Function to handle the parsing of interface actions coming from HTTP (ie for test
+// scripts).
+
+bool MenuInterface::HTTPAPi(HttpDebug* serv, char* path)
+{
+  return false;
+}
+
+
+// =======================================================================================

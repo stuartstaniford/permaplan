@@ -21,6 +21,7 @@
 #include "TaskQueueFarm.h"
 #include "SkySampleModel.h"
 #include "InterfaceAction.h"
+#include "MenuInterface.h"
 
 #define SA struct sockaddr
 
@@ -269,6 +270,9 @@ bool HttpDebug::processRequestHeader(void)
 
   else if( strlen(url) == 10 && strncmp(url, "/memtrack/", 10) == 0)
     retVal =  MemoryTracker::diagnosticHTML(this);
+
+  else if( strlen(url) >=6 && strncmp(url, "/menu/", 6) == 0)
+    retVal =  MenuInterface::HTTPAPi(this, url+6);
 
   else if( strlen(url) > 8 && strncmp(url, "/object/", 8) == 0)
     retVal =  VisualObject::diagnosticHTMLSelection(this, url+8);

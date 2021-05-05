@@ -5,12 +5,12 @@
 
 #ifndef MENU_INTERFACE_H
 #define MENU_INTERFACE_H
+#include "ScriptController.h"
+#include "Scene.h"
 #include "imgui.h"
 #include <cglm/cglm.h>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include "ScriptController.h"
-#include "Scene.h"
 #include "rapidjson/document.h"
 #include "rapidjson/writer.h"
 #include "rapidjson/stringbuffer.h"
@@ -34,7 +34,8 @@ class MenuInterface
   MenuInterface(GLFWwindow* window, Window3D& W);
   ~MenuInterface(void);
   void  imguiInterface(void);
-
+static bool HTTPAPi(HttpDebug* serv, char* path);
+  
  private:
   
   // Class variables - private

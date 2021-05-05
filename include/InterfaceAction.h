@@ -14,6 +14,8 @@ enum ActionType
 {
   Click,
   DoubleClick,
+  SimulateStart,
+  SimulatePause,
 };
 
 
