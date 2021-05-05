@@ -8,6 +8,7 @@
 #include <cglm/cglm.h>
 #include <cstring>
 #include "Camera.h"
+#include "Logging.h"
 
 
 
@@ -361,6 +362,7 @@ bool Camera::setApi(HttpDebug* serv, char* path)
       httPrintf("OK\n");
       return true;
      }
+    LogRequestErrors("Camera::setApi couldn't extract vector from %s\n", path+4);
     return false;
    }
 
@@ -372,6 +374,7 @@ bool Camera::setApi(HttpDebug* serv, char* path)
       httPrintf("OK\n");
       return true;
      }
+    LogRequestErrors("Camera::setApi couldn't extract vector from %s\n", path+6);
     return false;
    }
   

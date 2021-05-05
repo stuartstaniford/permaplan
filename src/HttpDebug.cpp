@@ -242,6 +242,8 @@ bool HttpDebug::processRequestHeader(void)
     InterfaceAction* action = new InterfaceAction(Click, url+7);
     if(action->valid)
       scene.actions.push_back(action);
+    else
+      LogRequestErrors("Couldn't create valid click action from %s\n", url+7);
    }
 
   else if( strlen(url) >= 13 && strncmp(url, "/doubleclick/", 13) == 0)
@@ -249,6 +251,8 @@ bool HttpDebug::processRequestHeader(void)
     InterfaceAction* action = new InterfaceAction(DoubleClick, url+13);
     if(action->valid)
       scene.actions.push_back(action);   
+    else
+      LogRequestErrors("Couldn't create valid double click action from %s\n", url+13);
    }
     
   else if( strlen(url) == 6 && strncmp(url, "/land/", 6) == 0)
