@@ -351,7 +351,10 @@ bool Camera::setApi(HttpDebug* serv, char* path)
 {
   vec3 trial;
   unless(strncmp(path, "set/", 4)== 0)
+   {
+    LogRequestErrors("Camera::setApi can't handle %s\n", path);
     return false;
+   }
   path += 4;
   
   if(strncmp(path, "pos/", 4)== 0)
@@ -378,6 +381,7 @@ bool Camera::setApi(HttpDebug* serv, char* path)
     return false;
    }
   
+  LogRequestErrors("Camera::setApi unknown directive %s\n", path);
   return false;
 }
 

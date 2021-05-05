@@ -503,7 +503,26 @@ void MenuInterface::imguiInterface(void)
 // scripts).
 
 bool MenuInterface::HTTPAPi(HttpDebug* serv, char* path)
-{
+{  
+  if(strncmp(path, "simulate/", 9)== 0)
+   {
+    path+=9;
+    if(strncmp(path, "start", 5)== 0)
+     {
+      //XX need to create the InterfaceAction and give it to the scene queue
+      return true;
+     }
+    else if(strncmp(path, "pause", 5)== 0)
+     {
+      //XX need to create the InterfaceAction and give it to the scene queue
+      return true;
+     }
+    
+    LogRequestErrors("MenuInterface::HTTPAPi unknown simulation command %s\n", path);
+    return false;
+   }
+  
+  LogRequestErrors("MenuInterface::HTTPAPi unknown directive %s\n", path);
   return false;
 }
 
