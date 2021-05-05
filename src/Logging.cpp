@@ -135,7 +135,10 @@ bool oneLogControl(HttpDebug* serv, char* path, bool& variable)
 {
   char* next;
   unless((next = index(path, ':')))
+   {
+    LogRequestErrors("oneLogControl couldn't find : in %s\n", path);
     return false;
+   }
   next++;
   if(*next == '1')
    {
@@ -148,7 +151,10 @@ bool oneLogControl(HttpDebug* serv, char* path, bool& variable)
     variable = false;
    }
   else
+   {
+    LogRequestErrors("oneLogControl couldn't find valid command in %s\n", next);
     return false;
+   }
   return true;
 }
 
@@ -496,6 +502,7 @@ bool LogControlHTML(HttpDebug* serv, char* path)
     return oneLogControl(serv, path, doLogObjectAltitudes);
 #endif
   
+  LogRequestErrors("Couldn't find valid log action to perform from %s\n", path);
   return false;
 }
 

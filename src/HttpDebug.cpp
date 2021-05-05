@@ -241,7 +241,10 @@ bool HttpDebug::processRequestHeader(void)
    {
     InterfaceAction* action = new InterfaceAction(Click, url+7);
     if(action->valid)
+     {
       scene.actions.push_back(action);
+      retVal = true;
+     }
     else
       LogRequestErrors("Couldn't create valid click action from %s\n", url+7);
    }
@@ -250,7 +253,10 @@ bool HttpDebug::processRequestHeader(void)
    {
     InterfaceAction* action = new InterfaceAction(DoubleClick, url+13);
     if(action->valid)
-      scene.actions.push_back(action);   
+     {
+      scene.actions.push_back(action);
+      retVal = true;
+     }
     else
       LogRequestErrors("Couldn't create valid double click action from %s\n", url+13);
    }
