@@ -119,10 +119,35 @@ Window3D::Window3D(int pixWidth, int pixHeight):
 
 void Window3D::processPseudoAction(InterfaceAction* action)
 {
-  if(action->actionType == Click)
-    processClick(action->mousePos[0], action->mousePos[1]);
-  else if(action->actionType == DoubleClick)
-    processDoubleClick(action->mousePos[0], action->mousePos[1], 0.1f);
+  switch(action->actionType)
+   {
+    case Click:
+      processClick(action->mousePos[0], action->mousePos[1]);
+      break;
+      
+    case DoubleClick:
+      processDoubleClick(action->mousePos[0], action->mousePos[1], 0.1f);
+      break;
+      
+    case SimulateStart:
+      LogSimulationControls("Simulate Button \xe2\x96\xb6 pressed.\n");
+      scene->startSimulation();
+      break;
+      
+    case SimulatePause:
+      LogSimulationControls("Pause Button \xe2\x8f\xb8 pressed.\n");
+      scene->pauseSimulation();
+      break;
+      
+    case SimulateReset:
+      LogSimulationControls("Reset Button \xe2\x8f\xae pressed.\n");
+      scene->resetSimulation();
+      break;
+
+    default:
+      LogRequestErrors("Unhandled action type in Window3D::processPseudoAction %d\n", 
+                                                            action->actionType);
+   }
 }
 
 

@@ -529,6 +529,17 @@ bool MenuInterface::HTTPAPi(HttpDebug* serv, char* path, Scene& scene)
       scene.actions.push_back(action);
       return true;
      }
+    else if(strncmp(path, "reset", 5)== 0)
+     {
+      InterfaceAction* action = new InterfaceAction(SimulateReset, path+5);
+      if(!action->valid)
+       {
+        LogRequestErrors("MenuInterface::HTTPAPi couldn't create SimulateReset action.\n");
+        return false;
+       }
+      scene.actions.push_back(action);
+      return true;
+     }
     
     LogRequestErrors("MenuInterface::HTTPAPi unknown simulation command %s\n", path);
     return false;
