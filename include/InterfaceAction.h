@@ -17,6 +17,9 @@ enum ActionType
   SimulateStart,
   SimulatePause,
   SimulateReset,
+  InsertHeight,
+  InsertBlock,
+  InsertTree,
 };
 
 
@@ -28,7 +31,7 @@ class InterfaceAction
 public:
   
   // Instance variables - public
-  vec2 mousePos;  
+  vec2 data;  
   ActionType actionType;
   bool valid;
   

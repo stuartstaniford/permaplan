@@ -96,6 +96,28 @@ void MenuInterface::imguiHeightInputDialog(void)
 
 
 // =======================================================================================
+// Button operations (also called from HTTP debugging interface for scriptability
+
+void MenuInterface::insertHeightButton(void)
+{
+  show_height_input_dialog = true;
+  show_insert_menu = false;
+}
+
+void MenuInterface::insertBlockButton(void)
+{
+  show_insert_menu = false;
+  show_materials_menu = true;
+}
+
+void MenuInterface::insertTreeButton(void)
+{
+  show_insert_menu = false;
+  show_tree_menu = true;
+}
+
+
+// =======================================================================================
 // The floating menu to insert stuff at the focus point
 
 void MenuInterface::imguiInsertMenu(void)
@@ -105,20 +127,11 @@ void MenuInterface::imguiInsertMenu(void)
   ImGui::Begin("Insert", &show_insert_menu, ImGuiWindowFlags_AlwaysAutoResize);
     
   if(ImGui::Button("Height"))
-   {
-    show_height_input_dialog = true;
-    show_insert_menu = false;
-   }
+    insertHeightButton();
   if(ImGui::Button("Block"))
-   {
-    show_insert_menu = false;
-    show_materials_menu = true;
-   }
+    insertBlockButton();
   if(ImGui::Button("Tree"))
-   {
-    show_insert_menu = false;
-    show_tree_menu = true;
-   }
+    insertTreeButton();
 
   ImGui::End();
 }
@@ -499,51 +512,121 @@ void MenuInterface::imguiInterface(void)
 
 
 // =======================================================================================
+// Function to handle parsing simulation panel interface actions.
+
+bool MenuInterface::HTTPAPiSimulate(HttpDebug* serv, char* path)
+{
+  if(strncmp(path, "start", 5)== 0)
+   {
+    InterfaceAction* action = new InterfaceAction(SimulateStart, path+5);
+    if(!action->valid)
+     {
+      LogRequestErrors("MenuInterface::HTTPAPiSimulate couldn't create "
+                                                              "SimulateStart action.\n");
+      return false;
+     }
+    scene->actions.push_back(action);
+    httPrintf("OK\n")
+    return true;
+   }
+  else if(strncmp(path, "pause", 5)== 0)
+   {
+    InterfaceAction* action = new InterfaceAction(SimulatePause, path+5);
+    if(!action->valid)
+     {
+      LogRequestErrors("MenuInterface::HTTPAPiSimulate couldn't create "
+                                                                "SimulatePause action.\n");
+      return false;
+     }
+    scene->actions.push_back(action);
+    httPrintf("OK\n")
+    return true;
+   }
+  else if(strncmp(path, "reset", 5)== 0)
+   {
+    InterfaceAction* action = new InterfaceAction(SimulateReset, path+5);
+    if(!action->valid)
+     {
+      LogRequestErrors("MenuInterface::HTTPAPiSimulate couldn't create "
+                                                                "SimulateReset action.\n");
+      return false;
+     }
+    scene->actions.push_back(action);
+    httPrintf("OK\n")
+    return true;
+   }
+  
+  LogRequestErrors("MenuInterface::HTTPAPi unknown simulation command %s\n", path);
+  return false;
+}
+
+
+// =======================================================================================
+// Function to handle parsing simulation panel interface actions.
+
+bool MenuInterface::HTTPAPiInsert(HttpDebug* serv, char* path)
+{
+  unless(show_insert_menu)
+   {
+    LogRequestErrors("MenuInterface::HTTPAPiInsert called when no insert menu showing.\n");
+    return false;
+   }
+  
+  if(strncmp(path, "height", 6) == 0)
+   {
+    InterfaceAction* action = new InterfaceAction(InsertHeight, path+6);
+    if(!action->valid)
+     {
+      LogRequestErrors("MenuInterface::HTTPAPiInsert couldn't create "
+                                                              "InsertHeight action.\n");
+      return false;
+     }
+    scene->actions.push_back(action);
+    httPrintf("OK\n")
+    return true;
+   }
+  else if(strncmp(path, "block", 5) == 0)
+   {
+    InterfaceAction* action = new InterfaceAction(InsertBlock, path+5);
+    if(!action->valid)
+     {
+      LogRequestErrors("MenuInterface::HTTPAPiInsert couldn't create "
+                                                                "InsertBlock action.\n");
+      return false;
+     }
+    scene->actions.push_back(action);
+    httPrintf("OK\n")
+    return true;
+   }
+  else if(strncmp(path, "tree", 4) == 0)
+   {
+    InterfaceAction* action = new InterfaceAction(InsertBlock, path+4);
+    if(!action->valid)
+     {
+      LogRequestErrors("MenuInterface::HTTPAPiInsert couldn't create "
+                                                                "InsertTree action.\n");
+      return false;
+     }
+    scene->actions.push_back(action);
+    httPrintf("OK\n")
+    return true;
+   }
+  LogRequestErrors("MenuInterface::HTTPAPiInsert unknown insert command %s\n", path);
+  return false;
+}
+
+
+// =======================================================================================
 // Function to handle the parsing of interface actions coming from HTTP (ie for test
 // scripts).
 
-bool MenuInterface::HTTPAPi(HttpDebug* serv, char* path, Scene& scene)
+bool MenuInterface::HTTPAPi(HttpDebug* serv, char* path)
 {  
   if(strncmp(path, "simulate/", 9)== 0)
-   {
-    path+=9;
-    if(strncmp(path, "start", 5)== 0)
-     {
-      InterfaceAction* action = new InterfaceAction(SimulateStart, path+5);
-      if(!action->valid)
-       {
-        LogRequestErrors("MenuInterface::HTTPAPi couldn't create SimulateStart action.\n");
-        return false;
-       }
-      scene.actions.push_back(action);
-      return true;
-     }
-    else if(strncmp(path, "pause", 5)== 0)
-     {
-      InterfaceAction* action = new InterfaceAction(SimulatePause, path+5);
-      if(!action->valid)
-       {
-        LogRequestErrors("MenuInterface::HTTPAPi couldn't create SimulatePause action.\n");
-        return false;
-       }
-      scene.actions.push_back(action);
-      return true;
-     }
-    else if(strncmp(path, "reset", 5)== 0)
-     {
-      InterfaceAction* action = new InterfaceAction(SimulateReset, path+5);
-      if(!action->valid)
-       {
-        LogRequestErrors("MenuInterface::HTTPAPi couldn't create SimulateReset action.\n");
-        return false;
-       }
-      scene.actions.push_back(action);
-      return true;
-     }
-    
-    LogRequestErrors("MenuInterface::HTTPAPi unknown simulation command %s\n", path);
-    return false;
-   }
+     return HTTPAPiSimulate(serv, path+9);
+
+  if(strncmp(path, "insert/", 7)== 0)
+    return HTTPAPiInsert(serv, path+7);
   
   LogRequestErrors("MenuInterface::HTTPAPi unknown directive %s\n", path);
   return false;

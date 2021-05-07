@@ -12,9 +12,10 @@ InterfaceAction::InterfaceAction(ActionType type, char* path):
                                       actionType(type),
                                       valid(true)
 {
+  // Clicks, double-clicks, etc
   if(actionType == Click || actionType == DoubleClick)
    { 
-    unless(extractColonVec2(path, mousePos))
+    unless(extractColonVec2(path, data))
     {
      LogRequestErrors("InterfaceAction::InterfaceAction couldn't get params from %s\n", path);
      valid = false;
@@ -22,9 +23,14 @@ InterfaceAction::InterfaceAction(ActionType type, char* path):
     return;
    }
 
-  if(actionType == SimulateStart || actionType == SimulatePause)
+  // Simulation controls
+  if(actionType == SimulateStart || actionType == SimulatePause || actionType == SimulateReset)
     return;
 
+  // Insert menu options
+  if(actionType == InsertHeight || actionType == InsertBlock || actionType == InsertTree)
+    return;
+  
   LogRequestErrors("InterfaceAction::InterfaceAction unknown action type.\n");
   valid = false;
 }

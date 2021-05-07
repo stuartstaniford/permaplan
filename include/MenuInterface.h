@@ -34,7 +34,12 @@ class MenuInterface
   MenuInterface(GLFWwindow* window, Window3D& W);
   ~MenuInterface(void);
   void  imguiInterface(void);
-static bool HTTPAPi(HttpDebug* serv, char* path, Scene& scene);
+  bool HTTPAPi(HttpDebug* serv, char* path);
+  bool HTTPAPiSimulate(HttpDebug* serv, char* path);
+  bool HTTPAPiInsert(HttpDebug* serv, char* path);
+  void insertHeightButton(void);
+  void insertBlockButton(void);
+  void insertTreeButton(void);
   
  private:
   

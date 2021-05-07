@@ -56,7 +56,7 @@ int main (int argc, char* argv[])
   MaterialList materials(blocksAtlas);
   
   // Start up the debugging http server
-  HttpDebug   httpServer(config.debugPort, scene);
+  HttpDebug   httpServer(config.debugPort, scene, *(window.imgMenu));
   int         pthreadErr;
   pthread_t   httpThread;
   //pthread_mutex_init(&glLock, NULL);

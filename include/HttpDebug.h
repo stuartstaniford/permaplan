@@ -27,7 +27,9 @@
 // =======================================================================================
 // Class variable initialization
 
-class Scene; // forward declaration
+// forward declarations
+class Scene; 
+class MenuInterface; 
 
 class HttpDebug
 {
@@ -37,12 +39,13 @@ public:
   char*               respPtr;
   char*               respEnd;
   Scene&              scene;
+  MenuInterface&      menuInterface;
   bool                shutDownNow; // by convention, this thread only reads, others set
                                    // this variable to true to shut it down.  So no lock.
   bool                respBufOverflow;
 
   // Member functions - public
-  HttpDebug(unsigned short servPort, Scene& S);
+  HttpDebug(unsigned short servPort, Scene& S, MenuInterface& imgMenu);
   ~HttpDebug(void);
   void*       processConnections(void);
   bool        startResponsePage(const char* title, unsigned refresh = 0u);

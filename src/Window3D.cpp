@@ -122,11 +122,12 @@ void Window3D::processPseudoAction(InterfaceAction* action)
   switch(action->actionType)
    {
     case Click:
-      processClick(action->mousePos[0], action->mousePos[1]);
+      // for Click and DoubleClick, the data is mousePos
+      processClick(action->data[0], action->data[1]);
       break;
       
     case DoubleClick:
-      processDoubleClick(action->mousePos[0], action->mousePos[1], 0.1f);
+      processDoubleClick(action->data[0], action->data[1], 0.1f);
       break;
       
     case SimulateStart:
@@ -142,6 +143,18 @@ void Window3D::processPseudoAction(InterfaceAction* action)
     case SimulateReset:
       LogSimulationControls("Reset Button \xe2\x8f\xae pressed.\n");
       scene->resetSimulation();
+      break;
+
+    case InsertHeight:
+      imgMenu->insertHeightButton();
+      break;
+      
+    case InsertBlock:
+      imgMenu->insertBlockButton();
+      break;
+      
+    case InsertTree:
+      imgMenu->insertTreeButton();
       break;
 
     default:

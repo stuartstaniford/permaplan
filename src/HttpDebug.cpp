@@ -29,8 +29,9 @@
 // =======================================================================================
 // Create the socket and bind to the port in the constructor
 
-HttpDebug::HttpDebug(unsigned short servPort, Scene& S):
+HttpDebug::HttpDebug(unsigned short servPort, Scene& S, MenuInterface& imgMenu):
                         scene(S),
+                        menuInterface(imgMenu),
                         shutDownNow(false),
                         respBufOverflow(false),
                         reqBufSize(8192),
@@ -272,7 +273,7 @@ bool HttpDebug::processRequestHeader(void)
     retVal =  MemoryTracker::diagnosticHTML(this);
 
   else if( strlen(url) >=6 && strncmp(url, "/menu/", 6) == 0)
-    retVal =  MenuInterface::HTTPAPi(this, url+6, scene);
+    retVal =  menuInterface.HTTPAPi(this, url+6);
 
   else if( strlen(url) > 8 && strncmp(url, "/object/", 8) == 0)
     retVal =  VisualObject::diagnosticHTMLSelection(this, url+8);
