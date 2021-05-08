@@ -117,49 +117,52 @@ Window3D::Window3D(int pixWidth, int pixHeight):
 // =======================================================================================
 // Handle an pseudo-interface event coming from the HTTP Debug interface
 
-void Window3D::processPseudoAction(InterfaceAction* action)
+ActionType Window3D::processPseudoAction(InterfaceAction* action)
 {
   switch(action->actionType)
    {
     case Click:
       // for Click and DoubleClick, the data is mousePos
       processClick(action->data[0], action->data[1]);
-      break;
+      return Click;
       
     case DoubleClick:
       processDoubleClick(action->data[0], action->data[1], 0.1f);
-      break;
+      return DoubleClick;
       
     case SimulateStart:
       LogSimulationControls("Simulate Button \xe2\x96\xb6 pressed.\n");
       scene->startSimulation();
-      break;
+      return SimulateStart;
       
     case SimulatePause:
       LogSimulationControls("Pause Button \xe2\x8f\xb8 pressed.\n");
       scene->pauseSimulation();
-      break;
+      return SimulatePause;
       
     case SimulateReset:
       LogSimulationControls("Reset Button \xe2\x8f\xae pressed.\n");
       scene->resetSimulation();
-      break;
+      return SimulateReset;
 
     case InsertHeight:
       imgMenu->insertHeightButton();
-      break;
+      return InsertHeight;
       
     case InsertBlock:
       imgMenu->insertBlockButton();
-      break;
+      return InsertBlock;
       
     case InsertTree:
       imgMenu->insertTreeButton();
-      break;
+      return InsertTree;
 
      case HeightEntered:
        imgMenu->heightEnteredButton(action->data[0]);
-       break;
+      return HeightEntered;
+
+     case QuitProgram:
+      return QuitProgram;  // handled in our caller loop()
 
     default:
       LogRequestErrors("Unhandled action type in Window3D::processPseudoAction %d\n", 
@@ -218,13 +221,17 @@ void Window3D::loop(HttpDebug& httpServer)
     glfwSwapBuffers(window);
     
     // Process pseudo-IO from HTTP interface
+    InterfaceAction* action = NULL;
     while(int n = scene->actions.size())
      {
-       InterfaceAction* action = scene->actions[n-1];
-       processPseudoAction(action);
+       action = scene->actions[n-1];
+       if(processPseudoAction(action) == QuitProgram)
+         break;
        scene->actions.pop_back();
        delete action;
      }
+    if(action && action->actionType == QuitProgram)
+      break;
     
     // Process IO
     ImGuiIO& io = ImGui::GetIO();

@@ -296,6 +296,18 @@ bool HttpDebug::processRequestHeader(void)
   else if( strlen(url) > 12 && strncmp(url, "/quadsearch/", 12) == 0)
     retVal = scene.qtree->quadSearchHTML(this, url+12);
 
+  else if( strlen(url) == 6 && strncmp(url, "/quit/", 6) == 0)
+   {
+    InterfaceAction* action = new InterfaceAction(QuitProgram, url+6);
+    if(action->valid)
+     {
+      scene.actions.push_back(action);
+      retVal = true;
+     }
+    else
+      LogRequestErrors("Couldn't create valid QuitProgram action from %s\n", url+7);
+   }
+
   else if( strlen(url) == 12 && strncmp(url, "/skysamples/", 12) == 0)
    {
     SkySampleModel& sky = SkySampleModel::getSkySampleModel();

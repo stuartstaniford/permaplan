@@ -44,6 +44,10 @@ InterfaceAction::InterfaceAction(ActionType type, char* path):
     return;    
    }
   
+  // QuitProgram
+  if(actionType == QuitProgram)
+    return;
+  
   LogRequestErrors("InterfaceAction::InterfaceAction unknown action type.\n");
   valid = false;
 }

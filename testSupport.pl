@@ -18,6 +18,7 @@ $portRangeSize  = 10;
 # File level state variables
 
 $http = undef;
+$port = $portBase;
 
 #===========================================================================
 # Function to reliably start permaplan and wait till it's definitely up
@@ -26,7 +27,7 @@ $http = undef;
 
 sub startPermaplan
 {
-  my $port = $portBase;
+  my($options) = @_;
   if(-f $portFileName)
    {
     open(PORT, $portFileName) || die("Couldn't read $portFileName.\n");
@@ -38,8 +39,7 @@ sub startPermaplan
   print PORT $nextPort;
   close(PORT);
 
-  system("./permaplan -A -d tests/test1.oldf -D tests/test1.out.oldf".
-                                                    " -g 5.0 -p $port &");
+  system("./permaplan $options -p $port &");
   $http = HTTP::Tiny->new();
 
   while(1)
@@ -56,8 +56,18 @@ sub startPermaplan
   return $port;
 }
 
+
+#===========================================================================
+# Function to stop permaplan 
+
+sub stopPermaplan
+{
+  $http->get("http://127.0.0.1:$port/quit/");
+}
+
+
 #===========================================================================
 
-1;
+1; # for the benefit of require 'testSupport.pl'
 
 #===========================================================================

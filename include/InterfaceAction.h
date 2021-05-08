@@ -21,6 +21,7 @@ enum ActionType
   InsertBlock,
   InsertTree,
   HeightEntered,
+  QuitProgram,
 };
 
 
