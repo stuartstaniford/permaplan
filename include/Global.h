@@ -28,6 +28,9 @@ inline bool extractColonVec3(char* path, vec3 dest)
               {return extractColonVecN(path, 3, dest);}
 inline bool extractColonVec2(char* path, vec2 dest)
               {return extractColonVecN(path, 2, dest);}
+inline bool extractColonFloat(char* path, float* value)
+              {return extractColonVecN(path, 1, value);}
+
 
 // =======================================================================================
 // Extern definitions of global variables here

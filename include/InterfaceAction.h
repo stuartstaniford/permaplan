@@ -20,6 +20,7 @@ enum ActionType
   InsertHeight,
   InsertBlock,
   InsertTree,
+  HeightEntered,
 };
 
 

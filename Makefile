@@ -931,7 +931,8 @@ src/InterfaceAction.o: /usr/local/include/cglm/ease.h
 src/InterfaceAction.o: /usr/local/include/cglm/curve.h
 src/InterfaceAction.o: /usr/local/include/cglm/bezier.h
 src/InterfaceAction.o: /usr/local/include/cglm/ray.h
-src/InterfaceAction.o: /usr/local/include/cglm/affine2d.h
+src/InterfaceAction.o: /usr/local/include/cglm/affine2d.h include/Logging.h
+src/InterfaceAction.o: include/MemoryTracker.h include/HttpDebug.h
 src/JSONStructureChecker.o: include/PmodDesign.h include/rapidjson/document.h
 src/JSONStructureChecker.o: include/rapidjson/reader.h
 src/JSONStructureChecker.o: include/rapidjson/allocators.h

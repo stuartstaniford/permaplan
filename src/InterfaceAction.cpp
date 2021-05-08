@@ -17,7 +17,8 @@ InterfaceAction::InterfaceAction(ActionType type, char* path):
    { 
     unless(extractColonVec2(path, data))
     {
-     LogRequestErrors("InterfaceAction::InterfaceAction couldn't get params from %s\n", path);
+     LogRequestErrors("InterfaceAction::InterfaceAction couldn't get click "
+                                                                "params from %s\n", path);
      valid = false;
     }
     return;
@@ -30,6 +31,18 @@ InterfaceAction::InterfaceAction(ActionType type, char* path):
   // Insert menu options
   if(actionType == InsertHeight || actionType == InsertBlock || actionType == InsertTree)
     return;
+  
+  // Result of height entry panel
+  if(actionType == HeightEntered)
+   {
+    unless(extractColonFloat(path, data))
+    {
+     LogRequestErrors("InterfaceAction::InterfaceAction couldn't get HeightEntered "
+                                                                "params from %s\n", path);
+     valid = false;
+    }
+    return;    
+   }
   
   LogRequestErrors("InterfaceAction::InterfaceAction unknown action type.\n");
   valid = false;

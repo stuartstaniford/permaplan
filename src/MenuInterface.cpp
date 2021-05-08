@@ -75,20 +75,12 @@ void MenuInterface::imguiHeightInputDialog(void)
   
   ImGui::InputText("", heightBuf, 8, ImGuiInputTextFlags_CharsDecimal);
   
-  //bool fromScript;
   if(ImGui::Button("Height"))
-          // || (fromScript = scriptController->checkInterfaceAction(IA_HeightMarker)))
    {
     float z;
-    /*if(fromScript)
-      z = scriptController->getHeight();
-    else*/
-      z = atof(heightBuf);
-    
+    z = atof(heightBuf);
+    heightEnteredButton(z);
     heightBuf[0] = '\0';
-    scene->lastDoubleClick[2] = z;
-    scene->newLandHeight(scene->lastDoubleClick);
-    show_height_input_dialog = false;
    }
 
   ImGui::End();
@@ -96,7 +88,18 @@ void MenuInterface::imguiHeightInputDialog(void)
 
 
 // =======================================================================================
-// Button operations (also called from HTTP debugging interface for scriptability
+// Height entered button action (also from HTTP debug interface)
+
+void MenuInterface::heightEnteredButton(float z)
+{
+  scene->lastDoubleClick[2] = z;
+  scene->newLandHeight(scene->lastDoubleClick);
+  show_height_input_dialog = false;
+}
+
+
+// =======================================================================================
+// Insert height button action (also from HTTP debug interface)
 
 void MenuInterface::insertHeightButton(void)
 {
@@ -104,11 +107,19 @@ void MenuInterface::insertHeightButton(void)
   show_insert_menu = false;
 }
 
+
+// =======================================================================================
+// Insert block button action (also from HTTP debug interface)
+
 void MenuInterface::insertBlockButton(void)
 {
   show_insert_menu = false;
   show_materials_menu = true;
 }
+
+
+// =======================================================================================
+// Insert tree button action (also from HTTP debug interface)
 
 void MenuInterface::insertTreeButton(void)
 {
@@ -512,49 +523,40 @@ void MenuInterface::imguiInterface(void)
 
 
 // =======================================================================================
+// Function to handle action creation/error reporting.
+
+bool MenuInterface::createAction(HttpDebug* serv, ActionType actionType, 
+                                          char* actionName, char* functionName, char* path)
+{
+  InterfaceAction* action = new InterfaceAction(actionType, path);
+  if(!action->valid)
+   {
+    LogRequestErrors("MenuInterface::%s couldn't create %s action.\n", 
+                                                              functionName, actionName);
+    return false;
+   }
+  scene->actions.push_back(action);
+  httPrintf("OK\n")
+  return true;
+}
+
+
+// =======================================================================================
 // Function to handle parsing simulation panel interface actions.
 
 bool MenuInterface::HTTPAPiSimulate(HttpDebug* serv, char* path)
 {
   if(strncmp(path, "start", 5)== 0)
-   {
-    InterfaceAction* action = new InterfaceAction(SimulateStart, path+5);
-    if(!action->valid)
-     {
-      LogRequestErrors("MenuInterface::HTTPAPiSimulate couldn't create "
-                                                              "SimulateStart action.\n");
-      return false;
-     }
-    scene->actions.push_back(action);
-    httPrintf("OK\n")
-    return true;
-   }
-  else if(strncmp(path, "pause", 5)== 0)
-   {
-    InterfaceAction* action = new InterfaceAction(SimulatePause, path+5);
-    if(!action->valid)
-     {
-      LogRequestErrors("MenuInterface::HTTPAPiSimulate couldn't create "
-                                                                "SimulatePause action.\n");
-      return false;
-     }
-    scene->actions.push_back(action);
-    httPrintf("OK\n")
-    return true;
-   }
+    return createAction(serv, SimulateStart, (char*)"SimulateStart", 
+                                                        (char*)"HTTPAPiSimulate", path+5);
+
+  if(strncmp(path, "pause", 5)== 0)
+    return createAction(serv, SimulatePause, (char*)"SimulatePause", 
+                                                        (char*)"HTTPAPiSimulate", path+5);
+
   else if(strncmp(path, "reset", 5)== 0)
-   {
-    InterfaceAction* action = new InterfaceAction(SimulateReset, path+5);
-    if(!action->valid)
-     {
-      LogRequestErrors("MenuInterface::HTTPAPiSimulate couldn't create "
-                                                                "SimulateReset action.\n");
-      return false;
-     }
-    scene->actions.push_back(action);
-    httPrintf("OK\n")
-    return true;
-   }
+    return createAction(serv, SimulateReset, (char*)"SimulateReset", 
+                                                        (char*)"HTTPAPiSimulate", path+5);
   
   LogRequestErrors("MenuInterface::HTTPAPi unknown simulation command %s\n", path);
   return false;
@@ -573,45 +575,32 @@ bool MenuInterface::HTTPAPiInsert(HttpDebug* serv, char* path)
    }
   
   if(strncmp(path, "height", 6) == 0)
-   {
-    InterfaceAction* action = new InterfaceAction(InsertHeight, path+6);
-    if(!action->valid)
-     {
-      LogRequestErrors("MenuInterface::HTTPAPiInsert couldn't create "
-                                                              "InsertHeight action.\n");
-      return false;
-     }
-    scene->actions.push_back(action);
-    httPrintf("OK\n")
-    return true;
-   }
-  else if(strncmp(path, "block", 5) == 0)
-   {
-    InterfaceAction* action = new InterfaceAction(InsertBlock, path+5);
-    if(!action->valid)
-     {
-      LogRequestErrors("MenuInterface::HTTPAPiInsert couldn't create "
-                                                                "InsertBlock action.\n");
-      return false;
-     }
-    scene->actions.push_back(action);
-    httPrintf("OK\n")
-    return true;
-   }
-  else if(strncmp(path, "tree", 4) == 0)
-   {
-    InterfaceAction* action = new InterfaceAction(InsertBlock, path+4);
-    if(!action->valid)
-     {
-      LogRequestErrors("MenuInterface::HTTPAPiInsert couldn't create "
-                                                                "InsertTree action.\n");
-      return false;
-     }
-    scene->actions.push_back(action);
-    httPrintf("OK\n")
-    return true;
-   }
+    return createAction(serv, InsertHeight, (char*)"InsertHeight", 
+                                                          (char*)"HTTPAPiInsert", path+6);
+
+  if(strncmp(path, "block", 5) == 0)
+    return createAction(serv, InsertBlock, (char*)"InsertBlock", 
+                                                            (char*)"HTTPAPiInsert", path+5);
+
+  if(strncmp(path, "tree", 4) == 0)
+    return createAction(serv, InsertTree, (char*)"InsertTree", 
+                                                          (char*)"HTTPAPiInsert", path+4);
+
   LogRequestErrors("MenuInterface::HTTPAPiInsert unknown insert command %s\n", path);
+  return false;
+}
+
+
+// =======================================================================================
+// Function to handle entered parameters.
+
+bool MenuInterface::HTTPAPiEnter(HttpDebug* serv, char* path)
+{  
+  if(show_height_input_dialog && strncmp(path, "height/", 7) == 0)
+    return createAction(serv, HeightEntered, (char*)"HeightEntered", 
+                                                          (char*)"HTTPAPiEnter", path+7);
+
+  LogRequestErrors("MenuInterface::HTTPAPiEnter incorrect enter command %s\n", path);
   return false;
 }
 
@@ -627,6 +616,9 @@ bool MenuInterface::HTTPAPi(HttpDebug* serv, char* path)
 
   if(strncmp(path, "insert/", 7)== 0)
     return HTTPAPiInsert(serv, path+7);
+
+  if(strncmp(path, "enter/", 6)== 0)
+    return HTTPAPiEnter(serv, path+6);
   
   LogRequestErrors("MenuInterface::HTTPAPi unknown directive %s\n", path);
   return false;

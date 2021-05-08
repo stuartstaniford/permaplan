@@ -37,10 +37,12 @@ class MenuInterface
   bool HTTPAPi(HttpDebug* serv, char* path);
   bool HTTPAPiSimulate(HttpDebug* serv, char* path);
   bool HTTPAPiInsert(HttpDebug* serv, char* path);
+  bool HTTPAPiEnter(HttpDebug* serv, char* path);
   void insertHeightButton(void);
   void insertBlockButton(void);
   void insertTreeButton(void);
-  
+  void heightEnteredButton(float z);
+
  private:
   
   // Class variables - private
@@ -73,6 +75,9 @@ class MenuInterface
   void  imguiSimulationController(void);
   void  mouseOverlayDisplays(vec3 mouseSceneLoc);
   void  imguiLockOverlay(void);
+  bool  createAction(HttpDebug* serv, ActionType actionType, 
+                                            char* actionName, char* functionName, char* path);
+
 
   MenuInterface(const MenuInterface&);                 // Prevent copy-construction
   MenuInterface& operator=(const MenuInterface&);      // Prevent assignment

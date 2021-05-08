@@ -157,6 +157,10 @@ void Window3D::processPseudoAction(InterfaceAction* action)
       imgMenu->insertTreeButton();
       break;
 
+     case HeightEntered:
+       imgMenu->heightEnteredButton(action->data[0]);
+       break;
+
     default:
       LogRequestErrors("Unhandled action type in Window3D::processPseudoAction %d\n", 
                                                             action->actionType);
