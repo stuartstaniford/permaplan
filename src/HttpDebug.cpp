@@ -236,7 +236,13 @@ bool HttpDebug::processRequestHeader(void)
   bool retVal = false;
 
   // Possible paths (in alphabetical order  
-  if( strlen(url) >= 8 && strncmp(url, "/camera/", 8) == 0)
+  if( strlen(url) == 7 && strncmp(url, "/alive/", 7) == 0)
+   {
+    internalPrintf("OK\n");
+    retVal = true;
+   }
+  
+  else if( strlen(url) >= 8 && strncmp(url, "/camera/", 8) == 0)
     retVal =  scene.camera.diagnosticHTML(this, url+8);
 
   else if( strlen(url) >= 7 && strncmp(url, "/click/", 7) == 0)

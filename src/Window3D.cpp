@@ -109,7 +109,7 @@ Window3D::Window3D(int pixWidth, int pixHeight):
 
   // Dear ImGui initialization
   imgMenu = new MenuInterface(window, *this);
-  
+  glViewport(0, 0, width, height);  
   lastTime.now();
 }
 
@@ -222,8 +222,8 @@ void Window3D::loop(HttpDebug& httpServer)
      {
        InterfaceAction* action = scene->actions[n-1];
        processPseudoAction(action);
-       delete action;
        scene->actions.pop_back();
+       delete action;
      }
     
     // Process IO
