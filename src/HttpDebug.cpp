@@ -203,7 +203,8 @@ bool HttpDebug::processRequestHeader(void)
   if(strncmp(reqBuf, "GET ", 4) !=0 )
    {
     errorPage("Unsupported method in HTTP request");
-    LogRequestErrors("Unsupported method in HTTP request.\n");
+    reqBuf[20] = '\0';
+    LogRequestErrors("Unsupported method in HTTP request %s.\n", reqBuf);
     return false;
    }
   char* url = reqBuf + 4;
