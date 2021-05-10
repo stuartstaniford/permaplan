@@ -14,6 +14,17 @@ use HTTP::Tiny;
 $portFileName   = "portPermaplan.txt";
 $portBase       = 2080;
 $portRangeSize  = 10;
+$logFileName    = "permaplan.log";
+
+@errorLogTypes = (
+                  "LogOLDFValidity",
+                  "LogOTDLValidity",
+                  "LogAtlasAnomalies",
+                  "LogTreeErrors",
+                  "LogRequestErrors",
+                  "LogResponseErrors",
+                  "LogTriangleBufErrs"
+                  );
 
 # File level state variables
 
@@ -63,6 +74,28 @@ sub startPermaplan
 sub stopPermaplan
 {
   $http->get("http://127.0.0.1:$port/quit/");
+  sleep(2); # Hack to give it some time to really be closed
+}
+
+
+#===========================================================================
+# Function to check the permaplan log for obvious errors
+
+sub checkLogForErrors
+{
+  my $logIsGood = 1;
+  open(LOG, $logFileName) || die("Couldn't open $logFileName.\n");
+  while(<LOG>)
+   {
+    foreach $errType (@errorLogTypes)
+     {
+      if(/^$errType/)
+       {
+        print;
+       }
+     }
+   }
+  close(LOG);
 }
 
 
