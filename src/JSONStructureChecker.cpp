@@ -290,7 +290,7 @@ bool JSONStructureChecker::validateStringMemberExists(Value& thisObject,
   else
    {
     sprintBuf("No %s:%s token in %s\n", objName, member, sourcePhrase);
-    makeLog(false);
+    makeLog(true);
     retVal = false;
    }
 
