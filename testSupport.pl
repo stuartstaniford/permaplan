@@ -79,6 +79,26 @@ sub stopPermaplan
 
 
 #===========================================================================
+# Function to open the output file for use by later checking functions 
+
+sub openOutput
+{
+  my($fileName) = @_;
+
+}
+
+
+#===========================================================================
+# Function to open the output file for use by later checking functions 
+
+sub checkOutput
+{
+  my($fileName) = @_;
+
+}
+
+
+#===========================================================================
 # Function to check the permaplan log for obvious errors
 
 sub checkLogForErrors
@@ -91,11 +111,13 @@ sub checkLogForErrors
      {
       if(/^$errType/)
        {
+        $logIsGood = 0;
         print;
        }
      }
    }
   close(LOG);
+  return $logIsGood;
 }
 
 
