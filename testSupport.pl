@@ -28,8 +28,10 @@ $logFileName    = "permaplan.log";
 
 # File level state variables
 
-$http = undef;
-$port = $portBase;
+$http     = undef;
+$port     = $portBase;
+$outLines = 0;
+
 
 #===========================================================================
 # Function to reliably start permaplan and wait till it's definitely up
@@ -84,7 +86,7 @@ sub stopPermaplan
 sub openOutput
 {
   my($fileName) = @_;
-
+  open(OUT, ">$fileName") || die("Couldn't open $fileName.\n");
 }
 
 
@@ -94,7 +96,13 @@ sub openOutput
 sub checkOutput
 {
   my($fileName) = @_;
-
+  close(OUT);
+  if($outLines)
+   {
+    system("open -a Xcode $fileName");
+    return 0;
+   }
+  return 1;
 }
 
 
@@ -112,7 +120,8 @@ sub checkLogForErrors
       if(/^$errType/)
        {
         $logIsGood = 0;
-        print;
+        print OUT;
+        $outLines++;
        }
      }
    }
