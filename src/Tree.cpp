@@ -522,7 +522,7 @@ void Tree::writeTreesToOLDF(FILE* file, char* indent)
    }
 
   // Close out the plants object
-  fprintf(file, "%s ],\n", indent);
+  fprintf(file, "%s ]\n", indent);
 }
 
 

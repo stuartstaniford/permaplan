@@ -343,18 +343,24 @@ void LandSurface::writeOLDFSection(FILE* file, char* indent)
 
   // Texture
   fprintf(file, "%s%s\"texture\":\n%s%s {\n", indent, indent, indent, indent);
-  fprintf(file, "%s%s%s\"url\": \"file:/%s\"\n", indent, indent, indent,
+  fprintf(file, "%s%s%s\"url\": \"file:/%s\",\n", indent, indent, indent,
                                                             rect->texture.textureFileName);
-  fprintf(file, "%s%s%s\"width\": %f\n", indent, indent, indent, rect->width);
+  fprintf(file, "%s%s%s\"width\": %f,\n", indent, indent, indent, rect->width);
   fprintf(file, "%s%s%s\"offset\": [%f,%f]\n", indent, indent, indent,
                                                             rectOffset[0], rectOffset[1]);
   fprintf(file, "%s%s },\n", indent, indent);
 
   // altitudes
   fprintf(file, "%s%s\"altitudes\":\n%s%s [\n", indent, indent, indent, indent);
-  for(int i=0; i< locationCount; i++)
-    fprintf(file, "%s%s%s[%f, %f, %f, \"\"]\n", indent, indent, indent,
+  for(int i=0; i < locationCount; i++)
+   {
+    fprintf(file, "%s%s%s[%f, %f, %f, \"\"]", indent, indent, indent,
                 heightLocations[i][0], heightLocations[i][1], heightLocations[i][2]);
+    if(i<locationCount-1)
+      fprintf(file, ",\n");
+    else
+      fprintf(file, "\n");
+   }   
   fprintf(file, "%s%s ]\n", indent, indent);
 
   // Close out the landSurface object
