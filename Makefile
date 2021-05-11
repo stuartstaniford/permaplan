@@ -95,7 +95,7 @@ src/Arrow.o: /usr/local/include/cglm/curve.h /usr/local/include/cglm/bezier.h
 src/Arrow.o: /usr/local/include/cglm/ray.h /usr/local/include/cglm/affine2d.h
 src/Arrow.o: /usr/local/include/GL/glew.h /usr/local/include/GLFW/glfw3.h
 src/Arrow.o: include/Global.h include/Logging.h include/MemoryTracker.h
-src/Arrow.o: include/HttpDebug.h include/Vertex.h
+src/Arrow.o: include/HttpDebug.h include/HttpRequestParser.h include/Vertex.h
 src/Arrow.o: include/ElementBufferObject.h include/BoundingBox.h
 src/Arrow.o: include/Shader.h include/VertexBufferCombo.h
 src/Arrow.o: include/TruncatedCone.h include/Arrow.h include/VisualObject.h
@@ -137,10 +137,10 @@ src/AxialElement.o: /usr/local/include/cglm/affine2d.h
 src/AxialElement.o: /usr/local/include/GL/glew.h
 src/AxialElement.o: /usr/local/include/GLFW/glfw3.h include/Global.h
 src/AxialElement.o: include/Logging.h include/MemoryTracker.h
-src/AxialElement.o: include/HttpDebug.h include/Vertex.h
-src/AxialElement.o: include/ElementBufferObject.h include/BoundingBox.h
-src/AxialElement.o: include/Shader.h include/VertexBufferCombo.h
-src/AxialElement.o: include/CircleIterator.h
+src/AxialElement.o: include/HttpDebug.h include/HttpRequestParser.h
+src/AxialElement.o: include/Vertex.h include/ElementBufferObject.h
+src/AxialElement.o: include/BoundingBox.h include/Shader.h
+src/AxialElement.o: include/VertexBufferCombo.h include/CircleIterator.h
 src/BezierPatch.o: include/BezierPatch.h include/LandSurfaceRegion.h
 src/BezierPatch.o: include/VisualObject.h include/VisualElement.h
 src/BezierPatch.o: include/TriangleBuffer.h include/ElementBufferCombo.h
@@ -179,13 +179,13 @@ src/BezierPatch.o: /usr/local/include/cglm/affine2d.h
 src/BezierPatch.o: /usr/local/include/GL/glew.h
 src/BezierPatch.o: /usr/local/include/GLFW/glfw3.h include/Global.h
 src/BezierPatch.o: include/Logging.h include/MemoryTracker.h
-src/BezierPatch.o: include/HttpDebug.h include/Vertex.h
-src/BezierPatch.o: include/ElementBufferObject.h include/BoundingBox.h
-src/BezierPatch.o: include/Shader.h include/VertexBufferCombo.h
-src/BezierPatch.o: include/Lockable.h include/Quadtree.h
-src/BezierPatch.o: include/DisplayList.h include/LandSurfaceRegionPlanar.h
-src/BezierPatch.o: include/HeightMarker.h include/Arrow.h
-src/BezierPatch.o: include/AxialElement.h
+src/BezierPatch.o: include/HttpDebug.h include/HttpRequestParser.h
+src/BezierPatch.o: include/Vertex.h include/ElementBufferObject.h
+src/BezierPatch.o: include/BoundingBox.h include/Shader.h
+src/BezierPatch.o: include/VertexBufferCombo.h include/Lockable.h
+src/BezierPatch.o: include/Quadtree.h include/DisplayList.h
+src/BezierPatch.o: include/LandSurfaceRegionPlanar.h include/HeightMarker.h
+src/BezierPatch.o: include/Arrow.h include/AxialElement.h
 src/Boundary.o: include/Boundary.h /usr/local/include/cglm/cglm.h
 src/Boundary.o: /usr/local/include/cglm/common.h
 src/Boundary.o: /usr/local/include/cglm/types.h
@@ -211,9 +211,10 @@ src/Boundary.o: /usr/local/include/cglm/curve.h
 src/Boundary.o: /usr/local/include/cglm/bezier.h
 src/Boundary.o: /usr/local/include/cglm/ray.h
 src/Boundary.o: /usr/local/include/cglm/affine2d.h include/HttpDebug.h
-src/Boundary.o: include/rapidjson/document.h include/rapidjson/reader.h
-src/Boundary.o: include/rapidjson/allocators.h include/rapidjson/rapidjson.h
-src/Boundary.o: include/rapidjson/stream.h include/rapidjson/encodings.h
+src/Boundary.o: include/HttpRequestParser.h include/rapidjson/document.h
+src/Boundary.o: include/rapidjson/reader.h include/rapidjson/allocators.h
+src/Boundary.o: include/rapidjson/rapidjson.h include/rapidjson/stream.h
+src/Boundary.o: include/rapidjson/encodings.h
 src/Boundary.o: include/rapidjson/encodedstream.h
 src/Boundary.o: include/rapidjson/memorystream.h
 src/Boundary.o: include/rapidjson/internal/clzll.h
@@ -273,7 +274,8 @@ src/BoundingBox.o: include/VertexBufferCombo.h include/VertexArrayObject.h
 src/BoundingBox.o: include/VertexBufferObject.h /usr/local/include/GL/glew.h
 src/BoundingBox.o: /usr/local/include/GLFW/glfw3.h include/Global.h
 src/BoundingBox.o: include/Logging.h include/MemoryTracker.h
-src/BoundingBox.o: include/HttpDebug.h include/Vertex.h
+src/BoundingBox.o: include/HttpDebug.h include/HttpRequestParser.h
+src/BoundingBox.o: include/Vertex.h
 src/Box.o: include/Box.h include/VisualObject.h include/VisualElement.h
 src/Box.o: include/TriangleBuffer.h include/ElementBufferCombo.h
 src/Box.o: include/VertexArrayObject.h include/VertexBufferObject.h
@@ -296,9 +298,9 @@ src/Box.o: /usr/local/include/cglm/curve.h /usr/local/include/cglm/bezier.h
 src/Box.o: /usr/local/include/cglm/ray.h /usr/local/include/cglm/affine2d.h
 src/Box.o: /usr/local/include/GL/glew.h /usr/local/include/GLFW/glfw3.h
 src/Box.o: include/Global.h include/Logging.h include/MemoryTracker.h
-src/Box.o: include/HttpDebug.h include/Vertex.h include/ElementBufferObject.h
-src/Box.o: include/BoundingBox.h include/Shader.h include/VertexBufferCombo.h
-src/Box.o: include/Lockable.h
+src/Box.o: include/HttpDebug.h include/HttpRequestParser.h include/Vertex.h
+src/Box.o: include/ElementBufferObject.h include/BoundingBox.h
+src/Box.o: include/Shader.h include/VertexBufferCombo.h include/Lockable.h
 src/CO2Scenario.o: include/CO2Scenario.h include/rapidjson/document.h
 src/CO2Scenario.o: include/rapidjson/reader.h include/rapidjson/allocators.h
 src/CO2Scenario.o: include/rapidjson/rapidjson.h include/rapidjson/stream.h
@@ -328,7 +330,8 @@ src/CO2Scenario.o: include/rapidjson/stringbuffer.h
 src/CO2Scenario.o: include/rapidjson/error/en.h
 src/CO2Scenario.o: include/rapidjson/error/error.h include/Logging.h
 src/CO2Scenario.o: include/MemoryTracker.h include/HttpDebug.h
-src/CO2Scenario.o: include/Global.h /usr/local/include/cglm/cglm.h
+src/CO2Scenario.o: include/HttpRequestParser.h include/Global.h
+src/CO2Scenario.o: /usr/local/include/cglm/cglm.h
 src/CO2Scenario.o: /usr/local/include/cglm/common.h
 src/CO2Scenario.o: /usr/local/include/cglm/types.h
 src/CO2Scenario.o: /usr/local/include/cglm/simd/intrin.h
@@ -380,8 +383,9 @@ src/Camera.o: /usr/local/include/cglm/sphere.h /usr/local/include/cglm/ease.h
 src/Camera.o: /usr/local/include/cglm/curve.h
 src/Camera.o: /usr/local/include/cglm/bezier.h /usr/local/include/cglm/ray.h
 src/Camera.o: /usr/local/include/cglm/affine2d.h include/Camera.h
-src/Camera.o: include/Shader.h include/HttpDebug.h include/Global.h
-src/Camera.o: include/Logging.h include/MemoryTracker.h
+src/Camera.o: include/Shader.h include/HttpDebug.h
+src/Camera.o: include/HttpRequestParser.h include/Global.h include/Logging.h
+src/Camera.o: include/MemoryTracker.h
 src/CircleIterator.o: include/CircleIterator.h /usr/local/include/cglm/cglm.h
 src/CircleIterator.o: /usr/local/include/cglm/common.h
 src/CircleIterator.o: /usr/local/include/cglm/types.h
@@ -449,7 +453,8 @@ src/ColoredAxes.o: /usr/local/include/cglm/affine2d.h
 src/ColoredAxes.o: include/VertexBufferCombo.h include/VertexArrayObject.h
 src/ColoredAxes.o: include/VertexBufferObject.h include/Global.h
 src/ColoredAxes.o: include/Logging.h include/MemoryTracker.h
-src/ColoredAxes.o: include/HttpDebug.h include/Vertex.h include/Shader.h
+src/ColoredAxes.o: include/HttpDebug.h include/HttpRequestParser.h
+src/ColoredAxes.o: include/Vertex.h include/Shader.h
 src/ControlGroup.o: include/ControlGroup.h include/ObjectGroup.h
 src/ControlGroup.o: include/VisualObject.h include/VisualElement.h
 src/ControlGroup.o: include/TriangleBuffer.h include/ElementBufferCombo.h
@@ -488,14 +493,14 @@ src/ControlGroup.o: /usr/local/include/cglm/affine2d.h
 src/ControlGroup.o: /usr/local/include/GL/glew.h
 src/ControlGroup.o: /usr/local/include/GLFW/glfw3.h include/Global.h
 src/ControlGroup.o: include/Logging.h include/MemoryTracker.h
-src/ControlGroup.o: include/HttpDebug.h include/Vertex.h
-src/ControlGroup.o: include/ElementBufferObject.h include/BoundingBox.h
-src/ControlGroup.o: include/Shader.h include/VertexBufferCombo.h
-src/ControlGroup.o: include/Lockable.h include/DisplayList.h
-src/ControlGroup.o: include/LandSurfaceRegion.h include/Arrow.h
-src/ControlGroup.o: include/AxialElement.h include/PmodDesign.h
-src/ControlGroup.o: include/rapidjson/document.h include/rapidjson/reader.h
-src/ControlGroup.o: include/rapidjson/allocators.h
+src/ControlGroup.o: include/HttpDebug.h include/HttpRequestParser.h
+src/ControlGroup.o: include/Vertex.h include/ElementBufferObject.h
+src/ControlGroup.o: include/BoundingBox.h include/Shader.h
+src/ControlGroup.o: include/VertexBufferCombo.h include/Lockable.h
+src/ControlGroup.o: include/DisplayList.h include/LandSurfaceRegion.h
+src/ControlGroup.o: include/Arrow.h include/AxialElement.h
+src/ControlGroup.o: include/PmodDesign.h include/rapidjson/document.h
+src/ControlGroup.o: include/rapidjson/reader.h include/rapidjson/allocators.h
 src/ControlGroup.o: include/rapidjson/rapidjson.h include/rapidjson/stream.h
 src/ControlGroup.o: include/rapidjson/encodings.h
 src/ControlGroup.o: include/rapidjson/encodedstream.h
@@ -554,7 +559,7 @@ src/Copse.o: /usr/local/include/cglm/curve.h /usr/local/include/cglm/bezier.h
 src/Copse.o: /usr/local/include/cglm/ray.h /usr/local/include/cglm/affine2d.h
 src/Copse.o: /usr/local/include/GL/glew.h /usr/local/include/GLFW/glfw3.h
 src/Copse.o: include/Global.h include/Logging.h include/MemoryTracker.h
-src/Copse.o: include/HttpDebug.h include/Vertex.h
+src/Copse.o: include/HttpDebug.h include/HttpRequestParser.h include/Vertex.h
 src/Copse.o: include/ElementBufferObject.h include/BoundingBox.h
 src/Copse.o: include/Shader.h include/VertexBufferCombo.h include/Lockable.h
 src/Copse.o: include/LandSurfaceRegion.h
@@ -588,10 +593,10 @@ src/Cylinder.o: /usr/local/include/cglm/ray.h
 src/Cylinder.o: /usr/local/include/cglm/affine2d.h
 src/Cylinder.o: /usr/local/include/GL/glew.h /usr/local/include/GLFW/glfw3.h
 src/Cylinder.o: include/Global.h include/Logging.h include/MemoryTracker.h
-src/Cylinder.o: include/HttpDebug.h include/Vertex.h
-src/Cylinder.o: include/ElementBufferObject.h include/BoundingBox.h
-src/Cylinder.o: include/Shader.h include/VertexBufferCombo.h
-src/Cylinder.o: include/TruncatedCone.h
+src/Cylinder.o: include/HttpDebug.h include/HttpRequestParser.h
+src/Cylinder.o: include/Vertex.h include/ElementBufferObject.h
+src/Cylinder.o: include/BoundingBox.h include/Shader.h
+src/Cylinder.o: include/VertexBufferCombo.h include/TruncatedCone.h
 src/DisplayList.o: include/DisplayList.h include/VisualObject.h
 src/DisplayList.o: include/VisualElement.h include/TriangleBuffer.h
 src/DisplayList.o: include/ElementBufferCombo.h include/VertexArrayObject.h
@@ -630,11 +635,11 @@ src/DisplayList.o: /usr/local/include/cglm/affine2d.h
 src/DisplayList.o: /usr/local/include/GL/glew.h
 src/DisplayList.o: /usr/local/include/GLFW/glfw3.h include/Global.h
 src/DisplayList.o: include/Logging.h include/MemoryTracker.h
-src/DisplayList.o: include/HttpDebug.h include/Vertex.h
-src/DisplayList.o: include/ElementBufferObject.h include/BoundingBox.h
-src/DisplayList.o: include/Shader.h include/VertexBufferCombo.h
-src/DisplayList.o: include/Lockable.h include/LandSurfaceRegion.h
-src/DisplayList.o: include/HeightMarker.h
+src/DisplayList.o: include/HttpDebug.h include/HttpRequestParser.h
+src/DisplayList.o: include/Vertex.h include/ElementBufferObject.h
+src/DisplayList.o: include/BoundingBox.h include/Shader.h
+src/DisplayList.o: include/VertexBufferCombo.h include/Lockable.h
+src/DisplayList.o: include/LandSurfaceRegion.h include/HeightMarker.h
 src/ElementBufferCombo.o: /usr/local/include/GL/glew.h
 src/ElementBufferCombo.o: /usr/local/include/GLFW/glfw3.h
 src/ElementBufferCombo.o: include/ElementBufferCombo.h
@@ -672,8 +677,8 @@ src/ElementBufferCombo.o: /usr/local/include/cglm/bezier.h
 src/ElementBufferCombo.o: /usr/local/include/cglm/ray.h
 src/ElementBufferCombo.o: /usr/local/include/cglm/affine2d.h include/Global.h
 src/ElementBufferCombo.o: include/Logging.h include/MemoryTracker.h
-src/ElementBufferCombo.o: include/HttpDebug.h include/Vertex.h
-src/ElementBufferCombo.o: include/ElementBufferObject.h
+src/ElementBufferCombo.o: include/HttpDebug.h include/HttpRequestParser.h
+src/ElementBufferCombo.o: include/Vertex.h include/ElementBufferObject.h
 src/ElementBufferObject.o: /usr/local/include/GL/glew.h
 src/ElementBufferObject.o: /usr/local/include/GLFW/glfw3.h
 src/ElementBufferObject.o: include/ElementBufferObject.h include/Shader.h
@@ -731,6 +736,7 @@ src/Global.o: /usr/local/include/cglm/curve.h
 src/Global.o: /usr/local/include/cglm/bezier.h /usr/local/include/cglm/ray.h
 src/Global.o: /usr/local/include/cglm/affine2d.h include/TaskQueueFarm.h
 src/Global.o: include/TaskQueue.h include/Lockable.h include/HttpDebug.h
+src/Global.o: include/HttpRequestParser.h
 src/Grid.o: /usr/local/include/GL/glew.h /usr/local/include/GLFW/glfw3.h
 src/Grid.o: include/Grid.h /usr/local/include/cglm/cglm.h
 src/Grid.o: /usr/local/include/cglm/common.h /usr/local/include/cglm/types.h
@@ -752,7 +758,8 @@ src/Grid.o: /usr/local/include/cglm/curve.h /usr/local/include/cglm/bezier.h
 src/Grid.o: /usr/local/include/cglm/ray.h /usr/local/include/cglm/affine2d.h
 src/Grid.o: include/Shader.h include/VertexArrayObject.h
 src/Grid.o: include/VertexBufferObject.h include/Global.h include/Logging.h
-src/Grid.o: include/MemoryTracker.h include/HttpDebug.h include/Vertex.h
+src/Grid.o: include/MemoryTracker.h include/HttpDebug.h
+src/Grid.o: include/HttpRequestParser.h include/Vertex.h
 src/Grid.o: include/LandSurface.h include/TexturedRect.h include/Texture.h
 src/Grid.o: include/Quadtree.h include/DisplayList.h include/VisualObject.h
 src/Grid.o: include/VisualElement.h include/TriangleBuffer.h
@@ -817,12 +824,13 @@ src/HeightMarker.o: /usr/local/include/cglm/affine2d.h
 src/HeightMarker.o: /usr/local/include/GL/glew.h
 src/HeightMarker.o: /usr/local/include/GLFW/glfw3.h include/Global.h
 src/HeightMarker.o: include/Logging.h include/MemoryTracker.h
-src/HeightMarker.o: include/HttpDebug.h include/Vertex.h
-src/HeightMarker.o: include/ElementBufferObject.h include/BoundingBox.h
-src/HeightMarker.o: include/Shader.h include/VertexBufferCombo.h
-src/HeightMarker.o: include/Lockable.h
+src/HeightMarker.o: include/HttpDebug.h include/HttpRequestParser.h
+src/HeightMarker.o: include/Vertex.h include/ElementBufferObject.h
+src/HeightMarker.o: include/BoundingBox.h include/Shader.h
+src/HeightMarker.o: include/VertexBufferCombo.h include/Lockable.h
 src/HttpDebug.o: /usr/local/include/GL/glew.h /usr/local/include/GLFW/glfw3.h
-src/HttpDebug.o: include/HttpDebug.h include/Scene.h include/Shader.h
+src/HttpDebug.o: include/HttpDebug.h include/HttpRequestParser.h
+src/HttpDebug.o: include/Scene.h include/Shader.h
 src/HttpDebug.o: /usr/local/include/cglm/cglm.h
 src/HttpDebug.o: /usr/local/include/cglm/common.h
 src/HttpDebug.o: /usr/local/include/cglm/types.h
@@ -900,6 +908,7 @@ src/HttpDebug.o: include/TaskQueue.h include/InterfaceAction.h include/Tree.h
 src/HttpDebug.o: include/TreePart.h include/TaskQueueFarm.h
 src/HttpDebug.o: include/SkySampleModel.h include/MenuInterface.h
 src/HttpDebug.o: include/ScriptController.h imgui/imgui.h imgui/imconfig.h
+src/HttpRequestParser.o: include/HttpRequestParser.h
 src/InterfaceAction.o: include/InterfaceAction.h include/Global.h
 src/InterfaceAction.o: /usr/local/include/cglm/cglm.h
 src/InterfaceAction.o: /usr/local/include/cglm/common.h
@@ -933,6 +942,7 @@ src/InterfaceAction.o: /usr/local/include/cglm/bezier.h
 src/InterfaceAction.o: /usr/local/include/cglm/ray.h
 src/InterfaceAction.o: /usr/local/include/cglm/affine2d.h include/Logging.h
 src/InterfaceAction.o: include/MemoryTracker.h include/HttpDebug.h
+src/InterfaceAction.o: include/HttpRequestParser.h
 src/JSONStructureChecker.o: include/PmodDesign.h include/rapidjson/document.h
 src/JSONStructureChecker.o: include/rapidjson/reader.h
 src/JSONStructureChecker.o: include/rapidjson/allocators.h
@@ -1001,11 +1011,11 @@ src/JSONStructureChecker.o: include/VertexBufferObject.h
 src/JSONStructureChecker.o: /usr/local/include/GL/glew.h
 src/JSONStructureChecker.o: /usr/local/include/GLFW/glfw3.h include/Global.h
 src/JSONStructureChecker.o: include/Logging.h include/MemoryTracker.h
-src/JSONStructureChecker.o: include/HttpDebug.h include/Vertex.h
-src/JSONStructureChecker.o: include/TexturedRect.h include/Texture.h
-src/JSONStructureChecker.o: include/Quadtree.h include/DisplayList.h
-src/JSONStructureChecker.o: include/VisualObject.h include/VisualElement.h
-src/JSONStructureChecker.o: include/TriangleBuffer.h
+src/JSONStructureChecker.o: include/HttpDebug.h include/HttpRequestParser.h
+src/JSONStructureChecker.o: include/Vertex.h include/TexturedRect.h
+src/JSONStructureChecker.o: include/Texture.h include/Quadtree.h
+src/JSONStructureChecker.o: include/DisplayList.h include/VisualObject.h
+src/JSONStructureChecker.o: include/VisualElement.h include/TriangleBuffer.h
 src/JSONStructureChecker.o: include/ElementBufferCombo.h
 src/JSONStructureChecker.o: include/ElementBufferObject.h
 src/JSONStructureChecker.o: include/BoundingBox.h include/VertexBufferCombo.h
@@ -1049,7 +1059,8 @@ src/LandSurface.o: /usr/local/include/cglm/curve.h
 src/LandSurface.o: /usr/local/include/cglm/bezier.h
 src/LandSurface.o: /usr/local/include/cglm/ray.h
 src/LandSurface.o: /usr/local/include/cglm/affine2d.h include/Shader.h
-src/LandSurface.o: include/HttpDebug.h include/Global.h include/LandSurface.h
+src/LandSurface.o: include/HttpDebug.h include/HttpRequestParser.h
+src/LandSurface.o: include/Global.h include/LandSurface.h
 src/LandSurface.o: include/VertexArrayObject.h include/VertexBufferObject.h
 src/LandSurface.o: include/Logging.h include/MemoryTracker.h include/Vertex.h
 src/LandSurface.o: include/TexturedRect.h include/Texture.h
@@ -1130,10 +1141,10 @@ src/LandSurfaceRegion.o: /usr/local/include/cglm/affine2d.h
 src/LandSurfaceRegion.o: /usr/local/include/GL/glew.h
 src/LandSurfaceRegion.o: /usr/local/include/GLFW/glfw3.h include/Global.h
 src/LandSurfaceRegion.o: include/Logging.h include/MemoryTracker.h
-src/LandSurfaceRegion.o: include/HttpDebug.h include/Vertex.h
-src/LandSurfaceRegion.o: include/ElementBufferObject.h include/BoundingBox.h
-src/LandSurfaceRegion.o: include/Shader.h include/VertexBufferCombo.h
-src/LandSurfaceRegion.o: include/Lockable.h
+src/LandSurfaceRegion.o: include/HttpDebug.h include/HttpRequestParser.h
+src/LandSurfaceRegion.o: include/Vertex.h include/ElementBufferObject.h
+src/LandSurfaceRegion.o: include/BoundingBox.h include/Shader.h
+src/LandSurfaceRegion.o: include/VertexBufferCombo.h include/Lockable.h
 src/LandSurfaceRegionPlanar.o: include/LandSurfaceRegionPlanar.h
 src/LandSurfaceRegionPlanar.o: include/LandSurfaceRegion.h
 src/LandSurfaceRegionPlanar.o: include/VisualObject.h include/VisualElement.h
@@ -1176,7 +1187,8 @@ src/LandSurfaceRegionPlanar.o: /usr/local/include/GL/glew.h
 src/LandSurfaceRegionPlanar.o: /usr/local/include/GLFW/glfw3.h
 src/LandSurfaceRegionPlanar.o: include/Global.h include/Logging.h
 src/LandSurfaceRegionPlanar.o: include/MemoryTracker.h include/HttpDebug.h
-src/LandSurfaceRegionPlanar.o: include/Vertex.h include/ElementBufferObject.h
+src/LandSurfaceRegionPlanar.o: include/HttpRequestParser.h include/Vertex.h
+src/LandSurfaceRegionPlanar.o: include/ElementBufferObject.h
 src/LandSurfaceRegionPlanar.o: include/BoundingBox.h include/Shader.h
 src/LandSurfaceRegionPlanar.o: include/VertexBufferCombo.h include/Lockable.h
 src/LeafModel.o: include/LeafModel.h include/JSONStructureChecker.h
@@ -1238,7 +1250,7 @@ src/LeafModel.o: /usr/local/include/cglm/bezier.h
 src/LeafModel.o: /usr/local/include/cglm/ray.h
 src/LeafModel.o: /usr/local/include/cglm/affine2d.h include/Global.h
 src/LeafModel.o: include/Logging.h include/MemoryTracker.h
-src/LeafModel.o: include/HttpDebug.h
+src/LeafModel.o: include/HttpDebug.h include/HttpRequestParser.h
 src/LightingModel.o: include/LightingModel.h /usr/local/include/cglm/cglm.h
 src/LightingModel.o: /usr/local/include/cglm/common.h
 src/LightingModel.o: /usr/local/include/cglm/types.h
@@ -1306,7 +1318,8 @@ src/LineStripList.o: include/VertexBufferObject.h
 src/LineStripList.o: /usr/local/include/GL/glew.h
 src/LineStripList.o: /usr/local/include/GLFW/glfw3.h include/Global.h
 src/LineStripList.o: include/Logging.h include/MemoryTracker.h
-src/LineStripList.o: include/HttpDebug.h include/Vertex.h include/Shader.h
+src/LineStripList.o: include/HttpDebug.h include/HttpRequestParser.h
+src/LineStripList.o: include/Vertex.h include/Shader.h
 src/Lockable.o: include/Lockable.h include/Global.h
 src/Lockable.o: /usr/local/include/cglm/cglm.h
 src/Lockable.o: /usr/local/include/cglm/common.h
@@ -1334,7 +1347,8 @@ src/Lockable.o: /usr/local/include/cglm/bezier.h
 src/Lockable.o: /usr/local/include/cglm/ray.h
 src/Lockable.o: /usr/local/include/cglm/affine2d.h
 src/Logging.o: include/Logging.h include/MemoryTracker.h include/HttpDebug.h
-src/Logging.o: include/Vertex.h /usr/local/include/cglm/cglm.h
+src/Logging.o: include/HttpRequestParser.h include/Vertex.h
+src/Logging.o: /usr/local/include/cglm/cglm.h
 src/Logging.o: /usr/local/include/cglm/common.h
 src/Logging.o: /usr/local/include/cglm/types.h
 src/Logging.o: /usr/local/include/cglm/simd/intrin.h
@@ -1384,14 +1398,17 @@ src/Material.o: /usr/local/include/cglm/bezier.h
 src/Material.o: /usr/local/include/cglm/ray.h
 src/Material.o: /usr/local/include/cglm/affine2d.h include/TextureAtlas.h
 src/Material.o: include/Texture.h /usr/local/include/GL/glew.h
-src/Material.o: include/Shader.h include/HttpDebug.h include/Logging.h
+src/Material.o: include/Shader.h include/HttpDebug.h
+src/Material.o: include/HttpRequestParser.h include/Logging.h
 src/Material.o: include/MemoryTracker.h
 src/MemoryTracker.o: include/MemoryTracker.h include/HttpDebug.h
+src/MemoryTracker.o: include/HttpRequestParser.h
 src/MenuInterface.o: imgui/backends/imgui_impl_opengl3.h imgui/imgui.h
 src/MenuInterface.o: imgui/imconfig.h imgui/backends/imgui_impl_glfw.h
 src/MenuInterface.o: include/MenuInterface.h include/ScriptController.h
-src/MenuInterface.o: include/HttpDebug.h include/PmodDesign.h
-src/MenuInterface.o: include/rapidjson/document.h include/rapidjson/reader.h
+src/MenuInterface.o: include/HttpDebug.h include/HttpRequestParser.h
+src/MenuInterface.o: include/PmodDesign.h include/rapidjson/document.h
+src/MenuInterface.o: include/rapidjson/reader.h
 src/MenuInterface.o: include/rapidjson/allocators.h
 src/MenuInterface.o: include/rapidjson/rapidjson.h include/rapidjson/stream.h
 src/MenuInterface.o: include/rapidjson/encodings.h
@@ -1511,11 +1528,11 @@ src/ObjectGroup.o: /usr/local/include/cglm/affine2d.h
 src/ObjectGroup.o: /usr/local/include/GL/glew.h
 src/ObjectGroup.o: /usr/local/include/GLFW/glfw3.h include/Global.h
 src/ObjectGroup.o: include/Logging.h include/MemoryTracker.h
-src/ObjectGroup.o: include/HttpDebug.h include/Vertex.h
-src/ObjectGroup.o: include/ElementBufferObject.h include/BoundingBox.h
-src/ObjectGroup.o: include/Shader.h include/VertexBufferCombo.h
-src/ObjectGroup.o: include/Lockable.h include/DisplayList.h
-src/ObjectGroup.o: include/LandSurfaceRegion.h
+src/ObjectGroup.o: include/HttpDebug.h include/HttpRequestParser.h
+src/ObjectGroup.o: include/Vertex.h include/ElementBufferObject.h
+src/ObjectGroup.o: include/BoundingBox.h include/Shader.h
+src/ObjectGroup.o: include/VertexBufferCombo.h include/Lockable.h
+src/ObjectGroup.o: include/DisplayList.h include/LandSurfaceRegion.h
 src/PathTube.o: include/PathTube.h include/VisualElement.h
 src/PathTube.o: include/TriangleBuffer.h include/ElementBufferCombo.h
 src/PathTube.o: include/VertexArrayObject.h include/VertexBufferObject.h
@@ -1546,10 +1563,10 @@ src/PathTube.o: /usr/local/include/cglm/ray.h
 src/PathTube.o: /usr/local/include/cglm/affine2d.h
 src/PathTube.o: /usr/local/include/GL/glew.h /usr/local/include/GLFW/glfw3.h
 src/PathTube.o: include/Global.h include/Logging.h include/MemoryTracker.h
-src/PathTube.o: include/HttpDebug.h include/Vertex.h
-src/PathTube.o: include/ElementBufferObject.h include/BoundingBox.h
-src/PathTube.o: include/Shader.h include/VertexBufferCombo.h
-src/PathTube.o: include/CircleIterator.h
+src/PathTube.o: include/HttpDebug.h include/HttpRequestParser.h
+src/PathTube.o: include/Vertex.h include/ElementBufferObject.h
+src/PathTube.o: include/BoundingBox.h include/Shader.h
+src/PathTube.o: include/VertexBufferCombo.h include/CircleIterator.h
 src/PmodConfig.o: include/PmodConfig.h
 src/PmodDesign.o: include/PmodDesign.h include/rapidjson/document.h
 src/PmodDesign.o: include/rapidjson/reader.h include/rapidjson/allocators.h
@@ -1614,8 +1631,9 @@ src/PmodDesign.o: include/VertexArrayObject.h include/VertexBufferObject.h
 src/PmodDesign.o: /usr/local/include/GL/glew.h
 src/PmodDesign.o: /usr/local/include/GLFW/glfw3.h include/Global.h
 src/PmodDesign.o: include/Logging.h include/MemoryTracker.h
-src/PmodDesign.o: include/HttpDebug.h include/Vertex.h include/TexturedRect.h
-src/PmodDesign.o: include/Texture.h include/Quadtree.h include/DisplayList.h
+src/PmodDesign.o: include/HttpDebug.h include/HttpRequestParser.h
+src/PmodDesign.o: include/Vertex.h include/TexturedRect.h include/Texture.h
+src/PmodDesign.o: include/Quadtree.h include/DisplayList.h
 src/PmodDesign.o: include/VisualObject.h include/VisualElement.h
 src/PmodDesign.o: include/TriangleBuffer.h include/ElementBufferCombo.h
 src/PmodDesign.o: include/ElementBufferObject.h include/BoundingBox.h
@@ -1656,13 +1674,14 @@ src/Quadtree.o: /usr/local/include/cglm/ray.h
 src/Quadtree.o: /usr/local/include/cglm/affine2d.h
 src/Quadtree.o: include/VertexArrayObject.h include/VertexBufferObject.h
 src/Quadtree.o: include/Global.h include/Logging.h include/MemoryTracker.h
-src/Quadtree.o: include/HttpDebug.h include/Vertex.h include/DisplayList.h
-src/Quadtree.o: include/VisualObject.h include/VisualElement.h
-src/Quadtree.o: include/TriangleBuffer.h include/ElementBufferCombo.h
-src/Quadtree.o: include/ElementBufferObject.h include/BoundingBox.h
-src/Quadtree.o: include/VertexBufferCombo.h include/Lockable.h
-src/Quadtree.o: include/LandSurfaceRegion.h include/LandSurfaceRegionPlanar.h
-src/Quadtree.o: include/Scene.h include/ColoredAxes.h include/LineStripList.h
+src/Quadtree.o: include/HttpDebug.h include/HttpRequestParser.h
+src/Quadtree.o: include/Vertex.h include/DisplayList.h include/VisualObject.h
+src/Quadtree.o: include/VisualElement.h include/TriangleBuffer.h
+src/Quadtree.o: include/ElementBufferCombo.h include/ElementBufferObject.h
+src/Quadtree.o: include/BoundingBox.h include/VertexBufferCombo.h
+src/Quadtree.o: include/Lockable.h include/LandSurfaceRegion.h
+src/Quadtree.o: include/LandSurfaceRegionPlanar.h include/Scene.h
+src/Quadtree.o: include/ColoredAxes.h include/LineStripList.h
 src/Quadtree.o: include/PmodConfig.h include/LandSurface.h
 src/Quadtree.o: include/TexturedRect.h include/Texture.h include/Camera.h
 src/Quadtree.o: include/HeightMarker.h include/BezierPatch.h
@@ -1723,7 +1742,7 @@ src/Scene.o: /usr/local/include/cglm/curve.h /usr/local/include/cglm/bezier.h
 src/Scene.o: /usr/local/include/cglm/ray.h /usr/local/include/cglm/affine2d.h
 src/Scene.o: /usr/local/include/GL/glew.h /usr/local/include/GLFW/glfw3.h
 src/Scene.o: include/Global.h include/Logging.h include/MemoryTracker.h
-src/Scene.o: include/HttpDebug.h include/Vertex.h
+src/Scene.o: include/HttpDebug.h include/HttpRequestParser.h include/Vertex.h
 src/Scene.o: include/ElementBufferObject.h include/BoundingBox.h
 src/Scene.o: include/Shader.h include/VertexBufferCombo.h include/Lockable.h
 src/Scene.o: include/DisplayList.h include/LandSurfaceRegion.h
@@ -1797,9 +1816,9 @@ src/ScriptController.o: /usr/local/include/cglm/affine2d.h
 src/ScriptController.o: /usr/local/include/GL/glew.h
 src/ScriptController.o: /usr/local/include/GLFW/glfw3.h include/Global.h
 src/ScriptController.o: include/Logging.h include/MemoryTracker.h
-src/ScriptController.o: include/HttpDebug.h include/Vertex.h
-src/ScriptController.o: include/ScriptController.h include/PmodDesign.h
-src/ScriptController.o: include/rapidjson/document.h
+src/ScriptController.o: include/HttpDebug.h include/HttpRequestParser.h
+src/ScriptController.o: include/Vertex.h include/ScriptController.h
+src/ScriptController.o: include/PmodDesign.h include/rapidjson/document.h
 src/ScriptController.o: include/rapidjson/reader.h
 src/ScriptController.o: include/rapidjson/allocators.h
 src/ScriptController.o: include/rapidjson/rapidjson.h
@@ -1881,11 +1900,11 @@ src/SemicircularArrow.o: /usr/local/include/cglm/affine2d.h
 src/SemicircularArrow.o: /usr/local/include/GL/glew.h
 src/SemicircularArrow.o: /usr/local/include/GLFW/glfw3.h include/Global.h
 src/SemicircularArrow.o: include/Logging.h include/MemoryTracker.h
-src/SemicircularArrow.o: include/HttpDebug.h include/Vertex.h
-src/SemicircularArrow.o: include/ElementBufferObject.h include/BoundingBox.h
-src/SemicircularArrow.o: include/Shader.h include/VertexBufferCombo.h
-src/SemicircularArrow.o: include/VisualObject.h include/Lockable.h
-src/SemicircularArrow.o: include/CircleIterator.h
+src/SemicircularArrow.o: include/HttpDebug.h include/HttpRequestParser.h
+src/SemicircularArrow.o: include/Vertex.h include/ElementBufferObject.h
+src/SemicircularArrow.o: include/BoundingBox.h include/Shader.h
+src/SemicircularArrow.o: include/VertexBufferCombo.h include/VisualObject.h
+src/SemicircularArrow.o: include/Lockable.h include/CircleIterator.h
 src/Shader.o: /usr/local/include/GL/glew.h include/loadFileToBuf.h
 src/Shader.o: include/Shader.h /usr/local/include/cglm/cglm.h
 src/Shader.o: /usr/local/include/cglm/common.h
@@ -1909,8 +1928,8 @@ src/Shader.o: /usr/local/include/cglm/curve.h
 src/Shader.o: /usr/local/include/cglm/bezier.h /usr/local/include/cglm/ray.h
 src/Shader.o: /usr/local/include/cglm/affine2d.h
 src/SkySampleModel.o: include/Logging.h include/MemoryTracker.h
-src/SkySampleModel.o: include/HttpDebug.h include/SkySampleModel.h
-src/SkySampleModel.o: /usr/local/include/cglm/cglm.h
+src/SkySampleModel.o: include/HttpDebug.h include/HttpRequestParser.h
+src/SkySampleModel.o: include/SkySampleModel.h /usr/local/include/cglm/cglm.h
 src/SkySampleModel.o: /usr/local/include/cglm/common.h
 src/SkySampleModel.o: /usr/local/include/cglm/types.h
 src/SkySampleModel.o: /usr/local/include/cglm/simd/intrin.h
@@ -1948,9 +1967,10 @@ src/SkySampleModel.o: /usr/local/include/GL/glew.h
 src/SkySampleModel.o: /usr/local/include/GLFW/glfw3.h include/Global.h
 src/SkySampleModel.o: include/Vertex.h
 src/Species.o: include/Species.h include/HttpDebug.h
-src/Species.o: include/rapidjson/document.h include/rapidjson/reader.h
-src/Species.o: include/rapidjson/allocators.h include/rapidjson/rapidjson.h
-src/Species.o: include/rapidjson/stream.h include/rapidjson/encodings.h
+src/Species.o: include/HttpRequestParser.h include/rapidjson/document.h
+src/Species.o: include/rapidjson/reader.h include/rapidjson/allocators.h
+src/Species.o: include/rapidjson/rapidjson.h include/rapidjson/stream.h
+src/Species.o: include/rapidjson/encodings.h
 src/Species.o: include/rapidjson/encodedstream.h
 src/Species.o: include/rapidjson/memorystream.h
 src/Species.o: include/rapidjson/internal/clzll.h
@@ -2043,6 +2063,7 @@ src/TaskQueue.o: /usr/local/include/cglm/bezier.h
 src/TaskQueue.o: /usr/local/include/cglm/ray.h
 src/TaskQueue.o: /usr/local/include/cglm/affine2d.h include/Logging.h
 src/TaskQueue.o: include/MemoryTracker.h include/HttpDebug.h
+src/TaskQueue.o: include/HttpRequestParser.h
 src/TaskQueueFarm.o: include/TaskQueueFarm.h include/TaskQueue.h
 src/TaskQueueFarm.o: include/Lockable.h include/Global.h
 src/TaskQueueFarm.o: /usr/local/include/cglm/cglm.h
@@ -2076,6 +2097,7 @@ src/TaskQueueFarm.o: /usr/local/include/cglm/curve.h
 src/TaskQueueFarm.o: /usr/local/include/cglm/bezier.h
 src/TaskQueueFarm.o: /usr/local/include/cglm/ray.h
 src/TaskQueueFarm.o: /usr/local/include/cglm/affine2d.h include/HttpDebug.h
+src/TaskQueueFarm.o: include/HttpRequestParser.h
 src/Texture.o: /usr/local/include/GL/glew.h include/Texture.h
 src/Texture.o: include/Shader.h /usr/local/include/cglm/cglm.h
 src/Texture.o: /usr/local/include/cglm/common.h
@@ -2133,7 +2155,8 @@ src/TextureAtlas.o: /usr/local/include/cglm/bezier.h
 src/TextureAtlas.o: /usr/local/include/cglm/ray.h
 src/TextureAtlas.o: /usr/local/include/cglm/affine2d.h include/Logging.h
 src/TextureAtlas.o: include/MemoryTracker.h include/HttpDebug.h
-src/TextureAtlas.o: include/Global.h include/stb_image_write.h
+src/TextureAtlas.o: include/HttpRequestParser.h include/Global.h
+src/TextureAtlas.o: include/stb_image_write.h
 src/TexturedRect.o: /usr/local/include/GL/glew.h
 src/TexturedRect.o: /usr/local/include/GLFW/glfw3.h include/TexturedRect.h
 src/TexturedRect.o: /usr/local/include/cglm/cglm.h
@@ -2170,7 +2193,8 @@ src/TexturedRect.o: /usr/local/include/cglm/affine2d.h include/Shader.h
 src/TexturedRect.o: include/VertexArrayObject.h include/VertexBufferObject.h
 src/TexturedRect.o: include/Global.h include/Logging.h
 src/TexturedRect.o: include/MemoryTracker.h include/HttpDebug.h
-src/TexturedRect.o: include/Vertex.h include/Texture.h
+src/TexturedRect.o: include/HttpRequestParser.h include/Vertex.h
+src/TexturedRect.o: include/Texture.h
 src/Timeval.o: include/Timeval.h include/Global.h
 src/Timeval.o: /usr/local/include/cglm/cglm.h
 src/Timeval.o: /usr/local/include/cglm/common.h
@@ -2217,7 +2241,7 @@ src/Tree.o: /usr/local/include/cglm/curve.h /usr/local/include/cglm/bezier.h
 src/Tree.o: /usr/local/include/cglm/ray.h /usr/local/include/cglm/affine2d.h
 src/Tree.o: /usr/local/include/GL/glew.h /usr/local/include/GLFW/glfw3.h
 src/Tree.o: include/Global.h include/Logging.h include/MemoryTracker.h
-src/Tree.o: include/HttpDebug.h include/Vertex.h
+src/Tree.o: include/HttpDebug.h include/HttpRequestParser.h include/Vertex.h
 src/Tree.o: include/ElementBufferObject.h include/BoundingBox.h
 src/Tree.o: include/Shader.h include/VertexBufferCombo.h include/Lockable.h
 src/Tree.o: include/Species.h include/rapidjson/document.h
@@ -2256,7 +2280,8 @@ src/Tree.o: include/Material.h include/TextureAtlas.h include/LightingModel.h
 src/Tree.o: include/CO2Scenario.h include/TaskQueue.h
 src/Tree.o: include/InterfaceAction.h include/SkySampleModel.h
 src/Tree.o: include/TaskQueueFarm.h
-src/TreePart.o: include/TreePart.h include/HttpDebug.h include/Species.h
+src/TreePart.o: include/TreePart.h include/HttpDebug.h
+src/TreePart.o: include/HttpRequestParser.h include/Species.h
 src/TreePart.o: include/rapidjson/document.h include/rapidjson/reader.h
 src/TreePart.o: include/rapidjson/allocators.h include/rapidjson/rapidjson.h
 src/TreePart.o: include/rapidjson/stream.h include/rapidjson/encodings.h
@@ -2352,9 +2377,10 @@ src/TriangleBuffer.o: include/VertexBufferObject.h
 src/TriangleBuffer.o: /usr/local/include/GL/glew.h
 src/TriangleBuffer.o: /usr/local/include/GLFW/glfw3.h include/Global.h
 src/TriangleBuffer.o: include/Logging.h include/MemoryTracker.h
-src/TriangleBuffer.o: include/HttpDebug.h include/Vertex.h
-src/TriangleBuffer.o: include/ElementBufferObject.h include/PmodDesign.h
-src/TriangleBuffer.o: include/rapidjson/document.h include/rapidjson/reader.h
+src/TriangleBuffer.o: include/HttpDebug.h include/HttpRequestParser.h
+src/TriangleBuffer.o: include/Vertex.h include/ElementBufferObject.h
+src/TriangleBuffer.o: include/PmodDesign.h include/rapidjson/document.h
+src/TriangleBuffer.o: include/rapidjson/reader.h
 src/TriangleBuffer.o: include/rapidjson/allocators.h
 src/TriangleBuffer.o: include/rapidjson/rapidjson.h
 src/TriangleBuffer.o: include/rapidjson/stream.h
@@ -2431,9 +2457,10 @@ src/TruncatedCone.o: /usr/local/include/cglm/affine2d.h
 src/TruncatedCone.o: /usr/local/include/GL/glew.h
 src/TruncatedCone.o: /usr/local/include/GLFW/glfw3.h include/Global.h
 src/TruncatedCone.o: include/Logging.h include/MemoryTracker.h
-src/TruncatedCone.o: include/HttpDebug.h include/Vertex.h
-src/TruncatedCone.o: include/ElementBufferObject.h include/BoundingBox.h
-src/TruncatedCone.o: include/Shader.h include/VertexBufferCombo.h
+src/TruncatedCone.o: include/HttpDebug.h include/HttpRequestParser.h
+src/TruncatedCone.o: include/Vertex.h include/ElementBufferObject.h
+src/TruncatedCone.o: include/BoundingBox.h include/Shader.h
+src/TruncatedCone.o: include/VertexBufferCombo.h
 src/Version.o: include/Version.h include/rapidjson/document.h
 src/Version.o: include/rapidjson/reader.h include/rapidjson/allocators.h
 src/Version.o: include/rapidjson/rapidjson.h include/rapidjson/stream.h
@@ -2506,7 +2533,8 @@ src/Vertex.o: /usr/local/include/cglm/bezier.h /usr/local/include/cglm/ray.h
 src/Vertex.o: /usr/local/include/cglm/affine2d.h /usr/local/include/GL/glew.h
 src/Vertex.o: /usr/local/include/GLFW/glfw3.h include/Global.h
 src/Vertex.o: include/Logging.h include/MemoryTracker.h include/HttpDebug.h
-src/Vertex.o: include/Shader.h include/VisualObject.h include/VisualElement.h
+src/Vertex.o: include/HttpRequestParser.h include/Shader.h
+src/Vertex.o: include/VisualObject.h include/VisualElement.h
 src/Vertex.o: include/TriangleBuffer.h include/ElementBufferCombo.h
 src/Vertex.o: include/VertexArrayObject.h include/VertexBufferObject.h
 src/Vertex.o: include/ElementBufferObject.h include/BoundingBox.h
@@ -2582,7 +2610,8 @@ src/VertexBufferCombo.o: /usr/local/include/cglm/bezier.h
 src/VertexBufferCombo.o: /usr/local/include/cglm/ray.h
 src/VertexBufferCombo.o: /usr/local/include/cglm/affine2d.h include/Global.h
 src/VertexBufferCombo.o: include/Logging.h include/MemoryTracker.h
-src/VertexBufferCombo.o: include/HttpDebug.h include/Vertex.h
+src/VertexBufferCombo.o: include/HttpDebug.h include/HttpRequestParser.h
+src/VertexBufferCombo.o: include/Vertex.h
 src/VertexBufferObject.o: include/VertexBufferObject.h
 src/VertexBufferObject.o: /usr/local/include/cglm/cglm.h
 src/VertexBufferObject.o: /usr/local/include/cglm/common.h
@@ -2618,8 +2647,8 @@ src/VertexBufferObject.o: /usr/local/include/cglm/affine2d.h
 src/VertexBufferObject.o: /usr/local/include/GL/glew.h
 src/VertexBufferObject.o: /usr/local/include/GLFW/glfw3.h include/Global.h
 src/VertexBufferObject.o: include/Logging.h include/MemoryTracker.h
-src/VertexBufferObject.o: include/HttpDebug.h include/Vertex.h
-src/VertexBufferObject.o: include/Shader.h
+src/VertexBufferObject.o: include/HttpDebug.h include/HttpRequestParser.h
+src/VertexBufferObject.o: include/Vertex.h include/Shader.h
 src/VisualElement.o: include/VisualElement.h include/TriangleBuffer.h
 src/VisualElement.o: include/ElementBufferCombo.h include/VertexArrayObject.h
 src/VisualElement.o: include/VertexBufferObject.h
@@ -2657,9 +2686,10 @@ src/VisualElement.o: /usr/local/include/cglm/affine2d.h
 src/VisualElement.o: /usr/local/include/GL/glew.h
 src/VisualElement.o: /usr/local/include/GLFW/glfw3.h include/Global.h
 src/VisualElement.o: include/Logging.h include/MemoryTracker.h
-src/VisualElement.o: include/HttpDebug.h include/Vertex.h
-src/VisualElement.o: include/ElementBufferObject.h include/BoundingBox.h
-src/VisualElement.o: include/Shader.h include/VertexBufferCombo.h
+src/VisualElement.o: include/HttpDebug.h include/HttpRequestParser.h
+src/VisualElement.o: include/Vertex.h include/ElementBufferObject.h
+src/VisualElement.o: include/BoundingBox.h include/Shader.h
+src/VisualElement.o: include/VertexBufferCombo.h
 src/VisualObject.o: include/VisualObject.h include/VisualElement.h
 src/VisualObject.o: include/TriangleBuffer.h include/ElementBufferCombo.h
 src/VisualObject.o: include/VertexArrayObject.h include/VertexBufferObject.h
@@ -2697,12 +2727,13 @@ src/VisualObject.o: /usr/local/include/cglm/affine2d.h
 src/VisualObject.o: /usr/local/include/GL/glew.h
 src/VisualObject.o: /usr/local/include/GLFW/glfw3.h include/Global.h
 src/VisualObject.o: include/Logging.h include/MemoryTracker.h
-src/VisualObject.o: include/HttpDebug.h include/Vertex.h
-src/VisualObject.o: include/ElementBufferObject.h include/BoundingBox.h
-src/VisualObject.o: include/Shader.h include/VertexBufferCombo.h
-src/VisualObject.o: include/Lockable.h include/LandSurfaceRegion.h
-src/VisualObject.o: include/Quadtree.h include/DisplayList.h
-src/VisualObject.o: include/LandSurfaceRegionPlanar.h include/ObjectGroup.h
+src/VisualObject.o: include/HttpDebug.h include/HttpRequestParser.h
+src/VisualObject.o: include/Vertex.h include/ElementBufferObject.h
+src/VisualObject.o: include/BoundingBox.h include/Shader.h
+src/VisualObject.o: include/VertexBufferCombo.h include/Lockable.h
+src/VisualObject.o: include/LandSurfaceRegion.h include/Quadtree.h
+src/VisualObject.o: include/DisplayList.h include/LandSurfaceRegionPlanar.h
+src/VisualObject.o: include/ObjectGroup.h
 src/Window3D.o: /usr/local/include/GL/glew.h /usr/local/include/GLFW/glfw3.h
 src/Window3D.o: /usr/local/include/cglm/cglm.h
 src/Window3D.o: /usr/local/include/cglm/common.h
@@ -2736,7 +2767,8 @@ src/Window3D.o: include/ColoredAxes.h include/LineStripList.h
 src/Window3D.o: include/VertexBufferCombo.h include/VertexArrayObject.h
 src/Window3D.o: include/VertexBufferObject.h include/Global.h
 src/Window3D.o: include/Logging.h include/MemoryTracker.h include/HttpDebug.h
-src/Window3D.o: include/Vertex.h include/PmodConfig.h include/LandSurface.h
+src/Window3D.o: include/HttpRequestParser.h include/Vertex.h
+src/Window3D.o: include/PmodConfig.h include/LandSurface.h
 src/Window3D.o: include/TexturedRect.h include/Texture.h include/Quadtree.h
 src/Window3D.o: include/DisplayList.h include/VisualObject.h
 src/Window3D.o: include/VisualElement.h include/TriangleBuffer.h
@@ -2778,9 +2810,9 @@ src/Window3D.o: include/TaskQueue.h include/InterfaceAction.h
 src/Window3D.o: include/MenuInterface.h include/ScriptController.h
 src/Window3D.o: include/PmodException.h
 src/WoodySegment.o: include/WoodySegment.h include/TreePart.h
-src/WoodySegment.o: include/HttpDebug.h include/Species.h
-src/WoodySegment.o: include/rapidjson/document.h include/rapidjson/reader.h
-src/WoodySegment.o: include/rapidjson/allocators.h
+src/WoodySegment.o: include/HttpDebug.h include/HttpRequestParser.h
+src/WoodySegment.o: include/Species.h include/rapidjson/document.h
+src/WoodySegment.o: include/rapidjson/reader.h include/rapidjson/allocators.h
 src/WoodySegment.o: include/rapidjson/rapidjson.h include/rapidjson/stream.h
 src/WoodySegment.o: include/rapidjson/encodings.h
 src/WoodySegment.o: include/rapidjson/encodedstream.h
@@ -2895,15 +2927,15 @@ src/main.o: /usr/local/include/cglm/ray.h /usr/local/include/cglm/affine2d.h
 src/main.o: include/ColoredAxes.h include/LineStripList.h
 src/main.o: include/VertexBufferCombo.h include/VertexArrayObject.h
 src/main.o: include/VertexBufferObject.h include/Global.h include/Logging.h
-src/main.o: include/MemoryTracker.h include/HttpDebug.h include/Vertex.h
-src/main.o: include/PmodConfig.h include/LandSurface.h include/TexturedRect.h
-src/main.o: include/Texture.h include/Quadtree.h include/DisplayList.h
-src/main.o: include/VisualObject.h include/VisualElement.h
-src/main.o: include/TriangleBuffer.h include/ElementBufferCombo.h
-src/main.o: include/ElementBufferObject.h include/BoundingBox.h
-src/main.o: include/Lockable.h include/LandSurfaceRegion.h
-src/main.o: include/LandSurfaceRegionPlanar.h include/Camera.h
-src/main.o: include/HeightMarker.h include/BezierPatch.h
+src/main.o: include/MemoryTracker.h include/HttpDebug.h
+src/main.o: include/HttpRequestParser.h include/Vertex.h include/PmodConfig.h
+src/main.o: include/LandSurface.h include/TexturedRect.h include/Texture.h
+src/main.o: include/Quadtree.h include/DisplayList.h include/VisualObject.h
+src/main.o: include/VisualElement.h include/TriangleBuffer.h
+src/main.o: include/ElementBufferCombo.h include/ElementBufferObject.h
+src/main.o: include/BoundingBox.h include/Lockable.h
+src/main.o: include/LandSurfaceRegion.h include/LandSurfaceRegionPlanar.h
+src/main.o: include/Camera.h include/HeightMarker.h include/BezierPatch.h
 src/main.o: include/rapidjson/document.h include/rapidjson/reader.h
 src/main.o: include/rapidjson/allocators.h include/rapidjson/rapidjson.h
 src/main.o: include/rapidjson/stream.h include/rapidjson/encodings.h

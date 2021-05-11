@@ -7,6 +7,8 @@
 
 #ifndef HTTP_DEBUG_H
 #define HTTP_DEBUG_H
+
+#include "HttpRequestParser.h"
 #include <netinet/in.h>
 #include <sys/socket.h>
 #include <sys/types.h>
