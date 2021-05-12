@@ -24,12 +24,14 @@
 // Constructor
 
 HttpRequestParser::HttpRequestParser(unsigned size):
-                                          bufSize(size)
+                                          readPoint(NULL),
+                                          bufSize(size),
+                                          urlOffset(0u),
+                                          httpVerOffset(0u)
 {
   buf  = new char[bufSize];
   unless(buf)
     err(-1, "Couldn't allocate memory in __func__\n");
-
 }
 
 
@@ -43,24 +45,10 @@ HttpRequestParser::~HttpRequestParser(void)
 
 
 // =======================================================================================
-// Get the next header.  Currently returns pointer to the URL.
+// This parses the header once we know we have a whole header in the buffer
 
-bool HttpRequestParser::getNextRequest(void)
+bool HttpRequestParser::parseRequest(void)
 {
-  int nBytes;
-
-  // Read some data
-  if((nBytes = read(connfd, buf, bufSize)) <= 0)
-   {
-    // No data, so give up on this particular connection
-    close(connfd);
-    LogRequestErrors("Couldn't read data from socket.\n");
-    return false;
-   }
-  //XX we need to handle this properly
-  buf[nBytes] = '\0';
-  LogHTTPDetails("Got from client: %s", buf);
-  
   if(strncmp(buf, "GET ", 4) !=0 )
    {
     buf[20] = '\0';
@@ -86,8 +74,139 @@ bool HttpRequestParser::getNextRequest(void)
    {
     LogRequestErrors("Unsupported HTTP version %s\n", lastToken);
     return false;
-   }   
+   }
   return true;
+}
+   
+
+// =======================================================================================
+// State machine to check a range of bytes looking for \r\n\r\n.  If present, returns
+// a pointer to the final \n.  Otherwise, returns NULL.  
+
+char* HttpRequestParser::headerEndPresent(char* range, unsigned rangeSize)
+{
+  int state = 0;
+  char* end = range + rangeSize;
+  
+  for(char* p = range; p < end; p++)
+   {
+    if(state == 0)
+     {
+      if(*p == '\r')
+        state++;
+      continue;
+     }
+    if(state == 1)
+     {
+      if(*p == '\n')
+        state++;
+      else if(*p != '\r')
+        state = 0;
+      continue;
+     }
+    if(state == 2)
+     {
+      if(*p == '\r')
+        state++;
+      else
+        state = 0;
+      continue;
+     }
+    if(state == 3)
+     {
+      if(*p == '\n')
+        return p;
+      else if(*p == '\r')
+        state = 1;
+      else
+        state = 0;
+     }
+   }
+  return NULL;
+}
+
+
+// =======================================================================================
+// Get the next header.  Currently returns pointer to the URL.
+
+bool HttpRequestParser::getNextRequest(void)
+{ 
+  bool  leftOverDataPresent;
+  int   nBytes;
+  
+  if(readPoint)
+   {
+    // There is leftover data from a prior call.
+    //XX note if performance became an issue, we could have a bigger buffer and
+    //XX more complex book-keeping to reduce these copies.
+    nBytes = bufLeft;
+    memcpy(buf, readPoint, nBytes);
+    readPoint = buf + bufLeft;
+    bufLeft = bufSize - bufLeft;
+    leftOverDataPresent = true;
+   }
+  else
+   { 
+    readPoint = buf;
+    bufLeft = bufSize;
+    leftOverDataPresent = false;
+   }
+  
+  while(1) // until we've read enough data for a complete header
+   {    
+    if(leftOverDataPresent)
+      leftOverDataPresent = false;
+    else 
+     {
+      // Read some data
+      if((nBytes = read(connfd, readPoint, bufLeft)) <= 0)
+       {
+        // No data, so give up on this particular connection
+        close(connfd);
+        LogRequestErrors("Couldn't read data from socket.\n");
+        return false;
+       }
+      if(nBytes < bufLeft)
+        readPoint[nBytes] = '\0';
+      else // damn big request
+       {
+        LogRequestErrors("Request too big for buffer.\n");
+        return false;
+       }
+      LogHTTPDetails("Got from client: %s", readPoint);
+     
+     } // Reading if there's no leftover data
+     
+    // Now check to see if there's a header-end present in this latest read
+     
+    char* checkStart = readPoint-3; // in case of \r\n\r\n across last read boundary
+    unsigned checkSize = nBytes + 3;
+    if(checkStart < buf)
+     {
+      checkSize -= buf - checkStart;
+      checkStart = buf;
+     }
+    char* headerEnd;
+    if((headerEnd = headerEndPresent(checkStart, checkSize)))
+     {
+      // This is good, we get to go home, but first we keep track of unused data
+      if(headerEnd - readPoint + 1 < nBytes)
+       {
+        bufLeft = nBytes - (headerEnd - readPoint + 1);
+        readPoint = headerEnd+1;
+       }
+      else
+        readPoint = NULL;
+      break;
+     }
+      
+    // About to go round again, so update the paramters for where/how much to read
+    readPoint += nBytes;
+    bufLeft -= nBytes;
+  
+   } // while(1) over reads
+  
+  return parseRequest();
 }
 
 

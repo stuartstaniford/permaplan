@@ -32,12 +32,16 @@ private:
   
   // Instance variables - private
   char*               buf;
+  char*               readPoint;
+  unsigned            bufLeft;
   int                 connfd;
   unsigned            bufSize;
   unsigned            urlOffset;
   unsigned            httpVerOffset;
   
   // Member functions - private
+  bool parseRequest(void);
+  char* headerEndPresent(char* range, unsigned rangeSize);
   HttpRequestParser(const HttpRequestParser&);                 // Prevent copy-construction
   HttpRequestParser& operator=(const HttpRequestParser&);      // Prevent assignment
 
