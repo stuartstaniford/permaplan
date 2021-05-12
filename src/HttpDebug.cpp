@@ -34,14 +34,13 @@ HttpDebug::HttpDebug(unsigned short servPort, Scene& S, MenuInterface& imgMenu):
                         menuInterface(imgMenu),
                         shutDownNow(false),
                         respBufOverflow(false),
-                        reqBufSize(8192),
+                        reqParser(8192),
                         respBufSize(16384),
                         port(servPort)
 {
-  reqBuf  = new char[reqBufSize];
   respBuf = new char[respBufSize];
   headBuf = new char[headBufSize];
-  if(!reqBuf || !respBuf || !headBuf)
+  if(!respBuf || !headBuf)
     err(-1, "Couldn't allocate memory in __func__\n");
   resetResponse();
 
@@ -71,7 +70,6 @@ HttpDebug::HttpDebug(unsigned short servPort, Scene& S, MenuInterface& imgMenu):
 HttpDebug::~HttpDebug(void)
 {
   close(sockfd);
-  delete[] reqBuf;
   delete[] respBuf;
   delete[] headBuf;
 }
@@ -200,36 +198,8 @@ bool HttpDebug::errorPage(const char* error)
 
 bool HttpDebug::processRequestHeader(void)
 {
-  if(strncmp(reqBuf, "GET ", 4) !=0 )
-   {
-    errorPage("Unsupported method in HTTP request");
-    reqBuf[20] = '\0';
-    LogRequestErrors("Unsupported method in HTTP request %s.\n", reqBuf);
-    return false;
-   }
-  char* url = reqBuf + 4;
-  char* lastToken = index(url, ' ');
-  if(lastToken)
-    *(lastToken++) = '\0';
-  else
-   {
-    // This happens when we are rerunning a prior request after growing the buffer
-    lastToken = url+strlen(url)+1;
-   }
-  if(lastToken - reqBuf + 256 > reqBufSize)
-   {
-    errorPage("Bad header format");
-    LogRequestErrors("Header too large in HTTP request.\n");
-    return false;
-   }
-  if( (strncmp(lastToken, "HTTP/1.1", 8) != 0) && (strncmp(lastToken, "HTTP/1.0", 8) != 0) )
-   {
-    LogRequestErrors("Unsupported HTTP version %s\n", lastToken);
-    errorPage("Unsupported HTTP version");
-    return false;
-   }
-     
-  // Start processing the url
+  char* url = reqParser.getUrl();
+  
   if( (strlen(url) == 1 && url[0] == '/') || strncmp(url, "/index.", 7) == 0)
     return indexPage();
 
@@ -364,22 +334,10 @@ bool writeLoop(int fildes, char *buf, size_t nbyte)
 
 void HttpDebug::processOneHTTP1_1()
 {
-  while(1)
+  reqParser.setNewConnection(connfd);
+  
+  while(reqParser.getNextRequest())
    {
-    int nBytes;
-
-    // Read some data
-    if((nBytes = read(connfd, reqBuf, reqBufSize)) <= 0)
-     {
-      // No data, so give up on this particular connection
-      close(connfd);
-      LogRequestErrors("Couldn't read data from socket.\n");
-      return;
-     }
-    //XX we need to handle this properly
-    reqBuf[nBytes] = '\0';
-    
-    LogHTTPDetails("Got from client: %s", reqBuf);
     resetResponse();
 
     unsigned headerLen;
@@ -411,7 +369,7 @@ void HttpDebug::processOneHTTP1_1()
     if(returnOK)
       unless(writeLoop(connfd, respBuf, respPtr-respBuf))
         break;
-  }
+   }
 }
 
 

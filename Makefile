@@ -908,7 +908,39 @@ src/HttpDebug.o: include/TaskQueue.h include/InterfaceAction.h include/Tree.h
 src/HttpDebug.o: include/TreePart.h include/TaskQueueFarm.h
 src/HttpDebug.o: include/SkySampleModel.h include/MenuInterface.h
 src/HttpDebug.o: include/ScriptController.h imgui/imgui.h imgui/imconfig.h
-src/HttpRequestParser.o: include/HttpRequestParser.h
+src/HttpRequestParser.o: include/HttpRequestParser.h include/Global.h
+src/HttpRequestParser.o: /usr/local/include/cglm/cglm.h
+src/HttpRequestParser.o: /usr/local/include/cglm/common.h
+src/HttpRequestParser.o: /usr/local/include/cglm/types.h
+src/HttpRequestParser.o: /usr/local/include/cglm/simd/intrin.h
+src/HttpRequestParser.o: /usr/local/include/cglm/vec2.h
+src/HttpRequestParser.o: /usr/local/include/cglm/util.h
+src/HttpRequestParser.o: /usr/local/include/cglm/vec2-ext.h
+src/HttpRequestParser.o: /usr/local/include/cglm/vec3.h
+src/HttpRequestParser.o: /usr/local/include/cglm/vec4.h
+src/HttpRequestParser.o: /usr/local/include/cglm/vec4-ext.h
+src/HttpRequestParser.o: /usr/local/include/cglm/vec3-ext.h
+src/HttpRequestParser.o: /usr/local/include/cglm/mat4.h
+src/HttpRequestParser.o: /usr/local/include/cglm/mat3.h
+src/HttpRequestParser.o: /usr/local/include/cglm/mat2.h
+src/HttpRequestParser.o: /usr/local/include/cglm/affine.h
+src/HttpRequestParser.o: /usr/local/include/cglm/affine-mat.h
+src/HttpRequestParser.o: /usr/local/include/cglm/cam.h
+src/HttpRequestParser.o: /usr/local/include/cglm/plane.h
+src/HttpRequestParser.o: /usr/local/include/cglm/frustum.h
+src/HttpRequestParser.o: /usr/local/include/cglm/quat.h
+src/HttpRequestParser.o: /usr/local/include/cglm/euler.h
+src/HttpRequestParser.o: /usr/local/include/cglm/box.h
+src/HttpRequestParser.o: /usr/local/include/cglm/color.h
+src/HttpRequestParser.o: /usr/local/include/cglm/io.h
+src/HttpRequestParser.o: /usr/local/include/cglm/project.h
+src/HttpRequestParser.o: /usr/local/include/cglm/sphere.h
+src/HttpRequestParser.o: /usr/local/include/cglm/ease.h
+src/HttpRequestParser.o: /usr/local/include/cglm/curve.h
+src/HttpRequestParser.o: /usr/local/include/cglm/bezier.h
+src/HttpRequestParser.o: /usr/local/include/cglm/ray.h
+src/HttpRequestParser.o: /usr/local/include/cglm/affine2d.h include/Logging.h
+src/HttpRequestParser.o: include/MemoryTracker.h include/HttpDebug.h
 src/InterfaceAction.o: include/InterfaceAction.h include/Global.h
 src/InterfaceAction.o: /usr/local/include/cglm/cglm.h
 src/InterfaceAction.o: /usr/local/include/cglm/common.h

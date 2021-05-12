@@ -67,10 +67,9 @@ public:
 private:
   
   // Instance variables - private
-  unsigned            reqBufSize;
+  HttpRequestParser   reqParser;
   unsigned            respBufSize;
   unsigned            headBufSize;
-  char*               reqBuf;
   char*               respBuf;
   char*               headBuf;
   struct sockaddr_in  servaddr;
