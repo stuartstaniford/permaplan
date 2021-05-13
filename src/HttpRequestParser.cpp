@@ -27,12 +27,26 @@ HttpRequestParser::HttpRequestParser(unsigned size):
                                           readPoint(NULL),
                                           bufSize(size),
                                           urlOffset(0u),
-                                          httpVerOffset(0u)
+                                          httpVerOffset(0u),
+                                          connectionDone(false)
 {
   buf  = new char[bufSize];
   unless(buf)
     err(-1, "Couldn't allocate memory in __func__\n");
   LogRequestParsing("Request parser initialized with buffer size %u.\n", bufSize);
+}
+
+
+// =======================================================================================
+// Function to reset (eg for a new connection) without throwing away the buffer.  Needs
+// to duplicate the newly constructed state.
+
+void HttpRequestParser::resetForReuse(void)
+{
+  readPoint       = NULL;
+  urlOffset       = 0u;
+  httpVerOffset   = 0u;
+  connectionDone  = false;
 }
 
 
@@ -54,6 +68,7 @@ bool HttpRequestParser::parseRequest(void)
    {
     buf[20] = '\0';
     LogRequestErrors("Unsupported method in HTTP request %s.\n", buf);
+    connectionDone = true;
     return false;
    }
   urlOffset = 4u;
@@ -66,15 +81,17 @@ bool HttpRequestParser::parseRequest(void)
     // This happens when we are rerunning a prior request after growing the buffer
     lastToken = url+strlen(url)+1;
    }
-  LogRequestParsing("Found Url of length %u: %s.\n", strlen(url), url);
+  LogRequestParsing("Found Url of length %lu: %s.\n", strlen(url), url);
   if(lastToken - buf + 256 > bufSize)
    {
     LogRequestErrors("Header too large in HTTP request.\n");
+    connectionDone = true;
     return false;
    }
   if( (strncmp(lastToken, "HTTP/1.1", 8) != 0) && (strncmp(lastToken, "HTTP/1.0", 8) != 0) )
    {
     LogRequestErrors("Unsupported HTTP version %s\n", lastToken);
+    connectionDone = true;
     return false;
    }
   return true;
@@ -118,7 +135,7 @@ char* HttpRequestParser::headerEndPresent(char* range, unsigned rangeSize)
      {
       if(*p == '\n')
        {
-        LogRequestParsing("Found header end %u bytes into range\n", p-range);
+        LogRequestParsing("Found header end %lu bytes into range\n", p-range);
         return p;
        }
       else if(*p == '\r')
@@ -145,7 +162,8 @@ bool HttpRequestParser::getNextRequest(void)
     //XX note if performance became an issue, we could have a bigger buffer and
     //XX more complex book-keeping to reduce these copies.
     nBytes = bufLeft;
-    LogRequestParsing("Moving %u bytes from position %u in buffer\n", nBytes, readPoint-buf);
+    LogRequestParsing("Moving %u bytes from position %lu in buffer\n", nBytes, readPoint-buf);
+    LogFlush();
     memcpy(buf, readPoint, nBytes);
     readPoint = buf + bufLeft;
     bufLeft = bufSize - bufLeft;
@@ -153,6 +171,7 @@ bool HttpRequestParser::getNextRequest(void)
    }
   else
    { 
+    LogRequestParsing("getNextRequest with no leftover data.\n");
     readPoint = buf;
     bufLeft = bufSize;
     leftOverDataPresent = false;
@@ -170,16 +189,18 @@ bool HttpRequestParser::getNextRequest(void)
         // No data, so give up on this particular connection
         close(connfd);
         LogRequestErrors("Couldn't read data from socket.\n");
+        connectionDone = true;
         return false;
        }
       if(nBytes < bufLeft)
        {
         readPoint[nBytes] = '\0';
-        LogRequestParsing("Read %u bytes into position %u in buffer\n", nBytes, readPoint-buf);
+        LogRequestParsing("Read %u bytes into position %lu in buffer\n", nBytes, readPoint-buf);
        }
       else // damn big request
        {
         LogRequestErrors("Request too big for buffer.\n");
+        connectionDone = true;
         return false;
        }
       LogHTTPDetails("Got from client: %s", readPoint);
@@ -203,7 +224,7 @@ bool HttpRequestParser::getNextRequest(void)
        {
         bufLeft = nBytes - (headerEnd - readPoint + 1);
         readPoint = headerEnd+1;
-        LogRequestParsing("Leftover %u bytes at position %u in buffer\n", bufLeft, readPoint-buf);
+        LogRequestParsing("Leftover %u bytes at position %lu in buffer\n", bufLeft, readPoint-buf);
        }
       else
         readPoint = NULL;
@@ -216,6 +237,7 @@ bool HttpRequestParser::getNextRequest(void)
   
    } // while(1) over reads
   
+  readPoint = NULL;
   return parseRequest();
 }
 

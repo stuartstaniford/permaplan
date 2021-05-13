@@ -21,6 +21,7 @@ public:
   
   // Member functions - public
   HttpRequestParser(unsigned size);
+  void resetForReuse(void);
   ~HttpRequestParser(void);
   bool getNextRequest(void);
   inline void setNewConnection(int fd) {connfd = fd;}
@@ -38,6 +39,7 @@ private:
   unsigned            bufSize;
   unsigned            urlOffset;
   unsigned            httpVerOffset;
+  bool                connectionDone;
   
   // Member functions - private
   bool parseRequest(void);

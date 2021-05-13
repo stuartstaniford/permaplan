@@ -112,7 +112,9 @@ void* HttpDebug::processConnections(void)
       else
         err(-1, "Accept failed on socket %d in __func__\n", sockfd);
      }
+    LogHTTPDetails("Accepted connection from client on port %u.\n", cliaddr.sin_port);
     processOneHTTP1_1();
+    reqParser.resetForReuse();
    }
   
   LogCloseDown("HttpDebug server shutting down normally.\n");
@@ -354,7 +356,7 @@ void HttpDebug::processOneHTTP1_1()
        }
       unless(reallocateResponseBuf())
         break;
-      }
+     }
     if(returnOK)
       headerLen = generateHeader(respPtr-respBuf, 200, "OK");
     else
