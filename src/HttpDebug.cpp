@@ -151,11 +151,11 @@ bool HttpDebug::indexPage(void)
   internalPrintf("<td>Current camera variables</td></tr>\n");
   
   // Scene indicator tbuf
-  internalPrintf("<tr><td><a href=\"/stbuf/\">tbuf/</a></td>");
+  internalPrintf("<tr><td><a href=\"/stbuf/\">stbuf/</a></td>");
   internalPrintf("<td>Scene indicator triangle buffer</td></tr>\n");
 
   // Scene object tbuf
-  internalPrintf("<tr><td><a href=\"/otbuf/\">tbuf/</a></td>");
+  internalPrintf("<tr><td><a href=\"/otbuf/\">otbuf/</a></td>");
   internalPrintf("<td>Scene object triangle buffer</td></tr>\n");
 
   // Memory Usage Tracking

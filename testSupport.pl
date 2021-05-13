@@ -124,7 +124,9 @@ sub checkLogForErrors
         $outLines++;
        }
      }
+    $lastLine = $_;
    }
+  
   close(LOG);
   return $logIsGood;
 }
