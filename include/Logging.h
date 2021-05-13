@@ -87,6 +87,7 @@
 #define LOG_RESPONSE_ERRORS     // Log problems encountered building the response
 //#define LOG_HTTP_BUFFER_OPS        // Log operations on the main HTTP buffers
 //#define LOG_HTTP_DETAILS        // Log normal details of HTTP operations
+#define LOG_REQUEST_PARSING        // Log exactly what happens when parsing a request
 
 
 // =======================================================================================
@@ -202,6 +203,7 @@ extern bool doLogRequestErrors;       // Log validity problems in the HTTP reque
 extern bool doLogResponseErrors;      // Log problems encountered building the response
 extern bool doLogHTTPBufferOps;       // Log operations on the main HTTP buffers
 extern bool doLogHTTPDetails;         // Log normal details of HTTP operations
+extern bool doLogRequestParsing;      // Log exactly what happens when parsing a request
 
 // Logging options to do with quadtree operations
 extern bool doLogQuadtreeCreation;    // Log the initial setup of the quadtree.
@@ -216,7 +218,7 @@ extern bool doLogObjectCreation;        // Log the id of each newly created ojec
 extern bool doLogTriangleBufferOps;     // Log the workings of the triangle buffers.
 extern bool doLogTriangleBufEstimates;  // Log estimates of sizes needed.
 extern bool doLogTriangleBufRebuilds;   // Log when the triangle buffer is rebuilt.
-extern bool doLogValidTriangleBufs;     // Validate the condition of triangle buffers on gpu send
+extern bool doLogValidTriangleBufs;     // Validate condition of triangle buffers on gpu send
 extern bool doLogTriangleBufferErrs;    // Log actual errors the triangle buffers.
 
 // Logging options to do with the Bezier Patch code
@@ -622,6 +624,13 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
 #define LogHTTPDetails(...)
 #endif
 
+// Log exactly what happens when parsing a request
+#ifdef LOG_REQUEST_PARSING
+#define LogRequestParsing(...) if(doLogRequestParsing) \
+                                          LogStatement("LogRequestParsing: " __VA_ARGS__)
+#else
+#define LogRequestParsing(...)
+#endif
 
 // =======================================================================================
 // Logging options to do with quadtree insertions
