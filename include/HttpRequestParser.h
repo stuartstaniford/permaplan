@@ -10,6 +10,21 @@
 #ifndef REQUEST_PARSER_H
 #define REQUEST_PARSER_H
 
+#include <unordered_map>
+#include <string>
+
+enum HTTPHeaderType
+{
+  NoHeaderPresent,
+  Connection,
+  UserAgent,
+  ContentLength,
+  ContentType,
+  TransferEncoding,
+  Upgrade,
+};
+
+
 // =======================================================================================
 // Class variable initialization
 
@@ -32,14 +47,18 @@ public:
 private:
   
   // Instance variables - private
+  std::unordered_map<std::string, HTTPHeaderType> headerMap; 
   char*               buf;
   char*               readPoint;
+  char*               headerEnd;
   unsigned            bufLeft;
   int                 connfd;
   unsigned            bufSize;
   unsigned            urlOffset;
   unsigned            httpVerOffset;
   bool                connectionDone;
+  bool                connectionWillClose;
+
   
   // Member functions - private
   bool parseRequest(void);

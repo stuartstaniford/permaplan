@@ -25,15 +25,24 @@
 
 HttpRequestParser::HttpRequestParser(unsigned size):
                                           readPoint(NULL),
+                                          headerEnd(NULL),
                                           bufSize(size),
                                           urlOffset(0u),
                                           httpVerOffset(0u),
-                                          connectionDone(false)
+                                          connectionDone(false),
+                                          connectionWillClose(false)
 {
   buf  = new char[bufSize];
   unless(buf)
     err(-1, "Couldn't allocate memory in __func__\n");
   LogRequestParsing("Request parser initialized with buffer size %u.\n", bufSize);
+  headerMap["Connection"]        = Connection;
+  headerMap["User-Agent"]        = UserAgent;
+  headerMap["Content-Length"]    = ContentLength;
+  headerMap["Content-Type"]      = ContentType;
+  headerMap["Transfer-Encoding"] = TransferEncoding;
+  headerMap["Upgrade"]           = Upgrade;
+  
 }
 
 
@@ -44,6 +53,7 @@ HttpRequestParser::HttpRequestParser(unsigned size):
 void HttpRequestParser::resetForReuse(void)
 {
   readPoint       = NULL;
+  headerEnd       = NULL;
   urlOffset       = 0u;
   httpVerOffset   = 0u;
   connectionDone  = false;
@@ -64,16 +74,16 @@ HttpRequestParser::~HttpRequestParser(void)
 
 bool HttpRequestParser::parseRequest(void)
 {
+  char* h, *url, *lastToken;
   if(strncmp(buf, "GET ", 4) !=0 )
    {
     buf[20] = '\0';
     LogRequestErrors("Unsupported method in HTTP request %s.\n", buf);
-    connectionDone = true;
-    return false;
+    goto badParseRequestExit;
    }
   urlOffset = 4u;
-  char* url = buf + urlOffset;
-  char* lastToken = index(url, ' ');
+  url = buf + urlOffset;
+  lastToken = index(url, ' ');
   if(lastToken)
     *(lastToken++) = '\0';
   else
@@ -85,16 +95,71 @@ bool HttpRequestParser::parseRequest(void)
   if(lastToken - buf + 256 > bufSize)
    {
     LogRequestErrors("Header too large in HTTP request.\n");
-    connectionDone = true;
-    return false;
+    goto badParseRequestExit;
    }
   if( (strncmp(lastToken, "HTTP/1.1", 8) != 0) && (strncmp(lastToken, "HTTP/1.0", 8) != 0) )
    {
     LogRequestErrors("Unsupported HTTP version %s\n", lastToken);
-    connectionDone = true;
-    return false;
+    goto badParseRequestExit;
    }
+  
+  h = lastToken + 10;
+  while(h < headerEnd)
+   {
+    char* term = index(h, ':');
+    unless(term && term < headerEnd-1)
+      break;
+    *term = '\0';
+    char* value = term + 1;
+    while(isspace(*value))
+      value++;
+    term = index(value, '\r');
+    unless(term && term < headerEnd-3)
+      break;
+    *term = '\0';
+    if(headerMap.count(h)) // A header we recognize
+     {
+      switch(headerMap[h])
+       {
+          case Connection:
+            LogRequestParsing("Found Connection header %s.\n", value);
+            if(strcmp(value, "close") == 0)
+              connectionWillClose = true;
+            break;
+          
+          case UserAgent:
+            LogRequestParsing("Found User-Agent header %s.\n", value);
+            break;
+          
+          case ContentLength:
+            LogRequestErrors("Unsupported Content-Length header in HTTP request.\n");
+            goto badParseRequestExit;
+
+          case ContentType:
+            LogRequestErrors("Unsupported Content-Type header in HTTP request.\n");
+            goto badParseRequestExit;
+
+          case TransferEncoding:
+            LogRequestErrors("Unsupported Transfer-Encoding header in HTTP request.\n");
+            goto badParseRequestExit;
+
+          case Upgrade:
+            LogRequestErrors("Unsupported Upgrade header  in HTTP request.\n");
+            goto badParseRequestExit;
+          
+          default:
+            LogRequestParsing("Header with no special handling: %s.\n", value);
+       }
+     }
+    h = term + 2;
+   }
+    
+  headerEnd = NULL; // make sure we don't reuse a crazy value next time.
   return true;
+  
+badParseRequestExit:
+  connectionDone = true;
+  return false;
 }
    
 
@@ -216,14 +281,13 @@ bool HttpRequestParser::getNextRequest(void)
       checkSize -= buf - checkStart;
       checkStart = buf;
      }
-    char* headerEnd;
     if((headerEnd = headerEndPresent(checkStart, checkSize)))
      {
       // This is good, we get to go home, but first we keep track of unused data
       if(headerEnd - readPoint + 1 < nBytes)
        {
-        bufLeft = nBytes - (headerEnd - readPoint + 1);
-        readPoint = headerEnd+1;
+        bufLeft = nBytes - (++headerEnd - readPoint);
+        readPoint = headerEnd;
         LogRequestParsing("Leftover %u bytes at position %lu in buffer\n", bufLeft, readPoint-buf);
        }
       else
