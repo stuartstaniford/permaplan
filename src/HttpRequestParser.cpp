@@ -32,6 +32,7 @@ HttpRequestParser::HttpRequestParser(unsigned size):
   buf  = new char[bufSize];
   unless(buf)
     err(-1, "Couldn't allocate memory in __func__\n");
+  LogRequestParsing("Request parser initialized with buffer size %u.\n", bufSize);
 }
 
 
@@ -65,6 +66,7 @@ bool HttpRequestParser::parseRequest(void)
     // This happens when we are rerunning a prior request after growing the buffer
     lastToken = url+strlen(url)+1;
    }
+  LogRequestParsing("Found Url of length %u: %s.\n", strlen(url), url);
   if(lastToken - buf + 256 > bufSize)
    {
     LogRequestErrors("Header too large in HTTP request.\n");
@@ -115,7 +117,10 @@ char* HttpRequestParser::headerEndPresent(char* range, unsigned rangeSize)
     if(state == 3)
      {
       if(*p == '\n')
+       {
+        LogRequestParsing("Found header end %u bytes into range\n", p-range);
         return p;
+       }
       else if(*p == '\r')
         state = 1;
       else
@@ -140,6 +145,7 @@ bool HttpRequestParser::getNextRequest(void)
     //XX note if performance became an issue, we could have a bigger buffer and
     //XX more complex book-keeping to reduce these copies.
     nBytes = bufLeft;
+    LogRequestParsing("Moving %u bytes from position %u in buffer\n", nBytes, readPoint-buf);
     memcpy(buf, readPoint, nBytes);
     readPoint = buf + bufLeft;
     bufLeft = bufSize - bufLeft;
@@ -167,7 +173,10 @@ bool HttpRequestParser::getNextRequest(void)
         return false;
        }
       if(nBytes < bufLeft)
+       {
         readPoint[nBytes] = '\0';
+        LogRequestParsing("Read %u bytes into position %u in buffer\n", nBytes, readPoint-buf);
+       }
       else // damn big request
        {
         LogRequestErrors("Request too big for buffer.\n");
@@ -194,6 +203,7 @@ bool HttpRequestParser::getNextRequest(void)
        {
         bufLeft = nBytes - (headerEnd - readPoint + 1);
         readPoint = headerEnd+1;
+        LogRequestParsing("Leftover %u bytes at position %u in buffer\n", bufLeft, readPoint-buf);
        }
       else
         readPoint = NULL;
