@@ -93,7 +93,7 @@ void MenuInterface::imguiHeightInputDialog(void)
 void MenuInterface::heightEnteredButton(float z)
 {
   scene->lastDoubleClick[2] = z;
-  scene->newLandHeight(scene->lastDoubleClick);
+  scene->newLandHeight(scene->lastDoubleClick, NULL); //XX need to be able to enter a label
   show_height_input_dialog = false;
 }
 

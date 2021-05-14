@@ -202,9 +202,11 @@ unsigned oldICount = 0u;
 // The interface has been notified of a new height measurement at the last
 // place we double-clicked.
 
-void Scene::newLandHeight(vec3 location)
+void Scene::newLandHeight(vec3 location, const char* label)
 {
   HeightMarker* H = new HeightMarker(location);
+  if(label)
+    H->setLabel(label);
   qtree->storeVisualObject(H);
   if(grid)
     grid->newHeight(location[2]);
@@ -336,8 +338,9 @@ void Scene::draw(bool mouseMoved, float timeElapsed)
   unless(design.designBoxValid)
    {
     vec3 L;
-    if(land.nextInitialHeightLocation(L))
-      newLandHeight(L);
+    const char* label;
+    if(land.nextInitialHeightLocation(L, label))
+      newLandHeight(L, label);
     else
      {
       design.designBoxValid = true;

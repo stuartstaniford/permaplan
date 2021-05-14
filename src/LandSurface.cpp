@@ -104,7 +104,7 @@ LandSurface::~LandSurface(void)
 // used to extract further height locations from the oldf design file.  Note that OLDF
 // file syntax is checked in PmodDesign, so we can safely assume it's correct here.
 
-bool LandSurface::nextInitialHeightLocation(vec3 location)
+bool LandSurface::nextInitialHeightLocation(vec3 location, const char*& label)
 {
   using namespace rapidjson;
 
@@ -114,6 +114,7 @@ bool LandSurface::nextInitialHeightLocation(vec3 location)
   Value& row = (*altitudeArray)[initialHeightIndex];
   for(int i=0; i<3; i++)
     location[i] = row[i].GetFloat();
+  label = row[3].GetString();
   initialHeightIndex++;
   return true;
 }

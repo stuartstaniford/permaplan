@@ -67,7 +67,7 @@ class Scene: public Lockable
   inline bool   simulationActive(void) {return doSimulation;};
   void          findCameraObject(vec3 location);
   float         findCameraHeight(void);
-  void          newLandHeight(vec3 location);
+  void          newLandHeight(vec3 location, const char* label);
   void          saveState(void);
   void          updateLightSourcesOnGPU(void);
   VisualObject* getFreshObject(char* objTypeName, mat4 transform);

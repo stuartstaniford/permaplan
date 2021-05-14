@@ -55,7 +55,7 @@ class VisualObject: public Lockable, public VisualElement
   static bool         diagnosticHTMLSelection(HttpDebug* serv, char* path);
   
   // Public member functions arising here
-  void                setLabel(char* inLabel);
+  void                setLabel(const char* inLabel);
   void                setNoTexColor(unsigned color);
   virtual void        setAltitude(LandSurfaceRegion* surface);
   virtual void        getGroundContact(float& x, float& y);
