@@ -78,6 +78,7 @@ Tree::Tree(Value& plantObject):
   updateBoundingBox();
   LogTreeReads("Tree %d (%s %s) read in from OLDF file.\n", treePtrArrayIndex,
                                             species->genusName, species->speciesName);
+  //setLabel(plantObject["notes"].GetString());
   incrementTreeMemory(sizeof(Tree));
 }
 
