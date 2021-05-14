@@ -2,11 +2,16 @@
 
 require 'testSupport.pl';
 
-openOutput('tests/test1.log');
+system('rm -rf tests/test1.out.oldf');
 startPermaplan('-A -d tests/test1.oldf -D tests/test1.out.oldf -g 5.0');
 stopPermaplan();
 checkLogForErrors();
+compareOLDF('tests/test1.oldf', 'tests/test1.out.oldf');
 if(!checkOutput('tests/test1.log'))
  {
-  print STDERR "test1 failed\n";
+  print "test1 failed.\n";
+ }
+else
+ {
+  print "test1 passed.\n"; 
  }

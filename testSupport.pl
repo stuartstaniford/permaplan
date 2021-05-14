@@ -65,7 +65,6 @@ sub startPermaplan
     sleep(1);
    }
 
-  print "Permaplan is up.\n";
   return $port;
 }
 
@@ -91,7 +90,7 @@ sub openOutput
 
 
 #===========================================================================
-# Function to open the output file for use by later checking functions 
+# Function to check and close the output file 
 
 sub checkOutput
 {
@@ -111,7 +110,9 @@ sub checkOutput
 
 sub checkLogForErrors
 {
-  my $logIsGood = 1;
+  my $logIsGood         = 1;
+  my $closeMessageCount = 0;
+  
   open(LOG, $logFileName) || die("Couldn't open $logFileName.\n");
   while(<LOG>)
    {
@@ -124,7 +125,14 @@ sub checkLogForErrors
         $outLines++;
        }
      }
-    $lastLine = $_;
+    $closeMessageCount++ if /LogCloseDown: Orderly exit from window loop/;
+    $closeMessageCount++ if /LogCloseDown: HttpDebug server shutting down normally/;
+   }
+  unless($closeMessageCount == 2)
+   {
+    $logIsGood = 0;
+    PRINT OUT "Only $closeMessageCount/2 closedown messages in log.\n";
+    $outLines++;
    }
   
   close(LOG);
