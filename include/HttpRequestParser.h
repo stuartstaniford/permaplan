@@ -33,6 +33,7 @@ class HttpRequestParser
 public:
   
   // Instance variables - public
+  bool    connectionWillClose;
   
   // Member functions - public
   HttpRequestParser(unsigned size);
@@ -57,7 +58,6 @@ private:
   unsigned            urlOffset;
   unsigned            httpVerOffset;
   bool                connectionDone;
-  bool                connectionWillClose;
 
   
   // Member functions - private

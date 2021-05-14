@@ -24,13 +24,13 @@
 // Constructor
 
 HttpRequestParser::HttpRequestParser(unsigned size):
+                                          connectionWillClose(false),
                                           readPoint(NULL),
                                           headerEnd(NULL),
                                           bufSize(size),
                                           urlOffset(0u),
                                           httpVerOffset(0u),
-                                          connectionDone(false),
-                                          connectionWillClose(false)
+                                          connectionDone(false)
 {
   buf  = new char[bufSize];
   unless(buf)
@@ -165,7 +165,7 @@ badParseRequestExit:
 
 // =======================================================================================
 // State machine to check a range of bytes looking for \r\n\r\n.  If present, returns
-// a pointer to the final \n.  Otherwise, returns NULL.  
+// a pointer to one past the final \n.  Otherwise, returns NULL.  
 
 char* HttpRequestParser::headerEndPresent(char* range, unsigned rangeSize)
 {
@@ -201,7 +201,7 @@ char* HttpRequestParser::headerEndPresent(char* range, unsigned rangeSize)
       if(*p == '\n')
        {
         LogRequestParsing("Found header end %lu bytes into range\n", p-range);
-        return p;
+        return p+1;
        }
       else if(*p == '\r')
         state = 1;
@@ -284,9 +284,9 @@ bool HttpRequestParser::getNextRequest(void)
     if((headerEnd = headerEndPresent(checkStart, checkSize)))
      {
       // This is good, we get to go home, but first we keep track of unused data
-      if(headerEnd - readPoint + 1 < nBytes)
+      if(headerEnd - readPoint < nBytes)
        {
-        bufLeft = nBytes - (++headerEnd - readPoint);
+        bufLeft = nBytes - (headerEnd - readPoint);
         readPoint = headerEnd;
         LogRequestParsing("Leftover %u bytes at position %lu in buffer\n", bufLeft, readPoint-buf);
        }

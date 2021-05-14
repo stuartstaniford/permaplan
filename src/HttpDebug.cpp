@@ -371,6 +371,8 @@ void HttpDebug::processOneHTTP1_1()
     if(returnOK)
       unless(writeLoop(connfd, respBuf, respPtr-respBuf))
         break;
+    if(reqParser.connectionWillClose)
+        break;
    }
 }
 
