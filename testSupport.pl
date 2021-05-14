@@ -131,12 +131,28 @@ sub checkLogForErrors
   unless($closeMessageCount == 2)
    {
     $logIsGood = 0;
-    PRINT OUT "Only $closeMessageCount/2 closedown messages in log.\n";
+    print OUT "Only $closeMessageCount/2 closedown messages in log.\n";
     $outLines++;
    }
   
   close(LOG);
   return $logIsGood;
+}
+
+
+#===========================================================================
+# Function to compare two OLDF files.  Returns 1 if they are identical.  If
+# they are different, reports the differences in the OUT file and returns 0.
+
+sub compareOLDF
+{
+  my($firstFile, $secondFile) = @_;
+  
+  system("grep -v '//' $firstFile |jq -S > $firstFile.tmp");
+  system("grep -v '//' $secondFile |jq -S > $secondFile.tmp");
+  system("diff $firstFile.tmp $secondFile.tmp|open -a XCode -f");
+  
+  #system("rm -rf $firstFile.tmp $secondFile.tmp")
 }
 
 

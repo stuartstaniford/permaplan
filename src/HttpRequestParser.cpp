@@ -42,7 +42,6 @@ HttpRequestParser::HttpRequestParser(unsigned size):
   headerMap["Content-Type"]      = ContentType;
   headerMap["Transfer-Encoding"] = TransferEncoding;
   headerMap["Upgrade"]           = Upgrade;
-  
 }
 
 

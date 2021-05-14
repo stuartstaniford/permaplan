@@ -31,6 +31,7 @@ class VisualObject: public Lockable, public VisualElement
   
   // Instance variables - public
   BoundingBox*  box;
+  char*         label;
 
   // Member functions - public
   VisualObject(bool absHeights, BoundingBox* B = NULL);
@@ -54,6 +55,7 @@ class VisualObject: public Lockable, public VisualElement
   static bool         diagnosticHTMLSelection(HttpDebug* serv, char* path);
   
   // Public member functions arising here
+  void                setLabel(char* inLabel);
   void                setNoTexColor(unsigned color);
   virtual void        setAltitude(LandSurfaceRegion* surface);
   virtual void        getGroundContact(float& x, float& y);

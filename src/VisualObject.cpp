@@ -18,6 +18,7 @@ Lockable VisualObject::staticLock;
 
 VisualObject::VisualObject(bool absHeights, BoundingBox* B):
                                 box(B),
+                                label(NULL),
                                 qTreeNode(NULL),
                                 groupOwner(NULL),
                                 altitude(0.0f),
@@ -40,10 +41,26 @@ VisualObject::~VisualObject(void)
   LogObjectCreation("Object destroyed with id %u.\n", objIndex);
   if(box)
     delete box;
+  if(label)
+    delete[] label;
+  
   staticLock.lock();
   allObjects.erase(objIndex);
   staticLock.unlock();
 }
+
+
+// =======================================================================================
+// Function to set the label of this object (not normally over-riden).  Copies string.
+
+void VisualObject::setLabel(char* inLabel)
+{
+  if(label)
+    delete[] label;
+  label = new char(strlen(inLabel)+1);
+  strcpy(label, inLabel);
+}
+
 
 // =======================================================================================
 // Function to validate this kind of object.  This needs to be over-ridden by subclasses.
