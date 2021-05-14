@@ -23,6 +23,7 @@ LandSurface::LandSurface(void):
                             tbuf(NULL),
                             locationCount(0u),
                             heightLocations(),
+                            heightLabels(),
                             inFitMode(false),
                             initialHeightCount(0u),
                             initialHeightIndex(0u)
@@ -166,6 +167,7 @@ void LandSurface::newLandHeight(HeightMarker* hM)
 {
   const PmodConfig& config = PmodConfig::getConfig();
   heightLocations.push_back(hM->location);
+  heightLabels.push_back(hM->label);
   locationCount++;
   vec3 plane;
   
@@ -355,8 +357,9 @@ void LandSurface::writeOLDFSection(FILE* file, char* indent)
   fprintf(file, "%s%s\"altitudes\":\n%s%s [\n", indent, indent, indent, indent);
   for(int i=0; i < locationCount; i++)
    {
-    fprintf(file, "%s%s%s[%f, %f, %f, \"\"]", indent, indent, indent,
-                heightLocations[i][0], heightLocations[i][1], heightLocations[i][2]);
+    fprintf(file, "%s%s%s[%f, %f, %f, \"%s\"]", indent, indent, indent,
+                heightLocations[i][0], heightLocations[i][1], heightLocations[i][2],
+                heightLabels[i]);
     if(i<locationCount-1)
       fprintf(file, ",\n");
     else

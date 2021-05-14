@@ -50,6 +50,7 @@ class LandSurface
   TriangleBuffer*       tbuf;
   unsigned              locationCount;
   std::vector<float*>   heightLocations;
+  std::vector<char*>    heightLabels;
   bool                  inFitMode;
   unsigned              initialHeightCount;
   unsigned              initialHeightIndex;
