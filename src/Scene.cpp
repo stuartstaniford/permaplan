@@ -205,8 +205,8 @@ unsigned oldICount = 0u;
 void Scene::newLandHeight(vec3 location, const char* label)
 {
   HeightMarker* H = new HeightMarker(location);
-  /*if(label)
-    H->setLabel(label);*/
+  if(label)
+    H->setLabel(label);
   qtree->storeVisualObject(H);
   if(grid)
     grid->newHeight(location[2]);

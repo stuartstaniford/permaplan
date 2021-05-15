@@ -57,7 +57,7 @@ void VisualObject::setLabel(const char* inLabel)
 {
   if(label)
     delete[] label;
-  label = new char(strlen(inLabel)+1);
+  label = new char[strlen(inLabel)+1];
   strcpy(label, inLabel);
 }
 
