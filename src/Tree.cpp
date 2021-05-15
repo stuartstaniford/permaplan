@@ -24,6 +24,7 @@ Tree::Tree(Species* S, vec3 loc, float age, float now):
                           species(S),
                           yearPlanted(now - age),
                           ageNow(age),
+                          commonName(NULL),
                           trunk(NULL)
 {
   glm_vec3_copy(loc, location);
@@ -66,6 +67,11 @@ Tree::Tree(Value& plantObject):
   else
     yearPlanted = plantObject["yearPlanted"].GetFloat();
    
+  if(plantObject.HasMember("commonName"))
+    commonName = plantObject["commonName"].GetString();
+  else
+    commonName = NULL;
+
   if(SIMULATION_BASE_YEAR - yearPlanted > 0.0f)
     growStep(SIMULATION_BASE_YEAR - yearPlanted);
   else
@@ -489,10 +495,12 @@ void Tree::writeToOLDF(FILE* file, char* indent)
 
   // var - XX missing
   
-  // commonName - XX incomplete
-  fprintf(file, "%s%s\"commonName\": \"\",\n", indent, indent);
+  // commonName
+  if(commonName)
+    fprintf(file, "%s%s\"commonName\": \"%s\",\n", indent, indent, commonName);
 
-  // notes - XX missing
+  // notes
+  fprintf(file, "%s%s\"notes\": \"%s\",\n", indent, indent, label);
 
   // treeDiameter - XX incomplete
   // Note this is the last one and shouldn't have the trailing comma.

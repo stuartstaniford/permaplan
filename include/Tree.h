@@ -39,6 +39,7 @@ class Tree: public VisualObject
   short           taskId;             // which thread has us
   float           trunkRadiusObserved;
   float           yearTrunkMeasured;
+  const char*     commonName;
 
   // Member functions - public
   Tree(Species* S, vec3 loc, float age, float now);

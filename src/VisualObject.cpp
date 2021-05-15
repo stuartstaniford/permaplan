@@ -51,7 +51,7 @@ VisualObject::~VisualObject(void)
 
 
 // =======================================================================================
-// Function to set the label of this object (not normally over-riden).  Copies string.
+// Function to set the label of this object (not normally over-ridden).  Copies string.
 
 void VisualObject::setLabel(const char* inLabel)
 {
