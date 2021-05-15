@@ -150,9 +150,32 @@ sub compareOLDF
   
   system("grep -v '//' $firstFile |jq -S > $firstFile.tmp");
   system("grep -v '//' $secondFile |jq -S > $secondFile.tmp");
-  system("diff $firstFile.tmp $secondFile.tmp|open -a XCode -f");
+  system("diff $firstFile.tmp $secondFile.tmp > $firstFile.diff");
+  #system("rm -rf $firstFile.tmp $secondFile.tmp");
+  diffFilter("$firstFile.diff");
+}
+
+
+#===========================================================================
+# Function to examine a diff between two jq processed OLDF files and 
+# screen out various known or trivial cases, so that only diffs that are
+# actually indicative of a problem remain.  These are placed into the
+# output file.
+
+sub diffFilter
+{
+  my($file) = @_;
+  my($state) = 0;
   
-  #system("rm -rf $firstFile.tmp $secondFile.tmp")
+  open(FILE, $file) || die("Couldn't open $file.\n");
+  
+  while(<FILE>)
+   {
+    print OUT;
+    $outLines++;
+   }
+  
+  close(FILE);
 }
 
 
