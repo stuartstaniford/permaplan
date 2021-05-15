@@ -157,6 +157,48 @@ sub compareOLDF
 
 
 #===========================================================================
+# Variables used across the diff processing functions
+
+$state = 0;
+$diffHeaderLine = '';
+
+#===========================================================================
+# Function to process a diff chunk header line
+
+sub diffChunkHeader
+{
+  $diffHeaderLine = $_;
+  @lines1 = ();
+  @lines2 = ();
+}
+
+
+#===========================================================================
+# Function to process a diff chunk header line
+
+use Scalar::Util;
+
+sub diffChunkIsProblem
+{
+  if($diffHeaderLine =~ /^(\d+)c(\d+)\s*$/)  #23c23
+   {
+    return 0 if (scalar(@lines1) != 1 || scalar(@lines2) != 1);
+    
+    # Case of lines that only have trivial numeric differences
+    if(Scalar::Util::looks_like_number($lines1[0]) && 
+                              Scalar::Util::looks_like_number($lines1[0]))
+     {
+      my $ratio = $lines1[0]/$lines2[0];
+      return 0 if ($ratio > 0.99999 && $ratio < 1.00001);
+     }
+    
+   }
+
+  return 1;
+}
+
+
+#===========================================================================
 # Function to examine a diff between two jq processed OLDF files and 
 # screen out various known or trivial cases, so that only diffs that are
 # actually indicative of a problem remain.  These are placed into the
@@ -171,8 +213,46 @@ sub diffFilter
   
   while(<FILE>)
    {
-    print OUT;
-    $outLines++;
+    if($state == 0)
+     {
+      diffChunkHeader();
+      $state = 1;
+     }
+    elsif($state == 1)
+     {
+      if(/^\</)
+       {
+        s/^\<//;
+        push @lines1, $_;
+       }
+      elsif(/^\-\-\-\s*$/)
+       {
+        $state = 2;
+       }
+      else
+       {
+        print OUT "Diff format failure on $_ in chunk $diffHeaderLine.\n";
+       }
+     }
+    elsif($state == 2)
+     {
+      if(/^\>/)
+       {
+        s/^\>//;
+        push @lines2, $_;
+       }
+      else
+       {
+        if(diffChunkIsProblem())
+         {
+          print OUT $diffHeaderLine.'<'.join('<', @lines1)."---\n".'>'.
+                        join('>', @lines2)."\n";
+          $outLines += 2 + scalar(@lines1) + scalar(@lines2);
+         }
+        diffChunkHeader();
+        $state = 1;        
+       }
+     }    
    }
   
   close(FILE);
