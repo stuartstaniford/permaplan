@@ -34,7 +34,8 @@ PmodDesign::PmodDesign(void):
                   writeFile(NULL),
                   metricUnits(false),
                   jCheck(NULL),
-                  designBoxValid(false)
+                  designBoxValid(false),
+                  author(NULL)
 {
   // Constructor should only be called once at startup.  Everyone else gets us via
   // getDesign()
@@ -213,6 +214,9 @@ bool PmodDesign::validateIntroductoryData(void)
                                     (char*)"introductoryData", (char*)"softwareVersion");
   retVal &= jCheck->validateOptionalStringMember(introductoryData,
                                     (char*)"introductoryData", (char*)"author");
+  if(introductoryData.HasMember("author"))
+    author = introductoryData["author"].GetString();
+
   return retVal;
 }
 
@@ -634,7 +638,10 @@ void PmodDesign::writeIntroductoryData(char* indent)
   fprintf(writeFile, "%s%s\"softwareVersion\": \"TBD\",\n", indent, indent);
 
   // author - this is the last one without the comma after
-  fprintf(writeFile, "%s%s\"author\": \"TBD\"\n", indent, indent);
+  if(author)
+    fprintf(writeFile, "%s%s\"author\": \"%s\"\n", indent, indent, author);
+  else
+    fprintf(writeFile, "%s%s\"author\": \"N/A\"\n", indent, indent);
 
   fprintf(writeFile, "%s },\n", indent);
 }

@@ -51,7 +51,7 @@ class PmodDesign
   Boundary              boundary;
   bool                  designBoxValid;
   BoundingBox           designBox;
-
+  const char*           author;
 
 private:
   
