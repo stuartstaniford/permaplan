@@ -182,8 +182,9 @@ sub diffChunkIsProblem
 {
   if($diffHeaderLine =~ /^(\d+)c(\d+)\s*$/)  #23c23
    {
-    return 0 if (scalar(@lines1) != 1 || scalar(@lines2) != 1);
-    
+    return 1 if (scalar(@lines1) != 1 || scalar(@lines2) != 1);
+    $lines1[0] =~ s/\,//;
+    $lines2[0] =~ s/\,//;
     # Case of lines that only have trivial numeric differences
     if(Scalar::Util::looks_like_number($lines1[0]) && 
                               Scalar::Util::looks_like_number($lines1[0]))
@@ -191,9 +192,24 @@ sub diffChunkIsProblem
       my $ratio = $lines1[0]/$lines2[0];
       return 0 if ($ratio > 0.99999 && $ratio < 1.00001);
      }
-    
    }
-
+  # Case of software and softwareVersion which may not match
+  elsif($diffHeaderLine =~ /^(\d+)\,(\d+)c(\d+)\,(\d+)\s*$/)  # 33,34c33,34
+   {
+    return 1 unless $2 - $1 == $4 - $3;
+    return 1 unless scalar(@lines1) == scalar(@lines2);
+    #print STDERR "Here for $1,$2 and ".join(" ",@lines1)."\n";
+    return 1 unless $2 - $1 + 1 == scalar(@lines1);
+    foreach $i (0...$#lines1)
+     {
+      #print STDERR "Checking $lines1[$i], $lines2[$i]\n";
+      return 1 unless $lines1[$i] =~/^\s*\"software\":/ || 
+                            $lines1[$i] =~/^\s*\"softwareVersion\":/;
+      return 1 unless $lines2[$i] =~/^\s*\"software\":/ || 
+                            $lines2[$i] =~/^\s*\"softwareVersion\":/;
+     }
+    return 0;
+   }
   return 1;
 }
 
@@ -207,7 +223,7 @@ sub diffChunkIsProblem
 sub diffFilter
 {
   my($file) = @_;
-  my($state) = 0;
+  $state = 0;
   
   open(FILE, $file) || die("Couldn't open $file.\n");
   
