@@ -481,8 +481,8 @@ void Tree::writeToOLDF(FILE* file, char* indent)
   // location
   fprintf(file, "%s%s\"location\": [%f, %f],\n", indent, indent, location[0], location[1]);
   
-  // yearPlanted - XX incomplete
-  fprintf(file, "%s%s\"yearPlanted\": \"\",\n", indent, indent);
+  // yearPlanted
+  fprintf(file, "%s%s\"yearPlanted\": %.0f,\n", indent, indent, yearPlanted);
 
   // timePlanted - XX incomplete
   fprintf(file, "%s%s\"timePlanted\": \"[0,0]\",\n", indent, indent);
