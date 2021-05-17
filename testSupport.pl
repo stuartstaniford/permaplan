@@ -75,6 +75,8 @@ sub startPermaplan
 # Each element of the array is a reference to an object.  The keys in
 # the object are the header labels from the table, and the values are
 # references to arrays of all the column values under that column header.
+#XX Does not handle the full generality of HTML, but instead relies on 
+#XX (common) formatting conventions in the permaplan pages.
 
 sub extractTablesFromHTML
 {
@@ -110,6 +112,111 @@ sub stopPermaplan
 {
   $http->get("http://127.0.0.1:$port/quit/");
   sleep(2); # Hack to give it some time to really be closed
+}
+
+
+#===========================================================================
+# Function to sanity check that the root page is present and looks correct.
+
+sub sanityCheckRoot
+{
+  my $response = $http->get("http://127.0.0.1:$port/");
+  unless(length $response->{content})
+   {
+    print OUT "Empty response from /";
+    $outLines++;
+   }
+}
+
+
+#===========================================================================
+# Function to sanity check that the quadtree page is present and looks correct.
+
+sub sanityCheckQuad
+{
+  my $response = $http->get("http://127.0.0.1:$port/quad/");
+  unless(length $response->{content})
+   {
+    print OUT "Empty response from /quad";
+    $outLines++;
+   }
+}
+
+
+#===========================================================================
+# Function to sanity check that the land surface page is present and looks correct.
+
+sub sanityCheckLand
+{
+  my $response = $http->get("http://127.0.0.1:$port/land/");
+  unless(length $response->{content})
+   {
+    print OUT "Empty response from /land";
+    $outLines++;
+   }
+}
+
+
+#===========================================================================
+# Function to sanity check that the plants page is present and looks correct.
+
+sub sanityCheckPlants
+{
+  my $response = $http->get("http://127.0.0.1:$port/plants/");
+  unless(length $response->{content})
+   {
+    print OUT "Empty response from /plants";
+    $outLines++;
+   }
+}
+
+
+#===========================================================================
+# Function to sanity check that the camera page is present and looks correct.
+
+sub sanityCheckCamera
+{
+  my $response = $http->get("http://127.0.0.1:$port/camera/");
+  unless(length $response->{content})
+   {
+    print OUT "Empty response from /camera";
+    $outLines++;
+   }
+}
+
+
+#===========================================================================
+# Function to sanity check that the stbuf page is present and looks correct.
+
+sub sanityCheckStbuf
+{
+  my $response = $http->get("http://127.0.0.1:$port/stbuf/");
+  unless(length $response->{content})
+   {
+    print OUT "Empty response from /stbuf";
+    $outLines++;
+   }
+}
+
+
+#===========================================================================
+# This function walks through all the currently known info pages in the 
+# permaplan HTTP interface, and tests that they all produce vaguely sane 
+# results - ie it's basically smoke testing.  API pages that actually affect
+# the core program state are not tested here.
+
+sub sanityCheckHTTPPages
+{
+  sanityCheckRoot();
+  sanityCheckQuad();
+  sanityCheckLand();
+  sanityCheckPlants();
+  sanityCheckCamera();
+  #sanityCheckStbuf();
+  #sanityCheckOtbuf();
+  #sanityCheckMemtrack();
+  #sanityCheckTaskQueues();
+  #sanityCheckSkySamples();
 }
 
 
