@@ -502,9 +502,12 @@ void Tree::writeToOLDF(FILE* file, char* indent)
   // notes
   fprintf(file, "%s%s\"notes\": \"%s\",\n", indent, indent, label);
 
-  // treeDiameter - XX incomplete
+  // treeDiameter
+  // trunkRadiusObserved = plantObject["treeGirth"][0].GetFloat()*mmPerSpaceUnit/2.0f/M_PI;
+  // yearTrunkMeasured =   plantObject["treeGirth"][1].GetFloat();
   // Note this is the last one and shouldn't have the trailing comma.
-  fprintf(file, "%s%s\"treeDiameter\": \"\"\n", indent, indent);
+  fprintf(file, "%s%s\"treeGirth\": [%f, %f]\n", indent, indent, 
+                          trunkRadiusObserved*2.0f*M_PI/mmPerSpaceUnit, yearTrunkMeasured);
 
   fprintf(file, "%s }", indent);
 }
