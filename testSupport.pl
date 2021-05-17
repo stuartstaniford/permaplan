@@ -70,6 +70,31 @@ sub startPermaplan
 
 
 #===========================================================================
+# Function extract all tables from an HTML page expressed as an array of
+# scalars, one line per array element.  Returns a reference to an array.
+# Each element of the array is a reference to an object.  The keys in
+# the object are the header labels from the table, and the values are
+# references to arrays of all the column values under that column header.
+
+sub extractTablesFromHTML
+{
+  my($arrayRef) = @_;
+  @tables = ();
+  my $i = 0;
+  my $state = 0;
+  
+  foreach my $line (@$arrayRef) # Loop over the lines in the HTML page
+   {
+    if($state == 0)
+     {
+      
+     }
+   }
+  return \@tables;
+}
+
+
+#===========================================================================
 # Function to stop permaplan 
 
 sub stopPermaplan
