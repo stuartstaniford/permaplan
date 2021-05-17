@@ -85,9 +85,18 @@ sub extractTablesFromHTML
   
   foreach my $line (@$arrayRef) # Loop over the lines in the HTML page
    {
-    if($state == 0)
+    if($state == 0) # looking for <table...
      {
-      
+      if(/\<table/)
+       {
+        $state = 1;
+        #XX Note that if <tr> follows <table> on same line we miss it.
+       }
+      next;
+     }
+    if($state == 1) # looking for <tr><th>...
+     {
+      next;
      }
    }
   return \@tables;
