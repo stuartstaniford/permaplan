@@ -116,16 +116,35 @@ sub stopPermaplan
 
 
 #===========================================================================
+# Function to check any HTTP::Tiny response to make sure the response code
+# is correct, and the response is not empty.
+
+sub sanityCheckHeader
+{
+  my($response, $path) = @_;  
+
+  unless($response->{status} == 200)
+   {
+    print OUT "Bad response code $response->{status} ($response->{reason})".
+                  " from $path.\n";
+    $outLines++;
+   }  
+  unless(length $response->{content})
+   {
+    print OUT "Empty response from $path.\n";
+    $outLines++;
+   }
+}
+
+
+#===========================================================================
 # Function to sanity check that the root page is present and looks correct.
 
 sub sanityCheckRoot
 {
   my $response = $http->get("http://127.0.0.1:$port/");
-  unless(length $response->{content})
-   {
-    print OUT "Empty response from /";
-    $outLines++;
-   }
+  sanityCheckHeader($response, '/');
+  
 }
 
 
@@ -135,11 +154,7 @@ sub sanityCheckRoot
 sub sanityCheckQuad
 {
   my $response = $http->get("http://127.0.0.1:$port/quad/");
-  unless(length $response->{content})
-   {
-    print OUT "Empty response from /quad";
-    $outLines++;
-   }
+  sanityCheckHeader($response, '/quad/');
 }
 
 
@@ -149,11 +164,7 @@ sub sanityCheckQuad
 sub sanityCheckLand
 {
   my $response = $http->get("http://127.0.0.1:$port/land/");
-  unless(length $response->{content})
-   {
-    print OUT "Empty response from /land";
-    $outLines++;
-   }
+  sanityCheckHeader($response, '/land/');
 }
 
 
@@ -163,11 +174,7 @@ sub sanityCheckLand
 sub sanityCheckPlants
 {
   my $response = $http->get("http://127.0.0.1:$port/plants/");
-  unless(length $response->{content})
-   {
-    print OUT "Empty response from /plants";
-    $outLines++;
-   }
+  sanityCheckHeader($response, '/plants/');
 }
 
 
@@ -177,11 +184,7 @@ sub sanityCheckPlants
 sub sanityCheckCamera
 {
   my $response = $http->get("http://127.0.0.1:$port/camera/");
-  unless(length $response->{content})
-   {
-    print OUT "Empty response from /camera";
-    $outLines++;
-   }
+  sanityCheckHeader($response, '/camera/');
 }
 
 
@@ -191,11 +194,47 @@ sub sanityCheckCamera
 sub sanityCheckStbuf
 {
   my $response = $http->get("http://127.0.0.1:$port/stbuf/");
-  unless(length $response->{content})
-   {
-    print OUT "Empty response from /stbuf";
-    $outLines++;
-   }
+  sanityCheckHeader($response, '/stbuf/');
+}
+
+
+#===========================================================================
+# Function to sanity check that the otbuf page is present and looks correct.
+
+sub sanityCheckOtbuf
+{
+  my $response = $http->get("http://127.0.0.1:$port/otbuf/");
+  sanityCheckHeader($response, '/otbuf/');
+}
+
+
+#===========================================================================
+# Function to sanity check that the memtrack page is present and looks correct.
+
+sub sanityCheckMemtrack
+{
+  my $response = $http->get("http://127.0.0.1:$port/memtrack/");
+  sanityCheckHeader($response, '/memtrack/');
+}
+
+
+#===========================================================================
+# Function to sanity check that the taskqueues page is present and looks correct.
+
+sub sanityCheckTaskQueues
+{
+  my $response = $http->get("http://127.0.0.1:$port/taskqueues/");
+  sanityCheckHeader($response, '/taskqueues/');
+}
+
+
+#===========================================================================
+# Function to sanity check that the skysamples page is present and looks correct.
+
+sub sanityCheckSkySamples
+{
+  my $response = $http->get("http://127.0.0.1:$port/skysamples/");
+  sanityCheckHeader($response, '/skysamples/');
 }
 
 
@@ -214,9 +253,9 @@ sub sanityCheckHTTPPages
   sanityCheckCamera();
   #sanityCheckStbuf();
   #sanityCheckOtbuf();
-  #sanityCheckMemtrack();
-  #sanityCheckTaskQueues();
-  #sanityCheckSkySamples();
+  sanityCheckMemtrack();
+  sanityCheckTaskQueues();
+  sanityCheckSkySamples();
 }
 
 
