@@ -412,7 +412,8 @@ bool HttpDebug::startResponsePage(const char* title, unsigned refresh)
 
 bool HttpDebug::endResponsePage(void)
 {
-  internalPrintf("</body>\n</html>\n");
+  internalPrintf("<hr><center><span name=\"copyright\">Staniford Systems</span>");
+  internalPrintf("</center>\n</body>\n</html>\n");
   return true;
 }
 

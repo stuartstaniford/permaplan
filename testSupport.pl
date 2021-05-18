@@ -176,7 +176,6 @@ sub sanityCheckOuterPage
   my $tree =   HTML::TreeBuilder->new();
   $tree->parse_content($response->{content});
 
-  # $tree->dump();
   my @headTags = $tree->look_down(_tag => "head");
   if(scalar(@headTags) != 1)
    {
@@ -203,6 +202,14 @@ sub sanityCheckOuterPage
     $outLines++;
    }
 
+  my @footers = $bodyTags[0]->look_down(_tag => "span", 
+                                        name => "copyright");
+  if(scalar(@headers) !=1)
+   {
+    print OUT "$path has no footer span in body.\n";
+    $outLines++;
+   }
+
   return $tree;
 }
 
@@ -215,6 +222,7 @@ sub sanityCheckRoot
   my $response = $http->get("http://127.0.0.1:$port/");
   sanityCheckHeader($response, '/');
   my $tree = sanityCheckOuterPage($response, '/');
+  #$tree->dump();
 }
 
 
