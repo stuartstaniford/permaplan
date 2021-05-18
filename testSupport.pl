@@ -172,11 +172,37 @@ sub printPortMessage
 
 sub sanityCheckOuterPage
 {
-  my($response) = @_;
+  my($response, $path) = @_;
   my $tree =   HTML::TreeBuilder->new();
   $tree->parse_content($response->{content});
 
   # $tree->dump();
+  my @headTags = $tree->look_down(_tag => "head");
+  if(scalar(@headTags) != 1)
+   {
+    print OUT "$path has no head (or more than one head).\n";
+    $outLines++;
+   }
+  my @titles = $headTags[0]->look_down(_tag => "title");
+  if(scalar(@titles) != 1)
+   {
+    print OUT "$path has no title in head (or more than one title).\n";
+    $outLines++;
+   }
+
+  my @bodyTags = $tree->look_down(_tag => "body");
+  if(scalar(@bodyTags) != 1)
+   {
+    print OUT "$path has no body (or more than one body).\n";
+    $outLines++;
+   }
+  my @headers = $bodyTags[0]->look_down(_tag => "h1");
+  if(scalar(@headers) < 1)
+   {
+    print OUT "$path has no <h1> in body.\n";
+    $outLines++;
+   }
+
   return $tree;
 }
 
@@ -188,7 +214,7 @@ sub sanityCheckRoot
 {
   my $response = $http->get("http://127.0.0.1:$port/");
   sanityCheckHeader($response, '/');
-  my $tree = sanityCheckOuterPage($response);
+  my $tree = sanityCheckOuterPage($response, '/');
 }
 
 
@@ -199,6 +225,7 @@ sub sanityCheckQuad
 {
   my $response = $http->get("http://127.0.0.1:$port/quad/");
   sanityCheckHeader($response, '/quad/');
+  my $tree = sanityCheckOuterPage($response, '/quad/');
 }
 
 
@@ -209,6 +236,7 @@ sub sanityCheckLand
 {
   my $response = $http->get("http://127.0.0.1:$port/land/");
   sanityCheckHeader($response, '/land/');
+  my $tree = sanityCheckOuterPage($response, '/land/');
 }
 
 
@@ -219,6 +247,7 @@ sub sanityCheckPlants
 {
   my $response = $http->get("http://127.0.0.1:$port/plants/");
   sanityCheckHeader($response, '/plants/');
+  my $tree = sanityCheckOuterPage($response, '/plants/');
 }
 
 
@@ -229,6 +258,7 @@ sub sanityCheckCamera
 {
   my $response = $http->get("http://127.0.0.1:$port/camera/");
   sanityCheckHeader($response, '/camera/');
+  my $tree = sanityCheckOuterPage($response, '/camera/');
 }
 
 
@@ -239,6 +269,7 @@ sub sanityCheckStbuf
 {
   my $response = $http->get("http://127.0.0.1:$port/stbuf/");
   sanityCheckHeader($response, '/stbuf/');
+  my $tree = sanityCheckOuterPage($response, '/stbuf/');
 }
 
 
@@ -249,6 +280,7 @@ sub sanityCheckOtbuf
 {
   my $response = $http->get("http://127.0.0.1:$port/otbuf/");
   sanityCheckHeader($response, '/otbuf/');
+  my $tree = sanityCheckOuterPage($response, '/otbuf/');
 }
 
 
@@ -259,6 +291,7 @@ sub sanityCheckMemtrack
 {
   my $response = $http->get("http://127.0.0.1:$port/memtrack/");
   sanityCheckHeader($response, '/memtrack/');
+  my $tree = sanityCheckOuterPage($response, '/memtrack/');
 }
 
 
@@ -269,6 +302,7 @@ sub sanityCheckTaskQueues
 {
   my $response = $http->get("http://127.0.0.1:$port/taskqueues/");
   sanityCheckHeader($response, '/taskqueues/');
+  my $tree = sanityCheckOuterPage($response, '/taskqueues/');
 }
 
 
@@ -279,6 +313,7 @@ sub sanityCheckSkySamples
 {
   my $response = $http->get("http://127.0.0.1:$port/skysamples/");
   sanityCheckHeader($response, '/skysamples/');
+  my $tree = sanityCheckOuterPage($response, '/skysamples/');
 }
 
 
