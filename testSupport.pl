@@ -156,6 +156,15 @@ sub sanityCheckHeader
 
 
 #===========================================================================
+# Print the port and url
+
+sub printPortMessage
+{
+  print "Port is $port, accessible at http://127.0.0.1:$port/\n";
+}
+
+  
+#===========================================================================
 # Function to parse one of the HTML pages and make sure the basic stuff is
 # there - that there's a head, a body, a title, at least one H1.  Returns
 # the HTML::Tree object for further interrogation specific to each kind of
