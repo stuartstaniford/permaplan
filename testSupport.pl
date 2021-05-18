@@ -7,6 +7,7 @@
 # Modules needed
 
 use HTTP::Tiny;
+use HTML::TreeBuilder;
 
 #===========================================================================
 # File level constants/parameters
@@ -155,13 +156,30 @@ sub sanityCheckHeader
 
 
 #===========================================================================
+# Function to parse one of the HTML pages and make sure the basic stuff is
+# there - that there's a head, a body, a title, at least one H1.  Returns
+# the HTML::Tree object for further interrogation specific to each kind of
+# page.
+
+sub sanityCheckOuterPage
+{
+  my($response) = @_;
+  my $tree =   HTML::TreeBuilder->new();
+  $tree->parse_content($response->{content});
+
+  # $tree->dump();
+  return $tree;
+}
+
+
+#===========================================================================
 # Function to sanity check that the root page is present and looks correct.
 
 sub sanityCheckRoot
 {
   my $response = $http->get("http://127.0.0.1:$port/");
   sanityCheckHeader($response, '/');
-  
+  my $tree = sanityCheckOuterPage($response);
 }
 
 
