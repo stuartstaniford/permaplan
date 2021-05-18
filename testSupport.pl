@@ -70,6 +70,23 @@ sub startPermaplan
 
 
 #===========================================================================
+# Function to start the simulation running in permaplan.
+
+sub simulatePermaplan
+{
+  my $response = $http->get("http://127.0.0.1:$port/menu/simulate/start/");
+  if(length $response->{content} && $response->{content} eq "OK\n")
+   {
+    return 1;
+   }
+  else
+   {
+    return 0;
+   }
+}
+
+
+#===========================================================================
 # Function extract all tables from an HTML page expressed as an array of
 # scalars, one line per array element.  Returns a reference to an array.
 # Each element of the array is a reference to an object.  The keys in
