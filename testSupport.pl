@@ -408,17 +408,59 @@ sub checkLogForErrors
 
 
 #===========================================================================
+# Function to load a file of JSON, strip comments, and put the result in
+# a scalar which is returned.
+
+sub getJSONFileNoComments
+{
+  my($file) = @_;
+  my($string) = '';
+  
+  open(JSON, $file) || die("Couldn't open $file.\n");
+  while(<JSON>)
+   {
+    next if /^\s*\/\//;
+    $string .= $_;
+   }  
+  close(JSON);
+  return $string;
+}
+
+
+#===========================================================================
+# Function to compare two JSON files, expressed as Perl data structures,
+# and determine if they are materially different.
+
+# use JSON;
+
+sub diffJSON
+{
+  my($ref1, $ref2) = @_;
+
+  if(ref $ref1 eq 'HASH') 
+   {
+    ;
+   }
+}
+
+
+#===========================================================================
 # Function to compare two OLDF files.  Returns 1 if they are identical.  If
 # they are different, reports the differences in the OUT file and returns 0.
+
 
 sub compareOLDF
 {
   my($firstFile, $secondFile) = @_;
   
+  my $firstJson = getJSONFileNoComments($firstFile);
+  my $secondJson = getJSONFileNoComments($secondFile);
+  
+  
   system("grep -v '//' $firstFile |jq -S > $firstFile.tmp");
   system("grep -v '//' $secondFile |jq -S > $secondFile.tmp");
   system("diff $firstFile.tmp $secondFile.tmp > $firstFile.diff");
-  #system("rm -rf $firstFile.tmp $secondFile.tmp");
+  system("rm -rf $firstFile.tmp $secondFile.tmp");
   diffFilter("$firstFile.diff");
 }
 

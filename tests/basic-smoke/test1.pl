@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 
-require 'testSupport.pl';
+require './testSupport.pl';
 $dir = 'tests/basic-smoke';
 
 system("rm -rf $dir/test1.out.oldf");

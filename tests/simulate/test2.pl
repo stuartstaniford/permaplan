@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 
-require 'testSupport.pl';
+require './testSupport.pl';
 $resourceDir = 'tests/basic-smoke';
 $testDir = 'tests/simulate';
 
