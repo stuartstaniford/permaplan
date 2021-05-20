@@ -428,18 +428,133 @@ sub getJSONFileNoComments
 
 
 #===========================================================================
+# Needed for JSON operations in functions below.
+
+use JSON::XS;
+
+#===========================================================================
+# Helper function to diffJSON for hash references.
+
+sub diffJSONHashRef
+{
+  my($ref1, $ref2, $path) = @_;
+
+  my(@keys1) = sort keys %$ref1;
+  my(@keys2) = sort keys %$ref2;
+  
+  unless(join('|', @keys1) eq join('|', @keys2))
+   {
+    print OUT "JSON objects differ at $path: hash has keys "
+      .join('|', @keys1)." vs ".join('|', @keys2)."\n";
+    $outLines++;
+    return 1;
+   }
+  
+  # Now we know both hashes have identical keys
+  my $retval = 0;
+  foreach $key (@keys1)
+   {
+    if(ref($ref1->{$key}) eq '' && ref($ref2->{$key}) eq '')
+     {
+      # two scalars
+      $retval |= diffJSONScalar($ref1->{$key}, $ref2->{$key}, $path.'{'.$key.'}');
+     }
+    else
+     {
+      $retval |= diffJSON($ref1->{$key}, $ref2->{$key}, $path.'{'.$key.'}');
+     } 
+   }
+  
+  return $retval;
+}
+
+
+#===========================================================================
+# Helper function to diffJSON for array references.
+
+sub diffJSONArrayRef
+{
+  my($ref1, $ref2, $path) = @_;
+
+  unless(scalar(@$ref1) eq scalar(@$ref2))
+   {
+    print OUT "JSON arrays differ in size at $path: ".
+                                  scalar(@$ref1)." vs ".scalar(@$ref2)."\n";
+    $outLines++;
+    return 1;
+   }
+  
+  # Now we know both arrays are the same size
+  my $retval = 0;
+  foreach $index (0..(scalar(@$ref1)-1))
+   {
+    if(ref($ref1->[$index]) eq '' && ref($ref2->[$index]) eq '')
+     {
+      # two scalars
+      $retval |= diffJSONScalar($ref1->[$index], $ref2->[$index], 
+                                                      $path.'['.$index.']');
+     }
+    else
+     {
+      $retval |= diffJSON($ref1->[$index], $ref2->[$index],
+                                                      $path.'['.$index.']');
+     } 
+   }
+  
+  return $retval;
+}
+
+
+#===========================================================================
+# Helper function to diffJSON for scalars.
+
+sub diffJSONScalar
+{
+  my($x, $y, $path) = @_;
+
+  if(Scalar::Util::looks_like_number($x) && Scalar::Util::looks_like_number($y)
+                                    && $y > 0)
+   {
+    my $ratio = $x/$y;
+    return 0 if ($ratio > 0.99999 && $ratio < 1.00001);
+   }
+  elsif($x eq $y)
+   {
+    return 0;
+   }
+
+  print OUT "JSON objects differ at $path: $x vs $y.\n";
+  $outLines++;
+  return 1;
+}
+
+
+#===========================================================================
 # Function to compare two JSON files, expressed as Perl data structures,
 # and determine if they are materially different.
 
-# use JSON;
-
 sub diffJSON
 {
-  my($ref1, $ref2) = @_;
+  my($ref1, $ref2, $path) = @_;
 
-  if(ref $ref1 eq 'HASH') 
+  if(ref $ref1 eq 'HASH' && ref $ref2 eq 'HASH') 
    {
-    ;
+     return diffJSONHashRef($ref1, $ref2, $path);
+   }
+  elsif(ref $ref1 eq 'ARRAY' && ref $ref2 eq 'ARRAY') 
+   {
+     return diffJSONArrayRef($ref1, $ref2, $path);
+   }
+  elsif(ref $ref1 eq '' && ref $ref2 eq '') #scalars 
+   {
+     return diffJSONScalar($$ref1, $$ref2, $path);
+   }
+  else
+   {
+    print OUT "JSON objects differ at $path: ".ref($ref1)." vs "
+                                                        .ref($ref2)."\n";
+    $outLines++;
+    return 1;
    }
 }
 
@@ -454,133 +569,11 @@ sub compareOLDF
   my($firstFile, $secondFile) = @_;
   
   my $firstJson = getJSONFileNoComments($firstFile);
-  my $secondJson = getJSONFileNoComments($secondFile);
-  
-  
-  system("grep -v '//' $firstFile |jq -S > $firstFile.tmp");
-  system("grep -v '//' $secondFile |jq -S > $secondFile.tmp");
-  system("diff $firstFile.tmp $secondFile.tmp > $firstFile.diff");
-  system("rm -rf $firstFile.tmp $secondFile.tmp");
-  diffFilter("$firstFile.diff");
-}
+  my $secondJson = getJSONFileNoComments($secondFile);  
+  my $firstPerlHash  = decode_json($firstJson);
+  my $secondPerlHash  = decode_json($secondJson);
 
-
-#===========================================================================
-# Variables used across the diff processing functions
-
-$state = 0;
-$diffHeaderLine = '';
-
-#===========================================================================
-# Function to process a diff chunk header line
-
-sub diffChunkHeader
-{
-  $diffHeaderLine = $_;
-  @lines1 = ();
-  @lines2 = ();
-}
-
-
-#===========================================================================
-# Function to process a diff chunk header line
-
-use Scalar::Util;
-
-sub diffChunkIsProblem
-{
-  if($diffHeaderLine =~ /^(\d+)c(\d+)\s*$/)  #23c23
-   {
-    return 1 if (scalar(@lines1) != 1 || scalar(@lines2) != 1);
-    $lines1[0] =~ s/\,//;
-    $lines2[0] =~ s/\,//;
-    # Case of lines that only have trivial numeric differences
-    if(Scalar::Util::looks_like_number($lines1[0]) && 
-                              Scalar::Util::looks_like_number($lines1[0]))
-     {
-      my $ratio = $lines1[0]/$lines2[0];
-      return 0 if ($ratio > 0.99999 && $ratio < 1.00001);
-     }
-   }
-  # Case of software and softwareVersion which may not match
-  elsif($diffHeaderLine =~ /^(\d+)\,(\d+)c(\d+)\,(\d+)\s*$/)  # 33,34c33,34
-   {
-    return 1 unless $2 - $1 == $4 - $3;
-    return 1 unless scalar(@lines1) == scalar(@lines2);
-    #print STDERR "Here for $1,$2 and ".join(" ",@lines1)."\n";
-    return 1 unless $2 - $1 + 1 == scalar(@lines1);
-    foreach $i (0...$#lines1)
-     {
-      #print STDERR "Checking $lines1[$i], $lines2[$i]\n";
-      return 1 unless $lines1[$i] =~/^\s*\"software\":/ || 
-                            $lines1[$i] =~/^\s*\"softwareVersion\":/;
-      return 1 unless $lines2[$i] =~/^\s*\"software\":/ || 
-                            $lines2[$i] =~/^\s*\"softwareVersion\":/;
-     }
-    return 0;
-   }
-  return 1;
-}
-
-
-#===========================================================================
-# Function to examine a diff between two jq processed OLDF files and 
-# screen out various known or trivial cases, so that only diffs that are
-# actually indicative of a problem remain.  These are placed into the
-# output file.
-
-sub diffFilter
-{
-  my($file) = @_;
-  $state = 0;
-  
-  open(FILE, $file) || die("Couldn't open $file.\n");
-  
-  while(<FILE>)
-   {
-    if($state == 0)
-     {
-      diffChunkHeader();
-      $state = 1;
-     }
-    elsif($state == 1)
-     {
-      if(/^\</)
-       {
-        s/^\<//;
-        push @lines1, $_;
-       }
-      elsif(/^\-\-\-\s*$/)
-       {
-        $state = 2;
-       }
-      else
-       {
-        print OUT "Diff format failure on $_ in chunk $diffHeaderLine.\n";
-       }
-     }
-    elsif($state == 2)
-     {
-      if(/^\>/)
-       {
-        s/^\>//;
-        push @lines2, $_;
-       }
-      else
-       {
-        if(diffChunkIsProblem())
-         {
-          print OUT $diffHeaderLine.'<'.join('<', @lines1)."---\n".'>'.
-                        join('>', @lines2)."\n";
-          $outLines += 2 + scalar(@lines1) + scalar(@lines2);
-         }
-        diffChunkHeader();
-        $state = 1;        
-       }
-     }    
-   }
-  
-  close(FILE);
+  return diffJSON($firstPerlHash, $secondPerlHash, 'Obj');  
 }
 
 

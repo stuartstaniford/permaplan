@@ -1,7 +1,7 @@
 # permaplan
-Permaculture planning software.  In early stages of development, do not try to use yet.  Shooting to have alpha semi-usable code fall of 2021.  Intend to ultimately open-source, but right now is still all rights-reserved with no license to copy.
+Permaculture planning software.  In early stages of development, do not try to use yet.  Shooting to have alpha semi-usable code late in 2021 (so I can use it for design work over the winter before the 2022 growing season). I intend to ultimately open-source it, but right now it is still all rights-reserved with no license to copy.
 
-Currently only believed to compile on MacOS Mojave and Catalina.  Code is in C++, but I speak it with a very strong C accent (I was a C network security guy for over twenty years).
+Code is in C++, but I speak it with a very strong C accent (I was a C network security guy for over twenty years).  Some of this is a matter of not having learnt better yet, and some of it is conscious choice for performance reasons.  So my coding style is evolving at the moment.  Test and other admin scripts are in Perl.  The system is currently only believed to compile on MacOS Mojave, Catalina, and Big Sur.  Test scripts will not work below Big Sur (ancient Perl versions on prior MacOS's).  However, it's written in a manner intended to be fairly portable and my intent is to port it to Windows and Linux in due course.  
 
 Installation notes for building the source:
 
@@ -18,8 +18,6 @@ Then:
 make depend
 
 make
-
-Test suites depend on jq (https://stedolan.github.io/jq/ or "brew install jq").
 
 Additional appreciations:
 
