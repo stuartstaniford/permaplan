@@ -114,6 +114,8 @@ void* HttpDebug::processConnections(void)
      }
     LogHTTPDetails("Accepted connection from client on port %u.\n", cliaddr.sin_port);
     processOneHTTP1_1();
+    if(shutDownNow)
+      break;
     reqParser.resetForReuse();
    }
   
@@ -276,6 +278,7 @@ bool HttpDebug::processRequestHeader(void)
      {
       scene.actions.push_back(action);
       retVal = true;
+      shutDownNow = true;
      }
     else
       LogRequestErrors("Couldn't create valid QuitProgram action from %s\n", url+7);
@@ -373,6 +376,8 @@ void HttpDebug::processOneHTTP1_1()
         break;
     if(reqParser.connectionWillClose)
         break;
+    if(shutDownNow)
+      break;
    }
 }
 

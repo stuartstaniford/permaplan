@@ -42,8 +42,7 @@ public:
   char*               respEnd;
   Scene&              scene;
   MenuInterface&      menuInterface;
-  bool                shutDownNow; // by convention, this thread only reads, others set
-                                   // this variable to true to shut it down.  So no lock.
+  bool                shutDownNow; // Reads/writes on a single bool should be atomic, no lock.
   bool                respBufOverflow;
 
   // Member functions - public
