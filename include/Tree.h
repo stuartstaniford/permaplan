@@ -40,6 +40,7 @@ class Tree: public VisualObject
   float           trunkRadiusObserved;
   float           yearTrunkMeasured;
   const char*     commonName;
+  const char*     taxonomyLink;
 
   // Member functions - public
   Tree(Species* S, vec3 loc, float age, float now);

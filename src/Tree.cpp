@@ -47,6 +47,7 @@ Tree::Tree(Value& plantObject):
                           VisualObject(false),
                           trunk(NULL)
 {
+  // species/genus/var
   char speciesPath[MAX_SPECIES_PATH];
   if(plantObject.HasMember("var"))
     snprintf(speciesPath, MAX_SPECIES_PATH, "%s/%s/%s", plantObject["genus"].GetString(),
@@ -56,8 +57,11 @@ Tree::Tree(Value& plantObject):
                                             plantObject["species"].GetString());
   species = Species::getSpeciesByPath(speciesPath);
   
+  // location
   location[0] = plantObject["location"][0].GetFloat();
   location[1] = plantObject["location"][1].GetFloat();
+  
+  // time/year Planted
   if(plantObject.HasMember("timePlanted"))
    {
     Timeval T;
@@ -66,17 +70,26 @@ Tree::Tree(Value& plantObject):
    }
   else
     yearPlanted = plantObject["yearPlanted"].GetFloat();
-   
+  
+  // commonName
   if(plantObject.HasMember("commonName"))
     commonName = plantObject["commonName"].GetString();
   else
     commonName = NULL;
 
+  // taxonomyLink
+  if(plantObject.HasMember("taxonomyLink"))
+    taxonomyLink = plantObject["taxonomyLink"].GetString();
+  else
+    taxonomyLink = NULL;
+
+  // ageNow
   if(SIMULATION_BASE_YEAR - yearPlanted > 0.0f)
     growStep(SIMULATION_BASE_YEAR - yearPlanted);
   else
     ageNow = SIMULATION_BASE_YEAR - yearPlanted;
   
+  // treeGirth
   trunkRadiusObserved = plantObject["treeGirth"][0].GetFloat()*mmPerSpaceUnit/2.0f/M_PI;
   yearTrunkMeasured =   plantObject["treeGirth"][1].GetFloat();
   
@@ -497,6 +510,10 @@ void Tree::writeToOLDF(FILE* file, char* indent)
   if(species->varName)
     fprintf(file, "%s%s\"var\": \"%s\",\n", indent, indent, species->varName);
   
+  // taxonomyLink
+  if(taxonomyLink)
+    fprintf(file, "%s%s\"taxonomyLink\": \"%s\",\n", indent, indent, taxonomyLink);
+
   // commonName
   if(commonName)
     fprintf(file, "%s%s\"commonName\": \"%s\",\n", indent, indent, commonName);
