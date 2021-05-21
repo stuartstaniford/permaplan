@@ -528,7 +528,7 @@ sub diffJSONScalar
   my($x, $y, $path) = @_;
 
   if(Scalar::Util::looks_like_number($x) && Scalar::Util::looks_like_number($y)
-                                    && $y > 0)
+                                    && abs($y) > 0)
    {
     my $ratio = $x/$y;
     return 0 if ($ratio > 0.99999 && $ratio < 1.00001);
@@ -540,7 +540,7 @@ sub diffJSONScalar
 
   return 0 if $ignorePath{$path};
   
-  print OUT "JSON objects differ at $path: $x vs $y.\n";
+  print OUT "JSON scalars differ at $path: $x vs $y.\n";
   $outLines++;
   return 1;
 }
