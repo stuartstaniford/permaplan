@@ -9,6 +9,7 @@
 #include "Box.h"
 #include "Tree.h"
 #include "loadFileToBuf.h"
+#include "HttpDebug.h"
 #include <pthread.h>
 #include <stdlib.h>
 #include <err.h>
@@ -301,6 +302,29 @@ void Scene::insertTree(Species* species, vec3 loc, float age)
   
   qtree->storeVisualObject(tree);
   rebuildVisualObjectBuffer(&sceneObjectTbuf);
+}
+
+
+// =======================================================================================
+// Provide a summary of the simulation status (within an HTML page)
+
+bool Scene::diagnosticHTMLSimulationSummary(HttpDebug* serv)
+{
+  float year = getSimYear();
+  float CO2 = rcp8_5.getConcentration(year);
+  httPrintf("<hr><span name=\"simSummary>\n");
+
+  if(simulationActive())
+   {
+    httPrintf("<b>Simulation Speed:<b> %.2f<br>\n", simulationSpeed);
+   }
+  else
+    httPrintf("<b>Simulation:</b> Paused<br>\n");
+  httPrintf("<b>Year:</b> %.0f<br>\n", year);
+  httPrintf("<b>CO2:</b> %.0fppm<br>\n", CO2);
+  
+  httPrintf("</span>\n");
+  return true;
 }
 
 

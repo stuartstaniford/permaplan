@@ -88,17 +88,16 @@ sub simulatePermaplan
 
 
 #===========================================================================
-# Function extract all tables from an HTML page expressed as an array of
-# scalars, one line per array element.  Returns a reference to an array.
-# Each element of the array is a reference to an object.  The keys in
-# the object are the header labels from the table, and the values are
-# references to arrays of all the column values under that column header.
-#XX Does not handle the full generality of HTML, but instead relies on 
-#XX (common) formatting conventions in the permaplan pages.
+# Function to extract all tables from an HTML page expressed as single.
+# scalar.  Returns a reference to an array. Each element of the array is a 
+# reference to another array which contains the elements of a row.  Will 
+# not currently handle anything complex inside the table cells, only a
+# simple label or number.
+
 
 sub extractTablesFromHTML
 {
-  my($arrayRef) = @_;
+  my($html) = @_;
   @tables = ();
   my $i = 0;
   my $state = 0;

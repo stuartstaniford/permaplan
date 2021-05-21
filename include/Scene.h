@@ -77,6 +77,7 @@ class Scene: public Lockable
   void          rebuildVisualObjectBuffer(TriangleBuffer** tbuf);
   void          processEditModeObjectDeselection(void);
   void          processNewEditModeObject(void);
+  bool          diagnosticHTMLSimulationSummary(HttpDebug* serv);
   VisualObject* findObjectFromWindowCoords(vec3 location, float clipX, float clipY);
 #ifdef MULTI_THREADED_SIMULATION
   void          startSimulationThreads(void);
