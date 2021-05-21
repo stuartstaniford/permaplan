@@ -312,18 +312,18 @@ bool Scene::diagnosticHTMLSimulationSummary(HttpDebug* serv)
 {
   float year = getSimYear();
   float CO2 = rcp8_5.getConcentration(year);
-  httPrintf("<hr><span name=\"simSummary>\n");
+  httPrintf("<hr><center><span name=\"simSummary\">\n");
 
   if(simulationActive())
    {
-    httPrintf("<b>Simulation Speed:<b> %.2f<br>\n", simulationSpeed);
+    httPrintf("<b>Simulation Speed:</b> %.2f.\n", simulationSpeed);
    }
   else
-    httPrintf("<b>Simulation:</b> Paused<br>\n");
-  httPrintf("<b>Year:</b> %.0f<br>\n", year);
-  httPrintf("<b>CO2:</b> %.0fppm<br>\n", CO2);
+    httPrintf("<b>Simulation:</b> Paused.\n");
+  httPrintf("<b>Year:</b> %.0f.\n", year);
+  httPrintf("<b>CO2:</b> %.0fppm.\n", CO2);
   
-  httPrintf("</span>\n");
+  httPrintf("</span></center>\n");
   return true;
 }
 

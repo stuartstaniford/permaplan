@@ -176,6 +176,8 @@ bool HttpDebug::indexPage(void)
 
   // End table and page
   internalPrintf("</table></center>\n");
+  scene.diagnosticHTMLSimulationSummary(this);
+
   endResponsePage();
   return true;
 }
