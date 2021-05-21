@@ -102,22 +102,22 @@ sub extractTablesFromHTML
   my $i = 0;
   my $state = 0;
   
-  foreach my $line (@$arrayRef) # Loop over the lines in the HTML page
-   {
-    if($state == 0) # looking for <table...
-     {
-      if(/\<table/)
-       {
-        $state = 1;
-        #XX Note that if <tr> follows <table> on same line we miss it.
-       }
-      next;
-     }
-    if($state == 1) # looking for <tr><th>...
-     {
-      next;
-     }
-   }
+#  foreach my $line (@$arrayRef) # Loop over the lines in the HTML page
+#   {
+#    if($state == 0) # looking for <table...
+#     {
+#      if(/\<table/)
+#       {
+#        $state = 1;
+#        #XX Note that if <tr> follows <table> on same line we miss it.
+#       }
+#      next;
+#     }
+#    if($state == 1) # looking for <tr><th>...
+#     {
+#      next;
+#     }
+#   }
   return \@tables;
 }
 
@@ -212,6 +212,29 @@ sub sanityCheckOuterPage
   return $tree;
 }
 
+
+#===========================================================================
+# Function to get the simulation year from the main page.
+
+sub getPermaplanYear
+{
+  my $response = $http->get("http://127.0.0.1:$port/");
+  my $tree =   HTML::TreeBuilder->new();
+  #print $response->{content};
+  $tree->parse_content($response->{content});
+  my $simSpan = $tree->look_down(_tag => "span", 
+                                        name => "simSummary");
+  unless(defined $simSpan)
+   {
+    print OUT "Couldn't not get simulation year from permaplan.\n";
+    $outLines++;
+    return 10000;
+   }
+  $year = $simSpan->{_content}[4];
+  $year =~ s/\.//g;
+  $year =~ s/\s//g;
+  return $year;
+}
 
 #===========================================================================
 # Function to sanity check that the root page is present and looks correct.

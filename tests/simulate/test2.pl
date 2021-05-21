@@ -10,7 +10,13 @@ openOutput("$testDir/test2.log");
 startPermaplan("-A -d $resourceDir/test1.oldf -D $testDir/test2.out.oldf -g 5.0");
 printPortMessage();
 simulatePermaplan();
-sleep(30);
+while(1)
+ {
+  my $year = getPermaplanYear();
+  print "$year\n";
+  last if $year >= 2200;
+  sleep(1);
+ }
 sanityCheckHTTPPages();
 stopPermaplan();
 checkLogForErrors();
