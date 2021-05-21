@@ -432,6 +432,15 @@ sub getJSONFileNoComments
 
 use JSON::XS;
 
+%ignorePath =
+ (
+  'Obj{introductoryData}{fileTime}[0]' => 1,
+  'Obj{introductoryData}{fileTime}[1]' => 1,
+  'Obj{introductoryData}{software}' => 1,
+  'Obj{introductoryData}{softwareVersion}' => 1,
+ );
+
+
 #===========================================================================
 # Helper function to diffJSON for hash references.
 
@@ -444,10 +453,13 @@ sub diffJSONHashRef
   
   unless(join('|', @keys1) eq join('|', @keys2))
    {
-    print OUT "JSON objects differ at $path: hash has keys "
-      .join('|', @keys1)." vs ".join('|', @keys2)."\n";
-    $outLines++;
-    return 1;
+    unless($ignorePath{$path})
+     {
+      print OUT "JSON objects differ at $path: hash has keys "
+        .join('|', @keys1)." vs ".join('|', @keys2)."\n";
+      $outLines++;
+      return 1;
+     }
    }
   
   # Now we know both hashes have identical keys
@@ -478,10 +490,13 @@ sub diffJSONArrayRef
 
   unless(scalar(@$ref1) eq scalar(@$ref2))
    {
-    print OUT "JSON arrays differ in size at $path: ".
+    unless($ignorePath{$path})
+     {
+      print OUT "JSON arrays differ in size at $path: ".
                                   scalar(@$ref1)." vs ".scalar(@$ref2)."\n";
-    $outLines++;
-    return 1;
+      $outLines++;
+      return 1;
+     }
    }
   
   # Now we know both arrays are the same size
@@ -523,6 +538,8 @@ sub diffJSONScalar
     return 0;
    }
 
+  return 0 if $ignorePath{$path};
+  
   print OUT "JSON objects differ at $path: $x vs $y.\n";
   $outLines++;
   return 1;
@@ -551,6 +568,7 @@ sub diffJSON
    }
   else
    {
+    return 0 if $ignorePath{$path};
     print OUT "JSON objects differ at $path: ".ref($ref1)." vs "
                                                         .ref($ref2)."\n";
     $outLines++;
