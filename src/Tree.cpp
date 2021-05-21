@@ -493,7 +493,9 @@ void Tree::writeToOLDF(FILE* file, char* indent)
   // species
   fprintf(file, "%s%s\"species\": \"%s\",\n", indent, indent, species->speciesName);
 
-  // var - XX missing
+  // var
+  if(species->varName)
+    fprintf(file, "%s%s\"var\": \"%s\",\n", indent, indent, species->varName);
   
   // commonName
   if(commonName)
