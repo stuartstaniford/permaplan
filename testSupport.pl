@@ -53,14 +53,14 @@ sub startPermaplan
   print PORT $nextPort;
   close(PORT);
 
-  my $permCommand = "./permaplan $options -p $port";
+  $options .= " -p $port";
   unless($debuggerMode)
    {
-    system("$permCommand &");
+    system("./permaplan $options &");
    }
   else
    {
-    print("Start debugger with: $permCommand\n");
+    print("Start debugger with: run $options\n");
     print("Hit return when ready:");
     my $response = <STDIN>;
    }
@@ -418,6 +418,34 @@ sub sanityCheckHTTPPages
   sanityCheckSkySamples();
 }
 
+
+#===========================================================================
+# This function does a random walk down the quad tree, possibly terminating
+# on the pages of VisualObjects, or possibly terminating on leaf quadtree
+# nodes.
+
+sub randomWalkQuadTree
+{
+  my($startPath) = @_;
+}
+
+
+#===========================================================================
+# This function is for stress-testing the HTTP interface.  It does a range
+# of requests for info pages in a tight loop to put maximal strain on
+# the Permaplan HTTP interface (well, maximal strain a slow Perl script can
+# manage anyway..
+
+sub stressTestHTTPPages
+{
+  my($loops) = @_;
+  
+  foreach my $i (1..$loops)
+   {
+    sanityCheckHTTPPages();
+    randomWalkQuadTree("/quad/");
+   }
+}
 
 #===========================================================================
 # Function to open the output file for use by later checking functions 

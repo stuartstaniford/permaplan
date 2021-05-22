@@ -32,9 +32,13 @@ HttpRequestParser::HttpRequestParser(unsigned size):
                                           httpVerOffset(0u),
                                           connectionDone(false)
 {
-  buf  = new char[bufSize];
+  buf  = new char[size+8];
   unless(buf)
     err(-1, "Couldn't allocate memory in __func__\n");
+  strncpy(buf, "aaaa", 4);
+  buf+=4;
+  strncpy(buf+size, "bbbb", 4);
+  
   LogRequestParsing("Request parser initialized with buffer size %u.\n", bufSize);
   headerMap["Connection"]        = Connection;
   headerMap["User-Agent"]        = UserAgent;
@@ -51,11 +55,12 @@ HttpRequestParser::HttpRequestParser(unsigned size):
 
 void HttpRequestParser::resetForReuse(void)
 {
-  readPoint       = NULL;
-  headerEnd       = NULL;
-  urlOffset       = 0u;
-  httpVerOffset   = 0u;
-  connectionDone  = false;
+  readPoint           = NULL;
+  headerEnd           = NULL;
+  urlOffset           = 0u;
+  httpVerOffset       = 0u;
+  connectionDone      = false;
+  connectionWillClose = false;
 }
 
 
@@ -64,6 +69,7 @@ void HttpRequestParser::resetForReuse(void)
 
 HttpRequestParser::~HttpRequestParser(void)
 {
+  buf-=4;
   delete[] buf;
 }
 
@@ -158,6 +164,7 @@ bool HttpRequestParser::parseRequest(void)
   
 badParseRequestExit:
   connectionDone = true;
+  LogFlush();
   return false;
 }
    
