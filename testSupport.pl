@@ -85,23 +85,39 @@ sub startPermaplan
 
 sub processArgs
 {
-  foreach my $arg (@_)
+  my $loopLimit = 1;
+  my $skip = 0;
+  
+  foreach $index (0..$#_)
    {
+    if($skip)
+     {
+      $skip = 0;
+      next;
+     }
+    $arg = $_[$index];
     if($arg eq "-h")
      {
       print("Command line options:\n\n");
       print("\t-h\tPrint this message.\n");
       print("\t-D\tSupply command for user to start permaplan in debugger.\n");
+      print("\t-L N\tLoop over test N times.\n");
      }
     elsif($arg eq "-D")
      {
       $debuggerMode = 1; 
      }
+    elsif($arg eq "-L")
+     {
+      $loopLimit = $_[$index+1]; 
+      $skip = 1;
+     }
     else
      {
       die("Unknown arg $arg.\n");
      }
-   }  
+   }
+  return $loopLimit;  
 }
 
 
