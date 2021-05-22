@@ -1,7 +1,10 @@
 #!/usr/bin/perl -w
 
+
 require './testSupport.pl';
 $dir = 'tests/basic-smoke';
+
+processArgs(@ARGV);
 
 system("rm -rf $dir/test1.out.oldf");
 system("rm -rf $dir/*.tmp $dir/*.diff");

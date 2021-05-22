@@ -53,7 +53,17 @@ sub startPermaplan
   print PORT $nextPort;
   close(PORT);
 
-  system("./permaplan $options -p $port &");
+  my $permCommand = "./permaplan $options -p $port";
+  unless($debuggerMode)
+   {
+    system("$permCommand &");
+   }
+  else
+   {
+    print("Start debugger with: $permCommand\n");
+    print("Hit return when ready:");
+    my $response = <STDIN>;
+   }
   $http = HTTP::Tiny->new();
 
   while(1)
@@ -67,6 +77,31 @@ sub startPermaplan
    }
 
   return $port;
+}
+
+
+#===========================================================================
+# Function to start the simulation running in permaplan.
+
+sub processArgs
+{
+  foreach my $arg (@_)
+   {
+    if($arg eq "-h")
+     {
+      print("Command line options:\n\n");
+      print("\t-h\tPrint this message.\n");
+      print("\t-D\tSupply command for user to start permaplan in debugger.\n");
+     }
+    elsif($arg eq "-D")
+     {
+      $debuggerMode = 1; 
+     }
+    else
+     {
+      die("Unknown arg $arg.\n");
+     }
+   }  
 }
 
 

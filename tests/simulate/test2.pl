@@ -13,7 +13,7 @@ simulatePermaplan();
 while(1)
  {
   my $year = getPermaplanYear();
-  print "$year\n";
+  # print "$year\n";
   last if $year >= 2200;
   sleep(1);
  }
