@@ -373,7 +373,7 @@ bool BoundingBox::diagnosticHTML(HttpDebug* serv)
 {
   // Start the section/table
   httPrintf("<center><h3>Bounds</h3>\n");
-  serv->startTable();
+  serv->startTable((char*)"BoundingBox");
   httPrintf("<tr><th></th><th>Bottom Coords</th><th>Top Coords</th>\n");
   
   // X co-ords

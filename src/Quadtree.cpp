@@ -742,7 +742,7 @@ bool Quadtree::diagnosticHTML(HttpDebug* serv, char* path)
     
     unless(serv->newSection("Texture Bounds"))
       return false;
-    unless(serv->startTable())
+    unless(serv->startTable((char*)"TextureBounds"))
       return false;
     httPrintf("<tr><th></th><th>Bottom Left</th><th>Top Right</th></tr>\n");
 
@@ -758,7 +758,7 @@ bool Quadtree::diagnosticHTML(HttpDebug* serv, char* path)
     // Kids
     unless(serv->newSection("Child Nodes"))
       return false;
-    unless(serv->startTable())
+    unless(serv->startTable((char*)"kids"))
       return false;
     httPrintf("<tr><th>Index</th><th>X Bounds</th><th>Y Bounds</th>\n");
     
@@ -774,7 +774,7 @@ bool Quadtree::diagnosticHTML(HttpDebug* serv, char* path)
     // Visual objects
     unless(serv->newSection("Objects Stored at this Quadtree Node"))
       return false;
-    unless(serv->startTable())
+    unless(serv->startTable((char*)"VisualObjects"))
       return false;
     if(surface)
       unless(surface->diagnosticHTML(serv))
@@ -794,7 +794,7 @@ bool Quadtree::diagnosticHTML(HttpDebug* serv, char* path)
      {
       unless(serv->newSection("Search the Quadtree for different types of objects"))
         return false;
-      unless(serv->startTable())
+      unless(serv->startTable((char*)"searches"))
         return false;
       httPrintf("<tr>");
       httPrintf("<td><a href=\"/quadsearch/Arrow\">Arrow</a></td>");

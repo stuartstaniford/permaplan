@@ -52,9 +52,16 @@ public:
   bool        startResponsePage(const char* title, unsigned refresh = 0u);
   bool        endResponsePage(void);
   bool        errorPage(const char* error);
-  inline bool startTable(void)
+  inline bool startTable(char* name = NULL)
    {
-    internalPrintf("<table cellpadding=\"1\" border=\"1\">\n");
+    if(name)
+     {
+      internalPrintf("<table name=\"%s\" cellpadding=\"1\" border=\"1\">\n", name);
+     }
+    else
+     {
+      internalPrintf("<table cellpadding=\"1\" border=\"1\">\n");
+     }
     return true;
    }
   inline bool newSection(const char* title)

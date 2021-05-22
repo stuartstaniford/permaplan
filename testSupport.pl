@@ -427,6 +427,15 @@ sub sanityCheckHTTPPages
 sub randomWalkQuadTree
 {
   my($startPath) = @_;
+  my $response = $http->get("http://127.0.0.1:$port/$startPath");
+  sanityCheckHeader($response, "/$startPath");
+  my $tree = sanityCheckOuterPage($response, "/$startPath");
+  my @tables = $tree->look_down(_tag => "table");
+  if(scalar(@tables) != 2)
+   {
+    print OUT "$startPath has ".scalar(@tables)." tables instead of 2.\n";
+    $outLines++;
+   }
 }
 
 
@@ -443,7 +452,7 @@ sub stressTestHTTPPages
   foreach my $i (1..$loops)
    {
     sanityCheckHTTPPages();
-    randomWalkQuadTree("/quad/");
+    randomWalkQuadTree("quad/");
    }
 }
 
