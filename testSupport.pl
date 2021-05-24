@@ -439,7 +439,51 @@ sub extractTableFromHTML
                                                 $element->{_tag}.".\n";
       $outLines++;
      }
+    if(ref($element->{_content}) ne 'ARRAY')
+     {
+      print OUT "<th> tag content not array in headerRow for ".
+                      "$path:$name table: ".ref($element->{_content}).".\n";
+      $outLines++;
+     }
+    if(scalar(@{$element->{_content}}) != 1)
+     {
+      print OUT "<th> tag content array bad size in headerRow for ".
+                "$path:$name table: ".scalar(@{$element->{_content}}).".\n";
+      $outLines++;
+     }
+    push @{$hash{'headers'}}, $element->{_content}[0];
    }
+  
+  foreach my $row (@{$tables[0]->{_content}}
+                                [1..scalar(@{$tables[0]->{_content}})-1])
+   {
+    $hash{'nRows'}++;  
+    if($row->{_tag} ne 'tr')
+     {
+      print OUT "Table $path:$name has a non-<tr> row "
+                                                  .$hash{'nRows'}.".\n";
+      $outLines++;
+     }
+    if(scalar(@{$row->{_content}}) != $hash{'nColumns'})
+    {
+     print OUT "Table $path:$name has a wrong-size row "
+                                                  .$hash{'nRows'}.".\n";
+     $outLines++;
+    }
+    foreach my $cell (@{$row->{_content}})
+     {
+      if($cell->{_tag} ne 'td')
+       {
+        print OUT "Table $path:$name has a none <td> element in row "
+                                                    .$hash{'nRows'}.".\n";
+        $outLines++;
+       }
+
+     }
+   }
+  
+  print join('|', %hash)."\n";
+  print join('|', @{$hash{'headers'}})."\n";
   return \%hash;
 }
 
