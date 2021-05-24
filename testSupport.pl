@@ -474,17 +474,34 @@ sub extractTableFromHTML
      {
       if($cell->{_tag} ne 'td')
        {
-        print OUT "Table $path:$name has a none <td> element in row "
+        print OUT "Table $path:$name has a non-<td> element in row "
                                                     .$hash{'nRows'}.".\n";
         $outLines++;
        }
-
+      if(ref($cell->{_content}) ne 'ARRAY')
+       {
+        print OUT "<td> tag content not array in row "..$hash{'nRows'}.
+                    " for $path:$name table: ".ref($cell->{_content}).".\n";
+        $outLines++;
+       }
+      if(scalar(@{$cell->{_content}}) == 1)
+       {
+        push @{$hash{'contents'}[$hash{'nRows'}-1]}, $cell->{_content}[0];
+       }
+      else
+       {
+        push @{$hash{'contents'}[$hash{'nRows'}-1]}, $cell->{_content};        
+       }
      }
    }
   
-  print join('|', %hash)."\n";
-  print join('|', @{$hash{'headers'}})."\n";
-  return \%hash;
+#  print join('|', %hash)."\n";
+#  print join('|', @{$hash{'headers'}})."\n";
+#  foreach $i (0..scalar(@{$hash{'contents'}})-1)
+#   {
+#    print "$i: ".join('|', @{$hash{'contents'}[$i]})."\n";
+#   } 
+#  return \%hash;
 }
 
 
@@ -519,6 +536,7 @@ sub stressTestHTTPPages
     randomWalkQuadTree("quad/");
    }
 }
+
 
 #===========================================================================
 # Function to open the output file for use by later checking functions 
