@@ -515,7 +515,33 @@ sub extractTableFromHTML
 
 sub extractLinkFromElement
 {
-  
+  my($element) = @_;
+  if(ref($element) ne 'HTML::Element')
+   {
+    print OUT "extractLinkFromElement was passed ".ref($element).
+                                            " instead of HTML::Element.\n";
+    $outLines++;
+   } 
+  if($element->{_tag} ne 'a')
+   {
+    print OUT "extractLinkFromElement was passed a <".$element->{_tag}.
+                                            "> tag instead of <a>.\n";
+    $outLines++;
+   } 
+  if(ref($element->{_content}) ne 'ARRAY')
+   {
+    print OUT "extractLinkFromElement anchor content was "
+                          .ref($element->{_content})." instead of ARRAY.\n";
+    $outLines++;
+   } 
+  if(scalar(@{$element->{_content}}) != 1)
+   {
+    print OUT "extractLinkFromElement anchor content array had "
+              .scalar(@{$element->{_content}})." element instead of 1.\n";
+    $outLines++;
+   } 
+  #print join('|', keys %$element)."\n";
+  return ($element->{href}, $element->{_content}[0]);
 }
 
 
@@ -534,6 +560,7 @@ sub randomWalkQuadTree
   foreach my $row (@{$kidTable->{'contents'}})
    {
     my ($link, $content) = extractLinkFromElement($row->[0]);
+    print "link: $link;\tcontent: $content\n";
    }
 }
 
