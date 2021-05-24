@@ -139,41 +139,6 @@ sub simulatePermaplan
 
 
 #===========================================================================
-# Function to extract all tables from an HTML page expressed as single.
-# scalar.  Returns a reference to an array. Each element of the array is a 
-# reference to another array which contains the elements of a row.  Will 
-# not currently handle anything complex inside the table cells, only a
-# simple label or number.
-
-
-sub extractTablesFromHTML
-{
-  my($html) = @_;
-  @tables = ();
-  my $i = 0;
-  my $state = 0;
-  
-#  foreach my $line (@$arrayRef) # Loop over the lines in the HTML page
-#   {
-#    if($state == 0) # looking for <table...
-#     {
-#      if(/\<table/)
-#       {
-#        $state = 1;
-#        #XX Note that if <tr> follows <table> on same line we miss it.
-#       }
-#      next;
-#     }
-#    if($state == 1) # looking for <tr><th>...
-#     {
-#      next;
-#     }
-#   }
-  return \@tables;
-}
-
-
-#===========================================================================
 # Function to stop permaplan 
 
 sub stopPermaplan
@@ -420,6 +385,65 @@ sub sanityCheckHTTPPages
 
 
 #===========================================================================
+# Function to extract a table from an HTML tree.  Returns a reference to 
+# an object.  The object has fields nRows, nColumns, headers (a reference 
+# to an array of scalars with the columns headers (<th> elements), and
+# contents -  a reference to an array of the rows.  Each element of the 
+# content array is a reference to another array which contains the elements 
+# of a row.  Will not currently handle anything complex inside the table 
+# cells, only a simple label or number.  Anything else will end up as a
+# reference to the original HTML::Element.
+
+sub extractTablesFromHTML
+{
+  my($tree, $name, $path) = @_;
+  my %hash = ();
+  my $i = 0;
+  my $state = 0;
+  
+  my @tables = $tree->look_down(_tag => "table",
+                                name => $name);
+  if(scalar(@tables) != 1)
+   {
+    print OUT "$path has ".scalar(@tables)." $name tables instead of 1.\n";
+    $outLines++;
+   }
+
+  if($tables[0]->{_content}[0]{_tag} ne 'tr')
+   {
+    print OUT "Table $path:$name doesn't start with <tr> row.\n";
+    $outLines++;
+   }
+  
+  my $headerRow = $tables[0]->{_content}[0]{_content}; #hopefully
+
+  if(ref $headerRow ne 'ARRAY')
+   {
+    print OUT "Contents of header row are not array.\n";
+    $outLines++;
+   }
+  
+  $hash{'nColumns'} = scalar(@$headerRow);
+  if($hash{'nColumns'} < 1 || $hash{'nColumns'} > 100)
+   {
+    print OUT "Table $path:$name has bad number of columns ".
+                                                    "$hash{'nColumns'}.\n";
+    $outLines++;
+   }
+  
+  foreach my $element (@$headerRow)
+   {
+    if({$element->{_tag} ne 'th'})
+     {
+      print OUT "None <th> tag in headerRow for $path:$name table.\n";
+      $outLines++;
+     }
+   }
+  return \%hash;
+}
+
+
+#===========================================================================
 # This function does a random walk down the quad tree, possibly terminating
 # on the pages of VisualObjects, or possibly terminating on leaf quadtree
 # nodes.
@@ -430,12 +454,7 @@ sub randomWalkQuadTree
   my $response = $http->get("http://127.0.0.1:$port/$startPath");
   sanityCheckHeader($response, "/$startPath");
   my $tree = sanityCheckOuterPage($response, "/$startPath");
-  my @tables = $tree->look_down(_tag => "table");
-  if(scalar(@tables) != 2)
-   {
-    print OUT "$startPath has ".scalar(@tables)." tables instead of 2.\n";
-    $outLines++;
-   }
+  my $kidTable = extractTablesFromHTML($tree, "kids", "/$startPath");
 }
 
 
