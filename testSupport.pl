@@ -394,7 +394,7 @@ sub sanityCheckHTTPPages
 # cells, only a simple label or number.  Anything else will end up as a
 # reference to the original HTML::Element.
 
-sub extractTablesFromHTML
+sub extractTableFromHTML
 {
   my($tree, $name, $path) = @_;
   my %hash = ();
@@ -433,9 +433,10 @@ sub extractTablesFromHTML
   
   foreach my $element (@$headerRow)
    {
-    if({$element->{_tag} ne 'th'})
+    if($element->{_tag} ne 'th')
      {
-      print OUT "None <th> tag in headerRow for $path:$name table.\n";
+      print OUT "No <th> tag in headerRow for $path:$name table: ".
+                                                $element->{_tag}.".\n";
       $outLines++;
      }
    }
@@ -454,7 +455,7 @@ sub randomWalkQuadTree
   my $response = $http->get("http://127.0.0.1:$port/$startPath");
   sanityCheckHeader($response, "/$startPath");
   my $tree = sanityCheckOuterPage($response, "/$startPath");
-  my $kidTable = extractTablesFromHTML($tree, "kids", "/$startPath");
+  my $kidTable = extractTableFromHTML($tree, "kids", "/$startPath");
 }
 
 
@@ -490,13 +491,15 @@ sub openOutput
 
 sub checkOutput
 {
-  my($fileName) = @_;
+  my($fileName, $testDescription) = @_;
   close(OUT);
   if($outLines)
    {
     system("open -a Xcode $fileName");
+    print "$testDescription failed.\n";
     return 0;
    }
+  print "$testDescription passed.\n";
   return 1;
 }
 

@@ -16,12 +16,5 @@ foreach my $i (1..$loopLimit)
   stopPermaplan();
   checkLogForErrors();
   compareOLDF("$dir/test1.oldf", "$dir/test1.out.oldf");
-  if(!checkOutput("$dir/test1.log"))
-   {
-    print "$dir test1 failed (trial $i).\n";
-   }
-  else
-   {
-    print "$dir test1 passed (trial $i).\n"; 
-   }
+  checkOutput("$dir/test1.log", "$dir test1 (trial $i)");
  }
