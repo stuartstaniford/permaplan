@@ -528,6 +528,11 @@ sub extractLinkFromElement
                                             "> tag instead of <a>.\n";
     $outLines++;
    } 
+  unless(defined $element->{href})
+   {
+    print OUT "extractLinkFromElement anchor has no href attribute.\n";
+    $outLines++;
+   } 
   if(ref($element->{_content}) ne 'ARRAY')
    {
     print OUT "extractLinkFromElement anchor content was "
