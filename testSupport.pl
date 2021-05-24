@@ -401,6 +401,7 @@ sub extractTableFromHTML
   my $i = 0;
   my $state = 0;
   
+  # Find the right table, check it's unique, etc.
   my @tables = $tree->look_down(_tag => "table",
                                 name => $name);
   if(scalar(@tables) != 1)
@@ -408,21 +409,19 @@ sub extractTableFromHTML
     print OUT "$path has ".scalar(@tables)." $name tables instead of 1.\n";
     $outLines++;
    }
-
   if($tables[0]->{_content}[0]{_tag} ne 'tr')
    {
     print OUT "Table $path:$name doesn't start with <tr> row.\n";
     $outLines++;
    }
   
+  # Extract the header row of the table, sanity check it, etc.
   my $headerRow = $tables[0]->{_content}[0]{_content}; #hopefully
-
   if(ref $headerRow ne 'ARRAY')
    {
     print OUT "Contents of header row are not array.\n";
     $outLines++;
    }
-  
   $hash{'nColumns'} = scalar(@$headerRow);
   if($hash{'nColumns'} < 1 || $hash{'nColumns'} > 100)
    {
@@ -431,6 +430,7 @@ sub extractTableFromHTML
     $outLines++;
    }
   
+  # loop over the remaining rows of the table, sanity checking and extracting
   foreach my $element (@$headerRow)
    {
     if($element->{_tag} ne 'th')
@@ -495,13 +495,27 @@ sub extractTableFromHTML
      }
    }
   
+# Debut print statements
 #  print join('|', %hash)."\n";
 #  print join('|', @{$hash{'headers'}})."\n";
 #  foreach $i (0..scalar(@{$hash{'contents'}})-1)
 #   {
 #    print "$i: ".join('|', @{$hash{'contents'}[$i]})."\n";
 #   } 
-#  return \%hash;
+
+  # Done, go home
+  return \%hash;
+}
+
+
+#===========================================================================
+# This function takes an HTML::Element that is believed to be an <a href...> 
+# tag and returns both the link and the content.  Does reasonable error
+# checking that it really is what we are expecting.
+
+sub extractLinkFromElement
+{
+  
 }
 
 
@@ -517,6 +531,10 @@ sub randomWalkQuadTree
   sanityCheckHeader($response, "/$startPath");
   my $tree = sanityCheckOuterPage($response, "/$startPath");
   my $kidTable = extractTableFromHTML($tree, "kids", "/$startPath");
+  foreach my $row (@{$kidTable->{'contents'}})
+   {
+    my ($link, $content) = extractLinkFromElement($row->[0]);
+   }
 }
 
 
