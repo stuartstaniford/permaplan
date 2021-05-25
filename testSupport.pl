@@ -562,11 +562,18 @@ sub randomWalkQuadTree
   sanityCheckHeader($response, "/$startPath");
   my $tree = sanityCheckOuterPage($response, "/$startPath");
   my $kidTable = extractTableFromHTML($tree, "kids", "/$startPath");
-  foreach my $row (@{$kidTable->{'contents'}})
+  if(!defined $kidTable || !defined $kidTable->{'contents'} 
+                                      || !scalar(@{$kidTable->{'contents'}}))
    {
-    my ($link, $content) = extractLinkFromElement($row->[0]);
-    print "link: $link;\tcontent: $content\n";
+    print "Terminated at path $startPath\n";
+    return; # have reached the bottom of the tree.
    }
+    
+  my $row = $kidTable->{'contents'}
+                            [int(rand(scalar(@{$kidTable->{'contents'}})))];
+  my ($link, $content) = extractLinkFromElement($row->[0]);
+  #print "Path $startPath;\tlink: $link;\tcontent: $content\n";
+  randomWalkQuadTree($startPath.$link);
 }
 
 
