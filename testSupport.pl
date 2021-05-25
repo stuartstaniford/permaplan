@@ -518,32 +518,52 @@ sub extractLinkFromElement
   my($element) = @_;
   if(ref($element) ne 'HTML::Element')
    {
-    print OUT "extractLinkFromElement was passed ".ref($element).
+    if(ref($element) eq '')
+     {
+      print OUT "extractLinkFromElement was passed scalar \"$element\"".
                                             " instead of HTML::Element.\n";
+     }
+    else
+     {
+      print OUT "extractLinkFromElement was passed ".ref($element).
+                                            " instead of HTML::Element.\n";
+     }
     $outLines++;
+    return (undef, undef);
+   } 
+  unless(defined $element->{_tag})
+   {
+    print OUT "extractLinkFromElement was passed a non tag instead of <a>: ".
+                                                    $element->{_content}."\n";
+    $outLines++;
+    return (undef, undef);
    } 
   if($element->{_tag} ne 'a')
    {
     print OUT "extractLinkFromElement was passed a <".$element->{_tag}.
                                             "> tag instead of <a>.\n";
     $outLines++;
+    return (undef, undef);
    } 
   unless(defined $element->{href})
    {
     print OUT "extractLinkFromElement anchor has no href attribute.\n";
     $outLines++;
+    return (undef, undef);
    } 
   if(ref($element->{_content}) ne 'ARRAY')
    {
     print OUT "extractLinkFromElement anchor content was "
                           .ref($element->{_content})." instead of ARRAY.\n";
     $outLines++;
+    return (undef, undef);
    } 
   if(scalar(@{$element->{_content}}) != 1)
    {
     print OUT "extractLinkFromElement anchor content array had "
               .scalar(@{$element->{_content}})." element instead of 1.\n";
     $outLines++;
+    return (undef, undef);
    } 
   #print join('|', keys %$element)."\n";
   return ($element->{href}, $element->{_content}[0]);
@@ -563,21 +583,30 @@ sub randomWalkQuadTree
   sanityCheckHeader($response, "/$startPath");
   my $tree = sanityCheckOuterPage($response, "/$startPath");
   
-  # Examine the visual object table and possibly pick one
-  
+  # Possibly examine the visual object table and pick one
   my $voTable = extractTableFromHTML($tree, "VisualObjects", "/$startPath");
-
+  if(defined $voTable && defined $voTable->{'contents'} 
+        && scalar(@{$voTable->{'contents'}}) && rand(100) < 20 )
+   {
+    my $row = $voTable->{'contents'}
+                            [int(rand(scalar(@{$voTable->{'contents'}})))];
+    my ($link, $content) = extractLinkFromElement($row->[0]);
+    return unless defined $link && defined $content;
+    print "Path $startPath;\tlink: $link;\tcontent: $content\n";      
+   }
+  
   # Look into our kids, and recurse to a random one if there are any
   my $kidTable = extractTableFromHTML($tree, "kids", "/$startPath");
   if(!defined $kidTable || !defined $kidTable->{'contents'} 
-                                      || !scalar(@{$kidTable->{'contents'}}))
+                                    || !scalar(@{$kidTable->{'contents'}}))
    {
     print "Terminated at path $startPath\n";
     return; # have reached the bottom of the tree.
    }
   my $row = $kidTable->{'contents'}
-                            [int(rand(scalar(@{$kidTable->{'contents'}})))];
+                          [int(rand(scalar(@{$kidTable->{'contents'}})))];
   my ($link, $content) = extractLinkFromElement($row->[0]);
+  return unless defined $link && defined $content;
   #print "Path $startPath;\tlink: $link;\tcontent: $content\n";
   randomWalkQuadTree($startPath.$link);
 }
