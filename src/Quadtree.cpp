@@ -777,12 +777,6 @@ bool Quadtree::diagnosticHTML(HttpDebug* serv, char* path)
     unless(serv->startTable((char*)"VisualObjects"))
       return false;
     httPrintf("<tr><th>Object Type</th><th>Object Details</th></tr>\n");
-    if(surface)
-      unless(surface->diagnosticHTML(serv))
-       {
-        LogResponseErrors("Couldn't output surface HTTP at quadtree level %d\n", level);
-        return false;
-       }
     unless(vObjects.diagnosticHTML(serv))
      {
       LogResponseErrors("Couldn't output vObjects HTTP at quadtree level %d\n", level);
@@ -790,6 +784,20 @@ bool Quadtree::diagnosticHTML(HttpDebug* serv, char* path)
      }
     httPrintf("</table></center>\n");
 
+    if(surface)
+     {
+      unless(serv->newSection("Land Surface at this Quadtree Node"))
+        return false;
+      unless(serv->startTable((char*)"LandSurface"))
+        return false;
+      unless(surface->diagnosticHTML(serv))
+       {
+        LogResponseErrors("Couldn't output surface HTTP at quadtree level %d\n", level);
+        return false;
+       }
+      httPrintf("</table></center>\n");
+     }
+    
     // Provide search tree links if at the root    
     if(level == '\0')
      {
