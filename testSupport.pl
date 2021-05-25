@@ -557,10 +557,17 @@ sub extractLinkFromElement
 
 sub randomWalkQuadTree
 {
+  # Find the quad page and initial sanity checking
   my($startPath) = @_;
   my $response = $http->get("http://127.0.0.1:$port/$startPath");
   sanityCheckHeader($response, "/$startPath");
   my $tree = sanityCheckOuterPage($response, "/$startPath");
+  
+  # Examine the visual object table and possibly pick one
+  
+  my $voTable = extractTableFromHTML($tree, "VisualObjects", "/$startPath");
+
+  # Look into our kids, and recurse to a random one if there are any
   my $kidTable = extractTableFromHTML($tree, "kids", "/$startPath");
   if(!defined $kidTable || !defined $kidTable->{'contents'} 
                                       || !scalar(@{$kidTable->{'contents'}}))
@@ -568,7 +575,6 @@ sub randomWalkQuadTree
     print "Terminated at path $startPath\n";
     return; # have reached the bottom of the tree.
    }
-    
   my $row = $kidTable->{'contents'}
                             [int(rand(scalar(@{$kidTable->{'contents'}})))];
   my ($link, $content) = extractLinkFromElement($row->[0]);

@@ -776,6 +776,7 @@ bool Quadtree::diagnosticHTML(HttpDebug* serv, char* path)
       return false;
     unless(serv->startTable((char*)"VisualObjects"))
       return false;
+    httPrintf("<tr><th>Object Type</th><th>Object Details</th></tr>\n");
     if(surface)
       unless(surface->diagnosticHTML(serv))
        {
