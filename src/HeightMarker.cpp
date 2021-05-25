@@ -317,3 +317,27 @@ bool HeightMarker::diagnosticHTMLSummary(HttpDebug* serv)
 
 
 // =======================================================================================
+// Build a page about this particular object with all available detail.
+
+bool HeightMarker::diagnosticHTML(HttpDebug* serv)
+{
+  // Page header
+  char title[64];
+  snprintf(title, 63, "Detail Page for Heightmarker (Object %d).", objIndex);
+  unless(serv->startResponsePage(title))
+    return false;
+  
+  // Summary Data about the marker
+  httPrintf("<b>Location:</b> (%.1f, %.1f, %.1f)<br>\n",
+                                        location[0], location[1], location[2]);
+  unless(box->diagnosticHTML(serv))
+    return false;
+  
+  // Page closing
+  unless(serv->endResponsePage())
+    return false;
+  return true;
+}
+
+
+// =======================================================================================

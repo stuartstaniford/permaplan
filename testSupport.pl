@@ -583,16 +583,19 @@ sub randomWalkQuadTree
   sanityCheckHeader($response, "/$startPath");
   my $tree = sanityCheckOuterPage($response, "/$startPath");
   
-  # Possibly examine the visual object table and pick one
+  # Examine the visual object table and pick one if available
   my $voTable = extractTableFromHTML($tree, "VisualObjects", "/$startPath");
   if(defined $voTable && defined $voTable->{'contents'} 
-        && scalar(@{$voTable->{'contents'}}) && rand(100) < 20 )
+                                          && scalar(@{$voTable->{'contents'}}))
    {
     my $row = $voTable->{'contents'}
                             [int(rand(scalar(@{$voTable->{'contents'}})))];
     my ($link, $content) = extractLinkFromElement($row->[0]);
     return unless defined $link && defined $content;
-    print "Path $startPath;\tlink: $link;\tcontent: $content\n";      
+    print "Path $startPath;\tlink: $link;\tcontent: $content\n";  
+    my $objResponse = $http->get("http://127.0.0.1:$port$link");
+    sanityCheckHeader($objResponse, "$link");
+    sanityCheckOuterPage($objResponse, "$link");
    }
   
   # Look into our kids, and recurse to a random one if there are any

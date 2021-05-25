@@ -31,6 +31,7 @@ class HeightMarker: public VisualObject
   void        triangleBufferSizes(unsigned& vCount, unsigned& iCount);
   const char* objectName(void);
   bool        diagnosticHTMLSummary(HttpDebug* serv);
+  bool        diagnosticHTML(HttpDebug* serv);
 
  private:
   int    index;
