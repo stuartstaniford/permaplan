@@ -118,6 +118,15 @@ void LogInit(void)
   LogStructureSizes("Size of unsigned: %lu bytes.\n", sizeof(unsigned));
   LogStructureSizes("Size of unsigned long: %lu bytes.\n", sizeof(unsigned long));
   LogStructureSizes("Size of unsigned long long: %lu bytes.\n", sizeof(unsigned long long));
+  
+  if(getenv("DYLD_INSERT_LIBRARIES"))
+   {
+    LogEnvVars("DYLD_INSERT_LIBRARIES: %s.\n", getenv("DYLD_INSERT_LIBRARIES"));
+   }
+  else
+   {
+    LogEnvVars("DYLD_INSERT_LIBRARIES: NULL.\n");
+   }
 }
 
 
