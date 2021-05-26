@@ -213,13 +213,13 @@ src/Boundary.o: /usr/local/include/cglm/ray.h
 src/Boundary.o: /usr/local/include/cglm/affine2d.h include/HttpDebug.h
 src/Boundary.o: include/HttpRequestParser.h include/rapidjson/document.h
 src/Boundary.o: include/rapidjson/reader.h include/rapidjson/allocators.h
+src/Boundary.o: include/rapidjson/rapidjson.h
+src/Boundary.o: include/rapidjson/internal/meta.h
 src/Boundary.o: include/rapidjson/rapidjson.h include/rapidjson/stream.h
 src/Boundary.o: include/rapidjson/encodings.h
 src/Boundary.o: include/rapidjson/encodedstream.h
 src/Boundary.o: include/rapidjson/memorystream.h
 src/Boundary.o: include/rapidjson/internal/clzll.h
-src/Boundary.o: include/rapidjson/rapidjson.h
-src/Boundary.o: include/rapidjson/internal/meta.h
 src/Boundary.o: include/rapidjson/internal/stack.h
 src/Boundary.o: include/rapidjson/allocators.h
 src/Boundary.o: include/rapidjson/internal/swap.h
@@ -303,13 +303,13 @@ src/Box.o: include/ElementBufferObject.h include/BoundingBox.h
 src/Box.o: include/Shader.h include/VertexBufferCombo.h include/Lockable.h
 src/CO2Scenario.o: include/CO2Scenario.h include/rapidjson/document.h
 src/CO2Scenario.o: include/rapidjson/reader.h include/rapidjson/allocators.h
+src/CO2Scenario.o: include/rapidjson/rapidjson.h
+src/CO2Scenario.o: include/rapidjson/internal/meta.h
 src/CO2Scenario.o: include/rapidjson/rapidjson.h include/rapidjson/stream.h
 src/CO2Scenario.o: include/rapidjson/encodings.h
 src/CO2Scenario.o: include/rapidjson/encodedstream.h
 src/CO2Scenario.o: include/rapidjson/memorystream.h
 src/CO2Scenario.o: include/rapidjson/internal/clzll.h
-src/CO2Scenario.o: include/rapidjson/rapidjson.h
-src/CO2Scenario.o: include/rapidjson/internal/meta.h
 src/CO2Scenario.o: include/rapidjson/internal/stack.h
 src/CO2Scenario.o: include/rapidjson/allocators.h
 src/CO2Scenario.o: include/rapidjson/internal/swap.h
@@ -501,13 +501,13 @@ src/ControlGroup.o: include/DisplayList.h include/LandSurfaceRegion.h
 src/ControlGroup.o: include/Arrow.h include/AxialElement.h
 src/ControlGroup.o: include/PmodDesign.h include/rapidjson/document.h
 src/ControlGroup.o: include/rapidjson/reader.h include/rapidjson/allocators.h
+src/ControlGroup.o: include/rapidjson/rapidjson.h
+src/ControlGroup.o: include/rapidjson/internal/meta.h
 src/ControlGroup.o: include/rapidjson/rapidjson.h include/rapidjson/stream.h
 src/ControlGroup.o: include/rapidjson/encodings.h
 src/ControlGroup.o: include/rapidjson/encodedstream.h
 src/ControlGroup.o: include/rapidjson/memorystream.h
 src/ControlGroup.o: include/rapidjson/internal/clzll.h
-src/ControlGroup.o: include/rapidjson/rapidjson.h
-src/ControlGroup.o: include/rapidjson/internal/meta.h
 src/ControlGroup.o: include/rapidjson/internal/stack.h
 src/ControlGroup.o: include/rapidjson/allocators.h
 src/ControlGroup.o: include/rapidjson/internal/swap.h
@@ -770,11 +770,11 @@ src/Grid.o: include/LandSurfaceRegionPlanar.h include/Camera.h
 src/Grid.o: include/HeightMarker.h include/BezierPatch.h
 src/Grid.o: include/rapidjson/document.h include/rapidjson/reader.h
 src/Grid.o: include/rapidjson/allocators.h include/rapidjson/rapidjson.h
+src/Grid.o: include/rapidjson/internal/meta.h include/rapidjson/rapidjson.h
 src/Grid.o: include/rapidjson/stream.h include/rapidjson/encodings.h
 src/Grid.o: include/rapidjson/encodedstream.h
 src/Grid.o: include/rapidjson/memorystream.h
-src/Grid.o: include/rapidjson/internal/clzll.h include/rapidjson/rapidjson.h
-src/Grid.o: include/rapidjson/internal/meta.h
+src/Grid.o: include/rapidjson/internal/clzll.h
 src/Grid.o: include/rapidjson/internal/stack.h include/rapidjson/allocators.h
 src/Grid.o: include/rapidjson/internal/swap.h
 src/Grid.o: include/rapidjson/internal/strtod.h
@@ -875,12 +875,12 @@ src/HttpDebug.o: include/LandSurfaceRegionPlanar.h include/Camera.h
 src/HttpDebug.o: include/HeightMarker.h include/BezierPatch.h
 src/HttpDebug.o: include/rapidjson/document.h include/rapidjson/reader.h
 src/HttpDebug.o: include/rapidjson/allocators.h include/rapidjson/rapidjson.h
-src/HttpDebug.o: include/rapidjson/stream.h include/rapidjson/encodings.h
+src/HttpDebug.o: include/rapidjson/internal/meta.h
+src/HttpDebug.o: include/rapidjson/rapidjson.h include/rapidjson/stream.h
+src/HttpDebug.o: include/rapidjson/encodings.h
 src/HttpDebug.o: include/rapidjson/encodedstream.h
 src/HttpDebug.o: include/rapidjson/memorystream.h
 src/HttpDebug.o: include/rapidjson/internal/clzll.h
-src/HttpDebug.o: include/rapidjson/rapidjson.h
-src/HttpDebug.o: include/rapidjson/internal/meta.h
 src/HttpDebug.o: include/rapidjson/internal/stack.h
 src/HttpDebug.o: include/rapidjson/allocators.h
 src/HttpDebug.o: include/rapidjson/internal/swap.h
@@ -979,13 +979,13 @@ src/JSONStructureChecker.o: include/PmodDesign.h include/rapidjson/document.h
 src/JSONStructureChecker.o: include/rapidjson/reader.h
 src/JSONStructureChecker.o: include/rapidjson/allocators.h
 src/JSONStructureChecker.o: include/rapidjson/rapidjson.h
+src/JSONStructureChecker.o: include/rapidjson/internal/meta.h
+src/JSONStructureChecker.o: include/rapidjson/rapidjson.h
 src/JSONStructureChecker.o: include/rapidjson/stream.h
 src/JSONStructureChecker.o: include/rapidjson/encodings.h
 src/JSONStructureChecker.o: include/rapidjson/encodedstream.h
 src/JSONStructureChecker.o: include/rapidjson/memorystream.h
 src/JSONStructureChecker.o: include/rapidjson/internal/clzll.h
-src/JSONStructureChecker.o: include/rapidjson/rapidjson.h
-src/JSONStructureChecker.o: include/rapidjson/internal/meta.h
 src/JSONStructureChecker.o: include/rapidjson/internal/stack.h
 src/JSONStructureChecker.o: include/rapidjson/allocators.h
 src/JSONStructureChecker.o: include/rapidjson/internal/swap.h
@@ -1105,13 +1105,13 @@ src/LandSurface.o: include/LandSurfaceRegion.h
 src/LandSurface.o: include/LandSurfaceRegionPlanar.h include/HeightMarker.h
 src/LandSurface.o: include/BezierPatch.h include/rapidjson/document.h
 src/LandSurface.o: include/rapidjson/reader.h include/rapidjson/allocators.h
+src/LandSurface.o: include/rapidjson/rapidjson.h
+src/LandSurface.o: include/rapidjson/internal/meta.h
 src/LandSurface.o: include/rapidjson/rapidjson.h include/rapidjson/stream.h
 src/LandSurface.o: include/rapidjson/encodings.h
 src/LandSurface.o: include/rapidjson/encodedstream.h
 src/LandSurface.o: include/rapidjson/memorystream.h
 src/LandSurface.o: include/rapidjson/internal/clzll.h
-src/LandSurface.o: include/rapidjson/rapidjson.h
-src/LandSurface.o: include/rapidjson/internal/meta.h
 src/LandSurface.o: include/rapidjson/internal/stack.h
 src/LandSurface.o: include/rapidjson/allocators.h
 src/LandSurface.o: include/rapidjson/internal/swap.h
@@ -1226,12 +1226,12 @@ src/LandSurfaceRegionPlanar.o: include/VertexBufferCombo.h include/Lockable.h
 src/LeafModel.o: include/LeafModel.h include/JSONStructureChecker.h
 src/LeafModel.o: include/rapidjson/document.h include/rapidjson/reader.h
 src/LeafModel.o: include/rapidjson/allocators.h include/rapidjson/rapidjson.h
-src/LeafModel.o: include/rapidjson/stream.h include/rapidjson/encodings.h
+src/LeafModel.o: include/rapidjson/internal/meta.h
+src/LeafModel.o: include/rapidjson/rapidjson.h include/rapidjson/stream.h
+src/LeafModel.o: include/rapidjson/encodings.h
 src/LeafModel.o: include/rapidjson/encodedstream.h
 src/LeafModel.o: include/rapidjson/memorystream.h
 src/LeafModel.o: include/rapidjson/internal/clzll.h
-src/LeafModel.o: include/rapidjson/rapidjson.h
-src/LeafModel.o: include/rapidjson/internal/meta.h
 src/LeafModel.o: include/rapidjson/internal/stack.h
 src/LeafModel.o: include/rapidjson/allocators.h
 src/LeafModel.o: include/rapidjson/internal/swap.h
@@ -1442,13 +1442,13 @@ src/MenuInterface.o: include/HttpDebug.h include/HttpRequestParser.h
 src/MenuInterface.o: include/PmodDesign.h include/rapidjson/document.h
 src/MenuInterface.o: include/rapidjson/reader.h
 src/MenuInterface.o: include/rapidjson/allocators.h
+src/MenuInterface.o: include/rapidjson/rapidjson.h
+src/MenuInterface.o: include/rapidjson/internal/meta.h
 src/MenuInterface.o: include/rapidjson/rapidjson.h include/rapidjson/stream.h
 src/MenuInterface.o: include/rapidjson/encodings.h
 src/MenuInterface.o: include/rapidjson/encodedstream.h
 src/MenuInterface.o: include/rapidjson/memorystream.h
 src/MenuInterface.o: include/rapidjson/internal/clzll.h
-src/MenuInterface.o: include/rapidjson/rapidjson.h
-src/MenuInterface.o: include/rapidjson/internal/meta.h
 src/MenuInterface.o: include/rapidjson/internal/stack.h
 src/MenuInterface.o: include/rapidjson/allocators.h
 src/MenuInterface.o: include/rapidjson/internal/swap.h
@@ -1602,13 +1602,13 @@ src/PathTube.o: include/VertexBufferCombo.h include/CircleIterator.h
 src/PmodConfig.o: include/PmodConfig.h
 src/PmodDesign.o: include/PmodDesign.h include/rapidjson/document.h
 src/PmodDesign.o: include/rapidjson/reader.h include/rapidjson/allocators.h
+src/PmodDesign.o: include/rapidjson/rapidjson.h
+src/PmodDesign.o: include/rapidjson/internal/meta.h
 src/PmodDesign.o: include/rapidjson/rapidjson.h include/rapidjson/stream.h
 src/PmodDesign.o: include/rapidjson/encodings.h
 src/PmodDesign.o: include/rapidjson/encodedstream.h
 src/PmodDesign.o: include/rapidjson/memorystream.h
 src/PmodDesign.o: include/rapidjson/internal/clzll.h
-src/PmodDesign.o: include/rapidjson/rapidjson.h
-src/PmodDesign.o: include/rapidjson/internal/meta.h
 src/PmodDesign.o: include/rapidjson/internal/stack.h
 src/PmodDesign.o: include/rapidjson/allocators.h
 src/PmodDesign.o: include/rapidjson/internal/swap.h
@@ -1719,12 +1719,12 @@ src/Quadtree.o: include/TexturedRect.h include/Texture.h include/Camera.h
 src/Quadtree.o: include/HeightMarker.h include/BezierPatch.h
 src/Quadtree.o: include/rapidjson/document.h include/rapidjson/reader.h
 src/Quadtree.o: include/rapidjson/allocators.h include/rapidjson/rapidjson.h
-src/Quadtree.o: include/rapidjson/stream.h include/rapidjson/encodings.h
+src/Quadtree.o: include/rapidjson/internal/meta.h
+src/Quadtree.o: include/rapidjson/rapidjson.h include/rapidjson/stream.h
+src/Quadtree.o: include/rapidjson/encodings.h
 src/Quadtree.o: include/rapidjson/encodedstream.h
 src/Quadtree.o: include/rapidjson/memorystream.h
 src/Quadtree.o: include/rapidjson/internal/clzll.h
-src/Quadtree.o: include/rapidjson/rapidjson.h
-src/Quadtree.o: include/rapidjson/internal/meta.h
 src/Quadtree.o: include/rapidjson/internal/stack.h
 src/Quadtree.o: include/rapidjson/allocators.h
 src/Quadtree.o: include/rapidjson/internal/swap.h
@@ -1785,11 +1785,11 @@ src/Scene.o: include/LandSurfaceRegionPlanar.h include/Camera.h
 src/Scene.o: include/HeightMarker.h include/BezierPatch.h
 src/Scene.o: include/rapidjson/document.h include/rapidjson/reader.h
 src/Scene.o: include/rapidjson/allocators.h include/rapidjson/rapidjson.h
+src/Scene.o: include/rapidjson/internal/meta.h include/rapidjson/rapidjson.h
 src/Scene.o: include/rapidjson/stream.h include/rapidjson/encodings.h
 src/Scene.o: include/rapidjson/encodedstream.h
 src/Scene.o: include/rapidjson/memorystream.h
-src/Scene.o: include/rapidjson/internal/clzll.h include/rapidjson/rapidjson.h
-src/Scene.o: include/rapidjson/internal/meta.h
+src/Scene.o: include/rapidjson/internal/clzll.h
 src/Scene.o: include/rapidjson/internal/stack.h
 src/Scene.o: include/rapidjson/allocators.h include/rapidjson/internal/swap.h
 src/Scene.o: include/rapidjson/internal/strtod.h
@@ -1854,13 +1854,13 @@ src/ScriptController.o: include/PmodDesign.h include/rapidjson/document.h
 src/ScriptController.o: include/rapidjson/reader.h
 src/ScriptController.o: include/rapidjson/allocators.h
 src/ScriptController.o: include/rapidjson/rapidjson.h
+src/ScriptController.o: include/rapidjson/internal/meta.h
+src/ScriptController.o: include/rapidjson/rapidjson.h
 src/ScriptController.o: include/rapidjson/stream.h
 src/ScriptController.o: include/rapidjson/encodings.h
 src/ScriptController.o: include/rapidjson/encodedstream.h
 src/ScriptController.o: include/rapidjson/memorystream.h
 src/ScriptController.o: include/rapidjson/internal/clzll.h
-src/ScriptController.o: include/rapidjson/rapidjson.h
-src/ScriptController.o: include/rapidjson/internal/meta.h
 src/ScriptController.o: include/rapidjson/internal/stack.h
 src/ScriptController.o: include/rapidjson/allocators.h
 src/ScriptController.o: include/rapidjson/internal/swap.h
@@ -2001,13 +2001,13 @@ src/SkySampleModel.o: include/Vertex.h
 src/Species.o: include/Species.h include/HttpDebug.h
 src/Species.o: include/HttpRequestParser.h include/rapidjson/document.h
 src/Species.o: include/rapidjson/reader.h include/rapidjson/allocators.h
+src/Species.o: include/rapidjson/rapidjson.h
+src/Species.o: include/rapidjson/internal/meta.h
 src/Species.o: include/rapidjson/rapidjson.h include/rapidjson/stream.h
 src/Species.o: include/rapidjson/encodings.h
 src/Species.o: include/rapidjson/encodedstream.h
 src/Species.o: include/rapidjson/memorystream.h
 src/Species.o: include/rapidjson/internal/clzll.h
-src/Species.o: include/rapidjson/rapidjson.h
-src/Species.o: include/rapidjson/internal/meta.h
 src/Species.o: include/rapidjson/internal/stack.h
 src/Species.o: include/rapidjson/allocators.h
 src/Species.o: include/rapidjson/internal/swap.h
@@ -2278,11 +2278,11 @@ src/Tree.o: include/ElementBufferObject.h include/BoundingBox.h
 src/Tree.o: include/Shader.h include/VertexBufferCombo.h include/Lockable.h
 src/Tree.o: include/Species.h include/rapidjson/document.h
 src/Tree.o: include/rapidjson/reader.h include/rapidjson/allocators.h
+src/Tree.o: include/rapidjson/rapidjson.h include/rapidjson/internal/meta.h
 src/Tree.o: include/rapidjson/rapidjson.h include/rapidjson/stream.h
 src/Tree.o: include/rapidjson/encodings.h include/rapidjson/encodedstream.h
 src/Tree.o: include/rapidjson/memorystream.h
-src/Tree.o: include/rapidjson/internal/clzll.h include/rapidjson/rapidjson.h
-src/Tree.o: include/rapidjson/internal/meta.h
+src/Tree.o: include/rapidjson/internal/clzll.h
 src/Tree.o: include/rapidjson/internal/stack.h include/rapidjson/allocators.h
 src/Tree.o: include/rapidjson/internal/swap.h
 src/Tree.o: include/rapidjson/internal/strtod.h
@@ -2316,12 +2316,12 @@ src/TreePart.o: include/TreePart.h include/HttpDebug.h
 src/TreePart.o: include/HttpRequestParser.h include/Species.h
 src/TreePart.o: include/rapidjson/document.h include/rapidjson/reader.h
 src/TreePart.o: include/rapidjson/allocators.h include/rapidjson/rapidjson.h
-src/TreePart.o: include/rapidjson/stream.h include/rapidjson/encodings.h
+src/TreePart.o: include/rapidjson/internal/meta.h
+src/TreePart.o: include/rapidjson/rapidjson.h include/rapidjson/stream.h
+src/TreePart.o: include/rapidjson/encodings.h
 src/TreePart.o: include/rapidjson/encodedstream.h
 src/TreePart.o: include/rapidjson/memorystream.h
 src/TreePart.o: include/rapidjson/internal/clzll.h
-src/TreePart.o: include/rapidjson/rapidjson.h
-src/TreePart.o: include/rapidjson/internal/meta.h
 src/TreePart.o: include/rapidjson/internal/stack.h
 src/TreePart.o: include/rapidjson/allocators.h
 src/TreePart.o: include/rapidjson/internal/swap.h
@@ -2415,13 +2415,13 @@ src/TriangleBuffer.o: include/PmodDesign.h include/rapidjson/document.h
 src/TriangleBuffer.o: include/rapidjson/reader.h
 src/TriangleBuffer.o: include/rapidjson/allocators.h
 src/TriangleBuffer.o: include/rapidjson/rapidjson.h
+src/TriangleBuffer.o: include/rapidjson/internal/meta.h
+src/TriangleBuffer.o: include/rapidjson/rapidjson.h
 src/TriangleBuffer.o: include/rapidjson/stream.h
 src/TriangleBuffer.o: include/rapidjson/encodings.h
 src/TriangleBuffer.o: include/rapidjson/encodedstream.h
 src/TriangleBuffer.o: include/rapidjson/memorystream.h
 src/TriangleBuffer.o: include/rapidjson/internal/clzll.h
-src/TriangleBuffer.o: include/rapidjson/rapidjson.h
-src/TriangleBuffer.o: include/rapidjson/internal/meta.h
 src/TriangleBuffer.o: include/rapidjson/internal/stack.h
 src/TriangleBuffer.o: include/rapidjson/allocators.h
 src/TriangleBuffer.o: include/rapidjson/internal/swap.h
@@ -2495,13 +2495,13 @@ src/TruncatedCone.o: include/BoundingBox.h include/Shader.h
 src/TruncatedCone.o: include/VertexBufferCombo.h
 src/Version.o: include/Version.h include/rapidjson/document.h
 src/Version.o: include/rapidjson/reader.h include/rapidjson/allocators.h
+src/Version.o: include/rapidjson/rapidjson.h
+src/Version.o: include/rapidjson/internal/meta.h
 src/Version.o: include/rapidjson/rapidjson.h include/rapidjson/stream.h
 src/Version.o: include/rapidjson/encodings.h
 src/Version.o: include/rapidjson/encodedstream.h
 src/Version.o: include/rapidjson/memorystream.h
 src/Version.o: include/rapidjson/internal/clzll.h
-src/Version.o: include/rapidjson/rapidjson.h
-src/Version.o: include/rapidjson/internal/meta.h
 src/Version.o: include/rapidjson/internal/stack.h
 src/Version.o: include/rapidjson/allocators.h
 src/Version.o: include/rapidjson/internal/swap.h
@@ -2810,12 +2810,12 @@ src/Window3D.o: include/LandSurfaceRegion.h include/LandSurfaceRegionPlanar.h
 src/Window3D.o: include/Camera.h include/HeightMarker.h include/BezierPatch.h
 src/Window3D.o: include/rapidjson/document.h include/rapidjson/reader.h
 src/Window3D.o: include/rapidjson/allocators.h include/rapidjson/rapidjson.h
-src/Window3D.o: include/rapidjson/stream.h include/rapidjson/encodings.h
+src/Window3D.o: include/rapidjson/internal/meta.h
+src/Window3D.o: include/rapidjson/rapidjson.h include/rapidjson/stream.h
+src/Window3D.o: include/rapidjson/encodings.h
 src/Window3D.o: include/rapidjson/encodedstream.h
 src/Window3D.o: include/rapidjson/memorystream.h
 src/Window3D.o: include/rapidjson/internal/clzll.h
-src/Window3D.o: include/rapidjson/rapidjson.h
-src/Window3D.o: include/rapidjson/internal/meta.h
 src/Window3D.o: include/rapidjson/internal/stack.h
 src/Window3D.o: include/rapidjson/allocators.h
 src/Window3D.o: include/rapidjson/internal/swap.h
@@ -2845,13 +2845,13 @@ src/WoodySegment.o: include/WoodySegment.h include/TreePart.h
 src/WoodySegment.o: include/HttpDebug.h include/HttpRequestParser.h
 src/WoodySegment.o: include/Species.h include/rapidjson/document.h
 src/WoodySegment.o: include/rapidjson/reader.h include/rapidjson/allocators.h
+src/WoodySegment.o: include/rapidjson/rapidjson.h
+src/WoodySegment.o: include/rapidjson/internal/meta.h
 src/WoodySegment.o: include/rapidjson/rapidjson.h include/rapidjson/stream.h
 src/WoodySegment.o: include/rapidjson/encodings.h
 src/WoodySegment.o: include/rapidjson/encodedstream.h
 src/WoodySegment.o: include/rapidjson/memorystream.h
 src/WoodySegment.o: include/rapidjson/internal/clzll.h
-src/WoodySegment.o: include/rapidjson/rapidjson.h
-src/WoodySegment.o: include/rapidjson/internal/meta.h
 src/WoodySegment.o: include/rapidjson/internal/stack.h
 src/WoodySegment.o: include/rapidjson/allocators.h
 src/WoodySegment.o: include/rapidjson/internal/swap.h
@@ -2970,11 +2970,11 @@ src/main.o: include/LandSurfaceRegion.h include/LandSurfaceRegionPlanar.h
 src/main.o: include/Camera.h include/HeightMarker.h include/BezierPatch.h
 src/main.o: include/rapidjson/document.h include/rapidjson/reader.h
 src/main.o: include/rapidjson/allocators.h include/rapidjson/rapidjson.h
+src/main.o: include/rapidjson/internal/meta.h include/rapidjson/rapidjson.h
 src/main.o: include/rapidjson/stream.h include/rapidjson/encodings.h
 src/main.o: include/rapidjson/encodedstream.h
 src/main.o: include/rapidjson/memorystream.h
-src/main.o: include/rapidjson/internal/clzll.h include/rapidjson/rapidjson.h
-src/main.o: include/rapidjson/internal/meta.h
+src/main.o: include/rapidjson/internal/clzll.h
 src/main.o: include/rapidjson/internal/stack.h include/rapidjson/allocators.h
 src/main.o: include/rapidjson/internal/swap.h
 src/main.o: include/rapidjson/internal/strtod.h

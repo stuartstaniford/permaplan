@@ -36,6 +36,7 @@ HttpDebug::HttpDebug(unsigned short servPort, Scene& S, MenuInterface& imgMenu):
                         respBufOverflow(false),
                         reqParser(8192),
                         respBufSize(16384),
+                        headBufSize(4096),
                         port(servPort)
 {
   respBuf = new char[respBufSize];
@@ -386,10 +387,14 @@ void HttpDebug::processOneHTTP1_1()
 
 // =======================================================================================
 // Generate a response header into the header buffer.
+// Note headBufSize is currently 4096 so this won't stretch it.
 
 unsigned HttpDebug::generateHeader(unsigned bodySize, unsigned code, const char* msg)
 {
   char* ptr = headBuf;
+  if(strlen(msg) > headBufSize-1024)
+    err(-1, "Excessive message size in HttpDebug::generateHeader.");
+    
   ptr += sprintf(ptr, "HTTP/1.1 %u %s\r\n", code, msg);
   ptr += sprintf(ptr, "Content-Type: text/html\r\n");
   ptr += sprintf(ptr, "Content-Length: %u\r\n", bodySize);
