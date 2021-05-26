@@ -148,6 +148,16 @@ sub setCameraPosition
 
 
 #===========================================================================
+# Function to find the current height of the camera.
+
+sub getCameraHeight
+{
+  my $cameraZ = 1650;
+
+  return $cameraZ;  
+}
+
+#===========================================================================
 # Function to set the direction the camera points in.  Takes three args 
 # which should form the desired vector.
 
@@ -868,7 +878,7 @@ sub extractRangeFromArcs
 {
   my($oldfRef) = @_;
   
-  my($xmin, $max, $ymin, $ymax) = ("+inf", "-inf", "+inf", "-inf");
+  my($xmin, $xmax, $ymin, $ymax) = ("+inf", "-inf", "+inf", "-inf");
   
   foreach $arc (@{$oldfRef->{"boundaries"}{"arcs"}})
    {
@@ -877,8 +887,9 @@ sub extractRangeFromArcs
     $ymin = $arc->[1] if $arc->[1] < $ymin; 
     $ymax = $arc->[1] if $arc->[1] > $ymax; 
    }
+  #print "xmin: $xmin, xmax: $xmax, ymin: $ymin, ymax: $ymax\n";
 
-  return $xmin, $max, $ymin, $ymax;
+  return $xmin, $xmax, $ymin, $ymax;
 }
 
 
