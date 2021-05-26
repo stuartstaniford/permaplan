@@ -793,6 +793,9 @@ sub diffJSONHashRef
 
 
 #===========================================================================
+# Function to extract the range 
+
+#===========================================================================
 # Helper function to diffJSON for array references.
 
 sub diffJSONArrayRef
@@ -856,6 +859,28 @@ sub diffJSONScalar
   return 1;
 }
 
+#===========================================================================
+# Function to extract a rectangular region from the Arcs element in an 
+# OLDF file.  Useful for automated geographical operations being in the
+# right location.
+
+sub extractRangeFromArcs
+{
+  my($oldfRef) = @_;
+  
+  my($xmin, $max, $ymin, $ymax) = ("+inf", "-inf", "+inf", "-inf");
+  
+  foreach $arc (@{$oldfRef->{"boundaries"}{"arcs"}})
+   {
+    $xmin = $arc->[0] if $arc->[0] < $xmin; 
+    $xmax = $arc->[0] if $arc->[0] > $xmax; 
+    $ymin = $arc->[1] if $arc->[1] < $ymin; 
+    $ymax = $arc->[1] if $arc->[1] > $ymax; 
+   }
+
+  return $xmin, $max, $ymin, $ymax;
+}
+
 
 #===========================================================================
 # Function to compare two JSON files, expressed as Perl data structures,
@@ -891,7 +916,6 @@ sub diffJSON
 #===========================================================================
 # Function to compare two OLDF files.  Returns 1 if they are identical.  If
 # they are different, reports the differences in the OUT file and returns 0.
-
 
 sub compareOLDF
 {
