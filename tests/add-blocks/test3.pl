@@ -17,11 +17,12 @@ foreach my $i (1..$loopLimit)
   startPermaplan("-A -d $resourceDir/test1.oldf -D $testDir/test3.out.oldf -g 5.0");
   setCameraFrontVector(0,0,-1);
   my $cameraZ = getCameraHeight();
-  foreach $i (0..99)
+  foreach $i (0..0)
    {
     @{$positions[$i]} = ($xmin + rand($xmax-$xmin), $ymin + rand($ymax-$ymin), $cameraZ);
     setCameraPosition(@{$positions[$i]});
    }
+  sleep(10);
   sanityCheckHTTPPages();
   stopPermaplan();
   checkLogForErrors();

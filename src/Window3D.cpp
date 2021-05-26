@@ -489,6 +489,31 @@ float Window3D::timeDelta(void)
 
 
 // =======================================================================================
+// Function called in the HTTP server thread to handle /window/ API calls.  This is a
+// static method, because in future there might be more than one window.
+
+bool Window3D::HTTPGateway(HttpDebug* serv, char* path)
+{  
+  vec2 trial;
+  if(strncmp(path, "resize/", 7)== 0)
+   {
+    if(extractColonVec3(path+7, trial))
+     {
+      // Create an interface action here.
+      httPrintf("OK\n");
+      return true;
+     }
+    LogRequestErrors("Window3D::HTTPGateway couldn't extract vector from %s\n", path);
+    return false;
+   }
+  
+  LogRequestErrors("Window3D::HTTPGateway unknown directive %s\n", path);
+  return false;
+
+}
+
+
+// =======================================================================================
 // Print instance debugging output
 
 bool Window3D::diagnosticHTML(HttpDebug* serv)

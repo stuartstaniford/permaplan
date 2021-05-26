@@ -30,6 +30,9 @@ class Window3D
   void loop(HttpDebug& httpServer);
   bool diagnosticHTML(HttpDebug* serv);
   
+  // Static class methods
+  static bool HTTPGateway(HttpDebug* serv, char* path);
+  
  private:
   
   // Class variables - private
