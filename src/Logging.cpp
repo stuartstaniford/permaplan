@@ -19,6 +19,7 @@
 bool doLogFrameStarts         = true; // Log each frame as it begins
 bool doLogCloseDown           = true; // Log when we exit
 bool doLogStructureSizes      = true; // Log the size of structures on this platform at startup.
+bool doLogEnvVars             = true; // Log the value of environment variables we care about.
 bool doLogOpenGLConstants     = true; // Log various openGL parameters
 bool doLogTreeValidation      = true; // Validate data structures after every frame
 
@@ -181,6 +182,11 @@ bool LogControlHTML(HttpDebug* serv, char* path)
 #ifdef LOG_STRUCTURE_SIZES // Log the size of structures on this platform at startup.
   if(strncmp(path, "doLogStructureSizes", sizeof("doLogStructureSizes")-1)==0)
     return oneLogControl(serv, path, doLogStructureSizes);
+#endif
+  
+#ifdef LOG_ENV_VARS // Log the value of environment variables we care about.
+  if(strncmp(path, "doLogEnvVars", sizeof("doLogEnvVars")-1)==0)
+    return oneLogControl(serv, path, doLogEnvVars);
 #endif
   
 #ifdef LOG_OPENGL_CONSTANTS // Log various openGL parameters

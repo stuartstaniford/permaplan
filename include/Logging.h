@@ -11,6 +11,7 @@
 #define LOG_FRAME_STARTS        // Log each frame as it begins
 #define LOG_CLOSE_DOWN          // Log when we exit.
 #define LOG_STRUCTURE_SIZES     // Log the size of structures on this platform at startup.
+#define LOG_ENV_VARS            // Log the value of environment variables we care about.
 #define LOG_OPENGL_CONSTANTS    // Log various openGL parameters
 #define LOG_TREE_VALIDATION     // Validate data structures after every frame
 
@@ -146,6 +147,7 @@ extern FILE* LogFile;
 extern bool doLogFrameStarts;     // Log each frame as it begins
 extern bool doLogCloseDown;       // Log when we exit
 extern bool doLogStructureSizes;  // Log the size of structures on this platform at startup.
+extern bool doLogEnvVars;         // Log the value of environment variables we care about.
 extern bool doLogOpenGLConstants; // Log various openGL parameters
 extern bool doLogTreeValidation;  // Validate data structures after every frame
 
@@ -254,6 +256,13 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
                                         LogStatement("LogStructureSizes: "  __VA_ARGS__)
 #else
 #define LogStructureSizes(...)
+#endif
+
+// Log the value of environment variables we care about.
+#ifdef LOG_ENV_VARS
+#define LogEnvVars(...) if(doLogEnvVars) LogStatement("LogEnvVars: "  __VA_ARGS__)
+#else
+#define LogEnvVars(...)
 #endif
 
 // Log various openGL parameters

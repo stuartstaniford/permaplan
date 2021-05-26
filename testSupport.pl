@@ -98,10 +98,12 @@ sub processArgs
     $arg = $_[$index];
     if($arg eq "-h")
      {
-      print("Command line options:\n\n");
+      print("\nCommand line options:\n\n");
       print("\t-h\tPrint this message.\n");
       print("\t-D\tSupply command for user to start permaplan in debugger.\n");
       print("\t-L N\tLoop over test N times.\n");
+      print ("\n");
+      exit;
      }
     elsif($arg eq "-D")
      {
