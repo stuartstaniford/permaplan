@@ -129,14 +129,34 @@ sub processArgs
 sub simulatePermaplan
 {
   my $response = $http->get("http://127.0.0.1:$port/menu/simulate/start/");
-  if(length $response->{content} && $response->{content} eq "OK\n")
-   {
-    return 1;
-   }
-  else
-   {
-    return 0;
-   }
+  return 1 if(length $response->{content} && $response->{content} eq "OK\n");
+  return 0;
+}
+
+
+#===========================================================================
+# Function to set the position of the camera (in world space).  Takes three 
+# args which should by x,y,z of desired position.
+
+sub setCameraPosition
+{
+  my $url = "http://127.0.0.1:$port/camera/set/pos/".join(':', @_).":";
+  my $response = $http->get($url);
+  return 1 if(length $response->{content} && $response->{content} eq "OK\n");
+  return 0;
+}
+
+
+#===========================================================================
+# Function to set the direction the camera points in.  Takes three args 
+# which should form the desired vector.
+
+sub setCameraFrontVector
+{
+  my $url = "http://127.0.0.1:$port/camera/set/front/".join(':', @_).":";
+  my $response = $http->get($url);
+  return 1 if(length $response->{content} && $response->{content} eq "OK\n");
+  return 0;
 }
 
 
@@ -594,7 +614,7 @@ sub randomWalkQuadTree
                             [int(rand(scalar(@{$voTable->{'contents'}})))];
     my ($link, $content) = extractLinkFromElement($row->[0]);
     return unless defined $link && defined $content;
-    print "Path $startPath;\tlink: $link;\tcontent: $content\n";  
+    #print "Path $startPath;\tlink: $link;\tcontent: $content\n";  
     my $objResponse = $http->get("http://127.0.0.1:$port$link");
     sanityCheckHeader($objResponse, "$link");
     sanityCheckOuterPage($objResponse, "$link");
@@ -605,7 +625,7 @@ sub randomWalkQuadTree
   if(!defined $kidTable || !defined $kidTable->{'contents'} 
                                     || !scalar(@{$kidTable->{'contents'}}))
    {
-    print "Terminated at path $startPath\n";
+    #print "Terminated at path $startPath\n";
     return; # have reached the bottom of the tree.
    }
   my $row = $kidTable->{'contents'}
