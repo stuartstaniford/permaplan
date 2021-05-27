@@ -4,7 +4,7 @@
 require './testSupport.pl';
 $dir = 'tests/basic-smoke';
 
-my $loopLimit = processArgs(@ARGV);
+my($loopLimit, $simLimit) = processArgs(@ARGV);
 
 foreach my $i (1..$loopLimit)
  {

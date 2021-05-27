@@ -4,7 +4,7 @@ require './testSupport.pl';
 $resourceDir = 'tests/basic-smoke';
 $testDir = 'tests/simulate';
 
-my $loopLimit = processArgs(@ARGV);
+my($loopLimit, $simLimit) = processArgs(@ARGV);
 
 foreach my $i (1..$loopLimit)
  {
@@ -18,7 +18,7 @@ foreach my $i (1..$loopLimit)
    {
     my $year = getPermaplanYear();
     # print "$year\n";
-    last if $year >= 2000;
+    last if $year >= $simLimit;
     sleep(1);
    }
   sanityCheckHTTPPages();

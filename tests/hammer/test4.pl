@@ -4,7 +4,7 @@ require './testSupport.pl';
 $resourceDir = 'tests/basic-smoke';
 $testDir = 'tests/hammer';
 
-my $loopLimit = processArgs(@ARGV);
+my($loopLimit, $simLimit) = processArgs(@ARGV);
 $loopLimit = 100 if $loopLimit == 1;
 system("rm -rf $testDir/test4.out.oldf");
 system("rm -rf $testDir/*.tmp $testDir/*.diff");

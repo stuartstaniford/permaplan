@@ -86,6 +86,7 @@ sub startPermaplan
 sub processArgs
 {
   my $loopLimit = 1;
+  my $simLimit = 1950;
   my $skip = 0;
   
   foreach $index (0..$#_)
@@ -102,6 +103,7 @@ sub processArgs
       print("\t-h\tPrint this message.\n");
       print("\t-D\tSupply command for user to start permaplan in debugger.\n");
       print("\t-L N\tLoop over test N times.\n");
+      print("\t-y Y\tSimulate to year Y (if relevant).\n");
       print ("\n");
       exit;
      }
@@ -114,12 +116,17 @@ sub processArgs
       $loopLimit = $_[$index+1]; 
       $skip = 1;
      }
+    elsif($arg eq "-y")
+     {
+      $simLimit = $_[$index+1]; 
+      $skip = 1;
+     }
     else
      {
       die("Unknown arg $arg.\n");
      }
    }
-  return $loopLimit;  
+  return ($loopLimit, $simLimit);  
 }
 
 
