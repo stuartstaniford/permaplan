@@ -15,7 +15,8 @@ foreach my $i (1..$loopLimit)
 
   openOutput("$testDir/test3.log");
   startPermaplan("-A -d $resourceDir/test1.oldf -D $testDir/test3.out.oldf -g 5.0");
-  resizeWindow(1000,800);
+  resizeWindow(1000, 800);
+  moveWindow(100, 100);
   setCameraFrontVector(0,0,-1);
   my $cameraZ = getCameraHeight();
   foreach $i (0..6)

@@ -169,13 +169,19 @@ ActionType Window3D::processPseudoAction(InterfaceAction* action)
       scene->startSimulation();
       return SimulateStart;
       
+     case WindowMove:
+      glfwSetWindowPos(window, (int)action->data[0], (int)action->data[1]);  
+      LogWindowOperations("Window moved to screen coordinates %d, %d.\n",
+                                        (int)action->data[0], (int)action->data[1]); 
+      return WindowMove;
+
      case WindowResize:
       glfwSetWindowSize(window, (int)action->data[0], (int)action->data[1]);  
       LogWindowOperations("Window resized to width %d, height %d.\n",
                                         (int)action->data[0], (int)action->data[1]); 
       return WindowResize;
 
-    default:
+     default:
       LogRequestErrors("Unhandled action type in Window3D::processPseudoAction %d\n", 
                                                             action->actionType);
       return NoAction;
@@ -518,7 +524,23 @@ bool Window3D::HTTPGateway(HttpDebug* serv, char* path)
     else
      {
       LogRequestErrors("Window3D::HTTPGateway couldn't create valid resize action"
-                                                                    " from %s\n", path);
+                                                                      " from %s\n", path);
+      return false;
+     }
+   }
+  else if(strncmp(path, "move/", 5)== 0) //XX this API will need rework for multiple windows
+   {
+    InterfaceAction* action = new InterfaceAction(WindowMove, path+5);
+    if(action->valid)
+     {
+      theWin->scene->actions.push_back(action);
+      httPrintf("OK\n");
+      return true;
+     }
+    else
+     {
+      LogRequestErrors("Window3D::HTTPGateway couldn't create valid move action"
+                                                                      " from %s\n", path);
       return false;
      }
    }

@@ -168,6 +168,20 @@ sub resizeWindow
 
 
 #===========================================================================
+# Function to move the permaplan window.  Takes two args which should be 
+# new window position in screen co-ordinates.
+# https://www.glfw.org/docs/3.3/group__window.html#ga1abb6d690e8c88e0c8cd1751356dbca8
+
+sub moveWindow
+{
+  my $url = "http://127.0.0.1:$port/window/move/".join(':', @_).":";
+  my $response = $http->get($url);
+  return 1 if(length $response->{content} && $response->{content} eq "OK\n");
+  return 0;
+}
+
+
+#===========================================================================
 # Function to find the current height of the camera.
 
 sub getCameraHeight

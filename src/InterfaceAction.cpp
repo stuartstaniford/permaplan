@@ -46,11 +46,11 @@ InterfaceAction::InterfaceAction(ActionType type, char* path):
    }
  
   // Window resize
-  if(actionType == WindowResize)
+  if(actionType == WindowMove || actionType == WindowResize)
    { 
     unless(extractColonVec2(path, data))
     {
-     LogRequestErrors("InterfaceAction::InterfaceAction couldn't get resize "
+     LogRequestErrors("InterfaceAction::InterfaceAction couldn't get window "
                                                                 "params from %s\n", path);
      valid = false;
     }

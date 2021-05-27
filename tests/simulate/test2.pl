@@ -12,6 +12,7 @@ foreach my $i (1..$loopLimit)
   system("rm -rf $testDir/*.tmp $testDir/*.diff");
   openOutput("$testDir/test2.log");
   startPermaplan("-A -d $resourceDir/test1.oldf -D $testDir/test2.out.oldf -g 5.0");
+  resizeWindow(400, 300);
   printPortMessage();
   simulatePermaplan();
   while(1)

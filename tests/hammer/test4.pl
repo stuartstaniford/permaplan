@@ -10,6 +10,7 @@ system("rm -rf $testDir/test4.out.oldf");
 system("rm -rf $testDir/*.tmp $testDir/*.diff");
 openOutput("$testDir/test4.log");
 startPermaplan("-A -d $resourceDir/test1.oldf -D $testDir/test4.out.oldf -g 5.0");
+resizeWindow(400, 300);
 simulatePermaplan();
 stressTestHTTPPages($loopLimit);
 stopPermaplan();

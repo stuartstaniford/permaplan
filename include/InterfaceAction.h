@@ -24,6 +24,7 @@ enum ActionType
   SimulatePause,
   SimulateReset,
   SimulateStart,
+  WindowMove,
   WindowResize,
 };
 

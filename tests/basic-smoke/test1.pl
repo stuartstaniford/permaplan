@@ -12,6 +12,7 @@ foreach my $i (1..$loopLimit)
   system("rm -rf $dir/*.tmp $dir/*.diff");
   openOutput("$dir/test1.log");
   startPermaplan("-A -d $dir/test1.oldf -D $dir/test1.out.oldf -g 5.0");
+  resizeWindow(400, 300);
   sanityCheckHTTPPages();
   stopPermaplan();
   checkLogForErrors();
