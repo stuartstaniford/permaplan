@@ -19,10 +19,12 @@
 
 
 // =======================================================================================
-// For overall openGL initialization
+// File level and static variables
 
-bool GLFWInitDone = false;
+bool GLFWInitDone = false;   // For overall openGL initialization
 
+//ultimately will need to be container of all windows
+Window3D* Window3D::theWin = NULL;   
 
 // =======================================================================================
 // Calback for window resizing
@@ -111,11 +113,14 @@ Window3D::Window3D(int pixWidth, int pixHeight):
   imgMenu = new MenuInterface(window, *this);
   glViewport(0, 0, width, height);  
   lastTime.now();
+  
+  theWin = this; //XX will not support multiple windows at present
 }
 
 
 // =======================================================================================
-// Handle an pseudo-interface event coming from the HTTP Debug interface
+// Handle an pseudo-interface event coming from the HTTP Debug interface.
+// ActionTypes are listed in alphabetical order
 
 ActionType Window3D::processPseudoAction(InterfaceAction* action)
 {
@@ -129,44 +134,49 @@ ActionType Window3D::processPseudoAction(InterfaceAction* action)
     case DoubleClick:
       processDoubleClick(action->data[0], action->data[1], 0.1f);
       return DoubleClick;
+
+    case HeightEntered:
+      imgMenu->heightEnteredButton(action->data[0]);
+      return HeightEntered;
+
+    case InsertBlock:
+      imgMenu->insertBlockButton();
+      return InsertBlock;
+
+    case InsertHeight:
+      imgMenu->insertHeightButton();
+      return InsertHeight;       
+       
+    case InsertTree:
+      imgMenu->insertTreeButton();
+      return InsertTree;
       
-    case SimulateStart:
-      LogSimulationControls("Simulate Button \xe2\x96\xb6 pressed.\n");
-      scene->startSimulation();
-      return SimulateStart;
-      
+    case QuitProgram:
+      return QuitProgram;  // handled in our caller loop()
+
     case SimulatePause:
       LogSimulationControls("Pause Button \xe2\x8f\xb8 pressed.\n");
       scene->pauseSimulation();
       return SimulatePause;
-      
+       
     case SimulateReset:
       LogSimulationControls("Reset Button \xe2\x8f\xae pressed.\n");
       scene->resetSimulation();
       return SimulateReset;
 
-    case InsertHeight:
-      imgMenu->insertHeightButton();
-      return InsertHeight;
+    case SimulateStart:
+      LogSimulationControls("Simulate Button \xe2\x96\xb6 pressed.\n");
+      scene->startSimulation();
+      return SimulateStart;
       
-    case InsertBlock:
-      imgMenu->insertBlockButton();
-      return InsertBlock;
-      
-    case InsertTree:
-      imgMenu->insertTreeButton();
-      return InsertTree;
-
-     case HeightEntered:
-       imgMenu->heightEnteredButton(action->data[0]);
-      return HeightEntered;
-
-     case QuitProgram:
-      return QuitProgram;  // handled in our caller loop()
+     case WindowResize:
+      glfwSetWindowSize(window, (int)action->data[0], (int)action->data[1]);  
+      return WindowResize;
 
     default:
       LogRequestErrors("Unhandled action type in Window3D::processPseudoAction %d\n", 
                                                             action->actionType);
+      return NoAction;
    }
 }
 
@@ -494,22 +504,25 @@ float Window3D::timeDelta(void)
 
 bool Window3D::HTTPGateway(HttpDebug* serv, char* path)
 {  
-  vec2 trial;
-  if(strncmp(path, "resize/", 7)== 0)
+  if(strncmp(path, "resize/", 7)== 0) //XX this API will need rework for multiple windows
    {
-    if(extractColonVec3(path+7, trial))
+    InterfaceAction* action = new InterfaceAction(WindowResize, path+7);
+    if(action->valid)
      {
-      // Create an interface action here.
+      theWin->scene->actions.push_back(action);
       httPrintf("OK\n");
       return true;
      }
-    LogRequestErrors("Window3D::HTTPGateway couldn't extract vector from %s\n", path);
-    return false;
+    else
+     {
+      LogRequestErrors("Window3D::HTTPGateway couldn't create valid resize action"
+                                                                    " from %s\n", path);
+      return false;
+     }
    }
   
   LogRequestErrors("Window3D::HTTPGateway unknown directive %s\n", path);
   return false;
-
 }
 
 

@@ -51,6 +51,9 @@ class Window3D
   bool            mouseMoved;
   float           frameTimeAvg;
   
+  // Static private variables
+  static Window3D* theWin;   //ultimately will need to be container of all windows
+
   // Private methods
   void          processInput(Camera& camera);
   void          processMouse(Camera& camera);

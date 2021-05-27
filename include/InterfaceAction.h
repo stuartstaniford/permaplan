@@ -13,16 +13,18 @@
 
 enum ActionType
 {
+  NoAction,
   Click,
   DoubleClick,
-  SimulateStart,
-  SimulatePause,
-  SimulateReset,
+  HeightEntered,
   InsertHeight,
   InsertBlock,
   InsertTree,
-  HeightEntered,
   QuitProgram,
+  SimulatePause,
+  SimulateReset,
+  SimulateStart,
+  WindowResize,
 };
 
 
