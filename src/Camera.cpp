@@ -401,8 +401,8 @@ bool Camera::diagnosticHTML(HttpDebug* serv, char* path)
   serv->startResponsePage("Camera");
     
   httPrintf("<center>\n");
-  serv->startTable();
-  httPrintf("<tr><th></th><th>X</th><th>Y</th><th>Y</th></tr>\n");
+  serv->startTable((char*)"camSummary");
+  httPrintf("<tr><th>Label</th><th>X</th><th>Y</th><th>Y</th></tr>\n");
 
   //Position
   httPrintf("<tr><td>Position</td><td>");

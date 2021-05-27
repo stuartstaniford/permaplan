@@ -136,6 +136,7 @@ sub processArgs
 sub simulatePermaplan
 {
   my $response = $http->get("http://127.0.0.1:$port/menu/simulate/start/");
+  sanityCheckHeader($response, '/menu/simulate/start/');  
   return 1 if(length $response->{content} && $response->{content} eq "OK\n");
   return 0;
 }
@@ -149,6 +150,7 @@ sub setCameraPosition
 {
   my $url = "http://127.0.0.1:$port/camera/set/pos/".join(':', @_).":";
   my $response = $http->get($url);
+  sanityCheckHeader($response, '/camera/set/pos/');  
   return 1 if(length $response->{content} && $response->{content} eq "OK\n");
   return 0;
 }
@@ -162,6 +164,7 @@ sub resizeWindow
 {
   my $url = "http://127.0.0.1:$port/window/resize/".join(':', @_).":";
   my $response = $http->get($url);
+  sanityCheckHeader($response, '/window/resize/');  
   return 1 if(length $response->{content} && $response->{content} eq "OK\n");
   return 0;
 }
@@ -176,6 +179,7 @@ sub moveWindow
 {
   my $url = "http://127.0.0.1:$port/window/move/".join(':', @_).":";
   my $response = $http->get($url);
+  sanityCheckHeader($response, '/window/move/');  
   return 1 if(length $response->{content} && $response->{content} eq "OK\n");
   return 0;
 }
@@ -186,10 +190,30 @@ sub moveWindow
 
 sub getCameraHeight
 {
-  my $cameraZ = 1650; #XX needs to be obtained dynamically from permaplan
+  my $url = "http://127.0.0.1:$port/camera/";
+  my $response = $http->get($url);
+  sanityCheckHeader($response, '/camera/');  
+  my $tree =   HTML::TreeBuilder->new();
+  #print $response->{content};
+  $tree->parse_content($response->{content});
+  my $table = extractTableFromHTML($tree, "camSummary", "/camera");
+  my $cameraZ;
+  if(defined $table && defined $table->{'contents'} 
+    && scalar(@{$table->{'contents'}}) && defined  $table->{'contents'}[0]
+    && defined  $table->{'contents'}[0][3] 
+    && ref($table->{'contents'}[0][3]) eq '')
+   {
+    $cameraZ = $table->{'contents'}[0][3];
+   }
+  else
+   {
+    print OUT "getCameraHeight couldn't get valid value from /camera/";
+    $outLines++;
+   }
 
   return $cameraZ;  
 }
+
 
 #===========================================================================
 # Function to set the direction the camera points in.  Takes three args 
@@ -199,6 +223,7 @@ sub setCameraFrontVector
 {
   my $url = "http://127.0.0.1:$port/camera/set/front/".join(':', @_).":";
   my $response = $http->get($url);
+  sanityCheckHeader($response, '/camera/set/front/');  
   return 1 if(length $response->{content} && $response->{content} eq "OK\n");
   return 0;
 }
@@ -301,6 +326,7 @@ sub sanityCheckOuterPage
 sub getPermaplanYear
 {
   my $response = $http->get("http://127.0.0.1:$port/");
+  sanityCheckHeader($response, '/');
   my $tree =   HTML::TreeBuilder->new();
   #print $response->{content};
   $tree->parse_content($response->{content});
@@ -496,7 +522,6 @@ sub extractTableFromHTML
     $outLines++;
    }
   
-  # loop over the remaining rows of the table, sanity checking and extracting
   foreach my $element (@$headerRow)
    {
     if($element->{_tag} ne 'th')
@@ -520,6 +545,7 @@ sub extractTableFromHTML
     push @{$hash{'headers'}}, $element->{_content}[0];
    }
   
+  # loop over the remaining rows of the table, sanity checking and extracting
   foreach my $row (@{$tables[0]->{_content}}
                                 [1..scalar(@{$tables[0]->{_content}})-1])
    {
