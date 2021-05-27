@@ -38,6 +38,7 @@ bool doLogMouseRayPoint       = true; // Where the mouse is pointing in 3d space
 bool doLogLandHeights         = true; // Log when a new land height is entered.
 bool doLogObjectInsertions    = true; // Log when a new object is inserted in scene.
 bool doLogSimulationControls  = true; // Log control operations on the simulation.
+bool doLogWindowOperations    = true; // Log changes to the window (eg resizing).
 
 // Logging options to do with materials and textures
 bool doLogTextureAtlas        = true; // Log texture atlas creation
@@ -274,7 +275,12 @@ bool LogControlHTML(HttpDebug* serv, char* path)
     return oneLogControl(serv, path, doLogSimulationControls);
 #endif
 
-  
+#ifdef LOG_WINDOW_OPERATIONS // Log changes to the window (eg resizing).
+  if(strncmp(path, "doLogWindowOperations", sizeof("doLogWindowOperations")-1)==0)
+    return oneLogControl(serv, path, doLogWindowOperations);
+#endif
+
+
 // Logging options to do with materials and textures
   
 #ifdef LOG_TEXTURE_ATLAS // Log texture atlas creation

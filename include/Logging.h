@@ -35,6 +35,7 @@
 #define LOG_LAND_HEIGHTS        // Log when a new land height is entered.
 //#define LOG_OBJECT_INSERTIONS   // Log when a new object is inserted in scene.
 #define LOG_SIMULATION_CONTROLS // Log control operations on the simulation.
+#define LOG_WINDOW_OPERATIONS   // Log changes to the window (eg resizing).
 
 
 // =======================================================================================
@@ -166,6 +167,7 @@ extern bool doLogMouseRayPoint;       // Where the mouse is pointing in 3d space
 extern bool doLogLandHeights;         // Log when a new land height is entered.
 extern bool doLogObjectInsertions;    // Log when a new object is inserted in scene.
 extern bool doLogSimulationControls;  // Log control operations on the simulation.
+extern bool doLogWindowOperations;    // Log changes to the window (eg resizing).
 
 // Logging options to do with materials and textures
 extern bool doLogTextureAtlas;        // Log texture atlas creation
@@ -383,6 +385,14 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
                                     LogStatement("LogSimulationControls: " __VA_ARGS__)
 #else
 #define LogSimulationControls(...)
+#endif
+
+// Log changes to the window (eg resizing).
+#ifdef LOG_WINDOW_OPERATIONS
+#define LogWindowOperations(...) if(doLogWindowOperations) \
+                                    LogStatement("LogWindowOperations: " __VA_ARGS__)
+#else
+#define LogWindowOperations(...)
 #endif
 
 

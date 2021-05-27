@@ -171,6 +171,8 @@ ActionType Window3D::processPseudoAction(InterfaceAction* action)
       
      case WindowResize:
       glfwSetWindowSize(window, (int)action->data[0], (int)action->data[1]);  
+      LogWindowOperations("Window resized to width %d, height %d.\n",
+                                        (int)action->data[0], (int)action->data[1]); 
       return WindowResize;
 
     default:

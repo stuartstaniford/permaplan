@@ -18,7 +18,7 @@ foreach my $i (1..$loopLimit)
    {
     my $year = getPermaplanYear();
     # print "$year\n";
-    last if $year >= 2200;
+    last if $year >= 2000;
     sleep(1);
    }
   sanityCheckHTTPPages();
