@@ -143,7 +143,7 @@ sub simulatePermaplan
 
 #===========================================================================
 # Function to set the position of the camera (in world space).  Takes three 
-# args which should by x,y,z of desired position.
+# args which should be x,y,z of desired position.
 
 sub setCameraPosition
 {
@@ -155,11 +155,24 @@ sub setCameraPosition
 
 
 #===========================================================================
+# Function to resize the permaplan window.  Takes two args which should be 
+# new window width and height.
+
+sub resizeWindow
+{
+  my $url = "http://127.0.0.1:$port/window/resize/".join(':', @_).":";
+  my $response = $http->get($url);
+  return 1 if(length $response->{content} && $response->{content} eq "OK\n");
+  return 0;
+}
+
+
+#===========================================================================
 # Function to find the current height of the camera.
 
 sub getCameraHeight
 {
-  my $cameraZ = 1650;
+  my $cameraZ = 1650; #XX needs to be obtained dynamically from permaplan
 
   return $cameraZ;  
 }

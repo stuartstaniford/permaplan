@@ -22,6 +22,7 @@
 #include "SkySampleModel.h"
 #include "InterfaceAction.h"
 #include "MenuInterface.h"
+#include "Window3D.h"
 
 #define SA struct sockaddr
 
@@ -302,8 +303,8 @@ bool HttpDebug::processRequestHeader(void)
   else if( strlen(url) == 12 && strncmp(url, "/taskqueues/", 12) == 0)
     retVal =  threadFarm->diagnosticHTML(this);
 
-  //else if( strlen(url) > 8 && strncmp(url, "/window/", 8) == 0)
-  //  retVal =  Window3D::HTTPGateway(this, url+8);
+  else if( strlen(url) > 8 && strncmp(url, "/window/", 8) == 0)
+    retVal =  Window3D::HTTPGateway(this, url+8);
   
   else
    {

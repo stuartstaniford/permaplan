@@ -362,6 +362,8 @@ bool Camera::setApi(HttpDebug* serv, char* path)
     if(extractColonVec3(path+4, trial))
      {
       glm_vec3_copy(trial, pos);
+      LogWindowOperations("Camera::setApi, camera position set to (%.1f, %.1f, %.1f).\n", 
+                                                            pos[0], pos[1], pos[2]);
       httPrintf("OK\n");
       return true;
      }
@@ -374,6 +376,8 @@ bool Camera::setApi(HttpDebug* serv, char* path)
     if(extractColonVec3(path+6, trial))
      {
       glm_vec3_copy(trial, front);
+      LogWindowOperations("Camera::setApi, camera direction set to (%.1f, %.1f, %.1f).\n", 
+                                                            front[0], front[1], front[2]);
       httPrintf("OK\n");
       return true;
      }
