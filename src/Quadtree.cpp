@@ -686,7 +686,7 @@ bool Quadtree::quadSearchHTML(HttpDebug* serv, char* searchTerm)
   
   unless(serv->startResponsePage(buf))
     return false;
-  unless(serv->startTable())
+  unless(serv->startTable(searchTerm))
     return false;
 
   httPrintf("<tr><th>Index</th><th>Quadtree Path</th>");

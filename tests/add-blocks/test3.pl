@@ -3,6 +3,7 @@
 require './testSupport.pl';
 $resourceDir = 'tests/basic-smoke';
 $testDir = 'tests/add-blocks';
+$boxCount = 30;
 
 my($loopLimit, $simLimit) = processArgs(@ARGV);
 
@@ -19,15 +20,16 @@ foreach my $i (1..$loopLimit)
   moveWindow(100, 100);
   setCameraFrontVector(0,0,-1);
   my $cameraZ = getCameraHeight();
-  foreach $i (0..6)
+  foreach $i (0..$boxCount-1)
    {
     @{$positions[$i]} = ($xmin + rand($xmax-$xmin), $ymin + rand($ymax-$ymin), $cameraZ);
     setCameraPosition(@{$positions[$i]});
     performDoubleclick(500,400);
     insertBlockButton();
-    enterBlockParameters(12);
+    enterBlockParameters(3);
    }
   sanityCheckHTTPPages();
+  checkObjectSearchCount('Box', $boxCount);
   stopPermaplan();
   checkLogForErrors();
   checkOutput("$testDir/test3.log", "$testDir test3 (trial $i)");

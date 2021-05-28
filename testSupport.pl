@@ -257,6 +257,29 @@ sub getCameraHeight
 
 
 #===========================================================================
+# Function to do a quadtree search for object of some type and verify that
+# there are the right number of them.
+
+sub checkObjectSearchCount
+{
+  my($objName, $objCount) = @_;
+  my $url = "http://127.0.0.1:$port/quadsearch/$objName";
+  my $response = $http->get($url);
+  sanityCheckHeader($response, "/quadsearch/$objName");  
+  my $tree =   HTML::TreeBuilder->new();
+  #print $response->{content};
+  $tree->parse_content($response->{content});
+  my $table = extractTableFromHTML($tree, $objName, "/quadsearch/$objName");
+  unless(defined $table && defined $table->{'contents'} 
+                        && scalar(@{$table->{'contents'}}) == $objCount)
+   {
+    print OUT "checkObjectSearchCount couldn't get valid count of $objName.\n";
+    $outLines++;
+   }
+}
+
+
+#===========================================================================
 # Function to set the direction the camera points in.  Takes three args 
 # which should form the desired vector.
 
