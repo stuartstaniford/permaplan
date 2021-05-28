@@ -126,7 +126,11 @@ ActionType Window3D::processPseudoAction(InterfaceAction* action)
 {
   switch(action->actionType)
    {
-    case Click:
+     case BlockEntered:
+       imgMenu->blockEnteredButton(action->data[0], "StrawBale");
+       return BlockEntered;
+
+     case Click:
       // for Click and DoubleClick, the data is mousePos
       processClick(action->data[0], action->data[1]);
       return Click;

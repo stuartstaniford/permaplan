@@ -23,7 +23,9 @@ foreach my $i (1..$loopLimit)
    {
     @{$positions[$i]} = ($xmin + rand($xmax-$xmin), $ymin + rand($ymax-$ymin), $cameraZ);
     setCameraPosition(@{$positions[$i]});
-    sleep(1);
+    performDoubleclick(500,400);
+    insertBlockButton();
+    enterBlockParameters(12);
    }
   sanityCheckHTTPPages();
   stopPermaplan();

@@ -149,6 +149,20 @@ void MenuInterface::imguiInsertMenu(void)
 
 
 // =======================================================================================
+// Block entered button action (also from HTTP debug interface)
+
+void MenuInterface::blockEnteredButton(float blockSize, const std::string& matName)
+{
+  show_materials_menu = false;
+  const MaterialList& materials = MaterialList::getMaterials();
+  auto iter = materials.find(matName);
+  scene->insertVisibleObject((char*)"Block", blockSize, scene->lastDoubleClick, iter->second);
+  LogMaterialSelections("Material %s selected for block, carbon density %.2f.\n",
+                        matName, iter->second->carbonDensity);
+}
+
+
+// =======================================================================================
 // The floating menu to select a material (eg for a block)
 
 void MenuInterface::imguiMaterialsMenu(void)
@@ -162,14 +176,11 @@ void MenuInterface::imguiMaterialsMenu(void)
   const MaterialList& materials = MaterialList::getMaterials();
   
   for(auto& iter: materials)
-    if(ImGui::Button(iter.first))
+    if(ImGui::Button(iter.first.c_str()))
      {
-      show_materials_menu = false;
       size = atof(heightBuf);
       heightBuf[0] = '\0';
-      scene->insertVisibleObject((char*)"Block", size, scene->lastDoubleClick, iter.second);
-      LogMaterialSelections("Material %s selected for block, carbon density %.2f.\n",
-                            iter.first, iter.second->carbonDensity);
+      blockEnteredButton(size, iter.first);
      }
   ImGui::End();
 }
@@ -599,6 +610,10 @@ bool MenuInterface::HTTPAPiEnter(HttpDebug* serv, char* path)
   if(show_height_input_dialog && strncmp(path, "height/", 7) == 0)
     return createAction(serv, HeightEntered, (char*)"HeightEntered", 
                                                           (char*)"HTTPAPiEnter", path+7);
+
+  if(show_materials_menu && strncmp(path, "block/", 6) == 0)
+    return createAction(serv, BlockEntered, (char*)"BlockEntered", 
+                                                          (char*)"HTTPAPiEnter", path+6);
 
   LogRequestErrors("MenuInterface::HTTPAPiEnter incorrect enter command %s\n", path);
   return false;

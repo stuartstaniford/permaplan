@@ -15,7 +15,7 @@
 #include "rapidjson/writer.h"
 #include "rapidjson/stringbuffer.h"
 #include "rapidjson/error/en.h"
-
+#include <string>
 
 //#define SHOW_DEMO_WINDOW
 
@@ -42,6 +42,7 @@ class MenuInterface
   void insertBlockButton(void);
   void insertTreeButton(void);
   void heightEnteredButton(float z);
+  void blockEnteredButton(float blockSize, const std::string& matName);
 
  private:
   

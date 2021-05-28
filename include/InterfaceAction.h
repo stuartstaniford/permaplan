@@ -14,6 +14,7 @@
 enum ActionType
 {
   NoAction,
+  BlockEntered,
   Click,
   DoubleClick,
   HeightEntered,

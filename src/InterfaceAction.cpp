@@ -44,7 +44,19 @@ InterfaceAction::InterfaceAction(ActionType type, char* path):
     }
     return;    
    }
- 
+
+  // Result of block entry panel
+  if(actionType == BlockEntered)
+   {
+    unless(extractColonFloat(path, data))
+    {
+     LogRequestErrors("InterfaceAction::InterfaceAction couldn't get BlockEntered "
+                                                                "params from %s\n", path);
+     valid = false;
+    }
+    return;    
+   }
+
   // Window resize
   if(actionType == WindowMove || actionType == WindowResize)
    { 

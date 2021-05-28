@@ -230,11 +230,12 @@ bool HttpDebug::processRequestHeader(void)
     if(action->valid)
      {
       scene.actions.push_back(action);
+      internalPrintf("OK\n");
       retVal = true;
      }
     else
       LogRequestErrors("Couldn't create valid click action from %s\n", url+7);
-   }
+  }
 
   else if( strlen(url) >= 13 && strncmp(url, "/doubleclick/", 13) == 0)
    {
@@ -242,6 +243,7 @@ bool HttpDebug::processRequestHeader(void)
     if(action->valid)
      {
       scene.actions.push_back(action);
+      internalPrintf("OK\n");
       retVal = true;
      }
     else

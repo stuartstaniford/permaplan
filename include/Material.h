@@ -8,6 +8,7 @@
 
 #include <cglm/cglm.h>
 #include <map>
+#include <string>
 #include "TextureAtlas.h"
 #include "HttpDebug.h"
 
@@ -41,7 +42,7 @@ private:
 
 };
 
-class MaterialList: public std::map<char*, Material*>
+class MaterialList: public std::map<std::string, Material*>
 {
 private:
   

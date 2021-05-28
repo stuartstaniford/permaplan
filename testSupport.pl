@@ -171,6 +171,47 @@ sub resizeWindow
 
 
 #===========================================================================
+# Function to perform a double-click.  Takes two args which should be the
+# x and y window positions of the desired double-click.
+
+sub performDoubleclick
+{
+  my $url = "http://127.0.0.1:$port/doubleclick/".join(':', @_).":";
+  my $response = $http->get($url);
+  sanityCheckHeader($response, '/doubleclick/');  
+  return 1 if(length $response->{content} && $response->{content} eq "OK\n");
+  return 0;
+}
+
+
+#===========================================================================
+# Function to simulate clicking the "block" button on the insert menu.
+
+sub insertBlockButton
+{
+  my $url = "http://127.0.0.1:$port/menu/insert/block/";
+  my $response = $http->get($url);
+  sanityCheckHeader($response, '/menu/insert/block/');  
+  return 1 if(length $response->{content} && $response->{content} eq "OK\n");
+  return 0;
+}
+
+
+#===========================================================================
+# Function to simulate entering parameters and choosing material on block
+# entry dialog (XX material choice not implemented yet).
+
+sub enterBlockParameters
+{
+  my $url = "http://127.0.0.1:$port/menu/enter/block/".join(':', @_).':';
+  my $response = $http->get($url);
+  sanityCheckHeader($response, '/menu/enter/block/');  
+  return 1 if(length $response->{content} && $response->{content} eq "OK\n");
+  return 0;
+}
+
+
+#===========================================================================
 # Function to move the permaplan window.  Takes two args which should be 
 # new window position in screen co-ordinates.
 # https://www.glfw.org/docs/3.3/group__window.html#ga1abb6d690e8c88e0c8cd1751356dbca8
