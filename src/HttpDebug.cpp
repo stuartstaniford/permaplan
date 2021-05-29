@@ -186,6 +186,29 @@ bool HttpDebug::indexPage(void)
 
 
 // =======================================================================================
+// Generate the page that summarizes carbon capture
+
+bool HttpDebug::carbonSummary(void)
+{
+  unless(startResponsePage("Carbon Capture Summary"))
+    return false;
+  
+  // Beginning of table
+  internalPrintf("<center>\n");
+  unless(startTable((char*)"carbonCapture"))
+    return false;
+  internalPrintf("<tr><th>Row</th><th>Object-Id</th><th>Entity</th>"
+                                          "<th>Carbon Captured (tonnes)</th></tr>\n");
+  
+
+  // End table and page
+  internalPrintf("</table></center>\n");
+  endResponsePage();
+  return true;
+}
+
+
+// =======================================================================================
 // Generate an Error Page
 
 bool HttpDebug::errorPage(const char* error)
@@ -223,6 +246,9 @@ bool HttpDebug::processRequestHeader(void)
   
   else if( strlen(url) >= 8 && strncmp(url, "/camera/", 8) == 0)
     retVal =  scene.camera.diagnosticHTML(this, url+8);
+
+  else if( strlen(url) == 8 && strncmp(url, "/carbon/", 8) == 0)
+    retVal =  carbonSummary();
 
   else if( strlen(url) >= 7 && strncmp(url, "/click/", 7) == 0)
    {

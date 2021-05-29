@@ -52,6 +52,7 @@ public:
   bool        startResponsePage(const char* title, unsigned refresh = 0u);
   bool        endResponsePage(void);
   bool        errorPage(const char* error);
+  bool        carbonSummary(void);
   inline bool startTable(char* name = NULL)
    {
     if(name)
