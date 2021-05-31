@@ -13,6 +13,7 @@
 #include "rapidjson/writer.h"
 #include "rapidjson/stringbuffer.h"
 #include "rapidjson/error/en.h"
+#include "BoundingBox.h"
 
 // =======================================================================================
 // Class variable initialization
@@ -30,6 +31,7 @@ class Boundary
   Boundary(void);
   ~Boundary();
   void setFromOLDF(rapidjson::Value& boundaries);
+  bool extendBoundingBox(BoundingBox& box);
   bool validateReferencePoint(rapidjson::Value& boundaries);
   bool validateArcs(rapidjson::Value& boundaries);
   bool validateBoundaries(rapidjson::Value&  boundaries);

@@ -45,6 +45,40 @@ void Boundary::setFromOLDF(Value& boundaries)
 
 
 // =======================================================================================
+// Function to extend a bounding box to include all the points in this boundary.
+
+bool Boundary::extendBoundingBox(BoundingBox& box)
+{
+  bool retVal = false;
+  int N = arcs.size()/2;
+  for(int i=0; i<2*N; i+=2)
+   {
+    if(arcs[i] < box.lower[0])
+     {
+      box.lower[0] = arcs[i];
+      retVal = true;
+     }
+    if(arcs[i] > box.upper[0])
+     {
+      box.upper[0] = arcs[i];
+      retVal = true;
+     }
+    if(arcs[i+1] < box.lower[1])
+     {
+      box.lower[1] = arcs[i+1];
+      retVal = true;
+     }
+    if(arcs[i+1] > box.upper[1])
+     {
+      box.upper[1] = arcs[i+1];
+      retVal = true;
+     }
+   }
+  return retVal;
+}
+
+
+// =======================================================================================
 // Function to check the OLDF boundary reference point.
 
 bool Boundary::validateReferencePoint(Value& boundaries)
