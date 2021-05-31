@@ -1,0 +1,36 @@
+// Simple minimal OLDF file for use in various test cases
+{
+  "introductoryData":
+    {
+     "spaceUnits":        "feet",
+     "version":           [0, 0, 2],
+     "fileTime":          [1609406800, 27468],
+     "baseYear":          2020,
+     "software":          "manual edit",
+     "softwareVersion":   "none",
+     "author":            "Stuart Staniford"
+    },
+  "landSurface":
+   {
+    "texture":
+     {
+      "url": "file:/Materials/Trees/Acer/rubrum/October-Glory-Variant-Summer-Leaf.png",
+      "width": 685.0,
+      "offset": [-300.0, -300.0]
+     },
+    "altitudes":
+      [
+       [0.0, 0.0, 1000.0,   "center point"]
+      ]
+   },
+ "boundaries":
+  {
+   "referencePoint": [40.7831, -73.9712],
+   "arcs": [
+            [300, 0],
+            [0, 300],
+            [-300, 0],
+            [0, -300]
+           ]
+  }
+}
