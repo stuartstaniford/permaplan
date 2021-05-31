@@ -367,8 +367,9 @@ void Scene::draw(bool mouseMoved, float timeElapsed)
       newLandHeight(L, label);
     else
      {
-      design.designBoxValid = true;
+      design.boundary.extendBoundingBox(design.designBox);
       design.addBoxTolerances();
+      design.designBoxValid = true;
      }
    } 
   land.draw(camera);

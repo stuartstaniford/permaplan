@@ -356,7 +356,7 @@ bool BoundingBox::extends(const vec3 point)
       lower[i] = point[i];
       retVal = true;
      }
-    else if(point[i] > upper[i])
+    if(point[i] > upper[i])
      {
       upper[i] = point[i];
       retVal = true;
