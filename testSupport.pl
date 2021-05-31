@@ -198,6 +198,19 @@ sub insertBlockButton
 
 
 #===========================================================================
+# Function to simulate clicking the "tree" button on the insert menu.
+
+sub insertTreeButton
+{
+  my $url = "http://127.0.0.1:$port/menu/insert/tree/";
+  my $response = $http->get($url);
+  sanityCheckHeader($response, '/menu/insert/tree/');  
+  return 1 if(length $response->{content} && $response->{content} eq "OK\n");
+  return 0;
+}
+
+
+#===========================================================================
 # Function to simulate entering parameters and choosing material on block
 # entry dialog (XX material choice not implemented yet).
 
