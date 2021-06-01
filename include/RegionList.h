@@ -15,12 +15,15 @@ public:
   // Instance variables - public
   
   // Member functions - public
-  RegionList(void);
+  RegionList(char* fileName);
   ~RegionList(void);
-  
+  static void loadRoot(void);
+  static RegionList& getRoot(void);
+
 private:
   
   // Instance variables - private
+  static RegionList* root;
   
   // Member functions - private
   RegionList(const RegionList&);                 // Prevent copy-construction

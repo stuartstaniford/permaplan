@@ -11,6 +11,7 @@
 #include "Tree.h"
 #include "Version.h"
 #include "SkySampleModel.h"
+#include "RegionList.h"
 
 
 // =======================================================================================
@@ -54,6 +55,7 @@ int main (int argc, char* argv[])
   TextureAtlas blocksAtlas((char*)"Materials/Blocks");
   TextureAtlas treesAtlas((char*)"Materials/Trees");
   MaterialList materials(blocksAtlas);
+  RegionList::loadRoot();
   
   // Start up the debugging http server
   HttpDebug   httpServer(config.debugPort, scene, *(window.imgMenu));

@@ -59,8 +59,6 @@ class MenuInterface
   bool                all_tree_selector;
   char                heightBuf[16];
   float               size;
-  rapidjson::Document globalRegions;
-  bool                globalRegionsLoaded;
 #ifdef SHOW_DEMO_WINDOW
   bool                show_demo_window;
 #endif
