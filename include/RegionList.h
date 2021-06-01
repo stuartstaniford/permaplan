@@ -1,29 +1,30 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Jun 2021 -
-// This class ..... is a template for real classes
+// This class is for managing lists of species and lists of lists of species for use
+// in selecting based on region/type
 
-#ifndef EMPTY_CLASS_H
-#define EMPTY_CLASS_H
+#ifndef REGION_LIST_H
+#define REGION_LIST_H
 
 // =======================================================================================
 // Class variable initialization
 
-class EmptyClass
+class RegionList
 {
 public:
   
   // Instance variables - public
   
   // Member functions - public
-  EmptyClass(void);
-  ~EmptyClass(void);
+  RegionList(void);
+  ~RegionList(void);
   
 private:
   
   // Instance variables - private
   
   // Member functions - private
-  EmptyClass(const EmptyClass&);                 // Prevent copy-construction
-  EmptyClass& operator=(const EmptyClass&);      // Prevent assignment
+  RegionList(const RegionList&);                 // Prevent copy-construction
+  RegionList& operator=(const RegionList&);      // Prevent assignment
 
 };
 

@@ -1,12 +1,13 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Jun 2021 -
-// This class ..... is a template for real classes
+// This class is for managing lists of species and lists of lists of species for use
+// in selecting based on region/type
 
-#include "EmptyClass.h"
+#include "RegionList.h"
 
 // =======================================================================================
 // Constructor
 
-EmptyClass::EmptyClass(void)
+RegionList::RegionList(void)
 {
 }
 
@@ -14,7 +15,7 @@ EmptyClass::EmptyClass(void)
 // =======================================================================================
 // Destructor
 
-EmptyClass::~EmptyClass(void)
+RegionList::~RegionList(void)
 {
 }
 
