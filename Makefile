@@ -237,8 +237,12 @@ src/Boundary.o: include/rapidjson/internal/itoa.h
 src/Boundary.o: include/rapidjson/internal/itoa.h
 src/Boundary.o: include/rapidjson/stringbuffer.h
 src/Boundary.o: include/rapidjson/stringbuffer.h include/rapidjson/error/en.h
-src/Boundary.o: include/rapidjson/error/error.h include/PmodConfig.h
-src/Boundary.o: include/Logging.h include/MemoryTracker.h include/Global.h
+src/Boundary.o: include/rapidjson/error/error.h include/BoundingBox.h
+src/Boundary.o: include/Shader.h include/VertexBufferCombo.h
+src/Boundary.o: include/VertexArrayObject.h include/VertexBufferObject.h
+src/Boundary.o: /usr/local/include/GL/glew.h /usr/local/include/GLFW/glfw3.h
+src/Boundary.o: include/Global.h include/Logging.h include/MemoryTracker.h
+src/Boundary.o: include/Vertex.h include/PmodConfig.h
 src/BoundingBox.o: include/BoundingBox.h /usr/local/include/cglm/cglm.h
 src/BoundingBox.o: /usr/local/include/cglm/common.h
 src/BoundingBox.o: /usr/local/include/cglm/types.h
@@ -908,6 +912,7 @@ src/HttpDebug.o: include/TaskQueue.h include/InterfaceAction.h include/Tree.h
 src/HttpDebug.o: include/TreePart.h include/TaskQueueFarm.h
 src/HttpDebug.o: include/SkySampleModel.h include/MenuInterface.h
 src/HttpDebug.o: include/ScriptController.h imgui/imgui.h imgui/imconfig.h
+src/HttpDebug.o: include/Window3D.h
 src/HttpRequestParser.o: include/HttpRequestParser.h include/Global.h
 src/HttpRequestParser.o: /usr/local/include/cglm/cglm.h
 src/HttpRequestParser.o: /usr/local/include/cglm/common.h
