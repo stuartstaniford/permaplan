@@ -2,11 +2,13 @@
 
 system("open -a XCode src/*.cpp src/*.c");
 system("open -a XCode include/*.h");
-$otdlFiles = `find Materials/Trees -name *.otdl`;
+$otdlFiles = `find Materials/Trees -name '*.otdl'`;
 $otdlFiles =~ s/\n/ /g;
+$regionFiles = `find Materials/Trees/Regions -name *.json`;
+$regionFiles =~ s/\n/ /g;
 $testFiles = `find tests -name \'*.pl\'`;
 $testFiles .= `find tests -name \'*.oldf\'`;
 $testFiles .= `find tests -name \'*.lctl\'`;
 $testFiles =~ s/\S+\.out\.oldf//g;
 $testFiles =~ s/\n/ /g;
-system("open -a XCode ~/.zshrc Makefile README.md openSrc *.pl compilePmod 812/812.oldf src/*.glsl CMakeLists.txt web/*.js web/views/*.ejs web/views/*.js docs/*.md $testFiles *.json Materials/Trees/Regions/*.json $otdlFiles");
+system("open -a XCode ~/.zshrc Makefile README.md openSrc *.pl compilePmod 812/812.oldf src/*.glsl CMakeLists.txt web/*.js web/views/*.ejs web/views/*.js docs/*.md $testFiles *.json $regionFiles $otdlFiles");

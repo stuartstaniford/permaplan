@@ -12,7 +12,7 @@
 #include <err.h>
 
 RegionList* RegionList::root = NULL;
-
+char* rootDir = (char*)"Materials/Trees/Regions";
 
 // =======================================================================================
 // Constructor
@@ -34,11 +34,12 @@ RegionList::RegionList(const char* fileName)
    }
   unless(doc.IsObject())
     err(-1, "Base of file %s is not JSON object.\n", fileName);
+  char fileBuf[128];
   for (Value::ConstMemberIterator itr = doc.MemberBegin(); itr != doc.MemberEnd(); ++itr)
    {
     std::string name = itr->name.GetString();
-    const char* value = itr->value.GetString();
-    RegionList* child = new RegionList(value);
+    sprintf(fileBuf, "%s/%s", rootDir, itr->value.GetString());
+    RegionList* child = new RegionList(fileBuf);
     (*this)[name] = child;
    }
 }
@@ -67,7 +68,9 @@ RegionList& RegionList::getRoot(void)
 
 void RegionList::loadRoot(void)
 {
-  root = new RegionList((char*)"Materials/Trees/Regions/global.json");
+  char buf[128];
+  sprintf(buf, "%s/global.json", rootDir);
+  root = new RegionList(buf);
 }
 
 

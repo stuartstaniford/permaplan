@@ -4,13 +4,15 @@ $detail = 0;
 
 $otdlFiles = `find Materials/Trees -name *.otdl`;
 $otdlFiles =~ s/\n/ /g;
+$regionFiles = `find Materials/Trees/Regions -name '*.json'`;
+$regionFiles =~ s/\n/ /g;
 $testFiles = `find tests -name \'*.pl\'`;
 $testFiles .= `find tests -name \'*.oldf\'`;
 $testFiles .= `find tests -name \'*.lctl\'`;
 $testFiles =~ s/\S+\.out\.oldf//g;
 $testFiles =~ s/\n/ /g;
 
-open(FILE, "wc unixTime.cpp src/*.cpp include/*.h *.pl 812/*.oldf src/*.glsl CMakeLists.txt web/*.js web/views/*js README.md docs/*.md $testFiles Materials/Trees/Regions/*.json co2-scenarios.json $otdlFiles|")
+open(FILE, "wc unixTime.cpp src/*.cpp include/*.h *.pl 812/*.oldf src/*.glsl CMakeLists.txt web/*.js web/views/*js README.md docs/*.md $testFiles $regionFiles co2-scenarios.json $otdlFiles|")
 || die("Couldn't run wc.\n");
 
 open(OUT, "|sort -n -r |open -a XCode -f") || die("Couldn't open XCode.\n") if $detail;

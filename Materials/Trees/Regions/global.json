@@ -7,7 +7,7 @@
   "South America": "southAmerica.json",
   "Northern Europe": "northernEurope.json",
   "Mediteranean & Middle East": "medMidEast.json",
-  "TropicalAfrica": "tropicalAfrica.json",
-  "SouthernAfrica": "tropicalAfrica.json",
+  "Tropical Africa": "tropicalAfrica.json",
+  "Southern Africa": "southernAfrica.json",
   "Asia": "asia.json"
 }
