@@ -17,7 +17,7 @@ RegionList* RegionList::root = NULL;
 // =======================================================================================
 // Constructor
 
-RegionList::RegionList(char* fileName)
+RegionList::RegionList(const char* fileName)
 {
   using namespace rapidjson;
 
@@ -34,6 +34,13 @@ RegionList::RegionList(char* fileName)
    }
   unless(doc.IsObject())
     err(-1, "Base of file %s is not JSON object.\n", fileName);
+  for (Value::ConstMemberIterator itr = doc.MemberBegin(); itr != doc.MemberEnd(); ++itr)
+   {
+    std::string name = itr->name.GetString();
+    const char* value = itr->value.GetString();
+    RegionList* child = new RegionList(value);
+    (*this)[name] = child;
+   }
 }
 
 

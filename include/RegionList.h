@@ -5,17 +5,21 @@
 #ifndef REGION_LIST_H
 #define REGION_LIST_H
 
+#include <unordered_map>
+#include <string>
+
+
 // =======================================================================================
 // Class variable initialization
 
-class RegionList
+class RegionList: public std::unordered_map<std::string, RegionList*>
 {
 public:
   
   // Instance variables - public
   
   // Member functions - public
-  RegionList(char* fileName);
+  RegionList(const char* fileName);
   ~RegionList(void);
   static void loadRoot(void);
   static RegionList& getRoot(void);

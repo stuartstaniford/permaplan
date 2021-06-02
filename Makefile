@@ -1754,6 +1754,66 @@ src/Quadtree.o: include/TextureAtlas.h include/LightingModel.h
 src/Quadtree.o: include/Species.h include/LeafModel.h include/CO2Scenario.h
 src/Quadtree.o: include/TaskQueue.h include/InterfaceAction.h
 src/Quadtree.o: include/ObjectGroup.h
+src/RegionList.o: include/RegionList.h include/loadFileToBuf.h
+src/RegionList.o: include/Global.h /usr/local/include/cglm/cglm.h
+src/RegionList.o: /usr/local/include/cglm/common.h
+src/RegionList.o: /usr/local/include/cglm/types.h
+src/RegionList.o: /usr/local/include/cglm/simd/intrin.h
+src/RegionList.o: /usr/local/include/cglm/vec2.h
+src/RegionList.o: /usr/local/include/cglm/util.h
+src/RegionList.o: /usr/local/include/cglm/vec2-ext.h
+src/RegionList.o: /usr/local/include/cglm/vec3.h
+src/RegionList.o: /usr/local/include/cglm/vec4.h
+src/RegionList.o: /usr/local/include/cglm/vec4-ext.h
+src/RegionList.o: /usr/local/include/cglm/vec3-ext.h
+src/RegionList.o: /usr/local/include/cglm/mat4.h
+src/RegionList.o: /usr/local/include/cglm/mat3.h
+src/RegionList.o: /usr/local/include/cglm/mat2.h
+src/RegionList.o: /usr/local/include/cglm/affine.h
+src/RegionList.o: /usr/local/include/cglm/affine-mat.h
+src/RegionList.o: /usr/local/include/cglm/cam.h
+src/RegionList.o: /usr/local/include/cglm/plane.h
+src/RegionList.o: /usr/local/include/cglm/frustum.h
+src/RegionList.o: /usr/local/include/cglm/quat.h
+src/RegionList.o: /usr/local/include/cglm/euler.h
+src/RegionList.o: /usr/local/include/cglm/box.h
+src/RegionList.o: /usr/local/include/cglm/color.h
+src/RegionList.o: /usr/local/include/cglm/io.h
+src/RegionList.o: /usr/local/include/cglm/project.h
+src/RegionList.o: /usr/local/include/cglm/sphere.h
+src/RegionList.o: /usr/local/include/cglm/ease.h
+src/RegionList.o: /usr/local/include/cglm/curve.h
+src/RegionList.o: /usr/local/include/cglm/bezier.h
+src/RegionList.o: /usr/local/include/cglm/ray.h
+src/RegionList.o: /usr/local/include/cglm/affine2d.h
+src/RegionList.o: include/rapidjson/document.h include/rapidjson/reader.h
+src/RegionList.o: include/rapidjson/allocators.h
+src/RegionList.o: include/rapidjson/rapidjson.h
+src/RegionList.o: include/rapidjson/internal/meta.h
+src/RegionList.o: include/rapidjson/rapidjson.h include/rapidjson/stream.h
+src/RegionList.o: include/rapidjson/encodings.h
+src/RegionList.o: include/rapidjson/encodedstream.h
+src/RegionList.o: include/rapidjson/memorystream.h
+src/RegionList.o: include/rapidjson/internal/clzll.h
+src/RegionList.o: include/rapidjson/internal/stack.h
+src/RegionList.o: include/rapidjson/allocators.h
+src/RegionList.o: include/rapidjson/internal/swap.h
+src/RegionList.o: include/rapidjson/internal/strtod.h
+src/RegionList.o: include/rapidjson/internal/ieee754.h
+src/RegionList.o: include/rapidjson/internal/biginteger.h
+src/RegionList.o: include/rapidjson/internal/diyfp.h
+src/RegionList.o: include/rapidjson/internal/clzll.h
+src/RegionList.o: include/rapidjson/internal/pow10.h
+src/RegionList.o: include/rapidjson/error/error.h
+src/RegionList.o: include/rapidjson/internal/strfunc.h
+src/RegionList.o: include/rapidjson/stream.h include/rapidjson/writer.h
+src/RegionList.o: include/rapidjson/internal/dtoa.h
+src/RegionList.o: include/rapidjson/internal/itoa.h
+src/RegionList.o: include/rapidjson/internal/itoa.h
+src/RegionList.o: include/rapidjson/stringbuffer.h
+src/RegionList.o: include/rapidjson/stringbuffer.h
+src/RegionList.o: include/rapidjson/error/en.h
+src/RegionList.o: include/rapidjson/error/error.h
 src/Scene.o: include/ControlGroup.h include/ObjectGroup.h
 src/Scene.o: include/VisualObject.h include/VisualElement.h
 src/Scene.o: include/TriangleBuffer.h include/ElementBufferCombo.h
@@ -3003,4 +3063,4 @@ src/main.o: include/Species.h include/LeafModel.h include/CO2Scenario.h
 src/main.o: include/TaskQueue.h include/InterfaceAction.h
 src/main.o: include/MenuInterface.h include/ScriptController.h imgui/imgui.h
 src/main.o: imgui/imconfig.h include/Tree.h include/TreePart.h
-src/main.o: include/SkySampleModel.h
+src/main.o: include/SkySampleModel.h include/RegionList.h
