@@ -14,6 +14,7 @@
 RegionList* RegionList::root = NULL;
 char* rootDir = (char*)"Materials/Trees/Regions";
 
+
 // =======================================================================================
 // Constructor
 
@@ -38,9 +39,15 @@ RegionList::RegionList(const char* fileName)
   for (Value::ConstMemberIterator itr = doc.MemberBegin(); itr != doc.MemberEnd(); ++itr)
    {
     std::string name = itr->name.GetString();
-    sprintf(fileBuf, "%s/%s", rootDir, itr->value.GetString());
-    RegionList* child = new RegionList(fileBuf);
-    (*this)[name] = child;
+    if(findExtension(itr->value.GetString()) == ExtJson)
+     {
+      sprintf(fileBuf, "%s/%s", rootDir, itr->value.GetString());
+      RegionList* child = new RegionList(fileBuf);
+      (*this)[name] = child;
+     }
+    else
+      err(-1,"Unsupported extension %d in %s.\n", findExtension(itr->value.GetString()), 
+                                                                                  fileName);
    }
 }
 

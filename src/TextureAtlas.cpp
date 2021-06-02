@@ -83,40 +83,24 @@ bool fileNameAndExtensionCheck(char* fileName)
     return false;
   
   // Now figure out the extension, and sanity check it.
-  char* extension = rindex(fileName, '.');
-  unsigned len    = strlen(fileName);
-  if(!extension)      // treat things with no extension as though they might be an image
+  FileExtension extension = findExtension(fileName);
+
+  if(extension == ExtNoExtension) // treat things with no extension as though they might be an image
    {
     LogAtlasAnomalies("Texture Atlas file with no extension %s.\n", fileName);
     return true;
    }
-  extension++;
-  if(extension - fileName >= len)
+  if(extension == ExtEndsInDot)
     err(-1, "Filename %s ends in .\n", fileName);
  
- 
   // Definitely image types
-  if(strcmp(extension, "jpg")==0)
-    return true;
-  if(strcmp(extension, "png")==0)
-    return true;
-  if(strcmp(extension, "gif")==0)
-    return true;
-  if(strcmp(extension, "bmp")==0)
+  if(extension == ExtJpeg || extension == ExtPng || extension == ExtGif
+        || extension == ExtBmp)
     return true;
 
   // Definitely not image types
-  if(strcmp(extension, "json")==0)
-    return false;
-  if(strcmp(extension, "txt")==0)
-    return false;
-  if(strcmp(extension, "html")==0)
-    return false;
-  if(strcmp(extension, "rtf")==0)
-    return false;
-  if(strcmp(extension, "oldf")==0)
-    return false;
-  if(strcmp(extension, "otdl")==0)
+  if(extension == ExtJson || extension == ExtTxt || extension == ExtHtml
+        || extension == ExtRtf || extension == ExtOldf || extension == ExtOtdl)
     return false;
 
   LogAtlasAnomalies("Texture Atlas file with unknown extension %s.\n", fileName);

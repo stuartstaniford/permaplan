@@ -18,6 +18,27 @@
 #define MULTI_THREADED_SIMULATION
 
 // =======================================================================================
+// Useful enums
+
+enum FileExtension
+{
+  ExtImproperValue,
+  ExtNoExtension,
+  ExtEndsInDot,
+  ExtJpeg,
+  ExtPng,
+  ExtGif,
+  ExtBmp,
+  ExtJson,
+  ExtTxt,
+  ExtHtml,
+  ExtRtf,
+  ExtOldf,
+  ExtOtdl,
+};
+
+
+// =======================================================================================
 // Function prototypes
 
 void initGlobals(int nThreads);
@@ -30,6 +51,7 @@ inline bool extractColonVec2(char* path, vec2 dest)
               {return extractColonVecN(path, 2, dest);}
 inline bool extractColonFloat(char* path, float* value)
               {return extractColonVecN(path, 1, value);}
+FileExtension findExtension(const char* fileName);
 
 
 // =======================================================================================

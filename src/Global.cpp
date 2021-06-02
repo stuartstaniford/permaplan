@@ -45,3 +45,47 @@ bool extractColonVecN(char* path, int N, float* dest)
 
 
 // =======================================================================================
+// Determine the extension type of a filename.
+
+FileExtension findExtension(const char* fileName)
+{
+  char* extension = rindex(fileName, '.');
+  unsigned len    = strlen(fileName);
+  if(!extension)
+    return ExtNoExtension;
+  extension++;
+  if(extension - fileName >= len)
+    return ExtEndsInDot; 
+ 
+  //XX should probably set up an unordered_map here to make this scale better.
+  
+  // Definitely image types
+  if(strcmp(extension, "jpg")==0 || strcmp(extension, "JPG")==0
+      || strcmp(extension, "jpeg")==0 || strcmp(extension, "JPEG")==0)
+    return ExtJpeg;
+  if(strcmp(extension, "png")==0 || strcmp(extension, "PNG")==0)
+    return ExtPng;
+  if(strcmp(extension, "gif")==0 || strcmp(extension, "GIF")==0)
+    return ExtGif;
+  if(strcmp(extension, "bmp")==0 || strcmp(extension, "BMP")==0)
+    return ExtBmp;
+
+  // Definitely not image types
+  if(strcmp(extension, "json")==0 || strcmp(extension, "JSON")==0 )
+    return ExtJson;
+  if(strcmp(extension, "txt")==0 || strcmp(extension, "TXT")==0)
+    return ExtTxt;
+  if(strcmp(extension, "html")==0 || strcmp(extension, "HTML")==0 )
+    return ExtHtml;
+  if(strcmp(extension, "rtf")==0 || strcmp(extension, "RTF")==0 )
+    return ExtRtf;
+  if(strcmp(extension, "oldf")==0 || strcmp(extension, "OLDF")==0)
+    return ExtOldf;
+  if(strcmp(extension, "otdl")==0 || strcmp(extension, "OTDL")==0)
+    return ExtOtdl;
+
+  return ExtImproperValue;
+}
+  
+
+// =======================================================================================
