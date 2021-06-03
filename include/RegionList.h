@@ -5,6 +5,7 @@
 #ifndef REGION_LIST_H
 #define REGION_LIST_H
 
+#include "DynamicallyTypable.h"
 #include <unordered_map>
 #include <string>
 
@@ -12,7 +13,8 @@
 // =======================================================================================
 // Class variable initialization
 
-class RegionList: public std::unordered_map<std::string, RegionList*>
+class RegionList: public std::unordered_map<std::string, RegionList*>, 
+                  public DynamicallyTypable
 {
 public:
   
@@ -23,6 +25,7 @@ public:
   ~RegionList(void);
   static void loadRoot(void);
   static RegionList& getRoot(void);
+  inline DynamicType getDynamicType(void) {return TypeRegionList;}
 
 private:
   

@@ -5,6 +5,7 @@
 #ifndef SPECIES_H
 #define SPECIES_H
 
+#include "DynamicallyTypable.h"
 #include "HttpDebug.h"
 #include "rapidjson/document.h"
 #include "rapidjson/writer.h"
@@ -29,7 +30,7 @@ class SpeciesList: public std::unordered_map<std::string, Species*>
   
 };
 
-class Species
+class Species: public DynamicallyTypable
 {
  public:
 
@@ -74,6 +75,7 @@ class Species
   bool        validateWood(rapidjson::Document& doc);
   bool        validateBarkTextures(rapidjson::Value& obj);
   bool        validateBarkColors(rapidjson::Value& colorsArray);
+  inline DynamicType getDynamicType(void) {return TypeSpecies;}
 
   inline bool isValid(void) {return validOTDL;}
   

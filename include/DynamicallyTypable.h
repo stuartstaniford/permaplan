@@ -6,6 +6,19 @@
 #ifndef DYNAMICALLY_TYPABLE_H
 #define DYNAMICALLY_TYPABLE_H
 
+
+// =======================================================================================
+// Enum representing the types that can inherit from us
+
+enum DynamicType
+{
+  TypeNull,                 // undefined pointers
+  TypeDynamicallyTypable,   // bare instance of this class
+  TypeRegionList,
+  TypeSpecies,
+};
+
+
 // =======================================================================================
 // Class variable initialization
 
@@ -18,6 +31,7 @@ public:
   // Member functions - public
   DynamicallyTypable(void);
   ~DynamicallyTypable(void);
+  inline virtual DynamicType getDynamicType(void) {return TypeDynamicallyTypable;}
   
 private:
   
