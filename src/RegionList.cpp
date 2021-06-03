@@ -39,15 +39,19 @@ RegionList::RegionList(const char* fileName)
   for (Value::ConstMemberIterator itr = doc.MemberBegin(); itr != doc.MemberEnd(); ++itr)
    {
     std::string name = itr->name.GetString();
-    if(findExtension(itr->value.GetString()) == ExtJson)
+    FileExtension ext = findExtension(itr->value.GetString());
+    if(ext == ExtJson)
      {
       sprintf(fileBuf, "%s/%s", rootDir, itr->value.GetString());
       RegionList* child = new RegionList(fileBuf);
       (*this)[name] = child;
      }
+    else if(ext == ExtOtdl)
+     {
+      (*this)[name] = NULL;      
+     }
     else
-      err(-1,"Unsupported extension %d in %s.\n", findExtension(itr->value.GetString()), 
-                                                                                  fileName);
+      err(-1,"Unsupported extension %d in %s.\n", ext, fileName);
    }
 }
 

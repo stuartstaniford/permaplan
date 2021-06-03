@@ -1,4 +1,4 @@
-// OTDL for Quercus rubra (Red Oak)
+// OTDL for Quercus rubra (Northern Red Oak)
 {
   "parent": "Deciduous",
   "overviewData":
@@ -11,7 +11,7 @@
      "maxAge":   400, //https://en.wikipedia.org/wiki/Quercus_rubra/
      "commonNames":
        {
-        "en-US": "Red Oak"
+        "en-US": "Northern Red Oak"
        },
      "version":     [0, 0, 1],
      "fileTime":    [20,0],
