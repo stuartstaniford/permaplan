@@ -310,9 +310,15 @@ void MenuInterface::imguiAllTreeSelector(void)
   ImGui::Begin("Tree Regions", &all_tree_selector, ImGuiWindowFlags_AlwaysAutoResize);
   for (auto iter : *currentList) 
    {
+    DynamicType dtype = iter.second->getDynamicType();      
+    if(dtype == TypeRegionList)
+     {
+      RegionList* r = (RegionList*)iter.second;
+      if(r->size() == 0)
+        continue; // no point in displaying empty lists.
+     }
     if(ImGui::Button(iter.first.c_str()))
      {
-      DynamicType dtype = iter.second->getDynamicType();      
       if(dtype == TypeRegionList)
         currentList = (RegionList*)iter.second;
       else if(dtype == TypeSpecies)
