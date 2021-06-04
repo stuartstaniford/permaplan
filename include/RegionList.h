@@ -13,7 +13,7 @@
 // =======================================================================================
 // Class variable initialization
 
-class RegionList: public std::unordered_map<std::string, RegionList*>, 
+class RegionList: public std::unordered_map<std::string, DynamicallyTypable*>, 
                   public DynamicallyTypable
 {
 public:

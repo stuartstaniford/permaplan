@@ -3,13 +3,14 @@
 // OpenGL commands.  The present implementation uses GLFW but the API should
 // hide that.
 
-#include "imgui_impl_opengl3.h"
-#include "imgui_impl_glfw.h"
 #include "MenuInterface.h"
 #include "Material.h"
 #include "Species.h"
 #include "Window3D.h"
 #include "loadFileToBuf.h"
+#include "RegionList.h"
+#include "imgui_impl_opengl3.h"
+#include "imgui_impl_glfw.h"
 
 // =======================================================================================
 // Constructor for a Window3D
@@ -303,9 +304,26 @@ void MenuInterface::imguiAllTreeSelector(void)
 {
   if(!all_tree_selector)
     return;
-
-  ImGui::Begin("Tree Regions", &all_tree_selector, ImGuiWindowFlags_AlwaysAutoResize);
+  RegionList& regionRoot = RegionList::getRoot();
+  RegionList* currentList = &regionRoot;
   
+  ImGui::Begin("Tree Regions", &all_tree_selector, ImGuiWindowFlags_AlwaysAutoResize);
+  for (auto iter : *currentList) 
+   {
+    if(ImGui::Button(iter.first.c_str()))
+     {
+      DynamicType dtype = iter.second->getDynamicType();      
+      if(dtype == TypeRegionList)
+        currentList = (RegionList*)iter.second;
+      else if(dtype == TypeSpecies)
+       {
+        unless(iter.second)
+        {
+         // species is null, need to load it.
+        }
+       }
+     }
+   }
   ImGui::End();
 }
 
