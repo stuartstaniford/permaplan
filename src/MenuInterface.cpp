@@ -300,33 +300,52 @@ void MenuInterface::imguiLockOverlay(void)
 
 using namespace rapidjson;
 
+RegionList* currentList = NULL;
+
 void MenuInterface::imguiAllTreeSelector(void)
 {
   if(!all_tree_selector)
     return;
-  RegionList& regionRoot = RegionList::getRoot();
-  RegionList* currentList = &regionRoot;
+  
+  unless(currentList)
+   {
+    RegionList& regionRoot = RegionList::getRoot();
+    currentList = &regionRoot;
+   }
   
   ImGui::Begin("Tree Regions", &all_tree_selector, ImGuiWindowFlags_AlwaysAutoResize);
   for (auto iter : *currentList) 
    {
-    DynamicType dtype = iter.second->getDynamicType();      
+    DynamicType dtype;
+    if(iter.second)
+      dtype = iter.second->getDynamicType();
+    else
+      dtype = TypeSpecies; // null pointer indicates unloaded species entry
+    
     if(dtype == TypeRegionList)
      {
       RegionList* r = (RegionList*)iter.second;
       if(r->size() == 0)
         continue; // no point in displaying empty lists.
      }
+    
+    // If we get this far, there is a button to display
     if(ImGui::Button(iter.first.c_str()))
      {
       if(dtype == TypeRegionList)
+       {
+        // We need to recurse down the list tree
         currentList = (RegionList*)iter.second;
-      else if(dtype == TypeSpecies)
+        break;
+       }
+      else if(dtype == TypeSpecies) // species selection has been made
        {
         unless(iter.second)
-        {
-         // species is null, need to load it.
-        }
+         {
+          // species is null, need to load it.
+         }
+        all_tree_selector = false;
+        currentList = NULL;
        }
      }
    }
