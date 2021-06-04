@@ -344,9 +344,18 @@ void MenuInterface::imguiAllTreeSelector(void)
           Species* species = Species::getSpeciesByPath(spath->getPath());
           delete spath;
           (*currentList)[iter.first] = species;
+          dtype = TypeSpecies;
          }
-        all_tree_selector = false;
-        currentList = NULL;
+        if(dtype == TypeSpecies)
+         {
+          Species* S = (Species*)((*currentList)[iter.first]);
+          all_tree_selector = false;
+          currentList = NULL;
+          LogTreeSelections("Tree %s %s inserted at [%f, %f].\n", 
+                            S->genusName, S->speciesName,
+                            scene->lastDoubleClick[0], scene->lastDoubleClick[1]);
+          scene->insertTree(S, scene->lastDoubleClick, 1.0f);
+         }
        }
      }
    }
