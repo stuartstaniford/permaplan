@@ -17,6 +17,7 @@ foreach my $i (1..$loopLimit)
   setCameraPosition(50,50,$cameraZ);
   performDoubleclick(500,400);
   insertTreeButton();
+  getCurrentMenuOptions();
   #sanityCheckHTTPPages();
   #stopPermaplan();
   #checkLogForErrors();

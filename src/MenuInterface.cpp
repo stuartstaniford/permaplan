@@ -568,6 +568,17 @@ void MenuInterface::imguiInterface(void)
 
 
 // =======================================================================================
+// Function to tell HTTP interface what options the current menu has (especially for
+// navigating tree selection menus.
+
+bool MenuInterface::HTTPAPiOptions(HttpDebug* serv, char* path)
+{
+  httPrintf("OK\n")
+  return true;
+}
+
+
+// =======================================================================================
 // Function to handle action creation/error reporting.
 
 bool MenuInterface::createAction(HttpDebug* serv, ActionType actionType, 
@@ -668,6 +679,9 @@ bool MenuInterface::HTTPAPi(HttpDebug* serv, char* path)
 
   if(strncmp(path, "enter/", 6)== 0)
     return HTTPAPiEnter(serv, path+6);
+
+  if(strncmp(path, "options/", 8)== 0)
+    return HTTPAPiOptions(serv, path+8);
   
   LogRequestErrors("MenuInterface::HTTPAPi unknown directive %s\n", path);
   return false;

@@ -211,6 +211,19 @@ sub insertTreeButton
 
 
 #===========================================================================
+# Function to obtain the current menu options displayed on the screen.
+
+sub getCurrentMenuOptions
+{
+  my $url = "http://127.0.0.1:$port/menu/options/";
+  my $response = $http->get($url);
+  sanityCheckHeader($response, '/menu/options/');  
+  return 1 if(length $response->{content} && $response->{content} eq "OK\n");
+  return 0;  
+}
+
+
+#===========================================================================
 # Function to simulate entering parameters and choosing material on block
 # entry dialog (XX material choice not implemented yet).
 

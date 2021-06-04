@@ -38,6 +38,7 @@ class MenuInterface
   bool HTTPAPiSimulate(HttpDebug* serv, char* path);
   bool HTTPAPiInsert(HttpDebug* serv, char* path);
   bool HTTPAPiEnter(HttpDebug* serv, char* path);
+  bool HTTPAPiOptions(HttpDebug* serv, char* path);
   void insertHeightButton(void);
   void insertBlockButton(void);
   void insertTreeButton(void);
