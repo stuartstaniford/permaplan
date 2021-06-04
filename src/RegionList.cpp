@@ -3,6 +3,7 @@
 // in selecting based on region/type
 
 #include "RegionList.h"
+#include "Species.h"
 #include "loadFileToBuf.h"
 #include "Global.h"
 #include "rapidjson/document.h"
@@ -46,9 +47,9 @@ RegionList::RegionList(const char* fileName)
       RegionList* child = new RegionList(fileBuf);
       (*this)[name] = child;
      }
-    else if(ext == ExtOtdl)
+    else if(ext == ExtNoExtension)
      {
-      (*this)[name] = NULL;      
+      (*this)[name] = new SpeciesPath(itr->value.GetString());      
      }
     else
       err(-1,"Unsupported extension %d in %s.\n", ext, fileName);

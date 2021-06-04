@@ -316,11 +316,7 @@ void MenuInterface::imguiAllTreeSelector(void)
   ImGui::Begin("Tree Regions", &all_tree_selector, ImGuiWindowFlags_AlwaysAutoResize);
   for (auto iter : *currentList) 
    {
-    DynamicType dtype;
-    if(iter.second)
-      dtype = iter.second->getDynamicType();
-    else
-      dtype = TypeSpecies; // null pointer indicates unloaded species entry
+    DynamicType dtype = iter.second->getDynamicType();
     
     if(dtype == TypeRegionList)
      {
@@ -338,11 +334,16 @@ void MenuInterface::imguiAllTreeSelector(void)
         currentList = (RegionList*)iter.second;
         break;
        }
-      else if(dtype == TypeSpecies) // species selection has been made
+      else if(dtype == TypeSpecies || dtype == TypeSpeciesPath) 
        {
-        unless(iter.second)
+        // species selection has been made
+        if(dtype == TypeSpeciesPath)
          {
-          // species is null, need to load it.
+          // need to load it.
+          SpeciesPath* spath = (SpeciesPath*)iter.second;
+          Species* species = Species::getSpeciesByPath(spath->getPath());
+          delete spath;
+          (*currentList)[iter.first] = species;
          }
         all_tree_selector = false;
         currentList = NULL;

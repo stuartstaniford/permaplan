@@ -102,6 +102,18 @@ class Species: public DynamicallyTypable
   //Species& operator=(const Species&);      // Prevent assignment
 };
 
+class SpeciesPath: public DynamicallyTypable
+{
+  private:
+    const char* path;
+  
+  public:
+  inline SpeciesPath(const char* srcPath): path(srcPath){};
+  virtual inline ~SpeciesPath(void){};
+  inline DynamicType getDynamicType(void) {return TypeSpeciesPath;}
+  inline const char* getPath(void) {return path;}
+};
+
 
 // =======================================================================================
 // Utility functions

@@ -16,6 +16,7 @@ enum DynamicType
   TypeDynamicallyTypable,   // bare instance of this class
   TypeRegionList,
   TypeSpecies,
+  TypeSpeciesPath
 };
 
 
