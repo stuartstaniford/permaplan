@@ -300,7 +300,7 @@ void MenuInterface::imguiLockOverlay(void)
 
 using namespace rapidjson;
 
-RegionList* currentList = NULL;
+RegionList* currentList = NULL; // Effectively protected by the scene lock.
 
 void MenuInterface::imguiAllTreeSelector(void)
 {
@@ -573,7 +573,26 @@ void MenuInterface::imguiInterface(void)
 
 bool MenuInterface::HTTPAPiOptions(HttpDebug* serv, char* path)
 {
-  httPrintf("OK\n")
+  if(show_tree_menu)
+   {
+    for(auto& iter: Species::genusList)
+     {
+      if(strcmp(iter.first.c_str(), "Nosuchgenus") == 0)
+        continue;
+      httPrintf("%s (%u)\n", iter.first.c_str(), iter.second);
+     }
+    httPrintf("All Tree Selector\n");
+   }
+  else if(all_tree_selector && currentList)
+   {     
+    httPrintf("all_tree_selector\n")
+    for (auto iter : *currentList) 
+      httPrintf("%s\n", iter.first.c_str());
+   }
+  else
+   {
+    err(-1, "MenuInterface::HTTPAPiOptions called on unimplemented menu.");
+   }
   return true;
 }
 
