@@ -158,6 +158,9 @@ ActionType Window3D::processPseudoAction(InterfaceAction* action)
     case QuitProgram:
       return QuitProgram;  // handled in our caller loop()
 
+    case SelectGenus:
+      return SelectGenus;
+      
     case SimulatePause:
       LogSimulationControls("Pause Button \xe2\x8f\xb8 pressed.\n");
       scene->pauseSimulation();

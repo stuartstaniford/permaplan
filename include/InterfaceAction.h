@@ -6,6 +6,7 @@
 #define INTERFACE_ACTION_H
 
 #include "Global.h"
+#include "DynamicallyTypable.h"
 
 
 // =======================================================================================
@@ -39,8 +40,9 @@ class InterfaceAction
 public:
   
   // Instance variables - public
-  vec2 data;  
   ActionType actionType;
+  vec2 data;  
+  DynamicallyTypable* otherData;  // assumed to point to a copy we own
   bool valid;
   
   // Member functions - public

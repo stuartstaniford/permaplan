@@ -3,6 +3,7 @@
 // (generally supplied by the HTTP Debug interface.
 
 #include "InterfaceAction.h"
+#include "Species.h"
 #include "Logging.h"
 
 
@@ -11,6 +12,7 @@
 
 InterfaceAction::InterfaceAction(ActionType type, char* path):
                                       actionType(type),
+                                      otherData(NULL),
                                       valid(true)
 {
   // Clicks, double-clicks, etc
@@ -57,6 +59,14 @@ InterfaceAction::InterfaceAction(ActionType type, char* path):
     return;    
    }
 
+  // Tree select genus menu.  Note path was already checked in 
+  // MenuInterface::HTTPAPiSelectGenus
+  if(actionType == SelectGenus)
+   {
+    otherData = new SpeciesPath(path);  
+    return;
+   }
+  
   // Window resize
   if(actionType == WindowMove || actionType == WindowResize)
    { 
