@@ -93,6 +93,8 @@ InterfaceAction::InterfaceAction(ActionType type, char* path):
 
 InterfaceAction::~InterfaceAction(void)
 {
+  if(otherData)
+    delete otherData;
 }
 
 

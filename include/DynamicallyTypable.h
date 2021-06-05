@@ -31,7 +31,7 @@ public:
   
   // Member functions - public
   DynamicallyTypable(void);
-  ~DynamicallyTypable(void);
+  virtual ~DynamicallyTypable(void);
   inline virtual DynamicType getDynamicType(void) {return TypeDynamicallyTypable;}
   
 private:

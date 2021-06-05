@@ -246,16 +246,29 @@ void MenuInterface::imguiTreeMenu(void)
     char genusOption[128];
     snprintf(genusOption, 128, "%s (%u)", iter.first.c_str(), iter.second);
     if(ImGui::Button(genusOption))
-      genusSelected = iter.first.c_str();
+      imguiTreeMenuButtonPressed(iter.first.c_str());
    }
   if(ImGui::Button("All Tree Selector"))
+    imguiTreeMenuButtonPressed((char*)"All Tree Selector");
+
+  ImGui::End();
+}
+
+
+// =======================================================================================
+// Function to handle one of the buttons being pressed in MenuInterface::imguiTreeMenu.
+// Also called from Window3D::processPseudoAction to handle HTTP scripting.
+
+void MenuInterface::imguiTreeMenuButtonPressed(const char* genusString)
+{
+  if(strcmp(genusString, "All Tree Selector") == 0)
    {
     genusSelected = NULL;
     show_tree_menu = false;
     all_tree_selector = true;
    }
-
-  ImGui::End();
+  else
+    genusSelected = genusString;
 }
 
 

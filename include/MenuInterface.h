@@ -46,7 +46,8 @@ class MenuInterface
   void insertTreeButton(void);
   void heightEnteredButton(float z);
   void blockEnteredButton(float blockSize, const std::string& matName);
-
+  void imguiTreeMenuButtonPressed(const char* genusString);
+  
  private:
   
   // Class variables - private

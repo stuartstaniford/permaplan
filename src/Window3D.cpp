@@ -124,6 +124,8 @@ Window3D::Window3D(int pixWidth, int pixHeight):
 
 ActionType Window3D::processPseudoAction(InterfaceAction* action)
 {
+  const char* genusString;
+  
   switch(action->actionType)
    {
      case BlockEntered:
@@ -159,6 +161,8 @@ ActionType Window3D::processPseudoAction(InterfaceAction* action)
       return QuitProgram;  // handled in our caller loop()
 
     case SelectGenus:
+      genusString = ((SpeciesPath*)(action->otherData))->getPath();
+      imgMenu->imguiTreeMenuButtonPressed(genusString);
       return SelectGenus;
       
     case SimulatePause:
