@@ -225,6 +225,25 @@ sub getCurrentMenuOptions
 
 
 #===========================================================================
+# Function to check that an expected option is present in a response to 
+# getCurrentMenuOptions.
+
+sub checkOptionPresent
+{
+  my($response, $checkOption) = @_;
+  my(@options) = split("\n", $response);
+  foreach $option (@options)
+   {
+    return 1 if $option eq $checkOption;
+   }
+  print OUT "checkOptionPresent couldn't find $checkOption in "
+                                            .join('|', @options).".\n";
+  $outLines++;
+  return 0;  
+}
+
+
+#===========================================================================
 # Function to simulate entering parameters and choosing material on block
 # entry dialog (XX material choice not implemented yet).
 

@@ -17,11 +17,12 @@ foreach my $i (1..$loopLimit)
   setCameraPosition(50,50,$cameraZ);
   performDoubleclick(500,400);
   insertTreeButton();
-  my @options = split("\n", getCurrentMenuOptions());
+  my $response = getCurrentMenuOptions();
+  checkOptionPresent($response, 'All Tree Selector');
   
   #sanityCheckHTTPPages();
-  #stopPermaplan();
-  #checkLogForErrors();
+  stopPermaplan();
+  checkLogForErrors();
   #compareOLDF("$dir/test1.oldf", "$dir/test1.out.oldf");
-  #checkOutput("$dir/test1.log", "$dir test1 (trial $i)");
+  checkOutput("$dir/test5.log", "$dir test5 (trial $i)");
  }
