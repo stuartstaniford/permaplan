@@ -42,7 +42,7 @@ public:
   // Instance variables - public
   ActionType actionType;
   vec2 data;  
-  DynamicallyTypable* otherData;  // assumed to point to a copy we own
+  DynamicallyTypable* otherData; //points to a copy we own & will delete in ~InterfaceAction
   bool valid;
   
   // Member functions - public

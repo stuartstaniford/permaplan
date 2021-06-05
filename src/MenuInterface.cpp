@@ -630,10 +630,23 @@ bool MenuInterface::createAction(HttpDebug* serv, ActionType actionType,
 
 
 // =======================================================================================
+// Helper function to restore spaces in the path
+
+void unencode(char* path)
+{
+  for(char* p = path; *p; p++)
+    if(*p == '_')
+      *p = ' ';
+}
+
+
+// =======================================================================================
 // Function to handle selecting a genus from the insert tree selection menu.
 
 bool MenuInterface::HTTPAPiSelectGenus(HttpDebug* serv, char* path)
 {
+  unencode(path);
+  
   if(!show_tree_menu)
    {
     LogRequestErrors("MenuInterface::HTTPAPiSelectGenus with show_tree_menu false.\n");

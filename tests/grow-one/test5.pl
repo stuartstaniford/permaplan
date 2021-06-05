@@ -1,6 +1,5 @@
 #!/usr/bin/perl -w
 
-
 require './testSupport.pl';
 $dir = 'tests/grow-one';
 
@@ -19,6 +18,7 @@ foreach my $i (1..$loopLimit)
   insertTreeButton();
   my $response = getCurrentMenuOptions();
   checkOptionPresent($response, 'All Tree Selector');
+  sendTreeSelection('All Tree Selector');
   
   #sanityCheckHTTPPages();
   #stopPermaplan();
