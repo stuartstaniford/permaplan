@@ -22,6 +22,7 @@ enum ActionType
   InsertBlock,
   InsertTree,
   QuitProgram,
+  SelectGenus,
   SimulatePause,
   SimulateReset,
   SimulateStart,

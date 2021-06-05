@@ -21,8 +21,7 @@ foreach my $i (1..$loopLimit)
   checkOptionPresent($response, 'All Tree Selector');
   
   #sanityCheckHTTPPages();
-  stopPermaplan();
-  checkLogForErrors();
-  #compareOLDF("$dir/test1.oldf", "$dir/test1.out.oldf");
-  checkOutput("$dir/test5.log", "$dir test5 (trial $i)");
+  #stopPermaplan();
+  #checkLogForErrors();
+  #checkOutput("$dir/test5.log", "$dir test5 (trial $i)");
  }

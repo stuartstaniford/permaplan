@@ -617,6 +617,26 @@ bool MenuInterface::createAction(HttpDebug* serv, ActionType actionType,
 
 
 // =======================================================================================
+// Function to handle selecting a genus from the insert tree selection menu.
+
+bool MenuInterface::HTTPAPiSelectGenus(HttpDebug* serv, char* path)
+{
+  if(!show_tree_menu)
+   {
+    LogRequestErrors("MenuInterface::HTTPAPiSelectGenus with show_tree_menu false.\n");
+    return false;    
+   }
+  
+  if(strncmp(path, "All Tree Selector", 17) == 0 || Species::genusList.count(path) )
+    return createAction(serv, SelectGenus, (char*)"SelectGenus", 
+                                                        (char*)"HTTPAPiSelectGenus", path);
+  
+  LogRequestErrors("MenuInterface::HTTPAPiSelectGenus unknown selection %s\n", path);
+  return false;
+}
+
+
+// =======================================================================================
 // Function to handle parsing simulation panel interface actions.
 
 bool MenuInterface::HTTPAPiSimulate(HttpDebug* serv, char* path)
@@ -685,6 +705,20 @@ bool MenuInterface::HTTPAPiEnter(HttpDebug* serv, char* path)
 
 
 // =======================================================================================
+// Function to handle the parsing of selection actions (ie everything under /select comes
+// here first.
+
+bool MenuInterface::HTTPAPiSelections(HttpDebug* serv, char* path)
+{  
+  if(strncmp(path, "genus/", 6)== 0)
+     return HTTPAPiSelectGenus(serv, path+6);
+  
+  LogRequestErrors("MenuInterface::HTTPAPiSelections unknown directive %s\n", path);
+  return false;
+}
+
+
+// =======================================================================================
 // Function to handle the parsing of interface actions coming from HTTP (ie for test
 // scripts).
 
@@ -701,6 +735,9 @@ bool MenuInterface::HTTPAPi(HttpDebug* serv, char* path)
 
   if(strncmp(path, "options/", 8)== 0)
     return HTTPAPiOptions(serv, path+8);
+
+  if(strncmp(path, "select/", 7)== 0)
+    return HTTPAPiSelections(serv, path+7);
   
   LogRequestErrors("MenuInterface::HTTPAPi unknown directive %s\n", path);
   return false;
