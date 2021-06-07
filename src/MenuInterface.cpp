@@ -601,7 +601,16 @@ bool MenuInterface::HTTPAPiOptions(HttpDebug* serv, char* path)
    {     
     httPrintf("all_tree_selector\n")
     for (auto iter : *currentList) 
+     {
+      DynamicType dtype = iter.second->getDynamicType();
+      if(dtype == TypeRegionList)
+       {
+        RegionList* r = (RegionList*)iter.second;
+        if(r->size() == 0)
+          continue; // no point in displaying empty lists.
+       }
       httPrintf("%s\n", iter.first.c_str());
+     }
    }
   else
    {

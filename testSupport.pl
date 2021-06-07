@@ -258,6 +258,24 @@ sub checkOptionPresent
 
 
 #===========================================================================
+# Function to pick a random option in from the response to 
+# getCurrentMenuOptions.  Useful for stress-testing and ensuring that all
+# presented menu options are actually implemented.
+
+sub pickRandomMenuOption
+{
+  my($response, $checkOption) = @_;
+  my(@options) = split("\n", $response);
+  unless(scalar(@options))
+   {
+    print OUT "pickRandomMenuOption called on empty menu.\n";
+    $outLines++;
+   }
+  return $options[int(rand(scalar(@options)))];  
+}
+
+
+#===========================================================================
 # Function to simulate entering parameters and choosing material on block
 # entry dialog (XX material choice not implemented yet).
 

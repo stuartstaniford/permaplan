@@ -16,10 +16,13 @@ foreach my $i (1..$loopLimit)
   setCameraPosition(50,50,$cameraZ);
   performDoubleclick(500,400);
   insertTreeButton();
+  sleep(1);
   my $response = getCurrentMenuOptions();
   checkOptionPresent($response, 'All Tree Selector');
   sendTreeSelection('All Tree Selector');
+  sleep(1);
   $response = getCurrentMenuOptions();
+  my $select = pickRandomMenuOption($response);
   print $response;
   
   #sanityCheckHTTPPages();
