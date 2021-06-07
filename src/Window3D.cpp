@@ -128,59 +128,75 @@ ActionType Window3D::processPseudoAction(InterfaceAction* action)
   
   switch(action->actionType)
    {
-     case BlockEntered:
-       imgMenu->blockEnteredButton(action->data[0], "StrawBale");
-       return BlockEntered;
+    case BlockEntered:
+      LogPseudoActions("Block entered size %.1f, material Strawbale.\n", action->data[0]);
+      imgMenu->blockEnteredButton(action->data[0], "StrawBale");
+      return BlockEntered;
 
-     case Click:
+    case Click:
       // for Click and DoubleClick, the data is mousePos
+      LogPseudoActions("Click processed at %.1f, %.1f.\n", action->data[0], 
+                                                                  action->data[1]);
       processClick(action->data[0], action->data[1]);
       return Click;
       
     case DoubleClick:
+      LogPseudoActions("Double-click processed at %.1f, %.1f.\n", action->data[0], 
+                                                                  action->data[1]);
       processDoubleClick(action->data[0], action->data[1], 0.1f);
       return DoubleClick;
 
     case HeightEntered:
+      LogPseudoActions("Height of %.1f entered.\n", action->data[0]);
       imgMenu->heightEnteredButton(action->data[0]);
       return HeightEntered;
 
     case InsertBlock:
+      LogPseudoActions("Insert block button press processed.\n");
       imgMenu->insertBlockButton();
       return InsertBlock;
 
     case InsertHeight:
+      LogPseudoActions("Insert height button press processed.\n");
       imgMenu->insertHeightButton();
       return InsertHeight;       
        
     case InsertTree:
+      LogPseudoActions("Insert tree button press processed.\n");
       imgMenu->insertTreeButton();
       return InsertTree;
       
     case QuitProgram:
+      LogPseudoActions("Quit program processed.\n");
       return QuitProgram;  // handled in our caller loop()
 
     case SelectGenus:
       genusString = ((SpeciesPath*)(action->otherData))->getPath();
+      LogPseudoActions("Genus selection of %s processed.\n", genusString);
       imgMenu->imguiTreeMenuButtonPressed(genusString);
       return SelectGenus;
       
     case SimulatePause:
+      LogPseudoActions("Pause button press processed.\n");
       LogSimulationControls("Pause Button \xe2\x8f\xb8 pressed.\n");
       scene->pauseSimulation();
       return SimulatePause;
        
     case SimulateReset:
+      LogPseudoActions("Reset button press processed.\n");
       LogSimulationControls("Reset Button \xe2\x8f\xae pressed.\n");
       scene->resetSimulation();
       return SimulateReset;
 
     case SimulateStart:
+      LogPseudoActions("Simulate start button press processed.\n");
       LogSimulationControls("Simulate Button \xe2\x96\xb6 pressed.\n");
       scene->startSimulation();
       return SimulateStart;
       
      case WindowMove:
+      LogPseudoActions("Window move action to %.0f, %.0f processed.\n",
+                                              action->data[0], action->data[1]);
       glfwSetWindowPos(window, (int)action->data[0], (int)action->data[1]);  
       LogWindowOperations("Window moved to screen coordinates %d, %d.\n",
                                         (int)action->data[0], (int)action->data[1]); 
@@ -190,6 +206,8 @@ ActionType Window3D::processPseudoAction(InterfaceAction* action)
       glfwSetWindowSize(window, (int)action->data[0], (int)action->data[1]);  
       LogWindowOperations("Window resized to width %d, height %d.\n",
                                         (int)action->data[0], (int)action->data[1]); 
+      LogWindowOperations("Window resize action to width %d, height %d processed.\n",
+                                      (int)action->data[0], (int)action->data[1]); 
       return WindowResize;
 
      default:

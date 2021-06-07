@@ -88,9 +88,9 @@
 #define LOG_REQUEST_ERRORS      // Log validity problems in the HTTP request
 #define LOG_RESPONSE_ERRORS     // Log problems encountered building the response
 //#define LOG_HTTP_BUFFER_OPS        // Log operations on the main HTTP buffers
-//#define LOG_HTTP_DETAILS        // Log normal details of HTTP operations
+#define LOG_HTTP_DETAILS        // Log normal details of HTTP operations
 //#define LOG_REQUEST_PARSING        // Log exactly what happens when parsing a request
-
+#define LOG_PSEUDO_ACTIONS      // Log as the main thread processes pseudo-actions
 
 // =======================================================================================
 // Logging options to do with quadtree operations
@@ -208,6 +208,7 @@ extern bool doLogResponseErrors;      // Log problems encountered building the r
 extern bool doLogHTTPBufferOps;       // Log operations on the main HTTP buffers
 extern bool doLogHTTPDetails;         // Log normal details of HTTP operations
 extern bool doLogRequestParsing;      // Log exactly what happens when parsing a request
+extern bool doLogPseudoActions;       // Log as the main thread processes pseudo-actions
 
 // Logging options to do with quadtree operations
 extern bool doLogQuadtreeCreation;    // Log the initial setup of the quadtree.
@@ -650,6 +651,15 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
 #else
 #define LogRequestParsing(...)
 #endif
+
+// Log as the main thread processes pseudo-actions
+#ifdef LOG_PSEUDO_ACTIONS
+#define LogPseudoActions(...) if(doLogPseudoActions) \
+                                          LogStatement("LogPseudoActions: " __VA_ARGS__)
+#else
+#define LogPseudoActions(...)
+#endif
+
 
 // =======================================================================================
 // Logging options to do with quadtree insertions

@@ -269,6 +269,7 @@ void MenuInterface::imguiTreeMenuButtonPressed(const char* genusString)
    }
   else
     genusSelected = genusString;
+  LogFlush();
 }
 
 

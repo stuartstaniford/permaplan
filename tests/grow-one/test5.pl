@@ -19,6 +19,8 @@ foreach my $i (1..$loopLimit)
   my $response = getCurrentMenuOptions();
   checkOptionPresent($response, 'All Tree Selector');
   sendTreeSelection('All Tree Selector');
+  $response = getCurrentMenuOptions();
+  print $response;
   
   #sanityCheckHTTPPages();
   #stopPermaplan();

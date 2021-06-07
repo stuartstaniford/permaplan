@@ -79,6 +79,7 @@ bool doLogResponseErrors      = true; // Log problems encountered building the r
 bool doLogHTTPBufferOps       = true; // Log operations on the main HTTP buffers
 bool doLogHTTPDetails         = true; // Log normal details of HTTP operations
 bool doLogRequestParsing      = true; // Log exactly what happens when parsing a request
+bool doLogPseudoActions       = true; // Log as the main thread processes pseudo-actions
 
 // Logging options to do with quadtree operations
 bool doLogQuadtreeCreation    = true; // Log the initial setup of the quadtree.
@@ -445,7 +446,11 @@ bool LogControlHTML(HttpDebug* serv, char* path)
     return oneLogControl(serv, path, doLogRequestParsing);
 #endif
 
-  
+#ifdef LOG_PSEUDO_ACTIONS // Log as the main thread processes pseudo-actions
+  if(strncmp(path, "doLogPseudoActions", sizeof("doLogPseudoActions")-1)==0)
+    return oneLogControl(serv, path, doLogPseudoActions);
+#endif
+
 // Logging options to do with quadtree insertions
   
 #ifdef LOG_QUADTREE_CREATION // Log the initial setup of the quadtree.
