@@ -15,6 +15,7 @@
 enum ActionType
 {
   NoAction,
+  AllTreeSelection,
   BlockEntered,
   Click,
   DoubleClick,

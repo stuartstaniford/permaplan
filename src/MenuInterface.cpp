@@ -599,7 +599,6 @@ bool MenuInterface::HTTPAPiOptions(HttpDebug* serv, char* path)
    }
   else if(all_tree_selector && currentList)
    {     
-    httPrintf("all_tree_selector\n")
     for (auto iter : *currentList) 
      {
       DynamicType dtype = iter.second->getDynamicType();
@@ -669,6 +668,33 @@ bool MenuInterface::HTTPAPiSelectGenus(HttpDebug* serv, char* path)
   
   LogRequestErrors("MenuInterface::HTTPAPiSelectGenus unknown selection %s\n", path);
   return false;
+}
+
+
+// =======================================================================================
+// Function to handle selecting a tree via the all_tree_selector tree menus
+
+bool MenuInterface::HTTPAPiAllTreeSelector(HttpDebug* serv, char* path)
+{
+  unencode(path);
+  
+  if(!all_tree_selector)
+   {
+    LogRequestErrors("MenuInterface::HTTPAPiAllTreeSelector with "
+                                                            "all_tree_selector false.\n");
+    return false;    
+   }
+  
+  if(strlen(path) > 128)
+   {
+    // Weird long paths get cut off here.  Otherwise path checking has to be done
+    // downstream from us.
+    LogRequestErrors("MenuInterface::HTTPAPiAllTreeSelector doesn't like long path.\n");
+    return false;        
+   }
+  
+  return createAction(serv, AllTreeSelection, (char*)"AllTreeSelection", 
+                                                        (char*)"HTTPAPiAllTreeSelector", path);
 }
 
 
@@ -748,6 +774,9 @@ bool MenuInterface::HTTPAPiSelections(HttpDebug* serv, char* path)
 {  
   if(strncmp(path, "genus/", 6)== 0)
      return HTTPAPiSelectGenus(serv, path+6);
+
+  if(strncmp(path, "alltree/", 8)== 0)
+     return HTTPAPiAllTreeSelector(serv, path+8);
   
   LogRequestErrors("MenuInterface::HTTPAPiSelections unknown directive %s\n", path);
   return false;

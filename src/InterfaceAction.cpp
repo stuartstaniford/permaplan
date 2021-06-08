@@ -66,6 +66,13 @@ InterfaceAction::InterfaceAction(ActionType type, char* path):
     otherData = new SpeciesPath(path);  
     return;
    }
+
+  // All tree selector.  Note path has *not* been sanity checked yet except for crazy length
+  if(actionType == AllTreeSelection)
+   {
+    otherData = new SpeciesPath(path);  
+    return;
+   }
   
   // Window resize
   if(actionType == WindowMove || actionType == WindowResize)

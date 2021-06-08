@@ -36,6 +36,7 @@ class MenuInterface
   void  imguiInterface(void);
   bool HTTPAPi(HttpDebug* serv, char* path);
   bool HTTPAPiSelectGenus(HttpDebug* serv, char* path);
+  bool HTTPAPiAllTreeSelector(HttpDebug* serv, char* path);
   bool HTTPAPiSelections(HttpDebug* serv, char* path);
   bool HTTPAPiSimulate(HttpDebug* serv, char* path);
   bool HTTPAPiInsert(HttpDebug* serv, char* path);

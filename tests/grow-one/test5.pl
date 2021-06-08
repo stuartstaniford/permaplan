@@ -23,7 +23,7 @@ foreach my $i (1..$loopLimit)
   sleep(1);
   $response = getCurrentMenuOptions();
   my $select = pickRandomMenuOption($response);
-  print $response;
+
   
   #sanityCheckHTTPPages();
   #stopPermaplan();
