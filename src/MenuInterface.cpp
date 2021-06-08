@@ -401,9 +401,10 @@ void MenuInterface::allTreeSelectorPseudoAction(const char* optionName)
   unless(all_tree_selector && currentList && currentList->count(optionName))
    {
     LogRequestErrors("AllTreeSelectorPseudoAction invalid action %s.\n", optionName);
+    LogFlush();
     return;
    }
-  
+  allTreeSelectorButton(optionName, (*currentList)[optionName]);
 }
 
 
