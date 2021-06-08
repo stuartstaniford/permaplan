@@ -23,15 +23,25 @@ foreach my $i (1..$loopLimit)
   sleep(1);
   while(($response = getCurrentMenuOptions()))
    {
-    print $response."\n";
+    last if $response eq "OK\n";
+    #print $response."\n";
     my $select = pickRandomMenuOption($response);
-    print $select."\n";
+    #print $select."\n";
     sendAllTreeSelection($select);
     sleep(1);
    }
-  
-  #sanityCheckHTTPPages();
-  #stopPermaplan();
-  #checkLogForErrors();
-  #checkOutput("$dir/test5.log", "$dir test5 (trial $i)");
+  sleep(1);
+  simulatePermaplan();
+  while(1)
+   {
+    my $year = getPermaplanYear();
+    # print "$year\n";
+    last if $year >= $simLimit;
+    sleep(1);
+   }
+
+  sanityCheckHTTPPages();
+  stopPermaplan();
+  checkLogForErrors();
+  checkOutput("$dir/test5.log", "$dir test5 (trial $i)");
  }

@@ -644,7 +644,8 @@ bool MenuInterface::HTTPAPiOptions(HttpDebug* serv, char* path)
    }
   else
    {
-    err(-1, "MenuInterface::HTTPAPiOptions called on unimplemented menu.");
+    httPrintf("OK\n");
+    //err(-1, "MenuInterface::HTTPAPiOptions called on unimplemented menu.");
    }
   return true;
 }
