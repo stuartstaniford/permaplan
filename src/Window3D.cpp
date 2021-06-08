@@ -124,11 +124,18 @@ Window3D::Window3D(int pixWidth, int pixHeight):
 
 ActionType Window3D::processPseudoAction(InterfaceAction* action)
 {
-  const char* genusString;
+  const char* stringValue;
   
   switch(action->actionType)
    {
-    case BlockEntered:
+     case AllTreeSelection:
+       // Warning stringValue is unprocessed except for being <=128
+       stringValue = ((SpeciesPath*)(action->otherData))->getPath();
+       LogPseudoActions("All tree selection %s processed.\n", stringValue);
+       imgMenu->allTreeSelectorPseudoAction(stringValue);
+       return AllTreeSelection;
+
+     case BlockEntered:
       LogPseudoActions("Block entered size %.1f, material Strawbale.\n", action->data[0]);
       imgMenu->blockEnteredButton(action->data[0], "StrawBale");
       return BlockEntered;
@@ -171,9 +178,9 @@ ActionType Window3D::processPseudoAction(InterfaceAction* action)
       return QuitProgram;  // handled in our caller loop()
 
     case SelectGenus:
-      genusString = ((SpeciesPath*)(action->otherData))->getPath();
-      LogPseudoActions("Genus selection of %s processed.\n", genusString);
-      imgMenu->imguiTreeMenuButtonPressed(genusString);
+      stringValue = ((SpeciesPath*)(action->otherData))->getPath();
+      LogPseudoActions("Genus selection of %s processed.\n", stringValue);
+      imgMenu->imguiTreeMenuButtonPressed(stringValue);
       return SelectGenus;
       
     case SimulatePause:

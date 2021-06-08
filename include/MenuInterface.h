@@ -5,6 +5,7 @@
 
 #ifndef MENU_INTERFACE_H
 #define MENU_INTERFACE_H
+#include "DynamicallyTypable.h"
 #include "ScriptController.h"
 #include "Scene.h"
 #include "imgui.h"
@@ -42,6 +43,8 @@ class MenuInterface
   bool HTTPAPiInsert(HttpDebug* serv, char* path);
   bool HTTPAPiEnter(HttpDebug* serv, char* path);
   bool HTTPAPiOptions(HttpDebug* serv, char* path);
+  void allTreeSelectorPseudoAction(const char* optionName);
+  void allTreeSelectorButton(const char* name, DynamicallyTypable* value);
   void insertHeightButton(void);
   void insertBlockButton(void);
   void insertTreeButton(void);

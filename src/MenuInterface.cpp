@@ -341,39 +341,69 @@ void MenuInterface::imguiAllTreeSelector(void)
     
     // If we get this far, there is a button to display
     if(ImGui::Button(iter.first.c_str()))
-     {
-      if(dtype == TypeRegionList)
-       {
-        // We need to recurse down the list tree
-        currentList = (RegionList*)iter.second;
-        break;
-       }
-      else if(dtype == TypeSpecies || dtype == TypeSpeciesPath) 
-       {
-        // species selection has been made
-        if(dtype == TypeSpeciesPath)
-         {
-          // need to load it.
-          SpeciesPath* spath = (SpeciesPath*)iter.second;
-          Species* species = Species::getSpeciesByPath(spath->getPath());
-          delete spath;
-          (*currentList)[iter.first] = species;
-          dtype = TypeSpecies;
-         }
-        if(dtype == TypeSpecies)
-         {
-          Species* S = (Species*)((*currentList)[iter.first]);
-          all_tree_selector = false;
-          currentList = NULL;
-          LogTreeSelections("Tree %s %s inserted at [%f, %f].\n", 
-                            S->genusName, S->speciesName,
-                            scene->lastDoubleClick[0], scene->lastDoubleClick[1]);
-          scene->insertTree(S, scene->lastDoubleClick, 1.0f);
-         }
-       }
-     }
+      allTreeSelectorButton(iter.first.c_str(), iter.second);
+     
    }
   ImGui::End();
+}
+
+
+// =======================================================================================
+// Process a selection in the all_tree_selector, that might be coming from either the
+// GUI or from the HTTP interface.
+
+void MenuInterface::allTreeSelectorButton(const char* name, DynamicallyTypable* value)
+{
+  DynamicType dtype = value->getDynamicType();
+  
+  if(dtype == TypeRegionList)
+   {
+    // We need to recurse down the list tree
+    if(((RegionList*)value)->size() == 0)
+      return; // can't process an empty list.
+    currentList = (RegionList*)value;
+    return;
+   }
+  else if(dtype == TypeSpecies || dtype == TypeSpeciesPath) 
+   {
+    // species selection has been made
+    if(dtype == TypeSpeciesPath)
+     {
+      // need to load it.
+      SpeciesPath* spath = (SpeciesPath*)value;
+      Species* species = Species::getSpeciesByPath(spath->getPath());
+      delete spath;
+      if(!species)
+        return;
+      (*currentList)[name] = species;
+      dtype = TypeSpecies;
+     }
+    if(dtype == TypeSpecies)
+     {
+      Species* S = (Species*)((*currentList)[name]);
+      all_tree_selector = false;
+      currentList = NULL;
+      LogTreeSelections("Tree %s %s inserted at [%f, %f].\n", 
+                        S->genusName, S->speciesName,
+                        scene->lastDoubleClick[0], scene->lastDoubleClick[1]);
+      scene->insertTree(S, scene->lastDoubleClick, 1.0f);
+     }
+   }
+}
+
+
+// =======================================================================================
+// Called in the main thread to process a selection of the all tree selector coming
+// from the HTTP interface.
+
+void MenuInterface::allTreeSelectorPseudoAction(const char* optionName)
+{
+  unless(all_tree_selector && currentList && currentList->count(optionName))
+   {
+    LogRequestErrors("AllTreeSelectorPseudoAction invalid action %s.\n", optionName);
+    return;
+   }
+  
 }
 
 
