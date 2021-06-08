@@ -21,9 +21,14 @@ foreach my $i (1..$loopLimit)
   checkOptionPresent($response, 'All Tree Selector');
   sendTreeSelection('All Tree Selector');
   sleep(1);
-  $response = getCurrentMenuOptions();
-  my $select = pickRandomMenuOption($response);
-
+  while(($response = getCurrentMenuOptions()))
+   {
+    print $response."\n";
+    my $select = pickRandomMenuOption($response);
+    print $select."\n";
+    sendAllTreeSelection($select);
+    sleep(1);
+   }
   
   #sanityCheckHTTPPages();
   #stopPermaplan();

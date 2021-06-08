@@ -209,6 +209,7 @@ sub insertTreeButton
   return 0;
 }
 
+
 #===========================================================================
 # Function to select from the tree genus selector menu.
 
@@ -219,6 +220,21 @@ sub sendTreeSelection
   my $url = "http://127.0.0.1:$port/menu/select/genus/$selection";
   my $response = $http->get($url);
   sanityCheckHeader($response, "/select/genus/$selection/");  
+  return 1 if(length $response->{content} && $response->{content} eq "OK\n");
+  return 0;
+}
+
+
+#===========================================================================
+# Function to select from the json file based all tree selection menus.
+
+sub sendAllTreeSelection
+{
+  my($selection) = @_;
+  $selection =~ s/ /\_/g;
+  my $url = "http://127.0.0.1:$port/menu/select/alltree/$selection";
+  my $response = $http->get($url);
+  sanityCheckHeader($response, "/select/alltree/$selection/");  
   return 1 if(length $response->{content} && $response->{content} eq "OK\n");
   return 0;
 }
