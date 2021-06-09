@@ -36,8 +36,8 @@ foreach my $i (1..$loopLimit)
   sleep(1);
   
   setCameraPosition(-50, -50, $cameraZ);
-  setCameraFrontVector(1,1,-1);
-  setCameraUpVector(1,1,1);
+  #setCameraFrontVector(1,1,-1);
+  #setCameraUpVector(1,1,1);
   simulatePermaplan();
   simulateUntil($simLimit);
   

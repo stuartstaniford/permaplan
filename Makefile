@@ -956,6 +956,7 @@ src/HttpDebug.o: include/InterfaceAction.h include/Tree.h include/TreePart.h
 src/HttpDebug.o: include/TaskQueueFarm.h include/SkySampleModel.h
 src/HttpDebug.o: include/MenuInterface.h include/ScriptController.h
 src/HttpDebug.o: imgui/imgui.h imgui/imconfig.h include/Window3D.h
+src/HttpLoadBalancer.o: include/HttpLoadBalancer.h
 src/HttpRequestParser.o: include/HttpRequestParser.h include/Global.h
 src/HttpRequestParser.o: /usr/local/include/cglm/cglm.h
 src/HttpRequestParser.o: /usr/local/include/cglm/common.h
