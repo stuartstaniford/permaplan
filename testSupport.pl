@@ -143,6 +143,24 @@ sub simulatePermaplan
 
 
 #===========================================================================
+# Function to wait until simulation has reached a certain year (make sure
+# you've started it and not done anything to pause it before calling this).
+
+sub simulateUntil
+{
+  my($limYear) = @_;
+
+  while(1)
+   {
+    my $year = getPermaplanYear();
+    # print "$year\n";
+    last if $year >= $limYear;
+    sleep(1);
+   }
+}
+
+
+#===========================================================================
 # Function to set the position of the camera (in world space).  Takes three 
 # args which should be x,y,z of desired position.
 
@@ -382,6 +400,20 @@ sub setCameraFrontVector
   my $url = "http://127.0.0.1:$port/camera/set/front/".join(':', @_).":";
   my $response = $http->get($url);
   sanityCheckHeader($response, '/camera/set/front/');  
+  return 1 if(length $response->{content} && $response->{content} eq "OK\n");
+  return 0;
+}
+
+
+#===========================================================================
+# Function to set the up direction (top of frame) for the camera.  Takes 
+# three args which should form the desired vector.
+
+sub setCameraUpVector
+{
+  my $url = "http://127.0.0.1:$port/camera/set/front/".join(':', @_).":";
+  my $response = $http->get($url);
+  sanityCheckHeader($response, '/camera/set/up/');  
   return 1 if(length $response->{content} && $response->{content} eq "OK\n");
   return 0;
 }

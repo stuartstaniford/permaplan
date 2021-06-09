@@ -385,6 +385,20 @@ bool Camera::setApi(HttpDebug* serv, char* path)
     return false;
    }
   
+  if(strncmp(path, "up/", 3)== 0)
+   {
+    if(extractColonVec3(path+6, trial))
+     {
+      glm_vec3_copy(trial, up);
+      LogWindowOperations("Camera::setApi, camera up vector set to (%.1f, %.1f, %.1f).\n", 
+                                                                  up[0], up[1], up[2]);
+      httPrintf("OK\n");
+      return true;
+     }
+    LogRequestErrors("Camera::setApi couldn't extract vector from %s\n", path+6);
+    return false;
+   }
+
   LogRequestErrors("Camera::setApi unknown directive %s\n", path);
   return false;
 }

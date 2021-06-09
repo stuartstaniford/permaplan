@@ -34,15 +34,13 @@ foreach my $i (1..$loopLimit)
     sleep(1);
    }
   sleep(1);
+  
+  setCameraPosition(-50, -50, $cameraZ);
+  setCameraFrontVector(1,1,-1);
+  #setCameraUpVector(0,0,-1);
   simulatePermaplan();
-  while(1)
-   {
-    my $year = getPermaplanYear();
-    # print "$year\n";
-    last if $year >= $simLimit;
-    sleep(1);
-   }
-
+  simulateUntil($simLimit);
+  
   sanityCheckHTTPPages();
   stopPermaplan();
   checkLogForErrors();

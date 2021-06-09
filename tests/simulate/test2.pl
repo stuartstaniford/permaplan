@@ -18,13 +18,7 @@ foreach my $i (1..$loopLimit)
   resizeWindow(400, 300);
   printPortMessage();
   simulatePermaplan();
-  while(1)
-   {
-    my $year = getPermaplanYear();
-    # print "$year\n";
-    last if $year >= $simLimit;
-    sleep(1);
-   }
+  simulateUntil($simLimit);
   sanityCheckHTTPPages();
   stopPermaplan();
   checkLogForErrors();
