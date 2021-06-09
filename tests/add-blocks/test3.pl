@@ -1,5 +1,8 @@
 #!/usr/bin/perl -w
 
+# Test script to insert a bunch of random blocks all over the place and then 
+# test that they are all found in a quadtree search.
+
 require './testSupport.pl';
 $resourceDir = 'tests/basic-smoke';
 $testDir = 'tests/add-blocks';

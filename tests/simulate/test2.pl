@@ -1,5 +1,8 @@
 #!/usr/bin/perl -w
 
+# A test that takes the same input OLDF file as test1.pl and then simulates it
+# for a while to make sure simulation is superficially functional.
+
 require './testSupport.pl';
 $resourceDir = 'tests/basic-smoke';
 $testDir = 'tests/simulate';

@@ -1,5 +1,7 @@
 #!/usr/bin/perl -w
 
+# test script to repeatedly hammer on the HTTP interface to look for bugs.
+
 require './testSupport.pl';
 $resourceDir = 'tests/basic-smoke';
 $testDir = 'tests/hammer';

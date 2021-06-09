@@ -1,5 +1,8 @@
 #!/usr/bin/perl -w
 
+# A basic smoke test that we can read in an OLDF file with a few trees, 
+# correctly serve some basic pages, and then write out a consistent OLDF 
+# file.  Useful for finding startup and shutdown bugs if run repeatedly.
 
 require './testSupport.pl';
 $dir = 'tests/basic-smoke';

@@ -1,5 +1,8 @@
 #!/usr/bin/perl -w
 
+# This test walks the "All Tree Selector" menus and picks a random type of
+# tree to insert and then simulates its growth.
+
 require './testSupport.pl';
 $dir = 'tests/grow-one';
 

@@ -25,6 +25,7 @@ Tree::Tree(Species* S, vec3 loc, float age, float now):
                           yearPlanted(now - age),
                           ageNow(age),
                           commonName(NULL),
+                          taxonomyLink(NULL),
                           trunk(NULL)
 {
   glm_vec3_copy(loc, location);
