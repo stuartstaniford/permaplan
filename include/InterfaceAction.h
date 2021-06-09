@@ -17,6 +17,7 @@ enum ActionType
   NoAction,
   AllTreeSelection,
   BlockEntered,
+  CameraMoved,
   Click,
   DoubleClick,
   HeightEntered,

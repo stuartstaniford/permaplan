@@ -389,7 +389,49 @@ src/Camera.o: /usr/local/include/cglm/bezier.h /usr/local/include/cglm/ray.h
 src/Camera.o: /usr/local/include/cglm/affine2d.h include/Camera.h
 src/Camera.o: include/Shader.h include/HttpDebug.h
 src/Camera.o: include/HttpRequestParser.h include/Global.h include/Logging.h
-src/Camera.o: include/MemoryTracker.h
+src/Camera.o: include/MemoryTracker.h include/Scene.h include/ColoredAxes.h
+src/Camera.o: include/LineStripList.h include/VertexBufferCombo.h
+src/Camera.o: include/VertexArrayObject.h include/VertexBufferObject.h
+src/Camera.o: /usr/local/include/GLFW/glfw3.h include/Vertex.h
+src/Camera.o: include/PmodConfig.h include/LandSurface.h
+src/Camera.o: include/TexturedRect.h include/Texture.h include/Quadtree.h
+src/Camera.o: include/DisplayList.h include/VisualObject.h
+src/Camera.o: include/VisualElement.h include/TriangleBuffer.h
+src/Camera.o: include/ElementBufferCombo.h include/ElementBufferObject.h
+src/Camera.o: include/BoundingBox.h include/Lockable.h
+src/Camera.o: include/LandSurfaceRegion.h include/LandSurfaceRegionPlanar.h
+src/Camera.o: include/HeightMarker.h include/BezierPatch.h
+src/Camera.o: include/rapidjson/document.h include/rapidjson/reader.h
+src/Camera.o: include/rapidjson/allocators.h include/rapidjson/rapidjson.h
+src/Camera.o: include/rapidjson/stream.h include/rapidjson/encodings.h
+src/Camera.o: include/rapidjson/encodedstream.h
+src/Camera.o: include/rapidjson/memorystream.h
+src/Camera.o: include/rapidjson/internal/clzll.h
+src/Camera.o: include/rapidjson/rapidjson.h include/rapidjson/internal/meta.h
+src/Camera.o: include/rapidjson/internal/stack.h
+src/Camera.o: include/rapidjson/allocators.h
+src/Camera.o: include/rapidjson/internal/swap.h
+src/Camera.o: include/rapidjson/internal/strtod.h
+src/Camera.o: include/rapidjson/internal/ieee754.h
+src/Camera.o: include/rapidjson/internal/biginteger.h
+src/Camera.o: include/rapidjson/internal/diyfp.h
+src/Camera.o: include/rapidjson/internal/clzll.h
+src/Camera.o: include/rapidjson/internal/pow10.h
+src/Camera.o: include/rapidjson/error/error.h
+src/Camera.o: include/rapidjson/internal/strfunc.h include/rapidjson/stream.h
+src/Camera.o: include/PmodDesign.h include/rapidjson/writer.h
+src/Camera.o: include/rapidjson/internal/dtoa.h
+src/Camera.o: include/rapidjson/internal/itoa.h
+src/Camera.o: include/rapidjson/internal/itoa.h
+src/Camera.o: include/rapidjson/stringbuffer.h
+src/Camera.o: include/rapidjson/stringbuffer.h include/rapidjson/error/en.h
+src/Camera.o: include/rapidjson/error/error.h include/Timeval.h
+src/Camera.o: include/JSONStructureChecker.h include/Version.h
+src/Camera.o: include/Boundary.h include/Grid.h include/Material.h
+src/Camera.o: include/TextureAtlas.h include/LightingModel.h
+src/Camera.o: include/Species.h include/DynamicallyTypable.h
+src/Camera.o: include/LeafModel.h include/CO2Scenario.h include/TaskQueue.h
+src/Camera.o: include/InterfaceAction.h
 src/CircleIterator.o: include/CircleIterator.h /usr/local/include/cglm/cglm.h
 src/CircleIterator.o: /usr/local/include/cglm/common.h
 src/CircleIterator.o: /usr/local/include/cglm/types.h
@@ -1474,10 +1516,10 @@ src/Material.o: include/HttpRequestParser.h include/Logging.h
 src/Material.o: include/MemoryTracker.h
 src/MemoryTracker.o: include/MemoryTracker.h include/HttpDebug.h
 src/MemoryTracker.o: include/HttpRequestParser.h
-src/MenuInterface.o: include/MenuInterface.h include/ScriptController.h
-src/MenuInterface.o: include/HttpDebug.h include/HttpRequestParser.h
-src/MenuInterface.o: include/PmodDesign.h include/rapidjson/document.h
-src/MenuInterface.o: include/rapidjson/reader.h
+src/MenuInterface.o: include/MenuInterface.h include/DynamicallyTypable.h
+src/MenuInterface.o: include/ScriptController.h include/HttpDebug.h
+src/MenuInterface.o: include/HttpRequestParser.h include/PmodDesign.h
+src/MenuInterface.o: include/rapidjson/document.h include/rapidjson/reader.h
 src/MenuInterface.o: include/rapidjson/allocators.h
 src/MenuInterface.o: include/rapidjson/rapidjson.h include/rapidjson/stream.h
 src/MenuInterface.o: include/rapidjson/encodings.h
@@ -1556,11 +1598,11 @@ src/MenuInterface.o: include/Boundary.h include/Scene.h include/ColoredAxes.h
 src/MenuInterface.o: include/LineStripList.h include/Grid.h
 src/MenuInterface.o: include/Material.h include/TextureAtlas.h
 src/MenuInterface.o: include/LightingModel.h include/Species.h
-src/MenuInterface.o: include/DynamicallyTypable.h include/LeafModel.h
-src/MenuInterface.o: include/CO2Scenario.h include/TaskQueue.h
-src/MenuInterface.o: include/InterfaceAction.h imgui/imgui.h imgui/imconfig.h
-src/MenuInterface.o: include/Window3D.h include/loadFileToBuf.h
-src/MenuInterface.o: include/RegionList.h imgui/backends/imgui_impl_opengl3.h
+src/MenuInterface.o: include/LeafModel.h include/CO2Scenario.h
+src/MenuInterface.o: include/TaskQueue.h include/InterfaceAction.h
+src/MenuInterface.o: imgui/imgui.h imgui/imconfig.h include/Window3D.h
+src/MenuInterface.o: include/loadFileToBuf.h include/RegionList.h
+src/MenuInterface.o: imgui/backends/imgui_impl_opengl3.h
 src/MenuInterface.o: imgui/backends/imgui_impl_glfw.h
 src/ObjectGroup.o: include/ObjectGroup.h include/VisualObject.h
 src/ObjectGroup.o: include/VisualElement.h include/TriangleBuffer.h

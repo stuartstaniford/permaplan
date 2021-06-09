@@ -31,6 +31,7 @@
 // =======================================================================================
 // Class variable initialization
 
+class Scene;
 
 class Camera
 {
@@ -47,8 +48,9 @@ class Camera
   void  copyDirection(vec3& position, vec3& direction);
   void  rayFromScreenLocation(vec3& position, vec3& direction, float clipX, float clipY);
   void  invertView(mat4& model, mat4& invertMatrix);
-  bool  setApi(HttpDebug* serv, char* path);
-  bool  diagnosticHTML(HttpDebug* serv, char* path);
+  void  updateAfterMove(void);
+  bool  setApi(HttpDebug* serv, char* path, Scene& scene);
+  bool  diagnosticHTML(HttpDebug* serv, char* path, Scene& scene);
   inline void teleportUp(float distance) {adjust(CAM_MOVE_UP, distance/speed*1.0e6);}
   inline void  setPivotLocation(float* location) {pivotLocation = location;}
 

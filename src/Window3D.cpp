@@ -140,6 +140,10 @@ ActionType Window3D::processPseudoAction(InterfaceAction* action)
       imgMenu->blockEnteredButton(action->data[0], "StrawBale");
       return BlockEntered;
 
+    case CameraMoved:
+      scene->camera.updateAfterMove();
+      return CameraMoved;
+      
     case Click:
       // for Click and DoubleClick, the data is mousePos
       LogPseudoActions("Click processed at %.1f, %.1f.\n", action->data[0], 

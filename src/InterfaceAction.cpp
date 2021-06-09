@@ -27,6 +27,12 @@ InterfaceAction::InterfaceAction(ActionType type, char* path):
     return;
    }
 
+  if(actionType == CameraMoved)
+   {
+    valid = true;
+    return;
+   }
+
   // Simulation controls
   if(actionType == SimulateStart || actionType == SimulatePause || actionType == SimulateReset)
     return;

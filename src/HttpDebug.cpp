@@ -245,7 +245,7 @@ bool HttpDebug::processRequestHeader(void)
    }
   
   else if( strlen(url) >= 8 && strncmp(url, "/camera/", 8) == 0)
-    retVal =  scene.camera.diagnosticHTML(this, url+8);
+    retVal =  scene.camera.diagnosticHTML(this, url+8, scene);
 
   else if( strlen(url) == 8 && strncmp(url, "/carbon/", 8) == 0)
     retVal =  carbonSummary();

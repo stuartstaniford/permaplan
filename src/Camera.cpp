@@ -9,8 +9,7 @@
 #include <cstring>
 #include "Camera.h"
 #include "Logging.h"
-
-
+#include "Scene.h"
 
 
 // =======================================================================================
@@ -148,9 +147,7 @@ void Camera::adjust(unsigned opFlags, float timeLapseUsec)
   else if(CAM_MOVE_RIGHT & opFlags)
     glm_vec3_sub(pos, sideDelta, pos); // Note if left *and* right are set, left wins
   
-  // Update the camera matrices in the shader
-  setProjectionMatrix();
-  updateViewMatrix();
+  updateAfterMove();
 }
 
 
@@ -230,9 +227,17 @@ void Camera::adjustWithPivot(unsigned opFlags, float timeLapseUsec)
     glm_vec3_add(pivotLocation, relativeCam, pos);
    }
 
-  // Update the camera matrices in the shader
+  updateAfterMove();
+}
+
+
+// =======================================================================================
+// Function to Update the camera matrices in the shader
+
+void Camera::updateAfterMove(void)
+{
   setProjectionMatrix();
-  updateViewMatrix();
+  updateViewMatrix();  
 }
 
 
@@ -347,7 +352,7 @@ void Camera::rayFromScreenLocation(vec3& position, vec3& direction, float clipX,
 // =======================================================================================
 // Implement the API for setting camera variables (used extensively by test scripts).
 
-bool Camera::setApi(HttpDebug* serv, char* path)
+bool Camera::setApi(HttpDebug* serv, char* path, Scene& scene)
 {
   vec3 trial;
   unless(strncmp(path, "set/", 4)== 0)
@@ -364,8 +369,7 @@ bool Camera::setApi(HttpDebug* serv, char* path)
       glm_vec3_copy(trial, pos);
       LogWindowOperations("Camera::setApi, camera position set to (%.1f, %.1f, %.1f).\n", 
                                                             pos[0], pos[1], pos[2]);
-      httPrintf("OK\n");
-      return true;
+      goto goodExit;
      }
     LogRequestErrors("Camera::setApi couldn't extract vector from %s\n", path+4);
     return false;
@@ -376,10 +380,10 @@ bool Camera::setApi(HttpDebug* serv, char* path)
     if(extractColonVec3(path+6, trial))
      {
       glm_vec3_copy(trial, front);
+      glm_vec3_scale_as(front, 1.0f, front);
       LogWindowOperations("Camera::setApi, camera direction set to (%.1f, %.1f, %.1f).\n", 
                                                             front[0], front[1], front[2]);
-      httPrintf("OK\n");
-      return true;
+      goto goodExit;
      }
     LogRequestErrors("Camera::setApi couldn't extract vector from %s\n", path+6);
     return false;
@@ -390,10 +394,10 @@ bool Camera::setApi(HttpDebug* serv, char* path)
     if(extractColonVec3(path+6, trial))
      {
       glm_vec3_copy(trial, up);
+      glm_vec3_scale_as(up, 1.0f, up);
       LogWindowOperations("Camera::setApi, camera up vector set to (%.1f, %.1f, %.1f).\n", 
                                                                   up[0], up[1], up[2]);
-      httPrintf("OK\n");
-      return true;
+      goto goodExit;
      }
     LogRequestErrors("Camera::setApi couldn't extract vector from %s\n", path+6);
     return false;
@@ -401,16 +405,23 @@ bool Camera::setApi(HttpDebug* serv, char* path)
 
   LogRequestErrors("Camera::setApi unknown directive %s\n", path);
   return false;
+
+goodExit:  
+  
+  InterfaceAction* action = new InterfaceAction(CameraMoved, NULL);
+  scene.actions.push_back(action);
+  httPrintf("OK\n");
+  return true;
 }
 
 
 // =======================================================================================
 // Provide a diagnostic page about this camera
 
-bool Camera::diagnosticHTML(HttpDebug* serv, char* path)
+bool Camera::diagnosticHTML(HttpDebug* serv, char* path, Scene& scene)
 {
   if(strlen(path) > 0)
-    return setApi(serv, path);
+    return setApi(serv, path, scene);
   
   serv->startResponsePage("Camera");
     
