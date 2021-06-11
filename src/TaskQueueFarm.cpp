@@ -3,14 +3,15 @@
 // for initializing and working with them.
 
 #include "TaskQueueFarm.h"
-
+#include "Logging.h"
 
 // =======================================================================================
 // First Constructor (out of two!!).  This one initializes nQueues task queues ourselves.
 
-TaskQueueFarm::TaskQueueFarm(unsigned nQueues):
+TaskQueueFarm::TaskQueueFarm(unsigned nQueues, const char* lName):
                                         nQ(nQueues), 
-                                        tasksOutstanding(0u)
+                                        tasksOutstanding(0u),
+                                        logName(lName)
 {
   if(pthread_cond_init(&tasksUnfinished, NULL))
     err(-1, "Couldn't initialize tasksUnfinished in TaskQueueFarm::TaskQueueFarm.");
@@ -19,6 +20,7 @@ TaskQueueFarm::TaskQueueFarm(unsigned nQueues):
   
   for(unsigned s=0; s<nQ; s++)
     taskQueues[s] = new TaskQueue(s);
+  LogTaskQueueFarmOps("Task farm %s has initialized %u task queues.\n", logName, nQ);
 }
 
 
@@ -27,13 +29,15 @@ TaskQueueFarm::TaskQueueFarm(unsigned nQueues):
 // initialized by someone else.  The typical use case for this is the objects are really
 // some subclass of TaskQueue with extra state/behavior that we don't need to know about.
 
-TaskQueueFarm::TaskQueueFarm(unsigned nQueues, TaskQueue** tQ):
+TaskQueueFarm::TaskQueueFarm(unsigned nQueues, TaskQueue** tQ, const char* lName):
                                         nQ(nQueues), 
                                         tasksOutstanding(0u),
-                                        taskQueues(tQ)
+                                        taskQueues(tQ),
+                                        logName(lName)
 {
   if(pthread_cond_init(&tasksUnfinished, NULL))
     err(-1, "Couldn't initialize tasksUnfinished in TaskQueueFarm::TaskQueueFarm.");
+  LogTaskQueueFarmOps("Task farm %s started with %u supplied task queues.\n", logName, nQ);
 }
 
 
@@ -46,7 +50,8 @@ TaskQueueFarm::~TaskQueueFarm(void)
     taskQueues[s]->die();
   if(pthread_cond_destroy(&tasksUnfinished))
     err(-1, "Couldn't destroy tasksUnfinished in Scene::~Scene.");
-  
+  LogTaskQueueFarmOps("Task farm %s shut down.\n", logName);
+
   /* XX
   Need some synchronization here to know when it's safe to delete the threads.
   In practice there are only a very small number of farms that last the full life of
@@ -80,9 +85,9 @@ unsigned TaskQueueFarm::findBestQueue(void)
   for(int i=0; i< nQ; i++)
    {
     taskQueues[i]->lock();
-    if(taskQueues[i]->tasksQueued < lowestCount)
+    if(taskQueues[i]->tasksQueued + taskQueues[i]->tasksInProgress < lowestCount)
      {
-      lowestCount = taskQueues[i]->tasksQueued;
+      lowestCount = taskQueues[i]->tasksQueued + taskQueues[i]->tasksInProgress;
       bestI = i;
      }
     taskQueues[i]->unlock();
@@ -90,7 +95,8 @@ unsigned TaskQueueFarm::findBestQueue(void)
   
   if(lowestCount == 0xffffffff || bestI < 0)
     err(-1, "Craziness in TaskQueueFarm::findBestQueue");
-  
+  LogTaskQueueFarmOps("Task farm %s assigning task to queue %d.\n", logName, bestI);
+ 
   return bestI;
 }
 

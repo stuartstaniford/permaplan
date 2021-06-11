@@ -33,6 +33,7 @@ void* startWorkThread(void* arg)
 
 TaskQueue::TaskQueue(unsigned index):
                     tasksQueued(0u),
+                    tasksInProgress(0u),
                     queueIndex(index),
                     timeToDie(false)
 {
@@ -76,10 +77,14 @@ void TaskQueue::workLoop(void)
     Task* task = back();
     pop_back();
     tasksQueued--;
+    tasksInProgress++;
     unlock();
     
     // perform the task (having released the taskqueue lock)
     task->doWork(task->theArg, this);
+    lock();
+    tasksInProgress--;
+    unlock();
     delete task;
    }
 }

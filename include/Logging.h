@@ -32,7 +32,7 @@
 #define LOG_DOUBLE_CLICK        // Location and intra-click timing of mouse double clicks
 //#define LOG_CLICK_DETAILS        // Extra detailed recording of parts of click detection
 //#define LOG_MOUSE_RAY_POINT     // Where the mouse is pointing in 3d space
-#define LOG_LAND_HEIGHTS        // Log when a new land height is entered.
+//#define LOG_LAND_HEIGHTS        // Log when a new land height is entered.
 //#define LOG_OBJECT_INSERTIONS   // Log when a new object is inserted in scene.
 #define LOG_SIMULATION_CONTROLS // Log control operations on the simulation.
 #define LOG_WINDOW_OPERATIONS   // Log changes to the window (eg resizing).
@@ -110,7 +110,7 @@
 //#define LOG_OBJECT_CREATION            // Log the id of each newly created oject
 //#define LOG_TRIANGLE_BUFFER_OPS     // Log the workings of the triangle buffers.
 //#define LOG_TRIANGLE_BUF_ESTIMATES  // Log estimates of sizes needed.
-#define LOG_TRIANGLE_BUF_REBUILDS  // Log when the triangle buffer is rebuilt.
+//#define LOG_TRIANGLE_BUF_REBUILDS  // Log when the triangle buffer is rebuilt.
 #define LOG_VALID_TRIANGLE_BUFS // Validate the condition of triangle buffers on gpu send
 #define LOG_TRIANGLE_BUFFER_ERRS    // Log actual errors the triangle buffers.
 

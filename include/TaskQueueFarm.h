@@ -18,8 +18,8 @@ public:
   // Instance variables - public
   
   // Member functions - public
-  TaskQueueFarm(unsigned nQueues);
-  TaskQueueFarm(unsigned nQueues, TaskQueue** tQ);
+  TaskQueueFarm(unsigned nQueues, const char* lName);
+  TaskQueueFarm(unsigned nQueues, TaskQueue** tQ, const char* lName);
   ~TaskQueueFarm(void);
   void addTask(unsigned i, void (*work)(void*, TaskQueue*), void* arg);
   void loadBalanceTask(void (*work)(void*, TaskQueue*), void* arg);
@@ -34,6 +34,7 @@ private:
   unsigned          nQ;
   unsigned          tasksOutstanding;
   TaskQueue**       taskQueues;
+  const char*       logName;
 
   // Member functions - private
   unsigned findBestQueue(void);

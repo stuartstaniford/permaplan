@@ -19,7 +19,7 @@ TaskQueueFarm* threadFarm = NULL;
 void initGlobals(int nThreads)
 {
 #ifdef MULTI_THREADED_SIMULATION
-  threadFarm = new TaskQueueFarm(nThreads);  
+  threadFarm = new TaskQueueFarm(nThreads, (char*)"treeSimFarm");  
 #endif
   
 }

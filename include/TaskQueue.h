@@ -46,6 +46,7 @@ class TaskQueue: public std::list<Task*>, public Lockable
 protected:
   pthread_cond_t           taskWait;
   unsigned                 tasksQueued;
+  unsigned                 tasksInProgress; // should only ever be 0 or 1
   unsigned                 queueIndex;
   bool                     timeToDie;
   pthread_t                workerThread;

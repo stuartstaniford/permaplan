@@ -42,7 +42,8 @@ HttpLoadBalancer::HttpLoadBalancer(unsigned short servPort, Scene& S, MenuInterf
   HttpDebug** httpThreads = new HttpDebug*[HTTP_THREAD_COUNT];  
   for(unsigned i=0; i<HTTP_THREAD_COUNT;i++)
     httpThreads[i] = new HttpDebug(scene, menuInterface, i);
-  servFarm = new TaskQueueFarm(HTTP_THREAD_COUNT, (TaskQueue**)httpThreads);
+  servFarm = new TaskQueueFarm(HTTP_THREAD_COUNT, (TaskQueue**)httpThreads, 
+                                                                    (char*)"httpFarm");
 }
 
 
