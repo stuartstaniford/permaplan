@@ -220,7 +220,7 @@ char* HttpRequestParser::headerEndPresent(char* range, unsigned rangeSize)
 
 
 // =======================================================================================
-// Get the next header.  Currently returns pointer to the URL.
+// Get the next header.
 
 bool HttpRequestParser::getNextRequest(void)
 { 

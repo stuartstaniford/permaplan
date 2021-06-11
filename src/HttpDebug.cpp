@@ -334,6 +334,8 @@ void HttpDebug::processOneHTTP1_1(int connfd, unsigned short clientPort)
     while(1)
      {
       returnOK = processRequestHeader();
+      LogHTTPLoadBalance("HTTPDebug %d: client port %u, request %s.\n", 
+                          queueIndex, clientPort, reqParser.getUrl());
       if(returnOK)
         break;
       unless(respBufOverflow)

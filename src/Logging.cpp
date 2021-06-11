@@ -98,6 +98,9 @@ bool doLogTriangleBufRebuilds   = true; // Log when the triangle buffer is rebui
 bool doLogValidTriangleBufs     = true; // Validate the condition of triangle buffers on gpu send
 bool doLogTriangleBufferErrs    = true; // Log actual errors the triangle buffers.
 
+// Logging options to do with the task queues and task queue farms
+bool doLogTaskQueueFarmOps      = true; // Log what the task queue farms are doing
+
 // Logging options to do with the Bezier Patch code
 bool doLogBezierFit           = true; // Log the fitting of a Bezier patch to height data
 bool doLogBezierMatchRay      = true; // Log the process of matching a ray to the patch.
@@ -520,6 +523,14 @@ bool LogControlHTML(HttpDebug* serv, char* path)
 #ifdef LOG_TRIANGLE_BUFFER_ERRS // Log actual errors in the triangle buffers.
   if(strncmp(path, "doLogTriangleBufferErrs", sizeof("doLogTriangleBufferErrs")-1)==0)
     return oneLogControl(serv, path, doLogTriangleBufferErrs);
+#endif
+
+
+// Logging options to do with the task queues and task queue farms
+  
+#ifdef LOG_TASK_QUEUE_FARM_OPS // Log what the task queue farms are doing
+  if(strncmp(path, "doLogTaskQueueFarmOps", sizeof("doLogTaskQueueFarmOps")-1)==0)
+    return oneLogControl(serv, path, doLogTaskQueueFarmOps);
 #endif
 
   

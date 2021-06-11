@@ -116,6 +116,12 @@
 
 
 // =======================================================================================
+// Logging options to do with the task queues and task queue farms
+
+#define LOG_TASK_QUEUE_FARM_OPS   // Log what the task queue farms are doing
+
+
+// =======================================================================================
 // Logging options to do with the Bezier Patch code
 
 //#define LOG_BEZIER_FIT        // Log the process of fitting the Bezier patch to height data
@@ -227,6 +233,9 @@ extern bool doLogTriangleBufEstimates;  // Log estimates of sizes needed.
 extern bool doLogTriangleBufRebuilds;   // Log when the triangle buffer is rebuilt.
 extern bool doLogValidTriangleBufs;     // Validate condition of triangle buffers on gpu send
 extern bool doLogTriangleBufferErrs;    // Log actual errors the triangle buffers.
+
+// Logging options to do with the task queues and task queue farms
+extern bool doLogTaskQueueFarmOps;    // Log what the task queue farms are doing
 
 // Logging options to do with the Bezier Patch code
 extern bool doLogBezierFit;           // Log the fitting of a Bezier patch to height data
@@ -775,6 +784,17 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
 #define LogTriangleBufferErrs(...)
 #endif
 
+
+// =======================================================================================
+// Logging options to do with the task queues and task queue farms
+
+// Log what the task queue farms are doing
+#ifdef LOG_TASK_QUEUE_FARM_OPS
+#define LogTaskQueueFarmOps(...) if(doLogTaskQueueFarmOps) \
+                                      LogStatement("LogTaskQueueFarmOps: " __VA_ARGS__)
+#else
+#define LogTaskQueueFarmOps(...)
+#endif
 
 // =======================================================================================
 // Logging options to do with the Bezier Patch code
