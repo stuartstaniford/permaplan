@@ -52,7 +52,7 @@ public:
   bool        endResponsePage(void);
   bool        errorPage(const char* error);
   bool        carbonSummary(void);
-  void        processOneHTTP1_1(int connfd);
+  void        processOneHTTP1_1(int connfd, unsigned short clientPort);
   inline bool startTable(char* name = NULL)
    {
     if(name)

@@ -88,7 +88,8 @@
 #define LOG_REQUEST_ERRORS      // Log validity problems in the HTTP request
 #define LOG_RESPONSE_ERRORS     // Log problems encountered building the response
 //#define LOG_HTTP_BUFFER_OPS        // Log operations on the main HTTP buffers
-#define LOG_HTTP_DETAILS        // Log normal details of HTTP operations
+//#define LOG_HTTP_DETAILS        // Log normal details of HTTP operations
+#define LOG_HTTP_LOAD_BALANCE     // Log which connections get processed where
 //#define LOG_REQUEST_PARSING        // Log exactly what happens when parsing a request
 #define LOG_PSEUDO_ACTIONS      // Log as the main thread processes pseudo-actions
 
@@ -207,6 +208,7 @@ extern bool doLogRequestErrors;       // Log validity problems in the HTTP reque
 extern bool doLogResponseErrors;      // Log problems encountered building the response
 extern bool doLogHTTPBufferOps;       // Log operations on the main HTTP buffers
 extern bool doLogHTTPDetails;         // Log normal details of HTTP operations
+extern bool doLogHTTPLoadBalance;     // Log which connections get processed where
 extern bool doLogRequestParsing;      // Log exactly what happens when parsing a request
 extern bool doLogPseudoActions;       // Log as the main thread processes pseudo-actions
 
@@ -643,6 +645,15 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
 #else
 #define LogHTTPDetails(...)
 #endif
+
+// Log which connections get processed where
+#ifdef LOG_HTTP_LOAD_BALANCE
+#define LogHTTPLoadBalance(...) if(doLogHTTPLoadBalance) \
+                                        LogStatement("LogHTTPLoadBalance: " __VA_ARGS__)
+#else
+#define LogHTTPLoadBalance(...)
+#endif
+
 
 // Log exactly what happens when parsing a request
 #ifdef LOG_REQUEST_PARSING

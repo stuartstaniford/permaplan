@@ -63,7 +63,7 @@ void processOneConnection(void* arg, TaskQueue* T)
   HttpDebug* http = (HttpDebug*)T;
   HttpLBWorkUnit* unit = (HttpLBWorkUnit*)arg;
   int connfd = unit->fileDescriptor;
-  http->processOneHTTP1_1(connfd);
+  http->processOneHTTP1_1(connfd, unit->clientPort);
   close(connfd);
   
   unit->servFarm->notifyTaskDone();   
@@ -88,11 +88,12 @@ void* HttpLoadBalancer::processConnections(void)
       else
         err(-1, "Accept failed on socket %d in __func__\n", sockfd);
      }
-    LogHTTPDetails("Accepted connection from client on port %u.\n", cliaddr.sin_port);
+    LogHTTPLoadBalance("Accepted connection from client on port %u.\n", cliaddr.sin_port);
     
-    HttpLBWorkUnit* unit = new HttpLBWorkUnit;
-    unit->fileDescriptor = connfd;
-    unit->servFarm = servFarm;
+    HttpLBWorkUnit* unit  = new HttpLBWorkUnit;
+    unit->fileDescriptor  = connfd;
+    unit->servFarm        = servFarm;
+    unit->clientPort      = cliaddr.sin_port;
     
     servFarm->loadBalanceTask(processOneConnection, unit);
         

@@ -319,8 +319,10 @@ bool writeLoop(int fildes, char *buf, size_t nbyte)
 // Read HTTP 1.1 headers and extract the URL for processing.  We are brain-dead and only
 // can deal with GET requests with no entity body.
 
-void HttpDebug::processOneHTTP1_1(int connfd)
+void HttpDebug::processOneHTTP1_1(int connfd, unsigned short clientPort)
 {
+  LogHTTPLoadBalance("HTTPDebug %d handling client on port %u.\n", queueIndex, clientPort);
+
   reqParser.setNewConnection(connfd);
   
   while(reqParser.getNextRequest())

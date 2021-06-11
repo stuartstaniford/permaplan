@@ -43,12 +43,14 @@ class TaskQueue: public std::list<Task*>, public Lockable
   void addTask(void (*work)(void*, TaskQueue*), void* arg);
   inline void die(void){timeToDie = true;}
   
-private:
+protected:
   pthread_cond_t           taskWait;
   unsigned                 tasksQueued;
   unsigned                 queueIndex;
   bool                     timeToDie;
   pthread_t                workerThread;
+  
+private:
   
   // Instance variables - private
   

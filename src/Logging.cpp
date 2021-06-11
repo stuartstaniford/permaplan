@@ -78,6 +78,7 @@ bool doLogRequestErrors       = true; // Log validity problems in the HTTP reque
 bool doLogResponseErrors      = true; // Log problems encountered building the response
 bool doLogHTTPBufferOps       = true; // Log operations on the main HTTP buffers
 bool doLogHTTPDetails         = true; // Log normal details of HTTP operations
+bool doLogHTTPLoadBalance     = true; // Log which connections get processed where
 bool doLogRequestParsing      = true; // Log exactly what happens when parsing a request
 bool doLogPseudoActions       = true; // Log as the main thread processes pseudo-actions
 
@@ -439,6 +440,11 @@ bool LogControlHTML(HttpDebug* serv, char* path)
 #ifdef LOG_HTTP_DETAILS // Log normal details of HTTP operations
   if(strncmp(path, "doLogHTTPDetails", sizeof("doLogHTTPDetails")-1)==0)
     return oneLogControl(serv, path, doLogHTTPDetails);
+#endif
+
+#ifdef LOG_HTTP_LOAD_BALANCE // Log which connections get processed where
+  if(strncmp(path, "doLogHTTPLoadBalance", sizeof("doLogHTTPLoadBalance")-1)==0)
+    return oneLogControl(serv, path, doLogHTTPLoadBalance);
 #endif
 
 #ifdef LOG_REQUEST_PARSING // Log exactly what happens when parsing a request

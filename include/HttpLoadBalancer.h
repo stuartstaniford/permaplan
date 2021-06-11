@@ -49,8 +49,9 @@ private:
 class HttpLBWorkUnit
 {  
   public:
-    TaskQueueFarm* servFarm;
-    int fileDescriptor;
+    TaskQueueFarm*  servFarm;
+    int             fileDescriptor;
+    unsigned short  clientPort;
 };
 
 
