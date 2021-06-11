@@ -9,7 +9,7 @@
 // =======================================================================================
 // Constructor for individual task
 
-Task::Task(void (*work)(void*), void* arg):
+Task::Task(void (*work)(void*, TaskQueue*), void* arg):
                             doWork(work),
                             theArg(arg)
 {
@@ -79,7 +79,7 @@ void TaskQueue::workLoop(void)
     unlock();
     
     // perform the task (having released the taskqueue lock)
-    task->doWork(task->theArg);
+    task->doWork(task->theArg, this);
     delete task;
    }
 }
@@ -88,7 +88,7 @@ void TaskQueue::workLoop(void)
 // =======================================================================================
 // Function called to add a task to this particular queue.
 
-void TaskQueue::addTask(void (*work)(void*), void* arg)
+void TaskQueue::addTask(void (*work)(void*, TaskQueue*), void* arg)
 {
   Task* task = new Task(work, arg);
 

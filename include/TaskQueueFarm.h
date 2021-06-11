@@ -19,8 +19,10 @@ public:
   
   // Member functions - public
   TaskQueueFarm(unsigned nQueues);
+  TaskQueueFarm(unsigned nQueues, TaskQueue** tQ);
   ~TaskQueueFarm(void);
-  void addTask(unsigned i, void (*work)(void*), void* arg);
+  void addTask(unsigned i, void (*work)(void*, TaskQueue*), void* arg);
+  void loadBalanceTask(void (*work)(void*, TaskQueue*), void* arg);
   void notifyTaskDone(void);
   void waitOnEmptyFarm(void);
   bool diagnosticHTML(HttpDebug* serv);
@@ -34,6 +36,7 @@ private:
   TaskQueue**       taskQueues;
 
   // Member functions - private
+  unsigned findBestQueue(void);
   TaskQueueFarm(const TaskQueueFarm&);                 // Prevent copy-construction
   TaskQueueFarm& operator=(const TaskQueueFarm&);      // Prevent assignment
 };

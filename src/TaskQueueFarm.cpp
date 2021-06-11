@@ -1,10 +1,12 @@
-// Copyright Staniford Systems.  All Rights Reserved.  Mar 2021 -
-// This class ..... is a template for real classes
+// Copyright Staniford Systems.  All Rights Reserved.  Apr 2021 -
+// This class manages a group of task queues, and provides some convenient methods
+// for initializing and working with them.
 
 #include "TaskQueueFarm.h"
 
+
 // =======================================================================================
-// Constructor
+// First Constructor (out of two!!).  This one initializes nQueues task queues ourselves.
 
 TaskQueueFarm::TaskQueueFarm(unsigned nQueues):
                                         nQ(nQueues), 
@@ -21,6 +23,21 @@ TaskQueueFarm::TaskQueueFarm(unsigned nQueues):
 
 
 // =======================================================================================
+// Second Constructor (of two).  This one takes a pointer to a set of taskqueue pointers
+// initialized by someone else.  The typical use case for this is the objects are really
+// some subclass of TaskQueue with extra state/behavior that we don't need to know about.
+
+TaskQueueFarm::TaskQueueFarm(unsigned nQueues, TaskQueue** tQ):
+                                        nQ(nQueues), 
+                                        tasksOutstanding(0u),
+                                        taskQueues(tQ)
+{
+  if(pthread_cond_init(&tasksUnfinished, NULL))
+    err(-1, "Couldn't initialize tasksUnfinished in TaskQueueFarm::TaskQueueFarm.");
+}
+
+
+// =======================================================================================
 // Destructor
 
 TaskQueueFarm::~TaskQueueFarm(void)
@@ -30,8 +47,10 @@ TaskQueueFarm::~TaskQueueFarm(void)
   if(pthread_cond_destroy(&tasksUnfinished))
     err(-1, "Couldn't destroy tasksUnfinished in Scene::~Scene.");
   
-  /*
-  Need some synchronization here to know when it's safe to delete the threads
+  /* XX
+  Need some synchronization here to know when it's safe to delete the threads.
+  In practice there are only a very small number of farms that last the full life of
+   the process so it's not a big deal
   for(int s=0; s<config.nSimThreads; s++)
     delete taskQueues[s];
   delete[] taskQueues;  
@@ -42,11 +61,49 @@ TaskQueueFarm::~TaskQueueFarm(void)
 // =======================================================================================
 // Function to add work to one of the queues
 
-void TaskQueueFarm::addTask(unsigned i, void (*work)(void*), void* arg)
+void TaskQueueFarm::addTask(unsigned i, void (*work)(void*, TaskQueue*), void* arg)
 {
   lock();
   tasksOutstanding++;
   taskQueues[i%nQ]->addTask(work, arg);
+  unlock();
+}
+
+// =======================================================================================
+// Function to implement load balancing.  Note this is called with the lock already held.
+
+unsigned TaskQueueFarm::findBestQueue(void)
+{
+  unsigned lowestCount = 0xffffffff;
+  int bestI = -1;
+  
+  for(int i=0; i< nQ; i++)
+   {
+    taskQueues[i]->lock();
+    if(taskQueues[i]->tasksQueued < lowestCount)
+     {
+      lowestCount = taskQueues[i]->tasksQueued;
+      bestI = i;
+     }
+    taskQueues[i]->unlock();
+   } 
+  
+  if(lowestCount == 0xffffffff || bestI < 0)
+    err(-1, "Craziness in TaskQueueFarm::findBestQueue");
+  
+  return bestI;
+}
+
+
+// =======================================================================================
+// Function to called when we want to loadBalance a task, and don't have an index to 
+// use as in addTask
+
+void TaskQueueFarm::loadBalanceTask(void (*work)(void*, TaskQueue*), void* arg)
+{
+  lock();
+  tasksOutstanding++;
+  taskQueues[findBestQueue()]->addTask(work, arg);
   unlock();
 }
 

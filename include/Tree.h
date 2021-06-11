@@ -26,7 +26,7 @@ void growOneTree(void* arg);
 class Tree: public VisualObject
 {
   friend WoodySegment;
-  friend void growOneTree(void* arg);
+  friend void growOneTree(void* arg, TaskQueue* T);
 
  public:
   

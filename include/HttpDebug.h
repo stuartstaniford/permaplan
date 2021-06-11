@@ -9,6 +9,7 @@
 #define HTTP_DEBUG_H
 
 #include "HttpRequestParser.h"
+#include "TaskQueue.h"
 #include <netinet/in.h>
 #include <sys/socket.h>
 #include <sys/types.h>
@@ -33,8 +34,8 @@
 class Scene; 
 class MenuInterface; 
 
-class HttpDebug
-{
+class HttpDebug: public TaskQueue
+{  
 public:
   
   // Instance variables - public
@@ -42,17 +43,16 @@ public:
   char*               respEnd;
   Scene&              scene;
   MenuInterface&      menuInterface;
-  bool                shutDownNow; // Reads/writes on a single bool should be atomic, no lock.
   bool                respBufOverflow;
 
   // Member functions - public
-  HttpDebug(unsigned short servPort, Scene& S, MenuInterface& imgMenu);
+  HttpDebug(Scene& S, MenuInterface& imgMenu, unsigned index);
   ~HttpDebug(void);
-  void*       processConnections(void);
   bool        startResponsePage(const char* title, unsigned refresh = 0u);
   bool        endResponsePage(void);
   bool        errorPage(const char* error);
   bool        carbonSummary(void);
+  void        processOneHTTP1_1(int connfd);
   inline bool startTable(char* name = NULL)
    {
     if(name)
@@ -79,14 +79,8 @@ private:
   unsigned            headBufSize;
   char*               respBuf;
   char*               headBuf;
-  struct sockaddr_in  servaddr;
-  struct sockaddr_in  cliaddr;
-  int                 sockfd;
-  int                 connfd;
-  unsigned short      port;
 
   // Member functions - private
-  void        processOneHTTP1_1(void);
   unsigned    generateHeader(unsigned bodySize, unsigned code, const char* msg);
   bool        processRequestHeader(void);
   bool        reallocateResponseBuf(void);

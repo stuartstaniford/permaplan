@@ -198,7 +198,7 @@ float Tree::estimateOpacity(vec3 direction)
 
 #ifdef MULTI_THREADED_SIMULATION
 
-void growOneTree(void* arg)
+void growOneTree(void* arg, TaskQueue* T)
 {
   Tree* tree = (Tree*)arg;
   tree->growStep(tree->yearsToSim);

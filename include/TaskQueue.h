@@ -10,22 +10,27 @@
 // =======================================================================================
 // Class variable initialization
 
+class TaskQueue;
+
+class TaskQueueFarm;
+
 class Task
 {
  public:
   
   // public methods
-  Task(void (*work)(void*), void* arg);
+  Task(void (*work)(void*, TaskQueue*), void* arg);
   
   // member variables
-  void (*doWork)(void*);
+  void (*doWork)(void*, TaskQueue*);
   void* theArg;  
 };
 
 
 class TaskQueue: public std::list<Task*>, public Lockable
 {
-  
+  friend TaskQueueFarm;
+
  public:
   
   // Instance variables - public
@@ -35,7 +40,7 @@ class TaskQueue: public std::list<Task*>, public Lockable
   ~TaskQueue(void);
   void workLoop(void);
   inline unsigned queueSize(void) {return tasksQueued;}
-  void addTask(void (*work)(void*), void* arg);
+  void addTask(void (*work)(void*, TaskQueue*), void* arg);
   inline void die(void){timeToDie = true;}
   
 private:

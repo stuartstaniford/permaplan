@@ -24,45 +24,23 @@
 #include "MenuInterface.h"
 #include "Window3D.h"
 
-#define SA struct sockaddr
-
 
 // =======================================================================================
-// Create the socket and bind to the port in the constructor
 
-HttpDebug::HttpDebug(unsigned short servPort, Scene& S, MenuInterface& imgMenu):
+HttpDebug::HttpDebug(Scene& S, MenuInterface& imgMenu, unsigned index):
+                        TaskQueue(index),
                         scene(S),
                         menuInterface(imgMenu),
-                        shutDownNow(false),
                         respBufOverflow(false),
                         reqParser(8192),
                         respBufSize(16384),
-                        headBufSize(4096),
-                        port(servPort)
+                        headBufSize(4096)
 {
   respBuf = new char[respBufSize];
   headBuf = new char[headBufSize];
   if(!respBuf || !headBuf)
     err(-1, "Couldn't allocate memory in __func__\n");
   resetResponse();
-
-  // Get a socket
-  if((sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0)
-    err(-1, "Couldn't create socket in __func__\n");
-
-  // Set up our address and port
-  bzero(&servaddr, sizeof(servaddr));
-  servaddr.sin_family = AF_INET;
-  servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
-  servaddr.sin_port = htons(port);
-
-  // Bind the socket to the port
-  if ((bind(sockfd, (SA*)&servaddr, sizeof(servaddr))) != 0)
-    err(-1, "Couldn't bind socket on port %u in __func__\n", port);
-
-  // Make our socket a server that will listen
-  if ((listen(sockfd, 6)) != 0)
-    err(-1, "Listen failed on socket %d in __func__\n", sockfd);
 }
 
 
@@ -71,7 +49,6 @@ HttpDebug::HttpDebug(unsigned short servPort, Scene& S, MenuInterface& imgMenu):
 
 HttpDebug::~HttpDebug(void)
 {
-  close(sockfd);
   delete[] respBuf;
   delete[] headBuf;
 }
@@ -94,35 +71,6 @@ bool HttpDebug::reallocateResponseBuf(void)
   respBufOverflow = false;
   resetResponse();
   return true;
-}
-
-
-// =======================================================================================
-// Loop sitting on the socket accepting connections, process requests and reply to them.
-// Arguments and return type are set up to be used in pthread_create
-
-void* HttpDebug::processConnections(void)
-{
-  while(1)
-   {
-    // Accept a connection
-    unsigned len = sizeof(cliaddr);
-    if((connfd = accept(sockfd, (SA*)&cliaddr, &len)) < 0)
-     {
-      if(shutDownNow)
-        break;
-      else
-        err(-1, "Accept failed on socket %d in __func__\n", sockfd);
-     }
-    LogHTTPDetails("Accepted connection from client on port %u.\n", cliaddr.sin_port);
-    processOneHTTP1_1();
-    if(shutDownNow)
-      break;
-    reqParser.resetForReuse();
-   }
-  
-  LogCloseDown("HttpDebug server shutting down normally.\n");
-  return NULL;
 }
 
 
@@ -310,7 +258,6 @@ bool HttpDebug::processRequestHeader(void)
      {
       scene.actions.push_back(action);
       retVal = true;
-      shutDownNow = true;
      }
     else
       LogRequestErrors("Couldn't create valid QuitProgram action from %s\n", url+7);
@@ -372,7 +319,7 @@ bool writeLoop(int fildes, char *buf, size_t nbyte)
 // Read HTTP 1.1 headers and extract the URL for processing.  We are brain-dead and only
 // can deal with GET requests with no entity body.
 
-void HttpDebug::processOneHTTP1_1()
+void HttpDebug::processOneHTTP1_1(int connfd)
 {
   reqParser.setNewConnection(connfd);
   
@@ -411,9 +358,8 @@ void HttpDebug::processOneHTTP1_1()
         break;
     if(reqParser.connectionWillClose)
         break;
-    if(shutDownNow)
-      break;
    }
+  reqParser.resetForReuse();
 }
 
 

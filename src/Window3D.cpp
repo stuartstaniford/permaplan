@@ -232,7 +232,7 @@ ActionType Window3D::processPseudoAction(InterfaceAction* action)
 // =======================================================================================
 // Event processing loop for our window
 
-void Window3D::loop(HttpDebug& httpServer)
+void Window3D::loop(HttpLoadBalancer& httpServer)
 {
   unsigned  frameCount = 0;
   Timeval   start;

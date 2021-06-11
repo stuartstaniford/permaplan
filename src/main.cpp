@@ -19,7 +19,7 @@
 
 void* callProcessConn(void* arg)
 {
-  HttpDebug* hd = (HttpDebug*)arg;
+  HttpLoadBalancer* hd = (HttpLoadBalancer*)arg;
   return hd->processConnections();
 }
 
@@ -58,10 +58,9 @@ int main (int argc, char* argv[])
   RegionList::loadRoot();
   
   // Start up the debugging http server
-  HttpDebug   httpServer(config.debugPort, scene, *(window.imgMenu));
+  HttpLoadBalancer   httpServer(config.debugPort, scene, *(window.imgMenu));
   int         pthreadErr;
   pthread_t   httpThread;
-  //pthread_mutex_init(&glLock, NULL);
   if((pthreadErr = pthread_create(&httpThread, NULL, callProcessConn, &httpServer)) != 0)
     err(-1, "Couldn't spawn HTTP server thread in %s.\n", argv[0]);
 

@@ -13,6 +13,7 @@
 #include "MenuInterface.h"
 #include "ScriptController.h"
 #include "Timeval.h"
+#include "HttpLoadBalancer.h"
 
 class Window3D
 {
@@ -27,7 +28,7 @@ class Window3D
 
   // Public methods
   Window3D(int pixWidth, int pixHeight);
-  void loop(HttpDebug& httpServer);
+  void loop(HttpLoadBalancer& httpServer);
   bool diagnosticHTML(HttpDebug* serv);
   
   // Static class methods
