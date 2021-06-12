@@ -393,6 +393,9 @@ sub checkObjectSearchCount
 
 #===========================================================================
 # Function to set the direction the camera points in.  Takes three args 
+
+#===========================================================================
+# Function to set the direction the camera points in.  Takes three args 
 # which should form the desired vector.
 
 sub setCameraFrontVector
@@ -912,6 +915,36 @@ sub stressTestHTTPPages
     sanityCheckHTTPPages();
     randomWalkQuadTree("quad/");
    }
+}
+
+
+#===========================================================================
+# Function to place a tree at a specified location.  Uses the All Tree
+# Selector menu to find the right kind of tree.
+
+sub placeTree
+{
+  my($x,$y, $winW, $winH, @menuSpecs) = @_;  
+  setCameraFrontVector(0, 0, -1);
+  my $cameraZ = getCameraHeight();
+  setCameraPosition($x, $y, $cameraZ);
+  performDoubleclick($winW/2,$winH/2);
+  insertTreeButton();
+  sleep(1);
+  my $response = getCurrentMenuOptions();
+  checkOptionPresent($response, 'All Tree Selector');
+  sendTreeSelection('All Tree Selector');
+  sleep(1);
+  my $r = 0;
+  while(($response = getCurrentMenuOptions()))
+   {
+    last if $response eq "OK\n";
+    #print $response."\n";
+    checkOptionPresent($response, $menuSpecs[$r]);
+    sendAllTreeSelection($menuSpecs[$r]);
+    sleep(1);
+   }
+  sleep(1);
 }
 
 
