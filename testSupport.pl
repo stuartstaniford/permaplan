@@ -942,6 +942,7 @@ sub placeTree
     #print $response."\n";
     checkOptionPresent($response, $menuSpecs[$r]);
     sendAllTreeSelection($menuSpecs[$r]);
+    $r++;
     sleep(1);
    }
   sleep(1);

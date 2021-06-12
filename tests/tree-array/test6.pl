@@ -7,7 +7,15 @@
 require './testSupport.pl';
 $dir = 'tests/tree-array';
 
-my @treeMenuChoices = ('Eastern North America', 'Pinus (Pines)', 'Eastern White Pine');
+my @treeMenuChoices = (
+                       ['Eastern North America', 'Pinus (Pines)', 'Eastern White Pine'],
+                       ['Eastern North America', 'Pinus (Pines)', 'Red Pine'],
+                       ['Eastern North America', 'Pinus (Pines)', 'Scotch Pine'],
+                       ['Eastern North America', 'Tsuga (Hemlocks)', 'Eastern Hemlock'],
+                       ['Eastern North America', 'Acer (Maples)', 'Red Maple'],
+                       ['Eastern North America', 'Fagus (Beeches)', 'American Beech'],
+                       ['Eastern North America', 'Quercus (Oaks)', 'Northern Red Oak'],          
+                       );
 
 my($loopLimit, $simLimit) = processArgs(@ARGV);
 
@@ -18,11 +26,20 @@ foreach my $i (1..$loopLimit)
   startPermaplan("-A -d tests/grow-one/test5.oldf -D $dir/test6.out.oldf -g 5.0");
   printPortMessage();
   resizeWindow(1000, 800);
-  placeTree(50, 50, 1000, 800, @treeMenuChoices);  
-  setCameraPosition(-50, -50, $cameraZ-50);
-  setCameraFrontVector(1,1,-1);
-  sleep(1);
-  setCameraUpVector(1,1,1);
+  my $treeCount = 0;
+  for($i = 250; $i > -275; $i-= 50)
+   {
+    for($j = 250; $j > -275; $j-= 50)
+     { 
+       placeTree($i, $j, 1000, 800, @{$treeMenuChoices[$treeCount++]});    
+       last if $treeCount >= scalar(@treeMenuChoices);
+     }
+    last if $treeCount >= scalar(@treeMenuChoices);
+  }
+  my $cameraZ = getCameraHeight();
+  setCameraPosition(-300, 0, $cameraZ);
+  setCameraFrontVector(0.84,0,-0.55);
+  setCameraUpVector(0.55,0,0.84);
   simulatePermaplan();
   simulateUntil($simLimit);
   
