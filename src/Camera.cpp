@@ -391,7 +391,7 @@ bool Camera::setApi(HttpDebug* serv, char* path, Scene& scene)
   
   if(strncmp(path, "up/", 3)== 0)
    {
-    if(extractColonVec3(path+6, trial))
+    if(extractColonVec3(path+3, trial))
      {
       glm_vec3_copy(trial, up);
       glm_vec3_scale_as(up, 1.0f, up);
@@ -399,7 +399,7 @@ bool Camera::setApi(HttpDebug* serv, char* path, Scene& scene)
                                                                   up[0], up[1], up[2]);
       goto goodExit;
      }
-    LogRequestErrors("Camera::setApi couldn't extract vector from %s\n", path+6);
+    LogRequestErrors("Camera::setApi couldn't extract vector from %s\n", path+3);
     return false;
    }
 

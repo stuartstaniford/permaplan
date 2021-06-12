@@ -411,7 +411,7 @@ sub setCameraFrontVector
 
 sub setCameraUpVector
 {
-  my $url = "http://127.0.0.1:$port/camera/set/front/".join(':', @_).":";
+  my $url = "http://127.0.0.1:$port/camera/set/up/".join(':', @_).":";
   my $response = $http->get($url);
   sanityCheckHeader($response, '/camera/set/up/');  
   return 1 if(length $response->{content} && $response->{content} eq "OK\n");

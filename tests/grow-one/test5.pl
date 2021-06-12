@@ -13,6 +13,7 @@ foreach my $i (1..$loopLimit)
   system("rm -rf $dir/test5.out.oldf");
   openOutput("$dir/test5.log");
   startPermaplan("-A -d $dir/test5.oldf -D $dir/test5.out.oldf -g 5.0");
+  printPortMessage();
   resizeWindow(1000, 800);
   setCameraFrontVector(0,0,-1);
   my $cameraZ = getCameraHeight();
@@ -35,9 +36,10 @@ foreach my $i (1..$loopLimit)
    }
   sleep(1);
   
-  setCameraPosition(-50, -50, $cameraZ);
-  #setCameraFrontVector(1,1,-1);
-  #setCameraUpVector(1,1,1);
+  setCameraPosition(-50, -50, $cameraZ-50);
+  setCameraFrontVector(1,1,-1);
+  sleep(1);
+  setCameraUpVector(1,1,1);
   simulatePermaplan();
   simulateUntil($simLimit);
   
