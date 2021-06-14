@@ -29,6 +29,10 @@ enum ActionType
   SimulatePause,
   SimulateReset,
   SimulateStart,
+  SimulateSpring,
+  SimulateSummer,
+  SimulateFall,
+  SimulateWinter,
   WindowMove,
   WindowResize,
 };

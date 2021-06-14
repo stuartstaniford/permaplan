@@ -34,7 +34,10 @@ InterfaceAction::InterfaceAction(ActionType type, char* path):
    }
 
   // Simulation controls
-  if(actionType == SimulateStart || actionType == SimulatePause || actionType == SimulateReset)
+  if(actionType == SimulateStart || actionType == SimulatePause 
+     || actionType == SimulateReset  || actionType == SimulateSpring
+     || actionType == SimulateSummer || actionType == SimulateFall
+     || actionType == SimulateWinter)
     return;
 
   // Insert menu options

@@ -37,9 +37,9 @@ foreach my $i (1..$loopLimit)
     last if $treeCount >= scalar(@treeMenuChoices);
   }
   my $cameraZ = getCameraHeight();
-  setCameraPosition(-300, 0, $cameraZ);
-  setCameraFrontVector(0.84,0,-0.55);
-  setCameraUpVector(0.55,0,0.84);
+  setCameraPosition(115, -120, $cameraZ-120);
+  setCameraFrontVector(0.64, 0.74,-0.20);
+  setCameraUpVector(0.2, 0.10, 0.98);
   simulatePermaplan();
   simulateUntil($simLimit);
   

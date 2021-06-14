@@ -204,6 +204,30 @@ ActionType Window3D::processPseudoAction(InterfaceAction* action)
       LogSimulationControls("Simulate Button \xe2\x96\xb6 pressed.\n");
       scene->startSimulation();
       return SimulateStart;
+
+    case SimulateSpring:
+      LogPseudoActions("Simulate spring button press processed.\n");
+      LogSimulationControls("Spring season selected.\n");
+      displaySeason = 0u;
+      return SimulateSpring;
+
+    case SimulateSummer:
+      LogPseudoActions("Simulate summer button press processed.\n");
+      LogSimulationControls("Summer season selected.\n");
+      displaySeason = 1u;
+      return SimulateSummer;
+  
+    case SimulateFall:
+      LogPseudoActions("Simulate fall button press processed.\n");
+      LogSimulationControls("Fall season selected.\n");
+      displaySeason = 2u;
+      return SimulateFall;
+
+    case SimulateWinter:
+      LogPseudoActions("Simulate winter button press processed.\n");
+      LogSimulationControls("Winter season selected.\n");
+      displaySeason = 3u;
+      return SimulateWinter;
       
      case WindowMove:
       LogPseudoActions("Window move action to %.0f, %.0f processed.\n",

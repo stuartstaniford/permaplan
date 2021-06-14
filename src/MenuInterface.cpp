@@ -746,6 +746,23 @@ bool MenuInterface::HTTPAPiSimulate(HttpDebug* serv, char* path)
   else if(strncmp(path, "reset", 5)== 0)
     return createAction(serv, SimulateReset, (char*)"SimulateReset", 
                                                         (char*)"HTTPAPiSimulate", path+5);
+
+  else if(strncmp(path, "spring", 6)== 0)
+    return createAction(serv, SimulateSpring, (char*)"SimulateSpring", 
+                                                        (char*)"HTTPAPiSimulate", path+6);
+
+  else if(strncmp(path, "summer", 6)== 0)
+    return createAction(serv, SimulateSummer, (char*)"SimulateSummer", 
+                                                        (char*)"HTTPAPiSimulate", path+6);
+
+  else if(strncmp(path, "fall", 4)== 0)
+    return createAction(serv, SimulateFall, (char*)"SimulateFall", 
+                                                        (char*)"HTTPAPiSimulate", path+4);
+
+  else if(strncmp(path, "winter", 6)== 0)
+    return createAction(serv, SimulateWinter, (char*)"SimulateWinter", 
+                                                        (char*)"HTTPAPiSimulate", path+6);
+
   
   LogRequestErrors("MenuInterface::HTTPAPi unknown simulation command %s\n", path);
   return false;
