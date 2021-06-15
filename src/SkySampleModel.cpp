@@ -22,7 +22,8 @@ SkySampleModel* SkySampleModel::theSingleton = NULL;
 // =======================================================================================
 // Constructor
 
-// Currently hard-coded Ithaca values (approx).
+// Currently hard-coded Ithaca values (approx) estimated from the monthly maps at
+// https://www.nrel.gov/gis/solar.html
 // XX need to actually look up based on latitude in a suitable dataset.
 
 SkySampleModel::SkySampleModel(float lat):
@@ -32,7 +33,8 @@ SkySampleModel::SkySampleModel(float lat):
                                   dNI{3.1f, 3.2f, 4.2f, 4.7f, 4.7f, 5.0f,
                                       5.3f, 5.2f, 4.7f, 3.8f, 3.5f, 3.2f},
                                   seasonStart(105),
-                                  seasonEnd(303)
+                                  seasonEnd(303),
+                                  lastYearUpdated(-1)
 {
   // Constructor should only be called once at startup.  Everyone else gets us via
   // getSkySampleModel()
@@ -117,6 +119,19 @@ void SkySampleModel::setSamples(void)
 
 
 // =======================================================================================
+// Function to check if it's a different year, and if so, update the samples.
+
+void SkySampleModel::updateIfNeeded(float simYear)
+{
+  if((int)simYear > lastYearUpdated)
+   {
+    lastYearUpdated = (int)simYear;
+    setSamples();
+   }
+}
+
+
+// =======================================================================================
 // Function to determine, based on bounding box positions, whether tree1 and tree2
 // might need to consider their mutual interaction in terms of shading one another.
 
@@ -166,8 +181,10 @@ unsigned SkySampleModel::treesInteract(BoundingBox* B1, BoundingBox* B2)
 
 
 // =======================================================================================
-// Function to return the declination angle of the sun based on day of year.
-// See https://en.wikipedia.org/wiki/Position_of_the_Sun
+// Function to return the declination angle of the sun based on day of year.  This is the
+// 'latitude' of the sun in an equatorial coordinate system - ie the angle above the 
+// equator.
+// See https://en.wikipedia.org/wiki/Position_of_the_Sun#Calculations
 
 float SkySampleModel::declination(float dayOfYear)
 {

@@ -72,6 +72,7 @@ public:
   void setSamples(void);
   unsigned treesInteract(BoundingBox* B1, BoundingBox* B2);
   bool treesCluster(BoundingBox* B1, BoundingBox* B2);
+  void updateIfNeeded(float simYear);
   bool oneSampleRow(HttpDebug* serv, int i);
   bool diagnosticHTML(HttpDebug* serv);
 
@@ -89,6 +90,7 @@ private:
   float   dFI[12];               // diffuse horizontal irradiance - kWH/m^2/day
   int     seasonStart;           // day of the year growing season starts
   int     seasonEnd;             // ditto day it ends.
+  int     lastYearUpdated;       // update if it's a new year than this one
 
 
     // Member functions - private

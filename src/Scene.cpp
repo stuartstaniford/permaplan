@@ -2,6 +2,7 @@
 // This class is the one responsible for drawing the current state of
 // the scene at an overall level.
 
+#include "SkySampleModel.h"
 #include "ControlGroup.h"
 #include "Scene.h"
 #include "Shader.h"
@@ -382,6 +383,7 @@ void Scene::draw(bool mouseMoved, float timeElapsed)
   if(doSimulation)
    {
     simYear += timeElapsed*simulationSpeed;
+    SkySampleModel::getSkySampleModel().updateIfNeeded(simYear);
 #ifdef MULTI_THREADED_SIMULATION
     Tree::analyzeTreeGraph(timeElapsed*simulationSpeed, *this);
 #else
