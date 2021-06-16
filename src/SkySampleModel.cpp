@@ -24,7 +24,8 @@ SkySampleModel* SkySampleModel::theSingleton = NULL;
 
 // Currently hard-coded Ithaca values (approx) estimated from the monthly maps at
 // https://www.nrel.gov/gis/solar.html
-// XX need to actually look up based on latitude in a suitable dataset.
+// XX need to actually look up based on latitude in a suitable dataset, such as
+//https://datacatalog.worldbank.org/dataset/world-direct-normal-irradiation-dni-gis-data-global-solar-atlas
 
 SkySampleModel::SkySampleModel(float lat):
                                   latitude(lat),
@@ -111,6 +112,10 @@ void SkySampleModel::setSamples(void)
       continue;
       
     glm_vec3_scale_as(point, 1.0f, samples[pointsAchieved]);
+    
+    // The amount of power coming from this direction is the GHI integrated over the
+    // season.
+    
     samples[pointsAchieved][3] = 3.14159f;
     
     pointsAchieved++;
