@@ -6,11 +6,19 @@
 
 #include "ResourceManager.h"
 
+
 // =======================================================================================
 // Constructor
 
 ResourceManager::ResourceManager(void)
 {
+  // First check if the Materials directory exists, create it if necessary
+  
+  
+  // Check if the manifest.json file exists, fetch it if necessary.
+  
+  // Now execute finding all the things.
+  
 }
 
 
