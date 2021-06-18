@@ -15,6 +15,13 @@
 #define LOG_OPENGL_CONSTANTS    // Log various openGL parameters
 #define LOG_TREE_VALIDATION     // Validate data structures after every frame
 
+
+// =======================================================================================
+// Logging options to do with resource management and collection
+
+#define LOG_RESOURCE_ERRORS      // Clear errors in the resource manager
+
+
 // =======================================================================================
 // Logging options to do with parsing and validating OLDF and OTDL files
 
@@ -159,6 +166,9 @@ extern bool doLogEnvVars;         // Log the value of environment variables we c
 extern bool doLogOpenGLConstants; // Log various openGL parameters
 extern bool doLogTreeValidation;  // Validate data structures after every frame
 
+// Logging options to do with resource management and collection
+extern bool doLogResourceErrors;  // Clear errors in the resource manager
+
 // Logging options to do with parsing and validating OLDF and OTDL files
 extern bool doLogOLDFValidity;    // Log validity problems in the file
 extern bool doLogOLDFDetails;     // Log details of valid OLDF objects
@@ -293,6 +303,18 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
                                             LogStatement("LogTreeValidation: " __VA_ARGS__)
 #else
 #define LogTreeValidation(...)
+#endif
+
+
+// =======================================================================================
+// Logging options to do with resource management and collection
+
+// Clear errors in the resource manager
+#ifdef LOG_RESOURCE_ERRORS
+#define LogResourceErrors(...) if(doLogResourceErrors) \
+                                          LogStatement("LogResourceErrors: " __VA_ARGS__)
+#else
+#define LogResourceErrors(...)
 #endif
 
 

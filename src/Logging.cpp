@@ -23,6 +23,9 @@ bool doLogEnvVars             = true; // Log the value of environment variables 
 bool doLogOpenGLConstants     = true; // Log various openGL parameters
 bool doLogTreeValidation      = true; // Validate data structures after every frame
 
+// Logging options to do with resource management and collection
+bool doLogResourceErrors      = true; // Clear errors in the resource manager
+
 // Logging options to do with parsing and validating OLDF and OTDL files
 bool doLogOLDFValidity        = true; // Log validity problems in the file
 bool doLogOLDFDetails         = true; // Log details of valid OLDF objects
@@ -210,7 +213,16 @@ bool LogControlHTML(HttpDebug* serv, char* path)
 #endif
 
 
+// Logging options to do with resource management and collection
+
+#ifdef LOG_RESOURCE_ERRORS // Clear errors in the resource manager
+  if(strncmp(path, "doLogResourceErrors", sizeof("doLogResourceErrors")-1)==0)
+    return oneLogControl(serv, path, doLogResourceErrors);
+#endif
+
+
 // Logging options to do with parsing and validating OLDF and OTDL files
+
 
 #ifdef LOG_TREE_VALIDATION // Validate data structures after every frame
   if(strncmp(path, "doLogTreeValidation", sizeof("doLogTreeValidation")-1)==0)
