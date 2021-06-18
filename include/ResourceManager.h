@@ -7,6 +7,8 @@
 #ifndef RESOURCE_MANAGER_H
 #define RESOURCE_MANAGER_H
 
+#include "Window3D.h"
+
 // =======================================================================================
 // Class variable initialization
 
@@ -17,7 +19,7 @@ public:
   // Instance variables - public
   
   // Member functions - public
-  ResourceManager(void);
+  ResourceManager(Window3D& window);
   ~ResourceManager(void);
   
 private:

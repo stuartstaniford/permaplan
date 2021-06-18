@@ -29,6 +29,7 @@ class Window3D
   // Public methods
   Window3D(int pixWidth, int pixHeight);
   void loop(HttpLoadBalancer& httpServer);
+  int initPanel(char* question, char** responses, int nResponses);
   bool diagnosticHTML(HttpDebug* serv);
   
   // Static class methods

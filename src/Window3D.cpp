@@ -254,6 +254,16 @@ ActionType Window3D::processPseudoAction(InterfaceAction* action)
 
 
 // =======================================================================================
+// Function used when we need to interact with the user prior to the main event loop
+// starting.  We need to set up just enough context for imgGui to work.
+
+int Window3D::initPanel(char* question, char** responses, int nResponses)
+{
+  return 1;  
+}
+
+
+// =======================================================================================
 // Event processing loop for our window
 
 void Window3D::loop(HttpLoadBalancer& httpServer)

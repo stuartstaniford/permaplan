@@ -12,7 +12,7 @@
 #include "Version.h"
 #include "SkySampleModel.h"
 #include "RegionList.h"
-
+#include "ResourceManager.h"
 
 // =======================================================================================
 // C function to launder C++ method into pthread_create
@@ -46,6 +46,7 @@ int main (int argc, char* argv[])
   setExternVersions();
   Window3D window(800, 600);
   Shader shader("src/pmodVert.glsl", "src/pmodFrag.glsl");
+  ResourceManager resources(window);
   PmodDesign design;
   SkySampleModel skySampler(design.boundary.referencePoint[0]);
   Scene scene;
