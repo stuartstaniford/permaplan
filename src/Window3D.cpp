@@ -259,7 +259,17 @@ ActionType Window3D::processPseudoAction(InterfaceAction* action)
 
 int Window3D::initPanel(char* question, char** responses, int nResponses)
 {
-  return 1;  
+  while(!glfwWindowShouldClose(window))
+   {
+    glClearColor(0.6f, 0.7f, 0.7f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glfwGetWindowSize(window, &width, &height); // make sure we know current size
+    int response = imgMenu->initPanel(question, responses, nResponses);
+    glfwSwapBuffers(window);
+    if(response >= 0)
+      return response;
+   }
+  return 0;
 }
 
 

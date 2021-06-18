@@ -34,24 +34,25 @@ class MenuInterface
   // Public methods
   MenuInterface(GLFWwindow* window, Window3D& W);
   ~MenuInterface(void);
+  int   initPanel(char* question, char** responses, int nResponses);
   void  imguiInterface(void);
-  bool HTTPAPi(HttpDebug* serv, char* path);
-  bool HTTPAPiSelectGenus(HttpDebug* serv, char* path);
-  bool HTTPAPiAllTreeSelector(HttpDebug* serv, char* path);
-  bool HTTPAPiSelections(HttpDebug* serv, char* path);
-  bool HTTPAPiSimulate(HttpDebug* serv, char* path);
-  bool HTTPAPiInsert(HttpDebug* serv, char* path);
-  bool HTTPAPiEnter(HttpDebug* serv, char* path);
-  bool HTTPAPiOptions(HttpDebug* serv, char* path);
-  void allTreeSelectorPseudoAction(const char* optionName);
-  void allTreeSelectorButton(const char* name, DynamicallyTypable* value);
-  void insertHeightButton(void);
-  void insertBlockButton(void);
-  void insertTreeButton(void);
-  void heightEnteredButton(float z);
-  void blockEnteredButton(float blockSize, const std::string& matName);
-  void imguiTreeMenuButtonPressed(const char* genusString);
-  
+  bool  HTTPAPi(HttpDebug* serv, char* path);
+  bool  HTTPAPiSelectGenus(HttpDebug* serv, char* path);
+  bool  HTTPAPiAllTreeSelector(HttpDebug* serv, char* path);
+  bool  HTTPAPiSelections(HttpDebug* serv, char* path);
+  bool  HTTPAPiSimulate(HttpDebug* serv, char* path);
+  bool  HTTPAPiInsert(HttpDebug* serv, char* path);
+  bool  HTTPAPiEnter(HttpDebug* serv, char* path);
+  bool  HTTPAPiOptions(HttpDebug* serv, char* path);
+  void  allTreeSelectorPseudoAction(const char* optionName);
+  void  allTreeSelectorButton(const char* name, DynamicallyTypable* value);
+  void  insertHeightButton(void);
+  void  insertBlockButton(void);
+  void  insertTreeButton(void);
+  void  heightEnteredButton(float z);
+  void  blockEnteredButton(float blockSize, const std::string& matName);
+  void  imguiTreeMenuButtonPressed(const char* genusString);
+
  private:
   
   // Class variables - private

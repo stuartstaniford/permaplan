@@ -583,6 +583,23 @@ void MenuInterface::imguiSimulationController(void)
 
 
 // =======================================================================================
+// Top level function used only during startup when we need to interact with the user
+// about something.
+
+int  MenuInterface::initPanel(char* question, char** responses, int nResponses)
+{
+  ImGui_ImplOpenGL3_NewFrame();
+  ImGui_ImplGlfw_NewFrame();
+  ImGui::NewFrame();
+
+  // Render dear imgui into screen
+  ImGui::Render();
+  ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+  return 1;  
+}
+
+
+// =======================================================================================
 // Top level function to organize the rendering of all the imguiInterface stuff
 
 void MenuInterface::imguiInterface(void)
