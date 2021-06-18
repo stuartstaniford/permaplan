@@ -9,7 +9,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
-#define MATERIALS_DIR (char*)"Materials"
+#define MATERIALS_DIR (char*)"Materials2"
 // =======================================================================================
 // Constructor
 

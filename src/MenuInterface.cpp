@@ -19,6 +19,7 @@ MenuInterface::MenuInterface(GLFWwindow* window, Window3D& W):
                         scene(NULL),
                         show_insert_menu(false),
                         show_lock_overlay(false),
+                        show_init_panel(false),
                         win3D(W),
                         show_height_input_dialog(false),
                         show_materials_menu(false),
@@ -61,6 +62,18 @@ void setCorner(int& corner)
     ImVec2 window_pos_pivot = ImVec2((corner & 1) ? 1.0f : 0.0f, (corner & 2) ? 1.0f : 0.0f);
     ImGui::SetNextWindowPos(window_pos, ImGuiCond_Always, window_pos_pivot);
    }
+}
+
+
+// =======================================================================================
+// Utility function for handling menus in the center of the window
+
+void setCenter(void)
+{
+  ImGuiIO& io = ImGui::GetIO();
+  ImVec2 window_pos = ImVec2(io.DisplaySize.x/2, io.DisplaySize.y/2);
+  ImVec2 window_pos_pivot = ImVec2(0.5f, 0.5f);
+  ImGui::SetNextWindowPos(window_pos, ImGuiCond_Always, window_pos_pivot);
 }
 
 
@@ -588,9 +601,38 @@ void MenuInterface::imguiSimulationController(void)
 
 int  MenuInterface::initPanel(char* question, char** responses, int nResponses)
 {
+  unless(show_init_panel)
+    return -1;
+  
+  // Initialization of window
   ImGui_ImplOpenGL3_NewFrame();
   ImGui_ImplGlfw_NewFrame();
   ImGui::NewFrame();
+
+  // Format and position
+  setCenter();
+  ImGui::SetNextWindowBgAlpha(0.35f); // Transparent background
+  ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoDecoration |
+                ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings |
+                ImGuiWindowFlags_NoNav | ImGuiWindowFlags_NoMove;
+
+  // Contents of window
+  if (ImGui::Begin("Dialog Box", &show_init_panel, window_flags))
+   {
+    ImGui::Text("%s", question);
+    ImGui::Separator();
+    
+    for(int i=0; i < nResponses; i++)
+     {
+      if(ImGui::Button(responses[i]))
+       {
+        show_init_panel = false;
+        return i;
+       }
+      ImGui::SameLine();
+     }
+   }
+  ImGui::End();
 
   // Render dear imgui into screen
   ImGui::Render();

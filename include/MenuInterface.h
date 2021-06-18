@@ -30,6 +30,7 @@ class MenuInterface
   Scene*          scene;
   bool            show_insert_menu;
   bool            show_lock_overlay;
+  bool            show_init_panel;
 
   // Public methods
   MenuInterface(GLFWwindow* window, Window3D& W);

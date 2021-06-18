@@ -264,6 +264,7 @@ int Window3D::initPanel(char* question, char** responses, int nResponses)
     glClearColor(0.6f, 0.7f, 0.7f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glfwGetWindowSize(window, &width, &height); // make sure we know current size
+    imgMenu->show_init_panel = true;
     int response = imgMenu->initPanel(question, responses, nResponses);
     glfwSwapBuffers(window);
     if(response >= 0)
