@@ -62,12 +62,10 @@ ResourceManager::ResourceManager(Window3D& window)
    }
   if(!doc.IsObject())
     err(-1, "Base of JSON file %s is not JSON object.\n", MANIFEST_FILE);
-  unless(doc.HasMember("directories") && doc["directories"].IsObject())
+  unless(doc.HasMember("directories") && doc["directories"].IsArray())
     err(-1, "No directories object in %s.\n", MANIFEST_FILE);
   
   checkDirectories(doc["directories"]);
-    
-
 }
 
 
@@ -86,9 +84,16 @@ ResourceManager::~ResourceManager(void)
 // the manifest - assuming they are some other user thing.  But we will fix permissions
 // on the directories we expect.
 
-
 void ResourceManager::checkDirectories(Value& directoryTree)
 {
+  if(directoryTree.IsArray())
+   {
+    
+   }
+  if(directoryTree.IsObject())
+   {
+    
+   }
   //const char* token = introductoryData["spaceUnits"].GetString();
 
 }

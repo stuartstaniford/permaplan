@@ -1,6 +1,23 @@
 // Master file for specifying where to get needed resources.
 {
   // Directories entry contains what the resource tree should look like
-  "directories": {}
+  "directories": 
+   [
+     {
+       "name": "Trees",
+       "mode": "755",
+       "subdirs": []
+     },
+     {
+       "name": "Blocks",
+       "mode": "755",
+       "subdirs": []
+     },
+     {
+       "name": "Solar",
+       "mode": "755",
+       "subdirs": []
+     }
+   ]
 }
 
