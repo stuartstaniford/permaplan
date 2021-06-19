@@ -67,6 +67,6 @@ int main (int argc, char* argv[])
 
   // Main display loop
   window.loop(httpServer);
-
+  
  return 0;
 }

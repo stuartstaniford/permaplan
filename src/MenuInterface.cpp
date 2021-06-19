@@ -624,9 +624,11 @@ int  MenuInterface::initPanel(char* question, char** responses, int nResponses)
     
     for(int i=0; i < nResponses; i++)
      {
+      //fprintf(stderr, "Creating button %d\n",i);
       if(ImGui::Button(responses[i]))
        {
         show_init_panel = false;
+        //fprintf(stderr, "Selected button %d\n",i);
         return i;
        }
       ImGui::SameLine();
@@ -637,7 +639,7 @@ int  MenuInterface::initPanel(char* question, char** responses, int nResponses)
   // Render dear imgui into screen
   ImGui::Render();
   ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-  return 1;  
+  return -1;  
 }
 
 

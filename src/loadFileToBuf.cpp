@@ -7,8 +7,7 @@
 
 
 // =======================================================================================
-// Load a file into a freshly allocated string.  Null terminate the string.
-// Will pick up most file errors, but will silently load an empty file into string "\0"
+// Function to check that a file is present and is a plain old regular file
 
 bool regularFileExists(char* fileName)
 {
@@ -16,6 +15,20 @@ bool regularFileExists(char* fileName)
   if(stat(fileName, &params)<0)
     return false;
   if(!(params.st_mode&S_IFREG))
+    return false;
+  return true;
+}
+
+
+// =======================================================================================
+// Function to check that a file is present and is a directory
+
+bool directoryExists(char* fileName)
+{
+  struct stat params;
+  if(stat(fileName, &params)<0)
+    return false;
+  if(!(params.st_mode&S_IFDIR))
     return false;
   return true;
 }

@@ -60,6 +60,7 @@ void openGLInitialLogging(void)
 
 // =======================================================================================
 // Constructor for a Window3D
+// See https://learnopengl.com/Getting-started/Hello-Window
 
 Window3D::Window3D(int pixWidth, int pixHeight):
                         scene(NULL),
@@ -264,13 +265,18 @@ int Window3D::initPanel(char* question, char** responses, int nResponses)
     glClearColor(0.6f, 0.7f, 0.7f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glfwGetWindowSize(window, &width, &height); // make sure we know current size
+    Shader& shader = Shader::getMainShader();
+    shader.useProgram();
     imgMenu->show_init_panel = true;
     int response = imgMenu->initPanel(question, responses, nResponses);
     glfwSwapBuffers(window);
+    glfwPollEvents();    
     if(response >= 0)
       return response;
+    if(checkGLError(stderr, "Window3D::initPanel"))
+      exit(-1);
    }
-  return 0;
+  return -1;
 }
 
 
@@ -355,6 +361,7 @@ void Window3D::loop(HttpLoadBalancer& httpServer)
   scene->saveState();
   frameTime.now();
   LogCloseDown("Orderly exit from window loop after %.6lf\n", frameTime - start);
+  glfwTerminate();
 }
 
 
