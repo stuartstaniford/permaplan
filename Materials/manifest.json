@@ -1,1 +1,6 @@
 // Master file for specifying where to get needed resources.
+{
+  // Directories entry contains what the resource tree should look like
+  "directories": {}
+}
+

@@ -8,6 +8,10 @@
 #define RESOURCE_MANAGER_H
 
 #include "Window3D.h"
+#include "rapidjson/document.h"
+#include "rapidjson/writer.h"
+#include "rapidjson/stringbuffer.h"
+#include "rapidjson/error/en.h"
 
 // =======================================================================================
 // Class variable initialization
@@ -21,6 +25,7 @@ public:
   // Member functions - public
   ResourceManager(Window3D& window);
   ~ResourceManager(void);
+  void checkDirectories(rapidjson::Value& directoryTree);
   
 private:
   
