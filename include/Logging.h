@@ -20,6 +20,8 @@
 // Logging options to do with resource management and collection
 
 #define LOG_RESOURCE_ERRORS      // Clear errors in the resource manager
+#define LOG_RESOURCE_ACTIONS     // Stuff the resource manager actually does
+#define LOG_RESOURCE_DETAILS     // Micro-detail of the resource manager operating
 
 
 // =======================================================================================
@@ -168,6 +170,8 @@ extern bool doLogTreeValidation;  // Validate data structures after every frame
 
 // Logging options to do with resource management and collection
 extern bool doLogResourceErrors;  // Clear errors in the resource manager
+extern bool doLogResourceActions;  // Stuff the resource manager actually does
+extern bool doLogResourceDetails;  // Micro-detail of the resource manager operating
 
 // Logging options to do with parsing and validating OLDF and OTDL files
 extern bool doLogOLDFValidity;    // Log validity problems in the file
@@ -315,6 +319,22 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
                                           LogStatement("LogResourceErrors: " __VA_ARGS__)
 #else
 #define LogResourceErrors(...)
+#endif
+
+// Stuff the resource manager actually does
+#ifdef LOG_RESOURCE_ACTIONS
+#define LogResourceActions(...) if(doLogResourceActions) \
+                                          LogStatement("LogResourceActions: " __VA_ARGS__)
+#else
+#define LogResourceActions(...)
+#endif
+
+// Micro-detail of the resource manager operating
+#ifdef LOG_RESOURCE_DETAILS
+#define LogResourceDetails(...) if(doLogResourceDetails) \
+                                          LogStatement("LogResourceDetails: " __VA_ARGS__)
+#else
+#define LogResourceDetails(...)
 #endif
 
 

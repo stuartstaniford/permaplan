@@ -88,13 +88,17 @@ void ResourceManager::checkDirectories(Value& directoryTree)
 {
   if(directoryTree.IsArray())
    {
-    
+    int N = directoryTree.Size();
+    for(int i=0; i<N; i++)
+     {
+      unless(directoryTree[i].IsObject())
+        err(-1, "Non object in directory tree.");
+     }
    }
   if(directoryTree.IsObject())
    {
     
    }
-  //const char* token = introductoryData["spaceUnits"].GetString();
 
 }
 
