@@ -18,14 +18,16 @@ using namespace rapidjson;
 // =======================================================================================
 // Constructor
 
+#define PATH_BUF_SIZE 256
+
 ResourceManager::ResourceManager(Window3D& window)
 {
-  char buf[128];
+  char buf[PATH_BUF_SIZE];
   // First check if the Materials directory exists, create it if necessary and approved
   if(!directoryExists(MATERIALS_DIR))
    {
     // It's possible we are just being run in the wrong place - double check.
-    getcwd(buf, 128);
+    getcwd(buf, PATH_BUF_SIZE);
     LogResourceErrors("Directory %s not found in %s.", MATERIALS_DIR, buf);
     char question[192];
     snprintf(question, 192, 
@@ -42,7 +44,7 @@ ResourceManager::ResourceManager(Window3D& window)
   dir = opendir(MATERIALS_DIR);
   
   // Check if the manifest.json file exists, fetch it if necessary.
-  snprintf(buf, 128, "%s/%s", MATERIALS_DIR, MANIFEST_FILE);
+  snprintf(buf, PATH_BUF_SIZE, "%s/%s", MATERIALS_DIR, MANIFEST_FILE);
   unless(regularFileExists(buf))
    {
     ; // XX need website where this would live
@@ -65,7 +67,9 @@ ResourceManager::ResourceManager(Window3D& window)
   unless(doc.HasMember("directories") && doc["directories"].IsArray())
     err(-1, "No directories object in %s.\n", MANIFEST_FILE);
   
-  checkDirectories(doc["directories"]);
+  int sz = strlen(MATERIALS_DIR);
+  buf[sz+1] = '\0';
+  checkDirectories(doc["directories"], buf, sz+1);
 }
 
 
@@ -84,7 +88,7 @@ ResourceManager::~ResourceManager(void)
 // the manifest - assuming they are some other user thing.  But we will fix permissions
 // on the directories we expect.
 
-void ResourceManager::checkDirectories(Value& directoryTree)
+void ResourceManager::checkDirectories(Value& directoryTree, char* path, unsigned pathlen)
 {
   if(directoryTree.IsArray())
    {
@@ -92,11 +96,18 @@ void ResourceManager::checkDirectories(Value& directoryTree)
     for(int i=0; i<N; i++)
      {
       unless(directoryTree[i].IsObject())
-        err(-1, "Non object in directory tree.");
+        err(-1, "Non object in directory tree %s.", path);
+      checkDirectories(directoryTree[i], path, pathlen);
      }
    }
   if(directoryTree.IsObject())
    {
+    unless(directoryTree.HasMember("name"))
+      err(-1, "Object has no name in directory %s.\n", path);
+    unless(directoryTree.HasMember("mode"))
+      err(-1, "Object %s has no mode in directory %s.\n", 
+                                            directoryTree["name"].GetString(), path);
+    snprintf(path + pathlen, PATH_BUF_SIZE-pathlen-1, "%s/", directoryTree["name"].GetString());
     
    }
 

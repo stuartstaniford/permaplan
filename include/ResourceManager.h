@@ -25,7 +25,7 @@ public:
   // Member functions - public
   ResourceManager(Window3D& window);
   ~ResourceManager(void);
-  void checkDirectories(rapidjson::Value& directoryTree);
+  void checkDirectories(rapidjson::Value& directoryTree, char* path, unsigned pathlen);
   
 private:
   
