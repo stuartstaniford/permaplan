@@ -68,7 +68,10 @@
      {
        "name": "Solar",
        "mode": "755",
-       "subdirs": []
+       "subdirs": [],
+       "files":
+        [
+        ]
      }
    ]
 }

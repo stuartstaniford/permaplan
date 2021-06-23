@@ -116,7 +116,7 @@ void ResourceManager::checkDirectories(Value& directoryTree, char* path, unsigne
     unless(directoryExists(path))
      {
       if(mkdir(path, mode) < 0)
-        err(-1, "Couldn't creat directory %s.\n", path);
+        err(-1, "Couldn't create directory %s.\n", path);
       LogResourceActions("Created directory %s.\n", path);
      }
     else
@@ -133,7 +133,21 @@ void ResourceManager::checkDirectories(Value& directoryTree, char* path, unsigne
         err(-1, "Bad subdir value not array at %s.\n", path);
       checkDirectories(directoryTree["subdirs"], path, pathlen);
      }
+    if(directoryTree.HasMember("files"))
+      checkFiles(directoryTree["files"], path, pathlen);
    }
+}
+
+
+// =======================================================================================
+// Function that is called by checkDirectories above, and serves to obtain the individual
+// files listed under some given directory.
+
+void ResourceManager::checkFiles(Value& fileList, char* path, unsigned pathlen)
+{
+  unless(fileList.IsArray())
+    err(-1, "Bad, non-array, fileList at %s.\n", path);
+  
 }
 
 

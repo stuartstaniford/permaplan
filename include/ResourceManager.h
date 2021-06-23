@@ -26,7 +26,8 @@ public:
   ResourceManager(Window3D& window);
   ~ResourceManager(void);
   void checkDirectories(rapidjson::Value& directoryTree, char* path, unsigned pathlen);
-  
+  void checkFiles(rapidjson::Value& fileList, char* path, unsigned pathlen);
+
 private:
   
   // Instance variables - private
