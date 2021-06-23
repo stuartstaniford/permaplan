@@ -35,6 +35,21 @@ bool directoryExists(char* fileName)
 
 
 // =======================================================================================
+// Takes a string (like "775" and generates an unsigned with the low nine bits reflecting
+// the designated permission bits (so in this example it would be 
+// 00000000000000000000000111111101).  See "man chmod" for the exact bit definitions.
+
+unsigned modeBitsFromString(char* modeString)
+{
+  unsigned ownerPerms = modeString[0];  
+  unsigned groupPerms = modeString[1];  
+  unsigned worldPerms = modeString[2];
+
+  return (ownerPerms<<6 | groupPerms<<3 | worldPerms);  
+}
+
+
+// =======================================================================================
 // Load a file into a freshly allocated string.  Null terminate the string.
 // Will pick up most file errors, but will silently load an empty file into string "\0"
 

@@ -6,4 +6,6 @@
 bool regularFileExists(char* fileName);
 bool directoryExists(char* fileName);
 
+unsigned modeBitsFromString(char* modeString);
+
 char* loadFileToBuf(const char* fileName, unsigned* size);
