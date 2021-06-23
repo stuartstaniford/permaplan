@@ -6,7 +6,59 @@
      {
        "name": "Trees",
        "mode": "755",
-       "subdirs": []
+       "subdirs": 
+        [
+          {
+            "name": "Acer",
+            "mode": "755",
+            "subdirs": []
+          },
+          {
+            "name": "Coniferae",
+            "mode": "755",
+            "subdirs": []
+          },
+          {
+            "name": "Deciduous",
+            "mode": "755",
+            "subdirs": []
+          },
+          {
+            "name": "Fagus",
+            "mode": "755",
+            "subdirs": []
+          },
+          {
+            "name": "Liriodendron",
+            "mode": "755",
+            "subdirs": []
+          },
+          {
+            "name": "Malus",
+            "mode": "755",
+            "subdirs": []
+          },
+          {
+            "name": "Pinus",
+            "mode": "755",
+            "subdirs": []
+          },
+          {
+            "name": "Quercus",
+            "mode": "755",
+            "subdirs": []
+          },
+          {
+            "name": "Regions",
+            "mode": "755",
+            "subdirs": []
+          },
+          {
+            "name": "Tsuga",
+            "mode": "755",
+            "subdirs": []
+          }
+        ]
      },
      {
        "name": "Blocks",

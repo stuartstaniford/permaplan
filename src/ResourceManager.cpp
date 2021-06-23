@@ -109,6 +109,7 @@ void ResourceManager::checkDirectories(Value& directoryTree, char* path, unsigne
                                             directoryTree["name"].GetString(), path);
     snprintf(path + pathlen, PATH_BUF_SIZE-pathlen-1, "%s/", 
                                                   directoryTree["name"].GetString());
+    pathlen += strlen(directoryTree["name"].GetString()) + 1;
     int mode;
     if( (mode = modeBitsFromString(directoryTree["mode"].GetString())) < 0)
       err(-1, "Invalid mode %s in %s.\n", directoryTree["mode"].GetString(), path);
@@ -119,11 +120,19 @@ void ResourceManager::checkDirectories(Value& directoryTree, char* path, unsigne
       LogResourceActions("Created directory %s.\n", path);
      }
     else
+     {
       unless(checkAndFixPermissions(path, mode))
        {
         LogResourceActions("Corrected permissions on directory %s to %s.\n", 
                                                   path, directoryTree["mode"].GetString());
        }
+     }
+    if(directoryTree.HasMember("subdirs"))
+     {
+      unless(directoryTree["subdirs"].IsArray())
+        err(-1, "Bad subdir value not array at %s.\n", path);
+      checkDirectories(directoryTree["subdirs"], path, pathlen);
+     }
    }
 }
 
