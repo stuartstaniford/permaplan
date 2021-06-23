@@ -107,14 +107,23 @@ void ResourceManager::checkDirectories(Value& directoryTree, char* path, unsigne
     unless(directoryTree.HasMember("mode"))
       err(-1, "Object %s has no mode in directory %s.\n", 
                                             directoryTree["name"].GetString(), path);
-    snprintf(path + pathlen, PATH_BUF_SIZE-pathlen-1, "%s/", directoryTree["name"].GetString());
+    snprintf(path + pathlen, PATH_BUF_SIZE-pathlen-1, "%s/", 
+                                                  directoryTree["name"].GetString());
+    int mode;
+    if( (mode = modeBitsFromString(directoryTree["mode"].GetString())) < 0)
+      err(-1, "Invalid mode %s in %s.\n", directoryTree["mode"].GetString(), path);
     unless(directoryExists(path))
      {
-      if(mkdir(path, S_IRWXU|S_IRWXG) < 0)
+      if(mkdir(path, mode) < 0)
         err(-1, "Couldn't creat directory %s.\n", path);
-      LogResourceActions("ResourceManager created directory %s.\n", path);
-      
+      LogResourceActions("Created directory %s.\n", path);
      }
+    else
+      unless(checkAndFixPermissions(path, mode))
+       {
+        LogResourceActions("Corrected permissions on directory %s to %s.\n", 
+                                                  path, directoryTree["mode"].GetString());
+       }
    }
 }
 

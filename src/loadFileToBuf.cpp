@@ -1,10 +1,10 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Apr 2020 -
 // Utility function for loading a file into a buffer.
 
+#include "loadFileToBuf.h"
 #include <err.h>
 #include <sys/stat.h>
-#include "loadFileToBuf.h"
-
+#include <cstring>
 
 // =======================================================================================
 // Function to check that a file is present and is a plain old regular file
@@ -39,13 +39,34 @@ bool directoryExists(char* fileName)
 // the designated permission bits (so in this example it would be 
 // 00000000000000000000000111111101).  See "man chmod" for the exact bit definitions.
 
-unsigned modeBitsFromString(char* modeString)
+int modeBitsFromString(const char* modeString)
 {
+  if(strlen(modeString) != 3)
+    return -1;
+  for(int j=0; j<3; j++)
+    if(modeString[j] < '0' || modeString[j] > '7' )
+      return -2;
   unsigned ownerPerms = modeString[0];  
   unsigned groupPerms = modeString[1];  
   unsigned worldPerms = modeString[2];
 
   return (ownerPerms<<6 | groupPerms<<3 | worldPerms);  
+}
+
+
+// =======================================================================================
+// Check to see if a particular file/directory has the expected 9 bit permissions. 
+// If not, returns false and fixes it.  It they are correct, returns true.
+
+bool checkAndFixPermissions(const char* path, int mode)
+{
+  struct stat params;
+  if(stat(path, &params) < 0)
+    err(-1, "Couldn't stat %s.", path);
+  if(params.st_mode & 0x000001ff == mode)
+    return true;
+  chmod(path, mode);
+  return false;
 }
 
 
