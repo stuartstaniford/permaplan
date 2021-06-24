@@ -50,6 +50,9 @@ HttpClient::~HttpClient(void)
 
 bool HttpClient::fetchFile(char* url, char* path)
 {
+  CURLcode success = curl_easy_perform(easyHandle);
+
+
   return true;
 }
 

@@ -28,6 +28,7 @@ public:
   ~ResourceManager(void);
   void checkDirectories(rapidjson::Value& directoryTree, char* path, unsigned pathlen);
   void checkFiles(rapidjson::Value& fileList, char* path, unsigned pathlen);
+  void checkOneFile(rapidjson::Value& fileObject, int i, char* path, unsigned pathlen);
 
 private:
   

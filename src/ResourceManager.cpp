@@ -148,6 +148,21 @@ void ResourceManager::checkFiles(Value& fileList, char* path, unsigned pathlen)
   unless(fileList.IsArray())
     err(-1, "Bad, non-array, fileList at %s.\n", path);
   
+  int N = fileList.Size();
+  for(int i=0; i<N; i++)
+    checkOneFile(fileList[i], i, path, pathlen);
+}
+
+
+// =======================================================================================
+// Function that is called by checkFiles above, and serves to handle one specific file
+// and the various sources it might be obtained from.
+
+void ResourceManager::checkOneFile(Value& fileObject, int i, char* path, unsigned pathlen)
+{
+  unless(fileObject.IsObject())
+    err(-1, "Bad file object number %d in %s.\n", i, path);
+
 }
 
 
