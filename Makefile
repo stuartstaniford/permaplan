@@ -883,6 +883,7 @@ src/HeightMarker.o: include/HttpDebug.h include/HttpRequestParser.h
 src/HeightMarker.o: include/TaskQueue.h include/Lockable.h include/Vertex.h
 src/HeightMarker.o: include/ElementBufferObject.h include/BoundingBox.h
 src/HeightMarker.o: include/Shader.h include/VertexBufferCombo.h
+src/HttpClient.o: include/HttpClient.h
 src/HttpDebug.o: /usr/local/include/GL/glew.h /usr/local/include/GLFW/glfw3.h
 src/HttpDebug.o: include/HttpDebug.h include/HttpRequestParser.h
 src/HttpDebug.o: include/TaskQueue.h include/Lockable.h include/Global.h
@@ -2071,7 +2072,8 @@ src/ResourceManager.o: include/LeafModel.h include/CO2Scenario.h
 src/ResourceManager.o: include/InterfaceAction.h include/MenuInterface.h
 src/ResourceManager.o: include/ScriptController.h imgui/imgui.h
 src/ResourceManager.o: imgui/imconfig.h include/HttpLoadBalancer.h
-src/ResourceManager.o: include/TaskQueueFarm.h
+src/ResourceManager.o: include/TaskQueueFarm.h include/HttpClient.h
+src/ResourceManager.o: include/loadFileToBuf.h
 src/Scene.o: include/SkySampleModel.h /usr/local/include/cglm/cglm.h
 src/Scene.o: /usr/local/include/cglm/common.h /usr/local/include/cglm/types.h
 src/Scene.o: /usr/local/include/cglm/simd/intrin.h
@@ -3337,4 +3339,4 @@ src/main.o: include/InterfaceAction.h include/MenuInterface.h
 src/main.o: include/ScriptController.h imgui/imgui.h imgui/imconfig.h
 src/main.o: include/HttpLoadBalancer.h include/TaskQueueFarm.h include/Tree.h
 src/main.o: include/TreePart.h include/SkySampleModel.h include/RegionList.h
-src/main.o: include/ResourceManager.h
+src/main.o: include/ResourceManager.h include/HttpClient.h

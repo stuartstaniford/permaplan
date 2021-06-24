@@ -3,6 +3,7 @@
 // a gateway to libcurl.  Mainly used by the resource manager in fetching stuff.
 
 #include "HttpClient.h"
+#include <curl/curl.h>
 
 
 // =======================================================================================
@@ -10,6 +11,7 @@
 
 HttpClient::HttpClient(void)
 {
+  curl_global_init(CURL_GLOBAL_DEFAULT);
 }
 
 
@@ -18,6 +20,7 @@ HttpClient::HttpClient(void)
 
 HttpClient::~HttpClient(void)
 {
+  curl_global_cleanup();
 }
 
 

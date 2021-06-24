@@ -8,6 +8,7 @@
 #define RESOURCE_MANAGER_H
 
 #include "Window3D.h"
+#include "HttpClient.h"
 #include "rapidjson/document.h"
 #include "rapidjson/writer.h"
 #include "rapidjson/stringbuffer.h"
@@ -31,6 +32,7 @@ public:
 private:
   
   // Instance variables - private
+  HttpClient    httpClient;
   
   // Member functions - private
   ResourceManager(const ResourceManager&);                 // Prevent copy-construction
