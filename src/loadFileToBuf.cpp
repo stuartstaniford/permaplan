@@ -63,7 +63,7 @@ bool checkAndFixPermissions(const char* path, int mode)
   struct stat params;
   if(stat(path, &params) < 0)
     err(-1, "Couldn't stat %s.", path);
-  if(params.st_mode & 0x000001ff == mode)
+  if((params.st_mode & 0x000001ff) == mode)
     return true;
   chmod(path, mode);
   return false;

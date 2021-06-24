@@ -23,7 +23,7 @@ LFLAGS =
 # define any libraries to link into executable:
 #   if I want to link in libraries (libx.so or libx.a) I use the -llibname
 #   option, something like (this will link in libmylib.so and libm.so:
-LIBS = -framework OpenGL -lglfw -lGLEW
+LIBS = -framework OpenGL -lglfw -lGLEW -lcurl
 
 # define the source files
 SRCS = $(wildcard src/*.cpp)
