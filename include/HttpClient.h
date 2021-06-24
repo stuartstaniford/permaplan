@@ -5,6 +5,7 @@
 #ifndef HTTP_CLIENT_H
 #define HTTP_CLIENT_H
 
+#include <curl/curl.h>
 
 // =======================================================================================
 // Class variable initialization
@@ -22,6 +23,8 @@ public:
 private:
   
   // Instance variables - private
+  static bool   globalInitCalled;
+  CURL*         easyHandle;
   
   // Member functions - private
   HttpClient(const HttpClient&);                 // Prevent copy-construction

@@ -3,15 +3,25 @@
 // a gateway to libcurl.  Mainly used by the resource manager in fetching stuff.
 
 #include "HttpClient.h"
-#include <curl/curl.h>
+#include "Logging.h"
 
+bool HttpClient::globalInitCalled = false;
 
 // =======================================================================================
 // Constructor
 
 HttpClient::HttpClient(void)
 {
-  curl_global_init(CURL_GLOBAL_DEFAULT);
+  unless(globalInitCalled)
+   {
+    curl_global_init(CURL_GLOBAL_DEFAULT);
+    globalInitCalled = true;
+   }
+  
+  easyHandle = curl_easy_init();
+  unless(easyHandle)
+    err(-1, "Cannot get handle from curl_easy_init.\n");
+  
 }
 
 
@@ -20,7 +30,10 @@ HttpClient::HttpClient(void)
 
 HttpClient::~HttpClient(void)
 {
-  curl_global_cleanup();
+  curl_easy_cleanup(easyHandle);
+  
+  //XX would need some book-keeping to keep track of the last one closed
+  //curl_global_cleanup();
 }
 
 
