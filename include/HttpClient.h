@@ -19,7 +19,7 @@ public:
   // Member functions - public
   HttpClient(void);
   ~HttpClient(void);
-  bool fetchFile(char* url, char* path);
+  bool fetchFile(const char* url, const char* path);
   
 private:
   

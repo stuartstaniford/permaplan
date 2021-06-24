@@ -48,9 +48,9 @@ HttpClient::~HttpClient(void)
 // location.  Returns success or failure.  
 // XX Currently always starts over from the beginning if a prior transfer was incomplete.
 
-bool HttpClient::fetchFile(char* url, char* path)
+bool HttpClient::fetchFile(const char* url, const char* path)
 {
-  CURLcode success = curl_easy_perform(easyHandle);
+  //CURLcode success = curl_easy_perform(easyHandle);
 
 
   return true;

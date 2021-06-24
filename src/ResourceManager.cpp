@@ -170,7 +170,14 @@ void ResourceManager::checkOneFile(Value& fileObject, int i, char* path, unsigne
     err(-1, "No file object sources for number %d in %s.\n", i, path);
   strncpy(path + pathlen, fileObject["name"].GetString(), PATH_BUF_SIZE-pathlen-1);
   pathlen += strlen(fileObject["name"].GetString());
-
+  bool success = false;
+  int j = 0;
+  int N = fileObject["sources"].Size();
+  while(!success && j < N)
+   {
+    success = success || httpClient.fetchFile(fileObject["sources"][j].GetString(), path);
+    j++;
+   }
 }
 
 
