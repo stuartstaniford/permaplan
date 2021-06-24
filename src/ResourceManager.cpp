@@ -6,6 +6,7 @@
 
 #include "ResourceManager.h"
 #include "loadFileToBuf.h"
+#include <cstring>
 #include <dirent.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -162,6 +163,13 @@ void ResourceManager::checkOneFile(Value& fileObject, int i, char* path, unsigne
 {
   unless(fileObject.IsObject())
     err(-1, "Bad file object number %d in %s.\n", i, path);
+  unless(fileObject.HasMember("name") && fileObject["name"].IsString())
+    err(-1, "No file object name for number %d in %s.\n", i, path);
+  unless(fileObject.HasMember("sources") && fileObject["sources"].IsArray()
+         && fileObject["sources"].Size() > 0)
+    err(-1, "No file object sources for number %d in %s.\n", i, path);
+  strncpy(path + pathlen, fileObject["name"].GetString(), PATH_BUF_SIZE-pathlen-1);
+  pathlen += strlen(fileObject["name"].GetString());
 
 }
 
