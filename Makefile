@@ -770,7 +770,7 @@ src/ElementBufferObject.o: /usr/local/include/cglm/bezier.h
 src/ElementBufferObject.o: /usr/local/include/cglm/ray.h
 src/ElementBufferObject.o: /usr/local/include/cglm/affine2d.h
 src/EmptyClass.o: include/EmptyClass.h
-src/Gable.o: include/Gable.h
+src/Gable.o: include/Gable.h include/Shed.h
 src/Global.o: include/Global.h /usr/local/include/cglm/cglm.h
 src/Global.o: /usr/local/include/cglm/common.h
 src/Global.o: /usr/local/include/cglm/types.h
@@ -1572,6 +1572,7 @@ src/Logging.o: /usr/local/include/cglm/ease.h /usr/local/include/cglm/curve.h
 src/Logging.o: /usr/local/include/cglm/bezier.h /usr/local/include/cglm/ray.h
 src/Logging.o: /usr/local/include/cglm/affine2d.h include/Vertex.h
 src/Logging.o: /usr/local/include/GL/glew.h /usr/local/include/GLFW/glfw3.h
+src/Logging.o: include/Shed.h
 src/Material.o: include/Material.h /usr/local/include/cglm/cglm.h
 src/Material.o: /usr/local/include/cglm/common.h
 src/Material.o: /usr/local/include/cglm/types.h
@@ -2323,6 +2324,7 @@ src/Shader.o: /usr/local/include/cglm/curve.h
 src/Shader.o: /usr/local/include/cglm/bezier.h /usr/local/include/cglm/ray.h
 src/Shader.o: /usr/local/include/cglm/affine2d.h include/loadFileToBuf.h
 src/Shader.o: /usr/local/include/GL/glew.h
+src/Shed.o: include/Shed.h
 src/SkySampleModel.o: include/SkySampleModel.h /usr/local/include/cglm/cglm.h
 src/SkySampleModel.o: /usr/local/include/cglm/common.h
 src/SkySampleModel.o: /usr/local/include/cglm/types.h
