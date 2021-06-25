@@ -27,6 +27,7 @@ bool doLogTreeValidation      = true; // Validate data structures after every fr
 bool doLogResourceErrors      = true; // Clear errors in the resource manager
 bool doLogResourceActions     = true; // Stuff the resource manager actually does
 bool doLogResourceDetails     = true; // Micro-detail of the resource manager operating
+bool doLogHttpClientErrors    = true; // Log things going wrong in the HTTP Client
 
 // Logging options to do with parsing and validating OLDF and OTDL files
 bool doLogOLDFValidity        = true; // Log validity problems in the file
@@ -232,9 +233,13 @@ bool LogControlHTML(HttpDebug* serv, char* path)
     return oneLogControl(serv, path, doLogResourceDetails);
 #endif
 
+#ifdef LOG_HTTP_CLIENT_ERRORS // Log things going wrong in the HTTP Client
+  if(strncmp(path, "doLogHttpClientErrors", sizeof("doLogHttpClientErrors")-1)==0)
+    return oneLogControl(serv, path, doLogHttpClientErrors);
+#endif
 
+  
 // Logging options to do with parsing and validating OLDF and OTDL files
-
 
 #ifdef LOG_TREE_VALIDATION // Validate data structures after every frame
   if(strncmp(path, "doLogTreeValidation", sizeof("doLogTreeValidation")-1)==0)

@@ -26,6 +26,7 @@ private:
   // Instance variables - private
   static bool   globalInitCalled;
   CURL*         easyHandle;
+  char          errorBuf[CURL_ERROR_SIZE];
   
   // Member functions - private
   HttpClient(const HttpClient&);                 // Prevent copy-construction

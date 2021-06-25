@@ -11,15 +11,19 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
+
+// =======================================================================================
+// Useful constants
+
 #define MATERIALS_DIR (char*)"Materials"
 #define MANIFEST_FILE (char*)"manifest.json"
+#define PATH_BUF_SIZE 256
 
 using namespace rapidjson;
 
+
 // =======================================================================================
 // Constructor
-
-#define PATH_BUF_SIZE 256
 
 ResourceManager::ResourceManager(Window3D& window)
 {
@@ -178,6 +182,8 @@ void ResourceManager::checkOneFile(Value& fileObject, int i, char* path, unsigne
     success = success || httpClient.fetchFile(fileObject["sources"][j].GetString(), path);
     j++;
    }
+  unless(success)
+    err(-1, "Couldn't find a working source to get %s.\n", path);
 }
 
 

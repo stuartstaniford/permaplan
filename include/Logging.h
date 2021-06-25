@@ -22,6 +22,7 @@
 #define LOG_RESOURCE_ERRORS      // Clear errors in the resource manager
 #define LOG_RESOURCE_ACTIONS     // Stuff the resource manager actually does
 #define LOG_RESOURCE_DETAILS     // Micro-detail of the resource manager operating
+#define LOG_HTTP_CLIENT_ERRORS   // Log things going wrong in the HTTP Client
 
 
 // =======================================================================================
@@ -172,6 +173,7 @@ extern bool doLogTreeValidation;  // Validate data structures after every frame
 extern bool doLogResourceErrors;  // Clear errors in the resource manager
 extern bool doLogResourceActions;  // Stuff the resource manager actually does
 extern bool doLogResourceDetails;  // Micro-detail of the resource manager operating
+extern bool doLogHttpClientErrors; // Log things going wrong in the HTTP Client
 
 // Logging options to do with parsing and validating OLDF and OTDL files
 extern bool doLogOLDFValidity;    // Log validity problems in the file
@@ -337,6 +339,14 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
 #define LogResourceDetails(...)
 #endif
 
+// Log things going wrong in the HTTP Client
+#ifdef LOG_HTTP_CLIENT_ERRORS
+#define LogHttpClientErrors(...) if(doLogHttpClientErrors) \
+                                          LogStatement("LogHttpClientErrors: " __VA_ARGS__)
+#else
+#define LogHttpClientErrors(...)
+#endif
+      
 
 // =======================================================================================
 // Logging options to do with parsing and validating OLDF and OTDL files
