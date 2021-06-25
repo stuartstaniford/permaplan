@@ -3,15 +3,15 @@
 // and produces a tiling of the surface, as well as being able to texture it
 // with a provided map.
 
+#include "LandSurface.h"
+#include "Camera.h"
+#include "PmodDesign.h"
 #include <cstdio>
 #include <stdexcept>
 #include <err.h>
 #include <cstring>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include "Camera.h"
-#include "LandSurface.h"
-#include "PmodDesign.h"
 
 
 // =======================================================================================

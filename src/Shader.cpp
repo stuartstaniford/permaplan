@@ -1,11 +1,15 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Apr 2020 -
 // Class that provides an abstraction for an openGL shader pipeline.
 
+#include "Shader.h"
+#include "loadFileToBuf.h"
 #include <stdlib.h>
 #include <err.h>
 #include <GL/glew.h>
-#include "loadFileToBuf.h"
-#include "Shader.h"
+
+
+// =======================================================================================
+// Static variables
 
 Shader* Shader::mainShader = NULL;
 

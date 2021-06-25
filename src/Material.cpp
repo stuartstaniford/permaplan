@@ -2,10 +2,14 @@
 // This class holds the necessary information for a particular kind of material -
 // carbon data, texture image for showing the surface of it, etc
 
-#include <cstdio>
-#include <err.h>
 #include "Material.h"
 #include "Logging.h"
+#include <cstdio>
+#include <err.h>
+
+
+// =======================================================================================
+// Static variables
 
 MaterialList* MaterialList::theMaterialList = NULL;
 

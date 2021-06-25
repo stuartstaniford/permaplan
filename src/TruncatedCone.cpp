@@ -1,11 +1,10 @@
-
 // Copyright Staniford Systems.  All Rights Reserved.  Mar 2021 -
 // Class for rendering a section of a cone cut off at right angles at both ends.
 // Used for rendering sections of tree-trunks and the like.
 
+#include "TruncatedCone.h"
 #include <cstdio>
 #include <err.h>
-#include "TruncatedCone.h"
 
 
 // =======================================================================================

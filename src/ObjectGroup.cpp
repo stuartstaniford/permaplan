@@ -2,7 +2,6 @@
 // This class is for a group of objects that are all to be displayed and manipulated as
 // a unit (and appear in the Quadtree together).
 
-
 #include "ObjectGroup.h"
 
 

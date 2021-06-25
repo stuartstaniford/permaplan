@@ -1,4 +1,3 @@
-
 // Copyright Staniford Systems.  All Rights Reserved.  Feb 2021 -
 // This class keeps track of different classes of memory for leak detection and general
 // memory management.
@@ -6,6 +5,10 @@
 #include "MemoryTracker.h"
 #include <cstdio>
 #include <err.h>
+
+
+// =======================================================================================
+// Static variables
 
 long MemoryTracker::arrowMemory           = 0;
 long MemoryTracker::bezierPatchMemory     = 0;

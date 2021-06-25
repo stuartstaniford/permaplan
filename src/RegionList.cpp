@@ -12,6 +12,10 @@
 #include "rapidjson/error/en.h"
 #include <err.h>
 
+
+// =======================================================================================
+// Static variables
+
 RegionList* RegionList::root = NULL;
 char* rootDir = (char*)"Materials/Trees/Regions";
 

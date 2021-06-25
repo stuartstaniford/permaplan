@@ -7,13 +7,13 @@
 #define PMOD_DESIGN_IMPLEMENTATION
 
 #include "PmodDesign.h"
-#include <stdexcept>
-#include <err.h>
-#include <math.h>
 #include "loadFileToBuf.h"
 #include "Logging.h"
 #include "Global.h"
 #include "Tree.h"
+#include <stdexcept>
+#include <err.h>
+#include <math.h>
 
 
 using namespace rapidjson;

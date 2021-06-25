@@ -1,15 +1,14 @@
-
 // Copyright Staniford Systems.  All Rights Reserved.  May 2020 -
 // This manages the quadtree used for efficient organization of visual rendering
 
+#include "Quadtree.h"
+#include "Scene.h"
+#include "ObjectGroup.h"
 #include <cstdio>
 #include <stdexcept>
 #include <err.h>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include "Quadtree.h"
-#include "Scene.h"
-#include "ObjectGroup.h"
 
 
 /* Arrangement of kids is as follows:

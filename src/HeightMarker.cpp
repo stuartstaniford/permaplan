@@ -3,8 +3,11 @@
 // Class for storing and rendering the user supplied locations of height markers.
 // Renders them as an octahedron balanced on the actual height location
 
-#include <err.h>
 #include "HeightMarker.h"
+#include <err.h>
+
+// =======================================================================================
+// Useful constants.
 
 const float heightMarkerSize   = 1.5f; //0.3f; // 1/2 the side of the square in x and y directions
 const float heightMarkerHeight = heightMarkerSize*sqrtf(2.0f); // 1/2 the total height

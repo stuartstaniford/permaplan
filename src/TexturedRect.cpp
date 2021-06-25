@@ -4,12 +4,12 @@
 // with specified width, height.  Useful for in-scene labels and the like,
 // after applying an appropriate model transformation.
 
+#include "TexturedRect.h"
 #include <cstdio>
 #include <stdexcept>
 #include <err.h>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include "TexturedRect.h"
 
 
 // =======================================================================================

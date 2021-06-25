@@ -2,9 +2,9 @@
 // This class is the one responsible for drawing the current state of
 // the scene at an overall level.
 
+#include "Scene.h"
 #include "SkySampleModel.h"
 #include "ControlGroup.h"
-#include "Scene.h"
 #include "Shader.h"
 #include "HeightMarker.h"
 #include "Box.h"
@@ -15,6 +15,7 @@
 #include <stdlib.h>
 #include <err.h>
 #include <GL/glew.h>
+
 
 // =======================================================================================
 // Constructor, which initializes the geometry

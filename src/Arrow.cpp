@@ -2,10 +2,10 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Sep 2020 -
 // Class for rendering a simple straight arrow.
 
+#include "Arrow.h"
+#include "Cylinder.h"
 #include <cstdio>
 #include <err.h>
-#include "Cylinder.h"
-#include "Arrow.h"
 
 vec2 Arrow::arrowPoints[3] = {  {0.5f, 0.0f},
                                     {0.5f, 0.75f},

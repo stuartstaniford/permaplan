@@ -1,10 +1,9 @@
-
 // Copyright Staniford Systems.  All Rights Reserved.  Feb 2021 -
 // Class for rendering a cylinder
 
+#include "Cylinder.h"
 #include <cstdio>
 #include <err.h>
-#include "Cylinder.h"
 
 
 // =======================================================================================

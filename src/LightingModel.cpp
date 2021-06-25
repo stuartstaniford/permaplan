@@ -1,10 +1,10 @@
-
 // Copyright Staniford Systems.  All Rights Reserved.  Oct 2020 -
 // This is where all concerns to do with the scene lighting live.
 
 #include "LightingModel.h"
 
 
+// =======================================================================================
 // Useful constants.
 
 #define SUN_DISTANCE 200000.0f

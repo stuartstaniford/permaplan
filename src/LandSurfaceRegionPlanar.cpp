@@ -5,8 +5,8 @@
 // constructor variables pos and norm - plane passes through pos and is perpendicular
 // to norm.
 
-#include <err.h>
 #include "LandSurfaceRegionPlanar.h"
+#include <err.h>
 
 /* Arrangement of kids is as follows:
  ---------------

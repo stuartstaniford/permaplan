@@ -6,10 +6,10 @@
 
 #define LOGGING_IMPLEMENTATION
 
-#include <err.h>
-#include <stdio.h>
 #include "Logging.h"
 #include "Vertex.h"
+#include <err.h>
+#include <stdio.h>
 
 
 // =======================================================================================

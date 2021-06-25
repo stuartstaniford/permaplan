@@ -1,12 +1,12 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Apr 2020 -
 // This class just draws X, Y, and Z axes in red, green, and blue fixed colors
 
+#include "ColoredAxes.h"
 #include <cstdio>
 #include <stdexcept>
 #include <err.h>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include "ColoredAxes.h"
 
 
 // =======================================================================================

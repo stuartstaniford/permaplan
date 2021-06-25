@@ -1,4 +1,3 @@
-
 // Copyright Staniford Systems.  All Rights Reserved.  Sep 2020 -
 // Class that contains a list of visual objects and some methods for managing
 // the list as a whole.  Handy for quickly throwing up a set of something

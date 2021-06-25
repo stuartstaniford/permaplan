@@ -9,6 +9,9 @@
 #include "ObjectGroup.h"
 
 
+// =======================================================================================
+// Static variables
+
 unsigned VisualObject::nextIndex = 1;
 std::unordered_map<unsigned, VisualObject*> VisualObject::allObjects;
 Lockable VisualObject::staticLock;

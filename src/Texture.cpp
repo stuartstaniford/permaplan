@@ -1,10 +1,10 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Apr 2020 -
 // Class that provides an abstraction for openGL textures.
 
+#include "Texture.h"
 #include <stdlib.h>
 #include <err.h>
 #include <GL/glew.h>
-#include "Texture.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 

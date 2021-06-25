@@ -2,13 +2,16 @@
 // A set of control points to manage a cubic bezier patch on some particular
 // node in the Quadtree
 
-#include <err.h>
 #include "BezierPatch.h"
 #include "HeightMarker.h"
 #include "Arrow.h"
-
+#include <err.h>
 
 #define forAllControlIndices(i,j)   for(int i=0; i<4; i++) for(int j=0; j<4; j++)
+
+
+// =======================================================================================
+// Variables.
 
 PatchRayState* copyVer = NULL;
 void BezierPatch::assertCopyVer(void)

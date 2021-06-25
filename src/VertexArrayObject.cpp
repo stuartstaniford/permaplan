@@ -1,13 +1,14 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Apr 2020 -
 // This is a C++ wrapper around the openGL vertex array object.
 
+#include "VertexArrayObject.h"
+#include "Shader.h"
 #include <cstdio>
 #include <stdexcept>
 #include <err.h>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include "VertexArrayObject.h"
-#include "Shader.h"
+
 
 // =======================================================================================
 // Function to create and open a new vertex array object

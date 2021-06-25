@@ -12,9 +12,11 @@
 // For converting W/m^2 to photon fluxes:
 //https://www.researchgate.net/post/Can-I-convert-PAR-photo-active-radiation-value-of-micro-mole-M2-S-to-Solar-radiation-in-Watt-m2/59ca6422217e201e2b23415f/citation/download
 
-#include "Logging.h"
 #include "SkySampleModel.h"
+#include "Logging.h"
 
+
+// =======================================================================================
 // Useful constants.
 
 SkySampleModel* SkySampleModel::theSingleton = NULL;

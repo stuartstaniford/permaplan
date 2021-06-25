@@ -4,13 +4,15 @@
 // sequence of user actions.  Useful for creating test cases, canned demos, and the
 // like.
 
+
+#include "ScriptController.h"
+#include "VertexBufferObject.h"
+#include "Camera.h"
 #include <err.h>
 #include <cstring>
-#include "VertexBufferObject.h"
-#include "ScriptController.h"
-#include "Camera.h"
 
 using namespace rapidjson;
+
 
 // =======================================================================================
 // Constructor which sets up the surface as specified in the design file

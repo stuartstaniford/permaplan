@@ -3,11 +3,12 @@
 // timber beams, etc).
 // Note that the diagram in box.pdf might be helpful in following this code.
 
-#include <err.h>
 #include "Box.h"
+#include <err.h>
 
 #define BOX_ICOUNT 36u
 #define BOX_VCOUNT 36u
+
 
 // =======================================================================================
 // Constructors.

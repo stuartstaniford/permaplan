@@ -3,6 +3,10 @@
 // OpenGL commands.  The present implementation uses GLFW but the API should
 // hide that.
 
+#include "Window3D.h"
+#include "PmodException.h"
+#include "Material.h"
+#include "Species.h"
 #include <cstdio>
 #include <stdexcept>
 #include <err.h>
@@ -12,10 +16,6 @@
 #include <cglm/cglm.h>
 #include "imgui_impl_opengl3.h"
 #include "imgui_impl_glfw.h"
-#include "Window3D.h"
-#include "PmodException.h"
-#include "Material.h"
-#include "Species.h"
 
 
 // =======================================================================================

@@ -8,12 +8,12 @@
 // end result is a hash table of each "dir/file" as well as the
 // atlasses themselves.
 
-#include <err.h>
-#include <cstring>
-#include <vector>
 #include "TextureAtlas.h"
 #include "Logging.h"
 #include "Global.h"
+#include <err.h>
+#include <cstring>
+#include <vector>
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "stb_image_write.h"
 

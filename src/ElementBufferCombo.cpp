@@ -2,12 +2,13 @@
 // This combines a vertex array object and a vertex buffer object, handy
 // for quickly instantiating drawable things.
 
+#include "ElementBufferCombo.h"
 #include <cstdio>
 #include <stdexcept>
 #include <err.h>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include "ElementBufferCombo.h"
+
 
 // =======================================================================================
 // Function to create and open a new vertex buffer object

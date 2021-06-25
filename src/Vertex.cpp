@@ -1,12 +1,12 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Apr 2020 -
 // This is a C++ wrapper around the openGL vertex buffer object.
 
-#include <cstdio>
-#include <stdexcept>
-#include <err.h>
 #include "Vertex.h"
 #include "Shader.h"
 #include "VisualObject.h"
+#include <cstdio>
+#include <stdexcept>
+#include <err.h>
 
 
 // =======================================================================================

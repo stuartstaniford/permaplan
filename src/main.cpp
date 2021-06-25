@@ -1,6 +1,3 @@
-#include <cstdio>
-#include <stdexcept>
-#include <pthread.h>
 #include "Window3D.h"
 #include "PmodConfig.h"
 #include "PmodDesign.h"
@@ -13,6 +10,10 @@
 #include "SkySampleModel.h"
 #include "RegionList.h"
 #include "ResourceManager.h"
+#include <cstdio>
+#include <stdexcept>
+#include <pthread.h>
+
 
 // =======================================================================================
 // C function to launder C++ method into pthread_create

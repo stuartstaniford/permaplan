@@ -2,14 +2,15 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Apr 2020 -
 // This class draws a square grid at a designated scale over the land surface
 
+#include "Grid.h"
 #include <cstdio>
 #include <stdexcept>
 #include <err.h>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include "Grid.h"
 
 
+// =======================================================================================
 // Useful constants that define how the grid works and looks.
 
 unsigned gridColor[3] = { 0x90800080, // transparent yellowy orange

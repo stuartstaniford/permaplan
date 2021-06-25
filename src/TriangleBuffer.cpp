@@ -5,8 +5,8 @@
 // it, and then pass them all to the GPU.
 
 
-#include "Shader.h"
 #include "TriangleBuffer.h"
+#include "Shader.h"
 #include "PmodDesign.h"
 #include "BoundingBox.h"
 #include <err.h>

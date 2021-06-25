@@ -1,13 +1,17 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Dec 2020 -
 // Class for storing and rendering trees.
 
-#include <err.h>
 #include "Tree.h"
 #include "WoodySegment.h"
 #include "PmodDesign.h"
 #include "Scene.h"
 #include "SkySampleModel.h"
 #include "TaskQueueFarm.h"
+#include <err.h>
+
+
+// =======================================================================================
+// Static variables.
 
 unsigned short Tree::treeCount = 0u;
 Tree** Tree::treePtrArray = new Tree*[TREE_ARRAY_SIZE];

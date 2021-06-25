@@ -4,6 +4,15 @@
 // with all known browsers.  Only uses C lib calls to avoid complicating the
 // build.
 
+#include "HttpDebug.h"
+#include "Scene.h"
+#include "Tree.h"
+#include "MemoryTracker.h"
+#include "TaskQueueFarm.h"
+#include "SkySampleModel.h"
+#include "InterfaceAction.h"
+#include "MenuInterface.h"
+#include "Window3D.h"
 #include <stdio.h>
 #include <netdb.h>
 #include <netinet/in.h>
@@ -14,18 +23,10 @@
 #include <unistd.h>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include "HttpDebug.h"
-#include "Scene.h"
-#include "Tree.h"
-#include "MemoryTracker.h"
-#include "TaskQueueFarm.h"
-#include "SkySampleModel.h"
-#include "InterfaceAction.h"
-#include "MenuInterface.h"
-#include "Window3D.h"
 
 
 // =======================================================================================
+// Constructor
 
 HttpDebug::HttpDebug(Scene& S, MenuInterface& imgMenu, unsigned index):
                         TaskQueue(index),

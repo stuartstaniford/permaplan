@@ -1,15 +1,15 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Apr 2020 -
 // Class that provides an abstraction for openGL textures.
 
+#include "Camera.h"
+#include "Logging.h"
+#include "Scene.h"
 #include <stdlib.h>
 #include <err.h>
 #include <GL/glew.h>
 #include <unistd.h>
 #include <cglm/cglm.h>
 #include <cstring>
-#include "Camera.h"
-#include "Logging.h"
-#include "Scene.h"
 
 
 // =======================================================================================

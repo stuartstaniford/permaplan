@@ -3,35 +3,18 @@
 // what are typically globally used variables supplied at
 // program start.
 
+#include "PmodConfig.h"
+
 #include <cstring>
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdio.h>
 #include <err.h>
-#include "PmodConfig.h"
-
-PmodConfig* PmodConfig::config = NULL;
 
 // =======================================================================================
-// Educate the poor user
+// Static variables
 
-void PmodConfig::usage()
-{
-  printf("\nUsage:\n\n%s [options]\n\nOptions:\n\n", progName);
-  
-  printf("\t-A\tPlot X (red), Y (green), and Z (blue) axes.\n");
-  printf("\t-b F\tRead Bezier patch state from file F.\n");
-  printf("\t-B F\tWrite the Bezier patch state to file F.\n");
-  printf("\t-d F\tRead OLDF design file F.\n");
-  printf("\t-D F\tUse F as file to write out OLDF design.\n");
-  printf("\t-g f\tAdd square gridlines every f units.\n");
-  printf("\t-L\tLeave land surface as a plane.\n");
-  printf("\t-p P\tRun debug server on port P .\n");
-  printf("\t-P S\tUse S as plant species directory.\n");
-  printf("\t-s N\tUse s simulation threads.\n");
-  printf("\n");
-  exit(0);
-}
+PmodConfig* PmodConfig::config = NULL;
 
 
 // =======================================================================================
@@ -123,6 +106,28 @@ PmodConfig::PmodConfig(int argc, char* argv[])
 PmodConfig::~PmodConfig()
 {
   free(progName);
+}
+
+
+// =======================================================================================
+// Educate the poor user
+
+void PmodConfig::usage()
+{
+  printf("\nUsage:\n\n%s [options]\n\nOptions:\n\n", progName);
+  
+  printf("\t-A\tPlot X (red), Y (green), and Z (blue) axes.\n");
+  printf("\t-b F\tRead Bezier patch state from file F.\n");
+  printf("\t-B F\tWrite the Bezier patch state to file F.\n");
+  printf("\t-d F\tRead OLDF design file F.\n");
+  printf("\t-D F\tUse F as file to write out OLDF design.\n");
+  printf("\t-g f\tAdd square gridlines every f units.\n");
+  printf("\t-L\tLeave land surface as a plane.\n");
+  printf("\t-p P\tRun debug server on port P .\n");
+  printf("\t-P S\tUse S as plant species directory.\n");
+  printf("\t-s N\tUse s simulation threads.\n");
+  printf("\n");
+  exit(0);
 }
 
 

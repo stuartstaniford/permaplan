@@ -3,8 +3,9 @@
 // particular region in the quadtree (generally a leaf).  This class defines
 // the interface that any implementation providing this service needs to conform to.
 
-#include <err.h>
 #include "LandSurfaceRegion.h"
+#include <err.h>
+
 
 // =======================================================================================
 // Constructors.
