@@ -6,6 +6,10 @@
 #define SHED_H
 
 #include <cglm/cglm.h>
+#include "rapidjson/document.h"
+#include "rapidjson/writer.h"
+#include "rapidjson/stringbuffer.h"
+#include "rapidjson/error/en.h"
 
 // =======================================================================================
 // Class variable initialization
@@ -19,6 +23,9 @@ public:
   // Member functions - public
   Shed(void);
   ~Shed(void);
+
+  // Static methods
+  static bool validateOLDF(rapidjson::Value& shedJsonObject);
   
 private:
   
@@ -30,6 +37,7 @@ private:
   vec3 roofVec;   // Vector from the top of the tall wall down the roof along the short wall 
   vec3 overhangs; // tall, long wall; low long wall; short walls (the same)
   
+
   // Member functions - private
   Shed(const Shed&);                 // Prevent copy-construction
   Shed& operator=(const Shed&);      // Prevent assignment

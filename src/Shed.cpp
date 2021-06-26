@@ -22,3 +22,15 @@ Shed::~Shed(void)
 
 
 // =======================================================================================
+// Function to check the validity of some JSON in an OLDF file that purportedly represents
+// a shed.
+
+using namespace rapidjson;
+
+bool Shed::validateOLDF(Value& shedJsonObject)
+{
+  return true;  
+}
+
+
+// =======================================================================================

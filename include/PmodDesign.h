@@ -6,15 +6,15 @@
 #ifndef PMODDESIGN_H
 #define PMODDESIGN_H
 
-#include "rapidjson/document.h"
-#include "rapidjson/writer.h"
-#include "rapidjson/stringbuffer.h"
-#include "rapidjson/error/en.h"
 #include "LandSurface.h"
 #include "PmodConfig.h"
 #include "Timeval.h"
 #include "JSONStructureChecker.h"
 #include "Boundary.h"
+#include "rapidjson/document.h"
+#include "rapidjson/writer.h"
+#include "rapidjson/stringbuffer.h"
+#include "rapidjson/error/en.h"
 
 // These unit things are used all over the place, so we have them in the global namespace
 // for syntactic convenience
@@ -52,7 +52,10 @@ class PmodDesign
   bool                  designBoxValid;
   BoundingBox           designBox;
   const char*           author;
-
+  bool                  blocksPresent; // allow us to remember an empty list in OLDF file
+  bool                  gablesPresent;
+  bool                  shedsPresent;
+  
 private:
   
   static PmodDesign* design;
@@ -84,10 +87,13 @@ private:
   bool validateAltitudes(rapidjson::Value& landSurface);
   bool validateLandSurface(void);
   bool validatePlants(void);
+  bool validateBuildings(void);
 
   // Functions associated with writing out the OLDF file
   void writeIntroductoryData(char* insert);
+  void writeBuildings(char* indent);
 
+  // Things we don't want happening automatically
   PmodDesign(const PmodDesign&);                 // Prevent copy-construction
   PmodDesign& operator=(const PmodDesign&);      // Prevent assignment
 

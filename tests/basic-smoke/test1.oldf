@@ -107,20 +107,22 @@
             [-300, 0],
             [0, -300]
            ]
+  },
+ "buildings":
+  {
+   "blocks":
+    [
+    ],
+   "gables":
+    [
+    ],
+   "sheds":
+    [
+    ]
   }
 // "fencing":
 //  {
 //   "null": 0
 //  },
-// "buildings":
-//  {
-//   "blocks":
-//    [
-//     "blah"
-//    ],
-//   "gables":
-//    [
-//     "blah"
-//    ]
 // }
 }

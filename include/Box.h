@@ -6,6 +6,10 @@
 #define BOX_H
 
 #include "VisualObject.h"
+#include "rapidjson/document.h"
+#include "rapidjson/writer.h"
+#include "rapidjson/stringbuffer.h"
+#include "rapidjson/error/en.h"
 
 // =======================================================================================
 // Class variable initialization
@@ -31,6 +35,9 @@ class Box: public VisualObject
   const char* objectName(void);
   bool        diagnosticHTMLSummary(HttpDebug* serv);
 
+  // Static methods
+  static bool validateOLDF(rapidjson::Value& boxJsonObject);
+  
  private:
   
   // Instance variables - private

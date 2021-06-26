@@ -24,3 +24,15 @@ Gable::~Gable(void)
 
 
 // =======================================================================================
+// Function to check the validity of some JSON in an OLDF file that purportedly represents
+// a gable.
+
+using namespace rapidjson;
+
+bool Gable::validateOLDF(Value& gableJsonObject)
+{
+  return true;  
+}
+
+
+// =======================================================================================

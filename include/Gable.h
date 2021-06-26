@@ -6,6 +6,10 @@
 
 #ifndef GABLE_H
 #define GABLE_H
+#include "rapidjson/document.h"
+#include "rapidjson/writer.h"
+#include "rapidjson/stringbuffer.h"
+#include "rapidjson/error/en.h"
 
 #include "Shed.h"
 
@@ -23,6 +27,9 @@ public:
   Gable(void);
   ~Gable(void);
   
+  // Static methods
+  static bool validateOLDF(rapidjson::Value& gableJsonObject);
+
 private:
   
   // Instance variables - private

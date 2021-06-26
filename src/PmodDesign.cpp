@@ -10,6 +10,9 @@
 #include "loadFileToBuf.h"
 #include "Logging.h"
 #include "Global.h"
+#include "Box.h"
+#include "Gable.h"
+#include "Shed.h"
 #include "Tree.h"
 #include <stdexcept>
 #include <err.h>
@@ -35,7 +38,10 @@ PmodDesign::PmodDesign(void):
                   metricUnits(false),
                   jCheck(NULL),
                   designBoxValid(false),
-                  author(NULL)
+                  author(NULL),
+                  blocksPresent(false),
+                  gablesPresent(false),
+                  shedsPresent(false)
 {
   // Constructor should only be called once at startup.  Everyone else gets us via
   // getDesign()
@@ -549,6 +555,66 @@ bool PmodDesign::validatePlants(void)
 
 
 // =======================================================================================
+// Function to check the structure of any OLDF building objects present.
+
+bool PmodDesign::validateBuildings(void)
+{
+  bool    retVal  = true;
+#if defined LOG_OLDF_VALIDITY //|| defined LOG_OLDF_DETAILS
+  const PmodConfig& config = PmodConfig::getConfig();
+#endif
+  Value& buildings  = doc["buildings"];
+  
+  unless(buildings.IsObject())
+   {
+    LogOLDFValidity("Buildings is not an object in OLDF file %s\n", config.designFileName);
+    return false;
+   }
+  
+  if(buildings.HasMember("blocks"))
+   {
+    blocksPresent = true;
+    unless(buildings["blocks"].IsArray())
+     {
+      LogOLDFValidity("blocks is not an array in OLDF file %s\n", config.designFileName);
+      return false;     
+     }
+    int N = buildings["blocks"].Size();
+    for(int i=0; i<N; i++)
+      retVal &= Box::validateOLDF(buildings["blocks"][i]);
+   }
+
+  if(buildings.HasMember("gables"))
+   {
+    gablesPresent = true;
+    unless(buildings["gables"].IsArray())
+     {
+      LogOLDFValidity("gables is not an array in OLDF file %s\n", config.designFileName);
+      return false;     
+     }
+    int N = buildings["gables"].Size();
+    for(int i=0; i<N; i++)
+      retVal &= Gable::validateOLDF(buildings["gables"][i]);
+   }
+
+  if(buildings.HasMember("sheds"))
+   {
+    shedsPresent = true;
+    unless(buildings["sheds"].IsArray())
+     {
+      LogOLDFValidity("sheds is not an array in OLDF file %s\n", config.designFileName);
+      return false;     
+     }
+    int N = buildings["sheds"].Size();
+    for(int i=0; i<N; i++)
+      retVal &= Shed::validateOLDF(buildings["sheds"][i]);
+   }
+  
+  return retVal;
+}
+
+
+// =======================================================================================
 // Function to check the structure of the OLDF object after it has been parsed out of the
 // file (ie it is at least known to be valid JSON at this point, now we want to know if
 // it's valid OLDF.  Do a lot of logging of the structure if so configured.
@@ -589,6 +655,11 @@ bool PmodDesign::validateOLDF(void)
     retVal &= validatePlants();
   else
     LogOLDFDetails("No plants present in %s\n", phrase);
+
+  if(doc.HasMember("buildings")) // buildings are optional
+    retVal &= validateBuildings();
+  else
+    LogOLDFDetails("No buildings present in %s\n", phrase);
 
   delete jCheck; jCheck = NULL;
   return retVal;
@@ -648,6 +719,46 @@ void PmodDesign::writeIntroductoryData(char* indent)
 
 
 // =======================================================================================
+// Write out the buildings section of the OLDF file.
+
+void PmodDesign::writeBuildings(char* indent)
+{
+  // Open the object
+  fprintf(writeFile, "%s\"buildings\":\n", indent);
+  fprintf(writeFile, "%s {\n", indent);
+
+  // blocks
+  if(blocksPresent)
+   {     
+    fprintf(writeFile, "%s%s\"blocks\":\n", indent, indent);
+    fprintf(writeFile, "%s%s[\n", indent, indent);
+    //XX need to search quadtree for all blocks and put them here
+    fprintf(writeFile, "%s%s],\n", indent, indent);
+   }
+
+  // blocks
+  if(gablesPresent)
+   {     
+    fprintf(writeFile, "%s%s\"gables\":\n", indent, indent);
+    fprintf(writeFile, "%s%s[\n", indent, indent);
+    //XX need to search quadtree for all gables and put them here
+    fprintf(writeFile, "%s%s],\n", indent, indent);
+   }
+
+  // sheds
+  if(shedsPresent)
+   {     
+    fprintf(writeFile, "%s%s\"sheds\":\n", indent, indent);
+    fprintf(writeFile, "%s%s[\n", indent, indent);
+    //XX need to search quadtree for all sheds and put them here
+    fprintf(writeFile, "%s%s]\n", indent, indent); // no trailing comma on this one
+   }
+
+  fprintf(writeFile, "%s },\n", indent);
+}
+
+
+  // =======================================================================================
 // Function to write out an OLDF file from current in memory state.  Note, we write out
 // our JSON with simple fprintf statements in fixed order, as this approach is cheaper
 // and easier than using the rapidjson library.  On reading, we need to handle any valid
@@ -677,6 +788,10 @@ void PmodDesign::writeOLDFFile(LandSurface& land)
   // Boundary
   boundary.writeOLDFSection(writeFile, indent);
 
+  // Buildings
+  if(blocksPresent || gablesPresent || shedsPresent)
+    writeBuildings(indent);
+  
   // Plants
   Tree::writeTreesToOLDF(writeFile, indent);
   

@@ -315,3 +315,15 @@ bool Box::diagnosticHTMLSummary(HttpDebug* serv)
 
 
 // =======================================================================================
+// Function to check the validity of some JSON in an OLDF file that purportedly represents
+// a box.
+
+using namespace rapidjson;
+
+bool Box::validateOLDF(Value& boxJsonObject)
+{
+  return true;  
+}
+
+
+// =======================================================================================
