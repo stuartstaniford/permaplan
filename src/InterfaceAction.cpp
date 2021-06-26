@@ -41,7 +41,8 @@ InterfaceAction::InterfaceAction(ActionType type, char* path):
     return;
 
   // Insert menu options
-  if(actionType == InsertHeight || actionType == InsertBlock || actionType == InsertTree)
+  if(actionType == InsertHeight || actionType == InsertBlock || actionType == InsertShed ||
+     actionType == InsertGable || actionType == InsertTree)
     return;
   
   // Result of height entry panel

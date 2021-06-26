@@ -49,6 +49,8 @@ class MenuInterface
   void  allTreeSelectorButton(const char* name, DynamicallyTypable* value);
   void  insertHeightButton(void);
   void  insertBlockButton(void);
+  void  insertShedButton(void);
+  void  insertGableButton(void);
   void  insertTreeButton(void);
   void  heightEnteredButton(float z);
   void  blockEnteredButton(float blockSize, const std::string& matName);

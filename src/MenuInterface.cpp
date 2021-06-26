@@ -133,6 +133,26 @@ void MenuInterface::insertBlockButton(void)
 
 
 // =======================================================================================
+// Insert block button action (also from HTTP debug interface)
+
+void MenuInterface::insertShedButton(void)
+{
+  show_insert_menu = false;
+  show_materials_menu = true;
+}
+
+
+// =======================================================================================
+// Insert block button action (also from HTTP debug interface)
+
+void MenuInterface::insertGableButton(void)
+{
+  show_insert_menu = false;
+  show_materials_menu = true;
+}
+
+
+// =======================================================================================
 // Insert tree button action (also from HTTP debug interface)
 
 void MenuInterface::insertTreeButton(void)
@@ -155,6 +175,10 @@ void MenuInterface::imguiInsertMenu(void)
     insertHeightButton();
   if(ImGui::Button("Block"))
     insertBlockButton();
+  if(ImGui::Button("Shed"))
+    insertShedButton();
+  if(ImGui::Button("Gable"))
+    insertGableButton();
   if(ImGui::Button("Tree"))
     insertTreeButton();
 
@@ -848,6 +872,14 @@ bool MenuInterface::HTTPAPiInsert(HttpDebug* serv, char* path)
 
   if(strncmp(path, "block", 5) == 0)
     return createAction(serv, InsertBlock, (char*)"InsertBlock", 
+                                                            (char*)"HTTPAPiInsert", path+5);
+
+  if(strncmp(path, "shed", 4) == 0)
+    return createAction(serv, InsertShed, (char*)"InsertShed", 
+                                                            (char*)"HTTPAPiInsert", path+4);
+
+  if(strncmp(path, "gable", 5) == 0)
+    return createAction(serv, InsertGable, (char*)"InsertGable", 
                                                             (char*)"HTTPAPiInsert", path+5);
 
   if(strncmp(path, "tree", 4) == 0)

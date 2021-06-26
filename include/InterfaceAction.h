@@ -23,6 +23,8 @@ enum ActionType
   HeightEntered,
   InsertHeight,
   InsertBlock,
+  InsertShed,
+  InsertGable,
   InsertTree,
   QuitProgram,
   SelectGenus,

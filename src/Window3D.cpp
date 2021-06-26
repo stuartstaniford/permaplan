@@ -168,6 +168,16 @@ ActionType Window3D::processPseudoAction(InterfaceAction* action)
       imgMenu->insertBlockButton();
       return InsertBlock;
 
+    case InsertShed:
+      LogPseudoActions("Insert shed button press processed.\n");
+      imgMenu->insertShedButton();
+      return InsertShed;
+
+    case InsertGable:
+      LogPseudoActions("Insert gable button press processed.\n");
+      imgMenu->insertGableButton();
+      return InsertGable;
+
     case InsertHeight:
       LogPseudoActions("Insert height button press processed.\n");
       imgMenu->insertHeightButton();
