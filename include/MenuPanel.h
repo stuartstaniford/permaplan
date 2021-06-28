@@ -13,10 +13,12 @@ class MenuPanel
 public:
   
   // Instance variables - public
+  bool displayPanel;
   
   // Member functions - public
   MenuPanel(void);
   ~MenuPanel(void);
+  virtual void display(void);
   
 private:
   

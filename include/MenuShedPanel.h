@@ -4,10 +4,12 @@
 #ifndef MENU_SHED_PANEL_H
 #define MENU_SHED_PANEL_H
 
+#include "MenuPanel.h"
+
 // =======================================================================================
 // Class variable initialization
 
-class MenuShedPanel
+class MenuShedPanel: public MenuPanel
 {
 public:
   
