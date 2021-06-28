@@ -69,7 +69,9 @@ class MenuInterface
   bool                show_focus_overlay;
   bool                show_simulation_controller;
   bool                all_tree_selector;
+  bool                insert_shed_panel;
   char                heightBuf[16];
+  char                widthBuf[16];
   float               size;
 #ifdef SHOW_DEMO_WINDOW
   bool                show_demo_window;
@@ -80,6 +82,7 @@ class MenuInterface
   void  imguiHeightInputDialog(void);
   void  imguiMaterialsMenu(void);
   void  imguiGenusMenu(void);
+  void  imguiShedPanel(void);
   void  imguiTreeMenu(void);
   void  imguiAllTreeSelector(void);
   void  imguiFocusOverlay(void);

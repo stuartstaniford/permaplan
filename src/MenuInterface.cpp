@@ -138,7 +138,7 @@ void MenuInterface::insertBlockButton(void)
 void MenuInterface::insertShedButton(void)
 {
   show_insert_menu = false;
-  show_materials_menu = true;
+  insert_shed_panel = true;
 }
 
 
@@ -197,6 +197,27 @@ void MenuInterface::blockEnteredButton(float blockSize, const std::string& matNa
   scene->insertVisibleObject((char*)"Block", blockSize, scene->lastDoubleClick, iter->second);
   LogMaterialSelections("Material %s selected for block, carbon density %.2f.\n",
                         matName, iter->second->carbonDensity);
+}
+
+
+// =======================================================================================
+// The floating menu to set up parameters for an inserted shed
+
+void MenuInterface::imguiShedPanel(void)
+{
+  if(!insert_shed_panel)
+    return;
+  ImGui::Begin("Insert a Shed", &insert_shed_panel, ImGuiWindowFlags_AlwaysAutoResize);
+
+  ImGui::Text("Height (%c):", spaceUnitAbbr);
+  ImGui::SameLine();
+  ImGui::InputText("", heightBuf, 8, ImGuiInputTextFlags_CharsDecimal);
+
+  ImGui::Text("Width (%c):", spaceUnitAbbr);
+  ImGui::SameLine();
+  ImGui::InputText("", widthBuf, 8, ImGuiInputTextFlags_CharsDecimal);
+  
+  ImGui::End();
 }
 
 
@@ -682,6 +703,7 @@ void MenuInterface::imguiInterface(void)
   imguiTreeMenu();
   imguiAllTreeSelector();
   imguiHeightInputDialog();
+  imguiShedPanel();
   
   imguiSimulationController();
   imguiFocusOverlay();
