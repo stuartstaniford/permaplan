@@ -71,6 +71,7 @@ class MenuInterface
   bool                all_tree_selector;
   bool                insert_shed_panel;
   char                heightBuf[16];
+  char                lengthBuf[16];
   char                widthBuf[16];
   float               size;
 #ifdef SHOW_DEMO_WINDOW

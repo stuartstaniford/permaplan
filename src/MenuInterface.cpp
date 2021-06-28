@@ -28,7 +28,8 @@ MenuInterface::MenuInterface(GLFWwindow* window, Window3D& W):
                         genusSelected(NULL),
                         show_focus_overlay(true),
                         show_simulation_controller(true),
-                        all_tree_selector(false)
+                        all_tree_selector(false),
+                        insert_shed_panel(false)
 #ifdef SHOW_DEMO_WINDOW
                         , show_demo_window(true)
 #endif
@@ -44,7 +45,10 @@ MenuInterface::MenuInterface(GLFWwindow* window, Window3D& W):
   // Setup Dear ImGui style
   ImGui::StyleColorsClassic();
 
-  heightBuf[0] = '\0'; // clear the buffer
+  // clear the buffers
+  heightBuf[0] = '\0'; 
+  lengthBuf[0] = '\0'; 
+  widthBuf[0] = '\0';
 }
 
 
@@ -209,13 +213,18 @@ void MenuInterface::imguiShedPanel(void)
     return;
   ImGui::Begin("Insert a Shed", &insert_shed_panel, ImGuiWindowFlags_AlwaysAutoResize);
 
-  ImGui::Text("Height (%c):", spaceUnitAbbr);
+  ImGui::Text("Length (%c):", spaceUnitAbbr);
   ImGui::SameLine();
-  ImGui::InputText("", heightBuf, 8, ImGuiInputTextFlags_CharsDecimal);
+  ImGui::InputText("", lengthBuf, 8, ImGuiInputTextFlags_CharsDecimal);
 
   ImGui::Text("Width (%c):", spaceUnitAbbr);
   ImGui::SameLine();
   ImGui::InputText("", widthBuf, 8, ImGuiInputTextFlags_CharsDecimal);
+
+  ImGui::Text("Height (%c):", spaceUnitAbbr);
+  ImGui::SameLine();
+  ImGui::InputText("", heightBuf, 8, ImGuiInputTextFlags_CharsDecimal);
+
   
   ImGui::End();
 }
