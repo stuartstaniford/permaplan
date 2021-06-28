@@ -1812,6 +1812,7 @@ src/MenuInterface.o: include/Window3D.h include/HttpLoadBalancer.h
 src/MenuInterface.o: include/TaskQueueFarm.h include/loadFileToBuf.h
 src/MenuInterface.o: include/RegionList.h imgui/backends/imgui_impl_opengl3.h
 src/MenuInterface.o: imgui/backends/imgui_impl_glfw.h
+src/MenuShedPanel.o: include/MenuShedPanel.h
 src/ObjectGroup.o: include/ObjectGroup.h include/VisualObject.h
 src/ObjectGroup.o: include/VisualElement.h include/TriangleBuffer.h
 src/ObjectGroup.o: include/ElementBufferCombo.h include/VertexArrayObject.h
