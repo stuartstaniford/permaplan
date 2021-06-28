@@ -1,13 +1,14 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Jun 2021 -
-// This class ..... is a template for real classes
+// This class is an abstract superclass for menus and panels in the menu interface
+// system.  Individual menus should inherit from this and conform to this interface
 
-#include ".h"
+#include "MenuPanel.h"
 
 
 // =======================================================================================
 // Constructor
 
-::(void)
+MenuPanel::MenuPanel(void)
 {
 }
 
@@ -15,7 +16,7 @@
 // =======================================================================================
 // Destructor
 
-::~(void)
+MenuPanel::~MenuPanel(void)
 {
 }
 

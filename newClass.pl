@@ -2,6 +2,8 @@
 
 $stub = $ARGV[0];
 
+die "No argument.\n" unless $stub;
+ 
 if(-e "include/$stub.h" || -e "src/$stub.cpp")
  {
   die("Files for $stub exist already.\n"); 
