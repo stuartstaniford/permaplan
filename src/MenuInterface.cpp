@@ -8,6 +8,7 @@
 #include "Species.h"
 #include "Window3D.h"
 #include "MenuShedPanel.h"
+#include "MenuBlockPanel.h"
 #include "loadFileToBuf.h"
 #include "RegionList.h"
 #include "imgui_impl_opengl3.h"
@@ -24,13 +25,13 @@ MenuInterface::MenuInterface(GLFWwindow* window, Window3D& W):
                         show_init_panel(false),
                         win3D(W),
                         show_height_input_dialog(false),
-                        show_materials_menu(false),
                         show_tree_menu(false),
                         genusSelected(NULL),
                         show_focus_overlay(true),
                         show_simulation_controller(true),
                         all_tree_selector(false),
-                        shedPanel(NULL)
+                        shedPanel(NULL),
+                        blockPanel(NULL)
 #ifdef SHOW_DEMO_WINDOW
                         , show_demo_window(true)
 #endif
@@ -131,7 +132,9 @@ void MenuInterface::insertHeightButton(void)
 void MenuInterface::insertBlockButton(void)
 {
   show_insert_menu = false;
-  show_materials_menu = true;
+  unless(blockPanel)
+    blockPanel = new MenuBlockPanel(this);
+  blockPanel->displayVisible = true;
 }
 
 
@@ -140,9 +143,9 @@ void MenuInterface::insertBlockButton(void)
 
 void MenuInterface::insertShedButton(void)
 {
-  unless(shedPanel)
-    shedPanel = new MenuShedPanel;
   show_insert_menu = false;
+  unless(shedPanel)
+    shedPanel = new MenuShedPanel(this);
   shedPanel->displayVisible = true;
 }
 
@@ -153,7 +156,7 @@ void MenuInterface::insertShedButton(void)
 void MenuInterface::insertGableButton(void)
 {
   show_insert_menu = false;
-  show_materials_menu = true;
+  //show_materials_menu = true;
 }
 
 
@@ -196,36 +199,12 @@ void MenuInterface::imguiInsertMenu(void)
 
 void MenuInterface::blockEnteredButton(float blockSize, const std::string& matName)
 {
-  show_materials_menu = false;
   const MaterialList& materials = MaterialList::getMaterials();
   auto iter = materials.find(matName);
   scene->insertVisibleObject((char*)"Block", blockSize, scene->lastDoubleClick, iter->second);
   LogMaterialSelections("Material %s selected for block, carbon density %.2f.\n",
                         matName, iter->second->carbonDensity);
-}
-
-
-// =======================================================================================
-// The floating menu to select a material (eg for a block)
-
-void MenuInterface::imguiMaterialsMenu(void)
-{
-  if(!show_materials_menu)
-    return;
-  ImGui::Begin("Block Size and Material", &show_materials_menu, ImGuiWindowFlags_AlwaysAutoResize);
-
-  ImGui::InputText("", heightBuf, 8, ImGuiInputTextFlags_CharsDecimal);
-
-  const MaterialList& materials = MaterialList::getMaterials();
-  
-  for(auto& iter: materials)
-    if(ImGui::Button(iter.first.c_str()))
-     {
-      size = atof(heightBuf);
-      heightBuf[0] = '\0';
-      blockEnteredButton(size, iter.first);
-     }
-  ImGui::End();
+  blockPanel = NULL;
 }
 
 
@@ -683,12 +662,13 @@ void MenuInterface::imguiInterface(void)
   ImGui::NewFrame();
   
   imguiInsertMenu();
-  imguiMaterialsMenu();
   imguiTreeMenu();
   imguiAllTreeSelector();
   imguiHeightInputDialog();
   if(shedPanel)
     shedPanel->display();
+  if(blockPanel)
+    blockPanel->display();
   
   imguiSimulationController();
   imguiFocusOverlay();
@@ -907,7 +887,7 @@ bool MenuInterface::HTTPAPiEnter(HttpDebug* serv, char* path)
     return createAction(serv, HeightEntered, (char*)"HeightEntered", 
                                                           (char*)"HTTPAPiEnter", path+7);
 
-  if(show_materials_menu && strncmp(path, "block/", 6) == 0)
+  if(blockPanel && strncmp(path, "block/", 6) == 0)
     return createAction(serv, BlockEntered, (char*)"BlockEntered", 
                                                           (char*)"HTTPAPiEnter", path+6);
 

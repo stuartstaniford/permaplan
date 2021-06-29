@@ -10,14 +10,16 @@
 // Class variable initialization
 
 class MenuShedPanel: public MenuPanel
-{
+{  
+  friend MenuInterface;
+
 public:
   
   // Instance variables - public
   
   // Member functions - public
-  MenuShedPanel(void);
-  ~MenuShedPanel(void);
+  MenuShedPanel(MenuInterface* menu);
+  virtual ~MenuShedPanel(void);
   void display(void);
 
 private:

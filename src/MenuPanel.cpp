@@ -8,8 +8,9 @@
 // =======================================================================================
 // Constructor
 
-MenuPanel::MenuPanel(void):
-                  displayVisible(false)
+MenuPanel::MenuPanel(MenuInterface* menu):
+                  displayVisible(false),
+                  mainMenu(menu)
 {
 }
 

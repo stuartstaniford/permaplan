@@ -8,7 +8,8 @@
 // =======================================================================================
 // Constructor
 
-MenuShedPanel::MenuShedPanel(void)
+MenuShedPanel::MenuShedPanel(MenuInterface* menu):
+                              MenuPanel(menu)
 {
   heightBuf[0] = '\0'; 
   lengthBuf[0] = '\0'; 

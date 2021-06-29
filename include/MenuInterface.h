@@ -62,18 +62,16 @@ class MenuInterface
   // Class variables - private
   
   // Instance variables - private
-  Window3D&           win3D;
-  bool                show_height_input_dialog;
-  bool                show_materials_menu;
-  bool                show_tree_menu;
-  const char*         genusSelected;
-  bool                show_focus_overlay;
-  bool                show_simulation_controller;
-  bool                all_tree_selector;
-  bool                insert_shed_panel;
-  char                heightBuf[16];
-  float               size;
-  MenuPanel*          shedPanel;
+  Window3D&     win3D;
+  bool          show_height_input_dialog;
+  bool          show_tree_menu;
+  const char*   genusSelected;
+  bool          show_focus_overlay;
+  bool          show_simulation_controller;
+  bool          all_tree_selector;
+  char          heightBuf[16];
+  MenuPanel*    shedPanel;
+  MenuPanel*    blockPanel;
   
 #ifdef SHOW_DEMO_WINDOW
   bool                show_demo_window;

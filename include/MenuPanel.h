@@ -11,18 +11,28 @@
 // =======================================================================================
 // Class variable initialization
 
+class MenuInterface;
+
 class MenuPanel
 {
+  friend MenuInterface;
+
 public:
   
   // Instance variables - public
-  bool displayVisible;
   
   // Member functions - public
-  MenuPanel(void);
-  ~MenuPanel(void);
+  MenuPanel(MenuInterface* menu);
+  virtual ~MenuPanel(void);
   virtual void display(void);
+
+protected:
+
+  // Instance variables visible to subclasses
   
+  bool            displayVisible;
+  MenuInterface*  mainMenu;
+
 private:
   
   // Instance variables - private
