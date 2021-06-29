@@ -30,6 +30,14 @@ MenuShedPanel::~MenuShedPanel(void)
 
 char* MenuShedPanel::errorInFields(void)
 {
+  if(strlen(heightBuf)<1)
+    return (char*)"No height data entered.";
+  if(strlen(lengthBuf)<1)
+    return (char*)"No length data entered.";
+  if(strlen(widthBuf)<1)
+    return (char*)"No width data entered.";
+  
+
   return NULL;
 }
 

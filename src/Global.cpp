@@ -46,6 +46,20 @@ bool extractColonVecN(char* path, int N, float* dest)
 
 
 // =======================================================================================
+// Determine if a character string is a valid number.  Returns NULL if it's fine, 
+// otherwise a string about the problem.
+
+char* errorInNumericCharacterField(char* field)
+{
+  if(strlen(field) == 0)
+    return (char*)"No data in field.";
+  
+  // UP TO HERE
+  return NULL;
+}
+
+
+// =======================================================================================
 // Determine the extension type of a filename.
 
 FileExtension findExtension(const char* fileName)
