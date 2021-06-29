@@ -20,7 +20,8 @@ public:
   // Member functions - public
   MenuShedPanel(MenuInterface* menu);
   virtual ~MenuShedPanel(void);
-  void display(void);
+  void    display(void);
+  char*   errorInFields(void);
 
 private:
   

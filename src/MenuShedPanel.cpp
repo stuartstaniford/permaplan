@@ -26,6 +26,15 @@ MenuShedPanel::~MenuShedPanel(void)
 
 
 // =======================================================================================
+// Function to confirm 
+
+char* MenuShedPanel::errorInFields(void)
+{
+  return NULL;
+}
+
+
+// =======================================================================================
 // The floating menu to set up parameters for an inserted shed
 
 void MenuShedPanel::display(void)
@@ -34,6 +43,7 @@ void MenuShedPanel::display(void)
     return;
   ImGui::Begin("Insert a Shed", &displayVisible, ImGuiWindowFlags_AlwaysAutoResize);
 
+  // Text fields for data entry
   ImGui::Text("Length (%c):", spaceUnitAbbr);
   ImGui::SameLine();
   ImGui::InputText("", lengthBuf, 8, ImGuiInputTextFlags_CharsDecimal);
@@ -45,6 +55,21 @@ void MenuShedPanel::display(void)
   ImGui::Text("Height (%c):", spaceUnitAbbr);
   ImGui::SameLine();
   ImGui::InputText("", heightBuf, 8, ImGuiInputTextFlags_CharsDecimal);
+
+  // Bottom row of buttons to cancel/enter.
+  if(ImGui::Button("Cancel"))
+   {
+
+   }
+  ImGui::SameLine();
+  if(ImGui::Button("Create Shed"))
+   {
+    char* errString;
+    if((errString = errorInFields()))
+     {
+      
+     }
+   }
 
   
   ImGui::End();

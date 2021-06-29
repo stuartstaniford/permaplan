@@ -24,7 +24,8 @@ public:
   // Member functions - public
   MenuPanel(MenuInterface* menu);
   virtual ~MenuPanel(void);
-  virtual void display(void);
+  virtual void    display(void);
+  virtual char*   errorInFields(void);
 
 protected:
 

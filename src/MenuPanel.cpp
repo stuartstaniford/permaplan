@@ -24,6 +24,17 @@ MenuPanel::~MenuPanel(void)
 
 
 // =======================================================================================
+// Function to confirm fields are ok.
+
+char* MenuPanel::errorInFields(void)
+{
+  static char* errString = (char*)"Unimplemented superclass method "
+                                                              "MenuPanel::errorInFields.\n";
+  return errString;
+}
+
+
+// =======================================================================================
 // Display function - should always be overriden by subclass.
 
 void MenuPanel::display(void)
