@@ -37,7 +37,27 @@ char* MenuShedPanel::errorInFields(void)
   if(strlen(widthBuf)<1)
     return (char*)"No width data entered.";
   
+  static char errBuf[48];
+  char* errString;
+  
+  if((errString = errorInNumericCharacterField(heightBuf)))
+   {
+    sprintf(errBuf, "Bad height value: %s", errString);
+    return errBuf;
+   }
 
+  if((errString = errorInNumericCharacterField(lengthBuf)))
+   {
+    sprintf(errBuf, "Bad length value: %s", errString);
+    return errBuf;
+   }
+
+  if((errString = errorInNumericCharacterField(lengthBuf)))
+   {
+    sprintf(errBuf, "Bad length value: %s", errString);
+    return errBuf;
+   }
+            
   return NULL;
 }
 

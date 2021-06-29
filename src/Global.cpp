@@ -54,7 +54,17 @@ char* errorInNumericCharacterField(char* field)
   if(strlen(field) == 0)
     return (char*)"No data in field.";
   
-  // UP TO HERE
+  char* endPtr;
+  float f = strtof(field, &endPtr);
+  unless(endPtr)
+    return (char*)"Field is not valid numerical data.";
+  
+  if(isnan(f))
+    return (char*)"Field is not a valid number.";
+  
+  if(isinf(f))
+    return (char*)"Field value is infinite.";
+  
   return NULL;
 }
 
