@@ -8,6 +8,7 @@
 #include "DynamicallyTypable.h"
 #include "ScriptController.h"
 #include "Scene.h"
+#include "MenuPanel.h"
 #include "imgui.h"
 #include <cglm/cglm.h>
 #include <GL/glew.h>
@@ -71,9 +72,9 @@ class MenuInterface
   bool                all_tree_selector;
   bool                insert_shed_panel;
   char                heightBuf[16];
-  char                lengthBuf[16];
-  char                widthBuf[16];
   float               size;
+  MenuPanel*          shedPanel;
+  
 #ifdef SHOW_DEMO_WINDOW
   bool                show_demo_window;
 #endif

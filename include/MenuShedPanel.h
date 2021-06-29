@@ -18,11 +18,15 @@ public:
   // Member functions - public
   MenuShedPanel(void);
   ~MenuShedPanel(void);
-  
+  void display(void);
+
 private:
   
   // Instance variables - private
-  
+  char  heightBuf[16];
+  char  lengthBuf[16];
+  char  widthBuf[16];
+
   // Member functions - private
   MenuShedPanel(const MenuShedPanel&);                 // Prevent copy-construction
   MenuShedPanel& operator=(const MenuShedPanel&);      // Prevent assignment

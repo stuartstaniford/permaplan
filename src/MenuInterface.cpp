@@ -7,6 +7,7 @@
 #include "Material.h"
 #include "Species.h"
 #include "Window3D.h"
+#include "MenuShedPanel.h"
 #include "loadFileToBuf.h"
 #include "RegionList.h"
 #include "imgui_impl_opengl3.h"
@@ -29,7 +30,7 @@ MenuInterface::MenuInterface(GLFWwindow* window, Window3D& W):
                         show_focus_overlay(true),
                         show_simulation_controller(true),
                         all_tree_selector(false),
-                        insert_shed_panel(false)
+                        shedPanel(NULL)
 #ifdef SHOW_DEMO_WINDOW
                         , show_demo_window(true)
 #endif
@@ -47,8 +48,6 @@ MenuInterface::MenuInterface(GLFWwindow* window, Window3D& W):
 
   // clear the buffers
   heightBuf[0] = '\0'; 
-  lengthBuf[0] = '\0'; 
-  widthBuf[0] = '\0';
 }
 
 
@@ -141,8 +140,10 @@ void MenuInterface::insertBlockButton(void)
 
 void MenuInterface::insertShedButton(void)
 {
+  unless(shedPanel)
+    shedPanel = new MenuShedPanel;
   show_insert_menu = false;
-  insert_shed_panel = true;
+  shedPanel->displayVisible = true;
 }
 
 
@@ -201,32 +202,6 @@ void MenuInterface::blockEnteredButton(float blockSize, const std::string& matNa
   scene->insertVisibleObject((char*)"Block", blockSize, scene->lastDoubleClick, iter->second);
   LogMaterialSelections("Material %s selected for block, carbon density %.2f.\n",
                         matName, iter->second->carbonDensity);
-}
-
-
-// =======================================================================================
-// The floating menu to set up parameters for an inserted shed
-
-void MenuInterface::imguiShedPanel(void)
-{
-  if(!insert_shed_panel)
-    return;
-  ImGui::Begin("Insert a Shed", &insert_shed_panel, ImGuiWindowFlags_AlwaysAutoResize);
-
-  ImGui::Text("Length (%c):", spaceUnitAbbr);
-  ImGui::SameLine();
-  ImGui::InputText("", lengthBuf, 8, ImGuiInputTextFlags_CharsDecimal);
-
-  ImGui::Text("Width (%c):", spaceUnitAbbr);
-  ImGui::SameLine();
-  ImGui::InputText("", widthBuf, 8, ImGuiInputTextFlags_CharsDecimal);
-
-  ImGui::Text("Height (%c):", spaceUnitAbbr);
-  ImGui::SameLine();
-  ImGui::InputText("", heightBuf, 8, ImGuiInputTextFlags_CharsDecimal);
-
-  
-  ImGui::End();
 }
 
 
@@ -712,7 +687,8 @@ void MenuInterface::imguiInterface(void)
   imguiTreeMenu();
   imguiAllTreeSelector();
   imguiHeightInputDialog();
-  imguiShedPanel();
+  if(shedPanel)
+    shedPanel->display();
   
   imguiSimulationController();
   imguiFocusOverlay();

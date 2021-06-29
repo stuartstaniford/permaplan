@@ -5,6 +5,9 @@
 #ifndef MENU_PANEL_H
 #define MENU_PANEL_H
 
+#include "Logging.h"
+#include "imgui.h"
+
 // =======================================================================================
 // Class variable initialization
 
@@ -13,7 +16,7 @@ class MenuPanel
 public:
   
   // Instance variables - public
-  bool displayPanel;
+  bool displayVisible;
   
   // Member functions - public
   MenuPanel(void);
