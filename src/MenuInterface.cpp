@@ -83,6 +83,15 @@ void setCenter(void)
 
 
 // =======================================================================================
+// Function we call when something has gone wrong and we need to create an errorpanel
+
+void  MenuInterface::createErrorPanel(const char* errString)
+{
+  
+}
+
+
+// =======================================================================================
 // Users wants to insert a height, and we need to know more
 
 void MenuInterface::imguiHeightInputDialog(void)

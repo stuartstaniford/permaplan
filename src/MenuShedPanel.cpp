@@ -4,6 +4,7 @@
 #include "MenuShedPanel.h"
 #include "Global.h"
 #include "PmodDesign.h"
+#include "MenuInterface.h"
 
 // =======================================================================================
 // Constructor
@@ -95,7 +96,7 @@ void MenuShedPanel::display(void)
     char* errString;
     if((errString = errorInFields()))
      {
-      // Need errorpanel
+      mainMenu->createErrorPanel(errString);
       return;
      }
     else

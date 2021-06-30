@@ -56,6 +56,7 @@ class MenuInterface
   void  heightEnteredButton(float z);
   void  blockEnteredButton(float blockSize, const std::string& matName);
   void  imguiTreeMenuButtonPressed(const char* genusString);
+  void  createErrorPanel(const char* errString);
 
  private:
   
