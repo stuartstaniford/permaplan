@@ -4,14 +4,15 @@
 // their intent to fix them before continuing).
 
 #include "MenuErrorPanel.h"
-
+#include <cstring>
 
 // =======================================================================================
 // Constructor
 
-MenuErrorPanel::MenuErrorPanel(MenuInterface* menu):
-                                  MenuPanel(menu)
+MenuErrorPanel::MenuErrorPanel(const char* errIn):
+                                    displayVisible(false)
 {
+  strncpy(errString, errIn, ERR_PANEL_MAX);
 }
 
 
@@ -20,6 +21,30 @@ MenuErrorPanel::MenuErrorPanel(MenuInterface* menu):
 
 MenuErrorPanel::~MenuErrorPanel(void)
 {
+}
+
+
+// =======================================================================================
+// Function to display the error, and a button to acknowledge it.
+
+bool MenuErrorPanel::displayDone(void)
+{
+  if(!displayVisible)
+    return false;
+  ImGui::Begin("Input Error", &displayVisible, ImGuiWindowFlags_AlwaysAutoResize);
+
+  // Display the error
+  ImGui::Text("%s", errString);
+
+  // Bottom row of buttons to cancel/enter.
+  if(ImGui::Button("Got it."))
+   {
+    delete this;
+    return true;
+   }
+  
+  ImGui::End();
+  return false;
 }
 
 

@@ -8,23 +8,28 @@
 
 #include "MenuPanel.h"
 
+#define ERR_PANEL_MAX 64
+
 // =======================================================================================
 // Class variable initialization
 
-class MenuErrorPanel: public MenuPanel
+class MenuErrorPanel
 {
 public:
   
   // Instance variables - public
   
   // Member functions - public
-  MenuErrorPanel(MenuInterface* menu);
+  MenuErrorPanel(const char* errIn);
   ~MenuErrorPanel(void);
-  
+  bool displayDone(void);
+
 private:
   
   // Instance variables - private
-  
+  char  errString[ERR_PANEL_MAX];
+  bool  displayVisible;
+
   // Member functions - private
   MenuErrorPanel(const MenuErrorPanel&);                 // Prevent copy-construction
   MenuErrorPanel& operator=(const MenuErrorPanel&);      // Prevent assignment
