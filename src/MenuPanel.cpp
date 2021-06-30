@@ -10,7 +10,8 @@
 
 MenuPanel::MenuPanel(MenuInterface* menu):
                   displayVisible(false),
-                  mainMenu(menu)
+                  mainMenu(menu),
+                  errPanel(NULL)
 {
 }
 

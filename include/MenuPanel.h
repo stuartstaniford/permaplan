@@ -13,6 +13,7 @@
 // Class variable initialization
 
 class MenuInterface;
+class MenuErrorPanel;
 
 class MenuPanel
 {
@@ -34,7 +35,8 @@ protected:
   
   bool            displayVisible;
   MenuInterface*  mainMenu;
-
+  MenuErrorPanel* errPanel;
+  
 private:
   
   // Instance variables - private

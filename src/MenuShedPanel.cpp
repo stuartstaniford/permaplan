@@ -5,6 +5,8 @@
 #include "Global.h"
 #include "PmodDesign.h"
 #include "MenuInterface.h"
+#include "MenuErrorPanel.h"
+
 
 // =======================================================================================
 // Constructor
@@ -96,14 +98,17 @@ void MenuShedPanel::display(void)
     char* errString;
     if((errString = errorInFields()))
      {
-      mainMenu->createErrorPanel(errString);
-      return;
+      errPanel = new MenuErrorPanel(errString);
      }
     else
      {
       return;
      }
    }
+
+  if(errPanel)
+    if(errPanel->displayDone())
+      errPanel = NULL;
   
   ImGui::End();
 }

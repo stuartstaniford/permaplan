@@ -31,10 +31,11 @@ bool MenuErrorPanel::displayDone(void)
 {
   if(!displayVisible)
     return false;
-  ImGui::Begin("Input Error", &displayVisible, ImGuiWindowFlags_AlwaysAutoResize);
+  ImGui::BeginPopup("Input Error");
 
   // Display the error
   ImGui::Text("%s", errString);
+  ImGui::Separator();
 
   // Bottom row of buttons to cancel/enter.
   if(ImGui::Button("Got it."))
@@ -43,7 +44,7 @@ bool MenuErrorPanel::displayDone(void)
     return true;
    }
   
-  ImGui::End();
+  ImGui::EndPopup();
   return false;
 }
 
