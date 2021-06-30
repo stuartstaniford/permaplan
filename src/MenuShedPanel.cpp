@@ -95,10 +95,14 @@ void MenuShedPanel::display(void)
     char* errString;
     if((errString = errorInFields()))
      {
-      
+      // Need errorpanel
+      return;
+     }
+    else
+     {
+      return;
      }
    }
-
   
   ImGui::End();
 }

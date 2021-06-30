@@ -21,7 +21,7 @@ public:
   // Member functions - public
   MenuBlockPanel(MenuInterface* menu);
   virtual ~MenuBlockPanel(void);
-  void display(void);
+  void    display(void);
 
 private:
   
@@ -32,7 +32,6 @@ private:
   // Member functions - private
   MenuBlockPanel(const MenuBlockPanel&);                 // Prevent copy-construction
   MenuBlockPanel& operator=(const MenuBlockPanel&);      // Prevent assignment
-
 };
 
 #endif

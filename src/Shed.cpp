@@ -8,7 +8,8 @@
 // =======================================================================================
 // Constructor
 
-Shed::Shed(void)
+Shed::Shed(void):
+          VisualObject(false)
 {
 }
 

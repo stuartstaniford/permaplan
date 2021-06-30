@@ -6,6 +6,7 @@
 #define MENU_PANEL_H
 
 #include "Logging.h"
+#include "VisualObject.h"
 #include "imgui.h"
 
 // =======================================================================================
@@ -24,8 +25,8 @@ public:
   // Member functions - public
   MenuPanel(MenuInterface* menu);
   virtual ~MenuPanel(void);
-  virtual void    display(void);
-  virtual char*   errorInFields(void);
+  virtual void  display(void);
+  virtual char* errorInFields(void);
 
 protected:
 

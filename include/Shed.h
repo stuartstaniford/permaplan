@@ -5,6 +5,7 @@
 #ifndef SHED_H
 #define SHED_H
 
+#include "VisualObject.h"
 #include <cglm/cglm.h>
 #include "rapidjson/document.h"
 #include "rapidjson/writer.h"
@@ -14,7 +15,7 @@
 // =======================================================================================
 // Class variable initialization
 
-class Shed
+class Shed: public VisualObject
 {
 public:
   
