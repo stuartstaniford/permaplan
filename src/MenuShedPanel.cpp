@@ -14,9 +14,10 @@
 MenuShedPanel::MenuShedPanel(MenuInterface* menu):
                               MenuPanel(menu)
 {
-  heightBuf[0] = '\0'; 
-  lengthBuf[0] = '\0'; 
-  widthBuf[0] = '\0';
+  // defaults for a new shed
+  strcpy(heightBuf, "8"); 
+  strcpy(lengthBuf, "12"); 
+  strcpy(widthBuf, "6"); 
 }
 
 
@@ -102,6 +103,7 @@ void MenuShedPanel::display(void)
      }
     else
      {
+      ImGui::End();
       return;
      }
    }
