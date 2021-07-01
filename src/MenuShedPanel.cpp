@@ -12,7 +12,8 @@
 // Constructor
 
 MenuShedPanel::MenuShedPanel(MenuInterface* menu):
-                              MenuPanel(menu)
+                              MenuPanel(menu),
+                              roofAngle(15.0f.)
 {
   // defaults for a new shed
   strcpy(heightBuf, "8"); 
@@ -87,6 +88,8 @@ void MenuShedPanel::display(void)
   ImGui::Text("Height (%c):", spaceUnitAbbr);
   ImGui::SameLine();
   ImGui::InputText("", heightBuf, 8, ImGuiInputTextFlags_CharsDecimal);
+
+  ImGui::SliderFloat("Roof Angle", &roofAngle, 0.0f, 90.0f);
 
   // Bottom row of buttons to cancel/enter.
   if(ImGui::Button("Cancel"))

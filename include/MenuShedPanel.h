@@ -29,6 +29,7 @@ private:
   char  heightBuf[16];
   char  lengthBuf[16];
   char  widthBuf[16];
+  float roofAngle;
 
   // Member functions - private
   MenuShedPanel(const MenuShedPanel&);                 // Prevent copy-construction
