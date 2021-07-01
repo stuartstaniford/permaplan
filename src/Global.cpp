@@ -46,6 +46,22 @@ bool extractColonVecN(char* path, int N, float* dest)
 
 
 // =======================================================================================
+// Determine if a float is a valid number.  Returns NULL if it's fine, 
+// otherwise a string about the problem.
+
+char* errorInFloat(float f)
+{  
+  if(isnan(f))
+    return (char*)"Field is not a valid number.";
+  
+  if(isinf(f))
+    return (char*)"Field value is infinite.";
+  
+  return NULL;
+}
+
+
+// =======================================================================================
 // Determine if a character string is a valid number.  Returns NULL if it's fine, 
 // otherwise a string about the problem.
 

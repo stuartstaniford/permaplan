@@ -26,10 +26,16 @@ public:
 private:
   
   // Instance variables - private
-  char  heightBuf[16];
-  char  lengthBuf[16];
-  char  widthBuf[16];
+  float height;
+  float length;
+  float width;
   float roofAngle;
+
+  // static buffers for labels for controls
+  static bool  staticsInitialized;
+  static char  heightLabel[16];
+  static char  lengthLabel[16];
+  static char  widthLabel[16];
 
   // Member functions - private
   MenuShedPanel(const MenuShedPanel&);                 // Prevent copy-construction

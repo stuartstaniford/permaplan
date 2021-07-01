@@ -9,16 +9,31 @@
 
 
 // =======================================================================================
+// Constants, static variable initializations, etc
+
+bool  MenuShedPanel::staticsInitialized = false; 
+char  MenuShedPanel::heightLabel[16];
+char  MenuShedPanel::lengthLabel[16];
+char  MenuShedPanel::widthLabel[16];
+
+
+// =======================================================================================
 // Constructor
 
 MenuShedPanel::MenuShedPanel(MenuInterface* menu):
                               MenuPanel(menu),
-                              roofAngle(15.0f.)
+                              height(8.0f),
+                              length(12.0f),
+                              width(6.0f),
+                              roofAngle(15.0f)
 {
-  // defaults for a new shed
-  strcpy(heightBuf, "8"); 
-  strcpy(lengthBuf, "12"); 
-  strcpy(widthBuf, "6"); 
+  unless(staticsInitialized)
+   {
+    staticsInitialized = true;
+    sprintf(heightLabel, "(%s)##h", spaceUnitName);
+    sprintf(lengthLabel, "(%s)##l", spaceUnitName);
+    sprintf(widthLabel, "(%s)##w", spaceUnitName);
+   }
 }
 
 
@@ -35,31 +50,24 @@ MenuShedPanel::~MenuShedPanel(void)
 
 char* MenuShedPanel::errorInFields(void)
 {
-  if(strlen(heightBuf)<1)
-    return (char*)"No height data entered.";
-  if(strlen(lengthBuf)<1)
-    return (char*)"No length data entered.";
-  if(strlen(widthBuf)<1)
-    return (char*)"No width data entered.";
-  
   static char errBuf[48];
   char* errString;
   
-  if((errString = errorInNumericCharacterField(heightBuf)))
+  if((errString = errorInFloat(height)))
    {
     sprintf(errBuf, "Bad height value: %s", errString);
     return errBuf;
    }
 
-  if((errString = errorInNumericCharacterField(lengthBuf)))
+  if((errString = errorInFloat(length)))
    {
     sprintf(errBuf, "Bad length value: %s", errString);
     return errBuf;
    }
 
-  if((errString = errorInNumericCharacterField(lengthBuf)))
+  if((errString = errorInFloat(width)))
    {
-    sprintf(errBuf, "Bad length value: %s", errString);
+    sprintf(errBuf, "Bad width value: %s", errString);
     return errBuf;
    }
             
@@ -77,19 +85,19 @@ void MenuShedPanel::display(void)
   ImGui::Begin("Insert a Shed", &displayVisible, ImGuiWindowFlags_AlwaysAutoResize);
 
   // Text fields for data entry
-  ImGui::Text("Length (%c):", spaceUnitAbbr);
+  ImGui::Text("Length:");
   ImGui::SameLine();
-  ImGui::InputText("", lengthBuf, 8, ImGuiInputTextFlags_CharsDecimal);
+  ImGui::InputFloat(lengthLabel, &length, 1.0f, 5.0f, "%.2f");
 
-  ImGui::Text("Width (%c):", spaceUnitAbbr);
+  ImGui::Text("Width:");
   ImGui::SameLine();
-  ImGui::InputText("", widthBuf, 8, ImGuiInputTextFlags_CharsDecimal);
+  ImGui::InputFloat(widthLabel, &width, 1.0f, 5.0f, "%.2f");
 
-  ImGui::Text("Height (%c):", spaceUnitAbbr);
+  ImGui::Text("Height");
   ImGui::SameLine();
-  ImGui::InputText("", heightBuf, 8, ImGuiInputTextFlags_CharsDecimal);
+  ImGui::InputFloat(heightLabel, &height, 1.0f, 5.0f, "%.2f");
 
-  ImGui::SliderFloat("Roof Angle", &roofAngle, 0.0f, 90.0f);
+  ImGui::SliderFloat("degrees", &roofAngle, 0.0f, 90.0f);
 
   // Bottom row of buttons to cancel/enter.
   if(ImGui::Button("Cancel"))

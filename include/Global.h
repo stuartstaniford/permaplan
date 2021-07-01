@@ -53,6 +53,7 @@ inline bool extractColonFloat(char* path, float* value)
               {return extractColonVecN(path, 1, value);}
 FileExtension findExtension(const char* fileName);
 char* errorInNumericCharacterField(char* field);
+char* errorInFloat(float f);
 
 
 // =======================================================================================
