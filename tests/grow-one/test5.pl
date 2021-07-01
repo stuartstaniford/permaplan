@@ -14,7 +14,9 @@ foreach my $i (1..$loopLimit)
   openOutput("$dir/test5.log");
   startPermaplan("-A -d $dir/test5.oldf -D $dir/test5.out.oldf -g 5.0");
   printPortMessage();
-  resizeWindow(1000, 800);
+  $winWidth = 1000 unless defined $winWidth;
+  $winHeight = 800 unless defined $winHeight;
+  resizeWindow($winWidth, $winHeight);
   setCameraFrontVector(0,0,-1);
   my $cameraZ = getCameraHeight();
   setCameraPosition(50,50,$cameraZ);

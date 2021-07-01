@@ -15,7 +15,9 @@ foreach my $i (1..$loopLimit)
   system("rm -rf $dir/*.tmp $dir/*.diff");
   openOutput("$dir/test1.log");
   startPermaplan("-A -d $dir/test1.oldf -D $dir/test1.out.oldf -g 5.0");
-  resizeWindow(400, 300);
+  $winWidth = 400 unless defined $winWidth;
+  $winHeight = 300 unless defined $winHeight;
+  resizeWindow($winWidth, $winHeight);
   sanityCheckHTTPPages();
   stopPermaplan();
   checkLogForErrors();

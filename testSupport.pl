@@ -31,6 +31,8 @@ $logFileName    = "permaplan.log";
 
 $http     = undef;
 $port     = $portBase;
+$winWidth   = undef;
+$winHeight  = undef;
 $outLines = 0;
 
 
@@ -101,8 +103,10 @@ sub processArgs
      {
       print("\nCommand line options:\n\n");
       print("\t-h\tPrint this message.\n");
+      print("\t-H N\tSet window height to N pixels.\n");
       print("\t-D\tSupply command for user to start permaplan in debugger.\n");
       print("\t-L N\tLoop over test N times.\n");
+      print("\t-W N\tSet window width to N pixels.\n");
       print("\t-y Y\tSimulate to year Y (if relevant).\n");
       print ("\n");
       exit;
@@ -111,9 +115,19 @@ sub processArgs
      {
       $debuggerMode = 1; 
      }
+    elsif($arg eq "-H")
+     {
+      $winHeight = $_[$index+1]; 
+      $skip = 1;
+     }
     elsif($arg eq "-L")
      {
       $loopLimit = $_[$index+1]; 
+      $skip = 1;
+     }
+    elsif($arg eq "-W")
+     {
+      $winWidth = $_[$index+1]; 
       $skip = 1;
      }
     elsif($arg eq "-y")

@@ -97,7 +97,10 @@ void MenuShedPanel::display(void)
   ImGui::SameLine();
   ImGui::InputFloat(heightLabel, &height, 1.0f, 5.0f, "%.2f");
 
-  ImGui::SliderFloat("degrees", &roofAngle, 0.0f, 90.0f);
+  float maxAngle = atanf(height/width)*180.0f/M_PI;
+  ImGui::Text("Roof Angle:");
+  ImGui::SameLine();
+  ImGui::SliderFloat("degrees", &roofAngle, 0.0f, maxAngle);
 
   // Bottom row of buttons to cancel/enter.
   if(ImGui::Button("Cancel"))

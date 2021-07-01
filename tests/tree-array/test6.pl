@@ -25,7 +25,9 @@ foreach my $i (1..$loopLimit)
   openOutput("$dir/test6.log");
   startPermaplan("-A -d tests/grow-one/test5.oldf -D $dir/test6.out.oldf -g 5.0");
   printPortMessage();
-  resizeWindow(1000, 800);
+  $winWidth = 1000 unless defined $winWidth;
+  $winHeight = 800 unless defined $winHeight;
+  resizeWindow($winWidth, $winHeight);
   my $treeCount = 0;
   for($i = 250; $i > -275; $i-= 50)
    {
