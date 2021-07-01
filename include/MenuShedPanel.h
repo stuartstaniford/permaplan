@@ -30,12 +30,21 @@ private:
   float length;
   float width;
   float roofAngle;
+  float rightOverhang;
+  float leftOverhang;
+  float frontOverhang;
+  float backOverhang;
+  
 
   // static buffers for labels for controls
   static bool  staticsInitialized;
   static char  heightLabel[16];
   static char  lengthLabel[16];
   static char  widthLabel[16];
+  static char  rOverhangLabel[16];
+  static char  lOverhangLabel[16];
+  static char  fOverhangLabel[16];
+  static char  bOverhangLabel[16];
 
   // Member functions - private
   MenuShedPanel(const MenuShedPanel&);                 // Prevent copy-construction

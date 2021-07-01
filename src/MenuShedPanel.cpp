@@ -15,6 +15,10 @@ bool  MenuShedPanel::staticsInitialized = false;
 char  MenuShedPanel::heightLabel[16];
 char  MenuShedPanel::lengthLabel[16];
 char  MenuShedPanel::widthLabel[16];
+char  MenuShedPanel::rOverhangLabel[16];
+char  MenuShedPanel::lOverhangLabel[16];
+char  MenuShedPanel::fOverhangLabel[16];
+char  MenuShedPanel::bOverhangLabel[16];
 
 
 // =======================================================================================
@@ -25,7 +29,11 @@ MenuShedPanel::MenuShedPanel(MenuInterface* menu):
                               height(8.0f),
                               length(12.0f),
                               width(6.0f),
-                              roofAngle(15.0f)
+                              roofAngle(15.0f),
+                              rightOverhang(1.0f),
+                              leftOverhang(1.0f),
+                              frontOverhang(1.0f),
+                              backOverhang(1.0f)
 {
   unless(staticsInitialized)
    {
@@ -33,6 +41,10 @@ MenuShedPanel::MenuShedPanel(MenuInterface* menu):
     sprintf(heightLabel, "(%s)##h", spaceUnitName);
     sprintf(lengthLabel, "(%s)##l", spaceUnitName);
     sprintf(widthLabel, "(%s)##w", spaceUnitName);
+    sprintf(rOverhangLabel, "(%s)##r", spaceUnitName);
+    sprintf(lOverhangLabel, "(%s)##L", spaceUnitName); // capitalized to avoid conflict with length
+    sprintf(fOverhangLabel, "(%s)##f", spaceUnitName);
+    sprintf(bOverhangLabel, "(%s)##b", spaceUnitName);
    }
 }
 
@@ -101,6 +113,22 @@ void MenuShedPanel::display(void)
   ImGui::Text("Roof Angle:");
   ImGui::SameLine();
   ImGui::SliderFloat("degrees", &roofAngle, 0.0f, maxAngle);
+
+  ImGui::Text("R. Overhang");
+  ImGui::SameLine();
+  ImGui::InputFloat(rOverhangLabel, &rightOverhang, 0.1f, 1.0f, "%.2f");
+
+  ImGui::Text("L. Overhang");
+  ImGui::SameLine();
+  ImGui::InputFloat(lOverhangLabel, &leftOverhang, 0.1f, 1.0f, "%.2f");
+
+  ImGui::Text("F. Overhang");
+  ImGui::SameLine();
+  ImGui::InputFloat(fOverhangLabel, &frontOverhang, 0.1f, 1.0f, "%.2f");
+
+  ImGui::Text("B Overhang");
+  ImGui::SameLine();
+  ImGui::InputFloat(bOverhangLabel, &backOverhang, 0.1f, 1.0f, "%.2f");
 
   // Bottom row of buttons to cancel/enter.
   if(ImGui::Button("Cancel"))
