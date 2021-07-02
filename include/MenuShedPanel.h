@@ -4,6 +4,8 @@
 #define MENU_SHED_PANEL_H
 
 #include "MenuPanel.h"
+#include "Shed.h"
+
 
 // =======================================================================================
 /// @brief The floating menu to set up parameters for an inserted shed
@@ -14,6 +16,7 @@
 class MenuShedPanel: public MenuPanel
 {  
   friend MenuInterface;
+  friend Shed;
 
 public:
   
