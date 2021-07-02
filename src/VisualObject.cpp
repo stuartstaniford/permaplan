@@ -17,7 +17,17 @@ std::unordered_map<unsigned, VisualObject*> VisualObject::allObjects;
 Lockable VisualObject::staticLock;
 
 // =======================================================================================
-// Constructors
+/// @brief Constructor for the VisualObject.
+/// 
+/// In addition to doing default values for the object state, we also allocate it a unique
+/// index and keep track of that in the allObjects container.
+/// 
+/// @param absHeights This is true if the VisualObject should have absolute height, false
+/// if they should be relative to the land surface.
+/// @param B A pointer to a bounding box.  This defaults to NULL and that is the usual 
+/// case - the object will allocate it's own BoundingBox.  But if there's a reason the
+/// object should use a different bounding box, it is supplied here.
+///  
 
 VisualObject::VisualObject(bool absHeights, BoundingBox* B):
                                 box(B),
@@ -37,7 +47,10 @@ VisualObject::VisualObject(bool absHeights, BoundingBox* B):
 
 
 // =======================================================================================
-// Destructor
+/// @brief Destructor
+///
+/// Deletes box (the bounding box pointer), it's label (a char array on the heap), 
+/// and erases its objIndex from the allObjects container.
 
 VisualObject::~VisualObject(void)
 {
@@ -54,7 +67,12 @@ VisualObject::~VisualObject(void)
 
 
 // =======================================================================================
-// Function to set the label of this object (not normally over-ridden).  Copies string.
+/// @brief Sets the label for the VisualObect.
+///
+/// Function to set the label of this object (not normally over-ridden).  Makes a copy
+/// on the heap (and will delete the last version if called more than once).
+/// 
+/// @param inLabel - supplied label.  Will be copied and not relied on after this call.
 
 void VisualObject::setLabel(const char* inLabel)
 {

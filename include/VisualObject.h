@@ -1,9 +1,4 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Jun 2020 -
-// This class is not used directly, but instead is a superclass for anything that
-// should be displayed and be stored in the quadtree.  A VisualObject is expected
-// to be a "whole object" in some sense (even though it may also be a part of a larger
-// group.  But it knows it's own absolute location and is capabable of standing on
-// it's own in the Quadtree etc.
 
 
 #ifndef VISUAL_OBJECT_H
@@ -14,12 +9,23 @@
 #include <unordered_map>
 
 // =======================================================================================
-// Class variable initialization
+// Forward declarations required
 
 class LandSurfaceRegion;
 class Quadtree;
 class Vertex;
 class ObjectGroup;
+
+
+// =======================================================================================
+/// @brief Superclass for renderable whole objects.
+/// 
+/// This class is not used directly, but instead is a superclass for anything that
+/// should be displayed and be stored in the quadtree.  A VisualObject is expected
+/// to be a "whole object" in some sense (even though it may also be a part of a larger
+/// group).  But it knows it's own absolute location and is capabable of standing on
+/// it's own in the Quadtree etc.
+
 
 class VisualObject: public Lockable, public VisualElement 
 {
