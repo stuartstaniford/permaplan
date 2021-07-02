@@ -1,5 +1,4 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Jun 2021 -
-// This class handles the UI panel for inserting a shed.
 
 #ifndef MENU_SHED_PANEL_H
 #define MENU_SHED_PANEL_H
@@ -7,7 +6,10 @@
 #include "MenuPanel.h"
 
 // =======================================================================================
-// Class variable initialization
+/// @brief The floating menu to set up parameters for an inserted shed
+/// 
+/// This class provides for the display of a single UI panel that can be used when
+/// inserting or editing a shed building (or shed-like component of a larger building.) 
 
 class MenuShedPanel: public MenuPanel
 {  

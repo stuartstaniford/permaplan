@@ -6,7 +6,10 @@
 #include <err.h>
 
 // =======================================================================================
-// Constructor
+/// @brief Constructor for the MenuPanel that initializes the generic variables
+/// 
+/// @param menu Pointer to the overall MenuInterface so we (and our subclasses) can 
+/// call back into it. 
 
 MenuPanel::MenuPanel(MenuInterface* menu):
                   displayVisible(false),
@@ -17,7 +20,8 @@ MenuPanel::MenuPanel(MenuInterface* menu):
 
 
 // =======================================================================================
-// Destructor
+/// \brief Destructor
+///
 
 MenuPanel::~MenuPanel(void)
 {
@@ -25,7 +29,14 @@ MenuPanel::~MenuPanel(void)
 
 
 // =======================================================================================
-// Function to confirm fields are ok.
+/// @brief Interface for subclass function to check that all panel fields are complete
+/// and correct.  
+/// 
+/// The version in this clsss will always return an error.  Subclasses should override
+/// this.
+///
+/// @return A pointer to a char array with an error message.  It should be NULL if there
+/// is no error.
 
 char* MenuPanel::errorInFields(void)
 {
@@ -36,7 +47,10 @@ char* MenuPanel::errorInFields(void)
 
 
 // =======================================================================================
-// Display function - should always be overriden by subclass.
+/// @brief Interface for displaying the panel when it is supposed to be on screen.  
+/// 
+/// The version in this clsss will always return an error.  Subclasses should override
+/// this.
 
 void MenuPanel::display(void)
 {

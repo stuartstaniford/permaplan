@@ -22,7 +22,13 @@ char  MenuShedPanel::bOverhangLabel[16];
 
 
 // =======================================================================================
-// Constructor
+/// @brief Constructor
+///
+/// The constructor is where a variety of default values for the inserted shed are set. 
+/// It also initializes a number of static variables if they weren't done before.
+///
+/// @param menu Pointer to the overall MenuInterface so we can call back into it. 
+
 
 MenuShedPanel::MenuShedPanel(MenuInterface* menu):
                               MenuPanel(menu),
@@ -50,7 +56,9 @@ MenuShedPanel::MenuShedPanel(MenuInterface* menu):
 
 
 // =======================================================================================
-// Destructor
+/// @brief Destructor
+///
+/// Presently empty/default.
 
 MenuShedPanel::~MenuShedPanel(void)
 {
@@ -58,7 +66,14 @@ MenuShedPanel::~MenuShedPanel(void)
 
 
 // =======================================================================================
-// Function to confirm 
+/// @brief Verifies the validity of the panel state.
+/// 
+/// This function verifies that all state variables of the MenuShedPanel are consistent
+/// and complete.  If not, it provides a diagnostic error string.  Note in some cases it
+/// relies on a static buffer and thus is not thread-safe.
+///
+/// @return A char* pointer to a diagnostic error string.
+
 
 char* MenuShedPanel::errorInFields(void)
 {
@@ -88,7 +103,7 @@ char* MenuShedPanel::errorInFields(void)
 
 
 // =======================================================================================
-// The floating menu to set up parameters for an inserted shed
+/// @brief Function that actually implements the display of the panel.
 
 void MenuShedPanel::display(void)
 {

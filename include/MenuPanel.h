@@ -1,6 +1,4 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Jun 2021 -
-// This class is an abstract superclass for menus and panels in the menu interface
-// system.  Individual menus should inherit from this and conform to this interface
 
 #ifndef MENU_PANEL_H
 #define MENU_PANEL_H
@@ -10,10 +8,15 @@
 #include "imgui.h"
 
 // =======================================================================================
-// Class variable initialization
 
 class MenuInterface;
 class MenuErrorPanel;
+
+// =======================================================================================
+/// @brief Provides an interface that all GUI panels/menus inherit from
+/// 
+/// This class is an abstract superclass for menus and panels in the menu interface
+/// system.  Individual menus should inherit from this and conform to this interface. 
 
 class MenuPanel
 {
