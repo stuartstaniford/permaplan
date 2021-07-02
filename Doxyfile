@@ -865,6 +865,7 @@ WARN_LOGFILE           =
 # Note: If this tag is empty the current directory is searched.
 
 INPUT                  = doc \
+                include/Lockable.h src/Lockable.cpp \
                 include/MenuPanel.h src/MenuPanel.cpp \
                 include/MenuShedPanel.h src/MenuShedPanel.cpp 
 

@@ -4,8 +4,11 @@
 
 #include "Lockable.h"
 
+
 // =======================================================================================
-// Constructor
+/// @brief Constructor initializes the mutex.
+/// 
+/// Makes a call to pthread_mutex_init on the private mutex variable. 
 
 Lockable::Lockable(void)
 {
@@ -16,7 +19,9 @@ Lockable::Lockable(void)
 
 
 // =======================================================================================
-// Destructor
+/// @brief Destructor destroyes the mutex.
+/// 
+/// Makes a call to pthread_mutex_destroy on the private mutex variable. 
 
 Lockable::~Lockable(void)
 {
