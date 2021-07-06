@@ -50,11 +50,14 @@ MAIN = permaplan
 
 .PHONY: depend clean
 
-all:    $(MAIN)
+all:    doc $(MAIN)
 				@echo $(MAIN) has been compiled.
 
 $(MAIN): $(OBJS)
 			$(CPP) $(CFLAGS) $(INCLUDES) -o $(MAIN) $(OBJS) $(LFLAGS) $(LIBS)
+
+doc:		$(SRCS) $(wildcard include/*.h) Doxyfile
+				doxygen Doxyfile
 
 # this is a suffix replacement rule for building .o's from .c's
 # it uses automatic variables $<: the name of the prerequisite of

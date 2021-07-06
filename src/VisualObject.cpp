@@ -70,7 +70,9 @@ VisualObject::~VisualObject(void)
 /// @brief Sets the label for the VisualObect.
 ///
 /// Function to set the label of this object (not normally over-ridden).  Makes a copy
-/// on the heap (and will delete the last version if called more than once).
+/// on the heap (and will delete the last version if called more than once).  The label
+/// is a way to store some kind of explanatory text or annotation specific to a particular
+/// VisualObject.
 /// 
 /// @param inLabel - supplied label.  Will be copied and not relied on after this call.
 
@@ -84,21 +86,38 @@ void VisualObject::setLabel(const char* inLabel)
 
 
 // =======================================================================================
-// Function to validate this kind of object.  This needs to be over-ridden by subclasses.
-
-#ifdef LOG_TREE_VALIDATION
+/// @brief Interface to validate that a particular kind of object is in a valid state.
+///
+/// Function to validate this kind of object.  This needs to be over-ridden by 
+/// subclasses as this version will abort if ever called.  Self validation is done on the
+/// quadtree, and all visual objects found in the quad tree are asked to validate 
+/// themselves.  This is development functionality that will be turned off in production
+/// (it is controlled by LOG_TREE_VALIDATION set in Logging.h).  selfValidate functions 
+/// are expected to abort with an error (eg from an assert() call) if anything is wrong 
+/// with the object's state.
+///
+/// @param l This will be called with value zero from the quadtree, but allows for this
+/// function to be used recursively (eg a tree searching its all branches and leaves
+/// and incrementing the level as it recurses up the tree).
 
 void VisualObject::selfValidate(unsigned l)
 {
+#ifdef LOG_TREE_VALIDATION
   err(-1, "Call to unimplemented VisualObject::selfValidate.\n");
+#endif
 }
 
-#endif
 
 // =======================================================================================
-// Function to set our altitude based on the land height where we are.
-// This version can be overwritten by implementing subclasses, but should do the
-// right thing in most cases.
+/// @brief Function to setAltitude of objects with relative height.
+///
+/// VisualObjects can have either relative height (to the landsurface where they are, or
+/// absolute heights).  This function to set our altitude based on the land height where 
+/// we are for the relative height case.  This version can be overwritten by implementing 
+/// subclasses, but should do the right thing in most cases (relies on calling out to
+/// getGroundContact().
+///
+/// @param surface The LandSurfaceRegion where we are.
 
 void VisualObject::setAltitude(LandSurfaceRegion* surface)
 {
@@ -116,9 +135,16 @@ void VisualObject::setAltitude(LandSurfaceRegion* surface)
 
 
 // =======================================================================================
-// Function to return the location at which we officially contact ground/grade level.
-// This version in this class finds the midpoint of the bounding box.
-// Subclasses may want to override this.
+/// @brief Function to return the location at which we officially contact ground/grade 
+/// level.
+///
+/// This version in this class finds the midpoint of the underside of the bounding box for 
+/// the object.  Subclasses may want to override this behavior with something specific
+/// to the geometry of the particular kind of object, as this approximation may give
+/// subtle errors in some cases.
+///
+/// @param x A reference to the x location to be filled out by the object.
+/// @param y A reference to the y location to be filled out by the object.
 
 void VisualObject::getGroundContact(float& x, float& y)
 {
@@ -131,7 +157,11 @@ void VisualObject::getGroundContact(float& x, float& y)
 
 
 // =======================================================================================
-// Function to remove ourself from the quadtree
+/// @brief Function to remove ourselves from the quadtree if necessary.
+///
+/// This is removal from the quadtree without deletion of the object (eg if it is about
+/// to be incorporated into an object group).  It's currently believed that subclasses
+/// do not need to override this.
 
 void VisualObject::removeFromQuadtree(void)
 {
@@ -141,7 +171,16 @@ void VisualObject::removeFromQuadtree(void)
 
 
 // =======================================================================================
-// Stub definition this should be overwritten by implementing subclasses
+/// @brief Interface for getting the unique vertices of the object one at a time.
+///
+/// This is a stub definition that should be overwritten by implementing subclasses as
+/// this version will abort with an error.  It is not absolutely necessary to implement it
+/// but the generic version of updateBoundingBox() relies on it.
+
+/// @param resetToFirst A boolean that if true says restart the vertex list from the beginning.
+/// @param v A point to the vertex to be filled out.
+/// @param detail A VertexDetail enum (see Vertex.h) as to whether to include texture and 
+/// normal coordinates in addition to the position.
 
 bool VisualObject::getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
 {
