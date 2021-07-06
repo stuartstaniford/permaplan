@@ -247,7 +247,7 @@ bool VisualObject::matchRay(vec3& position, vec3& direction, float& lambda)
 {
   unless(box->matchRay(position, direction, lambda))
     return false;
-  return VisualElement::matchRay(position, direction, lambda, zeroVec);
+  return VisualElement::matchRay(position, direction, lambda, zeroVec);    
 }
 
 

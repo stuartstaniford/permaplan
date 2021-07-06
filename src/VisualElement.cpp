@@ -18,7 +18,9 @@
 vec3 zeroVec = {0.0f, 0.0f, 0.0f};
 
 // =======================================================================================
-// Constructors
+/// @brief Constructor for the VisualElement.
+/// 
+/// Currently doesn't do anything at this level.
 
 VisualElement::VisualElement(void)
 {
@@ -26,7 +28,9 @@ VisualElement::VisualElement(void)
 
 
 // =======================================================================================
-// Destructor
+/// @brief Destructor for the VisualElement.
+/// 
+/// Currently doesn't do anything at this level.
 
 VisualElement::~VisualElement(void)
 {

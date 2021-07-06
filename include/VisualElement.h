@@ -1,13 +1,4 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Mar 2021 -
-// This class is not used directly, but instead is a superclass for anything that
-// might need to be assembled into TriangleBuffers for display on the GPU.
-// This class is typically for "parts" of things - ie they don't have their own
-// bounding box and can't be directly stored in the Quadtree themselves, but they
-// may be elements of larger objects which can be.  Their co-ordinates are expected
-// to be in some frame relative to the larger object of which they are part, so they
-// have to be supplied an offset location before operations like buffering geometry,
-// matching rays, etc.
-
 
 #ifndef VISUAL_ELEMENT_H
 #define VISUAL_ELEMENT_H
@@ -20,7 +11,15 @@ extern vec3 zeroVec;
 #endif
 
 // =======================================================================================
-// Class variable initialization
+/// @brief Superclass for renderable parts of objects.
+/// 
+/// This class is not used directly, but instead is a superclass for anything that might 
+/// need to be assembled into TriangleBuffers for display on the GPU.  This class is 
+/// typically for "parts" of things - ie they don't have their own bounding box and can't 
+/// be directly stored in the Quadtree themselves, but they may be elements of larger 
+/// objects which can be.  Their co-ordinates are expected to be in some frame relative 
+/// to the larger object of which they are part, so they have to be supplied an offset 
+/// location before operations like buffering geometry, matching rays, etc.
 
 class VisualElement
 {
