@@ -1,7 +1,4 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Oct 2020 -
-// Class for storing and rendering the rectangular boxes (eg straw bales, durisol blocks,
-// timber beams, etc).
-// Note that the diagram in box.pdf might be helpful in following this code.
 
 #include "Box.h"
 #include <err.h>
@@ -11,7 +8,12 @@
 
 
 // =======================================================================================
-// Constructors.
+/// @brief Constructor.
+///
+/// The constructor initializes VisualObject with absolute heights set to on (ie boxes
+/// don't adjust to the land surface - not clear on why this is so. 
+/// @param transform - matrix transformation to be applied to the box.  If the identity
+/// matrix is supplied, the box will be a unit cube at the origin.
 
 Box::Box(mat4 transform):
                     VisualObject(true)
@@ -24,7 +26,9 @@ Box::Box(mat4 transform):
 
 
 // =======================================================================================
-// Destructor
+/// @brief Destructor
+///
+/// Doesn't do much at present, but track BoxMemory.
 
 Box::~Box(void)
 {
@@ -33,8 +37,15 @@ Box::~Box(void)
 
 
 // =======================================================================================
-// Iterator over vertices with each unique.  Doesn't do textures, normals, as they aren't
-// very well defined for this purpose.
+/// @brief Interface for getting the vertices of the object one at a time.
+///
+/// This function that will cycle through all the vertices in the object, touching each 
+/// vertex only once (thus normals and texture coordinates are poorly defined.
+
+/// @param resetToFirst A boolean that if true says restart the vertex list from the beginning.
+/// @param v A point to the vertex to be filled out.
+/// @param detail A VertexDetail enum (see Vertex.h) as to whether to include texture and 
+/// normal coordinates in addition to the position.
 
 bool Box::getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
 {
@@ -187,6 +198,17 @@ static Vertex vertexArray[BOX_VCOUNT] = {
   {{1.0f, 1.0f, 0.0f}, 0u, {0.0f, 0.0f}, {0.0f, 1.0f, 0.0f}},   // 6
 };
 
+
+// =======================================================================================
+/// @brief Interface for getting the vertices of the object one at a time.
+///
+/// This interface is for a function that will cycle through all the vertices of all 
+/// the triangles of the object.  
+
+/// @param resetToFirst A boolean that if true says restart the vertex list from the beginning.
+/// @param v A point to the vertex to be filled out.
+/// @param detail A VertexDetail enum (see Vertex.h) as to whether to include texture and 
+/// normal coordinates in addition to the position.
 
 bool Box::getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
 {

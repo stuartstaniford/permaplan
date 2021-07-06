@@ -1,6 +1,4 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Oct 2020 -
-// Class for storing and rendering rectangular boxes (eg straw bales, durisol blocks,
-// timber beams, etc).
 
 #ifndef BOX_H
 #define BOX_H
@@ -12,7 +10,13 @@
 #include "rapidjson/error/en.h"
 
 // =======================================================================================
-// Class variable initialization
+/// @brief Class for storing and rendering rectangular boxes.
+///
+/// This subclass of VisualObject allows the representation of a variety of types of 
+/// rectangular box.  For example, straw bales, durisol blocks, timber beams, etc.  
+/// Boxes can be in arbitrary orientation.  Note that the diagram in box.pdf might be 
+/// helpful in following this code.
+
 
 
 class Box: public VisualObject

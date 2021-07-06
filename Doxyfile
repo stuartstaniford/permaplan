@@ -865,12 +865,13 @@ WARN_LOGFILE           =
 # Note: If this tag is empty the current directory is searched.
 
 INPUT                  = doc \
+                include/Box.h src/Box.cpp \
                 include/Lockable.h src/Lockable.cpp \
                 include/MenuPanel.h src/MenuPanel.cpp \
                 include/MenuShedPanel.h src/MenuShedPanel.cpp \
                 include/Shed.h src/Shed.cpp \
-                include/VisualObject.h src/VisualObject.cpp \
                 include/VisualElement.h src/VisualElement.cpp \
+                include/VisualObject.h src/VisualObject.cpp \
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding. Doxygen uses
