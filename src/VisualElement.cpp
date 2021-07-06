@@ -82,11 +82,25 @@ bool VisualElement::bufferGeometry(TriangleBuffer* T, vec3 offset)
 
 
 // =======================================================================================
-// Decide if a ray touches us.  This version will work in many cases, but there may
-// be more efficient methods possible for specific subclasses.  This will only work
-// if the subclass has implemented getNextVertex.
+/// @brief Decide if a ray touches us.  
+/// 
+/// Function to decide whether a given line touches the object or not.  It is extensively 
+/// used for things like identifying the object at mouse position, deciding if light 
+/// hits trees from particular angles, etc, etc.  The version here will work in many 
+/// cases, but there may be more efficient methods possible for specific subclasses.  
+/// This will only work if the subclass has implemented getNextVertex - it brute force 
+/// iterates through all the triangles in the element and tests each one using 
+/// mollerTrombore.
+///
+/// @param position The vec3 for a point on the ray to be matched.
+/// @param direction The vec3 for the direction of the ray.
+/// @param lambda A reference to a float which will be used to store the multiple of 
+/// the direction vector from the position to the match point on the object.
+/// @param offset A vec3 which gives the position of this element relative to its
+/// containing object (since elements generally have relative positions, this is needed
+/// to compute absolute position matches).
 
-// XX this might return a match on the far side of the element, instead of nearest.
+/// @todo XX This might return a match on the far side of the element, instead of nearest.
 
 bool VisualElement::matchRayToElement(vec3& position, vec3& direction, float& lambda, 
                                                                                 vec3 offset)
