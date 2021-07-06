@@ -81,7 +81,7 @@ void ObjectGroup::updateBoundingBox(void)
 // =======================================================================================
 // Decide if a ray touches us.  Check all the kids and return the closest.
 
-bool ObjectGroup::matchRay(vec3& position, vec3& direction, float& lambda)
+bool ObjectGroup::matchRayToObject(vec3& position, vec3& direction, float& lambda)
 {
   LogGroupMatchRay("Trying to ray match group %s.\n", objectName());
   unless(box->matchRay(position, direction, lambda))
@@ -94,7 +94,7 @@ bool ObjectGroup::matchRay(vec3& position, vec3& direction, float& lambda)
   bool retVal = false;
   for(VisualObject* V: *this)
    {
-    if(V->matchRay(position, direction, thisLambda))
+    if(V->matchRayToObject(position, direction, thisLambda))
      {
       retVal = true;
       LogGroupMatchRay("Ray matched contained object (%s) in group (%s).\n", 

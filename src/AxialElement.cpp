@@ -225,7 +225,8 @@ bool AxialElement::bufferGeometry(TriangleBuffer* T, vec3 offset)
 // Figure out whether a ray intersects the element or not
 // https://en.wikipedia.org/wiki/Skew_lines#Distance
 
-bool AxialElement::matchRay(vec3& position, vec3& direction, float& lambda, vec3 offset)
+bool AxialElement::matchRayToElement(vec3& position, vec3& direction, float& lambda, 
+                                                                                vec3 offset)
 {
 #ifndef LOG_TREE_MATCH_RAY
   vec3 joinLine, originDiff;

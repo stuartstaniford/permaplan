@@ -219,7 +219,7 @@ bool PathTube::bufferGeometry(TriangleBuffer* T, vec3 offset)
 // Figure out whether a ray intersects the element or not
 // https://en.wikipedia.org/wiki/Skew_lines#Distance
 
-bool PathTube::matchRay(vec3& position, vec3& direction, float& lambda, vec3 offset)
+bool PathTube::matchRayToElement(vec3& position, vec3& direction, float& lambda, vec3 offset)
 {
   float     angleRadians  = 2.0f*M_PI/sides;
   unsigned  startRow, endRow;

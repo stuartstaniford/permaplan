@@ -86,7 +86,7 @@ void LandSurfaceRegion::triangleBufferSize(unsigned& vCount, unsigned& iCount)
 // =======================================================================================
 // Stub definition this should be overwritten by implementing subclasses
 
-bool LandSurfaceRegion::matchRay(vec3& position, vec3& direction, float& lambda)
+bool LandSurfaceRegion::matchRayToObject(vec3& position, vec3& direction, float& lambda)
 {
   if(!box->matchRay(position, direction, lambda))
     return false;
@@ -113,7 +113,7 @@ float LandSurfaceRegion::getAltitude(float x, float y)
   vec3 direction = {0.0f, 0.0f, -ALT_STEP};
   float lambda;
   
-  matchRay(position, direction, lambda);
+  matchRayToObject(position, direction, lambda);
   
   return HIGH_UP - lambda*ALT_STEP;
 }

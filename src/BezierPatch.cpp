@@ -457,7 +457,7 @@ MATCH_NEIGHBOR_FOUND:
 // =======================================================================================
 // Decide whether a given ray intersects with our patch or not.
 
-bool BezierPatch::matchRay(vec3& position, vec3& direction, float& lambda)
+bool BezierPatch::matchRayToObject(vec3& position, vec3& direction, float& lambda)
 {
   assertCopyVer();
   if(!box || !box->matchRay(position, direction, lambda))

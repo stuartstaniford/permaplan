@@ -177,7 +177,7 @@ float Tree::estimateOpacityAxially(int axis)
       position[axis] = box->lower[axis] - 1.0f;
       position[iDir] = box->lower[iDir] + (i+0.05f)*iDirExtent;
       position[jDir] = box->lower[jDir] + (j+0.05f)*jDirExtent;
-      if(matchRay(position, direction, lambda))
+      if(matchRayToObject(position, direction, lambda))
         total++;
      }
   
@@ -449,7 +449,7 @@ void Tree::updateBoundingBox(void)
 // long distance, we just rely on the bounding box.  But close up, we recurse into the
 // structure (which is expensive, especially if we don't match).
 
-bool Tree::matchRay(vec3& position, vec3& direction, float& lambda)
+bool Tree::matchRayToObject(vec3& position, vec3& direction, float& lambda)
 {
   LogTreeMatchRay("Testing tree %d (box %.1f, %.1f; %.1f, %.1f; %.1f, %.1f) for ray match.\n",                       treePtrArrayIndex, box->lower[0], box->upper[0],
                           box->lower[1], box->upper[1], box->lower[2], box->upper[1]);

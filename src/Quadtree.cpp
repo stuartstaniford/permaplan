@@ -574,7 +574,7 @@ VisualObject* Quadtree::matchRay(vec3& position, vec3& direction, float& lambda)
   
   float         objLambda, bestLambda = HUGE_VALF;
   for(VisualObject* v: vObjects)
-    if(v->matchRay(position, direction, objLambda))
+    if(v->matchRayToObject(position, direction, objLambda))
       if(objLambda < bestLambda)
        {
         bestLambda    = objLambda;
@@ -605,7 +605,7 @@ VisualObject* Quadtree::matchRay(vec3& position, vec3& direction, float& lambda)
     return returnObject;
    }
     
-  if(surface && surface->matchRay(position, direction, lambda))
+  if(surface && surface->matchRayToObject(position, direction, lambda))
    {
     LogQuadtreeMatchRay("Quadtree matchRay: returning surface at level %d", level);
     return surface;

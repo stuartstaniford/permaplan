@@ -243,21 +243,11 @@ bool VisualObject::bufferGeometry(TriangleBuffer* T, vec3 offset)
 // be more efficient methods possible for specific subclasses.  This will only work
 // if the subclass has implemented getNextVertex.
 
-bool VisualObject::matchRay(vec3& position, vec3& direction, float& lambda)
+bool VisualObject::matchRayToObject(vec3& position, vec3& direction, float& lambda)
 {
   unless(box->matchRay(position, direction, lambda))
     return false;
-  return VisualElement::matchRay(position, direction, lambda, zeroVec);    
-}
-
-
-// =======================================================================================
-// Stub don't use
-
-bool VisualObject::matchRay(vec3& position, vec3& direction, float& lambda, vec3 offset)
-{
-  err(-1, "Called unimplemented superclass VisualObject::matchRay with offset.\n");
-
+  return VisualElement::matchRayToElement(position, direction, lambda, zeroVec);    
 }
 
 

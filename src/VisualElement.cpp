@@ -88,7 +88,8 @@ bool VisualElement::bufferGeometry(TriangleBuffer* T, vec3 offset)
 
 // XX this might return a match on the far side of the element, instead of nearest.
 
-bool VisualElement::matchRay(vec3& position, vec3& direction, float& lambda, vec3 offset)
+bool VisualElement::matchRayToElement(vec3& position, vec3& direction, float& lambda, 
+                                                                                vec3 offset)
 {
   unsigned vCount, iCount;
   triangleBufferSizes(vCount, iCount);

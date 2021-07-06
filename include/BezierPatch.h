@@ -44,7 +44,7 @@ public:
   void          triangleBufferSizes(unsigned& vertexCount, unsigned& indexCount);
   bool          bufferGeometry(TriangleBuffer* T);
   void          surfacePoint(float x, float y, vec3 result);
-  bool          matchRay(vec3& position, vec3& direction, float& lambda);
+  bool          matchRayToObject(vec3& position, vec3& direction, float& lambda);
   void          updateBoundingBox(void);
   DisplayList*  newUVLocationList(void);
   void          addControlPointsToDisplayList(DisplayList* D);

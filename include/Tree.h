@@ -55,7 +55,7 @@ class Tree: public VisualObject
   float       getRadius(void);
   bool        bufferGeometry(TriangleBuffer* T);
   void        getGroundContact(float& x, float& y);
-  bool        matchRay(vec3& position, vec3& direction, float& lambda);
+  bool        matchRayToObject(vec3& position, vec3& direction, float& lambda);
   //void        updateBoundingBox(void);
   float       estimateOpacity(vec3 direction);
   void        triangleBufferSizes(unsigned& vCount, unsigned& iCount);

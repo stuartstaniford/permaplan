@@ -29,10 +29,10 @@ class Arrow: public AxialElement, public VisualObject
     {return AxialElement::bufferGeometry(T, zeroVec);}
   inline bool bufferGeometry(TriangleBuffer* T, vec3 offset)
     {return AxialElement::bufferGeometry(T, offset);}
-  inline bool matchRay(vec3& position, vec3& direction, float& lambda)
-    {return AxialElement::matchRay(position, direction, lambda, zeroVec);}
-  inline bool matchRay(vec3& position, vec3& direction, float& lambda, vec3 offset)
-    {return AxialElement::matchRay(position, direction, lambda, offset);}
+  inline bool matchRayToObject(vec3& position, vec3& direction, float& lambda)
+    {return AxialElement::matchRayToElement(position, direction, lambda, zeroVec);}
+  inline bool matchRayToElement(vec3& position, vec3& direction, float& lambda, vec3 offset)
+    {return AxialElement::matchRayToElement(position, direction, lambda, offset);}
   inline virtual unsigned getObjectIndex(void) {return objIndex;};
 
   static vec2 arrowPoints[3];

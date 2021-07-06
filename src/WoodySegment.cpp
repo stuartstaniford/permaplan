@@ -97,7 +97,7 @@ void WoodySegment::selfValidate(unsigned l)
 bool WoodySegment::matchRay(vec3& position, vec3& direction, vec3 offset)
 {
   float L;
-  if(cylinder->matchRay(position, direction, L, offset))
+  if(cylinder->matchRayToElement(position, direction, L, offset))
    {
     LogTreeMatchRay("Tree %d ray matches WoodySegment (level %d) at "
                     "[%.1f, %.1f, %.1f] dir [%.1f, %.1f, %.1f].\n", ourTreeIndex, level,

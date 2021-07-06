@@ -274,7 +274,7 @@ void Box::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 // Decide if a ray touches us
 /*  Using the VisualObject one at present.
  
-bool Box::matchRay(vec3& position, vec3& direction, float& lambda)*/
+bool Box::matchRayToObject(vec3& position, vec3& direction, float& lambda)*/
 
 
 // =======================================================================================

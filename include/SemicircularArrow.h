@@ -28,10 +28,8 @@ public:
     {return PathTube::bufferGeometry(T, zeroVec);}
   inline bool bufferGeometry(TriangleBuffer* T, vec3 offset)
     {return PathTube::bufferGeometry(T, offset);}
-  inline bool matchRay(vec3& position, vec3& direction, float& lambda)
-    {return PathTube::matchRay(position, direction, lambda, zeroVec);}
-  inline bool matchRay(vec3& position, vec3& direction, float& lambda, vec3 offset)
-    {return PathTube::matchRay(position, direction, lambda, offset);}
+  inline bool matchRayToObject(vec3& position, vec3& direction, float& lambda)
+    {return PathTube::matchRayToElement(position, direction, lambda, zeroVec);}
   inline virtual unsigned getObjectIndex(void) {return objIndex;}
 #ifdef LOG_TREE_VALIDATION
   void selfValidate(unsigned l);

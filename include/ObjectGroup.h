@@ -29,7 +29,7 @@ public:
     {DisplayList::adjustAltitudes(surface);}
   inline void triangleBufferSizes(unsigned& vCount, unsigned& iCount)
     {DisplayList::triangleBufferSizes(vCount, iCount);}
-  virtual bool matchRay(vec3& position, vec3& direction, float& lambda);
+  virtual bool matchRayToObject(vec3& position, vec3& direction, float& lambda);
   const char* objectName(void);
   bool quadSearchRecursive(HttpDebug* serv, int& nextRow, char* searchTerm, char* quadPath);
   bool diagnosticHTML(HttpDebug* serv);
