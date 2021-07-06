@@ -51,9 +51,21 @@ bool VisualElement::getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDeta
 
 
 // =======================================================================================
-// This returns the vertices, but in an order which each successive group of three defines
-// a triangle, normals are expected to be functional, etc.
-// Stub definition this should be overwritten by implementing subclasses
+/// @brief Interface for getting the vertices of the object one at a time.
+///
+/// This interface is for a function that will cycle through all the vertices of all 
+/// the triangles of the object.  A given corner may be touched multiple times where
+/// multiple triangles meet there.  
+/// 
+/// The definition in this class is a stub that should be overwritten by implementing 
+/// subclasses as this version will abort with an error.  It is not absolutely necessary 
+/// to implement it but the generic version of matchRay() relies on it, so a class that
+/// doesn't implement this must create a custom implementation of that.
+
+/// @param resetToFirst A boolean that if true says restart the vertex list from the beginning.
+/// @param v A point to the vertex to be filled out.
+/// @param detail A VertexDetail enum (see Vertex.h) as to whether to include texture and 
+/// normal coordinates in addition to the position.
 
 bool VisualElement::getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
 {
