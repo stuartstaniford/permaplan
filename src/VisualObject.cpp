@@ -276,7 +276,16 @@ bool VisualObject::matchRayToObject(vec3& position, vec3& direction, float& lamb
 
 
 // =======================================================================================
-// Stub don't use
+/// @brief Estimate the opacity of an object's bounding box.
+/// 
+/// This interface is for a function to estimate the likilihood that a ray of light will 
+/// make it through our bounding box in a particular direction.  This superclass does
+/// not provide an implementation and it needs to be overridden (it will abort if called).
+/// This function is used when simulating the growth of vegetation so that we can know
+/// how much shading an object does.
+/// 
+/// @param direction A vec3 of the direction in which opacity is to be estimated.
+/// @returns A float value from 0 (completely transparent) to 1.0 (completely opaque).
 
 float VisualObject::estimateOpacity(vec3 direction)
 {

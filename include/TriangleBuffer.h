@@ -1,9 +1,4 @@
 // Copyright Staniford Systems.  All Rights Reserved.  June 2020 -
-// This class is intended to assemble buffers of vertices and associated
-// ebo indices for ultimate drawing with glDrawElements.  The model is
-// that one can declare a large such buffer, put many distinct objects into
-// it, and then pass them all to the GPU.
-
 
 #ifndef TRIANGLE_BUFFER_H
 #define TRIANGLE_BUFFER_H
@@ -14,7 +9,12 @@
 
 
 // =======================================================================================
-// C++ wrapper around the openGL Vertex Buffer Object
+/// @brief Class for buffers of triangles for rendering.
+/// 
+/// This class is intended to assemble buffers of vertices (representing triangles of
+/// Vertex) and associated ebo indices for ultimate drawing with glDrawElements.  The 
+/// model is that one can declare a large such buffer, put many distinct objects into it, 
+/// and then pass them all to the GPU..
 
 class TriangleBuffer
 {
