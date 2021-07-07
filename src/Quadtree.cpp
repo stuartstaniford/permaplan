@@ -415,7 +415,7 @@ void Quadtree::adjustAltitudes(LandSurfaceRegion* landsurface)
 void Quadtree::bufferLandSurface(TriangleBuffer* tbuf)
 {
   if(isLeaf)
-    surface->bufferGeometry(tbuf); // buffer our surface object
+    surface->bufferGeometryOfObject(tbuf); // buffer our surface object
   else
    {
     // Deal with kids

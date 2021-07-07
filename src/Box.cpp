@@ -250,7 +250,7 @@ bool Box::getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
 // This is where the actual geometry is defined - we render it into a buffer
 // on request
 
-bool Box::bufferGeometry(TriangleBuffer* T)
+bool Box::bufferGeometryOfObject(TriangleBuffer* T)
 {
   Vertex* vertices;
   unsigned* indices;

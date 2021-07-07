@@ -345,7 +345,7 @@ bool Tree::getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
 // Tree itself doesn't directly define any geometry, and instead it's all based on
 // recursion.
 
-bool Tree::bufferGeometry(TriangleBuffer* T)
+bool Tree::bufferGeometryOfObject(TriangleBuffer* T)
 {
   if(trunk)
    {

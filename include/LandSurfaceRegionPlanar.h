@@ -30,7 +30,7 @@ class LandSurfaceRegionPlanar: public LandSurfaceRegion
   bool        getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
   bool        getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
   int         getNextIndex(bool resetToFirst);
-  bool        bufferGeometry(TriangleBuffer* T);
+  bool        bufferGeometryOfObject(TriangleBuffer* T);
   void        draw(void);
   bool        matchRay(vec3& position, vec3& direction, float& lambda);
   void        updateBoundingBox(void);

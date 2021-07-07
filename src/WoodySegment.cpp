@@ -120,7 +120,7 @@ bool WoodySegment::matchRay(vec3& position, vec3& direction, vec3 offset)
 bool WoodySegment::bufferGeometry(TriangleBuffer* T, vec3 offset)
 {
   cylinder->color = barkColor;
-  unless(cylinder->bufferGeometry(T, offset))
+  unless(cylinder->bufferGeometryOfElement(T, offset))
     return false;
   
   LogTreeVisDetails("Buffering WoodySegment "

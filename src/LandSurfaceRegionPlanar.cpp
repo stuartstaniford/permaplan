@@ -88,7 +88,7 @@ void LandSurfaceRegionPlanar::resetPlane(vec3 plane)
 // Buffer our two triangles - we put the vertices in the same order as quadtree kids (see
 // diagram up top).
 
-bool LandSurfaceRegionPlanar::bufferGeometry(TriangleBuffer* T)
+bool LandSurfaceRegionPlanar::bufferGeometryOfObject(TriangleBuffer* T)
 {
   Vertex*   vertices;
   unsigned* indices;

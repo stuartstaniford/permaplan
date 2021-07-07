@@ -55,7 +55,7 @@ bool DisplayList::bufferGeometry(TriangleBuffer* T)
     LogDisplayListBuffer("Buffering %s object at %.1f, %.1f, %.1f.\n",
                          V->objectName(), centroid[0], centroid[1], centroid[2]);
 #endif
-    unless(V->bufferGeometry(T))
+    unless(V->bufferGeometryOfObject(T))
       return false;
    }
   return true;

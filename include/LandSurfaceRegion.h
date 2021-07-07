@@ -30,7 +30,7 @@ class LandSurfaceRegion: public VisualObject
   virtual bool        getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
   virtual bool        getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
   virtual int         getNextIndex(bool resetToFirst);
-  virtual bool        bufferGeometry(TriangleBuffer* T);
+  virtual bool        bufferGeometryOfObject(TriangleBuffer* T);
   virtual bool        matchRayToObject(vec3& position, vec3& direction, float& lambda);
   virtual float       getAltitude(float x, float y);
   virtual void        updateBoundingBox(void);

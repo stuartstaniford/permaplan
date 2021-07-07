@@ -53,7 +53,7 @@ class Tree: public VisualObject
   int         getNextIndex(bool resetToFirst);
   float       getHeight(void);
   float       getRadius(void);
-  bool        bufferGeometry(TriangleBuffer* T);
+  bool        bufferGeometryOfObject(TriangleBuffer* T);
   void        getGroundContact(float& x, float& y);
   bool        matchRayToObject(vec3& position, vec3& direction, float& lambda);
   //void        updateBoundingBox(void);

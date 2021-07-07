@@ -25,7 +25,7 @@ class HeightMarker: public VisualObject
   bool        getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
   bool        getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
   int         getNextIndex(bool resetToFirst);
-  bool        bufferGeometry(TriangleBuffer* T);
+  bool        bufferGeometryOfObject(TriangleBuffer* T);
   void        updateBoundingBox(void);
   void        selfValidate(unsigned l);
   void        triangleBufferSizes(unsigned& vCount, unsigned& iCount);

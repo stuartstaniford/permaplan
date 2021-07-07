@@ -278,7 +278,7 @@ void LandSurface::redoBezierLandSurface(BezierPatch* bez)
 
   bez->triangleBufferSizes(vCount, iCount);
   recycleTriangleBuffer(tbuf, vCount, iCount, (char*)"bez tbuf");
-  bez->bufferGeometry(tbuf);
+  bez->bufferGeometryOfObject(tbuf);
   tbuf->sendToGPU(GL_STATIC_DRAW);
 
 #ifdef VISUALIZE_FITTING

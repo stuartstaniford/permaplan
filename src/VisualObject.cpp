@@ -234,19 +234,9 @@ void VisualObject::setNoTexColor(unsigned color)
 // =======================================================================================
 // Stub definition this should be overwritten by implementing subclasses
 
-bool VisualObject::bufferGeometry(TriangleBuffer* T)
+bool VisualObject::bufferGeometryOfObject(TriangleBuffer* T)
 {
-  err(-1, "Called unimplemented superclass VisualObject::bufferGeometry.\n");
-  return false;
-}
-
-
-// =======================================================================================
-// Stub definition this should be overwritten by implementing subclasses
-
-bool VisualObject::bufferGeometry(TriangleBuffer* T, vec3 offset)
-{
-  err(-1, "Called unimplemented superclass VisualObject::bufferGeometry.\n");
+  err(-1, "Called unimplemented superclass VisualObject::bufferGeometryOfObject.\n");
   return false;
 }
 

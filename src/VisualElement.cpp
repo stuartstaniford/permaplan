@@ -87,9 +87,9 @@ int VisualElement::getNextIndex(bool resetToFirst)
 // =======================================================================================
 // Stub definition this should be overwritten by implementing subclasses
 
-bool VisualElement::bufferGeometry(TriangleBuffer* T, vec3 offset)
+bool VisualElement::bufferGeometryOfElement(TriangleBuffer* T, vec3 offset)
 {
-  err(-1, "Called unimplemented superclass VisualElement::bufferGeometry.\n");
+  err(-1, "Called unimplemented superclass VisualElement::bufferGeometryOfElement.\n");
 }
 
 

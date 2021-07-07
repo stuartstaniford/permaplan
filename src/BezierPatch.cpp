@@ -282,7 +282,7 @@ void BezierPatch::triangleBufferSize(unsigned& vCount, unsigned& iCount)
                                   for (j=0, v=0.0f; j<limit; j++, v+=spacing)
 
 
-bool BezierPatch::bufferGeometry(TriangleBuffer* T)
+bool BezierPatch::bufferGeometryOfObject(TriangleBuffer* T)
 {
   // Establish space needs and obtain buffers
   Vertex* vertices;

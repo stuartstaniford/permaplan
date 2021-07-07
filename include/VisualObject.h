@@ -49,8 +49,7 @@ class VisualObject: public Lockable, public VisualElement
   virtual bool        getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
   virtual bool        getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
   virtual int         getNextIndex(bool resetToFirst);
-  virtual bool        bufferGeometry(TriangleBuffer* T);
-  virtual bool        bufferGeometry(TriangleBuffer* T, vec3 offset);
+  virtual bool        bufferGeometryOfObject(TriangleBuffer* T);
   virtual bool        matchRayToObject(vec3& position, vec3& direction, float& lambda);
   virtual void        triangleBufferSizes(unsigned& vCount, unsigned& iCount);
   virtual float       estimateOpacity(vec3 direction);

@@ -19,7 +19,7 @@ public:
   // Member functions - public
   ControlGroup(VisualObject* firstObject);
   ~ControlGroup(void);
-  inline bool bufferGeometry(TriangleBuffer* T)
+  inline bool bufferGeometryOfObject(TriangleBuffer* T)
     {return DisplayList::bufferGeometry(T);}
   inline void adjustAltitudes(LandSurfaceRegion* surface)
     {DisplayList::adjustAltitudes(surface);}

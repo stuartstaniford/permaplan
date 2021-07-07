@@ -31,7 +31,7 @@ class VisualElement
   virtual bool        getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
   virtual bool        getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
   virtual int         getNextIndex(bool resetToFirst);
-  virtual bool        bufferGeometry(TriangleBuffer* T, vec3 offset);
+  virtual bool        bufferGeometryOfElement(TriangleBuffer* T, vec3 offset);
   virtual bool        matchRayToElement(vec3& position, vec3& direction, float& lambda, vec3 offset);
   virtual bool        updateBoundingBox(BoundingBox* box, vec3 offset);
   virtual void        triangleBufferSizes(unsigned& vCount, unsigned& iCount);

@@ -65,7 +65,7 @@ int LandSurfaceRegion::getNextIndex(bool resetToFirst)
 // =======================================================================================
 // Stub definition this should be overwritten by implementing subclasses
 
-bool LandSurfaceRegion::bufferGeometry(TriangleBuffer* T)
+bool LandSurfaceRegion::bufferGeometryOfObject(TriangleBuffer* T)
 {
   err(-1, "Called unimplemented LandSurfaceRegion::bufferGeometry");
   return false;

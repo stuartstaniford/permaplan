@@ -193,7 +193,7 @@ void HeightMarker::selfValidate(unsigned l)
 // This is where the actual octahedron geometry is defined - we render it into a buffer
 // on request
 
-bool HeightMarker::bufferGeometry(TriangleBuffer* T)
+bool HeightMarker::bufferGeometryOfObject(TriangleBuffer* T)
 {
   Vertex* vertices;
   unsigned* indices;

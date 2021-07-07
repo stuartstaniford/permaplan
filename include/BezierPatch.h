@@ -42,7 +42,7 @@ public:
   void          computeGradConstraints(void);
   void          calcPowers(float u, float v);
   void          triangleBufferSizes(unsigned& vertexCount, unsigned& indexCount);
-  bool          bufferGeometry(TriangleBuffer* T);
+  bool          bufferGeometryOfObject(TriangleBuffer* T);
   void          surfacePoint(float x, float y, vec3 result);
   bool          matchRayToObject(vec3& position, vec3& direction, float& lambda);
   void          updateBoundingBox(void);

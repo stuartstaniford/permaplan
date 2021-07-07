@@ -115,7 +115,7 @@ void AxialElement::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 // =======================================================================================
 // This is where the actual geometry is defined - we render it into a buffer on request
 
-bool AxialElement::bufferGeometry(TriangleBuffer* T, vec3 offset)
+bool AxialElement::bufferGeometryOfElement(TriangleBuffer* T, vec3 offset)
 {
     float     angleRadians  = 2.0f*M_PI/sides;
     Vertex*   vertices;

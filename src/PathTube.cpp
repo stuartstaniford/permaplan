@@ -52,7 +52,7 @@ void PathTube::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 // This is where the actual geometry is defined - we render it into a buffer on request
 // N.B. OpenGL faceculling: triangles are counterclockwise viewed from outside the tube
 
-bool PathTube::bufferGeometry(TriangleBuffer* T, vec3 offset)
+bool PathTube::bufferGeometryOfElement(TriangleBuffer* T, vec3 offset)
 {
   float     angleDegrees  = 360.0f/sides;
   Vertex*   vertices;
