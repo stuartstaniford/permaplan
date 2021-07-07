@@ -322,7 +322,7 @@ void Box::selfValidate(unsigned l)
 
 
 // =======================================================================================
-// Tell callers our name at runtime.
+/// @brief Tell callers our name at runtime.
 
 const char* Box::objectName(void)
 {

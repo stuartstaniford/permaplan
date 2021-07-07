@@ -311,7 +311,9 @@ void VisualObject::updateBoundingBox(void)
 
 
 // =======================================================================================
-// Stub definition this should be overwritten by implementing subclasses
+/// @brief An interface by which any VisualObject should return a pointer to its name.
+///
+/// Should be overriden - this one will abort.
 
 const char* VisualObject::objectName(void)
 {

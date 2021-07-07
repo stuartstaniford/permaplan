@@ -206,14 +206,14 @@ void VisualElement::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 
 
 // =======================================================================================
-// Stub definition this should be overwritten by implementing subclasses
+/// @brief An interface by which any VisualElement should return a pointer to its name.
+///
+/// Should be overriden - this one will abort.
 
 const char* VisualElement::elementName(void)
 {
-  static char* name = (char*)"VisualElement";
-  return name;
+  err(-1, "Called unimplemented superclass VisualElement::elementName.\n");
 }
-
 
 
 // =======================================================================================
