@@ -15,6 +15,8 @@ You'll need cglm (https://github.com/recp/cglm) installed somewhere (I do "brew 
 
 Also libgeotiff (to read solar databases).  Get via "brew install libgeotiff".
 
+Building the source code documentation requires doxygen ("brew install doxygen").
+
 Then:
 
 make depend

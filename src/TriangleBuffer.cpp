@@ -232,10 +232,10 @@ bool TriangleBuffer::sanityCheckPosition(unsigned v)
 /// This is done right before dispatch to the GPU so the buffer should be in a sane 
 /// condition.
 
-#ifdef LOG_VALID_TRIANGLE_BUFS
 
 void TriangleBuffer::selfValidate(void)
 {
+#ifdef LOG_VALID_TRIANGLE_BUFS
   // Buffer should be exactly full
   unless(vNext == vCount)
    {
@@ -298,12 +298,19 @@ BadExit:      // stuff to do when we have failed a test
   LogFlush();
   dumpBuffer();
   assert(0);
-}
 #endif
+}
 
 
 // =======================================================================================
-// Bind our OpenGL objects and then render our objects
+/// @brief Render the objects in the TriangleBuffer.
+///
+/// Function to bind our OpenGL objects and then render the objects that were put into
+/// our buffers.  Note this can only be done after the call to sendToGPU.
+///
+/// @param drawType A VertexDrawType specifying which kind of rendering is to be done.
+/// @param objColor A vec4 for the color to make everything (only used if drawType
+/// is set to FixedColor.
 
 void TriangleBuffer::draw(VertexDrawType drawType, vec4 objColor)
 {
@@ -376,8 +383,10 @@ void TriangleBuffer::dumpBuffer(void)
 
 
 // =======================================================================================
-// Dump our state to a file in an ASCII form for debugging (this is used when the
-// state is transient and cannot easily be inspected with diagnosticHTML();
+/// @brief Dump our state to a file in an ASCII form for debugging.
+///  
+/// This is used when the state is transient and cannot easily be inspected with 
+/// diagnosticHTML();
 
 void TriangleBuffer::fprint(FILE* file)
 {
@@ -401,10 +410,14 @@ void TriangleBuffer::fprint(FILE* file)
 
 
 // =======================================================================================
-// Provide diagnostic html about the triangles in our buffer.  Since we don't really
-// know anything about where we are located or what our contents mean, we don't
-// provide page header/footer, but rather just two tables, one of our vertices, and
-// one of the triangles in the indices array
+/// @brief Provide diagnostic html to the HTTP interface about the triangles in our buffer.  
+/// 
+/// Since we don't really know anything about where we are located or what our contents 
+/// mean, we don't provide page header/footer, but rather just two tables, one of our 
+/// vertices, and one of the triangles in the indices array.
+///
+/// @returns True if everything went well, false if we couldn't fit in the buffer.
+/// @param serv The HttpDebug server instance to talk to.
 
 bool TriangleBuffer::diagnosticHTML(HttpDebug* serv)
 {
