@@ -294,12 +294,13 @@ float VisualObject::estimateOpacity(vec3 direction)
 
 
 // =======================================================================================
-// Compute the bounding box.  This version will work in many cases, but there may
-// be more efficient methods possible for specific subclasses.  This will only work
-// if the subclass has implemented getNextUniqueVertex.
-
-// Note that subclass version of this must also take on the responsibility of notifying
-// our qTreeNode if we've changed our extent.
+/// @brief Compute the bounding box.  
+/// 
+/// Function to update the axis-aligned bounding box (which all VisualObjects have).  
+/// This version will work in many cases as long as the subclass has implemented 
+/// getNextUniqueVertex but there may be more efficient methods possible for specific 
+/// subclasses.  Note that subclass version of this must also take on the responsibility 
+/// of notifying our qTreeNode if we've changed our extent.
 
 void VisualObject::updateBoundingBox(void)
 {

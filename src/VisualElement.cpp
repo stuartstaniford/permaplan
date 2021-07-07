@@ -149,12 +149,17 @@ bool VisualElement::matchRayToElement(vec3& position, vec3& direction, float& la
 
 
 // =======================================================================================
-// Compute the bounding box.  This version will work in many cases, but there may
-// be more efficient methods possible for specific subclasses.  This will only work
-// if the subclass has implemented getNextUniqueVertex.
-
-// Note that subclass version of this must also take on the responsibility of notifying
-// our qTreeNode if we've changed our extent.
+/// @brief Update a supplied bounding box.  
+/// 
+/// Function to update an axis-aligned bounding box.  This version will work in many 
+/// cases as long as the subclass has implemented getNextUniqueVertex but there may be 
+/// more efficient methods possible for specific subclasses.  Note that subclass version 
+/// of this must also take on the responsibility of notifying our qTreeNode if we've 
+/// changed our extent.
+///
+/// @returns True if the bounding box was changed in anyway, false otherwise.
+/// @param box The bounding box that is to be updated.
+/// @param offset The vec3 of our offset from a containing object.
 
 bool VisualElement::updateBoundingBox(BoundingBox* box, vec3 offset)
 {
