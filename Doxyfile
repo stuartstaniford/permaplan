@@ -871,6 +871,7 @@ INPUT                  = doc \
                 include/MenuShedPanel.h src/MenuShedPanel.cpp \
                 include/Shed.h src/Shed.cpp \
                 include/TriangleBuffer.h src/TriangleBuffer.cpp \
+                include/Vertex.h src/Vertex.cpp \
                 include/VisualElement.h src/VisualElement.cpp \
                 include/VisualObject.h src/VisualObject.cpp \
 
