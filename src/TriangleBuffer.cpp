@@ -14,7 +14,13 @@
 
 
 // =======================================================================================
-// Constructor allocates the buffers for both vertices and indices into the vertex array
+/// @brief The constructor allocates the buffers for both vertices and indices into the
+/// respective arrays.
+///
+/// @param vertexCount The number of instances of Vertex to be allocated - the total
+/// vertex capacity of the buffer.
+/// @param indexCount The total number of indices to be allocated in the buffer.
+/// @param name The name of this buffer (mainly for logging/diagnostic purposes).
 
 TriangleBuffer::TriangleBuffer(unsigned vertexCount, unsigned indexCount, char* name):
                                   vCount(vertexCount),
@@ -41,7 +47,7 @@ TriangleBuffer::TriangleBuffer(unsigned vertexCount, unsigned indexCount, char* 
 
 
 // =======================================================================================
-// Destructor deallocates the buffers
+// @brief Destructor deallocates the buffers and the ElementBufferCombo
 
 TriangleBuffer::~TriangleBuffer(void)
 {
@@ -70,8 +76,25 @@ TriangleBuffer::~TriangleBuffer(void)
 
 
 // =======================================================================================
-// This provides service to visualObjects that need to add their geometry into this
-// TriangleBuffer, giving them a slice of both buffers that they can use
+/// @brief The main API by which VisualObject and VisualElement subtypes request a slice
+/// of both buffers.
+/// 
+/// This allows them to add their geometry into this TriangleBuffer.  Once all relevant
+/// objects have been assembled into the buffer, it can be sent to the GPU with 
+/// sendToGPU.
+///
+/// @returns True if all went well, false in the case of something going wrong with the
+/// request.
+/// @param verticesAssigned A pointer to a pointer to the location in the vertex array
+/// that the caller can use.
+/// @param indicesAssigned A pointer to a pointer to the location in the index array
+/// that the caller can use.
+/// @param vOffset A reference to an unsigned used to hold the correct vertex offset
+/// that the caller should base all indices they write into the index array (since the
+/// caller wouldn't otherwise know where in the vertex array their vertices are being
+/// put.
+/// @param vRequestCount The count of Vertex space being requested.
+/// @param iRequestCount The count of index space being requested.
 
 bool TriangleBuffer::requestSpace(Vertex** verticesAssigned, unsigned** indicesAssigned,
                   unsigned& vOffset, unsigned vRequestCount, unsigned iRequestCount)
@@ -117,8 +140,12 @@ bool TriangleBuffer::requestSpace(Vertex** verticesAssigned, unsigned** indicesA
 
 
 // =======================================================================================
-// Sets up the appropriate VBO, VAO, and EBO, and dispatches the data.  This is called
-// only after the TriangleBuffer has been assembled.
+/// @brief Sends the all the current data in the buffers to the GPU.
+///
+/// Sets up the appropriate VBO, VAO, and EBO, and dispatches the data.  This should be
+/// called only after the TriangleBuffer has been assembled.  After this, the vertex
+/// and index arrays will be deleted, and recycleTriangleBuffer() can be used to refresh 
+/// the buffer for reuse.
 
 void TriangleBuffer::sendToGPU(GLenum usage)
 {
@@ -143,7 +170,11 @@ void TriangleBuffer::sendToGPU(GLenum usage)
 
 
 // =======================================================================================
-// Function which checks that .
+/// @brief Function which sanity checks a particular vertex.
+///
+/// Is a helper to selfValidate().
+/// @returns True if all is well, false if a problem is detected
+/// @param v The offset in the vertex array to check.
 
 bool TriangleBuffer::sanityCheckPosition(unsigned v)
 {
@@ -195,9 +226,11 @@ bool TriangleBuffer::sanityCheckPosition(unsigned v)
 
 
 // =======================================================================================
-// Function which will run through all our vertices/indices and sanity check everything.
-// This is done right before dispatch to the GPU so the buffer should be in a sane 
-// condition.
+/// @brief Function which will run through all our vertices/indices and sanity check 
+/// everything looking for a variety of possible error conditions.
+///
+/// This is done right before dispatch to the GPU so the buffer should be in a sane 
+/// condition.
 
 #ifdef LOG_VALID_TRIANGLE_BUFS
 
@@ -296,8 +329,9 @@ void TriangleBuffer::draw(VertexDrawType drawType, vec4 objColor)
 
 
 // =======================================================================================
-// Dump our state to an HTML file for debugging/diagnostic purposes- called from 
-// selfValidate().
+/// @brief Dump our state to an HTML file for debugging/diagnostic purposes.
+/// 
+/// Called from selfValidate().
 
 void TriangleBuffer::dumpBuffer(void)
 {

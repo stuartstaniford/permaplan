@@ -53,7 +53,20 @@ class TriangleBuffer
   TriangleBuffer& operator=(const TriangleBuffer&);      // Prevent assignment
 };
 
+// =======================================================================================
 // Helper functions
+
+// =======================================================================================
+/// @brief Function used when we need to throw away a triangle buffer and replace it.
+/// 
+/// This is still a common pattern in the code when a buffer needs to be recycled.
+///
+/// @param tbuf A reference to a pointer to the buffer
+/// @param vCount The number of instances of Vertex required in the reallocated buffer.
+/// @param iCount The number of indices required in the reallocated buffer.
+/// @param name The name of this buffer (mainly for logging/diagnostic purposes).
+/// 
+/// @todo The existence of this seems inefficient - is there a better way?
 
 inline void recycleTriangleBuffer(TriangleBuffer*& tbuf, int vCount, int iCount, char* name)
 {
