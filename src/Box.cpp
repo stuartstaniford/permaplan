@@ -247,8 +247,12 @@ bool Box::getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
 
 
 // =======================================================================================
-// This is where the actual geometry is defined - we render it into a buffer
-// on request
+/// @brief This is where the actual geometry of the box is defined - we render it into a 
+/// buffer on request
+/// 
+/// @returns False if space cannot be obtained in the TriangleBuffer, true otherwise.
+/// @param T A pointer to a TriangleBuffer into which the object should insert its
+/// vertices and indices (see TriangleBuffer::requestSpace).
 
 bool Box::bufferGeometryOfObject(TriangleBuffer* T)
 {
@@ -282,7 +286,12 @@ bool Box::bufferGeometryOfObject(TriangleBuffer* T)
 
 
 // =======================================================================================
-// How much space we need in a TriangleBuffer
+/// @brief How much space we need in a TriangleBuffer on a call to bufferGeometryToObject
+///
+/// @param vCount A reference to a count which will hold the number of Vertex objects 
+/// that will be generated.
+/// @param iCount A reference to a count which will hold the number of unsigned indices 
+/// that will be generated.
 
 void Box::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 {

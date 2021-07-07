@@ -51,7 +51,6 @@ class VisualObject: public Lockable, public VisualElement
   virtual int         getNextIndex(bool resetToFirst);
   virtual bool        bufferGeometryOfObject(TriangleBuffer* T);
   virtual bool        matchRayToObject(vec3& position, vec3& direction, float& lambda);
-  virtual void        triangleBufferSizes(unsigned& vCount, unsigned& iCount);
   virtual float       estimateOpacity(vec3 direction);
   virtual const char* objectName(void);
   virtual bool        diagnosticHTML(HttpDebug* serv);

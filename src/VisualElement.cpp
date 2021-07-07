@@ -85,7 +85,17 @@ int VisualElement::getNextIndex(bool resetToFirst)
 
 
 // =======================================================================================
-// Stub definition this should be overwritten by implementing subclasses
+/// @brief This defines the interface for any visual element to turn itself into a set of 
+/// vertices/indices for rendering.
+///
+/// The actual definition in this class is a stub that should be overwritten by 
+/// implementing subclasses.  This version will abort with an error if ever called.
+/// 
+/// @returns False if space cannot be obtained in the TriangleBuffer, true otherwise.
+/// @param T A pointer to a TriangleBuffer into which the object should insert its
+/// vertices and indices (see TriangleBuffer::requestSpace).
+/// @param offset A vec3 of the position of this element relative to it's containing
+/// object, thus allowing it's absolute position to be computed.
 
 bool VisualElement::bufferGeometryOfElement(TriangleBuffer* T, vec3 offset)
 {
@@ -176,7 +186,18 @@ bool VisualElement::updateBoundingBox(BoundingBox* box, vec3 offset)
 
 
 // =======================================================================================
-// Stub definition this should be overwritten by implementing subclasses
+/// @brief The interface by which any VisualElement (or VisualObject) can be queried as 
+/// to the amount of space it will require in a TriangleBuffer (in a call to 
+/// bufferGeometryToElement or bufferGeometryToObject).
+/// 
+/// The implementation in this class is a stub that should be overwritten by 
+/// implementing subclasses - it will abort if ever called.
+///
+/// @param vCount A reference to a count which will hold the number of Vertex objects 
+/// that will be generated.
+/// @param iCount A reference to a count which will hold the number of unsigned indices 
+/// that will be generated.
+
 
 void VisualElement::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 {

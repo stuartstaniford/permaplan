@@ -232,7 +232,15 @@ void VisualObject::setNoTexColor(unsigned color)
 
 
 // =======================================================================================
-// Stub definition this should be overwritten by implementing subclasses
+/// @brief This defines the interface for any visual object to turn itself into a set of 
+/// vertices/indices for rendering.
+///
+/// The actual definition in this class is a stub that should be overwritten by 
+/// implementing subclasses.  This version will abort with an error if ever called.
+/// 
+/// @returns False if space cannot be obtained in the TriangleBuffer, true otherwise.
+/// @param T A pointer to a TriangleBuffer into which the object should insert its
+/// vertices and indices (see TriangleBuffer::requestSpace).
 
 bool VisualObject::bufferGeometryOfObject(TriangleBuffer* T)
 {
@@ -299,15 +307,6 @@ void VisualObject::updateBoundingBox(void)
   if(boxChanged && qTreeNode)
     qTreeNode->notifyObjectBoxChange(this);
   return;
-}
-
-
-// =======================================================================================
-// Stub definition this should be overwritten by implementing subclasses
-
-void VisualObject::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
-{
-  err(-1, "Called unimplemented superclass VisualObject::triangleBufferSizes.\n");
 }
 
 
