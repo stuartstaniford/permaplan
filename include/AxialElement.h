@@ -32,7 +32,7 @@ class AxialElement: public VisualElement
 
   // Member functions - public  
  public:
-  virtual ~AxialElement(void);
+  ~AxialElement(void);
   
   // The VisualElement API
   virtual bool        bufferGeometryOfElement(TriangleBuffer* T, vec3 offset);
@@ -40,18 +40,25 @@ class AxialElement: public VisualElement
   virtual bool        updateBoundingBox(BoundingBox* box, vec3 offset);
   virtual void        triangleBufferSizes(unsigned& vCount, unsigned& iCount);
   virtual const char* elementName(void);
-  inline virtual unsigned getObjectIndex(void) {return 0u;}
   virtual bool        getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
   virtual bool        getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
   virtual int         getNextIndex(bool resetToFirst);
   virtual bool        diagnosticHTML(HttpDebug* serv);
   virtual bool        diagnosticHTMLSummary(HttpDebug* serv);
 
+
   // Additional functions we define
   void                lengthen(float increment);
   void                setLength(float length);
-  inline float        getLength(void) {return glm_vec3_norm(axisDirection);}
   virtual int         printOPSF(char*& buf, unsigned bufSize);
+
+  ///@brief Interface to return the objectIndex if we have one
+  ///@returns 0, subclasses with a valid objIndex should override
+  inline virtual unsigned getObjectIndex(void) {return 0u;} 
+
+  ///@brief Provide the length of the axis
+  ///@returns The length as a float value.
+  inline float        getLength(void) {return glm_vec3_norm(axisDirection);}
 
  protected:
 
