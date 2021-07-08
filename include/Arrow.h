@@ -1,5 +1,4 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Sep 2020 -
-// Class for rendering a simple straight arrow.
 
 #ifndef ARROW_H
 #define ARROW_H
@@ -14,6 +13,9 @@
 #define ARROW_HEAD 0.25          // fraction of the arrow in the head.
 #define ARROW_HEAD_WIDTH 1.0f    // multiple of the radius for the overhang over the shaft.
 
+///@brief Class for rendering a simple straight arrow.
+///
+
 class Arrow: public AxialElement, public VisualObject
 {
  public:
@@ -23,8 +25,6 @@ class Arrow: public AxialElement, public VisualObject
   // Member functions - public
   Arrow(vec3 root, vec3 dir, float radius, int sides);
   ~Arrow(void);
-  inline void triangleBufferSizes(unsigned& vCount, unsigned& iCount)
-    {AxialElement::triangleBufferSizes(vCount, iCount);}
   inline bool bufferGeometryOfObject(TriangleBuffer* T)
     {return AxialElement::bufferGeometryOfElement(T, zeroVec);}
   inline bool matchRayToObject(vec3& position, vec3& direction, float& lambda)

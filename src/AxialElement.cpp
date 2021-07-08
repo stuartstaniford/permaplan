@@ -8,8 +8,18 @@
 #include "CircleIterator.h"
 #include <assert.h>
 
+
 // =======================================================================================
-// Constructors
+/// @brief Constructor for an AxialElement.
+///
+/// Note that this is declared protected, so that it can only be invoked by subclasses.
+/// One cannot declare a bare AxialElement.
+/// @param root A vector to the base of the axis of the element.
+/// @param dir A vector of the length and direction of the axis of the element.
+/// @param R The (float) maximum radial extent of the element from its axis at any point along 
+/// the axis.
+/// @param S An unsigned for the number of sides to use in approximating the sweep of the
+/// element around the axis.
 
 AxialElement::AxialElement(vec3 root, vec3 dir, float R, unsigned S):
                                                   radius(R),
@@ -25,7 +35,7 @@ AxialElement::AxialElement(vec3 root, vec3 dir, float R, unsigned S):
 
 
 // =======================================================================================
-// Destructor
+/// @brief Destructor - currenty empty.
 
 AxialElement::~AxialElement(void)
 {
@@ -33,32 +43,12 @@ AxialElement::~AxialElement(void)
 
 
 // =======================================================================================
-// Method to return the vertices, with each one being only returned a single time, and
-// in an order consistent with getNextIndex.  Normals are generally not well defined from
-// calling this method and shouldn't be relied on.
-// Stub definition this should be overwritten by implementing subclasses
-
-
-bool AxialElement::getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
-{
-  err(-1, "Invalid call to AxialElement::getNextUniqueVertex");
-}
-
-
-// =======================================================================================
-// Increase the length of the AxialElement by a length increment.  Note we don't do anything
-// about rebuffering - caller must track that.
-
-void AxialElement::lengthen(float increment)
-{
-  float lenNow = glm_vec3_norm(axisDirection);
-  glm_vec3_scale(axisDirection, (lenNow+increment)/lenNow, axisDirection);
-}
-
-
-// =======================================================================================
-// Set the length of the AxialElement to a supplied amount.  Note we don't do anything
-// about rebuffering - caller must track that.
+/// @brief Set the length of the AxialElement to a supplied amount.  
+/// 
+/// This will lengthen or compress the element along it's axis to the specified length.
+/// Note we don't do anything about rebuffering - caller must track that.  We also don't 
+/// sanity check the new length.
+/// @param length The new length of the axis (and element).
 
 void AxialElement::setLength(float length)
 {
@@ -68,29 +58,26 @@ void AxialElement::setLength(float length)
 
 
 // =======================================================================================
-// This returns the vertices, but in an order which each successive group of three defines
-// a triangle, normals are expected to be functional, etc.
-// Stub definition this should be overwritten by implementing subclasses
+/// @brief Change the length of the AxialElement by a specified increment.  
+/// 
+/// This will lengthen or compress the element along it's axis to the newly changed 
+/// length.  Note we don't do anything about rebuffering - caller must track that.  We 
+/// also don't sanity check the new length.
+/// @param increment The amount by which to change the length of the axis (and element).
 
-bool AxialElement::getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
+void AxialElement::lengthen(float increment)
 {
-  err(-1, "Invalid call to AxialElement::getNextVertex");
+  float lenNow = glm_vec3_norm(axisDirection);
+  glm_vec3_scale(axisDirection, (lenNow+increment)/lenNow, axisDirection);
 }
 
 
 // =======================================================================================
-// This returns the indices, but in an order which each successive group of three defines
-// a triangle.
-// Stub definition this should be overwritten by implementing subclasses
-
-int AxialElement::getNextIndex(bool resetToFirst)
-{
-  err(-1, "Invalid call to AxialElement::getNextIndex");
-}
-
-
-// =======================================================================================
-// The amount of vertex and index space we would need in a triangle buffer
+/// @brief The amount of vertex and index space we would need in a triangle buffer.
+/// @param vCount A reference to a count which will hold the number of Vertex objects 
+/// that will be generated.
+/// @param iCount A reference to a count which will hold the number of unsigned indices 
+/// that will be generated.
 
 void AxialElement::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 {
@@ -371,12 +358,39 @@ bool AxialElement::updateBoundingBox(BoundingBox* box, vec3 offset)
 
 
 // =======================================================================================
-// Stub definition this should be overwritten by implementing subclasses
+/// @brief Provide the name of our type of element if requested.
 
 const char* AxialElement::elementName(void)
 {
   static char* name = (char*)"AxialElement";
   return name;
+}
+
+
+// =======================================================================================
+/// @brief Only implemented to provide documentation of a mistaken call to it.
+
+bool AxialElement::getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
+{
+  err(-1, "Invalid call to AxialElement::getNextUniqueVertex");
+}
+
+
+// =======================================================================================
+/// @brief Only implemented to provide documentation of a mistaken call to it.
+
+bool AxialElement::getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
+{
+  err(-1, "Invalid call to AxialElement::getNextVertex");
+}
+
+
+// =======================================================================================
+/// @brief Only implemented to provide documentation of a mistaken call to it.
+
+int AxialElement::getNextIndex(bool resetToFirst)
+{
+  err(-1, "Invalid call to AxialElement::getNextIndex");
 }
 
 

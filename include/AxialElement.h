@@ -11,7 +11,9 @@
 /// modeled as sweeping a vector path around an axis. 
 ///  
 /// Things like cylinder, cone, etc can inherit from this and don't require very much
-/// code on top of this.
+/// code on top of this.  It can only model things that have full 360 degree rotational
+/// symmetry around an axis.
+
 
 class AxialElement: public VisualElement
 {
@@ -24,20 +26,24 @@ class AxialElement: public VisualElement
   bool            closedTop;
   bool            closedBase;
 
-  // Member functions - public
+  // Member functions - protected
+ protected:
   AxialElement(vec3 root, vec3 dir, float R, unsigned sides);
+
+  // Member functions - public  
+ public:
   virtual ~AxialElement(void);
   
   // The VisualElement API
-  virtual bool        getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
-  virtual bool        getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
-  virtual int         getNextIndex(bool resetToFirst);
   virtual bool        bufferGeometryOfElement(TriangleBuffer* T, vec3 offset);
   virtual bool        matchRayToElement(vec3& position, vec3& direction, float& lambda, vec3 offset);
   virtual bool        updateBoundingBox(BoundingBox* box, vec3 offset);
   virtual void        triangleBufferSizes(unsigned& vCount, unsigned& iCount);
   virtual const char* elementName(void);
   inline virtual unsigned getObjectIndex(void) {return 0u;}
+  virtual bool        getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
+  virtual bool        getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
+  virtual int         getNextIndex(bool resetToFirst);
   virtual bool        diagnosticHTML(HttpDebug* serv);
   virtual bool        diagnosticHTMLSummary(HttpDebug* serv);
 
