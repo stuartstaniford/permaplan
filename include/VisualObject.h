@@ -46,9 +46,6 @@ class VisualObject: public Lockable, public VisualElement
   // Public member functions coming from VisualElement
   inline bool         updateBoundingBox(BoundingBox* B, vec3 offset)
                     {return VisualElement::updateBoundingBox(B, offset);}
-  virtual bool        getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
-  virtual bool        getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
-  virtual int         getNextIndex(bool resetToFirst);
   virtual bool        bufferGeometryOfObject(TriangleBuffer* T);
   virtual bool        matchRayToObject(vec3& position, vec3& direction, float& lambda);
   virtual float       estimateOpacity(vec3 direction);

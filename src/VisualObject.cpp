@@ -171,55 +171,6 @@ void VisualObject::removeFromQuadtree(void)
 
 
 // =======================================================================================
-/// @brief Interface for getting the unique vertices of the object one at a time.
-///
-/// This is a stub definition that should be overwritten by implementing subclasses as
-/// this version will abort with an error.  It is not absolutely necessary to implement it
-/// but the generic version of updateBoundingBox() relies on it.
-
-/// @param resetToFirst A boolean that if true says restart the vertex list from the beginning.
-/// @param v A point to the vertex to be filled out.
-/// @param detail A VertexDetail enum (see Vertex.h) as to whether to include texture and 
-/// normal coordinates in addition to the position.
-
-bool VisualObject::getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
-{
-  err(-1, "Call to unimplemented VisualObject::getNextUniqueVertex.\n");
-}
-
-
-// =======================================================================================
-/// @brief Interface for getting the vertices of the object one at a time.
-///
-/// This interface is for a function that will cycle through all the vertices of all 
-/// the triangles of the object.  A given corner may be touched multiple times where
-/// multiple triangles meet there.  
-/// The definition in this class is a stub that should be overwritten by implementing 
-/// subclasses as this version will abort with an error.  It is not absolutely necessary 
-/// to implement it but the generic version of matchRay() relies on it, so a class that
-/// doesn't implement this must create a custom implementation of that.
-
-/// @param resetToFirst A boolean that if true says restart the vertex list from the beginning.
-/// @param v A point to the vertex to be filled out.
-/// @param detail A VertexDetail enum (see Vertex.h) as to whether to include texture and 
-/// normal coordinates in addition to the position.
-
-bool VisualObject::getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
-{
-  err(-1, "Call to unimplemented VisualObject::getNextVertex.\n");
-}
-
-
-// =======================================================================================
-// Stub definition this should be overwritten by implementing subclasses
-
-int VisualObject::getNextIndex(bool resetToFirst)
-{
-  err(-1, "Call to unimplemented VisualObject::getNextIndex.\n");
-}
-
-
-// =======================================================================================
 // Used when this visual object is going to be a visual indicator with a fixed color.
 // XX - should this be hived off into a different class, that could use multiple
 // inheritance to pull in, so this isn't present in non-visual indicator subclasses?
@@ -332,9 +283,13 @@ const char* VisualObject::objectName(void)
 
 
 // =======================================================================================
-// Stub definition this should be overwritten by implementing subclasses
-// But in general, this class should provide a whole page with details about the 
-// object.
+/// @brief Interface for a function to provide a whole page with details about the 
+/// specific object.
+/// 
+/// This should be overwritten by implementing subclasses as this version will abort with
+/// and error if ever called.
+/// @returns True if the object was written correctly, false if we ran out of space.
+/// @param serv The HTTP Debug server
 
 bool VisualObject::diagnosticHTML(HttpDebug* serv)
 {
@@ -343,11 +298,12 @@ bool VisualObject::diagnosticHTML(HttpDebug* serv)
 
 
 // =======================================================================================
-// Stub definition this should be overwritten by implementing subclasses
-// But in general, this class should own a single row in a table, with
-// the type of visual object in the first column, and any details provided
-// in the second column.  A link should be provided to whatever URL serves
-// diagnosticHTML (above).
+/// @brief Interface to a function which should provide a single row in an HTML table.
+///  
+/// The type of visual object in the first column, and any details provided in the second 
+/// column.  A link should be provided to whatever URL serves diagnosticHTML.  The 
+/// implementation in this class should be overwritten by implementing subclasses as it 
+/// will abort with an error if ever called.
 
 bool VisualObject::diagnosticHTMLSummary(HttpDebug* serv)
 {

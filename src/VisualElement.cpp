@@ -38,11 +38,19 @@ VisualElement::~VisualElement(void)
 
 
 // =======================================================================================
-// Method to return the vertices, with each one being only returned a single time, and
-// in an order consistent with getNextIndex.  Normals are generally not well defined from
-// calling this method and shouldn't be relied on.
-// Stub definition this should be overwritten by implementing subclasses
+/// @brief Interface for getting the unique vertices of the element/object one at a time.
+///
+/// Methods implementing this interface should return the vertices, with each one being 
+/// only returned a single time, and in an order consistent with getNextIndex.  Normals 
+/// are generally not well defined from calling this method and shouldn't be relied on.
+/// This is a stub definition that should be overwritten by implementing subclasses as
+/// this version will abort with an error.  It is not absolutely necessary to implement it
+/// but the generic version of updateBoundingBox() relies on it.
 
+/// @param resetToFirst A boolean that if true says restart the vertex list from the beginning.
+/// @param v A point to the vertex to be filled out.
+/// @param detail A VertexDetail enum (see Vertex.h) as to whether to include texture and 
+/// normal coordinates in addition to the position.
 
 bool VisualElement::getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
 {
@@ -51,10 +59,10 @@ bool VisualElement::getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDeta
 
 
 // =======================================================================================
-/// @brief Interface for getting the vertices of the object one at a time.
+/// @brief Interface for getting the vertices of the element/object one at a time.
 ///
 /// This interface is for a function that will cycle through all the vertices of all 
-/// the triangles of the object.  A given corner may be touched multiple times where
+/// the triangles of the element/object.  A given corner may be touched multiple times where
 /// multiple triangles meet there.  
 /// 
 /// The definition in this class is a stub that should be overwritten by implementing 
