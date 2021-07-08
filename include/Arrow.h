@@ -27,6 +27,8 @@ class Arrow: public AxialElement, public VisualObject
   ~Arrow(void);
   inline bool bufferGeometryOfObject(TriangleBuffer* T)
     {return AxialElement::bufferGeometryOfElement(T, zeroVec);}
+  inline void triangleBufferSizes(unsigned& vCount, unsigned& iCount)
+    {AxialElement::triangleBufferSizes(vCount, iCount);}
   inline bool matchRayToObject(vec3& position, vec3& direction, float& lambda)
     {return AxialElement::matchRayToElement(position, direction, lambda, zeroVec);}
   inline bool matchRayToElement(vec3& position, vec3& direction, float& lambda, vec3 offset)

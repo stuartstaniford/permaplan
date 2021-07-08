@@ -1959,9 +1959,9 @@ src/MenuInterface.o: include/LeafModel.h include/CO2Scenario.h
 src/MenuInterface.o: include/InterfaceAction.h include/MenuPanel.h
 src/MenuInterface.o: imgui/imgui.h imgui/imconfig.h include/Window3D.h
 src/MenuInterface.o: include/HttpLoadBalancer.h include/TaskQueueFarm.h
-src/MenuInterface.o: include/MenuShedPanel.h include/MenuBlockPanel.h
-src/MenuInterface.o: include/loadFileToBuf.h include/RegionList.h
-src/MenuInterface.o: imgui/backends/imgui_impl_opengl3.h
+src/MenuInterface.o: include/MenuShedPanel.h include/Shed.h
+src/MenuInterface.o: include/MenuBlockPanel.h include/loadFileToBuf.h
+src/MenuInterface.o: include/RegionList.h imgui/backends/imgui_impl_opengl3.h
 src/MenuInterface.o: imgui/backends/imgui_impl_glfw.h
 src/MenuPanel.o: include/MenuPanel.h include/Logging.h
 src/MenuPanel.o: include/MemoryTracker.h include/HttpDebug.h
@@ -2046,12 +2046,7 @@ src/MenuShedPanel.o: /usr/local/include/GL/glew.h
 src/MenuShedPanel.o: /usr/local/include/GLFW/glfw3.h include/Vertex.h
 src/MenuShedPanel.o: include/ElementBufferObject.h include/BoundingBox.h
 src/MenuShedPanel.o: include/Shader.h include/VertexBufferCombo.h
-src/MenuShedPanel.o: imgui/imgui.h imgui/imconfig.h include/PmodDesign.h
-src/MenuShedPanel.o: include/LandSurface.h include/TexturedRect.h
-src/MenuShedPanel.o: include/Texture.h include/Quadtree.h
-src/MenuShedPanel.o: include/DisplayList.h include/LandSurfaceRegion.h
-src/MenuShedPanel.o: include/LandSurfaceRegionPlanar.h include/Camera.h
-src/MenuShedPanel.o: include/HeightMarker.h include/BezierPatch.h
+src/MenuShedPanel.o: imgui/imgui.h imgui/imconfig.h include/Shed.h
 src/MenuShedPanel.o: include/rapidjson/document.h include/rapidjson/reader.h
 src/MenuShedPanel.o: include/rapidjson/allocators.h
 src/MenuShedPanel.o: include/rapidjson/rapidjson.h include/rapidjson/stream.h
@@ -2072,16 +2067,21 @@ src/MenuShedPanel.o: include/rapidjson/internal/clzll.h
 src/MenuShedPanel.o: include/rapidjson/internal/pow10.h
 src/MenuShedPanel.o: include/rapidjson/error/error.h
 src/MenuShedPanel.o: include/rapidjson/internal/strfunc.h
-src/MenuShedPanel.o: include/rapidjson/stream.h include/PmodConfig.h
-src/MenuShedPanel.o: include/Timeval.h include/JSONStructureChecker.h
-src/MenuShedPanel.o: include/rapidjson/writer.h
+src/MenuShedPanel.o: include/rapidjson/stream.h include/rapidjson/writer.h
 src/MenuShedPanel.o: include/rapidjson/internal/dtoa.h
 src/MenuShedPanel.o: include/rapidjson/internal/itoa.h
 src/MenuShedPanel.o: include/rapidjson/internal/itoa.h
 src/MenuShedPanel.o: include/rapidjson/stringbuffer.h
 src/MenuShedPanel.o: include/rapidjson/stringbuffer.h
 src/MenuShedPanel.o: include/rapidjson/error/en.h
-src/MenuShedPanel.o: include/rapidjson/error/error.h include/Version.h
+src/MenuShedPanel.o: include/rapidjson/error/error.h include/PmodDesign.h
+src/MenuShedPanel.o: include/LandSurface.h include/TexturedRect.h
+src/MenuShedPanel.o: include/Texture.h include/Quadtree.h
+src/MenuShedPanel.o: include/DisplayList.h include/LandSurfaceRegion.h
+src/MenuShedPanel.o: include/LandSurfaceRegionPlanar.h include/Camera.h
+src/MenuShedPanel.o: include/HeightMarker.h include/BezierPatch.h
+src/MenuShedPanel.o: include/PmodConfig.h include/Timeval.h
+src/MenuShedPanel.o: include/JSONStructureChecker.h include/Version.h
 src/MenuShedPanel.o: include/Boundary.h include/MenuInterface.h
 src/MenuShedPanel.o: include/DynamicallyTypable.h include/ScriptController.h
 src/MenuShedPanel.o: include/Scene.h include/ColoredAxes.h
@@ -2741,6 +2741,8 @@ src/Shed.o: include/rapidjson/internal/itoa.h
 src/Shed.o: include/rapidjson/internal/itoa.h
 src/Shed.o: include/rapidjson/stringbuffer.h include/rapidjson/stringbuffer.h
 src/Shed.o: include/rapidjson/error/en.h include/rapidjson/error/error.h
+src/Shed.o: include/MenuShedPanel.h include/MenuPanel.h imgui/imgui.h
+src/Shed.o: imgui/imconfig.h
 src/SkySampleModel.o: include/SkySampleModel.h /usr/local/include/cglm/cglm.h
 src/SkySampleModel.o: /usr/local/include/cglm/common.h
 src/SkySampleModel.o: /usr/local/include/cglm/types.h

@@ -100,7 +100,12 @@ void AxialElement::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 
 
 // =======================================================================================
-// This is where the actual geometry is defined - we render it into a buffer on request
+/// @brief This is where the actual geometry is defined - we render it into a buffer on request
+/// @returns False if space cannot be obtained in the TriangleBuffer, true otherwise.
+/// @param T A pointer to a TriangleBuffer into which the object should insert its
+/// vertices and indices (see TriangleBuffer::requestSpace).
+/// @param offset A vec3 of the position of this element relative to it's containing
+/// object, thus allowing it's absolute position to be computed.
 
 bool AxialElement::bufferGeometryOfElement(TriangleBuffer* T, vec3 offset)
 {
@@ -209,8 +214,21 @@ bool AxialElement::bufferGeometryOfElement(TriangleBuffer* T, vec3 offset)
 
 
 // =======================================================================================
-// Figure out whether a ray intersects the element or not
-// https://en.wikipedia.org/wiki/Skew_lines#Distance
+/// @brief Decide if a ray touches us.  
+/// 
+/// Function to decide whether a given line touches the object or not. First checks using
+/// a [skew line calculation](https://en.wikipedia.org/wiki/Skew_lines#Distance), whether
+/// a match is plausible, and if so does a full check with 
+/// AxialElement::matchRayBruteForce
+///
+/// @param position The vec3 for a point on the ray to be matched.
+/// @param direction The vec3 for the direction of the ray.
+/// @param lambda A reference to a float which will be used to store the multiple of 
+/// the direction vector from the position to the match point on the object.
+/// @param offset A vec3 which gives the position of this element relative to its
+/// containing object (since elements generally have relative positions, this is needed
+/// to compute absolute position matches).
+/// @todo XX This might return a match on the far side of the element, instead of nearest.
 
 bool AxialElement::matchRayToElement(vec3& position, vec3& direction, float& lambda, 
                                                                                 vec3 offset)
@@ -236,10 +254,10 @@ bool AxialElement::matchRayToElement(vec3& position, vec3& direction, float& lam
 
 
 // =======================================================================================
-// This matches every triangle to be certain whether the ray hits or not
-// XX might return a hit on far side of the element, instead of nearest.
-// XX Also this routine causes us to compute every vertex twice.  There might be some
-// clever optimization that could cut down on that.
+/// @brief This matches every triangle to be certain whether the ray hits or not
+/// @todo XX might return a hit on far side of the element, instead of nearest.
+/// @todo XX Also this routine causes us to compute every vertex twice.  There might be some
+/// clever optimization that could cut down on that.
 
 bool AxialElement::matchRayBruteForce(vec3& position, vec3& direction, float& lambda,
                                                                                 vec3 offset)
@@ -308,7 +326,15 @@ bool AxialElement::matchRayBruteForce(vec3& position, vec3& direction, float& la
 
 
 // =======================================================================================
-// Compute the bounding box.
+/// @brief Updates the bounding box.
+/// 
+/// Function to update an axis-aligned bounding box.    
+/// @todo XX Comment from VisualElement: "Note that subclass version of this must also 
+/// take on the responsibility of notifying our qTreeNode if we've changed our extent."
+/// This has not been understood or addressed.
+/// @returns True if the bounding box was changed in anyway, false otherwise.
+/// @param box The bounding box that is to be updated.
+/// @param offset The vec3 of our offset from a containing object.
 
 bool AxialElement::updateBoundingBox(BoundingBox* box, vec3 offset)
 {
@@ -393,11 +419,12 @@ int AxialElement::getNextIndex(bool resetToFirst)
   err(-1, "Invalid call to AxialElement::getNextIndex");
 }
 
-
 // =======================================================================================
-// Function to print out in JSON format.
 
 #define bufprintf(...) if((buf += snprintf(buf, end-buf,  __VA_ARGS__)) >= end) {return -1;}
+
+// =======================================================================================
+/// @brief Function to print out in JSON format.
 
 int AxialElement::printOPSF(char*& buf, unsigned bufSize)
 {
@@ -408,10 +435,7 @@ int AxialElement::printOPSF(char*& buf, unsigned bufSize)
 
 
 // =======================================================================================
-// Stub definition this should be overwritten by implementing subclasses
-// But in general, this class should own a single row in a table, with
-// the type of visual object in the first column, and any details provided
-// in the second column.
+/// @brief Only implemented to provide documentation of a mistaken call to it.
 
 bool AxialElement::diagnosticHTML(HttpDebug* serv)
 {
@@ -420,11 +444,7 @@ bool AxialElement::diagnosticHTML(HttpDebug* serv)
 
 
 // =======================================================================================
-// Stub definition this should be overwritten by implementing subclasses
-// But in general, this class should own a single row in a table, with
-// the type of visual object in the first column, and any details provided
-// in the second column.  A link should be provided to whatever URL serves
-// diagnosticHTML (above).
+/// @brief Only implemented to provide documentation of a mistaken call to it.
 
 bool AxialElement::diagnosticHTMLSummary(HttpDebug* serv)
 {
