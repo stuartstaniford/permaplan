@@ -1,16 +1,17 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Mar 2021 -
-// This class is a specialization of VisualElement specifically for any element
-// that can be modeled as sweeping a vector path around an axis.  Things like cylinder,
-// cone, etc can inherit from this.
-
 
 #ifndef AXIAL_ELEMENT_H
 #define AXIAL_ELEMENT_H
 
 #include "VisualElement.h"
 
+
 // =======================================================================================
-// Class variable initialization
+/// @brief Specialization of VisualElement specifically for any element that can be 
+/// modeled as sweeping a vector path around an axis. 
+///  
+/// Things like cylinder, cone, etc can inherit from this and don't require very much
+/// code on top of this.
 
 class AxialElement: public VisualElement
 {
