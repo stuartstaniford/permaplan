@@ -356,7 +356,13 @@ bool VisualObject::diagnosticHTMLSummary(HttpDebug* serv)
 
 
 // =======================================================================================
-// This provides access to the diagnosticHTML page of any object via it's objIndex
+/// @brief Provides access to the diagnostic HTTP server for the diagnosticHTML page of 
+/// any object via it's objIndex.
+///
+/// @returns True if the object was written correctly, false if we ran out of space.
+/// @param serv The HTTP Debug server
+/// @param path The path variable, which should just contain an object index.  If it is
+/// something else, atoi will tend to turn it into zero and that object will be returned.
 
 
 bool VisualObject::diagnosticHTMLSelection(HttpDebug* serv, char* path)
