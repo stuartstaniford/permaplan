@@ -47,10 +47,10 @@ inline bool mollerTrumbore(vec3 triangle[3], vec3 rayPos, vec3 rayDir, float& ou
 /// @brief Class for storing information about a single vertex.
 /// 
 ///  Used as the elements within a buffer that will be passed to the shader
-/// Note: see here for discussion of half precision floating point, which is key
-/// to keeping our vertex type at or below 32 bytes (1/4 of a cache line on many
-/// architectures).
-/// https://clang.llvm.org/docs/LanguageExtensions.html#half-precision-floating-point
+/// Note: see [this discussion]
+/// (https://clang.llvm.org/docs/LanguageExtensions.html#half-precision-floating-point) 
+/// of half precision floating point, which is key to keeping our vertex type at or 
+/// below 32 bytes (1/4 of a cache line on many architectures).
 
 class Vertex
 {
@@ -146,16 +146,31 @@ class Vertex
     memcpy(this, src, sizeof(Vertex));
    }
   
-  // Function for checking whether a ray intersects a triangle and the triangle is
-  // specified by pointers to two other Vertex objects besides *this.  If true,
-  // returns the distance of the intersection along rayDir from rayPos as outT.
+  /// @brief Check whether a ray intersects a triangle.
+  /// 
+  /// The triangle is specified by pointers to two other Vertex objects besides *this.  
+  /// @returns True if the ray does intersect the triangle, false otherwise.
+  /// @param v1 First Vertex of the triangle (besides *this)
+  /// @param v2 Second Vertex
+  /// @param rayPosition A position somewhere along the ray to be matched
+  /// @param rayDirection A vector in the direction of the ray to be matched
+  /// @param, outT Reference to a float which will be used to return the multiple of 
+  /// the intersection along rayDir from rayPos.
   inline bool rayMatch(Vertex* v1, Vertex* v2, vec3 rayPosition,
-                vec3 rayDirection, float& outT)
+                                                    vec3 rayDirection, float& outT)
    {
     return mollerTrumbore(this->pos, v1->pos, v2->pos, rayPosition, rayDirection, outT);
    }
   
+  /// @brief Static function to print an HTML table header for a table of Vertex to
+  /// a file.
+  /// @param file The FILE* pointer to an open file.
   static void printVertexTableHeader(FILE* file);
+
+  /// @brief Print an HTML row to a table started with printVertexTableHeader for the
+  /// current Vertex (this).
+  /// @param file The FILE* pointer to an open file.
+  /// @param row The unsigned row index to put in the first column of the table.
   void printVertexTableRow(FILE* file, unsigned row);
 };
 
