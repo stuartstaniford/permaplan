@@ -1,5 +1,4 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Apr 2021 -
-// Task queue class for use in multi-threaded version.
 
 #ifndef TASK_QUEUE_H
 #define TASK_QUEUE_H
@@ -7,12 +6,15 @@
 #include "Lockable.h"
 #include <list>
 
+
 // =======================================================================================
-// Class variable initialization
+// Forward declarations
 
 class TaskQueue;
-
 class TaskQueueFarm;
+
+// =======================================================================================
+/// @brief Specify a chuck of work that can be placed on a TaskQueue.
 
 class Task
 {
@@ -26,6 +28,12 @@ class Task
   void* theArg;  
 };
 
+
+// =======================================================================================
+/// @brief Task queue class for use in multi-threaded version.
+///
+/// This is used to manage a worker thread which has a queue of tasks to perform.  Other
+/// threads can add things to the queue, and the worker will get to them.  Uses pthreads.
 
 class TaskQueue: public std::list<Task*>, public Lockable
 {

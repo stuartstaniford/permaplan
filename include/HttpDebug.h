@@ -1,9 +1,4 @@
 // Copyright Staniford Systems.  All Rights Reserved.  May 2020 -
-// Super brain-dead HTTP server for debugging the running system.  Implements
-// a very small subset of HTTP/1.1, but seems to work adequately for this system
-// with all known browsers.  Only uses C lib calls to avoid complicating the
-// build.
-
 
 #ifndef HTTP_DEBUG_H
 #define HTTP_DEBUG_H
@@ -27,12 +22,20 @@
               respEnd-respPtr,  __VA_ARGS__)) >= respEnd) \
                 {respBufOverflow = true; return false;}
 
-// =======================================================================================
-// Class variable initialization
 
+// =======================================================================================
 // forward declarations
+
 class Scene; 
 class MenuInterface; 
+
+
+// =======================================================================================
+/// Simple internal HTTP server for debugging the running system.  
+/// 
+/// Implements a very small subset of HTTP/1.1, but seems to work adequately for this system
+/// with all known browsers.  Only uses C lib calls to avoid complicating the
+/// build.
 
 class HttpDebug: public TaskQueue
 {  

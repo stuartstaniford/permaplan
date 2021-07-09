@@ -7,7 +7,10 @@
 
 
 // =======================================================================================
-// Constructor for individual task
+/// @brief Constructor for an individual task object.
+///
+/// @param work A function pointer to a C function which will be the work to perform.
+/// @param arg A void* pointer to some data that the work function will know how to consume.
 
 Task::Task(void (*work)(void*, TaskQueue*), void* arg):
                             doWork(work),
