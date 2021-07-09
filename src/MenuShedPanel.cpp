@@ -103,7 +103,9 @@ char* MenuShedPanel::errorInFields(void)
 
 
 // =======================================================================================
-/// @brief Function that actually implements the display of the panel.
+/// @brief Display the panel.
+///
+/// Calls all the various ImGui calls to actually put the panel together.
 
 void MenuShedPanel::display(void)
 {

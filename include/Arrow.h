@@ -15,6 +15,12 @@
 
 ///@brief Class for rendering a simple straight arrow.
 ///
+/// Note that this is an instance of a common pattern in the code where an object type
+/// inherits significant functionality from a subtype of VisualElement (in this case
+/// AxialElement) which does a lot of the hard work of the geometry, but also inherits
+/// from VisualObject, because an Arrow is an entire object.  Since VisualObject is also
+/// a child of VisualElement, we inherit from that via two paths.  In some cases, this
+/// requires some explicit hard-wiring of exactly which way the inheritance goes.
 
 class Arrow: public AxialElement, public VisualObject
 {
@@ -26,11 +32,9 @@ class Arrow: public AxialElement, public VisualObject
   Arrow(vec3 root, vec3 dir, float radius, int sides);
   ~Arrow(void);
   
-
   static vec2 arrowPoints[3];
   
   void selfValidate(unsigned l);
-  
   const char* objectName(void);
   bool        diagnosticHTMLSummary(HttpDebug* serv);
   bool        diagnosticHTML(HttpDebug* serv);

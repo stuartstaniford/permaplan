@@ -1,6 +1,4 @@
 // Copyright Staniford Systems.  All Rights Reserved.  May 2020 -
-// This manages the quadtree used for efficient organization of visual rendering
-
 
 #ifndef QUADTREE_H
 #define QUADTREE_H
@@ -14,9 +12,16 @@
 #include <algorithm>
 #include <list>
 
-// =======================================================================================
-// Class variable initialization
 
+// =======================================================================================
+/// @brief This manages the quadtree used for efficient organization of visual objects 
+/// for rendering. 
+/// 
+/// This class is one of the most important in the codebase and is the central 
+/// geographical data structure used for organizing all the renderable VisualObjects so
+/// that we can effiently decide which ones might be in camera-view, might intersect a
+/// ray, etc.  See [the Wikipedia entry](https://en.wikipedia.org/wiki/Quadtree) for 
+/// general background on quadtrees.
 
 class Quadtree: public Lockable
 {
