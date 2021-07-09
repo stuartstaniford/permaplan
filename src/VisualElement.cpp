@@ -199,6 +199,30 @@ bool VisualElement::updateBoundingBox(BoundingBox* box, vec3 offset)
 
 
 // =======================================================================================
+/// @brief Interface to validate that a particular kind of object/element is in a valid 
+/// state.
+///
+/// Function to validate this kind of element/object.  This needs to be over-ridden by 
+/// subclasses as this version will abort if ever called.  Self validation is done on the
+/// quadtree, and all visual objects found in the quad tree are asked to validate 
+/// themselves.  This is development functionality that will be turned off in production
+/// (it is controlled by LOG_TREE_VALIDATION set in Logging.h).  selfValidate functions 
+/// are expected to abort with an error (eg from an assert() call) if anything is wrong 
+/// with the object's state.
+///
+/// @param l This will be called with value zero from the quadtree, but allows for this
+/// function to be used recursively (eg a tree searching its all branches and leaves
+/// and incrementing the level as it recurses up the tree).
+
+void VisualElement::selfValidate(unsigned l)
+{
+#ifdef LOG_TREE_VALIDATION
+  err(-1, "Call to unimplemented VisualElement::selfValidate.\n");
+#endif
+}
+
+
+// =======================================================================================
 /// @brief The interface by which any VisualElement (or VisualObject) can be queried as 
 /// to the amount of space it will require in a TriangleBuffer (in a call to 
 /// bufferGeometryToElement or bufferGeometryToObject).

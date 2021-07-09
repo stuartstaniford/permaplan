@@ -123,6 +123,9 @@ class Vertex
   }
 
   /// @brief Store the low 16 bits of an OID in the Vertex.
+  /// 
+  /// This can be used to detect errors in the TriangleBuffer instances, such as
+  /// triangles split across different objects.
   /// @param oid - an unsigned objectId
   inline void setObjectId(unsigned oid)
    {

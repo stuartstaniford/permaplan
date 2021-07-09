@@ -39,6 +39,14 @@ class VisualElement
   virtual bool        diagnosticHTML(HttpDebug* serv);
   virtual bool        diagnosticHTMLSummary(HttpDebug* serv);
 
+  ///@brief Interface to return the objectIndex if we have one
+  ///@returns 0, subclasses with a valid objIndex should override
+  inline virtual unsigned getObjectIndex(void) {return 0u;} 
+
+#ifdef LOG_TREE_VALIDATION
+  virtual void        selfValidate(unsigned l);
+#endif
+
  protected:
   
   // Instance variables - protected

@@ -49,21 +49,30 @@ const char* Arrow::objectName(void)
 
 
 // =======================================================================================
-// Function to validate the quadtree and all the objects.
+/// @brief Function to validate the Arrow (called from Quadtree::selfValidate).
+///
+/// Currently validates the bounding box, and tests that the length of the arrow is greater
+/// than zero.
+/// @param l Required by the VisualElement interface but unused here.
 
 #ifdef LOG_TREE_VALIDATION
 
 void Arrow::selfValidate(unsigned l)
 {
    box->selfValidate(true);
+   assert(getLength() > 0.0f);
 }
 
 #endif
 
 
 // =======================================================================================
-// We assume we are part of a table of visual objects and we just contribute one row
-// about this particular object.  This is the version called from Quadtree pages
+/// @brief Provide single row summary of this particular Arrow.
+/// 
+/// We assume we are part of a table of visual objects and we just contribute one row
+/// about this particular object.  This is the version called from Quadtree pages
+/// @returns True if everything went well, false if we couldn't fit in the buffer.
+/// @param serv The HttpDebug server instance to talk to.
 
 bool Arrow::diagnosticHTMLSummary(HttpDebug* serv)
 {
@@ -78,9 +87,10 @@ bool Arrow::diagnosticHTMLSummary(HttpDebug* serv)
 
 
 // =======================================================================================
-// We assume we are part of a table of visual objects and we just contribute one row
-// about this particular HeightMarker.
-// XX needs to be fixed to be a proper page.
+/// @brief Provide an HTML page to the HTTP diagnostic server for our objIndex
+///
+/// @returns True if everything went well, false if we couldn't fit in the buffer.
+/// @param serv The HttpDebug server instance to talk to.
 
 bool Arrow::diagnosticHTML(HttpDebug* serv)
 {

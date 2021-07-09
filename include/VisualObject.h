@@ -46,8 +46,6 @@ class VisualObject: public Lockable, public VisualElement
   // Public member functions coming from VisualElement
   inline bool         updateBoundingBox(BoundingBox* B, vec3 offset)
                     {return VisualElement::updateBoundingBox(B, offset);}
-  virtual bool        bufferGeometryOfObject(TriangleBuffer* T);
-  virtual bool        matchRayToObject(vec3& position, vec3& direction, float& lambda);
   virtual float       estimateOpacity(vec3 direction);
   virtual const char* objectName(void);
   virtual bool        diagnosticHTML(HttpDebug* serv);
@@ -55,15 +53,14 @@ class VisualObject: public Lockable, public VisualElement
   static bool         diagnosticHTMLSelection(HttpDebug* serv, char* path);
   
   // Public member functions arising here
+  virtual bool        bufferGeometryOfObject(TriangleBuffer* T);
+  virtual bool        matchRayToObject(vec3& position, vec3& direction, float& lambda);
   void                setLabel(const char* inLabel);
   void                setNoTexColor(unsigned color);
   virtual void        setAltitude(LandSurfaceRegion* surface);
   virtual void        getGroundContact(float& x, float& y);
   virtual void        updateBoundingBox(void);
   void                removeFromQuadtree(void);
-#ifdef LOG_TREE_VALIDATION
-  virtual void        selfValidate(unsigned l);
-#endif
 
  protected:
   

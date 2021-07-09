@@ -86,29 +86,6 @@ void VisualObject::setLabel(const char* inLabel)
 
 
 // =======================================================================================
-/// @brief Interface to validate that a particular kind of object is in a valid state.
-///
-/// Function to validate this kind of object.  This needs to be over-ridden by 
-/// subclasses as this version will abort if ever called.  Self validation is done on the
-/// quadtree, and all visual objects found in the quad tree are asked to validate 
-/// themselves.  This is development functionality that will be turned off in production
-/// (it is controlled by LOG_TREE_VALIDATION set in Logging.h).  selfValidate functions 
-/// are expected to abort with an error (eg from an assert() call) if anything is wrong 
-/// with the object's state.
-///
-/// @param l This will be called with value zero from the quadtree, but allows for this
-/// function to be used recursively (eg a tree searching its all branches and leaves
-/// and incrementing the level as it recurses up the tree).
-
-void VisualObject::selfValidate(unsigned l)
-{
-#ifdef LOG_TREE_VALIDATION
-  err(-1, "Call to unimplemented VisualObject::selfValidate.\n");
-#endif
-}
-
-
-// =======================================================================================
 /// @brief Function to setAltitude of objects with relative height.
 ///
 /// VisualObjects can have either relative height (to the landsurface where they are, or

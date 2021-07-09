@@ -394,36 +394,6 @@ const char* AxialElement::elementName(void)
 
 
 // =======================================================================================
-/// @brief Only implemented to provide documentation of a mistaken call to it.
-
-bool AxialElement::getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
-{
-  err(-1, "Invalid call to AxialElement::getNextUniqueVertex");
-}
-
-
-// =======================================================================================
-/// @brief Only implemented to provide documentation of a mistaken call to it.
-
-bool AxialElement::getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
-{
-  err(-1, "Invalid call to AxialElement::getNextVertex");
-}
-
-
-// =======================================================================================
-/// @brief Only implemented to provide documentation of a mistaken call to it.
-
-int AxialElement::getNextIndex(bool resetToFirst)
-{
-  err(-1, "Invalid call to AxialElement::getNextIndex");
-}
-
-// =======================================================================================
-
-#define bufprintf(...) if((buf += snprintf(buf, end-buf,  __VA_ARGS__)) >= end) {return -1;}
-
-// =======================================================================================
 /// @brief Function to print out in JSON format.
 
 int AxialElement::printOPSF(char*& buf, unsigned bufSize)
@@ -431,24 +401,6 @@ int AxialElement::printOPSF(char*& buf, unsigned bufSize)
   char* end = buf + bufSize;
 
   return (bufSize - (int)(end-buf));
-}
-
-
-// =======================================================================================
-/// @brief Only implemented to provide documentation of a mistaken call to it.
-
-bool AxialElement::diagnosticHTML(HttpDebug* serv)
-{
-  err(-1, "Called unimplemented superclass AxialElement::diagnosticHTML.\n");
-}
-
-
-// =======================================================================================
-/// @brief Only implemented to provide documentation of a mistaken call to it.
-
-bool AxialElement::diagnosticHTMLSummary(HttpDebug* serv)
-{
-  err(-1, "Called unimplemented superclass AxialElement::diagnosticHTMLSummary.\n");
 }
 
 
