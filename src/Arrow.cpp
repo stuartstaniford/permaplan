@@ -12,7 +12,19 @@ vec2 Arrow::arrowPoints[3] = {  {0.5f, 0.0f},
                                     {1.0f, 0.75f}};
 
 // =======================================================================================
-// Constructors.
+/// @brief Constructor for an Arrow
+///
+/// Most of the actual functionality for Arrow is inherited from AxialElement, and the
+/// constructor here is mainly concerned with setting up the AxialElement::vectorPath and
+/// other parameters.
+///
+/// @param root A vector to the base of the axis of the arrow.
+/// @param dir A vector of the length and direction of the axis of the arrow.
+/// @param radius The (float) radius of the widest point of the arrow (the base of the 
+/// head. 
+/// @param sides An int for the number of sides to use in approximating the sweep of the
+/// arrow around the axis.  Making this bigger will make the arrow look smoother,
+/// especially at close range, but will have a performance impact.
 
 Arrow::Arrow(vec3 root, vec3 dir, float radius, int sides):
                       AxialElement(root, dir, radius, sides),
@@ -30,7 +42,7 @@ Arrow::Arrow(vec3 root, vec3 dir, float radius, int sides):
 
 
 // =======================================================================================
-// Destructor
+/// @brief Destructor.  Currently just decrements ArrowMemory.
 
 Arrow::~Arrow(void)
 {
@@ -39,7 +51,7 @@ Arrow::~Arrow(void)
 
 
 // =======================================================================================
-// Tell callers our name at runtime.
+/// @brief Tell callers our name at runtime.
 
 const char* Arrow::objectName(void)
 {
@@ -55,15 +67,15 @@ const char* Arrow::objectName(void)
 /// than zero.
 /// @param l Required by the VisualElement interface but unused here.
 
-#ifdef LOG_TREE_VALIDATION
 
 void Arrow::selfValidate(unsigned l)
 {
+#ifdef LOG_TREE_VALIDATION
    box->selfValidate(true);
    assert(getLength() > 0.0f);
+#endif
 }
 
-#endif
 
 
 // =======================================================================================

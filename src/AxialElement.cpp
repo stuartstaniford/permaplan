@@ -20,6 +20,8 @@
 /// the axis.
 /// @param S An unsigned for the number of sides to use in approximating the sweep of the
 /// element around the axis.
+/// @todo XX We should somehow make the sides adaptive based on how close to the object
+/// we are.
 
 AxialElement::AxialElement(vec3 root, vec3 dir, float R, unsigned S):
                                                   radius(R),
