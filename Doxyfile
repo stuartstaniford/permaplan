@@ -872,6 +872,7 @@ INPUT                  = doc \
                 include/Lockable.h src/Lockable.cpp \
                 include/MenuPanel.h src/MenuPanel.cpp \
                 include/MenuShedPanel.h src/MenuShedPanel.cpp \
+                include/MenuSimulationPanel.h src/MenuSimulationPanel.cpp \
                 include/Quadtree.h src/Quadtree.cpp \
                 include/Shed.h src/Shed.cpp \
                 include/TaskQueue.h src/TaskQueue.cpp \

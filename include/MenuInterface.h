@@ -83,7 +83,6 @@ class MenuInterface: public MenuPanel
   void  imguiHeightInputDialog(void);
   void  imguiMaterialsMenu(void);
   void  imguiGenusMenu(void);
-  void  imguiShedPanel(void);
   void  imguiTreeMenu(void);
   void  imguiAllTreeSelector(void);
   void  imguiFocusOverlay(void);
