@@ -20,7 +20,7 @@ MenuPanel::MenuPanel(MenuInterface* menu):
 
 
 // =======================================================================================
-/// \brief Destructor
+/// @brief Destructor
 ///
 
 MenuPanel::~MenuPanel(void)
@@ -55,6 +55,36 @@ char* MenuPanel::errorInFields(void)
 void MenuPanel::display(void)
 {
   err(-1, "Unimplemented superclass MenuPanel::diaplsy");
+}
+
+
+// =======================================================================================
+/// @brief Method for setting the corner of menus in the corners of the window
+
+void MenuPanel::setCorner(int& corner)
+{
+  const float DISTANCE = 10.0f;
+  ImGuiIO& io = ImGui::GetIO();
+
+  if (corner != -1)
+   {
+    ImVec2 window_pos = ImVec2((corner & 1) ? io.DisplaySize.x - DISTANCE :
+                             DISTANCE, (corner & 2) ? io.DisplaySize.y - DISTANCE : DISTANCE);
+    ImVec2 window_pos_pivot = ImVec2((corner & 1) ? 1.0f : 0.0f, (corner & 2) ? 1.0f : 0.0f);
+    ImGui::SetNextWindowPos(window_pos, ImGuiCond_Always, window_pos_pivot);
+   }
+}
+
+
+// =======================================================================================
+/// @brief Method for setting menu in the center of the window
+
+void MenuPanel::setCenter(void)
+{
+  ImGuiIO& io = ImGui::GetIO();
+  ImVec2 window_pos = ImVec2(io.DisplaySize.x/2, io.DisplaySize.y/2);
+  ImVec2 window_pos_pivot = ImVec2(0.5f, 0.5f);
+  ImGui::SetNextWindowPos(window_pos, ImGuiCond_Always, window_pos_pivot);
 }
 
 

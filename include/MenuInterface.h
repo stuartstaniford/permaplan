@@ -23,7 +23,7 @@
 
 class Window3D;
 
-class MenuInterface
+class MenuInterface: public MenuPanel
 {
  public:
 

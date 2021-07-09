@@ -19,6 +19,7 @@
 // Constructor for a Window3D
 
 MenuInterface::MenuInterface(GLFWwindow* window, Window3D& W):
+                        MenuPanel(this),
                         scene(NULL),
                         show_insert_menu(false),
                         show_lock_overlay(false),
@@ -49,36 +50,6 @@ MenuInterface::MenuInterface(GLFWwindow* window, Window3D& W):
 
   // clear the buffers
   heightBuf[0] = '\0'; 
-}
-
-
-// =======================================================================================
-// Utility function for handling menus in the corners of the window
-
-void setCorner(int& corner)
-{
-  const float DISTANCE = 10.0f;
-  ImGuiIO& io = ImGui::GetIO();
-
-  if (corner != -1)
-   {
-    ImVec2 window_pos = ImVec2((corner & 1) ? io.DisplaySize.x - DISTANCE :
-                             DISTANCE, (corner & 2) ? io.DisplaySize.y - DISTANCE : DISTANCE);
-    ImVec2 window_pos_pivot = ImVec2((corner & 1) ? 1.0f : 0.0f, (corner & 2) ? 1.0f : 0.0f);
-    ImGui::SetNextWindowPos(window_pos, ImGuiCond_Always, window_pos_pivot);
-   }
-}
-
-
-// =======================================================================================
-// Utility function for handling menus in the center of the window
-
-void setCenter(void)
-{
-  ImGuiIO& io = ImGui::GetIO();
-  ImVec2 window_pos = ImVec2(io.DisplaySize.x/2, io.DisplaySize.y/2);
-  ImVec2 window_pos_pivot = ImVec2(0.5f, 0.5f);
-  ImGui::SetNextWindowPos(window_pos, ImGuiCond_Always, window_pos_pivot);
 }
 
 
