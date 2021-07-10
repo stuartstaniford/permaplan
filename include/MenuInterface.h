@@ -7,9 +7,7 @@
 #define MENU_INTERFACE_H
 #include "DynamicallyTypable.h"
 #include "ScriptController.h"
-#include "Scene.h"
 #include "MenuPanel.h"
-#include "imgui.h"
 #include <cglm/cglm.h>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -28,7 +26,6 @@ class MenuInterface: public MenuPanel
  public:
 
   // Public instance variables
-  Scene*          scene;
   bool            show_insert_menu;
   bool            show_lock_overlay;
   bool            show_init_panel;

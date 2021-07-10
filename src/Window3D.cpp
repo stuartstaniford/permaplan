@@ -63,7 +63,6 @@ void openGLInitialLogging(void)
 // See https://learnopengl.com/Getting-started/Hello-Window
 
 Window3D::Window3D(int pixWidth, int pixHeight):
-                        scene(NULL),
                         scriptController(NULL),
                         width(pixWidth),
                         height(pixHeight),

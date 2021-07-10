@@ -25,7 +25,7 @@ public:
   // Instance variables - public
   
   // Member functions - public
-  MenuSimulationPanel(MenuInterface* menu, Scene& S);
+  MenuSimulationPanel(MenuInterface* menu, Scene* S);
   virtual ~MenuSimulationPanel(void);
   void    display(void);
   char*   errorInFields(void);
@@ -33,7 +33,6 @@ public:
 private:
   
   // Instance variables - private
-  Scene& scene;
   
   // Member functions - private
   MenuSimulationPanel(const MenuSimulationPanel&);            // Prevent copy-construction

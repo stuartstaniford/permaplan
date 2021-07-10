@@ -20,8 +20,7 @@
 // Constructor for a Window3D
 
 MenuInterface::MenuInterface(GLFWwindow* window, Window3D& W):
-                        MenuPanel(this),
-                        scene(NULL),
+                        MenuPanel(this, NULL), // scene will be set later
                         show_insert_menu(false),
                         show_lock_overlay(false),
                         show_init_panel(false),
@@ -113,7 +112,7 @@ void MenuInterface::insertBlockButton(void)
 {
   show_insert_menu = false;
   unless(blockPanel)
-    blockPanel = new MenuBlockPanel(this);
+    blockPanel = new MenuBlockPanel(this, scene);
   blockPanel->displayVisible = true;
 }
 
@@ -125,7 +124,7 @@ void MenuInterface::insertShedButton(void)
 {
   show_insert_menu = false;
   unless(shedPanel)
-    shedPanel = new MenuShedPanel(this);
+    shedPanel = new MenuShedPanel(this, scene);
   shedPanel->displayVisible = true;
 }
 
@@ -486,7 +485,7 @@ void MenuInterface::imguiFocusOverlay(void)
       mouseOverlayDisplays(scene->focusObjectLocation);
      }
     else
-      ImGui::Text("Mouse out of scene.\n");
+      ImGui::Text("Mouse out of scene->\n");
 
     ImGui::Text("Camera Height: %.1f'\n", scene->findCameraHeight());
     ImGui::Text("Frames/Sec: %.0f\n", 1.0f/win3D.frameTimeAvg);
@@ -556,7 +555,7 @@ void MenuInterface::imguiInterface(void)
 
   // Always visible panels/menus
   unless(simulationPanel)
-    simulationPanel = new MenuSimulationPanel(this, *scene);
+    simulationPanel = new MenuSimulationPanel(this, scene);
   simulationPanel->display();
   
   // Panels/menus that may or may not be visible

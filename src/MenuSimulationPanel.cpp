@@ -22,11 +22,10 @@
 /// It also initializes a number of static variables if they weren't done before.
 ///
 /// @param menu Pointer to the overall MenuInterface so we can call back into it. 
+/// @param S A reference to the scene->
 
-
-MenuSimulationPanel::MenuSimulationPanel(MenuInterface* menu, Scene& S):
-                                            MenuPanel(menu),
-                                            scene(S)
+MenuSimulationPanel::MenuSimulationPanel(MenuInterface* menu, Scene* S):
+                                            MenuPanel(menu, S)
 {
   displayVisible = true; // simulation panel shows by default
 }
@@ -50,7 +49,6 @@ MenuSimulationPanel::~MenuSimulationPanel(void)
 /// some cases it relies on a static buffer and thus is not thread-safe.
 ///
 /// @return A char* pointer to a diagnostic error string.
-
 
 char* MenuSimulationPanel::errorInFields(void)
 {            
@@ -92,28 +90,28 @@ void MenuSimulationPanel::display(void)
     if(ImGui::Button("Simulate"))
      {
       LogSimulationControls("Simulate Button \xe2\x96\xb6 pressed.\n");
-      scene.startSimulation();
+      scene->startSimulation();
      }
     ImGui::SameLine();
     if(ImGui::Button("Pause"))
      {
       LogSimulationControls("Pause Button \xe2\x8f\xb8 pressed.\n");
-      scene.pauseSimulation();
+      scene->pauseSimulation();
      }
     ImGui::SameLine();
     if(ImGui::Button("Reset"))
      {
       LogSimulationControls("Reset Button \xe2\x8f\xae pressed.\n");
-      scene.resetSimulation();
+      scene->resetSimulation();
      }
     
     // Auxiliary status information
-    float year = scene.getSimYear();
-    float CO2 = scene.rcp8_5.getConcentration(year);
+    float year = scene->getSimYear();
+    float CO2 = scene->rcp8_5.getConcentration(year);
     ImGui::Text("Year: %.0f (CO2: %.0fppm)\n", year, CO2);
     
-    if(scene.simulationActive())
-      ImGui::Text("Simulation Speed: %.2f\n", scene.simulationSpeed);
+    if(scene->simulationActive())
+      ImGui::Text("Simulation Speed: %.2f\n", scene->simulationSpeed);
     else
       ImGui::Text("Simulation: Paused\n");
     

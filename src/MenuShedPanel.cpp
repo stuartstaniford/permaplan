@@ -30,8 +30,8 @@ char  MenuShedPanel::bOverhangLabel[16];
 /// @param menu Pointer to the overall MenuInterface so we can call back into it. 
 
 
-MenuShedPanel::MenuShedPanel(MenuInterface* menu):
-                              MenuPanel(menu),
+MenuShedPanel::MenuShedPanel(MenuInterface* menu, Scene* S):
+                              MenuPanel(menu, S),
                               height(8.0f),
                               length(12.0f),
                               width(6.0f),

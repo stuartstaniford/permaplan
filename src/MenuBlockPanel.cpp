@@ -8,8 +8,8 @@
 // =======================================================================================
 // Constructor
 
-MenuBlockPanel::MenuBlockPanel(MenuInterface* menu):
-                                      MenuPanel(menu)
+MenuBlockPanel::MenuBlockPanel(MenuInterface* menu, Scene* S):
+                                      MenuPanel(menu, S)
 {
   sizeBuf[0] = '\0';
 }

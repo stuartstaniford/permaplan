@@ -19,7 +19,7 @@ public:
   // Instance variables - public
   
   // Member functions - public
-  MenuBlockPanel(MenuInterface* menu);
+  MenuBlockPanel(MenuInterface* menu, Scene* S);
   virtual ~MenuBlockPanel(void);
   void    display(void);
 

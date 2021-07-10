@@ -49,8 +49,8 @@ int main (int argc, char* argv[])
   Shader shader("src/pmodVert.glsl", "src/pmodFrag.glsl");
   ResourceManager resources(window);
   PmodDesign design;
-  SkySampleModel skySampler(design.boundary.referencePoint[0]);
   Scene scene;
+  SkySampleModel skySampler(design.boundary.referencePoint[0]);
   window.scene = &scene;
   window.imgMenu->scene = &scene;
   window.scriptController = new ScriptController();

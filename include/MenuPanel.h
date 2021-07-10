@@ -6,6 +6,8 @@
 #include "Logging.h"
 #include "VisualObject.h"
 #include "imgui.h"
+#include "Scene.h"
+
 
 // =======================================================================================
 
@@ -25,9 +27,10 @@ class MenuPanel
 public:
   
   // Instance variables - public
+  Scene*          scene;
   
   // Member functions - public
-  MenuPanel(MenuInterface* menu);
+  MenuPanel(MenuInterface* menu, Scene* S);
   ~MenuPanel(void);
   virtual void  display(void);
   virtual char* errorInFields(void);

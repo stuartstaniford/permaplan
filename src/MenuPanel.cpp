@@ -11,7 +11,8 @@
 /// @param menu Pointer to the overall MenuInterface so we (and our subclasses) can 
 /// call back into it. 
 
-MenuPanel::MenuPanel(MenuInterface* menu):
+MenuPanel::MenuPanel(MenuInterface* menu, Scene* S):
+                  scene(S),
                   displayVisible(false),
                   mainMenu(menu),
                   errPanel(NULL)

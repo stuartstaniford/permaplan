@@ -23,7 +23,7 @@ public:
   // Instance variables - public
   
   // Member functions - public
-  MenuShedPanel(MenuInterface* menu);
+  MenuShedPanel(MenuInterface* menu, Scene* S);
   virtual ~MenuShedPanel(void);
   void    display(void);
   char*   errorInFields(void);
