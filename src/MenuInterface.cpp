@@ -31,7 +31,8 @@ MenuInterface::MenuInterface(GLFWwindow* window, Window3D& W):
                         show_focus_overlay(true),
                         all_tree_selector(false),
                         shedPanel(NULL),
-                        blockPanel(NULL)
+                        blockPanel(NULL),
+                        simulationPanel(NULL)
 #ifdef SHOW_DEMO_WINDOW
                         , show_demo_window(true)
 #endif
