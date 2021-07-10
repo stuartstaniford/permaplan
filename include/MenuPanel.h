@@ -34,6 +34,7 @@ public:
   ~MenuPanel(void);
   virtual void  display(void);
   virtual char* errorInFields(void);
+  virtual bool handleHTTPRequest(HttpDebug* serv, char* path);
   void setCorner(int& corner);
   void setCenter(void);
 
