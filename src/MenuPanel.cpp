@@ -84,8 +84,8 @@ bool MenuPanel::handleHTTPRequest(HttpDebug* serv, char* path)
 
 
 // =======================================================================================
-/// @brief Interface the method to be called in the main thread to process an interface
-/// action (which will have originally arisen in the HTTP server).  
+/// @brief Interface for the method to be called in the main thread to process an 
+/// interface action (which will have originally arisen in the HTTP server).  
 /// 
 /// The version in this clsss will always return an error.  Subclasses should override
 /// this and conform to the following interface.

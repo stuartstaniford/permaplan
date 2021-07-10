@@ -193,3 +193,64 @@ bool MenuSimulationPanel::handleHTTPRequest(HttpDebug* serv, char* path)
 
 
 // =======================================================================================
+/// @brief Interface for the method to be called in the main thread to process an 
+/// simulation panel related interface action.
+/// 
+/// Note the action will have originally arisen in the HTTP server and have been 
+/// processed by MenuSimulationPanel::handleHTTPRequest).  
+/// @returns The ActionType of the action we processed.
+/// @param action The InterfaceAction that needs to be handled.
+
+ActionType MenuSimulationPanel::processAction(InterfaceAction* action)
+{
+  switch(action->actionType)
+   {
+    case SimulatePause:
+      LogPseudoActions("Pause button press processed.\n");
+      LogSimulationControls("Pause Button \xe2\x8f\xb8 pressed.\n");
+      scene->pauseSimulation();
+      return SimulatePause;
+   
+    case SimulateReset:
+      LogPseudoActions("Reset button press processed.\n");
+      LogSimulationControls("Reset Button \xe2\x8f\xae pressed.\n");
+      scene->resetSimulation();
+      return SimulateReset;
+
+    case SimulateStart:
+      LogPseudoActions("Simulate start button press processed.\n");
+      LogSimulationControls("Simulate Button \xe2\x96\xb6 pressed.\n");
+      scene->startSimulation();
+      return SimulateStart;
+
+    case SimulateSpring:
+      LogPseudoActions("Simulate spring button press processed.\n");
+      LogSimulationControls("Spring season selected.\n");
+      displaySeason = 0u;
+      return SimulateSpring;
+
+    case SimulateSummer:
+      LogPseudoActions("Simulate summer button press processed.\n");
+      LogSimulationControls("Summer season selected.\n");
+      displaySeason = 1u;
+      return SimulateSummer;
+
+    case SimulateFall:
+      LogPseudoActions("Simulate fall button press processed.\n");
+      LogSimulationControls("Fall season selected.\n");
+      displaySeason = 2u;
+      return SimulateFall;
+
+    case SimulateWinter:
+      LogPseudoActions("Simulate winter button press processed.\n");
+      LogSimulationControls("Winter season selected.\n");
+      displaySeason = 3u;
+      return SimulateWinter;
+
+    default:
+      return NoAction;
+   }
+}
+
+
+// =======================================================================================

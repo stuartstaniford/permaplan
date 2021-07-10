@@ -23,6 +23,7 @@ class Window3D;
 
 class MenuInterface: public MenuPanel
 {
+  friend Window3D;
  public:
 
   // Public instance variables

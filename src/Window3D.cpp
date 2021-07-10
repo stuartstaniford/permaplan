@@ -198,48 +198,18 @@ ActionType Window3D::processPseudoAction(InterfaceAction* action)
       return SelectGenus;
       
     case SimulatePause:
-      LogPseudoActions("Pause button press processed.\n");
-      LogSimulationControls("Pause Button \xe2\x8f\xb8 pressed.\n");
-      scene->pauseSimulation();
-      return SimulatePause;
-       
     case SimulateReset:
-      LogPseudoActions("Reset button press processed.\n");
-      LogSimulationControls("Reset Button \xe2\x8f\xae pressed.\n");
-      scene->resetSimulation();
-      return SimulateReset;
-
     case SimulateStart:
-      LogPseudoActions("Simulate start button press processed.\n");
-      LogSimulationControls("Simulate Button \xe2\x96\xb6 pressed.\n");
-      scene->startSimulation();
-      return SimulateStart;
-
     case SimulateSpring:
-      LogPseudoActions("Simulate spring button press processed.\n");
-      LogSimulationControls("Spring season selected.\n");
-      displaySeason = 0u;
-      return SimulateSpring;
-
     case SimulateSummer:
-      LogPseudoActions("Simulate summer button press processed.\n");
-      LogSimulationControls("Summer season selected.\n");
-      displaySeason = 1u;
-      return SimulateSummer;
-  
     case SimulateFall:
-      LogPseudoActions("Simulate fall button press processed.\n");
-      LogSimulationControls("Fall season selected.\n");
-      displaySeason = 2u;
-      return SimulateFall;
-
     case SimulateWinter:
-      LogPseudoActions("Simulate winter button press processed.\n");
-      LogSimulationControls("Winter season selected.\n");
-      displaySeason = 3u;
-      return SimulateWinter;
-      
-     case WindowMove:
+      if(imgMenu->simulationPanel)
+        imgMenu->simulationPanel->processAction(action);
+      else
+        return NoAction;
+
+    case WindowMove:
       LogPseudoActions("Window move action to %.0f, %.0f processed.\n",
                                               action->data[0], action->data[1]);
       glfwSetWindowPos(window, (int)action->data[0], (int)action->data[1]);  
@@ -247,7 +217,7 @@ ActionType Window3D::processPseudoAction(InterfaceAction* action)
                                         (int)action->data[0], (int)action->data[1]); 
       return WindowMove;
 
-     case WindowResize:
+    case WindowResize:
       glfwSetWindowSize(window, (int)action->data[0], (int)action->data[1]);  
       LogWindowOperations("Window resized to width %d, height %d.\n",
                                         (int)action->data[0], (int)action->data[1]); 
@@ -255,7 +225,7 @@ ActionType Window3D::processPseudoAction(InterfaceAction* action)
                                       (int)action->data[0], (int)action->data[1]); 
       return WindowResize;
 
-     default:
+    default:
       LogRequestErrors("Unhandled action type in Window3D::processPseudoAction %d\n", 
                                                             action->actionType);
       return NoAction;

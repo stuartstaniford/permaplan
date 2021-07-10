@@ -27,9 +27,10 @@ public:
   // Member functions - public
   MenuSimulationPanel(MenuInterface* menu, Scene* S);
   virtual ~MenuSimulationPanel(void);
-  void    display(void);
-  char*   errorInFields(void);
-  bool    handleHTTPRequest(HttpDebug* serv, char* path);
+  void        display(void);
+  char*       errorInFields(void);
+  bool        handleHTTPRequest(HttpDebug* serv, char* path);
+  ActionType  processAction(InterfaceAction* action);
 
 private:
   
