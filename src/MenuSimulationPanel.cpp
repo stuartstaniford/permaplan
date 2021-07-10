@@ -148,3 +148,50 @@ void MenuSimulationPanel::display(void)
 
 
 // =======================================================================================
+/// @brief Function to handle parsing simulation panel interface requests from the HTTP 
+/// diagnostic server.  
+/// 
+/// Note that this will *not* be called on the main thread, but rather one
+/// of the HTTP server threads.  
+/// @returns True if everything went well, false if we couldn't fit in the buffer.
+/// @param serv The HttpDebug server instance to talk to.
+/// @param path The last part of the URL that is specific to this particular panel (the path
+/// required to navigate to us is hidden from us because it's not our concern.
+
+bool MenuSimulationPanel::handleHTTPRequest(HttpDebug* serv, char* path)
+{
+  if(strncmp(path, "start", 5)== 0)
+    return createAction(serv, SimulateStart, (char*)"SimulateStart", 
+                                                        (char*)"HTTPAPiSimulate", path+5);
+
+  if(strncmp(path, "pause", 5)== 0)
+    return createAction(serv, SimulatePause, (char*)"SimulatePause", 
+                                                        (char*)"HTTPAPiSimulate", path+5);
+
+  else if(strncmp(path, "reset", 5)== 0)
+    return createAction(serv, SimulateReset, (char*)"SimulateReset", 
+                                                        (char*)"HTTPAPiSimulate", path+5);
+
+  else if(strncmp(path, "spring", 6)== 0)
+    return createAction(serv, SimulateSpring, (char*)"SimulateSpring", 
+                                                        (char*)"HTTPAPiSimulate", path+6);
+
+  else if(strncmp(path, "summer", 6)== 0)
+    return createAction(serv, SimulateSummer, (char*)"SimulateSummer", 
+                                                        (char*)"HTTPAPiSimulate", path+6);
+
+  else if(strncmp(path, "fall", 4)== 0)
+    return createAction(serv, SimulateFall, (char*)"SimulateFall", 
+                                                        (char*)"HTTPAPiSimulate", path+4);
+
+  else if(strncmp(path, "winter", 6)== 0)
+    return createAction(serv, SimulateWinter, (char*)"SimulateWinter", 
+                                                        (char*)"HTTPAPiSimulate", path+6);
+
+  
+  LogRequestErrors("MenuInterface::HTTPAPi unknown simulation command %s\n", path);
+  return false;
+}
+
+
+// =======================================================================================

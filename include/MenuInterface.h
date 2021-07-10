@@ -86,8 +86,6 @@ class MenuInterface: public MenuPanel
   void  imguiSimulationController(void);
   void  mouseOverlayDisplays(vec3 mouseSceneLoc);
   void  imguiLockOverlay(void);
-  bool  createAction(HttpDebug* serv, ActionType actionType, 
-                                            char* actionName, char* functionName, char* path);
 
 
   MenuInterface(const MenuInterface&);                 // Prevent copy-construction

@@ -29,6 +29,7 @@ public:
   virtual ~MenuSimulationPanel(void);
   void    display(void);
   char*   errorInFields(void);
+  bool    handleHTTPRequest(HttpDebug* serv, char* path);
 
 private:
   

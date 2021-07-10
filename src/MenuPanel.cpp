@@ -51,7 +51,8 @@ char* MenuPanel::errorInFields(void)
 /// @brief Interface for displaying the panel when it is supposed to be on screen.  
 /// 
 /// The version in this clsss will always return an error.  Subclasses should override
-/// this.
+/// this with the specific buttons, fields, etc interface controls that they require to
+/// get their state from the user.
 
 void MenuPanel::display(void)
 {
@@ -109,6 +110,35 @@ void MenuPanel::setCenter(void)
   ImVec2 window_pos = ImVec2(io.DisplaySize.x/2, io.DisplaySize.y/2);
   ImVec2 window_pos_pivot = ImVec2(0.5f, 0.5f);
   ImGui::SetNextWindowPos(window_pos, ImGuiCond_Always, window_pos_pivot);
+}
+
+
+// =======================================================================================
+/// @brief Method to handle the details around creation of an InterfaceAction and 
+/// associated error reporting.
+///
+/// Note this is generally called on an HTTP debug server thread, so don't do anything
+/// that isn't thread safe in here.
+/// @returns True if everything went well, false if there was an error.
+/// @param serv The HttpDebug server instance to talk to.
+/// @param actionType The ActionType of the InterfaceAction we are to create.
+/// @param actionName The name of the actionType for logging purposes
+/// @param functionName The name of the calling function for logging purposes
+/// @param path The latter portion of the URL leading to this action creation.
+
+bool MenuPanel::createAction(HttpDebug* serv, ActionType actionType, 
+                                          char* actionName, char* functionName, char* path)
+{
+  InterfaceAction* action = new InterfaceAction(actionType, path);
+  if(!action->valid)
+   {
+    LogRequestErrors("MenuInterface::%s couldn't create %s action.\n", 
+                                                              functionName, actionName);
+    return false;
+   }
+  scene->actions.push_back(action);
+  httPrintf("OK\n")
+  return true;
 }
 
 

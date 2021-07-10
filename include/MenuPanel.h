@@ -45,7 +45,11 @@ protected:
   bool            displayVisible;
   MenuInterface*  mainMenu;
   MenuErrorPanel* errPanel;
-  
+
+  // Methods visible only to subclasses  
+  bool createAction(HttpDebug* serv, ActionType actionType, 
+                          char* actionName, char* functionName, char* path);
+
 private:
   
   // Instance variables - private

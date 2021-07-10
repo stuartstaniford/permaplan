@@ -624,25 +624,6 @@ bool MenuInterface::HTTPAPiOptions(HttpDebug* serv, char* path)
 
 
 // =======================================================================================
-// Function to handle action creation/error reporting.
-
-bool MenuInterface::createAction(HttpDebug* serv, ActionType actionType, 
-                                          char* actionName, char* functionName, char* path)
-{
-  InterfaceAction* action = new InterfaceAction(actionType, path);
-  if(!action->valid)
-   {
-    LogRequestErrors("MenuInterface::%s couldn't create %s action.\n", 
-                                                              functionName, actionName);
-    return false;
-   }
-  scene->actions.push_back(action);
-  httPrintf("OK\n")
-  return true;
-}
-
-
-// =======================================================================================
 // Helper function to restore spaces in the path
 
 void unencode(char* path)
@@ -699,45 +680,6 @@ bool MenuInterface::HTTPAPiAllTreeSelector(HttpDebug* serv, char* path)
   
   return createAction(serv, AllTreeSelection, (char*)"AllTreeSelection", 
                                                         (char*)"HTTPAPiAllTreeSelector", path);
-}
-
-
-// =======================================================================================
-// Function to handle parsing simulation panel interface actions.
-
-bool MenuInterface::HTTPAPiSimulate(HttpDebug* serv, char* path)
-{
-  if(strncmp(path, "start", 5)== 0)
-    return createAction(serv, SimulateStart, (char*)"SimulateStart", 
-                                                        (char*)"HTTPAPiSimulate", path+5);
-
-  if(strncmp(path, "pause", 5)== 0)
-    return createAction(serv, SimulatePause, (char*)"SimulatePause", 
-                                                        (char*)"HTTPAPiSimulate", path+5);
-
-  else if(strncmp(path, "reset", 5)== 0)
-    return createAction(serv, SimulateReset, (char*)"SimulateReset", 
-                                                        (char*)"HTTPAPiSimulate", path+5);
-
-  else if(strncmp(path, "spring", 6)== 0)
-    return createAction(serv, SimulateSpring, (char*)"SimulateSpring", 
-                                                        (char*)"HTTPAPiSimulate", path+6);
-
-  else if(strncmp(path, "summer", 6)== 0)
-    return createAction(serv, SimulateSummer, (char*)"SimulateSummer", 
-                                                        (char*)"HTTPAPiSimulate", path+6);
-
-  else if(strncmp(path, "fall", 4)== 0)
-    return createAction(serv, SimulateFall, (char*)"SimulateFall", 
-                                                        (char*)"HTTPAPiSimulate", path+4);
-
-  else if(strncmp(path, "winter", 6)== 0)
-    return createAction(serv, SimulateWinter, (char*)"SimulateWinter", 
-                                                        (char*)"HTTPAPiSimulate", path+6);
-
-  
-  LogRequestErrors("MenuInterface::HTTPAPi unknown simulation command %s\n", path);
-  return false;
 }
 
 
@@ -819,7 +761,12 @@ bool MenuInterface::HTTPAPiSelections(HttpDebug* serv, char* path)
 bool MenuInterface::HTTPAPi(HttpDebug* serv, char* path)
 {  
   if(strncmp(path, "simulate/", 9)== 0)
-     return HTTPAPiSimulate(serv, path+9);
+   {
+    if(simulationPanel)
+      return simulationPanel->handleHTTPRequest(serv, path+9);
+    else
+      return false;
+   }
 
   if(strncmp(path, "insert/", 7)== 0)
     return HTTPAPiInsert(serv, path+7);
