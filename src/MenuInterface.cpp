@@ -9,6 +9,7 @@
 #include "Window3D.h"
 #include "MenuShedPanel.h"
 #include "MenuBlockPanel.h"
+#include "MenuSimulationPanel.h"
 #include "loadFileToBuf.h"
 #include "RegionList.h"
 #include "imgui_impl_opengl3.h"
@@ -29,7 +30,6 @@ MenuInterface::MenuInterface(GLFWwindow* window, Window3D& W):
                         show_tree_menu(false),
                         genusSelected(NULL),
                         show_focus_overlay(true),
-                        show_simulation_controller(true),
                         all_tree_selector(false),
                         shedPanel(NULL),
                         blockPanel(NULL)
@@ -47,7 +47,7 @@ MenuInterface::MenuInterface(GLFWwindow* window, Window3D& W):
   ImGui_ImplOpenGL3_Init("#version 410");
   // Setup Dear ImGui style
   ImGui::StyleColorsClassic();
-
+  
   // clear the buffers
   heightBuf[0] = '\0'; 
 }
@@ -497,94 +497,6 @@ void MenuInterface::imguiFocusOverlay(void)
 
 
 // =======================================================================================
-// Transparent overlay that displays information about the thing currently in focus
-
-void MenuInterface::imguiSimulationController(void)
-{
-  if(!show_simulation_controller)
-    return;
-  static int corner = 1;
-  
-  // Basic window setup
-  setCorner(corner);
-  ImGui::SetNextWindowBgAlpha(0.35f); // Transparent background
-  ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoDecoration |
-                ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings |
-                ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav;
-  if (corner != -1)
-    window_flags |= ImGuiWindowFlags_NoMove;
-  if (ImGui::Begin("Simulation Control", &show_simulation_controller, window_flags))
-   {
-    // XX Imgui not displaying Unicode symbols:
-    // Check https://en.wikipedia.org/wiki/Media_control_symbols and
-    // https://www.branah.com/unicode-converter
-    // Play is U+25B6, (\xe2\x96\xb6 in UTF8)
-    // Pause is U+23F8, (\xe2\x8f\xb8 in UTF8)
-    // Skip to start is U+23EE, (\xe2\x8f\xae in UTF8)
-    ImGui::Separator();
-    ImGui::Text("Simulation Control");
-    
-    // Simulation controls
-    if(ImGui::Button("Simulate"))
-     {
-      LogSimulationControls("Simulate Button \xe2\x96\xb6 pressed.\n");
-      scene->startSimulation();
-     }
-    ImGui::SameLine();
-    if(ImGui::Button("Pause"))
-     {
-      LogSimulationControls("Pause Button \xe2\x8f\xb8 pressed.\n");
-      scene->pauseSimulation();
-     }
-    ImGui::SameLine();
-    if(ImGui::Button("Reset"))
-     {
-      LogSimulationControls("Reset Button \xe2\x8f\xae pressed.\n");
-      scene->resetSimulation();
-     }
-    
-    // Auxiliary status information
-    float year = scene->getSimYear();
-    float CO2 = scene->rcp8_5.getConcentration(year);
-    ImGui::Text("Year: %.0f (CO2: %.0fppm)\n", year, CO2);
-    
-    if(scene->simulationActive())
-      ImGui::Text("Simulation Speed: %.2f\n", scene->simulationSpeed);
-    else
-      ImGui::Text("Simulation: Paused\n");
-    
-    // Season selection
-    if(ImGui::Button("Spring"))
-     {
-      LogSimulationControls("Spring season selected.\n");
-      displaySeason = 0u;
-     }
-    ImGui::SameLine();
-    if(ImGui::Button("Summer"))
-     {
-      LogSimulationControls("Summer season selected.\n");
-      displaySeason = 1u;
-     }
-    ImGui::SameLine();
-    if(ImGui::Button("Fall"))
-     {
-      LogSimulationControls("Fall season selected.\n");
-      displaySeason = 2u;
-     }
-    ImGui::SameLine();
-    if(ImGui::Button("Winter"))
-     {
-      LogSimulationControls("Winter season selected.\n");
-      displaySeason = 3u;
-     }
-    
-    ImGui::Separator();
-   }
-  ImGui::End();
-}
-
-
-// =======================================================================================
 // Top level function used only during startup when we need to interact with the user
 // about something.
 
@@ -637,20 +549,27 @@ int  MenuInterface::initPanel(char* question, char** responses, int nResponses)
 
 void MenuInterface::imguiInterface(void)
 {
+  // Imgui preamble stuff
   ImGui_ImplOpenGL3_NewFrame();
   ImGui_ImplGlfw_NewFrame();
   ImGui::NewFrame();
+
+  // Always visible panels/menus
+  unless(simulationPanel)
+    simulationPanel = new MenuSimulationPanel(this, *scene);
+  simulationPanel->display();
   
-  imguiInsertMenu();
-  imguiTreeMenu();
-  imguiAllTreeSelector();
-  imguiHeightInputDialog();
+  // Panels/menus that may or may not be visible
   if(shedPanel)
     shedPanel->display();
   if(blockPanel)
     blockPanel->display();
-  
-  imguiSimulationController();
+
+  // Unconverted menus  
+  imguiInsertMenu();
+  imguiTreeMenu();
+  imguiAllTreeSelector();
+  imguiHeightInputDialog();
   imguiFocusOverlay();
   imguiLockOverlay();
 
@@ -823,7 +742,7 @@ bool MenuInterface::HTTPAPiSimulate(HttpDebug* serv, char* path)
 
 
 // =======================================================================================
-// Function to handle parsing simulation panel interface actions.
+// Function to handle insert menu actions.
 
 bool MenuInterface::HTTPAPiInsert(HttpDebug* serv, char* path)
 {
