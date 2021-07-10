@@ -14,6 +14,7 @@
 class MenuInterface;
 class MenuErrorPanel;
 
+
 // =======================================================================================
 /// @brief Provides an interface that all GUI panels/menus inherit from
 /// 
@@ -35,6 +36,8 @@ public:
   virtual void  display(void);
   virtual char* errorInFields(void);
   virtual bool handleHTTPRequest(HttpDebug* serv, char* path);
+  virtual ActionType processAction(InterfaceAction* action);
+  
   void setCorner(int& corner);
   void setCenter(void);
 
@@ -63,5 +66,4 @@ private:
 #endif
 
 
-
-
+// =======================================================================================

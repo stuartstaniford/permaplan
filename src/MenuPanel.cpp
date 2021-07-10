@@ -84,6 +84,21 @@ bool MenuPanel::handleHTTPRequest(HttpDebug* serv, char* path)
 
 
 // =======================================================================================
+/// @brief Interface the method to be called in the main thread to process an interface
+/// action (which will have originally arisen in the HTTP server).  
+/// 
+/// The version in this clsss will always return an error.  Subclasses should override
+/// this and conform to the following interface.
+/// @returns The ActionType of the action we processed.
+/// @param action The InterfaceAction that needs to be handled.
+
+ActionType MenuPanel::processAction(InterfaceAction* action)
+{
+  err(-1, "Unimplemented superclass MenuPanel::processAction");
+}
+
+
+// =======================================================================================
 /// @brief Method for setting the corner of menus in the corners of the window
 
 void MenuPanel::setCorner(int& corner)

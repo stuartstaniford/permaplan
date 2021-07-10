@@ -143,7 +143,6 @@ void MenuSimulationPanel::display(void)
     ImGui::Separator();
    }
   ImGui::End();
-
 }
 
 
@@ -188,7 +187,6 @@ bool MenuSimulationPanel::handleHTTPRequest(HttpDebug* serv, char* path)
     return createAction(serv, SimulateWinter, (char*)"SimulateWinter", 
                                                         (char*)"HTTPAPiSimulate", path+6);
 
-  
   LogRequestErrors("MenuInterface::HTTPAPi unknown simulation command %s\n", path);
   return false;
 }
