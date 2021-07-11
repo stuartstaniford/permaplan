@@ -20,7 +20,7 @@
 // =======================================================================================
 // Constructor for a Window3D
 
-MenuInterface::MenuInterface(GLFWwindow* window, Window3D& W):
+MenuInterface::MenuInterface(Window3D& W):
                         MenuPanel(this, NULL), // scene will be set later
                         show_insert_menu(false),
                         show_lock_overlay(false),
@@ -44,7 +44,7 @@ MenuInterface::MenuInterface(GLFWwindow* window, Window3D& W):
   ImGui::CreateContext();
 
   // Setup Platform/Renderer bindings
-  ImGui_ImplGlfw_InitForOpenGL(window, true);
+  ImGui_ImplGlfw_InitForOpenGL(win3D.window, true);
   ImGui_ImplOpenGL3_Init("#version 410");
   // Setup Dear ImGui style
   ImGui::StyleColorsClassic();

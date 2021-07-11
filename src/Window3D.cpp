@@ -110,7 +110,7 @@ Window3D::Window3D(int pixWidth, int pixHeight):
 #endif
 
   // Dear ImGui initialization
-  imgMenu = new MenuInterface(window, *this);
+  imgMenu = new MenuInterface(*this);
   glViewport(0, 0, width, height);  
   lastTime.now();
   

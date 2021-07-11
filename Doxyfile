@@ -877,6 +877,7 @@ INPUT                  = doc \
                 include/MenuShedPanel.h src/MenuShedPanel.cpp \
                 include/MenuSimulationPanel.h src/MenuSimulationPanel.cpp \
                 include/Quadtree.h src/Quadtree.cpp \
+                include/ResourceManager.h src/ResourceManager.cpp \
                 include/Shed.h src/Shed.cpp \
                 include/TaskQueue.h src/TaskQueue.cpp \
                 include/TriangleBuffer.h src/TriangleBuffer.cpp \

@@ -32,7 +32,7 @@ class MenuInterface: public MenuPanel
   bool            show_init_panel;
 
   // Public methods
-  MenuInterface(GLFWwindow* window, Window3D& W);
+  MenuInterface(Window3D& W);
   ~MenuInterface(void);
   int   initPanel(char* question, char** responses, int nResponses);
   void  imguiInterface(void);

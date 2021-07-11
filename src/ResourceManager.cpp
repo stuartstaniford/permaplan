@@ -23,7 +23,12 @@ using namespace rapidjson;
 
 
 // =======================================================================================
-// Constructor
+/// @brief Constructor
+///
+/// Most of the work in this class occurs in the constructor.  The other methods in the
+/// class are helper functions invoked at construction time.
+/// @param window A reference to the open window at the time of our invocation (needed 
+/// in case we have to do some user-interaction).
 
 ResourceManager::ResourceManager(Window3D& window)
 {
@@ -79,7 +84,7 @@ ResourceManager::ResourceManager(Window3D& window)
 
 
 // =======================================================================================
-// Destructor
+/// @brief Destructor
 
 ResourceManager::~ResourceManager(void)
 {
@@ -88,10 +93,16 @@ ResourceManager::~ResourceManager(void)
 
 
 // =======================================================================================
-// Function that walks the directory tree and makes sure that it is as specified in the
-// MANIFEST_FILE.  We ignore any extra directories and files that are not specified in
-// the manifest - assuming they are some other user thing.  But we will fix permissions
-// on the directories we expect.
+/// @brief Recursively check the Materials directory tree matches the manifest.
+///
+/// Function that walks the directory tree and makes sure that it is as specified in the
+/// MANIFEST_FILE.  We ignore any extra directories and files that are not specified in
+/// the manifest - assuming they are some other user thing.  But we will fix permissions
+/// on the directories we expect.
+/// @param directoryTree A rapidson::Value for the directories object in the JSON manifest
+/// file.
+/// @param path The directory path so far
+/// @param pathlen The length of the path so far
 
 void ResourceManager::checkDirectories(Value& directoryTree, char* path, unsigned pathlen)
 {
@@ -145,8 +156,10 @@ void ResourceManager::checkDirectories(Value& directoryTree, char* path, unsigne
 
 
 // =======================================================================================
-// Function that is called by checkDirectories above, and serves to obtain the individual
-// files listed under some given directory.
+/// @brief Check the files in a given directory.
+/// 
+/// Function that is called by ResourceManager::checkDirectories above, and serves to 
+/// check for the individual files listed under some given directory.
 
 void ResourceManager::checkFiles(Value& fileList, char* path, unsigned pathlen)
 {
@@ -160,8 +173,10 @@ void ResourceManager::checkFiles(Value& fileList, char* path, unsigned pathlen)
 
 
 // =======================================================================================
-// Function that is called by checkFiles above, and serves to handle one specific file
-// and the various sources it might be obtained from.
+/// @brief Get one file if needed.
+/// 
+/// Function that is called by checkFiles above, and serves to handle one specific file
+/// and the various sources it might be obtained from.
 
 void ResourceManager::checkOneFile(Value& fileObject, int i, char* path, unsigned pathlen)
 {
