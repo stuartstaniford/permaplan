@@ -1,14 +1,12 @@
-// Copyright Staniford Systems.  All Rights Reserved.  Jun 2021 -
-// This class is for situations where we need to have pointers to a range of
-// different things, and resolve at run time which kind they are.  This class
-// provides means to do that.
+// Copyright Staniford Systems.  All Rights Reserved.  June 2021 -
 
 #ifndef DYNAMICALLY_TYPABLE_H
 #define DYNAMICALLY_TYPABLE_H
 
 
 // =======================================================================================
-// Enum representing the types that can inherit from us
+/// @brief Enum representing the types that can inherit from DynamicallyTypable and 
+/// be represented.
 
 enum DynamicType
 {
@@ -21,17 +19,27 @@ enum DynamicType
 
 
 // =======================================================================================
-// Class variable initialization
+/// @brief This class is for situations where we need to have pointers to a range of
+/// different things, and resolve at run time which kind they are.  
+/// 
+/// This class provides means to do that.  The class should be subclassed for any new 
+/// dynamic types, and a new case added to the enum DynamicType.  The only method of
+/// consequence is getDynamicType, which should be overridden to return the 
+/// class-specific value.
+
 
 class DynamicallyTypable
 {
 public:
   
   // Instance variables - public
-  
+
   // Member functions - public
-  DynamicallyTypable(void);
-  virtual ~DynamicallyTypable(void);
+  inline DynamicallyTypable(void) {};
+  inline virtual ~DynamicallyTypable(void) {};
+  
+  /// @brief Interface for methods to return their dynamic type 
+  /// @returns the DynamicType of this particular object.
   inline virtual DynamicType getDynamicType(void) {return TypeDynamicallyTypable;}
   
 private:
