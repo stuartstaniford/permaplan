@@ -65,12 +65,12 @@ class MenuInterface: public MenuPanel
   bool          show_height_input_dialog;
   bool          show_tree_menu;
   const char*   genusSelected;
-  bool          show_focus_overlay;
   bool          all_tree_selector;
   char          heightBuf[16];
   MenuPanel*    shedPanel;
   MenuPanel*    blockPanel;
   MenuPanel*    simulationPanel;
+  MenuPanel*    focusOverlay;
   
 #ifdef SHOW_DEMO_WINDOW
   bool                show_demo_window;

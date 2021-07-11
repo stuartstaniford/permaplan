@@ -1,7 +1,4 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Apr 2020 -
-// Utility class for opening a window and setting up for drawing in using
-// OpenGL commands.  The present implementation uses GLFW but the API should
-// hide that.
 
 #ifndef WINDOW3D_H
 #define WINDOW3D_H
@@ -15,9 +12,22 @@
 #include "Timeval.h"
 #include "HttpLoadBalancer.h"
 
+// =======================================================================================
+// Forward declarations
+
+class MenuFocusOverlay;
+
+
+// =======================================================================================
+/// @brief
+///
+/// Utility class for opening a window and setting up for drawing in using OpenGL 
+/// commands.  The present implementation uses GLFW but the API should hide that.
+
 class Window3D
 {
   friend MenuInterface;
+  friend MenuFocusOverlay;
   
  public:
   

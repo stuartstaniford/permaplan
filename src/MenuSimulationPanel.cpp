@@ -18,11 +18,10 @@
 // =======================================================================================
 /// @brief Constructor
 ///
-/// The constructor is where a variety of default values for the inserted shed are set. 
-/// It also initializes a number of static variables if they weren't done before.
-///
+/// The constructor is mostly a pass through to MenuPanel, but also is where the 
+/// displayVisible is set to true as this should be always on.
 /// @param menu Pointer to the overall MenuInterface so we can call back into it. 
-/// @param S A reference to the scene->
+/// @param S A pointer to the scene.
 
 MenuSimulationPanel::MenuSimulationPanel(MenuInterface* menu, Scene* S):
                                             MenuPanel(menu, S)

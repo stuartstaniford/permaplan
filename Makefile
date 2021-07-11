@@ -1916,7 +1916,94 @@ src/MenuErrorPanel.o: include/TextureAtlas.h include/LightingModel.h
 src/MenuErrorPanel.o: include/Species.h include/DynamicallyTypable.h
 src/MenuErrorPanel.o: include/LeafModel.h include/CO2Scenario.h
 src/MenuErrorPanel.o: include/InterfaceAction.h
-src/MenuFocusOverlay.o: include/MenuFocusOverlay.h
+src/MenuFocusOverlay.o: include/MenuFocusOverlay.h include/MenuPanel.h
+src/MenuFocusOverlay.o: include/Logging.h include/MemoryTracker.h
+src/MenuFocusOverlay.o: include/HttpDebug.h include/HttpRequestParser.h
+src/MenuFocusOverlay.o: include/TaskQueue.h include/Lockable.h
+src/MenuFocusOverlay.o: include/Global.h /usr/local/include/cglm/cglm.h
+src/MenuFocusOverlay.o: /usr/local/include/cglm/common.h
+src/MenuFocusOverlay.o: /usr/local/include/cglm/types.h
+src/MenuFocusOverlay.o: /usr/local/include/cglm/simd/intrin.h
+src/MenuFocusOverlay.o: /usr/local/include/cglm/vec2.h
+src/MenuFocusOverlay.o: /usr/local/include/cglm/util.h
+src/MenuFocusOverlay.o: /usr/local/include/cglm/vec2-ext.h
+src/MenuFocusOverlay.o: /usr/local/include/cglm/vec3.h
+src/MenuFocusOverlay.o: /usr/local/include/cglm/vec4.h
+src/MenuFocusOverlay.o: /usr/local/include/cglm/vec4-ext.h
+src/MenuFocusOverlay.o: /usr/local/include/cglm/vec3-ext.h
+src/MenuFocusOverlay.o: /usr/local/include/cglm/mat4.h
+src/MenuFocusOverlay.o: /usr/local/include/cglm/mat3.h
+src/MenuFocusOverlay.o: /usr/local/include/cglm/mat2.h
+src/MenuFocusOverlay.o: /usr/local/include/cglm/affine.h
+src/MenuFocusOverlay.o: /usr/local/include/cglm/affine-mat.h
+src/MenuFocusOverlay.o: /usr/local/include/cglm/cam.h
+src/MenuFocusOverlay.o: /usr/local/include/cglm/plane.h
+src/MenuFocusOverlay.o: /usr/local/include/cglm/frustum.h
+src/MenuFocusOverlay.o: /usr/local/include/cglm/quat.h
+src/MenuFocusOverlay.o: /usr/local/include/cglm/euler.h
+src/MenuFocusOverlay.o: /usr/local/include/cglm/box.h
+src/MenuFocusOverlay.o: /usr/local/include/cglm/color.h
+src/MenuFocusOverlay.o: /usr/local/include/cglm/io.h
+src/MenuFocusOverlay.o: /usr/local/include/cglm/project.h
+src/MenuFocusOverlay.o: /usr/local/include/cglm/sphere.h
+src/MenuFocusOverlay.o: /usr/local/include/cglm/ease.h
+src/MenuFocusOverlay.o: /usr/local/include/cglm/curve.h
+src/MenuFocusOverlay.o: /usr/local/include/cglm/bezier.h
+src/MenuFocusOverlay.o: /usr/local/include/cglm/ray.h
+src/MenuFocusOverlay.o: /usr/local/include/cglm/affine2d.h
+src/MenuFocusOverlay.o: include/VisualObject.h include/VisualElement.h
+src/MenuFocusOverlay.o: include/TriangleBuffer.h include/ElementBufferCombo.h
+src/MenuFocusOverlay.o: include/VertexArrayObject.h
+src/MenuFocusOverlay.o: include/VertexBufferObject.h
+src/MenuFocusOverlay.o: /usr/local/include/GL/glew.h
+src/MenuFocusOverlay.o: /usr/local/include/GLFW/glfw3.h include/Vertex.h
+src/MenuFocusOverlay.o: include/ElementBufferObject.h include/BoundingBox.h
+src/MenuFocusOverlay.o: include/Shader.h include/VertexBufferCombo.h
+src/MenuFocusOverlay.o: imgui/imgui.h imgui/imconfig.h include/Scene.h
+src/MenuFocusOverlay.o: include/ColoredAxes.h include/LineStripList.h
+src/MenuFocusOverlay.o: include/PmodConfig.h include/LandSurface.h
+src/MenuFocusOverlay.o: include/TexturedRect.h include/Texture.h
+src/MenuFocusOverlay.o: include/Quadtree.h include/DisplayList.h
+src/MenuFocusOverlay.o: include/LandSurfaceRegion.h
+src/MenuFocusOverlay.o: include/LandSurfaceRegionPlanar.h include/Camera.h
+src/MenuFocusOverlay.o: include/HeightMarker.h include/BezierPatch.h
+src/MenuFocusOverlay.o: include/rapidjson/document.h
+src/MenuFocusOverlay.o: include/rapidjson/reader.h
+src/MenuFocusOverlay.o: include/rapidjson/allocators.h
+src/MenuFocusOverlay.o: include/rapidjson/rapidjson.h
+src/MenuFocusOverlay.o: include/rapidjson/stream.h
+src/MenuFocusOverlay.o: include/rapidjson/encodings.h
+src/MenuFocusOverlay.o: include/rapidjson/encodedstream.h
+src/MenuFocusOverlay.o: include/rapidjson/memorystream.h
+src/MenuFocusOverlay.o: include/rapidjson/internal/clzll.h
+src/MenuFocusOverlay.o: include/rapidjson/rapidjson.h
+src/MenuFocusOverlay.o: include/rapidjson/internal/meta.h
+src/MenuFocusOverlay.o: include/rapidjson/internal/stack.h
+src/MenuFocusOverlay.o: include/rapidjson/allocators.h
+src/MenuFocusOverlay.o: include/rapidjson/internal/swap.h
+src/MenuFocusOverlay.o: include/rapidjson/internal/strtod.h
+src/MenuFocusOverlay.o: include/rapidjson/internal/ieee754.h
+src/MenuFocusOverlay.o: include/rapidjson/internal/biginteger.h
+src/MenuFocusOverlay.o: include/rapidjson/internal/diyfp.h
+src/MenuFocusOverlay.o: include/rapidjson/internal/clzll.h
+src/MenuFocusOverlay.o: include/rapidjson/internal/pow10.h
+src/MenuFocusOverlay.o: include/rapidjson/error/error.h
+src/MenuFocusOverlay.o: include/rapidjson/internal/strfunc.h
+src/MenuFocusOverlay.o: include/rapidjson/stream.h include/PmodDesign.h
+src/MenuFocusOverlay.o: include/Timeval.h include/JSONStructureChecker.h
+src/MenuFocusOverlay.o: include/rapidjson/writer.h
+src/MenuFocusOverlay.o: include/rapidjson/internal/dtoa.h
+src/MenuFocusOverlay.o: include/rapidjson/internal/itoa.h
+src/MenuFocusOverlay.o: include/rapidjson/internal/itoa.h
+src/MenuFocusOverlay.o: include/rapidjson/stringbuffer.h
+src/MenuFocusOverlay.o: include/rapidjson/stringbuffer.h
+src/MenuFocusOverlay.o: include/rapidjson/error/en.h
+src/MenuFocusOverlay.o: include/rapidjson/error/error.h include/Version.h
+src/MenuFocusOverlay.o: include/Boundary.h include/Grid.h include/Material.h
+src/MenuFocusOverlay.o: include/TextureAtlas.h include/LightingModel.h
+src/MenuFocusOverlay.o: include/Species.h include/DynamicallyTypable.h
+src/MenuFocusOverlay.o: include/LeafModel.h include/CO2Scenario.h
+src/MenuFocusOverlay.o: include/InterfaceAction.h
 src/MenuInterface.o: include/MenuInterface.h include/DynamicallyTypable.h
 src/MenuInterface.o: include/ScriptController.h include/HttpDebug.h
 src/MenuInterface.o: include/HttpRequestParser.h include/TaskQueue.h
