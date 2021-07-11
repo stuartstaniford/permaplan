@@ -27,6 +27,17 @@ public:
   // Member functions - public
   MenuSimulationPanel(MenuInterface* menu, Scene* S);
   virtual ~MenuSimulationPanel(void);
+  
+  // Our abstract interface operations
+  void simulatePause(void);
+  void simulateReset(void);
+  void simulateStart(void);
+  void simulateSpring(void);
+  void simulateSummer(void);
+  void simulateFall(void);
+  void simulateWinter(void);
+  
+  // API coming from MenuPanel and overridden here.
   void        display(void);
   char*       errorInFields(void);
   bool        handleHTTPRequest(HttpDebug* serv, char* path);

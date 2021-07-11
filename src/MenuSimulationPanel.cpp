@@ -88,22 +88,13 @@ void MenuSimulationPanel::display(void)
     
     // Simulation controls
     if(ImGui::Button("Simulate"))
-     {
-      LogSimulationControls("Simulate Button \xe2\x96\xb6 pressed.\n");
-      scene->startSimulation();
-     }
+      simulateStart();
     ImGui::SameLine();
     if(ImGui::Button("Pause"))
-     {
-      LogSimulationControls("Pause Button \xe2\x8f\xb8 pressed.\n");
-      scene->pauseSimulation();
-     }
+      simulatePause();
     ImGui::SameLine();
     if(ImGui::Button("Reset"))
-     {
-      LogSimulationControls("Reset Button \xe2\x8f\xae pressed.\n");
-      scene->resetSimulation();
-     }
+      simulateReset();
     
     // Auxiliary status information
     float year = scene->getSimYear();
@@ -117,28 +108,16 @@ void MenuSimulationPanel::display(void)
     
     // Season selection
     if(ImGui::Button("Spring"))
-     {
-      LogSimulationControls("Spring season selected.\n");
-      displaySeason = 0u;
-     }
+      simulateSpring();
     ImGui::SameLine();
     if(ImGui::Button("Summer"))
-     {
-      LogSimulationControls("Summer season selected.\n");
-      displaySeason = 1u;
-     }
+      simulateSummer();
     ImGui::SameLine();
     if(ImGui::Button("Fall"))
-     {
-      LogSimulationControls("Fall season selected.\n");
-      displaySeason = 2u;
-     }
+      simulateFall();
     ImGui::SameLine();
     if(ImGui::Button("Winter"))
-     {
-      LogSimulationControls("Winter season selected.\n");
-      displaySeason = 3u;
-     }
+      simulateWinter();
     
     ImGui::Separator();
    }
@@ -207,49 +186,143 @@ ActionType MenuSimulationPanel::processAction(InterfaceAction* action)
    {
     case SimulatePause:
       LogPseudoActions("Pause button press processed.\n");
-      LogSimulationControls("Pause Button \xe2\x8f\xb8 pressed.\n");
-      scene->pauseSimulation();
+      simulatePause();
       return SimulatePause;
    
     case SimulateReset:
       LogPseudoActions("Reset button press processed.\n");
-      LogSimulationControls("Reset Button \xe2\x8f\xae pressed.\n");
-      scene->resetSimulation();
+      simulateReset();
       return SimulateReset;
 
     case SimulateStart:
       LogPseudoActions("Simulate start button press processed.\n");
-      LogSimulationControls("Simulate Button \xe2\x96\xb6 pressed.\n");
-      scene->startSimulation();
+      simulateStart();
       return SimulateStart;
 
     case SimulateSpring:
       LogPseudoActions("Simulate spring button press processed.\n");
-      LogSimulationControls("Spring season selected.\n");
-      displaySeason = 0u;
+      simulateSpring();
       return SimulateSpring;
 
     case SimulateSummer:
       LogPseudoActions("Simulate summer button press processed.\n");
-      LogSimulationControls("Summer season selected.\n");
-      displaySeason = 1u;
+      simulateSummer();
       return SimulateSummer;
 
     case SimulateFall:
       LogPseudoActions("Simulate fall button press processed.\n");
-      LogSimulationControls("Fall season selected.\n");
-      displaySeason = 2u;
+      simulateFall();
       return SimulateFall;
 
     case SimulateWinter:
       LogPseudoActions("Simulate winter button press processed.\n");
-      LogSimulationControls("Winter season selected.\n");
-      displaySeason = 3u;
+      simulateWinter();
       return SimulateWinter;
 
     default:
       return NoAction;
    }
+}
+
+
+// =======================================================================================
+/// @brief Pause the simulation.
+///
+/// This is the abstract interface operation to pause the overall permaplan simulation.
+/// All interfaces should route through here in the end to perform this action.
+
+void MenuSimulationPanel::simulatePause(void)
+{
+  LogSimulationControls("Pause Button \xe2\x8f\xb8 pressed.\n");
+  scene->pauseSimulation();
+}
+
+
+// =======================================================================================
+/// @brief Reset the simulation.
+///
+/// This is the abstract interface operation to reset the overall permaplan simulation
+/// (that is, lose the current state and go back to the state at the beginning).  All 
+/// interfaces should route through here in the end to perform this action.
+/// @todo Although this function is implemented, the underlying functionality in Scene
+/// is not complete yet, so this doesn't work.
+
+void MenuSimulationPanel::simulateReset(void)
+{
+  LogSimulationControls("Reset Button \xe2\x8f\xae pressed.\n");
+  scene->resetSimulation();
+}
+
+
+// =======================================================================================
+/// @brief Start the simulation.
+///
+/// This is the abstract interface operation to start the overall permaplan simulation.
+/// When pressed for the first time (or after a reset), it starts from the beginning.
+/// After a pause operation, it restarts from the state at the time of pause (possibly
+/// as modified by the user in the interim).  All interfaces should route through here 
+/// in the end to perform this action.
+
+void MenuSimulationPanel::simulateStart(void)
+{
+  LogSimulationControls("Simulate Button \xe2\x96\xb6 pressed.\n");
+  scene->startSimulation();
+}
+
+
+// =======================================================================================
+/// @brief Set the simulation display to spring.
+///
+/// This is the abstract interface operation to set the simulation display to spring 
+/// (this has an effect on foliage color and the like).  All interfaces should route 
+/// through here in the end to perform this action.
+
+void MenuSimulationPanel::simulateSpring(void)
+{
+  LogSimulationControls("Spring season selected.\n");
+  displaySeason = 0u;
+}
+
+
+// =======================================================================================
+/// @brief Set the simulation display to summer.
+///
+/// This is the abstract interface operation to set the simulation display to summer 
+/// (this has an effect on foliage color and the like).  All interfaces should route 
+/// through here in the end to perform this action.
+
+void MenuSimulationPanel::simulateSummer(void)
+{
+  LogSimulationControls("Summer season selected.\n");
+  displaySeason = 1u;
+}
+
+
+// =======================================================================================
+/// @brief Set the simulation display to fall (aka autumn).
+///
+/// This is the abstract interface operation to set the simulation display to fall 
+/// (this has an effect on foliage color and the like).  All interfaces should route 
+/// through here in the end to perform this action.
+
+void MenuSimulationPanel::simulateFall(void)
+{
+  LogSimulationControls("Fall season selected.\n");
+  displaySeason = 2u;
+}
+
+
+// =======================================================================================
+/// @brief Set the simulation display to winter.
+///
+/// This is the abstract interface operation to set the simulation display to winter 
+/// (this has an effect on foliage color and the like).  All interfaces should route 
+/// through here in the end to perform this action.
+
+void MenuSimulationPanel::simulateWinter(void)
+{
+  LogSimulationControls("Winter season selected.\n");
+  displaySeason = 3u;
 }
 
 
