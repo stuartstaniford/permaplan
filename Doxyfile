@@ -491,7 +491,7 @@ EXTRACT_ALL            = NO
 # be included in the documentation.
 # The default value is: NO.
 
-EXTRACT_PRIVATE        = NO
+EXTRACT_PRIVATE        = YES
 
 # If the EXTRACT_PRIV_VIRTUAL tag is set to YES, documented private virtual
 # methods of a class will be included in the documentation.
@@ -868,6 +868,7 @@ INPUT                  = doc \
                 include/Arrow.h src/Arrow.cpp \
                 include/AxialElement.h src/AxialElement.cpp \
                 include/Box.h src/Box.cpp \
+                include/CO2Scenario.h src/CO2Scenario.cpp \
                 include/HttpDebug.h src/HttpDebug.cpp \
                 include/Lockable.h src/Lockable.cpp \
                 include/MenuFocusOverlay.h src/MenuFocusOverlay.cpp \

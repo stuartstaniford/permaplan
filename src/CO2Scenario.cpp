@@ -1,4 +1,4 @@
-// Copyright Staniford Systems.  All Rights Reserved.  Mar 2021 -
+// Copyright Staniford Systems.  All Rights Reserved.  March 2021 -
 // Class for pulling a CO2 scenario out of the JSON file and providing it to the
 // rest of the code as needed.
 
@@ -18,7 +18,12 @@ Document  CO2Scenario::doc;
 
 
 // =======================================================================================
-// Constructor
+/// @brief Constructor for the scenario.  
+/// 
+/// We are associated with a single scenario that is selected from a JSON file database.
+/// @param scenarioName A char* string with the name of the particular scenario we are
+/// associated with.  The scenario file is only loaded once per program instantiation.
+
 
 CO2Scenario::CO2Scenario(char* scenarioName)
 {
@@ -39,7 +44,7 @@ CO2Scenario::CO2Scenario(char* scenarioName)
 
 
 // =======================================================================================
-// Destructor
+/// @brief Destructor
 
 CO2Scenario::~CO2Scenario(void)
 {
@@ -47,8 +52,14 @@ CO2Scenario::~CO2Scenario(void)
 
 
 // =======================================================================================
-// Function to get the concentration at a particular time.  Note that we use geometric
-// interpolation not linear, as this function is not expected to be performance critical
+/// @brief Get the concentration at a particular time.  
+/// 
+/// The function will interpolate between the particular values found in the CO2 file.
+/// Note that we use geometric interpolation not linear, as this function is not expected 
+/// to be performance critical.
+/// @returns A float with the CO2 concentration (in ppm).
+/// @param year A floating point specification of the year for which concentration is
+/// requested.
 
 float CO2Scenario::getConcentration(float year)
 {
@@ -65,7 +76,10 @@ float CO2Scenario::getConcentration(float year)
 
 
 // =======================================================================================
-// Load CO2 scenario file
+/// @brief Load the CO2 scenario file
+///
+/// Helper function called to load the scenario file into memory the first time we need
+/// it.  
 
 
 void CO2Scenario::loadScenarioFile(void)
