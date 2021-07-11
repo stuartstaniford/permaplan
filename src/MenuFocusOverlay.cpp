@@ -1,13 +1,13 @@
 // Copyright Staniford Systems.  All Rights Reserved.  July 2021 -
 // This class ..... is a template for real classes
 
-#include "EmptyClass.h"
+#include "MenuFocusOverlay.h"
 
 
 // =======================================================================================
 /// @brief Constructor
 
-EmptyClass::EmptyClass(void)
+MenuFocusOverlay::MenuFocusOverlay(void)
 {
 }
 
@@ -15,7 +15,7 @@ EmptyClass::EmptyClass(void)
 // =======================================================================================
 /// @brief Destructor
 
-EmptyClass::~EmptyClass(void)
+MenuFocusOverlay::~MenuFocusOverlay(void)
 {
 }
 

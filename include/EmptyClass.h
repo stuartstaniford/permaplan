@@ -1,11 +1,13 @@
-// Copyright Staniford Systems.  All Rights Reserved.  Jun 2021 -
-// This class ..... is a template for real classes
+// Copyright Staniford Systems.  All Rights Reserved.  July 2021 -
 
 #ifndef EMPTY_CLASS_H
 #define EMPTY_CLASS_H
 
+
 // =======================================================================================
-// Class variable initialization
+/// @brief Quick description of the class
+///
+/// More details of the class go here.
 
 class EmptyClass
 {
