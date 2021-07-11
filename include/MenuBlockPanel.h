@@ -21,7 +21,7 @@ public:
   // Member functions - public
   MenuBlockPanel(MenuInterface* menu, Scene* S);
   virtual ~MenuBlockPanel(void);
-  void    display(void);
+  void    imGuiDisplay(void);
 
 private:
   

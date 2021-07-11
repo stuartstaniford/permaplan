@@ -56,7 +56,7 @@ char* MenuPanel::errorInFields(void)
 
 void MenuPanel::imGuiDisplay(void)
 {
-  err(-1, "Unimplemented superclass MenuPanel::diaplsy");
+  err(-1, "Unimplemented superclass MenuPanel::imGuiDisplay");
 }
 
 

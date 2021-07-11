@@ -38,8 +38,6 @@ public:
   virtual bool handleHTTPRequest(HttpDebug* serv, char* path);
   virtual ActionType processAction(InterfaceAction* action);
   
-  void setCorner(int& corner);
-  void setCenter(void);
 
 protected:
 
@@ -50,6 +48,8 @@ protected:
   MenuErrorPanel* errPanel;
 
   // Methods visible only to subclasses  
+  void setCorner(int& corner);
+  void setCenter(void);
   bool createAction(HttpDebug* serv, ActionType actionType, 
                           char* actionName, char* functionName, char* path);
 

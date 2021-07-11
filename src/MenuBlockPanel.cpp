@@ -26,7 +26,7 @@ MenuBlockPanel::~MenuBlockPanel(void)
 // =======================================================================================
 // The floating menu to select a material (eg for a block)
 
-void MenuBlockPanel::display(void)
+void MenuBlockPanel::imGuiDisplay(void)
 {
   if(!displayVisible)
     return;
@@ -43,6 +43,7 @@ void MenuBlockPanel::display(void)
       sizeBuf[0] = '\0';
       mainMenu->blockEnteredButton(size, iter.first);
       delete this;
+      ImGui::End();
       return;
      }
   ImGui::End();
