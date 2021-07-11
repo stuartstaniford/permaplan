@@ -557,13 +557,13 @@ void MenuInterface::imguiInterface(void)
   // Always visible panels/menus
   unless(simulationPanel)
     simulationPanel = new MenuSimulationPanel(this, scene);
-  simulationPanel->display();
+  simulationPanel->imGuiDisplay();
   
   // Panels/menus that may or may not be visible
   if(shedPanel)
-    shedPanel->display();
+    shedPanel->imGuiDisplay();
   if(blockPanel)
-    blockPanel->display();
+    blockPanel->imGuiDisplay();
 
   // Unconverted menus  
   imguiInsertMenu();

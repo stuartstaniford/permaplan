@@ -25,7 +25,7 @@ public:
   // Member functions - public
   MenuShedPanel(MenuInterface* menu, Scene* S);
   virtual ~MenuShedPanel(void);
-  void    display(void);
+  void    imGuiDisplay(void);
   char*   errorInFields(void);
 
 private:

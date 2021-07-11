@@ -38,7 +38,7 @@ public:
   void simulateWinter(void);
   
   // API coming from MenuPanel and overridden here.
-  void        display(void);
+  void        imGuiDisplay(void);
   char*       errorInFields(void);
   bool        handleHTTPRequest(HttpDebug* serv, char* path);
   ActionType  processAction(InterfaceAction* action);

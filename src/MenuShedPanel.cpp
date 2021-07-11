@@ -107,7 +107,7 @@ char* MenuShedPanel::errorInFields(void)
 ///
 /// Calls all the various ImGui calls to actually put the panel together.
 
-void MenuShedPanel::display(void)
+void MenuShedPanel::imGuiDisplay(void)
 {
   if(!displayVisible)
     return;

@@ -54,7 +54,7 @@ char* MenuPanel::errorInFields(void)
 /// this with the specific buttons, fields, etc interface controls that they require to
 /// get their state from the user.
 
-void MenuPanel::display(void)
+void MenuPanel::imGuiDisplay(void)
 {
   err(-1, "Unimplemented superclass MenuPanel::diaplsy");
 }

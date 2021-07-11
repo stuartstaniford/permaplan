@@ -61,7 +61,7 @@ char* MenuSimulationPanel::errorInFields(void)
 ///
 /// Calls all the various ImGui calls to actually put the panel together.
 
-void MenuSimulationPanel::display(void)
+void MenuSimulationPanel::imGuiDisplay(void)
 {
   if(!displayVisible)
     return;

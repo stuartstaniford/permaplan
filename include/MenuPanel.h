@@ -33,7 +33,7 @@ public:
   // Member functions - public
   MenuPanel(MenuInterface* menu, Scene* S);
   ~MenuPanel(void);
-  virtual void  display(void);
+  virtual void  imGuiDisplay(void);
   virtual char* errorInFields(void);
   virtual bool handleHTTPRequest(HttpDebug* serv, char* path);
   virtual ActionType processAction(InterfaceAction* action);
