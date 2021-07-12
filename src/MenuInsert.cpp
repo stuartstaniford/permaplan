@@ -55,7 +55,7 @@ void MenuInsert::imGuiDisplay(void)
 
 
 // =======================================================================================
-/// @brief Insert height button action (also from HTTP debug interface)
+/// @brief Menu selection to insert a new land height
 
 void MenuInsert::insertHeight(void)
 {
@@ -66,7 +66,7 @@ void MenuInsert::insertHeight(void)
 
 
 // =======================================================================================
-/// @brief Insert block button action (also from HTTP debug interface)
+/// @brief Menu selection to insert a new land rectangular block (class Box)
 
 void MenuInsert::insertBlock(void)
 {
@@ -78,7 +78,7 @@ void MenuInsert::insertBlock(void)
 
 
 // =======================================================================================
-/// @brief Insert block button action (also from HTTP debug interface)
+/// @brief Menu selection to insert a new Shed building component
 
 void MenuInsert::insertShed(void)
 {
@@ -90,7 +90,7 @@ void MenuInsert::insertShed(void)
 
 
 // =======================================================================================
-/// @brief Insert block button action (also from HTTP debug interface)
+/// @brief Menu selection to insert a new Gable building component
 
 void MenuInsert::insertGable(void)
 {
@@ -101,7 +101,7 @@ void MenuInsert::insertGable(void)
 
 
 // =======================================================================================
-/// @brief Insert tree button action (also from HTTP debug interface)
+/// @brief Menu selection to insert a new Tree
 
 void MenuInsert::insertTree(void)
 {

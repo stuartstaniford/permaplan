@@ -874,6 +874,7 @@ INPUT                  = doc \
                 include/Lockable.h src/Lockable.cpp \
                 include/MenuBlockPanel.h src/MenuBlockPanel.cpp \
                 include/MenuFocusOverlay.h src/MenuFocusOverlay.cpp \
+                include/MenuInsert.h src/MenuInsert.cpp \
                 include/MenuPanel.h src/MenuPanel.cpp \
                 include/MenuShedPanel.h src/MenuShedPanel.cpp \
                 include/MenuSimulationPanel.h src/MenuSimulationPanel.cpp \
