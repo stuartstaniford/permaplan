@@ -20,10 +20,12 @@
 //#define SHOW_DEMO_WINDOW
 
 class Window3D;
+class MenuBlockPanel;
 
 class MenuInterface: public MenuPanel
 {
   friend Window3D;
+  friend MenuBlockPanel;
  public:
 
   // Public instance variables
@@ -52,7 +54,6 @@ class MenuInterface: public MenuPanel
   void  insertGableButton(void);
   void  insertTreeButton(void);
   void  heightEnteredButton(float z);
-  void  blockEnteredButton(float blockSize, const std::string& matName);
   void  imguiTreeMenuButtonPressed(const char* genusString);
   void  createErrorPanel(const char* errString);
 

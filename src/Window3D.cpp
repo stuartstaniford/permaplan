@@ -136,9 +136,10 @@ ActionType Window3D::processPseudoAction(InterfaceAction* action)
        return AllTreeSelection;
 
      case BlockEntered:
-      LogPseudoActions("Block entered size %.1f, material Strawbale.\n", action->data[0]);
-      imgMenu->blockEnteredButton(action->data[0], "StrawBale");
-      return BlockEntered;
+      if(imgMenu->blockPanel)
+        imgMenu->blockPanel->processAction(action);
+      else
+        return NoAction;
 
     case CameraMoved:
       scene->camera.updateAfterMove();
@@ -205,7 +206,7 @@ ActionType Window3D::processPseudoAction(InterfaceAction* action)
     case SimulateFall:
     case SimulateWinter:
       if(imgMenu->simulationPanel)
-        imgMenu->simulationPanel->processAction(action);
+        return imgMenu->simulationPanel->processAction(action);
       else
         return NoAction;
 

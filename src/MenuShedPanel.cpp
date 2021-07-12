@@ -28,6 +28,7 @@ char  MenuShedPanel::bOverhangLabel[16];
 /// It also initializes a number of static variables if they weren't done before.
 ///
 /// @param menu Pointer to the overall MenuInterface so we can call back into it. 
+/// @param S A pointer to the scene.
 
 
 MenuShedPanel::MenuShedPanel(MenuInterface* menu, Scene* S):

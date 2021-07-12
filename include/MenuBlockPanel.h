@@ -4,7 +4,7 @@
 #define MENU_BLOCK_PANEL_H
 
 #include "MenuPanel.h"
-
+#include <string>
 
 // =======================================================================================
 /// @brief This class handles the UI panel for inserting a block.
@@ -25,6 +25,7 @@ public:
   MenuBlockPanel(MenuInterface* menu, Scene* S);
   virtual ~MenuBlockPanel(void);
   void    imGuiDisplay(void);
+  ActionType processAction(InterfaceAction* action);
 
 private:
   
@@ -33,8 +34,12 @@ private:
   float   size;
 
   // Member functions - private
-  MenuBlockPanel(const MenuBlockPanel&);                 // Prevent copy-construction
-  MenuBlockPanel& operator=(const MenuBlockPanel&);      // Prevent assignment
+  void blockEntered(float blockSize, const std::string& matName);
+
+  /// @brief Prevent copy-construction
+  MenuBlockPanel(const MenuBlockPanel&);       
+  /// @brief Prevent assignment
+  MenuBlockPanel& operator=(const MenuBlockPanel&);      
 };
 
 #endif

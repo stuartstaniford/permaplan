@@ -176,20 +176,6 @@ void MenuInterface::imguiInsertMenu(void)
 
 
 // =======================================================================================
-// Block entered button action (also from HTTP debug interface)
-
-void MenuInterface::blockEnteredButton(float blockSize, const std::string& matName)
-{
-  const MaterialList& materials = MaterialList::getMaterials();
-  auto iter = materials.find(matName);
-  scene->insertVisibleObject((char*)"Block", blockSize, scene->lastDoubleClick, iter->second);
-  LogMaterialSelections("Material %s selected for block, carbon density %.2f.\n",
-                        matName, iter->second->carbonDensity);
-  blockPanel = NULL;
-}
-
-
-// =======================================================================================
 // The floating menu to select a particular species to insert after a genus has been
 // selected in imguiTreeMenu.  Also gets the tree age at planting time.
 
