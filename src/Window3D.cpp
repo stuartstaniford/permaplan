@@ -119,8 +119,10 @@ Window3D::Window3D(int pixWidth, int pixHeight):
 
 
 // =======================================================================================
-// Handle an pseudo-interface event coming from the HTTP Debug interface.
-// ActionTypes are listed in alphabetical order
+/// @brief Handle an pseudo-interface event coming from the HTTP Debug interface.
+///
+/// ActionTypes are listed in alphabetical order
+/// @todo Possibly this should be handled via a std::map<ActionType, MenuPanel*>
 
 ActionType Window3D::processPseudoAction(InterfaceAction* action)
 {

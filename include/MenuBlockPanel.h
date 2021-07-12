@@ -26,6 +26,7 @@ public:
   virtual ~MenuBlockPanel(void);
   void    imGuiDisplay(void);
   ActionType processAction(InterfaceAction* action);
+  bool handleHTTPRequest(HttpDebug* serv, char* path);
 
 private:
   

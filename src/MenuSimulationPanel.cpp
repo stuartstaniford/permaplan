@@ -139,31 +139,31 @@ bool MenuSimulationPanel::handleHTTPRequest(HttpDebug* serv, char* path)
 {
   if(strncmp(path, "start", 5)== 0)
     return createAction(serv, SimulateStart, (char*)"SimulateStart", 
-                                                        (char*)"HTTPAPiSimulate", path+5);
+                                  (char*)"MenuSimulationPanel::handleHTTPRequest", path+5);
 
   if(strncmp(path, "pause", 5)== 0)
     return createAction(serv, SimulatePause, (char*)"SimulatePause", 
-                                                        (char*)"HTTPAPiSimulate", path+5);
+                                  (char*)"MenuSimulationPanel::handleHTTPRequest", path+5);
 
   else if(strncmp(path, "reset", 5)== 0)
     return createAction(serv, SimulateReset, (char*)"SimulateReset", 
-                                                        (char*)"HTTPAPiSimulate", path+5);
+                                  (char*)"MenuSimulationPanel::handleHTTPRequest", path+5);
 
   else if(strncmp(path, "spring", 6)== 0)
     return createAction(serv, SimulateSpring, (char*)"SimulateSpring", 
-                                                        (char*)"HTTPAPiSimulate", path+6);
+                                  (char*)"MenuSimulationPanel::handleHTTPRequest", path+6);
 
   else if(strncmp(path, "summer", 6)== 0)
     return createAction(serv, SimulateSummer, (char*)"SimulateSummer", 
-                                                        (char*)"HTTPAPiSimulate", path+6);
+                                  (char*)"MenuSimulationPanel::handleHTTPRequest", path+6);
 
   else if(strncmp(path, "fall", 4)== 0)
     return createAction(serv, SimulateFall, (char*)"SimulateFall", 
-                                                        (char*)"HTTPAPiSimulate", path+4);
+                                  (char*)"MenuSimulationPanel::handleHTTPRequest", path+4);
 
   else if(strncmp(path, "winter", 6)== 0)
     return createAction(serv, SimulateWinter, (char*)"SimulateWinter", 
-                                                        (char*)"HTTPAPiSimulate", path+6);
+                                  (char*)"MenuSimulationPanel::handleHTTPRequest", path+6);
 
   LogRequestErrors("MenuInterface::HTTPAPi unknown simulation command %s\n", path);
   return false;

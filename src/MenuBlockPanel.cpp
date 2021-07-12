@@ -31,7 +31,7 @@ MenuBlockPanel::~MenuBlockPanel(void)
 
 
 // =======================================================================================
-/// @brief - provide the imGui interface for the BlockPanel.
+/// @brief Provide the imGui interface for the BlockPanel.
 
 void MenuBlockPanel::imGuiDisplay(void)
 {
@@ -58,13 +58,14 @@ void MenuBlockPanel::imGuiDisplay(void)
 
 
 // =======================================================================================
-/// @brief Interface for the method to be called in the main thread to process an 
+/// @brief Interface for the method to be called in the main thread to process a 
 /// block panel related interface action.
 /// 
 /// Note the action will have originally arisen in the HTTP server and have been 
 /// processed by MenuSimulationPanel::handleHTTPRequest).  
 /// @returns The ActionType of the action we processed.
 /// @param action The InterfaceAction that needs to be handled.
+/// @todo presently defaults to Strawbale all the time
 
 ActionType MenuBlockPanel::processAction(InterfaceAction* action)
 {
@@ -78,6 +79,23 @@ ActionType MenuBlockPanel::processAction(InterfaceAction* action)
     default:
       return NoAction;
    }
+}
+
+
+// =======================================================================================
+/// @brief Function to handle block entry requests from the HTTP diagnostic server.  
+/// 
+/// Note that this will *not* be called on the main thread, but rather one
+/// of the HTTP server threads.  
+/// @returns True if everything went well, false if we couldn't fit in the buffer.
+/// @param serv The HttpDebug server instance to talk to.
+/// @param path The last part of the URL that is specific to this particular panel (the path
+/// required to navigate to us is hidden from us because it's not our concern.
+
+bool MenuBlockPanel::handleHTTPRequest(HttpDebug* serv, char* path)
+{
+  return createAction(serv, BlockEntered, (char*)"BlockEntered", 
+                                (char*)"MenuBlockPanel::handleHTTPRequest", path);
 }
 
 

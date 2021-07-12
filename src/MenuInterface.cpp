@@ -643,8 +643,12 @@ bool MenuInterface::HTTPAPiEnter(HttpDebug* serv, char* path)
                                                           (char*)"HTTPAPiEnter", path+7);
 
   if(blockPanel && strncmp(path, "block/", 6) == 0)
-    return createAction(serv, BlockEntered, (char*)"BlockEntered", 
-                                                          (char*)"HTTPAPiEnter", path+6);
+   {
+    if(blockPanel)
+      return blockPanel->handleHTTPRequest(serv, path+6);
+    else
+      return false;
+   }
 
   LogRequestErrors("MenuInterface::HTTPAPiEnter incorrect enter command %s\n", path);
   return false;
