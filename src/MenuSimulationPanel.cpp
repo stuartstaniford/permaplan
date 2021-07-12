@@ -18,15 +18,13 @@
 // =======================================================================================
 /// @brief Constructor
 ///
-/// The constructor is mostly a pass through to MenuPanel, but also is where the 
-/// displayVisible is set to true as this should be always on.
+/// The constructor is mostly a pass through to MenuPanel.
 /// @param menu Pointer to the overall MenuInterface so we can call back into it. 
 /// @param S A pointer to the scene.
 
 MenuSimulationPanel::MenuSimulationPanel(MenuInterface* menu, Scene* S):
                                             MenuPanel(menu, S)
 {
-  displayVisible = true; // simulation panel shows by default
 }
 
 
@@ -56,7 +54,7 @@ char* MenuSimulationPanel::errorInFields(void)
 
 
 // =======================================================================================
-/// @brief Display the panel.
+/// @brief Display the simulation overlay panel.
 ///
 /// Calls all the various ImGui calls to actually put the panel together.
 

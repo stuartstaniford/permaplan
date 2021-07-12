@@ -21,15 +21,17 @@
 
 class Window3D;
 class MenuBlockPanel;
+class MenuInsert;
 
 class MenuInterface: public MenuPanel
 {
   friend Window3D;
   friend MenuBlockPanel;
- public:
+  friend MenuInsert;
+
+public:
 
   // Public instance variables
-  bool            show_insert_menu;
   bool            show_lock_overlay;
   bool            show_init_panel;
 
@@ -48,11 +50,6 @@ class MenuInterface: public MenuPanel
   bool  HTTPAPiOptions(HttpDebug* serv, char* path);
   void  allTreeSelectorPseudoAction(const char* optionName);
   void  allTreeSelectorButton(const char* name, DynamicallyTypable* value);
-  void  insertHeightButton(void);
-  void  insertBlockButton(void);
-  void  insertShedButton(void);
-  void  insertGableButton(void);
-  void  insertTreeButton(void);
   void  heightEnteredButton(float z);
   void  imguiTreeMenuButtonPressed(const char* genusString);
   void  createErrorPanel(const char* errString);
@@ -72,6 +69,7 @@ class MenuInterface: public MenuPanel
   MenuPanel*    blockPanel;
   MenuPanel*    simulationPanel;
   MenuPanel*    focusOverlay;
+  MenuPanel*    insertMenu;
   
 #ifdef SHOW_DEMO_WINDOW
   bool                show_demo_window;

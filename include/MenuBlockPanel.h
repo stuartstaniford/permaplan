@@ -24,6 +24,10 @@ public:
   // Member functions - public
   MenuBlockPanel(MenuInterface* menu, Scene* S);
   virtual ~MenuBlockPanel(void);
+
+  void blockEntered(float blockSize, const std::string& matName);
+
+  // API coming from MenuPanel and overridden here.
   void    imGuiDisplay(void);
   ActionType processAction(InterfaceAction* action);
   bool handleHTTPRequest(HttpDebug* serv, char* path);
@@ -35,8 +39,6 @@ private:
   float   size;
 
   // Member functions - private
-  void blockEntered(float blockSize, const std::string& matName);
-
   /// @brief Prevent copy-construction
   MenuBlockPanel(const MenuBlockPanel&);       
   /// @brief Prevent assignment

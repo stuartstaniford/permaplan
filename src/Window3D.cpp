@@ -7,6 +7,7 @@
 #include "PmodException.h"
 #include "Material.h"
 #include "Species.h"
+#include "MenuInsert.h"
 #include <cstdio>
 #include <stdexcept>
 #include <err.h>
@@ -166,30 +167,18 @@ ActionType Window3D::processPseudoAction(InterfaceAction* action)
       return HeightEntered;
 
     case InsertBlock:
-      LogPseudoActions("Insert block button press processed.\n");
-      imgMenu->insertBlockButton();
-      return InsertBlock;
-
     case InsertShed:
-      LogPseudoActions("Insert shed button press processed.\n");
-      imgMenu->insertShedButton();
-      return InsertShed;
-
     case InsertGable:
-      LogPseudoActions("Insert gable button press processed.\n");
-      imgMenu->insertGableButton();
-      return InsertGable;
-
-    case InsertHeight:
-      LogPseudoActions("Insert height button press processed.\n");
-      imgMenu->insertHeightButton();
-      return InsertHeight;       
-       
+    case InsertHeight:       
     case InsertTree:
-      LogPseudoActions("Insert tree button press processed.\n");
-      imgMenu->insertTreeButton();
-      return InsertTree;
-      
+      if(imgMenu->insertMenu)
+        return imgMenu->insertMenu->processAction(action);
+      else
+       {
+        LogRequestErrors("Insert action when insert menu not showing.");
+        return NoAction;
+       }
+
     case QuitProgram:
       LogPseudoActions("Quit program processed.\n");
       return QuitProgram;  // handled in our caller loop()
@@ -382,7 +371,11 @@ void Window3D::processClick(float mouseX, float mouseY)
 
 
 // =======================================================================================
-// We have detected a mouse double-click in the window - figure out what we should do.
+/// @brief We have detected a mouse double-click in the window, now figure out what we 
+/// should do.
+///
+/// @todo double-click should not result in an insert menu if any floating menus are
+/// already on screen.
 
 void Window3D::processDoubleClick(float mouseX, float mouseY, float timeDiff)
 {
@@ -405,9 +398,12 @@ void Window3D::processDoubleClick(float mouseX, float mouseY, float timeDiff)
   if(strcmp("Bezier Patch", objName)==0 || strcmp("Land Surface Plane", objName)==0)
    {
     // Clicking on the land surface means we offer the option to insert something.
-    imgMenu->show_insert_menu = true;
-    LogDoubleClick("Double click insertion (%.3fs) at %.2f, %.2f\n", timeDiff, 
+    if(!imgMenu->insertMenu)
+     {
+      imgMenu->insertMenu = new MenuInsert(imgMenu, scene);
+      LogDoubleClick("Double click insertion (%.3fs) at %.2f, %.2f\n", timeDiff, 
                                                                           mouseX, mouseY);
+     }
     return;
    }
 

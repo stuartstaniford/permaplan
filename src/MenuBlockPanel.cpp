@@ -49,7 +49,6 @@ void MenuBlockPanel::imGuiDisplay(void)
       size = atof(sizeBuf);
       sizeBuf[0] = '\0';
       blockEntered(size, iter.first);
-      delete this;
       ImGui::End();
       return;
      }

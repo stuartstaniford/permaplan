@@ -22,7 +22,6 @@
 
 MenuInterface::MenuInterface(Window3D& W):
                         MenuPanel(this, NULL), // scene will be set later
-                        show_insert_menu(false),
                         show_lock_overlay(false),
                         show_init_panel(false),
                         win3D(W),
@@ -33,7 +32,8 @@ MenuInterface::MenuInterface(Window3D& W):
                         shedPanel(NULL),
                         blockPanel(NULL),
                         simulationPanel(NULL),
-                        focusOverlay(NULL)
+                        focusOverlay(NULL),
+                        insertMenu(NULL)
 #ifdef SHOW_DEMO_WINDOW
                         , show_demo_window(true)
 #endif
@@ -70,7 +70,7 @@ void MenuInterface::imguiHeightInputDialog(void)
 {
   if(!show_height_input_dialog)
     return;
-  ImGui::Begin("Insert Height", &show_insert_menu, ImGuiWindowFlags_AlwaysAutoResize);
+  ImGui::Begin("Insert Height", &show_height_input_dialog, ImGuiWindowFlags_AlwaysAutoResize);
   
   ImGui::InputText("", heightBuf, 8, ImGuiInputTextFlags_CharsDecimal);
   
@@ -94,84 +94,6 @@ void MenuInterface::heightEnteredButton(float z)
   scene->lastDoubleClick[2] = z;
   scene->newLandHeight(scene->lastDoubleClick, NULL); //XX need to be able to enter a label
   show_height_input_dialog = false;
-}
-
-
-// =======================================================================================
-// Insert height button action (also from HTTP debug interface)
-
-void MenuInterface::insertHeightButton(void)
-{
-  show_height_input_dialog = true;
-  show_insert_menu = false;
-}
-
-
-// =======================================================================================
-// Insert block button action (also from HTTP debug interface)
-
-void MenuInterface::insertBlockButton(void)
-{
-  show_insert_menu = false;
-  unless(blockPanel)
-    blockPanel = new MenuBlockPanel(this, scene);
-  blockPanel->displayVisible = true;
-}
-
-
-// =======================================================================================
-// Insert block button action (also from HTTP debug interface)
-
-void MenuInterface::insertShedButton(void)
-{
-  show_insert_menu = false;
-  unless(shedPanel)
-    shedPanel = new MenuShedPanel(this, scene);
-  shedPanel->displayVisible = true;
-}
-
-
-// =======================================================================================
-// Insert block button action (also from HTTP debug interface)
-
-void MenuInterface::insertGableButton(void)
-{
-  show_insert_menu = false;
-  //show_materials_menu = true;
-}
-
-
-// =======================================================================================
-// Insert tree button action (also from HTTP debug interface)
-
-void MenuInterface::insertTreeButton(void)
-{
-  show_insert_menu = false;
-  show_tree_menu = true;
-}
-
-
-// =======================================================================================
-// The floating menu to insert stuff at the focus point
-
-void MenuInterface::imguiInsertMenu(void)
-{
-  if(!show_insert_menu)
-    return;
-  ImGui::Begin("Insert", &show_insert_menu, ImGuiWindowFlags_AlwaysAutoResize);
-    
-  if(ImGui::Button("Height"))
-    insertHeightButton();
-  if(ImGui::Button("Block"))
-    insertBlockButton();
-  if(ImGui::Button("Shed"))
-    insertShedButton();
-  if(ImGui::Button("Gable"))
-    insertGableButton();
-  if(ImGui::Button("Tree"))
-    insertTreeButton();
-
-  ImGui::End();
 }
 
 
@@ -479,9 +401,10 @@ void MenuInterface::imguiInterface(void)
     shedPanel->imGuiDisplay();
   if(blockPanel)
     blockPanel->imGuiDisplay();
+  if(insertMenu)
+    insertMenu->imGuiDisplay();
 
   // Unconverted menus  
-  imguiInsertMenu();
   imguiTreeMenu();
   imguiAllTreeSelector();
   imguiHeightInputDialog();
@@ -598,42 +521,6 @@ bool MenuInterface::HTTPAPiAllTreeSelector(HttpDebug* serv, char* path)
 
 
 // =======================================================================================
-// Function to handle insert menu actions.
-
-bool MenuInterface::HTTPAPiInsert(HttpDebug* serv, char* path)
-{
-  unless(show_insert_menu)
-   {
-    LogRequestErrors("MenuInterface::HTTPAPiInsert called when no insert menu showing.\n");
-    return false;
-   }
-  
-  if(strncmp(path, "height", 6) == 0)
-    return createAction(serv, InsertHeight, (char*)"InsertHeight", 
-                                                          (char*)"HTTPAPiInsert", path+6);
-
-  if(strncmp(path, "block", 5) == 0)
-    return createAction(serv, InsertBlock, (char*)"InsertBlock", 
-                                                            (char*)"HTTPAPiInsert", path+5);
-
-  if(strncmp(path, "shed", 4) == 0)
-    return createAction(serv, InsertShed, (char*)"InsertShed", 
-                                                            (char*)"HTTPAPiInsert", path+4);
-
-  if(strncmp(path, "gable", 5) == 0)
-    return createAction(serv, InsertGable, (char*)"InsertGable", 
-                                                            (char*)"HTTPAPiInsert", path+5);
-
-  if(strncmp(path, "tree", 4) == 0)
-    return createAction(serv, InsertTree, (char*)"InsertTree", 
-                                                          (char*)"HTTPAPiInsert", path+4);
-
-  LogRequestErrors("MenuInterface::HTTPAPiInsert unknown insert command %s\n", path);
-  return false;
-}
-
-
-// =======================================================================================
 // Function to handle entered parameters.
 
 bool MenuInterface::HTTPAPiEnter(HttpDebug* serv, char* path)
@@ -687,7 +574,15 @@ bool MenuInterface::HTTPAPi(HttpDebug* serv, char* path)
    }
 
   if(strncmp(path, "insert/", 7)== 0)
-    return HTTPAPiInsert(serv, path+7);
+   {
+    if(insertMenu)
+      return insertMenu->handleHTTPRequest(serv, path+7);
+    else
+     {
+      LogRequestErrors("Insert request when insert menu not showing.");
+      return false;
+     }
+   }
 
   if(strncmp(path, "enter/", 6)== 0)
     return HTTPAPiEnter(serv, path+6);
