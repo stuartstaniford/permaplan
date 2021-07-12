@@ -5,13 +5,20 @@
 #include "Material.h"
 #include "MenuInterface.h"
 
+
 // =======================================================================================
-// Constructor
+/// @brief Constructor
+///
+/// The constructor is mostly a pass through to MenuPanel, but also is where the 
+/// displayVisible is set.
+/// @param menu Pointer to the overall MenuInterface so we can call back into it. 
+/// @param S A pointer to the scene.
 
 MenuBlockPanel::MenuBlockPanel(MenuInterface* menu, Scene* S):
                                       MenuPanel(menu, S)
 {
   sizeBuf[0] = '\0';
+  displayVisible = true;
 }
 
 
@@ -24,7 +31,7 @@ MenuBlockPanel::~MenuBlockPanel(void)
 
 
 // =======================================================================================
-// The floating menu to select a material (eg for a block)
+/// @brief - provide the imGui interface for the BlockPanel.
 
 void MenuBlockPanel::imGuiDisplay(void)
 {

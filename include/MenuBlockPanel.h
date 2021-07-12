@@ -1,5 +1,4 @@
-// Copyright Staniford Systems.  All Rights Reserved.  Jun 2021 -
-// This class handles the UI panel for inserting a block.
+// Copyright Staniford Systems.  All Rights Reserved.  June 2021 -
 
 #ifndef MENU_BLOCK_PANEL_H
 #define MENU_BLOCK_PANEL_H
@@ -8,7 +7,11 @@
 
 
 // =======================================================================================
-// Class variable initialization
+/// @brief This class handles the UI panel for inserting a block.
+///
+/// This panel is invoked from the main Insert menu, and is responsible for determining
+/// all the things about the inserted block required for us to create and instantiate a
+/// suitable instance of the Box class (size, material, etc).
 
 class MenuBlockPanel: public MenuPanel
 {

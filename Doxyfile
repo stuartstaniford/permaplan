@@ -872,6 +872,7 @@ INPUT                  = doc \
                 include/DynamicallyTypable.h src/DynamicallyTypable.cpp \
                 include/HttpDebug.h src/HttpDebug.cpp \
                 include/Lockable.h src/Lockable.cpp \
+                include/MenuBlockPanel.h src/MenuBlockPanel.cpp \
                 include/MenuFocusOverlay.h src/MenuFocusOverlay.cpp \
                 include/MenuPanel.h src/MenuPanel.cpp \
                 include/MenuShedPanel.h src/MenuShedPanel.cpp \
