@@ -11,6 +11,9 @@
 #include "MenuBlockPanel.h"
 #include "MenuFocusOverlay.h"
 #include "MenuSimulationPanel.h"
+#include "MenuInsert.h"
+#include "MenuGenus.h"
+#include "MenuTree.h"
 #include "loadFileToBuf.h"
 #include "RegionList.h"
 #include "imgui_impl_opengl3.h"
@@ -26,14 +29,14 @@ MenuInterface::MenuInterface(Window3D& W):
                         show_init_panel(false),
                         win3D(W),
                         show_height_input_dialog(false),
-                        show_tree_menu(false),
-                        genusSelected(NULL),
                         all_tree_selector(false),
                         shedPanel(NULL),
                         blockPanel(NULL),
                         simulationPanel(NULL),
                         focusOverlay(NULL),
-                        insertMenu(NULL)
+                        insertMenu(NULL),
+                        treeMenu(NULL),
+                        genusMenu(NULL)
 #ifdef SHOW_DEMO_WINDOW
                         , show_demo_window(true)
 #endif
@@ -94,93 +97,6 @@ void MenuInterface::heightEnteredButton(float z)
   scene->lastDoubleClick[2] = z;
   scene->newLandHeight(scene->lastDoubleClick, NULL); //XX need to be able to enter a label
   show_height_input_dialog = false;
-}
-
-
-// =======================================================================================
-// The floating menu to select a particular species to insert after a genus has been
-// selected in imguiTreeMenu.  Also gets the tree age at planting time.
-
-void MenuInterface::imguiGenusMenu(void)
-{
-  unless(show_tree_menu && genusSelected)
-    return;
-
-  ImGui::Begin("Tree Species", &show_tree_menu, ImGuiWindowFlags_AlwaysAutoResize);
-
-  // Age field
-  ImGui::Text("Tree age at planting: ");
-  ImGui::SameLine();
-  ImGui::InputText("1.0", heightBuf, 5, ImGuiInputTextFlags_CharsDecimal);
-
-  //Species selector
-  ImGui::Text("Species: ");
-  for(auto& iter: *(Species::genusSpeciesList[genusSelected]))
-   {
-    if(strcmp(iter.first.c_str(), "nosuchspecies") == 0)
-      continue;
-    ImGui::SameLine();
-    if(ImGui::Button(iter.first.c_str()))
-     {
-      Species* S = iter.second;
-      genusSelected = NULL;
-      show_tree_menu = false;
-      // XX we are not doing any sanity checking on the tree age here.  Need to make sure
-      // it's numerical and non-negative.  Also need a default (eg 1.0f years)
-      LogTreeSelections("Tree %s %s (age %.1f years) inserted at [%f, %f].\n",
-                        S->genusName, S->speciesName, atof(heightBuf),
-                                          scene->lastDoubleClick[0], scene->lastDoubleClick[1]);
-      scene->insertTree(S, scene->lastDoubleClick, atof(heightBuf));
-     }
-   }
-  ImGui::End();
-}
-
-
-// =======================================================================================
-// The floating menu to select a particular tree to insert (by latin/scientific name)
-
-void MenuInterface::imguiTreeMenu(void)
-{
-  if(!show_tree_menu)
-    return;
-  
-  if(genusSelected)
-    return imguiGenusMenu();
-    
-  ImGui::Begin("Tree Genus", &show_tree_menu, ImGuiWindowFlags_AlwaysAutoResize);
-  
-  for(auto& iter: Species::genusList)
-   {
-    if(strcmp(iter.first.c_str(), "Nosuchgenus") == 0)
-      continue;
-    char genusOption[128];
-    snprintf(genusOption, 128, "%s (%u)", iter.first.c_str(), iter.second);
-    if(ImGui::Button(genusOption))
-      imguiTreeMenuButtonPressed(iter.first.c_str());
-   }
-  if(ImGui::Button("All Tree Selector"))
-    imguiTreeMenuButtonPressed((char*)"All Tree Selector");
-
-  ImGui::End();
-}
-
-
-// =======================================================================================
-// Function to handle one of the buttons being pressed in MenuInterface::imguiTreeMenu.
-// Also called from Window3D::processPseudoAction to handle HTTP scripting.
-
-void MenuInterface::imguiTreeMenuButtonPressed(const char* genusString)
-{
-  if(strcmp(genusString, "All Tree Selector") == 0)
-   {
-    genusSelected = NULL;
-    show_tree_menu = false;
-    all_tree_selector = true;
-   }
-  else
-    genusSelected = genusString;
-  LogFlush();
 }
 
 
@@ -403,9 +319,12 @@ void MenuInterface::imguiInterface(void)
     blockPanel->imGuiDisplay();
   if(insertMenu)
     insertMenu->imGuiDisplay();
+  if(treeMenu)
+    treeMenu->imGuiDisplay();
+  if(genusMenu)
+    genusMenu->imGuiDisplay();
 
   // Unconverted menus  
-  imguiTreeMenu();
   imguiAllTreeSelector();
   imguiHeightInputDialog();
   imguiLockOverlay();
@@ -427,16 +346,8 @@ void MenuInterface::imguiInterface(void)
 
 bool MenuInterface::HTTPAPiOptions(HttpDebug* serv, char* path)
 {
-  if(show_tree_menu)
-   {
-    for(auto& iter: Species::genusList)
-     {
-      if(strcmp(iter.first.c_str(), "Nosuchgenus") == 0)
-        continue;
-      httPrintf("%s (%u)\n", iter.first.c_str(), iter.second);
-     }
-    httPrintf("All Tree Selector\n");
-   }
+  if(treeMenu)
+    return treeMenu->handleOptionRequest(serv, path);
   else if(all_tree_selector && currentList)
    {     
     for (auto iter : *currentList) 
@@ -457,39 +368,6 @@ bool MenuInterface::HTTPAPiOptions(HttpDebug* serv, char* path)
     //err(-1, "MenuInterface::HTTPAPiOptions called on unimplemented menu.");
    }
   return true;
-}
-
-
-// =======================================================================================
-// Helper function to restore spaces in the path
-
-void unencode(char* path)
-{
-  for(char* p = path; *p; p++)
-    if(*p == '_')
-      *p = ' ';
-}
-
-
-// =======================================================================================
-// Function to handle selecting a genus from the insert tree selection menu.
-
-bool MenuInterface::HTTPAPiSelectGenus(HttpDebug* serv, char* path)
-{
-  unencode(path);
-  
-  if(!show_tree_menu)
-   {
-    LogRequestErrors("MenuInterface::HTTPAPiSelectGenus with show_tree_menu false.\n");
-    return false;    
-   }
-  
-  if(strncmp(path, "All Tree Selector", 17) == 0 || Species::genusList.count(path) )
-    return createAction(serv, SelectGenus, (char*)"SelectGenus", 
-                                                        (char*)"HTTPAPiSelectGenus", path);
-  
-  LogRequestErrors("MenuInterface::HTTPAPiSelectGenus unknown selection %s\n", path);
-  return false;
 }
 
 
@@ -549,8 +427,16 @@ bool MenuInterface::HTTPAPiEnter(HttpDebug* serv, char* path)
 bool MenuInterface::HTTPAPiSelections(HttpDebug* serv, char* path)
 {  
   if(strncmp(path, "genus/", 6)== 0)
-     return HTTPAPiSelectGenus(serv, path+6);
-
+   {
+    if(treeMenu)
+     return treeMenu->handleHTTPRequest(serv, path+6);
+    else
+     {
+      LogRequestErrors("Selection %s from tree menu that isn't showing", path+6);
+      return false;
+     }
+   }
+  
   if(strncmp(path, "alltree/", 8)== 0)
      return HTTPAPiAllTreeSelector(serv, path+8);
   
@@ -579,7 +465,7 @@ bool MenuInterface::HTTPAPi(HttpDebug* serv, char* path)
       return insertMenu->handleHTTPRequest(serv, path+7);
     else
      {
-      LogRequestErrors("Insert request when insert menu not showing.");
+      LogRequestErrors("Insert request for %s when insert menu not showing.", path+7);
       return false;
      }
    }

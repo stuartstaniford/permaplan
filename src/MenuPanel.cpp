@@ -85,6 +85,29 @@ bool MenuPanel::handleHTTPRequest(HttpDebug* serv, char* path)
 
 
 // =======================================================================================
+/// @brief Interface for handling requests for the available options from the HTTP 
+/// diagnostic server.  
+/// 
+/// Each panel's actions (buttons, fields, etc) can be simulated from the HTTP server
+/// for scripting/testing purposes.  In some cases, the HTTP server can request to know
+/// what the options are on the currently displayed menu.  This interface defines a 
+/// method for handling such requests.  Note that this will *not* be called on the main 
+/// thread, but rather one of the HTTP server threads.  Accordingly, it should not do 
+/// anything that is not thread safe.
+/// The version in this clsss will always return an error.  Subclasses should override
+/// this and conform to the following interface.
+/// @returns True if everything went well, false if we couldn't fit in the buffer.
+/// @param serv The HttpDebug server instance to talk to.
+/// @param path The last part of the URL that is specific to this particular panel (the path
+/// required to navigate to us is hidden from us because it's not our concern.
+
+bool MenuPanel::handleOptionRequest(HttpDebug* serv, char* path)
+{
+  err(-1, "Unimplemented superclass MenuPanel::handleOptionRequest");
+}
+
+
+// =======================================================================================
 /// @brief Interface for the method to be called in the main thread to process an 
 /// interface action (which will have originally arisen in the HTTP server).  
 /// 
@@ -155,6 +178,17 @@ bool MenuPanel::createAction(HttpDebug* serv, ActionType actionType,
   scene->actions.push_back(action);
   httPrintf("OK\n")
   return true;
+}
+
+
+// =======================================================================================
+/// @brief Helper function to restore spaces in the path
+
+void MenuPanel::unencode(char* path)
+{
+  for(char* p = path; *p; p++)
+    if(*p == '_')
+      *p = ' ';
 }
 
 

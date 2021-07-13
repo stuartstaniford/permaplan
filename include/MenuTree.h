@@ -3,6 +3,8 @@
 #ifndef MENU_TREE_H
 #define MENU_TREE_H
 
+#include "Species.h"
+#include "MenuPanel.h"
 
 // =======================================================================================
 /// @brief Floating menu to select a particular tree to insert (by latin/scientific name).
@@ -11,16 +13,25 @@
 /// insert menu, and allows the user to select from amongst the genera that have already 
 /// been used in this scene.
 
-class MenuTree
+class MenuTree: public MenuPanel
 {
 public:
   
   // Instance variables - public
   
   // Member functions - public
-  MenuTree(void);
-  ~MenuTree(void);
+  MenuTree(MenuInterface* menu, Scene* S);
+  virtual ~MenuTree(void);
   
+  // Our abstract interface operations
+  void treeMenuSelection(const char* genusString);
+
+  // API coming from MenuPanel and overridden here.
+  void        imGuiDisplay(void);
+  bool        handleHTTPRequest(HttpDebug* serv, char* path);
+  ActionType  processAction(InterfaceAction* action);
+  bool        handleOptionRequest(HttpDebug* serv, char* path);
+
 private:
   
   // Instance variables - private

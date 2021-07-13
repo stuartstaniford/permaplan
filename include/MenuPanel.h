@@ -37,7 +37,9 @@ public:
   virtual char* errorInFields(void);
   virtual bool handleHTTPRequest(HttpDebug* serv, char* path);
   virtual ActionType processAction(InterfaceAction* action);
+  virtual bool handleOptionRequest(HttpDebug* serv, char* path);
   
+  void unencode(char* path);
 
 protected:
 
@@ -62,6 +64,7 @@ private:
   MenuPanel& operator=(const MenuPanel&);      // Prevent assignment
 
 };
+
 
 #endif
 

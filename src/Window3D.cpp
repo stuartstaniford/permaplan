@@ -166,6 +166,7 @@ ActionType Window3D::processPseudoAction(InterfaceAction* action)
       imgMenu->heightEnteredButton(action->data[0]);
       return HeightEntered;
 
+    // Insert menu actions get passed to the insert menu
     case InsertBlock:
     case InsertShed:
     case InsertGable:
@@ -183,12 +184,14 @@ ActionType Window3D::processPseudoAction(InterfaceAction* action)
       LogPseudoActions("Quit program processed.\n");
       return QuitProgram;  // handled in our caller loop()
 
+    // Tree selection menu
     case SelectGenus:
-      stringValue = ((SpeciesPath*)(action->otherData))->getPath();
-      LogPseudoActions("Genus selection of %s processed.\n", stringValue);
-      imgMenu->imguiTreeMenuButtonPressed(stringValue);
-      return SelectGenus;
-      
+      if(imgMenu->treeMenu)
+        return imgMenu->treeMenu->processAction(action);
+      else
+        return NoAction;
+            
+    // Simulation panel options handled over there.  
     case SimulatePause:
     case SimulateReset:
     case SimulateStart:

@@ -7,6 +7,7 @@
 #include "MenuBlockPanel.h"
 #include "MenuShedPanel.h"
 #include "MenuInterface.h"
+#include "MenuTree.h"
 
 
 // =======================================================================================
@@ -105,7 +106,7 @@ void MenuInsert::insertGable(void)
 
 void MenuInsert::insertTree(void)
 {
-  mainMenu->show_tree_menu = true;
+  mainMenu->treeMenu = new MenuTree(mainMenu, scene);
   mainMenu->insertMenu = NULL;
   delete this;
 }
