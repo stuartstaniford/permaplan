@@ -368,16 +368,10 @@ bool MenuInterface::HTTPAPiAllTreeSelector(HttpDebug* serv, char* path)
 bool MenuInterface::HTTPAPiEnter(HttpDebug* serv, char* path)
 {  
   if(heightPanel && strncmp(path, "height/", 7) == 0)
-    return createAction(serv, HeightEntered, (char*)"HeightEntered", 
-                                                          (char*)"HTTPAPiEnter", path+7);
+    return heightPanel->handleHTTPRequest(serv, path+7);
 
   if(blockPanel && strncmp(path, "block/", 6) == 0)
-   {
-    if(blockPanel)
-      return blockPanel->handleHTTPRequest(serv, path+6);
-    else
-      return false;
-   }
+    return blockPanel->handleHTTPRequest(serv, path+6);
 
   LogRequestErrors("MenuInterface::HTTPAPiEnter incorrect enter command %s\n", path);
   return false;

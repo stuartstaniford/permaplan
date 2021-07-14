@@ -65,6 +65,28 @@ void MenuHeightPanel::heightEntered(float z)
   delete this;
 }
 
+// =======================================================================================
+/// @brief Function to handle height entry requests from the HTTP diagnostic server.  
+/// 
+/// Note that this will *not* be called on the main thread, but rather one
+/// of the HTTP server threads.  
+/// @returns True if everything went well, false if we couldn't fit in the buffer.
+/// @param serv The HttpDebug server instance to talk to.
+/// @param path The last part of the URL that is specific to this particular panel (the path
+/// required to navigate to us is hidden from us because it's not our concern.
+
+bool MenuHeightPanel::handleHTTPRequest(HttpDebug* serv, char* path)
+{
+  if(!displayVisible)
+   {
+    LogRequestErrors("MenuHeightPanel::handleHTTPRequest with displayVisible false.\n");
+    return false;    
+   }
+  return createAction(serv, HeightEntered, (char*)"HeightEntered", 
+                                      (char*)"MenuHeightPanel::handleHTTPRequest", path);  
+  return false;
+}
+
 
 // =======================================================================================
 /// @brief Process the entry of a new height in the main thread.

@@ -28,6 +28,7 @@ public:
   // API coming from MenuPanel and overridden here.
   void        imGuiDisplay(void);
   ActionType  processAction(InterfaceAction* action);
+  bool        handleHTTPRequest(HttpDebug* serv, char* path);
 
 private:
   
