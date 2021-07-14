@@ -92,7 +92,7 @@ bool MenuHeightPanel::handleHTTPRequest(HttpDebug* serv, char* path)
 /// @brief Process the entry of a new height in the main thread.
 /// 
 /// Note the action will have originally arisen in the HTTP server and have been 
-/// processed by MenuTree::handleHTTPRequest).  
+/// processed by MenuHeightPanel::handleHTTPRequest).  
 /// @returns The ActionType of the action we processed.
 /// @param action The InterfaceAction that needs to be handled.
 

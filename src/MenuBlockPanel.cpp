@@ -9,8 +9,7 @@
 // =======================================================================================
 /// @brief Constructor
 ///
-/// The constructor is mostly a pass through to MenuPanel, but also is where the 
-/// displayVisible is set.
+/// The constructor is mostly a pass through to MenuPanel.
 /// @param menu Pointer to the overall MenuInterface so we can call back into it. 
 /// @param S A pointer to the scene.
 
