@@ -28,10 +28,10 @@ MenuInterface::MenuInterface(Window3D& W):
                         show_lock_overlay(false),
                         show_init_panel(false),
                         win3D(W),
-                        show_height_input_dialog(false),
                         all_tree_selector(false),
                         shedPanel(NULL),
                         blockPanel(NULL),
+                        heightPanel(NULL),
                         simulationPanel(NULL),
                         focusOverlay(NULL),
                         insertMenu(NULL),
@@ -51,9 +51,6 @@ MenuInterface::MenuInterface(Window3D& W):
   ImGui_ImplOpenGL3_Init("#version 410");
   // Setup Dear ImGui style
   ImGui::StyleColorsClassic();
-  
-  // clear the buffers
-  heightBuf[0] = '\0'; 
 }
 
 
@@ -63,40 +60,6 @@ MenuInterface::MenuInterface(Window3D& W):
 void  MenuInterface::createErrorPanel(const char* errString)
 {
   
-}
-
-
-// =======================================================================================
-// Users wants to insert a height, and we need to know more
-
-void MenuInterface::imguiHeightInputDialog(void)
-{
-  if(!show_height_input_dialog)
-    return;
-  ImGui::Begin("Insert Height", &show_height_input_dialog, ImGuiWindowFlags_AlwaysAutoResize);
-  
-  ImGui::InputText("", heightBuf, 8, ImGuiInputTextFlags_CharsDecimal);
-  
-  if(ImGui::Button("Height"))
-   {
-    float z;
-    z = atof(heightBuf);
-    heightEnteredButton(z);
-    heightBuf[0] = '\0';
-   }
-
-  ImGui::End();
-}
-
-
-// =======================================================================================
-// Height entered button action (also from HTTP debug interface)
-
-void MenuInterface::heightEnteredButton(float z)
-{
-  scene->lastDoubleClick[2] = z;
-  scene->newLandHeight(scene->lastDoubleClick, NULL); //XX need to be able to enter a label
-  show_height_input_dialog = false;
 }
 
 
@@ -323,10 +286,11 @@ void MenuInterface::imguiInterface(void)
     treeMenu->imGuiDisplay();
   if(genusMenu)
     genusMenu->imGuiDisplay();
-
+  if(heightPanel)
+    heightPanel->imGuiDisplay();
+    
   // Unconverted menus  
   imguiAllTreeSelector();
-  imguiHeightInputDialog();
   imguiLockOverlay();
 
 #ifdef SHOW_DEMO_WINDOW
@@ -403,7 +367,7 @@ bool MenuInterface::HTTPAPiAllTreeSelector(HttpDebug* serv, char* path)
 
 bool MenuInterface::HTTPAPiEnter(HttpDebug* serv, char* path)
 {  
-  if(show_height_input_dialog && strncmp(path, "height/", 7) == 0)
+  if(heightPanel && strncmp(path, "height/", 7) == 0)
     return createAction(serv, HeightEntered, (char*)"HeightEntered", 
                                                           (char*)"HTTPAPiEnter", path+7);
 

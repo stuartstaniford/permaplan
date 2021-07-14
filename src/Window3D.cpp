@@ -161,9 +161,13 @@ ActionType Window3D::processPseudoAction(InterfaceAction* action)
       return DoubleClick;
 
     case HeightEntered:
-      LogPseudoActions("Height of %.1f entered.\n", action->data[0]);
-      imgMenu->heightEnteredButton(action->data[0]);
-      return HeightEntered;
+      if(imgMenu->heightPanel)
+        return imgMenu->heightPanel->processAction(action);
+      else
+       {
+        LogRequestErrors("Height Entered action when height panel not showing.");
+        return NoAction;
+       }
 
     // Insert menu actions get passed to the insert menu
     case InsertBlock:

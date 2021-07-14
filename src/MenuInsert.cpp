@@ -8,6 +8,7 @@
 #include "MenuShedPanel.h"
 #include "MenuInterface.h"
 #include "MenuTree.h"
+#include "MenuHeightPanel.h"
 
 
 // =======================================================================================
@@ -60,7 +61,8 @@ void MenuInsert::imGuiDisplay(void)
 
 void MenuInsert::insertHeight(void)
 {
-  mainMenu->show_height_input_dialog = true;
+  unless(mainMenu->heightPanel)
+    mainMenu->heightPanel = new MenuHeightPanel(mainMenu, scene);
   mainMenu->insertMenu = NULL;
   delete this;
 }

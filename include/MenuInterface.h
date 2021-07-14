@@ -20,6 +20,7 @@ class MenuBlockPanel;
 class MenuInsert;
 class MenuTree;
 class MenuGenus;
+class MenuHeightPanel;
 
 class MenuInterface: public MenuPanel
 {
@@ -28,6 +29,7 @@ class MenuInterface: public MenuPanel
   friend MenuInsert;
   friend MenuTree;
   friend MenuGenus;
+  friend MenuHeightPanel;
 
 public:
 
@@ -47,7 +49,6 @@ public:
   bool  HTTPAPiOptions(HttpDebug* serv, char* path);
   void  allTreeSelectorPseudoAction(const char* optionName);
   void  allTreeSelectorButton(const char* name, DynamicallyTypable* value);
-  void  heightEnteredButton(float z);
   void  createErrorPanel(const char* errString);
 
  private:
@@ -56,11 +57,10 @@ public:
   
   // Instance variables - private
   Window3D&     win3D;
-  bool          show_height_input_dialog;
   bool          all_tree_selector;
-  char          heightBuf[16];
   MenuPanel*    shedPanel;
   MenuPanel*    blockPanel;
+  MenuPanel*    heightPanel;
   MenuPanel*    simulationPanel;
   MenuPanel*    focusOverlay;
   MenuPanel*    insertMenu;
@@ -71,20 +71,12 @@ public:
 #endif
 
   // Private methods
-  void  imguiInsertMenu(void);
-  void  imguiHeightInputDialog(void);
-  void  imguiMaterialsMenu(void);
-  void  imguiGenusMenu(void);
-  void  imguiTreeMenu(void);
   void  imguiAllTreeSelector(void);
-  void  imguiFocusOverlay(void);
-  void  imguiSimulationController(void);
-  void  mouseOverlayDisplays(vec3 mouseSceneLoc);
   void  imguiLockOverlay(void);
-
-
-  MenuInterface(const MenuInterface&);                 // Prevent copy-construction
-  MenuInterface& operator=(const MenuInterface&);      // Prevent assignment
+  /// @brief Prevent copy-construction
+  MenuInterface(const MenuInterface&);       
+  /// @brief Prevent assignment
+  MenuInterface& operator=(const MenuInterface&);     
 
 };
 
