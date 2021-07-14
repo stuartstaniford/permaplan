@@ -8,7 +8,6 @@
 #include "Scene.h"
 #include "Camera.h"
 #include "MenuInterface.h"
-#include "ScriptController.h"
 #include "Timeval.h"
 #include "HttpLoadBalancer.h"
 
@@ -33,7 +32,6 @@ class Window3D
   
   // Public instance variables
   Scene*            scene;
-  ScriptController* scriptController;
   MenuInterface*    imgMenu;
 
   // Public methods

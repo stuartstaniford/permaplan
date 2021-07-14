@@ -53,7 +53,6 @@ int main (int argc, char* argv[])
   SkySampleModel skySampler(design.boundary.referencePoint[0]);
   window.scene = &scene;
   window.imgMenu->scene = &scene;
-  window.scriptController = new ScriptController();
   TextureAtlas blocksAtlas((char*)"Materials/Blocks");
   TextureAtlas treesAtlas((char*)"Materials/Trees");
   MaterialList materials(blocksAtlas);

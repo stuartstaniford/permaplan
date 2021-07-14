@@ -64,7 +64,6 @@ void openGLInitialLogging(void)
 // See https://learnopengl.com/Getting-started/Hello-Window
 
 Window3D::Window3D(int pixWidth, int pixHeight):
-                        scriptController(NULL),
                         width(pixWidth),
                         height(pixHeight),
                         lastMouseX(HUGE_VAL),
@@ -558,8 +557,6 @@ void Window3D::processInput(Camera& camera)
       
      }
     float delta = timeDelta();
-    if(scriptController)
-      camOpFlags |= scriptController->simulatedKeys(delta);
     camera.adjust(camOpFlags, delta);
    }
 

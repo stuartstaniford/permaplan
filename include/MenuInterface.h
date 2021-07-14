@@ -3,7 +3,6 @@
 #ifndef MENU_INTERFACE_H
 #define MENU_INTERFACE_H
 #include "DynamicallyTypable.h"
-#include "ScriptController.h"
 #include "MenuPanel.h"
 #include <cglm/cglm.h>
 #include <GL/glew.h>
