@@ -182,6 +182,17 @@ bool MenuPanel::createAction(HttpDebug* serv, ActionType actionType,
 
 
 // =======================================================================================
+/// @brief Utility function to put a matrix into the current imgui window.
+
+void MenuPanel::displayImguiMatrix(const char* title, const mat4& m)
+{
+  ImGui::Text("%s\n", title);
+  for(int i=0; i<4; i++)
+    ImGui::Text("%.2f %.2f %.2f %.2f\n", m[i][0], m[i][1], m[i][2], m[i][3]);
+}
+
+
+// =======================================================================================
 /// @brief Helper function to restore spaces in the path
 
 void MenuPanel::unencode(char* path)

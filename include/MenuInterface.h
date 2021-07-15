@@ -1,4 +1,4 @@
-// Copyright Staniford Systems.  All Rights Reserved.  Apr 2020 -
+// Copyright Staniford Systems.  All Rights Reserved.  Feb 2021 -
 
 #ifndef MENU_INTERFACE_H
 #define MENU_INTERFACE_H
@@ -13,7 +13,15 @@
 #include "rapidjson/error/en.h"
 #include <string>
 
+
+// =======================================================================================
+// Turn this to show the Dear Imgui demo window
+
 //#define SHOW_DEMO_WINDOW
+
+
+// =======================================================================================
+// Forward declarations.
 
 class Window3D;
 class MenuBlockPanel;
@@ -22,6 +30,15 @@ class MenuTree;
 class MenuGenus;
 class MenuHeightPanel;
 class MenuAllTree;
+
+// =======================================================================================
+/// @brief Co-ordinate the overall menu interface.
+/// 
+/// This class is the master class in charge of the whole menu interface - both the 
+/// ImGui windows shown on screen as well as the HTTP interface to the various options
+/// that is used for scripting/testing.  It is where all the pointers live that point
+/// to instances of all the different individuals menus and panels (which are all
+/// subclasses of MenuPanel.
 
 class MenuInterface: public MenuPanel
 {

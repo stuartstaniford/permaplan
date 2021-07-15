@@ -40,6 +40,7 @@ public:
   virtual bool handleOptionRequest(HttpDebug* serv, char* path);
   
   void unencode(char* path);
+  void displayImguiMatrix(const char* title, const mat4& m);
 
 protected:
 
