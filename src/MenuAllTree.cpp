@@ -68,7 +68,7 @@ void MenuAllTree::imGuiDisplay(void)
 
 
 // =======================================================================================
-/// @brief Process a selection in the all_tree_selector, that might be coming from either 
+/// @brief Process a selection in the all tree selector, that might be coming from either 
 /// the GUI or from the HTTP interface.
 /// @param name The name of this menu option.
 /// @param value A dynamically typable value which can point to either a RegionList of 

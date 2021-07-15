@@ -49,6 +49,7 @@ public:
   bool  HTTPAPiEnter(HttpDebug* serv, char* path);
   bool  HTTPAPiOptions(HttpDebug* serv, char* path);
   void  createErrorPanel(const char* errString);
+  ActionType processAction(InterfaceAction* action);
 
  private:
   

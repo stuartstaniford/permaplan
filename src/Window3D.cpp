@@ -119,27 +119,17 @@ Window3D::Window3D(int pixWidth, int pixHeight):
 
 
 // =======================================================================================
-/// @brief Handle an pseudo-interface event coming from the HTTP Debug interface.
-///
-/// ActionTypes are listed in alphabetical order
-/// @todo Possibly this should be handled via a std::map<ActionType, MenuPanel*>
+/// @brief Handle an pseudo-interface event coming from the HTTP Debug interface.  
+/// 
+/// We get these first, and our job is to siphon off those actions that require some
+/// kind of window operation.  All others are passed to MenuInterface::processAction.
+/// @returns The ActionType of the action we processed.
+/// @param action The InterfaceAction that needs to be handled.
 
-ActionType Window3D::processPseudoAction(InterfaceAction* action)
+ActionType Window3D::processAction(InterfaceAction* action)
 {  
   switch(action->actionType)
    {
-     case AllTreeSelection:
-      if(imgMenu->allTreeMenu)
-        imgMenu->allTreeMenu->processAction(action);
-      else
-        return NoAction;
-
-     case BlockEntered:
-      if(imgMenu->blockPanel)
-        imgMenu->blockPanel->processAction(action);
-      else
-        return NoAction;
-
     case CameraMoved:
       scene->camera.updateAfterMove();
       return CameraMoved;
@@ -157,52 +147,9 @@ ActionType Window3D::processPseudoAction(InterfaceAction* action)
       processDoubleClick(action->data[0], action->data[1], 0.1f);
       return DoubleClick;
 
-    case HeightEntered:
-      if(imgMenu->heightPanel)
-        return imgMenu->heightPanel->processAction(action);
-      else
-       {
-        LogRequestErrors("Height Entered action when height panel not showing.");
-        return NoAction;
-       }
-
-    // Insert menu actions get passed to the insert menu
-    case InsertBlock:
-    case InsertShed:
-    case InsertGable:
-    case InsertHeight:       
-    case InsertTree:
-      if(imgMenu->insertMenu)
-        return imgMenu->insertMenu->processAction(action);
-      else
-       {
-        LogRequestErrors("Insert action when insert menu not showing.");
-        return NoAction;
-       }
-
     case QuitProgram:
       LogPseudoActions("Quit program processed.\n");
       return QuitProgram;  // handled in our caller loop()
-
-    // Tree selection menu
-    case SelectGenus:
-      if(imgMenu->treeMenu)
-        return imgMenu->treeMenu->processAction(action);
-      else
-        return NoAction;
-            
-    // Simulation panel options handled over there.  
-    case SimulatePause:
-    case SimulateReset:
-    case SimulateStart:
-    case SimulateSpring:
-    case SimulateSummer:
-    case SimulateFall:
-    case SimulateWinter:
-      if(imgMenu->simulationPanel)
-        return imgMenu->simulationPanel->processAction(action);
-      else
-        return NoAction;
 
     case WindowMove:
       LogPseudoActions("Window move action to %.0f, %.0f processed.\n",
@@ -221,9 +168,7 @@ ActionType Window3D::processPseudoAction(InterfaceAction* action)
       return WindowResize;
 
     default:
-      LogRequestErrors("Unhandled action type in Window3D::processPseudoAction %d\n", 
-                                                            action->actionType);
-      return NoAction;
+      return imgMenu->processAction(action);
    }
 }
 
@@ -307,7 +252,7 @@ void Window3D::loop(HttpLoadBalancer& httpServer)
     while(int n = scene->actions.size())
      {
        action = scene->actions[n-1];
-       if(processPseudoAction(action) == QuitProgram)
+       if(processAction(action) == QuitProgram)
          break;
        scene->actions.pop_back();
        delete action;

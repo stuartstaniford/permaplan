@@ -69,7 +69,7 @@ class Window3D
   void          processMouse(Camera& camera);
   void          processClick(float mouseX, float mouseY);
   void          processDoubleClick(float mouseX, float mouseY, float timeDiff);
-  ActionType    processPseudoAction(InterfaceAction* action);
+  ActionType    processAction(InterfaceAction* action);
   float         timeDelta(void);           // number of microseconds since last call
 
   Window3D(const Window3D&);                 // Prevent copy-construction

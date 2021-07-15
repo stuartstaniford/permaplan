@@ -313,3 +313,80 @@ bool MenuInterface::HTTPAPi(HttpDebug* serv, char* path)
 
 
 // =======================================================================================
+/// @brief Handle an pseudo-interface event coming from the HTTP Debug interface.  We are
+/// called from the equivalent function in Window3D to handle actions that are associated
+/// with the menu system.
+///
+/// ActionTypes are listed in alphabetical order
+/// @returns The ActionType of the action we processed.
+/// @param action The InterfaceAction that needs to be handled.
+/// @todo Possibly this should be handled via a std::map<ActionType, MenuPanel*>
+
+ActionType MenuInterface::processAction(InterfaceAction* action)
+{  
+  switch(action->actionType)
+   {
+     case AllTreeSelection:
+      if(allTreeMenu)
+        allTreeMenu->processAction(action);
+      else
+        return NoAction;
+
+     case BlockEntered:
+      if(blockPanel)
+        blockPanel->processAction(action);
+      else
+        return NoAction;
+
+    case HeightEntered:
+      if(heightPanel)
+        return heightPanel->processAction(action);
+      else
+       {
+        LogRequestErrors("Height Entered action when height panel not showing.");
+        return NoAction;
+       }
+
+    // Insert menu actions get passed to the insert menu
+    case InsertBlock:
+    case InsertShed:
+    case InsertGable:
+    case InsertHeight:       
+    case InsertTree:
+      if(insertMenu)
+        return insertMenu->processAction(action);
+      else
+       {
+        LogRequestErrors("Insert action when insert menu not showing.");
+        return NoAction;
+       }
+
+    // Tree selection menu
+    case SelectGenus:
+      if(treeMenu)
+        return treeMenu->processAction(action);
+      else
+        return NoAction;
+            
+    // Simulation panel options handled over there.  
+    case SimulatePause:
+    case SimulateReset:
+    case SimulateStart:
+    case SimulateSpring:
+    case SimulateSummer:
+    case SimulateFall:
+    case SimulateWinter:
+      if(simulationPanel)
+        return simulationPanel->processAction(action);
+      else
+        return NoAction;
+
+    default:
+      LogRequestErrors("Unhandled action type in MenuInterface::processAction %d\n", 
+                                                            action->actionType);
+      return NoAction;
+   }
+}
+
+
+// =======================================================================================
