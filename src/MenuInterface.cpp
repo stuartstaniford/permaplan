@@ -328,13 +328,13 @@ ActionType MenuInterface::processAction(InterfaceAction* action)
    {
      case AllTreeSelection:
       if(allTreeMenu)
-        allTreeMenu->processAction(action);
+        return allTreeMenu->processAction(action);
       else
         return NoAction;
 
      case BlockEntered:
       if(blockPanel)
-        blockPanel->processAction(action);
+        return blockPanel->processAction(action);
       else
         return NoAction;
 
@@ -343,7 +343,7 @@ ActionType MenuInterface::processAction(InterfaceAction* action)
         return heightPanel->processAction(action);
       else
        {
-        LogRequestErrors("Height Entered action when height panel not showing.");
+        LogRequestErrors("Height Entered action when height panel not showing.\n");
         return NoAction;
        }
 
@@ -357,7 +357,7 @@ ActionType MenuInterface::processAction(InterfaceAction* action)
         return insertMenu->processAction(action);
       else
        {
-        LogRequestErrors("Insert action when insert menu not showing.");
+        LogRequestErrors("Insert action when insert menu not showing.\n");
         return NoAction;
        }
 
