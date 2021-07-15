@@ -28,7 +28,6 @@ MenuInterface::MenuInterface(Window3D& W):
                         show_lock_overlay(false),
                         show_init_panel(false),
                         win3D(W),
-                        all_tree_selector(false),
                         shedPanel(NULL),
                         blockPanel(NULL),
                         heightPanel(NULL),
@@ -36,7 +35,8 @@ MenuInterface::MenuInterface(Window3D& W):
                         focusOverlay(NULL),
                         insertMenu(NULL),
                         treeMenu(NULL),
-                        genusMenu(NULL)
+                        genusMenu(NULL),
+                        allTreeMenu(NULL)
 #ifdef SHOW_DEMO_WINDOW
                         , show_demo_window(true)
 #endif
@@ -95,106 +95,6 @@ void MenuInterface::imguiLockOverlay(void)
     ImGui::Separator();
    }
   ImGui::End();
-}
-
-
-// =======================================================================================
-// This menu is the entry point into a set of menu's (based on JSON files) that ultimately
-// aspire to be able to select any tree species in the world.
-
-using namespace rapidjson;
-
-RegionList* currentList = NULL; // Effectively protected by the scene lock.
-
-void MenuInterface::imguiAllTreeSelector(void)
-{
-  if(!all_tree_selector)
-    return;
-  
-  unless(currentList)
-   {
-    RegionList& regionRoot = RegionList::getRoot();
-    currentList = &regionRoot;
-   }
-  
-  ImGui::Begin("Tree Regions", &all_tree_selector, ImGuiWindowFlags_AlwaysAutoResize);
-  for (auto iter : *currentList) 
-   {
-    DynamicType dtype = iter.second->getDynamicType();
-    
-    if(dtype == TypeRegionList)
-     {
-      RegionList* r = (RegionList*)iter.second;
-      if(r->size() == 0)
-        continue; // no point in displaying empty lists.
-     }
-    
-    // If we get this far, there is a button to display
-    if(ImGui::Button(iter.first.c_str()))
-      allTreeSelectorButton(iter.first.c_str(), iter.second);
-     
-   }
-  ImGui::End();
-}
-
-
-// =======================================================================================
-// Process a selection in the all_tree_selector, that might be coming from either the
-// GUI or from the HTTP interface.
-
-void MenuInterface::allTreeSelectorButton(const char* name, DynamicallyTypable* value)
-{
-  DynamicType dtype = value->getDynamicType();
-  
-  if(dtype == TypeRegionList)
-   {
-    // We need to recurse down the list tree
-    if(((RegionList*)value)->size() == 0)
-      return; // can't process an empty list.
-    currentList = (RegionList*)value;
-    return;
-   }
-  else if(dtype == TypeSpecies || dtype == TypeSpeciesPath) 
-   {
-    // species selection has been made
-    if(dtype == TypeSpeciesPath)
-     {
-      // need to load it.
-      SpeciesPath* spath = (SpeciesPath*)value;
-      Species* species = Species::getSpeciesByPath(spath->getPath());
-      delete spath;
-      if(!species)
-        return;
-      (*currentList)[name] = species;
-      dtype = TypeSpecies;
-     }
-    if(dtype == TypeSpecies)
-     {
-      Species* S = (Species*)((*currentList)[name]);
-      all_tree_selector = false;
-      currentList = NULL;
-      LogTreeSelections("Tree %s %s inserted at [%f, %f].\n", 
-                        S->genusName, S->speciesName,
-                        scene->lastDoubleClick[0], scene->lastDoubleClick[1]);
-      scene->insertTree(S, scene->lastDoubleClick, 1.0f);
-     }
-   }
-}
-
-
-// =======================================================================================
-// Called in the main thread to process a selection of the all tree selector coming
-// from the HTTP interface.
-
-void MenuInterface::allTreeSelectorPseudoAction(const char* optionName)
-{
-  unless(all_tree_selector && currentList && currentList->count(optionName))
-   {
-    LogRequestErrors("AllTreeSelectorPseudoAction invalid action %s.\n", optionName);
-    LogFlush();
-    return;
-   }
-  allTreeSelectorButton(optionName, (*currentList)[optionName]);
 }
 
 
@@ -288,9 +188,10 @@ void MenuInterface::imguiInterface(void)
     genusMenu->imGuiDisplay();
   if(heightPanel)
     heightPanel->imGuiDisplay();
+  if(allTreeMenu)
+    allTreeMenu->imGuiDisplay();
     
   // Unconverted menus  
-  imguiAllTreeSelector();
   imguiLockOverlay();
 
 #ifdef SHOW_DEMO_WINDOW
@@ -312,53 +213,14 @@ bool MenuInterface::HTTPAPiOptions(HttpDebug* serv, char* path)
 {
   if(treeMenu)
     return treeMenu->handleOptionRequest(serv, path);
-  else if(all_tree_selector && currentList)
-   {     
-    for (auto iter : *currentList) 
-     {
-      DynamicType dtype = iter.second->getDynamicType();
-      if(dtype == TypeRegionList)
-       {
-        RegionList* r = (RegionList*)iter.second;
-        if(r->size() == 0)
-          continue; // no point in displaying empty lists.
-       }
-      httPrintf("%s\n", iter.first.c_str());
-     }
-   }
+  else if(allTreeMenu)
+    return allTreeMenu->handleOptionRequest(serv, path);
   else
    {
     httPrintf("OK\n");
     //err(-1, "MenuInterface::HTTPAPiOptions called on unimplemented menu.");
    }
   return true;
-}
-
-
-// =======================================================================================
-// Function to handle selecting a tree via the all_tree_selector tree menus
-
-bool MenuInterface::HTTPAPiAllTreeSelector(HttpDebug* serv, char* path)
-{
-  unencode(path);
-  
-  if(!all_tree_selector)
-   {
-    LogRequestErrors("MenuInterface::HTTPAPiAllTreeSelector with "
-                                                            "all_tree_selector false.\n");
-    return false;    
-   }
-  
-  if(strlen(path) > 128)
-   {
-    // Weird long paths get cut off here.  Otherwise path checking has to be done
-    // downstream from us.
-    LogRequestErrors("MenuInterface::HTTPAPiAllTreeSelector doesn't like long path.\n");
-    return false;        
-   }
-  
-  return createAction(serv, AllTreeSelection, (char*)"AllTreeSelection", 
-                                                        (char*)"HTTPAPiAllTreeSelector", path);
 }
 
 
@@ -396,7 +258,15 @@ bool MenuInterface::HTTPAPiSelections(HttpDebug* serv, char* path)
    }
   
   if(strncmp(path, "alltree/", 8)== 0)
-     return HTTPAPiAllTreeSelector(serv, path+8);
+   {
+    if(allTreeMenu)
+      return allTreeMenu->handleHTTPRequest(serv, path+8);
+    else
+     {
+      LogRequestErrors("MenuInterface::HTTPAPiSelections with no all tree menu.\n");
+      return false;    
+     }
+   }
   
   LogRequestErrors("MenuInterface::HTTPAPiSelections unknown directive %s\n", path);
   return false;

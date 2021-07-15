@@ -21,6 +21,7 @@ class MenuInsert;
 class MenuTree;
 class MenuGenus;
 class MenuHeightPanel;
+class MenuAllTree;
 
 class MenuInterface: public MenuPanel
 {
@@ -30,6 +31,7 @@ class MenuInterface: public MenuPanel
   friend MenuTree;
   friend MenuGenus;
   friend MenuHeightPanel;
+  friend MenuAllTree;
 
 public:
 
@@ -43,12 +45,9 @@ public:
   int   initPanel(char* question, char** responses, int nResponses);
   void  imguiInterface(void);
   bool  HTTPAPi(HttpDebug* serv, char* path);
-  bool  HTTPAPiAllTreeSelector(HttpDebug* serv, char* path);
   bool  HTTPAPiSelections(HttpDebug* serv, char* path);
   bool  HTTPAPiEnter(HttpDebug* serv, char* path);
   bool  HTTPAPiOptions(HttpDebug* serv, char* path);
-  void  allTreeSelectorPseudoAction(const char* optionName);
-  void  allTreeSelectorButton(const char* name, DynamicallyTypable* value);
   void  createErrorPanel(const char* errString);
 
  private:
@@ -57,7 +56,6 @@ public:
   
   // Instance variables - private
   Window3D&     win3D;
-  bool          all_tree_selector;
   MenuPanel*    shedPanel;
   MenuPanel*    blockPanel;
   MenuPanel*    heightPanel;
@@ -66,12 +64,13 @@ public:
   MenuPanel*    insertMenu;
   MenuPanel*    treeMenu;
   MenuPanel*    genusMenu;
+  MenuPanel*    allTreeMenu;
+
 #ifdef SHOW_DEMO_WINDOW
   bool                show_demo_window;
 #endif
 
   // Private methods
-  void  imguiAllTreeSelector(void);
   void  imguiLockOverlay(void);
   /// @brief Prevent copy-construction
   MenuInterface(const MenuInterface&);       

@@ -125,17 +125,14 @@ Window3D::Window3D(int pixWidth, int pixHeight):
 /// @todo Possibly this should be handled via a std::map<ActionType, MenuPanel*>
 
 ActionType Window3D::processPseudoAction(InterfaceAction* action)
-{
-  const char* stringValue;
-  
+{  
   switch(action->actionType)
    {
      case AllTreeSelection:
-       // Warning stringValue is unprocessed except for being <=128
-       stringValue = ((SpeciesPath*)(action->otherData))->getPath();
-       LogPseudoActions("All tree selection %s processed.\n", stringValue);
-       imgMenu->allTreeSelectorPseudoAction(stringValue);
-       return AllTreeSelection;
+      if(imgMenu->allTreeMenu)
+        imgMenu->allTreeMenu->processAction(action);
+      else
+        return NoAction;
 
      case BlockEntered:
       if(imgMenu->blockPanel)

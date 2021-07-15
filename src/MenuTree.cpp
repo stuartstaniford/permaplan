@@ -6,6 +6,8 @@
 #include "MenuTree.h"
 #include "MenuInterface.h"
 #include "MenuGenus.h"
+#include "MenuAllTree.h"
+
 
 // =======================================================================================
 /// @brief Constructor
@@ -63,7 +65,7 @@ void MenuTree::imGuiDisplay(void)
 void MenuTree::treeMenuSelection(const char* genusString)
 {
   if(strcmp(genusString, "All Tree Selector") == 0)
-    mainMenu->all_tree_selector = true;
+    mainMenu->allTreeMenu = new MenuAllTree(mainMenu, scene);
   else
     mainMenu->genusMenu = new MenuGenus(mainMenu, scene, genusString);
   
