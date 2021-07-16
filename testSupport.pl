@@ -230,6 +230,32 @@ sub insertBlockButton
 
 
 #===========================================================================
+# Function to simulate clicking the "gable" button on the insert menu.
+
+sub insertGablekButton
+{
+  my $url = "http://127.0.0.1:$port/menu/insert/gable/";
+  my $response = $http->get($url);
+  sanityCheckHeader($response, '/menu/insert/gable/');  
+  return 1 if(length $response->{content} && $response->{content} eq "OK\n");
+  return 0;
+}
+
+
+#===========================================================================
+# Function to simulate clicking the "shed" button on the insert menu.
+
+sub insertShedButton
+{
+  my $url = "http://127.0.0.1:$port/menu/insert/shed/";
+  my $response = $http->get($url);
+  sanityCheckHeader($response, '/menu/insert/shed/');  
+  return 1 if(length $response->{content} && $response->{content} eq "OK\n");
+  return 0;
+}
+
+
+#===========================================================================
 # Function to simulate clicking the "tree" button on the insert menu.
 
 sub insertTreeButton
