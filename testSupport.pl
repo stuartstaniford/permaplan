@@ -217,15 +217,25 @@ sub performDoubleclick
 
 
 #===========================================================================
+# Function to simulate clicking arbitrary button on the insert menu.
+
+sub insertAnyButton
+{
+  my ($button) = @_;
+  my $url = "http://127.0.0.1:$port/menu/insert/$button/";
+  my $response = $http->get($url);
+  sanityCheckHeader($response, "/menu/insert/$button/");  
+  return 1 if(length $response->{content} && $response->{content} eq "OK\n");
+  return 0;
+}
+
+
+#===========================================================================
 # Function to simulate clicking the "block" button on the insert menu.
 
 sub insertBlockButton
 {
-  my $url = "http://127.0.0.1:$port/menu/insert/block/";
-  my $response = $http->get($url);
-  sanityCheckHeader($response, '/menu/insert/block/');  
-  return 1 if(length $response->{content} && $response->{content} eq "OK\n");
-  return 0;
+  return insertAnyButton('block');
 }
 
 
@@ -234,11 +244,7 @@ sub insertBlockButton
 
 sub insertGablekButton
 {
-  my $url = "http://127.0.0.1:$port/menu/insert/gable/";
-  my $response = $http->get($url);
-  sanityCheckHeader($response, '/menu/insert/gable/');  
-  return 1 if(length $response->{content} && $response->{content} eq "OK\n");
-  return 0;
+  return insertAnyButton('gable');
 }
 
 
@@ -247,11 +253,7 @@ sub insertGablekButton
 
 sub insertShedButton
 {
-  my $url = "http://127.0.0.1:$port/menu/insert/shed/";
-  my $response = $http->get($url);
-  sanityCheckHeader($response, '/menu/insert/shed/');  
-  return 1 if(length $response->{content} && $response->{content} eq "OK\n");
-  return 0;
+  return insertAnyButton('shed');
 }
 
 
@@ -260,11 +262,7 @@ sub insertShedButton
 
 sub insertTreeButton
 {
-  my $url = "http://127.0.0.1:$port/menu/insert/tree/";
-  my $response = $http->get($url);
-  sanityCheckHeader($response, '/menu/insert/tree/');  
-  return 1 if(length $response->{content} && $response->{content} eq "OK\n");
-  return 0;
+  return insertAnyButton('tree');
 }
 
 
