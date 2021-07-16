@@ -875,6 +875,7 @@ INPUT                  = doc \
                 include/MenuAllTree.h src/MenuAllTree.cpp \
                 include/MenuBlockPanel.h src/MenuBlockPanel.cpp \
                 include/MenuFocusOverlay.h src/MenuFocusOverlay.cpp \
+                include/MenuGablePanel.h src/MenuGablePanel.cpp \
                 include/MenuGenus.h src/MenuGenus.cpp \
                 include/MenuHeightPanel.h src/MenuHeightPanel.cpp \
                 include/MenuInsert.h src/MenuInsert.cpp \
