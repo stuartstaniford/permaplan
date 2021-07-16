@@ -318,7 +318,7 @@ bool MenuInterface::HTTPAPiEnter(HttpDebug* serv, char* path)
 
 
 // =======================================================================================
-/// @brief Handle entered parameters.
+/// @brief Handle selection options.
 /// 
 /// Function to handle the parsing of selection actions (ie everything under /menu/select 
 /// comes here first and we route them on in the correct direction.
