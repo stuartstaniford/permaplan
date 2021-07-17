@@ -75,6 +75,7 @@ public:
   // Instance variables - private
   Window3D&     win3D;
   MenuPanel*    shedPanel;
+  MenuPanel*    gablePanel;
   MenuPanel*    blockPanel;
   MenuPanel*    heightPanel;
   MenuPanel*    simulationPanel;

@@ -23,11 +23,25 @@ public:
   // Member functions - public
   MenuGablePanel(MenuInterface* menu, Scene* S);
   ~MenuGablePanel(void);
+  void    imGuiDisplay(void);
+  char*   errorInFields(void);
   
 private:
   
   // Instance variables - private
-  
+  float height;
+  float length;
+  float width;
+  float roofAngle;
+  float overhang;  
+
+  // static buffers for labels for controls
+  static bool  staticsInitialized;
+  static char  heightLabel[16];
+  static char  lengthLabel[16];
+  static char  widthLabel[16];
+  static char  overhangLabel[16];
+
   // Member functions - private
   MenuGablePanel(const MenuGablePanel&);                 // Prevent copy-construction
   MenuGablePanel& operator=(const MenuGablePanel&);      // Prevent assignment

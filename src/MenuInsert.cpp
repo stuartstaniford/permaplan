@@ -6,6 +6,7 @@
 #include "MenuInsert.h"
 #include "MenuBlockPanel.h"
 #include "MenuShedPanel.h"
+#include "MenuGablePanel.h"
 #include "MenuInterface.h"
 #include "MenuTree.h"
 #include "MenuHeightPanel.h"
@@ -97,7 +98,8 @@ void MenuInsert::insertShed(void)
 
 void MenuInsert::insertGable(void)
 {
-  //show_materials_menu = true;
+  unless(mainMenu->gablePanel)
+    mainMenu->gablePanel = new MenuGablePanel(mainMenu, scene);
   mainMenu->insertMenu = NULL;
   delete this;
 }

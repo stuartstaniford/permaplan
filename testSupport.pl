@@ -242,7 +242,7 @@ sub insertBlockButton
 #===========================================================================
 # Function to simulate clicking the "gable" button on the insert menu.
 
-sub insertGablekButton
+sub insertGableButton
 {
   return insertAnyButton('gable');
 }

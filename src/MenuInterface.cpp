@@ -34,6 +34,7 @@ MenuInterface::MenuInterface(Window3D& W):
                         show_init_panel(false),
                         win3D(W),
                         shedPanel(NULL),
+                        gablePanel(NULL),
                         blockPanel(NULL),
                         heightPanel(NULL),
                         simulationPanel(NULL),
@@ -191,6 +192,8 @@ void MenuInterface::imguiInterface(void)
   // Panels/menus that may or may not be visible
   if(shedPanel)
     shedPanel->imGuiDisplay();
+  if(gablePanel)
+    gablePanel->imGuiDisplay();
   if(blockPanel)
     blockPanel->imGuiDisplay();
   if(insertMenu)
