@@ -177,3 +177,52 @@ void MenuShedPanel::imGuiDisplay(void)
 
 
 // =======================================================================================
+
+void MenuShedPanel::shedEntered(void)
+{
+  
+}
+
+
+// =======================================================================================
+/// @brief Interface for the method to be called in the main thread to process an action
+/// for shed creation coming from the HTTP interface.
+/// 
+/// Note the action will have originally arisen in the HTTP server and have been 
+/// processed by MenuSimulationPanel::handleHTTPRequest).  
+/// @returns The ActionType of the action we processed.
+/// @param action The InterfaceAction that needs to be handled.
+/// @todo presently defaults to Strawbale all the time
+
+ActionType MenuShedPanel::processAction(InterfaceAction* action)
+{
+  switch(action->actionType)
+   {
+    case ShedEntered:
+      LogPseudoActions("Shed entered.\n");
+      shedEntered();
+      return ShedEntered;
+   
+    default:
+      return NoAction;
+   }
+}
+
+
+// =======================================================================================
+/// @brief Function to handle block entry requests from the HTTP diagnostic server.  
+/// 
+/// Note that this will *not* be called on the main thread, but rather one
+/// of the HTTP server threads.  
+/// @returns True if everything went well, false if we couldn't fit in the buffer.
+/// @param serv The HttpDebug server instance to talk to.
+/// @param path The last part of the URL that is specific to this particular panel (the path
+/// required to navigate to us is hidden from us because it's not our concern.
+
+bool MenuShedPanel::handleHTTPRequest(HttpDebug* serv, char* path)
+{
+  return true;
+}
+
+
+// =======================================================================================

@@ -25,8 +25,15 @@ public:
   // Member functions - public
   MenuShedPanel(MenuInterface* menu, Scene* S);
   virtual ~MenuShedPanel(void);
+
+  // Our abstract interface operations
+  void shedEntered(void);
+
+  // API coming from MenuPanel and overridden here.
   void    imGuiDisplay(void);
   char*   errorInFields(void);
+  ActionType processAction(InterfaceAction* action);
+  bool handleHTTPRequest(HttpDebug* serv, char* path);
 
 private:
   

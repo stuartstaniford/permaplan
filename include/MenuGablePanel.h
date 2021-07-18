@@ -23,8 +23,15 @@ public:
   // Member functions - public
   MenuGablePanel(MenuInterface* menu, Scene* S);
   ~MenuGablePanel(void);
+  
+  // Our abstract interface operations
+  void gableEntered(void);
+
+  // API coming from MenuPanel and overridden here.
   void    imGuiDisplay(void);
   char*   errorInFields(void);
+  ActionType processAction(InterfaceAction* action);
+  bool handleHTTPRequest(HttpDebug* serv, char* path);
   
 private:
   
