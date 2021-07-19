@@ -41,9 +41,8 @@ class TexturedRect
   // Member functions - private
   TexturedRect(const TexturedRect&);                 // Prevent copy-construction
   TexturedRect& operator=(const TexturedRect&);      // Prevent assignment
-
-
 };
+
 
 // =======================================================================================
 // Helper function to set up a rectangle as two triangles in a vertex buffer.  Needs
