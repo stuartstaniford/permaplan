@@ -374,18 +374,30 @@ ActionType MenuInterface::processAction(InterfaceAction* action)
 {  
   switch(action->actionType)
    {
-     case AllTreeSelection:
+    case AllTreeSelection:
       if(allTreeMenu)
         return allTreeMenu->processAction(action);
       else
         return NoAction;
 
-     case BlockEntered:
+    // The various building components being entered from their respective panels 
+    case BlockEntered:
       if(blockPanel)
         return blockPanel->processAction(action);
       else
         return NoAction;
+    case GableEntered:
+      if(gablePanel)
+        return gablePanel->processAction(action);
+      else
+        return NoAction;
+    case ShedEntered:
+      if(shedPanel)
+        return shedPanel->processAction(action);
+      else
+        return NoAction;
 
+    // Entry of a new land surface height from the heightPanel
     case HeightEntered:
       if(heightPanel)
         return heightPanel->processAction(action);

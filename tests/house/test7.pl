@@ -29,10 +29,14 @@ foreach my $i (1..$loopLimit)
   setCameraPosition(@positions);
   performDoubleclick(500,400);
   insertGableButton();
+  enterGableParameters(20, 40, 30, 15, 2);
 
   # Secondary gable
   
   # Back shed on side
+
+  # Porch
+  
   
   printPortMessage();
   simulatePermaplan();

@@ -189,7 +189,7 @@ void MenuShedPanel::shedEntered(void)
 /// for shed creation coming from the HTTP interface.
 /// 
 /// Note the action will have originally arisen in the HTTP server and have been 
-/// processed by MenuSimulationPanel::handleHTTPRequest).  
+/// processed by handleHTTPRequest.  
 /// @returns The ActionType of the action we processed.
 /// @param action The InterfaceAction that needs to be handled.
 /// @todo presently defaults to Strawbale all the time

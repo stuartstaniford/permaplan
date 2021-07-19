@@ -28,10 +28,7 @@ InterfaceAction::InterfaceAction(ActionType type, char* path):
    }
 
   if(actionType == CameraMoved)
-   {
-    valid = true;
     return;
-   }
 
   // Simulation controls
   if(actionType == SimulateStart || actionType == SimulatePause 
@@ -69,6 +66,9 @@ InterfaceAction::InterfaceAction(ActionType type, char* path):
     return;    
    }
 
+  if(actionType == GableEntered || actionType == ShedEntered)
+    return; 
+  
   // Tree select genus menu.  Note path was already checked in 
   // MenuInterface::HTTPAPiSelectGenus
   if(actionType == SelectGenus)

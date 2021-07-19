@@ -168,7 +168,9 @@ ActionType MenuGablePanel::processAction(InterfaceAction* action)
   switch(action->actionType)
    {
     case GableEntered:
-      LogPseudoActions("Gable entered.\n");
+      LogPseudoActions("Gable entered: Height %.2f; Length %.2f; Width %.2f, "
+                        "Roof Angle %.1f; Overhang %.2f.\n", 
+                        height, length, width, roofAngle, overhang);
       gableEntered();
       return GableEntered;
    
@@ -190,7 +192,20 @@ ActionType MenuGablePanel::processAction(InterfaceAction* action)
 
 bool MenuGablePanel::handleHTTPRequest(HttpDebug* serv, char* path)
 {
-  return true;
+  float extractVec[5];
+  unless(extractColonVecN(path, 5, extractVec))
+  {
+   LogRequestErrors("MenuGablePanel::handleHTTPRequest couldn't get GableEntered "
+                                                              "params from %s\n", path);
+   return false;
+  }
+  height    = extractVec[0];
+  length    = extractVec[1];
+  width     = extractVec[2];
+  roofAngle = extractVec[3];
+  overhang  = extractVec[4];  
+  return createAction(serv, GableEntered, (char*)"GableEntered", 
+                                (char*)"MenuGablePanel::handleHTTPRequest", path);
 }
 
 
