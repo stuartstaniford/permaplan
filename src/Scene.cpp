@@ -279,19 +279,32 @@ void Scene::processNewEditModeObject(void)
 
 
 // =======================================================================================
-// Handle a UI call to insert a new object in the scene (from the insert menu in Window3D)
+// Handle a UI call to insert a new object in the scene (called from various MenuPanels
+// which construct the respective kind of objects)
+
+void Scene::insertVisualObject(VisualObject* obj)
+{  
+  //XX need to allow the user to edit the object
+#ifdef LOG_OBJECT_INSERTIONS
+  float x,y;
+  obj->getGroundContact(x,y);
+  LogObjectInsertions("Object inserted: %s at %.1f, %.1f\n", obj->objName, size, x, y);
+#endif
+  qtree->storeVisualObject(obj);
+  rebuildVisualObjectBuffer(&sceneObjectTbuf);
+}
+
+
+// =======================================================================================
+// Legacy: Handle a UI call to insert a new object in the scene (from the insert menu 
+// in Window3D)
 
 void Scene::insertVisibleObject(char* objType, float size, vec3 loc, Material* material)
 {
   mat4 transform;
   newObjectTransform(transform, size, loc);
   VisualObject* newObj = getFreshObject(objType, transform);
-  
-  //XX need to allow the user to edit the object
-  LogObjectInsertions("Object inserted: %s (size %.1f) at %.1f, %.1f, %.1f\n",
-                      objType, size, loc[0], loc[1], loc[2]);
-  qtree->storeVisualObject(newObj);
-  rebuildVisualObjectBuffer(&sceneObjectTbuf);
+  insertVisualObject(newObj);
 }
 
 

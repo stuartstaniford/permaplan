@@ -28,7 +28,9 @@ class MenuBlockPanel;
 class MenuInsert;
 class MenuTree;
 class MenuGenus;
+class MenuGablePanel;
 class MenuHeightPanel;
+class MenuShedPanel;
 class MenuAllTree;
 
 // =======================================================================================
@@ -47,6 +49,8 @@ class MenuInterface: public MenuPanel
   friend MenuInsert;
   friend MenuTree;
   friend MenuGenus;
+  friend MenuGablePanel;
+  friend MenuShedPanel;
   friend MenuHeightPanel;
   friend MenuAllTree;
 

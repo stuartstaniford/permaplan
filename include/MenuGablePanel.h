@@ -22,7 +22,7 @@ public:
   
   // Member functions - public
   MenuGablePanel(MenuInterface* menu, Scene* S);
-  ~MenuGablePanel(void);
+  virtual ~MenuGablePanel(void);
   
   // Our abstract interface operations
   void gableEntered(void);

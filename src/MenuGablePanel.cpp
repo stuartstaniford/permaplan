@@ -149,7 +149,8 @@ void MenuGablePanel::imGuiDisplay(void)
 
 void MenuGablePanel::gableEntered(void)
 {
-  
+  mainMenu->gablePanel = NULL;
+  delete this; 
 }
 
 
