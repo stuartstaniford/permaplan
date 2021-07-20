@@ -2,11 +2,12 @@
 
 #ifndef GABLE_H
 #define GABLE_H
+#include "VisualObject.h"
+#include "BuildingRect.h"
 #include "rapidjson/document.h"
 #include "rapidjson/writer.h"
 #include "rapidjson/stringbuffer.h"
 #include "rapidjson/error/en.h"
-#include "VisualObject.h"
 
 // =======================================================================================
 // Needed forward declarations
@@ -20,7 +21,9 @@ class MenuGablePanel;
 /// This class is for use in rendering parts of buildings - specifically it renders a
 /// rectangular box with a gable roof above it.  Multiple of these can be superimposed
 /// to create approximations of many buildings.  Support for texturing is provided.
-/// A gable is implemented as two sheds
+/// A gable is implemented as a set of BuildingRects.  The naming convention internally
+/// to this class is that the building is sitting at the origin with it's floor in the
+/// x-y plane, and it's roof ridge parallel to the y-axis (that is, running north-south).
 
 class Gable: public VisualObject
 {
@@ -45,7 +48,13 @@ public:
 
 private:
   
-  // Instance variables - private
+  // Instance variables - private.
+  BuildingRect westWall;
+  BuildingRect eastWall;
+  BuildingRect northWall;
+  BuildingRect southWall;
+  BuildingRect westRoof;
+  BuildingRect eastRoof;
   
   // Member functions - private
   Gable(const Gable&);                 // Prevent copy-construction

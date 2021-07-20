@@ -4,6 +4,7 @@
 #define SHED_H
 
 #include "VisualObject.h"
+#include "BuildingRect.h"
 #include <cglm/cglm.h>
 #include "rapidjson/document.h"
 #include "rapidjson/writer.h"

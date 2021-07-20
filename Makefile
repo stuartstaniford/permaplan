@@ -332,6 +332,47 @@ src/Box.o: include/rapidjson/internal/itoa.h
 src/Box.o: include/rapidjson/internal/itoa.h include/rapidjson/stringbuffer.h
 src/Box.o: include/rapidjson/stringbuffer.h include/rapidjson/error/en.h
 src/Box.o: include/rapidjson/error/error.h
+src/BuildingRect.o: include/BuildingRect.h include/VisualElement.h
+src/BuildingRect.o: include/TriangleBuffer.h include/ElementBufferCombo.h
+src/BuildingRect.o: include/VertexArrayObject.h include/VertexBufferObject.h
+src/BuildingRect.o: /usr/local/include/cglm/cglm.h
+src/BuildingRect.o: /usr/local/include/cglm/common.h
+src/BuildingRect.o: /usr/local/include/cglm/types.h
+src/BuildingRect.o: /usr/local/include/cglm/simd/intrin.h
+src/BuildingRect.o: /usr/local/include/cglm/vec2.h
+src/BuildingRect.o: /usr/local/include/cglm/util.h
+src/BuildingRect.o: /usr/local/include/cglm/vec2-ext.h
+src/BuildingRect.o: /usr/local/include/cglm/vec3.h
+src/BuildingRect.o: /usr/local/include/cglm/vec4.h
+src/BuildingRect.o: /usr/local/include/cglm/vec4-ext.h
+src/BuildingRect.o: /usr/local/include/cglm/vec3-ext.h
+src/BuildingRect.o: /usr/local/include/cglm/mat4.h
+src/BuildingRect.o: /usr/local/include/cglm/mat3.h
+src/BuildingRect.o: /usr/local/include/cglm/mat2.h
+src/BuildingRect.o: /usr/local/include/cglm/affine.h
+src/BuildingRect.o: /usr/local/include/cglm/affine-mat.h
+src/BuildingRect.o: /usr/local/include/cglm/cam.h
+src/BuildingRect.o: /usr/local/include/cglm/plane.h
+src/BuildingRect.o: /usr/local/include/cglm/frustum.h
+src/BuildingRect.o: /usr/local/include/cglm/quat.h
+src/BuildingRect.o: /usr/local/include/cglm/euler.h
+src/BuildingRect.o: /usr/local/include/cglm/box.h
+src/BuildingRect.o: /usr/local/include/cglm/color.h
+src/BuildingRect.o: /usr/local/include/cglm/io.h
+src/BuildingRect.o: /usr/local/include/cglm/project.h
+src/BuildingRect.o: /usr/local/include/cglm/sphere.h
+src/BuildingRect.o: /usr/local/include/cglm/ease.h
+src/BuildingRect.o: /usr/local/include/cglm/curve.h
+src/BuildingRect.o: /usr/local/include/cglm/bezier.h
+src/BuildingRect.o: /usr/local/include/cglm/ray.h
+src/BuildingRect.o: /usr/local/include/cglm/affine2d.h
+src/BuildingRect.o: /usr/local/include/GL/glew.h
+src/BuildingRect.o: /usr/local/include/GLFW/glfw3.h include/Global.h
+src/BuildingRect.o: include/Logging.h include/MemoryTracker.h
+src/BuildingRect.o: include/HttpDebug.h include/HttpRequestParser.h
+src/BuildingRect.o: include/TaskQueue.h include/Lockable.h include/Vertex.h
+src/BuildingRect.o: include/ElementBufferObject.h include/BoundingBox.h
+src/BuildingRect.o: include/Shader.h include/VertexBufferCombo.h
 src/CO2Scenario.o: include/CO2Scenario.h include/rapidjson/document.h
 src/CO2Scenario.o: include/rapidjson/reader.h include/rapidjson/allocators.h
 src/CO2Scenario.o: include/rapidjson/rapidjson.h include/rapidjson/stream.h
@@ -793,30 +834,7 @@ src/ElementBufferObject.o: /usr/local/include/cglm/bezier.h
 src/ElementBufferObject.o: /usr/local/include/cglm/ray.h
 src/ElementBufferObject.o: /usr/local/include/cglm/affine2d.h
 src/EmptyClass.o: include/EmptyClass.h
-src/Gable.o: include/Gable.h include/rapidjson/document.h
-src/Gable.o: include/rapidjson/reader.h include/rapidjson/allocators.h
-src/Gable.o: include/rapidjson/rapidjson.h include/rapidjson/stream.h
-src/Gable.o: include/rapidjson/encodings.h include/rapidjson/encodedstream.h
-src/Gable.o: include/rapidjson/memorystream.h
-src/Gable.o: include/rapidjson/internal/clzll.h include/rapidjson/rapidjson.h
-src/Gable.o: include/rapidjson/internal/meta.h
-src/Gable.o: include/rapidjson/internal/stack.h
-src/Gable.o: include/rapidjson/allocators.h include/rapidjson/internal/swap.h
-src/Gable.o: include/rapidjson/internal/strtod.h
-src/Gable.o: include/rapidjson/internal/ieee754.h
-src/Gable.o: include/rapidjson/internal/biginteger.h
-src/Gable.o: include/rapidjson/internal/diyfp.h
-src/Gable.o: include/rapidjson/internal/clzll.h
-src/Gable.o: include/rapidjson/internal/pow10.h
-src/Gable.o: include/rapidjson/error/error.h
-src/Gable.o: include/rapidjson/internal/strfunc.h include/rapidjson/stream.h
-src/Gable.o: include/rapidjson/writer.h include/rapidjson/internal/dtoa.h
-src/Gable.o: include/rapidjson/internal/itoa.h
-src/Gable.o: include/rapidjson/internal/itoa.h
-src/Gable.o: include/rapidjson/stringbuffer.h
-src/Gable.o: include/rapidjson/stringbuffer.h include/rapidjson/error/en.h
-src/Gable.o: include/rapidjson/error/error.h include/Shed.h
-src/Gable.o: include/VisualObject.h include/VisualElement.h
+src/Gable.o: include/Gable.h include/VisualObject.h include/VisualElement.h
 src/Gable.o: include/TriangleBuffer.h include/ElementBufferCombo.h
 src/Gable.o: include/VertexArrayObject.h include/VertexBufferObject.h
 src/Gable.o: /usr/local/include/cglm/cglm.h /usr/local/include/cglm/common.h
@@ -844,6 +862,42 @@ src/Gable.o: include/HttpDebug.h include/HttpRequestParser.h
 src/Gable.o: include/TaskQueue.h include/Lockable.h include/Vertex.h
 src/Gable.o: include/ElementBufferObject.h include/BoundingBox.h
 src/Gable.o: include/Shader.h include/VertexBufferCombo.h
+src/Gable.o: include/BuildingRect.h include/rapidjson/document.h
+src/Gable.o: include/rapidjson/reader.h include/rapidjson/allocators.h
+src/Gable.o: include/rapidjson/rapidjson.h include/rapidjson/stream.h
+src/Gable.o: include/rapidjson/encodings.h include/rapidjson/encodedstream.h
+src/Gable.o: include/rapidjson/memorystream.h
+src/Gable.o: include/rapidjson/internal/clzll.h include/rapidjson/rapidjson.h
+src/Gable.o: include/rapidjson/internal/meta.h
+src/Gable.o: include/rapidjson/internal/stack.h
+src/Gable.o: include/rapidjson/allocators.h include/rapidjson/internal/swap.h
+src/Gable.o: include/rapidjson/internal/strtod.h
+src/Gable.o: include/rapidjson/internal/ieee754.h
+src/Gable.o: include/rapidjson/internal/biginteger.h
+src/Gable.o: include/rapidjson/internal/diyfp.h
+src/Gable.o: include/rapidjson/internal/clzll.h
+src/Gable.o: include/rapidjson/internal/pow10.h
+src/Gable.o: include/rapidjson/error/error.h
+src/Gable.o: include/rapidjson/internal/strfunc.h include/rapidjson/stream.h
+src/Gable.o: include/rapidjson/writer.h include/rapidjson/internal/dtoa.h
+src/Gable.o: include/rapidjson/internal/itoa.h
+src/Gable.o: include/rapidjson/internal/itoa.h
+src/Gable.o: include/rapidjson/stringbuffer.h
+src/Gable.o: include/rapidjson/stringbuffer.h include/rapidjson/error/en.h
+src/Gable.o: include/rapidjson/error/error.h include/MenuGablePanel.h
+src/Gable.o: include/MenuPanel.h imgui/imgui.h imgui/imconfig.h
+src/Gable.o: include/Scene.h include/ColoredAxes.h include/LineStripList.h
+src/Gable.o: include/PmodConfig.h include/LandSurface.h
+src/Gable.o: include/TexturedRect.h include/Texture.h include/Quadtree.h
+src/Gable.o: include/DisplayList.h include/LandSurfaceRegion.h
+src/Gable.o: include/LandSurfaceRegionPlanar.h include/Camera.h
+src/Gable.o: include/HeightMarker.h include/BezierPatch.h
+src/Gable.o: include/PmodDesign.h include/Timeval.h
+src/Gable.o: include/JSONStructureChecker.h include/Version.h
+src/Gable.o: include/Boundary.h include/Grid.h include/Material.h
+src/Gable.o: include/TextureAtlas.h include/LightingModel.h include/Species.h
+src/Gable.o: include/DynamicallyTypable.h include/LeafModel.h
+src/Gable.o: include/CO2Scenario.h include/InterfaceAction.h
 src/Global.o: include/Global.h /usr/local/include/cglm/cglm.h
 src/Global.o: /usr/local/include/cglm/common.h
 src/Global.o: /usr/local/include/cglm/types.h
@@ -1650,9 +1704,10 @@ src/Logging.o: include/TriangleBuffer.h include/ElementBufferCombo.h
 src/Logging.o: include/VertexArrayObject.h include/VertexBufferObject.h
 src/Logging.o: include/ElementBufferObject.h include/BoundingBox.h
 src/Logging.o: include/Shader.h include/VertexBufferCombo.h
-src/Logging.o: include/rapidjson/document.h include/rapidjson/reader.h
-src/Logging.o: include/rapidjson/allocators.h include/rapidjson/rapidjson.h
-src/Logging.o: include/rapidjson/stream.h include/rapidjson/encodings.h
+src/Logging.o: include/BuildingRect.h include/rapidjson/document.h
+src/Logging.o: include/rapidjson/reader.h include/rapidjson/allocators.h
+src/Logging.o: include/rapidjson/rapidjson.h include/rapidjson/stream.h
+src/Logging.o: include/rapidjson/encodings.h
 src/Logging.o: include/rapidjson/encodedstream.h
 src/Logging.o: include/rapidjson/memorystream.h
 src/Logging.o: include/rapidjson/internal/clzll.h
@@ -2088,6 +2143,95 @@ src/MenuFocusOverlay.o: include/LeafModel.h include/CO2Scenario.h
 src/MenuFocusOverlay.o: include/InterfaceAction.h include/Window3D.h
 src/MenuFocusOverlay.o: include/MenuInterface.h include/HttpLoadBalancer.h
 src/MenuFocusOverlay.o: include/TaskQueueFarm.h
+src/MenuGablePanel.o: include/MenuGablePanel.h include/MenuPanel.h
+src/MenuGablePanel.o: include/Logging.h include/MemoryTracker.h
+src/MenuGablePanel.o: include/HttpDebug.h include/HttpRequestParser.h
+src/MenuGablePanel.o: include/TaskQueue.h include/Lockable.h include/Global.h
+src/MenuGablePanel.o: /usr/local/include/cglm/cglm.h
+src/MenuGablePanel.o: /usr/local/include/cglm/common.h
+src/MenuGablePanel.o: /usr/local/include/cglm/types.h
+src/MenuGablePanel.o: /usr/local/include/cglm/simd/intrin.h
+src/MenuGablePanel.o: /usr/local/include/cglm/vec2.h
+src/MenuGablePanel.o: /usr/local/include/cglm/util.h
+src/MenuGablePanel.o: /usr/local/include/cglm/vec2-ext.h
+src/MenuGablePanel.o: /usr/local/include/cglm/vec3.h
+src/MenuGablePanel.o: /usr/local/include/cglm/vec4.h
+src/MenuGablePanel.o: /usr/local/include/cglm/vec4-ext.h
+src/MenuGablePanel.o: /usr/local/include/cglm/vec3-ext.h
+src/MenuGablePanel.o: /usr/local/include/cglm/mat4.h
+src/MenuGablePanel.o: /usr/local/include/cglm/mat3.h
+src/MenuGablePanel.o: /usr/local/include/cglm/mat2.h
+src/MenuGablePanel.o: /usr/local/include/cglm/affine.h
+src/MenuGablePanel.o: /usr/local/include/cglm/affine-mat.h
+src/MenuGablePanel.o: /usr/local/include/cglm/cam.h
+src/MenuGablePanel.o: /usr/local/include/cglm/plane.h
+src/MenuGablePanel.o: /usr/local/include/cglm/frustum.h
+src/MenuGablePanel.o: /usr/local/include/cglm/quat.h
+src/MenuGablePanel.o: /usr/local/include/cglm/euler.h
+src/MenuGablePanel.o: /usr/local/include/cglm/box.h
+src/MenuGablePanel.o: /usr/local/include/cglm/color.h
+src/MenuGablePanel.o: /usr/local/include/cglm/io.h
+src/MenuGablePanel.o: /usr/local/include/cglm/project.h
+src/MenuGablePanel.o: /usr/local/include/cglm/sphere.h
+src/MenuGablePanel.o: /usr/local/include/cglm/ease.h
+src/MenuGablePanel.o: /usr/local/include/cglm/curve.h
+src/MenuGablePanel.o: /usr/local/include/cglm/bezier.h
+src/MenuGablePanel.o: /usr/local/include/cglm/ray.h
+src/MenuGablePanel.o: /usr/local/include/cglm/affine2d.h
+src/MenuGablePanel.o: include/VisualObject.h include/VisualElement.h
+src/MenuGablePanel.o: include/TriangleBuffer.h include/ElementBufferCombo.h
+src/MenuGablePanel.o: include/VertexArrayObject.h
+src/MenuGablePanel.o: include/VertexBufferObject.h
+src/MenuGablePanel.o: /usr/local/include/GL/glew.h
+src/MenuGablePanel.o: /usr/local/include/GLFW/glfw3.h include/Vertex.h
+src/MenuGablePanel.o: include/ElementBufferObject.h include/BoundingBox.h
+src/MenuGablePanel.o: include/Shader.h include/VertexBufferCombo.h
+src/MenuGablePanel.o: imgui/imgui.h imgui/imconfig.h include/Scene.h
+src/MenuGablePanel.o: include/ColoredAxes.h include/LineStripList.h
+src/MenuGablePanel.o: include/PmodConfig.h include/LandSurface.h
+src/MenuGablePanel.o: include/TexturedRect.h include/Texture.h
+src/MenuGablePanel.o: include/Quadtree.h include/DisplayList.h
+src/MenuGablePanel.o: include/LandSurfaceRegion.h
+src/MenuGablePanel.o: include/LandSurfaceRegionPlanar.h include/Camera.h
+src/MenuGablePanel.o: include/HeightMarker.h include/BezierPatch.h
+src/MenuGablePanel.o: include/rapidjson/document.h include/rapidjson/reader.h
+src/MenuGablePanel.o: include/rapidjson/allocators.h
+src/MenuGablePanel.o: include/rapidjson/rapidjson.h
+src/MenuGablePanel.o: include/rapidjson/stream.h
+src/MenuGablePanel.o: include/rapidjson/encodings.h
+src/MenuGablePanel.o: include/rapidjson/encodedstream.h
+src/MenuGablePanel.o: include/rapidjson/memorystream.h
+src/MenuGablePanel.o: include/rapidjson/internal/clzll.h
+src/MenuGablePanel.o: include/rapidjson/rapidjson.h
+src/MenuGablePanel.o: include/rapidjson/internal/meta.h
+src/MenuGablePanel.o: include/rapidjson/internal/stack.h
+src/MenuGablePanel.o: include/rapidjson/allocators.h
+src/MenuGablePanel.o: include/rapidjson/internal/swap.h
+src/MenuGablePanel.o: include/rapidjson/internal/strtod.h
+src/MenuGablePanel.o: include/rapidjson/internal/ieee754.h
+src/MenuGablePanel.o: include/rapidjson/internal/biginteger.h
+src/MenuGablePanel.o: include/rapidjson/internal/diyfp.h
+src/MenuGablePanel.o: include/rapidjson/internal/clzll.h
+src/MenuGablePanel.o: include/rapidjson/internal/pow10.h
+src/MenuGablePanel.o: include/rapidjson/error/error.h
+src/MenuGablePanel.o: include/rapidjson/internal/strfunc.h
+src/MenuGablePanel.o: include/rapidjson/stream.h include/PmodDesign.h
+src/MenuGablePanel.o: include/Timeval.h include/JSONStructureChecker.h
+src/MenuGablePanel.o: include/rapidjson/writer.h
+src/MenuGablePanel.o: include/rapidjson/internal/dtoa.h
+src/MenuGablePanel.o: include/rapidjson/internal/itoa.h
+src/MenuGablePanel.o: include/rapidjson/internal/itoa.h
+src/MenuGablePanel.o: include/rapidjson/stringbuffer.h
+src/MenuGablePanel.o: include/rapidjson/stringbuffer.h
+src/MenuGablePanel.o: include/rapidjson/error/en.h
+src/MenuGablePanel.o: include/rapidjson/error/error.h include/Version.h
+src/MenuGablePanel.o: include/Boundary.h include/Grid.h include/Material.h
+src/MenuGablePanel.o: include/TextureAtlas.h include/LightingModel.h
+src/MenuGablePanel.o: include/Species.h include/DynamicallyTypable.h
+src/MenuGablePanel.o: include/LeafModel.h include/CO2Scenario.h
+src/MenuGablePanel.o: include/InterfaceAction.h include/Gable.h
+src/MenuGablePanel.o: include/BuildingRect.h include/MenuInterface.h
+src/MenuGablePanel.o: include/MenuErrorPanel.h
 src/MenuGenus.o: include/MenuGenus.h include/Species.h
 src/MenuGenus.o: include/DynamicallyTypable.h include/HttpDebug.h
 src/MenuGenus.o: include/HttpRequestParser.h include/TaskQueue.h
@@ -2341,7 +2485,8 @@ src/MenuInsert.o: include/Species.h include/DynamicallyTypable.h
 src/MenuInsert.o: include/LeafModel.h include/CO2Scenario.h
 src/MenuInsert.o: include/InterfaceAction.h include/MenuBlockPanel.h
 src/MenuInsert.o: include/MenuShedPanel.h include/Shed.h
-src/MenuInsert.o: include/MenuInterface.h include/MenuTree.h
+src/MenuInsert.o: include/BuildingRect.h include/MenuGablePanel.h
+src/MenuInsert.o: include/Gable.h include/MenuInterface.h include/MenuTree.h
 src/MenuInsert.o: include/MenuHeightPanel.h
 src/MenuInterface.o: include/MenuInterface.h include/DynamicallyTypable.h
 src/MenuInterface.o: include/MenuPanel.h include/Logging.h
@@ -2430,11 +2575,12 @@ src/MenuInterface.o: include/Species.h include/LeafModel.h
 src/MenuInterface.o: include/CO2Scenario.h include/InterfaceAction.h
 src/MenuInterface.o: include/Window3D.h include/HttpLoadBalancer.h
 src/MenuInterface.o: include/TaskQueueFarm.h include/MenuShedPanel.h
-src/MenuInterface.o: include/Shed.h include/MenuBlockPanel.h
-src/MenuInterface.o: include/MenuFocusOverlay.h include/MenuSimulationPanel.h
-src/MenuInterface.o: include/MenuInsert.h include/MenuGenus.h
-src/MenuInterface.o: include/MenuTree.h include/loadFileToBuf.h
-src/MenuInterface.o: include/RegionList.h imgui/backends/imgui_impl_opengl3.h
+src/MenuInterface.o: include/Shed.h include/BuildingRect.h
+src/MenuInterface.o: include/MenuBlockPanel.h include/MenuFocusOverlay.h
+src/MenuInterface.o: include/MenuSimulationPanel.h include/MenuInsert.h
+src/MenuInterface.o: include/MenuGenus.h include/MenuTree.h
+src/MenuInterface.o: include/loadFileToBuf.h include/RegionList.h
+src/MenuInterface.o: imgui/backends/imgui_impl_opengl3.h
 src/MenuInterface.o: imgui/backends/imgui_impl_glfw.h
 src/MenuPanel.o: include/MenuPanel.h include/Logging.h
 src/MenuPanel.o: include/MemoryTracker.h include/HttpDebug.h
@@ -2600,7 +2746,8 @@ src/MenuShedPanel.o: include/TextureAtlas.h include/LightingModel.h
 src/MenuShedPanel.o: include/Species.h include/DynamicallyTypable.h
 src/MenuShedPanel.o: include/LeafModel.h include/CO2Scenario.h
 src/MenuShedPanel.o: include/InterfaceAction.h include/Shed.h
-src/MenuShedPanel.o: include/MenuInterface.h include/MenuErrorPanel.h
+src/MenuShedPanel.o: include/BuildingRect.h include/MenuInterface.h
+src/MenuShedPanel.o: include/MenuErrorPanel.h
 src/MenuSimulationPanel.o: include/MenuSimulationPanel.h include/MenuPanel.h
 src/MenuSimulationPanel.o: include/Logging.h include/MemoryTracker.h
 src/MenuSimulationPanel.o: include/HttpDebug.h include/HttpRequestParser.h
@@ -2691,8 +2838,8 @@ src/MenuSimulationPanel.o: include/Material.h include/TextureAtlas.h
 src/MenuSimulationPanel.o: include/LightingModel.h include/Species.h
 src/MenuSimulationPanel.o: include/DynamicallyTypable.h include/LeafModel.h
 src/MenuSimulationPanel.o: include/CO2Scenario.h include/InterfaceAction.h
-src/MenuSimulationPanel.o: include/Shed.h include/MenuInterface.h
-src/MenuSimulationPanel.o: include/MenuErrorPanel.h
+src/MenuSimulationPanel.o: include/Shed.h include/BuildingRect.h
+src/MenuSimulationPanel.o: include/MenuInterface.h include/MenuErrorPanel.h
 src/MenuTree.o: include/MenuTree.h include/Species.h
 src/MenuTree.o: include/DynamicallyTypable.h include/HttpDebug.h
 src/MenuTree.o: include/HttpRequestParser.h include/TaskQueue.h
@@ -2924,9 +3071,10 @@ src/PmodDesign.o: include/rapidjson/stringbuffer.h
 src/PmodDesign.o: include/rapidjson/error/en.h
 src/PmodDesign.o: include/rapidjson/error/error.h include/Version.h
 src/PmodDesign.o: include/Boundary.h include/loadFileToBuf.h include/Box.h
-src/PmodDesign.o: include/Gable.h include/Shed.h include/Tree.h
-src/PmodDesign.o: include/Species.h include/DynamicallyTypable.h
-src/PmodDesign.o: include/LeafModel.h include/TreePart.h
+src/PmodDesign.o: include/Gable.h include/BuildingRect.h include/Shed.h
+src/PmodDesign.o: include/Tree.h include/Species.h
+src/PmodDesign.o: include/DynamicallyTypable.h include/LeafModel.h
+src/PmodDesign.o: include/TreePart.h
 src/Quadtree.o: include/Quadtree.h include/Shader.h
 src/Quadtree.o: /usr/local/include/cglm/cglm.h
 src/Quadtree.o: /usr/local/include/cglm/common.h
@@ -3314,10 +3462,10 @@ src/Shed.o: include/HttpDebug.h include/HttpRequestParser.h
 src/Shed.o: include/TaskQueue.h include/Lockable.h include/Vertex.h
 src/Shed.o: include/ElementBufferObject.h include/BoundingBox.h
 src/Shed.o: include/Shader.h include/VertexBufferCombo.h
-src/Shed.o: include/rapidjson/document.h include/rapidjson/reader.h
-src/Shed.o: include/rapidjson/allocators.h include/rapidjson/rapidjson.h
-src/Shed.o: include/rapidjson/stream.h include/rapidjson/encodings.h
-src/Shed.o: include/rapidjson/encodedstream.h
+src/Shed.o: include/BuildingRect.h include/rapidjson/document.h
+src/Shed.o: include/rapidjson/reader.h include/rapidjson/allocators.h
+src/Shed.o: include/rapidjson/rapidjson.h include/rapidjson/stream.h
+src/Shed.o: include/rapidjson/encodings.h include/rapidjson/encodedstream.h
 src/Shed.o: include/rapidjson/memorystream.h
 src/Shed.o: include/rapidjson/internal/clzll.h include/rapidjson/rapidjson.h
 src/Shed.o: include/rapidjson/internal/meta.h

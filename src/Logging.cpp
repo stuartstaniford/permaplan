@@ -128,6 +128,7 @@ void LogInit(void)
     err(-1, "Couldn't create log file %s\n", fileName);
   
   LogStructureSizes("Size of Vertex: %lu bytes.\n", sizeof(Vertex));
+  LogStructureSizes("Size of BuildingRect: %lu bytes.\n", sizeof(BuildingRect));
   LogStructureSizes("Size of Shed: %lu bytes.\n", sizeof(Shed));
   LogStructureSizes("Size of unsigned: %lu bytes.\n", sizeof(unsigned));
   LogStructureSizes("Size of unsigned long: %lu bytes.\n", sizeof(unsigned long));

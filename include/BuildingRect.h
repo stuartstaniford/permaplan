@@ -26,6 +26,9 @@ public:
 private:
   
   // Instance variables - private
+  vec3 sides[2];
+  vec3 pos;
+  bool normForward;  // normal is in the direction of sides[0]xsides[1]
   
   // Member functions - private
   BuildingRect(const BuildingRect&);                 // Prevent copy-construction
