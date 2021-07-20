@@ -343,8 +343,9 @@ bool BoundingBox::extendZ(const BoundingBox& otherBox)
 
 
 // =======================================================================================
-// Extend any or all of our dimensions to include a supplied point.  Returns whether or
-// not any extension occurred.
+/// @brief Extend any or all of our dimensions to just include a supplied point.  
+/// @returns whether or not any extension occurred.
+/// @param point The vec3 of the position which our bounding box should now include.
 
 bool BoundingBox::extends(const vec3 point)
 {

@@ -26,8 +26,9 @@ public:
     {sides[i][0] = x;  sides[i][1] = y;  sides[i][2] = z;} 
   inline void setPos(float x, float y, float z) 
     {pos[0] = x;  pos[1] = y;  pos[2] = z;} 
-  void triangleBufferSizes(unsigned& vCount, unsigned& iCount);
- 
+  void  triangleBufferSizes(unsigned& vCount, unsigned& iCount);
+  bool  updateBoundingBox(BoundingBox* box, vec3 offset);
+
 private:
   
   // Instance variables - private
