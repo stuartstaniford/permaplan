@@ -39,6 +39,7 @@ public:
   bool        bufferGeometryOfObject(TriangleBuffer* T);
   bool        matchRayToObject(vec3& position, vec3& direction, float& lambda);
   void        triangleBufferSizes(unsigned& vCount, unsigned& iCount);
+  void        updateBoundingBox(void);
   void        selfValidate(unsigned l);
   const char* objectName(void);
   bool        diagnosticHTMLSummary(HttpDebug* serv);

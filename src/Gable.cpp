@@ -41,6 +41,24 @@ bool Gable::bufferGeometryOfObject(TriangleBuffer* T)
 
 
 // =======================================================================================
+/// @brief Update the size of our axis-aligned bounding box.
+/// @todo use of zeroVec is temporary/wrong.
+
+void Gable::updateBoundingBox(void)
+{
+  unless(box)
+    box = new BoundingBox();
+  
+  westWall.updateBoundingBox(box, zeroVec);
+  eastWall.updateBoundingBox(box, zeroVec);
+  northWall.updateBoundingBox(box, zeroVec);
+  southWall.updateBoundingBox(box, zeroVec);
+  westRoof.updateBoundingBox(box, zeroVec);
+  eastRoof.updateBoundingBox(box, zeroVec);
+}
+
+
+// =======================================================================================
 /// @brief How much space we need in a TriangleBuffer on a call to bufferGeometryToObject
 ///
 /// @param vCount A reference to a count which will hold the number of Vertex objects 
