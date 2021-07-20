@@ -51,9 +51,10 @@ bool Gable::bufferGeometryOfObject(TriangleBuffer* T)
 
 void Gable::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 {
-  vCount = 0u;
-  iCount = 0u;
-  LogTriangleBufEstimates("Box TriangleBuffer estimate: [%u, %u]\n", vCount, iCount);
+  westWall.triangleBufferSizes(vCount, iCount);
+  vCount = 6*vCount + 2;  // 6 walls plus two vertices for the end cap triangles
+  iCount = 6*iCount + 6;  // 6 walls plus two end cap triangles
+  LogTriangleBufEstimates("Gable TriangleBuffer estimate: [%u, %u]\n", vCount, iCount);
 }
 
 

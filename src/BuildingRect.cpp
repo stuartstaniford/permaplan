@@ -24,3 +24,19 @@ BuildingRect::~BuildingRect(void)
 
 
 // =======================================================================================
+/// @brief How much space we need in a TriangleBuffer on a call to bufferGeometry
+///
+/// @param vCount A reference to a count which will hold the number of Vertex objects 
+/// that will be generated.
+/// @param iCount A reference to a count which will hold the number of unsigned indices 
+/// that will be generated.
+
+void BuildingRect::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
+{
+  vCount = 4u;
+  iCount = 6u;
+  LogTriangleBufEstimates("BuildingRect TriangleBuffer estimate: [%u, %u]\n", vCount, iCount);
+}
+
+
+// =======================================================================================
