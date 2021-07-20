@@ -23,6 +23,11 @@ public:
   BuildingRect(void);
   ~BuildingRect(void);
   
+  inline void setSide(int i, float x, float y, float z) 
+    {sides[i][0] = x;  sides[i][1] = y;  sides[i][2] = z;} 
+  inline void setPos(float x, float y, float z) 
+    {pos[0] = x;  pos[1] = y;  pos[2] = z;} 
+  
 private:
   
   // Instance variables - private
