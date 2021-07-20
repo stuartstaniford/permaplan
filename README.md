@@ -1,5 +1,11 @@
 # permaplan
-Permaculture planning software.  In early stages of development, do not try to use yet.  Shooting to have alpha semi-usable code late in 2021 (so I can use it for design work over the winter before the 2022 growing season). I intend to ultimately open-source it, but right now it is still all rights-reserved with no license to copy.
+Permaculture planning software.  
+
+The goal is to be able to model and visualize a landscape design as it evolves into the future - double-click on a map to add trees, buildings, etc, and then watch the landscape grow from any vantage point, and estimate the future carbon capture vs carbon consumption in maintenance.  Possible extensions include estimating resilence to fire, flood, drought, and all the other upcoming nasties.
+
+Right now, it's In the early stages of development, do not try to use it yet.  I'm shooting to have alpha semi-usable code late in 2021 (so I can use it for design work on my own landscape over the winter before the 2022 growing season).  The full vision is going to take years of work (I've bitten off a very big ambitious thing, and there's a lot of chewing required).
+
+I intend to ultimately open-source it, but right now it is still all rights-reserved with no license to copy.  That said, shoot me a note if you are interested in playing with or contributing to it.
 
 Code is in C++, but I speak it with a very strong C accent (I was a C network security guy for over twenty years).  Some of this is a matter of not having learnt better yet, and some of it is conscious choice for performance reasons.  So my coding style is evolving at the moment.  Test and other admin scripts are in Perl.  The system is currently only believed to compile on MacOS Mojave, Catalina, and Big Sur.  Test scripts will not work below Big Sur (ancient Perl versions on prior MacOS's).  However, it's written in a manner intended to be fairly portable and my intent is to port it to Windows and Linux in due course.  
 
