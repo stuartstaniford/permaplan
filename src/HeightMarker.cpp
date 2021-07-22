@@ -1,7 +1,7 @@
 
 // Copyright Staniford Systems.  All Rights Reserved.  Jun 2020 -
-// Class for storing and rendering the user supplied locations of height markers.
-// Renders them as an octahedron balanced on the actual height location
+// Class for storing and rendering the user supplied positions of height markers.
+// Renders them as an octahedron balanced on the actual height position
 
 #include "HeightMarker.h"
 #include <err.h>
@@ -22,9 +22,9 @@ const float heightMarkerHeight = heightMarkerSize*sqrtf(2.0f); // 1/2 the total 
 HeightMarker::HeightMarker(float x, float y, float z):
                                               VisualObject(true)
 {
-  location[0] = x;
-  location[1] = y;
-  location[2] = z;
+  position[0] = x;
+  position[1] = y;
+  position[2] = z;
   updateBoundingBox();
   LogObjectCreation("Object created of type %s with id %u.\n", objectName(), objIndex);
 }
@@ -33,9 +33,9 @@ HeightMarker::HeightMarker(float x, float y, float z):
 HeightMarker::HeightMarker(vec3 loc):
                               VisualObject(true)
 {
-  location[0] = loc[0];
-  location[1] = loc[1];
-  location[2] = loc[2];
+  position[0] = loc[0];
+  position[1] = loc[1];
+  position[2] = loc[2];
   updateBoundingBox();
   LogObjectCreation("Object created of type %s with id %u.\n", objectName(), objIndex);
 }
@@ -143,27 +143,27 @@ bool HeightMarker::getNextVertex(bool resetToFirst, Vertex* v, VertexDetail deta
    }
 
 V0:
-  v->setPosition(location[0], location[1], location[2]);  //bottom vertex
+  v->setPosition(position[0], position[1], position[2]);  //bottom vertex
   return true;
 V1:
-  v->setPosition(location[0] - heightMarkerSize, location[1] - heightMarkerSize,
-                  location[2] + heightMarkerHeight);  // south west corner of center square
+  v->setPosition(position[0] - heightMarkerSize, position[1] - heightMarkerSize,
+                  position[2] + heightMarkerHeight);  // south west corner of center square
   return true;
 V2:
-  v->setPosition(location[0] + heightMarkerSize, location[1] - heightMarkerSize,
-                  location[2] + heightMarkerHeight);  // south east corner
+  v->setPosition(position[0] + heightMarkerSize, position[1] - heightMarkerSize,
+                  position[2] + heightMarkerHeight);  // south east corner
   return true;
 V3:
-  v->setPosition(location[0] + heightMarkerSize, location[1] + heightMarkerSize,
-                  location[2] + heightMarkerHeight);  // north east corner
+  v->setPosition(position[0] + heightMarkerSize, position[1] + heightMarkerSize,
+                  position[2] + heightMarkerHeight);  // north east corner
   return true;
 V4:
-  v->setPosition(location[0] - heightMarkerSize, location[1] + heightMarkerSize,
-                  location[2] + heightMarkerHeight);  // north west corner
+  v->setPosition(position[0] - heightMarkerSize, position[1] + heightMarkerSize,
+                  position[2] + heightMarkerHeight);  // north west corner
   return true;
 V5:
-  v->setPosition(location[0], location[1],
-                  location[2] + 2.0f*heightMarkerHeight);  //top vertex
+  v->setPosition(position[0], position[1],
+                  position[2] + 2.0f*heightMarkerHeight);  //top vertex
   return true;
 }
 
@@ -208,18 +208,18 @@ bool HeightMarker::bufferGeometryOfObject(TriangleBuffer* T)
   
   // Now we know where we are putting stuff and that there is space, so pack
   // in the vertices
-  vertices[0].setPosition(location[0], location[1],
-                  location[2]);  //bottom vertex
-  vertices[1].setPosition(location[0] - heightMarkerSize, location[1] - heightMarkerSize,
-                  location[2] + heightMarkerHeight);  // south west corner of center square
-  vertices[2].setPosition(location[0] + heightMarkerSize, location[1] - heightMarkerSize,
-                  location[2] + heightMarkerHeight);  // south east corner
-  vertices[3].setPosition(location[0] + heightMarkerSize, location[1] + heightMarkerSize,
-                  location[2] + heightMarkerHeight);  // north east corner
-  vertices[4].setPosition(location[0] - heightMarkerSize, location[1] + heightMarkerSize,
-                  location[2] + heightMarkerHeight);  // north west corner
-  vertices[5].setPosition(location[0], location[1],
-                  location[2] + 2.0f*heightMarkerHeight);  //top vertex
+  vertices[0].setPosition(position[0], position[1],
+                  position[2]);  //bottom vertex
+  vertices[1].setPosition(position[0] - heightMarkerSize, position[1] - heightMarkerSize,
+                  position[2] + heightMarkerHeight);  // south west corner of center square
+  vertices[2].setPosition(position[0] + heightMarkerSize, position[1] - heightMarkerSize,
+                  position[2] + heightMarkerHeight);  // south east corner
+  vertices[3].setPosition(position[0] + heightMarkerSize, position[1] + heightMarkerSize,
+                  position[2] + heightMarkerHeight);  // north east corner
+  vertices[4].setPosition(position[0] - heightMarkerSize, position[1] + heightMarkerSize,
+                  position[2] + heightMarkerHeight);  // north west corner
+  vertices[5].setPosition(position[0], position[1],
+                  position[2] + 2.0f*heightMarkerHeight);  //top vertex
 
   if(useNoTexColor)
     for(int i=0; i<HM_VCOUNT; i++)
@@ -289,9 +289,9 @@ void HeightMarker::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 void HeightMarker::updateBoundingBox(void)
 {
   if(!box)
-    box = new BoundingBox(location[0] - heightMarkerSize, location[1] - heightMarkerSize,
-                      location[2], location[0] + heightMarkerSize,
-                      location[1] + heightMarkerSize, location[2] + 2.0f*heightMarkerHeight);
+    box = new BoundingBox(position[0] - heightMarkerSize, position[1] - heightMarkerSize,
+                      position[2], position[0] + heightMarkerSize,
+                      position[1] + heightMarkerSize, position[2] + 2.0f*heightMarkerHeight);
   return;
 }
                                                                 
@@ -313,8 +313,8 @@ const char* HeightMarker::objectName(void)
 bool HeightMarker::diagnosticHTMLSummary(HttpDebug* serv)
 {
   httPrintf("<tr><td><a href=\"/object/%d\">HeightMarker</a></td>", objIndex);
-  httPrintf("<td><b>Location:</b> (%.1f, %.1f, %.1f)</td></tr>\n",
-                                                    location[0], location[1], location[2]);
+  httPrintf("<td><b>position:</b> (%.1f, %.1f, %.1f)</td></tr>\n",
+                                                    position[0], position[1], position[2]);
   return true;
 }
 
@@ -331,8 +331,8 @@ bool HeightMarker::diagnosticHTML(HttpDebug* serv)
     return false;
   
   // Summary Data about the marker
-  httPrintf("<b>Location:</b> (%.1f, %.1f, %.1f)<br>\n",
-                                        location[0], location[1], location[2]);
+  httPrintf("<b>position:</b> (%.1f, %.1f, %.1f)<br>\n",
+                                        position[0], position[1], position[2]);
   unless(box->diagnosticHTML(serv))
     return false;
   

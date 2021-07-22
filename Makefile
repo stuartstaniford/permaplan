@@ -2958,6 +2958,7 @@ src/ObjectGroup.o: include/TaskQueue.h include/Lockable.h include/Vertex.h
 src/ObjectGroup.o: include/ElementBufferObject.h include/BoundingBox.h
 src/ObjectGroup.o: include/Shader.h include/VertexBufferCombo.h
 src/ObjectGroup.o: include/DisplayList.h include/LandSurfaceRegion.h
+src/Orientable.o: include/Orientable.h include/Positionable.h
 src/PathTube.o: include/PathTube.h include/VisualElement.h
 src/PathTube.o: include/TriangleBuffer.h include/ElementBufferCombo.h
 src/PathTube.o: include/VertexArrayObject.h include/VertexBufferObject.h
@@ -3075,6 +3076,7 @@ src/PmodDesign.o: include/Gable.h include/BuildingRect.h include/Shed.h
 src/PmodDesign.o: include/Tree.h include/Species.h
 src/PmodDesign.o: include/DynamicallyTypable.h include/LeafModel.h
 src/PmodDesign.o: include/TreePart.h
+src/Positionable.o: include/Positionable.h
 src/Quadtree.o: include/Quadtree.h include/Shader.h
 src/Quadtree.o: /usr/local/include/cglm/cglm.h
 src/Quadtree.o: /usr/local/include/cglm/common.h

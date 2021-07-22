@@ -166,7 +166,7 @@ extern vec3 zAxis;
 void LandSurface::newLandHeight(HeightMarker* hM)
 {
   const PmodConfig& config = PmodConfig::getConfig();
-  heightLocations.push_back(hM->location);
+  heightLocations.push_back(hM->position);
   heightLabels.push_back(hM->label);
   locationCount++;
   vec3 plane;
@@ -179,7 +179,7 @@ void LandSurface::newLandHeight(HeightMarker* hM)
     // level surface at the new height
     plane[0] = 0.0f; // co-efficient of x
     plane[1] = 0.0f; // co-efficient of y
-    plane[2] = hM->location[2]; // intersection with the z-axis
+    plane[2] = hM->position[2]; // intersection with the z-axis
    }
   else if(config.levelPlane)
    {

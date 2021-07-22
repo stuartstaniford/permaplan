@@ -3,6 +3,8 @@
 #ifndef POSITIONABLE_H
 #define POSITIONABLE_H
 
+#include <cglm/cglm.h>
+
 
 // =======================================================================================
 /// @brief Superclass for things that have a position.
@@ -17,14 +19,17 @@ class Positionable
 public:
   
   // Instance variables - public
+  vec3 position;
   
   // Member functions - public
   Positionable(void);
   ~Positionable(void);
   
-private:
+protected:
   
-  // Instance variables - private
+  // Instance variables - protected
+
+private:
   
   // Member functions - private
   Positionable(const Positionable&);                 // Prevent copy-construction

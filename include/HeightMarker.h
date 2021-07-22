@@ -6,17 +6,17 @@
 #define HEIGHT_MARKER_H
 
 #include "VisualObject.h"
+#include "Positionable.h"
 
 // =======================================================================================
 // Class variable initialization
 
 
-class HeightMarker: public VisualObject
+class HeightMarker: public VisualObject, public Positionable
 {
  public:
   
   // Instance variables - public
-  vec3 location;
 
   // Member functions - public
   HeightMarker(float x, float y, float z);
