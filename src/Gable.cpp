@@ -8,12 +8,30 @@
 
 
 // =======================================================================================
+/// @brief Constructor for GableParamData (the core data required to specify a Gable, and
+/// which gets defined or edited by a ManuGablePanel
+///
+/// This version defines default parameters).
+
+GableParamData::GableParamData(void):
+                                height(18.0f),
+                                length(40.0f),
+                                width(30.0f),
+                                roofAngle(15.0f),
+                                overhang(2.0f)
+{
+}
+
+
+// =======================================================================================
 // Constructor
 
 Gable::Gable(MenuGablePanel& gablePanel):
                               VisualObject(false)
 {
 }
+
+
 
 
 // =======================================================================================

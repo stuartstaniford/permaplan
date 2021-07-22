@@ -18,6 +18,7 @@ class Orientable: public Positionable
 public:
   
   // Instance variables - public
+  float angleFromNorth;
   
   // Member functions - public
   Orientable(void);

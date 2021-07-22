@@ -4,6 +4,7 @@
 #define GABLE_H
 #include "VisualObject.h"
 #include "BuildingRect.h"
+#include "Orientable.h"
 #include "rapidjson/document.h"
 #include "rapidjson/writer.h"
 #include "rapidjson/stringbuffer.h"
@@ -16,6 +17,26 @@ class MenuGablePanel;
 
 
 // =======================================================================================
+/// @brief The minimal date required to specify a gable.  Gable, and MenuGablePanel,
+/// inherit from this.
+
+class GableParamData: public Orientable
+{
+  public:
+    GableParamData(void);
+  
+  protected:
+  
+  // Instance variables - private
+  float height;
+  float length;
+  float width;
+  float roofAngle;
+  float overhang;  
+};
+
+
+// =======================================================================================
 /// @brief For rendering gables.
 /// 
 /// This class is for use in rendering parts of buildings - specifically it renders a
@@ -25,7 +46,7 @@ class MenuGablePanel;
 /// to this class is that the building is sitting at the origin with it's floor in the
 /// x-y plane, and it's roof ridge parallel to the y-axis (that is, running north-south).
 
-class Gable: public VisualObject
+class Gable: public VisualObject, public GableParamData
 {
 public:
   

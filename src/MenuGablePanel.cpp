@@ -22,11 +22,7 @@ char  MenuGablePanel::overhangLabel[16];
 
 MenuGablePanel::MenuGablePanel(MenuInterface* menu, Scene* S):
                                                       MenuPanel(menu, S),
-                                                      height(18.0f),
-                                                      length(40.0f),
-                                                      width(30.0f),
-                                                      roofAngle(15.0f),
-                                                      overhang(2.0f)
+                                                      GableParamData()
 {
   unless(staticsInitialized)
    {

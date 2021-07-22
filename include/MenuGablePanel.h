@@ -14,7 +14,7 @@
 /// inserting or editing a gable building (or gable-like component of a larger building.) 
 
 
-class MenuGablePanel: public MenuPanel
+class MenuGablePanel: public MenuPanel, public GableParamData
 {
 public:
   
@@ -35,13 +35,6 @@ public:
   
 private:
   
-  // Instance variables - private
-  float height;
-  float length;
-  float width;
-  float roofAngle;
-  float overhang;  
-
   // static buffers for labels for controls
   static bool  staticsInitialized;
   static char  heightLabel[16];
