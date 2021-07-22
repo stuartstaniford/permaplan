@@ -6,6 +6,7 @@
 #include "AxialElement.h"
 #include "VisualObject.h"
 
+
 // =======================================================================================
 // Class variable initialization
 
