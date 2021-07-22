@@ -5,12 +5,12 @@
 
 #include "VisualObject.h"
 #include "BuildingRect.h"
+#include "Orientable.h"
 #include <cglm/cglm.h>
 #include "rapidjson/document.h"
 #include "rapidjson/writer.h"
 #include "rapidjson/stringbuffer.h"
 #include "rapidjson/error/en.h"
-
 
 // =======================================================================================
 // Needed forward declarations
@@ -22,7 +22,7 @@ class MenuShedPanel;
 /// @brief The minimal date required to specify a shed.  Shed, and MenuShedPanel,
 /// inherit from this.
 
-class ShedParamData
+class ShedParamData: public Orientable
 {
   public:
     ShedParamData(void);
