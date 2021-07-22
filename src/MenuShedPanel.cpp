@@ -25,7 +25,8 @@ char  MenuShedPanel::bOverhangLabel[16];
 /// @brief Constructor
 ///
 /// The constructor is where a variety of default values for the inserted shed are set. 
-/// It also initializes a number of static variables if they weren't done before.
+/// It also initializes a number of static variables if they weren't done before.  This 
+/// constructor is used for a shed that doesn't exist yet.
 ///
 /// @param menu Pointer to the overall MenuInterface so we can call back into it. 
 /// @param S A pointer to the scene.
@@ -33,14 +34,7 @@ char  MenuShedPanel::bOverhangLabel[16];
 
 MenuShedPanel::MenuShedPanel(MenuInterface* menu, Scene* S):
                               MenuPanel(menu, S),
-                              height(8.0f),
-                              length(12.0f),
-                              width(6.0f),
-                              roofAngle(15.0f),
-                              rightOverhang(1.0f),
-                              leftOverhang(1.0f),
-                              frontOverhang(1.0f),
-                              backOverhang(1.0f)
+                              ShedParamData()
 {
   unless(staticsInitialized)
    {

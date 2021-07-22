@@ -13,7 +13,7 @@
 /// This class provides for the display of a single UI panel that can be used when
 /// inserting or editing a shed building (or shed-like component of a larger building.) 
 
-class MenuShedPanel: public MenuPanel
+class MenuShedPanel: public MenuPanel, public ShedParamData
 {  
   friend MenuInterface;
   friend Shed;
@@ -36,17 +36,6 @@ public:
   bool handleHTTPRequest(HttpDebug* serv, char* path);
 
 private:
-  
-  // Instance variables - private
-  float height;
-  float length;
-  float width;
-  float roofAngle;
-  float rightOverhang;
-  float leftOverhang;
-  float frontOverhang;
-  float backOverhang;
-  
 
   // static buffers for labels for controls
   static bool  staticsInitialized;

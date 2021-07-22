@@ -19,13 +19,36 @@ class MenuShedPanel;
 
 
 // =======================================================================================
+/// @brief The minimal date required to specify a shed.  Shed, and MenuShedPanel,
+/// inherit from this.
+
+class ShedParamData
+{
+  public:
+    ShedParamData(void);
+  
+  protected:
+  
+  // Instance variables - protected
+  float height;
+  float length;
+  float width;
+  float roofAngle;
+  float rightOverhang;
+  float leftOverhang;
+  float frontOverhang;
+  float backOverhang;
+};
+
+
+// =======================================================================================
 /// @brief For rendering sheds.
 /// 
 /// This class is for rendering sheds - either standalone buildings, or (with an open
 /// side) parts of larger buildings.) 
 
 
-class Shed: public VisualObject
+class Shed: public VisualObject, public ShedParamData
 {
 public:
   
@@ -40,7 +63,7 @@ public:
   
 private:
   
-  // Instance variables - private
+  // Instance variables - protected
   vec3 pos;       // the direction of the tall wall of the shed
   vec3 longAxis; 
   vec3 shortAxis; // the direction of the short walls

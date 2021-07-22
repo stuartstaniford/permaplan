@@ -7,6 +7,25 @@
 
 
 // =======================================================================================
+/// @brief Constructor for ShedParamData (the core data required to specify a Shed, and
+/// which gets defined or edited by a ManuShedPanel
+///
+/// This version defines default parameters).
+
+ShedParamData::ShedParamData(void):
+                              height(8.0f),
+                              length(12.0f),
+                              width(6.0f),
+                              roofAngle(15.0f),
+                              rightOverhang(1.0f),
+                              leftOverhang(1.0f),
+                              frontOverhang(1.0f),
+                              backOverhang(1.0f)
+{
+}
+
+
+// =======================================================================================
 /// @brief Constructor for a shed formed from an insertion via a MenuShedPanel
 ///
 /// This takes the insertion point and parameters specified in the MenuShedPanel and
