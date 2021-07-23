@@ -76,7 +76,7 @@ void Shed::updateBoundingBox(void)
 /// @returns False if space cannot be obtained in the TriangleBuffer, true otherwise.
 /// @param T A pointer to a TriangleBuffer into which the object should insert its
 /// vertices and indices (see TriangleBuffer::requestSpace).
-/// @todo Stub only at present
+/// @todo End triangles
 
 bool Shed::bufferGeometryOfObject(TriangleBuffer* T)
 {
@@ -105,6 +105,7 @@ bool Shed::bufferGeometryOfObject(TriangleBuffer* T)
 /// @param dir The vec3 for the direction of the ray.
 /// @param lambda A reference to a float which will be used to store the multiple of 
 /// the direction vector from the position to the match point on the object.
+/// @todo End triangles
 
 bool Shed::matchRayToObject(vec3& pos, vec3& dir, float& lambda)
 {

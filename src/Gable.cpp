@@ -49,7 +49,7 @@ Gable::~Gable(void)
 /// @returns False if space cannot be obtained in the TriangleBuffer, true otherwise.
 /// @param T A pointer to a TriangleBuffer into which the object should insert its
 /// vertices and indices (see TriangleBuffer::requestSpace).
-/// @todo Stub only at present
+/// @todo End triangles
 
 bool Gable::bufferGeometryOfObject(TriangleBuffer* T)
 {
@@ -117,6 +117,7 @@ void Gable::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 /// @param dir The vec3 for the direction of the ray.
 /// @param lambda A reference to a float which will be used to store the multiple of 
 /// the direction vector from the position to the match point on the object.
+/// @todo End triangles
 
 bool Gable::matchRayToObject(vec3& pos, vec3& dir, float& lambda)
 {

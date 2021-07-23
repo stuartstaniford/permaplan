@@ -50,7 +50,7 @@ HeightMarker::HeightMarker(vec3 loc):
 
 
 // =======================================================================================
-// Destructor
+/// @brief Destructor
 
 HeightMarker::~HeightMarker(void)
 {
@@ -167,7 +167,8 @@ V5:
 
 
 // =======================================================================================
-// Function to validate the tree.
+/// @brief Function to validate our data - nothing to validate here, except out bounding
+/// box.
 
 #ifdef LOG_TREE_VALIDATION
 
@@ -179,8 +180,10 @@ void HeightMarker::selfValidate(unsigned l)
 #endif
 
 // =======================================================================================
-// This is where the actual octahedron geometry is defined - we render it into a buffer
-// on request
+/// @brief Render our octahedron into a TriangleBuffer on request.
+/// @returns False if space cannot be obtained in the TriangleBuffer, true otherwise.
+/// @param T A pointer to a TriangleBuffer into which the object should insert its
+/// vertices and indices (see TriangleBuffer::requestSpace).
 
 bool HeightMarker::bufferGeometryOfObject(TriangleBuffer* T)
 {
@@ -261,7 +264,7 @@ bool HeightMarker::bufferGeometryOfObject(TriangleBuffer* T)
 
 
 // =======================================================================================
-// How much space we need in a TriangleBuffer
+/// @brief How much space we need in a TriangleBuffer
 
 void HeightMarker::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 {
@@ -272,8 +275,11 @@ void HeightMarker::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 
 
 // =======================================================================================
-// Bounding box is aligned with the square of the octahedron (which is aligned in the x-y
-// plane).  Height markers are currently immutable once created.
+/// @brief Update our bounding box on request.
+/// 
+/// Bounding box is aligned with the square of the octahedron (which is aligned in 
+/// the x-y plane).  Height markers are currently immutable once created so this function
+/// only actually does anything on the first call, but we have to implement the API.
                                                                 
 void HeightMarker::updateBoundingBox(void)
 {
@@ -286,7 +292,7 @@ void HeightMarker::updateBoundingBox(void)
                                                                 
 
 // =======================================================================================
-// Tell callers our name at runtime.
+/// @brief Tell callers our name at runtime.
 
 const char* HeightMarker::objectName(void)
 {
@@ -296,8 +302,14 @@ const char* HeightMarker::objectName(void)
 
 
 // =======================================================================================
-// We assume we are part of a table of visual objects and we just contribute one row
-// about this particular HeightMarker.
+/// @brief  Provide one row of a table of visual objects about this particular 
+/// HeightMarker.
+///
+/// The type of visual object is in the first column (with a link to the detail page
+/// that is provided by HeightMarker::diagnosticHTML), and details are provided in the 
+/// second column.  
+/// @returns True if the object was written correctly, false if we ran out of space.
+/// @param serv The HTTP Debug server
 
 bool HeightMarker::diagnosticHTMLSummary(HttpDebug* serv)
 {
@@ -309,7 +321,11 @@ bool HeightMarker::diagnosticHTMLSummary(HttpDebug* serv)
 
 
 // =======================================================================================
-// Build a page about this particular object with all available detail.
+/// @brief Provides access to the diagnostic HTTP server for the diagnosticHTML page of 
+/// this HeightMarker via it's objIndex.
+///
+/// @returns True if the HeightMarker was written correctly, false if we ran out of space.
+/// @param serv The HTTP Debug server
 
 bool HeightMarker::diagnosticHTML(HttpDebug* serv)
 {

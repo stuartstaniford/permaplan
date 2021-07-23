@@ -281,6 +281,8 @@ bool VisualObject::diagnosticHTML(HttpDebug* serv)
 /// column.  A link should be provided to whatever URL serves diagnosticHTML.  The 
 /// implementation in this class should be overwritten by implementing subclasses as it 
 /// will abort with an error if ever called.
+/// @returns True if the object was written correctly, false if we ran out of space.
+/// @param serv The HTTP Debug server
 
 bool VisualObject::diagnosticHTMLSummary(HttpDebug* serv)
 {

@@ -11,7 +11,9 @@
 /// @brief Mark where heights have been supplied.
 /// 
 /// Class for storing and rendering the user supplied locations of height (altitude)
-/// measurements.  Renders them as an octahedron balanced on the actual height location
+/// measurements.  Renders them as an octahedron balanced on the actual height location.
+/// Note that Height markers are currently immutable once created, and cannot be rotated
+/// (that is they are Positionable, but not Orientable).
 
 
 class HeightMarker: public VisualObject, public Positionable
