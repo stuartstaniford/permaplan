@@ -70,6 +70,34 @@ void Shed::updateBoundingBox(void)
 
 
 // =======================================================================================
+/// @brief This is where the actual geometry of the shed is defined - we render it into a 
+/// buffer on request
+/// 
+/// @returns False if space cannot be obtained in the TriangleBuffer, true otherwise.
+/// @param T A pointer to a TriangleBuffer into which the object should insert its
+/// vertices and indices (see TriangleBuffer::requestSpace).
+/// @todo Stub only at present
+
+bool Shed::bufferGeometryOfObject(TriangleBuffer* T)
+{
+  if(westWallPresent)
+    unless(westWall.bufferGeometryOfElement(T, position))
+      return false;
+  if(eastWallPresent)
+    unless(eastWall.bufferGeometryOfElement(T, position))
+      return false;
+  unless(northWall.bufferGeometryOfElement(T, position))
+    return false;
+  unless(southWall.bufferGeometryOfElement(T, position))
+    return false;
+  unless(roof.bufferGeometryOfElement(T, position))
+    return false;
+
+  return true;
+}
+
+
+// =======================================================================================
 /// @brief How much space we need in a TriangleBuffer on a call to bufferGeometryToObject
 ///
 /// @param vCount A reference to a count which will hold the number of Vertex objects 

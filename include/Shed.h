@@ -63,6 +63,7 @@ public:
   ~Shed(void);
   void triangleBufferSizes(unsigned& vCount, unsigned& iCount);
   void updateBoundingBox(void);
+  bool bufferGeometryOfObject(TriangleBuffer* T);
   const char* objectName(void);
 
   // Static methods
