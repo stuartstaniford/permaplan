@@ -167,17 +167,17 @@ V5:
 
 
 // =======================================================================================
-/// @brief Function to validate our data - nothing to validate here, except out bounding
-/// box.
-
-#ifdef LOG_TREE_VALIDATION
+/// @brief Function to validate our data.
+/// 
+/// Nothing to validate here, except our bounding box.
 
 void HeightMarker::selfValidate(unsigned l)
 {
+#ifdef LOG_TREE_VALIDATION
   box->selfValidate(true);
+#endif
 }
 
-#endif
 
 // =======================================================================================
 /// @brief Render our octahedron into a TriangleBuffer on request.

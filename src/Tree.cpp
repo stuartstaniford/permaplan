@@ -19,9 +19,16 @@ Tree** Tree::treePtrArray = new Tree*[TREE_ARRAY_SIZE];
 using namespace rapidjson;
 
 // =======================================================================================
-// Constructors.  NB MORE THAN ONE CONSTRUCTOR!!!
-
-// Constructor used when starting a seedling from the interface
+/// @brief Constructor used when starting a seedling from the UI.
+///
+/// NB MORE THAN ONE CONSTRUCTOR!!! - See below
+/// @param S    A pointer to the Species of this kind of tree
+/// @param loc  A vec3 location of where the tree is to be placed
+/// @param age  A floating point age (in years) of how old the tree is to be created as
+/// @param now  A floating point represenation of the current year, so that the tree's 
+/// year planted can be computed.
+/// @todo Tree should inherit from Positionable, not have its own location
+/// field.
 
 Tree::Tree(Species* S, vec3 loc, float age, float now):
                           VisualObject(false),
@@ -44,9 +51,12 @@ Tree::Tree(Species* S, vec3 loc, float age, float now):
 
 
 // =======================================================================================
-// This is the constructor generally used when reading from OLDF.  Note that validation
-// was done already by PmodDesign, so here we can safely assume the JSON is all
-// syntactically correct.
+/// @brief Constructor used when reading from OLDF.
+/// 
+/// Note that validation was done already by PmodDesign, so here we can safely assume 
+/// the JSON is all syntactically correct.
+/// @param plantObject A rapidJson::Value reference to the OLDF/JSON representation of 
+/// the tree.
 
 Tree::Tree(Value& plantObject):
                           VisualObject(false),
@@ -108,7 +118,7 @@ Tree::Tree(Value& plantObject):
 
 
 // =======================================================================================
-// Destructor
+/// @brief Destructor
 
 Tree::~Tree(void)
 {
@@ -117,8 +127,12 @@ Tree::~Tree(void)
 
 
 // =======================================================================================
-// Function that is applied to grow the tree by a certain number of years (possibly
-// fractional).
+/// @brief Simulate tree growth.
+/// 
+/// This method is applied to grow the tree by a certain number of years (possibly
+/// fractional).
+/// @param years A float value for the number of additional years to simulate the growth
+/// of the tree.
 
 void Tree::growStep(float years)
 {
@@ -183,6 +197,7 @@ float Tree::estimateOpacityAxially(int axis)
   
   return (float)total/OPACITY_ESTIMATE_FACTOR/OPACITY_ESTIMATE_FACTOR;
 }
+
 
 // =======================================================================================
 // Estimate the likilihood that a ray of light will make it through our bounding box

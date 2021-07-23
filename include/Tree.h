@@ -1,5 +1,4 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Dec 2020 -
-// Class for storing and rendering trees.
 
 #ifndef TREE_H
 #define TREE_H
@@ -16,12 +15,21 @@
 #define TREE_ARRAY_SIZE   16384 // cannot exceed size of unsigned short
 #define OPACITY_ESTIMATE_FACTOR 10
 
+
 // =======================================================================================
-// Class variable initialization
+// Necessary forward declarations
 
 class WoodySegment;
 
 void growOneTree(void* arg);
+
+
+// =======================================================================================
+/// @brief Store and render trees.
+///
+/// This is the main class for rendering a tree as a VisualObject.  Relies heavily on
+/// Species (which captures the OTDL description of each type of tree), and WoodySegment
+/// which models indidual pieces of branches etc.
 
 class Tree: public VisualObject
 {

@@ -893,7 +893,8 @@ INPUT                  = doc \
                 include/ResourceManager.h src/ResourceManager.cpp \
                 include/Shed.h src/Shed.cpp \
                 include/TaskQueue.h src/TaskQueue.cpp \
-                include/TriangleBuffer.h src/TriangleBuffer.cpp \
+                include/TaskQueue.h src/TaskQueue.cpp \
+                include/Tree.h src/Tree.cpp \
                 include/Vertex.h src/Vertex.cpp \
                 include/VisualElement.h src/VisualElement.cpp \
                 include/VisualObject.h src/VisualObject.cpp \
