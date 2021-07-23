@@ -50,6 +50,16 @@ Shed::~Shed(void)
 
 
 // =======================================================================================
+/// @brief Tell callers our name at runtime.
+
+const char* Shed::objectName(void)
+{
+  static char* name = (char*)"Shed";
+  return name;
+}
+
+
+// =======================================================================================
 /// @brief Static function to check a shed in OLDF
 ///
 /// Tests the validity of some JSON in an OLDF file that purportedly represents a shed.

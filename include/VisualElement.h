@@ -10,6 +10,7 @@
 extern vec3 zeroVec;
 #endif
 
+
 // =======================================================================================
 /// @brief Superclass for renderable parts of objects.
 /// 
