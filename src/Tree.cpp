@@ -170,8 +170,10 @@ void Tree::growStep(float years)
 
 
 // =======================================================================================
-// Estimate the likilihood that a ray of light will make it through our bounding box in
-// a direction aligned with the specified axis.
+/// @brief Estimate the likilihood that a ray of light will make it through our bounding 
+/// box in a direction aligned with the specified axis.
+/// @param axis The direction of estimation with 0=x, 1=y, 2=z.  This is used by 
+/// Tree::estimateOpacity to approximate the general case of arbitrary directions.
 
 float Tree::estimateOpacityAxially(int axis)
 {
@@ -200,11 +202,15 @@ float Tree::estimateOpacityAxially(int axis)
 
 
 // =======================================================================================
-// Estimate the likilihood that a ray of light will make it through our bounding box
-// in a particular direction.  Returns a value from 0 (completely transparent) to
-// 1.0 (completely opaque).
-
-// Currently works by interpolating between the values from estimateOpacityAxially
+/// @brief Estimate the likilihood that a ray of light will make it through our bounding 
+/// box in a particular direction.  
+/// 
+/// This is used for approximating shading calculations (eg for other nearby trees being
+/// shaded by this one.  Intended to work by interpolating between the values from 
+/// Tree::estimateOpacityAxially
+/// @returns A float value from 0 (completely transparent) to 1.0 (completely opaque).
+/// @param direction A vec3 of the direction in which the caller would like to know the 
+/// opacity.
 
 float Tree::estimateOpacity(vec3 direction)
 {
