@@ -110,12 +110,58 @@ void Gable::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 
 
 // =======================================================================================
-/// @brief Decide if a ray touches us
-/// @todo Stub only at present
+/// @brief Decide if a ray touches us.
+/// 
+/// This implementation works by checking each of our component BuildingRects
+/// @param pos The vec3 for a point on the ray to be matched.
+/// @param dir The vec3 for the direction of the ray.
+/// @param lambda A reference to a float which will be used to store the multiple of 
+/// the direction vector from the position to the match point on the object.
 
-bool Gable::matchRayToObject(vec3& position, vec3& direction, float& lambda)
+bool Gable::matchRayToObject(vec3& pos, vec3& dir, float& lambda)
 {
-  return false;
+  lambda = HUGE_VAL;
+  float subLambda;
+  bool matched = false;
+  
+  if(westWall.matchRayToElement(pos, dir, subLambda, position))
+   {
+    matched = true;
+    if(subLambda < lambda)
+      lambda = subLambda;
+   }
+  if(eastWall.matchRayToElement(pos, dir, subLambda, position))
+   {
+    matched = true;
+    if(subLambda < lambda)
+      lambda = subLambda;
+   }
+  if(northWall.matchRayToElement(pos, dir, subLambda, position))
+   {
+    matched = true;
+    if(subLambda < lambda)
+      lambda = subLambda;
+   }
+  if(southWall.matchRayToElement(pos, dir, subLambda, position))
+   {
+    matched = true;
+    if(subLambda < lambda)
+      lambda = subLambda;
+   }
+  if(westRoof.matchRayToElement(pos, dir, subLambda, position))
+   {
+    matched = true;
+    if(subLambda < lambda)
+      lambda = subLambda;
+   }
+  if(eastRoof.matchRayToElement(pos, dir, subLambda, position))
+   {
+    matched = true;
+    if(subLambda < lambda)
+      lambda = subLambda;
+   }
+  
+  return matched;
 }
 
 // =======================================================================================

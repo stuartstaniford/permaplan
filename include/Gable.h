@@ -58,7 +58,7 @@ public:
   
   // Public methods implementing the VisualObject interface
   bool        bufferGeometryOfObject(TriangleBuffer* T);
-  bool        matchRayToObject(vec3& position, vec3& direction, float& lambda);
+  bool        matchRayToObject(vec3& pos, vec3& dir, float& lambda);
   void        triangleBufferSizes(unsigned& vCount, unsigned& iCount);
   void        updateBoundingBox(void);
   void        selfValidate(unsigned l);
