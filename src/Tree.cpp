@@ -331,37 +331,6 @@ void Tree::growAllTrees(float years)
 
 
 // =======================================================================================
-// Iterator over vertices with each unique.  Doesn't do textures, normals, as they aren't
-// very well defined for this purpose.
-// Not implemented here as the data is with the kids
-
-bool Tree::getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
-{
-  return false;
-}
-
-
-// =======================================================================================
-// Iterator over indices.
-// Not implemented here as the data is with the kids
-
-int Tree::getNextIndex(bool resetToFirst)
-{
-  return 0;
-}
-
-
-// =======================================================================================
-// Generate all the vertices in order, with textures, normals, etc.
-// Not implemented here as the data is with the kids
-
-bool Tree::getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
-{
-  return false;
-}
-
-
-// =======================================================================================
 // This routine is generally where the actual geometry is defined - but in our case,
 // Tree itself doesn't directly define any geometry, and instead it's all based on
 // recursion.
