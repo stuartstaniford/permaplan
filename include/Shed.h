@@ -64,6 +64,7 @@ public:
   void triangleBufferSizes(unsigned& vCount, unsigned& iCount);
   void updateBoundingBox(void);
   bool bufferGeometryOfObject(TriangleBuffer* T);
+  bool matchRayToObject(vec3& pos, vec3& dir, float& lambda);
   const char* objectName(void);
 
   // Static methods

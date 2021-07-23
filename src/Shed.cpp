@@ -98,6 +98,56 @@ bool Shed::bufferGeometryOfObject(TriangleBuffer* T)
 
 
 // =======================================================================================
+/// @brief Decide if a ray touches us.
+/// 
+/// This implementation works by checking each of our component BuildingRects
+/// @param pos The vec3 for a point on the ray to be matched.
+/// @param dir The vec3 for the direction of the ray.
+/// @param lambda A reference to a float which will be used to store the multiple of 
+/// the direction vector from the position to the match point on the object.
+
+bool Shed::matchRayToObject(vec3& pos, vec3& dir, float& lambda)
+{
+  lambda = HUGE_VAL;
+  float subLambda;
+  bool matched = false;
+  
+  if(westWallPresent && westWall.matchRayToElement(pos, dir, subLambda, position))
+   {
+    matched = true;
+    if(subLambda < lambda)
+      lambda = subLambda;
+   }
+  if(eastWallPresent && eastWall.matchRayToElement(pos, dir, subLambda, position))
+   {
+    matched = true;
+    if(subLambda < lambda)
+      lambda = subLambda;
+   }
+  if(northWall.matchRayToElement(pos, dir, subLambda, position))
+   {
+    matched = true;
+    if(subLambda < lambda)
+      lambda = subLambda;
+   }
+  if(southWall.matchRayToElement(pos, dir, subLambda, position))
+   {
+    matched = true;
+    if(subLambda < lambda)
+      lambda = subLambda;
+   }
+  if(roof.matchRayToElement(pos, dir, subLambda, position))
+   {
+    matched = true;
+    if(subLambda < lambda)
+      lambda = subLambda;
+   }
+  
+  return matched;
+}
+
+
+// =======================================================================================
 /// @brief How much space we need in a TriangleBuffer on a call to bufferGeometryToObject
 ///
 /// @param vCount A reference to a count which will hold the number of Vertex objects 
