@@ -331,9 +331,14 @@ void Tree::growAllTrees(float years)
 
 
 // =======================================================================================
-// This routine is generally where the actual geometry is defined - but in our case,
-// Tree itself doesn't directly define any geometry, and instead it's all based on
-// recursion.
+/// @brief Buffer the tree and components to a TriangleBuffer.
+/// 
+/// This routine is generally where the actual geometry is defined - but in our case, 
+/// Tree itself doesn't directly define any geometry, and instead it's all based on
+/// recursion into the WoodySegment objects beginning with the trunk.
+/// @returns False if space cannot be obtained in the TriangleBuffer, true otherwise.
+/// @param T A pointer to a TriangleBuffer into which the object should insert its
+/// vertices and indices (see TriangleBuffer::requestSpace).
 
 bool Tree::bufferGeometryOfObject(TriangleBuffer* T)
 {
@@ -353,7 +358,10 @@ bool Tree::bufferGeometryOfObject(TriangleBuffer* T)
 
 
 // =======================================================================================
-// Function to return the location at which we officially contact ground/grade level.
+/// @brief Function to return the location at which we officially contact ground/grade 
+/// level.
+/// @param x.  A reference to float where the x location should be stored.
+/// @param y.  A reference to float where the x location should be stored.
 
 void Tree::getGroundContact(float& x, float& y)
 {
@@ -371,7 +379,11 @@ void Tree::getGroundContact(float& x, float& y)
 
 
 // =======================================================================================
-// How much space we need in a TriangleBuffer
+/// @brief How much space we need in a TriangleBuffer
+/// @param vCount A reference to a count which will hold the number of Vertex objects 
+/// that will be generated.
+/// @param iCount A reference to a count which will hold the number of unsigned indices 
+/// that will be generated.
 
 void Tree::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 {

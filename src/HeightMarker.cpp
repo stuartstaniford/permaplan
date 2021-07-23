@@ -265,6 +265,10 @@ bool HeightMarker::bufferGeometryOfObject(TriangleBuffer* T)
 
 // =======================================================================================
 /// @brief How much space we need in a TriangleBuffer
+/// @param vCount A reference to a count which will hold the number of Vertex objects 
+/// that will be generated.
+/// @param iCount A reference to a count which will hold the number of unsigned indices 
+/// that will be generated.
 
 void HeightMarker::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 {
