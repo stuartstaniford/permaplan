@@ -50,6 +50,39 @@ Shed::~Shed(void)
 
 
 // =======================================================================================
+/// @brief How much space we need in a TriangleBuffer on a call to bufferGeometryToObject
+///
+/// @param vCount A reference to a count which will hold the number of Vertex objects 
+/// that will be generated.
+/// @param iCount A reference to a count which will hold the number of unsigned indices 
+/// that will be generated.
+/// @todo Stub only at present
+
+void Shed::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
+{
+  unsigned vCountRect, iCountRect;
+  vCount = 0u;
+  iCount = 0u;
+  
+  northWall.triangleBufferSizes(vCountRect, iCountRect);
+  vCount = 3*vCountRect + 2;  // 2 walls + roof + two vertices for the end cap triangles
+  iCount = 3*iCountRect + 6;  // 2 walls + roof + two end cap triangles
+  if(westWallPresent)
+   {
+    vCount += vCountRect;
+    iCount += iCountRect;
+   }
+  if(eastWallPresent)
+   {
+    vCount += vCountRect;
+    iCount += iCountRect;
+   }
+  
+  LogTriangleBufEstimates("Shed TriangleBuffer estimate: [%u, %u]\n", vCount, iCount);
+}
+
+
+// =======================================================================================
 /// @brief Tell callers our name at runtime.
 
 const char* Shed::objectName(void)

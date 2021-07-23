@@ -61,6 +61,7 @@ public:
   // Member functions - public
   Shed(MenuShedPanel& shedPanel);
   ~Shed(void);
+  void triangleBufferSizes(unsigned& vCount, unsigned& iCount);
   const char* objectName(void);
 
   // Static methods
