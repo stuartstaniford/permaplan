@@ -1,6 +1,4 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Jun 2020 -
-// Class for storing and rendering the user supplied locations of height markers.
-// Renders them as an octahedron balanced on the actual height location
 
 #ifndef HEIGHT_MARKER_H
 #define HEIGHT_MARKER_H
@@ -8,8 +6,12 @@
 #include "VisualObject.h"
 #include "Positionable.h"
 
+
 // =======================================================================================
-// Class variable initialization
+/// @brief Mark where heights have been supplied.
+/// 
+/// Class for storing and rendering the user supplied locations of height (altitude)
+/// measurements.  Renders them as an octahedron balanced on the actual height location
 
 
 class HeightMarker: public VisualObject, public Positionable
@@ -22,9 +24,7 @@ class HeightMarker: public VisualObject, public Positionable
   HeightMarker(float x, float y, float z);
   HeightMarker(vec3 loc);
   ~HeightMarker(void);
-  bool        getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
   bool        getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
-  int         getNextIndex(bool resetToFirst);
   bool        bufferGeometryOfObject(TriangleBuffer* T);
   void        updateBoundingBox(void);
   void        selfValidate(unsigned l);

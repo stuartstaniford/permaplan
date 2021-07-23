@@ -53,6 +53,18 @@ Gable::~Gable(void)
 
 bool Gable::bufferGeometryOfObject(TriangleBuffer* T)
 {
+  unless(westWall.bufferGeometryOfElement(T, position))
+    return false;
+  unless(eastWall.bufferGeometryOfElement(T, position))
+    return false;
+  unless(northWall.bufferGeometryOfElement(T, position))
+    return false;
+  unless(southWall.bufferGeometryOfElement(T, position))
+    return false;
+  unless(westRoof.bufferGeometryOfElement(T, position))
+    return false;
+  unless(eastRoof.bufferGeometryOfElement(T, position))
+    return false;
 
   return true;
 }
@@ -60,19 +72,22 @@ bool Gable::bufferGeometryOfObject(TriangleBuffer* T)
 
 // =======================================================================================
 /// @brief Update the size of our axis-aligned bounding box.
-/// @todo use of zeroVec is temporary/wrong.
+///
+/// We call each of our component BuildingRects and have them update our bounding box
+/// with our position as their offset.
+/// @todo - how to handle our orientation?
 
 void Gable::updateBoundingBox(void)
 {
   unless(box)
     box = new BoundingBox();
   
-  westWall.updateBoundingBox(box, zeroVec);
-  eastWall.updateBoundingBox(box, zeroVec);
-  northWall.updateBoundingBox(box, zeroVec);
-  southWall.updateBoundingBox(box, zeroVec);
-  westRoof.updateBoundingBox(box, zeroVec);
-  eastRoof.updateBoundingBox(box, zeroVec);
+  westWall.updateBoundingBox(box, position);
+  eastWall.updateBoundingBox(box, position);
+  northWall.updateBoundingBox(box, position);
+  southWall.updateBoundingBox(box, position);
+  westRoof.updateBoundingBox(box, position);
+  eastRoof.updateBoundingBox(box, position);
 }
 
 

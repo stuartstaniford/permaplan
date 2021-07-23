@@ -22,7 +22,12 @@ public:
   vec3 position;
   
   // Member functions - public
-  Positionable(void);
+  inline Positionable(void) {};
+  inline Positionable(float x, float y, float z) 
+    {position[0] = x; position[1] = y; position[2] = z;}
+  inline Positionable(vec3 P) 
+    {position[0] = P[0]; position[1] = P[1]; position[2] = P[2];}
+
   ~Positionable(void);
   
 protected:

@@ -16,26 +16,34 @@ const float heightMarkerHeight = heightMarkerSize*sqrtf(2.0f); // 1/2 the total 
 #define HM_ICOUNT 24u
 
 // =======================================================================================
-// Constructors.  Note that typically we are constructed dynamically on a pointer, and
-// pointers to us are stored both in the Qtree and in the LandSurface
+/// @brief Constructor.  
+/// 
+/// Note that typically we are constructed dynamically on a pointer, and pointers to us 
+/// are stored both in the Qtree and in the LandSurface.
+/// @param x Position of the height to be marked in the x direction.
+/// @param y Position of the height to be marked in the y direction.
+/// @param z Position of the height to be marked in the z direction.
 
 HeightMarker::HeightMarker(float x, float y, float z):
-                                              VisualObject(true)
+                                              VisualObject(true),
+                                              Positionable(x,y,z)
 {
-  position[0] = x;
-  position[1] = y;
-  position[2] = z;
   updateBoundingBox();
   LogObjectCreation("Object created of type %s with id %u.\n", objectName(), objIndex);
 }
 
 
+// =======================================================================================
+/// @brief Constructor.  
+/// 
+/// Note that typically we are constructed dynamically on a pointer, and pointers to us 
+/// are stored both in the Qtree and in the LandSurface.
+/// @param loc vec3 position of the height to be marked.
+
 HeightMarker::HeightMarker(vec3 loc):
-                              VisualObject(true)
+                              VisualObject(true),
+                              Positionable(loc)
 {
-  position[0] = loc[0];
-  position[1] = loc[1];
-  position[2] = loc[2];
   updateBoundingBox();
   LogObjectCreation("Object created of type %s with id %u.\n", objectName(), objIndex);
 }
@@ -50,17 +58,7 @@ HeightMarker::~HeightMarker(void)
 
 
 // =======================================================================================
-//XX Stub definition needs to be implemented
-
-bool HeightMarker::getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
-{
-  err(-1, "Not implemented in HeightMarker::getNextVertex");
-  return false;
-}
-
-
-// =======================================================================================
-// Return the next vertex in our sequence
+/// @brief Return the next vertex in our sequence
 
 bool HeightMarker::getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
 {
@@ -165,15 +163,6 @@ V5:
   v->setPosition(position[0], position[1],
                   position[2] + 2.0f*heightMarkerHeight);  //top vertex
   return true;
-}
-
-
-// =======================================================================================
-//XX Stub definition needs to be implemented
-int HeightMarker::getNextIndex(bool resetToFirst)
-{
-  err(-1, "Not implemented in HeightMarker::getNextIndex");
-  return -1;
 }
 
 
