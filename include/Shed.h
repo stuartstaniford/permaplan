@@ -62,6 +62,7 @@ public:
   Shed(MenuShedPanel& shedPanel);
   ~Shed(void);
   void triangleBufferSizes(unsigned& vCount, unsigned& iCount);
+  void updateBoundingBox(void);
   const char* objectName(void);
 
   // Static methods

@@ -50,6 +50,26 @@ Shed::~Shed(void)
 
 
 // =======================================================================================
+/// @brief Update the size of our axis-aligned bounding box.
+///
+/// We call each of our component BuildingRects and have them update our bounding box
+/// with our position as their offset.
+/// @todo - how to handle our orientation?
+
+void Shed::updateBoundingBox(void)
+{
+  unless(box)
+    box = new BoundingBox();
+  
+  westWall.updateBoundingBox(box, position);
+  eastWall.updateBoundingBox(box, position);
+  northWall.updateBoundingBox(box, position);
+  southWall.updateBoundingBox(box, position);
+  roof.updateBoundingBox(box, position);
+}
+
+
+// =======================================================================================
 /// @brief How much space we need in a TriangleBuffer on a call to bufferGeometryToObject
 ///
 /// @param vCount A reference to a count which will hold the number of Vertex objects 
