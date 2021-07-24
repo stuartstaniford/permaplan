@@ -188,6 +188,7 @@ bool VisualObject::bufferGeometryOfObject(TriangleBuffer* T)
 /// the subclass has implemented getNextVertex (because it calls on 
 /// VisualElement::matchRayToElement).
 ///
+/// @returns True if we match, false otherwise.
 /// @param position The vec3 for a point on the ray to be matched.
 /// @param direction The vec3 for the direction of the ray.
 /// @param lambda A reference to a float which will be used to store the multiple of 

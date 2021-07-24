@@ -396,12 +396,15 @@ void Tree::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 
 
 // =======================================================================================
-// Function to validate the tree.
-
-#ifdef LOG_TREE_VALIDATION
+/// @brief Function to validate the internal consistency of the tree.  Called recursively
+/// from Quadtree::selfValidate
+/// @param l This will be called with value zero from the quadtree, but allows for this
+/// function to be used recursively - as the tree searches its all branches and leaves
+/// it increments the level as it recurses up the tree.
 
 void Tree::selfValidate(unsigned l)
 {
+#ifdef LOG_TREE_VALIDATION
   assert(species);
   if(ageNow > 0.0f)
     box->selfValidate(true);
@@ -412,12 +415,12 @@ void Tree::selfValidate(unsigned l)
    }
   else
     assert(ageNow <= 0.0f);
+#endif
 }
 
-#endif
 
 // =======================================================================================
-// Recurse into all our parts and update our bounding box
+/// @brief Recurse into all our parts and update our bounding box
 
 void Tree::updateBoundingBox(void)
 {
@@ -447,9 +450,13 @@ void Tree::updateBoundingBox(void)
 
 
 // =======================================================================================
-// Test if a ray intersects us or not.  For trees we follow a hybrid approach - at a
-// long distance, we just rely on the bounding box.  But close up, we recurse into the
-// structure (which is expensive, especially if we don't match).
+/// @brief Test if a ray intersects us or not.  
+/// 
+/// @returns True if we match, false otherwise.
+/// @param position The vec3 for a point on the ray to be matched.
+/// @param direction The vec3 for the direction of the ray.
+/// @param lambda A reference to a float which will be used to store the multiple of 
+/// the direction vector from the position to the match point on the object.
 
 bool Tree::matchRayToObject(vec3& position, vec3& direction, float& lambda)
 {
