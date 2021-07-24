@@ -476,8 +476,10 @@ bool Tree::matchRayToObject(vec3& position, vec3& direction, float& lambda)
 
  
 // =======================================================================================
-// Static function which reads a bunch of entries from the plants section in the pmod
-// design and instantiates the trees.
+/// @brief Static function which reads a bunch of entries from the plants section in the 
+/// PmodDesign and instantiates the trees.
+/// @param qtree A link to the main root of the quadtree, required in order to insert
+/// the trees being read into it.
 
 void Tree::readTreesFromDesign(Quadtree* qtree)
 {
@@ -499,7 +501,13 @@ void Tree::readTreesFromDesign(Quadtree* qtree)
 
 
 // =======================================================================================
-// Write out one Tree's data to a plants object in OLDF JSON file.
+/// @brief Write out one Tree's data to a plants object in an OLDF JSON file.
+///
+/// Note we will typically be writing out into the middle of a file, the overall 
+/// organization of the file being orchestrated by our call-chain.  We just know about
+/// recording ourself in the proper OLDF format.
+/// @param file The open C-style FILE* pointer.
+/// @param indent The C-string used for one unit of indentation of the JSON.
 
 void Tree::writeToOLDF(FILE* file, char* indent)
 {
@@ -547,7 +555,13 @@ void Tree::writeToOLDF(FILE* file, char* indent)
 
 
 // =======================================================================================
-// Write out all the Tree data to a plants object in OLDF JSON file.
+/// @brief Write out all the Tree data to a plants object in OLDF JSON file.
+///
+/// This static function is used to create the entire OLDF "plants" object, invoking
+/// all the individual trees (found currently in the static treePtrArray) to write
+/// themselves out.
+/// @param file The open C-style FILE* pointer.
+/// @param indent The C-string used for one unit of indentation of the JSON.
 
 void Tree::writeTreesToOLDF(FILE* file, char* indent)
 {
@@ -572,7 +586,10 @@ void Tree::writeTreesToOLDF(FILE* file, char* indent)
 
 
 // =======================================================================================
-// Tell callers our name at runtime.
+/// @brief Tell callers our object type name at runtime.  
+/// 
+/// We don't just report Tree, but also include the scientific name of the 
+/// species/variety.
 
 const char* Tree::objectName(void)
 {
@@ -589,7 +606,10 @@ const char* Tree::objectName(void)
 
 
 // =======================================================================================
-// Build a page about this particular tree with all the gory details of its treeparts.
+/// @brief Build a page about this particular tree.
+/// 
+/// Note this is lengthy with all the gory details of its treeparts.
+/// @param serv The HTTP Debug server
 
 bool Tree::diagnosticHTML(HttpDebug* serv)
 {
