@@ -24,16 +24,18 @@ public:
   ~BuildingRect(void);
   inline void setSide(int i, float x, float y, float z) 
     {sides[i][0] = x;  sides[i][1] = y;  sides[i][2] = z;} 
-  inline void setPos(float x, float y, float z) 
-    {pos[0] = x;  pos[1] = y;  pos[2] = z;} 
+  inline void setRelativePos(float x, float y, float z) 
+    {relativePos[0] = x;  relativePos[1] = y;  relativePos[2] = z;} 
   void  triangleBufferSizes(unsigned& vCount, unsigned& iCount);
   bool  updateBoundingBox(BoundingBox* box, vec3 offset);
+  bool  bufferGeometryOfElement(TriangleBuffer* T, vec3 offset);
 
 private:
   
   // Instance variables - private
   vec3 sides[2];
-  vec3 pos;
+  vec3 relativePos;
+  unsigned color;
   bool normForward;  // normal is in the direction of sides[0]xsides[1]
   
   // Member functions - private

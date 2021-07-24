@@ -106,8 +106,9 @@ void AxialElement::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 /// @returns False if space cannot be obtained in the TriangleBuffer, true otherwise.
 /// @param T A pointer to a TriangleBuffer into which the object should insert its
 /// vertices and indices (see TriangleBuffer::requestSpace).
-/// @param offset A vec3 of the position of this element relative to it's containing
-/// object, thus allowing it's absolute position to be computed.
+/// @param offset A vec3 of the position of this element's containing object, thus 
+/// allowing the absolute position of the element to be computed (since we only know our
+/// relative position).
 
 bool AxialElement::bufferGeometryOfElement(TriangleBuffer* T, vec3 offset)
 {
