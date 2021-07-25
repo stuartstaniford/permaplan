@@ -46,6 +46,7 @@ Shed::Shed(MenuShedPanel& shedPanel):
 
 Shed::~Shed(void)
 {
+  rebuildRects();
 }
 
 

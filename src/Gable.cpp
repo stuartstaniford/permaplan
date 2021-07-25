@@ -85,7 +85,33 @@ void Gable::rebuildRects(void)
   memcpy((BuildRectData*)&northWall, (BuildRectData*)&southWall, sizeof(BuildRectData));
   northWall.normForward = false;
   glm_vec3_add(southWall.relativePos, westWall.sides[0], northWall.relativePos);  
+ 
+  // Ok, walls done, now set up for the rooves
+  float tanRoofAngle  = tanf(roofAngle);
+  float roofDip       = tanRoofAngle*overhang;
+  float roofRise      = tanRoofAngle*(width/2.0f);
   
+  // West facing roof - sides[0] along the west eave, sides[1] up the sloping south side
+  westRoof.relativePos[0] = -overhang;
+  westRoof.relativePos[1] = -overhang;
+  westRoof.relativePos[2] = height - roofDip;
+  westRoof.sides[0][0] = 0.0f;
+  westRoof.sides[0][1] = length + 2.0f*overhang;
+  westRoof.sides[0][2] = 0.0f;
+  westRoof.sides[1][0] = 0.0f;
+  westRoof.sides[1][1] = width/2.0f+overhang;
+  westRoof.sides[1][2] = roofDip + roofRise;
+  westRoof.normForward = false;
+
+  // West facing roof - sides[0] along the east eave, sides[1] up the sloping north side
+  westRoof.relativePos[0] = width + overhang;
+  westRoof.relativePos[1] = -overhang;
+  westRoof.relativePos[2] = height - roofDip;
+  glm_vec3_copy(westRoof.sides[0], eastRoof.sides[0]);
+  westRoof.sides[1][0] = 0.0f;
+  westRoof.sides[1][1] = -(width/2.0f+overhang);
+  westRoof.sides[1][2] = roofDip + roofRise;
+  westRoof.normForward = true;
 }
 
 
