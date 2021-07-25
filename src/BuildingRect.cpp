@@ -152,3 +152,38 @@ void BuildingRect::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 
 
 // =======================================================================================
+/// @brief Decide if a ray touches us.  
+/// 
+/// Function to decide whether a given line touches this particular rectangle or not (by
+/// checking each of the two triangles using the Moller Trombore test.
+///
+/// @param lPos The vec3 for a point on the ray to be matched.
+/// @param lDir The vec3 for the direction of the ray.
+/// @param lambda A reference to a float which will be used to store the multiple of 
+/// the direction vector from the position to the match point on the object.
+/// @param offset A vec3 which gives the position of this element relative to its
+/// containing object (since elements generally have relative positions, this is needed
+/// to compute absolute position matches).
+
+bool BuildingRect::matchRayToElement(vec3& lPos, vec3& lDir, float& lambda, vec3 offset)
+{
+  vec3      triangle[3];
+  
+  // First triangle
+  glm_vec3_add(relativePos, offset, triangle[0]);
+  glm_vec3_add(triangle[0], sides[0], triangle[1]);  
+  glm_vec3_add(triangle[1], sides[1], triangle[2]);
+  if(mollerTrumbore(triangle, lPos, lDir, lambda))
+    return true;
+
+  // Second triangle - going the other way round the square
+  glm_vec3_add(triangle[0], sides[1], triangle[1]);  
+  glm_vec3_add(triangle[1], sides[0], triangle[2]);
+  if(mollerTrumbore(triangle, lPos, lDir, lambda))
+    return true;
+
+  return false;
+}
+
+
+// =======================================================================================
