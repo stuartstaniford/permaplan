@@ -50,6 +50,56 @@ Shed::~Shed(void)
 
 
 // =======================================================================================
+/// @brief Function to rebuild all our component BuildingRect walls/rooves.
+/// 
+/// This is called in the beginning (from the constructor), or after our parameters 
+/// have changed.
+
+void Shed::rebuildRects(void)
+{
+  // Preliminaries
+  float sinAngle      = sinf(angleFromNorth);
+  float cosAngle      = cosf(angleFromNorth);
+  float tanRoofAngle  = tanf(roofAngle);
+  float shortHeight   = height - tanRoofAngle*width;
+  
+  // The west wall (when we aren't rotated).
+  // sides[0] runs along the bottom of the wall, sides[1] up the SW corner of building
+  glm_vec3_copy(zeroVec, westWall.relativePos);
+  westWall.sides[0][0] = length*sinAngle;
+  westWall.sides[0][1] = length*cosAngle;
+  westWall.sides[0][2] = 0.0f;
+  westWall.sides[1][0] = 0.0f;
+  westWall.sides[1][1] = 0.0f;
+  westWall.sides[1][2] = height;
+  westWall.normForward = false;
+  
+  // The east wall (when we aren't rotated).
+  // Almost the same as the west wall, but offset, norm in the opposite direction,
+  // and lower according to the roof angle).
+  memcpy((BuildRectData*)&eastWall, (BuildRectData*)&westWall, sizeof(BuildRectData));
+  eastWall.normForward    = true;
+  eastWall.relativePos[0] = width*cosAngle;
+  eastWall.relativePos[1] = width*sinAngle;
+  eastWall.sides[1][2]    = shortHeight;
+  
+  // The south wall (when we aren't rotated).
+  // sides[0] runs along the bottom of the wall, sides[1] up the SW corner of building
+  glm_vec3_copy(zeroVec, southWall.relativePos);
+  glm_vec3_copy(eastWall.relativePos, southWall.sides[0]);
+  glm_vec3_copy(eastWall.sides[1], southWall.sides[1]);
+  southWall.normForward = true;
+  
+  // The north wall (when we aren't rotated).
+  // Almost the same as the south wall, but offset, and norm in the opposite direction.
+  memcpy((BuildRectData*)&northWall, (BuildRectData*)&southWall, sizeof(BuildRectData));
+  northWall.normForward = false;
+  glm_vec3_add(southWall.relativePos, westWall.sides[0], northWall.relativePos);  
+  
+}
+
+
+// =======================================================================================
 /// @brief Update the size of our axis-aligned bounding box.
 ///
 /// We call each of our component BuildingRects and have them update our bounding box

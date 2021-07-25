@@ -49,7 +49,9 @@ class ShedParamData: public Orientable
 /// This class is for rendering sheds - either standalone buildings, or (with an open
 /// side) parts of larger buildings.  Note that the convention here in the default 
 /// orientation (angleFromNorth==0) is that the tall side of the shed is to the west and
-/// the short side is to the east.
+/// the short side is to the east.  Height is the height of the tall west wall.  Length
+/// is the length of that wall, while width is the length of the walls that run 
+/// east-west.
 
 
 class Shed: public VisualObject, public ShedParamData
@@ -61,6 +63,9 @@ public:
   // Member functions - public
   Shed(MenuShedPanel& shedPanel);
   ~Shed(void);
+  void rebuildRects(void);
+
+  // Public methods implementing the VisualObject interface
   void triangleBufferSizes(unsigned& vCount, unsigned& iCount);
   void updateBoundingBox(void);
   bool bufferGeometryOfObject(TriangleBuffer* T);
