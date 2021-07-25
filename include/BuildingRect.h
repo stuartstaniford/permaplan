@@ -7,6 +7,12 @@
 
 
 // =======================================================================================
+// Required forward declarations
+
+class Gable;
+class Shed;
+
+// =======================================================================================
 /// @brief An element of a larger structure which is rectangular.
 /// 
 /// This class is used extensively to represent pieces of buildings, such as a wall or
@@ -15,6 +21,9 @@
 
 class BuildingRect: public VisualElement
 {
+  friend Gable;
+  friend Shed;
+  
 public:
   
   // Instance variables - public

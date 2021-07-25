@@ -55,13 +55,14 @@ public:
   // Member functions - public
   Gable(MenuGablePanel& gablePanel);
   ~Gable(void);
+  void        rebuildRects(void);
   
   // Public methods implementing the VisualObject interface
   bool        bufferGeometryOfObject(TriangleBuffer* T);
   bool        matchRayToObject(vec3& pos, vec3& dir, float& lambda);
   void        triangleBufferSizes(unsigned& vCount, unsigned& iCount);
   void        updateBoundingBox(void);
-  void        selfValidate(unsigned l);
+ void        selfValidate(unsigned l);
   const char* objectName(void);
   bool        diagnosticHTMLSummary(HttpDebug* serv);
   

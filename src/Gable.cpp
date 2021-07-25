@@ -24,7 +24,7 @@ GableParamData::GableParamData(void):
 
 
 // =======================================================================================
-// Constructor
+/// @brief Constructor
 
 Gable::Gable(MenuGablePanel& gablePanel):
                               VisualObject(false)
@@ -35,9 +35,20 @@ Gable::Gable(MenuGablePanel& gablePanel):
 
 
 // =======================================================================================
-// Destructor
+/// @brief Destructor
 
 Gable::~Gable(void)
+{
+}
+
+
+// =======================================================================================
+/// @brief Function to rebuild all our component BuildingRect walls/rooves.
+/// 
+/// This is called in the beginning (from the constructor), or after our parameters 
+/// have changed.
+
+void Gable::rebuildRects(void)
 {
 }
 
