@@ -12,6 +12,20 @@
 class Gable;
 class Shed;
 
+
+// =======================================================================================
+/// @brief Class for the plain old data in a BuildingRect (so it can be memcpied).
+
+class BuildRectData
+{
+ protected:
+  vec3 sides[2];
+  vec3 relativePos;
+  unsigned color;
+  bool normForward;  // normal is in the direction of sides[0]xsides[1]
+};
+
+
 // =======================================================================================
 /// @brief An element of a larger structure which is rectangular.
 /// 
@@ -19,7 +33,7 @@ class Shed;
 /// one plane of a roof.  It provides for keeping track of its orientation and size
 /// relative to the larger structure, and for keeping track of texture.
 
-class BuildingRect: public VisualElement
+class BuildingRect: public BuildRectData, public VisualElement
 {
   friend Gable;
   friend Shed;
@@ -41,12 +55,7 @@ public:
   bool  matchRayToElement(vec3& lPos, vec3& lDir, float& lambda, vec3 offset);
 
 private:
-  
   // Instance variables - private
-  vec3 sides[2];
-  vec3 relativePos;
-  unsigned color;
-  bool normForward;  // normal is in the direction of sides[0]xsides[1]
   
   // Member functions - private
   BuildingRect(const BuildingRect&);                 // Prevent copy-construction

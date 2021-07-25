@@ -43,8 +43,12 @@ class GableParamData: public Orientable
 /// rectangular box with a gable roof above it.  Multiple of these can be superimposed
 /// to create approximations of many buildings.  Support for texturing is provided.
 /// A gable is implemented as a set of BuildingRects.  The naming convention internally
-/// to this class is that the building is sitting at the origin with it's floor in the
-/// x-y plane, and it's roof ridge parallel to the y-axis (that is, running north-south).
+/// to this class is that the building is sitting at the vector value of position.  When
+/// angleFromNorth is zero, the position refers to the southwest corner of the building,
+/// with it's floor in the x-y plane, and it's roof ridge parallel to the y-axis (that 
+/// is, running north-south).  The length of the walls in this direction is "length", 
+/// while the length in the east-west drection is "width".  "Height" is the height of
+/// the short walls, not the full height to the roof ridge.
 
 class Gable: public VisualObject, public GableParamData
 {

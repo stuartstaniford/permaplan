@@ -11,9 +11,9 @@
 /// @brief Constructor
 /// @todo fixed color is temporary
 
-BuildingRect::BuildingRect(void):
-                        color(0x001177ff)
+BuildingRect::BuildingRect(void)
 {
+  color = 0x001177ff;
 }
 
 
