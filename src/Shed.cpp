@@ -96,7 +96,21 @@ void Shed::rebuildRects(void)
   memcpy((BuildRectData*)&northWall, (BuildRectData*)&southWall, sizeof(BuildRectData));
   northWall.normForward = false;
   glm_vec3_add(southWall.relativePos, westWall.sides[0], northWall.relativePos);  
+
+  // Ok, walls done, now set up for the roof
+  float roofDip       = tanRoofAngle*leftOverhang;
   
+  // sides[0] along the west eave, sides[1] down the sloping south side
+  roof.relativePos[0] = -leftOverhang;
+  roof.relativePos[1] = -frontOverhang;
+  roof.relativePos[2] = height - roofDip;
+  roof.sides[0][0] = 0.0f;
+  roof.sides[0][1] = length + frontOverhang + backOverhang;
+  roof.sides[0][2] = 0.0f;
+  roof.sides[1][0] = 0.0f;
+  roof.sides[1][1] = width + leftOverhang + rightOverhang;
+  roof.sides[1][2] = -tanRoofAngle*roof.sides[1][1];
+  roof.normForward = false;
 }
 
 
