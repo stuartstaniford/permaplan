@@ -14,7 +14,7 @@
 // Needed forward declarations
 
 class MenuGablePanel;
-
+class Gable;
 
 // =======================================================================================
 /// @brief The minimal date required to specify a gable.  Gable, and MenuGablePanel,
@@ -22,6 +22,9 @@ class MenuGablePanel;
 
 class GableParamData: public Orientable
 {
+  friend MenuGablePanel;
+  friend Gable;
+  
   public:
     GableParamData(void);
   

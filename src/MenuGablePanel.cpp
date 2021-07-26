@@ -145,6 +145,9 @@ void MenuGablePanel::imGuiDisplay(void)
 
 void MenuGablePanel::gableEntered(void)
 {
+  setPosition(scene->lastDoubleClick);
+  Gable* newGable = new Gable(*this);
+  scene->insertVisualObject(newGable);
   mainMenu->gablePanel = NULL;
   delete this; 
 }

@@ -22,12 +22,18 @@ public:
   vec3 position;
   
   // Member functions - public
+  /// @brief Blank constructor
   inline Positionable(void) {};
+  /// @brief Constructor from three floats for the x,y, and z directions
   inline Positionable(float x, float y, float z) 
     {position[0] = x; position[1] = y; position[2] = z;}
+  /// @brief Constructor which copies an existing vec3
   inline Positionable(vec3 P) 
     {position[0] = P[0]; position[1] = P[1]; position[2] = P[2];}
-
+  /// @brief Set our position from an existing supplied vec3 P
+  inline void setPosition(vec3 P) 
+    {position[0] = P[0]; position[1] = P[1]; position[2] = P[2];}
+  /// @brief Destructor
   ~Positionable(void);
   
 protected:
