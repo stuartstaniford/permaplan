@@ -9,7 +9,8 @@
 // =======================================================================================
 /// @brief Constructor
 
-Orientable::Orientable(void)
+Orientable::Orientable(void):
+                  angleFromNorth(0.0f)
 {
 }
 

@@ -315,6 +315,12 @@ bool MenuInterface::HTTPAPiEnter(HttpDebug* serv, char* path)
   if(blockPanel && strncmp(path, "block/", 6) == 0)
     return blockPanel->handleHTTPRequest(serv, path+6);
 
+  if(gablePanel && strncmp(path, "gable/", 6) == 0)
+    return gablePanel->handleHTTPRequest(serv, path+6);
+
+  if(shedPanel && strncmp(path, "shed/", 5) == 0)
+    return shedPanel->handleHTTPRequest(serv, path+5);
+
   LogRequestErrors("MenuInterface::HTTPAPiEnter incorrect enter command %s\n", path);
   return false;
 }

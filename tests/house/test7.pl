@@ -25,7 +25,7 @@ foreach my $i (1..$loopLimit)
   my $cameraZ = getCameraHeight();
 
   # Main gable
-  @positions = (0, 0, $cameraZ);
+  @positions = (-30, -30, $cameraZ);
   setCameraPosition(@positions);
   performDoubleclick(500,400);
   insertGableButton();
