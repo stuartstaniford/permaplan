@@ -368,8 +368,9 @@ sub enterBlockParameters
 sub enterGableParameters
 {
   my($height, $length, $width, $roofAngle, $overhang) = @_;
-  my $url = "http://127.0.0.1:$port/menu/enter/block/".
-                            "$height:$length:$width:$roofAngle:$overhang";
+  my $url = "http://127.0.0.1:$port/menu/enter/gable/".
+                            "$height:$length:$width:$roofAngle:$overhang:";
+  print STDERR "URL: $url\n";
   my $response = $http->get($url);
   sanityCheckHeader($response, '/menu/enter/gable/');  
   return 1 if(length $response->{content} && $response->{content} eq "OK\n");

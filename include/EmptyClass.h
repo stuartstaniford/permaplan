@@ -24,8 +24,10 @@ private:
   // Instance variables - private
   
   // Member functions - private
-  EmptyClass(const EmptyClass&);                 // Prevent copy-construction
-  EmptyClass& operator=(const EmptyClass&);      // Prevent assignment
+  /// @brief Prevent copy-construction.
+  EmptyClass(const EmptyClass&);       
+  /// @brief Prevent assignment.
+  EmptyClass& operator=(const EmptyClass&);      
 
 };
 

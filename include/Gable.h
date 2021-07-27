@@ -79,16 +79,21 @@ public:
 private:
   
   // Instance variables - private.
-  BuildingRect westWall;
-  BuildingRect eastWall;
-  BuildingRect northWall;
-  BuildingRect southWall;
-  BuildingRect westRoof;
-  BuildingRect eastRoof;
+  BuildingRect  westWall;
+  BuildingRect  eastWall;
+  BuildingRect  northWall;
+  BuildingRect  southWall;
+  BuildingRect  westRoof;
+  BuildingRect  eastRoof;
+  float         roofRise;
   
   // Member functions - private
-  Gable(const Gable&);                 // Prevent copy-construction
-  Gable& operator=(const Gable&);      // Prevent assignment
+  bool addEndTrianglesToBuffer(TriangleBuffer* T);
+
+  /// @brief Prevent copy-construction.
+  Gable(const Gable&);        
+  /// @brief Prevent assignment.
+  Gable& operator=(const Gable&);      
 
 };
 

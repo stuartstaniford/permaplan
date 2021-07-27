@@ -36,6 +36,7 @@ Gable::Gable(MenuGablePanel& gablePanel):
   overhang  = gablePanel.overhang;
   
   rebuildRects();
+  updateBoundingBox();
 }
 
 
@@ -95,7 +96,7 @@ void Gable::rebuildRects(void)
   // Ok, walls done, now set up for the rooves
   float tanRoofAngle  = tanf(roofAngle);
   float roofDip       = tanRoofAngle*overhang;
-  float roofRise      = tanRoofAngle*(width/2.0f);
+  roofRise            = tanRoofAngle*(width/2.0f);
   
   // West facing roof - sides[0] along the west eave, sides[1] up the sloping south side
   westRoof.relativePos[0] = -overhang;
@@ -128,7 +129,6 @@ void Gable::rebuildRects(void)
 /// @returns False if space cannot be obtained in the TriangleBuffer, true otherwise.
 /// @param T A pointer to a TriangleBuffer into which the object should insert its
 /// vertices and indices (see TriangleBuffer::requestSpace).
-/// @todo End triangles
 
 bool Gable::bufferGeometryOfObject(TriangleBuffer* T)
 {
@@ -145,6 +145,68 @@ bool Gable::bufferGeometryOfObject(TriangleBuffer* T)
   unless(eastRoof.bufferGeometryOfElement(T, position))
     return false;
 
+  unless(addEndTrianglesToBuffer(T))
+    return false;
+  
+  return true;
+}
+
+
+// =======================================================================================
+/// @brief After buffering all the BuildingRect pieces, add the triangles at the top of
+/// the north and south wall.
+/// 
+/// This has to do some tricky buffer math.  Only C programmers allowed in this function 
+/// :-). The south triangle reuses the upper two vertices of the south wall, as well as 
+/// a newly added vertex.  Similarly the north triangle.  Consult 
+/// Gable::bufferGeometryOfObject, Gable::rebuildRects and 
+/// BuildingRect::bufferGeometryOfElement to figure out which vertex is which.  
+/// @param T A pointer to a TriangleBuffer into which the object should insert its
+/// vertices and indices (see TriangleBuffer::requestSpace).
+
+bool Gable::addEndTrianglesToBuffer(TriangleBuffer* T)
+{
+  Vertex*   vertices;
+  unsigned* indices;
+  unsigned  vOffset;
+
+  // Get the space for the extra triangles
+  unless(T->requestSpace(&vertices, &indices, vOffset, 2, 6))
+   {
+    LogTriangleBufferErrs("Gable::addEndTrianglesToBuffer TriangleBuffer request"
+                                                    " for 2,6 failed at %u.\n", vOffset);
+    return false;
+   }
+
+  // South triangle (ie the one on top of the south wall).
+  // sides[0] runs along the bottom of the wall, sides[1] up the SW corner of building
+  vec3 point;
+  vec3 scaledVec;
+  glm_vec3_add(southWall.relativePos, position, point);
+  glm_vec3_scale_as(southWall.sides[0], width/2.0f, scaledVec);
+  glm_vec3_add(point, scaledVec, point); // Point at middle bottom of south wall.
+  glm_vec3_scale_as(southWall.sides[1], height+roofRise, scaledVec);
+  glm_vec3_add(point, scaledVec, point); // Point now correctly in position.
+  //Now we copy top left vertex of south wall to new vertex
+  memcpy(vertices, vertices - 10, sizeof(Vertex));
+  vertices->setPosition(point);
+  
+  // Now indices of the south triangle
+  indices[0] = vOffset-10;  // top left of southwall
+  indices[1] = vOffset-10;  // top right of southwall
+  indices[2] = vOffset;     // newly created vertex at top of south triangle
+  
+  // Now north triangle (ie the one on top of the north wall).
+  glm_vec3_add(point, westWall.sides[0], point); // Move point parallel to westwall.
+  //Now we copy top left vertex of north wall to new vertex
+  memcpy(vertices+1, vertices - 14, sizeof(Vertex));
+  (vertices+1)->setPosition(point);
+  
+  // Now indices of the north triangle
+  indices[3] = vOffset-13;  // top right of northwall
+  indices[4] = vOffset-14;  // top left of northwall
+  indices[5] = vOffset+1;     // newly created vertex at top of north triangle
+  
   return true;
 }
 

@@ -73,9 +73,14 @@ void Vertex::printVertexTableRow(FILE* file, unsigned row)
   fprintf(file, "<td>%.3f, %.3f</td>", tex[0], tex[1]);
   fprintf(file, "<td>%.3f, %.3f, %.3f</td>", normal[0], normal[1], normal[2]);
 #ifdef LOG_VALID_TRIANGLE_BUFS
-  VisualObject::staticLock.lock();
-  fprintf(file, "<td>%u (%s)</td>", objectId, VisualObject::allObjects[objectId]->objectName());
-  VisualObject::staticLock.unlock();
+  if(objectId)
+   {
+    VisualObject::staticLock.lock();
+    fprintf(file, "<td>%u (%s)</td>", objectId, VisualObject::allObjects[objectId]->objectName());
+    VisualObject::staticLock.unlock();
+   }
+  else
+    fprintf(file, "<td>N/A</td>");
 #endif
   fprintf(file, "</tr>\n");  
 }

@@ -6,6 +6,7 @@
 
 #include "Global.h"
 #include "TaskQueueFarm.h"
+#include "Logging.h"
 #include <stdio.h>
 
 
@@ -36,7 +37,11 @@ bool extractColonVecN(char* path, int N, float* dest)
    {
     next = index(path, ':');
     unless(next)
+     {
+      LogRequestErrors("extractColonVecN failed with i=%d from 0..%d and path=%s.\n", 
+                                                                            i, N-1, path);
       return false;
+     }
     *next = '\0';
     dest[i] = atof(path);
     path = next + 1;
