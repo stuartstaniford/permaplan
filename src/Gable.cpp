@@ -36,7 +36,6 @@ Gable::Gable(MenuGablePanel& gablePanel):
   overhang  = gablePanel.overhang;
   
   rebuildRects();
-  updateBoundingBox();
 }
 
 
@@ -119,6 +118,8 @@ void Gable::rebuildRects(void)
   westRoof.sides[1][1] = -(width/2.0f+overhang);
   westRoof.sides[1][2] = roofDip + roofRise;
   westRoof.normForward = true;
+
+  updateBoundingBox();
 }
 
 

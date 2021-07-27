@@ -43,7 +43,7 @@
 //#define LOG_CLICK_DETAILS        // Extra detailed recording of parts of click detection
 //#define LOG_MOUSE_RAY_POINT     // Where the mouse is pointing in 3d space
 //#define LOG_LAND_HEIGHTS        // Log when a new land height is entered.
-//#define LOG_OBJECT_INSERTIONS   // Log when a new object is inserted in scene.
+#define LOG_OBJECT_INSERTIONS   // Log when a new object is inserted in scene.
 #define LOG_SIMULATION_CONTROLS // Log control operations on the simulation.
 #define LOG_WINDOW_OPERATIONS   // Log changes to the window (eg resizing).
 

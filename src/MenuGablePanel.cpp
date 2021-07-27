@@ -145,6 +145,8 @@ void MenuGablePanel::imGuiDisplay(void)
 
 void MenuGablePanel::gableEntered(void)
 {
+  LogObjectInsertions("Gable entered at [%.1f, %.1f, %.1f]\n", scene->lastDoubleClick[0],
+                                  scene->lastDoubleClick[1], scene->lastDoubleClick[2]);
   setPosition(scene->lastDoubleClick);
   Gable* newGable = new Gable(*this);
   scene->insertVisualObject(newGable);

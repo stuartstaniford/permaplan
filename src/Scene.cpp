@@ -288,7 +288,7 @@ void Scene::insertVisualObject(VisualObject* obj)
 #ifdef LOG_OBJECT_INSERTIONS
   float x,y;
   obj->getGroundContact(x,y);
-  LogObjectInsertions("Object inserted: %s at %.1f, %.1f\n", obj->objName, size, x, y);
+  LogObjectInsertions("Object inserted in scene: %s at %.1f, %.1f\n", obj->objectName(), x, y);
 #endif
   qtree->storeVisualObject(obj);
   rebuildVisualObjectBuffer(&sceneObjectTbuf);

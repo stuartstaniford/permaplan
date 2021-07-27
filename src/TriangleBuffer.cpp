@@ -287,7 +287,11 @@ void TriangleBuffer::selfValidate(void)
   for(int v=0; v < vNext; v++)
    {
     unless(sanityCheckPosition(v))
+     {
+      LogValidTriangleBufs("TriangleBuffer::selfValidate vertex %d/[0..%d] failed "
+                                                                "sanity check", v, vNext-1);
       goto BadExit;
+     }
    }
   
   
