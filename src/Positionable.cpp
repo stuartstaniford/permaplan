@@ -5,13 +5,26 @@
 // but the [2] (z) direction is interpreted relative to the ground surface.
 
 #include "Positionable.h"
-
+#include "HttpDebug.h"
 
 // =======================================================================================
 /// @brief Destructor
 
 Positionable::~Positionable(void)
 {
+}
+
+
+// =======================================================================================
+/// @brief Create a single table cell about this position.
+/// @returns True if the object was written correctly, false if we ran out of space.
+/// @param serv The HTTP Debug server
+
+bool Positionable::httPrintPositionCell(HttpDebug* serv)
+{
+  httPrintf("<td><b>Position:</b> [%.1f, %.1f, %.1f]</td></tr>\n",
+                                          position[0], position[1], position[2]);
+  return true;
 }
 
 

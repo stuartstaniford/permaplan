@@ -318,8 +318,8 @@ const char* HeightMarker::objectName(void)
 bool HeightMarker::diagnosticHTMLSummary(HttpDebug* serv)
 {
   httPrintf("<tr><td><a href=\"/object/%d\">HeightMarker</a></td>", objIndex);
-  httPrintf("<td><b>position:</b> (%.1f, %.1f, %.1f)</td></tr>\n",
-                                                    position[0], position[1], position[2]);
+  unless(httPrintPositionCell(serv))
+    return false;
   return true;
 }
 

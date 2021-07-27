@@ -7,6 +7,12 @@
 
 
 // =======================================================================================
+// Required forward declarations
+
+class HttpDebug;
+
+
+// =======================================================================================
 /// @brief Superclass for things that have a position.
 ///
 /// This class can be inherited from for things that have a position and provides some
@@ -35,6 +41,7 @@ public:
     {position[0] = P[0]; position[1] = P[1]; position[2] = P[2];}
   /// @brief Destructor
   ~Positionable(void);
+  bool httPrintPositionCell(HttpDebug* serv);
   
 protected:
   

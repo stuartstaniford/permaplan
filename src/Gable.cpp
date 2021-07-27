@@ -331,16 +331,24 @@ const char* Gable::objectName(void)
 
 
 // =======================================================================================
-/// @brief Provide summary of this Gable.
-/// 
-/// We assume we are part of a table of visual objects and we just contribute one row
-/// about this particular Gable.
-/// @todo Stub only at present
+/// @brief  Provide one row of a table of visual objects about this particular 
+/// Gable.
+///
+/// The type of visual object is in the first column (with a link to the detail page
+/// that is provided by HeightMarker::diagnosticHTML), and details are provided in the 
+/// second column.  
+/// @returns True if the object was written correctly, false if we ran out of space.
+/// @param serv The HTTP Debug server
 
 bool Gable::diagnosticHTMLSummary(HttpDebug* serv)
 {
+  httPrintf("<tr><td><a href=\"/object/%d\">Gable</a></td>", objIndex);
+  unless(httPrintPositionCell(serv))
+    return false;
+  
   return true;
 }
+
 
 
 // =======================================================================================
