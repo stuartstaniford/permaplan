@@ -27,7 +27,8 @@ class GableParamData: public Orientable
   
   public:
     GableParamData(void);
-  
+    bool httPrintGableParamTable(HttpDebug* serv);
+
   protected:
   
   // Instance variables - private
@@ -69,10 +70,11 @@ public:
   bool        matchRayToObject(vec3& pos, vec3& dir, float& lambda);
   void        triangleBufferSizes(unsigned& vCount, unsigned& iCount);
   void        updateBoundingBox(void);
- void        selfValidate(unsigned l);
+ void         selfValidate(unsigned l);
   const char* objectName(void);
   bool        diagnosticHTMLSummary(HttpDebug* serv);
-  
+  bool        diagnosticHTML(HttpDebug* serv);
+
   // Static methods
   static bool validateOLDF(rapidjson::Value& gableJsonObject);
 

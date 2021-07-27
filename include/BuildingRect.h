@@ -53,7 +53,7 @@ public:
   bool  updateBoundingBox(BoundingBox* box, vec3 offset);
   bool  bufferGeometryOfElement(TriangleBuffer* T, vec3 offset);
   bool  matchRayToElement(vec3& lPos, vec3& lDir, float& lambda, vec3 offset);
-
+  bool  httPrintTableSummary(HttpDebug* serv, char* ourName) {return true;}
 private:
   // Instance variables - private
   

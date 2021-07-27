@@ -331,6 +331,18 @@ const char* Gable::objectName(void)
 
 
 // =======================================================================================
+// Function to check the validity of some JSON in an OLDF file that purportedly represents
+// a gable.
+
+using namespace rapidjson;
+
+bool Gable::validateOLDF(Value& gableJsonObject)
+{
+  return true;  
+}
+
+
+// =======================================================================================
 /// @brief  Provide one row of a table of visual objects about this particular 
 /// Gable.
 ///
@@ -350,16 +362,58 @@ bool Gable::diagnosticHTMLSummary(HttpDebug* serv)
 }
 
 
+// =======================================================================================
+/// @brief Provide an HTML table summarize these parameters.
+
+bool GableParamData::httPrintGableParamTable(HttpDebug* serv)
+{
+  return true;
+}
+
 
 // =======================================================================================
-// Function to check the validity of some JSON in an OLDF file that purportedly represents
-// a gable.
+/// @brief Provides access to the diagnostic HTTP server for the diagnosticHTML page of 
+/// this Gable via it's objIndex.
+///
+/// @returns True if the HeightMarker was written correctly, false if we ran out of space.
+/// @param serv The HTTP Debug server
 
-using namespace rapidjson;
-
-bool Gable::validateOLDF(Value& gableJsonObject)
+bool Gable::diagnosticHTML(HttpDebug* serv)
 {
-  return true;  
+  // Page header
+  char title[64];
+  snprintf(title, 63, "Detail Page for Gable (Object %d).", objIndex);
+  unless(serv->startResponsePage(title))
+    return false;
+
+  // Information about the controlling parameters of this Gable object
+  unless(httPrintGableParamTable(serv))
+    return false;  
+
+  // Details of our bounding box
+  unless(box->diagnosticHTML(serv))
+    return false;
+
+  // Provide details of all our individual BuildingRect components
+  unless(serv->newSection("Wall and Roof Sections"))
+    return false;
+  unless(westWall.httPrintTableSummary(serv, (char*)"West Wall"))
+    return false;
+  unless(eastWall.httPrintTableSummary(serv, (char*)"East Wall"))
+    return false;
+  unless(southWall.httPrintTableSummary(serv, (char*)"South Wall"))
+    return false;
+  unless(northWall.httPrintTableSummary(serv, (char*)"North Wall"))
+    return false;
+  unless(westRoof.httPrintTableSummary(serv, (char*)"West Roof"))
+    return false;
+  unless(eastRoof.httPrintTableSummary(serv, (char*)"East Roof"))
+    return false;
+  
+  // Page closing
+  unless(serv->endResponsePage())
+    return false;
+  return true;
 }
 
 
