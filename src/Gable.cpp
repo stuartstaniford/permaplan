@@ -363,10 +363,24 @@ bool Gable::diagnosticHTMLSummary(HttpDebug* serv)
 
 
 // =======================================================================================
-/// @brief Provide an HTML table summarize these parameters.
+/// @brief Provide an HTML table summarizing these parameters.
 
 bool GableParamData::httPrintGableParamTable(HttpDebug* serv)
 {
+  httPrintf("<center>");
+  unless(serv->startTable((char*)"Gable_Params"))
+    return false;
+
+  httPrintf("<tr><th>Parameter Name</td><th>Value</th></tr>");
+  httPrintf("<tr><td>Height</td><td>%.2f</td></tr>", height);
+  httPrintf("<tr><td>Length</td><td>%.2f</td></tr>", length);
+  httPrintf("<tr><td>Width</td><td>%.2f</td></tr>", width);
+  httPrintf("<tr><td>Roof angle</td><td>%.2f</td></tr>", roofAngle);
+  httPrintf("<tr><td>Overhang</td><td>%.2f</td></tr>", overhang);
+  httPrintf("<tr><td>Angle from North</td><td>%.2f</td></tr>", angleFromNorth);
+  httPrintf("<tr><td>Position</td><td>%.1f, %.1f, %.1f</td></tr>", position[0], 
+                                                                position[1], position[2]);
+  httPrintf("</table></center>");
   return true;
 }
 
