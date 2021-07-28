@@ -123,12 +123,16 @@ bool BuildingRect::bufferGeometryOfElement(TriangleBuffer* T, vec3 offset)
   vec3 base, point;
   glm_vec3_add(relativePos, offset, base);
   vertices[0].setPosition(base);
+  LogBuildRectDetails("Vertex 0 at [%.1f, %.1f, %.1f].\n", base[0], base[1], base[2]);
   glm_vec3_add(base, sides[0], point);
   vertices[1].setPosition(point);
+  LogBuildRectDetails("Vertex 1 at [%.1f, %.1f, %.1f].\n", point[0], point[1], point[2]);
   glm_vec3_add(base, sides[1], point);
   vertices[2].setPosition(point);
+  LogBuildRectDetails("Vertex 2 at [%.1f, %.1f, %.1f].\n", point[0], point[1], point[2]);
   glm_vec3_add(point, sides[0], point);
   vertices[2].setPosition(point);
+  LogBuildRectDetails("Vertex 3 at [%.1f, %.1f, %.1f].\n", point[0], point[1], point[2]);
 
   // Set everything else which is the same for all four vertices.
   for(int i=0; i<4; i++)
