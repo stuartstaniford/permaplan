@@ -24,6 +24,21 @@ BuildingRect::~BuildingRect(void)
 {
 }
 
+// =======================================================================================
+/// @brief Sets one of the vectors along the rectangle sides.
+/// @param i Which vector to set (0 or 1)
+/// @param x A float with x value of the sides vector.
+/// @param y A float with x value of the sides vector.
+/// @param z A float with x value of the sides vector.
+
+void BuildingRect::setSide(int i, float x, float y, float z)
+{
+  sides[i][0] = x;  
+  sides[i][1] = y;  
+  sides[i][2] = z; 
+  LogBuildRectDetails("sides[%d] set to [%.1f, %.1f, %.1f].\n", i, x, y, z);
+}
+
 
 // =======================================================================================
 /// @brief Updates a bounding box.

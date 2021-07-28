@@ -45,8 +45,7 @@ public:
   // Member functions - public
   BuildingRect(void);
   ~BuildingRect(void);
-  inline void setSide(int i, float x, float y, float z) 
-    {sides[i][0] = x;  sides[i][1] = y;  sides[i][2] = z;} 
+  void setSide(int i, float x, float y, float z); 
   inline void setRelativePos(float x, float y, float z) 
     {relativePos[0] = x;  relativePos[1] = y;  relativePos[2] = z;} 
   void  triangleBufferSizes(unsigned& vCount, unsigned& iCount);
