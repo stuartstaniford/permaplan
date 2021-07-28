@@ -41,6 +41,21 @@ void BuildingRect::setSide(int i, float x, float y, float z)
 
 
 // =======================================================================================
+/// @brief Sets the relative position of this rectangle.
+/// @param x A float with x value of the relative position.
+/// @param y A float with x value of the relative position.
+/// @param z A float with x value of the relative position.
+
+void BuildingRect::setRelativePos(float x, float y, float z) 
+{
+  relativePos[0] = x;  
+  relativePos[1] = y;  
+  relativePos[2] = z;
+  LogBuildRectDetails("relativePos set to [%.1f, %.1f, %.1f].\n", x, y, z);
+} 
+
+
+// =======================================================================================
 /// @brief Updates a bounding box.
 /// 
 /// Function to update an axis-aligned bounding box.    

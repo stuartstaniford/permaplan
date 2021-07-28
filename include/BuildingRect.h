@@ -46,8 +46,7 @@ public:
   BuildingRect(void);
   ~BuildingRect(void);
   void setSide(int i, float x, float y, float z); 
-  inline void setRelativePos(float x, float y, float z) 
-    {relativePos[0] = x;  relativePos[1] = y;  relativePos[2] = z;} 
+  void setRelativePos(float x, float y, float z);
   void  triangleBufferSizes(unsigned& vCount, unsigned& iCount);
   bool  updateBoundingBox(BoundingBox* box, vec3 offset);
   bool  bufferGeometryOfElement(TriangleBuffer* T, vec3 offset);
