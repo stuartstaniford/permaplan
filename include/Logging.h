@@ -83,6 +83,12 @@
 
 
 // =======================================================================================
+// Logging options for buildings (gables, sheds, etc)
+
+#define LOG_BUILD_RECT_DETAILS      // Log creation and buffering of BuildingRects
+
+
+// =======================================================================================
 // Logging options for groups of objects
 
 #define LOG_GROUP_ADDITIONS       // Log when groups are created and objects are added.
@@ -217,6 +223,9 @@ extern bool doLogTreeOpacity;         // Log tree bounding box opacity.
 extern bool doLogTreeGraph;           // Log tree thread analysis graph.
 extern bool doLogOTDLFileSearch;      // Log process of looking for OTDL files.
 extern bool doLogTreeErrors;          // Log clear errors in tree related operations.
+
+// Logging options for buildings (gables, sheds, etc)
+extern bool doLogBuildRectDetails;    // Log creation and buffering of BuildingRects
 
 // Logging options for groups of objects
 extern bool doLogGroupAdditions;      // Log when groups are created and objects are added.
@@ -626,6 +635,18 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
                                             LogStatement("LogTreeErrors: " __VA_ARGS__)
 #else
 #define LogTreeErrors(...)
+#endif
+
+
+// =======================================================================================
+// Logging options for buildings (gables, sheds, etc)
+
+// Log creation and buffering of BuildingRects
+#ifdef LOG_BUILD_RECT_DETAILS
+#define LogBuildRectDetails(...) if(doLogBuildRectDetails) \
+                                          LogStatement("LogBuildRectDetails: " __VA_ARGS__)
+#else
+#define LogBuildRectDetails(...)
 #endif
 
 

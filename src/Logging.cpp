@@ -73,6 +73,9 @@ bool doLogTreeGraph           = true; // Log tree thread analysis graph.
 bool doLogOTDLFileSearch      = true; // Log process of looking for OTDL files.
 bool doLogTreeErrors          = true; // Log clear errors in tree related operations.
 
+// Logging options for buildings (gables, sheds, etc)
+bool doLogBuildRectDetails    = true; // Log creation and buffering of BuildingRects
+
 // Logging options for groups of objects
 bool doLogGroupAdditions      = true; // Log when groups are created and objects are added.
 bool doLogControlGroupInit    = true; // Log the process of initiating a new control group.
@@ -428,6 +431,14 @@ bool LogControlHTML(HttpDebug* serv, char* path)
 #endif
  
   
+// Logging options for buildings (gables, sheds, etc)
+
+#ifdef LOG_BUILD_RECT_DETAILS // Log creation and buffering of BuildingRects
+  if(strncmp(path, "doLogBuildRectDetails", sizeof("doLogBuildRectDetails")-1)==0)
+    return oneLogControl(serv, path, doLogBuildRectDetails);
+#endif
+
+  
 // Logging options for groups of objects
 
 #ifdef LOG_GROUP_ADDITIONS // Log when groups are created and objects are added.
@@ -493,6 +504,7 @@ bool LogControlHTML(HttpDebug* serv, char* path)
     return oneLogControl(serv, path, doLogPseudoActions);
 #endif
 
+  
 // Logging options to do with quadtree insertions
   
 #ifdef LOG_QUADTREE_CREATION // Log the initial setup of the quadtree.
