@@ -189,3 +189,25 @@ bool BuildingRect::matchRayToElement(vec3& lPos, vec3& lDir, float& lambda, vec3
 
 
 // =======================================================================================
+/// @brief Provide an HTML summary title/table for this BuildingRect.
+/// @returns true if the information was written correctly, false if we ran out of space.
+/// @param serv The HTTP Debug server
+
+bool  BuildingRect::httPrintTableSummary(HttpDebug* serv, char* ourName)
+{
+  httPrintf("<h4>%s</h4><center>\n", ourName);
+  unless(serv->startTable(ourName))
+    return false;
+
+  httPrintf("<tr><th>Parameter Name</td><th>Value</th></tr>");
+  httPrintf("<tr><td>Relative Position</td><td>%.2f, %.2f, %.2f</td></tr>", 
+                                          relativePos[0], relativePos[1], relativePos[2]);
+  httPrintf("<tr><td>Side Vector 0</td><td>%.2f, %.2f, %.2f</td></tr>", 
+                                          sides[0][0], sides[0][1], sides[0][2]);
+  httPrintf("<tr><td>Side Vector 1</td><td>%.2f, %.2f, %.2f</td></tr>", 
+                                          sides[1][0], sides[1][1], sides[1][2]);
+  return true;
+}
+
+
+// =======================================================================================

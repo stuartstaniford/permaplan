@@ -389,7 +389,7 @@ bool GableParamData::httPrintGableParamTable(HttpDebug* serv)
 /// @brief Provides access to the diagnostic HTTP server for the diagnosticHTML page of 
 /// this Gable via it's objIndex.
 ///
-/// @returns True if the HeightMarker was written correctly, false if we ran out of space.
+/// @returns True if the page was written correctly, false if we ran out of space.
 /// @param serv The HTTP Debug server
 
 bool Gable::diagnosticHTML(HttpDebug* serv)
