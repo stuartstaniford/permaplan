@@ -29,11 +29,13 @@ GableParamData::GableParamData(void):
 Gable::Gable(MenuGablePanel& gablePanel):
                               VisualObject(false)
 {
-  height    = gablePanel.height;
-  length    = gablePanel.length;
-  width     = gablePanel.width;
-  roofAngle = gablePanel.roofAngle;
-  overhang  = gablePanel.overhang;
+  height          = gablePanel.height;
+  length          = gablePanel.length;
+  width           = gablePanel.width;
+  roofAngle       = gablePanel.roofAngle;
+  overhang        = gablePanel.overhang;
+  angleFromNorth  = gablePanel.angleFromNorth;
+  setPosition(gablePanel.position);
   
   rebuildRects();
 }
