@@ -131,7 +131,7 @@ bool BuildingRect::bufferGeometryOfElement(TriangleBuffer* T, vec3 offset)
   vertices[2].setPosition(point);
   LogBuildRectDetails("Vertex 2 at [%.1f, %.1f, %.1f].\n", point[0], point[1], point[2]);
   glm_vec3_add(point, sides[0], point);
-  vertices[2].setPosition(point);
+  vertices[3].setPosition(point);
   LogBuildRectDetails("Vertex 3 at [%.1f, %.1f, %.1f].\n", point[0], point[1], point[2]);
 
   // Set everything else which is the same for all four vertices.
