@@ -240,6 +240,8 @@ bool  BuildingRect::httPrintTableSummary(HttpDebug* serv, char* ourName)
                                           sides[0][0], sides[0][1], sides[0][2]);
   httPrintf("<tr><td>Side Vector 1</td><td>%.2f, %.2f, %.2f</td></tr>", 
                                           sides[1][0], sides[1][1], sides[1][2]);
+  httPrintf("</table></center>\n");
+  
   return true;
 }
 
