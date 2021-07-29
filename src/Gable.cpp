@@ -370,6 +370,8 @@ bool Gable::diagnosticHTMLSummary(HttpDebug* serv)
 
 // =======================================================================================
 /// @brief Provide an HTML table summarizing these parameters.
+/// @returns True if the page was written correctly, false if we ran out of space.
+/// @param serv The HTTP Debug server
 
 bool GableParamData::httPrintGableParamTable(HttpDebug* serv)
 {

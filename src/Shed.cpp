@@ -273,3 +273,75 @@ bool Shed::validateOLDF(Value& shedJsonObject)
 
 
 // =======================================================================================
+/// @brief Provide an HTML table summarizing these parameters.
+/// @returns True if the page was written correctly, false if we ran out of space.
+/// @param serv The HTTP Debug server
+
+bool ShedParamData::httPrintShedParamTable(HttpDebug* serv)
+{
+  httPrintf("<center>");
+  unless(serv->startTable((char*)"Gable_Params"))
+    return false;
+
+  httPrintf("<tr><th>Parameter Name</td><th>Value</th></tr>");
+  httPrintf("<tr><td>Height</td><td>%.2f</td></tr>", height);
+  httPrintf("<tr><td>Length</td><td>%.2f</td></tr>", length);
+  httPrintf("<tr><td>Width</td><td>%.2f</td></tr>", width);
+  httPrintf("<tr><td>Roof angle</td><td>%.2f</td></tr>", roofAngle);
+  httPrintf("<tr><td>Right Overhang</td><td>%.2f</td></tr>", rightOverhang);
+  httPrintf("<tr><td>Left Overhang</td><td>%.2f</td></tr>", leftOverhang);
+  httPrintf("<tr><td>FrontOverhang</td><td>%.2f</td></tr>", frontOverhang);
+  httPrintf("<tr><td>BackOverhang</td><td>%.2f</td></tr>", backOverhang);
+  httPrintf("<tr><td>Angle from North</td><td>%.2f</td></tr>", angleFromNorth);
+  httPrintf("<tr><td>Position</td><td>%.1f, %.1f, %.1f</td></tr>", position[0], 
+                                                                position[1], position[2]);
+  httPrintf("</table></center>");
+  return true;
+}
+
+
+// =======================================================================================
+/// @brief Provides access to the diagnostic HTTP server for the diagnosticHTML page of 
+/// this Shed via it's objIndex.
+///
+/// @returns True if the page was written correctly, false if we ran out of space.
+/// @param serv The HTTP Debug server
+
+bool Shed::diagnosticHTML(HttpDebug* serv)
+{
+  // Page header
+  char title[64];
+  snprintf(title, 63, "Detail Page for Shed (Object %d).", objIndex);
+  unless(serv->startResponsePage(title))
+    return false;
+
+  // Information about the controlling parameters of this Gable object
+  unless(httPrintShedParamTable(serv))
+    return false;  
+
+  // Details of our bounding box
+  unless(box->diagnosticHTML(serv))
+    return false;
+
+  // Provide details of all our individual BuildingRect components
+  unless(serv->newSection("Wall and Roof Sections"))
+    return false;
+  unless(westWall.httPrintTableSummary(serv, (char*)"West Wall"))
+    return false;
+  unless(eastWall.httPrintTableSummary(serv, (char*)"East Wall"))
+    return false;
+  unless(southWall.httPrintTableSummary(serv, (char*)"South Wall"))
+    return false;
+  unless(northWall.httPrintTableSummary(serv, (char*)"North Wall"))
+    return false;
+  unless(roof.httPrintTableSummary(serv, (char*)"Roof"))
+    return false;
+  
+  // Page closing
+  unless(serv->endResponsePage())
+    return false;
+  return true;
+}
+
+
+// =======================================================================================

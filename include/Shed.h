@@ -26,7 +26,8 @@ class ShedParamData: public Orientable
 {
   public:
     ShedParamData(void);
-  
+    bool httPrintShedParamTable(HttpDebug* serv);
+
   protected:
   
   // Instance variables - protected
@@ -71,7 +72,8 @@ public:
   bool bufferGeometryOfObject(TriangleBuffer* T);
   bool matchRayToObject(vec3& pos, vec3& dir, float& lambda);
   const char* objectName(void);
-
+  bool diagnosticHTML(HttpDebug* serv);
+  
   // Static methods
   static bool validateOLDF(rapidjson::Value& shedJsonObject);
   
