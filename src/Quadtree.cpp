@@ -643,7 +643,8 @@ bool Quadtree::quadSearchRecursive(HttpDebug* serv, int& nextRow,
      {
       // We found one
       httPrintf("<tr><td>%d</td><td>%s</td>", nextRow, quadPath);
-      httPrintf("<td>%s</td><td>Object Details</td></tr>\n", objName);
+      httPrintf("<td><a href=\"/object/%u\">%s</a></td><td>Object Details</td></tr>\n", 
+                                                                  v->objIndex, objName);
       nextRow++;
      }
     if(v->isGroup)
@@ -673,9 +674,11 @@ bool Quadtree::quadSearchRecursive(HttpDebug* serv, int& nextRow,
 bool Quadtree::quadSearchHTML(HttpDebug* serv, char* searchTerm)
 {
   unless(strcmp(searchTerm, "Arrow") == 0 
+         || strcmp(searchTerm, "Box") == 0
+         || strcmp(searchTerm, "Gable") == 0
           || strcmp(searchTerm, "HeightMarker") == 0 
-          || strcmp(searchTerm, "Tree") == 0 
-          || strcmp(searchTerm, "Box") == 0
+         || strcmp(searchTerm, "Shed") == 0
+         || strcmp(searchTerm, "Tree") == 0 
           || strcmp(searchTerm, "ObjectGroup") == 0
           || strcmp(searchTerm, "ControlGroup") == 0 )
     return false; // only get to search for certain specific things.
@@ -806,9 +809,11 @@ bool Quadtree::diagnosticHTML(HttpDebug* serv, char* path)
         return false;
       httPrintf("<tr>");
       httPrintf("<td><a href=\"/quadsearch/Arrow\">Arrow</a></td>");
-      httPrintf("<td><a href=\"/quadsearch/HeightMarker\">HeightMarker</a></td>");
-      httPrintf("<td><a href=\"/quadsearch/Tree\">Tree</a></td>");
       httPrintf("<td><a href=\"/quadsearch/Box\">Box</a></td>");
+      httPrintf("<td><a href=\"/quadsearch/Gable\">Gable</a></td>");
+      httPrintf("<td><a href=\"/quadsearch/HeightMarker\">HeightMarker</a></td>");
+      httPrintf("<td><a href=\"/quadsearch/Shed\">Shed</a></td>");
+      httPrintf("<td><a href=\"/quadsearch/Tree\">Tree</a></td>");
       httPrintf("<td><a href=\"/quadsearch/ObjectGroup\">ObjectGroup</a></td>");
       httPrintf("<td><a href=\"/quadsearch/ControlGroup\">ControlGroup</a></td>");  
       httPrintf("</tr></table></center>\n");
