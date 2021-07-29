@@ -75,6 +75,7 @@ bool doLogTreeErrors          = true; // Log clear errors in tree related operat
 
 // Logging options for buildings (gables, sheds, etc)
 bool doLogBuildRectDetails    = true; // Log creation and buffering of BuildingRects
+bool doLogBuildingBuffer      = true; // Buffering of Gables, sheds, etc
 
 // Logging options for groups of objects
 bool doLogGroupAdditions      = true; // Log when groups are created and objects are added.
@@ -436,6 +437,11 @@ bool LogControlHTML(HttpDebug* serv, char* path)
 #ifdef LOG_BUILD_RECT_DETAILS // Log creation and buffering of BuildingRects
   if(strncmp(path, "doLogBuildRectDetails", sizeof("doLogBuildRectDetails")-1)==0)
     return oneLogControl(serv, path, doLogBuildRectDetails);
+#endif
+
+#ifdef LOG_BUILDING_BUFFER // Buffering of Gables, sheds, etc
+  if(strncmp(path, "doLogBuildingBuffer", sizeof("doLogBuildingBuffer")-1)==0)
+    return oneLogControl(serv, path, doLogBuildingBuffer);
 #endif
 
   

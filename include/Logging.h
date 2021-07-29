@@ -86,6 +86,7 @@
 // Logging options for buildings (gables, sheds, etc)
 
 #define LOG_BUILD_RECT_DETAILS      // Log creation and buffering of BuildingRects
+#define LOG_BUILDING_BUFFER         // Buffering of Gables, sheds, etc
 
 
 // =======================================================================================
@@ -226,6 +227,7 @@ extern bool doLogTreeErrors;          // Log clear errors in tree related operat
 
 // Logging options for buildings (gables, sheds, etc)
 extern bool doLogBuildRectDetails;    // Log creation and buffering of BuildingRects
+extern bool doLogBuildingBuffer;      // Buffering of Gables, sheds, etc
 
 // Logging options for groups of objects
 extern bool doLogGroupAdditions;      // Log when groups are created and objects are added.
@@ -647,6 +649,14 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
                                           LogStatement("LogBuildRectDetails: " __VA_ARGS__)
 #else
 #define LogBuildRectDetails(...)
+#endif
+
+// Buffering of Gables, sheds, etc
+#ifdef LOG_BUILDING_BUFFER
+#define LogBuildingBuffer(...) if(doLogBuildingBuffer) \
+                                          LogStatement("LogBuildingBuffer: " __VA_ARGS__)
+#else
+#define LogBuildingBuffer(...)
 #endif
 
 

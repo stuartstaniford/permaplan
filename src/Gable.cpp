@@ -133,6 +133,10 @@ void Gable::rebuildRects(void)
 
 bool Gable::bufferGeometryOfObject(TriangleBuffer* T)
 {
+  LogBuildingBuffer("Gable buffered: Height: %.2f; Length: %.2f; Width: %.2f, "
+                    "Roof Angle: %.1f; Overhang: %.2f, Position: [%.1f, %.1f, %.1f] "
+                    "Orientation: %.1f.\n", height, length, width, roofAngle, overhang,
+                    position[0], position[1], position[2], angleFromNorth);
   unless(westWall.bufferGeometryOfElement(T, position))
     return false;
   unless(eastWall.bufferGeometryOfElement(T, position))
