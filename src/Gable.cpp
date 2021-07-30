@@ -99,7 +99,7 @@ void Gable::rebuildRects(void)
   northWall.setContainingIndex(objIndex);
  
   // Ok, walls done, now set up for the rooves
-  float tanRoofAngle  = tanf(roofAngle);
+  float tanRoofAngle  = tanf(roofAngle*M_PI/180.0f);
   float roofDip       = tanRoofAngle*overhang;
   roofRise            = tanRoofAngle*(width/2.0f);
   
@@ -110,8 +110,8 @@ void Gable::rebuildRects(void)
   westRoof.sides[0][0] = 0.0f;
   westRoof.sides[0][1] = length + 2.0f*overhang;
   westRoof.sides[0][2] = 0.0f;
-  westRoof.sides[1][0] = 0.0f;
-  westRoof.sides[1][1] = width/2.0f+overhang;
+  westRoof.sides[1][0] = width/2.0f+overhang;
+  westRoof.sides[1][1] = 0.0;
   westRoof.sides[1][2] = roofDip + roofRise;
   westRoof.normForward = false;
   westRoof.setContainingIndex(objIndex);
@@ -121,8 +121,8 @@ void Gable::rebuildRects(void)
   eastRoof.relativePos[1] = -overhang;
   eastRoof.relativePos[2] = height - roofDip;
   glm_vec3_copy(westRoof.sides[0], eastRoof.sides[0]);
-  eastRoof.sides[1][0] = 0.0f;
-  eastRoof.sides[1][1] = -(width/2.0f+overhang);
+  eastRoof.sides[1][0] = -(width/2.0f+overhang);
+  eastRoof.sides[1][1] = 0.0f;
   eastRoof.sides[1][2] = roofDip + roofRise;
   eastRoof.normForward = true;
   eastRoof.setContainingIndex(objIndex);
@@ -425,7 +425,7 @@ bool Gable::diagnosticHTML(HttpDebug* serv)
     return false;
 
   // Provide details of all our individual BuildingRect components
-  unless(serv->newSection("Wall awnd Roof Sections"))
+  unless(serv->newSection("Wall and Roof Sections"))
     return false;
   unless(westWall.httPrintTableSummary(serv, (char*)"West Wall"))
     return false;

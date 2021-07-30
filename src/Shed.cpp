@@ -61,7 +61,7 @@ void Shed::rebuildRects(void)
   // Preliminaries
   float sinAngle      = sinf(angleFromNorth);
   float cosAngle      = cosf(angleFromNorth);
-  float tanRoofAngle  = tanf(roofAngle);
+  float tanRoofAngle  = tanf(roofAngle*M_PI/180.0f);
   float shortHeight   = height - tanRoofAngle*width;
   
   // The west wall (when we aren't rotated).
