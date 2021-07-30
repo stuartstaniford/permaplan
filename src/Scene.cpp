@@ -176,7 +176,7 @@ VisualObject* Scene::findObjectFromWindowCoords(vec3 location, float clipX, floa
 // =======================================================================================
 //XXX Temporary hack - toss the old buffer and make a new one
 
-void Scene::rebuildVisualObjectBuffer(TriangleBuffer** tbuf)
+void Scene::rebuildVisualObjectBuffer(TriangleBuffer** tbuf, bool dumpBuf)
 {
 #ifdef LOG_TRIANGLE_BUF_REBUILDS
 unsigned oldVCount = 0u;
@@ -197,6 +197,8 @@ unsigned oldICount = 0u;
   LogTriangleBufRebuilds("TriangleBuffer rebuild of %s: %u,%u to %u,%u.\n", 
                           (*tbuf)->bufName, oldVCount, oldICount, (*tbuf)->vCount, (*tbuf)->iCount);
   qtree->bufferVisualObjects(*tbuf);
+  if(dumpBuf)
+    (*tbuf)->dumpBuffer();
   (*tbuf)->sendToGPU(GL_STATIC_DRAW);
 }
 
@@ -291,7 +293,11 @@ void Scene::insertVisualObject(VisualObject* obj)
   LogObjectInsertions("Object inserted in scene: %s at %.1f, %.1f\n", obj->objectName(), x, y);
 #endif
   qtree->storeVisualObject(obj);
+#ifdef LOG_DUMP_OBJECT_BUFFER
+  rebuildVisualObjectBuffer(&sceneObjectTbuf, true);
+#else
   rebuildVisualObjectBuffer(&sceneObjectTbuf);
+#endif
 }
 
 

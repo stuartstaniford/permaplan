@@ -44,6 +44,7 @@
 //#define LOG_MOUSE_RAY_POINT     // Where the mouse is pointing in 3d space
 //#define LOG_LAND_HEIGHTS        // Log when a new land height is entered.
 #define LOG_OBJECT_INSERTIONS   // Log when a new object is inserted in scene.
+#define LOG_DUMP_OBJECT_BUFFER   // Dump buffer when a new object is inserted.
 #define LOG_SIMULATION_CONTROLS // Log control operations on the simulation.
 #define LOG_WINDOW_OPERATIONS   // Log changes to the window (eg resizing).
 
@@ -196,6 +197,7 @@ extern bool doLogClickDetails;        // Extra detailed recording of parts of cl
 extern bool doLogMouseRayPoint;       // Where the mouse is pointing in 3d space
 extern bool doLogLandHeights;         // Log when a new land height is entered.
 extern bool doLogObjectInsertions;    // Log when a new object is inserted in scene.
+extern bool doLogDumpObjectBuffer;    // Dump buffer when a new object is inserted.
 extern bool doLogSimulationControls;  // Log control operations on the simulation.
 extern bool doLogWindowOperations;    // Log changes to the window (eg resizing).
 
@@ -452,6 +454,14 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
                                     LogStatement("LogObjectInsertions: " __VA_ARGS__)
 #else
 #define LogObjectInsertions(...)
+#endif
+
+// Dump buffer when a new object is inserted.
+#ifdef LOG_DUMP_OBJECT_BUFFER
+#define LogDumpObjectBuffer(...) if(doLogDumpObjectBuffer) \
+                                    LogStatement("LogDumpObjectBuffer: " __VA_ARGS__)
+#else
+#define LogDumpObjectBuffer(...)
 #endif
 
 // Log control operations on the simulation.

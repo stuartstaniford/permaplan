@@ -22,6 +22,7 @@ class BuildRectData
   vec3 sides[2];
   vec3 relativePos;
   unsigned color;
+  unsigned containingIndex;
   bool normForward;  // normal is in the direction of sides[0]xsides[1]
 };
 
@@ -45,6 +46,7 @@ public:
   // Member functions - public
   BuildingRect(void);
   ~BuildingRect(void);
+  inline void setContainingIndex(unsigned index){containingIndex = index;}
   void setSide(int i, float x, float y, float z); 
   void setRelativePos(float x, float y, float z);
   void  triangleBufferSizes(unsigned& vCount, unsigned& iCount);
@@ -52,6 +54,8 @@ public:
   bool  bufferGeometryOfElement(TriangleBuffer* T, vec3 offset);
   bool  matchRayToElement(vec3& lPos, vec3& lDir, float& lambda, vec3 offset);
   bool  httPrintTableSummary(HttpDebug* serv, char* ourName);
+  inline unsigned getObjectIndex(void) {return containingIndex;} 
+
 private:
   // Instance variables - private
   

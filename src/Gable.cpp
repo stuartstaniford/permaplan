@@ -73,6 +73,7 @@ void Gable::rebuildRects(void)
   westWall.sides[1][1] = 0.0f;
   westWall.sides[1][2] = height;
   westWall.normForward = false;
+  westWall.setContainingIndex(objIndex);
   
   // The east wall (when we aren't rotated).
   // Almost the same as the west wall, but offset, and norm in the opposite direction.
@@ -80,6 +81,7 @@ void Gable::rebuildRects(void)
   eastWall.normForward = true;
   eastWall.relativePos[0] = width*cosAngle;
   eastWall.relativePos[1] = width*sinAngle;
+  eastWall.setContainingIndex(objIndex);
   
   // The south wall (when we aren't rotated).
   // sides[0] runs along the bottom of the wall, sides[1] up the SW corner of building
@@ -87,12 +89,14 @@ void Gable::rebuildRects(void)
   glm_vec3_copy(eastWall.relativePos, southWall.sides[0]);
   glm_vec3_copy(eastWall.sides[1], southWall.sides[1]);
   southWall.normForward = true;
+  southWall.setContainingIndex(objIndex);
   
   // The north wall (when we aren't rotated).
   // Almost the same as the south wall, but offset, and norm in the opposite direction.
   memcpy((BuildRectData*)&northWall, (BuildRectData*)&southWall, sizeof(BuildRectData));
   northWall.normForward = false;
   glm_vec3_add(southWall.relativePos, westWall.sides[0], northWall.relativePos);  
+  northWall.setContainingIndex(objIndex);
  
   // Ok, walls done, now set up for the rooves
   float tanRoofAngle  = tanf(roofAngle);
@@ -110,16 +114,18 @@ void Gable::rebuildRects(void)
   westRoof.sides[1][1] = width/2.0f+overhang;
   westRoof.sides[1][2] = roofDip + roofRise;
   westRoof.normForward = false;
+  westRoof.setContainingIndex(objIndex);
 
-  // West facing roof - sides[0] along the east eave, sides[1] up the sloping north side
-  westRoof.relativePos[0] = width + overhang;
-  westRoof.relativePos[1] = -overhang;
-  westRoof.relativePos[2] = height - roofDip;
+  // East facing roof - sides[0] along the east eave, sides[1] up the sloping north side
+  eastRoof.relativePos[0] = width + overhang;
+  eastRoof.relativePos[1] = -overhang;
+  eastRoof.relativePos[2] = height - roofDip;
   glm_vec3_copy(westRoof.sides[0], eastRoof.sides[0]);
-  westRoof.sides[1][0] = 0.0f;
-  westRoof.sides[1][1] = -(width/2.0f+overhang);
-  westRoof.sides[1][2] = roofDip + roofRise;
-  westRoof.normForward = true;
+  eastRoof.sides[1][0] = 0.0f;
+  eastRoof.sides[1][1] = -(width/2.0f+overhang);
+  eastRoof.sides[1][2] = roofDip + roofRise;
+  eastRoof.normForward = true;
+  eastRoof.setContainingIndex(objIndex);
 
   updateBoundingBox();
 }
@@ -154,7 +160,7 @@ bool Gable::bufferGeometryOfObject(TriangleBuffer* T)
 
   unless(addEndTrianglesToBuffer(T))
     return false;
-  
+
   return true;
 }
 
@@ -197,7 +203,8 @@ bool Gable::addEndTrianglesToBuffer(TriangleBuffer* T)
   //Now we copy top left vertex of south wall to new vertex
   memcpy(vertices, vertices - 10, sizeof(Vertex));
   vertices->setPosition(point);
-  
+  vertices->setObjectId(objIndex);
+
   // Now indices of the south triangle
   indices[0] = vOffset-10;  // top left of southwall
   indices[1] = vOffset-10;  // top right of southwall
@@ -208,7 +215,8 @@ bool Gable::addEndTrianglesToBuffer(TriangleBuffer* T)
   //Now we copy top left vertex of north wall to new vertex
   memcpy(vertices+1, vertices - 14, sizeof(Vertex));
   (vertices+1)->setPosition(point);
-  
+  (vertices+1)->setObjectId(objIndex);
+
   // Now indices of the north triangle
   indices[3] = vOffset-13;  // top right of northwall
   indices[4] = vOffset-14;  // top left of northwall
@@ -417,7 +425,7 @@ bool Gable::diagnosticHTML(HttpDebug* serv)
     return false;
 
   // Provide details of all our individual BuildingRect components
-  unless(serv->newSection("Wall and Roof Sections"))
+  unless(serv->newSection("Wall awnd Roof Sections"))
     return false;
   unless(westWall.httPrintTableSummary(serv, (char*)"West Wall"))
     return false;

@@ -44,6 +44,7 @@ bool doLogClickDetails        = true; // Extra detailed recording of parts of cl
 bool doLogMouseRayPoint       = true; // Where the mouse is pointing in 3d space
 bool doLogLandHeights         = true; // Log when a new land height is entered.
 bool doLogObjectInsertions    = true; // Log when a new object is inserted in scene.
+bool doLogDumpObjectBuffer    = true; // Dump buffer when a new object is inserted.
 bool doLogSimulationControls  = true; // Log control operations on the simulation.
 bool doLogWindowOperations    = true; // Log changes to the window (eg resizing).
 
@@ -310,6 +311,11 @@ bool LogControlHTML(HttpDebug* serv, char* path)
 #ifdef LOG_OBJECT_INSERTIONS // Log when a new object is inserted.
   if(strncmp(path, "doLogObjectInsertions", sizeof("doLogObjectInsertions")-1)==0)
     return oneLogControl(serv, path, doLogObjectInsertions);
+#endif
+  
+#ifdef LOG_DUMP_OBJECT_BUFFER // Dump buffer when a new object is inserted.
+  if(strncmp(path, "doLogDumpObjectBuffer", sizeof("doLogDumpObjectBuffer")-1)==0)
+    return oneLogControl(serv, path, doLogDumpObjectBuffer);
 #endif
   
 #ifdef LOG_SIMULATION_CONTROLS // Log control operations on the simulation.
