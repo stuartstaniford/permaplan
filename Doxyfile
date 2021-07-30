@@ -868,6 +868,7 @@ INPUT                  = doc \
                 include/Arrow.h src/Arrow.cpp \
                 include/AxialElement.h src/AxialElement.cpp \
                 include/Box.h src/Box.cpp \
+                include/Building.h src/Building.cpp \
                 include/BuildingRect.h src/BuildingRect.cpp \
                 include/CO2Scenario.h src/CO2Scenario.cpp \
                 include/DynamicallyTypable.h src/DynamicallyTypable.cpp \
