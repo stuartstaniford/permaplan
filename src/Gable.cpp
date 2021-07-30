@@ -207,7 +207,7 @@ bool Gable::addEndTrianglesToBuffer(TriangleBuffer* T)
 
   // Now indices of the south triangle
   indices[0] = vOffset-10;  // top left of southwall
-  indices[1] = vOffset-10;  // top right of southwall
+  indices[1] = vOffset-9;  // top right of southwall
   indices[2] = vOffset;     // newly created vertex at top of south triangle
   
   // Now north triangle (ie the one on top of the north wall).
