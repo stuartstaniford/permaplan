@@ -9,12 +9,31 @@
 // Required forward declarations
 
 class BuildingRect;
+class BuildingAssembly;
+
+
+// =======================================================================================
+/// @brief A triangular extension to one of the BuildingRects in the class.
+
+class RectExtension
+{
+  friend BuildingAssembly;
+  
+  private:
+  ///@brief The point of the triangle that is to be added.
+  vec3 extensionPoint;
+  ///@brief Which rectangle is to be extended;
+  unsigned rectIndex;
+  ///@brief the two vertices of the rectangle that form the base of the added triangle
+  unsigned vertexIndices[2];
+};
 
 
 // =======================================================================================
 /// @brief Functionality common to building sub-assemblies such as gables, sheds, etc.
 ///
-/// At the moment, largely has functionality for managing an array of BuildingRects.
+/// At the moment, largely has functionality for managing an array of BuildingRects,
+/// and another of RectExtensions.
 
 class BuildingAssembly: public VisualObject
 {
@@ -23,7 +42,7 @@ public:
   // Instance variables - public
   
   // Member functions - public
-  BuildingAssembly(int N);
+  BuildingAssembly(int nRectangles, int nExtensions = 0);
   ~BuildingAssembly(void);
   
   // Functions implementing the VirtualObject interface
@@ -38,7 +57,9 @@ protected:
 
   // Instance variables - protected
   int nRects;
+  int nExts;
   BuildingRect* rects;
+  RectExtension* exts;
   
 private:
   

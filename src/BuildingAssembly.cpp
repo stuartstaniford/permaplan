@@ -5,14 +5,23 @@
 #include "BuildingAssembly.h"
 #include "BuildingRect.h"
 
+
 // =======================================================================================
 /// @brief Constructor
 /// @param N the number of BuildingRect elements in this particular assembly
 
-BuildingAssembly::BuildingAssembly(int N):
-                                  nRects(N)
+BuildingAssembly::BuildingAssembly(int nRectangles, int nExtensions):
+                                  nRects(nRectangles),
+                                  nExts(nExtensions)
 {
-  rects = new BuildingRect[nRects];
+  if(nRects)
+    rects = new BuildingRect[nRects];
+  else
+    rects = NULL;
+  if(nExts)
+    exts = new RectExtension[nExts];
+  else
+    exts = NULL;
 }
 
 
@@ -21,7 +30,8 @@ BuildingAssembly::BuildingAssembly(int N):
 
 BuildingAssembly::~BuildingAssembly(void)
 {
-  delete rects;
+  delete[] rects;
+  delete[] exts;
 }
 
 
