@@ -4,7 +4,6 @@
 #define EMPTY_CLASS_H
 
 #include "VisualObject.h"
-#include "Orientable.h"
 
 // =======================================================================================
 // Required forward declarations
@@ -17,7 +16,7 @@ class BuildingRect;
 ///
 /// At the moment, largely has functionality for managing an array of BuildingRects.
 
-class BuildingAssembly: public VisualObject, public Orientable
+class BuildingAssembly: public VisualObject
 {
 public:
   
@@ -26,8 +25,14 @@ public:
   // Member functions - public
   BuildingAssembly(int N);
   ~BuildingAssembly(void);
+  
+  // Functions implementing the VirtualObject interface
   virtual bool bufferGeometryOfObject(TriangleBuffer* T);
   virtual void updateBoundingBox(void);
+  virtual bool matchRayToObject(vec3& pos, vec3& dir, float& lambda);
+  virtual float* getPosition(void);
+  void selfValidate(unsigned l);
+  virtual const char* objectName(void);
 
 protected:
 

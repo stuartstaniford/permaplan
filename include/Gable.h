@@ -2,8 +2,7 @@
 
 #ifndef GABLE_H
 #define GABLE_H
-#include "VisualObject.h"
-#include "BuildingRect.h"
+#include "BuildingAssembly.h"
 #include "Orientable.h"
 #include "rapidjson/document.h"
 #include "rapidjson/writer.h"
@@ -54,7 +53,7 @@ class GableParamData: public Orientable
 /// while the length in the east-west drection is "width".  "Height" is the height of
 /// the short walls, not the full height to the roof ridge.
 
-class Gable: public VisualObject, public GableParamData
+class Gable: public BuildingAssembly, public GableParamData
 {
 public:
   
@@ -67,13 +66,13 @@ public:
   
   // Public methods implementing the VisualObject interface
   bool        bufferGeometryOfObject(TriangleBuffer* T);
-  bool        matchRayToObject(vec3& pos, vec3& dir, float& lambda);
   void        triangleBufferSizes(unsigned& vCount, unsigned& iCount);
-  void        updateBoundingBox(void);
- void         selfValidate(unsigned l);
   const char* objectName(void);
   bool        diagnosticHTMLSummary(HttpDebug* serv);
   bool        diagnosticHTML(HttpDebug* serv);
+  
+  // Public methods implementing the BuildingAssembly interface
+  float* getPosition(void);
 
   // Static methods
   static bool validateOLDF(rapidjson::Value& gableJsonObject);
@@ -81,16 +80,6 @@ public:
 private:
   
   // Instance variables - private.
-  BuildingRect  westWall;
-  BuildingRect  eastWall;
-  BuildingRect  northWall;
-  BuildingRect  southWall;
-  BuildingRect  westRoof;
-  BuildingRect  eastRoof;
-  BuildingRect  westSoffit;
-  BuildingRect  eastSoffit;
-  BuildingRect  northSoffit;
-  BuildingRect  southSoffit;
   float         roofRise;
   
   // Member functions - private

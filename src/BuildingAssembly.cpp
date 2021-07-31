@@ -35,7 +35,7 @@ BuildingAssembly::~BuildingAssembly(void)
 bool BuildingAssembly::bufferGeometryOfObject(TriangleBuffer* T)
 {
   for(int i=0; i<nRects; i++)
-    unless(rects[i].bufferGeometryOfElement(T, position))
+    unless(rects[i].bufferGeometryOfElement(T, getPosition()))
       return false;
 
   return true;
@@ -55,7 +55,68 @@ void BuildingAssembly::updateBoundingBox(void)
     box = new BoundingBox();
   
   for(int i=0; i<nRects; i++)
-    rects[i].updateBoundingBox(box, position);
+    rects[i].updateBoundingBox(box, getPosition());
+}
+
+
+// =======================================================================================
+/// @brief Get our position vector - has to be supplied by subclass.
+///
+/// @returns A float* which points to the vec3 of our position.
+
+float* BuildingAssembly::getPosition(void)
+{
+  err(-1, "Call to non-implemented BuildingAssembly::getPosition.\n");  
+}
+
+
+// =======================================================================================
+/// @brief Decide if a ray touches us.
+/// 
+/// This implementation works by checking each of our component BuildingRects
+/// @param pos The vec3 for a point on the ray to be matched.
+/// @param dir The vec3 for the direction of the ray.
+/// @param lambda A reference to a float which will be used to store the multiple of 
+/// the direction vector from the position to the match point on the object.
+/// @todo End triangles
+
+
+bool BuildingAssembly::matchRayToObject(vec3& pos, vec3& dir, float& lambda)
+{
+  lambda = HUGE_VAL;
+  float subLambda;
+  bool matched = false;
+  
+  for(int i=0; i<nRects; i++)
+    if(rects[i].matchRayToElement(pos, dir, subLambda, getPosition()))
+     {
+      matched = true;
+      if(subLambda < lambda)
+        lambda = subLambda;
+     }
+  
+  return matched;
+}
+
+
+// =======================================================================================
+/// @brief Function to validate the quadtree and all the objects.
+
+void BuildingAssembly::selfValidate(unsigned l)
+{
+#ifdef LOG_TREE_VALIDATION
+  box->selfValidate(true);
+#endif
+}
+
+
+// =======================================================================================
+/// @brief Tell callers our name at runtime.
+
+const char* BuildingAssembly::objectName(void)
+{
+  static char* name = (char*)"BuildingAssembly";
+  return name;
 }
 
 

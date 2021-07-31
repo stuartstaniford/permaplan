@@ -5,7 +5,7 @@
 
 #include "Gable.h"
 #include "MenuGablePanel.h"
-
+#include "BuildingRect.h"
 
 // =======================================================================================
 /// @brief Constructor for GableParamData (the core data required to specify a Gable, and
@@ -27,7 +27,7 @@ GableParamData::GableParamData(void):
 /// @brief Constructor
 
 Gable::Gable(MenuGablePanel& gablePanel):
-                              VisualObject(false)
+                              BuildingAssembly(6)
 {
   height          = gablePanel.height;
   length          = gablePanel.length;
@@ -65,6 +65,7 @@ void Gable::rebuildRects(void)
   
   // The west wall (when we aren't rotated).
   // sides[0] runs along the bottom of the wall, sides[1] up the SW corner of building
+  BuildingRect& westWall = rects[0];
   glm_vec3_copy(zeroVec, westWall.relativePos);
   westWall.sides[0][0] = length*sinAngle;
   westWall.sides[0][1] = length*cosAngle;
@@ -77,6 +78,7 @@ void Gable::rebuildRects(void)
   
   // The east wall (when we aren't rotated).
   // Almost the same as the west wall, but offset, and norm in the opposite direction.
+  BuildingRect& eastWall = rects[1];
   memcpy((BuildRectData*)&eastWall, (BuildRectData*)&westWall, sizeof(BuildRectData));
   eastWall.normForward = true;
   eastWall.relativePos[0] = width*cosAngle;
@@ -85,6 +87,7 @@ void Gable::rebuildRects(void)
   
   // The south wall (when we aren't rotated).
   // sides[0] runs along the bottom of the wall, sides[1] up the SW corner of building
+  BuildingRect& southWall = rects[2];
   glm_vec3_copy(zeroVec, southWall.relativePos);
   glm_vec3_copy(eastWall.relativePos, southWall.sides[0]);
   glm_vec3_copy(eastWall.sides[1], southWall.sides[1]);
@@ -93,6 +96,7 @@ void Gable::rebuildRects(void)
   
   // The north wall (when we aren't rotated).
   // Almost the same as the south wall, but offset, and norm in the opposite direction.
+  BuildingRect& northWall = rects[3];
   memcpy((BuildRectData*)&northWall, (BuildRectData*)&southWall, sizeof(BuildRectData));
   northWall.normForward = false;
   glm_vec3_add(southWall.relativePos, westWall.sides[0], northWall.relativePos);  
@@ -104,6 +108,7 @@ void Gable::rebuildRects(void)
   roofRise            = tanRoofAngle*(width/2.0f);
   
   // West facing roof - sides[0] along the west eave, sides[1] up the sloping south side
+  BuildingRect& westRoof = rects[4];
   westRoof.relativePos[0] = -overhang;
   westRoof.relativePos[1] = -overhang;
   westRoof.relativePos[2] = height - roofDip;
@@ -117,6 +122,7 @@ void Gable::rebuildRects(void)
   westRoof.setContainingIndex(objIndex);
 
   // East facing roof - sides[0] along the east eave, sides[1] up the sloping north side
+  BuildingRect& eastRoof = rects[5];
   eastRoof.relativePos[0] = width + overhang;
   eastRoof.relativePos[1] = -overhang;
   eastRoof.relativePos[2] = height - roofDip;
@@ -145,17 +151,8 @@ bool Gable::bufferGeometryOfObject(TriangleBuffer* T)
                     "Roof Angle: %.1f; Overhang: %.2f, Position: [%.1f, %.1f, %.1f] "
                     "Orientation: %.1f.\n", height, length, width, roofAngle, overhang,
                     position[0], position[1], position[2], angleFromNorth);
-  unless(westWall.bufferGeometryOfElement(T, position))
-    return false;
-  unless(eastWall.bufferGeometryOfElement(T, position))
-    return false;
-  unless(northWall.bufferGeometryOfElement(T, position))
-    return false;
-  unless(southWall.bufferGeometryOfElement(T, position))
-    return false;
-  unless(westRoof.bufferGeometryOfElement(T, position))
-    return false;
-  unless(eastRoof.bufferGeometryOfElement(T, position))
+
+  unless(BuildingAssembly::bufferGeometryOfObject(T))
     return false;
 
   unless(addEndTrianglesToBuffer(T))
@@ -195,6 +192,7 @@ bool Gable::addEndTrianglesToBuffer(TriangleBuffer* T)
   // sides[0] runs along the bottom of the wall, sides[1] up the SW corner of building
   vec3 point;
   vec3 scaledVec;
+  BuildingRect& southWall = rects[2];
   glm_vec3_add(southWall.relativePos, position, point);
   glm_vec3_scale_as(southWall.sides[0], width/2.0f, scaledVec);
   glm_vec3_add(point, scaledVec, point); // Point at middle bottom of south wall.
@@ -211,6 +209,7 @@ bool Gable::addEndTrianglesToBuffer(TriangleBuffer* T)
   indices[2] = vOffset;     // newly created vertex at top of south triangle
   
   // Now north triangle (ie the one on top of the north wall).
+  BuildingRect& westWall = rects[0];
   glm_vec3_add(point, westWall.sides[0], point); // Move point parallel to westwall.
   //Now we copy top left vertex of north wall to new vertex
   memcpy(vertices+1, vertices - 14, sizeof(Vertex));
@@ -227,23 +226,13 @@ bool Gable::addEndTrianglesToBuffer(TriangleBuffer* T)
 
 
 // =======================================================================================
-/// @brief Update the size of our axis-aligned bounding box.
+/// @brief Get our position vector.
 ///
-/// We call each of our component BuildingRects and have them update our bounding box
-/// with our position as their offset.
-/// @todo - how to handle our orientation?
+/// @returns A float* which points to the vec3 of our position.
 
-void Gable::updateBoundingBox(void)
+float* Gable::getPosition(void)
 {
-  unless(box)
-    box = new BoundingBox();
-  
-  westWall.updateBoundingBox(box, position);
-  eastWall.updateBoundingBox(box, position);
-  northWall.updateBoundingBox(box, position);
-  southWall.updateBoundingBox(box, position);
-  westRoof.updateBoundingBox(box, position);
-  eastRoof.updateBoundingBox(box, position);
+  return position;  
 }
 
 
@@ -258,80 +247,11 @@ void Gable::updateBoundingBox(void)
 
 void Gable::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 {
-  westWall.triangleBufferSizes(vCount, iCount);
+  rects[0].triangleBufferSizes(vCount, iCount);
   vCount = 6*vCount + 2;  // 6 walls plus two vertices for the end cap triangles
   iCount = 6*iCount + 6;  // 6 walls plus two end cap triangles
   LogTriangleBufEstimates("Gable TriangleBuffer estimate: [%u, %u]\n", vCount, iCount);
 }
-
-
-// =======================================================================================
-/// @brief Decide if a ray touches us.
-/// 
-/// This implementation works by checking each of our component BuildingRects
-/// @param pos The vec3 for a point on the ray to be matched.
-/// @param dir The vec3 for the direction of the ray.
-/// @param lambda A reference to a float which will be used to store the multiple of 
-/// the direction vector from the position to the match point on the object.
-/// @todo End triangles
-
-bool Gable::matchRayToObject(vec3& pos, vec3& dir, float& lambda)
-{
-  lambda = HUGE_VAL;
-  float subLambda;
-  bool matched = false;
-  
-  if(westWall.matchRayToElement(pos, dir, subLambda, position))
-   {
-    matched = true;
-    if(subLambda < lambda)
-      lambda = subLambda;
-   }
-  if(eastWall.matchRayToElement(pos, dir, subLambda, position))
-   {
-    matched = true;
-    if(subLambda < lambda)
-      lambda = subLambda;
-   }
-  if(northWall.matchRayToElement(pos, dir, subLambda, position))
-   {
-    matched = true;
-    if(subLambda < lambda)
-      lambda = subLambda;
-   }
-  if(southWall.matchRayToElement(pos, dir, subLambda, position))
-   {
-    matched = true;
-    if(subLambda < lambda)
-      lambda = subLambda;
-   }
-  if(westRoof.matchRayToElement(pos, dir, subLambda, position))
-   {
-    matched = true;
-    if(subLambda < lambda)
-      lambda = subLambda;
-   }
-  if(eastRoof.matchRayToElement(pos, dir, subLambda, position))
-   {
-    matched = true;
-    if(subLambda < lambda)
-      lambda = subLambda;
-   }
-  
-  return matched;
-}
-
-// =======================================================================================
-/// @brief Function to validate the quadtree and all the objects.
-
-#ifdef LOG_TREE_VALIDATION
-
-void Gable::selfValidate(unsigned l)
-{
-  box->selfValidate(true);
-}
-
-#endif
 
 
 // =======================================================================================
@@ -427,17 +347,17 @@ bool Gable::diagnosticHTML(HttpDebug* serv)
   // Provide details of all our individual BuildingRect components
   unless(serv->newSection("Wall and Roof Sections"))
     return false;
-  unless(westWall.httPrintTableSummary(serv, (char*)"West Wall"))
+  unless(rects[0].httPrintTableSummary(serv, (char*)"West Wall"))
     return false;
-  unless(eastWall.httPrintTableSummary(serv, (char*)"East Wall"))
+  unless(rects[1].httPrintTableSummary(serv, (char*)"East Wall"))
     return false;
-  unless(southWall.httPrintTableSummary(serv, (char*)"South Wall"))
+  unless(rects[2].httPrintTableSummary(serv, (char*)"South Wall"))
     return false;
-  unless(northWall.httPrintTableSummary(serv, (char*)"North Wall"))
+  unless(rects[3].httPrintTableSummary(serv, (char*)"North Wall"))
     return false;
-  unless(westRoof.httPrintTableSummary(serv, (char*)"West Roof"))
+  unless(rects[4].httPrintTableSummary(serv, (char*)"West Roof"))
     return false;
-  unless(eastRoof.httPrintTableSummary(serv, (char*)"East Roof"))
+  unless(rects[5].httPrintTableSummary(serv, (char*)"East Roof"))
     return false;
   
   // Page closing
