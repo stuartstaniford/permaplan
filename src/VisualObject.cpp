@@ -23,7 +23,7 @@ Lockable VisualObject::staticLock;
 /// index and keep track of that in the allObjects container.
 /// 
 /// @param absHeights This is true if the VisualObject should have absolute height, false
-/// if they should be relative to the land surface.
+/// if they should be relative to the land surface.  In most cases this should be false
 /// @param B A pointer to a bounding box.  This defaults to NULL and that is the usual 
 /// case - the object will allocate it's own BoundingBox.  But if there's a reason the
 /// object should use a different bounding box, it is supplied here.

@@ -40,7 +40,7 @@ class VisualObject: public Lockable, public VisualElement
   char*         label;
 
   // Member functions - public
-  VisualObject(bool absHeights, BoundingBox* B = NULL);
+  VisualObject(bool absHeights = false, BoundingBox* B = NULL);
   virtual ~VisualObject(void);
 
   // Public member functions coming from VisualElement

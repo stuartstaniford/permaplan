@@ -87,6 +87,10 @@ private:
   BuildingRect  southWall;
   BuildingRect  westRoof;
   BuildingRect  eastRoof;
+  BuildingRect  westSoffit;
+  BuildingRect  eastSoffit;
+  BuildingRect  northSoffit;
+  BuildingRect  southSoffit;
   float         roofRise;
   
   // Member functions - private
