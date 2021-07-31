@@ -35,10 +35,27 @@ BuildingAssembly::~BuildingAssembly(void)
 bool BuildingAssembly::bufferGeometryOfObject(TriangleBuffer* T)
 {
   for(int i=0; i<nRects; i++)
-  unless(rects->bufferGeometryOfElement(T, position))
-    return false;
+    unless(rects[i].bufferGeometryOfElement(T, position))
+      return false;
 
   return true;
+}
+
+
+// =======================================================================================
+/// @brief Update the size of our axis-aligned bounding box.
+///
+/// We call each of our component BuildingRects and have them update our bounding box
+/// with our position as their offset.
+/// @todo - how to handle our orientation?
+
+void BuildingAssembly::updateBoundingBox(void)
+{
+  unless(box)
+    box = new BoundingBox();
+  
+  for(int i=0; i<nRects; i++)
+    rects[i].updateBoundingBox(box, position);
 }
 
 

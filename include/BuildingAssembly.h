@@ -27,6 +27,7 @@ public:
   BuildingAssembly(int N);
   ~BuildingAssembly(void);
   virtual bool bufferGeometryOfObject(TriangleBuffer* T);
+  virtual void updateBoundingBox(void);
 
 protected:
 
