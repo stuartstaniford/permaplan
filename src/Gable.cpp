@@ -92,6 +92,20 @@ void Gable::rebuildRects(void)
   glm_vec3_copy(eastWall.sides[1], southWall.sides[1]);
   southWall.normForward = true;
   southWall.setContainingIndex(objIndex);
+
+  // The south wall triangular extension  
+  // Note the order of the vertices - 0 is relativePos, 1 is relativePos + sides[0],
+  // 2 is relativePos + sides[1], 3 is relativePos + sides[0] + sides[1]
+  RectExtension& southTriangle = exts[0];
+  southTriangle.rectIndex = 2u; // for southWall
+  southTriangle.vertexIndices[0] = 2; // top south west corner of walls
+  southTriangle.vertexIndices[1] = 3; // top south east corner of walls
+  vec3 point;
+  vec3 scaledVec;
+  glm_vec3_scale_as(southWall.sides[0], width/2.0f, scaledVec);
+  glm_vec3_add(southWall.relativePos, scaledVec, point); // Point at middle bottom of south wall.
+  glm_vec3_scale_as(southWall.sides[1], height+roofRise, scaledVec);
+  glm_vec3_add(point, scaledVec, southTriangle.extensionPoint);
   
   // The north wall (when we aren't rotated).
   // Almost the same as the south wall, but offset, and norm in the opposite direction.
@@ -101,6 +115,14 @@ void Gable::rebuildRects(void)
   glm_vec3_add(southWall.relativePos, westWall.sides[0], northWall.relativePos);  
   northWall.setContainingIndex(objIndex);
  
+  // The north wall triangular extension  
+  RectExtension& northTriangle = exts[1];
+  northTriangle.rectIndex = 3u; // for northWall
+  northTriangle.vertexIndices[0] = 3; // top north east corner of walls
+  northTriangle.vertexIndices[1] = 2; // top north west corner of walls
+  glm_vec3_add(southTriangle.extensionPoint, westWall.sides[0], 
+                            northTriangle.extensionPoint);  // move parallel to westWall  
+  
   // Ok, walls done, now set up for the rooves
   float tanRoofAngle  = tanf(roofAngle*M_PI/180.0f);
   float roofDip       = tanRoofAngle*overhang;
@@ -154,72 +176,6 @@ bool Gable::bufferGeometryOfObject(TriangleBuffer* T)
   unless(BuildingAssembly::bufferGeometryOfObject(T))
     return false;
 
-  unless(addEndTrianglesToBuffer(T))
-    return false;
-
-  return true;
-}
-
-
-// =======================================================================================
-/// @brief After buffering all the BuildingRect pieces, add the triangles at the top of
-/// the north and south wall.
-/// 
-/// This has to do some tricky buffer math.  Only C programmers allowed in this function 
-/// :-). The south triangle reuses the upper two vertices of the south wall, as well as 
-/// a newly added vertex.  Similarly the north triangle.  Consult 
-/// Gable::bufferGeometryOfObject, Gable::rebuildRects and 
-/// BuildingRect::bufferGeometryOfElement to figure out which vertex is which.  
-/// @param T A pointer to a TriangleBuffer into which the object should insert its
-/// vertices and indices (see TriangleBuffer::requestSpace).
-
-bool Gable::addEndTrianglesToBuffer(TriangleBuffer* T)
-{
-  Vertex*   vertices;
-  unsigned* indices;
-  unsigned  vOffset;
-
-  // Get the space for the extra triangles
-  unless(T->requestSpace(&vertices, &indices, vOffset, 2, 6))
-   {
-    LogTriangleBufferErrs("Gable::addEndTrianglesToBuffer TriangleBuffer request"
-                                                    " for 2,6 failed at %u.\n", vOffset);
-    return false;
-   }
-
-  // South triangle (ie the one on top of the south wall).
-  // sides[0] runs along the bottom of the wall, sides[1] up the SW corner of building
-  vec3 point;
-  vec3 scaledVec;
-  BuildingRect& southWall = rects[2];
-  glm_vec3_add(southWall.relativePos, position, point);
-  glm_vec3_scale_as(southWall.sides[0], width/2.0f, scaledVec);
-  glm_vec3_add(point, scaledVec, point); // Point at middle bottom of south wall.
-  glm_vec3_scale_as(southWall.sides[1], height+roofRise, scaledVec);
-  glm_vec3_add(point, scaledVec, point); // Point now correctly in position.
-  //Now we copy top left vertex of south wall to new vertex
-  memcpy(vertices, vertices - 10, sizeof(Vertex));
-  vertices->setPosition(point);
-  vertices->setObjectId(objIndex);
-
-  // Now indices of the south triangle
-  indices[0] = vOffset-10;  // top left of southwall
-  indices[1] = vOffset-9;  // top right of southwall
-  indices[2] = vOffset;     // newly created vertex at top of south triangle
-  
-  // Now north triangle (ie the one on top of the north wall).
-  BuildingRect& westWall = rects[0];
-  glm_vec3_add(point, westWall.sides[0], point); // Move point parallel to westwall.
-  //Now we copy top left vertex of north wall to new vertex
-  memcpy(vertices+1, vertices - 14, sizeof(Vertex));
-  (vertices+1)->setPosition(point);
-  (vertices+1)->setObjectId(objIndex);
-
-  // Now indices of the north triangle
-  indices[3] = vOffset-13;  // top right of northwall
-  indices[4] = vOffset-14;  // top left of northwall
-  indices[5] = vOffset+1;     // newly created vertex at top of north triangle
-  
   return true;
 }
 

@@ -25,10 +25,8 @@ class BuildingAssembly;
 /// counterclockwise winding from the front face (per OpenGL culling convention).
 
 class RectExtension
-{
-  friend BuildingAssembly;
-  
-  private:
+{  
+  public:
   ///@brief The point of the triangle that is to be added.
   vec3 extensionPoint;
   ///@brief Which rectangle is to be extended;

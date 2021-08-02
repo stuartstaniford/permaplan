@@ -89,7 +89,10 @@ bool BuildingRect::updateBoundingBox(BoundingBox* box, vec3 offset)
 
 // =======================================================================================
 /// @brief This is where the actual geometry is defined - we render it into a buffer on 
-/// request
+/// request.
+/// 
+/// Note the order of the vertices - 0 is relativePos, 1 is relativePos + sides[0],
+/// 2 is relativePos + sides[1], 3 is relativePos + sides[0] + sides[1]
 /// @returns False if space cannot be obtained in the TriangleBuffer, true otherwise.
 /// @param T A pointer to a TriangleBuffer into which the object should insert its
 /// vertices and indices (see TriangleBuffer::requestSpace).

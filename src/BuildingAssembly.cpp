@@ -67,7 +67,7 @@ bool BuildingAssembly::bufferGeometryOfObject(TriangleBuffer* T)
     unless(rects[i].bufferGeometryOfElement(T, getPosition()))
       return false;
 
-  //bufferExtensions(T);
+  bufferExtensions(T);
   
   return true;
 }
@@ -110,17 +110,20 @@ bool BuildingAssembly::bufferExtensions(TriangleBuffer* T)
     // Copy the zeroth vertex from the correct rectangle as the starting point, which
     // will give us the correct norm, color, etc.
     memcpy(vertices+i, rectVertices + (exts[i].rectIndex)*rectVCount, sizeof(Vertex));
-    vertices[i].setPosition(exts[i].extensionPoint);
+    vec3 pt;
+    glm_vec3_add(exts[i].extensionPoint, getPosition(), pt);
+    vertices[i].setPosition(pt);
+    LogBuildRectDetails("Vertex 4 at [%.1f, %.1f, %.1f].\n", pt[0], pt[1], pt[2]);
     vertices[i].setObjectId(objIndex);    
 
     // Now indices of the new triangle
     indices[3*i]    = rectOffset + (exts[i].rectIndex)*rectVCount 
                                             + exts[i].vertexIndices[0]; // 1st existing
     indices[3*i+1]  = rectOffset + (exts[i].rectIndex)*rectVCount 
-                                            + exts[i].vertexIndices[0];  // 2nd existing
-    indices[3*i+2] = vOffset+8;     // newly created vertex
+                                            + exts[i].vertexIndices[1];  // 2nd existing
+    indices[3*i+2] = vOffset+i;     // newly created vertex
    }
-
+  
   return true;
 }
 

@@ -19,11 +19,13 @@ class Shed;
 class BuildRectData
 {
  protected:
+  /// @brief Vector for two sides of the rectangle starting from the relativePos
   vec3 sides[2];
+  /// @brief Relative position of the rectangle to the containing object
   vec3 relativePos;
   unsigned color;
   unsigned containingIndex;
-  bool normForward;  // normal is in the direction of sides[0]xsides[1]
+  bool normForward;  // normal is in the direction of sides[0]xsides[1] (vector cross prod)
 };
 
 
