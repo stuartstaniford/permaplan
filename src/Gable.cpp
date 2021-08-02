@@ -246,6 +246,9 @@ void GableParamData::writeToOLDF(FILE* file, char* indent)
 {
   fprintf(file, "%s {\n", indent);
 
+  // type gable
+  fprintf(file, "%s%s\"type\": \"gable\",\n", indent, indent);
+
   // position
   fprintf(file, "%s%s\"position\": [%f, %f, %f],\n", indent, indent, position[0], 
                                                                   position[1], position[2]);

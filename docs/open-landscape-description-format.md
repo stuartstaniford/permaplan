@@ -325,8 +325,53 @@ This is a field for unstructured (typically human supplied) information about th
 
 ## Buildings
 
-### Blocks (optional)
+The buildings section consists of an array of objects, each of which represents a building.  A building consists of a group of building assemblies, of which examples, are gables, sheds, and blocks.
 
 ### Gables (optional)
+
+The example below shows an object which represents an individual gable that is part of a building.
+
+```
+// Example gable object
+    {
+     "type": "gable",
+     "position": [92, 48, 100],
+     "angleFromNorth": 45,
+     "height": 18,
+     "length": 40,
+     "width": 30,
+     "roofAngle": 30,
+     "overhang": 2.0,
+},
+```
+The required fields (non are optional) are as follows:
+
+#### type
+Must be the string "gable".
+
+#### position
+blah
+
+#### angleFromNorth
+blah
+
+#### height
+blah
+
+#### length
+blah
+
+#### width
+blah
+
+#### roofAngle
+blah
+
+#### overhang
+blah
+
+
+### Blocks (optional)
+
 
 
