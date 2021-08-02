@@ -19,7 +19,10 @@ class BuildingAssembly;
 /// rectangles (rather than, say, poking out beyond the envelope of the rectangles).  
 /// Thus for example, they are ignored in updateBoundingBox.  However, they are 
 /// considered in bufferGeometry (so they appear visually) and matchRay (so that their 
-/// effect in shading or mouse pointing is correctly captured.
+/// effect in shading or mouse pointing is correctly captured.  Note that the two
+/// selected vertex of the existing rectangle must be ordered such that taking the first
+/// of them, then the second, then the newly added extending vertex, will result in 
+/// counterclockwise winding from the front face (per OpenGL culling convention).
 
 class RectExtension
 {
@@ -30,7 +33,7 @@ class RectExtension
   vec3 extensionPoint;
   ///@brief Which rectangle is to be extended;
   unsigned rectIndex;
-  ///@brief the two vertices of the rectangle that form the base of the added triangle
+  ///@brief the two vertices of the rectangle that form the base of the added triangle.
   unsigned vertexIndices[2];
 };
 
@@ -73,6 +76,7 @@ private:
   // Instance variables - private
   
   // Member functions - private
+  bool bufferExtensions(TriangleBuffer* T);
   /// @brief Prevent copy-construction.
   BuildingAssembly(const BuildingAssembly&);       
   /// @brief Prevent assignment.

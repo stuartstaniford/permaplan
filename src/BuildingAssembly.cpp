@@ -67,6 +67,60 @@ bool BuildingAssembly::bufferGeometryOfObject(TriangleBuffer* T)
     unless(rects[i].bufferGeometryOfElement(T, getPosition()))
       return false;
 
+  //bufferExtensions(T);
+  
+  return true;
+}
+
+
+// =======================================================================================
+/// @brief After buffering all the BuildingRect pieces, add the triangles defined by
+/// the various RectExtensions.
+/// 
+/// This has to do some tricky buffer math.  Only C programmers allowed in this function 
+/// :-). In general, each extension takes two vertices from an existing rectangle and
+/// adds one new vertex to form a triangle which is then buffered. 
+/// BuildingRect::bufferGeometryOfElement to figure out which vertex is which.  
+/// @param T A pointer to a TriangleBuffer into which the object should insert its
+/// vertices and indices (see TriangleBuffer::requestSpace).
+
+bool BuildingAssembly::bufferExtensions(TriangleBuffer* T)
+{
+  // Get the space for the extra triangles
+  Vertex*   vertices;
+  unsigned* indices;
+  unsigned  vOffset;
+  unless(T->requestSpace(&vertices, &indices, vOffset, nExts, 3*nExts))
+   {
+    LogTriangleBufferErrs("BuildingAssembly::bufferExtensions TriangleBuffer request"
+                    " for %u, %u failed at %u.\n", nExts, 3*nExts, vOffset);
+    return false;
+   }
+  
+  // Figure out the beginning of the rectVertices
+  Vertex*   rectVertices;
+  unsigned rectVCount, rectICount;
+  rects->triangleBufferSizes(rectVCount, rectICount);
+  rectVertices = vertices - nRects*rectVCount;
+  unsigned rectOffset = vOffset - nRects*rectVCount;
+  
+  // Now process the RectExtensions one at a time
+  for(int i=0; i<nExts; i++)
+   {
+    // Copy the zeroth vertex from the correct rectangle as the starting point, which
+    // will give us the correct norm, color, etc.
+    memcpy(vertices+i, rectVertices + (exts[i].rectIndex)*rectVCount, sizeof(Vertex));
+    vertices[i].setPosition(exts[i].extensionPoint);
+    vertices[i].setObjectId(objIndex);    
+
+    // Now indices of the new triangle
+    indices[3*i]    = rectOffset + (exts[i].rectIndex)*rectVCount 
+                                            + exts[i].vertexIndices[0]; // 1st existing
+    indices[3*i+1]  = rectOffset + (exts[i].rectIndex)*rectVCount 
+                                            + exts[i].vertexIndices[0];  // 2nd existing
+    indices[3*i+2] = vOffset+8;     // newly created vertex
+   }
+
   return true;
 }
 
