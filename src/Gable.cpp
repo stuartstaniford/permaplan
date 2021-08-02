@@ -234,6 +234,45 @@ bool Gable::diagnosticHTMLSummary(HttpDebug* serv)
 
 
 // =======================================================================================
+/// @brief Write out one Gable's data to an OLDF JSON file.
+///
+/// Note we will typically be writing out into the middle of a file, the overall 
+/// organization of the file being orchestrated by our call-chain.  We just know about
+/// recording ourself in the proper OLDF format.
+/// @param file The C-style FILE* pointer for the open file to write to.
+/// @param indent The C-string used for one unit of indentation of the JSON.
+
+void GableParamData::writeToOLDF(FILE* file, char* indent)
+{
+  fprintf(file, "%s {\n", indent);
+
+  // position
+  fprintf(file, "%s%s\"position\": [%f, %f, %f],\n", indent, indent, position[0], 
+                                                                  position[1], position[2]);
+  
+  // orientation
+  fprintf(file, "%s%s\"angleFromNorth\": %.1f,\n", indent, indent, angleFromNorth);
+
+  // height
+  fprintf(file, "%s%s//\"height\": %.1f,\n", indent, indent, height);
+
+  // length
+  fprintf(file, "%s%s//\"length\": %.1f,\n", indent, indent, length);
+
+  // width
+  fprintf(file, "%s%s//\"width\": %.1f,\n", indent, indent, width);
+
+  // roofAngle
+  fprintf(file, "%s%s//\"roofAngle\": %.1f,\n", indent, indent, roofAngle);
+
+  // overhang
+  fprintf(file, "%s%s//\"height\": %.1f,\n", indent, indent, overhang);
+
+  fprintf(file, "%s }", indent);
+}
+
+
+// =======================================================================================
 /// @brief Provide an HTML table summarizing these parameters.
 /// @returns True if the page was written correctly, false if we ran out of space.
 /// @param serv The HTTP Debug server

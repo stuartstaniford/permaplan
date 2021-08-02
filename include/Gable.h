@@ -27,6 +27,7 @@ class GableParamData: public Orientable
   public:
     GableParamData(void);
     bool httPrintGableParamTable(HttpDebug* serv);
+    void writeToOLDF(FILE* file, char* indent);
 
   protected:
   
