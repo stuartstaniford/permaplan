@@ -1,6 +1,7 @@
 // Copyright Staniford Systems.  All Rights Reserved.  July 2021 -
 // Functionality common to building sub-assemblies such as gables, sheds, etc.  At the 
-// moment, largely has functionality for managing an array of BuildingRects
+// moment, has functionality for managing arrays of BuildingRects, along with some
+// Rectextensions
 
 #include "BuildingAssembly.h"
 #include "BuildingRect.h"
@@ -32,6 +33,24 @@ BuildingAssembly::~BuildingAssembly(void)
 {
   delete[] rects;
   delete[] exts;
+}
+
+
+// =======================================================================================
+/// @brief How much space we need in a TriangleBuffer on a call to bufferGeometryToObject
+///
+/// @param vCount A reference to a count which will hold the number of Vertex objects 
+/// that will be generated.
+/// @param iCount A reference to a count which will hold the number of unsigned indices 
+/// that will be generated.
+/// @todo Stub only at present
+
+void BuildingAssembly::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
+{
+  rects[0].triangleBufferSizes(vCount, iCount);
+  vCount = nRects*vCount + nExts;  // nRects walls plus a vertex for each end cap triangle
+  iCount = nRects*iCount + 3*nExts;  // nRects walls plus nExts end cap triangles
+  LogTriangleBufEstimates("BuildingAssembly TriangleBuffer estimate: [%u, %u]\n", vCount, iCount);
 }
 
 
@@ -89,7 +108,6 @@ float* BuildingAssembly::getPosition(void)
 /// @param lambda A reference to a float which will be used to store the multiple of 
 /// the direction vector from the position to the match point on the object.
 /// @todo End triangles
-
 
 bool BuildingAssembly::matchRayToObject(vec3& pos, vec3& dir, float& lambda)
 {

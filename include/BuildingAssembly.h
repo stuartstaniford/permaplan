@@ -13,7 +13,13 @@ class BuildingAssembly;
 
 
 // =======================================================================================
-/// @brief A triangular extension to one of the BuildingRects in the class.
+/// @brief A triangular extension to one of the BuildingRects in the class.  
+/// 
+/// It is currently assumed that these triangles essentially "fill in" between the 
+/// rectangles (rather than, say, poking out beyond the envelope of the rectangles).  
+/// Thus for example, they are ignored in updateBoundingBox.  However, they are 
+/// considered in bufferGeometry (so they appear visually) and matchRay (so that their 
+/// effect in shading or mouse pointing is correctly captured.
 
 class RectExtension
 {
@@ -46,6 +52,7 @@ public:
   ~BuildingAssembly(void);
   
   // Functions implementing the VirtualObject interface
+  void triangleBufferSizes(unsigned& vCount, unsigned& iCount);
   virtual bool bufferGeometryOfObject(TriangleBuffer* T);
   virtual void updateBoundingBox(void);
   virtual bool matchRayToObject(vec3& pos, vec3& dir, float& lambda);

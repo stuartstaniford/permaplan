@@ -7,6 +7,7 @@
 #include "MenuGablePanel.h"
 #include "BuildingRect.h"
 
+
 // =======================================================================================
 /// @brief Constructor for GableParamData (the core data required to specify a Gable, and
 /// which gets defined or edited by a ManuGablePanel
@@ -17,7 +18,7 @@ GableParamData::GableParamData(void):
                                 height(18.0f),
                                 length(40.0f),
                                 width(30.0f),
-                                roofAngle(15.0f),
+                                roofAngle(30.0f),
                                 overhang(2.0f)
 {
 }
@@ -27,7 +28,7 @@ GableParamData::GableParamData(void):
 /// @brief Constructor
 
 Gable::Gable(MenuGablePanel& gablePanel):
-                              BuildingAssembly(6)
+                              BuildingAssembly(6, 2)
 {
   height          = gablePanel.height;
   length          = gablePanel.length;
@@ -39,8 +40,6 @@ Gable::Gable(MenuGablePanel& gablePanel):
   
   rebuildRects();
 }
-
-
 
 
 // =======================================================================================
@@ -233,24 +232,6 @@ bool Gable::addEndTrianglesToBuffer(TriangleBuffer* T)
 float* Gable::getPosition(void)
 {
   return position;  
-}
-
-
-// =======================================================================================
-/// @brief How much space we need in a TriangleBuffer on a call to bufferGeometryToObject
-///
-/// @param vCount A reference to a count which will hold the number of Vertex objects 
-/// that will be generated.
-/// @param iCount A reference to a count which will hold the number of unsigned indices 
-/// that will be generated.
-/// @todo Stub only at present
-
-void Gable::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
-{
-  rects[0].triangleBufferSizes(vCount, iCount);
-  vCount = 6*vCount + 2;  // 6 walls plus two vertices for the end cap triangles
-  iCount = 6*iCount + 6;  // 6 walls plus two end cap triangles
-  LogTriangleBufEstimates("Gable TriangleBuffer estimate: [%u, %u]\n", vCount, iCount);
 }
 
 

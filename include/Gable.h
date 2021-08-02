@@ -66,7 +66,6 @@ public:
   
   // Public methods implementing the VisualObject interface
   bool        bufferGeometryOfObject(TriangleBuffer* T);
-  void        triangleBufferSizes(unsigned& vCount, unsigned& iCount);
   const char* objectName(void);
   bool        diagnosticHTMLSummary(HttpDebug* serv);
   bool        diagnosticHTML(HttpDebug* serv);
