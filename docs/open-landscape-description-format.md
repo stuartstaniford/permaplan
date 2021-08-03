@@ -325,9 +325,65 @@ This is a field for unstructured (typically human supplied) information about th
 
 ## Buildings
 
-The buildings section consists of an array of objects, each of which represents a building.  A building consists of a group of building assemblies, of which examples, are gables, sheds, and blocks.
+OLDF supports a very simplified representation of buildings.  The goal is not to be a full CAD system capable of designing/visualizing the detailed structure of a building (such as an architect or engineer might use).  Rather, because buildings are important elements in landscape design, we can represent them in a simplified manner that allows us to see how they relate to the overall design, calculate their interaction with plants (eg a building might shade a tree, or vice-versa, or shrubbery might set fire to a buiding in a fire).  The level of detail should be sufficient to support a sketch plan usable for a site plan review.
 
-### Gables (optional)
+The buildings section consists of an array of objects, each of which represents a building.  A building consists of a group of building assemblies, of which examples are gables, sheds, and blocks.  Thus the overall format is
+
+```
+"buildings": 
+[
+ {
+  // First building...
+ },
+ {
+  // Second building...
+ },
+ ...
+],
+```
+
+The object for each individual building looks as follows:
+
+```
+{
+  "name": "Building Name",
+  "note": "Long winded annotation about building.",
+  "position": [92, 48, 100],
+  "assemblies":
+   [
+    {
+     // First assembly
+    },
+    {
+     // Second assembly
+    },
+    ...
+   ]
+}
+```
+
+The following fields are allowed in the buildings object.
+
+### name (required)
+
+Syntax: `"name": "<name>",`
+
+A string name for this building that can be used to refer to it.  Names must be unique within the context of a single OLDF file, but need not be unique across unrelated OLDF files.
+
+### position (required)
+
+Syntax: `"position": [<x,y,z>],`
+
+The position of the building in spaceUnits.  Note that the z co-ordinate here is to be interpreted relative to local grade level.  Absolute heights are recorded in the landSurface::altitudes array.
+
+### note (optional)
+
+Syntax: `"note": "<text>",`
+
+A string allowing arbitrary annotations of the building.
+
+
+### Gables
 
 The example below shows an object which represents an individual gable that is part of a building.
 
