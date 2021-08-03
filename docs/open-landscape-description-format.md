@@ -399,6 +399,8 @@ The assemblies array is required in a building, and there must be at least one a
 
 ### Gables
 
+A gable represents a rectangular box with a gable roof above it.  By convention, when the angleFromNorth is zero, the box has its south-west corner at the position vector, and it's roof-line is oriented north-south.  Multiple gable objects can be combined to form cross-shaped buildings, dormers, etc (again recalling that we are not attempting to support interior rending of buildings).
+
 The example below shows an object which represents an individual gable that is part of a building.
 
 ```
@@ -414,33 +416,39 @@ The example below shows an object which represents an individual gable that is p
      "overhang": 2.0,
 },
 ```
-The required fields (non are optional) are as follows:
+The required fields (none are optional) are as follows:
 
 #### type
+
 Must be the string "gable".
 
 #### position
+
 The position of the south-west corner of the gable (see below).  Note that this position is relative to the overall position of the building.
 
 #### angleFromNorth
 
 An angle allowing the rotational position of the gable to be expressed.  By convention, a gable has its roofline running north-south when this angle is zero.  The gable is rotated (around it's south-west corner) by this angle.  However, note that this is relative to the co-ordinate system of the building.  When the whole buildng is rotated, the implications of both angles must be considered.
 
-
 #### height
-blah
+
+The height to the top of the walls of the gable (expressed in spaceUnits).
 
 #### length
-blah
+
+The length of the wall box (in the direction of the roof ridge).
 
 #### width
-blah
+
+The width of the wall box (that is perpendicular to the direction of the roof ridge).
 
 #### roofAngle
-blah
+
+The pitch of the roof (expressed in degrees).  Presently, both sides of the roof must be the same pitch. (If different pitches are required, use two shed assemblies instead).
 
 #### overhang
-blah
+
+The number of spaceUnits that is the horizontal distance by which the roof planes extend beyond the walls.  The overhang is the same all round the building.  Note that this will mean that the bottom of the roof is below the top of the walls (but it is the latter that is the height).  Meanwhile, the roof ridge will be above the height of the walls.
 
 
 ### Blocks (optional)
