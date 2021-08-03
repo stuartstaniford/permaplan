@@ -24,7 +24,7 @@ The goal of an OLDF format file is to describe a single contiguous parcel of lan
       * The albedo of the landscape
       * Other important biophysical impacts of the landscape, such as moisture retention and release.
       * The fire resistance of the landscape under different climate conditions.
-  * To be able to assess the biological or horticultural productivity of the landscape, and plan possible treatments that would have an impact on it's productivity.
+  * To be able to assess the biological or horticultural productivity of the landscape, and plan possible treatments that would have an impact on its productivity.
 
 ## Overall Structure of the File
 
@@ -325,7 +325,9 @@ This is a field for unstructured (typically human supplied) information about th
 
 ## Buildings
 
-OLDF supports a very simplified representation of buildings.  The goal is not to be a full CAD system capable of designing/visualizing the detailed structure of a building (such as an architect or engineer might use).  Rather, because buildings are important elements in landscape design, we can represent them in a simplified manner that allows us to see how they relate to the overall design, calculate their interaction with plants (eg a building might shade a tree, or vice-versa, or shrubbery might set fire to a buiding in a fire).  The level of detail should be sufficient to support a sketch plan usable for a site plan review.
+OLDF supports a very simplified representation of buildings.  The goal is not to be a full CAD system capable of designing/visualizing the detailed structure of a building (such as an architect or engineer might use).  Rather, because buildings are important elements in landscape design, we can represent them in a simplified manner that allows us to see how they relate to the overall design, calculate their interaction with plants (eg a building might shade a tree, or vice-versa, or shrubbery might set fire to a buiding in a fire).  The level of detail should be sufficient to support a sketch plan usable for a site plan review.  
+
+In particular, the design of the represenation here does not support rendering of the interior of a building, only the exterior.
 
 The buildings section consists of an array of objects, each of which represents a building.  A building consists of a group of building assemblies, of which examples are gables, sheds, and blocks.  Thus the overall format is
 
@@ -349,6 +351,7 @@ The object for each individual building looks as follows:
   "name": "Building Name",
   "note": "Long winded annotation about building.",
   "position": [92, 48, 100],
+  "angleFromNorth": 45,
   "assemblies":
    [
     {
@@ -376,12 +379,23 @@ Syntax: `"position": [<x,y,z>],`
 
 The position of the building in spaceUnits.  Note that the z co-ordinate here is to be interpreted relative to local grade level.  Absolute heights are recorded in the landSurface::altitudes array.
 
+### angleFromNorth (required)
+
+Syntax: `"angleFromNorth": <theta>,`
+
+An angle allowing the rotational position of the building to be expressed.
+
 ### note (optional)
 
 Syntax: `"note": "<text>",`
 
 A string allowing arbitrary annotations of the building.
 
+### assemblies (required)
+
+Syntax: `"assemblies": [<a1>, <a2>, ...],`
+
+The assemblies array is required in a building, and there must be at least one assembly (ie you can't store an empty building).  The assemblies are individual JSON objects which are of one of several types.  The currently supported types are Gable, Shed, and Block, but it is anticipated that more types will be added in future.
 
 ### Gables
 
@@ -406,10 +420,12 @@ The required fields (non are optional) are as follows:
 Must be the string "gable".
 
 #### position
-blah
+The position of the south-west corner of the gable (see below).  Note that this position is relative to the overall position of the building.
 
 #### angleFromNorth
-blah
+
+An angle allowing the rotational position of the gable to be expressed.  By convention, a gable has its roofline running north-south when this angle is zero.  The gable is rotated (around it's south-west corner) by this angle.  However, note that this is relative to the co-ordinate system of the building.  When the whole buildng is rotated, the implications of both angles must be considered.
+
 
 #### height
 blah
