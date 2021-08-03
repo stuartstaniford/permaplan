@@ -1,7 +1,4 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Apr 2020 -
-// Main object that encapsulates the design of a given piece of land.  This is basically
-// the contents of the main json file given via -d.  Generally the rest of the command
-// line is captured in PmodConfig, not in here.
 
 #ifndef PMODDESIGN_H
 #define PMODDESIGN_H
@@ -16,6 +13,8 @@
 #include "rapidjson/stringbuffer.h"
 #include "rapidjson/error/en.h"
 
+
+// =======================================================================================
 // These unit things are used all over the place, so we have them in the global namespace
 // for syntactic convenience
 #define MM_PER_FOOT 304.8f
@@ -31,9 +30,22 @@ extern char           spaceUnitAbbr;
 #define TOLERANCE_LATERAL 500.0f
 
 // =======================================================================================
-// Class variable initialization
+// Required forward declarations.
 
 class Species;
+
+
+// =======================================================================================
+/// @brief Process/represent an OLDF file.
+/// 
+/// This is the main object that encapsulates the design of a given piece of land.  This 
+/// is basically the contents of the OLDF file given via -d.  Generally the rest of the 
+/// command line is captured in PmodConfig, not in here.  This class processes the higher
+/// levels of the JSON structure, but farms out many of the lower levels to classes more
+/// specifically associated with the relevant data.  This class follows the singleton
+/// pattern.
+/// See ../docs/open-landscape-description-format.md for the file format.
+
 
 class PmodDesign
 {

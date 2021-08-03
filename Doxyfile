@@ -890,6 +890,7 @@ INPUT                  = doc \
                 include/MenuSimulationPanel.h src/MenuSimulationPanel.cpp \
                 include/MenuTree.h src/MenuTree.cpp \
                 include/Orientable.h src/Orientable.cpp \
+                include/PmodDesign.h src/PmodDesign.cpp \
                 include/Positionable.h src/Positionable.cpp \
                 include/Quadtree.h src/Quadtree.cpp \
                 include/ResourceManager.h src/ResourceManager.cpp \

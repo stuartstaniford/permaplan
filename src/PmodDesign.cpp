@@ -1,7 +1,9 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Apr 2020 -
-// Main object that encapsulates the design of a given piece of land.  This is basically
-// the contents of the main OLDF file given via -d.  Generally the rest of the command
-// line is captured in PmodConfig, not in here.
+// This is the main object that encapsulates the design of a given piece of land.  This 
+// is basically the contents of the OLDF file given via -d.  Generally the rest of the 
+// command line is captured in PmodConfig, not in here.  This class processes the higher
+// levels of the JSON structure, but farms out many of the lower levels to classes more
+// specifically associated with the relevant data.
 // See docs/open-landscape-description-format.md for the file format.
 
 #define PMOD_DESIGN_IMPLEMENTATION
@@ -32,7 +34,10 @@ char           spaceUnitAbbr;
 
 
 // =======================================================================================
-// Constructor: parse the json file
+/// @brief Constructor parses the OLDF file
+///
+/// Constructor should only be called once at startup.  Everyone else gets us via
+/// getDesign()
 
 PmodDesign::PmodDesign(void):
                   writeFile(NULL),
@@ -41,8 +46,6 @@ PmodDesign::PmodDesign(void):
                   designBoxValid(false),
                   author(NULL)
 {
-  // Constructor should only be called once at startup.  Everyone else gets us via
-  // getDesign()
   if(design)
     return;
   else
@@ -67,7 +70,10 @@ PmodDesign::PmodDesign(void):
 
 
 // =======================================================================================
-// Function to check the spatial units.
+/// @brief Function to check the spatial units are valid.
+/// @returns true if all is well, false if it isn't.
+/// @param introductoryData A rapidjson::Value reference to the introductory data object
+/// in which the spaceUnits are specified.
 
 bool PmodDesign::validateSpaceUnits(Value& introductoryData)
 {
@@ -114,7 +120,10 @@ bool PmodDesign::validateSpaceUnits(Value& introductoryData)
 
 
 // =======================================================================================
-// Function to check the base year.
+/// @brief Function to validate the base year.
+/// @returns true if all is well, false if it isn't.
+/// @param introductoryData A rapidjson::Value reference to the introductory data object
+/// in which the spaceUnits are specified.
 
 bool PmodDesign::validateBaseYear(Value& introductoryData)
 {
