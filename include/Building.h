@@ -4,6 +4,10 @@
 #define BUILDING_H
 
 #include "ObjectGroup.h"
+#include "rapidjson/document.h"
+#include "rapidjson/writer.h"
+#include "rapidjson/stringbuffer.h"
+#include "rapidjson/error/en.h"
 
 
 // =======================================================================================
@@ -23,7 +27,14 @@ public:
   // Member functions - public
   Building(VisualObject* firstComponent);
   ~Building(void);
-  
+
+  // static public functions  
+  static bool validateBuildings(rapidjson::Value& buildings);
+  static void writeBuildings(FILE* writeFile, char* indent);
+  static bool blocksPresent; // allow us to remember an empty list in OLDF file
+  static bool gablesPresent;
+  static bool shedsPresent;
+
 private:
   
   // Instance variables - private

@@ -52,9 +52,6 @@ class PmodDesign
   bool                  designBoxValid;
   BoundingBox           designBox;
   const char*           author;
-  bool                  blocksPresent; // allow us to remember an empty list in OLDF file
-  bool                  gablesPresent;
-  bool                  shedsPresent;
   
 private:
   
@@ -87,7 +84,6 @@ private:
   bool validateAltitudes(rapidjson::Value& landSurface);
   bool validateLandSurface(void);
   bool validatePlants(void);
-  bool validateBuildings(void);
 
   // Functions associated with writing out the OLDF file
   void writeIntroductoryData(char* insert);
