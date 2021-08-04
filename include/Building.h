@@ -35,6 +35,8 @@ public:
   ~Building(void);
 
   // static public functions  
+  static bool validateOneBuilding(rapidjson::Value& buildingJson, int i, 
+                                                              JSONStructureChecker* jCheck);
   static bool validateBuildings(rapidjson::Value& buildings, JSONStructureChecker* jCheck);
   static void writeBuildings(FILE* writeFile, char* indent);
   static bool buildingsPresent; // allow us to remember an empty list in OLDF file

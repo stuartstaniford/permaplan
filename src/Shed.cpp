@@ -268,6 +268,21 @@ using namespace rapidjson;
 
 bool Shed::validateOLDF(Value& shedJsonObject)
 {
+  /*
+  if(buildings.HasMember("sheds"))
+   {
+    shedsPresent = true;
+    unless(buildings["sheds"].IsArray())
+     {
+      LogOLDFValidity("sheds is not an array in OLDF file %s\n", config.designFileName);
+      return false;     
+     }
+    int N = buildings["sheds"].Size();
+    for(int i=0; i<N; i++)
+      retVal &= Shed::validateOLDF(buildings["sheds"][i]);
+   }
+  */
+  
   return true;  
 }
 

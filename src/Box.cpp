@@ -346,6 +346,20 @@ using namespace rapidjson;
 
 bool Box::validateOLDF(Value& boxJsonObject)
 {
+  /*  if(buildings.HasMember("blocks"))
+     {
+      blocksPresent = true;
+      unless(buildings["blocks"].IsArray())
+       {
+        LogOLDFValidity("blocks is not an array in OLDF file %s\n", config.designFileName);
+        return false;     
+       }
+      int N = buildings["blocks"].Size();
+      for(int i=0; i<N; i++)
+        retVal &= Box::validateOLDF(buildings["blocks"][i]);
+     }
+  */
+
   return true;  
 }
 
