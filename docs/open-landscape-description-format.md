@@ -414,7 +414,7 @@ The example below shows an object which represents an individual gable that is p
      "width": 30,
      "roofAngle": 30,
      "overhang": 2.0,
-},
+    },
 ```
 The required fields (none are optional) are as follows:
 
