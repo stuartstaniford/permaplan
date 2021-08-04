@@ -65,7 +65,11 @@ bool JSONStructureChecker::loadRFC5646LanguageTags(void)
 
 
 // =======================================================================================
-// Function to check that a mandatory but heritable thing is available.
+/// @brief Check that a mandatory but heritable value is available and numeric.
+/// @returns True if value is present and correct, false otherwise.
+/// @param jsonObject The containing object
+/// @param name The name of the value we wish to check is present and numerical
+/// @param pointer to a parent object, if inheritance is operating here.
 
 bool JSONStructureChecker::checkMandatoryHeritableFloatValue(Value& jsonObject,
                                                                     void* parent, char* name)
@@ -95,7 +99,12 @@ bool JSONStructureChecker::checkMandatoryHeritableFloatValue(Value& jsonObject,
 
 
 // =======================================================================================
-// Function to check that a mandatory but heritable thing is available.
+/// @brief Check that a mandatory but heritable value is available and a non-negative
+/// integer.
+/// @returns True if value is present and correct, false otherwise.
+/// @param jsonObject The containing object
+/// @param name The name of the value we wish to check is present and correct
+/// @param parent A pointer to a parent object, if inheritance is operating here.
 
 bool JSONStructureChecker::checkMandatoryHeritableUnsignedValue(Value& jsonObject,
                                                                     void* parent, char* name)
@@ -125,9 +134,16 @@ bool JSONStructureChecker::checkMandatoryHeritableUnsignedValue(Value& jsonObjec
 
 
 // =======================================================================================
-// Function to check that an object exists and is of the form of a series of RFC 5646
-// language tags, followed by values associated with those languages (eg commonNames).
-// Caller is responsible for checking the object exists.
+/// @brief Check syntax of an object with multiple languages.
+/// 
+/// Function to check that an object exists and is of the form of a series of RFC 5646
+/// language tags, followed by values associated with those languages (eg commonNames).
+/// Caller is responsible for checking the object exists.
+/// @returns True if the object has the correct structure, false otherwise.
+/// @param thisObject A rapidjson::Value for the object to be checked.
+/// @param objName A C-string name of the object for use in logging.
+/// @todo We do not check that the string following a language tag is actually in that
+/// language.
 
 bool JSONStructureChecker::checkLanguageObject(Value& thisObject, char* objName)
 {
@@ -179,7 +195,11 @@ bool JSONStructureChecker::checkLanguageObject(Value& thisObject, char* objName)
 
 
 // =======================================================================================
-// Function to do the right kind of logging based on the kind of JSON this is.
+/// @brief Do the right kind of logging based on the flavor of JSON this is.
+/// 
+/// The log message should have already been stored in our state variable logBuf.
+/// @param isGood.  A bool which is true for detail messages that are not errors, and
+/// false if the message is about an actual validity problem.
 
 void JSONStructureChecker::makeLog(bool isGood)
 {
@@ -207,8 +227,11 @@ void JSONStructureChecker::makeLog(bool isGood)
 
 
 // =======================================================================================
-// Utility function to test that a genus name starts with an upper case letter, and
-// otherwise only has lower case letters.
+/// @brief Test that a genus name starts with an upper case letter, and otherwise only 
+/// has lower case letters.
+/// @returns True if the genus name is in the valid form, false if it is not.
+/// @param objName A C-string for the name of the containing object for log purposes.
+/// @param genus A C-string with the putative genus name to check.
 
 bool JSONStructureChecker::validateGenusName(char* objName, const char* genus)
 {
@@ -247,7 +270,10 @@ bool JSONStructureChecker::validateGenusName(char* objName, const char* genus)
 
 
 // =======================================================================================
-// Utility function to test that a species name starts only has lower case letters.
+/// @brief Test that a species name starts with and only has lower case letters.
+/// @returns True if the species name is in the valid form, false if it is not.
+/// @param objName A C-string for the name of the containing object for log purposes.
+/// @param species A C-string with the putative species name to check.
 
 bool JSONStructureChecker::validateSpeciesName(char* objName, const char* species)
 {
@@ -279,7 +305,11 @@ bool JSONStructureChecker::validateSpeciesName(char* objName, const char* specie
 
 
 // =======================================================================================
-// Function to check that a particular member exists and is a JSON string.
+/// @brief Check that a particular member exists and is a JSON string.
+/// @returns True if value is present and correct, false otherwise.
+/// @param thisObject The containing object
+/// @param member The name of the value we wish to check is present and correct
+/// @param objName C-string name of the containing object for logging descriptions.
 
 bool JSONStructureChecker::validateStringMemberExists(Value& thisObject,
                                                               char* objName, char* member)
@@ -304,7 +334,11 @@ bool JSONStructureChecker::validateStringMemberExists(Value& thisObject,
 
 
 // =======================================================================================
-// Function to check that a value is an array of numbers of a desired size.
+/// @brief Check that a value is an array of numbers of a desired size.
+/// @returns True if value is of the correct form, false otherwise.
+/// @param array rapidjson::Value containing the putative array object
+/// @param desiredSize The required array size (eg 3 for a vec3)
+/// @param objName A C-string name of the containing object for logging descriptions.
 
 bool JSONStructureChecker::validateNumberArray(Value& array, int desiredSize, char* objName)
 {
@@ -341,7 +375,11 @@ bool JSONStructureChecker::validateNumberArray(Value& array, int desiredSize, ch
 
 
 // =======================================================================================
-// Function to check that a value is an array of integers of a desired size.
+/// @brief Check that a value is an array of integers of a desired size.
+/// @returns True if value is of the correct form, false otherwise.
+/// @param array rapidjson::Value containing the putative array object
+/// @param desiredSize The required array size (eg 3 for a vec3)
+/// @param objName A C-string name of the containing object for logging descriptions.
 
 bool JSONStructureChecker::validateIntegerArray(Value& array, int desiredSize, char* objName)
 {
@@ -354,7 +392,7 @@ bool JSONStructureChecker::validateIntegerArray(Value& array, int desiredSize, c
      {
       unless(array[i].IsInt())
        {
-        sprintBuf("%s array[%d] is not numerical in %s\n", objName, i, sourcePhrase);
+        sprintBuf("%s array[%d] is not an integer in %s\n", objName, i, sourcePhrase);
         makeLog(false);
         retVal = false;
        }
@@ -366,7 +404,10 @@ bool JSONStructureChecker::validateIntegerArray(Value& array, int desiredSize, c
 
 
 // =======================================================================================
-// Function to check that a value is a valid array of RGB values.
+/// @brief Check that a value is is a valid array of RGB values.
+/// @returns True if value is of the correct form, false otherwise.
+/// @param array rapidjson::Value containing the putative array object
+/// @param objName A C-string name of the containing object for logging descriptions.
 
 bool JSONStructureChecker::validateRGBArray(Value& array, char* objName)
 {
@@ -393,8 +434,11 @@ bool JSONStructureChecker::validateRGBArray(Value& array, char* objName)
 
 
 // =======================================================================================
-// Utility function to produce a color as a 4 byte quantity from an RGB json array.
-// RGB array is assumed valid, no checking is done in here (see validateRGBArray for that).
+/// @brief Produce a color as a 4 byte quantity from an RGB json array.
+///
+/// RGB array is assumed valid, no checking is done in here (see validateRGBArray for that).
+/// @returns An unsigned holding the 4 byte RGBA value.
+/// @param array A rapidjson::Value reference to the JSON RGBA array. 
 
 unsigned colorFromRGBArray(Value& array)
 {
