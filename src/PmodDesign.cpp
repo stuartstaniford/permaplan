@@ -608,7 +608,7 @@ bool PmodDesign::validateOLDF(void)
     LogOLDFDetails("No plants present in %s\n", phrase);
 
   if(doc.HasMember("buildings")) // buildings are optional
-    retVal &= Building::validateBuildings(doc["buildings"]);
+    retVal &= Building::validateBuildings(doc["buildings"], jCheck);
   else
     LogOLDFDetails("No buildings present in %s\n", phrase);
 

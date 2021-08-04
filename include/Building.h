@@ -11,6 +11,12 @@
 
 
 // =======================================================================================
+// Needed forward declarations
+
+class JSONStructureChecker;
+
+
+// =======================================================================================
 /// @brief Combine multiple building components into a composite entity representing the 
 /// whole building.
 ///
@@ -29,7 +35,7 @@ public:
   ~Building(void);
 
   // static public functions  
-  static bool validateBuildings(rapidjson::Value& buildings);
+  static bool validateBuildings(rapidjson::Value& buildings, JSONStructureChecker* jCheck);
   static void writeBuildings(FILE* writeFile, char* indent);
   static bool buildingsPresent; // allow us to remember an empty list in OLDF file
 

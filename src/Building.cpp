@@ -8,6 +8,7 @@
 #include "Gable.h"
 #include "Shed.h"
 #include "Box.h"
+#include "JSONStructureChecker.h"
 
 bool Building::buildingsPresent = false;
 
@@ -39,7 +40,7 @@ Building::~Building(void)
 
 using namespace rapidjson;
 
-bool Building::validateBuildings(Value& buildings)
+bool Building::validateBuildings(Value& buildings, JSONStructureChecker* jCheck)
 {
   bool    retVal  = true;
 #if defined LOG_OLDF_VALIDITY //|| defined LOG_OLDF_DETAILS
