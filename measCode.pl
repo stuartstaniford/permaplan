@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-$detail = 0;
+$detail = 1;
 
 $otdlFiles = `find Materials/Trees -name *.otdl`;
 $otdlFiles =~ s/\n/ /g;

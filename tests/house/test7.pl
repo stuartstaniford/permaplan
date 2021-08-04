@@ -4,7 +4,7 @@
 # put a couple of shade trees next to it and simulate them growing.
 
 require './testSupport.pl';
-$resourceDir = 'tests/grow-one';
+$resourceDir = 'tests/house';
 $testDir = 'tests/house';
 $testStub = 'test7';
 
@@ -16,7 +16,7 @@ foreach my $i (1..$loopLimit)
   system("rm -rf $testDir/*.tmp $testDir/*.diff");
 
   openOutput("$testDir/$testStub.log");
-  startPermaplan("-A -d $resourceDir/test5.oldf -D $testDir/$testStub.out.oldf -g 5.0");
+  startPermaplan("-A -d $resourceDir/test7.oldf -D $testDir/$testStub.out.oldf -g 5.0");
   $winWidth = 1000 unless defined $winWidth;
   $winHeight = 800 unless defined $winHeight;
   resizeWindow($winWidth, $winHeight);

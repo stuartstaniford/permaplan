@@ -42,7 +42,6 @@ private:
   Building(const Building&);       
   /// @brief Prevent assignment.
   Building& operator=(const Building&);      
-
 };
 
 #endif
