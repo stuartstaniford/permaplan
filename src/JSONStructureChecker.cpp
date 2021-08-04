@@ -334,6 +334,35 @@ bool JSONStructureChecker::validateStringMemberExists(Value& thisObject,
 
 
 // =======================================================================================
+/// @brief Check that a particular member exists and is a JSON numeric value.
+/// @returns True if value is present and correct, false otherwise.
+/// @param thisObject The containing object
+/// @param member The name of the value we wish to check is present and correct
+/// @param objName C-string name of the containing object for logging descriptions.
+
+bool JSONStructureChecker::validateFloatMemberExists(Value& thisObject,
+                                                              char* objName, char* member)
+{
+  bool retVal = true;
+  
+  if(thisObject.HasMember(member) && thisObject[member].IsNumber())
+   {
+    float num = thisObject[member].GetFloat();
+    sprintBuf("\"%s\" is \"%.2f\" in %s object in %s\n", member, num, objName, sourcePhrase);
+    makeLog(true);
+   }
+  else
+   {
+    sprintBuf("No %s:%s token in %s\n", objName, member, sourcePhrase);
+    makeLog(true);
+    retVal = false;
+   }
+
+ return retVal;
+}
+
+
+// =======================================================================================
 /// @brief Check that a value is an array of numbers of a desired size.
 /// @returns True if value is of the correct form, false otherwise.
 /// @param array rapidjson::Value containing the putative array object

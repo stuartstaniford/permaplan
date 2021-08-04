@@ -33,7 +33,7 @@
             [0, -300]
            ]
    },
-  "buidings":
+  "buildings":
    [
      {
       "name": "House",
@@ -50,7 +50,7 @@
           "length": 50,
           "width": 30,
           "roofAngle": 30,
-          "overhang": 2.0,
+          "overhang": 2.0
          }
        ]
      }

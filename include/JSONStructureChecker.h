@@ -43,6 +43,7 @@ class JSONStructureChecker
   bool validateOptionalStringMember(rapidjson::Value& thisObject, char* objName,
                                                                               char* member);
   bool validateStringMemberExists(rapidjson::Value& thisObject, char* objName, char* member);
+  bool validateFloatMemberExists(rapidjson::Value& thisObject, char* objName, char* member);
   bool validateFileTime(rapidjson::Value& containObj);
   bool validateVersion(rapidjson::Value& containObj);
   bool validateNumberArray(rapidjson::Value& array, int desiredSize, char* objName);

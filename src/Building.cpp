@@ -55,33 +55,68 @@ bool Building::validateOneBuilding(Value& buildingJson, int i, JSONStructureChec
                                                         i, config.designFileName);
     return false;
    }
+  char objName[16];
+  snprintf(objName, 16, "Buildings[%d]", i);
   
   // Name
+  retVal &= jCheck->validateStringMemberExists(buildingJson, objName, (char*)"name");
   
   // Note
+  retVal &= jCheck->validateOptionalStringMember(buildingJson, objName, (char*)"note");
   
   // Position
+  unless(buildingJson.HasMember("position"))
+   {
+    LogOLDFValidity("Buildings[%d] has no position in OLDF file %s\n", 
+                                                        i, config.designFileName);
+    retVal = false;
+   }
+  else
+    retVal &= jCheck->validateNumberArray(buildingJson["position"], 3, objName);
   
   // AngleFromNorth
-  
-  // Assemblies
-  
-  unless(buildingJson.HasMember("type"))
-   {
-    LogOLDFValidity("Buildings[%d] has no type in OLDF file %s\n", 
-                                                       i, config.designFileName);
-    return false;
-   }
-  unless(buildingJson["type"].IsString())
-   {
-    LogOLDFValidity("Buildings[%d] has non-string type in OLDF file %s\n", 
-                                                       i, config.designFileName);
-    return false;
-   }
-  const char* typeString = buildingJson["type"].GetString();
-  if(strcmp(typeString, "gables") == 0)
-    retVal &= Gable::validateOLDF(buildingJson);
+  retVal &= jCheck->validateFloatMemberExists(buildingJson, objName, (char*)"angleFromNorth");
 
+  // Assemblies
+  unless(buildingJson.HasMember("assemblies"))
+   {
+    LogOLDFValidity("Buildings[%d] has no assemblies array in OLDF file %s\n", 
+                                                        i, config.designFileName);
+    retVal =  false;
+   }
+  unless(buildingJson["assemblies"].IsArray() && buildingJson["assemblies"].Size() > 0)
+   {
+    LogOLDFValidity("Buildings[%d] has assemblies bad array in OLDF file %s\n", 
+                                                      i, config.designFileName);
+    retVal =  false;
+   }
+  
+  int N = buildingJson["assemblies"].Size();
+  for(int j=0; j< N; j++)
+   {
+    // Process the j'th sub-assembly in the i'th building.
+    Value& assembly = buildingJson["assemblies"][j];
+    unless(assembly.HasMember("type"))
+     {
+      LogOLDFValidity("Buildings[%d] assembly %d has no type in OLDF file %s\n", 
+                                                       i, j, config.designFileName);
+      return false;
+     }
+    unless(assembly["type"].IsString())
+     {
+      LogOLDFValidity("Buildings[%d] assembly %d has non-string type in OLDF file %s\n", 
+                                                       i, j, config.designFileName);
+      return false;
+     }
+    const char* typeString = assembly["type"].GetString();
+    if(strcmp(typeString, "gable") == 0)
+      retVal &= Gable::validateOLDF(buildingJson);
+    else if(strcmp(typeString, "shed") == 0)
+      retVal &= Gable::validateOLDF(buildingJson);
+    else if(strcmp(typeString, "block") == 0)
+      retVal &= Gable::validateOLDF(buildingJson);
+   }
+  
   return retVal;
 }
 
