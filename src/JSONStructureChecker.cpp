@@ -453,7 +453,10 @@ unsigned colorFromRGBArray(Value& array)
 
 
 // =======================================================================================
-// Utility function to produce an RGB json array from a color as a 4 byte quantity.
+/// @brief Produc an RGB json array from a color as a 4 byte quantity.
+/// @param color An unsigned holding the 4 byte RGBA value.
+/// @param buf  A C-string buffer to write the JSON into.  Caller must make sure it is
+/// big enough.
 
 void RGBArrayFromColor(unsigned color, char buf[])
 {
@@ -463,7 +466,12 @@ void RGBArrayFromColor(unsigned color, char buf[])
 
 
 // =======================================================================================
-// Function to check the a three member spec version array.
+/// @brief Check the a three member spec version array matches the expected value.
+/// 
+/// Our sense of the expected value is in the expectedVersion array.
+/// @returns True if value is present and correct, false otherwise.
+/// @param containObj Containing object rapidjson::Value (we check to see there is a 
+/// "version" field).
 
 bool JSONStructureChecker::validateVersion(Value& containObj)
 {
@@ -512,7 +520,10 @@ bool JSONStructureChecker::validateVersion(Value& containObj)
 
 
 // =======================================================================================
-// Function to check an object has a valid file time.
+/// @brief Check an object has a valid file time.
+/// @returns True if value is present and correct, false otherwise.
+/// @param containObj Containing object rapidjson::Value (we check to see there is a 
+/// "fileTime" field).
 
 bool JSONStructureChecker::validateFileTime(Value& containObj)
 {
@@ -562,7 +573,11 @@ bool JSONStructureChecker::validateFileTime(Value& containObj)
 
 
 // =======================================================================================
-// Function to check that if a particular member exists, it is a JSON string.
+/// @brief Check that if a particular member exists, it is a JSON string.
+/// @returns True if value is missing, or if it is present is correct. False otherwise.
+/// @param thisObject Containing object rapidjson::Value.
+/// @param objName C-string name of the containing object for logging descriptions.
+/// @param member The name of the value we wish to check is correct if present.
 
 bool JSONStructureChecker::validateOptionalStringMember(Value& thisObject, char* objName, char* member)
 {
@@ -593,9 +608,14 @@ bool JSONStructureChecker::validateOptionalStringMember(Value& thisObject, char*
 
 
 // =======================================================================================
-// Function to check that if a particular member exists, it is either a JSON string, or
-// an array of JSON strings (an idiom used in several places in OLDF/OTDL to allow
-// multi-valued things.
+/// @brief Check that if a particular member exists, it is either a JSON string, or
+/// an array of JSON strings.
+/// 
+/// This is an idiom used in several places in OLDF/OTDL to allow multi-valued things.
+/// @returns True if value is missing, or if it is present is correct. False otherwise.
+/// @param thisObject Containing object rapidjson::Value.
+/// @param objName C-string name of the containing object for logging descriptions.
+/// @param member The name of the value we wish to check is correct if present.
 
 bool JSONStructureChecker::validateOptionalStringOrArrayString(Value& thisObject,
                                                             char* objName, char* member)
@@ -650,7 +670,7 @@ bool JSONStructureChecker::validateOptionalStringOrArrayString(Value& thisObject
 
 
 // =======================================================================================
-// Destructor
+/// @brief Destructor
 
 JSONStructureChecker::~JSONStructureChecker()
 {
