@@ -9,9 +9,8 @@
 #include "Shed.h"
 #include "Box.h"
 
-bool Building::blocksPresent = false;
-bool Building::gablesPresent = false;
-bool Building::shedsPresent  = false;
+bool Building::buildingsPresent = false;
+
 
 // =======================================================================================
 /// @brief Constructor
@@ -47,38 +46,42 @@ bool Building::validateBuildings(Value& buildings)
   const PmodConfig& config = PmodConfig::getConfig();
 #endif
   
-  unless(buildings.IsObject())
+  unless(buildings.IsArray())
    {
-    LogOLDFValidity("Buildings is not an object in OLDF file %s\n", config.designFileName);
+    LogOLDFValidity("Buildings is not an array in OLDF file %s\n", config.designFileName);
     return false;
    }
   
-  if(buildings.HasMember("blocks"))
+  buildingsPresent = true;
+  int N = buildings.Size();
+  
+  for(int i = 0; i < N; i++)
    {
-    blocksPresent = true;
-    unless(buildings["blocks"].IsArray())
+    Value& buildingJson = buildings[i];
+    unless(buildingJson.IsObject())
      {
-      LogOLDFValidity("blocks is not an array in OLDF file %s\n", config.designFileName);
-      return false;     
+      LogOLDFValidity("Buildings[%d] is not an object in OLDF file %s\n", 
+                                                          i, config.designFileName);
+      return false;
      }
-    int N = buildings["blocks"].Size();
-    for(int i=0; i<N; i++)
-      retVal &= Box::validateOLDF(buildings["blocks"][i]);
-   }
-
-  if(buildings.HasMember("gables"))
-   {
-    gablesPresent = true;
-    unless(buildings["gables"].IsArray())
+    unless(buildingJson.HasMember("type"))
      {
-      LogOLDFValidity("gables is not an array in OLDF file %s\n", config.designFileName);
-      return false;     
+      LogOLDFValidity("Buildings[%d] has no type in OLDF file %s\n", 
+                                                         i, config.designFileName);
+      return false;
      }
-    int N = buildings["gables"].Size();
-    for(int i=0; i<N; i++)
-      retVal &= Gable::validateOLDF(buildings["gables"][i]);
+    unless(buildingJson["type"].IsString())
+     {
+      LogOLDFValidity("Buildings[%d] has non-string type in OLDF file %s\n", 
+                                                         i, config.designFileName);
+      return false;
+     }
+    const char* typeString = buildingJson["type"].GetString();
+    if(strcmp(typeString, "gables") == 0)
+      retVal &= Gable::validateOLDF(buildingJson);
    }
-
+  
+  /*
   if(buildings.HasMember("sheds"))
    {
     shedsPresent = true;
@@ -91,7 +94,21 @@ bool Building::validateBuildings(Value& buildings)
     for(int i=0; i<N; i++)
       retVal &= Shed::validateOLDF(buildings["sheds"][i]);
    }
+  */
   
+/*  if(buildings.HasMember("blocks"))
+   {
+    blocksPresent = true;
+    unless(buildings["blocks"].IsArray())
+     {
+      LogOLDFValidity("blocks is not an array in OLDF file %s\n", config.designFileName);
+      return false;     
+     }
+    int N = buildings["blocks"].Size();
+    for(int i=0; i<N; i++)
+      retVal &= Box::validateOLDF(buildings["blocks"][i]);
+   }
+*/
   return retVal;
 }
 
@@ -101,41 +118,16 @@ bool Building::validateBuildings(Value& buildings)
 
 void Building::writeBuildings(FILE* writeFile, char* indent)
 {
-  unless(blocksPresent || gablesPresent || shedsPresent)
+  unless(buildingsPresent)
     return;
   
-  // Open the object
+  // Open the array
   fprintf(writeFile, "%s\"buildings\":\n", indent);
-  fprintf(writeFile, "%s {\n", indent);
-
-  // blocks
-  if(blocksPresent)
-   {     
-    fprintf(writeFile, "%s%s\"blocks\":\n", indent, indent);
-    fprintf(writeFile, "%s%s[\n", indent, indent);
-    //XX need to search quadtree for all blocks and put them here
-    fprintf(writeFile, "%s%s],\n", indent, indent);
-   }
-
-  // blocks
-  if(gablesPresent)
-   {     
-    fprintf(writeFile, "%s%s\"gables\":\n", indent, indent);
-    fprintf(writeFile, "%s%s[\n", indent, indent);
-    //XX need to search quadtree for all gables and put them here
-    fprintf(writeFile, "%s%s],\n", indent, indent);
-   }
-
-  // sheds
-  if(shedsPresent)
-   {     
-    fprintf(writeFile, "%s%s\"sheds\":\n", indent, indent);
-    fprintf(writeFile, "%s%s[\n", indent, indent);
-    //XX need to search quadtree for all sheds and put them here
-    fprintf(writeFile, "%s%s]\n", indent, indent); // no trailing comma on this one
-   }
-
-  fprintf(writeFile, "%s },\n", indent);
+  fprintf(writeFile, "%s [\n", indent);
+  
+  // Search for and output buildings here.
+  
+  fprintf(writeFile, "%s ],\n", indent);
 }
 
 

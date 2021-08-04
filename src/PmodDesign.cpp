@@ -156,8 +156,11 @@ bool PmodDesign::validateBaseYear(Value& introductoryData)
 
 
 // =======================================================================================
-// Function to check if a particular piece of JSON is a correct Unix timeval expressed
-// as an array of [<sec>, <usec>].
+/// @brief Function to check if a particular piece of JSON is a correct Unix timeval 
+/// expressed as an array of [<sec>, <usec>].
+/// @returns True if it is, and false if it ain't.
+/// @param object A rapidjson::Value for the chunk of JSON in question.
+/// @param objName Name of the object used for logging purposes.
 
 bool PmodDesign::validateJSONUnixTime(Value& object, char* objName)
 {
@@ -207,7 +210,8 @@ bool PmodDesign::validateJSONUnixTime(Value& object, char* objName)
 
 
 // =======================================================================================
-// Function to check the structure of the OLDF introductoryData object.
+/// @brief Function to check the structure of the OLDF introductoryData object.
+/// @returns True if it's valid, false if it isn't.
 
 bool PmodDesign::validateIntroductoryData(void)
 {
@@ -611,6 +615,7 @@ bool PmodDesign::validateOLDF(void)
   delete jCheck; jCheck = NULL;
   return retVal;
 }
+
 
 // =======================================================================================
 // Add the designated tolerances to our designBox (used for sanity checking stuff later).

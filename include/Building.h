@@ -31,9 +31,7 @@ public:
   // static public functions  
   static bool validateBuildings(rapidjson::Value& buildings);
   static void writeBuildings(FILE* writeFile, char* indent);
-  static bool blocksPresent; // allow us to remember an empty list in OLDF file
-  static bool gablesPresent;
-  static bool shedsPresent;
+  static bool buildingsPresent; // allow us to remember an empty list in OLDF file
 
 private:
   

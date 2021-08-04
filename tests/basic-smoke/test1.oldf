@@ -109,17 +109,8 @@
            ]
   },
  "buildings":
-  {
-   "blocks":
-    [
-    ],
-   "gables":
-    [
-    ],
-   "sheds":
-    [
-    ]
-  }
+  [
+  ]
 // "fencing":
 //  {
 //   "null": 0
