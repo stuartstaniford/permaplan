@@ -1,7 +1,4 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Apr 2020 -
-// Main object that encapsulates the design of a given piece of land.  This is basically
-// the contents of the main json file given via -d.  Generally the rest of the command
-// line is captured in PmodConfig, not in here.
 
 #ifndef JSON_STRUCTURE_CHECKER_H
 #define JSON_STRUCTURE_CHECKER_H
@@ -13,6 +10,9 @@
 #include "Timeval.h"
 #include "Version.h"
 
+// =======================================================================================
+// Useful macros
+
 #define spaceUnitsText(x) ((x)?(char*)"meters":(char*)"feet")
 
 #define LOG_BUF_SIZE 512
@@ -20,9 +20,14 @@
 
 
 // =======================================================================================
-// Class variable initialization
+/// @brief Enum to distinguish OLDF flavored JSON from OTDL flavor.
 
 enum JSONType {OLDF, OTDL};
+
+
+// =======================================================================================
+/// @brief This class provides support for checking various generic patterns that show up 
+/// OTDL and OLDF a lot.
 
 class JSONStructureChecker
 {

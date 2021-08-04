@@ -1,8 +1,6 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Apr 2020 -
-// Main object that encapsulates the design of a given piece of land.  This is basically
-// the contents of the main OLDF file given via -d.  Generally the rest of the command
-// line is captured in PmodConfig, not in here.
-// See docs/open-landscape-description-format.md for the file format.
+// This class provides support for checking various generic patterns that show up 
+// OTDL and OLDF a lot.
 
 
 #include "JSONStructureChecker.h"
@@ -16,8 +14,12 @@
 
 using namespace rapidjson;
 
+
 // =======================================================================================
-// Constructor: parse the json file
+/// @brief Constructor
+/// @param sPhrase A C-string describing the source of the JSON for use in error messages.
+/// @param jType A JSONType to tell us whether this particular helper object will be 
+/// dealing with OTDL or OLDF.
 
 JSONStructureChecker::JSONStructureChecker(char* sPhrase, JSONType jType):
                                           sourcePhrase(sPhrase),
@@ -34,8 +36,11 @@ JSONStructureChecker::JSONStructureChecker(char* sPhrase, JSONType jType):
 
 
 // =======================================================================================
-// Function to load the known language tags (per RFC 5646 into a JSON object for use
-// in parsing stuff that needs to know about different languages (eg commonNames).
+/// @brief Load language tags
+/// 
+/// Function to load the known language tags (per RFC 5646 into a JSON object for use
+/// in parsing stuff that needs to know about different languages (eg commonNames).
+/// @returns True (will exit on error).
 
 bool JSONStructureChecker::loadRFC5646LanguageTags(void)
 {
