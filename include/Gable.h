@@ -64,6 +64,7 @@ public:
   
   // Member functions - public
   Gable(MenuGablePanel& gablePanel);
+  Gable(rapidjson::Value& gableJsonObject);
   ~Gable(void);
   void        rebuildRects(void);
   

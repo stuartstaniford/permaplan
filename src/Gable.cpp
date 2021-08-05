@@ -26,7 +26,8 @@ GableParamData::GableParamData(void):
 
 
 // =======================================================================================
-/// @brief Constructor
+/// @brief Constructor from a Gable Panel
+/// @param gablePanel The MenuGablePanel object for the interface panel.
 
 Gable::Gable(MenuGablePanel& gablePanel):
                               BuildingAssembly(6, 2)
@@ -38,6 +39,31 @@ Gable::Gable(MenuGablePanel& gablePanel):
   overhang        = gablePanel.overhang;
   angleFromNorth  = gablePanel.angleFromNorth;
   setPosition(gablePanel.position);
+  
+  rebuildRects();
+}
+
+
+// =======================================================================================
+/// @brief Constructor from an OLDF JSON object.
+///
+/// Note that the JSON/OLDF will already have been validated by the static function  
+/// Gable::validateOLDF, so we can just assume the syntax is all present and correct.
+/// @param gablePanel The MenuGablePanel object for the interface panel.
+
+using namespace rapidjson;
+
+Gable::Gable(Value& gableJsonObject):
+                              BuildingAssembly(6, 2)
+{
+  height          = gableJsonObject["height"].GetFloat();
+  length          = gableJsonObject["length"].GetFloat();
+  width           = gableJsonObject["width"].GetFloat();
+  roofAngle       = gableJsonObject["roofAngle"].GetFloat();
+  overhang        = gableJsonObject["overhang"].GetFloat();
+  angleFromNorth  = gableJsonObject["angleFromNorth"].GetFloat();
+  for(int i=0; i<3; i++)
+    position[i] = gableJsonObject["position"][i].GetFloat();
   
   rebuildRects();
 }
@@ -209,8 +235,6 @@ const char* Gable::objectName(void)
 /// @param jCheck JSONStructureChecker helper object for validating/logging.
 /// @param int i index of this building in the buildings array.
 /// @param int j index of this gable in the assemblies array for this building.
-
-using namespace rapidjson;
 
 bool Gable::validateOLDF(Value& gableJsonObject, JSONStructureChecker* jCheck, int i, int j)
 {
