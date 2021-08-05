@@ -309,30 +309,14 @@ bool Species::validateOverviewData(Document& doc)
   char* logObjectName = (char*)"overviewData";
   
   // Genus - mandatory, heritable
-  if(jCheck->validateStringMemberExists(overviewData, logObjectName, (char*)"genus"))
+  retVal &= jCheck->checkMandatoryHeritableStringValue(overviewData, parent, (char*)"genus");
+  if(overviewData.HasMember("genus"))
     retVal &= jCheck->validateGenusName(logObjectName, overviewData["genus"].GetString());
-  else if(parent)
-   {
-    LogOTDLDetails("Inheriting genus from parent in %s\n", jCheck->sourcePhrase);
-   }
-  else
-   {
-    LogOTDLValidity("No genus available for %s\n", jCheck->sourcePhrase);
-    retVal = false;
-   }
-   
+    
   // Species - mandatory, heritable
-  if(jCheck->validateStringMemberExists(overviewData, logObjectName, (char*)"species"))
+  retVal &= jCheck->checkMandatoryHeritableStringValue(overviewData, parent, (char*)"species");
+  if(overviewData.HasMember("species"))
     retVal &= jCheck->validateSpeciesName(logObjectName, overviewData["species"].GetString());
-  else if(parent)
-   {
-    LogOTDLDetails("Inheriting species from parent in %s\n", jCheck->sourcePhrase);
-   }
-  else
-   {
-    LogOTDLValidity("No genus available for %s\n", jCheck->sourcePhrase);
-    retVal = false;
-   }
     
   // variety - optional, non-heritable
   retVal &= jCheck->validateOptionalStringMember(overviewData, logObjectName, (char*)"var");

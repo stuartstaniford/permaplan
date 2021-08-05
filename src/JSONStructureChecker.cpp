@@ -99,6 +99,40 @@ bool JSONStructureChecker::checkMandatoryHeritableFloatValue(Value& jsonObject,
 
 
 // =======================================================================================
+/// @brief Check that a mandatory but heritable value is available and a string.
+/// @returns True if value is present and correct, false otherwise.
+/// @param jsonObject The containing object
+/// @param name The name of the value we wish to check is present and string-y
+/// @param pointer to a parent object, if inheritance is operating here.
+
+bool JSONStructureChecker::checkMandatoryHeritableStringValue(Value& jsonObject,
+                                                                    void* parent, char* name)
+{
+  bool retVal = true;
+  
+  if(jsonObject.HasMember(name))
+   {
+    unless(jsonObject[name].IsString())
+     {
+      LogOTDLValidity("%s is not a string in %s\n", name, sourcePhrase);
+      retVal = false;
+     }
+   }
+  else if(parent)
+   {
+    LogOTDLDetails("Inheriting %s from parent in %s\n", name, sourcePhrase);
+   }
+  else
+   {
+    LogOTDLValidity("No %s available for %s\n", name, sourcePhrase);
+    retVal = false;
+   }
+  
+  return retVal;
+}
+
+
+// =======================================================================================
 /// @brief Check that a mandatory but heritable value is available and a non-negative
 /// integer.
 /// @returns True if value is present and correct, false otherwise.
@@ -325,7 +359,7 @@ bool JSONStructureChecker::validateStringMemberExists(Value& thisObject,
   else
    {
     sprintBuf("No %s:%s token in %s\n", objName, member, sourcePhrase);
-    makeLog(true);
+    makeLog(false);
     retVal = false;
    }
 
@@ -354,7 +388,7 @@ bool JSONStructureChecker::validateFloatMemberExists(Value& thisObject,
   else
    {
     sprintBuf("No %s:%s token in %s\n", objName, member, sourcePhrase);
-    makeLog(true);
+    makeLog(false);
     retVal = false;
    }
 

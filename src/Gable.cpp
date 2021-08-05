@@ -6,6 +6,7 @@
 #include "Gable.h"
 #include "MenuGablePanel.h"
 #include "BuildingRect.h"
+#include "JSONStructureChecker.h"
 
 
 // =======================================================================================
@@ -202,14 +203,47 @@ const char* Gable::objectName(void)
 
 
 // =======================================================================================
-// Function to check the validity of some JSON in an OLDF file that purportedly represents
-// a gable.
+/// @brief Static function to check the validity of a JSON gable object in an OLDF file.
+/// @returns true if the gable OLDF is correct, false otherwise.
+/// @param gableJsonObject rapidjson::Value reference to the JSON object for this gable.
+/// @param jCheck JSONStructureChecker helper object for validating/logging.
+/// @param int i index of this building in the buildings array.
+/// @param int j index of this gable in the assemblies array for this building.
 
 using namespace rapidjson;
 
-bool Gable::validateOLDF(Value& gableJsonObject)
+bool Gable::validateOLDF(Value& gableJsonObject, JSONStructureChecker* jCheck, int i, int j)
 {
-  return true;  
+  const PmodConfig& config = PmodConfig::getConfig();
+  bool retVal = true;
+  char objName[32];
+  snprintf(objName, 32, "Gable %d in Buildings[%d]", j, i);
+
+  // Note that type was already checked by our caller to get us this far.
+  
+  // Height, width, length
+  retVal &= jCheck->validateFloatMemberExists(gableJsonObject, objName, (char*)"height");
+  retVal &= jCheck->validateFloatMemberExists(gableJsonObject, objName, (char*)"width");
+  retVal &= jCheck->validateFloatMemberExists(gableJsonObject, objName, (char*)"length");
+
+  // Roofangle, overhang
+  retVal &= jCheck->validateFloatMemberExists(gableJsonObject, objName, (char*)"roofAngle");
+  retVal &= jCheck->validateFloatMemberExists(gableJsonObject, objName, (char*)"overhang");
+    
+  // Position
+  unless(gableJsonObject.HasMember("position"))
+   {
+    LogOLDFValidity("Buildings[%d]: Gable %d has no position in OLDF file %s\n", 
+                                                            i, j, config.designFileName);
+    retVal = false;
+   }
+  else
+    retVal &= jCheck->validateNumberArray(gableJsonObject["position"], 3, objName);
+  
+  // AngleFromNorth
+  retVal &= jCheck->validateFloatMemberExists(gableJsonObject, objName, (char*)"angleFromNorth");
+
+  return retVal;  
 }
 
 

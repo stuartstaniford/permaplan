@@ -14,6 +14,8 @@
 
 class MenuGablePanel;
 class Gable;
+class JSONStructureChecker;
+
 
 // =======================================================================================
 /// @brief The minimal date required to specify a gable.  Gable, and MenuGablePanel,
@@ -75,7 +77,8 @@ public:
   float* getPosition(void);
 
   // Static methods
-  static bool validateOLDF(rapidjson::Value& gableJsonObject);
+  static bool validateOLDF(rapidjson::Value& gableJsonObject, 
+                                      JSONStructureChecker* jCheck, int i, int j);
 
 private:
   

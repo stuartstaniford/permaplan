@@ -56,6 +56,8 @@ class JSONStructureChecker
   bool checkLanguageObject(rapidjson::Value& thisObject, char* objName);
   bool checkMandatoryHeritableFloatValue(rapidjson::Value& jsonObject,
                                                               void* parent, char* name);
+  bool checkMandatoryHeritableStringValue(rapidjson::Value& jsonObject,
+                                                              void* parent, char* name);
   bool checkMandatoryHeritableUnsignedValue(rapidjson::Value& jsonObject,
                                                               void* parent, char* name);
                                                                       

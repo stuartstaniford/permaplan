@@ -110,11 +110,11 @@ bool Building::validateOneBuilding(Value& buildingJson, int i, JSONStructureChec
      }
     const char* typeString = assembly["type"].GetString();
     if(strcmp(typeString, "gable") == 0)
-      retVal &= Gable::validateOLDF(buildingJson);
+      retVal &= Gable::validateOLDF(assembly, jCheck, i, j);
     else if(strcmp(typeString, "shed") == 0)
-      retVal &= Gable::validateOLDF(buildingJson);
+      retVal &= Shed::validateOLDF(assembly);
     else if(strcmp(typeString, "block") == 0)
-      retVal &= Gable::validateOLDF(buildingJson);
+      retVal &= Box::validateOLDF(assembly);
    }
   
   return retVal;
