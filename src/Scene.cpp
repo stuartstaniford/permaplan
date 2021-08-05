@@ -9,6 +9,7 @@
 #include "HeightMarker.h"
 #include "Box.h"
 #include "Tree.h"
+#include "Building.h"
 #include "loadFileToBuf.h"
 #include "HttpDebug.h"
 #include <pthread.h>
@@ -44,6 +45,7 @@ Scene::Scene():
                        0.0f, 0.0f, 1.0f, 1.0f, minSize, 0u, 0u, NULL);
   land.bufferGeometry(qtree);
   Tree::readTreesFromDesign(qtree);
+  Building::readBuildingsFromDesign(qtree);
   rebuildVisualObjectBuffer(&sceneObjectTbuf);
 }
 

@@ -5,10 +5,12 @@
 
 #include "Building.h"
 #include "PmodConfig.h"
+#include "PmodDesign.h"
 #include "Gable.h"
 #include "Shed.h"
 #include "Box.h"
 #include "JSONStructureChecker.h"
+#include "Quadtree.h"
 
 bool Building::buildingsPresent = false;
 
@@ -153,7 +155,42 @@ bool Building::validateBuildings(Value& buildings, JSONStructureChecker* jCheck)
 
 
 // =======================================================================================
-// Write out the buildings section of the OLDF file.
+/// @brief Static function which reads a bunch of entries from the Buildings section in 
+/// the PmodDesign and instantiates them.
+/// @param qtree A link to the main root of the quadtree, required in order to insert
+/// the buildings being read into it.
+/// @todo Currently puts the BuildingAssemblies in singly, rather than grouped in 
+/// buildings.
+
+void Building::readBuildingsFromDesign(Quadtree* qtree)
+{
+  PmodDesign& design = PmodDesign::getDesign();
+ 
+  unless(design.doc.HasMember("buildings")) // buildings are optional
+    return;
+
+  // The structure was checked in Building::validateBuildings(), so we assume it's correct.
+  Value& buildings = design.doc["buildings"];
+  int N = buildings.Size();
+  for(int i=0; i<N; i++)
+   {
+    int M = buildings[i]["assemblies"].Size();
+    for(int j=0; j<M; j++)
+     {
+      Value& assembly = buildings[i]["assemblies"][j];
+      const char* type = assembly["type"].GetString();
+      if(strcmp(type, "gable") == 0)
+       {
+        Gable* gable = new Gable(assembly);
+        qtree->storeVisualObject(gable);
+       }
+     }
+   }
+}
+
+
+// =======================================================================================
+// @brief Write out the buildings section of the OLDF file.
 
 void Building::writeBuildings(FILE* writeFile, char* indent)
 {

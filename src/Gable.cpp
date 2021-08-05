@@ -49,7 +49,7 @@ Gable::Gable(MenuGablePanel& gablePanel):
 ///
 /// Note that the JSON/OLDF will already have been validated by the static function  
 /// Gable::validateOLDF, so we can just assume the syntax is all present and correct.
-/// @param gablePanel The MenuGablePanel object for the interface panel.
+/// @param gableJsonObject A rapidjson::Value reference for the gable JSON/OLDF object.
 
 using namespace rapidjson;
 
