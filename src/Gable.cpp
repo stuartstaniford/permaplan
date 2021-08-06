@@ -54,7 +54,7 @@ Gable::Gable(MenuGablePanel& gablePanel):
 
 using namespace rapidjson;
 
-Gable::Gable(Value& gableJsonObject):
+Gable::Gable(Value& gableJsonObject, Scene& scene):
                               BuildingAssembly(6, 2)
 {
   height          = gableJsonObject["height"].GetFloat();

@@ -19,7 +19,11 @@
 
 
 // =======================================================================================
-// Constructor, which initializes the geometry
+/// @brief Constructor, which initializes the setup of the scene.
+///
+///This does things like setting up the quadtree, setting up the landsurface, and reading
+///in visiable things like trees, buildings, etc from the OLDF file and putting them into
+///the quadtree.
 
 Scene::Scene():
                 camera(200.0f, 45.0f),
@@ -45,13 +49,13 @@ Scene::Scene():
                        0.0f, 0.0f, 1.0f, 1.0f, minSize, 0u, 0u, NULL);
   land.bufferGeometry(qtree);
   Tree::readTreesFromDesign(qtree);
-  Building::readBuildingsFromDesign(qtree);
+  Building::readBuildingsFromDesign(qtree, *this);
   rebuildVisualObjectBuffer(&sceneObjectTbuf);
 }
 
 
 // =======================================================================================
-// Destructor
+/// @brief Destructor
 
 Scene::~Scene(void)
 {
@@ -62,7 +66,7 @@ Scene::~Scene(void)
 
 
 // =======================================================================================
-// Save state from the scene.
+/// @brief Save state from the scene if required by configuration variables.
 
 void Scene::saveState(void)
 {
@@ -78,7 +82,10 @@ void Scene::saveState(void)
 
 
 // =======================================================================================
-// Set a rotation matrix to match the currently specified angles
+/// @brief API to turn on simulation.
+/// 
+/// The simulating will actually occur in future calls to Scene::draw, but this sets up
+/// relavant state for it to happen.
 
 void Scene::startSimulation(void)
 {
@@ -87,7 +94,7 @@ void Scene::startSimulation(void)
 
 
 // =======================================================================================
-// Set a rotation matrix to match the currently specified angles
+/// @brief API to stop simulating for the time being.
 
 void Scene::pauseSimulation(void)
 {
@@ -96,7 +103,9 @@ void Scene::pauseSimulation(void)
 
 
 // =======================================================================================
-// Set a rotation matrix to match the currently specified angles
+/// @brief API to reset the simulation to the beginning.
+/// @todo This function is incomplete and the operation doesn't really work.  All the 
+/// visual objects in the scene need to be re-initialized.
 
 void Scene::resetSimulation(void)
 {

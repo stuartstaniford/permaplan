@@ -1,7 +1,4 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Apr 2020 -
-// This class is the one responsible for drawing the current state of
-// the scene at an overall level.
-
 
 #ifndef SCENE_H
 #define SCENE_H
@@ -26,9 +23,13 @@
 
 #define SIMULATION_BASE_YEAR 1900.0f
 
-// =======================================================================================
-// Class variable initialization
 
+// =======================================================================================
+/// @brief Keep overall track of the scene to be rendered.
+/// 
+/// This class is the one responsible for keeping track of the current state of the scene 
+/// at an overall level.  There might be multiple windows onto the scene, but there is
+/// only one scene.
 
 class Scene: public Lockable
 {

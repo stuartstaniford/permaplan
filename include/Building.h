@@ -15,6 +15,7 @@
 
 class JSONStructureChecker;
 class Quadtree;
+class Scene;
 
 
 // =======================================================================================
@@ -40,7 +41,7 @@ public:
                                                               JSONStructureChecker* jCheck);
   static bool validateBuildings(rapidjson::Value& buildings, JSONStructureChecker* jCheck);
   static void writeBuildings(FILE* writeFile, char* indent);
-  static void readBuildingsFromDesign(Quadtree* qtree);
+  static void readBuildingsFromDesign(Quadtree* qtree, Scene& scene);
   static bool buildingsPresent; // allow us to remember an empty list in OLDF file
 
 private:

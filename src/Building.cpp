@@ -162,7 +162,7 @@ bool Building::validateBuildings(Value& buildings, JSONStructureChecker* jCheck)
 /// @todo Currently puts the BuildingAssemblies in singly, rather than grouped in 
 /// buildings.
 
-void Building::readBuildingsFromDesign(Quadtree* qtree)
+void Building::readBuildingsFromDesign(Quadtree* qtree, Scene& scene)
 {
   PmodDesign& design = PmodDesign::getDesign();
  
@@ -181,7 +181,7 @@ void Building::readBuildingsFromDesign(Quadtree* qtree)
       const char* type = assembly["type"].GetString();
       if(strcmp(type, "gable") == 0)
        {
-        Gable* gable = new Gable(assembly);
+        Gable* gable = new Gable(assembly, scene);
         qtree->storeVisualObject(gable);
        }
      }
