@@ -66,7 +66,7 @@ class Scene: public Lockable
   void          resetSimulation(void);
   inline float  getSimYear(void) {return simYear;};
   inline bool   simulationActive(void) {return doSimulation;};
-  void          findCameraObject(vec3 location);
+  VisualObject* findCameraObject(vec3 location);
   float         findCameraHeight(void);
   void          newLandHeight(vec3 location, const char* label);
   void          saveState(void);

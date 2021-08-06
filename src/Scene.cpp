@@ -138,22 +138,29 @@ void Scene::setModelMatrix(float latt, float longt)
 
 
 // =======================================================================================
-// Find the object at camera focus
-// (Presently returning void until object interface defined)
+/// @brief Find the object at camera focus
+/// @returns A pointer to the VisualObject found, NULL if nothing.
+/// @param location A vec3 where the location of the camera intersection will be stored.
 
-void Scene::findCameraObject(vec3 location)
+VisualObject* Scene::findCameraObject(vec3 location)
 {
   vec3 pos, dir;
   float lambda;
   camera.copyDirection(pos, dir);
-  /*Quadtree* targetNode =*/ qtree->matchRay(pos, dir, lambda);
-  glm_vec3_scale(dir, lambda, dir);
-  glm_vec3_add(pos, dir, location);
+  VisualObject* targetNode = qtree->matchRay(pos, dir, lambda);
+  if(targetNode)
+   {
+    glm_vec3_scale(dir, lambda, dir);
+    glm_vec3_add(pos, dir, location);
+   }
+  return targetNode;
 }
 
 
 // =======================================================================================
-// How high is the camera above the scene?
+/// @brief How high is the camera above the scene?
+/// @returns A floating point value for the height of the camera.  Currently is the 
+/// absolute height.
 
 float Scene::findCameraHeight(void)
 {
