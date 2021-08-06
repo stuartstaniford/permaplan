@@ -115,7 +115,12 @@ void Scene::resetSimulation(void)
 
 
 // =======================================================================================
-// Set a rotation matrix to match the currently specified angles
+/// @brief Set the model matric in the Shader based on two rotation angles.
+/// @param latt The "latitude" of the point at which to see overhead.
+/// @param longt The "longtitude" of the point at which to see overhead.
+/// @todo The model matrix is barely used in permaplan at present.  Making more use of it
+/// would probably require breaking up the TriangleBuffers so that we could switch 
+/// matrices between rendering each buffer.
 
 void Scene::setModelMatrix(float latt, float longt)
 {
