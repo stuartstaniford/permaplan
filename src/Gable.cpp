@@ -39,6 +39,7 @@ Gable::Gable(MenuGablePanel& gablePanel):
   overhang        = gablePanel.overhang;
   angleFromNorth  = gablePanel.angleFromNorth;
   setPosition(gablePanel.position);
+  position[2] = 0.0f;  // will come from altitude
   
   rebuildRects();
 }
@@ -212,9 +213,11 @@ bool Gable::bufferGeometryOfObject(TriangleBuffer* T)
 ///
 /// @returns A float* which points to the vec3 of our position.
 
-float* Gable::getPosition(void)
+void Gable::getPosition(vec3 result)
 {
-  return position;  
+  result[0] = position[0];
+  result[1] = position[1];
+  result[2] = position[2] + altitude;
 }
 
 

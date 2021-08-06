@@ -57,7 +57,7 @@ public:
   virtual bool bufferGeometryOfObject(TriangleBuffer* T);
   virtual void updateBoundingBox(void);
   virtual bool matchRayToObject(vec3& pos, vec3& dir, float& lambda);
-  virtual float* getPosition(void);
+  virtual void getPosition(vec3 result);
   void selfValidate(unsigned l);
   virtual const char* objectName(void);
 

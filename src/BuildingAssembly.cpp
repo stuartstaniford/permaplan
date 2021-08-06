@@ -63,8 +63,11 @@ void BuildingAssembly::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 
 bool BuildingAssembly::bufferGeometryOfObject(TriangleBuffer* T)
 {
+  vec3 offset;
+  getPosition(offset);
+  
   for(int i=0; i<nRects; i++)
-    unless(rects[i].bufferGeometryOfElement(T, getPosition()))
+    unless(rects[i].bufferGeometryOfElement(T, offset))
       return false;
 
   bufferExtensions(T);
@@ -111,7 +114,8 @@ bool BuildingAssembly::bufferExtensions(TriangleBuffer* T)
     // will give us the correct norm, color, etc.
     memcpy(vertices+i, rectVertices + (exts[i].rectIndex)*rectVCount, sizeof(Vertex));
     vec3 pt;
-    glm_vec3_add(exts[i].extensionPoint, getPosition(), pt);
+    getPosition(pt);
+    glm_vec3_add(pt, exts[i].extensionPoint, pt);
     vertices[i].setPosition(pt);
     LogBuildRectDetails("Vertex 4 at [%.1f, %.1f, %.1f].\n", pt[0], pt[1], pt[2]);
     vertices[i].setObjectId(objIndex);    
@@ -139,9 +143,10 @@ void BuildingAssembly::updateBoundingBox(void)
 {
   unless(box)
     box = new BoundingBox();
-  
+  vec3 offset;
+  getPosition(offset);
   for(int i=0; i<nRects; i++)
-    rects[i].updateBoundingBox(box, getPosition());
+    rects[i].updateBoundingBox(box, offset);
 }
 
 
@@ -150,7 +155,7 @@ void BuildingAssembly::updateBoundingBox(void)
 ///
 /// @returns A float* which points to the vec3 of our position.
 
-float* BuildingAssembly::getPosition(void)
+void BuildingAssembly::getPosition(vec3 result)
 {
   err(-1, "Call to non-implemented BuildingAssembly::getPosition.\n");  
 }
@@ -171,9 +176,11 @@ bool BuildingAssembly::matchRayToObject(vec3& pos, vec3& dir, float& lambda)
   lambda = HUGE_VAL;
   float subLambda;
   bool matched = false;
+  vec3 offset;
+  getPosition(offset);  
   
   for(int i=0; i<nRects; i++)
-    if(rects[i].matchRayToElement(pos, dir, subLambda, getPosition()))
+    if(rects[i].matchRayToElement(pos, dir, subLambda, offset))
      {
       matched = true;
       if(subLambda < lambda)

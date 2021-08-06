@@ -75,7 +75,7 @@ public:
   bool        diagnosticHTML(HttpDebug* serv);
   
   // Public methods implementing the BuildingAssembly interface
-  float* getPosition(void);
+  void getPosition(vec3 result);
 
   // Static methods
   static bool validateOLDF(rapidjson::Value& gableJsonObject, 
