@@ -1,23 +1,24 @@
 // Copyright Staniford Systems.  All Rights Reserved.  August 2021 -
 
-#ifndef EMPTY_CLASS_H
-#define EMPTY_CLASS_H
+#ifndef VISUAL_LAYER_H
+#define VISUAL_LAYER_H
 
 
 // =======================================================================================
-/// @brief Quick description of the class
+/// @brief This class is for modeling information that supports the visual layer system
+/// (allowing certain things to be turned on and off in the renderings).
 ///
 /// More details of the class go here.
 
-class EmptyClass
+class VisualLayer
 {
 public:
   
   // Instance variables - public
   
   // Member functions - public
-  EmptyClass(void);
-  ~EmptyClass(void);
+  VisualLayer(void);
+  ~VisualLayer(void);
   
 private:
   
@@ -25,9 +26,9 @@ private:
   
   // Member functions - private
   /// @brief Prevent copy-construction.
-  EmptyClass(const EmptyClass&);       
+  VisualLayer(const VisualLayer&);       
   /// @brief Prevent assignment.
-  EmptyClass& operator=(const EmptyClass&);      
+  VisualLayer& operator=(const VisualLayer&);      
 
 };
 

@@ -901,6 +901,7 @@ INPUT                  = doc \
                 include/Tree.h src/Tree.cpp \
                 include/Vertex.h src/Vertex.cpp \
                 include/VisualElement.h src/VisualElement.cpp \
+                include/VisualLayer.h src/VisualLayer.cpp \
                 include/VisualObject.h src/VisualObject.cpp \
                 include/Window3D.h src/Window3D.cpp \
 

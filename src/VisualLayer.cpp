@@ -1,13 +1,14 @@
 // Copyright Staniford Systems.  All Rights Reserved.  August 2021 -
-// This class ..... is a template for real classes
+// This class is for modeling information that supports the visual layer system
+// (allowing certain things to be turned on and off in the renderings).
 
-#include "EmptyClass.h"
+#include "VisualLayer.h"
 
 
 // =======================================================================================
 /// @brief Constructor
 
-EmptyClass::EmptyClass(void)
+VisualLayer::VisualLayer(void)
 {
 }
 
@@ -15,7 +16,7 @@ EmptyClass::EmptyClass(void)
 // =======================================================================================
 /// @brief Destructor
 
-EmptyClass::~EmptyClass(void)
+VisualLayer::~VisualLayer(void)
 {
 }
 
