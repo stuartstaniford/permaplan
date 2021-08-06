@@ -74,32 +74,6 @@ BezierPatch::~BezierPatch(void)
 
 
 // =======================================================================================
-//XX Stub definition needs to be implemented
-
-bool BezierPatch::getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
-{
-  return false;
-}
-
-
-// =======================================================================================
-//XX Stub definition needs to be implemented
-
-bool BezierPatch::getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
-{
-  return false;
-}
-
-
-// =======================================================================================
-//XX Stub definition needs to be implemented
-int BezierPatch::getNextIndex(bool resetToFirst)
-{
-  return -1;
-}
-
-
-// =======================================================================================
 // Mark which directions we cannot go in (eg at the edge of the patch).
 
 void BezierPatch::computeGradConstraints(void)
