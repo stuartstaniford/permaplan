@@ -174,7 +174,11 @@ float Scene::findCameraHeight(void)
 
 
 // =======================================================================================
-// Find the object at a given screen location (eg the mouse position)
+/// @brief Find the object at a given screen location (eg the mouse position).
+/// @returns A pointer to the VisualObject found, or NULL if none found.
+/// @param location A vec3 to store the location at which we intersected the object
+/// @param clipX The window screen X coordinate requested.
+/// @param clipY The window screen Y coordinate requested.
 
 VisualObject* Scene::findObjectFromWindowCoords(vec3 location, float clipX, float clipY)
 {  
@@ -197,7 +201,10 @@ VisualObject* Scene::findObjectFromWindowCoords(vec3 location, float clipX, floa
 
 
 // =======================================================================================
-//XXX Temporary hack - toss the old buffer and make a new one
+/// @brief Rebuild the visual object buffer and send to the GPU.
+/// @param tbuf A pointer to the pointer to the TriangleBuffer.  
+/// @param dumpBuf If true, the triangle buffer will be dumped to a file for debugging.
+/// @todo This is really a temporary hack - it tosses the old buffer and makes a new one.
 
 void Scene::rebuildVisualObjectBuffer(TriangleBuffer** tbuf, bool dumpBuf)
 {
