@@ -243,7 +243,7 @@ void Window3D::loop(HttpLoadBalancer& httpServer)
     scene->lock();
 
     // Do our actual drawing and deliver to screen window
-    scene->draw(mouseMoved, (float)(frameDouble - lastFrameDouble));
+    scene->draw((float)(frameDouble - lastFrameDouble));
     imgMenu->imguiInterface();
     glfwSwapBuffers(window);
     

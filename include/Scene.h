@@ -59,7 +59,7 @@ class Scene: public Lockable
   // Member functions - public
   Scene(void);
   ~Scene(void);
-  void          draw(bool mouseMoved, float timeElapsed);
+  void          draw(float timeElapsed);
   void          loadScenarioFile(void);
   void          startSimulation(void);
   void          pauseSimulation(void);

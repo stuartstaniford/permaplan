@@ -345,8 +345,8 @@ void Scene::processEditModeObjectDeselection(void)
 
 
 // =======================================================================================
-// This is called when an object has just been double-clicked on, and now we need to set
-// up controls to allow it to be moved around, rescaled, etc.
+/// @brief Called when an object has been double-clicked on, and now we need to set up 
+/// controls to allow it to be moved around, rescaled, etc.
 
 void Scene::processNewEditModeObject(void)
 {
@@ -357,9 +357,11 @@ void Scene::processNewEditModeObject(void)
 }
 
 
-
 // =======================================================================================
-// Handle a UI call to insert a new object in the scene (from the insert menu in Window3D)
+/// @brief Handle a UI call to insert a new tree in the scene.
+///
+/// @todo The creation of the Tree should be done in the insert menus and then this
+/// should be replaced with a call to Scene::insertVisualObject
 
 void Scene::insertTree(Species* species, vec3 loc, float age)
 {
@@ -371,7 +373,7 @@ void Scene::insertTree(Species* species, vec3 loc, float age)
 
 
 // =======================================================================================
-// Provide a summary of the simulation status (within an HTML page)
+/// @brief Provide a summary of the simulation status (within an HTML page)
 
 bool Scene::diagnosticHTMLSimulationSummary(HttpDebug* serv)
 {
@@ -394,11 +396,15 @@ bool Scene::diagnosticHTMLSimulationSummary(HttpDebug* serv)
 
 
 // =======================================================================================
-// Draw the current state of the scene (called from the main Window3D event loop)
+/// @brief Draw the current state of the scene.
+/// 
+/// This is called from the main Window3D event loop and coordinates all drawing of the
+/// scene.
+/// @param timeElapsed The amount of time elapsed in seconds since the last call.
 
 vec4  objColor      = {0.0f, 0.5f, 0.9f, 1.0f};
 
-void Scene::draw(bool mouseMoved, float timeElapsed)
+void Scene::draw(float timeElapsed)
 {
   PmodDesign& design = PmodDesign::getDesign();
   Shader& shader = Shader::getMainShader();
