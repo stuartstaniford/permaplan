@@ -15,7 +15,12 @@
 
 
 // =======================================================================================
-// Constructor which sets up the surface as specified in the design file
+/// @brief Constructor which sets up the surface as specified in the design file.
+///
+/// Note, we are called from the Scene constructor before the quadtree exists.  So we 
+/// do a certain amount of setup (which is required before quadtree initialization, but 
+/// then some additional things are done later via a call to LandSurface::bufferGeometry
+/// after the quadtree is present (but still during the Scene constructor).
 
 LandSurface::LandSurface(void):
                             rect(NULL),
@@ -72,12 +77,16 @@ LandSurface::LandSurface(void):
 
 
 // =======================================================================================
-// Late constructor stuff that can't be done until after the Qtree is initialized
+/// @brief Late constructor stuff that can't be done until after the Quadtree is 
+/// initialized.
+/// @param q Pointer to the Quadtree.
 
 void LandSurface::bufferGeometry(Quadtree* q)
 {
   if(q)
     qtree = q;
+  else
+    err(-1, "No quadtree in LandSurface::bufferGeometry.\n")
   
   if(tbuf)
     delete tbuf;
@@ -90,7 +99,7 @@ void LandSurface::bufferGeometry(Quadtree* q)
 
 
 // =======================================================================================
-// Destructor
+/// @brief Destructor
 
 LandSurface::~LandSurface(void)
 {
@@ -102,8 +111,15 @@ LandSurface::~LandSurface(void)
 
 
 // =======================================================================================
-// used to extract further height locations from the oldf design file.  Note that OLDF
-// file syntax is checked in PmodDesign, so we can safely assume it's correct here.
+/// @brief Extract further height locations from the oldf design file. 
+///  
+/// Note that OLDF file syntax is checked in PmodDesign, so we can safely assume it's 
+/// correct here.
+/// @param location A vec3 which will be filled out with the height/position location.
+/// The x,y are in spaceUnits relative to the referencePoint.  The z is absolute height
+/// above MSL in spaceUnits.
+/// @param label.  A reference for a C-string pointer which will be set to the annotation
+/// label of this particular altitude input.
 
 bool LandSurface::nextInitialHeightLocation(vec3 location, const char*& label)
 {
@@ -122,8 +138,15 @@ bool LandSurface::nextInitialHeightLocation(vec3 location, const char*& label)
 
 
 // =======================================================================================
-// Highlight one qtree node.  If color is NULL, unhighlights.  Assumes the correct
-// VAO/VBO are already bound
+/// @brief Highlight one qtree node.  
+/// 
+/// If color is NULL, unhighlights.  Assumes the correct VAO/VBO are already bound
+/// @param targetNode The quadtree node to illuminate
+/// @param color A vec4 representing the color to use
+/// @param accent ??? Think this is dated now.
+/// @todo This function is disabled pending reimplementation in the TriangleBuffer case.
+/// Seems like it would still be useful though when we have to debug something quadtree
+/// related.
 
 void LandSurface::highlightNode(Quadtree* targetNode, vec4& color, float accent)
 {
@@ -149,17 +172,16 @@ void LandSurface::highlightNode(Quadtree* targetNode, vec4& color, float accent)
     exit(-1);
 #endif
 */
-  
 }
 
 
 // =======================================================================================
-// Reconfigure the land surface when we are told about a new observation that is to be
-// added to our state
-
-//XXX We don't currently detect if a new heightmarker is unacceptable - eg second one
-// is exactly the same as first.  Need to do more error checking, and have a way to
-// report that the heightMarker should be rejected and deleted.
+/// @brief Reconfigure the land surface when we are told about a new observation that 
+/// is to be added to our state
+/// @param hM The new heightMarker.
+/// @todo We don't currently detect if a new heightmarker is unacceptable - eg second 
+/// one is exactly the same as the first.  Need to do more error checking, and have a 
+/// way to report that the heightMarker should be rejected and deleted.
 
 extern vec3 zAxis;
 

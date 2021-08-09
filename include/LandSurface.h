@@ -1,8 +1,4 @@
 // Copyright Staniford Systems.  All Rights Reserved.  May 2020 -
-// Class which loads a series of records of surface height at various locations
-// and produces a tiling of the surface, as well as being able to texture it
-// with a provided map.
-
 
 #ifndef LANDSURFACE_H
 #define LANDSURFACE_H
@@ -21,7 +17,11 @@
 
 
 // =======================================================================================
-// Class variable initialization
+/// @brief Encapsulates the model of the entire surface of the land.
+/// 
+/// This class loads a series of records of surface height at various locations
+/// and produces a tiling of the surface, as well as being able to texture it
+/// with a provided map.
 
 class LandSurface
 {
