@@ -86,7 +86,7 @@ void LandSurface::bufferGeometry(Quadtree* q)
   if(q)
     qtree = q;
   else
-    err(-1, "No quadtree in LandSurface::bufferGeometry.\n")
+    err(-1, "No quadtree in LandSurface::bufferGeometry.\n");
   
   if(tbuf)
     delete tbuf;
@@ -177,12 +177,15 @@ void LandSurface::highlightNode(Quadtree* targetNode, vec4& color, float accent)
 
 // =======================================================================================
 /// @brief Reconfigure the land surface when we are told about a new observation that 
-/// is to be added to our state
+/// is to be added to our state.
+/// This is the most important function, which co-ordinates which kind of model to use
+/// depending on how much height data we have to work with.
 /// @param hM The new heightMarker.
 /// @todo We don't currently detect if a new heightmarker is unacceptable - eg second 
 /// one is exactly the same as the first.  Need to do more error checking, and have a 
 /// way to report that the heightMarker should be rejected and deleted.
-
+/// @todo We can't handle large numbers of observations, which should cause us to split
+/// the BezierPatch.
 extern vec3 zAxis;
 
 void LandSurface::newLandHeight(HeightMarker* hM)
@@ -288,9 +291,13 @@ void LandSurface::newLandHeight(HeightMarker* hM)
 
 
 // =======================================================================================
-// Redo the triangle buffer (after improving the fit).  XX Note the approach here of
-// tossing the whole thing and start over seems a bit costly and a more efficient
-// approach might need to be developed if this is a bottleneck
+/// @brief Redo the triangle buffer holding the BezierPatch landsurface.
+/// 
+/// This is done after improving the fit.  
+/// @param bez Pointer to the BezierPatch.
+/// @todo Note the approach here of tossing the whole thing and start over seems a bit 
+/// costly and a more efficient approach might need to be developed if this is a 
+/// bottleneck
 
 void LandSurface::redoBezierLandSurface(BezierPatch* bez)
 {
@@ -321,14 +328,16 @@ void LandSurface::redoBezierLandSurface(BezierPatch* bez)
 
 
 // =======================================================================================
-// Render our part of the scene
-
-vec4 yellowAccentColor = {0.9f, 0.9f, 0.0f, 1.0f};
+/// @brief Render our part of the scene.
+/// 
+/// This is called from Scene::draw().
+/// @param camera - a reference to the Camera object.
 
 void LandSurface::draw(Camera& camera)
 {
   // Highlight where the camera points at
 /*  vec3 pos, dir;
+ vec4 yellowAccentColor = {0.9f, 0.9f, 0.0f, 1.0f};
   float lambda;
   camera.copyDirection(pos, dir);
   Quadtree* targetNode = qtree->matchRay(pos, dir, lambda);
@@ -358,7 +367,9 @@ void LandSurface::draw(Camera& camera)
 
 
 // =======================================================================================
-// Write out the LandSurface data to a file in OLDF JSON format.
+/// @brief Write out the LandSurface data to a file in OLDF JSON format.
+/// @param file C FILE* pointer to the open file to write too.
+/// @param indent Character sequence for use in indenting the JSON.
 
 void LandSurface::writeOLDFSection(FILE* file, char* indent)
 {
@@ -395,7 +406,9 @@ void LandSurface::writeOLDFSection(FILE* file, char* indent)
 
 
 // =======================================================================================
-// Provide a diagnostic page about the land surface
+/// @brief Provide a diagnostic page about the land surface
+/// @returns True if the page was written correctly, false if we ran out of space.
+/// @param serv The HTTP Debug server
 
 bool LandSurface::diagnosticHTML(HttpDebug* serv)
 {
