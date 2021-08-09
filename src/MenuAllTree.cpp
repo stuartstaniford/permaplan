@@ -6,6 +6,8 @@
 #include "Species.h"
 #include "RegionList.h"
 #include "MenuInterface.h"
+#include "Tree.h"
+
 
 // =======================================================================================
 /// @brief Constructor
@@ -106,7 +108,8 @@ void MenuAllTree::allTreeSelection(const char* name, DynamicallyTypable* value)
       LogTreeSelections("Tree %s %s inserted at [%f, %f].\n", 
                         S->genusName, S->speciesName,
                         scene->lastDoubleClick[0], scene->lastDoubleClick[1]);
-      scene->insertTree(S, scene->lastDoubleClick, 1.0f);
+      Tree* tree = new Tree(S, scene->lastDoubleClick, 1.0f, scene->getSimYear());
+      scene->insertVisualObject(tree);
       mainMenu->allTreeMenu = NULL;
       delete this;
      }

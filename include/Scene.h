@@ -75,7 +75,6 @@ class Scene: public Lockable
   void          newObjectTransform(mat4 transform, float initSize, vec3 location);
   void          insertVisualObject(VisualObject* obj);
   void          insertVisibleObject(char* objType, float size, vec3 loc, Material* material);
-  void          insertTree(Species* species, vec3 loc, float age);
   void          rebuildVisualObjectBuffer(TriangleBuffer** tbuf, bool dumpBuf = false);
   void          processEditModeObjectDeselection(void);
   void          processNewEditModeObject(void);

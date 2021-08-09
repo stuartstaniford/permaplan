@@ -5,6 +5,7 @@
 
 #include "MenuGenus.h"
 #include "MenuInterface.h"
+#include "Tree.h"
 
 // =======================================================================================
 /// @brief Constructor
@@ -36,7 +37,8 @@ void MenuGenus::speciesSelected(Species* S)
   LogTreeSelections("Tree %s %s (age %.1f years) inserted at [%f, %f].\n",
                   S->genusName, S->speciesName, atof(ageBuf),
                                     scene->lastDoubleClick[0], scene->lastDoubleClick[1]);
-  scene->insertTree(S, scene->lastDoubleClick, atof(ageBuf));
+  Tree* tree = new Tree(S, scene->lastDoubleClick, atof(ageBuf), scene->getSimYear());
+  scene->insertVisualObject(tree);
   mainMenu->genusMenu = NULL;
   delete this;
 }

@@ -358,21 +358,6 @@ void Scene::processNewEditModeObject(void)
 
 
 // =======================================================================================
-/// @brief Handle a UI call to insert a new tree in the scene.
-///
-/// @todo The creation of the Tree should be done in the insert menus and then this
-/// should be replaced with a call to Scene::insertVisualObject
-
-void Scene::insertTree(Species* species, vec3 loc, float age)
-{
-  Tree* tree = new Tree(species, loc, age, simYear);
-  
-  qtree->storeVisualObject(tree);
-  rebuildVisualObjectBuffer(&sceneObjectTbuf);
-}
-
-
-// =======================================================================================
 /// @brief Provide a summary of the simulation status (within an HTML page)
 
 bool Scene::diagnosticHTMLSimulationSummary(HttpDebug* serv)
