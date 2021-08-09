@@ -85,9 +85,7 @@ void LandSurface::bufferGeometry(Quadtree* q)
 {
   if(q)
     qtree = q;
-  else
-    err(-1, "No quadtree in LandSurface::bufferGeometry.\n");
-  
+
   if(tbuf)
     delete tbuf;
   tbuf = new TriangleBuffer(2*qtree->landVBOSize/3, qtree->landVBOSize, (char*)"land tBuf");
