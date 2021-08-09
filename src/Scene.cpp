@@ -234,8 +234,15 @@ unsigned oldICount = 0u;
 
 
 // =======================================================================================
-// The interface has been notified of a new height measurement at the last
-// place we double-clicked.
+/// @brief Process notification of a new altitude measurement.
+/// 
+/// The interface has been notified of a new height measurement (eg at the last place 
+/// we double-clicked).
+/// @param location A vec3 of the new height location (x,y) position in spaceUnits
+/// relative to the referencePoint and absolute altitude in the z-coordinate.
+/// @param label A C-string allowing for a human annotation describing the location of 
+/// this particular observation.
+/// @todo also need to rebuild rest of visual objects once their heights are relative
 
 void Scene::newLandHeight(vec3 location, const char* label)
 {
@@ -247,72 +254,23 @@ void Scene::newLandHeight(vec3 location, const char* label)
     grid->newHeight(location[2]);
   
   rebuildVisualObjectBuffer(&indicatorTbuf);
-  //XX also need to rebuild rest of objects once their heights are relative
   
   //Redo the landsurface here, in light of the new height observation
   land.newLandHeight(H);
   if(land.getLocationCount() == 1)
     camera.teleportUp(location[2]);
-}
-
-
-// =======================================================================================
-// Obtain the right kind of object based on the insertion menu text.
-
-VisualObject* Scene::getFreshObject(char* objTypeName, mat4 transform)
-{
-  VisualObject* returnVal = NULL;
   
-  if(strcmp(objTypeName, "Block") == 0)
-    returnVal = (VisualObject*)new Box(transform);
-  
-  return returnVal;
+  //XX Redo the visual objects
 }
 
 
 // =======================================================================================
-// Create the transformation matrix which will allow the new object to be visible in the
-// correct initial location.
-
-//XX likely this should be moved into visualObject and be done in a way that avoids
-// copying the matrix in the object state.
-
-void Scene::newObjectTransform(mat4 transform, float initSize, vec3 location)
-{
-  // Remember that cglm does right multiplication, so the transformations are applied
-  // to the incoming object in reverse order to their order in the code.
-  glm_mat4_identity(transform);
-  glm_translate(transform, location);
-  glm_scale_uni(transform, initSize);
-}
-
-
-// =======================================================================================
-// This is called when an object has just been double-clicked on, and now we need to set
-// up controls to allow it to be moved around, rescaled, etc.
-
-void Scene::processEditModeObjectDeselection(void)
-{
-
-}
-
-
-// =======================================================================================
-// This is called when an object has just been double-clicked on, and now we need to set
-// up controls to allow it to be moved around, rescaled, etc.
-
-void Scene::processNewEditModeObject(void)
-{
-  ControlGroup* controlGroup = new ControlGroup(editModeObject);
-  editModeObject->removeFromQuadtree();
-  qtree->storeVisualObject(controlGroup);
-  rebuildVisualObjectBuffer(&sceneObjectTbuf);
-}
-
-
-// =======================================================================================
-// Handle a UI call to insert a new object in the scene (called from various MenuPanels
-// which construct the respective kind of objects)
+/// @brief Handle a UI operation to insert a new object in the scene. 
+/// 
+/// This is called from various MenuPanels which construct the respective kind of 
+/// objects, and is the correct current way of doing this.  We handle appropriate logging
+/// insert the object in the quadtree, and then rebuild the visual object buffers.
+/// @param obj Pointer to the new VisualObject to be inserted.
 
 void Scene::insertVisualObject(VisualObject* obj)
 {  
@@ -332,8 +290,39 @@ void Scene::insertVisualObject(VisualObject* obj)
 
 
 // =======================================================================================
-// Legacy: Handle a UI call to insert a new object in the scene (from the insert menu 
-// in Window3D)
+/// @brief Obtain the right kind of object based on the insertion menu text.
+/// @todo Only used for inserting blocks, scheduled for demolition.
+
+VisualObject* Scene::getFreshObject(char* objTypeName, mat4 transform)
+{
+  VisualObject* returnVal = NULL;
+  
+  if(strcmp(objTypeName, "Block") == 0)
+    returnVal = (VisualObject*)new Box(transform);
+  
+  return returnVal;
+}
+
+
+// =======================================================================================
+/// Create the transformation matrix which will allow the new object to be visible in the
+/// correct initial location.
+/// @todo Only used for inserting blocks, scheduled for demolition.
+
+void Scene::newObjectTransform(mat4 transform, float initSize, vec3 location)
+{
+  // Remember that cglm does right multiplication, so the transformations are applied
+  // to the incoming object in reverse order to their order in the code.
+  glm_mat4_identity(transform);
+  glm_translate(transform, location);
+  glm_scale_uni(transform, initSize);
+}
+
+
+// =======================================================================================
+/// @brief Handle a UI call to insert a new object in the scene (from the insert menu 
+/// in Window3D)
+/// @todo Only used for inserting blocks, scheduled for demolition.
 
 void Scene::insertVisibleObject(char* objType, float size, vec3 loc, Material* material)
 {
@@ -342,6 +331,31 @@ void Scene::insertVisibleObject(char* objType, float size, vec3 loc, Material* m
   VisualObject* newObj = getFreshObject(objType, transform);
   insertVisualObject(newObj);
 }
+
+
+// =======================================================================================
+/// @brief This is called when an object has been deselected and we need to remove the
+/// control objects around it.
+/// @todo This is only a stub right now.
+
+void Scene::processEditModeObjectDeselection(void)
+{
+
+}
+
+
+// =======================================================================================
+// This is called when an object has just been double-clicked on, and now we need to set
+// up controls to allow it to be moved around, rescaled, etc.
+
+void Scene::processNewEditModeObject(void)
+{
+  ControlGroup* controlGroup = new ControlGroup(editModeObject);
+  editModeObject->removeFromQuadtree();
+  qtree->storeVisualObject(controlGroup);
+  rebuildVisualObjectBuffer(&sceneObjectTbuf);
+}
+
 
 
 // =======================================================================================
