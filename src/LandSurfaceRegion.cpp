@@ -8,8 +8,7 @@
 
 
 // =======================================================================================
-/// @brief Constructor
-/// @param
+// Constructors.
 
 LandSurfaceRegion::LandSurfaceRegion(float x, float y, float width, float height,
                                      float s, float t, float sWidth, float tHeight):
@@ -30,10 +29,73 @@ LandSurfaceRegion::LandSurfaceRegion(float x, float y, float width, float height
 
 
 // =======================================================================================
-/// @brief Destructor
+// Destructor
 
 LandSurfaceRegion::~LandSurfaceRegion(void)
 {
+}
+
+
+// =======================================================================================
+// Stub definition this should be overwritten by implementing subclasses
+
+bool LandSurfaceRegion::getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
+{
+  return false;
+}
+
+
+// =======================================================================================
+// Stub definition this should be overwritten by implementing subclasses
+bool LandSurfaceRegion::getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
+{
+  return false;
+}
+
+
+// =======================================================================================
+// Stub definition this should be overwritten by implementing subclasses
+
+int LandSurfaceRegion::getNextIndex(bool resetToFirst)
+{
+  return -1;
+}
+
+
+// =======================================================================================
+// Stub definition this should be overwritten by implementing subclasses
+
+bool LandSurfaceRegion::bufferGeometryOfObject(TriangleBuffer* T)
+{
+  err(-1, "Called unimplemented LandSurfaceRegion::bufferGeometry");
+  return false;
+}
+
+
+// =======================================================================================
+// Stub definition this should be overwritten by implementing subclasses
+
+void LandSurfaceRegion::triangleBufferSize(unsigned& vCount, unsigned& iCount)
+{
+  vCount = 0u;
+  iCount = 0u;
+  err(-1, "Called unimplemented LandSurfaceRegion::triangleBufferSize");
+}
+
+
+// =======================================================================================
+// Stub definition this should be overwritten by implementing subclasses
+
+bool LandSurfaceRegion::matchRayToObject(vec3& position, vec3& direction, float& lambda)
+{
+  if(!box->matchRay(position, direction, lambda))
+    return false;
+  
+  // So it touches our bounding box, have to test the faces.
+  
+  //XXX NOT DONE
+  
+  return true;
 }
 
 
@@ -54,6 +116,17 @@ float LandSurfaceRegion::getAltitude(float x, float y)
   matchRayToObject(position, direction, lambda);
   
   return HIGH_UP - lambda*ALT_STEP;
+}
+
+
+// =======================================================================================
+// Stub not done.
+                                                                
+void LandSurfaceRegion::updateBoundingBox(void)
+{
+  if(!box)
+    box = new BoundingBox(0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+  return;
 }
 
 

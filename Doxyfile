@@ -878,8 +878,6 @@ INPUT                  = doc \
                 include/HttpDebug.h src/HttpDebug.cpp \
                 include/JSONStructureChecker.h src/JSONStructureChecker.cpp \
                 include/LandSurface.h src/LandSurface.cpp \
-                include/LandSurfaceRegion.h src/LandSurfaceRegion.cpp \
-                include/LandSurfaceRegionPlanar.h src/LandSurfaceRegionPlanar.cpp \
                 include/Lockable.h src/Lockable.cpp \
                 include/MenuAllTree.h src/MenuAllTree.cpp \
                 include/MenuBlockPanel.h src/MenuBlockPanel.cpp \
