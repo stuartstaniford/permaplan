@@ -1,7 +1,4 @@
 // Copyright Staniford Systems.  All Rights Reserved.  July 2020 -
-// Class for storing and rendering a section of the landsurface mesh for some
-// particular region in the quadtree (generally a leaf).  This class defines
-// the interface that any implementation providing this service needs to conform to.
 
 #ifndef LAND_SURFACE_REGION_H
 #define LAND_SURFACE_REGION_H
@@ -10,7 +7,18 @@
 #include "VisualObject.h"
 
 // =======================================================================================
-// Class variable initialization
+// Useful macros
+
+#define HIGH_UP 20000.0f
+#define ALT_STEP 1000.0f
+
+
+// =======================================================================================
+/// @brief Class for storing and rendering a section of the landsurface mesh for some
+/// particular region in the quadtree.  
+/// 
+/// This class defines the interface that any implementation providing this service 
+/// needs to conform to.
 
 
 class LandSurfaceRegion: public VisualObject

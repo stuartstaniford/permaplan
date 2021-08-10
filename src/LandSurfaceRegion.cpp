@@ -8,7 +8,16 @@
 
 
 // =======================================================================================
-// Constructors.
+/// @brief Constructor.
+///
+/// @param x x-coordinate of the south-west corner of the covered region
+/// @param y y-coordinate of the south-west corner of the covered region
+/// @param width width of the covered region
+/// @param height height of the covered region
+/// @param s s texture-coordinate of the south-west corner of the covered region
+/// @param t t texture-coordinate of the south-west corner of the covered region
+/// @param sWidth width in texture space of the covered region
+/// @param tHeight height in texture space of the covered region
 
 LandSurfaceRegion::LandSurfaceRegion(float x, float y, float width, float height,
                                      float s, float t, float sWidth, float tHeight):
@@ -29,7 +38,7 @@ LandSurfaceRegion::LandSurfaceRegion(float x, float y, float width, float height
 
 
 // =======================================================================================
-// Destructor
+/// @brief Destructor
 
 LandSurfaceRegion::~LandSurfaceRegion(void)
 {
@@ -37,7 +46,9 @@ LandSurfaceRegion::~LandSurfaceRegion(void)
 
 
 // =======================================================================================
-// Stub definition this should be overwritten by implementing subclasses
+/// @brief Implement the VisualElement interface.
+/// This should be overwritten by implementing subclasses, but is required to be here so
+/// that virtual inheritance works correctly for LandSurfaceRegion* pointers.
 
 bool LandSurfaceRegion::getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
 {
@@ -46,7 +57,10 @@ bool LandSurfaceRegion::getNextUniqueVertex(bool resetToFirst, Vertex* v, Vertex
 
 
 // =======================================================================================
-// Stub definition this should be overwritten by implementing subclasses
+/// @brief Implement the VisualElement interface.
+/// This should be overwritten by implementing subclasses, but is required to be here so
+/// that virtual inheritance works correctly for LandSurfaceRegion* pointers.
+
 bool LandSurfaceRegion::getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail)
 {
   return false;
@@ -54,7 +68,9 @@ bool LandSurfaceRegion::getNextVertex(bool resetToFirst, Vertex* v, VertexDetail
 
 
 // =======================================================================================
-// Stub definition this should be overwritten by implementing subclasses
+/// @brief Implement the VisualElement interface.
+/// This should be overwritten by implementing subclasses, but is required to be here so
+/// that virtual inheritance works correctly for LandSurfaceRegion* pointers.
 
 int LandSurfaceRegion::getNextIndex(bool resetToFirst)
 {
@@ -63,7 +79,9 @@ int LandSurfaceRegion::getNextIndex(bool resetToFirst)
 
 
 // =======================================================================================
-// Stub definition this should be overwritten by implementing subclasses
+/// @brief Implement the VisualElement interface.
+/// This should be overwritten by implementing subclasses, but is required to be here so
+/// that virtual inheritance works correctly for LandSurfaceRegion* pointers.
 
 bool LandSurfaceRegion::bufferGeometryOfObject(TriangleBuffer* T)
 {
@@ -73,7 +91,9 @@ bool LandSurfaceRegion::bufferGeometryOfObject(TriangleBuffer* T)
 
 
 // =======================================================================================
-// Stub definition this should be overwritten by implementing subclasses
+/// @brief Implement the VisualElement interface.
+/// This should be overwritten by implementing subclasses, but is required to be here so
+/// that virtual inheritance works correctly for LandSurfaceRegion* pointers.
 
 void LandSurfaceRegion::triangleBufferSize(unsigned& vCount, unsigned& iCount)
 {
@@ -84,7 +104,9 @@ void LandSurfaceRegion::triangleBufferSize(unsigned& vCount, unsigned& iCount)
 
 
 // =======================================================================================
-// Stub definition this should be overwritten by implementing subclasses
+/// @brief Implement the VisualElement interface.
+/// This should be overwritten by implementing subclasses, but is required to be here so
+/// that virtual inheritance works correctly for LandSurfaceRegion* pointers.
 
 bool LandSurfaceRegion::matchRayToObject(vec3& position, vec3& direction, float& lambda)
 {
@@ -100,12 +122,12 @@ bool LandSurfaceRegion::matchRayToObject(vec3& position, vec3& direction, float&
 
 
 // =======================================================================================
-// Obtains the height at a particular location.  This version uses matchRay and should
-// work for any subclass that has implemented a proper matchRay.  Subclasses may wish
-// to override for efficiency reasons.
-
-#define HIGH_UP 20000.0f
-#define ALT_STEP 1000.0f
+/// @brief Obtain the height at a particular location.  
+/// 
+/// This version uses matchRay and should work for any subclass that has implemented a 
+/// proper matchRay.  Subclasses may wish to override for efficiency reasons.
+/// @param x x-coordinate of the location where we need the altitude.
+/// @param y y-coordinate of the location where we need the altitude.
 
 float LandSurfaceRegion::getAltitude(float x, float y)
 {
@@ -120,7 +142,9 @@ float LandSurfaceRegion::getAltitude(float x, float y)
 
 
 // =======================================================================================
-// Stub not done.
+/// @brief Implement the VisualElement interface.
+/// This should be overwritten by implementing subclasses, but is required to be here so
+/// that virtual inheritance works correctly for LandSurfaceRegion* pointers.
                                                                 
 void LandSurfaceRegion::updateBoundingBox(void)
 {
@@ -131,7 +155,7 @@ void LandSurfaceRegion::updateBoundingBox(void)
 
 
 // =======================================================================================
-// Stub not done.
+/// @brief Stub not done.
 
 void  LandSurfaceRegion::fit(std::vector<float*>& locations)
 {
@@ -140,7 +164,7 @@ void  LandSurfaceRegion::fit(std::vector<float*>& locations)
 
 
 // =======================================================================================
-// Tell callers our name at runtime.
+/// @brief Tell callers our name at runtime.
 
 const char* LandSurfaceRegion::objectName(void)
 {
@@ -150,7 +174,7 @@ const char* LandSurfaceRegion::objectName(void)
 
 
 // =======================================================================================
-// Stub definition this should be overwritten by implementing subclasses
+/// @brief Stub definition this should be overwritten by implementing subclasses
 
 bool LandSurfaceRegion::diagnosticHTML(HttpDebug* serv)
 {
