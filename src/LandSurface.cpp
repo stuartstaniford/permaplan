@@ -85,8 +85,6 @@ void LandSurface::bufferGeometry(Quadtree* q)
 {
   if(q)
     qtree = q;
-  else
-    err(-1, "No quadtree in LandSurface::bufferGeometry.\n");
   
   if(tbuf)
     delete tbuf;
