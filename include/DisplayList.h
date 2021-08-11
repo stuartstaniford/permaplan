@@ -1,8 +1,4 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Sep 2020 -
-// Class that contains a list of visual objects and some methods for managing
-// the list as a whole.  Handy for quickly throwing up a set of something
-// or others for display.
-
 
 #ifndef DISPLAY_LIST_H
 #define DISPLAY_LIST_H
@@ -11,12 +7,16 @@
 #include "VisualObject.h"
 #include "LandSurfaceRegion.h"
 
-// =======================================================================================
-// Class variable initialization
 
-//XX Right now this just creates display lists of HeightMarkers when fed a location
-// list in a constructor, but it should be templated so we can create display lists
-// of anything as the default in that scenario.
+// =======================================================================================
+/// @brief Contain for a set of VisualObject.
+/// 
+/// This class contains a set of visual objects and some methods for managing
+/// them as a whole.  Handy for quickly throwing up a set of something or others for 
+/// display.
+/// @todo Right now this just creates display lists of HeightMarkers when fed a location
+/// list in a constructor, but it should be templated so we can create display lists
+/// of anything as the default in that scenario.
 
 class DisplayList: public std::unordered_set<VisualObject*>
 {

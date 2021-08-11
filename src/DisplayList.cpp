@@ -9,7 +9,7 @@
 
 
 // =======================================================================================
-// Constructors
+// @brief Constructor for an empty DisplayList
 
 DisplayList::DisplayList(void): std::unordered_set<VisualObject*>()
 {
@@ -17,10 +17,17 @@ DisplayList::DisplayList(void): std::unordered_set<VisualObject*>()
 
 //NB!!! Two constructors!
 
+// =======================================================================================
+/// @brief Constructor for a display set of objects at a list of supplied locations.
+/// @param locations A std::vector<float*> pointing to vec3s where the objects should 
+/// be put.
+/// @todo Right now this just creates display lists of HeightMarkers, but it should 
+/// be generalized so we can create display lists of anything.  Note other methods do 
+/// not have any specificity to HeightMarker and should work correctly with any 
+/// VisualObject subclass.
+
 DisplayList::DisplayList(std::vector<float*> locations): std::unordered_set<VisualObject*>()
 {
-  //XX Right now this just creates display lists of HeightMarkers, but it should be
-  // templated so we can create display lists of anything.
   int i, N = locations.size();
   for(i=0; i<N; i++)
    {
@@ -29,11 +36,9 @@ DisplayList::DisplayList(std::vector<float*> locations): std::unordered_set<Visu
    }
 }
 
-// Note remaining methods do not have any specificity to HeightMarker and should work
-// correctly with any VisualObject subclass.
 
 // =======================================================================================
-// Destructor
+/// @brief Destructor
 
 DisplayList::~DisplayList(void)
 {
@@ -43,7 +48,9 @@ DisplayList::~DisplayList(void)
 
 
 // =======================================================================================
-// Puts all the visualobject contents in a buffer
+/// @brief Puts all the visualobject contents in a buffer
+/// @returns True if all went well, false if there wasn't enough space.
+/// @param T Pointer to the TriangleBuffer our objects should be put in.
 
 bool DisplayList::bufferGeometry(TriangleBuffer* T)
 {
@@ -63,8 +70,11 @@ bool DisplayList::bufferGeometry(TriangleBuffer* T)
 
 
 // =======================================================================================
-// This gets called whenever the shape of the land has changed, and tells all the visual
-// objects in the list to update their idea of their altitude.
+/// @brief - tell all the visual objects to update their altitude.
+/// 
+/// This gets called whenever the shape of the land has changed, and tells all the 
+/// visual objects in the list to update their idea of their altitude.
+/// @param surface Pointer to the LandSurfaceRegion that is asoociated with our objects.
 
 void DisplayList::adjustAltitudes(LandSurfaceRegion* surface)
 {
@@ -74,7 +84,11 @@ void DisplayList::adjustAltitudes(LandSurfaceRegion* surface)
 
 
 // =======================================================================================
-// Returns the size we need for all our contents
+/// @brief Returns the size we need for all our contents
+/// @param vCount A reference to a count which will hold the number of Vertex objects 
+/// that will be generated.
+/// @param iCount A reference to a count which will hold the number of unsigned indices 
+/// that will be generated.
 
 void DisplayList::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 {
@@ -90,7 +104,11 @@ void DisplayList::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 
 
 // =======================================================================================
-// We just do our kids one at a time, we are transparent ourself
+/// @brief Provides access to the diagnostic HTTP server for the diagnosticHTML page.
+///
+/// We just do our kids one at a time, we are transparent ourself
+/// @returns True if the HeightMarker was written correctly, false if we ran out of space.
+/// @param serv The HTTP Debug server
 
 bool DisplayList::diagnosticHTML(HttpDebug* serv)
 {
