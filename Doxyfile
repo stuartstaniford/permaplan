@@ -871,6 +871,7 @@ INPUT                  = doc \
                 include/Building.h src/Building.cpp \
                 include/BuildingAssembly.h src/BuildingAssembly.cpp \
                 include/BuildingRect.h src/BuildingRect.cpp \
+                include/BuildingWindow.h src/BuildingWindow.cpp \
                 include/CO2Scenario.h src/CO2Scenario.cpp \
                 include/DisplayList.h src/DisplayList.cpp \
                 include/DynamicallyTypable.h src/DynamicallyTypable.cpp \
@@ -880,7 +881,8 @@ INPUT                  = doc \
                 include/JSONStructureChecker.h src/JSONStructureChecker.cpp \
                 include/LandSurface.h src/LandSurface.cpp \
                 include/Lockable.h src/Lockable.cpp \
-                include/MenuAllTree.h src/MenuAllTree.cpp \
+                include/Lockable.h src/Lockable.cpp \
+                include/MainSceneWindow.h src/MainSceneWindow.cpp \
                 include/MenuBlockPanel.h src/MenuBlockPanel.cpp \
                 include/MenuFocusOverlay.h src/MenuFocusOverlay.cpp \
                 include/MenuGablePanel.h src/MenuGablePanel.cpp \
@@ -902,6 +904,7 @@ INPUT                  = doc \
                 include/TaskQueue.h src/TaskQueue.cpp \
                 include/TaskQueue.h src/TaskQueue.cpp \
                 include/Tree.h src/Tree.cpp \
+                include/TreeWindow.h src/TreeWindow.cpp \
                 include/Vertex.h src/Vertex.cpp \
                 include/VisualElement.h src/VisualElement.cpp \
                 include/VisualLayer.h src/VisualLayer.cpp \
