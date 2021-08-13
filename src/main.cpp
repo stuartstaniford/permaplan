@@ -1,4 +1,4 @@
-#include "Window3D.h"
+#include "MainSceneWindow.h"
 #include "PmodConfig.h"
 #include "PmodDesign.h"
 #include "Shader.h"
@@ -45,7 +45,7 @@ int main (int argc, char* argv[])
   
   // Initialize everything
   setExternVersions();
-  Window3D window(800, 600);
+  MainSceneWindow window(800, 600);
   Shader shader("src/pmodVert.glsl", "src/pmodFrag.glsl");
   ResourceManager resources(window);
   PmodDesign design;

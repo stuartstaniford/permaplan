@@ -9,8 +9,8 @@
 // =======================================================================================
 /// @brief Constructor
 
-MainSceneWindow::MainSceneWindow(void):
-                            Window3D(100,100)
+MainSceneWindow::MainSceneWindow(int pixWidth, int pixHeight):
+                            Window3D(pixWidth, pixHeight)
 {
 }
 

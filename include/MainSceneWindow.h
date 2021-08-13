@@ -20,7 +20,7 @@ public:
   // Instance variables - public
   
   // Member functions - public
-  MainSceneWindow(void);
+  MainSceneWindow(int pixWidth, int pixHeight);
   ~MainSceneWindow(void);
   
 private:
