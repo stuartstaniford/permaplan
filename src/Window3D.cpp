@@ -122,6 +122,24 @@ Window3D::Window3D(int pixWidth, int pixHeight):
 
 
 // =======================================================================================
+/// @brief Destructor for any window.
+
+Window3D::~Window3D(void)
+{
+}
+
+
+// =======================================================================================
+/// @brief Static function to do final cleanup of the window interface after all 
+/// windows are done.
+
+void Window3D::terminate()
+{
+  glfwTerminate();
+}
+
+
+// =======================================================================================
 /// @brief Handle an pseudo-interface event coming from the HTTP Debug interface.  
 /// 
 /// We get these first, and our job is to siphon off those actions that require some
@@ -177,9 +195,9 @@ ActionType Window3D::processAction(InterfaceAction* action)
 
 
 // =======================================================================================
-// Event processing loop for our window
+/// @brief Event processing loop for our window.
 
-void Window3D::loop(HttpLoadBalancer& httpServer)
+void Window3D::loop(void)
 {
   unsigned  frameCount = 0;
   Timeval   start;
@@ -253,11 +271,8 @@ void Window3D::loop(HttpLoadBalancer& httpServer)
    }
   
   // Shutdown stuff after main event loop is done.
-  httpServer.shutDownNow = true;
-  scene->saveState();
   frameTime.now();
   LogCloseDown("Orderly exit from window loop after %.6lf\n", frameTime - start);
-  glfwTerminate();
 }
 
 

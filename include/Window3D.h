@@ -9,7 +9,8 @@
 #include "Camera.h"
 #include "MenuInterface.h"
 #include "Timeval.h"
-#include "HttpLoadBalancer.h"
+#include "HttpDebug.h"
+
 
 // =======================================================================================
 // Forward declarations
@@ -36,11 +37,13 @@ class Window3D
 
   // Public methods
   Window3D(int pixWidth, int pixHeight);
-  void loop(HttpLoadBalancer& httpServer);
+  ~Window3D(void);
+  void loop(void);
   bool diagnosticHTML(HttpDebug* serv);
   
   // Static class methods
   static bool HTTPGateway(HttpDebug* serv, char* path);
+  static void terminate(void);
 
  protected:
 

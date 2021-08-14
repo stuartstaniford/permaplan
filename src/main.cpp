@@ -2,7 +2,7 @@
 #include "PmodConfig.h"
 #include "PmodDesign.h"
 #include "Shader.h"
-#include "HttpDebug.h"
+#include "HttpLoadBalancer.h"
 #include "TextureAtlas.h"
 #include "Material.h"
 #include "Tree.h"
@@ -66,7 +66,12 @@ int main (int argc, char* argv[])
     err(-1, "Couldn't spawn HTTP server thread in %s.\n", argv[0]);
 
   // Main display loop
-  window.loop(httpServer);
+  window.loop();
   
- return 0;
+  // Orderly shutdown process
+  httpServer.shutDownNow = true;
+  scene.saveState();
+  Window3D::terminate(); // close out the window system
+  
+  return 0;
 }
