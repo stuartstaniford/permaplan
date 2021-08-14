@@ -66,7 +66,7 @@ void openGLInitialLogging(void)
 /// @param pixWidth The number of pixels wide for the window
 /// @param pixHeight The number of pixels high for the window
 
-Window3D::Window3D(int pixWidth, int pixHeight):
+Window3D::Window3D(int pixWidth, int pixHeight, char* title):
                         width(pixWidth),
                         height(pixHeight),
                         lastMouseX(HUGE_VAL),
@@ -89,10 +89,10 @@ Window3D::Window3D(int pixWidth, int pixHeight):
    }
   
   // Use GLFW to create OpenGL window and context
-  window = glfwCreateWindow(width, height, "Test", NULL, NULL);
+  window = glfwCreateWindow(width, height, title, NULL, NULL);
   if (!window)
-    throw std::runtime_error("Couldn't create window.");
-    //throw pmodGLFWException("Couldn't create window.");
+    err(-1, "Couldn't create window %s.\n", title);
+
   glfwMakeContextCurrent(window);
 
   // Initialize GLEW
@@ -500,6 +500,7 @@ void Window3D::processInput(Camera& camera)
 
   processMouse(camera);
 }
+
 
 // =======================================================================================
 // Returns the number of microseconds since last call

@@ -10,7 +10,8 @@
 /// @brief Constructor
 
 MainSceneWindow::MainSceneWindow(int pixWidth, int pixHeight):
-                            Window3D(pixWidth, pixHeight)
+                                  Window3D(pixWidth, pixHeight, 
+                                           (char*)"Permaplan Landscape Simulator")
 {
 }
 
