@@ -36,7 +36,7 @@ class Window3D
   MenuInterface*    imgMenu;
 
   // Public methods
-  Window3D(int pixWidth, int pixHeight, char* title);
+  Window3D(int pixWidth, int pixHeight, const char* title);
   ~Window3D(void);
   void loop(void);
   bool diagnosticHTML(HttpDebug* serv);
@@ -54,6 +54,7 @@ class Window3D
   int             width;
   int             height;
   GLFWwindow*     window;
+  const char*     winTitle;
   
  private:
   

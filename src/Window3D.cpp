@@ -66,9 +66,10 @@ void openGLInitialLogging(void)
 /// @param pixWidth The number of pixels wide for the window
 /// @param pixHeight The number of pixels high for the window
 
-Window3D::Window3D(int pixWidth, int pixHeight, char* title):
+Window3D::Window3D(int pixWidth, int pixHeight, const char* title):
                         width(pixWidth),
                         height(pixHeight),
+                        winTitle(title),
                         lastMouseX(HUGE_VAL),
                         lastMouseY(HUGE_VAL),
                         inClick(false),
@@ -111,9 +112,7 @@ Window3D::Window3D(int pixWidth, int pixHeight, char* title):
 #ifdef LOG_OPENGL_CONSTANTS
   openGLInitialLogging();
 #endif
-
-  // Dear ImGui initialization
-  imgMenu = new MenuInterface(*this);
+  
   glViewport(0, 0, width, height);  
   lastTime.now();
   

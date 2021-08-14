@@ -4,6 +4,7 @@
 // from this.
 
 #include "MainSceneWindow.h"
+#include "MenuInterface.h"
 
 
 // =======================================================================================
@@ -11,8 +12,10 @@
 
 MainSceneWindow::MainSceneWindow(int pixWidth, int pixHeight):
                                   Window3D(pixWidth, pixHeight, 
-                                           (char*)"Permaplan Landscape Simulator")
+                                           (char*)"Landscape Simulation")
 {
+  // Dear ImGui initialization
+  imgMenu = new MenuInterface(*this);
 }
 
 
