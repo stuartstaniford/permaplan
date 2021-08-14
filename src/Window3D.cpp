@@ -206,6 +206,8 @@ void Window3D::loop(void)
   bool      firstTime = true;
 
   start.now();
+  glfwMakeContextCurrent(window);
+  glfwFocusWindow(window);  
 
   // Main event loop
   while(!glfwWindowShouldClose(window))

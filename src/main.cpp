@@ -5,6 +5,7 @@
 #include "HttpLoadBalancer.h"
 #include "TextureAtlas.h"
 #include "Material.h"
+#include "TreeWindow.h"
 #include "Tree.h"
 #include "Version.h"
 #include "SkySampleModel.h"
@@ -64,6 +65,8 @@ int main (int argc, char* argv[])
   pthread_t   httpThread;
   if((pthreadErr = pthread_create(&httpThread, NULL, callProcessConn, &httpServer)) != 0)
     err(-1, "Couldn't spawn HTTP server thread in %s.\n", argv[0]);
+
+  TreeWindow treeWin;
 
   // Main display loop
   window.loop();
