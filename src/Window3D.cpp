@@ -27,8 +27,9 @@ bool GLFWInitDone = false;   // For overall openGL initialization
 //ultimately will need to be container of all windows
 Window3D* Window3D::theWin = NULL;   
 
+
 // =======================================================================================
-// Calback for window resizing
+/// @brief Calback for window resizing in GLFW
 
 void windowResize(GLFWwindow* window, int width, int height)
 {
@@ -37,12 +38,11 @@ void windowResize(GLFWwindow* window, int width, int height)
 
 
 // =======================================================================================
-// Helper function to do various openGL logging
-
-#ifdef LOG_OPENGL_CONSTANTS
+/// @brief Helper function to do various openGL logging
 
 void openGLInitialLogging(void)
 {
+#ifdef LOG_OPENGL_CONSTANTS
   int params[4];
   
   glGetIntegerv(GL_MAX_TEXTURE_SIZE, params);
@@ -55,13 +55,16 @@ void openGLInitialLogging(void)
   
   if(checkGLError(stderr, "openGLInitialLogging"))
     exit(-1);
+#endif
 }
 
-#endif
 
 // =======================================================================================
-// Constructor for a Window3D
-// See https://learnopengl.com/Getting-started/Hello-Window
+/// @brief Constructor for a Window3D
+///
+/// See https://learnopengl.com/Getting-started/Hello-Window.
+/// @param pixWidth The number of pixels wide for the window
+/// @param pixHeight The number of pixels high for the window
 
 Window3D::Window3D(int pixWidth, int pixHeight):
                         width(pixWidth),
@@ -174,8 +177,17 @@ ActionType Window3D::processAction(InterfaceAction* action)
 
 
 // =======================================================================================
-// Function used when we need to interact with the user prior to the main event loop
-// starting.  We need to set up just enough context for imgGui to work.
+/// @brief Function used when we need to interact with the user prior to the main event 
+/// loop starting.
+///   
+/// We need to set up just enough context for imgGui to work.  The model is that the 
+/// caller supplies us with a question and a series of responses which are placed on
+/// buttons, and the user picks a button and we return their choice to the caller.
+/// @returns An integer indicating which of the nResponses options was chosen.
+/// @param question A C-string with the question on which we need the user's input.
+/// @param response A pointer to an array of C-strings with the possible respones to the
+/// question.
+/// @param nResponses The number of responses (which are taken to run 0..nRespones-1).
 
 int Window3D::initPanel(char* question, char** responses, int nResponses)
 {
