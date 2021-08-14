@@ -22,8 +22,9 @@ public:
   // Member functions - public
   MainSceneWindow(int pixWidth, int pixHeight);
   ~MainSceneWindow(void);
+  void draw(float timeInterval);
   int initPanel(char* question, char** responses, int nResponses);
-  
+
 private:
   
   // Instance variables - private

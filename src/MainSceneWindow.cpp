@@ -25,6 +25,16 @@ MainSceneWindow::~MainSceneWindow(void)
 
 
 // =======================================================================================
+/// @brief Render the scene into our window
+
+void MainSceneWindow::draw(float timeInterval)
+{
+  scene->draw(timeInterval);
+  imgMenu->imguiInterface();
+}
+
+
+// =======================================================================================
 /// @brief Function used when we need to interact with the user prior to the main event 
 /// loop starting.
 ///   

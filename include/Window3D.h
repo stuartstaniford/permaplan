@@ -41,6 +41,9 @@ class Window3D
   void loop(void);
   bool diagnosticHTML(HttpDebug* serv);
   
+  // Virtual interface that subclasses need to implement.
+  virtual void draw(float timeInterval);
+  
   // Static class methods
   static bool HTTPGateway(HttpDebug* serv, char* path);
   static void terminate(void);

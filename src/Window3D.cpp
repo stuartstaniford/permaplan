@@ -238,8 +238,7 @@ void Window3D::loop(void)
     scene->lock();
 
     // Do our actual drawing and deliver to screen window
-    scene->draw((float)(frameDouble - lastFrameDouble));
-    imgMenu->imguiInterface();
+    draw((float)(frameDouble - lastFrameDouble));
     glfwSwapBuffers(window);
     
     // Process pseudo-IO from HTTP interface
@@ -277,7 +276,17 @@ void Window3D::loop(void)
 
 
 // =======================================================================================
-// We have detected a mouse click in the window - figure out what we should do.
+/// @brief Interface for the window specific rendering action.  This should be overriden
+/// by our subclasses.
+
+void Window3D::draw(float timeInterval)
+{
+  err(-1, "Shouldn't call superclass method Window3D::draw.\n");
+}
+
+
+// =======================================================================================
+/// @brief We have detected a mouse click in the window - figure out what we should do.
 
 void Window3D::processClick(float mouseX, float mouseY)
 {
