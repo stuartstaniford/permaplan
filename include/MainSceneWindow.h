@@ -25,6 +25,7 @@ public:
   void  draw(float timeInterval);
   int   initPanel(char* question, char** responses, int nResponses);
   void  processClick(float mouseX, float mouseY);
+  void  processDoubleClick(float mouseX, float mouseY, float timeDiff);
 
 private:
   

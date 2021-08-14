@@ -24,6 +24,7 @@
 // Forward declarations.
 
 class Window3D;
+class MainSceneWindow;
 class MenuBlockPanel;
 class MenuInsert;
 class MenuTree;
@@ -45,6 +46,7 @@ class MenuAllTree;
 class MenuInterface: public MenuPanel
 {
   friend Window3D;
+  friend MainSceneWindow;
   friend MenuBlockPanel;
   friend MenuInsert;
   friend MenuTree;

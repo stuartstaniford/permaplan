@@ -290,6 +290,8 @@ void Window3D::draw(float timeInterval)
 // =======================================================================================
 /// @brief Interface for the window specific handling of a mouse click.  This should be 
 /// overriden by our subclasses.
+/// @param mouseX X location of mouse click in window co-ordinates
+/// @param mouseY Y location of mouse click in window co-ordinates
 
 void  Window3D::processClick(float mouseX, float mouseY)
 {
@@ -298,49 +300,15 @@ void  Window3D::processClick(float mouseX, float mouseY)
 
 
 // =======================================================================================
-/// @brief We have detected a mouse double-click in the window, now figure out what we 
-/// should do.
-///
-/// @todo double-click should not result in an insert menu if any floating menus are
-/// already on screen.
+/// @brief Interface for the window specific handling of a double-click in the window, 
+/// This should be overriden by our subclasses.
+/// @param mouseX X location of mouse click in window co-ordinates
+/// @param mouseY Y location of mouse click in window co-ordinates
+/// @param timeDiff the interval between the two clicks in seconds
 
 void Window3D::processDoubleClick(float mouseX, float mouseY, float timeDiff)
 {
-  if(scene->simulationActive())
-    scene->pauseSimulation();
-  VisualObject* obj = scene->findObjectFromWindowCoords(scene->lastDoubleClick,
-                          mouseX/width*2.0f-1.0f, 1.0f - mouseY/height*2.0f);
-  const char* objName = obj->objectName();
-  unless(obj)
-   {
-    LogDoubleClick("Double click (%.3fs) on nothing at %.2f, %.2f\n", 
-                                                    timeDiff, mouseX, mouseY);
-    return;
-   }
-  if(obj == scene->editModeObject)
-   {
-    // Double clicking again means we are deselecting it
-    scene->processEditModeObjectDeselection();
-   }
-  if(strcmp("Bezier Patch", objName)==0 || strcmp("Land Surface Plane", objName)==0)
-   {
-    // Clicking on the land surface means we offer the option to insert something.
-    if(!imgMenu->insertMenu)
-     {
-      imgMenu->insertMenu = new MenuInsert(imgMenu, scene);
-      LogDoubleClick("Double click insertion (%.3fs) at %.2f, %.2f\n", timeDiff, 
-                                                                          mouseX, mouseY);
-     }
-    return;
-   }
-
-  // Go into edit mode on the selected object.
-  LogDoubleClick("Double click (%.3fs) to edit %s at %.2f, %.2f\n", timeDiff, 
-                                                    objName, mouseX, mouseY);
-  scene->editModeObject = obj;
-  glm_vec3_copy(scene->lastDoubleClick, scene->editModeLocation);
-  LogFlush();
-  scene->processNewEditModeObject();
+  err(-1, "Shouldn't call superclass method Window3D::processDoubleClick.\n");
 }
 
 

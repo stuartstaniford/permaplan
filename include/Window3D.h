@@ -41,10 +41,6 @@ class Window3D
   void loop(void);
   bool diagnosticHTML(HttpDebug* serv);
   
-  // Virtual interface that subclasses need to implement.
-  virtual void  draw(float timeInterval);
-  virtual void  processClick(float mouseX, float mouseY);
-
   // Static class methods
   static bool HTTPGateway(HttpDebug* serv, char* path);
   static void terminate(void);
@@ -57,6 +53,11 @@ class Window3D
   GLFWwindow*     window;
   const char*     winTitle;
   
+  // Virtual interface that subclasses need to implement.
+  virtual void  draw(float timeInterval);
+  virtual void  processClick(float mouseX, float mouseY);
+  virtual void  processDoubleClick(float mouseX, float mouseY, float timeDiff);
+
  private:
   
   // Class variables - private
@@ -78,7 +79,6 @@ class Window3D
   // Private methods
   void          processInput(Camera& camera);
   void          processMouse(Camera& camera);
-  void          processDoubleClick(float mouseX, float mouseY, float timeDiff);
   ActionType    processAction(InterfaceAction* action);
   float         timeDelta(void);           // number of microseconds since last call
 
