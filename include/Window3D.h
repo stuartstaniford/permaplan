@@ -37,21 +37,24 @@ class Window3D
   // Public methods
   Window3D(int pixWidth, int pixHeight);
   void loop(HttpLoadBalancer& httpServer);
-  int initPanel(char* question, char** responses, int nResponses);
   bool diagnosticHTML(HttpDebug* serv);
   
   // Static class methods
   static bool HTTPGateway(HttpDebug* serv, char* path);
+
+ protected:
+
+  // Instance variables - protected
+  int             width;
+  int             height;
+  GLFWwindow*     window;
   
  private:
   
   // Class variables - private
   
   // Instance variables - private
-  int             width;
-  int             height;
   double          lastMouseX, lastMouseY;
-  GLFWwindow*     window;
   Timeval         lastTime;
   Timeval         mouseUpTime;
   Timeval         clickTime;

@@ -3,7 +3,7 @@
 #ifndef RESOURCE_MANAGER_H
 #define RESOURCE_MANAGER_H
 
-#include "Window3D.h"
+#include "MainSceneWindow.h"
 #include "HttpClient.h"
 #include "rapidjson/document.h"
 #include "rapidjson/writer.h"
@@ -25,7 +25,7 @@ public:
   // Instance variables - public
   
   // Member functions - public
-  ResourceManager(Window3D& window);
+  ResourceManager(MainSceneWindow& window);
   ~ResourceManager(void);
 
 private:

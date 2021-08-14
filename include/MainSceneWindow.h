@@ -22,6 +22,7 @@ public:
   // Member functions - public
   MainSceneWindow(int pixWidth, int pixHeight);
   ~MainSceneWindow(void);
+  int initPanel(char* question, char** responses, int nResponses);
   
 private:
   

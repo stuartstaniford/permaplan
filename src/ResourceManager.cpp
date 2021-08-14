@@ -30,7 +30,7 @@ using namespace rapidjson;
 /// @param window A reference to the open window at the time of our invocation (needed 
 /// in case we have to do some user-interaction).
 
-ResourceManager::ResourceManager(Window3D& window)
+ResourceManager::ResourceManager(MainSceneWindow& window)
 {
   char buf[PATH_BUF_SIZE];
   // First check if the Materials directory exists, create it if necessary and approved
