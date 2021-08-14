@@ -38,6 +38,45 @@ void MainSceneWindow::draw(float timeInterval)
 
 
 // =======================================================================================
+/// @brief We have been notified of a mouse click in the window - figure out what we 
+/// should do.
+/// @param mouseX X location of mouse click in window co-ordinates
+/// @param mouseY Y location of mouse click in window co-ordinates
+
+void MainSceneWindow::processClick(float mouseX, float mouseY)
+{
+  LogMouseClick("Mouse click in %s at %.2f, %.2f.\n", winTitle, mouseX, mouseY);
+  if(scene->focusObject)
+   {
+    unless(scene->focusObject == scene->lockObject)
+     {
+      // This is a new click-selection of an object
+      LogMouseClick("Focussing on %s object in %s at %.1f, %.1f, %.1f\n",
+                  scene->focusObject->objectName(), winTitle, 
+                  scene->focusObjectLocation[0], scene->focusObjectLocation[1], 
+                  scene->focusObjectLocation[2]);
+      scene->lockObject = scene->focusObject;
+      glm_vec3_copy(scene->focusObjectLocation, scene->lockObjectLocation);
+      scene->camera.setPivotLocation(scene->focusObjectLocation);
+      imgMenu->show_lock_overlay = true;
+     }
+    else
+     {
+      // Clicking on a previouly selected object deselects it and means we have no
+      // selection now.
+      scene->lockObject = NULL;
+      scene->camera.setPivotLocation(NULL);
+      imgMenu->show_lock_overlay = false;
+      LogMouseClick("User deselected %s object in %s at %.1f, %.1f, %.1f\n",
+                  scene->focusObject->objectName(), winTitle,
+                  scene->focusObjectLocation[0], scene->focusObjectLocation[1], 
+                  scene->focusObjectLocation[2]);
+     }
+   }
+}
+
+
+// =======================================================================================
 /// @brief Function used when we need to interact with the user prior to the main event 
 /// loop starting.
 ///   

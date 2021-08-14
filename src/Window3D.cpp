@@ -125,6 +125,7 @@ Window3D::Window3D(int pixWidth, int pixHeight, const char* title):
 
 Window3D::~Window3D(void)
 {
+  glfwDestroyWindow(window);
 }
 
 
@@ -205,9 +206,9 @@ void Window3D::loop(void)
   double    lastFrameDouble;
   bool      firstTime = true;
 
-  start.now();
   glfwMakeContextCurrent(window);
   glfwFocusWindow(window);  
+  start.now();
 
   // Main event loop
   while(!glfwWindowShouldClose(window))
@@ -287,36 +288,12 @@ void Window3D::draw(float timeInterval)
 
 
 // =======================================================================================
-/// @brief We have detected a mouse click in the window - figure out what we should do.
+/// @brief Interface for the window specific handling of a mouse click.  This should be 
+/// overriden by our subclasses.
 
-void Window3D::processClick(float mouseX, float mouseY)
+void  Window3D::processClick(float mouseX, float mouseY)
 {
-  LogMouseClick("Mouse click at %.2f, %.2f.\n", mouseX, mouseY);
-  if(scene->focusObject)
-   {
-    unless(scene->focusObject == scene->lockObject)
-     {
-      // This is a new click-selection of an object
-      LogMouseClick("Focussing on %s object at %.1f, %.1f, %.1f\n",
-                  scene->focusObject->objectName(), scene->focusObjectLocation[0],
-                  scene->focusObjectLocation[1], scene->focusObjectLocation[2]);
-      scene->lockObject = scene->focusObject;
-      glm_vec3_copy(scene->focusObjectLocation, scene->lockObjectLocation);
-      scene->camera.setPivotLocation(scene->focusObjectLocation);
-      imgMenu->show_lock_overlay = true;
-     }
-    else
-     {
-      // Clicking on a previouly selected object deselects it and means we have no
-      // selection now.
-      scene->lockObject = NULL;
-      scene->camera.setPivotLocation(NULL);
-      imgMenu->show_lock_overlay = false;
-      LogMouseClick("User deselected %s object at %.1f, %.1f, %.1f\n",
-                  scene->focusObject->objectName(), scene->focusObjectLocation[0],
-                  scene->focusObjectLocation[1], scene->focusObjectLocation[2]);
-     }
-   }
+  err(-1, "Shouldn't call superclass method Window3D::processClick.\n");
 }
 
 

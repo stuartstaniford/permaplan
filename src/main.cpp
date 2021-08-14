@@ -66,7 +66,7 @@ int main (int argc, char* argv[])
   if((pthreadErr = pthread_create(&httpThread, NULL, callProcessConn, &httpServer)) != 0)
     err(-1, "Couldn't spawn HTTP server thread in %s.\n", argv[0]);
 
-  TreeWindow treeWin;
+  //TreeWindow* treeWin = new TreeWindow;
 
   // Main display loop
   window.loop();
