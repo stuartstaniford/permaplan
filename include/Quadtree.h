@@ -35,9 +35,10 @@ class Quadtree: public Lockable
   unsigned      landVBOSize;        //amount of memory required for land vertices,
   unsigned      bufferOffset;       // our offset location in gpu serialized buffer
   
-  unsigned      vertexTBufSize;     //amount of memory required for vertices in triangle buffer,
-  unsigned      indexTBufSize;     //amount of memory required for indices in triangle buffer,
-  BoundingBox   bbox;
+  LandSurfaceRegion*  surface;
+  unsigned            vertexTBufSize; //amount of memory required for vertices in triangle buffer,
+  unsigned            indexTBufSize; //amount of memory required for indices in triangle buffer,
+  BoundingBox         bbox;
 
   // Member functions - public
   Quadtree(float x, float y, unsigned width, unsigned height, float s, float t,
@@ -79,7 +80,6 @@ class Quadtree: public Lockable
   vec2                      textureTR;    // top right corner of our region in texture s-t space
   Quadtree*                 kids[4];      // our four child quadtree nodes
   Quadtree*                 parent;       // our parent
-  LandSurfaceRegion*        surface;
   DisplayList               vObjects;     // objects for display that we own
   unsigned char             level;        // zero at root, increasing down tree
   bool                      isLeaf;

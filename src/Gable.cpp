@@ -66,6 +66,7 @@ Gable::Gable(Value& gableJsonObject, Scene& scene):
   for(int i=0; i<3; i++)
     position[i] = gableJsonObject["position"][i].GetFloat();
   
+  setAltitude(scene.qtree->surface); //XX needs refactoring, depends on patch at root
   rebuildRects();
 }
 

@@ -34,11 +34,11 @@ Quadtree::Quadtree(float x, float y, unsigned width, unsigned height,
                     unsigned offset, unsigned lev, Quadtree* prt):
                         landVBOSize(0u),
                         bufferOffset(offset),
+                        surface(NULL),
                         vertexTBufSize(0u),
                         indexTBufSize(0u),
                         bbox(x, y, HUGE_VALF, x + (float)width, y+ (float)height, -HUGE_VALF),
                         parent(prt),
-                        surface(NULL),
                         vObjects(),
                         level(lev),
                         isLeaf(true)
