@@ -260,7 +260,10 @@ void Window3D::loop(void)
     ImGuiIO& io = ImGui::GetIO();
     glfwPollEvents();
     unless(io.WantCaptureMouse)
-      processInput(scene->camera);
+     {
+      processKeyboard(scene->camera);
+      processMouse(scene->camera);
+     }
     else
       LogMouseLocation("ImGui has mouse\n");
 
@@ -313,7 +316,11 @@ void Window3D::processDoubleClick(float mouseX, float mouseY, float timeDiff)
 
 
 // =======================================================================================
-// Handle mouse input in the window
+/// @brief Handle mouse input in the window.
+/// 
+/// This function is the first level handling of the mouse when it's in our window.  This
+/// generally would not be overriden, but we call methods like processClick and 
+/// processDoubleClick that deal with those events on a subclass-specific basis.
 
 void Window3D::processMouse(Camera& camera)
 {
@@ -402,14 +409,14 @@ processMouseExit:
 
 
 // =======================================================================================
-// Handle input in the window
+/// @brief Handle keyboard input in the window
+///
+/// This will work for some subclasses, but some may wish to override.
+// Tristan comments: WASD is forward/back and lateral side-to-side.  Mouse movement is 
+// looking around.  Minecraft has walk/fly mode, space jumps up into the air, but still 
+// follows ground contour.  E is a good button for interaction - convenient to WASD.
 
-// WASD is forward/back and lateral side-to-side.  Mouse movement is looking around.
-// Minecraft has walk/fly mode, space jumps up into the air, but
-// still follows ground contour.  E is a good button for interaction - convenient to
-// WASD.*/
-
-void Window3D::processInput(Camera& camera)
+void Window3D::processKeyboard(Camera& camera)
 {
   if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
     glfwSetWindowShouldClose(window, 1);
@@ -452,13 +459,11 @@ void Window3D::processInput(Camera& camera)
     float delta = timeDelta();
     camera.adjust(camOpFlags, delta);
    }
-
-  processMouse(camera);
 }
 
 
 // =======================================================================================
-// Returns the number of microseconds since last call
+/// @brief Returns the number of microseconds since last call
 
 float Window3D::timeDelta(void)
 {
@@ -472,8 +477,10 @@ float Window3D::timeDelta(void)
 
 
 // =======================================================================================
-// Function called in the HTTP server thread to handle /window/ API calls.  This is a
-// static method, because in future there might be more than one window.
+/// @brief Function called in the HTTP server thread to handle /window/ API calls.  
+/// 
+/// This is a static method, because it needs to figure out which window we might be
+/// trying to talk to.
 
 bool Window3D::HTTPGateway(HttpDebug* serv, char* path)
 {  
@@ -516,7 +523,7 @@ bool Window3D::HTTPGateway(HttpDebug* serv, char* path)
 
 
 // =======================================================================================
-// Print instance debugging output
+/// @brief Print instance debugging output
 
 bool Window3D::diagnosticHTML(HttpDebug* serv)
 {

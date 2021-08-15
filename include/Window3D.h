@@ -53,10 +53,13 @@ class Window3D
   GLFWwindow*     window;
   const char*     winTitle;
   
-  // Virtual interface that subclasses need to implement.
+  // Virtual interface that subclasses must implement.
   virtual void  draw(float timeInterval);
   virtual void  processClick(float mouseX, float mouseY);
   virtual void  processDoubleClick(float mouseX, float mouseY, float timeDiff);
+
+  // Virtual interface that subclasses can optionally override.
+  virtual void  processKeyboard(Camera& camera);
 
  private:
   
@@ -77,7 +80,6 @@ class Window3D
   static Window3D* theWin;   //ultimately will need to be container of all windows
 
   // Private methods
-  void          processInput(Camera& camera);
   void          processMouse(Camera& camera);
   ActionType    processAction(InterfaceAction* action);
   float         timeDelta(void);           // number of microseconds since last call
