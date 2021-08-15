@@ -24,8 +24,9 @@
 
 bool GLFWInitDone = false;   // For overall openGL initialization
 
-//ultimately will need to be container of all windows
-Window3D* Window3D::theWin = NULL;   
+std::unordered_map<int, Window3D*> Window3D::windows;   
+int Window3D::nextWin = 0;
+int Window3D::activeWin = -1;
 
 
 // =======================================================================================
@@ -116,7 +117,9 @@ Window3D::Window3D(int pixWidth, int pixHeight, const char* title):
   glViewport(0, 0, width, height);  
   lastTime.now();
   
-  theWin = this; //XX will not support multiple windows at present
+  activeWin           = nextWin++;
+  windows[activeWin]  = this;
+  ourWin              = activeWin;
 }
 
 
@@ -125,6 +128,7 @@ Window3D::Window3D(int pixWidth, int pixHeight, const char* title):
 
 Window3D::~Window3D(void)
 {
+  windows.erase(ourWin);
   glfwDestroyWindow(window);
 }
 
@@ -489,7 +493,7 @@ bool Window3D::HTTPGateway(HttpDebug* serv, char* path)
     InterfaceAction* action = new InterfaceAction(WindowResize, path+7);
     if(action->valid)
      {
-      theWin->scene->actions.push_back(action);
+      windows[activeWin]->scene->actions.push_back(action);
       httPrintf("OK\n");
       return true;
      }
@@ -505,7 +509,7 @@ bool Window3D::HTTPGateway(HttpDebug* serv, char* path)
     InterfaceAction* action = new InterfaceAction(WindowMove, path+5);
     if(action->valid)
      {
-      theWin->scene->actions.push_back(action);
+      windows[activeWin]->scene->actions.push_back(action);
       httPrintf("OK\n");
       return true;
      }
@@ -524,6 +528,8 @@ bool Window3D::HTTPGateway(HttpDebug* serv, char* path)
 
 // =======================================================================================
 /// @brief Print instance debugging output
+/// @returns True if the HeightMarker was written correctly, false if we ran out of space.
+/// @param serv The HTTP Debug server
 
 bool Window3D::diagnosticHTML(HttpDebug* serv)
 {
@@ -531,3 +537,6 @@ bool Window3D::diagnosticHTML(HttpDebug* serv)
   
   return true;
 }
+
+
+// =======================================================================================

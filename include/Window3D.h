@@ -10,7 +10,7 @@
 #include "MenuInterface.h"
 #include "Timeval.h"
 #include "HttpDebug.h"
-
+#include <unordered_map>
 
 // =======================================================================================
 // Forward declarations
@@ -75,10 +75,14 @@ class Window3D
   bool            testingDoubleClick;
   bool            mouseMoved;
   float           frameTimeAvg;
+  int             ourWin;
   
   // Static private variables
   static Window3D* theWin;   //ultimately will need to be container of all windows
-
+  static int        nextWin;
+  static int        activeWin;
+  static std::unordered_map<int, Window3D*> windows;
+  
   // Private methods
   void          processMouse(Camera& camera);
   ActionType    processAction(InterfaceAction* action);
