@@ -103,7 +103,7 @@ bool HttpDebug::indexPage(void)
 
   // Camera
   internalPrintf("<tr><td><a href=\"/camera/\">camera/</a></td>");
-  internalPrintf("<td>Current camera variables</td></tr>\n");
+  internalPrintf("<td>Camera variables for current window</td></tr>\n");
   
   // Scene indicator tbuf
   internalPrintf("<tr><td><a href=\"/stbuf/\">stbuf/</a></td>");
@@ -124,6 +124,10 @@ bool HttpDebug::indexPage(void)
   // Sky Samples
   internalPrintf("<tr><td><a href=\"/skysamples/\">skysamples/</a></td>");
   internalPrintf("<td>Current sky sampling vectors</td></tr>\n");
+
+  // Windows
+  internalPrintf("<tr><td><a href=\"/windows/\">windows/</a></td>");
+  internalPrintf("<td>Currently open windows on screen</td></tr>\n");
 
   // End table and page
   internalPrintf("</table></center>\n");
@@ -194,8 +198,11 @@ bool HttpDebug::processRequestHeader(void)
    }
   
   else if( strlen(url) >= 8 && strncmp(url, "/camera/", 8) == 0)
-    retVal =  scene.camera.diagnosticHTML(this, url+8, scene);
-
+   {
+    Window3D& win = Window3D::getActiveWin();
+    retVal =  win.camera.diagnosticHTML(this, url+8, scene);
+   }
+  
   else if( strlen(url) == 8 && strncmp(url, "/carbon/", 8) == 0)
     retVal =  carbonSummary();
 

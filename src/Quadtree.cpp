@@ -4,6 +4,7 @@
 #include "Quadtree.h"
 #include "Scene.h"
 #include "ObjectGroup.h"
+#include "Window3D.h"
 #include <cstdio>
 #include <stdexcept>
 #include <err.h>
@@ -835,7 +836,8 @@ bool Quadtree::diagnosticHTML(HttpDebug* serv, char* path)
     // Camera intersection
     float lambda;
     vec3 pos, dir;
-    serv->scene.camera.copyDirection(pos, dir);
+    Window3D& win = Window3D::getActiveWin();
+    win.camera.copyDirection(pos, dir);
     if(matchRay(pos, dir, lambda))
      {
       httPrintf("<b>Camera intersects, Lambda:</b> %.3f<br>\n", lambda);

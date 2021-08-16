@@ -49,7 +49,8 @@ void MenuFocusOverlay::imGuiDisplay(void)
   if (ImGui::Begin("Focus Overlay", &displayVisible, window_flags))
    {
     //scene->findCameraObject(camF);
-    scene->focusObject = scene->findObjectFromWindowCoords(scene->focusObjectLocation,
+    scene->focusObject = scene->findObjectFromWindowCoords(win3D.camera, 
+                    scene->focusObjectLocation,
                     win3D.lastMouseX/win3D.width*2.0f-1.0f,
                     1.0f - win3D.lastMouseY/win3D.height*2.0f);
     if(scene->focusObject)
@@ -63,7 +64,7 @@ void MenuFocusOverlay::imGuiDisplay(void)
     else
       ImGui::Text("Mouse out of scene->\n");
 
-    ImGui::Text("Camera Height: %.1f'\n", scene->findCameraHeight());
+    ImGui::Text("Camera Height: %.1f'\n", scene->findCameraHeight(win3D.camera));
     ImGui::Text("Frames/Sec: %.0f\n", 1.0f/win3D.frameTimeAvg);
     ImGui::Separator();
    }

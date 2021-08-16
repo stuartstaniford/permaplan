@@ -46,8 +46,9 @@ int main (int argc, char* argv[])
   
   // Initialize everything
   setExternVersions();
-  MainSceneWindow window(800, 600);
+  Window3D::initGraphics();
   Shader shader("src/pmodVert.glsl", "src/pmodFrag.glsl");
+  MainSceneWindow window(800, 600);
   ResourceManager resources(window);
   PmodDesign design;
   Scene scene;

@@ -33,7 +33,7 @@ MainSceneWindow::~MainSceneWindow(void)
 
 void MainSceneWindow::draw(float timeInterval)
 {
-  scene->draw(timeInterval);
+  scene->draw(camera, timeInterval);
   imgMenu->imguiInterface();
 }
 
@@ -58,7 +58,7 @@ void MainSceneWindow::processClick(float mouseX, float mouseY)
                   scene->focusObjectLocation[2]);
       scene->lockObject = scene->focusObject;
       glm_vec3_copy(scene->focusObjectLocation, scene->lockObjectLocation);
-      scene->camera.setPivotLocation(scene->focusObjectLocation);
+      camera.setPivotLocation(scene->focusObjectLocation);
       imgMenu->show_lock_overlay = true;
      }
     else
@@ -66,7 +66,7 @@ void MainSceneWindow::processClick(float mouseX, float mouseY)
       // Clicking on a previouly selected object deselects it and means we have no
       // selection now.
       scene->lockObject = NULL;
-      scene->camera.setPivotLocation(NULL);
+      camera.setPivotLocation(NULL);
       imgMenu->show_lock_overlay = false;
       LogMouseClick("User deselected %s object in %s at %.1f, %.1f, %.1f\n",
                   scene->focusObject->objectName(), winTitle,
@@ -91,7 +91,7 @@ void MainSceneWindow::processDoubleClick(float mouseX, float mouseY, float timeD
 {
   if(scene->simulationActive())
     scene->pauseSimulation();
-  VisualObject* obj = scene->findObjectFromWindowCoords(scene->lastDoubleClick,
+  VisualObject* obj = scene->findObjectFromWindowCoords(camera, scene->lastDoubleClick,
                           mouseX/width*2.0f-1.0f, 1.0f - mouseY/height*2.0f);
   const char* objName = obj->objectName();
   unless(obj)

@@ -34,6 +34,7 @@ class Window3D
   // Public instance variables
   Scene*            scene;
   MenuInterface*    imgMenu;
+  Camera            camera;
 
   // Public methods
   Window3D(int pixWidth, int pixHeight, const char* title);
@@ -44,6 +45,9 @@ class Window3D
   // Static class methods
   static bool HTTPGateway(HttpDebug* serv, char* path);
   static void terminate(void);
+  static Window3D& getActiveWin(void);
+  static Window3D& getMainWin(void);
+  static void initGraphics(void);
 
  protected:
 
@@ -59,7 +63,7 @@ class Window3D
   virtual void  processDoubleClick(float mouseX, float mouseY, float timeDiff);
 
   // Virtual interface that subclasses can optionally override.
-  virtual void  processKeyboard(Camera& camera);
+  virtual void  processKeyboard(void);
 
  private:
   
@@ -78,13 +82,13 @@ class Window3D
   int             ourWin;
   
   // Static private variables
-  static Window3D* theWin;   //ultimately will need to be container of all windows
+  static Window3D*  theWin;   //ultimately will need to be container of all windows
   static int        nextWin;
   static int        activeWin;
   static std::unordered_map<int, Window3D*> windows;
   
   // Private methods
-  void          processMouse(Camera& camera);
+  void          processMouse(void);
   ActionType    processAction(InterfaceAction* action);
   float         timeDelta(void);           // number of microseconds since last call
 

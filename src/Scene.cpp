@@ -10,6 +10,7 @@
 #include "Box.h"
 #include "Tree.h"
 #include "Building.h"
+#include "Window3D.h"
 #include "loadFileToBuf.h"
 #include "HttpDebug.h"
 #include <pthread.h>
@@ -26,7 +27,6 @@
 ///the quadtree.
 
 Scene::Scene():
-                camera(200.0f, 45.0f),
                 sceneObjectTbuf(NULL),
                 indicatorTbuf(NULL),
                 land(),
@@ -141,8 +141,10 @@ void Scene::setModelMatrix(float latt, float longt)
 /// @brief Find the object at camera focus
 /// @returns A pointer to the VisualObject found, NULL if nothing.
 /// @param location A vec3 where the location of the camera intersection will be stored.
+/// @param camera A reference to the particular camera who'se focus we are interested in
+/// (since with multiple windows there can be multiple cameras in play).
 
-VisualObject* Scene::findCameraObject(vec3 location)
+VisualObject* Scene::findCameraObject(vec3 location, Camera& camera)
 {
   vec3 pos, dir;
   float lambda;
@@ -162,7 +164,7 @@ VisualObject* Scene::findCameraObject(vec3 location)
 /// @returns A floating point value for the height of the camera.  Currently is the 
 /// absolute height.
 
-float Scene::findCameraHeight(void)
+float Scene::findCameraHeight(Camera& camera)
 {
   vec3 pos, dir;
   camera.copyDirection(pos, dir);
@@ -180,7 +182,8 @@ float Scene::findCameraHeight(void)
 /// @param clipX The window screen X coordinate requested.
 /// @param clipY The window screen Y coordinate requested.
 
-VisualObject* Scene::findObjectFromWindowCoords(vec3 location, float clipX, float clipY)
+VisualObject* Scene::findObjectFromWindowCoords(Camera& camera, vec3 location, 
+                                                                  float clipX, float clipY)
 {  
   camera.rayFromScreenLocation(lastMouseLocation, lastMouseDirection, clipX, clipY);
 
@@ -258,7 +261,10 @@ void Scene::newLandHeight(vec3 location, const char* label)
   //Redo the landsurface here, in light of the new height observation
   land.newLandHeight(H);
   if(land.getLocationCount() == 1)
-    camera.teleportUp(location[2]);
+   {
+    Window3D& win = Window3D::getMainWin();
+    win.camera.teleportUp(location[2]);
+   }
   
   //XX Redo the visual objects
 }
@@ -389,7 +395,7 @@ bool Scene::diagnosticHTMLSimulationSummary(HttpDebug* serv)
 
 vec4  objColor      = {0.0f, 0.5f, 0.9f, 1.0f};
 
-void Scene::draw(float timeElapsed)
+void Scene::draw(Camera& camera, float timeElapsed)
 {
   PmodDesign& design = PmodDesign::getDesign();
   Shader& shader = Shader::getMainShader();

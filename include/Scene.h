@@ -7,7 +7,6 @@
 #include "ColoredAxes.h"
 #include "PmodConfig.h"
 #include "LandSurface.h"
-#include "Camera.h"
 #include "PmodDesign.h"
 #include "Grid.h"
 #include "Quadtree.h"
@@ -23,6 +22,11 @@
 
 #define SIMULATION_BASE_YEAR 1900.0f
 
+// =======================================================================================
+// Needed forward declarations
+
+class Camera;
+
 
 // =======================================================================================
 /// @brief Keep overall track of the scene to be rendered.
@@ -36,7 +40,6 @@ class Scene: public Lockable
  public:
   
   // Instance variables - public
-  Camera          camera;
   Quadtree*       qtree;
   TriangleBuffer* sceneObjectTbuf;
   TriangleBuffer* indicatorTbuf;
@@ -59,15 +62,15 @@ class Scene: public Lockable
   // Member functions - public
   Scene(void);
   ~Scene(void);
-  void          draw(float timeElapsed);
+  void          draw(Camera& camera, float timeElapsed);
   void          loadScenarioFile(void);
   void          startSimulation(void);
   void          pauseSimulation(void);
   void          resetSimulation(void);
   inline float  getSimYear(void) {return simYear;};
   inline bool   simulationActive(void) {return doSimulation;};
-  VisualObject* findCameraObject(vec3 location);
-  float         findCameraHeight(void);
+  VisualObject* findCameraObject(vec3 location, Camera& camera);
+  float         findCameraHeight(Camera& camera);
   void          newLandHeight(vec3 location, const char* label);
   void          saveState(void);
   void          updateLightSourcesOnGPU(void);
@@ -79,7 +82,8 @@ class Scene: public Lockable
   void          processEditModeObjectDeselection(void);
   void          processNewEditModeObject(void);
   bool          diagnosticHTMLSimulationSummary(HttpDebug* serv);
-  VisualObject* findObjectFromWindowCoords(vec3 location, float clipX, float clipY);
+  VisualObject* findObjectFromWindowCoords(Camera& camera, vec3 location, 
+                                                            float clipX, float clipY);
 #ifdef MULTI_THREADED_SIMULATION
   void          startSimulationThreads(void);
 #endif

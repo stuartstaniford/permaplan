@@ -61,22 +61,10 @@ void openGLInitialLogging(void)
 
 
 // =======================================================================================
-/// @brief Constructor for a Window3D
-///
-/// See https://learnopengl.com/Getting-started/Hello-Window.
-/// @param pixWidth The number of pixels wide for the window
-/// @param pixHeight The number of pixels high for the window
+/// @brief Static function to initialize the graphics system, must be called early in the
+/// program.
 
-Window3D::Window3D(int pixWidth, int pixHeight, const char* title):
-                        width(pixWidth),
-                        height(pixHeight),
-                        winTitle(title),
-                        lastMouseX(HUGE_VAL),
-                        lastMouseY(HUGE_VAL),
-                        inClick(false),
-                        testingDoubleClick(false),
-                        mouseMoved(true),
-                        frameTimeAvg(0.0f)
+void Window3D::initGraphics(void)
 {
   if(!GLFWInitDone)
    {
@@ -89,7 +77,30 @@ Window3D::Window3D(int pixWidth, int pixHeight, const char* title):
     //glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
     GLFWInitDone = true;
    }
-  
+ }
+
+
+// =======================================================================================
+/// @brief Constructor for a Window3D
+///
+/// See https://learnopengl.com/Getting-started/Hello-Window.
+/// Note that Window3D::initGraphics must be called before the first Window3D can be 
+/// called.
+/// @param pixWidth The number of pixels wide for the window
+/// @param pixHeight The number of pixels high for the window
+
+Window3D::Window3D(int pixWidth, int pixHeight, const char* title):
+                        camera(200.0f, 45.0f),
+                        width(pixWidth),
+                        height(pixHeight),
+                        winTitle(title),
+                        lastMouseX(HUGE_VAL),
+                        lastMouseY(HUGE_VAL),
+                        inClick(false),
+                        testingDoubleClick(false),
+                        mouseMoved(true),
+                        frameTimeAvg(0.0f)
+{  
   // Use GLFW to create OpenGL window and context
   window = glfwCreateWindow(width, height, title, NULL, NULL);
   if (!window)
@@ -156,7 +167,7 @@ ActionType Window3D::processAction(InterfaceAction* action)
   switch(action->actionType)
    {
     case CameraMoved:
-      scene->camera.updateAfterMove();
+      camera.updateAfterMove();
       return CameraMoved;
       
     case Click:
@@ -265,8 +276,8 @@ void Window3D::loop(void)
     glfwPollEvents();
     unless(io.WantCaptureMouse)
      {
-      processKeyboard(scene->camera);
-      processMouse(scene->camera);
+      processKeyboard();
+      processMouse();
      }
     else
       LogMouseLocation("ImGui has mouse\n");
@@ -325,8 +336,9 @@ void Window3D::processDoubleClick(float mouseX, float mouseY, float timeDiff)
 /// This function is the first level handling of the mouse when it's in our window.  This
 /// generally would not be overriden, but we call methods like processClick and 
 /// processDoubleClick that deal with those events on a subclass-specific basis.
+/// @todo Need to handle case of clicking in an inactive window.
 
-void Window3D::processMouse(Camera& camera)
+void Window3D::processMouse(void)
 {
   Timeval justNow;
   float clickSpacing;
@@ -420,7 +432,7 @@ processMouseExit:
 // looking around.  Minecraft has walk/fly mode, space jumps up into the air, but still 
 // follows ground contour.  E is a good button for interaction - convenient to WASD.
 
-void Window3D::processKeyboard(Camera& camera)
+void Window3D::processKeyboard(void)
 {
   if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
     glfwSetWindowShouldClose(window, 1);
@@ -483,8 +495,8 @@ float Window3D::timeDelta(void)
 // =======================================================================================
 /// @brief Function called in the HTTP server thread to handle /window/ API calls.  
 /// 
-/// This is a static method, because it needs to figure out which window we might be
-/// trying to talk to.
+/// This is a static method, because this action has not been associated with a
+/// particular window yet.
 
 bool Window3D::HTTPGateway(HttpDebug* serv, char* path)
 {  
@@ -523,6 +535,27 @@ bool Window3D::HTTPGateway(HttpDebug* serv, char* path)
   
   LogRequestErrors("Window3D::HTTPGateway unknown directive %s\n", path);
   return false;
+}
+
+
+// =======================================================================================
+/// @brief Static function to get a reference to the active window
+/// @returns The reference
+
+Window3D& Window3D::getActiveWin(void)
+{
+  return *(windows[activeWin]);  
+}
+
+
+// =======================================================================================
+/// @brief Static function to get a reference to the main scene window that's open from
+/// the beginning
+/// @returns The reference
+
+Window3D& Window3D::getMainWin(void)
+{
+  return *(windows[0]);  
 }
 
 
