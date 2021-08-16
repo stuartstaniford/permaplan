@@ -18,7 +18,10 @@
 vec3 zAxis = {0.0f, 0.0f, 1.0f};
 
 // =======================================================================================
-// Initialize a new camera view distance down the Z axis, with y axis as the up direction
+///@ brief Constructor.
+/// Initialize a new camera view distance down the Z axis, with y axis as the up direction
+/// @param distance The distance down the Z axis that the camera is
+/// @param viewAngleDegrees The width of the field of view in degrees.
 
 Camera::Camera(float distance, float viewAngleDegrees):
                   speed(200.0f),
@@ -39,7 +42,23 @@ Camera::Camera(float distance, float viewAngleDegrees):
   up[0]     = 0.0f;
   up[1]     = 1.0f;
   up[2]     = 0.0f;
+}
 
+
+// =======================================================================================
+/// @brief Destructor
+
+Camera::~Camera(void)
+{
+  
+}
+
+
+// =======================================================================================
+/// @brief Instantiate this camera into the shader
+
+void Camera::makeActive(void)
+{
   Shader& shader = Shader::getMainShader();
   viewLoc = shader.getUniformLocation("view");
   projLoc = shader.getUniformLocation("projection");
@@ -49,15 +68,6 @@ Camera::Camera(float distance, float viewAngleDegrees):
   updateViewMatrix();
   if(checkGLError(stderr, "after updateViewMatrix"))
     exit(-1);
-}
-
-
-// =======================================================================================
-// Destructor
-
-Camera::~Camera(void)
-{
-  
 }
 
 

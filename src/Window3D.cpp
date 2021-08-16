@@ -75,7 +75,7 @@ void Window3D::initGraphics(void)
     glfwWindowHint(GLFW_OPENGL_PROFILE,GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     //glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-    GLFWInitDone = true;
+ 
    }
  }
 
@@ -101,6 +101,8 @@ Window3D::Window3D(int pixWidth, int pixHeight, const char* title):
                         mouseMoved(true),
                         frameTimeAvg(0.0f)
 {  
+  Window3D::initGraphics();
+
   // Use GLFW to create OpenGL window and context
   window = glfwCreateWindow(width, height, title, NULL, NULL);
   if (!window)
@@ -113,6 +115,8 @@ Window3D::Window3D(int pixWidth, int pixHeight, const char* title):
   GLenum glewResult = glewInit();
   if (GLEW_OK != glewResult)
     err(2, "glewInit failed.\n");
+
+  GLFWInitDone = true;
 
   // Set up the OpenGL Viewport
   glViewport(0, 0, width, height);
@@ -127,7 +131,7 @@ Window3D::Window3D(int pixWidth, int pixHeight, const char* title):
   
   glViewport(0, 0, width, height);  
   lastTime.now();
-  
+
   activeWin           = nextWin++;
   windows[activeWin]  = this;
   ourWin              = activeWin;

@@ -46,9 +46,9 @@ int main (int argc, char* argv[])
   
   // Initialize everything
   setExternVersions();
-  Window3D::initGraphics();
-  Shader shader("src/pmodVert.glsl", "src/pmodFrag.glsl");
   MainSceneWindow window(800, 600);
+  Shader shader("src/pmodVert.glsl", "src/pmodFrag.glsl");
+  window.camera.makeActive(); // Can't do till shader is set up.
   ResourceManager resources(window);
   PmodDesign design;
   Scene scene;

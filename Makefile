@@ -2034,6 +2034,7 @@ src/MainSceneWindow.o: include/Species.h include/DynamicallyTypable.h
 src/MainSceneWindow.o: include/LeafModel.h include/CO2Scenario.h
 src/MainSceneWindow.o: include/InterfaceAction.h include/MenuInterface.h
 src/MainSceneWindow.o: include/MenuPanel.h imgui/imgui.h imgui/imconfig.h
+src/MainSceneWindow.o: include/MenuInsert.h
 src/Material.o: include/Material.h /usr/local/include/cglm/cglm.h
 src/Material.o: /usr/local/include/cglm/common.h
 src/Material.o: /usr/local/include/cglm/types.h
@@ -3526,6 +3527,8 @@ src/Quadtree.o: include/TextureAtlas.h include/LightingModel.h
 src/Quadtree.o: include/Species.h include/DynamicallyTypable.h
 src/Quadtree.o: include/LeafModel.h include/CO2Scenario.h
 src/Quadtree.o: include/InterfaceAction.h include/ObjectGroup.h
+src/Quadtree.o: include/Window3D.h include/MenuInterface.h
+src/Quadtree.o: include/MenuPanel.h imgui/imgui.h imgui/imconfig.h
 src/RegionList.o: include/RegionList.h include/DynamicallyTypable.h
 src/RegionList.o: include/Species.h include/HttpDebug.h
 src/RegionList.o: include/HttpRequestParser.h include/TaskQueue.h
@@ -3745,7 +3748,9 @@ src/Scene.o: include/DynamicallyTypable.h include/LeafModel.h
 src/Scene.o: include/CO2Scenario.h include/InterfaceAction.h
 src/Scene.o: include/SkySampleModel.h include/ControlGroup.h
 src/Scene.o: include/ObjectGroup.h include/Box.h include/Tree.h
-src/Scene.o: include/TreePart.h include/Building.h include/loadFileToBuf.h
+src/Scene.o: include/TreePart.h include/Building.h include/Window3D.h
+src/Scene.o: include/MenuInterface.h include/MenuPanel.h imgui/imgui.h
+src/Scene.o: imgui/imconfig.h include/loadFileToBuf.h
 src/SemicircularArrow.o: include/SemicircularArrow.h include/PathTube.h
 src/SemicircularArrow.o: include/VisualElement.h include/TriangleBuffer.h
 src/SemicircularArrow.o: include/ElementBufferCombo.h
@@ -5014,6 +5019,7 @@ src/main.o: include/Species.h include/DynamicallyTypable.h
 src/main.o: include/LeafModel.h include/CO2Scenario.h
 src/main.o: include/InterfaceAction.h include/MenuInterface.h
 src/main.o: include/MenuPanel.h imgui/imgui.h imgui/imconfig.h
-src/main.o: include/HttpLoadBalancer.h include/TaskQueueFarm.h include/Tree.h
-src/main.o: include/TreePart.h include/SkySampleModel.h include/RegionList.h
+src/main.o: include/HttpLoadBalancer.h include/TaskQueueFarm.h
+src/main.o: include/TreeWindow.h include/Tree.h include/TreePart.h
+src/main.o: include/SkySampleModel.h include/RegionList.h
 src/main.o: include/ResourceManager.h include/HttpClient.h

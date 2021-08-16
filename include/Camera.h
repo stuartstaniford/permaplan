@@ -1,5 +1,4 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Apr 2020 -
-// Class that manages the current location, direction, view angle, etc, of the camera
 
 #ifndef CAMERA_H
 #define CAMERA_H
@@ -10,6 +9,7 @@
 #include "Global.h"
 
 
+// =======================================================================================
 // Define flags used for passing multiple camera ops in parallel.  Intended to go
 // in an unsigned 32 bit opFlags variable.
 
@@ -29,9 +29,14 @@
 
 
 // =======================================================================================
-// Class variable initialization
+// Forward declarations
 
 class Scene;
+
+
+// =======================================================================================
+/// @brief Class that manages the current location, direction, view angle, etc, of the 
+/// camera
 
 class Camera
 {
@@ -42,6 +47,7 @@ class Camera
   // Member functions - public
   Camera(float distance, float viewAngleDegrees);
   ~Camera(void);
+  void  makeActive(void);
   void  adjust(unsigned opFlags, float timeLapseUsec);
   void  adjustWithPivot(unsigned opFlags, float timeLapseUsec);
   void  mouseDrag(float xDelta, float yDelta);
