@@ -495,16 +495,35 @@ float Window3D::timeDelta(void)
   return (float)diff;
 }
 
+// =======================================================================================
+/// @brief Function called in the HTTP server thread to list all open windows.  
+/// 
+/// This is a static method, because it lists all windows, not a particular one.
+/// @returns True if the page was written correctly, false if we ran out of space.
+/// @param serv The HTTP Debug server
+
+bool Window3D::HTTPListActiveWindows(HttpDebug* serv)
+{
+  return true;
+}
+
 
 // =======================================================================================
 /// @brief Function called in the HTTP server thread to handle /window/ API calls.  
 /// 
 /// This is a static method, because this action has not been associated with a
 /// particular window yet.
+/// @returns True if the page was written correctly, false if we ran out of space.
+/// @param serv The HTTP Debug server
+
 
 bool Window3D::HTTPGateway(HttpDebug* serv, char* path)
 {  
-  if(strncmp(path, "resize/", 7)== 0) //XX this API will need rework for multiple windows
+  if(strncmp(path, "list/", 5)== 0)
+   {
+    return Window3D::HTTPListActiveWindows(serv);
+   }
+  else if(strncmp(path, "resize/", 7)== 0) //XX this API will need rework for multiple windows
    {
     InterfaceAction* action = new InterfaceAction(WindowResize, path+7);
     if(action->valid)

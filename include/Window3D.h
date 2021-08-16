@@ -44,6 +44,7 @@ class Window3D
   
   // Static class methods
   static bool HTTPGateway(HttpDebug* serv, char* path);
+  static bool HTTPListActiveWindows(HttpDebug* serv);
   static void terminate(void);
   static Window3D& getActiveWin(void);
   static Window3D& getMainWin(void);

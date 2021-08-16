@@ -126,7 +126,7 @@ bool HttpDebug::indexPage(void)
   internalPrintf("<td>Current sky sampling vectors</td></tr>\n");
 
   // Windows
-  internalPrintf("<tr><td><a href=\"/windows/\">windows/</a></td>");
+  internalPrintf("<tr><td><a href=\"/window/list/\">window/list/</a></td>");
   internalPrintf("<td>Currently open windows on screen</td></tr>\n");
 
   // End table and page
