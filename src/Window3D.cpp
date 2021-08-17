@@ -495,15 +495,50 @@ float Window3D::timeDelta(void)
   return (float)diff;
 }
 
+
+// =======================================================================================
+/// @brief Function called in the HTTP server thread to provide a table row about this
+/// window.  
+/// 
+/// This needs to be overridden by subclasses and the implementation in Window3D will 
+/// error-exit.  Subclasses should provide a link of the form /window/detail/%d/ to 
+/// their detail page, which in turn should be provided by diagnosticHTML().
+/// @returns True if the page was written correctly, false if we ran out of space.
+/// @param serv The HTTP Debug server
+
+bool Window3D::diagnosticHTMLRow(HttpDebug* serv, int rowIndex)
+{
+  err(-1, "Call to unimplemented superclass Window3D::diagnosticHTMLRow");
+}
+
+
 // =======================================================================================
 /// @brief Function called in the HTTP server thread to list all open windows.  
 /// 
-/// This is a static method, because it lists all windows, not a particular one.
+/// This is a static method, because it lists all windows, not just a particular instance.
 /// @returns True if the page was written correctly, false if we ran out of space.
 /// @param serv The HTTP Debug server
 
 bool Window3D::HTTPListActiveWindows(HttpDebug* serv)
 {
+  unless(serv->startResponsePage("Open Windows"))
+    return false;
+
+  // Beginning of table  
+  httPrintf("<center>\n");
+  unless(serv->startTable())
+    return false;
+  httPrintf("<tr><th>Index</th><th>Name</th><th>Details</th></tr>\n");
+  
+  // Iterate over the rows
+  int row = 1;
+  for (auto& winIter: windows)
+    winIter.second->diagnosticHTMLRow(serv, row++);
+  
+  // End the table, the page, and go home.
+  httPrintf("</table></center><hr>\n");
+  unless(serv->endResponsePage())
+    return false;
   return true;
 }
 

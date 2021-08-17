@@ -41,7 +41,7 @@ class Window3D
   ~Window3D(void);
   void loop(void);
   bool diagnosticHTML(HttpDebug* serv);
-  
+
   // Static class methods
   static bool HTTPGateway(HttpDebug* serv, char* path);
   static bool HTTPListActiveWindows(HttpDebug* serv);
@@ -62,6 +62,7 @@ class Window3D
   virtual void  draw(float timeInterval);
   virtual void  processClick(float mouseX, float mouseY);
   virtual void  processDoubleClick(float mouseX, float mouseY, float timeDiff);
+  virtual bool diagnosticHTMLRow(HttpDebug* serv, int rowIndex);
 
   // Virtual interface that subclasses can optionally override.
   virtual void  processKeyboard(void);
