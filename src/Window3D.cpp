@@ -497,6 +497,27 @@ float Window3D::timeDelta(void)
 
 
 // =======================================================================================
+/// @brief Static function to get a reference to the active window
+/// @returns The reference
+
+Window3D& Window3D::getActiveWin(void)
+{
+  return *(windows[activeWin]);  
+}
+
+
+// =======================================================================================
+/// @brief Static function to get a reference to the main scene window that's open from
+/// the beginning
+/// @returns The reference
+
+Window3D& Window3D::getMainWin(void)
+{
+  return *(windows[0]);  
+}
+
+
+// =======================================================================================
 /// @brief Function called in the HTTP server thread to provide a table row about this
 /// window.  
 /// 
@@ -551,14 +572,29 @@ bool Window3D::HTTPListActiveWindows(HttpDebug* serv)
 /// @returns True if the page was written correctly, false if we ran out of space.
 /// @param serv The HTTP Debug server
 
-
 bool Window3D::HTTPGateway(HttpDebug* serv, char* path)
 {  
   if(strncmp(path, "list/", 5)== 0)
    {
     return Window3D::HTTPListActiveWindows(serv);
    }
-  else if(strncmp(path, "resize/", 7)== 0) //XX this API will need rework for multiple windows
+  if(strncmp(path, "detail/", 7)== 0)
+   {
+    int digitSize = strlen(path+7);
+    unless(digitSize > 0 && digitSize < 5)
+     {
+      LogRequestErrors("Window3D::HTTPGateway detail/ path invalid: %s\n", path);
+      return false;
+     }
+    int winIndex = atoi(path+7);
+    unless(windows.count(winIndex))
+     {
+      LogRequestErrors("Window3D::HTTPGateway detail/ index %d not found.\n", winIndex);
+      return false;
+     }
+    return windows[winIndex]->diagnosticHTML(serv);
+   }
+  else if(strncmp(path, "resize/", 7)== 0)
    {
     InterfaceAction* action = new InterfaceAction(WindowResize, path+7);
     if(action->valid)
@@ -597,34 +633,18 @@ bool Window3D::HTTPGateway(HttpDebug* serv, char* path)
 
 
 // =======================================================================================
-/// @brief Static function to get a reference to the active window
-/// @returns The reference
-
-Window3D& Window3D::getActiveWin(void)
-{
-  return *(windows[activeWin]);  
-}
-
-
-// =======================================================================================
-/// @brief Static function to get a reference to the main scene window that's open from
-/// the beginning
-/// @returns The reference
-
-Window3D& Window3D::getMainWin(void)
-{
-  return *(windows[0]);  
-}
-
-
-// =======================================================================================
-/// @brief Print instance debugging output
+/// @brief Function called in the HTTP server thread to provide a whole page about this
+/// window.  
+/// 
+/// This needs to be overridden by subclasses and the implementation in Window3D will 
+/// error-exit.  Subclasses should provide a summary page of any/all detail that would
+/// be useful for debugging/testing when an instance of their window is open.
 /// @returns True if the HeightMarker was written correctly, false if we ran out of space.
 /// @param serv The HTTP Debug server
 
 bool Window3D::diagnosticHTML(HttpDebug* serv)
 {
-  httPrintf("Window3D: width: %d, height: %d<br>\n", width, height);
+  err(-1, "Call to unimplemented superclass Window3D::diagnosticHTML");
   
   return true;
 }

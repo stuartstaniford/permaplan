@@ -22,10 +22,16 @@ public:
   // Member functions - public
   MainSceneWindow(int pixWidth, int pixHeight);
   ~MainSceneWindow(void);
-  void  draw(float timeInterval);
   int   initPanel(char* question, char** responses, int nResponses);
+
+protected:
+
+  // The Window3D interface that we must implement.
+  void  draw(float timeInterval);
   void  processClick(float mouseX, float mouseY);
   void  processDoubleClick(float mouseX, float mouseY, float timeDiff);
+  bool  diagnosticHTMLRow(HttpDebug* serv, int rowIndex);
+  bool  diagnosticHTML(HttpDebug* serv);
 
 private:
   

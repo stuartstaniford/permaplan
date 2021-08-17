@@ -40,7 +40,6 @@ class Window3D
   Window3D(int pixWidth, int pixHeight, const char* title);
   ~Window3D(void);
   void loop(void);
-  bool diagnosticHTML(HttpDebug* serv);
 
   // Static class methods
   static bool HTTPGateway(HttpDebug* serv, char* path);
@@ -57,20 +56,20 @@ class Window3D
   int             height;
   GLFWwindow*     window;
   const char*     winTitle;
-  
+  int             ourWin;
+ 
   // Virtual interface that subclasses must implement.
   virtual void  draw(float timeInterval);
   virtual void  processClick(float mouseX, float mouseY);
   virtual void  processDoubleClick(float mouseX, float mouseY, float timeDiff);
-  virtual bool diagnosticHTMLRow(HttpDebug* serv, int rowIndex);
+  virtual bool  diagnosticHTMLRow(HttpDebug* serv, int rowIndex);
+  virtual bool  diagnosticHTML(HttpDebug* serv);
 
   // Virtual interface that subclasses can optionally override.
   virtual void  processKeyboard(void);
 
  private:
-  
-  // Class variables - private
-  
+    
   // Instance variables - private
   double          lastMouseX, lastMouseY;
   Timeval         lastTime;
@@ -81,9 +80,8 @@ class Window3D
   bool            testingDoubleClick;
   bool            mouseMoved;
   float           frameTimeAvg;
-  int             ourWin;
   
-  // Static private variables
+  // Class private variables
   static Window3D*  theWin;   //ultimately will need to be container of all windows
   static int        nextWin;
   static int        activeWin;

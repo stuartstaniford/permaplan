@@ -163,3 +163,34 @@ int MainSceneWindow::initPanel(char* question, char** responses, int nResponses)
 
 
 // =======================================================================================
+/// @brief Function called in the HTTP server thread to provide one row of a table about
+/// our particular window instance.  
+/// @returns True if the page was written correctly, false if we ran out of space.
+/// @param serv The HTTP Debug server
+
+bool MainSceneWindow::diagnosticHTMLRow(HttpDebug* serv, int rowIndex)
+{
+  httPrintf("<tr><td>%d</td>"
+            "<td><a href=\"/window/detail/%d/\">%s</a></td>"
+            "<td>Details</td></tr>\n", rowIndex, ourWin, winTitle);
+  return true;
+}
+
+
+// =======================================================================================
+/// @brief Function called in the HTTP server thread to give details of our window.  
+/// @returns True if the page was written correctly, false if we ran out of space.
+/// @param serv The HTTP Debug server
+
+bool MainSceneWindow::diagnosticHTML(HttpDebug* serv)
+{
+  unless(serv->startResponsePage("Main Scene Window"))
+    return false;
+
+  unless(serv->endResponsePage())
+    return false;
+  return true;
+}
+
+
+// =======================================================================================
