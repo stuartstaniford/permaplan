@@ -64,16 +64,21 @@ void Camera::makeActive(void)
   projLoc = shader.getUniformLocation("projection");
   if(checkGLError(stderr, "Camera::Camera"))
     exit(-1);
-  setProjectionMatrix();
-  updateViewMatrix();
+  updateAfterMove();
   if(checkGLError(stderr, "after updateViewMatrix"))
     exit(-1);
 }
 
 
 // =======================================================================================
-// Function to implement all the supported keyboard camera operations (expressed as bit
-// flags like CAM_DELTA_UP, CAM_DELTA_DOWN, etc - see Camera.h for documentation.
+/// @brief Implement all the supported keyboard camera operations.
+/// 
+/// These are expressed as bit flags like CAM_DELTA_UP, CAM_DELTA_DOWN, etc - see 
+/// Camera.h for documentation.
+/// @param opFlags A 32 bit unsigned with the flags to be implemented.
+/// @param timeLapseUsec How many microseconds have lapsed (this is multiplied by 
+/// Camera::speed or Camera::rotationalSpeed to dictate how much things change in response
+/// to the keyboard input.
 
 void Camera::adjust(unsigned opFlags, float timeLapseUsec)
 {
@@ -162,8 +167,14 @@ void Camera::adjust(unsigned opFlags, float timeLapseUsec)
 
 
 // =======================================================================================
-// Function to implement all the supported keyboard camera operations when a pivot
-// location has been established and now we are going to move relative to that location.
+/// @brief Implement the supported keyboard camera operations when a pivot location has 
+/// been established and now we are going to move relative to that location.
+/// @param opFlags A 32 bit unsigned with the flags to be implemented.
+/// @param timeLapseUsec How many microseconds have lapsed (this is multiplied by 
+/// Camera::speed or Camera::rotationalSpeed to dictate how much things change in response
+/// to the keyboard input.
+/// @todo This mode is really just annoying and probably needs to be replaced with 
+/// dedicated inspector windows.
 
 void Camera::adjustWithPivot(unsigned opFlags, float timeLapseUsec)
 {
@@ -242,7 +253,7 @@ void Camera::adjustWithPivot(unsigned opFlags, float timeLapseUsec)
 
 
 // =======================================================================================
-// Function to Update the camera matrices in the shader
+/// @brief Function to Update the camera matrices in the shader
 
 void Camera::updateAfterMove(void)
 {
@@ -252,8 +263,9 @@ void Camera::updateAfterMove(void)
 
 
 // =======================================================================================
-// Function to implement the effects of dragging the mouse in the window.  Parameters
-// range from -1.0 to 1.0.
+/// @brief Function to implement the effects of dragging the mouse in the window.  
+/// @param xDelta float in [-1.0, 1.0] for how much to move in x-direction.
+/// @param yDelta float in [-1.0, 1.0] for how much to move in y-direction.
 
 void Camera::mouseDrag(float xDelta, float yDelta)
 {
@@ -276,7 +288,7 @@ void Camera::mouseDrag(float xDelta, float yDelta)
 
 
 // =======================================================================================
-// Used to get a copy (ie read only) the camera direction
+/// @brief Get a copy (ie read only) of the camera direction
 
 void Camera::copyDirection(vec3& position, vec3& direction)
 {
@@ -286,7 +298,8 @@ void Camera::copyDirection(vec3& position, vec3& direction)
 
 
 // =======================================================================================
-// Function to set up and apply the projection matrix - assumed to be called 'projection'
+/// @brief Function to set up and apply the projection matrix - assumed to be 
+/// called 'projection'
 
 void Camera::setProjectionMatrix(void)
 {
@@ -302,7 +315,8 @@ void Camera::setProjectionMatrix(void)
 
 
 // =======================================================================================
-// Bind a particular texture to a given active texture unit and name in the shader
+/// @brief Function to set up and apply the view matrix - assumed to be 
+/// called 'view'
 
 void Camera::updateViewMatrix(void)
 {
