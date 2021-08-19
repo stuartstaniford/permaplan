@@ -93,13 +93,13 @@ void MainSceneWindow::processDoubleClick(float mouseX, float mouseY, float timeD
     scene->pauseSimulation();
   VisualObject* obj = scene->findObjectFromWindowCoords(camera, scene->lastDoubleClick,
                           mouseX/width*2.0f-1.0f, 1.0f - mouseY/height*2.0f);
-  const char* objName = obj->objectName();
   unless(obj)
    {
     LogDoubleClick("Double click (%.3fs) on nothing at %.2f, %.2f\n", 
                                                     timeDiff, mouseX, mouseY);
     return;
    }
+  const char* objName = obj->objectName();
   if(obj == scene->editModeObject)
    {
     // Double clicking again means we are deselecting it

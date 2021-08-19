@@ -19,14 +19,14 @@ class MenuFocusOverlay;
 
 
 // =======================================================================================
-/// @brief
+/// @brief Utility class for opening a window and setting up for drawing in using OpenGL 
+/// commands.
 ///
-/// Utility class for opening a window and setting up for drawing in using OpenGL 
-/// commands.  The present implementation uses GLFW but the API should hide that.  This
-/// class does not support creating bare instances of it, but instead should be subclassed
-/// to provide different types of window, which then requires overriding draw(), 
-/// processClick(), processDoubleClick(), diagnosticHTMLRow(), and diagnosticHTML(). and
-/// optionally processKeyboard().
+/// The present implementation uses GLFW but the API should hide that.  This
+/// class does not support creating bare instances of itself, but instead should be 
+/// subclassed to provide different types of window, which then requires overriding 
+/// draw(), processClick(), processDoubleClick(), diagnosticHTMLRow(), and 
+/// diagnosticHTML(). and optionally processKeyboard() and processAction().
 /// 
 /// This class provides the basics of OpenGL window creation, raw mouse/keyboard 
 /// processing (eg camera drag, click/double-click detection), and first cut HTTP 
