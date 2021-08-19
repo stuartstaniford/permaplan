@@ -18,7 +18,6 @@ class MainSceneWindow: public Window3D
 public:
   
   // Instance variables - public
-  MenuInterface*    imgMenu;
 
   // Member functions - public
   MainSceneWindow(int pixWidth, int pixHeight);
