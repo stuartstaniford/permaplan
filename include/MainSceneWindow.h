@@ -18,7 +18,8 @@ class MainSceneWindow: public Window3D
 public:
   
   // Instance variables - public
-  
+  MenuInterface*    imgMenu;
+
   // Member functions - public
   MainSceneWindow(int pixWidth, int pixHeight);
   ~MainSceneWindow(void);
@@ -27,11 +28,12 @@ public:
 protected:
 
   // The Window3D interface that we must implement.
-  void  draw(float timeInterval);
-  void  processClick(float mouseX, float mouseY);
-  void  processDoubleClick(float mouseX, float mouseY, float timeDiff);
-  bool  diagnosticHTMLRow(HttpDebug* serv, int rowIndex);
-  bool  diagnosticHTML(HttpDebug* serv);
+  void        draw(float timeInterval);
+  void        processClick(float mouseX, float mouseY);
+  void        processDoubleClick(float mouseX, float mouseY, float timeDiff);
+  bool        diagnosticHTMLRow(HttpDebug* serv, int rowIndex);
+  bool        diagnosticHTML(HttpDebug* serv);
+  ActionType  processAction(InterfaceAction* action);
 
 private:
   

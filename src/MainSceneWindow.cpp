@@ -163,6 +163,28 @@ int MainSceneWindow::initPanel(char* question, char** responses, int nResponses)
 
 
 // =======================================================================================
+/// @brief Handle an pseudo-interface event coming from the HTTP Debug interface.  
+/// 
+/// We first check if our parent Window3D can handle it, and if not we pass it to our
+/// menu system for processing..
+/// @returns The ActionType of the action we processed.
+/// @param action The InterfaceAction that needs to be handled.
+
+ActionType MainSceneWindow::processAction(InterfaceAction* action)
+{  
+  ActionType parentAction = Window3D::processAction(action);
+  unless(parentAction == NoAction)
+    return parentAction;
+  
+  switch(action->actionType)
+   {
+    default:
+      return imgMenu->processAction(action);
+   }
+}
+
+
+// =======================================================================================
 /// @brief Function called in the HTTP server thread to provide one row of a table about
 /// our particular window instance.  
 /// @returns True if the page was written correctly, false if we ran out of space.

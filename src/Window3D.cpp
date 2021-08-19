@@ -162,8 +162,10 @@ void Window3D::terminate()
 /// @brief Handle an pseudo-interface event coming from the HTTP Debug interface.  
 /// 
 /// We get these first, and our job is to siphon off those actions that require some
-/// kind of window operation.  All others are passed to MenuInterface::processAction.
-/// @returns The ActionType of the action we processed.
+/// kind of window operation.  Subclasses should override this, but then call it first
+/// in their overriden version to take care of the cases we handle.
+/// @returns The ActionType of the action we processed.  If the action was not one of 
+/// ours, we return NoAction.
 /// @param action The InterfaceAction that needs to be handled.
 
 ActionType Window3D::processAction(InterfaceAction* action)
@@ -208,7 +210,7 @@ ActionType Window3D::processAction(InterfaceAction* action)
       return WindowResize;
 
     default:
-      return imgMenu->processAction(action);
+      return NoAction;
    }
 }
 

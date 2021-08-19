@@ -41,7 +41,6 @@ class Window3D
   
   // Public instance variables
   Scene*            scene;
-  MenuInterface*    imgMenu;
   Camera            camera;
 
   // Public methods
@@ -74,7 +73,8 @@ class Window3D
   virtual bool  diagnosticHTML(HttpDebug* serv);
 
   // Virtual interface that subclasses can optionally override.
-  virtual void  processKeyboard(void);
+  virtual void        processKeyboard(void);
+  virtual ActionType  processAction(InterfaceAction* action);
 
  private:
     
@@ -97,7 +97,6 @@ class Window3D
   
   // Private methods
   void          processMouse(void);
-  ActionType    processAction(InterfaceAction* action);
   float         timeDelta(void);           // number of microseconds since last call
 
   Window3D(const Window3D&);                 // Prevent copy-construction
