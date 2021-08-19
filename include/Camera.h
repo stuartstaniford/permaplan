@@ -78,9 +78,12 @@ class Camera
   float     far;
   unsigned  viewLoc;
   unsigned  projLoc;
+  
 public:
   mat4      view;
   mat4      projection;
+  unsigned  padding;     /// @todo Program doesn't work without this; don't know why.
+
 private:
   // Member functions - private
   void updateViewMatrix(void);

@@ -41,7 +41,6 @@ class Window3D
   
   // Public instance variables
   Scene*            scene;
-  MenuInterface*    imgMenu;
   Camera            camera;
 
   // Public methods

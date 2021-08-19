@@ -31,7 +31,8 @@ Camera::Camera(float distance, float viewAngleDegrees):
                   viewAngle(viewAngleDegrees),
                   aspectRatio(0.0f),
                   near(distance/100.0f),
-                  far(distance*10.0f)
+                  far(distance*10.0f),
+                  padding(0u)
 {
   pos[0]    = 0.0f,
   pos[1]    = 0.0f,
@@ -307,6 +308,7 @@ void Camera::setProjectionMatrix(void)
   glGetIntegerv(GL_VIEWPORT, viewportParams);
   aspectRatio = (float)(viewportParams[2]) / (float)(viewportParams[3]);
   glm_perspective(glm_rad(viewAngle), aspectRatio, near, far, projection);
+  assert(padding == 0u);
   Shader& shader = Shader::getMainShader();
   shader.setUniform(projLoc, projection);
   if(checkGLError(stderr, "Camera::setProjectionMatrix"))
