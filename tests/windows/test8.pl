@@ -23,7 +23,8 @@ foreach my $i (1..$loopLimit)
   simulatePermaplan();
   simulateUntil($simLimit);
   # do something to create some extra windows
-  # check extra windows present
+  my @windowList = getOpenWindowList();
+  print join("\t", @windowList)."\n";
   sanityCheckHTTPPages();
   stopPermaplan();
   checkLogForErrors();

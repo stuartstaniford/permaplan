@@ -399,7 +399,7 @@ sub moveWindow
 sub getOpenWindowList
 {
   my @windowList = ();
-  my $url = "http://127.0.0.1:$port/window/list";
+  my $url = "http://127.0.0.1:$port/window/list/";
   my $response = $http->get($url);
   sanityCheckHeader($response, '/window/list/');  
   my $tree =   HTML::TreeBuilder->new();
@@ -413,15 +413,23 @@ sub getOpenWindowList
     foreach $row (0..$rows-1)
      {
       if(defined  $table->{'contents'}[$row] 
-                                && defined $table->{'contents'}[$row][1]) 
+                            && defined $table->{'contents'}[$row][1] 
+                            && defined $table->{'contents'}[$row][1]->{'_content'}
+                            && defined $table->{'contents'}[$row][1]->{'_content'}[0]
+                        ) 
        {
-        push @windowList, @$table->{'contents'}[$row][1];
+        push(@windowList, $table->{'contents'}[$row][1]->{'_content'}[0]);
+       }
+      else
+       {
+        print OUT "getOpenWindowList: Bad row $row.\n";
+        $outLines++;
        }
      }
    }
   else
    {
-    print OUT "getOpenWindowList couldn't get valid value from /window/list/";
+    print OUT "getOpenWindowList couldn't get valid value from /window/list/\n";
     $outLines++;
    }
 
@@ -451,7 +459,7 @@ sub getCameraHeight
    }
   else
    {
-    print OUT "getCameraHeight couldn't get valid value from /camera/";
+    print OUT "getCameraHeight couldn't get valid value from /camera/\n";
     $outLines++;
    }
 
