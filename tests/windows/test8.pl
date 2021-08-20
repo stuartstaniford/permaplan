@@ -7,6 +7,7 @@ require './testSupport.pl';
 $resourceDir = 'tests/basic-smoke';
 $testDir = 'tests/windows';
 
+unshift(@ARGV, "-y", "1905");
 my($loopLimit, $simLimit) = processArgs(@ARGV);
 
 foreach my $i (1..$loopLimit)
@@ -21,6 +22,8 @@ foreach my $i (1..$loopLimit)
   printPortMessage();
   simulatePermaplan();
   simulateUntil($simLimit);
+  # do something to create some extra windows
+  # check extra windows present
   sanityCheckHTTPPages();
   stopPermaplan();
   checkLogForErrors();

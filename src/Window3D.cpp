@@ -549,7 +549,7 @@ bool Window3D::HTTPListActiveWindows(HttpDebug* serv)
 
   // Beginning of table  
   httPrintf("<center>\n");
-  unless(serv->startTable())
+  unless(serv->startTable((char*)"windowList"))
     return false;
   httPrintf("<tr><th>Index</th><th>Name</th><th>Details</th></tr>\n");
   

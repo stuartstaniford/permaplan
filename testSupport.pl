@@ -394,6 +394,42 @@ sub moveWindow
 
 
 #===========================================================================
+# Function to get the list of currently open windows.
+
+sub getOpenWindowList
+{
+  my @windowList = ();
+  my $url = "http://127.0.0.1:$port/window/list";
+  my $response = $http->get($url);
+  sanityCheckHeader($response, '/window/list/');  
+  my $tree =   HTML::TreeBuilder->new();
+  #print $response->{content};
+  $tree->parse_content($response->{content});
+  my $table = extractTableFromHTML($tree, "windowList", "/window/list");
+  my $rows;
+  if(defined $table && defined $table->{'contents'} 
+                                  && ($rows = scalar(@{$table->{'contents'}})))
+   {
+    foreach $row (0..$rows-1)
+     {
+      if(defined  $table->{'contents'}[$row] 
+                                && defined $table->{'contents'}[$row][1]) 
+       {
+        push @windowList, @$table->{'contents'}[$row][1];
+       }
+     }
+   }
+  else
+   {
+    print OUT "getOpenWindowList couldn't get valid value from /window/list/";
+    $outLines++;
+   }
+
+  return @windowList;  
+}
+
+
+#===========================================================================
 # Function to find the current height of the camera.
 
 sub getCameraHeight
@@ -445,9 +481,6 @@ sub checkObjectSearchCount
    }
 }
 
-
-#===========================================================================
-# Function to set the direction the camera points in.  Takes three args 
 
 #===========================================================================
 # Function to set the direction the camera points in.  Takes three args 
