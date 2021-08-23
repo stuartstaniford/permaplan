@@ -24,7 +24,8 @@ foreach my $i (1..$loopLimit)
   simulateUntil($simLimit);
   # do something to create some extra windows
   my @windowList = getOpenWindowList();
-  print join("\t", @windowList)."\n";
+  my @desiredResult = ('Landscape Simulation');
+  &compareArrays(\@desiredResult, \@windowList);
   sanityCheckHTTPPages();
   stopPermaplan();
   checkLogForErrors();

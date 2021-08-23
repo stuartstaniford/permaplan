@@ -438,6 +438,31 @@ sub getOpenWindowList
 
 
 #===========================================================================
+# Function to compare a test array to a desired result array.
+
+sub compareArrays
+{
+  my($testArrayRef, $desiredArrayRef) = @_;
+  if(scalar(@$testArrayRef) != scalar(@$desiredArrayRef))
+   {
+    print OUT "Test array is size ".scalar(@$testArrayRef)." instead of ".
+                                              scalar(@$desiredArrayRef)."\n";
+    $outLines++;
+    return;
+   }
+  for(my $i=0; $i<scalar(@$desiredArrayRef)-1; $i++)
+   {
+    if($testArrayRef->[$i] ne $desiredArrayRef->[$i])
+     {
+      print OUT "Test array does not match at position $i: ".
+                  "$testArrayRef->[$i] instead of $desiredArrayRef->[$i]\n";
+      $outLines++;
+     }
+   }
+}
+
+
+#===========================================================================
 # Function to find the current height of the camera.
 
 sub getCameraHeight
