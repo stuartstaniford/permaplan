@@ -143,6 +143,8 @@ Window3D::Window3D(int pixWidth, int pixHeight, const char* title):
 
 Window3D::~Window3D(void)
 {
+  if(activeWin == ourWin)
+    activeWin = 0u;
   windows.erase(ourWin);
   glfwDestroyWindow(window);
 }

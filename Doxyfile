@@ -895,6 +895,7 @@ INPUT                  = doc \
                 include/MenuShedPanel.h src/MenuShedPanel.cpp \
                 include/MenuSimulationPanel.h src/MenuSimulationPanel.cpp \
                 include/MenuTree.h src/MenuTree.cpp \
+                include/ObjectInspectorWindow.h src/ObjectInspectorWindow.cpp \
                 include/Orientable.h src/Orientable.cpp \
                 include/PmodDesign.h src/PmodDesign.cpp \
                 include/Positionable.h src/Positionable.cpp \

@@ -90,7 +90,6 @@ class Window3D
   float           frameTimeAvg;
   
   // Class private variables
-  static Window3D*  theWin;   //ultimately will need to be container of all windows
   static int        nextWin;
   static int        activeWin;
   static std::unordered_map<int, Window3D*> windows;
