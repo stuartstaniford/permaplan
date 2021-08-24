@@ -6,7 +6,7 @@
 #include "MainSceneWindow.h"
 #include "MenuInterface.h"
 #include "MenuInsert.h"
-
+#include "TreeWindow.h"
 
 // =======================================================================================
 /// @brief Constructor
@@ -115,6 +115,12 @@ void MainSceneWindow::processDoubleClick(float mouseX, float mouseY, float timeD
       LogDoubleClick("Double click insertion (%.3fs) at %.2f, %.2f\n", timeDiff, 
                                                                           mouseX, mouseY);
      }
+    return;
+   }
+  if(objType == TypeTree)
+   {
+    TreeWindow* treeWin = new TreeWindow;
+    treeWin->loop();
     return;
    }
 
