@@ -10,8 +10,8 @@
 /// @brief Constructor
 
 TreeWindow::TreeWindow(void):
-                Window3D(TREE_WINDOW_INIT_WIDTH, TREE_WINDOW_INIT_HEIGHT,
-                         (char*)"Tree Inspector")
+                        ObjectInspectorWindow(TREE_WINDOW_INIT_WIDTH, 
+                                        TREE_WINDOW_INIT_HEIGHT, (char*)"Tree Inspector")
 {
 }
 

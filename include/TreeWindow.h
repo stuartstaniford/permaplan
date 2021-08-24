@@ -3,7 +3,7 @@
 #ifndef TREE_WINDOW_H
 #define TREE_WINDOW_H
 
-#include "Window3D.h"
+#include "ObjectInspectorWindow.h"
 
 
 // =======================================================================================
@@ -19,7 +19,7 @@
 /// A window to look in detail at a particular tree, abstracted from the landscape in 
 /// which it is embedded.
 
-class TreeWindow: public Window3D
+class TreeWindow: public ObjectInspectorWindow
 {
 public:
   

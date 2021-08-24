@@ -3,7 +3,7 @@
 #ifndef BUILDING_WINDOW_H
 #define BUILDING_WINDOW_H
 
-#include "Window3D.h"
+#include "ObjectInspectorWindow.h"
 
 
 // =======================================================================================
@@ -20,7 +20,7 @@
 /// of type Building for the purpose of messing with the building, adding gables, sheds,
 /// etc.
 
-class BuildingWindow: public Window3D
+class BuildingWindow: public ObjectInspectorWindow
 {
 public:
   

@@ -11,8 +11,8 @@
 /// @brief Constructor
 
 BuildingWindow::BuildingWindow(void):
-                Window3D(BUILDING_WINDOW_INIT_WIDTH, BUILDING_WINDOW_INIT_HEIGHT,
-                         (char*)"Building Editor")
+                            ObjectInspectorWindow(BUILDING_WINDOW_INIT_WIDTH, 
+                                  BUILDING_WINDOW_INIT_HEIGHT, (char*)"Building Editor")
 {
 }
 
