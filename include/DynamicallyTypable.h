@@ -12,9 +12,14 @@ enum DynamicType
 {
   TypeNull,                 // undefined pointers
   TypeDynamicallyTypable,   // bare instance of this class
+  TypeBezierPatch,
+  TypeLandSurfaceRegionPlanar,
   TypeRegionList,
   TypeSpecies,
-  TypeSpeciesPath
+  TypeSpeciesPath,
+  TypeTree,
+  TypeVisualElement,
+  TypeVisualObject
 };
 
 

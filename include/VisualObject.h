@@ -51,7 +51,8 @@ class VisualObject: public Lockable, public VisualElement
   virtual bool        diagnosticHTML(HttpDebug* serv);
   virtual bool        diagnosticHTMLSummary(HttpDebug* serv);
   static bool         diagnosticHTMLSelection(HttpDebug* serv, char* path);
-  
+  virtual DynamicType getDynamicType(void) {return TypeVisualObject;}
+
   // Public member functions arising here
   virtual bool        bufferGeometryOfObject(TriangleBuffer* T);
   virtual bool        matchRayToObject(vec3& position, vec3& direction, float& lambda);

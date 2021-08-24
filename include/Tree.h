@@ -66,6 +66,7 @@ class Tree: public VisualObject
   void        triangleBufferSizes(unsigned& vCount, unsigned& iCount);
   void        writeToOLDF(FILE* file, char* indent);
   const char* objectName(void);
+  virtual DynamicType getDynamicType(void) {return TypeTree;}
   bool        diagnosticHTMLSummary(HttpDebug* serv);
   bool        diagnosticHTMLRow(HttpDebug* serv);
   bool        diagnosticHTML(HttpDebug* serv);

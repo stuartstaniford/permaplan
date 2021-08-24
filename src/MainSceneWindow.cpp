@@ -99,13 +99,14 @@ void MainSceneWindow::processDoubleClick(float mouseX, float mouseY, float timeD
                                                     timeDiff, mouseX, mouseY);
     return;
    }
-  const char* objName = obj->objectName();
   if(obj == scene->editModeObject)
    {
     // Double clicking again means we are deselecting it
     scene->processEditModeObjectDeselection();
+    return;
    }
-  if(strcmp("Bezier Patch", objName)==0 || strcmp("Land Surface Plane", objName)==0)
+  DynamicType objType = obj->getDynamicType();
+  if(objType == TypeBezierPatch || objType == TypeLandSurfaceRegionPlanar)
    {
     // Clicking on the land surface means we offer the option to insert something.
     if(!imgMenu->insertMenu)
@@ -119,7 +120,7 @@ void MainSceneWindow::processDoubleClick(float mouseX, float mouseY, float timeD
 
   // Go into edit mode on the selected object.
   LogDoubleClick("Double click (%.3fs) to edit %s at %.2f, %.2f\n", timeDiff, 
-                                                    objName, mouseX, mouseY);
+                                                        obj->objectName(), mouseX, mouseY);
   scene->editModeObject = obj;
   glm_vec3_copy(scene->lastDoubleClick, scene->editModeLocation);
   LogFlush();

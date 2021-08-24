@@ -37,6 +37,7 @@ class LandSurfaceRegionPlanar: public LandSurfaceRegion
   void        triangleBufferSize(unsigned& vCount, unsigned& iCount);
   void        fit(std::vector<float*>& locations);
   const char* objectName(void);
+  virtual DynamicType getDynamicType(void) {return TypeLandSurfaceRegionPlanar;}
   bool        diagnosticHTML(HttpDebug* serv);
 
  private:

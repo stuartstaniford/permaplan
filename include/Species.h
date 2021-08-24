@@ -75,7 +75,7 @@ class Species: public DynamicallyTypable
   bool        validateWood(rapidjson::Document& doc);
   bool        validateBarkTextures(rapidjson::Value& obj);
   bool        validateBarkColors(rapidjson::Value& colorsArray);
-  inline DynamicType getDynamicType(void) {return TypeSpecies;}
+  virtual DynamicType getDynamicType(void) {return TypeSpecies;}
 
   inline bool isValid(void) {return validOTDL;}
   

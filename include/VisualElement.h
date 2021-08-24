@@ -5,6 +5,7 @@
 
 #include "TriangleBuffer.h"
 #include "BoundingBox.h"
+#include "DynamicallyTypable.h"
 
 #ifndef VISUAL_ELEMENT_IMPLEMENTATION
 extern vec3 zeroVec;
@@ -22,7 +23,7 @@ extern vec3 zeroVec;
 /// to the larger object of which they are part, so they have to be supplied an offset 
 /// location before operations like buffering geometry, matching rays, etc.
 
-class VisualElement
+class VisualElement: public DynamicallyTypable
 {
  public:
   
@@ -39,6 +40,7 @@ class VisualElement
   virtual const char* elementName(void);
   virtual bool        diagnosticHTML(HttpDebug* serv);
   virtual bool        diagnosticHTMLSummary(HttpDebug* serv);
+  virtual DynamicType getDynamicType(void) {return TypeVisualElement;}
 
   ///@brief Interface to return the objectIndex if we have one
   ///@returns 0, subclasses with a valid objIndex should override
