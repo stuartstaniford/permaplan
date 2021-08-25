@@ -47,6 +47,7 @@ class Window3D
   Window3D(int pixWidth, int pixHeight, const char* title);
   ~Window3D(void);
   void loop(void);
+  void makeFocus(void);
 
   // Static class methods
   static bool HTTPGateway(HttpDebug* serv, char* path);

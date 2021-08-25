@@ -218,6 +218,17 @@ ActionType Window3D::processAction(InterfaceAction* action)
 
 
 // =======================================================================================
+/// @brief Make us the target for OpenGL commands and also the focus window for keyboard
+/// and mouse events. 
+
+void Window3D::makeFocus(void)
+{
+  glfwMakeContextCurrent(window);
+  glfwFocusWindow(window);  
+}
+
+
+// =======================================================================================
 /// @brief Event processing loop for our window.
 
 void Window3D::loop(void)
@@ -229,8 +240,8 @@ void Window3D::loop(void)
   double    lastFrameDouble;
   bool      firstTime = true;
 
-  glfwMakeContextCurrent(window);
-  glfwFocusWindow(window);  
+  makeFocus();
+  
   start.now();
 
   // Main event loop
