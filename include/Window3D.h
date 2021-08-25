@@ -48,6 +48,8 @@ class Window3D
   ~Window3D(void);
   void loop(void);
   void makeFocus(void);
+  void move(int x, int y);
+  void resize(int width, int height);
 
   // Static class methods
   static bool HTTPGateway(HttpDebug* serv, char* path);

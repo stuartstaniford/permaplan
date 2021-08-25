@@ -121,6 +121,7 @@ void MainSceneWindow::processDoubleClick(float mouseX, float mouseY, float timeD
    {
     TreeWindow* treeWin = new TreeWindow;
     treeWin->scene = scene;
+    treeWin->move(10,10);
     makeFocus(); // make the mainScene window still the focus.
     return;
    }

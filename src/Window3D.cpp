@@ -161,6 +161,26 @@ void Window3D::terminate()
 
 
 // =======================================================================================
+/// @brief Move this window to a new location on the screen.
+
+void Window3D::move(int x, int y)
+{
+  glfwSetWindowPos(window, x, y);  
+  LogWindowOperations("Window moved to screen coordinates %d, %d.\n", x, y);  
+}
+
+
+// =======================================================================================
+/// @brief Resize this window.
+
+void Window3D::resize(int width, int height)
+{
+  glfwSetWindowSize(window, width, height);  
+  LogWindowOperations("Window resized to width %d, height %d.\n", width, height); 
+}
+
+
+// =======================================================================================
 /// @brief Handle an pseudo-interface event coming from the HTTP Debug interface.  
 /// 
 /// We get these first, and our job is to siphon off those actions that require some
@@ -198,16 +218,12 @@ ActionType Window3D::processAction(InterfaceAction* action)
     case WindowMove:
       LogPseudoActions("Window move action to %.0f, %.0f processed.\n",
                                               action->data[0], action->data[1]);
-      glfwSetWindowPos(window, (int)action->data[0], (int)action->data[1]);  
-      LogWindowOperations("Window moved to screen coordinates %d, %d.\n",
-                                        (int)action->data[0], (int)action->data[1]); 
+      move((int)action->data[0], (int)action->data[1]);
       return WindowMove;
 
     case WindowResize:
-      glfwSetWindowSize(window, (int)action->data[0], (int)action->data[1]);  
-      LogWindowOperations("Window resized to width %d, height %d.\n",
-                                        (int)action->data[0], (int)action->data[1]); 
-      LogWindowOperations("Window resize action to width %d, height %d processed.\n",
+      resize((int)action->data[0], (int)action->data[1]);
+      LogPseudoActions("Window resize action to width %d, height %d processed.\n",
                                       (int)action->data[0], (int)action->data[1]); 
       return WindowResize;
 
@@ -225,6 +241,7 @@ void Window3D::makeFocus(void)
 {
   glfwMakeContextCurrent(window);
   glfwFocusWindow(window);  
+  activeWin = ourWin;
 }
 
 
