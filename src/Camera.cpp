@@ -20,7 +20,7 @@ vec3 zAxis = {0.0f, 0.0f, 1.0f};
 // =======================================================================================
 ///@ brief Constructor.
 /// Initialize a new camera view distance down the Z axis, with y axis as the up direction
-/// @param distance The distance down the Z axis that the camera is
+/// @param distance The distance up the Z axis that the camera is
 /// @param viewAngleDegrees The width of the field of view in degrees.
 
 Camera::Camera(float distance, float viewAngleDegrees):
@@ -30,9 +30,11 @@ Camera::Camera(float distance, float viewAngleDegrees):
                   mouseRotation(180.0f),
                   viewAngle(viewAngleDegrees),
                   aspectRatio(0.0f),
+                  pivotLocation(NULL),
                   near(distance/100.0f),
                   far(distance*10.0f),
-                  padding(0u)
+                  viewLoc(0xffffffff),
+                  projLoc(0xffffffff)
 {
   pos[0]    = 0.0f,
   pos[1]    = 0.0f,
@@ -43,6 +45,7 @@ Camera::Camera(float distance, float viewAngleDegrees):
   up[0]     = 0.0f;
   up[1]     = 1.0f;
   up[2]     = 0.0f;
+  glm_vec3_cross(up, front, sideways);
 }
 
 
@@ -308,7 +311,6 @@ void Camera::setProjectionMatrix(void)
   glGetIntegerv(GL_VIEWPORT, viewportParams);
   aspectRatio = (float)(viewportParams[2]) / (float)(viewportParams[3]);
   glm_perspective(glm_rad(viewAngle), aspectRatio, near, far, projection);
-  assert(padding == 0u);
   Shader& shader = Shader::getMainShader();
   shader.setUniform(projLoc, projection);
   if(checkGLError(stderr, "Camera::setProjectionMatrix"))
