@@ -5,13 +5,13 @@
 // etc.
 
 #include "BuildingWindow.h"
-
+#include "Building.h"
 
 // =======================================================================================
 /// @brief Constructor
 
-BuildingWindow::BuildingWindow(void):
-                            ObjectInspectorWindow(BUILDING_WINDOW_INIT_WIDTH, 
+BuildingWindow::BuildingWindow(Building& building):
+                            ObjectInspectorWindow(building, BUILDING_WINDOW_INIT_WIDTH, 
                                   BUILDING_WINDOW_INIT_HEIGHT, (char*)"Building Editor")
 {
 }

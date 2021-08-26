@@ -12,6 +12,11 @@
 #define TREE_WINDOW_INIT_WIDTH  400
 #define TREE_WINDOW_INIT_HEIGHT 600
 
+// =======================================================================================
+// Needed forward declarations
+
+class Tree;
+
 
 // =======================================================================================
 /// @brief Inspector window for a Tree.
@@ -26,7 +31,7 @@ public:
   // Instance variables - public
   
   // Member functions - public
-  TreeWindow(void);
+  TreeWindow(Tree& tree);
   ~TreeWindow(void);
   
 private:

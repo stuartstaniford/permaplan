@@ -61,22 +61,21 @@ void openGLInitialLogging(void)
 
 
 // =======================================================================================
-/// @brief Static function to initialize the graphics system, must be called early in the
-/// program.
+/// @brief Static function to initialize the graphics system.
+/// 
+/// Must be called early in the program before any other graphics calls are done.  The
+/// file level variable GLFWInitDone ensures we only do it once.
 
 void Window3D::initGraphics(void)
 {
-  if(!GLFWInitDone)
-   {
-    // Initialize GLFW and define version and compatibility settings
-    glfwInit();
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
-    glfwWindowHint(GLFW_OPENGL_PROFILE,GLFW_OPENGL_CORE_PROFILE);
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-    //glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
- 
-   }
+  // Initialize GLFW and define version and compatibility settings
+  glfwInit();
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
+  glfwWindowHint(GLFW_OPENGL_PROFILE,GLFW_OPENGL_CORE_PROFILE);
+  glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+  //glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+  GLFWInitDone = true;
  }
 
 
@@ -101,7 +100,8 @@ Window3D::Window3D(int pixWidth, int pixHeight, const char* title):
                         mouseMoved(true),
                         frameTimeAvg(0.0f)
 {  
-  Window3D::initGraphics();
+  if(!GLFWInitDone)
+    Window3D::initGraphics();
 
   // Use GLFW to create OpenGL window and context
   window = glfwCreateWindow(width, height, title, NULL, NULL);

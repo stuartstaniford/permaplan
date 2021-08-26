@@ -4,13 +4,14 @@
 // which it is embedded.
 
 #include "TreeWindow.h"
+#include "Tree.h"
 
 
 // =======================================================================================
 /// @brief Constructor
 
-TreeWindow::TreeWindow(void):
-                        ObjectInspectorWindow(TREE_WINDOW_INIT_WIDTH, 
+TreeWindow::TreeWindow(Tree& tree):
+                      ObjectInspectorWindow(tree, TREE_WINDOW_INIT_WIDTH, 
                                         TREE_WINDOW_INIT_HEIGHT, (char*)"Tree Inspector")
 {
 }

@@ -14,6 +14,12 @@
 
 
 // =======================================================================================
+// Needed forward declarations
+
+class Building;
+
+
+// =======================================================================================
 /// @brief Inspector window to allow manipulation of an individual building
 ///
 /// This subclass of Window3D is specialized to allow interaction with a single object
@@ -27,7 +33,7 @@ public:
   // Instance variables - public
   
   // Member functions - public
-  BuildingWindow(void);
+  BuildingWindow(Building& building);
   ~BuildingWindow(void);
   
 private:

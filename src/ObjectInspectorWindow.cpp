@@ -13,9 +13,10 @@
 // =======================================================================================
 /// @brief Constructor
 
-ObjectInspectorWindow::ObjectInspectorWindow(int pixWidth, int pixHeight, 
-                                                                    const char* title):
-                                            Window3D(pixWidth, pixHeight, title)
+ObjectInspectorWindow::ObjectInspectorWindow(VisualObject& obj, int pixWidth, 
+                                                          int pixHeight, const char* title):
+                                            Window3D(pixWidth, pixHeight, title),
+                                            object(obj)
 {
 }
 

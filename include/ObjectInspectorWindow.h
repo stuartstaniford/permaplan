@@ -24,12 +24,13 @@ public:
   // Instance variables - public
   
   // Member functions - public
-  ObjectInspectorWindow(int pixWidth, int pixHeight, const char* title);
+  ObjectInspectorWindow(VisualObject& obj, int pixWidth, int pixHeight, const char* title);
   ~ObjectInspectorWindow(void);
   
 private:
   
   // Instance variables - private
+  VisualObject& object;
   
   // Member functions - private
   /// @brief Prevent copy-construction.
