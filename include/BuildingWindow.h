@@ -33,7 +33,7 @@ public:
   // Instance variables - public
   
   // Member functions - public
-  BuildingWindow(Building& building);
+  BuildingWindow(Building& building, vec3& camFront);
   ~BuildingWindow(void);
   
 private:

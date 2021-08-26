@@ -9,9 +9,13 @@
 
 // =======================================================================================
 /// @brief Constructor
+/// @param tree The Tree we are being called to inspect/manipulate.
+/// @param camFront A reference to the front vector of the camera in the calling 
+/// scene window.  This will be used to ensure that we open up looking at the tree 
+/// from the same angle in the horizontal plane.
 
-TreeWindow::TreeWindow(Tree& tree):
-                      ObjectInspectorWindow(tree, TREE_WINDOW_INIT_WIDTH, 
+TreeWindow::TreeWindow(Tree& tree, vec3& camFront):
+                      ObjectInspectorWindow(tree, camFront, TREE_WINDOW_INIT_WIDTH, 
                                         TREE_WINDOW_INIT_HEIGHT, (char*)"Tree Inspector")
 {
 }

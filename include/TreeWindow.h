@@ -31,7 +31,7 @@ public:
   // Instance variables - public
   
   // Member functions - public
-  TreeWindow(Tree& tree);
+  TreeWindow(Tree& tree, vec3& camFront);
   ~TreeWindow(void);
   
 private:

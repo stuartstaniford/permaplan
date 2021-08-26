@@ -12,12 +12,22 @@
 
 // =======================================================================================
 /// @brief Constructor
+///
+/// @param obj The principle object that this window is being invoked to 
+/// inspect/manipulate.
+/// @param camFront A reference to the front vector of the camera in the calling 
+/// scene window.  This will be used to ensure that we open up looking at the object 
+/// from the same angle in the horizontal plane.
+/// @param pixWidth The number of pixels wide to create this window.
+/// @param pixHeight The number of pixels high to create this window.
+/// @param title A C string for what to put on the window title bar.
 
-ObjectInspectorWindow::ObjectInspectorWindow(VisualObject& obj, int pixWidth, 
+ObjectInspectorWindow::ObjectInspectorWindow(VisualObject& obj, vec3& camFront, int pixWidth, 
                                                           int pixHeight, const char* title):
                                             Window3D(pixWidth, pixHeight, title),
                                             object(obj)
 {
+  
 }
 
 

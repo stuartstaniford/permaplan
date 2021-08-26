@@ -24,14 +24,17 @@ public:
   // Instance variables - public
   
   // Member functions - public
-  ObjectInspectorWindow(VisualObject& obj, int pixWidth, int pixHeight, const char* title);
+  ObjectInspectorWindow(VisualObject& obj, vec3& camFront, int pixWidth, int pixHeight, 
+                                                                        const char* title);
   ~ObjectInspectorWindow(void);
+
+protected:
   
-private:
-  
-  // Instance variables - private
+  // Instance variables - protected
   VisualObject& object;
-  
+
+private:
+    
   // Member functions - private
   /// @brief Prevent copy-construction.
   ObjectInspectorWindow(const ObjectInspectorWindow&);       

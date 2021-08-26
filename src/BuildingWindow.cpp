@@ -9,10 +9,14 @@
 
 // =======================================================================================
 /// @brief Constructor
+/// @param building The Building we are being called to inspect/manipulate.
+/// @param camFront A reference to the front vector of the camera in the calling 
+/// scene window.  This will be used to ensure that we open up looking at the building 
+/// from the same angle in the horizontal plane.
 
-BuildingWindow::BuildingWindow(Building& building):
-                            ObjectInspectorWindow(building, BUILDING_WINDOW_INIT_WIDTH, 
-                                  BUILDING_WINDOW_INIT_HEIGHT, (char*)"Building Editor")
+BuildingWindow::BuildingWindow(Building& building, vec3& camFront):
+                        ObjectInspectorWindow(building, camFront, BUILDING_WINDOW_INIT_WIDTH, 
+                                    BUILDING_WINDOW_INIT_HEIGHT, (char*)"Building Editor")
 {
 }
 
