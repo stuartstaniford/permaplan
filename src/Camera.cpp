@@ -59,7 +59,17 @@ Camera::~Camera(void)
 
 
 // =======================================================================================
-/// @brief Set parameters to center a particular object in the view
+/// @brief Set parameters to center a particular object in the view.
+/// 
+/// We are given the bounding box of the object as well as the front vector of a camera
+/// from another window from which the object was selected.  We set our parameters up 
+/// to face in the same direction as that vector in the x,y plane, we face towards the 
+/// centroid of the bounding box from a height above the bounding box by 20% of it's 
+/// vertical extent, and we back off the object such that it mostly but not altogether
+/// fills the view.
+/// @param bbox The pointer to the bounding box of the object.
+/// @param camFront A reference to a vec3 representing the camera direction of the winow
+/// that spawned a new window in which we are setting up this camera.
 
 void Camera::focusOnObject(BoundingBox* bbox, vec3& camFront)
 {
