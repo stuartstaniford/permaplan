@@ -35,12 +35,12 @@ BoundingBox::BoundingBox(vec3& bottomCorner, vec3& topCorner)
 /// @brief Constructor from explicit x,y,z bounds.  
 /// 
 /// Note this is #2 of 3 constructors.
-/// @param x_1 The lower x coordinate of the new bounding box.
-/// @param x_2 The upper x coordinate of the new bounding box.
-/// @param y_1 The lower y coordinate of the new bounding box.
-/// @param y_2 The upper y coordinate of the new bounding box.
-/// @param z_1 The lower z coordinate of the new bounding box.
-/// @param z_2 The upper z coordinate of the new bounding box.
+/// @param x_l The lower x coordinate of the new bounding box.
+/// @param x_u The upper x coordinate of the new bounding box.
+/// @param y_l The lower y coordinate of the new bounding box.
+/// @param y_u The upper y coordinate of the new bounding box.
+/// @param z_l The lower z coordinate of the new bounding box.
+/// @param z_u The upper z coordinate of the new bounding box.
 
 BoundingBox::BoundingBox(float x_l, float y_l, float z_l, float x_u, float y_u, float z_u)
 {
@@ -74,7 +74,7 @@ BoundingBox::BoundingBox(void)
 
 
 // =======================================================================================
-// Destructor
+/// @brief Destructor currently doesn't need to do anything.
 
 BoundingBox::~BoundingBox(void)
 {
@@ -82,7 +82,13 @@ BoundingBox::~BoundingBox(void)
 
 
 // =======================================================================================
-// Give new values to an existing box.
+/// @brief Give new values to an existing box.
+/// @param x_l The lower x coordinate of the new bounding box.
+/// @param x_u The upper x coordinate of the new bounding box.
+/// @param y_l The lower y coordinate of the new bounding box.
+/// @param y_u The upper y coordinate of the new bounding box.
+/// @param z_l The lower z coordinate of the new bounding box.
+/// @param z_u The upper z coordinate of the new bounding box.
 
 void BoundingBox::reset(float x_l, float y_l, float z_l, float x_u, float y_u, float z_u)
 {
@@ -96,7 +102,10 @@ void BoundingBox::reset(float x_l, float y_l, float z_l, float x_u, float y_u, f
 
 
 // =======================================================================================
-// Set up an existing box for vertex search on update
+/// @brief Set up an existing box for vertex search on update.
+/// 
+/// It initializes all the lower bounds to infinity and the upper bounds to minus 
+/// infinity, so any points compared to the initial bounding box are sure to extend it.  
 
 void BoundingBox::hugeValify(void)
 {
@@ -110,7 +119,8 @@ void BoundingBox::hugeValify(void)
 
 
 // =======================================================================================
-// Create a simple default valid box being a unit cube at some position.
+/// @brief Set an existing box to the unit cube centered on some position.
+/// @param pos The position where the box should now be centered.
 
 void BoundingBox::unitCube(vec3 pos)
 {
@@ -123,7 +133,9 @@ void BoundingBox::unitCube(vec3 pos)
 
 
 // =======================================================================================
-// Make sure a bounding box has sensible values
+/// @brief Make sure a bounding box is not in the HUGE_VALF condition.
+/// @returns True if the box has non-infinited values (only actually checks the lower[0]
+/// dimension.  False otherwise.
 
 bool BoundingBox::isDefined(void)
 {
@@ -134,7 +146,13 @@ bool BoundingBox::isDefined(void)
 
 
 // =======================================================================================
-// Double check that all box values make sense as part of Quadtree::selfValidate
+/// @brief Double check that all box values make sense as part of Quadtree::selfValidate.
+///
+/// This does assert() macros to test that all values are finite (and thus will bail
+/// out of the program if they are not.
+/// @param checkFlatBox.  If this is true, will also check that the box has non-zero extent
+/// in each direction.  If false, just checks that lower is at least less than or equal
+/// to upper.
 
 void BoundingBox::selfValidate(bool checkFlatBox)
 {
@@ -144,6 +162,8 @@ void BoundingBox::selfValidate(bool checkFlatBox)
     assert(upper[m] < HUGE_VALF);
     if(checkFlatBox)
       assert(lower[m] < upper[m]);
+    else
+      assert(lower[m] <= upper[m]);      
    }
 }
 
