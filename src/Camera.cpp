@@ -59,6 +59,15 @@ Camera::~Camera(void)
 
 
 // =======================================================================================
+/// @brief Set parameters to center a particular object in the view
+
+void Camera::focusOnObject(BoundingBox* bbox, vec3& camFront)
+{
+  
+}
+
+
+// =======================================================================================
 /// @brief Instantiate this camera into the shader
 
 void Camera::makeActive(void)

@@ -32,6 +32,7 @@
 // Forward declarations
 
 class Scene;
+class BoundingBox;
 
 
 // =======================================================================================
@@ -52,6 +53,7 @@ class Camera
   void  adjustWithPivot(unsigned opFlags, float timeLapseUsec);
   void  mouseDrag(float xDelta, float yDelta);
   void  copyDirection(vec3& position, vec3& direction);
+  void  focusOnObject(BoundingBox* bbox, vec3& camFront);
   void  rayFromScreenLocation(vec3& position, vec3& direction, float clipX, float clipY);
   void  invertView(mat4& model, mat4& invertMatrix);
   void  updateAfterMove(void);
