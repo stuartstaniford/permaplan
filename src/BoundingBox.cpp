@@ -169,7 +169,11 @@ void BoundingBox::selfValidate(bool checkFlatBox)
 
 
 // =======================================================================================
-// Set Zs to nonsense values (to be overriden by assembling values from other boxes
+/// @brief Set Zs to infinite values. 
+/// 
+/// The infinite values are to be overriden by assembling values from other boxes.  Eg
+/// Quadtree nodes use this when they need to reset their bounding boxes after things
+/// have changed.
 
 void BoundingBox::unsetZs(void)
 {
@@ -179,7 +183,9 @@ void BoundingBox::unsetZs(void)
 
 
 // =======================================================================================
-// Print short summary of bounding box (mostly for logging).
+/// @brief Print short summary of bounding box for logging purposes.
+/// @param buf A C-string into which we are to sprintf.  Caller needs to ensure there is
+/// sufficient space.
 
 void BoundingBox::sprint(char* buf)
 {
@@ -189,9 +195,11 @@ void BoundingBox::sprint(char* buf)
 
 
 // =======================================================================================
-// Put a single bounding box into a gpu buffer.  This is generally done with fixed color
-// we don't handle texturing the bounding box.  This is mostly for debugging/diagnostic
-// purposes.  Intended for use with GL_TRIANGLE_STRIP.  Requires 14 vertices
+/// @brief Put a single bounding box into a gpu buffer.  
+/// @todo The concept of this might still be useful so it's left in, but it's antiquated
+/// and currently not being used.  It would need to be upgraded to TriangleBuffers to be
+/// useful (idea is to be able to visualize a thing's bounding box for debugging/diagnostic
+/// purposes).
 
 void BoundingBox::bufferGeometry(Vertex* buf)
 {
@@ -217,9 +225,14 @@ void BoundingBox::bufferGeometry(Vertex* buf)
 
 
 // =======================================================================================
-// Put a single bounding box into a gpu buffer.  We manage our own buffer, call
-// bufferGeometry(Vertex), and return a newly allocated VertexBufferCombo
-// which can be used by the caller to draw.
+/// @brief Put a single bounding box into a gpu buffer.  
+/// 
+/// We manage our own buffer, call bufferGeometry(Vertex), and return a newly 
+/// allocated VertexBufferCombo which can be used by the caller to draw.
+/// @todo The concept of this might still be useful so it's left in, but it's antiquated
+/// and currently not being used.  It would need to be upgraded to TriangleBuffers to be
+/// useful (idea is to be able to visualize a thing's bounding box for debugging/diagnostic
+/// purposes).
 
 VertexBufferCombo* BoundingBox::bufferGeometry(void)
 {
