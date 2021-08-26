@@ -41,8 +41,6 @@ class BoundingBox
   inline float avgDiam(void) {return sqrtf((upper[0] - lower[0])*(upper[0] - lower[0])
                                                 + (upper[1] - lower[1])*(upper[1] - lower[1]));}
   void bufferGeometry(Vertex* buf);
-  VertexBufferCombo* bufferGeometry(void);
-  void draw(Shader& shader, VertexBufferCombo* combo, vec4 color);
   bool matchRay(vec3& position, vec3& direction, float& lambda);
   bool xyContains(const BoundingBox& otherBox);
   bool zContains(const BoundingBox& otherBox);

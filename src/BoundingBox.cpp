@@ -225,40 +225,8 @@ void BoundingBox::bufferGeometry(Vertex* buf)
 
 
 // =======================================================================================
-/// @brief Put a single bounding box into a gpu buffer.  
-/// 
-/// We manage our own buffer, call bufferGeometry(Vertex), and return a newly 
-/// allocated VertexBufferCombo which can be used by the caller to draw.
-/// @todo The concept of this might still be useful so it's left in, but it's antiquated
-/// and currently not being used.  It would need to be upgraded to TriangleBuffers to be
-/// useful (idea is to be able to visualize a thing's bounding box for debugging/diagnostic
-/// purposes).
-
-VertexBufferCombo* BoundingBox::bufferGeometry(void)
-{
-  Vertex* buf = new Vertex[14];
-  bufferGeometry(buf);
-  VertexBufferCombo* combo = new VertexBufferCombo(14, buf);
-  delete[] buf; buf = NULL;
-  return combo;
-}
-
-
-// =======================================================================================
-// Following a call to bufferGeometry(void), this will draw the bounding box.
-
-void BoundingBox::draw(Shader& shader, VertexBufferCombo* combo, vec4 color)
-{
-  shader.setUniform("fixedColor", true);
-  shader.setUniform("theColor", color);
-  combo->bind();
-  glDrawArrays(GL_TRIANGLE_STRIP, 0, 14);
-  shader.setUniform("fixedColor", false);
-}
-
-
-// =======================================================================================
-// Find the centroid of this bounding box
+/// @brief Find the centroid of this bounding box
+/// @param centroid A vec3 in which to store the resulting centroid.
 
 void BoundingBox::getCentroid(vec3 centroid)
 {
@@ -268,10 +236,16 @@ void BoundingBox::getCentroid(vec3 centroid)
 
 
 // =======================================================================================
-// Give a ray specified by a position vector and a direction vector, determine if the
-// ray intersects us.  Returns true or false.  Note, matches at negative multiples of
-// the direction vector will not be counted - we seek the smallest positive multiple of
-// direction (here stored in the reference arg lambda).
+/// @brief Determine if a ray intersects this bounding box.
+/// 
+/// Given a ray specified by a position vector and a direction vector, determine if the
+/// ray intersects us.  Note, matches at negative multiples of the direction vector 
+/// will not be counted - we seek the smallest positive multiple of direction.
+/// @param position A point on the ray to be tested.
+/// @param direction The direction the ray points. 
+/// @param lambda A reference to a float to store the multiple of direction from position
+/// at which the intersection occurs.
+/// @returns True if it does intersect, otherwise false.  
 
 bool BoundingBox::matchRay(vec3& position, vec3& direction, float& lambda)
 {
@@ -317,8 +291,13 @@ bool BoundingBox::matchRay(vec3& position, vec3& direction, float& lambda)
 
 
 // =======================================================================================
-// Find out if otherBox fits inside us (but only considering the x-y dimensions,
-// not the z dimension.
+/// @brief Determine if another bounding box fits inside us, considering only the XY 
+/// dimensions.
+///
+/// The z dimension is completely ignored (by design).
+/// @param otherBox A referece to the other BoundingBox to which this is to be compared.
+/// @returns True if otherBox entirely falls within our box in an x-y sense.  Otherwise
+/// returns false.
 
 bool BoundingBox::xyContains(const BoundingBox& otherBox)
 {
@@ -335,8 +314,13 @@ bool BoundingBox::xyContains(const BoundingBox& otherBox)
 
 
 // =======================================================================================
-// Find out if otherBox fits inside us (but only considering the z dimensions,
-// not the x-y dimension.
+/// @brief Determine if another bounding box fits inside us, considering only the Z
+/// dimensions.
+///
+/// The X and Y dimensions are completely ignored (by design).
+/// @param otherBox A referece to the other BoundingBox to which this is to be compared.
+/// @returns True if otherBox entirely falls within our box in a Z dimension sense.  
+/// Otherwise returns false.
 
 bool BoundingBox::zContains(const BoundingBox& otherBox)
 {
@@ -349,7 +333,7 @@ bool BoundingBox::zContains(const BoundingBox& otherBox)
 
 
 // =======================================================================================
-// Whether one box is entirely contained in another
+/// @brief Whether one box is entirely contained in another in all three dimensions.
 
 bool BoundingBox::operator<=(const BoundingBox& B)
 {
@@ -365,7 +349,7 @@ bool BoundingBox::operator<=(const BoundingBox& B)
 
 
 // =======================================================================================
-// Extend a box to include another
+/// @brief Extend a box to include another.
 
 BoundingBox& BoundingBox::operator+=(const BoundingBox& B)
 {
@@ -381,7 +365,10 @@ BoundingBox& BoundingBox::operator+=(const BoundingBox& B)
 
 
 // =======================================================================================
-// Extend our Z dimensions to include those of otherBox
+/// @brief Extend our Z dimensions to include those of another BoundingBox.
+/// @param otherBox The other BoundingBox that might extend us.
+/// @returns True if the otherbox actually caused some change in us, false if nothing
+/// needed to be done to us.
 
 bool BoundingBox::extendZ(const BoundingBox& otherBox)
 {
@@ -426,7 +413,9 @@ bool BoundingBox::extends(const vec3 point)
 
 
 // =======================================================================================
-// Provide a section of a diagnostic page about our parameters
+/// @brief Provide a section of a diagnostic page about our parameters.
+/// @returns True if the data was written correctly, false if we ran out of space.
+/// @param serv The HTTP Debug server
 
 bool BoundingBox::diagnosticHTML(HttpDebug* serv)
 {
