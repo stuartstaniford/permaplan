@@ -1,7 +1,4 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Jun 2020 -
-// This class is used for anything that has a axis-aligned 3D bounding box
-// around it (eg for use in first cut intersection detection).
-
 
 #ifndef BOUNDING_BOX_H
 #define BOUNDING_BOX_H
@@ -13,8 +10,13 @@
 
 
 // =======================================================================================
-// Class variable initialization
-
+/// @brief Represent an axis-aligned bounding box.
+/// 
+/// This class is used for anything that has a axis-aligned 3D bounding box around it.
+/// It's used very heavily throughout the code (eg all VisualObjects have a bounding box)
+/// for a variety of cases of doing a first quick approximation (eg in first cut 
+/// intersection detection of rays, in deciding whether tree might shade each other, etc
+/// etc).
 
 class BoundingBox
 {

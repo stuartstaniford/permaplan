@@ -1,6 +1,9 @@
-
 // Copyright Staniford Systems.  All Rights Reserved.  Jun 2020 -
-// This manages the quadtree used for efficient organization of visual rendering
+// This class is used for anything that has a axis-aligned 3D bounding box around it.
+// It's used very heavily throughout the code (eg all VisualObjects have a bounding box)
+// for a variety of cases of doing a first quick approximation (eg in first cut 
+// intersection detection of rays, in deciding whether tree might shade each other, etc
+// etc).
 
 #include "BoundingBox.h"
 #include "Shader.h"
@@ -12,10 +15,14 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-// =======================================================================================
-// Constructors
 
-//NB!! Three constructors
+// =======================================================================================
+/// @brief Constructor from two corners.  
+/// 
+/// Note this is #1 of 3 constructors.
+/// @param bottomCorner A reference to a vec3 of the lowest corner in all three x,y,z
+/// dimensions.
+/// @param topCorner A reference to a vec3 of the highest corner in all three dimensions.
 
 BoundingBox::BoundingBox(vec3& bottomCorner, vec3& topCorner)
 {
@@ -23,6 +30,17 @@ BoundingBox::BoundingBox(vec3& bottomCorner, vec3& topCorner)
   glm_vec3_copy(topCorner, upper);
 }
 
+
+// =======================================================================================
+/// @brief Constructor from explicit x,y,z bounds.  
+/// 
+/// Note this is #2 of 3 constructors.
+/// @param x_1 The lower x coordinate of the new bounding box.
+/// @param x_2 The upper x coordinate of the new bounding box.
+/// @param y_1 The lower y coordinate of the new bounding box.
+/// @param y_2 The upper y coordinate of the new bounding box.
+/// @param z_1 The lower z coordinate of the new bounding box.
+/// @param z_2 The upper z coordinate of the new bounding box.
 
 BoundingBox::BoundingBox(float x_l, float y_l, float z_l, float x_u, float y_u, float z_u)
 {
@@ -34,8 +52,15 @@ BoundingBox::BoundingBox(float x_l, float y_l, float z_l, float x_u, float y_u, 
   upper[2] = z_u;
 }
 
-// This last one is useful when we are about to search a bunch of vertices to find
-// lower/upper bounds
+
+// =======================================================================================
+/// @brief Constructor.  
+/// 
+/// Note this is #3 of 3 constructors.  This last one is useful when we are about to 
+/// search a bunch of vertices to find lower/upper bounds.  It initializes all the lower
+/// bounds to infinity and the upper bounds to minus infinity, so any points compared to
+/// the initial bounding box are sure to extend it.  However, as directly constructed it
+/// will be unusable until something has been added into it.
 
 BoundingBox::BoundingBox(void)
 {

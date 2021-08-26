@@ -17,9 +17,15 @@
 
 vec3 zAxis = {0.0f, 0.0f, 1.0f};
 
+
 // =======================================================================================
 ///@ brief Constructor.
-/// Initialize a new camera view distance down the Z axis, with y axis as the up direction
+///
+/// Initialize a new camera view distance down the Z axis, with y axis as the up 
+/// direction.  Cameras are generally associated with a Window3D or one of it's 
+/// subclasses and represent the view onto a Scene in that particular window.  
+/// See also Camera::focusOnObject(), which is used in modifying the setup
+/// here in the case of cameras in an ObjectInspectorWindow.
 /// @param distance The distance up the Z axis that the camera is
 /// @param viewAngleDegrees The width of the field of view in degrees.
 
@@ -66,7 +72,10 @@ Camera::~Camera(void)
 /// to face in the same direction as that vector in the x,y plane, we face towards the 
 /// centroid of the bounding box from a height above the bounding box by 20% of it's 
 /// vertical extent, and we back off the object such that it mostly but not altogether
-/// fills the view.
+/// fills the view.  We need to work with both tall narrow objects (eg conifers), and
+/// low sprawling objects (eg ranch houses).
+/// Note this function should be read in conjunction with the constructor, as it 
+/// assumes that the Camera is in it's immediate post construction state.
 /// @param bbox The pointer to the bounding box of the object.
 /// @param camFront A reference to a vec3 representing the camera direction of the winow
 /// that spawned a new window in which we are setting up this camera.
