@@ -84,6 +84,14 @@ void Camera::focusOnObject(BoundingBox* bbox, vec3& camFront)
 {
   vec3 boxCentroid;
   bbox->getCentroid(boxCentroid);
+  vec3 corner;
+  vec3 inPlane;
+  for(unsigned i=0; i<8;i++)
+   {
+    bbox->getVertexVectorByIndex(i, corner);
+    glm_vec3_sub(corner, boxCentroid, corner); // get corner relative to centroid
+    
+   }
 }
 
 
