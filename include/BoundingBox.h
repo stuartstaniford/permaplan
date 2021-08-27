@@ -36,10 +36,6 @@ class BoundingBox
   void selfValidate(bool checkFlatBox);
   void unitCube(vec3 pos);
   void reset(float x_l, float y_l, float z_l, float x_u, float y_u, float z_u);
-  inline void reset(vec3& bC, vec3& tC) {glm_vec3_copy(bC, lower);glm_vec3_copy(tC, upper);}
-  inline float height(void) {return (upper[2] - lower[2]);}
-  inline float avgDiam(void) {return sqrtf((upper[0] - lower[0])*(upper[0] - lower[0])
-                                                + (upper[1] - lower[1])*(upper[1] - lower[1]));}
   void bufferGeometry(Vertex* buf);
   bool matchRay(vec3& position, vec3& direction, float& lambda);
   bool xyContains(const BoundingBox& otherBox);
@@ -50,6 +46,20 @@ class BoundingBox
   void sprint(char* buf);
   void unsetZs(void);
   bool diagnosticHTML(HttpDebug* serv);
+
+  /// @brief Reset the bounding box based on new values for the upper and lower corners.
+  /// @param bC A reference to a vec3 for the bottom corner
+  /// @param tC A reference to a vec3 for the top corner
+  inline void reset(vec3& bC, vec3& tC) {glm_vec3_copy(bC, lower);glm_vec3_copy(tC, upper);}
+  
+  /// @brief Calculate the height of the box (ie in the Z dimension).
+  /// @returns Floating point height.
+  inline float height(void) {return (upper[2] - lower[2]);}
+    
+  /// @brief Calculate the average diameter of the box (in an RMS sense).
+  /// @returns Floating point rms diameter of the box.
+  inline float avgDiam(void) {return sqrtf((upper[0] - lower[0])*(upper[0] - lower[0])
+                                                + (upper[1] - lower[1])*(upper[1] - lower[1]));}
 
   // public operators
   bool operator<=(const BoundingBox& B);    // Whether one box is entirely contained in another
