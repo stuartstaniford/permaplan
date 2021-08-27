@@ -33,6 +33,7 @@ class BoundingBox
   ~BoundingBox(void);
   void hugeValify(void);
   bool isDefined(void);
+  void getVertexVectorByIndex(unsigned index, vec3& point);
   void selfValidate(bool checkFlatBox);
   void unitCube(vec3 pos);
   void reset(float x_l, float y_l, float z_l, float x_u, float y_u, float z_u);

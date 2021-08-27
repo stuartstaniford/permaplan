@@ -413,6 +413,23 @@ bool BoundingBox::extends(const vec3 point)
 
 
 // =======================================================================================
+/// @brief Give one of each of our eight corners in turn as index is cycled through.
+/// 
+/// Note that index values over seven will be treated as though only the bottom three
+/// bits were set (ie if you loop past seven, it will be essentially like applying a 
+/// modulus indicator.
+/// @param index The desired corner to provide
+/// @param point A reference to a vec3 to hold the desired corner as a result.
+
+void BoundingBox::getVertexVectorByIndex(unsigned index, vec3& point)
+{
+  point[0] = (index&0x00000001)?upper[0]:lower[0];  
+  point[1] = (index&0x00000010)?upper[1]:lower[1];  
+  point[2] = (index&0x00000100)?upper[2]:lower[2];  
+}
+
+
+// =======================================================================================
 /// @brief Provide a section of a diagnostic page about our parameters.
 /// @returns True if the data was written correctly, false if we ran out of space.
 /// @param serv The HTTP Debug server

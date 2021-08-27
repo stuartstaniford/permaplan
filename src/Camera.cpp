@@ -82,7 +82,8 @@ Camera::~Camera(void)
 
 void Camera::focusOnObject(BoundingBox* bbox, vec3& camFront)
 {
-  
+  vec3 boxCentroid;
+  bbox->getCentroid(boxCentroid);
 }
 
 
