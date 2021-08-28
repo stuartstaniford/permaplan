@@ -94,7 +94,12 @@ void Camera::focusOnObject(BoundingBox* bbox, vec3& camFront)
   for(unsigned i=0; i<8;i++) // for each corner of the box
    {
     vec3 corner, inPlanePerp, inPlaneProj;
-    float renormFactor;
+    float renormFactor, upComp, sideComp;
+    float upMax   = -HUGE_VALF;
+    float upMin   = HUGE_VALF;
+    float sideMax = -HUGE_VALF; 
+    float sideMin = HUGE_VALF;
+    
     bbox->getVertexVectorByIndex(i, corner);
     glm_vec3_sub(corner, boxCentroid, corner); // get corner relative to centroid
     
@@ -114,6 +119,19 @@ void Camera::focusOnObject(BoundingBox* bbox, vec3& camFront)
     renormFactor = glm_vec3_dot(inPlaneProj, corner)/glm_vec3_norm(inPlaneProj);
     glm_vec3_scale_as(inPlaneProj, renormFactor, inPlaneProj);
     
+    // Ok, now project the inPlaneProj vector onto the camera basis of up and sideways
+    upComp = glm_vec3_dot(inPlaneProj, up);
+    sideComp = glm_vec3_dot(inPlaneProj, sideways);
+
+    // Update our idea of the min and max up and sideways values of corners.
+    if(upComp < upMin)
+      upMin = upComp;
+    if(upComp > upMax)
+      upMax = upComp;
+    if(sideComp < sideMin)
+      sideMin = sideComp;
+    if(sideComp > sideMax)
+      sideMax = sideComp;
    }
 }
 
