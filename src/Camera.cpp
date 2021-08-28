@@ -82,9 +82,15 @@ Camera::~Camera(void)
 
 void Camera::focusOnObject(BoundingBox* bbox, vec3& camFront)
 {
+  // Set ourselves as a camera pointing in the same direction as caller argument, but
+  // with our up direction closest to the Z axis.
+  glm_vec3_copy(camFront, front);
+  getCrossVectors(front, up, sideways, 1.0f);
+
+  // Get the center of the box, as corners will be relative to that.
   vec3 boxCentroid;
   bbox->getCentroid(boxCentroid);
-    
+
   for(unsigned i=0; i<8;i++) // for each corner of the box
    {
     vec3 corner, inPlanePerp, inPlaneProj;
