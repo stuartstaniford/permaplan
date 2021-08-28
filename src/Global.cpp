@@ -181,8 +181,8 @@ void getCrossVectors(vec3 dir, vec3 f1, vec3 f2, float radius)
 
 void updateCrossVectors(vec3 dir, vec3 f1, vec3 f2, float radius)
 {
-  glm_vec3_cross(dir, f1, f2);
-  glm_vec3_cross(f2, dir, f1);
+  glm_vec3_cross(dir, f2, f1);
+  glm_vec3_cross(f1, dir, f2);
   glm_vec3_scale_as(f1, radius, f1);
   glm_vec3_scale_as(f2, radius, f2);
 }
