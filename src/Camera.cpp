@@ -84,12 +84,29 @@ void Camera::focusOnObject(BoundingBox* bbox, vec3& camFront)
 {
   vec3 boxCentroid;
   bbox->getCentroid(boxCentroid);
-  vec3 corner;
-  vec3 inPlane;
-  for(unsigned i=0; i<8;i++)
+    
+  for(unsigned i=0; i<8;i++) // for each corner of the box
    {
+    vec3 corner, inPlanePerp, inPlaneProj;
+    float renormFactor;
     bbox->getVertexVectorByIndex(i, corner);
     glm_vec3_sub(corner, boxCentroid, corner); // get corner relative to centroid
+    
+    // We need to compute the projection of the corner-centroid vector into the plane
+    // normal to the camera direction.  
+    
+    //Start by getting a vector in the place at right angles to both corner, and
+    // camFront.
+    glm_vec3_cross(camFront, corner, inPlanePerp);
+    if(glm_vec3_norm(inPlanePerp) < EPSILON)
+      continue; // corner is pretty much colinear with camFront
+
+    // Now this will give us a vector in the right direction in the plane
+    glm_vec3_cross(inPlanePerp, camFront, inPlaneProj);
+    
+    // But we need to fix the size.
+    renormFactor = glm_vec3_dot(inPlaneProj, corner)/glm_vec3_norm(inPlaneProj);
+    glm_vec3_scale_as(inPlaneProj, renormFactor, inPlaneProj);
     
    }
 }
