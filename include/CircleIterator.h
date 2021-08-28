@@ -8,6 +8,7 @@
 #define CIRCLE_ITERATOR_H
 
 #include <cglm/cglm.h>
+#include "Global.h"
 
 // =======================================================================================
 // Class variable initialization
@@ -44,12 +45,3 @@ private:
 };
 
 #endif
-
-
-// =======================================================================================
-// Utility function declarations
-// XX ultimately should be able to hide these and only have them called locally.
-
-void  getCrossVectors(vec3 dir, vec3 f1, vec3 f2, float radius);
-void  updateCrossVectors(vec3 dir, vec3 f1, vec3 f2, float radius);
-
