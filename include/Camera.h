@@ -59,7 +59,15 @@ class Camera
   void  updateAfterMove(void);
   bool  setApi(HttpDebug* serv, char* path, Scene& scene);
   bool  diagnosticHTML(HttpDebug* serv, char* path, Scene& scene);
+  
+  /// @brief Move the camera position upwards.
+  /// @param distance A float for how many spaceUnits to move up.
   inline void teleportUp(float distance) {adjust(CAM_MOVE_UP, distance/speed*1.0e6);}
+  
+  /// @brief Set the pivot location variable for future movments
+  /// @param location. A float* pointer to the location in question.  Note that
+  /// pivotLocation is also a float* and will point to the same copy - it doesn't
+  /// make it's own copy.  
   inline void  setPivotLocation(float* location) {pivotLocation = location;}
 
  private:

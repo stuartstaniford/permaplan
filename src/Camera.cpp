@@ -133,6 +133,9 @@ void Camera::focusOnObject(BoundingBox* bbox, vec3& camFront)
     if(sideComp > sideMax)
       sideMax = sideComp;
    }
+  
+  // Now need to compute how far away we have to be so that all the bounding box corners
+  // will appear within a reasonable subset of the window.
 }
 
 
@@ -414,10 +417,14 @@ void Camera::updateViewMatrix(void)
 
 
 // =======================================================================================
-// Given the model matrix (from the scene) this will provide an inverse transformation
-// from normal device co-ordinates to the model co-ordinates.  Useful in translating
-// on screen coordinates to points in the model.  Providing inverse of
-// projection*view*model (which is generally done in the vertex shader).
+/// @brief Invert the projection/view/model transformation.
+/// 
+/// Given the model matrix (from the scene) this will provide an inverse transformation 
+/// from normal device co-ordinates to the model co-ordinates.  Useful in translating
+/// on screen coordinates to points in the model.  Providing inverse of
+/// projection*view*model (which is generally done in the vertex shader).
+/// @param model Reference to the mat4 model matrix.
+/// @param invertMatrix Reference to the matrix where the invert result will be stored.
 
 void Camera::invertView(mat4& model, mat4& invertMatrix)
 {
@@ -429,9 +436,14 @@ void Camera::invertView(mat4& model, mat4& invertMatrix)
 
 
 // =======================================================================================
-// Return a line (as a point and a vector in the line direction), given two coordinates
-// in the window (but normalized to [-1,1] as in clip space).  This approach inspired by
-// http://schabby.de/picking-opengl-ray-tracing/
+/// @brief Find a path in worldspace corresponding to the current screen coordinates.
+/// Return a line (as a point and a vector in the line direction), given two coordinates
+/// in the window (but normalized to [-1,1] as in clip space).  This approach inspired 
+/// by http://schabby.de/picking-opengl-ray-tracing/
+/// @param position The output ray position.
+/// @param direction The output ray direction.
+/// @param clipX The input X coordinate in clip space.
+/// @param clipY The input Y coordinate in clip space
 
 void Camera::rayFromScreenLocation(vec3& position, vec3& direction, float clipX, float clipY)
 {
@@ -456,7 +468,11 @@ void Camera::rayFromScreenLocation(vec3& position, vec3& direction, float clipX,
 
 
 // =======================================================================================
-// Implement the API for setting camera variables (used extensively by test scripts).
+/// @brief Implement the API for setting camera variables (used extensively by test 
+/// scripts).
+/// @returns True if the desired data was written correctly, false if we ran out of space.
+/// @param serv The HTTP Debug server
+/// @param path A C-string for the remainder of the URL after the /camera/ substring
 
 bool Camera::setApi(HttpDebug* serv, char* path, Scene& scene)
 {
@@ -522,7 +538,11 @@ goodExit:
 
 
 // =======================================================================================
-// Provide a diagnostic page about this camera
+/// @brief Provide a diagnostic page about this camera
+/// @returns True if the desired HTML was written correctly, false if we ran out of space.
+/// @param serv The HTTP Debug server
+/// @param path A C-string for the remainder of the URL after the /camera/ substring.  If
+/// there is anything, we will send the request to Camera::setApi to handle.
 
 bool Camera::diagnosticHTML(HttpDebug* serv, char* path, Scene& scene)
 {
