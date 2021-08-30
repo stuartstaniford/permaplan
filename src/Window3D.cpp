@@ -24,10 +24,11 @@
 
 bool GLFWInitDone = false;   // For overall openGL initialization
 
+Lockable Window3D::staticWindowLock;
 std::unordered_map<int, Window3D*> Window3D::windows;   
 int Window3D::nextWin = 0;
 int Window3D::activeWin = -1;
-
+std::vector<int> Window3D::windowStack;
 
 // =======================================================================================
 /// @brief Calback for window resizing in GLFW
@@ -132,9 +133,11 @@ Window3D::Window3D(int pixWidth, int pixHeight, const char* title):
   glViewport(0, 0, width, height);  
   lastTime.now();
 
+  staticWindowLock.lock();
   activeWin           = nextWin++;
   windows[activeWin]  = this;
   ourWin              = activeWin;
+  staticWindowLock.unlock();
 }
 
 
@@ -143,8 +146,10 @@ Window3D::Window3D(int pixWidth, int pixHeight, const char* title):
 
 Window3D::~Window3D(void)
 {
+  staticWindowLock.lock();
   if(activeWin == ourWin)
     activeWin = 0u;
+  staticWindowLock.unlock();
   windows.erase(ourWin);
   glfwDestroyWindow(window);
 }
@@ -241,7 +246,9 @@ void Window3D::makeFocus(void)
 {
   glfwMakeContextCurrent(window);
   glfwFocusWindow(window);  
+  staticWindowLock.lock();
   activeWin = ourWin;
+  staticWindowLock.unlock();
 }
 
 
@@ -534,7 +541,10 @@ float Window3D::timeDelta(void)
 
 Window3D& Window3D::getActiveWin(void)
 {
-  return *(windows[activeWin]);  
+  staticWindowLock.lock();
+  Window3D& theWin = *(windows[activeWin]);
+  staticWindowLock.unlock();
+  return theWin;  
 }
 
 
@@ -585,8 +595,10 @@ bool Window3D::HTTPListActiveWindows(HttpDebug* serv)
   
   // Iterate over the rows
   int row = 1;
+  staticWindowLock.lock();
   for (auto& winIter: windows)
     winIter.second->diagnosticHTMLRow(serv, row++);
+  staticWindowLock.unlock();
   
   // End the table, the page, and go home.
   httPrintf("</table></center><hr>\n");
@@ -631,7 +643,10 @@ bool Window3D::HTTPGateway(HttpDebug* serv, char* path)
     InterfaceAction* action = new InterfaceAction(WindowResize, path+7);
     if(action->valid)
      {
+      staticWindowLock.lock();
       windows[activeWin]->scene->actions.push_back(action);
+      staticWindowLock.unlock();
+
       httPrintf("OK\n");
       return true;
      }
@@ -647,7 +662,9 @@ bool Window3D::HTTPGateway(HttpDebug* serv, char* path)
     InterfaceAction* action = new InterfaceAction(WindowMove, path+5);
     if(action->valid)
      {
+      staticWindowLock.lock();
       windows[activeWin]->scene->actions.push_back(action);
+      staticWindowLock.unlock();
       httPrintf("OK\n");
       return true;
      }

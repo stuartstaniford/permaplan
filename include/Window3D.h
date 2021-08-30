@@ -93,9 +93,16 @@ class Window3D
   float           frameTimeAvg;
   
   // Class private variables
+  /// @brief A lock for operations on this set of static Window3D variables
+  static Lockable staticWindowLock;
+  /// @brief The next unused id.
   static int        nextWin;
+  /// @brief The id of the currently active window
   static int        activeWin;
+  ///@brief Keep track of all open windows via an id.
   static std::unordered_map<int, Window3D*> windows;
+  ///@brief A list of windows to make active next.
+  static std::vector<int> windowStack;
   
   // Private methods
   void          processMouse(void);
