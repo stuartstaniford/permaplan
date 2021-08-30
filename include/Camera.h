@@ -53,7 +53,7 @@ class Camera
   void  adjustWithPivot(unsigned opFlags, float timeLapseUsec);
   void  mouseDrag(float xDelta, float yDelta);
   void  copyDirection(vec3& position, vec3& direction);
-  void  focusOnObject(BoundingBox* bbox, vec3& camFront);
+  void  focusOnObject(BoundingBox* bbox, vec3& camFront, int pixWidth, int pixHeight);
   void  rayFromScreenLocation(vec3& position, vec3& direction, float clipX, float clipY);
   void  invertView(mat4& model, mat4& invertMatrix);
   void  updateAfterMove(void);
@@ -81,7 +81,7 @@ class Camera
   float     percentageSpeed;   // percent/sec
   float     rotationalSpeed;  // degrees/second
   float     mouseRotation;  // degrees/window size
-  float     viewAngle;  // degrees
+  float     viewAngle;  // degrees - the field of view angle in the y-direction
   float     aspectRatio;
   float*    pivotLocation;
   float     near;

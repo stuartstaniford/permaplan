@@ -27,7 +27,7 @@ ObjectInspectorWindow::ObjectInspectorWindow(VisualObject& obj, vec3& camFront, 
                                             Window3D(pixWidth, pixHeight, title),
                                             object(obj)
 {
-  camera.focusOnObject(obj.box, camFront);
+  camera.focusOnObject(obj.box, camFront, pixWidth, pixHeight);
 }
 
 

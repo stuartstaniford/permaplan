@@ -80,7 +80,7 @@ Camera::~Camera(void)
 /// @param camFront A reference to a vec3 representing the camera direction of the winow
 /// that spawned a new window in which we are setting up this camera.
 
-void Camera::focusOnObject(BoundingBox* bbox, vec3& camFront)
+void Camera::focusOnObject(BoundingBox* bbox, vec3& camFront,  int pixWidth, int pixHeight)
 {
   // Set ourselves as a camera pointing in the same direction as caller argument, but
   // with our up direction closest to the Z axis.
@@ -91,22 +91,26 @@ void Camera::focusOnObject(BoundingBox* bbox, vec3& camFront)
   vec3 boxCentroid;
   bbox->getCentroid(boxCentroid);
 
+  // Variables for keeping track of max distances away from centroid when projected
+  // into the plane normal to the camera direction.
+  float upMax   = -HUGE_VALF;
+  float upMin   = HUGE_VALF;
+  float sideMax = -HUGE_VALF; 
+  float sideMin = HUGE_VALF;
+
   for(unsigned i=0; i<8;i++) // for each corner of the box
    {
     vec3 corner, inPlanePerp, inPlaneProj;
     float renormFactor, upComp, sideComp;
-    float upMax   = -HUGE_VALF;
-    float upMin   = HUGE_VALF;
-    float sideMax = -HUGE_VALF; 
-    float sideMin = HUGE_VALF;
     
+    // Get corner, make relative to centroid
     bbox->getVertexVectorByIndex(i, corner);
-    glm_vec3_sub(corner, boxCentroid, corner); // get corner relative to centroid
+    glm_vec3_sub(corner, boxCentroid, corner); 
     
     // We need to compute the projection of the corner-centroid vector into the plane
     // normal to the camera direction.  
     
-    // Start by getting a vector in the place at right angles to both corner, and
+    // Start by getting a vector in the plane at right angles to both corner, and
     // camFront.
     glm_vec3_cross(camFront, corner, inPlanePerp);
     if(fabs(glm_vec3_norm(inPlanePerp)) < EPSILON)
@@ -135,7 +139,38 @@ void Camera::focusOnObject(BoundingBox* bbox, vec3& camFront)
    }
   
   // Now need to compute how far away we have to be so that all the bounding box corners
-  // will appear within a reasonable subset of the window.
+  // will appear within a reasonable subset of the window.  For now, we just make sure
+  // it's within 90% of the window size, but later we'll want to make some allowance for
+  // control panels within the window.
+  // https://glm.g-truc.net/0.9.9/api/a00243.html#ga747c8cf99458663dd7ad1bb3a2f07787
+  
+  // Allowances for margin around the edge of the window
+  upMin   *= 1.1f;
+  upMax   *= 1.1f;
+  sideMin *= 1.1f;
+  sideMax *= 1.1f;
+
+  // Deal with the vertical direction
+  float tanHalfYAngle = tanf(glm_rad(viewAngle/2.0f));
+  float maxDist = upMax/tanHalfYAngle;
+  float downDist = upMin/tanHalfYAngle;
+  if(downDist > maxDist)
+    maxDist = downDist;
+  
+  // Deal with the horizontal direction
+  float tanHalfXAngle = tanHalfYAngle*pixWidth/pixHeight;
+  float leftDist = sideMin/tanHalfXAngle;
+  if(leftDist > maxDist)
+    maxDist = leftDist;
+  float rightDist = sideMax/tanHalfXAngle;
+  if(rightDist > maxDist)
+    maxDist = rightDist;
+  
+  // Ok, maxDist is now the distance of the camera from the centroid, so implement that.
+  near = maxDist/100.0f;
+  far = maxDist*10.0f;
+  glm_vec3_scale_as(camFront, maxDist, camFront);
+  glm_vec3_sub(boxCentroid, camFront, pos);
 }
 
 
