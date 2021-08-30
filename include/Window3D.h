@@ -58,7 +58,8 @@ class Window3D
   static Window3D& getActiveWin(void);
   static Window3D& getMainWin(void);
   static void initGraphics(void);
-
+  static void overLoop(void);
+  
  protected:
 
   // Instance variables - protected
@@ -67,7 +68,8 @@ class Window3D
   GLFWwindow*     window;
   const char*     winTitle;
   int             ourWin;
- 
+  bool            exitLoopRequired;
+  
   // Virtual interface that subclasses must implement.
   virtual void  draw(float timeInterval);
   virtual void  processClick(float mouseX, float mouseY);

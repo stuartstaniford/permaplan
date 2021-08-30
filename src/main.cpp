@@ -67,7 +67,7 @@ int main (int argc, char* argv[])
     err(-1, "Couldn't spawn HTTP server thread in %s.\n", argv[0]);
 
   // Main display loop
-  window.loop();
+  Window3D::overLoop();
   
   // Orderly shutdown process
   httpServer.shutDownNow = true;

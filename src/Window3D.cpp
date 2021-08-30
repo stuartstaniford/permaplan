@@ -62,6 +62,40 @@ void openGLInitialLogging(void)
 
 
 // =======================================================================================
+/// @brief Static function to co-ordinate the loops of the various windows.
+/// 
+/// This ensures that only one is executing at a time (to avoid deadlocks), and to manage 
+/// the transition when one ends and another starts.
+
+void Window3D::overLoop(void)
+{
+  staticWindowLock.lock();
+  windowStack.push_back(0);
+  staticWindowLock.unlock();
+  
+  while(1)
+   {
+    Window3D* win = NULL;
+    staticWindowLock.lock();
+    if(windowStack.size())
+     {
+      int& nextWinToRun = windowStack.back();
+      windowStack.pop_back();
+      win = windows[nextWinToRun];
+      staticWindowLock.unlock();
+     }
+    else
+     {
+      staticWindowLock.unlock();
+      break;      
+     }
+    win->loop();
+   }
+  
+}
+
+
+// =======================================================================================
 /// @brief Static function to initialize the graphics system.
 /// 
 /// Must be called early in the program before any other graphics calls are done.  The
@@ -94,6 +128,7 @@ Window3D::Window3D(int pixWidth, int pixHeight, const char* title):
                         width(pixWidth),
                         height(pixHeight),
                         winTitle(title),
+                        exitLoopRequired(false),
                         lastMouseX(HUGE_VAL),
                         lastMouseY(HUGE_VAL),
                         inClick(false),
@@ -330,6 +365,11 @@ void Window3D::loop(void)
     // Final book-keeping for this spin of the loop
     lastFrameDouble = frameDouble;
     frameCount++;
+    if(exitLoopRequired)
+     {
+      exitLoopRequired = false;
+      break;
+     }
    }
   
   // Shutdown stuff after main event loop is done.
