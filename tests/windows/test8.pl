@@ -7,7 +7,7 @@ require './testSupport.pl';
 $resourceDir = 'tests/grow-one';
 $testDir = 'tests/windows';
 my @treeChoice = ('Eastern North America', 'Pinus (Pines)', 'Eastern White Pine');
-unshift(@ARGV, "-y", "1920");
+unshift(@ARGV, "-y", "1910");
 
 my($loopLimit, $simLimit) = processArgs(@ARGV);
 
@@ -24,9 +24,10 @@ foreach my $i (1..$loopLimit)
   insertSpecifiedTree(50, 50, $winWidth, $winHeight, \@treeChoice);
   simulatePermaplan();
   simulateUntil($simLimit);
+  performDoubleclick($winWidth/2, $winHeight/2);
 
   my @windowList = getOpenWindowList();
-  my @desiredResult = ('Landscape Simulation');
+  my @desiredResult = ('Tree Inspector', 'Landscape Simulation');
   &compareArrays(\@desiredResult, \@windowList);
   sanityCheckHTTPPages();
   stopPermaplan();

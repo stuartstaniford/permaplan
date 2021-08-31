@@ -563,7 +563,7 @@ sub insertSpecifiedTree
   foreach $component (@$treeNameArrayRef)
    {
     $response = getCurrentMenuOptions();
-    print $response."\n";
+    #print $response."\n";
     checkOptionPresent($response, $component);
     sendAllTreeSelection($component);
     sleep(1);
