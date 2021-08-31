@@ -6,8 +6,9 @@
 require './testSupport.pl';
 $resourceDir = 'tests/grow-one';
 $testDir = 'tests/windows';
+my @treeChoice = ('Eastern North America', 'Pinus (Pines)', 'Eastern White Pine');
+unshift(@ARGV, "-y", "1920");
 
-unshift(@ARGV, "-y", "1905");
 my($loopLimit, $simLimit) = processArgs(@ARGV);
 
 foreach my $i (1..$loopLimit)
@@ -20,9 +21,10 @@ foreach my $i (1..$loopLimit)
   $winHeight = 800 unless defined $winHeight;
   resizeWindow($winWidth, $winHeight);
   printPortMessage();
+  insertSpecifiedTree(50, 50, $winWidth, $winHeight, \@treeChoice);
   simulatePermaplan();
   simulateUntil($simLimit);
-  # do something to create some extra windows
+
   my @windowList = getOpenWindowList();
   my @desiredResult = ('Landscape Simulation');
   &compareArrays(\@desiredResult, \@windowList);

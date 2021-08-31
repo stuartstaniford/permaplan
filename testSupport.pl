@@ -549,10 +549,10 @@ sub setCameraUpVector
 
 sub insertSpecifiedTree
 {
-  my($x, $y, $treeNameArrayRef) = @_;
+  my($x, $y, $winWidth, $winHeight, $treeNameArrayRef) = @_;
   setCameraFrontVector(0,0,-1);
   my $cameraZ = getCameraHeight();
-  setCameraPosition(50,50,$cameraZ);
+  setCameraPosition($x, $y, $cameraZ);
   performDoubleclick($winWidth/2,$winHeight/2);
   insertTreeButton();
   sleep(1);
@@ -560,23 +560,18 @@ sub insertSpecifiedTree
   checkOptionPresent($response, 'All Tree Selector');
   sendTreeSelection('All Tree Selector');
   sleep(1);
-  while(($response = getCurrentMenuOptions()))
+  foreach $component (@$treeNameArrayRef)
    {
-    last if $response eq "OK\n";
-    #print $response."\n";
-    my $select = pickRandomMenuOption($response);
-    #print $select."\n";
-    sendAllTreeSelection($select);
+    $response = getCurrentMenuOptions();
+    print $response."\n";
+    checkOptionPresent($response, $component);
+    sendAllTreeSelection($component);
     sleep(1);
    }
-  sleep(1);
-
-  setCameraPosition(-50, -50, $cameraZ-50);
+  setCameraPosition($x-20, $y-20, $cameraZ-170);
   setCameraFrontVector(1,1,-1);
   sleep(1);
   setCameraUpVector(1,1,1);
-  simulatePermaplan();
-  simulateUntil(1920);
 }
 
 
