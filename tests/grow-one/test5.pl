@@ -20,7 +20,7 @@ foreach my $i (1..$loopLimit)
   setCameraFrontVector(0,0,-1);
   my $cameraZ = getCameraHeight();
   setCameraPosition(50,50,$cameraZ);
-  performDoubleclick(500,400);
+  performDoubleclick($winWidth/2,$winHeight/2);
   insertTreeButton();
   sleep(1);
   my $response = getCurrentMenuOptions();

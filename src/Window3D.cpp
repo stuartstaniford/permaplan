@@ -91,7 +91,6 @@ void Window3D::overLoop(void)
      }
     win->loop();
    }
-  
 }
 
 

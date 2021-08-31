@@ -544,6 +544,43 @@ sub setCameraUpVector
 
 
 #===========================================================================
+# Function to insert a tree of specified kind at a specified location via
+# the all tree menu, then move camera to focus on it.
+
+sub insertSpecifiedTree
+{
+  my($x, $y, $treeNameArrayRef) = @_;
+  setCameraFrontVector(0,0,-1);
+  my $cameraZ = getCameraHeight();
+  setCameraPosition(50,50,$cameraZ);
+  performDoubleclick($winWidth/2,$winHeight/2);
+  insertTreeButton();
+  sleep(1);
+  my $response = getCurrentMenuOptions();
+  checkOptionPresent($response, 'All Tree Selector');
+  sendTreeSelection('All Tree Selector');
+  sleep(1);
+  while(($response = getCurrentMenuOptions()))
+   {
+    last if $response eq "OK\n";
+    #print $response."\n";
+    my $select = pickRandomMenuOption($response);
+    #print $select."\n";
+    sendAllTreeSelection($select);
+    sleep(1);
+   }
+  sleep(1);
+
+  setCameraPosition(-50, -50, $cameraZ-50);
+  setCameraFrontVector(1,1,-1);
+  sleep(1);
+  setCameraUpVector(1,1,1);
+  simulatePermaplan();
+  simulateUntil(1920);
+}
+
+
+#===========================================================================
 # Function to stop permaplan 
 
 sub stopPermaplan

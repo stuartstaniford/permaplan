@@ -4,7 +4,7 @@
 # windows and verifies that they appear correctly.
 
 require './testSupport.pl';
-$resourceDir = 'tests/basic-smoke';
+$resourceDir = 'tests/grow-one';
 $testDir = 'tests/windows';
 
 unshift(@ARGV, "-y", "1905");
@@ -15,9 +15,9 @@ foreach my $i (1..$loopLimit)
   system("rm -rf $testDir/test8.out.oldf");
   system("rm -rf $testDir/*.tmp $testDir/*.diff");
   openOutput("$testDir/test8.log");
-  startPermaplan("-A -d $resourceDir/test1.oldf -D $testDir/test8.out.oldf -g 5.0");
-  $winWidth = 400 unless defined $winWidth;
-  $winHeight = 300 unless defined $winHeight;
+  startPermaplan("-A -d $resourceDir/test5.oldf -D $testDir/test8.out.oldf -g 5.0");
+  $winWidth = 1000 unless defined $winWidth;
+  $winHeight = 800 unless defined $winHeight;
   resizeWindow($winWidth, $winHeight);
   printPortMessage();
   simulatePermaplan();
