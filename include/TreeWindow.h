@@ -34,6 +34,7 @@ public:
   TreeWindow(Tree& tree, vec3& camFront);
   ~TreeWindow(void);
   bool diagnosticHTMLRow(HttpDebug* serv, int rowIndex);
+  void draw(float timeInterval);
 
 private:
   

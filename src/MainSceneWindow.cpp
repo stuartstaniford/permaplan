@@ -30,6 +30,7 @@ MainSceneWindow::~MainSceneWindow(void)
 
 // =======================================================================================
 /// @brief Render the scene into our window
+/// @param timeInterval Number of seconds since last iteration in the window loop.
 
 void MainSceneWindow::draw(float timeInterval)
 {

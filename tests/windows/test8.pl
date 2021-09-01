@@ -29,6 +29,7 @@ foreach my $i (1..$loopLimit)
   my @windowList = getOpenWindowList();
   my @desiredResult = ('Tree Inspector', 'Landscape Simulation');
   &compareArrays(\@desiredResult, \@windowList);
+  sleep(10);
   sanityCheckHTTPPages();
   stopPermaplan();
   checkLogForErrors();

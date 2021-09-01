@@ -45,3 +45,14 @@ bool TreeWindow::diagnosticHTMLRow(HttpDebug* serv, int rowIndex)
 
 
 // =======================================================================================
+/// @brief Render the scene into our window.
+/// @param timeInterval Number of seconds since last iteration in the window loop.
+
+void TreeWindow::draw(float timeInterval)
+{
+  scene->draw(camera, timeInterval);
+  //imgMenu->imguiInterface();
+}
+
+
+// =======================================================================================
