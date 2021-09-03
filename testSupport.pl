@@ -1150,13 +1150,15 @@ sub checkLogForErrors
         $outLines++;
        }
      }
-    $closeMessageCount++ if /LogCloseDown: Orderly exit from window loop/;
+    $closeMessageCount++ if /LogCloseDown: Orderly exit from Window3D::overLoop/;
     $closeMessageCount++ if /LogCloseDown: HttpDebug server shutting down normally/;
+    $closeMessageCount++ if /LogWindowOperations: Terminating window system altogether/;
+    $closeMessageCount++ if /Deallocating Landscape Simulation window/;
    }
-  unless($closeMessageCount == 2)
+  unless($closeMessageCount == 4)
    {
     $logIsGood = 0;
-    print OUT "Only $closeMessageCount/2 closedown messages in log.\n";
+    print OUT "Only $closeMessageCount/4 closedown messages in log.\n";
     $outLines++;
    }
   
