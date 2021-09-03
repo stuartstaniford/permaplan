@@ -29,6 +29,11 @@ std::unordered_map<int, Window3D*> Window3D::windows;
 int Window3D::nextWin = 0;
 int Window3D::activeWin = -1;
 std::vector<int> Window3D::windowStack;
+unsigned Window3D::frameCount = 0;
+Timeval Window3D::start;
+Timeval Window3D::frameTime;
+bool Window3D::firstTime = true;
+
 
 // =======================================================================================
 /// @brief Calback for window resizing in GLFW
@@ -58,39 +63,6 @@ void openGLInitialLogging(void)
   if(checkGLError(stderr, "openGLInitialLogging"))
     exit(-1);
 #endif
-}
-
-
-// =======================================================================================
-/// @brief Static function to co-ordinate the loops of the various windows.
-/// 
-/// This ensures that only one is executing at a time (to avoid deadlocks), and to manage 
-/// the transition when one ends and another starts.
-
-void Window3D::overLoop(void)
-{
-  staticWindowLock.lock();
-  windowStack.push_back(0);
-  staticWindowLock.unlock();
-  
-  while(1)
-   {
-    Window3D* win = NULL;
-    staticWindowLock.lock();
-    if(windowStack.size())
-     {
-      int& nextWinToRun = windowStack.back();
-      windowStack.pop_back();
-      win = windows[nextWinToRun];
-      staticWindowLock.unlock();
-     }
-    else
-     {
-      staticWindowLock.unlock();
-      break;      
-     }
-    win->loop();
-   }
 }
 
 
@@ -168,9 +140,8 @@ Window3D::Window3D(int pixWidth, int pixHeight, const char* title):
   lastTime.now();
 
   staticWindowLock.lock();
-  activeWin           = nextWin++;
-  windows[activeWin]  = this;
-  ourWin              = activeWin;
+  ourWin           = nextWin++;
+  windows[ourWin]  = this;
   staticWindowLock.unlock();
 }
 
@@ -180,6 +151,7 @@ Window3D::Window3D(int pixWidth, int pixHeight, const char* title):
 
 Window3D::~Window3D(void)
 {
+  LogWindowOperations("Deallocating %s window at %.2f.\n", winTitle, frameTime-start);  
   staticWindowLock.lock();
   if(activeWin == ourWin)
     activeWin = 0u;
@@ -195,6 +167,7 @@ Window3D::~Window3D(void)
 
 void Window3D::terminate()
 {
+  LogWindowOperations("Terminating window system altogether.\n");  
   glfwTerminate();
 }
 
@@ -287,21 +260,71 @@ void Window3D::makeFocus(void)
 
 
 // =======================================================================================
+/// @brief Make us the next window to run (and cause the current window loop to stop at
+/// the end of the frame.
+/// @param caller A pointer to the current window who is calling this function to make
+/// some other window the next to be focus.
+
+void Window3D::scheduleWindowNext(Window3D* caller)
+{
+  staticWindowLock.lock();
+  assert(ourWin != activeWin);  // shouldn't be rescheduling ourself
+  windowStack.push_back(ourWin);
+  staticWindowLock.unlock();
+  caller->exitLoopRequired = true;  // caller giving up control of the display loop 
+                                    // at the end of this cycle.
+}
+
+
+// =======================================================================================
+/// @brief Static function to co-ordinate the loops of the various windows.
+/// 
+/// This ensures that only one is executing at a time (to avoid deadlocks), and to manage 
+/// the transition when one ends and another starts.
+
+void Window3D::overLoop(void)
+{
+  staticWindowLock.lock();
+  windowStack.push_back(0);
+  staticWindowLock.unlock();
+  
+  while(1)
+   {
+    Window3D* win = NULL;
+    staticWindowLock.lock();
+    if(windowStack.size())
+     {
+      int& nextWinToRun = windowStack.back();
+      windowStack.pop_back();
+      win = windows[nextWinToRun];
+      staticWindowLock.unlock();
+     }
+    else
+     {
+      staticWindowLock.unlock();
+      break;      
+     }
+    win->makeFocus();
+    win->loop();
+   }
+  LogCloseDown("Orderly exit from Window3D::overLoop after %.6lf\n", frameTime - start);
+}
+
+
+// =======================================================================================
 /// @brief Event processing loop for our window.
 
 void Window3D::loop(void)
 {
-  unsigned  frameCount = 0;
-  Timeval   start;
-  Timeval   frameTime;
   double    frameDouble;
   double    lastFrameDouble;
-  bool      firstTime = true;
 
   makeFocus();
-  
-  start.now();
-
+  if(firstTime)
+    start.now();
+  frameTime.now();
+  LogWindowOperations("Entering window loop for %s after %.6lf\n", winTitle,
+                                                                        frameTime - start);
   // Main event loop
   while(!glfwWindowShouldClose(window))
    {
@@ -315,9 +338,9 @@ void Window3D::loop(void)
      }
     else
      {
-      LogFrameStarts("Frame %u starting at %.6lfs (%.1fms gap, year %.2f)\n",
-                     frameCount, frameDouble, (frameDouble - lastFrameDouble)*1000.0f,
-                     scene->getSimYear());
+      LogFrameStarts("Frame %u starting in %s at %.6lfs (%.1fms gap, year %.2f)\n",
+                     frameCount, winTitle, frameDouble, 
+                     (frameDouble - lastFrameDouble)*1000.0f, scene->getSimYear());
       if(frameTimeAvg == 0.0f)
         frameTimeAvg = frameDouble - lastFrameDouble;
       else
@@ -329,6 +352,9 @@ void Window3D::loop(void)
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glfwGetWindowSize(window, &width, &height); // make sure we know current size
     
+    if(checkGLError(stderr, "Window3D::loop before scene lock."))
+      exit(-1);
+
     scene->lock();
 
     // Do our actual drawing and deliver to screen window
@@ -373,7 +399,8 @@ void Window3D::loop(void)
   
   // Shutdown stuff after main event loop is done.
   frameTime.now();
-  LogCloseDown("Orderly exit from window loop after %.6lf\n", frameTime - start);
+  LogWindowOperations("Orderly exit from window loop for %s after %.6lf\n", winTitle,
+                                                                        frameTime - start);
 }
 
 
@@ -554,8 +581,11 @@ void Window3D::processKeyboard(void)
         camOpFlags |= CAM_MOVE_UP;
       
      }
-    float delta = timeDelta();
-    camera.adjust(camOpFlags, delta);
+    if(camOpFlags)
+     {
+      float delta = timeDelta();
+      camera.adjust(camOpFlags, delta);
+     }
    }
 }
 

@@ -3,6 +3,7 @@
 
 #include "Shader.h"
 #include "loadFileToBuf.h"
+#include "Logging.h"
 #include <stdlib.h>
 #include <err.h>
 #include <GL/glew.h>
@@ -58,6 +59,7 @@ int checkGLError(FILE* file, const char* preamble)
     fprintf(file, "checkGLerror: %s: %s\n", preamble, errString);
     errCount++;
    }
+  LogFlush();
   return errCount;
 }
 

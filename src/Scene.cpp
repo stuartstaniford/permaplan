@@ -398,8 +398,9 @@ vec4  objColor      = {0.0f, 0.5f, 0.9f, 1.0f};
 void Scene::draw(Camera& camera, float timeElapsed)
 {
   PmodDesign& design = PmodDesign::getDesign();
-  Shader& shader = Shader::getMainShader();
-  shader.useProgram();
+  //Shader& shader = Shader::getMainShader();
+  //shader.useProgram();
+  checkGLError(stderr, "Temp\n");
   setModelMatrix(0.0f, 0.0f);
   lighting.updateGPU();
 
@@ -462,6 +463,8 @@ void Scene::draw(Camera& camera, float timeElapsed)
   if(sceneObjectTbuf)
     //sceneObjectTbuf->draw(Lighted, NULL);
     sceneObjectTbuf->draw(NoTexColor, NULL);
+  if(checkGLError(stderr, "End of Scene::draw"))
+    exit(-1);
 }
 
 

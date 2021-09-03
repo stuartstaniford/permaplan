@@ -19,8 +19,8 @@ class MenuFocusOverlay;
 
 
 // =======================================================================================
-/// @brief Utility class for opening a window and setting up for drawing in using OpenGL 
-/// commands.
+/// @brief Utility class for opening a window and setting up for drawing in it using 
+/// OpenGL commands.
 ///
 /// The present implementation uses GLFW but the API should hide that.  This
 /// class does not support creating bare instances of itself, but instead should be 
@@ -28,9 +28,9 @@ class MenuFocusOverlay;
 /// draw(), processClick(), processDoubleClick(), diagnosticHTMLRow(), and 
 /// diagnosticHTML(). and optionally processKeyboard() and processAction().
 /// 
-/// This class provides the basics of OpenGL window creation, raw mouse/keyboard 
-/// processing (eg camera drag, click/double-click detection), and first cut HTTP 
-/// interface action processing.
+/// This class provides the subclasses with the basics of OpenGL window creation, raw 
+/// mouse/keyboard processing (eg camera drag, click/double-click detection), and first 
+/// cut HTTP interface action processing.
 
 class Window3D
 {
@@ -48,6 +48,7 @@ class Window3D
   ~Window3D(void);
   void loop(void);
   void makeFocus(void);
+  void scheduleWindowNext(Window3D* caller);
   void move(int x, int y);
   void resize(int width, int height);
 
@@ -105,6 +106,18 @@ class Window3D
   static std::unordered_map<int, Window3D*> windows;
   ///@brief A list of windows to make active next.
   static std::vector<int> windowStack;
+  /// @brief The index of the current frame in the loop.  Does not need the lock
+  /// as only one loop can be running at a time.
+  static unsigned frameCount;
+  /// @brief The time of the first frame in the render loop.  Does not need the lock
+  /// as only one loop can be running at a time.
+  static Timeval start;
+  /// @brief The time of the current frame in the loop.  Does not need the lock
+  /// as only one loop can be running at a time.
+  static Timeval frameTime;
+  /// @brief Used to identify the first run through of the render loop.  Does not 
+  /// need the lock as only one loop can be running at a time.
+  static bool firstTime;
   
   // Private methods
   void          processMouse(void);
