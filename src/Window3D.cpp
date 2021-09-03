@@ -81,7 +81,6 @@ void Window3D::initGraphics(void)
   glfwWindowHint(GLFW_OPENGL_PROFILE,GLFW_OPENGL_CORE_PROFILE);
   glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
   //glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-  GLFWInitDone = true;
  }
 
 
@@ -107,9 +106,9 @@ Window3D::Window3D(int pixWidth, int pixHeight, const char* title):
                         mouseMoved(true),
                         frameTimeAvg(0.0f)
 {  
-  if(!GLFWInitDone)
+  unless(GLFWInitDone)
     Window3D::initGraphics();
-
+  
   // Use GLFW to create OpenGL window and context
   window = glfwCreateWindow(width, height, title, NULL, NULL);
   if (!window)
@@ -117,26 +116,27 @@ Window3D::Window3D(int pixWidth, int pixHeight, const char* title):
 
   glfwMakeContextCurrent(window);
 
-  // Initialize GLEW
-  glewExperimental = GL_TRUE;
-  GLenum glewResult = glewInit();
-  if (GLEW_OK != glewResult)
-    err(2, "glewInit failed.\n");
-
-  GLFWInitDone = true;
+  unless(GLFWInitDone)
+   { 
+    // Initialize GLEW
+    glewExperimental = GL_TRUE;
+    GLenum glewResult = glewInit();
+    if (GLEW_OK != glewResult)
+      err(2, "glewInit failed.\n");
+    // Perform logging of some features of the OpenGLimplementation (if log types on)
+#ifdef LOG_OPENGL_CONSTANTS
+    openGLInitialLogging();
+#endif
+    GLFWInitDone = true;
+   }
 
   // Set up the OpenGL Viewport
   glViewport(0, 0, width, height);
   glfwSetFramebufferSizeCallback(window, windowResize);
   glEnable(GL_DEPTH_TEST);
   glEnable(GL_CULL_FACE);
- 
-  // Perform logging of some features of the OpenGLimplementation (if log types on)
-#ifdef LOG_OPENGL_CONSTANTS
-  openGLInitialLogging();
-#endif
-  
-  glViewport(0, 0, width, height);  
+
+  glViewport(0, 0, width, height);
   lastTime.now();
 
   staticWindowLock.lock();
