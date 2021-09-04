@@ -114,7 +114,8 @@ Window3D::Window3D(int pixWidth, int pixHeight, const char* title):
   if (!window)
     err(-1, "Couldn't create window %s.\n", title);
 
-  glfwMakeContextCurrent(window);
+  unless(GLFWInitDone)
+    glfwMakeContextCurrent(window);
 
   unless(GLFWInitDone)
    { 
@@ -251,7 +252,7 @@ ActionType Window3D::processAction(InterfaceAction* action)
 
 void Window3D::makeFocus(void)
 {
-  glfwMakeContextCurrent(window);
+  //glfwMakeContextCurrent(window);
   glfwFocusWindow(window);  
   staticWindowLock.lock();
   activeWin = ourWin;

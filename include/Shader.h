@@ -42,11 +42,8 @@ class Shader
 
   void setUniform(const unsigned loc, const mat4& matrix);
   /// @brief Get the singleton instance of the shader
-  static Shader& getMainShader(void) 
-   {
-    return *mainShader;
-   }
-  static void validateShader(void);  // test accesssibility for debugging purposes
+  static Shader& getMainShader(void) {return *mainShader;}
+  static void validateShader(char* warning);  // test accesssibility for debugging purposes
 
  private:
 

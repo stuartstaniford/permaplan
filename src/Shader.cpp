@@ -149,11 +149,14 @@ Shader::~Shader(void)
 
 // =======================================================================================
 /// @brief Test accesssibility of shader for debugging purposes
+/// @param warning A C-string to give of the warning to give if this particular call fails.
 
-void Shader::validateShader(void)
+void Shader::validateShader(char* warning)
 {
   assert(mainShader);
-  mainShader->useProgram();  
+  glUseProgram(mainShader->shaderProgram);  
+  if(checkGLError(stderr, warning))
+    exit(-1);
 }
 
 
@@ -161,8 +164,7 @@ void Shader::validateShader(void)
 /// @brief Make this shader the active program for openGL. 
 /// 
 /// This will be more useful if/when there is more than one shader.  Right now it just
-/// needs to be called once near the beginning of the program.  Is also used by 
-/// validateShader. 
+/// needs to be called once near the beginning of the program. 
 
 void Shader::useProgram(void)
 {
