@@ -14,8 +14,9 @@
 
 Shader* Shader::mainShader = NULL;
 
+
 // =======================================================================================
-// Utility function to check openGL glGetError and report
+/// @brief Utility function to check openGL glGetError and report
 
 int checkGLError(FILE* file, const char* preamble)
 {
@@ -65,7 +66,7 @@ int checkGLError(FILE* file, const char* preamble)
 
 
 // =======================================================================================
-// Utility function to load a shader from a file and compile it
+/// @brief Utility function to load a shader from a file and compile it
 
 unsigned loadAndCompileShader(const char* fileName, GLenum shaderType)
 {
@@ -94,7 +95,9 @@ unsigned loadAndCompileShader(const char* fileName, GLenum shaderType)
 
 
 // =======================================================================================
-// Build a shader program from files
+/// @brief Constructor: build a shader program from files.
+/// @param vertexShaderFile C string with the file name for the GLSL vertex shader file.
+/// @param fragmentShaderFile C string with the file name for the GLSL fragment shader file.
 
 Shader::Shader(const char* vertexShaderFile, const char* fragmentShaderFile)
 {
@@ -136,15 +139,30 @@ Shader::Shader(const char* vertexShaderFile, const char* fragmentShaderFile)
 }
 
 // =======================================================================================
-// Destructor
+/// @brief Destructor
 
 Shader::~Shader(void)
 {
   glDeleteProgram(shaderProgram);
 }
 
+
 // =======================================================================================
-// Make us the active program for openGL
+/// @brief Test accesssibility of shader for debugging purposes
+
+void Shader::validateShader(void)
+{
+  assert(mainShader);
+  mainShader->useProgram();  
+}
+
+
+// =======================================================================================
+/// @brief Make this shader the active program for openGL. 
+/// 
+/// This will be more useful if/when there is more than one shader.  Right now it just
+/// needs to be called once near the beginning of the program.  Is also used by 
+/// validateShader. 
 
 void Shader::useProgram(void)
 {
@@ -158,37 +176,49 @@ void Shader::useProgram(void)
 // Functions to set various values in the shader.  Basically using C++ overloading to
 // hide the ugliness of the openGL API.  These ones lookup by name.
 
-// First is setting bools
+/// @brief Set the value of a boolean shader uniform
+/// @param name A C-string with the name of the uniform to set
+/// @param value The boolean value to set.
 void Shader::setUniform(const char* name, const bool value)
 {
   glUniform1i(glGetUniformLocation(shaderProgram, name), value);
 }
 
-// Then setting unsigned
+/// @brief Set the value of an unsigned shader uniform
+/// @param name A C-string with the name of the uniform to set
+/// @param value The unsigned value to set.
 void Shader::setUniform(const char* name, const unsigned value)
 {
   glUniform1i(glGetUniformLocation(shaderProgram, name), value);
 }
 
-// Setting a signle float
+/// @brief Set the value of a single float shader uniform
+/// @param name A C-string with the name of the uniform to set
+/// @param value The float value to set.
 void Shader::setUniform(const char* name, const float value)
 {
   glUniform1f(glGetUniformLocation(shaderProgram, name), value);
 }
 
-// Setting a single vec3
+/// @brief Set the value of a vec3 shader uniform
+/// @param name A C-string with the name of the uniform to set
+/// @param value A reference to the vec3 value to set.
 void Shader::setUniform(const char* name, const vec3& vector)
 {
   glUniform3fv(glGetUniformLocation(shaderProgram, name), 1, vector);
 }
 
-// Setting a single vec4
+/// @brief Set the value of a vec4 shader uniform
+/// @param name A C-string with the name of the uniform to set
+/// @param value A reference to the vec4 value to set.
 void Shader::setUniform(const char* name, const vec4& vector)
 {
   glUniform4fv(glGetUniformLocation(shaderProgram, name), 1, vector);
 }
 
-// Setting a single mat4
+/// @brief Set the value of a mat4 shader uniform
+/// @param name A C-string with the name of the uniform to set
+/// @param value A reference to the mat4 value to set.
 void Shader::setUniform(const char* name, const mat4& matrix)
 {
   glUniformMatrix4fv(glGetUniformLocation(shaderProgram, name), 1, GL_FALSE, (float*)matrix);
@@ -196,8 +226,8 @@ void Shader::setUniform(const char* name, const mat4& matrix)
 
 
 // =======================================================================================
-// Function to get the locations of various values in the shader and return the index
-// for later use.
+/// @brief Function to get the locations of various values in the shader and return the 
+/// index for later use.
 
 unsigned Shader::getUniformLocation(const char* name)
 {
@@ -210,6 +240,10 @@ unsigned Shader::getUniformLocation(const char* name)
 // hide the ugliness of the openGL API.  These ones lookup by indexed previously returned
 // from getUniform.
 
+/// @brief Set the value of a mat4 shader uniform
+/// @param loc An unsigned with the location of the uniform to set (from 
+/// getUniformLocation()).
+/// @param value A reference to the mat4 value to set.
 void Shader::setUniform(const unsigned loc, const mat4& matrix)
 {
   glUniformMatrix4fv(loc, 1, GL_FALSE, (float*)matrix);

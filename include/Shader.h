@@ -1,5 +1,4 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Apr 2020 -
-// Class that provides an abstraction for an openGL shader pipeline.
 
 #ifndef SHADER_H
 #define SHADER_H
@@ -7,14 +6,15 @@
 #include <cstdio>
 #include <cglm/cglm.h>
 
+
 // =======================================================================================
 // Utility function
 
 int checkGLError(FILE* file, const char* preamble);
 
-// =======================================================================================
-// Class variable initialization
 
+// =======================================================================================
+/// @brief Class that provides an abstraction for an openGL shader pipeline.
 
 class Shader
 {
@@ -41,10 +41,12 @@ class Shader
   unsigned getUniformLocation(const char* name);
 
   void setUniform(const unsigned loc, const mat4& matrix);
-  static Shader& getMainShader(void) // Get the singleton instance
+  /// @brief Get the singleton instance of the shader
+  static Shader& getMainShader(void) 
    {
     return *mainShader;
    }
+  static void validateShader(void);  // test accesssibility for debugging purposes
 
  private:
 
@@ -58,5 +60,7 @@ class Shader
 };
 
 #endif
+
+// =======================================================================================
 
 
