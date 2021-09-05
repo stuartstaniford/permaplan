@@ -47,6 +47,7 @@ bool doLogObjectInsertions    = true; // Log when a new object is inserted in sc
 bool doLogDumpObjectBuffer    = true; // Dump buffer when a new object is inserted.
 bool doLogSimulationControls  = true; // Log control operations on the simulation.
 bool doLogWindowOperations    = true; // Log changes to the window (eg resizing).
+bool doLogCameraFrames        = true; // Log camera variables every frame
 
 // Logging options to do with materials and textures
 bool doLogTextureAtlas        = true; // Log texture atlas creation
@@ -323,9 +324,14 @@ bool LogControlHTML(HttpDebug* serv, char* path)
     return oneLogControl(serv, path, doLogSimulationControls);
 #endif
 
-#ifdef LOG_WINDOW_OPERATIONS // Log changes to the window (eg resizing).
+#ifdef LOG_WINDOW_OPERATIONS    // Log camera variables every frame
   if(strncmp(path, "doLogWindowOperations", sizeof("doLogWindowOperations")-1)==0)
     return oneLogControl(serv, path, doLogWindowOperations);
+#endif
+
+#ifdef LOG_CAMERA_FRAMES // Log changes to the window (eg resizing).
+  if(strncmp(path, "doLogCameraFrames", sizeof("doLogCameraFrames")-1)==0)
+    return oneLogControl(serv, path, doLogCameraFrames);
 #endif
 
 

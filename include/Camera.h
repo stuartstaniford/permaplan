@@ -59,6 +59,7 @@ class Camera
   void  updateAfterMove(void);
   bool  setApi(HttpDebug* serv, char* path, Scene& scene);
   bool  diagnosticHTML(HttpDebug* serv, char* path, Scene& scene);
+  void  logFrames(void);
   
   /// @brief Move the camera position upwards.
   /// @param distance A float for how many spaceUnits to move up.

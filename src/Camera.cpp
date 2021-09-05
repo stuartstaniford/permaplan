@@ -175,6 +175,19 @@ void Camera::focusOnObject(BoundingBox* bbox, vec3& camFront,  int pixWidth, int
 
 
 // =======================================================================================
+/// @brief Log the main camera variables
+
+void Camera::logFrames(void)
+{
+#ifdef LOG_CAMERA_FRAMES
+  LogCameraFrames("Pos: [%.1f, %.1f, %.1f], Front: [%.1f, %.1f, %.1f], "
+                      "Up: [%.1f, %.1f, %.1f]", pos[0], pos[1], pos[2],
+                      front[0], front[1], front[2], up[0], up[1], up[2]);
+#endif
+}
+
+
+// =======================================================================================
 /// @brief Instantiate this camera into the shader
 
 void Camera::makeActive(void)

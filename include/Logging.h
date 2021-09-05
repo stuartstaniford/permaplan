@@ -47,6 +47,7 @@
 #define LOG_DUMP_OBJECT_BUFFER   // Dump buffer when a new object is inserted.
 #define LOG_SIMULATION_CONTROLS // Log control operations on the simulation.
 #define LOG_WINDOW_OPERATIONS   // Log changes to the window (eg resizing).
+#define LOG_CAMERA_FRAMES       // Log camera variables every frame
 
 
 // =======================================================================================
@@ -200,6 +201,7 @@ extern bool doLogObjectInsertions;    // Log when a new object is inserted in sc
 extern bool doLogDumpObjectBuffer;    // Dump buffer when a new object is inserted.
 extern bool doLogSimulationControls;  // Log control operations on the simulation.
 extern bool doLogWindowOperations;    // Log changes to the window (eg resizing).
+extern bool doLogCameraFrames;        // Log camera variables every frame
 
 // Logging options to do with materials and textures
 extern bool doLogTextureAtlas;        // Log texture atlas creation
@@ -478,6 +480,14 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
                                     LogStatement("LogWindowOperations: " __VA_ARGS__)
 #else
 #define LogWindowOperations(...)
+#endif
+
+// Log camera variables every frame
+#ifdef LOG_CAMERA_FRAMES
+#define LogCameraFrames(...) if(doLogCameraFrames) \
+                                    LogStatement("LogCameraFrames: " __VA_ARGS__)
+#else
+#define LogCameraFrames(...)
 #endif
 
 

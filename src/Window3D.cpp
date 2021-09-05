@@ -347,6 +347,7 @@ void Window3D::loop(void)
       else
         frameTimeAvg = 0.001f*(frameDouble - lastFrameDouble) + 0.999f*frameTimeAvg;
      }
+    camera.logFrames();
     
     // OpenGL calls to clear buffer
     glClearColor(0.6f, 0.7f, 0.7f, 1.0f);
