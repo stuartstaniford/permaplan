@@ -48,6 +48,7 @@ bool doLogDumpObjectBuffer    = true; // Dump buffer when a new object is insert
 bool doLogSimulationControls  = true; // Log control operations on the simulation.
 bool doLogWindowOperations    = true; // Log changes to the window (eg resizing).
 bool doLogCameraFrames        = true; // Log camera variables every frame
+bool doLogGLFWErrors          = true; // Log when the GLFW library needs to report errors
 
 // Logging options to do with materials and textures
 bool doLogTextureAtlas        = true; // Log texture atlas creation
@@ -332,6 +333,11 @@ bool LogControlHTML(HttpDebug* serv, char* path)
 #ifdef LOG_CAMERA_FRAMES // Log changes to the window (eg resizing).
   if(strncmp(path, "doLogCameraFrames", sizeof("doLogCameraFrames")-1)==0)
     return oneLogControl(serv, path, doLogCameraFrames);
+#endif
+
+#ifdef LOG_GLFW_ERRORS // Log when the GLFW library needs to report errors
+  if(strncmp(path, "doLogGLFWErrors", sizeof("doLogGLFWErrors")-1)==0)
+    return oneLogControl(serv, path, doLogGLFWErrors);
 #endif
 
 

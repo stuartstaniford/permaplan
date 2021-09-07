@@ -48,7 +48,7 @@
 #define LOG_SIMULATION_CONTROLS // Log control operations on the simulation.
 #define LOG_WINDOW_OPERATIONS   // Log changes to the window (eg resizing).
 #define LOG_CAMERA_FRAMES       // Log camera variables every frame
-
+#define LOG_GLFW_ERRORS         // Log when the GLFW library needs to report errors
 
 // =======================================================================================
 // Logging options to do with materials and textures
@@ -202,6 +202,7 @@ extern bool doLogDumpObjectBuffer;    // Dump buffer when a new object is insert
 extern bool doLogSimulationControls;  // Log control operations on the simulation.
 extern bool doLogWindowOperations;    // Log changes to the window (eg resizing).
 extern bool doLogCameraFrames;        // Log camera variables every frame
+extern bool doLogGLFWErrors;          // Log when the GLFW library needs to report errors
 
 // Logging options to do with materials and textures
 extern bool doLogTextureAtlas;        // Log texture atlas creation
@@ -488,6 +489,14 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
                                     LogStatement("LogCameraFrames: " __VA_ARGS__)
 #else
 #define LogCameraFrames(...)
+#endif
+
+// Log when the GLFW library needs to report errors
+#ifdef LOG_GLFW_ERRORS
+#define LogGLFWErrors(...) if(doLogGLFWErrors) \
+                                    LogStatement("LogGLFWErrors: " __VA_ARGS__)
+#else
+#define LogGLFWErrors(...)
 #endif
 
 

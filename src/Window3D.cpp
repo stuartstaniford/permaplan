@@ -67,6 +67,15 @@ void openGLInitialLogging(void)
 
 
 // =======================================================================================
+/// @brief Callback used for when the GLFW library needs to report errors.
+
+void glfwErrorCallback(int error, const char* description)
+{
+  LogGLFWErrors("Error: %s\n", description);
+}
+
+
+// =======================================================================================
 /// @brief Static function to initialize the graphics system.
 /// 
 /// Must be called early in the program before any other graphics calls are done.  The
@@ -75,6 +84,7 @@ void openGLInitialLogging(void)
 void Window3D::initGraphics(void)
 {
   // Initialize GLFW and define version and compatibility settings
+  glfwSetErrorCallback(glfwErrorCallback);
   glfwInit();
   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
@@ -249,10 +259,15 @@ ActionType Window3D::processAction(InterfaceAction* action)
 // =======================================================================================
 /// @brief Make us the target for OpenGL commands and also the focus window for keyboard
 /// and mouse events. 
+///
+/// Note this link has some very helpful discussion and background for the issues this
+/// function has to handle:
+/// https://gregnott.wordpress.com/2013/05/18/tutorial-multiple-windows-with-glfw3-and-glew-mx/.
 
 void Window3D::makeFocus(void)
 {
   //glfwMakeContextCurrent(window);
+  Shader::validateShader((char*)"In makeFocus");
   glfwFocusWindow(window);  
   staticWindowLock.lock();
   activeWin = ourWin;
@@ -314,6 +329,11 @@ void Window3D::overLoop(void)
 
 // =======================================================================================
 /// @brief Event processing loop for our window.
+///
+/// @todo We are not distinguishing between loop exits from the user closing the window
+/// and loop exits because we are going to switch to another window.  In the former case
+/// we are supposed to deallocate the window and close it.
+/// https://www.glfw.org/docs/latest/quick.html#quick_window_close
 
 void Window3D::loop(void)
 {
@@ -362,6 +382,7 @@ void Window3D::loop(void)
     // Do our actual drawing and deliver to screen window
     draw((float)(frameDouble - lastFrameDouble));
     glfwSwapBuffers(window);
+    glfwSwapInterval(1);
     
     // Process pseudo-IO from HTTP interface
     InterfaceAction* action = NULL;

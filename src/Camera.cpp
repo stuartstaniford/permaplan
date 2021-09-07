@@ -181,7 +181,7 @@ void Camera::logFrames(void)
 {
 #ifdef LOG_CAMERA_FRAMES
   LogCameraFrames("Pos: [%.1f, %.1f, %.1f], Front: [%.1f, %.1f, %.1f], "
-                      "Up: [%.1f, %.1f, %.1f]", pos[0], pos[1], pos[2],
+                      "Up: [%.1f, %.1f, %.1f]\n", pos[0], pos[1], pos[2],
                       front[0], front[1], front[2], up[0], up[1], up[2]);
 #endif
 }

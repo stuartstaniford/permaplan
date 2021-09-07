@@ -16,6 +16,7 @@
 // Forward declarations
 
 class MenuFocusOverlay;
+class GLEWContext;
 
 
 // =======================================================================================
@@ -67,6 +68,7 @@ class Window3D
   int             width;
   int             height;
   GLFWwindow*     window;
+  GLEWContext*    glewContext;
   const char*     winTitle;
   int             ourWin;
   bool            exitLoopRequired;
@@ -127,5 +129,14 @@ class Window3D
   Window3D& operator=(const Window3D&);      // Prevent assignment
 
 };
+
+
+// =======================================================================================
+// C function prototypes (eg callbacks)
+
+void glfwErrorCallback(int error, const char* description);
+
+
+// =======================================================================================
 
 #endif
