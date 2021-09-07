@@ -90,7 +90,7 @@ void Window3D::initGraphics(void)
   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
   glfwWindowHint(GLFW_OPENGL_PROFILE,GLFW_OPENGL_CORE_PROFILE);
   glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-  //glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+  glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
  }
 
 
@@ -146,6 +146,7 @@ Window3D::Window3D(int pixWidth, int pixHeight, const char* title):
   glfwSetFramebufferSizeCallback(window, windowResize);
   glEnable(GL_DEPTH_TEST);
   glEnable(GL_CULL_FACE);
+  glfwSwapInterval(1);
 
   glViewport(0, 0, width, height);
   lastTime.now();
@@ -334,6 +335,9 @@ void Window3D::overLoop(void)
 /// and loop exits because we are going to switch to another window.  In the former case
 /// we are supposed to deallocate the window and close it.
 /// https://www.glfw.org/docs/latest/quick.html#quick_window_close
+/// @todo We are not correctly using framebuffer size vs window size in the loop. 
+/// https://www.glfw.org/docs/latest/window_guide.html#window_size
+/// https://www.glfw.org/docs/latest/window_guide.html#window_fbsize
 
 void Window3D::loop(void)
 {
@@ -382,7 +386,6 @@ void Window3D::loop(void)
     // Do our actual drawing and deliver to screen window
     draw((float)(frameDouble - lastFrameDouble));
     glfwSwapBuffers(window);
-    glfwSwapInterval(1);
     
     // Process pseudo-IO from HTTP interface
     InterfaceAction* action = NULL;
