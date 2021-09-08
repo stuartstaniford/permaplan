@@ -102,8 +102,10 @@ void Window3D::initGraphics(void)
 /// called.
 /// @param pixWidth The number of pixels wide for the window
 /// @param pixHeight The number of pixels high for the window
+/// @param existing A pointer to an existing window, with which this new window should
+/// share an OpenGL context.  This is NULL by default (creating a new context).
 
-Window3D::Window3D(int pixWidth, int pixHeight, const char* title):
+Window3D::Window3D(int pixWidth, int pixHeight, const char* title, Window3D* existing):
                         camera(200.0f, 45.0f),
                         width(pixWidth),
                         height(pixHeight),
@@ -120,7 +122,10 @@ Window3D::Window3D(int pixWidth, int pixHeight, const char* title):
     Window3D::initGraphics();
   
   // Use GLFW to create OpenGL window and context
-  window = glfwCreateWindow(width, height, title, NULL, NULL);
+  if(existing)
+    window = glfwCreateWindow(width, height, title, NULL, existing->window);
+  else
+    window = glfwCreateWindow(width, height, title, NULL, NULL);    
   if (!window)
     err(-1, "Couldn't create window %s.\n", title);
 

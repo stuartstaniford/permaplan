@@ -21,10 +21,12 @@
 /// @param pixWidth The number of pixels wide to create this window.
 /// @param pixHeight The number of pixels high to create this window.
 /// @param title A C string for what to put on the window title bar.
+/// @param existing A pointer to an existing window, with which this new window should
+/// share an OpenGL context.  This is NULL by default (creating a new context).
 
 ObjectInspectorWindow::ObjectInspectorWindow(VisualObject& obj, vec3& camFront, int pixWidth, 
-                                                          int pixHeight, const char* title):
-                                            Window3D(pixWidth, pixHeight, title),
+                                        int pixHeight, const char* title, Window3D* existing):
+                                            Window3D(pixWidth, pixHeight, title, existing),
                                             object(obj)
 {
   camera.focusOnObject(obj.box, camFront, pixWidth, pixHeight);

@@ -45,7 +45,7 @@ class Window3D
   Camera            camera;
 
   // Public methods
-  Window3D(int pixWidth, int pixHeight, const char* title);
+  Window3D(int pixWidth, int pixHeight, const char* title, Window3D* existing = NULL);
   ~Window3D(void);
   void loop(void);
   void makeFocus(void);

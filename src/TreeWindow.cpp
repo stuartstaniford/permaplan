@@ -13,10 +13,12 @@
 /// @param camFront A reference to the front vector of the camera in the calling 
 /// scene window.  This will be used to ensure that we open up looking at the tree 
 /// from the same angle in the horizontal plane.
+/// @param existing A pointer to an existing window, with which this new window should
+/// share an OpenGL context.
 
-TreeWindow::TreeWindow(Tree& tree, vec3& camFront):
+TreeWindow::TreeWindow(Tree& tree, vec3& camFront, Window3D* existing):
                       ObjectInspectorWindow(tree, camFront, TREE_WINDOW_INIT_WIDTH, 
-                                        TREE_WINDOW_INIT_HEIGHT, (char*)"Tree Inspector")
+                      TREE_WINDOW_INIT_HEIGHT, (char*)"Tree Inspector", existing)
 {
 }
 

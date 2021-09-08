@@ -25,7 +25,7 @@ public:
   
   // Member functions - public
   ObjectInspectorWindow(VisualObject& obj, vec3& camFront, int pixWidth, int pixHeight, 
-                                                                        const char* title);
+                                                const char* title, Window3D* existing = NULL);
   ~ObjectInspectorWindow(void);
 
 protected:
