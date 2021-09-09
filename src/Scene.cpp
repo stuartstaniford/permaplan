@@ -23,7 +23,7 @@
 /// @brief Constructor, which initializes the setup of the scene.
 ///
 ///This does things like setting up the quadtree, setting up the landsurface, and reading
-///in visiable things like trees, buildings, etc from the OLDF file and putting them into
+///in visible things like trees, buildings, etc from the OLDF file and putting them into
 ///the quadtree.
 
 Scene::Scene():
@@ -62,6 +62,20 @@ Scene::~Scene(void)
   if(axes)
     delete axes;  
   saveState();
+}
+
+
+// =======================================================================================
+/// @brief Set up the OpenGL context associated with a new window that has been opened
+/// with shared state from an existing window.  This is in Scene because it requires
+/// doing things across multiple aspects of the Scene, and that is co-ordinated from here.
+///
+/// See [this example GLFW progam)[https://github.com/glfw/glfw/blob/master/examples/sharing.c]
+/// for some ideas about the issues this function is handling.
+
+void Scene::configureOpenGLForNewWindow(void)
+{
+  
 }
 
 
@@ -389,11 +403,12 @@ bool Scene::diagnosticHTMLSimulationSummary(HttpDebug* serv)
 // =======================================================================================
 /// @brief Draw the current state of the scene.
 /// 
-/// This is called from the main Window3D event loop and coordinates all drawing of the
+/// This is called from a main Window3D event loop and coordinates all drawing of the
 /// scene.
-/// @param timeElapsed The amount of time elapsed in seconds since the last call.
-
-vec4  objColor      = {0.0f, 0.5f, 0.9f, 1.0f};
+/// @param camera A reference to the Camera object of thw window that wishes to render us,
+/// so that the scene can be shown from the correct angle/perspective.
+/// @param timeElapsed The amount of time elapsed in seconds since the last call (for
+/// use in when the simulation is running and needs to be updated).
 
 void Scene::draw(Camera& camera, float timeElapsed)
 {

@@ -62,6 +62,7 @@ class Scene: public Lockable
   // Member functions - public
   Scene(void);
   ~Scene(void);
+  void          configureOpenGLForNewWindow(void);
   void          draw(Camera& camera, float timeElapsed);
   void          loadScenarioFile(void);
   void          startSimulation(void);
