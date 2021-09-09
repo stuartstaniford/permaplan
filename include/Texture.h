@@ -1,5 +1,4 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Apr 2020 -
-// Class that provides an abstraction for openGL textures.
 
 #ifndef TEXTURE_H
 #define TEXTURE_H
@@ -9,9 +8,9 @@
 
 #define TexPathLimit 2048
 
-// =======================================================================================
-// Class variable initialization
 
+// =======================================================================================
+/// @brief Simple class that provides an abstraction for a single openGL texture.
 
 class Texture
 {
@@ -41,6 +40,9 @@ class Texture
   Texture(const Texture&);                 // Prevent copy-construction
   Texture& operator=(const Texture&);      // Prevent assignment
 };
+
+
+// =======================================================================================
 
 #endif
 

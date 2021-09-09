@@ -906,7 +906,7 @@ INPUT                  = doc \
                 include/Shader.h src/Shader.cpp \
                 include/Shed.h src/Shed.cpp \
                 include/TaskQueue.h src/TaskQueue.cpp \
-                include/TaskQueue.h src/TaskQueue.cpp \
+                include/Texture.h src/Texture.cpp \
                 include/Tree.h src/Tree.cpp \
                 include/TreeWindow.h src/TreeWindow.cpp \
                 include/Vertex.h src/Vertex.cpp \

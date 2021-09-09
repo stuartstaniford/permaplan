@@ -10,7 +10,14 @@
 
 
 // =======================================================================================
-// Load a texture from a file.
+/// @brief Constructor that loads a single texture from a file.
+///
+/// This function loads the texture into CPU memory (pointed to by the data pointer) but
+/// does not send it to the GPU.  Uses the 
+/// (STB Image library)[https://github.com/nothings/stb/blob/master/stb_image.h]
+/// to do the actual loading. 
+/// @param fileName A C string with the file name to load an image from.
+/// @param flip A boolean for whether to flip the image vertically on loading.
 
 Texture::Texture(const char* fileName, bool flip):
                             data(NULL)
@@ -35,7 +42,8 @@ Texture::Texture(const char* fileName, bool flip):
 
 
 // =======================================================================================
-// Alternate constructer used for creating an empty texture (eg used by TextureAtlas)
+/// @brief Alternate constructor used for creating an empty texture (eg used by 
+/// TextureAtlas)
 
 Texture::Texture(void):
                     width(0u),
@@ -48,7 +56,9 @@ Texture::Texture(void):
 
 
 // =======================================================================================
-// Destructor
+/// @brief Destructor.  
+/// 
+/// Deallocates the data buffer if it's in use, or else glDeletes the texture
 
 Texture::~Texture(void)
 {
@@ -60,8 +70,12 @@ Texture::~Texture(void)
 
 
 // =======================================================================================
-// Create a texture from data (and set up the Mipmap).  See this link for background
-// https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/glTexImage2D.xhtml
+/// @brief Create a texture from data (with mipmap) and send it to the GPU.
+///
+/// This will deallocate the data buffer (so we no longer have the data in CPU memory
+/// once we have it in GPU memory.  See (this link) 
+/// [https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/glTexImage2D.xhtml]
+/// for background.
 
 void Texture::sendToGpu(void)
 {
@@ -92,7 +106,9 @@ void Texture::sendToGpu(void)
 
 
 // =======================================================================================
-// Bind a particular texture to a given active texture unit and name in the shader
+/// @brief Bind a particular texture to a given active texture unit and name in the shader
+/// @param textureUnit
+/// @param name
 
 void Texture::bind(unsigned textureUnit, const char* name)
 {
