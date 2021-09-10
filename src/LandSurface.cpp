@@ -10,8 +10,8 @@
 #include <stdexcept>
 #include <err.h>
 #include <cstring>
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
+//#include <GL/glew.h>
+//#include <GLFW/glfw3.h>
 
 
 // =======================================================================================
@@ -153,10 +153,10 @@ void LandSurface::highlightNode(Quadtree* targetNode, vec4& color, float accent)
   
 #else
   //printf("Size: %u\tOffset: %u\n", targetNode->landVBOSize, targetNode->bufferOffset);
-  Vertex* buf = (Vertex*)glMapBufferRange(GL_ARRAY_BUFFER,
+  //Vertex* buf = (Vertex*)glMapBufferRange(GL_ARRAY_BUFFER,
                         (targetNode->bufferOffset)*sizeof(Vertex),
                         (targetNode->landVBOSize)*sizeof(Vertex), GL_MAP_WRITE_BIT);
-  if(checkGLError(stderr, "LandSurface::highlightNode:glMapBufferRange") || !buf)
+  //if(checkGLError(stderr, "LandSurface::highlightNode:glMapBufferRange") || !buf)
     exit(-1);
   Vertex* b;
   int i;
@@ -165,7 +165,7 @@ void LandSurface::highlightNode(Quadtree* targetNode, vec4& color, float accent)
   for(b = buf, i=0; i<targetNode->landVBOSize;i++,b++)
       b->accent = accent;
 
-  glUnmapBuffer(GL_ARRAY_BUFFER);
+  //glUnmapBuffer(GL_ARRAY_BUFFER);
   if(checkGLError(stderr, "LandSurface::highlightNode"))
     exit(-1);
 #endif

@@ -5,8 +5,6 @@
 #include "DynamicallyTypable.h"
 #include "MenuPanel.h"
 #include <cglm/cglm.h>
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
 #include "rapidjson/document.h"
 #include "rapidjson/writer.h"
 #include "rapidjson/stringbuffer.h"

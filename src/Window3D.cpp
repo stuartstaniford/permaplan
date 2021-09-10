@@ -69,7 +69,7 @@ void openGLInitialLogging(void)
 // =======================================================================================
 /// @brief Callback used for when the GLFW library needs to report errors.
 
-void glfwErrorCallback(int error, const char* description)
+void errorCallbackForGLFW(int error, const char* description)
 {
   LogGLFWErrors("Error: %s\n", description);
 }
@@ -84,7 +84,7 @@ void glfwErrorCallback(int error, const char* description)
 void Window3D::initGraphics(void)
 {
   // Initialize GLFW and define version and compatibility settings
-  glfwSetErrorCallback(glfwErrorCallback);
+  glfwSetErrorCallback(errorCallbackForGLFW);
   glfwInit();
   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);

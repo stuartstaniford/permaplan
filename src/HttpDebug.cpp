@@ -21,8 +21,6 @@
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <unistd.h>
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
 
 
 // =======================================================================================

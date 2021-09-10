@@ -8,8 +8,6 @@
 #include <cstring>
 #include <stdio.h>
 #include <cglm/cglm.h>
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
 #include "Global.h"
 #include "Logging.h"
 

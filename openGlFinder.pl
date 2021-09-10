@@ -3,6 +3,21 @@
 # A utility script to find all openGL calls, GLFW calls, GLEW calls, and create
 # a summary report for use in understanding how the codebase depends on OpenGL.
 
+
+#================================================================================
+
+sub printHash
+{
+  my($hashRef) = @_;
+  foreach $key (keys %$hashRef)
+   {
+    print "\t\t$key\t$hashRef->{$key}\n";
+   } 
+}
+
+
+#================================================================================
+
 my @files = split("\n", `ls include/*.h src/*.cpp src/*.c`);
 
 foreach $file (@files)
@@ -15,6 +30,7 @@ foreach $file (@files)
   
   while(<FILE>)
    {
+    next if /^\s*\/\//;
     my @tokens = split /[\s\(\)\+\-\.\:\/\,\{\}\[\]\;\*\<\>\=\@\"\&]+/;
     foreach $token (@tokens)
      {
@@ -45,8 +61,15 @@ foreach $file (@files)
   next unless $total > 0;
   print "$file\n";
   print "\tGLFW tokens:\n";
+  printHash(\%openGLFWTokensFound);
   print "\tGLEW tokens:\n";
+  printHash(\%openGLEWTokensFound);
   print "\tGL tokens\n";
+  printHash(\%openGLTokensFound);
   print "\tOther tokens:\n";
+  printHash(\%otherTokensFound);
   print "\n";
  }
+
+
+#================================================================================

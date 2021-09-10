@@ -2,8 +2,6 @@
 
 #ifndef WINDOW3D_H
 #define WINDOW3D_H
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
 #include <sys/time.h>
 #include "Scene.h"
 #include "Camera.h"
@@ -16,7 +14,6 @@
 // Forward declarations
 
 class MenuFocusOverlay;
-class GLEWContext;
 
 
 // =======================================================================================
@@ -68,7 +65,6 @@ class Window3D
   int             width;
   int             height;
   GLFWwindow*     window;
-  GLEWContext*    glewContext;
   const char*     winTitle;
   int             ourWin;
   bool            exitLoopRequired;
@@ -134,7 +130,7 @@ class Window3D
 // =======================================================================================
 // C function prototypes (eg callbacks)
 
-void glfwErrorCallback(int error, const char* description);
+void errorCallbackForGLFW(int error, const char* description);
 
 
 // =======================================================================================
