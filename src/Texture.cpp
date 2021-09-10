@@ -107,8 +107,9 @@ void Texture::sendToGpu(void)
 
 // =======================================================================================
 /// @brief Bind a particular texture to a given active texture unit and name in the shader
-/// @param textureUnit
-/// @param name
+/// @param textureUnit An unsigned index for the particular texture unit in OpenGL.
+/// See https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/glActiveTexture.xhtml
+/// @param name The name of this texture in the GLSL code in the shader
 
 void Texture::bind(unsigned textureUnit, const char* name)
 {
