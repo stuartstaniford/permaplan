@@ -37,6 +37,10 @@ foreach $file (@files)
       next unless $token =~ /^gl/;
       next if $token =~ /^global/;
       next if $token =~ /^glm_/;
+      next if $token =~ /^glyph/;
+      next if $token =~ /^gl8/;
+      next if $token =~ /^glibc/;
+      next if $token =~ /^glsl$/;
       if($token =~ /^glfw[A-Z]/)
        {
         $openGLFWTokensFound{$token}++;
