@@ -44,11 +44,12 @@ class Window3D
   // Public methods
   Window3D(int pixWidth, int pixHeight, const char* title, Window3D* existing = NULL);
   ~Window3D(void);
-  void loop(void);
-  void makeFocus(void);
-  void scheduleWindowNext(Window3D* caller);
-  void move(int x, int y);
-  void resize(int width, int height);
+  void  loop(void);
+  void  makeFocus(void);
+  void  scheduleWindowNext(Window3D* caller);
+  void  move(int x, int y);
+  void  resize(int width, int height);
+  int   initPanel(char* question, char** responses, int nResponses);
 
   // Static class methods
   static bool HTTPGateway(HttpDebug* serv, char* path);
