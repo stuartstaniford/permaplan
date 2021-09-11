@@ -7,6 +7,7 @@
 #include "RegionList.h"
 #include "MenuInterface.h"
 #include "Tree.h"
+#include "Scene.h"
 
 
 // =======================================================================================

@@ -6,13 +6,15 @@
 #include "Logging.h"
 #include "VisualObject.h"
 #include "imgui.h"
-#include "Scene.h"
+#include "InterfaceAction.h"
 
 
 // =======================================================================================
 
 class MenuInterface;
 class MenuErrorPanel;
+class Window3D;
+class Scene;
 
 
 // =======================================================================================
@@ -31,7 +33,7 @@ public:
   Scene*          scene;
   
   // Member functions - public
-  MenuPanel(MenuInterface* menu, Scene* S);
+  MenuPanel(MenuInterface* menu, Scene* S, Window3D* win = NULL);
   ~MenuPanel(void);
   virtual void  imGuiDisplay(void);
   virtual char* errorInFields(void);
@@ -57,6 +59,9 @@ protected:
                           char* actionName, char* functionName, char* path);
 
 private:
+
+  // Static variables - private
+  static bool imGuiInitDone;
   
   // Instance variables - private
   

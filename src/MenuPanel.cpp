@@ -3,7 +3,17 @@
 // system.  Individual menus should inherit from this and conform to this interface
 
 #include "MenuPanel.h"
+#include "imgui_impl_opengl3.h"
+#include "imgui_impl_glfw.h"
+#include "Window3D.h"
 #include <err.h>
+
+
+// =======================================================================================
+// Static variables etc
+
+bool MenuPanel::imGuiInitDone = false;
+
 
 // =======================================================================================
 /// @brief Constructor for the MenuPanel that initializes the generic variables
@@ -12,12 +22,28 @@
 /// call back into it. 
 /// @param S A pointer to the scene.
 
-MenuPanel::MenuPanel(MenuInterface* menu, Scene* S):
+MenuPanel::MenuPanel(MenuInterface* menu, Scene* S, Window3D* win):
                   scene(S),
                   displayVisible(true),
                   mainMenu(menu),
                   errPanel(NULL)
 {
+  unless(imGuiInitDone)
+   {
+    imGuiInitDone = true;
+    // Dear ImGui initialization
+    // Setup context
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+   }
+  if(win)
+   {
+    // Setup Platform/Renderer bindings
+    ImGui_ImplGlfw_InitForOpenGL(win->window, true);
+    ImGui_ImplOpenGL3_Init("#version 410");
+    // Setup Dear ImGui style
+    ImGui::StyleColorsClassic();
+   }
 }
 
 

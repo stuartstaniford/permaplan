@@ -9,6 +9,7 @@
 #include "MenuInterface.h"
 #include "MenuErrorPanel.h"
 #include "LeafModel.h"
+#include "Scene.h"
 
 
 // =======================================================================================

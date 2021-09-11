@@ -6,6 +6,8 @@
 #include "MenuGenus.h"
 #include "MenuInterface.h"
 #include "Tree.h"
+#include "Scene.h"
+
 
 // =======================================================================================
 /// @brief Constructor

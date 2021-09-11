@@ -7,6 +7,7 @@
 #include "MenuGablePanel.h"
 #include "BuildingRect.h"
 #include "JSONStructureChecker.h"
+#include "Scene.h"
 
 
 // =======================================================================================

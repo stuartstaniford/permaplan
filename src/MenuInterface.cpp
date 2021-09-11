@@ -29,7 +29,7 @@
 /// @param W A reference to the Window3D with which this instance is associated.
 
 MenuInterface::MenuInterface(Window3D& W):
-                        MenuPanel(this, NULL), // scene will be set later
+                        MenuPanel(this, NULL, &W), // scene will be set later
                         show_lock_overlay(false),
                         show_init_panel(false),
                         win3D(W),
@@ -47,16 +47,6 @@ MenuInterface::MenuInterface(Window3D& W):
                         , show_demo_window(true)
 #endif
 {
-  // Dear ImGui initialization
-  // Setup context
-  IMGUI_CHECKVERSION();
-  ImGui::CreateContext();
-
-  // Setup Platform/Renderer bindings
-  ImGui_ImplGlfw_InitForOpenGL(win3D.window, true);
-  ImGui_ImplOpenGL3_Init("#version 410");
-  // Setup Dear ImGui style
-  ImGui::StyleColorsClassic();
 }
 
 

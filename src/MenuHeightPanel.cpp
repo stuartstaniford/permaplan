@@ -5,6 +5,8 @@
 
 #include "MenuHeightPanel.h"
 #include "MenuInterface.h"
+#include "Scene.h"
+
 
 // =======================================================================================
 /// @brief Constructor

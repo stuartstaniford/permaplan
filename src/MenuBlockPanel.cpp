@@ -4,6 +4,7 @@
 #include "MenuBlockPanel.h"
 #include "Material.h"
 #include "MenuInterface.h"
+#include "Scene.h"
 
 
 // =======================================================================================

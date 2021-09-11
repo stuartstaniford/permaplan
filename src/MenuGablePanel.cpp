@@ -5,6 +5,7 @@
 #include "MenuGablePanel.h"
 #include "MenuInterface.h"
 #include "MenuErrorPanel.h"
+#include "Scene.h"
 
 
 // =======================================================================================

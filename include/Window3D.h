@@ -32,7 +32,7 @@ class MenuFocusOverlay;
 
 class Window3D
 {
-  friend MenuInterface;
+  friend MenuPanel;
   friend MenuFocusOverlay;
   
  public:
