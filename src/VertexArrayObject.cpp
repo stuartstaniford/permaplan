@@ -11,7 +11,8 @@
 
 
 // =======================================================================================
-// Function to create and open a new vertex array object
+/// @brief Constructor Create and binds an array of new vertex array objects.
+/// @param sizeIn The size of the array of VAOs to create
 
 VertexArrayObject::VertexArrayObject(unsigned sizeIn):size(sizeIn)
 {
@@ -25,7 +26,8 @@ VertexArrayObject::VertexArrayObject(unsigned sizeIn):size(sizeIn)
 
 
 // =======================================================================================
-// Destructor
+/// @brief Destructor
+/// Deletes the VAOs as well as the array of their identifiers
 
 VertexArrayObject::~VertexArrayObject(void)
 {
@@ -37,7 +39,8 @@ VertexArrayObject::~VertexArrayObject(void)
 
 
 // =======================================================================================
-// Bind the index'th one of our vertex array objects
+/// @brief Bind the index'th one of our vertex array objects
+/// @param index The particular VAO to bind within our array.
 
 void VertexArrayObject::bind(unsigned index)
 {
@@ -46,4 +49,6 @@ void VertexArrayObject::bind(unsigned index)
     exit(-1);
 }
 
+
+// =======================================================================================
 

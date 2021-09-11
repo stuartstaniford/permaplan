@@ -1,13 +1,11 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Apr 2020 -
-// This is a C++ wrapper around the openGL vertex array object.
-
 
 #ifndef VERTEX_ARRAY_OBJECT_H
 #define VERTEX_ARRAY_OBJECT_H
 
-// =======================================================================================
-// Class variable initialization
 
+// =======================================================================================
+/// @brief C++ wrapper around the openGL vertex array object (actually an array of them).
 
 class VertexArrayObject
 {
@@ -35,6 +33,7 @@ private:
 
 #endif
 
+// =======================================================================================
 
 
 
