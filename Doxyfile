@@ -877,6 +877,7 @@ INPUT                  = doc \
                 include/CO2Scenario.h src/CO2Scenario.cpp \
                 include/DisplayList.h src/DisplayList.cpp \
                 include/DynamicallyTypable.h src/DynamicallyTypable.cpp \
+                include/ElementBufferObject.h src/ElementBufferObject.cpp \
                 include/Gable.h src/Gable.cpp \
                 include/HeightMarker.h src/HeightMarker.cpp \
                 include/HttpDebug.h src/HttpDebug.cpp \

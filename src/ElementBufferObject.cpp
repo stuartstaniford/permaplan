@@ -1,5 +1,5 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Apr 2020 -
-// This is a C++ wrapper around the openGL vertex array object.
+// This is a C++ wrapper around the openGL element buffer object.
 
 #include "ElementBufferObject.h"
 #include "Shader.h"
@@ -11,7 +11,11 @@
 
 
 // =======================================================================================
-// Function to create and open a new vertex array object
+/// @brief Constructor creates and binds a new element buffer object
+/// @param indices A pointer to an unsigned buffer for the indices of the vertices
+/// @param size The number of indices in the buffer
+/// @param usage The expected usage of the buffer (see 'man 3 glBufferData' for allowable
+/// values of this.
 
 ElementBufferObject::ElementBufferObject(unsigned* indices, unsigned size, GLenum usage)
 {
@@ -21,12 +25,11 @@ ElementBufferObject::ElementBufferObject(unsigned* indices, unsigned size, GLenu
 
   if(checkGLError(stderr, "ElementBufferObject::ElementBufferObject"))
     exit(-1);
-
 }
 
 
 // =======================================================================================
-// Destructor
+/// @brief Destructor
 
 ElementBufferObject::~ElementBufferObject(void)
 {
@@ -37,7 +40,7 @@ ElementBufferObject::~ElementBufferObject(void)
 
 
 // =======================================================================================
-// Bind the index'th one of our vertex array objects
+/// @brief Bind our EBO.
 
 void ElementBufferObject::bind(void)
 {
@@ -47,3 +50,4 @@ void ElementBufferObject::bind(void)
 }
 
 
+// =======================================================================================

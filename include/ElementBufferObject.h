@@ -1,6 +1,4 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Jun 2020 -
-// This is a C++ wrapper around the openGL element buffer object.
-
 
 #ifndef ELEMENT_BUFFER_OBJECT_H
 #define ELEMENT_BUFFER_OBJECT_H
@@ -10,7 +8,9 @@
 
 
 // =======================================================================================
-// Class variable initialization
+/// @brief C++ wrapper around the openGL element buffer object.
+/// 
+/// https://learnopengl.com/Getting-started/Hello-Triangle
 
 
 class ElementBufferObject

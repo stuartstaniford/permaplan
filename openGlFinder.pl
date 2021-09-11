@@ -34,7 +34,7 @@ foreach $file (@files)
     my @tokens = split /[\s\(\)\+\-\.\:\/\,\{\}\[\]\;\*\<\>\=\@\"\&]+/;
     foreach $token (@tokens)
      {
-      next unless $token =~ /^gl/;
+      next unless $token =~ /^gl/ || $token =~ /^GL[a-z]/;
       next if $token =~ /^global/;
       next if $token =~ /^glm_/;
       next if $token =~ /^glyph/;
@@ -49,7 +49,7 @@ foreach $file (@files)
        {
         $openGLEWTokensFound{$token}++;
        }
-      elsif($token =~ /^gl[A-Z]/)
+      elsif($token =~ /^gl[A-Z]/ || $token =~ /^GL[a-z]/)
        {
         $openGLTokensFound{$token}++;
        }
