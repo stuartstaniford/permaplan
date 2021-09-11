@@ -1,4 +1,4 @@
-// Copyright Staniford Systems.  All Rights Reserved.  August 2021 -
+// Copyright Staniford Systems.  All Rights Reserved.  September 2021 -
 // This class ..... is a template for real classes
 
 #include "EmptyClass.h"
