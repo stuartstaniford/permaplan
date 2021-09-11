@@ -59,12 +59,10 @@ public:
 
   // Public instance variables
   bool            show_lock_overlay;
-  bool            show_init_panel;
 
   // Public methods
   MenuInterface(Window3D& W);
   ~MenuInterface(void);
-  int   initPanel(char* question, char** responses, int nResponses);
   void  imguiInterface(void);
   bool  HTTPAPi(HttpDebug* serv, char* path);
   bool  HTTPAPiSelections(HttpDebug* serv, char* path);

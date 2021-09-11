@@ -7,6 +7,8 @@
 #include "MenuInterface.h"
 #include "MenuInsert.h"
 #include "TreeWindow.h"
+#include "MenuInitPanel.h"
+
 
 // =======================================================================================
 /// @brief Constructor
@@ -161,8 +163,8 @@ int MainSceneWindow::initPanel(char* question, char** responses, int nResponses)
     glfwGetWindowSize(window, &width, &height); // make sure we know current size
     Shader& shader = Shader::getMainShader();
     shader.useProgram();
-    imgMenu->show_init_panel = true;
-    int response = imgMenu->initPanel(question, responses, nResponses);
+    MenuInitPanel initP;
+    int response = initP.initPanel(question, responses, nResponses);
     glfwSwapBuffers(window);
     glfwPollEvents();    
     if(response >= 0)

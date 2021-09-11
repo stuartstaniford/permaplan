@@ -13,7 +13,7 @@
 /// is only called from Window3D::initPanel, which has it's own special rendering loop 
 /// because this is for use before the main rendering loop has started.
 
-class MenuInitPanel//: public MenuPanel
+class MenuInitPanel: public MenuPanel
 {
 public:
   
@@ -22,7 +22,8 @@ public:
   // Member functions - public
   MenuInitPanel(void);
   ~MenuInitPanel(void);
-  
+  int initPanel(char* question, char** responses, int nResponses);
+
 private:
   
   // Instance variables - private
