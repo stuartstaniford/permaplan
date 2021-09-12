@@ -32,6 +32,7 @@ class TriangleBuffer
   bool requestSpace(Vertex** verticesAssigned, unsigned** indicesAssigned,
                     unsigned& vOffset, unsigned vRequestCount, unsigned iRequestCount);
   void sendToGPU(GLenum usage);
+  void recreateInNewContext(void);
   void draw(VertexDrawType drawType, vec4 objColor);
   bool sanityCheckPosition(unsigned v);
   void selfValidate(void);

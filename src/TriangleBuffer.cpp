@@ -170,6 +170,23 @@ void TriangleBuffer::sendToGPU(GLenum usage)
 
 
 // =======================================================================================
+/// @brief Recreate our necessary state in a new OpenGL context (eg a new window).
+///
+/// When we create a new OpenGL context and share the objects from the old one (eg a new
+/// window with a different viewpoint on the same scene), OpenGL only shares basic
+/// objects and not container objects.  The purpose of this function is to recreate the
+/// container objects so that we can draw the contents of this TriangleBuffer in the new
+/// context.
+/// See this link for more details:
+///https://stackoverflow.com/questions/55885139/what-is-shareable-between-opengl-contexts-and-how-to-enable-sharing
+
+void TriangleBuffer::recreateInNewContext(void)
+{
+  
+}
+
+
+// =======================================================================================
 /// @brief Function which sanity checks a particular vertex.
 ///
 /// Is a helper to selfValidate().
@@ -231,7 +248,6 @@ bool TriangleBuffer::sanityCheckPosition(unsigned v)
 ///
 /// This is done right before dispatch to the GPU so the buffer should be in a sane 
 /// condition.
-
 
 void TriangleBuffer::selfValidate(void)
 {
