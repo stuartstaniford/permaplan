@@ -878,6 +878,7 @@ INPUT                  = doc \
                 include/DisplayList.h src/DisplayList.cpp \
                 include/DynamicallyTypable.h src/DynamicallyTypable.cpp \
                 include/ElementBufferObject.h src/ElementBufferObject.cpp \
+                include/ElementBufferCombo.h src/ElementBufferCombo.cpp \
                 include/Gable.h src/Gable.cpp \
                 include/HeightMarker.h src/HeightMarker.cpp \
                 include/HttpDebug.h src/HttpDebug.cpp \

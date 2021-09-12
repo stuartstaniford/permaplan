@@ -140,7 +140,7 @@ bool TriangleBuffer::requestSpace(Vertex** verticesAssigned, unsigned** indicesA
 
 
 // =======================================================================================
-/// @brief Sends the all the current data in the buffers to the GPU.
+/// @brief Sends all the current data in the buffers to the GPU.
 ///
 /// Sets up the appropriate VBO, VAO, and EBO, and dispatches the data.  This should be
 /// called only after the TriangleBuffer has been assembled.  After this, the vertex

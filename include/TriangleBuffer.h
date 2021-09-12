@@ -53,6 +53,7 @@ class TriangleBuffer
   TriangleBuffer& operator=(const TriangleBuffer&);      // Prevent assignment
 };
 
+
 // =======================================================================================
 // Helper functions
 
