@@ -911,6 +911,7 @@ INPUT                  = doc \
                 include/Texture.h src/Texture.cpp \
                 include/Tree.h src/Tree.cpp \
                 include/TreeWindow.h src/TreeWindow.cpp \
+                include/TriangleBuffer.h src/TriangleBuffer.cpp \
                 include/Vertex.h src/Vertex.cpp \
                 include/VertexArrayObject.h src/VertexArrayObject.cpp \
                 include/VertexBufferCombo.h src/VertexBufferCombo.cpp \

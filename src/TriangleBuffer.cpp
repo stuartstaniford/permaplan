@@ -182,7 +182,7 @@ void TriangleBuffer::sendToGPU(GLenum usage)
 
 void TriangleBuffer::recreateInNewContext(void)
 {
-  
+  combo->recreateInNewContext();
 }
 
 

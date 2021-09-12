@@ -30,6 +30,7 @@ public:
   ElementBufferCombo(Vertex* vertices, unsigned vCount, unsigned* indices,
                       unsigned iCount, GLenum usage);
   ~ElementBufferCombo(void);
+  void recreateInNewContext(void);
   void bind(void);
 
 private:
@@ -37,7 +38,6 @@ private:
   // Member functions - private
   ElementBufferCombo(const ElementBufferCombo&);                 // Prevent copy-construction
   ElementBufferCombo& operator=(const ElementBufferCombo&);      // Prevent assignment
-
 };
 
 
