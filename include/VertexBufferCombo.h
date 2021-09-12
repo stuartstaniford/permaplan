@@ -1,7 +1,4 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Jun 2020 -
-// This combines a vertex array object and a vertex buffer object, handy
-// for quickly instantiating drawable things.
-
 
 #ifndef VERTEX_BUFFER_COMBO_H
 #define VERTEX_BUFFER_COMBO_H
@@ -9,9 +6,11 @@
 #include "VertexArrayObject.h"
 #include "VertexBufferObject.h"
 
-// =======================================================================================
-// Class variable initialization
 
+// =======================================================================================
+/// @brief Combines a vertex array object and a vertex buffer object.
+/// 
+/// This class is handy for quickly instantiating drawable things.
 
 class VertexBufferCombo: public VertexArrayObject, public VertexBufferObject
 {
@@ -34,6 +33,9 @@ private:
   VertexBufferCombo(const VertexBufferCombo&);                 // Prevent copy-construction
   VertexBufferCombo& operator=(const VertexBufferCombo&);      // Prevent assignment
 };
+
+
+// =======================================================================================
 
 #endif
 

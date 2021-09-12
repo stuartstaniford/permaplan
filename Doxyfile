@@ -912,6 +912,7 @@ INPUT                  = doc \
                 include/TreeWindow.h src/TreeWindow.cpp \
                 include/Vertex.h src/Vertex.cpp \
                 include/VertexArrayObject.h src/VertexArrayObject.cpp \
+                include/VertexBufferCombo.h src/VertexBufferCombo.cpp \
                 include/VertexBufferObject.h src/VertexBufferObject.cpp \
                 include/VisualElement.h src/VisualElement.cpp \
                 include/VisualLayer.h src/VisualLayer.cpp \

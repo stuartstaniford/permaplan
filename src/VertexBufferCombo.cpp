@@ -9,7 +9,12 @@
 
 
 // =======================================================================================
-// Function to create and open a new vertex buffer object
+/// @brief Constuctor will create and bind a new vertex buffer combo
+/// 
+/// @param count An unsigned number of vertices in the buffer
+/// @param data A pointer to count structures of type Vertex to hold the actual vertices
+/// @param usage A GLenum to be passed to glBufferData specifying the usage of the data
+/// see (man 3 glBufferData)
 
 VertexBufferCombo::VertexBufferCombo(unsigned count, Vertex* data, GLenum usage):
                                           VertexArrayObject(1),
@@ -20,7 +25,7 @@ VertexBufferCombo::VertexBufferCombo(unsigned count, Vertex* data, GLenum usage)
 
 
 // =======================================================================================
-// Destructor
+/// @brief Destructor
 
 VertexBufferCombo::~VertexBufferCombo(void)
 {
@@ -28,7 +33,7 @@ VertexBufferCombo::~VertexBufferCombo(void)
 
 
 // =======================================================================================
-// Bind the index'th one of our vertex array objects
+/// @brief Bind our vertex array object
 
 void VertexBufferCombo::bind(void)
 {
