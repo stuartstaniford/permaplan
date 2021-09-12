@@ -1,6 +1,7 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Jun 2020 -
-// This combines a vertex array object and a vertex buffer object, handy
-// for quickly instantiating drawable things.
+// Combines a vertex array object, a vertex buffer object, and an element buffer
+// object.  This class provides all the OpenGL objects necessary to draw some vertices 
+// via indices into the triangles.
 
 #include "ElementBufferCombo.h"
 #include <cstdio>
@@ -9,7 +10,13 @@
 
 
 // =======================================================================================
-// Function to create and open a new vertex buffer object
+/// @brief Constructor - initializes and binds all three of our component OpenGL objects.
+/// @param vertices - Pointer to an array of Vertex objects
+/// @param vCount - the count of vertices in the vertices array
+/// @param indices - Pointer to an array of unsigned indices
+/// @param iCount - the count of indices we have.
+/// @param usage - a GLenum with the anticipated usage of the data (see for example
+/// man 3 glBufferData).
 
 ElementBufferCombo::ElementBufferCombo(Vertex* vertices, unsigned vCount,
                           unsigned* indices, unsigned iCount, GLenum usage):
@@ -22,7 +29,7 @@ ElementBufferCombo::ElementBufferCombo(Vertex* vertices, unsigned vCount,
 
 
 // =======================================================================================
-// Destructor
+/// @brief Destructor
 
 ElementBufferCombo::~ElementBufferCombo(void)
 {
@@ -30,7 +37,7 @@ ElementBufferCombo::~ElementBufferCombo(void)
 
 
 // =======================================================================================
-// Bind the index'th one of our vertex array objects
+/// @brief Bind all the things.
 
 void ElementBufferCombo::bind(void)
 {

@@ -1,7 +1,4 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Jun 2020 -
-// This combines a vertex array object and a vertex buffer object, handy
-// for quickly instantiating drawable things.
-
 
 #ifndef ELEMENT_BUFFER_COMBO_H
 #define ELEMENT_BUFFER_COMBO_H
@@ -10,9 +7,13 @@
 #include "VertexBufferObject.h"
 #include "ElementBufferObject.h"
 
-// =======================================================================================
-// Class variable initialization
 
+// =======================================================================================
+/// @brief Combines a vertex array object, a vertex buffer object, and an element buffer
+/// object.
+/// 
+/// This class provides all the OpenGL objects necessary to draw some vertices via 
+/// indices into the triangles
 
 class ElementBufferCombo: public VertexArrayObject, public VertexBufferObject,
         public ElementBufferObject
@@ -38,6 +39,9 @@ private:
   ElementBufferCombo& operator=(const ElementBufferCombo&);      // Prevent assignment
 
 };
+
+
+// =======================================================================================
 
 #endif
 
