@@ -37,23 +37,6 @@ ElementBufferCombo::~ElementBufferCombo(void)
 
 
 // =======================================================================================
-/// @brief Recreate our necessary state in a new OpenGL context (eg a new window).
-///
-/// When we create a new OpenGL context and share the objects from the old one (eg a new
-/// window with a different viewpoint on the same scene), OpenGL only shares basic
-/// objects and not container objects.  The purpose of this function is to recreate the
-/// container objects so that we can draw the contents of this TriangleBuffer in the new
-/// context.
-/// See this link for more details:
-///https://stackoverflow.com/questions/55885139/what-is-shareable-between-opengl-contexts-and-how-to-enable-sharing
-
-void ElementBufferCombo::recreateInNewContext(void)
-{
-  
-}
-
-
-// =======================================================================================
 /// @brief Bind all the things.
 
 void ElementBufferCombo::bind(void)

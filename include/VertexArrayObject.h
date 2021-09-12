@@ -22,6 +22,7 @@ class VertexArrayObject
   // Member functions - public
   VertexArrayObject(unsigned sizeIn);
   ~VertexArrayObject(void);
+  void recreateInNewContext(void);
   void bind(unsigned index);
 
 private:
