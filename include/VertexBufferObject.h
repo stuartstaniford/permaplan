@@ -1,6 +1,4 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Apr 2020 -
-// This is a C++ wrapper around the openGL vertex array object.
-
 
 #ifndef VERTEX_BUFFER_OBJECT_H
 #define VERTEX_BUFFER_OBJECT_H
@@ -15,11 +13,7 @@
 
 
 // =======================================================================================
-// Class variable initialization
-
-
-// =======================================================================================
-// C++ wrapper around the openGL Vertex Buffer Object
+/// @brief C++ wrapper around the openGL Vertex Buffer Object
 
 class VertexBufferObject
 {
@@ -41,6 +35,9 @@ class VertexBufferObject
   VertexBufferObject(const VertexBufferObject&);                 // Prevent copy-construction
   VertexBufferObject& operator=(const VertexBufferObject&);      // Prevent assignment
 };
+
+
+// =======================================================================================
 
 #endif
 
