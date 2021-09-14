@@ -43,8 +43,41 @@ bool mollerTrumbore(vec3 v0, vec3 v1, vec3 v2, vec3 rayPos, vec3 rayDir, float& 
     return false;
 }
 
+
 // =======================================================================================
-// Function for printing the header to an HTML table of vertices
+/// @brief Static function to communicate the vertex layout to an OpenGL context.
+
+void Vertex::vertexLayoutforOpenGL(void)
+{
+  // vertex data location established
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex),
+                        (void*)offsetof(Vertex, pos));
+  glEnableVertexAttribArray(0);
+  
+  // Color data location established
+  glVertexAttribPointer(1, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex),
+                        (void*)offsetof(Vertex, color));
+  glEnableVertexAttribArray(1);
+
+  // Texture data location established
+  glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex),
+                        (void*)offsetof(Vertex, tex));
+  glEnableVertexAttribArray(2);
+
+  // Normal data location established
+  glVertexAttribPointer(3, 3, GL_HALF_FLOAT, GL_FALSE, sizeof(Vertex),
+                        (void*)offsetof(Vertex, normal));
+  glEnableVertexAttribArray(3);
+
+  if(checkGLError(stderr, "Vertex::vertexLayoutforOpenGL"))
+    exit(-1);
+}
+
+
+// =======================================================================================
+/// @brief Static function to print an HTML table header for a table of Vertex to
+/// a file.
+/// @param file The FILE* pointer to an open file.
 
 void Vertex::printVertexTableHeader(FILE* file)
 {
@@ -62,7 +95,10 @@ void Vertex::printVertexTableHeader(FILE* file)
 
 
 // =======================================================================================
-// Function for printing a row in an HTML table of vertices
+/// @brief Print an HTML row to a table started with printVertexTableHeader for the
+/// current Vertex (this).
+/// @param file The FILE* pointer to an open file.
+/// @param row The unsigned row index to put in the first column of the table.
 
 void Vertex::printVertexTableRow(FILE* file, unsigned row)
 {

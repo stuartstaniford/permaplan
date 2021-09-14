@@ -163,15 +163,8 @@ class Vertex
     return mollerTrumbore(this->pos, v1->pos, v2->pos, rayPosition, rayDirection, outT);
    }
   
-  /// @brief Static function to print an HTML table header for a table of Vertex to
-  /// a file.
-  /// @param file The FILE* pointer to an open file.
+  static void vertexLayoutforOpenGL(void);
   static void printVertexTableHeader(FILE* file);
-
-  /// @brief Print an HTML row to a table started with printVertexTableHeader for the
-  /// current Vertex (this).
-  /// @param file The FILE* pointer to an open file.
-  /// @param row The unsigned row index to put in the first column of the table.
   void printVertexTableRow(FILE* file, unsigned row);
 };
 

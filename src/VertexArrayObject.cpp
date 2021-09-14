@@ -51,6 +51,7 @@ VertexArrayObject::~VertexArrayObject(void)
 
 void VertexArrayObject::recreateInNewContext(void)
 {
+  
 }
 
 

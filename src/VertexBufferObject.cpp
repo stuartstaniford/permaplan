@@ -23,26 +23,8 @@ VertexBufferObject::VertexBufferObject(unsigned count, Vertex* data, GLenum usag
   glBindBuffer(GL_ARRAY_BUFFER, VBOindex);
   glBufferData(GL_ARRAY_BUFFER, count*sizeof(Vertex), data, usage);
  
-  // vertex data location established
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex),
-                        (void*)offsetof(Vertex, pos));
-  glEnableVertexAttribArray(0);
+  Vertex::vertexLayoutforOpenGL();
   
-  // Color data location established
-  glVertexAttribPointer(1, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex),
-                        (void*)offsetof(Vertex, color));
-  glEnableVertexAttribArray(1);
-
-  // Texture data location established
-  glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex),
-                        (void*)offsetof(Vertex, tex));
-  glEnableVertexAttribArray(2);
-
-  // Normal data location established
-  glVertexAttribPointer(3, 3, GL_HALF_FLOAT, GL_FALSE, sizeof(Vertex),
-                        (void*)offsetof(Vertex, normal));
-  glEnableVertexAttribArray(3);
-
   if(checkGLError(stderr, "VertexBufferObject::VertexBufferObject"))
     exit(-1);
 }
