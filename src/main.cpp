@@ -10,6 +10,7 @@
 #include "SkySampleModel.h"
 #include "RegionList.h"
 #include "ResourceManager.h"
+#include "GLFWApplication.h"
 #include <cstdio>
 #include <stdexcept>
 #include <pthread.h>
@@ -45,7 +46,9 @@ int main (int argc, char* argv[])
   
   // Initialize everything
   setExternVersions();
+  GLFWApplication glfwApp;
   MainSceneWindow window(800, 600);
+  glfwApp.addWindow(window);
   Shader shader("src/pmodVert.glsl", "src/pmodFrag.glsl");
   window.camera.makeActive(); // Can't do till shader is set up.
   ResourceManager resources(window);

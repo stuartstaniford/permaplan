@@ -3,6 +3,7 @@
 // which windows are currently open/on-screen.  It's very specific to OpenGL/GLFW.
 
 #include "GLFWApplication.h"
+#include "Window3D.h"
 
 
 // =======================================================================================
@@ -18,6 +19,15 @@ GLFWApplication::GLFWApplication(void)
 
 GLFWApplication::~GLFWApplication(void)
 {
+}
+
+
+// =======================================================================================
+/// @brief Add a new window to the application to be managed
+
+void GLFWApplication::addWindow(Window3D& window)
+{
+  
 }
 
 
