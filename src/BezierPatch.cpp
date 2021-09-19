@@ -463,7 +463,15 @@ MATCH_NEIGHBOR_FOUND:
 
 
 // =======================================================================================
-// Decide whether a given ray intersects with our patch or not.
+/// @brief Decide whether a given ray intersects with our patch or not.
+/// 
+/// This coordinates the overall process of first seeing if the same triangle as last
+/// time works, then checking neighbors, then falling back to brute force search if all
+/// else fails.
+/// @returns True if we found a match, false otherwise
+/// @param position Reference to a vec3 with a position on the ray
+/// @param direction Reference to a vec3 with the direction of the ray
+/// @param lambda Reference to a float to store the match result
 
 bool BezierPatch::matchRayToObject(vec3& position, vec3& direction, float& lambda)
 {
@@ -497,11 +505,12 @@ bool BezierPatch::matchRayToObject(vec3& position, vec3& direction, float& lambd
 
 
 // =======================================================================================
-// Recompute our bounding box when a caller needs it done.  We rely on the fact
-// that a Bezier patch lies entirely in the compact hull of the control points, so
-// if we do min/max on all the control points, we will have an axis-aligned
-// bounding box (although not necessarily an optimal one as the surface does not
-// typically touch the interior control points).
+/// @brief Recompute our bounding box when a caller needs it done.  
+/// 
+/// We rely on the fact that a Bezier patch lies entirely in the compact hull of the 
+/// control points, so if we do min/max on all the control points, we will have an 
+/// axis-aligned bounding box (although not necessarily an optimal one as the surface 
+/// does not typically touch the interior control points).
 
 void BezierPatch::updateBoundingBox(void)
 {
@@ -535,10 +544,17 @@ void BezierPatch::updateBoundingBox(void)
 
 
 // =======================================================================================
-// This creates a random Bezier patch (which can later be improved).
+// Useful macros
 
 #define setControlPoints(i,j,x,y,z) controlPoints[i][j][0]=(x);controlPoints[i][j][1]=(y);controlPoints[i][j][2]=(z)
 #define randHeight arc4random()/(float)UINT32_MAX*100.0f-50.0f
+
+
+// =======================================================================================
+/// @brief This creates a random Bezier patch (which can later be improved).
+/// @param locations A reference to a standard vector of the locations, which is not 
+/// actually used in this function but is there for consistency of signature with
+/// BezierPatch::levelFit.
 
 void BezierPatch::randomFit(std::vector<float*>& locations)
 {
@@ -552,8 +568,10 @@ void BezierPatch::randomFit(std::vector<float*>& locations)
 
 
 // =======================================================================================
-// This creates a flat Bezier patch at the average height of the locations, which can
-// later be improved
+/// @brief This creates a flat Bezier patch at the average height of the locations, 
+/// which can later be improved
+/// @param locations A reference to a standard vector of the locations, which is not 
+/// actually used in this function but is there for consistency of signature with
 
 void BezierPatch::levelFit(std::vector<float*>& locations)
 {
@@ -573,10 +591,13 @@ void BezierPatch::levelFit(std::vector<float*>& locations)
 
 
 // =======================================================================================
-// This replaces the current values of the control points with values taken from a file.
-// (Possibly our control points are buried in a larger file with other things in, in which
-// case the file pointer should be at the beginning of our section, and we will leave it
-// at the end of our section.
+/// @brief Replace the current values of the control points with values taken from a file.
+///
+/// (Possibly our control points are buried in a larger file with other things in, in which
+/// case the file pointer should be at the beginning of our section, and we will leave it
+/// at the end of our section.
+/// @param file A pointer to the C FILE structure for the file to be read from, which
+/// should already have been opened.
 
 #define READ_BUF_SIZE 128
 void BezierPatch::readControlPointsFromFile(FILE* file)
@@ -604,9 +625,12 @@ void BezierPatch::readControlPointsFromFile(FILE* file)
 
 
 // =======================================================================================
-// Make an initial guess at the u,v values of fitpoints on the parametric surface, based
-// on the assumption that the relative locations of the heighmarkers within the patch are
-// a reasonable starting point.  (These will subsequently be iteratively improved).
+/// @brief Make an initial guess at the u,v values of fitpoints on the parametric 
+/// surface.
+/// 
+/// This is based on the assumption that the relative locations of the heighmarkers 
+/// within the patch are a reasonable starting point.  (These will subsequently be 
+/// iteratively improved).
 
 void BezierPatch::setUpUVVals(std::vector<float*>& locations)
 {
@@ -623,7 +647,11 @@ void BezierPatch::setUpUVVals(std::vector<float*>& locations)
 
 
 // =======================================================================================
-// Compute the current fit of the patch to the known locations.  Summed square distance.
+/// @brief Compute the current fit of the patch to the known locations.  
+/// 
+/// @returns The summed square distance between the patch and a list of known locations.
+/// @param locations A reference to a std::vector of the locations (which themselves are
+/// vec3).
 
 float BezierPatch::estimateFit(std::vector<float*>& locations)
 {
@@ -644,7 +672,8 @@ float BezierPatch::estimateFit(std::vector<float*>& locations)
 
 
 // =======================================================================================
-// Make a copy of this structure, allocating new copies of all pointed-to things
+/// @brief Make a copy of the fitPointUVVals structure, allocating new copies of all 
+/// pointed-to things
 
 void BezierPatch::copyFitPointUVVals(void)
 {
@@ -667,7 +696,7 @@ void BezierPatch::copyFitPointUVVals(void)
 
 
 // =======================================================================================
-// Make a copy of the control points structure.
+/// @brief Make a copy of the control points structure.
 
 void BezierPatch::copyControlPoints(void)
 {
