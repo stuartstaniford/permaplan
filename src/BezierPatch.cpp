@@ -23,6 +23,11 @@ bool gradConstrained[4][4][3];
 bool gradConstrainedDone = false;
 float bern[4] = {1.0f, 3.0f, 3.0f, 1.0f};
 
+// Colors used in diagnostic imagery
+unsigned  orangeColor  = 0xc08038ff; //{0.8f, 0.5f, 0.2f};
+unsigned  darkRedColor  = 0xa01818ff;  //{0.6f, 0.1f, 0.1f};
+unsigned  lighterRedColor  = 0xe81818ff; //{0.9f, 0.1f, 0.1f};
+
 
 // =======================================================================================
 // NB Two constructors!!  Probably update both!
@@ -187,9 +192,7 @@ void BezierPatch::surfacePoint(float u, float v, vec3 result)
 
 
 // =======================================================================================
-// Create a new display list with markers for all the fit locations.
-
-unsigned  orangeColor  = 0xc08038ff; //{0.8f, 0.5f, 0.2f};
+/// @brief Create a new display list with markers for all the fit locations.
 
 DisplayList* BezierPatch::newUVLocationList(void)
 {
@@ -213,9 +216,10 @@ DisplayList* BezierPatch::newUVLocationList(void)
 
 
 // =======================================================================================
-// Add the control points to a display list.
-
-unsigned  darkRedColor  = 0xa01818ff;  //{0.6f, 0.1f, 0.1f};
+/// @brief Add the control points to a display list.
+/// 
+/// Used for diagnostic imagary to help visualize the fitting process.
+/// @param D A pointer to the DisplayList to add to.
 
 void BezierPatch::addControlPointsToDisplayList(DisplayList* D)
 {
@@ -232,9 +236,10 @@ void BezierPatch::addControlPointsToDisplayList(DisplayList* D)
 
 
 // =======================================================================================
-// Add arrows showing the current direction of movement of the control point
-
-unsigned  lighterRedColor  = 0xe81818ff; //{0.9f, 0.1f, 0.1f};
+/// @brief Add arrows showing the current direction of movement of the control point
+/// 
+/// Used for diagnostic imagary to help visualize the fitting process.
+/// @param D A pointer to the DisplayList to add to.
 
 void BezierPatch::addControlGradientsToDisplayList(DisplayList* D)
 {
@@ -255,7 +260,8 @@ void BezierPatch::addControlGradientsToDisplayList(DisplayList* D)
 
 
 // =======================================================================================
-// For anyone who needs to know how much space we would take up in a triangleBuffer.
+/// @brief Calculate how much space we would take up in a triangleBuffer following 
+/// tesselation.
 
 void BezierPatch::triangleBufferSizes(unsigned& vertexCount, unsigned& indexCount)
 {
@@ -267,22 +273,16 @@ void BezierPatch::triangleBufferSizes(unsigned& vertexCount, unsigned& indexCoun
 
 
 // =======================================================================================
-// How much space we need in a triangle buffer
-
-void BezierPatch::triangleBufferSize(unsigned& vCount, unsigned& iCount)
-{
-  vCount = (gridN+1)*(gridN+1);
-  iCount = 6*gridN*gridN;
-}
-
-
-// =======================================================================================
-// Buffer our triangles.
+// Macro used for looping over all the parameter space tesselation grid
 
 #define forAllUVGrid(i,j,u,v, limit, spacing)     int i,j; float u,v; float spacing = 1.0f/(float)gridN;\
                                 for (i=0, u=0.0f; i<limit; i++, u+=spacing) \
                                   for (j=0, v=0.0f; j<limit; j++, v+=spacing)
 
+// =======================================================================================
+/// @brief Buffer our tesselation into a TriangleBuffer.
+/// @param T A pointer to the TriangleBuffer to use.
+/// @todo Haven't computed normals yet, so lighting will suck.
 
 bool BezierPatch::bufferGeometryOfObject(TriangleBuffer* T)
 {
@@ -336,9 +336,15 @@ bool BezierPatch::bufferGeometryOfObject(TriangleBuffer* T)
 
 
 // =======================================================================================
-// When we have no idea where/whether a ray will match, we check every
-// triangle in the tesselation.
-
+/// @brief Method used for raymatching when we have no idea where/whether a ray will 
+/// match, and have to fall back on checking every triangle in the tesselation.
+/// @returns True if we found a match, false otherwise
+/// @param position Reference to a vec3 with a position on the ray
+/// @param direction Reference to a vec3 with the direction of the ray
+/// @param lambda Reference to a float to store the match result
+/// @todo Note the algorithm in here calculates each vertex six times.  If this 
+/// turns out to be a bottleneck, we could cache the answers in some way to reduce 
+/// the cpu usage.
 
 bool BezierPatch::matchRayAll(vec3& position, vec3& direction, float& lambda)
 {
@@ -350,10 +356,6 @@ bool BezierPatch::matchRayAll(vec3& position, vec3& direction, float& lambda)
     lastRayMatch->parent      = this;
     lastRayMatch->validMatch  = false;
    }
-  
-  //XXX note the algorithm in here calculates each vertex six times.  If this turns
-  // out to be a bottleneck, we could cache the answers in some way to reduce the
-  // cpu usage.
   
   forAllUVGrid(i, j, u, v, gridN, spacing)
    {
@@ -394,7 +396,11 @@ GOT_HIT:
 
 
 // =======================================================================================
-// Decide whether a given ray intersects with a neighboring triangle or not.
+/// @brief Decide whether a given ray intersects with a neighboring triangle or not.
+/// @returns True if we matched a neighbor, false otherwise
+/// @param rayPos A vec3 with a position on the ray
+/// @param rayDir A vec3 with the direction of the ray
+/// @param outT Reference to a float to store the match result
 
 bool PatchRayState::matchNeighbor(vec3 rayPos, vec3 rayDir, float& outT)
 {

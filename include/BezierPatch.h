@@ -50,7 +50,6 @@ public:
   DisplayList*  newUVLocationList(void);
   void          addControlPointsToDisplayList(DisplayList* D);
   void          addControlGradientsToDisplayList(DisplayList* D);
-  void          triangleBufferSize(unsigned& vCount, unsigned& iCount);
   void          randomFit(std::vector<float*>& locations);
   void          levelFit(std::vector<float*>& locations);
   void          readControlPointsFromFile(FILE* file);
