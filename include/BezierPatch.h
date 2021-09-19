@@ -85,6 +85,8 @@ private:
   void  computeGradientVector(std::vector<float*>& locations);
   void  applyGradientVector(void);
   void  revertGradientVector(void);
+  void  printControlPointArray(FILE* file, char* title, vec3 myArray[4][4]);
+  void  printUVVector(FILE* file, char* title, std::vector<float*>& myVec);
   void  dumpDetailState(char* fileName);
   bool  matchRayAll(vec3& position, vec3& direction, float& lambda);
   BezierPatch(const BezierPatch&);                 // Prevent copy-construction

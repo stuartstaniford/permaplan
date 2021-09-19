@@ -706,8 +706,11 @@ void BezierPatch::copyControlPoints(void)
 
 
 // =======================================================================================
-// Compute the direction of maximum increase in the fit distance.  This will be hard
-// to understand without reviewing the notes in gradient.pdf
+/// @brief Compute the direction of maximum increase in the fit distance.  
+/// 
+/// This will be hard to understand without reviewing the notes in gradient.pdf
+/// @param locations A reference to a std::vector of the locations (which themselves are
+/// vec3).
 
 void BezierPatch::computeGradientVector(std::vector<float*>& locations)
 {
@@ -798,8 +801,10 @@ void BezierPatch::computeGradientVector(std::vector<float*>& locations)
 
 
 //=======================================================================================
-// Move the specified delta in the opposite direction of the gradient vector (ie
-// downslope).
+/// @brief Move the controlPoints and the fitPointUVVals by currentDelta in the 
+/// opposite direction of the gradient vector (ie downslope).
+/// @todo Moving the fitPointUVVals is currently disabled as it was unbearably slow, an
+/// issue that remains to be understood and fixed
 
 void BezierPatch::applyGradientVector(void)
 {
@@ -826,7 +831,10 @@ void BezierPatch::applyGradientVector(void)
 
 
 //=======================================================================================
-// We tried something that didn't work out.  Go back to where we were before.
+/// @brief Revert an unsuccessful gradient vector move to the last position.
+/// 
+///  We tried something that didn't work out.  Go back to where we were before in both
+///  the controlPoints and the fitPointUVVals.
 
 void BezierPatch::revertGradientVector(void)
 {
@@ -849,13 +857,18 @@ void BezierPatch::revertGradientVector(void)
 }
 
 
-//=======================================================================================
-// Make an incremental improvement in the fit of the patch to the known locations.
 
-#define fitTolerance 1e-5
+//=======================================================================================
+/// @brief Make an incremental improvement in the fit of the patch to the known locations.
+/// @returns True if the the fitting process should be continued.  False if the fitting 
+/// process is terminating as no further improvement is possible.
+/// @param locations A reference to a std::vector of the locations (which themselves are
+/// vec3).
 
 bool BezierPatch::improveFit(std::vector<float*>& locations)
 {
+#define fitTolerance 1e-5
+
   unless(fitPointUVVals.size() == locations.size())
     setUpUVVals(locations);
   
@@ -905,9 +918,12 @@ bool BezierPatch::improveFit(std::vector<float*>& locations)
 
 
 // =======================================================================================
-// Dump out one array as part of dumpDetailState
+/// @brief Dump out one control point type array as part of dumpDetailState
+/// @param file A pointer to C-style FILE open for writing.
+/// @param title A title for this array for storage in the text file.
+/// @param myArray A 4x4xvec3 array to be printed.
 
-void printControlPointArray(FILE* file, char* title, vec3 myArray[4][4])
+void BezierPatch::printControlPointArray(FILE* file, char* title, vec3 myArray[4][4])
 {
   fprintf(file, "%s.\n\n", title);
 
@@ -923,8 +939,8 @@ void printControlPointArray(FILE* file, char* title, vec3 myArray[4][4])
 
 
 // =======================================================================================
-// Version of the above specific to the control points themselves, and visible outside
-// the BezierPatch class.
+/// @brief Dump out the control points as part of dumpDetailState.
+/// @param file A pointer to C-style FILE open for writing.
 
 void BezierPatch::printControlPoints(FILE* file)
 {
@@ -933,9 +949,12 @@ void BezierPatch::printControlPoints(FILE* file)
 
 
 // =======================================================================================
-// Dump out one array as part of dumpDetailState
+/// @brief Dump out one UVVector array as part of dumpDetailState
+/// @param file A pointer to C-style FILE open for writing.
+/// @param title A title for this array for storage in the text file.
+/// @param myVec A reference to a std::vector of vec3 to be printed.
 
-void printUVVector(FILE* file, char* title, std::vector<float*>& myVec)
+void BezierPatch::printUVVector(FILE* file, char* title, std::vector<float*>& myVec)
 {
   int k, N = myVec.size();
   
@@ -949,7 +968,7 @@ void printUVVector(FILE* file, char* title, std::vector<float*>& myVec)
 
 
 // =======================================================================================
-// Dump out lots of data for debugging purposes
+/// @brief Dump out lots of data for debugging purposes
 
 void BezierPatch::dumpDetailState(char* fileName)
 {
@@ -968,7 +987,8 @@ void BezierPatch::dumpDetailState(char* fileName)
 
 
 // =======================================================================================
-// Tell callers our name at runtime.
+/// @brief Tell callers our name at runtime.
+/// @returns A pointer to a const C-string with our name ("Bezier Patch").
 
 const char* BezierPatch::objectName(void)
 {
@@ -978,9 +998,13 @@ const char* BezierPatch::objectName(void)
 
 
 // =======================================================================================
-// We assume we are part of a table of visual objects and we just contribute one row
-// about this particular chunk of land surface.  Since BezierPatch is a bit complex
-// we have a little mini-table of all our control points inside the cell.
+/// @brief Provide diagnostic HTML output about ourself.
+/// 
+/// We assume we are part of a table of visual objects and we just contribute one row 
+/// about this particular chunk of land surface.  Since BezierPatch is a bit complex
+/// we have a little mini-table of all our control points inside the cell.
+/// @returns True if the desired HTML was written correctly, false if we ran out of space.
+/// @param serv The HTTP Debug server
 
 bool BezierPatch::diagnosticHTML(HttpDebug* serv)
 {
