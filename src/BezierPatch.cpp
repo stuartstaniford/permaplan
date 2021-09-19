@@ -21,11 +21,16 @@ void BezierPatch::assertCopyVer(void)
 
 bool gradConstrained[4][4][3];
 bool gradConstrainedDone = false;
+float bern[4] = {1.0f, 3.0f, 3.0f, 1.0f};
+
 
 // =======================================================================================
-// Constructors.
-
 // NB Two constructors!!  Probably update both!
+
+// =======================================================================================
+/// @brief Constructor for a BezierPatch on a particular Quadtree node.
+/// @param qtree Pointer to the Quadtree node which the patch should be covering
+/// @param gridPoints number of squares to divide u/v space into when tesselating.
 
 BezierPatch::BezierPatch(Quadtree* qtree, unsigned gridPoints):
                         LandSurfaceRegion(qtree->bbox.lower[0], qtree->bbox.lower[1],
@@ -46,6 +51,18 @@ BezierPatch::BezierPatch(Quadtree* qtree, unsigned gridPoints):
 }
 
 
+// =======================================================================================
+/// @brief Constructor for a BezierPatch on a specified region in both x,y and u,v space.
+/// @param x x dimension of left side of region
+/// @param y y dimension of bottom of region
+/// @param width width of the region in the x direction
+/// @param height height of the region in the y direction
+/// @param s left side of region in parameter space
+/// @param t right side of regin in parameter space
+/// @param sWidth width of region in parameter space
+/// @param tHeight height of region in parameter space
+/// @param gridPoints number of squares to divide u/v space into when tesselating.
+
 BezierPatch::BezierPatch(float x, float y, float width, float height,
                         float s, float t, float sWidth, float tHeight, unsigned gridPoints):
                             LandSurfaceRegion(x, y, width, height, s, t, sWidth, tHeight),
@@ -65,7 +82,7 @@ BezierPatch::BezierPatch(float x, float y, float width, float height,
 
 
 // =======================================================================================
-// Destructor
+// @brief Destructor
 
 BezierPatch::~BezierPatch(void)
 {
@@ -74,7 +91,10 @@ BezierPatch::~BezierPatch(void)
 
 
 // =======================================================================================
-// Mark which directions we cannot go in (eg at the edge of the patch).
+/// @brief Mark which directions we cannot go in (eg at the edge of the patch).
+///
+/// This fills out the gradConstrained boolean array file level variable, which is only 
+/// done once the first time any BezierPatch is created.
 
 void BezierPatch::computeGradConstraints(void)
 {
@@ -119,8 +139,13 @@ void BezierPatch::computeGradConstraints(void)
 
 
 // =======================================================================================
-// Utility function to compute the powers of u, 1-u, v, and 1-v for use in Bernstein
-// polynomials
+/// @brief Utility function to compute the powers of u, 1-u, v, and 1-v for use in 
+/// Bernstein polynomials.
+/// 
+/// The results of this are stored in the state arrays upow, vpow, u1minpow, and 
+/// v1minpow.
+/// @param u The u value that we are computing polynomials for.
+/// @param v The v value that we are computing polynomials for.
 
 void BezierPatch::calcPowers(float u, float v)
 {
@@ -136,11 +161,14 @@ void BezierPatch::calcPowers(float u, float v)
 
 
 // =======================================================================================
-// Computes the height of the patch at some particular location in parametric
-// space. For background, see:
-// https://www.scratchapixel.com/lessons/advanced-rendering/bezier-curve-rendering-utah-teapot/bezier-surface
+/// @brief Computes the height of the patch at some particular location in parametric
+/// space. 
 
-float bern[4] = {1.0f, 3.0f, 3.0f, 1.0f};
+/// For background, see:
+///https://www.scratchapixel.com/lessons/advanced-rendering/bezier-curve-rendering-utah-teapot/bezier-surface
+/// @param u float U coordinate of the point in parameter space to compute for
+/// @param v float V coordinate of the point in parameter space to compute for
+/// @param result A vec3 to store the result of the calculation in.
 
 void BezierPatch::surfacePoint(float u, float v, vec3 result)
 {

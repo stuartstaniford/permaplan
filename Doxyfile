@@ -867,6 +867,7 @@ WARN_LOGFILE           =
 INPUT                  = doc \
                 include/Arrow.h src/Arrow.cpp \
                 include/AxialElement.h src/AxialElement.cpp \
+                include/BezierPatch.h src/BezierPatch.cpp \
                 include/BoundingBox.h src/BoundingBox.cpp \
                 include/Box.h src/Box.cpp \
                 include/Building.h src/Building.cpp \

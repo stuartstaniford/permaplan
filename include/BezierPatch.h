@@ -1,6 +1,4 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Aug 2020 -
-// A set of control points to manage a cubic bezier patch on some particular
-// node in the Quadtree
 
 
 #ifndef BEZIER_PATCH_H
@@ -18,8 +16,14 @@
 
 class PatchRayState; // forward declaration, see bottom of file
 
+
 // =======================================================================================
-// Main class for a BezierPatch
+/// @brief Manage a BezierPatch
+///
+/// A set of control points to manage a cubic bezier patch on some particular
+/// node in the Quadtree, with methods to render the patch, etc and also fit the patch to
+/// some altitude data.
+
 
 class BezierPatch: public LandSurfaceRegion
 {
@@ -57,7 +61,6 @@ public:
   void          assertCopyVer(void);
   bool          diagnosticHTML(HttpDebug* serv);
 
-
 private:
   
   // Instance variables - private
@@ -87,7 +90,6 @@ private:
   bool  matchRayAll(vec3& position, vec3& direction, float& lambda);
   BezierPatch(const BezierPatch&);                 // Prevent copy-construction
   BezierPatch& operator=(const BezierPatch&);      // Prevent assignment
-
 };
 
 
@@ -97,17 +99,18 @@ private:
 void printControlPointArray(FILE* file, char* title, vec3 myArray[4][4]);
 
 // =======================================================================================
-// Helper state for tracking a ray traversing the patch (typically the mouse).
-// The basic idea here is that rather than do a ton of complicated algebraic geometry,
-// we rely on the fact that most of the time the ray points to the same triangle as
-// in the last frame.  If it doensn't, it very likely points to a neighboring triangle.
-// So almost all the time we can get by with a few quick triangle tests.  Only
-// very occasionally do we pay the high cost of doing a brute force search of all the
-// triangles (which will be amortized away).  Even in the scenario where the mouse
-// is within the Bezier patch AABB, but not intersecting the patch, we can track the
-// triangle which *would have been closest*, and if the distance to that has barely
-// changed, we can figure there's no need to do the work of searching all the triangles
-// again.  Only when the mouse is on the move in this zone do we need to do more work.
+/// @brief Helper state for tracking a ray traversing a BezierPatch (typically the mouse).
+///
+/// The basic idea here is that rather than do a ton of complicated algebraic geometry,
+/// we rely on the fact that most of the time the ray points to the same triangle as
+/// in the last frame.  If it doesn't, it very likely points to a neighboring triangle.
+/// So almost all the time we can get by with a few quick triangle tests.  Only
+/// very occasionally do we pay the high cost of doing a brute force search of all the
+/// triangles (which will be amortized away).  Even in the scenario where the mouse
+/// is within the Bezier patch AABB, but not intersecting the patch, we can track the
+/// triangle which *would have been closest*, and if the distance to that has barely
+/// changed, we can figure there's no need to do the work of searching all the triangles
+/// again.  Only when the mouse is on the move in this zone do we need to do more work.
 
 class PatchRayState
 {

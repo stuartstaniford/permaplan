@@ -413,7 +413,7 @@ void Window3D::loop(void)
         frameTimeAvg = 0.001f*(frameDouble - lastFrameDouble) + 0.999f*frameTimeAvg;
      }
     camera.logFrames();
-    
+        
     // OpenGL calls to clear buffer
     glClearColor(0.6f, 0.7f, 0.7f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -422,13 +422,14 @@ void Window3D::loop(void)
     if(checkGLError(stderr, "Window3D::loop before scene lock."))
       exit(-1);
 
-    scene->lock();
-
     // Do our actual drawing and deliver to screen window
+    scene->lock();
     draw((float)(frameDouble - lastFrameDouble));
     glfwSwapBuffers(window);
+    scene->unlock();
     
     // Process pseudo-IO from HTTP interface
+    scene->lock();
     InterfaceAction* action = NULL;
     while(int n = scene->actions.size())
      {
@@ -453,7 +454,7 @@ void Window3D::loop(void)
       LogMouseLocation("ImGui has mouse\n");
 
     scene->unlock();
-
+     
     // Final book-keeping for this spin of the loop
     lastFrameDouble = frameDouble;
     frameCount++;
