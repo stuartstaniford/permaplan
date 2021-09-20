@@ -1,14 +1,18 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Mar 2021 -
-// This class is to capture groups of trees.  It's used especially in growth simulation
-// to form copses that are processed together for shade-tracking purposes.
 
 #ifndef COPSE_H
 #define COPSE_H
 
 #include "DisplayList.h"
 
+
 // =======================================================================================
-// Class variable initialization
+/// @brief This class is to capture groups of trees.  
+/// 
+/// It's used especially in growth simulation to form copses that are processed together 
+/// for shade-tracking purposes.
+/// @todo This is only a stub class right now, but is still believed to be necessary 
+/// as of Sep 2021.
 
 class Copse: public DisplayList
 {
@@ -31,6 +35,9 @@ private:
   Copse& operator=(const Copse&);      // Prevent assignment
 
 };
+
+
+// =======================================================================================
 
 #endif
 

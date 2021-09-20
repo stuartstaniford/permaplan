@@ -42,8 +42,8 @@ private:
   // Member functions - private
   ControlGroup(const ControlGroup&);                 // Prevent copy-construction
   ControlGroup& operator=(const ControlGroup&);      // Prevent assignment
-
 };
+
 
 // =======================================================================================
 
