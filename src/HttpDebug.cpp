@@ -60,7 +60,8 @@ HttpDebug::~HttpDebug(void)
 
 
 // ======================================================================================
-// For when the response buf is not big enough
+/// @brief Grow the response buf when it's not big enough
+/// @returns True if we successfully grew it, false if we ran up against the limit.
 
 bool HttpDebug::reallocateResponseBuf(void)
 {
@@ -80,7 +81,11 @@ bool HttpDebug::reallocateResponseBuf(void)
 
 
 // =======================================================================================
-// Generate the index page
+/// @brief Generate the index page.
+/// 
+/// This generates the root navigation page for the whole debugging HTTP interface.
+/// @returns True if we successfully generated the HTML, false if we ran out of space
+/// (which should never happen...)
 
 bool HttpDebug::indexPage(void)
 {
@@ -143,7 +148,8 @@ bool HttpDebug::indexPage(void)
 
 
 // =======================================================================================
-// Generate the page that summarizes carbon capture
+/// @brief Generate the page that summarizes carbon capture
+/// @returns True if we successfully generated the HTML, false if we ran out of space
 
 bool HttpDebug::carbonSummary(void)
 {
@@ -166,7 +172,8 @@ bool HttpDebug::carbonSummary(void)
 
 
 // =======================================================================================
-// Generate an Error Page
+/// @brief Generate an Error Page.
+/// @param error A C string with the specific error to tell the user.
 
 bool HttpDebug::errorPage(const char* error)
 {
@@ -182,7 +189,11 @@ bool HttpDebug::errorPage(const char* error)
 
 
 // =======================================================================================
-// Process a single header, and construct the response
+/// @brief Process a single header, and construct the response.
+/// 
+/// Calls the HTTRequestParser instance to extract the URL, and then routes the request
+/// to whatever the apppropriate other object is to handle it.
+/// @returns True if all went well, false if we couldn't correctly write a good page.
 
 bool HttpDebug::processRequestHeader(void)
 {
@@ -306,9 +317,13 @@ bool HttpDebug::processRequestHeader(void)
 
 
 // =======================================================================================
-// Utility function to keep writing till we've gotten it done, or encounter error
+/// @brief Utility function to keep writing till we've gotten it done, or encounter error
+/// @returns true if success, false if there's a write failure.
+/// @param fildes The file descriptor of the socket to write to.
+/// @param buf The char buffer to write from
+/// @param nbyte The number of bytes that must be written.
 
-bool writeLoop(int fildes, char *buf, size_t nbyte)
+bool HttpDebug::writeLoop(int fildes, char *buf, size_t nbyte)
 {
   char* p = buf;
   int bytesWritten;
@@ -328,8 +343,11 @@ bool writeLoop(int fildes, char *buf, size_t nbyte)
 
 
 // =======================================================================================
-// Read HTTP 1.1 headers and extract the URL for processing.  We are brain-dead and only
-// can deal with GET requests with no entity body.
+/// @brief Process one HTTP/1.1 connection, looping over the request headers and 
+/// arranging for them to be dealt with individually.
+/// @param connfd The socket file descriptor
+/// @param clientPort The client port of the underlying TCP connection (mainly for 
+/// logging purposes).
 
 void HttpDebug::processOneHTTP1_1(int connfd, unsigned short clientPort)
 {
@@ -380,8 +398,13 @@ void HttpDebug::processOneHTTP1_1(int connfd, unsigned short clientPort)
 
 
 // =======================================================================================
-// Generate a response header into the header buffer.
-// Note headBufSize is currently 4096 so this won't stretch it.
+/// @brief Generate a response header into the header buffer.
+///
+/// Note headBufSize is currently 4096 so this won't stretch it.
+/// @returns The number of bytes generated.
+/// @param bodySize The size of the response body  
+/// @param code The code number to generate on the HTTP status line (200, 404, etc)
+/// @param msg A C-string of message on the status line ("OK", "ERROR", etc).
 
 unsigned HttpDebug::generateHeader(unsigned bodySize, unsigned code, const char* msg)
 {
@@ -398,7 +421,11 @@ unsigned HttpDebug::generateHeader(unsigned bodySize, unsigned code, const char*
   
 
 // =======================================================================================
-// Generate an HTML page opening into the response buffer.
+/// @brief Generate an HTML page opening into the response buffer.
+/// @returns True if we successfully generated the HTML, false if we ran out of space.
+/// @param title A C string to use in the <title> tag and also <h1> tag at the top of the 
+/// page.
+/// @param refresh A refresh interval for the page (defaults to 0u if missing).
 
 bool HttpDebug::startResponsePage(const char* title, unsigned refresh)
 {
@@ -414,7 +441,8 @@ bool HttpDebug::startResponsePage(const char* title, unsigned refresh)
 
 
 // =======================================================================================
-// Generate an HTML page ending into the response buffer.
+/// @brief Generate an HTML page ending into the response buffer.
+/// @returns True if we successfully generated the HTML, false if we ran out of space.
 
 bool HttpDebug::endResponsePage(void)
 {
@@ -422,5 +450,6 @@ bool HttpDebug::endResponsePage(void)
   internalPrintf("</center>\n</body>\n</html>\n");
   return true;
 }
+
 
 // =======================================================================================
