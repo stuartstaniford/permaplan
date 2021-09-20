@@ -3,6 +3,10 @@
 // This class draws a square grid at a designated scale over the land surface
 
 #include "Grid.h"
+#include "Shader.h"
+#include "VertexArrayObject.h"
+#include "VertexBufferObject.h"
+#include "LandSurface.h"
 #include <cstdio>
 #include <stdexcept>
 #include <err.h>
@@ -20,22 +24,21 @@ float gridHeights[3] = {0.2f, 0.4f, 0.6f};
 
 int gridModuli[2] = {10, 100};
 
-// =======================================================================================
-// Create the GPU buffers containing the grid lines to display in color later
-
 #define setGridLevel(i)     if(!((i)%gridModuli[1])) \
                               level = 2; \
                             else if(!((i)%gridModuli[0])) \
                               level = 1; \
                             else \
-                               level = 0
+                              level = 0
+
+// =======================================================================================
+/// @brief Constructor 
 
 Grid::Grid(LandSurface& L, float gridSpacing, float alt):
                       spacing(gridSpacing),
                       land(L),
                       NHeights(0u),
-                      sumHeights(0.0f),
-                      lines()
+                      sumHeights(0.0f)
 {
   if(!land.rect)
     err(-1, "Unsupported lack of rect in Grid::Grid\n");
@@ -47,7 +50,7 @@ Grid::Grid(LandSurface& L, float gridSpacing, float alt):
 
 
 // =======================================================================================
-// Destructor
+/// @brief Destructor
 
 Grid::~Grid(void)
 {
@@ -55,7 +58,9 @@ Grid::~Grid(void)
 
 
 // =======================================================================================
-// Redo us at a different height
+/// @brief Redo us at a different height.  
+/// 
+/// Create the GPU buffers containing the grid lines to display in color later
 
 void Grid::resetAltitude(float alt)
 {
@@ -76,7 +81,7 @@ void Grid::resetAltitude(float alt)
     setGridLevel(i);
     pos[0] = f;
     pos[2] = alt + gridHeights[level];
-    lines.addLine(pos, dir, gridColor[level]);
+    addLine(pos, dir, gridColor[level]);
    }
   
   // east west lines
@@ -89,32 +94,20 @@ void Grid::resetAltitude(float alt)
     setGridLevel(i);
     pos[1] = f;
     pos[2] = alt + gridHeights[level];
-    lines.addLine(pos, dir, gridColor[level]);
+    addLine(pos, dir, gridColor[level]);
    }
-  lines.sendToGPU();
+  sendToGPU();
 }
 
 
 // =======================================================================================
-// New height (the grid will be at the average of these).
+/// @brief New height (the grid will be at the average of these).
 
 void Grid::newHeight(float z)
 {
   NHeights++;
   sumHeights += z;
   resetAltitude(sumHeights/NHeights);
-}
-
-
-// =======================================================================================
-// Render our part of the scene
-
-
-void Grid::draw(void)
-{
-  lines.draw();
-  if(checkGLError(stderr, "Grid::draw"))
-    exit(-1);
 }
 
 

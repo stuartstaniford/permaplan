@@ -887,8 +887,9 @@ INPUT                  = doc \
                 include/ElementBufferObject.h src/ElementBufferObject.cpp \
                 include/ElementBufferCombo.h src/ElementBufferCombo.cpp \
                 include/EmptyClass.h src/EmptyClass.cpp \
-                include/Gable.h src/Gable.cpp \
                 include/GLFWApplication.h src/GLFWApplication.cpp \
+                include/Gable.h src/Gable.cpp \
+                include/Grid.h src/Grid.cpp \
                 include/HeightMarker.h src/HeightMarker.cpp \
                 include/HttpDebug.h src/HttpDebug.cpp \
                 include/JSONStructureChecker.h src/JSONStructureChecker.cpp \
