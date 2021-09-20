@@ -7,7 +7,14 @@
 #include "Global.h"
 
 // =======================================================================================
-// Constructor
+/// @brief Constructor
+/// @param centroid A pointer to a floating array (with at least three values) for the
+/// centroid of the circular arc on which we are to create points.
+/// @param dir A pointer to float array with the direction of the axis of the circle.
+/// @param R A float for the radius of the circle.
+/// @param offset A float* pointer to an optional offset (which would be added to the 
+/// centroid if present).  The parameter value is optional and defaults to NULL, which
+/// will cause no addition to the centroid.
 
 CircleIterator::CircleIterator(float* centroid, float* dir, float R, float* offset):
                                     arcRadius(R),
@@ -21,8 +28,8 @@ CircleIterator::CircleIterator(float* centroid, float* dir, float R, float* offs
 
 
 // =======================================================================================
-// Void constructor.  Objects instantiated this way will not be usable until after a call 
-// to update();
+/// @brief Void constructor.
+/// Objects instantiated this way will not be usable until after a call to update();
 
 CircleIterator::CircleIterator(void):
                                 center(NULL),
@@ -33,7 +40,7 @@ CircleIterator::CircleIterator(void):
 
 
 // =======================================================================================
-// Destructor
+/// @brief Destructor
 
 CircleIterator::~CircleIterator(void)
 {
@@ -41,7 +48,17 @@ CircleIterator::~CircleIterator(void)
 
 
 // =======================================================================================
-// Function to recompute our state when our parameters have changed
+/// @brief Function to recompute our state when our parameters have changed.
+/// 
+/// This is used for example when we are being used to generate points around a series
+/// of circles (for example along a tube).
+/// @param centroid A pointer to a floating array (with at least three values) for the
+/// centroid of the circular arc on which we are to create points.
+/// @param dir A pointer to float array with the direction of the axis of the circle.
+/// @param R A float for the radius of the circle.
+/// @param offset A float* pointer to an optional offset (which would be added to the 
+/// centroid if present).  The parameter value is optional and defaults to NULL, which
+/// will cause no addition to the centroid.
 
 void CircleIterator::update(float* centroid, float* dir, float R, float* offset)
 {
@@ -59,7 +76,13 @@ void CircleIterator::update(float* centroid, float* dir, float R, float* offset)
 
 
 // =======================================================================================
-// Function to get a new position (and norm) so many degrees around the circle
+/// @brief Get a new position (and norm) so many degrees around the circle
+/// 
+/// This is the main method for actually getting the output of the iterator.
+/// @param degrees The angular distance aound the circle (in degrees)
+/// @param pos A float* to the vector where the newly calculated position should be 
+/// stored
+/// @param norm A float* to the vector where the newly calculated normal should be stored.
 
 void CircleIterator::getPoint(float degrees, float* pos, float* norm)
 {

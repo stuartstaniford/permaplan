@@ -216,9 +216,7 @@ src/Boundary.o: /usr/local/include/cglm/ease.h
 src/Boundary.o: /usr/local/include/cglm/curve.h
 src/Boundary.o: /usr/local/include/cglm/bezier.h
 src/Boundary.o: /usr/local/include/cglm/ray.h
-src/Boundary.o: /usr/local/include/cglm/affine2d.h include/HttpDebug.h
-src/Boundary.o: include/HttpRequestParser.h include/TaskQueue.h
-src/Boundary.o: include/Lockable.h include/Global.h
+src/Boundary.o: /usr/local/include/cglm/affine2d.h
 src/Boundary.o: include/rapidjson/document.h include/rapidjson/reader.h
 src/Boundary.o: include/rapidjson/allocators.h include/rapidjson/rapidjson.h
 src/Boundary.o: include/rapidjson/stream.h include/rapidjson/encodings.h
@@ -244,12 +242,14 @@ src/Boundary.o: include/rapidjson/internal/itoa.h
 src/Boundary.o: include/rapidjson/internal/itoa.h
 src/Boundary.o: include/rapidjson/stringbuffer.h
 src/Boundary.o: include/rapidjson/stringbuffer.h include/rapidjson/error/en.h
-src/Boundary.o: include/rapidjson/error/error.h include/BoundingBox.h
+src/Boundary.o: include/rapidjson/error/error.h include/PmodConfig.h
+src/Boundary.o: include/Logging.h include/MemoryTracker.h include/HttpDebug.h
+src/Boundary.o: include/HttpRequestParser.h include/TaskQueue.h
+src/Boundary.o: include/Lockable.h include/Global.h include/BoundingBox.h
 src/Boundary.o: include/Shader.h include/VertexBufferCombo.h
 src/Boundary.o: include/VertexArrayObject.h include/VertexBufferObject.h
 src/Boundary.o: /usr/local/include/GL/glew.h /usr/local/include/GLFW/glfw3.h
-src/Boundary.o: include/Logging.h include/MemoryTracker.h include/Vertex.h
-src/Boundary.o: include/PmodConfig.h
+src/Boundary.o: include/Vertex.h
 src/BoundingBox.o: include/BoundingBox.h /usr/local/include/cglm/cglm.h
 src/BoundingBox.o: /usr/local/include/cglm/common.h
 src/BoundingBox.o: /usr/local/include/cglm/types.h
@@ -1047,6 +1047,95 @@ src/ElementBufferObject.o: /usr/local/include/cglm/bezier.h
 src/ElementBufferObject.o: /usr/local/include/cglm/ray.h
 src/ElementBufferObject.o: /usr/local/include/cglm/affine2d.h
 src/EmptyClass.o: include/EmptyClass.h
+src/GLFWApplication.o: include/GLFWApplication.h include/Lockable.h
+src/GLFWApplication.o: include/Global.h /usr/local/include/cglm/cglm.h
+src/GLFWApplication.o: /usr/local/include/cglm/common.h
+src/GLFWApplication.o: /usr/local/include/cglm/types.h
+src/GLFWApplication.o: /usr/local/include/cglm/simd/intrin.h
+src/GLFWApplication.o: /usr/local/include/cglm/vec2.h
+src/GLFWApplication.o: /usr/local/include/cglm/util.h
+src/GLFWApplication.o: /usr/local/include/cglm/vec2-ext.h
+src/GLFWApplication.o: /usr/local/include/cglm/vec3.h
+src/GLFWApplication.o: /usr/local/include/cglm/vec4.h
+src/GLFWApplication.o: /usr/local/include/cglm/vec4-ext.h
+src/GLFWApplication.o: /usr/local/include/cglm/vec3-ext.h
+src/GLFWApplication.o: /usr/local/include/cglm/mat4.h
+src/GLFWApplication.o: /usr/local/include/cglm/mat3.h
+src/GLFWApplication.o: /usr/local/include/cglm/mat2.h
+src/GLFWApplication.o: /usr/local/include/cglm/affine.h
+src/GLFWApplication.o: /usr/local/include/cglm/affine-mat.h
+src/GLFWApplication.o: /usr/local/include/cglm/cam.h
+src/GLFWApplication.o: /usr/local/include/cglm/plane.h
+src/GLFWApplication.o: /usr/local/include/cglm/frustum.h
+src/GLFWApplication.o: /usr/local/include/cglm/quat.h
+src/GLFWApplication.o: /usr/local/include/cglm/euler.h
+src/GLFWApplication.o: /usr/local/include/cglm/box.h
+src/GLFWApplication.o: /usr/local/include/cglm/color.h
+src/GLFWApplication.o: /usr/local/include/cglm/io.h
+src/GLFWApplication.o: /usr/local/include/cglm/project.h
+src/GLFWApplication.o: /usr/local/include/cglm/sphere.h
+src/GLFWApplication.o: /usr/local/include/cglm/ease.h
+src/GLFWApplication.o: /usr/local/include/cglm/curve.h
+src/GLFWApplication.o: /usr/local/include/cglm/bezier.h
+src/GLFWApplication.o: /usr/local/include/cglm/ray.h
+src/GLFWApplication.o: /usr/local/include/cglm/affine2d.h include/Window3D.h
+src/GLFWApplication.o: include/Scene.h include/Shader.h include/ColoredAxes.h
+src/GLFWApplication.o: include/LineStripList.h include/VertexBufferCombo.h
+src/GLFWApplication.o: include/VertexArrayObject.h
+src/GLFWApplication.o: include/VertexBufferObject.h
+src/GLFWApplication.o: /usr/local/include/GL/glew.h
+src/GLFWApplication.o: /usr/local/include/GLFW/glfw3.h include/Logging.h
+src/GLFWApplication.o: include/MemoryTracker.h include/HttpDebug.h
+src/GLFWApplication.o: include/HttpRequestParser.h include/TaskQueue.h
+src/GLFWApplication.o: include/Vertex.h include/PmodConfig.h
+src/GLFWApplication.o: include/LandSurface.h include/TexturedRect.h
+src/GLFWApplication.o: include/Texture.h include/Quadtree.h
+src/GLFWApplication.o: include/DisplayList.h include/VisualObject.h
+src/GLFWApplication.o: include/VisualElement.h include/TriangleBuffer.h
+src/GLFWApplication.o: include/ElementBufferCombo.h
+src/GLFWApplication.o: include/ElementBufferObject.h include/BoundingBox.h
+src/GLFWApplication.o: include/DynamicallyTypable.h
+src/GLFWApplication.o: include/LandSurfaceRegion.h
+src/GLFWApplication.o: include/LandSurfaceRegionPlanar.h include/Camera.h
+src/GLFWApplication.o: include/HeightMarker.h include/Positionable.h
+src/GLFWApplication.o: include/BezierPatch.h include/rapidjson/document.h
+src/GLFWApplication.o: include/rapidjson/reader.h
+src/GLFWApplication.o: include/rapidjson/allocators.h
+src/GLFWApplication.o: include/rapidjson/rapidjson.h
+src/GLFWApplication.o: include/rapidjson/stream.h
+src/GLFWApplication.o: include/rapidjson/encodings.h
+src/GLFWApplication.o: include/rapidjson/encodedstream.h
+src/GLFWApplication.o: include/rapidjson/memorystream.h
+src/GLFWApplication.o: include/rapidjson/internal/clzll.h
+src/GLFWApplication.o: include/rapidjson/rapidjson.h
+src/GLFWApplication.o: include/rapidjson/internal/meta.h
+src/GLFWApplication.o: include/rapidjson/internal/stack.h
+src/GLFWApplication.o: include/rapidjson/allocators.h
+src/GLFWApplication.o: include/rapidjson/internal/swap.h
+src/GLFWApplication.o: include/rapidjson/internal/strtod.h
+src/GLFWApplication.o: include/rapidjson/internal/ieee754.h
+src/GLFWApplication.o: include/rapidjson/internal/biginteger.h
+src/GLFWApplication.o: include/rapidjson/internal/diyfp.h
+src/GLFWApplication.o: include/rapidjson/internal/clzll.h
+src/GLFWApplication.o: include/rapidjson/internal/pow10.h
+src/GLFWApplication.o: include/rapidjson/error/error.h
+src/GLFWApplication.o: include/rapidjson/internal/strfunc.h
+src/GLFWApplication.o: include/rapidjson/stream.h include/PmodDesign.h
+src/GLFWApplication.o: include/Timeval.h include/JSONStructureChecker.h
+src/GLFWApplication.o: include/rapidjson/writer.h
+src/GLFWApplication.o: include/rapidjson/internal/dtoa.h
+src/GLFWApplication.o: include/rapidjson/internal/itoa.h
+src/GLFWApplication.o: include/rapidjson/internal/itoa.h
+src/GLFWApplication.o: include/rapidjson/stringbuffer.h
+src/GLFWApplication.o: include/rapidjson/stringbuffer.h
+src/GLFWApplication.o: include/rapidjson/error/en.h
+src/GLFWApplication.o: include/rapidjson/error/error.h include/Version.h
+src/GLFWApplication.o: include/Boundary.h include/Grid.h include/Material.h
+src/GLFWApplication.o: include/TextureAtlas.h include/LightingModel.h
+src/GLFWApplication.o: include/Species.h include/LeafModel.h
+src/GLFWApplication.o: include/CO2Scenario.h include/InterfaceAction.h
+src/GLFWApplication.o: include/MenuInterface.h include/MenuPanel.h
+src/GLFWApplication.o: imgui/imgui.h imgui/imconfig.h
 src/Gable.o: include/Gable.h include/BuildingAssembly.h
 src/Gable.o: include/VisualObject.h include/VisualElement.h
 src/Gable.o: include/TriangleBuffer.h include/ElementBufferCombo.h
@@ -5113,3 +5202,4 @@ src/main.o: include/MenuPanel.h imgui/imgui.h imgui/imconfig.h
 src/main.o: include/HttpLoadBalancer.h include/TaskQueueFarm.h include/Tree.h
 src/main.o: include/TreePart.h include/SkySampleModel.h include/RegionList.h
 src/main.o: include/ResourceManager.h include/HttpClient.h
+src/main.o: include/GLFWApplication.h

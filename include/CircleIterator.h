@@ -1,21 +1,21 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Apr 2021 -
-// This class allows us to create a series of points (and normals to those points)
-// around a circle or arc of a circle.  Was developed because the same kind of code
-// was showing up again and again, and this was a place to consolidate it.  We try
-// to minimize the copying of state.
 
 #ifndef CIRCLE_ITERATOR_H
 #define CIRCLE_ITERATOR_H
 
 #include <cglm/cglm.h>
-#include "Global.h"
+
 
 // =======================================================================================
-// Class variable initialization
+/// @brief This class allows us to create a series of points (and normals to those 
+/// points) around a circle or arc of a circle.  
+///
+/// This was developed because the same kind of code was showing up again and again, and 
+/// this was a place to consolidate it.  We try to minimize the copying of state.
 
 class CircleIterator
 {
-public:
+ public:
   
   // Instance variables - public
   
@@ -26,7 +26,7 @@ public:
   void update(float* centroid, float* dir, float R, float* offset = NULL);
   void getPoint(float degrees, float* pos, float* norm);
   
-private:
+ private:
   
   // Instance variables - private
   vec3  f1;
@@ -40,8 +40,9 @@ private:
   
   // Member functions - private
   CircleIterator(const CircleIterator&);                 // Prevent copy-construction
-  CircleIterator& operator=(const CircleIterator&);      // Prevent assignment
-  
+  CircleIterator& operator=(const CircleIterator&);      // Prevent assignment  
 };
+
+// =======================================================================================
 
 #endif
