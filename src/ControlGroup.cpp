@@ -9,7 +9,9 @@
 
 
 // =======================================================================================
-// Constructor
+/// @brief Constructor
+/// @param firstObject A pointer to a VisualObject which is the thing about which this
+/// this control group will be centered.
 
 ControlGroup::ControlGroup(VisualObject* firstObject):
                                   ObjectGroup(firstObject)
@@ -25,17 +27,21 @@ ControlGroup::ControlGroup(VisualObject* firstObject):
 
 
 // =======================================================================================
-// Destructor
+/// @brief Destructor
 
 ControlGroup::~ControlGroup(void)
 {
 }
 
-
 // =======================================================================================
-// Do all the stuff for adding one arrow into ourself.
 
 unsigned arrowRed = 0xff2200ff;
+
+
+// =======================================================================================
+/// @brief Add one arrow into ourself.
+/// @param pos The vec3 position of the base of the arrow
+/// @param dir The vec3 direction vector from base to head of arrow.
 
 void ControlGroup::addOneArrow(vec3 pos, vec3 dir)
 {
@@ -48,7 +54,9 @@ void ControlGroup::addOneArrow(vec3 pos, vec3 dir)
 
 
 // =======================================================================================
-// Create the horizonal movement arrows
+/// @brief Create the four horizonal movement arrows to translate the object.
+///
+/// One is created for each of the north, south, east, and west directions.
 
 void ControlGroup::createTranslationArrows(void)
 {
@@ -88,7 +96,8 @@ void ControlGroup::createTranslationArrows(void)
 
 
 // =======================================================================================
-// Create the arrows allowing us to rotate the object around a vertical axis
+/// @brief Create the semi-circular arrows allowing us to rotate the object around 
+/// a vertical axis
 
 void ControlGroup::createRotationArrows(void)
 {
@@ -106,7 +115,7 @@ void ControlGroup::createRotationArrows(void)
 
 
 // =======================================================================================
-// Tell callers our name at runtime.
+/// @brief Tell callers our name at runtime.
 
 const char* ControlGroup::objectName(void)
 {
@@ -116,8 +125,12 @@ const char* ControlGroup::objectName(void)
 
 
 // =======================================================================================
-// We assume we are part of a table of visual objects and we just contribute one row
-// about this particular object.  This is the version called from Quadtree pages
+/// @brief Report on our object to an HTTP page.
+/// 
+/// We assume we are part of a table of visual objects and we just contribute 
+/// one row about this particular object.  This is the version called from Quadtree pages
+/// @returns True if the desired HTML was written correctly, false if we ran out of space.
+/// @param serv The HTTP Debug server
 
 bool ControlGroup::diagnosticHTMLSummary(HttpDebug* serv)
 {

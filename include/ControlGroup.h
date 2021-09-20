@@ -1,14 +1,17 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Apr 2021 -
-// This class is a subclass of ObjectGroup specifically to handle the visual controls
-// that appear around an object after it has been double-clicked.
 
 #ifndef CONTROL_GROUP_H
 #define CONTROL_GROUP_H
 
 #include "ObjectGroup.h"
 
+
 // =======================================================================================
-// Class variable initialization
+/// @brief Subclass of ObjectGroup to handle the visual controls that appear around 
+/// an object after it has been double-clicked.
+/// 
+/// It's capable of manage the arrows, semi-circular arrows, etc, that are 
+/// used to move the object around, and the object will be grouped with them.
 
 class ControlGroup: public ObjectGroup
 {
@@ -41,6 +44,8 @@ private:
   ControlGroup& operator=(const ControlGroup&);      // Prevent assignment
 
 };
+
+// =======================================================================================
 
 #endif
 
