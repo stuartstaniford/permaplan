@@ -1,4 +1,3 @@
-
 // Copyright Staniford Systems.  All Rights Reserved.  Feb 2021 -
 // Class for storing and working with the boundary of a plot of land, as in the OLDF
 // boundary object.
@@ -7,10 +6,14 @@
 #include "PmodConfig.h"
 #include "Logging.h"
 #include "Global.h"
+#include "BoundingBox.h"
+#include "HttpDebug.h"
+
+using namespace rapidjson;
 
 
 // =======================================================================================
-// Constructors
+/// @brief Constructor (currently does nothing)
 
 Boundary::Boundary()
 {
@@ -18,7 +21,7 @@ Boundary::Boundary()
 
 
 // =======================================================================================
-// Destructor
+/// @brief Destructor
 
 Boundary::~Boundary(void)
 {
@@ -26,10 +29,11 @@ Boundary::~Boundary(void)
 
 
 // =======================================================================================
-// Function to set us up from an OLDF boundary object (assumed validated before being
-// supplied to us (eg by validateBoundaries below)
-
-using namespace rapidjson;
+/// @brief Set us up from an OLDF boundary object.
+///
+/// The OLDF is assumed validated before being supplied to us (probably by 
+/// validateBoundaries below).
+/// @param boundaries A reference to the rapidjson::Value with the JSON/OLDF in.
 
 void Boundary::setFromOLDF(Value& boundaries)
 {
@@ -46,7 +50,8 @@ void Boundary::setFromOLDF(Value& boundaries)
 
 
 // =======================================================================================
-// Function to extend a bounding box to include all the points in this boundary.
+/// @brief Extend a bounding box to include all the points in this boundary.
+/// @param box A reference to the BoundingBox that we are to extend.
 
 bool Boundary::extendBoundingBox(BoundingBox& box)
 {
@@ -80,7 +85,10 @@ bool Boundary::extendBoundingBox(BoundingBox& box)
 
 
 // =======================================================================================
-// Function to check the OLDF boundary reference point.
+/// @brief Validate the OLDF boundary reference point.
+/// @returns True if the OLDF is valid, false otherwise.
+/// @param boundaries A reference to the rapidjson::Value with the JSON/OLDF for the 
+/// boundaries object in.
 
 bool Boundary::validateReferencePoint(Value& boundaries)
 {
@@ -153,7 +161,10 @@ bool Boundary::validateReferencePoint(Value& boundaries)
 
 
 // =======================================================================================
-// Function to check the OLDF boundary arcs.
+/// @brief Function to check the OLDF boundary arcs.
+/// @returns True if the OLDF is valid, false otherwise.
+/// @param boundaries A reference to the rapidjson::Value with the JSON/OLDF for the 
+/// boundaries object in.
 
 bool Boundary::validateArcs(Value& boundaries)
 {
@@ -237,7 +248,10 @@ bool Boundary::validateArcs(Value& boundaries)
 
 
 // =======================================================================================
-// Function to check the structure of the OLDF boundaries object.
+/// @brief Function to check the structure of the OLDF boundaries object overall.
+/// @returns True if the OLDF is valid, false otherwise.
+/// @param boundaries A reference to the rapidjson::Value with the JSON/OLDF for the 
+/// boundaries object in.
 
 bool Boundary::validateBoundaries(Value&  boundaries)
 {
@@ -251,7 +265,9 @@ bool Boundary::validateBoundaries(Value&  boundaries)
 
 
 // =======================================================================================
-// Write out the boundary data to a file in OLDF JSON format.
+/// @brief Write out the boundary data to a file in OLDF JSON format.
+/// @param file A C style FILE* pointing to the open file to write into.
+/// @param indent The string to use for one indentation unit in the JSON/OLDF.
 
 void Boundary::writeOLDFSection(FILE* file, char* indent)
 {
@@ -283,7 +299,9 @@ void Boundary::writeOLDFSection(FILE* file, char* indent)
 
 
 // =======================================================================================
-// Put the boundary data in a page section
+/// @brief Put the boundary data in a section of an HTML page.
+/// @returns True if the desired HTML was written correctly, false if we ran out of space.
+/// @param serv The HTTP Debug server
 
 bool Boundary::diagnosticHTML(HttpDebug* serv)
 {

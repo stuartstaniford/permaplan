@@ -55,6 +55,7 @@ public:
   void          readControlPointsFromFile(FILE* file);
   bool          improveFit(std::vector<float*>& locations);
   const char*   objectName(void);
+  /// @brief Return our dynamicType
   virtual DynamicType getDynamicType(void) {return TypeBezierPatch;}
   void          printControlPoints(FILE* file);
   void          assertCopyVer(void);

@@ -1,23 +1,25 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Feb 2021 -
-// Class for storing and working with the boundary of a plot of land, as in the OLDF
-// boundary object.
-
 
 #ifndef BOUNDARY_H
 #define BOUNDARY_H
 
 #include <vector>
 #include <cglm/cglm.h>
-#include "HttpDebug.h"
 #include "rapidjson/document.h"
 #include "rapidjson/writer.h"
 #include "rapidjson/stringbuffer.h"
 #include "rapidjson/error/en.h"
-#include "BoundingBox.h"
 
 // =======================================================================================
-// Class variable initialization
+// Forward declarations
 
+class HttpDebug;
+class BoundingBox;
+
+
+// =======================================================================================
+/// @brief Class for storing and working with the boundary of a plot of land, as in 
+/// the OLDF boundary object.
 
 class Boundary
 {
@@ -46,6 +48,9 @@ class Boundary
   Boundary(const Boundary&);                              // Prevent copy-construction
   Boundary& operator=(const Boundary&);                   // Prevent assignment
 };
+
+// =======================================================================================
+
 
 #endif
 

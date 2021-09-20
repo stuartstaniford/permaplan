@@ -868,6 +868,7 @@ INPUT                  = doc \
                 include/Arrow.h src/Arrow.cpp \
                 include/AxialElement.h src/AxialElement.cpp \
                 include/BezierPatch.h src/BezierPatch.cpp \
+                include/Boundary.h src/Boundary.cpp \
                 include/BoundingBox.h src/BoundingBox.cpp \
                 include/Box.h src/Box.cpp \
                 include/Building.h src/Building.cpp \
@@ -886,7 +887,6 @@ INPUT                  = doc \
                 include/HttpDebug.h src/HttpDebug.cpp \
                 include/JSONStructureChecker.h src/JSONStructureChecker.cpp \
                 include/LandSurface.h src/LandSurface.cpp \
-                include/Lockable.h src/Lockable.cpp \
                 include/Lockable.h src/Lockable.cpp \
                 include/MainSceneWindow.h src/MainSceneWindow.cpp \
                 include/MenuBlockPanel.h src/MenuBlockPanel.cpp \

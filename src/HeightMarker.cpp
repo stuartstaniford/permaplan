@@ -327,7 +327,7 @@ bool HeightMarker::diagnosticHTMLSummary(HttpDebug* serv)
 // =======================================================================================
 /// @brief Provides access to the diagnostic HTTP server for the diagnosticHTML page of 
 /// this HeightMarker via it's objIndex.
-///
+/// 
 /// @returns True if the desired HTML was written correctly, false if we ran out of space.
 /// @param serv The HTTP Debug server
 

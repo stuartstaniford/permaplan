@@ -589,6 +589,9 @@ void BezierPatch::levelFit(std::vector<float*>& locations)
   updateBoundingBox();
 }
 
+// =======================================================================================
+
+#define READ_BUF_SIZE 128
 
 // =======================================================================================
 /// @brief Replace the current values of the control points with values taken from a file.
@@ -599,7 +602,6 @@ void BezierPatch::levelFit(std::vector<float*>& locations)
 /// @param file A pointer to the C FILE structure for the file to be read from, which
 /// should already have been opened.
 
-#define READ_BUF_SIZE 128
 void BezierPatch::readControlPointsFromFile(FILE* file)
 {
   char buf[READ_BUF_SIZE];
