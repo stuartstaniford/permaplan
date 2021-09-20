@@ -8,7 +8,9 @@
 
 
 // =======================================================================================
-// Create the three axes to display in color later
+/// @brief Constructor. Create the three axes to display in color later (via 
+/// LineStripList::draw).
+/// @param axesLen The length of the axes to draw (in spaceUnits).
 
 ColoredAxes::ColoredAxes(float axesLen):
                                         LineStripList()
@@ -33,7 +35,7 @@ ColoredAxes::ColoredAxes(float axesLen):
 
 
 // =======================================================================================
-// Destructor
+/// @brief Destructor
 
 ColoredAxes::~ColoredAxes(void)
 {
