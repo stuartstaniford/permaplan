@@ -1,14 +1,15 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Feb 2021 -
-// Class for rendering a cylinder
 
 #ifndef CYLINDER_H
 #define CYLINDER_H
 
 #include "AxialElement.h"
-#include "TruncatedCone.h"
+
 
 // =======================================================================================
-// Class variable initialization
+/// @brief Class for rendering a cylinder.
+///
+/// Almost all the real implementation is inherited from AxialElement.
 
 class Cylinder: public AxialElement
 {
@@ -32,6 +33,9 @@ class Cylinder: public AxialElement
   Cylinder(const Cylinder&);                 // Prevent copy-construction
   Cylinder& operator=(const Cylinder&);      // Prevent assignment
 };
+
+
+// =======================================================================================
 
 #endif
 

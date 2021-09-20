@@ -6,6 +6,7 @@
 #include "PmodDesign.h"
 #include "Tree.h"
 #include "JSONStructureChecker.h"
+#include "TruncatedCone.h"
 #include <err.h>
 
 

@@ -103,7 +103,7 @@ src/Arrow.o: include/TaskQueue.h include/Lockable.h include/Vertex.h
 src/Arrow.o: include/ElementBufferObject.h include/BoundingBox.h
 src/Arrow.o: include/Shader.h include/VertexBufferCombo.h
 src/Arrow.o: include/DynamicallyTypable.h include/VisualObject.h
-src/Arrow.o: include/Cylinder.h include/TruncatedCone.h
+src/Arrow.o: include/Cylinder.h
 src/AxialElement.o: include/AxialElement.h include/VisualElement.h
 src/AxialElement.o: include/TriangleBuffer.h include/ElementBufferCombo.h
 src/AxialElement.o: include/VertexArrayObject.h include/VertexBufferObject.h
@@ -926,7 +926,7 @@ src/Cylinder.o: include/HttpDebug.h include/HttpRequestParser.h
 src/Cylinder.o: include/TaskQueue.h include/Lockable.h include/Vertex.h
 src/Cylinder.o: include/ElementBufferObject.h include/BoundingBox.h
 src/Cylinder.o: include/Shader.h include/VertexBufferCombo.h
-src/Cylinder.o: include/DynamicallyTypable.h include/TruncatedCone.h
+src/Cylinder.o: include/DynamicallyTypable.h
 src/DisplayList.o: include/DisplayList.h include/VisualObject.h
 src/DisplayList.o: include/VisualElement.h include/TriangleBuffer.h
 src/DisplayList.o: include/ElementBufferCombo.h include/VertexArrayObject.h
@@ -4405,15 +4405,14 @@ src/Tree.o: include/Timeval.h include/Version.h include/TreePart.h
 src/Tree.o: include/Quadtree.h include/DisplayList.h
 src/Tree.o: include/LandSurfaceRegion.h include/LandSurfaceRegionPlanar.h
 src/Tree.o: include/WoodySegment.h include/Cylinder.h include/AxialElement.h
-src/Tree.o: include/TruncatedCone.h include/PmodDesign.h
-src/Tree.o: include/LandSurface.h include/TexturedRect.h include/Texture.h
-src/Tree.o: include/Camera.h include/HeightMarker.h include/Positionable.h
-src/Tree.o: include/BezierPatch.h include/PmodConfig.h include/Boundary.h
-src/Tree.o: include/Scene.h include/ColoredAxes.h include/LineStripList.h
-src/Tree.o: include/Grid.h include/Material.h include/TextureAtlas.h
-src/Tree.o: include/LightingModel.h include/CO2Scenario.h
-src/Tree.o: include/InterfaceAction.h include/SkySampleModel.h
-src/Tree.o: include/TaskQueueFarm.h
+src/Tree.o: include/PmodDesign.h include/LandSurface.h include/TexturedRect.h
+src/Tree.o: include/Texture.h include/Camera.h include/HeightMarker.h
+src/Tree.o: include/Positionable.h include/BezierPatch.h include/PmodConfig.h
+src/Tree.o: include/Boundary.h include/Scene.h include/ColoredAxes.h
+src/Tree.o: include/LineStripList.h include/Grid.h include/Material.h
+src/Tree.o: include/TextureAtlas.h include/LightingModel.h
+src/Tree.o: include/CO2Scenario.h include/InterfaceAction.h
+src/Tree.o: include/SkySampleModel.h include/TaskQueueFarm.h
 src/TreePart.o: include/TreePart.h include/HttpDebug.h
 src/TreePart.o: include/HttpRequestParser.h include/TaskQueue.h
 src/TreePart.o: include/Lockable.h include/Global.h
@@ -5112,15 +5111,15 @@ src/WoodySegment.o: include/MemoryTracker.h include/Vertex.h
 src/WoodySegment.o: include/ElementBufferObject.h include/BoundingBox.h
 src/WoodySegment.o: include/Shader.h include/VertexBufferCombo.h
 src/WoodySegment.o: include/Cylinder.h include/AxialElement.h
-src/WoodySegment.o: include/VisualElement.h include/TruncatedCone.h
-src/WoodySegment.o: include/PmodDesign.h include/LandSurface.h
-src/WoodySegment.o: include/TexturedRect.h include/Texture.h
-src/WoodySegment.o: include/Quadtree.h include/DisplayList.h
-src/WoodySegment.o: include/VisualObject.h include/LandSurfaceRegion.h
+src/WoodySegment.o: include/VisualElement.h include/PmodDesign.h
+src/WoodySegment.o: include/LandSurface.h include/TexturedRect.h
+src/WoodySegment.o: include/Texture.h include/Quadtree.h
+src/WoodySegment.o: include/DisplayList.h include/VisualObject.h
+src/WoodySegment.o: include/LandSurfaceRegion.h
 src/WoodySegment.o: include/LandSurfaceRegionPlanar.h include/Camera.h
 src/WoodySegment.o: include/HeightMarker.h include/Positionable.h
 src/WoodySegment.o: include/BezierPatch.h include/PmodConfig.h
-src/WoodySegment.o: include/Boundary.h include/Tree.h
+src/WoodySegment.o: include/Boundary.h include/Tree.h include/TruncatedCone.h
 src/imgui.o: imgui/imgui.h imgui/imconfig.h imgui/imgui_internal.h
 src/imgui.o: imgui/imstb_textedit.h
 src/imgui_demo.o: imgui/imgui.h imgui/imconfig.h
