@@ -886,6 +886,7 @@ INPUT                  = doc \
                 include/DynamicallyTypable.h src/DynamicallyTypable.cpp \
                 include/ElementBufferObject.h src/ElementBufferObject.cpp \
                 include/ElementBufferCombo.h src/ElementBufferCombo.cpp \
+                include/EmptyClass.h src/EmptyClass.cpp \
                 include/Gable.h src/Gable.cpp \
                 include/GLFWApplication.h src/GLFWApplication.cpp \
                 include/HeightMarker.h src/HeightMarker.cpp \

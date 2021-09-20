@@ -5,7 +5,7 @@
 
 
 // =======================================================================================
-/// @brief Quick description of the class
+/// @brief This is a template for new classes.  Quick description of the class here.
 ///
 /// More details of the class go here.
 
