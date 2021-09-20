@@ -14,7 +14,7 @@ bool HttpClient::globalInitCalled = false;
 
 
 // =======================================================================================
-// Constructor
+/// @brief Constructor.  Get's a Curl easy handle.
 
 HttpClient::HttpClient(void)
 {
@@ -28,12 +28,11 @@ HttpClient::HttpClient(void)
   unless(easyHandle)
     err(-1, "Cannot get handle from curl_easy_init.\n");
   curl_easy_setopt(easyHandle, CURLOPT_ERRORBUFFER, errorBuf);
-
 }
 
 
 // =======================================================================================
-// Destructor
+/// @brief Destructor.  Cleans up the Curl handle.
 
 HttpClient::~HttpClient(void)
 {
@@ -55,9 +54,12 @@ size_t writeToFile(void *buffer, size_t size, size_t nmemb, void *userp)
 
 
 // =======================================================================================
-// Function which will fetch a file from a given URL and store it in a designated path
-// location.  Returns success or failure.  
-// XX Currently always starts over from the beginning if a prior transfer was incomplete.
+/// @brief  Fetch a file from a given URL and store it in a designated path location.  
+/// @returns true on success or false on failure.
+/// @param url A const C-string with the URL to fetch from
+/// @param path A C-string with the path location where the file is to be stored (we
+/// will open this file and then close it at the end). 
+/// @todo Currently always starts over from the beginning if a prior transfer was incomplete.
 
 bool HttpClient::fetchFile(const char* url, const char* path)
 {
@@ -73,6 +75,7 @@ bool HttpClient::fetchFile(const char* url, const char* path)
   curl_easy_setopt(easyHandle, CURLOPT_WRITEDATA, file);
 
   CURLcode result = curl_easy_perform(easyHandle);
+  fclose(file);
   if(result == CURLE_OK)
     return true;
   else
