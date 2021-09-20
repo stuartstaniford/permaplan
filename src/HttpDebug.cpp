@@ -24,7 +24,13 @@
 
 
 // =======================================================================================
-// Constructor
+/// @brief Constructor
+/// @param S A reference to the Scene object
+/// imgMenu A reference to the menu system for the main window
+/// index An unsigned index of which TaskQueue we are in the loadBalancer.
+/// @todo The reference to MenuInterface is likely to get refactored, since probably the
+/// interface for a particular window should not be the menu interface for the entire
+/// application.
 
 HttpDebug::HttpDebug(Scene& S, MenuInterface& imgMenu, unsigned index):
                         TaskQueue(index),
@@ -44,7 +50,7 @@ HttpDebug::HttpDebug(Scene& S, MenuInterface& imgMenu, unsigned index):
 
 
 // ======================================================================================
-// Destructor deallocates the buffers and closes the socket
+/// @brief Destructor deallocates the buffers.
 
 HttpDebug::~HttpDebug(void)
 {

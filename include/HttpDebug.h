@@ -31,11 +31,13 @@ class MenuInterface;
 
 
 // =======================================================================================
-/// Simple internal HTTP server for debugging the running system.  
+/// @brief Simple internal HTTP server for debugging the running system.  
 /// 
-/// Implements a very small subset of HTTP/1.1, but seems to work adequately for this system
-/// with all known browsers.  Only uses C lib calls to avoid complicating the
-/// build.
+/// Implements a very small subset of HTTP/1.1, but seems to work adequately for this 
+/// system with all known browsers.  Only uses C lib calls to avoid complicating the
+/// build.  There are a number of these objects being run by an HttpLoadBalancer 
+/// object, and we inherit from TaskQueue in order to have incoming requests queued for
+/// us to process. 
 
 class HttpDebug: public TaskQueue
 {  

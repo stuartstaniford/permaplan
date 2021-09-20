@@ -33,6 +33,7 @@ HttpClient::HttpClient(void)
 
 // =======================================================================================
 /// @brief Destructor.  Cleans up the Curl handle.
+/// @todo curl_global_cleanup is not presently called.
 
 HttpClient::~HttpClient(void)
 {

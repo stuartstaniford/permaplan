@@ -13,7 +13,6 @@
 /// in fetching stuff. // See the tutorial at 
 /// https://curl.se/libcurl/c/libcurl-tutorial.html
 
-
 class HttpClient
 {
 public:
@@ -35,8 +34,8 @@ private:
   // Member functions - private
   HttpClient(const HttpClient&);                 // Prevent copy-construction
   HttpClient& operator=(const HttpClient&);      // Prevent assignment
-
 };
+
 
 // =======================================================================================
 
