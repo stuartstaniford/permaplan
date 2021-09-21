@@ -14,9 +14,9 @@
 /// scene window.  This will be used to ensure that we open up looking at the building 
 /// from the same angle in the horizontal plane.
 
-BuildingWindow::BuildingWindow(Building& building, vec3& camFront):
+BuildingWindow::BuildingWindow(Building& building, vec3& camFront, GLFWApplication& app):
                         ObjectInspectorWindow(building, camFront, BUILDING_WINDOW_INIT_WIDTH, 
-                                    BUILDING_WINDOW_INIT_HEIGHT, (char*)"Building Editor")
+                              BUILDING_WINDOW_INIT_HEIGHT, (char*)"Building Editor", app)
 {
 }
 

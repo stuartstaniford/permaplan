@@ -12,9 +12,9 @@
 // =======================================================================================
 /// @brief Constructor
 
-MainSceneWindow::MainSceneWindow(int pixWidth, int pixHeight):
+MainSceneWindow::MainSceneWindow(int pixWidth, int pixHeight, GLFWApplication& app):
                                   Window3D(pixWidth, pixHeight, 
-                                           (char*)"Landscape Simulation")
+                                           (char*)"Landscape Simulation", app)
 {
   // Dear ImGui initialization
   imgMenu = new MenuInterface(*this);
@@ -123,7 +123,7 @@ void MainSceneWindow::processDoubleClick(float mouseX, float mouseY, float timeD
    {
     vec3 junk, cameraDir;
     camera.copyDirection(junk, cameraDir);
-    TreeWindow* treeWin = new TreeWindow(*(Tree*)obj, cameraDir, this);
+    TreeWindow* treeWin = new TreeWindow(*(Tree*)obj, cameraDir, appParent, this);
     treeWin->scene = scene;
     treeWin->move(10,10);
     treeWin->scheduleWindowNext(this); // make the new window the focus at end of frame

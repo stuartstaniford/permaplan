@@ -582,7 +582,8 @@ src/BuildingWindow.o: include/TextureAtlas.h include/LightingModel.h
 src/BuildingWindow.o: include/Species.h include/LeafModel.h
 src/BuildingWindow.o: include/CO2Scenario.h include/InterfaceAction.h
 src/BuildingWindow.o: include/MenuInterface.h include/MenuPanel.h
-src/BuildingWindow.o: imgui/imgui.h imgui/imconfig.h include/Building.h
+src/BuildingWindow.o: imgui/imgui.h imgui/imconfig.h
+src/BuildingWindow.o: include/GLFWApplication.h include/Building.h
 src/BuildingWindow.o: include/ObjectGroup.h
 src/CO2Scenario.o: include/CO2Scenario.h include/rapidjson/document.h
 src/CO2Scenario.o: include/rapidjson/reader.h include/rapidjson/allocators.h
@@ -1244,17 +1245,17 @@ src/Grid.o: /usr/local/include/cglm/project.h
 src/Grid.o: /usr/local/include/cglm/sphere.h /usr/local/include/cglm/ease.h
 src/Grid.o: /usr/local/include/cglm/curve.h /usr/local/include/cglm/bezier.h
 src/Grid.o: /usr/local/include/cglm/ray.h /usr/local/include/cglm/affine2d.h
-src/Grid.o: include/Shader.h include/VertexArrayObject.h
-src/Grid.o: include/VertexBufferObject.h /usr/local/include/GL/glew.h
-src/Grid.o: /usr/local/include/GLFW/glfw3.h include/Global.h
-src/Grid.o: include/Logging.h include/MemoryTracker.h include/HttpDebug.h
-src/Grid.o: include/HttpRequestParser.h include/TaskQueue.h
-src/Grid.o: include/Lockable.h include/Vertex.h include/LandSurface.h
-src/Grid.o: include/TexturedRect.h include/Texture.h include/Quadtree.h
-src/Grid.o: include/DisplayList.h include/VisualObject.h
-src/Grid.o: include/VisualElement.h include/TriangleBuffer.h
-src/Grid.o: include/ElementBufferCombo.h include/ElementBufferObject.h
-src/Grid.o: include/BoundingBox.h include/VertexBufferCombo.h
+src/Grid.o: include/LineStripList.h include/VertexBufferCombo.h
+src/Grid.o: include/VertexArrayObject.h include/VertexBufferObject.h
+src/Grid.o: /usr/local/include/GL/glew.h /usr/local/include/GLFW/glfw3.h
+src/Grid.o: include/Global.h include/Logging.h include/MemoryTracker.h
+src/Grid.o: include/HttpDebug.h include/HttpRequestParser.h
+src/Grid.o: include/TaskQueue.h include/Lockable.h include/Vertex.h
+src/Grid.o: include/Shader.h include/LandSurface.h include/TexturedRect.h
+src/Grid.o: include/Texture.h include/Quadtree.h include/DisplayList.h
+src/Grid.o: include/VisualObject.h include/VisualElement.h
+src/Grid.o: include/TriangleBuffer.h include/ElementBufferCombo.h
+src/Grid.o: include/ElementBufferObject.h include/BoundingBox.h
 src/Grid.o: include/DynamicallyTypable.h include/LandSurfaceRegion.h
 src/Grid.o: include/LandSurfaceRegionPlanar.h include/Camera.h
 src/Grid.o: include/HeightMarker.h include/Positionable.h
@@ -1275,7 +1276,6 @@ src/Grid.o: include/rapidjson/internal/clzll.h
 src/Grid.o: include/rapidjson/internal/pow10.h
 src/Grid.o: include/rapidjson/error/error.h
 src/Grid.o: include/rapidjson/internal/strfunc.h include/rapidjson/stream.h
-src/Grid.o: include/LineStripList.h
 src/HeightMarker.o: include/HeightMarker.h include/VisualObject.h
 src/HeightMarker.o: include/VisualElement.h include/TriangleBuffer.h
 src/HeightMarker.o: include/ElementBufferCombo.h include/VertexArrayObject.h
@@ -1436,6 +1436,7 @@ src/HttpDebug.o: include/InterfaceAction.h include/Tree.h include/TreePart.h
 src/HttpDebug.o: include/TaskQueueFarm.h include/SkySampleModel.h
 src/HttpDebug.o: include/MenuInterface.h include/MenuPanel.h imgui/imgui.h
 src/HttpDebug.o: imgui/imconfig.h include/Window3D.h
+src/HttpDebug.o: include/GLFWApplication.h
 src/HttpLoadBalancer.o: include/HttpLoadBalancer.h include/TaskQueueFarm.h
 src/HttpLoadBalancer.o: include/TaskQueue.h include/Lockable.h
 src/HttpLoadBalancer.o: include/Global.h /usr/local/include/cglm/cglm.h
@@ -2135,7 +2136,8 @@ src/MainSceneWindow.o: include/TextureAtlas.h include/LightingModel.h
 src/MainSceneWindow.o: include/Species.h include/LeafModel.h
 src/MainSceneWindow.o: include/CO2Scenario.h include/InterfaceAction.h
 src/MainSceneWindow.o: include/MenuInterface.h include/MenuPanel.h
-src/MainSceneWindow.o: imgui/imgui.h imgui/imconfig.h include/MenuInsert.h
+src/MainSceneWindow.o: imgui/imgui.h imgui/imconfig.h
+src/MainSceneWindow.o: include/GLFWApplication.h include/MenuInsert.h
 src/MainSceneWindow.o: include/TreeWindow.h include/ObjectInspectorWindow.h
 src/Material.o: include/Material.h /usr/local/include/cglm/cglm.h
 src/Material.o: /usr/local/include/cglm/common.h
@@ -2507,6 +2509,7 @@ src/MenuFocusOverlay.o: include/Boundary.h include/Grid.h include/Material.h
 src/MenuFocusOverlay.o: include/TextureAtlas.h include/LightingModel.h
 src/MenuFocusOverlay.o: include/Species.h include/LeafModel.h
 src/MenuFocusOverlay.o: include/CO2Scenario.h include/MenuInterface.h
+src/MenuFocusOverlay.o: include/GLFWApplication.h
 src/MenuGablePanel.o: include/MenuGablePanel.h include/MenuPanel.h
 src/MenuGablePanel.o: include/Logging.h include/MemoryTracker.h
 src/MenuGablePanel.o: include/HttpDebug.h include/HttpRequestParser.h
@@ -2976,13 +2979,13 @@ src/MenuInterface.o: include/HeightMarker.h include/Positionable.h
 src/MenuInterface.o: include/BezierPatch.h include/PmodDesign.h
 src/MenuInterface.o: include/Boundary.h include/Grid.h
 src/MenuInterface.o: include/LightingModel.h include/CO2Scenario.h
-src/MenuInterface.o: include/MenuShedPanel.h include/Shed.h
-src/MenuInterface.o: include/BuildingRect.h include/Orientable.h
-src/MenuInterface.o: include/MenuBlockPanel.h include/MenuFocusOverlay.h
-src/MenuInterface.o: include/MenuSimulationPanel.h include/MenuInsert.h
-src/MenuInterface.o: include/MenuGenus.h include/MenuTree.h
-src/MenuInterface.o: include/loadFileToBuf.h include/RegionList.h
-src/MenuInterface.o: imgui/backends/imgui_impl_opengl3.h
+src/MenuInterface.o: include/GLFWApplication.h include/MenuShedPanel.h
+src/MenuInterface.o: include/Shed.h include/BuildingRect.h
+src/MenuInterface.o: include/Orientable.h include/MenuBlockPanel.h
+src/MenuInterface.o: include/MenuFocusOverlay.h include/MenuSimulationPanel.h
+src/MenuInterface.o: include/MenuInsert.h include/MenuGenus.h
+src/MenuInterface.o: include/MenuTree.h include/loadFileToBuf.h
+src/MenuInterface.o: include/RegionList.h imgui/backends/imgui_impl_opengl3.h
 src/MenuInterface.o: imgui/backends/imgui_impl_glfw.h
 src/MenuPanel.o: include/MenuPanel.h include/Logging.h
 src/MenuPanel.o: include/MemoryTracker.h include/HttpDebug.h
@@ -3067,7 +3070,7 @@ src/MenuPanel.o: include/Version.h include/Boundary.h include/Grid.h
 src/MenuPanel.o: include/Material.h include/TextureAtlas.h
 src/MenuPanel.o: include/LightingModel.h include/Species.h
 src/MenuPanel.o: include/LeafModel.h include/CO2Scenario.h
-src/MenuPanel.o: include/MenuInterface.h
+src/MenuPanel.o: include/MenuInterface.h include/GLFWApplication.h
 src/MenuShedPanel.o: include/MenuShedPanel.h include/MenuPanel.h
 src/MenuShedPanel.o: include/Logging.h include/MemoryTracker.h
 src/MenuShedPanel.o: include/HttpDebug.h include/HttpRequestParser.h
@@ -3451,6 +3454,7 @@ src/ObjectInspectorWindow.o: include/Species.h include/LeafModel.h
 src/ObjectInspectorWindow.o: include/CO2Scenario.h include/InterfaceAction.h
 src/ObjectInspectorWindow.o: include/MenuInterface.h include/MenuPanel.h
 src/ObjectInspectorWindow.o: imgui/imgui.h imgui/imconfig.h
+src/ObjectInspectorWindow.o: include/GLFWApplication.h
 src/Orientable.o: include/Orientable.h include/Positionable.h
 src/Orientable.o: /usr/local/include/cglm/cglm.h
 src/Orientable.o: /usr/local/include/cglm/common.h
@@ -3709,6 +3713,7 @@ src/Quadtree.o: include/Species.h include/LeafModel.h include/CO2Scenario.h
 src/Quadtree.o: include/InterfaceAction.h include/ObjectGroup.h
 src/Quadtree.o: include/Window3D.h include/MenuInterface.h
 src/Quadtree.o: include/MenuPanel.h imgui/imgui.h imgui/imconfig.h
+src/Quadtree.o: include/GLFWApplication.h
 src/RegionList.o: include/RegionList.h include/DynamicallyTypable.h
 src/RegionList.o: include/Species.h include/HttpDebug.h
 src/RegionList.o: include/HttpRequestParser.h include/TaskQueue.h
@@ -3864,7 +3869,8 @@ src/ResourceManager.o: include/TextureAtlas.h include/LightingModel.h
 src/ResourceManager.o: include/Species.h include/LeafModel.h
 src/ResourceManager.o: include/CO2Scenario.h include/InterfaceAction.h
 src/ResourceManager.o: include/MenuInterface.h include/MenuPanel.h
-src/ResourceManager.o: imgui/imgui.h imgui/imconfig.h include/HttpClient.h
+src/ResourceManager.o: imgui/imgui.h imgui/imconfig.h
+src/ResourceManager.o: include/GLFWApplication.h include/HttpClient.h
 src/ResourceManager.o: include/loadFileToBuf.h
 src/Scene.o: include/Scene.h include/Shader.h /usr/local/include/cglm/cglm.h
 src/Scene.o: /usr/local/include/cglm/common.h /usr/local/include/cglm/types.h
@@ -3931,7 +3937,8 @@ src/Scene.o: include/InterfaceAction.h include/SkySampleModel.h
 src/Scene.o: include/ControlGroup.h include/ObjectGroup.h include/Box.h
 src/Scene.o: include/Tree.h include/TreePart.h include/Building.h
 src/Scene.o: include/Window3D.h include/MenuInterface.h include/MenuPanel.h
-src/Scene.o: imgui/imgui.h imgui/imconfig.h include/loadFileToBuf.h
+src/Scene.o: imgui/imgui.h imgui/imconfig.h include/GLFWApplication.h
+src/Scene.o: include/loadFileToBuf.h
 src/SemicircularArrow.o: include/SemicircularArrow.h include/PathTube.h
 src/SemicircularArrow.o: include/VisualElement.h include/TriangleBuffer.h
 src/SemicircularArrow.o: include/ElementBufferCombo.h
@@ -4560,7 +4567,7 @@ src/TreeWindow.o: include/TextureAtlas.h include/LightingModel.h
 src/TreeWindow.o: include/Species.h include/LeafModel.h include/CO2Scenario.h
 src/TreeWindow.o: include/InterfaceAction.h include/MenuInterface.h
 src/TreeWindow.o: include/MenuPanel.h imgui/imgui.h imgui/imconfig.h
-src/TreeWindow.o: include/Tree.h include/TreePart.h
+src/TreeWindow.o: include/GLFWApplication.h include/Tree.h include/TreePart.h
 src/TriangleBuffer.o: include/TriangleBuffer.h include/ElementBufferCombo.h
 src/TriangleBuffer.o: include/VertexArrayObject.h
 src/TriangleBuffer.o: include/VertexBufferObject.h
@@ -5037,8 +5044,9 @@ src/Window3D.o: include/TextureAtlas.h include/LightingModel.h
 src/Window3D.o: include/Species.h include/LeafModel.h include/CO2Scenario.h
 src/Window3D.o: include/InterfaceAction.h include/MenuInterface.h
 src/Window3D.o: include/MenuPanel.h imgui/imgui.h imgui/imconfig.h
-src/Window3D.o: include/PmodException.h include/MenuInsert.h
-src/Window3D.o: include/MenuInitPanel.h imgui/backends/imgui_impl_opengl3.h
+src/Window3D.o: include/GLFWApplication.h include/PmodException.h
+src/Window3D.o: include/MenuInsert.h include/MenuInitPanel.h
+src/Window3D.o: imgui/backends/imgui_impl_opengl3.h
 src/Window3D.o: imgui/backends/imgui_impl_glfw.h
 src/WoodySegment.o: include/WoodySegment.h include/TreePart.h
 src/WoodySegment.o: include/HttpDebug.h include/HttpRequestParser.h
@@ -5198,7 +5206,7 @@ src/main.o: include/Material.h include/TextureAtlas.h include/LightingModel.h
 src/main.o: include/Species.h include/LeafModel.h include/CO2Scenario.h
 src/main.o: include/InterfaceAction.h include/MenuInterface.h
 src/main.o: include/MenuPanel.h imgui/imgui.h imgui/imconfig.h
-src/main.o: include/HttpLoadBalancer.h include/TaskQueueFarm.h include/Tree.h
-src/main.o: include/TreePart.h include/SkySampleModel.h include/RegionList.h
+src/main.o: include/GLFWApplication.h include/HttpLoadBalancer.h
+src/main.o: include/TaskQueueFarm.h include/Tree.h include/TreePart.h
+src/main.o: include/SkySampleModel.h include/RegionList.h
 src/main.o: include/ResourceManager.h include/HttpClient.h
-src/main.o: include/GLFWApplication.h

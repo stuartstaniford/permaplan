@@ -25,8 +25,8 @@
 /// share an OpenGL context.  This is NULL by default (creating a new context).
 
 ObjectInspectorWindow::ObjectInspectorWindow(VisualObject& obj, vec3& camFront, int pixWidth, 
-                                        int pixHeight, const char* title, Window3D* existing):
-                                            Window3D(pixWidth, pixHeight, title, existing),
+                    int pixHeight, const char* title, GLFWApplication& app, Window3D* existing):
+                                            Window3D(pixWidth, pixHeight, title, app, existing),
                                             object(obj)
 {
   camera.focusOnObject(obj.box, camFront, pixWidth, pixHeight);

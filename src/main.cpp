@@ -47,7 +47,7 @@ int main (int argc, char* argv[])
   // Initialize everything
   setExternVersions();
   GLFWApplication glfwApp;
-  MainSceneWindow window(800, 600);
+  MainSceneWindow window(800, 600, glfwApp);
   glfwApp.addWindow(window);
   Shader shader("src/pmodVert.glsl", "src/pmodFrag.glsl");
   window.camera.makeActive(); // Can't do till shader is set up.

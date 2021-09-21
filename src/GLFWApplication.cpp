@@ -27,7 +27,6 @@ GLFWApplication::~GLFWApplication(void)
 
 void GLFWApplication::addWindow(Window3D& window)
 {
-  
 }
 
 

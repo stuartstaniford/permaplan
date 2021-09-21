@@ -2,13 +2,14 @@
 
 #ifndef WINDOW3D_H
 #define WINDOW3D_H
-#include <sys/time.h>
 #include "Scene.h"
 #include "Camera.h"
 #include "MenuInterface.h"
 #include "Timeval.h"
 #include "HttpDebug.h"
+#include "GLFWApplication.h"
 #include <unordered_map>
+#include <sys/time.h>
 
 // =======================================================================================
 // Forward declarations
@@ -34,6 +35,7 @@ class Window3D
 {
   friend MenuPanel;
   friend MenuFocusOverlay;
+  friend GLFWApplication;
   
  public:
   
@@ -42,7 +44,8 @@ class Window3D
   Camera            camera;
 
   // Public methods
-  Window3D(int pixWidth, int pixHeight, const char* title, Window3D* existing = NULL);
+  Window3D(int pixWidth, int pixHeight, const char* title, GLFWApplication& app,
+                                                            Window3D* existing = NULL);
   ~Window3D(void);
   void  loop(void);
   void  makeFocus(void);
@@ -63,12 +66,13 @@ class Window3D
  protected:
 
   // Instance variables - protected
-  int             width;
-  int             height;
-  GLFWwindow*     window;
-  const char*     winTitle;
-  int             ourWin;
-  bool            exitLoopRequired;
+  int               width;
+  int               height;
+  GLFWwindow*       window;
+  const char*       winTitle;
+  GLFWApplication&  appParent;
+  int               ourWin;
+  bool              exitLoopRequired;
   
   // Virtual interface that subclasses must implement.
   virtual void  draw(float timeInterval);

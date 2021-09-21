@@ -31,7 +31,7 @@ public:
   // Instance variables - public
   
   // Member functions - public
-  TreeWindow(Tree& tree, vec3& camFront, Window3D* existing);
+  TreeWindow(Tree& tree, vec3& camFront, GLFWApplication& app, Window3D* existing = NULL);
   ~TreeWindow(void);
   bool diagnosticHTMLRow(HttpDebug* serv, int rowIndex);
   void draw(float timeInterval);

@@ -21,7 +21,7 @@ public:
   MenuInterface*  imgMenu;
 
   // Member functions - public
-  MainSceneWindow(int pixWidth, int pixHeight);
+  MainSceneWindow(int pixWidth, int pixHeight, GLFWApplication& app);
   ~MainSceneWindow(void);
 
 protected:

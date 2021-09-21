@@ -106,11 +106,13 @@ void Window3D::initGraphics(void)
 /// @param existing A pointer to an existing window, with which this new window should
 /// share an OpenGL context.  This is NULL by default (creating a new context).
 
-Window3D::Window3D(int pixWidth, int pixHeight, const char* title, Window3D* existing):
+Window3D::Window3D(int pixWidth, int pixHeight, const char* title, GLFWApplication& app,
+                                                                      Window3D* existing):
                         camera(200.0f, 45.0f),
                         width(pixWidth),
                         height(pixHeight),
                         winTitle(title),
+                        appParent(app),
                         exitLoopRequired(false),
                         lastMouseX(HUGE_VAL),
                         lastMouseY(HUGE_VAL),

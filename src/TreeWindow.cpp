@@ -16,9 +16,10 @@
 /// @param existing A pointer to an existing window, with which this new window should
 /// share an OpenGL context.
 
-TreeWindow::TreeWindow(Tree& tree, vec3& camFront, Window3D* existing):
+TreeWindow::TreeWindow(Tree& tree, vec3& camFront, GLFWApplication& app,
+                                                                      Window3D* existing):
                       ObjectInspectorWindow(tree, camFront, TREE_WINDOW_INIT_WIDTH, 
-                      TREE_WINDOW_INIT_HEIGHT, (char*)"Tree Inspector", existing)
+                      TREE_WINDOW_INIT_HEIGHT, (char*)"Tree Inspector", app, existing)
 {
 }
 

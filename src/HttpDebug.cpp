@@ -423,7 +423,7 @@ unsigned HttpDebug::generateHeader(unsigned bodySize, unsigned code, const char*
 // =======================================================================================
 /// @brief Generate an HTML page opening into the response buffer.
 /// @returns True if we successfully generated the HTML, false if we ran out of space.
-/// @param title A C string to use in the <title> tag and also <h1> tag at the top of the 
+/// @param title A C string to use in the title tag and also h1 tag at the top of the 
 /// page.
 /// @param refresh A refresh interval for the page (defaults to 0u if missing).
 

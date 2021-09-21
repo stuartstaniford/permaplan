@@ -16,7 +16,6 @@
 /// with that particular kind of object.  But this class has functionality that is the 
 /// same across any object to be manipulated/displayed in an inspector window.
 
-
 class ObjectInspectorWindow: public Window3D
 {
 public:
@@ -25,7 +24,7 @@ public:
   
   // Member functions - public
   ObjectInspectorWindow(VisualObject& obj, vec3& camFront, int pixWidth, int pixHeight, 
-                                                const char* title, Window3D* existing = NULL);
+                    const char* title, GLFWApplication& app, Window3D* existing = NULL);
   ~ObjectInspectorWindow(void);
 
 protected:
