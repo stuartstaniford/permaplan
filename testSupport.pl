@@ -1150,7 +1150,7 @@ sub checkLogForErrors
         $outLines++;
        }
      }
-    $closeMessageCount++ if /LogCloseDown: Orderly exit from Window3D::overLoop/;
+    $closeMessageCount++ if /LogCloseDown: Orderly exit from GLFWApplication::overLoop/;
     $closeMessageCount++ if /LogCloseDown: HttpDebug server shutting down normally/;
     $closeMessageCount++ if /LogWindowOperations: Terminating window system altogether/;
     $closeMessageCount++ if /Deallocating Landscape Simulation window/;
