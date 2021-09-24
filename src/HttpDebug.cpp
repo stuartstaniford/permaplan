@@ -12,6 +12,7 @@
 #include "SkySampleModel.h"
 #include "InterfaceAction.h"
 #include "MenuInterface.h"
+#include "MainSceneWindow.h"
 #include "Window3D.h"
 #include <stdio.h>
 #include <netdb.h>
@@ -43,6 +44,8 @@ HttpDebug::HttpDebug(Scene& S, GLFWApplication& winApp, unsigned index):
   headBuf = new char[headBufSize];
   if(!respBuf || !headBuf)
     err(-1, "Couldn't allocate memory in __func__\n");
+  MainSceneWindow& mainWin = (MainSceneWindow&)winApp.getMainWin();
+  menuInterface = mainWin.imgMenu;
   resetResponse();
 }
 
