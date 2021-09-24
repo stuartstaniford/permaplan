@@ -16,9 +16,9 @@
 // =======================================================================================
 // Constructor.  Create the socket and bind to the port in the constructor
 
-HttpLoadBalancer::HttpLoadBalancer(unsigned short servPort, Scene& S, MenuInterface& imgMenu):
+HttpLoadBalancer::HttpLoadBalancer(unsigned short servPort, Scene& S, 
+                                                              GLFWApplication& windowApp):
                                     scene(S),
-                                    menuInterface(imgMenu),
                                     shutDownNow(false),
                                     port(servPort)
 {
@@ -42,7 +42,7 @@ HttpLoadBalancer::HttpLoadBalancer(unsigned short servPort, Scene& S, MenuInterf
 
   HttpDebug** httpThreads = new HttpDebug*[HTTP_THREAD_COUNT];  
   for(unsigned i=0; i<HTTP_THREAD_COUNT;i++)
-    httpThreads[i] = new HttpDebug(scene, menuInterface, i);
+    httpThreads[i] = new HttpDebug(scene, windowApp, i);
   servFarm = new TaskQueueFarm(HTTP_THREAD_COUNT, (TaskQueue**)httpThreads, 
                                                                     (char*)"httpFarm");
 }

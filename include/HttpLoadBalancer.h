@@ -23,11 +23,10 @@ public:
   
   // Instance variables - public
   Scene&              scene;
-  MenuInterface&      menuInterface;
   bool                shutDownNow; // Reads/writes on a single bool should be atomic, no lock.
   
   // Member functions - public
-  HttpLoadBalancer(unsigned short servPort, Scene& S, MenuInterface& imgMenu);
+  HttpLoadBalancer(unsigned short servPort, Scene& S, GLFWApplication& winApp);
   ~HttpLoadBalancer(void);
   void* processConnections(void);
   

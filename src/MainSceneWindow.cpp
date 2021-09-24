@@ -126,7 +126,7 @@ void MainSceneWindow::processDoubleClick(float mouseX, float mouseY, float timeD
     TreeWindow* treeWin = new TreeWindow(*(Tree*)obj, cameraDir, appParent, this);
     treeWin->scene = scene;
     treeWin->move(10,10);
-    treeWin->scheduleWindowNext(this); // make the new window the focus at end of frame
+    appParent.scheduleWindowNext(this, treeWin); // make the new window the focus at end of frame
     return;
    }
 

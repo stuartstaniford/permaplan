@@ -21,20 +21,9 @@
 
 
 // =======================================================================================
-// File level and static variables
+// Static variables
 
-bool GLFWInitDone = false;   // For overall openGL initialization
-
-Lockable Window3D::staticWindowLock;
-std::unordered_map<int, Window3D*> Window3D::windows;   
-int Window3D::nextWin = 0;
-int Window3D::activeWin = -1;
-std::vector<int> Window3D::windowStack;
-unsigned Window3D::frameCount = 0;
-Timeval Window3D::start;
-Timeval Window3D::frameTime;
-bool Window3D::firstTime = true;
-
+bool Window3D::GLFWInitDone = false;
 
 // =======================================================================================
 /// @brief Calback for window resizing in GLFW
@@ -43,56 +32,6 @@ void windowResize(GLFWwindow* window, int width, int height)
 {
   glViewport(0, 0, width, height);
 }
-
-
-// =======================================================================================
-/// @brief Helper function to do various openGL logging
-
-void openGLInitialLogging(void)
-{
-#ifdef LOG_OPENGL_CONSTANTS
-  int params[4];
-  
-  glGetIntegerv(GL_MAX_TEXTURE_SIZE, params);
-  LogOpenGLConstants("OpenGL Max texture size is %d.\n", params[0]);
-
-/* This next causes an OpenGL error for some reason, so commented out.
- glGetIntegerv(GL_MAX_TEXTURE_UNITS, params);
-  LogOpenGLConstants("OpenGL Max texture units is %d.\n", params[0]);
-*/
-  
-  if(checkGLError(stderr, "openGLInitialLogging"))
-    exit(-1);
-#endif
-}
-
-
-// =======================================================================================
-/// @brief Callback used for when the GLFW library needs to report errors.
-
-void errorCallbackForGLFW(int error, const char* description)
-{
-  LogGLFWErrors("Error: %s\n", description);
-}
-
-
-// =======================================================================================
-/// @brief Static function to initialize the graphics system.
-/// 
-/// Must be called early in the program before any other graphics calls are done.  The
-/// file level variable GLFWInitDone ensures we only do it once.
-
-void Window3D::initGraphics(void)
-{
-  // Initialize GLFW and define version and compatibility settings
-  glfwSetErrorCallback(errorCallbackForGLFW);
-  glfwInit();
-  glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-  glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
-  glfwWindowHint(GLFW_OPENGL_PROFILE,GLFW_OPENGL_CORE_PROFILE);
-  glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-  glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
- }
 
 
 // =======================================================================================
@@ -118,12 +57,8 @@ Window3D::Window3D(int pixWidth, int pixHeight, const char* title, GLFWApplicati
                         lastMouseY(HUGE_VAL),
                         inClick(false),
                         testingDoubleClick(false),
-                        mouseMoved(true),
-                        frameTimeAvg(0.0f)
-{  
-  unless(GLFWInitDone)
-    Window3D::initGraphics();
-  
+                        mouseMoved(true)
+{    
   // Use GLFW to create OpenGL window and context
   if(existing)
     window = glfwCreateWindow(width, height, title, NULL, existing->window);
@@ -144,7 +79,7 @@ Window3D::Window3D(int pixWidth, int pixHeight, const char* title, GLFWApplicati
       err(2, "glewInit failed.\n");
     // Perform logging of some features of the OpenGLimplementation (if log types on)
 #ifdef LOG_OPENGL_CONSTANTS
-    openGLInitialLogging();
+    appParent.openGLInitialLogging();
 #endif
     GLFWInitDone = true;
    }
@@ -159,10 +94,10 @@ Window3D::Window3D(int pixWidth, int pixHeight, const char* title, GLFWApplicati
   glViewport(0, 0, width, height);
   lastTime.now();
 
-  staticWindowLock.lock();
-  ourWin           = nextWin++;
-  windows[ourWin]  = this;
-  staticWindowLock.unlock();
+  appParent.lock();
+  ourWin           = appParent.nextWin++;
+  appParent.windows[ourWin]  = this;
+  appParent.unlock();
 }
 
 
@@ -171,24 +106,14 @@ Window3D::Window3D(int pixWidth, int pixHeight, const char* title, GLFWApplicati
 
 Window3D::~Window3D(void)
 {
-  LogWindowOperations("Deallocating %s window at %.2f.\n", winTitle, frameTime-start);  
-  staticWindowLock.lock();
-  if(activeWin == ourWin)
-    activeWin = 0u;
-  staticWindowLock.unlock();
-  windows.erase(ourWin);
+  LogWindowOperations("Deallocating %s window at %.2f.\n", winTitle, appParent.frameTime -
+                                                                        appParent.start);  
+  appParent.lock();
+  if(appParent.activeWin == ourWin)
+    appParent.activeWin = 0u;
+  appParent.unlock();
+  appParent.windows.erase(ourWin);
   glfwDestroyWindow(window);
-}
-
-
-// =======================================================================================
-/// @brief Static function to do final cleanup of the window interface after all 
-/// windows are done.
-
-void Window3D::terminate()
-{
-  LogWindowOperations("Terminating window system altogether.\n");  
-  glfwTerminate();
 }
 
 
@@ -304,70 +229,20 @@ ActionType Window3D::processAction(InterfaceAction* action)
 /// @brief Make us the target for OpenGL commands and also the focus window for keyboard
 /// and mouse events. 
 ///
-/// Note this link has some very helpful discussion and background for the issues this
+/// This is called from GLFWApplication::switchFocus, which has to handle tracking in
+/// it's data structures that we are now the active window.  Note this link has some very 
+/// helpful discussion and background for the issues this
 /// function has to handle:
 /// https://gregnott.wordpress.com/2013/05/18/tutorial-multiple-windows-with-glfw3-and-glew-mx/.
+/// @returns The integer value of ourWin (our index in the GLFWApplication data 
+/// structures.
 
-void Window3D::makeFocus(void)
+int Window3D::makeFocus(void)
 {
   //glfwMakeContextCurrent(window);
   Shader::validateShader((char*)"In makeFocus");
   glfwFocusWindow(window);  
-  staticWindowLock.lock();
-  activeWin = ourWin;
-  staticWindowLock.unlock();
-}
-
-
-// =======================================================================================
-/// @brief Make us the next window to run (and cause the current window loop to stop at
-/// the end of the frame.
-/// @param caller A pointer to the current window who is calling this function to make
-/// some other window the next to be focus.
-
-void Window3D::scheduleWindowNext(Window3D* caller)
-{
-  staticWindowLock.lock();
-  assert(ourWin != activeWin);  // shouldn't be rescheduling ourself
-  windowStack.push_back(ourWin);
-  staticWindowLock.unlock();
-  caller->exitLoopRequired = true;  // caller giving up control of the display loop 
-                                    // at the end of this cycle.
-}
-
-
-// =======================================================================================
-/// @brief Static function to co-ordinate the loops of the various windows.
-/// 
-/// This ensures that only one is executing at a time (to avoid deadlocks), and to manage 
-/// the transition when one ends and another starts.
-
-void Window3D::overLoop(void)
-{
-  staticWindowLock.lock();
-  windowStack.push_back(0);
-  staticWindowLock.unlock();
-  
-  while(1)
-   {
-    Window3D* win = NULL;
-    staticWindowLock.lock();
-    if(windowStack.size())
-     {
-      int& nextWinToRun = windowStack.back();
-      windowStack.pop_back();
-      win = windows[nextWinToRun];
-      staticWindowLock.unlock();
-     }
-    else
-     {
-      staticWindowLock.unlock();
-      break;      
-     }
-    win->makeFocus();
-    win->loop();
-   }
-  LogCloseDown("Orderly exit from Window3D::overLoop after %.6lf\n", frameTime - start);
+  return ourWin;
 }
 
 
@@ -384,36 +259,11 @@ void Window3D::overLoop(void)
 
 void Window3D::loop(void)
 {
-  double    frameDouble;
-  double    lastFrameDouble;
-
-  makeFocus();
-  if(firstTime)
-    start.now();
-  frameTime.now();
-  LogWindowOperations("Entering window loop for %s after %.6lf\n", winTitle,
-                                                                        frameTime - start);
   // Main event loop
   while(!glfwWindowShouldClose(window))
    {
     // Timing measurements and logging
-    frameTime.now();
-    frameDouble = frameTime - start;  // in seconds
-    if(firstTime)
-     {
-      LogFrameStarts("Frame %u starting at %.6lfs\n", frameCount, frameDouble);
-      firstTime = false;
-     }
-    else
-     {
-      LogFrameStarts("Frame %u starting in %s at %.6lfs (%.1fms gap, year %.2f)\n",
-                     frameCount, winTitle, frameDouble, 
-                     (frameDouble - lastFrameDouble)*1000.0f, scene->getSimYear());
-      if(frameTimeAvg == 0.0f)
-        frameTimeAvg = frameDouble - lastFrameDouble;
-      else
-        frameTimeAvg = 0.001f*(frameDouble - lastFrameDouble) + 0.999f*frameTimeAvg;
-     }
+    appParent.measureFrameTiming(this);
     camera.logFrames();
         
     // OpenGL calls to clear buffer
@@ -426,7 +276,7 @@ void Window3D::loop(void)
 
     // Do our actual drawing and deliver to screen window
     scene->lock();
-    draw((float)(frameDouble - lastFrameDouble));
+    draw((float)(appParent.frameDouble - appParent.lastFrameDouble));
     glfwSwapBuffers(window);
     scene->unlock();
     
@@ -457,20 +307,13 @@ void Window3D::loop(void)
 
     scene->unlock();
      
-    // Final book-keeping for this spin of the loop
-    lastFrameDouble = frameDouble;
-    frameCount++;
+    appParent.finalFrameBookkeeping(this);
     if(exitLoopRequired)
      {
       exitLoopRequired = false;
       break;
      }
    }
-  
-  // Shutdown stuff after main event loop is done.
-  frameTime.now();
-  LogWindowOperations("Orderly exit from window loop for %s after %.6lf\n", winTitle,
-                                                                        frameTime - start);
 }
 
 
@@ -675,30 +518,6 @@ float Window3D::timeDelta(void)
 
 
 // =======================================================================================
-/// @brief Static function to get a reference to the active window
-/// @returns The reference
-
-Window3D& Window3D::getActiveWin(void)
-{
-  staticWindowLock.lock();
-  Window3D& theWin = *(windows[activeWin]);
-  staticWindowLock.unlock();
-  return theWin;  
-}
-
-
-// =======================================================================================
-/// @brief Static function to get a reference to the main scene window that's open from
-/// the beginning
-/// @returns The reference
-
-Window3D& Window3D::getMainWin(void)
-{
-  return *(windows[0]);  
-}
-
-
-// =======================================================================================
 /// @brief Function called in the HTTP server thread to provide a table row about this
 /// window.  
 /// 
@@ -711,112 +530,6 @@ Window3D& Window3D::getMainWin(void)
 bool Window3D::diagnosticHTMLRow(HttpDebug* serv, int rowIndex)
 {
   err(-1, "Call to unimplemented superclass Window3D::diagnosticHTMLRow");
-}
-
-
-// =======================================================================================
-/// @brief Function called in the HTTP server thread to list all open windows.  
-/// 
-/// This is a static method, because it lists all windows, not just a particular instance.
-/// @returns True if the page was written correctly, false if we ran out of space.
-/// @param serv The HTTP Debug server
-
-bool Window3D::HTTPListActiveWindows(HttpDebug* serv)
-{
-  unless(serv->startResponsePage("Open Windows"))
-    return false;
-
-  // Beginning of table  
-  httPrintf("<center>\n");
-  unless(serv->startTable((char*)"windowList"))
-    return false;
-  httPrintf("<tr><th>Index</th><th>Name</th><th>Details</th></tr>\n");
-  
-  // Iterate over the rows
-  int row = 1;
-  staticWindowLock.lock();
-  for (auto& winIter: windows)
-    winIter.second->diagnosticHTMLRow(serv, row++);
-  staticWindowLock.unlock();
-  
-  // End the table, the page, and go home.
-  httPrintf("</table></center><hr>\n");
-  unless(serv->endResponsePage())
-    return false;
-  return true;
-}
-
-
-// =======================================================================================
-/// @brief Function called in the HTTP server thread to handle /window/ API calls.  
-/// 
-/// This is a static method, because this action has not been associated with a
-/// particular window yet.
-/// @returns True if the page was written correctly, false if we ran out of space.
-/// @param serv The HTTP Debug server
-
-bool Window3D::HTTPGateway(HttpDebug* serv, char* path)
-{  
-  if(strncmp(path, "list/", 5)== 0)
-   {
-    return Window3D::HTTPListActiveWindows(serv);
-   }
-  if(strncmp(path, "detail/", 7)== 0)
-   {
-    int digitSize = strlen(path+7);
-    unless(digitSize > 0 && digitSize < 5)
-     {
-      LogRequestErrors("Window3D::HTTPGateway detail/ path invalid: %s\n", path);
-      return false;
-     }
-    int winIndex = atoi(path+7);
-    unless(windows.count(winIndex))
-     {
-      LogRequestErrors("Window3D::HTTPGateway detail/ index %d not found.\n", winIndex);
-      return false;
-     }
-    return windows[winIndex]->diagnosticHTML(serv);
-   }
-  else if(strncmp(path, "resize/", 7)== 0)
-   {
-    InterfaceAction* action = new InterfaceAction(WindowResize, path+7);
-    if(action->valid)
-     {
-      staticWindowLock.lock();
-      windows[activeWin]->scene->actions.push_back(action);
-      staticWindowLock.unlock();
-
-      httPrintf("OK\n");
-      return true;
-     }
-    else
-     {
-      LogRequestErrors("Window3D::HTTPGateway couldn't create valid resize action"
-                                                                      " from %s\n", path);
-      return false;
-     }
-   }
-  else if(strncmp(path, "move/", 5)== 0) //XX this API will need rework for multiple windows
-   {
-    InterfaceAction* action = new InterfaceAction(WindowMove, path+5);
-    if(action->valid)
-     {
-      staticWindowLock.lock();
-      windows[activeWin]->scene->actions.push_back(action);
-      staticWindowLock.unlock();
-      httPrintf("OK\n");
-      return true;
-     }
-    else
-     {
-      LogRequestErrors("Window3D::HTTPGateway couldn't create valid move action"
-                                                                      " from %s\n", path);
-      return false;
-     }
-   }
-  
-  LogRequestErrors("Window3D::HTTPGateway unknown directive %s\n", path);
-  return false;
 }
 
 

@@ -834,7 +834,7 @@ bool Quadtree::diagnosticHTML(HttpDebug* serv, char* path)
     // Camera intersection
     float lambda;
     vec3 pos, dir;
-    Window3D& win = Window3D::getActiveWin();
+    Window3D& win = serv->windowApp.getActiveWin();
     win.camera.copyDirection(pos, dir);
     if(matchRay(pos, dir, lambda))
      {

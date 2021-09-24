@@ -55,7 +55,8 @@ int main (int argc, char* argv[])
   PmodDesign design;
   Scene scene;
   SkySampleModel skySampler(design.boundary.referencePoint[0]);
-  window.scene = &scene;
+  glfwApp.scene = &scene;
+  glfwApp.addWindow(window);
   window.imgMenu->scene = &scene;
   TextureAtlas blocksAtlas((char*)"Materials/Blocks");
   TextureAtlas treesAtlas((char*)"Materials/Trees");
@@ -63,19 +64,18 @@ int main (int argc, char* argv[])
   RegionList::loadRoot();
   
   // Start up the debugging http server
-  HttpLoadBalancer   httpServer(config.debugPort, scene, *(window.imgMenu));
+  HttpLoadBalancer   httpServer(config.debugPort, scene, glfwApp);
   int         pthreadErr;
   pthread_t   httpThread;
   if((pthreadErr = pthread_create(&httpThread, NULL, callProcessConn, &httpServer)) != 0)
     err(-1, "Couldn't spawn HTTP server thread in %s.\n", argv[0]);
 
   // Main display loop
-  Window3D::overLoop();
+  glfwApp.overLoop();
   
   // Orderly shutdown process
   httpServer.shutDownNow = true;
   scene.saveState();
-  Window3D::terminate(); // close out the window system
   
   return 0;
 }

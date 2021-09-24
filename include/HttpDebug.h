@@ -28,6 +28,7 @@
 
 class Scene; 
 class MenuInterface; 
+class GLFWApplication;
 
 
 // =======================================================================================
@@ -47,11 +48,12 @@ public:
   char*               respPtr;
   char*               respEnd;
   Scene&              scene;
-  MenuInterface&      menuInterface;
+  MenuInterface*      menuInterface;
+  GLFWApplication&    windowApp;
   bool                respBufOverflow;
 
   // Member functions - public
-  HttpDebug(Scene& S, MenuInterface& imgMenu, unsigned index);
+  HttpDebug(Scene& S, GLFWApplication& winApp, unsigned index);
   ~HttpDebug(void);
   bool        startResponsePage(const char* title, unsigned refresh = 0u);
   bool        endResponsePage(void);

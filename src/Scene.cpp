@@ -11,6 +11,7 @@
 #include "Tree.h"
 #include "Building.h"
 #include "Window3D.h"
+#include "GLFWApplication.h"
 #include "loadFileToBuf.h"
 #include "HttpDebug.h"
 #include <pthread.h>
@@ -275,7 +276,8 @@ void Scene::newLandHeight(vec3 location, const char* label)
   land.newLandHeight(H);
   if(land.getLocationCount() == 1)
    {
-    Window3D& win = Window3D::getMainWin();
+    GLFWApplication& app = GLFWApplication::getGLFWApplication();    
+    Window3D& win = app.getMainWin();    
     win.camera.teleportUp(location[2]);
    }
   

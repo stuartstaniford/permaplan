@@ -1079,9 +1079,10 @@ src/GLFWApplication.o: /usr/local/include/cglm/ease.h
 src/GLFWApplication.o: /usr/local/include/cglm/curve.h
 src/GLFWApplication.o: /usr/local/include/cglm/bezier.h
 src/GLFWApplication.o: /usr/local/include/cglm/ray.h
-src/GLFWApplication.o: /usr/local/include/cglm/affine2d.h include/Window3D.h
-src/GLFWApplication.o: include/Scene.h include/Shader.h include/ColoredAxes.h
-src/GLFWApplication.o: include/LineStripList.h include/VertexBufferCombo.h
+src/GLFWApplication.o: /usr/local/include/cglm/affine2d.h include/Timeval.h
+src/GLFWApplication.o: include/Window3D.h include/Scene.h include/Shader.h
+src/GLFWApplication.o: include/ColoredAxes.h include/LineStripList.h
+src/GLFWApplication.o: include/VertexBufferCombo.h
 src/GLFWApplication.o: include/VertexArrayObject.h
 src/GLFWApplication.o: include/VertexBufferObject.h
 src/GLFWApplication.o: /usr/local/include/GL/glew.h
@@ -1122,7 +1123,7 @@ src/GLFWApplication.o: include/rapidjson/internal/pow10.h
 src/GLFWApplication.o: include/rapidjson/error/error.h
 src/GLFWApplication.o: include/rapidjson/internal/strfunc.h
 src/GLFWApplication.o: include/rapidjson/stream.h include/PmodDesign.h
-src/GLFWApplication.o: include/Timeval.h include/JSONStructureChecker.h
+src/GLFWApplication.o: include/JSONStructureChecker.h
 src/GLFWApplication.o: include/rapidjson/writer.h
 src/GLFWApplication.o: include/rapidjson/internal/dtoa.h
 src/GLFWApplication.o: include/rapidjson/internal/itoa.h

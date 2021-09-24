@@ -26,16 +26,14 @@
 // =======================================================================================
 /// @brief Constructor
 /// @param S A reference to the Scene object
-/// imgMenu A reference to the menu system for the main window
+/// windowApp A reference to the application object that manages the windows
 /// index An unsigned index of which TaskQueue we are in the loadBalancer.
-/// @todo The reference to MenuInterface is likely to get refactored, since probably the
-/// interface for a particular window should not be the menu interface for the entire
-/// application.
 
-HttpDebug::HttpDebug(Scene& S, MenuInterface& imgMenu, unsigned index):
+HttpDebug::HttpDebug(Scene& S, GLFWApplication& winApp, unsigned index):
                         TaskQueue(index),
                         scene(S),
-                        menuInterface(imgMenu),
+                        menuInterface(NULL),
+                        windowApp(winApp),
                         respBufOverflow(false),
                         reqParser(8192),
                         respBufSize(16384),
@@ -214,7 +212,7 @@ bool HttpDebug::processRequestHeader(void)
   
   else if( strlen(url) >= 8 && strncmp(url, "/camera/", 8) == 0)
    {
-    Window3D& win = Window3D::getActiveWin();
+    Window3D& win = windowApp.getActiveWin();
     retVal =  win.camera.diagnosticHTML(this, url+8, scene);
    }
   
@@ -257,7 +255,7 @@ bool HttpDebug::processRequestHeader(void)
     retVal =  MemoryTracker::diagnosticHTML(this);
 
   else if( strlen(url) >=6 && strncmp(url, "/menu/", 6) == 0)
-    retVal =  menuInterface.HTTPAPi(this, url+6);
+    retVal =  menuInterface->HTTPAPi(this, url+6);
 
   else if( strlen(url) > 8 && strncmp(url, "/object/", 8) == 0)
     retVal =  VisualObject::diagnosticHTMLSelection(this, url+8);
@@ -302,7 +300,7 @@ bool HttpDebug::processRequestHeader(void)
     retVal =  threadFarm->diagnosticHTML(this);
 
   else if( strlen(url) > 8 && strncmp(url, "/window/", 8) == 0)
-    retVal =  Window3D::HTTPGateway(this, url+8);
+    retVal =  windowApp.HTTPGateway(this, url+8);
   
   else
    {

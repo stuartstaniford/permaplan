@@ -65,7 +65,7 @@ void MenuFocusOverlay::imGuiDisplay(void)
       ImGui::Text("Mouse out of scene->\n");
 
     ImGui::Text("Camera Height: %.1f'\n", scene->findCameraHeight(win3D.camera));
-    ImGui::Text("Frames/Sec: %.0f\n", 1.0f/win3D.frameTimeAvg);
+    ImGui::Text("Frames/Sec: %.0f\n", 1.0f/win3D.appParent.frameTimeAvg);
     ImGui::Separator();
    }
   ImGui::End();

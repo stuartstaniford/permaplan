@@ -5,16 +5,14 @@
 #include "Scene.h"
 #include "Camera.h"
 #include "MenuInterface.h"
-#include "Timeval.h"
-#include "HttpDebug.h"
 #include "GLFWApplication.h"
-#include <unordered_map>
 #include <sys/time.h>
 
 // =======================================================================================
 // Forward declarations
 
 class MenuFocusOverlay;
+class HttpDebug;
 
 
 // =======================================================================================
@@ -48,20 +46,10 @@ class Window3D
                                                             Window3D* existing = NULL);
   ~Window3D(void);
   void  loop(void);
-  void  makeFocus(void);
-  void  scheduleWindowNext(Window3D* caller);
+  int   makeFocus(void);
   void  move(int x, int y);
   void  resize(int width, int height);
   int   initPanel(char* question, char** responses, int nResponses);
-
-  // Static class methods
-  static bool HTTPGateway(HttpDebug* serv, char* path);
-  static bool HTTPListActiveWindows(HttpDebug* serv);
-  static void terminate(void);
-  static Window3D& getActiveWin(void);
-  static Window3D& getMainWin(void);
-  static void initGraphics(void);
-  static void overLoop(void);
   
  protected:
 
@@ -96,31 +84,9 @@ class Window3D
   bool            inClick;
   bool            testingDoubleClick;
   bool            mouseMoved;
-  float           frameTimeAvg;
-  
-  // Class private variables
-  /// @brief A lock for operations on this set of static Window3D variables
-  static Lockable staticWindowLock;
-  /// @brief The next unused id.
-  static int        nextWin;
-  /// @brief The id of the currently active window
-  static int        activeWin;
-  ///@brief Keep track of all open windows via an id.
-  static std::unordered_map<int, Window3D*> windows;
-  ///@brief A list of windows to make active next.
-  static std::vector<int> windowStack;
-  /// @brief The index of the current frame in the loop.  Does not need the lock
-  /// as only one loop can be running at a time.
-  static unsigned frameCount;
-  /// @brief The time of the first frame in the render loop.  Does not need the lock
-  /// as only one loop can be running at a time.
-  static Timeval start;
-  /// @brief The time of the current frame in the loop.  Does not need the lock
-  /// as only one loop can be running at a time.
-  static Timeval frameTime;
-  /// @brief Used to identify the first run through of the render loop.  Does not 
-  /// need the lock as only one loop can be running at a time.
-  static bool firstTime;
+    
+  // Static private variables
+  static bool GLFWInitDone;
   
   // Private methods
   void          processMouse(void);
@@ -130,12 +96,6 @@ class Window3D
   Window3D& operator=(const Window3D&);      // Prevent assignment
 
 };
-
-
-// =======================================================================================
-// C function prototypes (eg callbacks)
-
-void errorCallbackForGLFW(int error, const char* description);
 
 
 // =======================================================================================
