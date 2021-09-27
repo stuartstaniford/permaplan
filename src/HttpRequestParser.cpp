@@ -22,7 +22,9 @@
 
 
 // =======================================================================================
-// Constructor
+/// @brief Constructor
+/// @param size The number of bytes to use in the request parsing buffer (currently we 
+/// actually allocate 8 more than this to have some guard bytes at either end).
 
 HttpRequestParser::HttpRequestParser(unsigned size):
                                           connectionWillClose(false),
@@ -51,8 +53,10 @@ HttpRequestParser::HttpRequestParser(unsigned size):
 
 
 // =======================================================================================
-// Function to reset (eg for a new connection) without throwing away the buffer.  Needs
-// to duplicate the newly constructed state.
+/// @brief Reset the parser for a new connection.
+/// 
+/// Function to reset (eg for a new connection) without throwing away the buffer.  
+/// Needs to duplicate the newly constructed state.
 
 void HttpRequestParser::resetForReuse(void)
 {
@@ -66,7 +70,7 @@ void HttpRequestParser::resetForReuse(void)
 
 
 // =======================================================================================
-// Destructor
+/// @brief Destructor
 
 HttpRequestParser::~HttpRequestParser(void)
 {
@@ -76,7 +80,9 @@ HttpRequestParser::~HttpRequestParser(void)
 
 
 // =======================================================================================
-// This parses the header once we know we have a whole header in the buffer
+/// @brief Parses the header once we know we have a whole header in the buffer
+/// @returns True if we were able to parse the request to our satisfaction, false 
+/// otherwise.
 
 bool HttpRequestParser::parseRequest(void)
 {
@@ -171,8 +177,11 @@ badParseRequestExit:
    
 
 // =======================================================================================
-// State machine to check a range of bytes looking for \r\n\r\n.  If present, returns
-// a pointer to one past the final \n.  Otherwise, returns NULL.  
+/// @brief State machine to check a range of bytes looking for \r\n\r\n.  
+/// 
+/// @returns If present, a pointer to one past the final \n.  Otherwise, returns NULL.  
+/// @param range A char* pointer to the beginning of the range of bytes to check.
+/// @param rangeSize The number of bytes in the range to check.
 
 char* HttpRequestParser::headerEndPresent(char* range, unsigned rangeSize)
 {
@@ -221,7 +230,8 @@ char* HttpRequestParser::headerEndPresent(char* range, unsigned rangeSize)
 
 
 // =======================================================================================
-// Get the next header.
+/// @brief Get the next header by reading from the socket.
+/// @returns true if we successfully read a request, false otherwise.
 
 bool HttpRequestParser::getNextRequest(void)
 { 
