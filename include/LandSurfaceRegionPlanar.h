@@ -1,18 +1,16 @@
 // Copyright Staniford Systems.  All Rights Reserved.  July 2020 -
-// Class for storing and rendering a section of the landsurface mesh for some
-// particular region in the quadtree (generally a leaf).  This class defines
-// a simple planar version of the interface, with the plane defined by the
-// constructor variables pos and norm - plane passes through pos and is perpendicular
-// to norm.
 
 #ifndef LAND_SURFACE_REGION_PLANAR_H
 #define LAND_SURFACE_REGION_PLANAR_H
 
 #include "LandSurfaceRegion.h"
 
-// =======================================================================================
-// Class variable initialization
 
+// =======================================================================================
+/// @brief Store and render a section of the landsurface mesh for some
+/// particular region in the quadtree (generally a leaf).  
+/// 
+/// This class defines a simple planar version of the LandSurfaceRegion interface.
 
 class LandSurfaceRegionPlanar: public LandSurfaceRegion
 {
@@ -27,11 +25,7 @@ class LandSurfaceRegionPlanar: public LandSurfaceRegion
                           float s, float t, float sWidth, float tHeight, vec3 plane);
   ~LandSurfaceRegionPlanar(void);
   void        resetPlane(vec3 plane);
-  bool        getNextUniqueVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
-  bool        getNextVertex(bool resetToFirst, Vertex* v, VertexDetail detail);
-  int         getNextIndex(bool resetToFirst);
   bool        bufferGeometryOfObject(TriangleBuffer* T);
-  void        draw(void);
   bool        matchRay(vec3& position, vec3& direction, float& lambda);
   void        updateBoundingBox(void);
   void        triangleBufferSize(unsigned& vCount, unsigned& iCount);

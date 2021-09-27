@@ -897,6 +897,8 @@ INPUT                  = doc \
                 include/InterfaceAction.h src/InterfaceAction.cpp \
                 include/JSONStructureChecker.h src/JSONStructureChecker.cpp \
                 include/LandSurface.h src/LandSurface.cpp \
+                include/LandSurfaceRegion.h src/LandSurfaceRegion.cpp \
+                include/LandSurfaceRegionPlanar.h src/LandSurfaceRegionPlanar.cpp \
                 include/Lockable.h src/Lockable.cpp \
                 include/MainSceneWindow.h src/MainSceneWindow.cpp \
                 include/MenuBlockPanel.h src/MenuBlockPanel.cpp \

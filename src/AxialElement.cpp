@@ -224,6 +224,7 @@ bool AxialElement::bufferGeometryOfElement(TriangleBuffer* T, vec3 offset)
 /// a match is plausible, and if so does a full check with 
 /// AxialElement::matchRayBruteForce
 ///
+/// @returns True if the ray touches us, otherwise false.
 /// @param position The vec3 for a point on the ray to be matched.
 /// @param direction The vec3 for the direction of the ray.
 /// @param lambda A reference to a float which will be used to store the multiple of 

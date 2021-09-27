@@ -1436,11 +1436,12 @@ src/HttpDebug.o: include/LeafModel.h include/CO2Scenario.h
 src/HttpDebug.o: include/InterfaceAction.h include/Tree.h include/TreePart.h
 src/HttpDebug.o: include/TaskQueueFarm.h include/SkySampleModel.h
 src/HttpDebug.o: include/MenuInterface.h include/MenuPanel.h imgui/imgui.h
-src/HttpDebug.o: imgui/imconfig.h include/Window3D.h
-src/HttpDebug.o: include/GLFWApplication.h
-src/HttpLoadBalancer.o: include/HttpLoadBalancer.h include/TaskQueueFarm.h
-src/HttpLoadBalancer.o: include/TaskQueue.h include/Lockable.h
-src/HttpLoadBalancer.o: include/Global.h /usr/local/include/cglm/cglm.h
+src/HttpDebug.o: imgui/imconfig.h include/MainSceneWindow.h
+src/HttpDebug.o: include/Window3D.h include/GLFWApplication.h
+src/HttpLoadBalancer.o: include/HttpLoadBalancer.h include/HttpDebug.h
+src/HttpLoadBalancer.o: include/HttpRequestParser.h include/TaskQueue.h
+src/HttpLoadBalancer.o: include/Lockable.h include/Global.h
+src/HttpLoadBalancer.o: /usr/local/include/cglm/cglm.h
 src/HttpLoadBalancer.o: /usr/local/include/cglm/common.h
 src/HttpLoadBalancer.o: /usr/local/include/cglm/types.h
 src/HttpLoadBalancer.o: /usr/local/include/cglm/simd/intrin.h
@@ -1471,8 +1472,8 @@ src/HttpLoadBalancer.o: /usr/local/include/cglm/curve.h
 src/HttpLoadBalancer.o: /usr/local/include/cglm/bezier.h
 src/HttpLoadBalancer.o: /usr/local/include/cglm/ray.h
 src/HttpLoadBalancer.o: /usr/local/include/cglm/affine2d.h
-src/HttpLoadBalancer.o: include/HttpDebug.h include/HttpRequestParser.h
-src/HttpLoadBalancer.o: include/Logging.h include/MemoryTracker.h
+src/HttpLoadBalancer.o: include/TaskQueueFarm.h include/Logging.h
+src/HttpLoadBalancer.o: include/MemoryTracker.h
 src/HttpRequestParser.o: include/HttpRequestParser.h include/Global.h
 src/HttpRequestParser.o: /usr/local/include/cglm/cglm.h
 src/HttpRequestParser.o: /usr/local/include/cglm/common.h
@@ -5208,6 +5209,6 @@ src/main.o: include/Species.h include/LeafModel.h include/CO2Scenario.h
 src/main.o: include/InterfaceAction.h include/MenuInterface.h
 src/main.o: include/MenuPanel.h imgui/imgui.h imgui/imconfig.h
 src/main.o: include/GLFWApplication.h include/HttpLoadBalancer.h
-src/main.o: include/TaskQueueFarm.h include/Tree.h include/TreePart.h
-src/main.o: include/SkySampleModel.h include/RegionList.h
-src/main.o: include/ResourceManager.h include/HttpClient.h
+src/main.o: include/Tree.h include/TreePart.h include/SkySampleModel.h
+src/main.o: include/RegionList.h include/ResourceManager.h
+src/main.o: include/HttpClient.h
