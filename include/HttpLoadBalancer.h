@@ -1,21 +1,33 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Jun 2021 -
-// This class has a basic load balancer which can accept connections and then hand
-// them off for processing via TaskQueues to HttpDebug which does the work of handling
-// an individual connection.  This allows multiple clients to talk to the HTTP interface.
 
 #ifndef HTTP_LOAD_BALANCER_H
 #define HTTP_LOAD_BALANCER_H
 
-#include "TaskQueueFarm.h"
-
 #define HTTP_THREAD_COUNT 3
 
+#include <netinet/in.h>
+#include <sys/socket.h>
+#include <sys/types.h>
+
+
 // =======================================================================================
-// Class variable initialization
+// Forward declarations
 
 class Scene; 
 class MenuInterface; 
 class HttpDebug;
+class TaskQueueFarm;
+class GLFWApplication;
+
+
+// =======================================================================================
+/// @brief Load balancer for HTTP debugging requests.
+/// 
+/// This class has a basic load balancer which can accept connections and then hand
+/// them off for processing via TaskQueues to HttpDebug which does the work of 
+/// handling an individual connection.  This allows multiple clients to talk to the 
+/// HTTP interface.
+
 
 class HttpLoadBalancer
 {

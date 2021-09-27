@@ -5,6 +5,7 @@
 
 #include "HttpLoadBalancer.h"
 #include "HttpDebug.h"
+#include "TaskQueueFarm.h"
 #include "Logging.h"
 #include <sys/socket.h>
 #include <sys/types.h>
@@ -14,7 +15,14 @@
 
 
 // =======================================================================================
-// Constructor.  Create the socket and bind to the port in the constructor
+/// @brief Constructor for a new load balancer farm.
+/// 
+/// Creates the socket, binds to the port, and fires up a TaskQueueFarm of HttpDebug
+/// instances to handle future requests.
+/// @param servPort The server port to open up
+/// @param S A reference to the scene (pass through to the HttpDebug instances, which
+/// will need to interact with it.
+/// @param windowApp A reference to the GLFWApplication.
 
 HttpLoadBalancer::HttpLoadBalancer(unsigned short servPort, Scene& S, 
                                                               GLFWApplication& windowApp):
@@ -49,7 +57,7 @@ HttpLoadBalancer::HttpLoadBalancer(unsigned short servPort, Scene& S,
 
 
 // =======================================================================================
-// Destructor
+/// @brief Destructor
 
 HttpLoadBalancer::~HttpLoadBalancer(void)
 {
@@ -58,7 +66,7 @@ HttpLoadBalancer::~HttpLoadBalancer(void)
 
 
 // =======================================================================================
-// C function to pass to TaskQueue.
+/// @brief C function to pass to TaskQueue.
 
 void processOneConnection(void* arg, TaskQueue* T)
 {
@@ -74,8 +82,10 @@ void processOneConnection(void* arg, TaskQueue* T)
 
 
 // =======================================================================================
-// Loop sitting on the socket accepting connections, process requests and reply to them.
-// Arguments and return type are set up to be used in pthread_create
+/// @brief Main connection processing loop.
+/// 
+/// Loop sitting on the socket accepting connections and handing them off to one of our
+/// HttpDebug instances to process.
 
 void* HttpLoadBalancer::processConnections(void)
 {
