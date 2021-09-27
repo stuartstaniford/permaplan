@@ -43,7 +43,8 @@ enum ActionType
 
 
 // =======================================================================================
-// Class variable initialization
+/// @brief This class is used for queueing up actions to be performed in subsequent 
+/// frames (generally supplied by the HTTP Debug interface.
 
 class InterfaceAction
 {
@@ -68,6 +69,9 @@ private:
   InterfaceAction& operator=(const InterfaceAction&);      // Prevent assignment
 
 };
+
+
+// =======================================================================================
 
 #endif
 

@@ -60,7 +60,6 @@ private:
   unsigned            httpVerOffset;
   bool                connectionDone;
 
-  
   // Member functions - private
   bool parseRequest(void);
   char* headerEndPresent(char* range, unsigned rangeSize);

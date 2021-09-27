@@ -8,7 +8,11 @@
 
 
 // =======================================================================================
-// Constructor
+/// @brief Constructor takes the type of action to be created and a string from the URL
+/// from which the relevant data will be extracted.
+/// @param type An ActionType enum for the kind of action we will be.
+/// @param path The relevant part of the URL (that hasn't been processed by earlier 
+/// layers of the code and should contain the data we need to parse and extract).
 
 InterfaceAction::InterfaceAction(ActionType type, char* path):
                                       actionType(type),
@@ -106,7 +110,7 @@ InterfaceAction::InterfaceAction(ActionType type, char* path):
 
 
 // =======================================================================================
-// Destructor
+/// @brief Destructor
 
 InterfaceAction::~InterfaceAction(void)
 {
