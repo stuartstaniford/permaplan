@@ -1,7 +1,4 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Mar 2021 -
-// This class is for managing the model of a leaf - both visual parts and it's
-// photosynthetic behavior.
-
 
 #ifndef LEAF_MODEL_H
 #define LEAF_MODEL_H
@@ -19,10 +16,16 @@ extern char* seasonNames[4]; // 0 = spring, 1 = summer, etc.
 extern unsigned displaySeason;
 #endif
 
+
 // =======================================================================================
-// Class variable initialization
+// Forward declarations
 
 class WoodySegment;
+
+
+// =======================================================================================
+/// @brief Manage the model of a leaf - both visual parts and it's photosynthetic 
+/// behavior.
 
 class LeafModel
 {

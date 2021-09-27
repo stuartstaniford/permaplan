@@ -10,14 +10,25 @@
 #include <cstdio>
 #include <err.h>
 
+
+// =======================================================================================
+// Static variables etc
+
 using namespace rapidjson;
 
 // global variables to be used by parts of plants
 char* seasonNames[4] = {(char*)"spring", (char*)"summer", (char*)"fall", (char*)"winter"};
 unsigned displaySeason = 1u;
 
+
 // =======================================================================================
-// Constructor to extract data from OTDL doc.
+/// @brief Constructor to extract data from OTDL foliage object.
+/// @param otdlDoc The rapidjson::Document for the OTDL we are contained in.
+/// @param leafParent A pointer to another LeafModel which is our parent (in an OTDL
+/// inheritance sense).
+/// @param J Pointer to a JSONStructureChecker to use for utility JSON correctness
+/// checking tasks.
+/// @param phrase A C-string describing our place in the OTDL doc to use in logging. 
 
 LeafModel::LeafModel(Document& otdlDoc, LeafModel* leafParent, JSONStructureChecker* J,
                                                             char* phrase):
@@ -104,7 +115,7 @@ LeafModel::LeafModel(Document& otdlDoc, LeafModel* leafParent, JSONStructureChec
 
 
 // =======================================================================================
-// Destructor
+/// @brief Destructor
 
 LeafModel::~LeafModel(void)
 {
@@ -112,7 +123,11 @@ LeafModel::~LeafModel(void)
 
 
 // =======================================================================================
-// Validate foliage:leafColors for one season.
+/// @brief Validate foliage:leafColors for one season.
+/// @returns True if the object is valid, false otherwise.
+/// @param leafColorObject The rapidjson::Value hopefully containing a leaf color
+/// descriptions for the seasons
+/// @param s The index of the season
 
 bool LeafModel::validateLeafColorSeason(Value& leafColorObject, int s)
 {
@@ -150,7 +165,9 @@ bool LeafModel::validateLeafColorSeason(Value& leafColorObject, int s)
 
 
 // =======================================================================================
-// Validate the foliage:leafColors section of an OTDL object.
+/// @brief Validate the foliage:leafColors section of an OTDL object.
+/// @returns True if the object is valid, false otherwise.
+/// @param leafColorObject The rapidjson::Value containing the leaf colors.
 
 bool LeafModel::validateLeafColors(Value& leafColorObject)
 {
@@ -184,7 +201,9 @@ bool LeafModel::validateLeafColors(Value& leafColorObject)
   
 
 // =======================================================================================
-// Validate the foliage:pICurve section of an OTDL object.
+/// @brief Validate the foliage:pICurve section of an OTDL object.
+/// @returns True if the object is valid, false otherwise.
+/// @param pICurveObject The rapidjson::Value containing the pICurve object.
 
 bool LeafModel::validatePICurve(Value& pICurveObject)
 {
@@ -234,7 +253,10 @@ bool LeafModel::validatePICurve(Value& pICurveObject)
   
 
 // =======================================================================================
-// Validate the foliage section of an OTDL object.
+/// @brief Validate the foliage section of an OTDL object.
+/// @returns True if the object is valid, false otherwise.
+/// @param doc The rapidjson::Document containing the OTDL docuemnt (which hopefully 
+/// contains a foliage object).
 
 bool LeafModel::validateFoliage(Document& doc)
  {
@@ -296,7 +318,12 @@ bool LeafModel::validateFoliage(Document& doc)
 
 
 // =======================================================================================
-// Write out the OTDL object to a buffer (eg used by diagnosticHTML for Species page).
+/// @brief Write out the OTDL object to a buffer 
+/// 
+/// (eg used by diagnosticHTML for Species page.
+/// @returns The number of bytes written
+/// @param buf A point to a char buffer to write to.
+/// @param bufSize The size of the buffer
 
 #define bufprintf(...) if((buf += snprintf(buf, end-buf,  __VA_ARGS__)) >= end) {return -1;}
 
