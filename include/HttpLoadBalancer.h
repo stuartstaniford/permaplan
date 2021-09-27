@@ -57,6 +57,10 @@ private:
   HttpLoadBalancer& operator=(const HttpLoadBalancer&);      // Prevent assignment
 };
 
+
+// =======================================================================================
+/// @brief Plain old data class for a unit of work for the HttpLoadBalancer.
+
 class HttpLBWorkUnit
 {  
   public:

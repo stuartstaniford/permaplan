@@ -892,6 +892,7 @@ INPUT                  = doc \
                 include/Grid.h src/Grid.cpp \
                 include/HeightMarker.h src/HeightMarker.cpp \
                 include/HttpDebug.h src/HttpDebug.cpp \
+                include/HttpLoadBalancer.h src/HttpLoadBalancer.cpp \
                 include/JSONStructureChecker.h src/JSONStructureChecker.cpp \
                 include/LandSurface.h src/LandSurface.cpp \
                 include/Lockable.h src/Lockable.cpp \
