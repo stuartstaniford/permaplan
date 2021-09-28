@@ -1,20 +1,25 @@
 // Copyright Staniford Systems.  All Rights Reserved.  October 2020 -
-// This class holds the necessary information for a particular kind of material -
-// carbon data, texture image for showing the surface of it, etc
-
 
 #ifndef MATERIAL_H
 #define MATERIAL_H
 
+#include "TextureAtlas.h"
 #include <cglm/cglm.h>
 #include <map>
 #include <string>
-#include "TextureAtlas.h"
-#include "HttpDebug.h"
+
 
 // =======================================================================================
-// Class variable initialization
+// Forward declarations
 
+class HttpDebug;
+
+
+// =======================================================================================
+/// @brief Hold all data about a particular material.
+/// 
+/// This class holds the necessary information for a particular kind of material -
+/// carbon data, texture image for showing the surface of it, etc
 
 class Material
 {
@@ -41,6 +46,13 @@ private:
   Material& operator=(const Material&);      // Prevent assignment
 
 };
+
+
+// =======================================================================================
+/// @brief Hold data about a list of materials.
+/// 
+/// This class inherits from a <std::map> from string material names to pointers to 
+/// instances of class Material.
 
 class MaterialList: public std::map<std::string, Material*>
 {
@@ -69,6 +81,9 @@ private:
   MaterialList(const MaterialList&);                 // Prevent copy-construction
   MaterialList& operator=(const MaterialList&);      // Prevent assignment
 };
+
+
+// =======================================================================================
 
 #endif
 

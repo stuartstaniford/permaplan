@@ -904,6 +904,7 @@ INPUT                  = doc \
                 include/LineStripList.h src/LineStripList.cpp \
                 include/Lockable.h src/Lockable.cpp \
                 include/MainSceneWindow.h src/MainSceneWindow.cpp \
+                include/Material.h src/Material.cpp \
                 include/MenuBlockPanel.h src/MenuBlockPanel.cpp \
                 include/MenuFocusOverlay.h src/MenuFocusOverlay.cpp \
                 include/MenuGablePanel.h src/MenuGablePanel.cpp \

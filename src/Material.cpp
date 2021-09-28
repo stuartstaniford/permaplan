@@ -4,6 +4,7 @@
 
 #include "Material.h"
 #include "Logging.h"
+#include "HttpDebug.h"
 #include <cstdio>
 #include <err.h>
 
@@ -13,8 +14,13 @@
 
 MaterialList* MaterialList::theMaterialList = NULL;
 
+
 // =======================================================================================
-// Constructor for individual material
+/// @brief Constructor for individual material
+/// @param carbonD The float carbon density of this material
+/// @param matName A C-string for the name of the material
+/// @param atlas A reference to a TextureAtlas containing the texture for the material
+/// @param tFileName A C-string filename for the texture for this material
 
 Material::Material(float carbonD, char* matName, TextureAtlas& atlas, char* tFileName):
                       name(matName),
@@ -35,7 +41,7 @@ Material::Material(float carbonD, char* matName, TextureAtlas& atlas, char* tFil
 
 
 // =======================================================================================
-// Destructor for individual material
+/// @brief Destructor for individual material
 
 Material::~Material(void)
 {
@@ -43,9 +49,11 @@ Material::~Material(void)
 
 
 // =======================================================================================
-// Constructor for list of materials
-// XX Currently this is hard-coded in a local location.  Ultimate plan is this stuff
-// should be downloaded from a shared repository at startup and cached.
+/// @brief Constructor for a list of materials
+/// @param atlas A reference to a TextureAtlas
+/// @todo Currently this is hard-coded in a local location.  Ultimate plan is this 
+/// stuff should be downloaded from a shared repository at startup and cached (via the
+/// ResourceManager class).
 
 MaterialList::MaterialList(TextureAtlas& atlas)
 {
@@ -65,7 +73,7 @@ MaterialList::MaterialList(TextureAtlas& atlas)
 
 
 // =======================================================================================
-// Destructor for material list
+/// @brief Destructor for material list
 
 MaterialList::~MaterialList(void)
 {
