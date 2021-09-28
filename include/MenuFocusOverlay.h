@@ -5,6 +5,7 @@
 
 #include "MenuPanel.h"
 
+
 // =======================================================================================
 // Forward declarations
 
@@ -39,6 +40,9 @@ private:
   MenuFocusOverlay(const MenuFocusOverlay&);                 // Prevent copy-construction
   MenuFocusOverlay& operator=(const MenuFocusOverlay&);      // Prevent assignment
 };
+
+
+// =======================================================================================
 
 #endif
 

@@ -31,7 +31,8 @@ MenuFocusOverlay::~MenuFocusOverlay(void)
 
 
 // =======================================================================================
-// Transparent overlay that displays information about the thing currently in focus
+///@brief The function that actually does the imgui calls for the transparent overlay 
+///that displays information about the thing currently in focus
 
 void MenuFocusOverlay::imGuiDisplay(void)
 {

@@ -143,6 +143,7 @@ void MenuGablePanel::imGuiDisplay(void)
 
 
 // =======================================================================================
+/// @brief Actions to take when the enter button has been pressed on a gable panel.
 
 void MenuGablePanel::gableEntered(void)
 {
