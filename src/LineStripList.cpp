@@ -1,13 +1,22 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Sep 2020 -
-// Class that contains a list of visual objects and some methods for managing
-// the list as a whole.  Handy for quickly throwing up a set of something
-// or others for display.
+// Display a set of colored lines.  This is primarily used for visual indicators 
+// (axes, grids, rays, etc), rather than actual scene objects.  It's displayed 
+// via a call to glDrawArrays(GL_LINES) rather than being triangles in a 
+// TriangleBuffer.
 
 #include "LineStripList.h"
+#include "Shader.h"
+#include "HttpDebug.h"
 
 
 // =======================================================================================
-// Constructors
+/// @brief Constructor
+/// 
+/// This just sets us up as an empty vector.  Subsequently, line segments should be
+/// added to taste via addLine, and then the data must be sent to the gpu with sendToGpu.  
+/// Only then can it be rendered via draw.
+/// @param usage A GLenum to be passed to glBufferData specifying the usage of the data
+/// see (man 3 glBufferData).
 
 LineStripList::LineStripList(GLenum usage):
                         std::vector<Vertex>(),
@@ -19,7 +28,7 @@ LineStripList::LineStripList(GLenum usage):
 
 
 // =======================================================================================
-// Destructor
+/// @brief Destructor
 
 LineStripList::~LineStripList(void)
 {
@@ -29,7 +38,10 @@ LineStripList::~LineStripList(void)
 
 
 // =======================================================================================
-// Add an additional line on the end of the buffer
+/// @brief Add an additional line on the end of the buffer.
+/// @param pos The vec3 starting point of the line segment.
+/// @param dir The vec3 vector from the start to the end of the line segment.
+/// @param color The color that this line segment should be drawn in.
 
 void LineStripList::addLine(vec3 pos, vec3 dir, unsigned color)
 {
@@ -46,8 +58,9 @@ void LineStripList::addLine(vec3 pos, vec3 dir, unsigned color)
 
 
 // =======================================================================================
-// Sets up the appropriate VBO, VAO, and dispatches the data.  Only call when the buffer
-// is new, or has changed.
+/// @brief Sets up the appropriate VBO, VAO, and dispatches the data to the graphics card.
+/// 
+/// This should only be called when the buffer is new, or has changed.
 
 void LineStripList::sendToGPU(void)
 {
@@ -59,7 +72,9 @@ void LineStripList::sendToGPU(void)
 
 
 // =======================================================================================
-// Renders on screen.  Will not work unless bufferGeometry has been called earlier.
+/// @brief Renders on screen.  
+/// 
+/// Will not work unless sendToGPU has been called earlier.
 
 void LineStripList::draw(void)
 {
@@ -74,7 +89,8 @@ void LineStripList::draw(void)
 
 
 // =======================================================================================
-// Not implemented
+/// @brief Provide diagnostic HTML 
+/// @todo Not implemented
 
 bool LineStripList::diagnosticHTML(HttpDebug* serv)
 {

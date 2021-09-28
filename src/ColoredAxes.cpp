@@ -2,6 +2,7 @@
 // This class just draws X, Y, and Z axes in red, green, and blue fixed colors
 
 #include "ColoredAxes.h"
+#include "Shader.h"
 #include <cstdio>
 #include <stdexcept>
 #include <err.h>

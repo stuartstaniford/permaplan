@@ -1,7 +1,4 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Sep 2020 -
-// Class for displaying a set of colored lines, used for visual indicators (axes, grids,
-// rays, etc).
-
 
 #ifndef LINE_STRIP_LIST_H
 #define LINE_STRIP_LIST_H
@@ -9,12 +6,16 @@
 #include <vector>
 #include <cglm/cglm.h>
 #include "VertexBufferCombo.h"
-#include "Shader.h"
-#include "HttpDebug.h"
+
 
 // =======================================================================================
-// Class variable initialization
-
+/// @brief Display a set of colored lines.
+/// 
+/// This is primarily used for visual indicators (axes, grids, rays, etc), rather than
+/// actual scene objects.  It's displayed via a call to glDrawArrays(GL_LINES) rather
+/// than being triangles in a TriangleBuffer.  We inherit from a vector of Vertex
+/// instances, which is taken in disjoint pairs to represent each successive line
+/// segment to be drawn. 
 
 class LineStripList: public std::vector<Vertex>
 {
