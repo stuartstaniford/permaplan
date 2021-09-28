@@ -4,6 +4,8 @@
 // different kinds of logging.
 
 #include "MemoryTracker.h"
+#include <cstdio>
+
 
 // =======================================================================================
 // Logging options to do with overall control flow and speed

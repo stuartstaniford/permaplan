@@ -5,6 +5,8 @@
 
 #include "HttpClient.h"
 #include "Logging.h"
+#include "Global.h"
+#include <err.h>
 
 
 // =======================================================================================

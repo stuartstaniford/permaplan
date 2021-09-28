@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <err.h>
 #include <GL/glew.h>
+#include <assert.h>
 
 
 // =======================================================================================

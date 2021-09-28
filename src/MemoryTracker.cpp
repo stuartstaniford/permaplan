@@ -3,6 +3,7 @@
 // memory management.
 
 #include "MemoryTracker.h"
+#include "HttpDebug.h"
 #include <cstdio>
 #include <err.h>
 
@@ -18,7 +19,7 @@ long MemoryTracker::treeMemory            = 0;
 
 
 // =======================================================================================
-// Constructor
+/// @brief Constructor
 
 MemoryTracker::MemoryTracker(void)
 {
@@ -27,7 +28,7 @@ MemoryTracker::MemoryTracker(void)
 
 
 // =======================================================================================
-// Destructor
+/// @brief Destructor
 
 MemoryTracker::~MemoryTracker(void)
 {
@@ -36,7 +37,9 @@ MemoryTracker::~MemoryTracker(void)
 
 
 // =======================================================================================
-// Provide info to the HTTP debug interface
+/// @brief Provide info on memory usage to the HTTP debug interface
+/// @returns True if the desired HTML was written correctly, false if we ran out of space.
+/// @param serv The HTTP Debug server
 
 bool MemoryTracker::diagnosticHTML(HttpDebug* serv)
 {
