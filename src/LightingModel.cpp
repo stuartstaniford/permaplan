@@ -9,8 +9,9 @@
 
 #define SUN_DISTANCE 200000.0f
 
+
 // =======================================================================================
-// Constructor
+/// @brief Constructor
 
 LightingModel::LightingModel(void):
                     ambientStrength(0.6f)
@@ -25,7 +26,7 @@ LightingModel::LightingModel(void):
 
 
 // =======================================================================================
-// Update the light sources on the GPU.
+/// @brief Update the light sources on the GPU.
 
 void LightingModel::updateGPU(void)
 {
@@ -39,7 +40,7 @@ void LightingModel::updateGPU(void)
 
 
 // =======================================================================================
-// Destructor
+/// @brief Destructor
 
 LightingModel::~LightingModel(void)
 {

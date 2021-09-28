@@ -1,6 +1,4 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Oct 2020 -
-// This is where all concerns to do with the scene lighting live.
-
 
 #ifndef LIGHTING_MODEL_H
 #define LIGHTING_MODEL_H
@@ -8,9 +6,9 @@
 #include <cglm/cglm.h>
 #include "Shader.h"
 
-// =======================================================================================
-// Class variable initialization
 
+// =======================================================================================
+/// @brief All concerns to do with the scene lighting live in here.
 
 class LightingModel
 {

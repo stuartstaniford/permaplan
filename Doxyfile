@@ -900,6 +900,7 @@ INPUT                  = doc \
                 include/LandSurfaceRegion.h src/LandSurfaceRegion.cpp \
                 include/LandSurfaceRegionPlanar.h src/LandSurfaceRegionPlanar.cpp \
                 include/LeafModel.h src/LeafModel.cpp \
+                include/LightingModel.h src/LightingModel.cpp \
                 include/Lockable.h src/Lockable.cpp \
                 include/MainSceneWindow.h src/MainSceneWindow.cpp \
                 include/MenuBlockPanel.h src/MenuBlockPanel.cpp \
