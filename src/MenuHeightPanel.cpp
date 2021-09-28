@@ -111,4 +111,6 @@ ActionType MenuHeightPanel::processAction(InterfaceAction* action)
       return NoAction;
    }
 }
+
+
 // =======================================================================================

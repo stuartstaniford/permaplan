@@ -914,6 +914,7 @@ INPUT                  = doc \
                 include/MenuGenus.h src/MenuGenus.cpp \
                 include/MenuHeightPanel.h src/MenuHeightPanel.cpp \
                 include/MenuInsert.h src/MenuInsert.cpp \
+                include/MenuInitPanel.h src/MenuInitPanel.cpp \
                 include/MenuInterface.h src/MenuInterface.cpp \
                 include/MenuPanel.h src/MenuPanel.cpp \
                 include/MenuShedPanel.h src/MenuShedPanel.cpp \

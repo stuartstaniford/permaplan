@@ -5,6 +5,7 @@
 
 #include "MenuPanel.h"
 
+
 // =======================================================================================
 /// @brief Special interface for initialization user interaction.
 /// 
@@ -35,6 +36,9 @@ private:
   MenuInitPanel& operator=(const MenuInitPanel&);      
 
 };
+
+
+// =======================================================================================
 
 #endif
 

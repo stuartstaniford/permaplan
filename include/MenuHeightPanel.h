@@ -5,6 +5,7 @@
 
 #include "MenuPanel.h"
 
+
 // =======================================================================================
 /// @brief Accept a new height estimate at a particular location.
 ///
@@ -40,6 +41,9 @@ private:
   MenuHeightPanel& operator=(const MenuHeightPanel&);      // Prevent assignment
 
 };
+
+
+// =======================================================================================
 
 #endif
 
