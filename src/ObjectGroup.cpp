@@ -6,7 +6,9 @@
 
 
 // =======================================================================================
-// Constructor
+/// @brief Constructor
+/// @param firstObject A pointer to the first VisualObject to be included in this 
+/// ObjectGroup.
 
 ObjectGroup::ObjectGroup(VisualObject* firstObject):
                         VisualObject(false)
@@ -22,7 +24,7 @@ ObjectGroup::ObjectGroup(VisualObject* firstObject):
 
 
 // =======================================================================================
-// Destructor
+/// @brief Destructor
 
 ObjectGroup::~ObjectGroup(void)
 {
@@ -30,7 +32,9 @@ ObjectGroup::~ObjectGroup(void)
 
 
 // =======================================================================================
-// Add an additional object into this group
+/// @brief Add an additional object into this group
+/// @param nextObject A pointer to the additional VisualObject to be included in this 
+/// ObjectGroup.
 
 void ObjectGroup::add(VisualObject* nextObject)
 {
@@ -52,7 +56,11 @@ void ObjectGroup::add(VisualObject* nextObject)
 
 
 // =======================================================================================
-// Compute the bounding box that is the union of all our member bounding boxes
+/// @brief Update a supplied bounding box to include the union of all our member 
+/// bounding boxes
+/// @returns True if the boundingBox was increased, false otherwise.
+/// @param B The bounding box to be updated.
+/// @param offset A vec3 offset to be added to our position before doing the update.
 
 bool ObjectGroup::updateBoundingBox(BoundingBox* B, vec3 offset)
 {
@@ -67,7 +75,8 @@ bool ObjectGroup::updateBoundingBox(BoundingBox* B, vec3 offset)
 
 
 // =======================================================================================
-// Recurse into all our parts and update our bounding box
+/// @brief Recurse into all our parts and update our own bounding box (which we inherit
+/// from VisualObject.
 
 void ObjectGroup::updateBoundingBox(void)
 {  
@@ -79,7 +88,15 @@ void ObjectGroup::updateBoundingBox(void)
 
 
 // =======================================================================================
-// Decide if a ray touches us.  Check all the kids and return the closest.
+/// @brief Decide if a ray touches us.  
+/// 
+/// This method involves checking all the kids and return the closest that touches the 
+/// ray (if any).
+/// @returns True if the ray touches us, otherwise false.
+/// @param position The vec3 for a point on the ray to be matched.
+/// @param direction The vec3 for the direction of the ray.
+/// @param lambda A reference to a float which will be used to store the multiple of 
+/// the direction vector from the position to the match point on the object.
 
 bool ObjectGroup::matchRayToObject(vec3& position, vec3& direction, float& lambda)
 {
@@ -108,12 +125,15 @@ bool ObjectGroup::matchRayToObject(vec3& position, vec3& direction, float& lambd
 
 
 // =======================================================================================
-// Function to validate the quadtree and visual objects in it.
-
-#ifdef LOG_TREE_VALIDATION
+/// @brief Validate the state of us and our children.
+/// 
+/// This function is called as part of validating the quadtree and visual objects in it.
+/// @param l The level of checking (recursively in the quadtree).  We increase the level
+/// by one when recursing into our children.
 
 void ObjectGroup::selfValidate(unsigned l)
 {
+#ifdef LOG_TREE_VALIDATION
   LogFindGroups("Found group of type %s at level %u.\n", objectName(), l);
   unless(l)
    {
@@ -132,12 +152,14 @@ void ObjectGroup::selfValidate(unsigned l)
       V->selfValidate(0u);
     assert(*(V->box) <= *box);
    }
-}
 #endif
+}
+
 
 
 // =======================================================================================
-// Tell callers our name at runtime.
+/// @brief Tell callers our name at runtime.
+/// @returns A const pointer to a C-string with the object name "Object Group".
 
 const char* ObjectGroup::objectName(void)
 {
@@ -147,7 +169,17 @@ const char* ObjectGroup::objectName(void)
 
 
 // =======================================================================================
-// Helper function for Quadtree::quadSearchHTML
+/// @brief Search for objects with a particular name.
+/// 
+/// This is a helper function for Quadtree::quadSearchHTML.  Check the documentation for
+/// that function to better understand the context for this.
+/// @returns True if the desired HTML was written correctly, false if we ran out of space.
+/// @param serv The HTTP Debug server
+/// @param nextRow A reference to an integer storing the next row number to write (in an
+/// HTML table).
+/// @param searchTerm A C-string of the object name we are looking for.
+/// @param quadPath A C-string of the path within the quadtree url space (to be used in
+/// constructing links to any objects found).
 
 bool ObjectGroup::quadSearchRecursive(HttpDebug* serv, int& nextRow, 
                                                           char* searchTerm, char* quadPath)
@@ -173,7 +205,9 @@ bool ObjectGroup::quadSearchRecursive(HttpDebug* serv, int& nextRow,
 
 
 // =======================================================================================
-// Provide a diagnostic page about this group.
+/// @brief Provide a diagnostic page about this group.
+/// @returns True if the desired HTML was written correctly, false if we ran out of space.
+/// @param serv The HTTP Debug server
 
 bool ObjectGroup::diagnosticHTML(HttpDebug* serv)
 {

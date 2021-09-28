@@ -913,13 +913,14 @@ INPUT                  = doc \
                 include/MenuGablePanel.h src/MenuGablePanel.cpp \
                 include/MenuGenus.h src/MenuGenus.cpp \
                 include/MenuHeightPanel.h src/MenuHeightPanel.cpp \
-                include/MenuInsert.h src/MenuInsert.cpp \
                 include/MenuInitPanel.h src/MenuInitPanel.cpp \
+                include/MenuInsert.h src/MenuInsert.cpp \
                 include/MenuInterface.h src/MenuInterface.cpp \
                 include/MenuPanel.h src/MenuPanel.cpp \
                 include/MenuShedPanel.h src/MenuShedPanel.cpp \
                 include/MenuSimulationPanel.h src/MenuSimulationPanel.cpp \
                 include/MenuTree.h src/MenuTree.cpp \
+                include/ObjectGroup.h src/ObjectGroup.cpp \
                 include/ObjectInspectorWindow.h src/ObjectInspectorWindow.cpp \
                 include/Orientable.h src/Orientable.cpp \
                 include/PmodDesign.h src/PmodDesign.cpp \

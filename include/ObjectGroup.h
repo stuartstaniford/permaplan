@@ -1,6 +1,4 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Apr 2021 -
-// This class is for a group of objects that are all to be displayed and manipulated as
-// a unit (and appear in the Quadtree together).
 
 #ifndef OBJECT_GROUP_H
 #define OBJECT_GROUP_H
@@ -8,8 +6,15 @@
 #include "VisualObject.h"
 #include "DisplayList.h"
 
+
 // =======================================================================================
-// Class variable initialization
+/// @brief Group objects together into an aggregate object. 
+/// 
+/// This class is for a group of objects that are all to be displayed and manipulated 
+/// as a unit (and appear in the Quadtree together).  Mostly it is a superclass for more
+/// specific kinds of groups (eg ControlGroup).  It inherits from VisualObject (for
+/// interfaces/functionality for being in the Quadtree) and also from DisplayList (for
+/// functionality associated with managing a list of VisualObjects).
 
 class ObjectGroup: public VisualObject, public DisplayList
 {
@@ -31,12 +36,9 @@ public:
     {DisplayList::triangleBufferSizes(vCount, iCount);}
   virtual bool matchRayToObject(vec3& position, vec3& direction, float& lambda);
   const char* objectName(void);
-  bool quadSearchRecursive(HttpDebug* serv, int& nextRow, char* searchTerm, char* quadPath);
-  bool diagnosticHTML(HttpDebug* serv);
-
-#ifdef LOG_TREE_VALIDATION
+  bool   quadSearchRecursive(HttpDebug* serv, int& nextRow, char* searchTerm, char* quadPath);
+  bool        diagnosticHTML(HttpDebug* serv);
   void        selfValidate(unsigned l);
-#endif
 
   
 private:
@@ -46,8 +48,10 @@ private:
   // Member functions - private
   ObjectGroup(const ObjectGroup&);                 // Prevent copy-construction
   ObjectGroup& operator=(const ObjectGroup&);      // Prevent assignment
-
 };
+
+
+// =======================================================================================
 
 #endif
 
