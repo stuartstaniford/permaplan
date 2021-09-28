@@ -43,6 +43,7 @@ class CircleIterator
   CircleIterator& operator=(const CircleIterator&);      // Prevent assignment  
 };
 
+
 // =======================================================================================
 
 #endif

@@ -42,6 +42,9 @@ class DisplayList: public std::unordered_set<VisualObject*>
   DisplayList& operator=(const DisplayList&);      // Prevent assignment
 };
 
+
+// =======================================================================================
+
 #endif
 
 

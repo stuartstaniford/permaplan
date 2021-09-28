@@ -26,6 +26,9 @@ class ColoredAxes: public LineStripList
   ColoredAxes& operator=(const ColoredAxes&);      // Prevent assignment
 };
 
+
+// =======================================================================================
+
 #endif
 
 

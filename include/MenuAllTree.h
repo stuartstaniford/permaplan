@@ -5,6 +5,7 @@
 
 #include "MenuPanel.h"
 
+
 // =======================================================================================
 // Forward declarations
 
@@ -48,6 +49,9 @@ private:
   MenuAllTree& operator=(const MenuAllTree&);      // Prevent assignment
 
 };
+
+
+// =======================================================================================
 
 #endif
 

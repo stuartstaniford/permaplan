@@ -46,6 +46,9 @@ class HeightMarker: public VisualObject, public Positionable
 
 };
 
+
+// =======================================================================================
+
 #endif
 
 

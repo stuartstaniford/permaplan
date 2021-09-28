@@ -160,6 +160,10 @@ class PatchRayState
 
   bool matchNeighbor(vec3 rayPos, vec3 rayDir, float& outT);
 };
+
+
+// =======================================================================================
+
 #endif
 
 

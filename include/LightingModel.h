@@ -33,6 +33,9 @@ private:
   LightingModel& operator=(const LightingModel&);      // Prevent assignment
 };
 
+
+// =======================================================================================
+
 #endif
 
 

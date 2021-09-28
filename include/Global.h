@@ -65,8 +65,6 @@ extern TaskQueueFarm* threadFarm;
 
 #endif
 
-#endif
-
 
 // =======================================================================================
 // Utility function declarations
@@ -75,3 +73,6 @@ void  getCrossVectors(vec3 dir, vec3 f1, vec3 f2, float radius);
 void  updateCrossVectors(vec3 dir, vec3 f1, vec3 f2, float radius);
 
 
+// =======================================================================================
+
+#endif

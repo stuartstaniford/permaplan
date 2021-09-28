@@ -907,6 +907,7 @@ INPUT                  = doc \
                 include/Material.h src/Material.cpp \
                 include/MemoryTracker.h src/MemoryTracker.cpp \
                 include/MenuBlockPanel.h src/MenuBlockPanel.cpp \
+                include/MenuAllTree.h src/MenuAllTree.cpp \
                 include/MenuFocusOverlay.h src/MenuFocusOverlay.cpp \
                 include/MenuGablePanel.h src/MenuGablePanel.cpp \
                 include/MenuGenus.h src/MenuGenus.cpp \

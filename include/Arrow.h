@@ -81,5 +81,8 @@ class Arrow: public AxialElement, public VisualObject
   Arrow& operator=(const Arrow&);      // Prevent assignment
 };
 
+
+// =======================================================================================
+
 #endif
 

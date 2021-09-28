@@ -43,6 +43,9 @@ class LandSurfaceRegionPlanar: public LandSurfaceRegion
   LandSurfaceRegionPlanar& operator=(const LandSurfaceRegionPlanar&);      // Prevent assignment
 };
 
+
+// =======================================================================================
+
 #endif
 
 

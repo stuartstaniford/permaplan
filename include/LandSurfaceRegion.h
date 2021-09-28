@@ -56,6 +56,9 @@ class LandSurfaceRegion: public VisualObject
   LandSurfaceRegion& operator=(const LandSurfaceRegion&);      // Prevent assignment
 };
 
+
+// =======================================================================================
+
 #endif
 
 

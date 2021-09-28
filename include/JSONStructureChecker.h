@@ -83,5 +83,8 @@ private:
 unsigned colorFromRGBArray(rapidjson::Value& array);
 void RGBArrayFromColor(unsigned color, char buf[]);
 
+
+// =======================================================================================
+
 #endif
 

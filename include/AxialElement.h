@@ -74,6 +74,9 @@ private:
   AxialElement& operator=(const AxialElement&);      // Prevent assignment
 };
 
+
+// =======================================================================================
+
 #endif
 
 

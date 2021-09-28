@@ -43,6 +43,9 @@ class LineStripList: public std::vector<Vertex>
   LineStripList& operator=(const LineStripList&);      // Prevent assignment
 };
 
+
+// =======================================================================================
+
 #endif
 
 

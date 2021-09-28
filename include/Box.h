@@ -52,6 +52,9 @@ class Box: public VisualObject
   Box& operator=(const Box&);      // Prevent assignment
 };
 
+
+// =======================================================================================
+
 #endif
 
 
