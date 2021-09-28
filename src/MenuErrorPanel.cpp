@@ -6,8 +6,10 @@
 #include "MenuErrorPanel.h"
 #include <cstring>
 
+
 // =======================================================================================
-// Constructor
+/// @brief Constructor
+/// @param errIn A const pointer to a C-string with the error to be displayed.
 
 MenuErrorPanel::MenuErrorPanel(const char* errIn):
                                     displayVisible(false)
@@ -17,7 +19,7 @@ MenuErrorPanel::MenuErrorPanel(const char* errIn):
 
 
 // =======================================================================================
-// Destructor
+/// @brief Destructor
 
 MenuErrorPanel::~MenuErrorPanel(void)
 {
@@ -25,7 +27,7 @@ MenuErrorPanel::~MenuErrorPanel(void)
 
 
 // =======================================================================================
-// Function to display the error, and a button to acknowledge it.
+/// @brief Function to display the error, and a button to acknowledge it.
 
 bool MenuErrorPanel::displayDone(void)
 {

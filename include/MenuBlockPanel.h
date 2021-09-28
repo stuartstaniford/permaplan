@@ -45,6 +45,9 @@ private:
   MenuBlockPanel& operator=(const MenuBlockPanel&);      
 };
 
+
+// =======================================================================================
+
 #endif
 
 
