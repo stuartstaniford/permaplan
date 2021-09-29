@@ -1,11 +1,22 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Mar 2021 -
-// This class ..... is a template for real classes
+// Render an arrow that follows part of the arc of a circle.  Gets most of the 
+// actual implementation functionality from PathTube, and also implements the 
+// VisualObject interface, as this will show up in ControlGroups in the Quadtree
 
 #include "SemicircularArrow.h"
 
 
 // =======================================================================================
-// Constructor
+/// @brief Constructor
+/// @param pos  The center of the circle of which the arrow forms a part of the 
+/// circumference
+/// @param axis The direction of the axis of the circle above.
+/// @param arcD The number of degrees along the circular circumference subtended by the 
+/// arrow.
+/// @param arcR The radius of the circle above.
+/// @param tubeR The radius of the widest part of the tubular body of the arrow. 
+/// @param s    The number of sides to use in approximating the tubular rendering of the
+/// arrow.
 
 SemicircularArrow::SemicircularArrow(vec3 pos, vec3 axis, 
                                      float arcD, float arcR, float tubeR, int s):
@@ -27,9 +38,8 @@ SemicircularArrow::SemicircularArrow(vec3 pos, vec3 axis,
 }
 
 
-
 // =======================================================================================
-// Destructor
+/// @brief Destructor
 
 SemicircularArrow::~SemicircularArrow(void)
 {
@@ -38,7 +48,7 @@ SemicircularArrow::~SemicircularArrow(void)
 
 
 // =======================================================================================
-// Function which generates the path used to see pathTube
+/// @brief Function which generates the path used to see pathTube
 
 void SemicircularArrow::generatePath(void)
 {  
@@ -73,13 +83,15 @@ void SemicircularArrow::generatePath(void)
 
 
 // =======================================================================================
-// Tell callers our name at runtime.
+/// @brief Tell callers our name at runtime.
+/// @returns A const pointer to the C-string name.
 
 const char* SemicircularArrow::objectName(void)
 {
   static char* name = (char*)"SemicircularArrow";
   return name;
 }
+
 
 // =======================================================================================
 // Function to match a ray 
@@ -93,16 +105,16 @@ const char* SemicircularArrow::objectName(void)
 
 
 // =======================================================================================
-// Function to validate the quadtree and all the objects.
-
-#ifdef LOG_TREE_VALIDATION
+/// @brief Function to validate the quadtree and all the objects.
+/// @param l The recursive depth in the quadtree/groups that this check is being 
+/// conducted at.
 
 void SemicircularArrow::selfValidate(unsigned l)
 {
+#ifdef LOG_TREE_VALIDATION
    box->selfValidate(true);
-}
-
 #endif
+}
 
 
 // =======================================================================================

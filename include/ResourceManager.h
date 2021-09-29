@@ -42,8 +42,10 @@ private:
   ResourceManager(const ResourceManager&);  
   /// @brief Prevent assignment
   ResourceManager& operator=(const ResourceManager&);      
-
 };
+
+
+// =======================================================================================
 
 #endif
 

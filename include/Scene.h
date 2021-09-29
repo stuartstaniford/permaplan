@@ -102,6 +102,9 @@ class Scene: public Lockable
   Scene& operator=(const Scene&);      // Prevent assignment
 };
 
+
+// =======================================================================================
+
 #endif
 
 

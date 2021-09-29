@@ -1,5 +1,4 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Apr 2021 -
-// Claff for rendering an arrow that follows part of the arc of a circle.
 
 #ifndef SEMI_CIRCULAR_ARROW_H
 #define SEMI_CIRCULAR_ARROW_H
@@ -8,8 +7,13 @@
 #include "VisualObject.h"
 #include "CircleIterator.h"
 
+
 // =======================================================================================
-// Class variable initialization
+/// @brief Render an arrow that follows part of the arc of a circle.
+///
+/// Gets most of the actual implementation functionality from PathTube, and also 
+/// implements the VisualObject interface, as this will show up in ControlGroups in
+/// the Quadtree.
 
 class SemicircularArrow: public PathTube, public VisualObject
 {
@@ -29,9 +33,7 @@ public:
   inline bool matchRayToObject(vec3& position, vec3& direction, float& lambda)
     {return PathTube::matchRayToElement(position, direction, lambda, zeroVec);}
   inline virtual unsigned getObjectIndex(void) {return objIndex;}
-#ifdef LOG_TREE_VALIDATION
   void selfValidate(unsigned l);
-#endif
   
 private:
   
