@@ -1,10 +1,15 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Apr 2020 -
-// Configuration object for the pmod program.  Encapsulates
-// what are typically globally used variables supplied at
-// program start.
 
 #ifndef PMODCONFIG_H
 #define PMODCONFIG_H
+
+
+// =======================================================================================
+/// @brief Configuration object for the permaplan program.
+/// 
+/// This class encapsulates what are typically globally used variables supplied at
+/// program start. (Pmod was an early name for permaplan which currently still survives
+/// in the name of this class).  
 
 class PmodConfig
 {
@@ -48,6 +53,8 @@ private:
 
 };
 
+
+// =======================================================================================
 
 #endif
 

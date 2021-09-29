@@ -924,6 +924,7 @@ INPUT                  = doc \
                 include/ObjectInspectorWindow.h src/ObjectInspectorWindow.cpp \
                 include/Orientable.h src/Orientable.cpp \
                 include/PathTube.h src/PathTube.cpp \
+                include/PmodConfig.h src/PmodConfig.cpp \
                 include/PmodDesign.h src/PmodDesign.cpp \
                 include/Positionable.h src/Positionable.cpp \
                 include/Quadtree.h src/Quadtree.cpp \

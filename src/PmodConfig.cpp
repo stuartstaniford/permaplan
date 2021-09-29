@@ -1,15 +1,15 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Apr 2020 -
-// Configuration object for the pmod program.  Encapsulates
+// Configuration object for the permaplan program.  Encapsulates
 // what are typically globally used variables supplied at
 // program start.
 
 #include "PmodConfig.h"
-
 #include <cstring>
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdio.h>
 #include <err.h>
+
 
 // =======================================================================================
 // Static variables
@@ -18,7 +18,11 @@ PmodConfig* PmodConfig::config = NULL;
 
 
 // =======================================================================================
-// Constructor: process the command line - possibly exit if we don't like the taste
+/// @brief Constructor processes the command line.
+/// 
+/// Uses C-style getopt() processing.  It may possibly exit if we don't like the taste.
+/// @param Number of command line arguments from main()
+/// argv Command line arguments from main().
 
 PmodConfig::PmodConfig(int argc, char* argv[])
 {
@@ -101,7 +105,7 @@ PmodConfig::PmodConfig(int argc, char* argv[])
 
 
 // =======================================================================================
-// Destructor (pro-forma)
+/// @brief Destructor
 
 PmodConfig::~PmodConfig()
 {
@@ -110,7 +114,7 @@ PmodConfig::~PmodConfig()
 
 
 // =======================================================================================
-// Educate the poor user
+/// @brief Educate the poor user on the command line options we support.
 
 void PmodConfig::usage()
 {
@@ -132,7 +136,7 @@ void PmodConfig::usage()
 
 
 // =======================================================================================
-// Double check that all constraints of the configuration are A-ok.
+/// @brief Double check that all constraints of the configuration are A-ok.
 
 bool PmodConfig::isValid(void)
 {
