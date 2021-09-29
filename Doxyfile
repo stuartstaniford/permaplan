@@ -928,6 +928,7 @@ INPUT                  = doc \
                 include/PmodDesign.h src/PmodDesign.cpp \
                 include/Positionable.h src/Positionable.cpp \
                 include/Quadtree.h src/Quadtree.cpp \
+                include/RegionList.h src/RegionList.cpp \
                 include/ResourceManager.h src/ResourceManager.cpp \
                 include/Scene.h src/Scene.cpp \
                 include/Shader.h src/Shader.cpp \

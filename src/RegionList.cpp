@@ -21,7 +21,11 @@ char* rootDir = (char*)"Materials/Trees/Regions";
 
 
 // =======================================================================================
-// Constructor
+/// @brief Constructor.  
+/// 
+/// Reads a regionList file and sets up this instance.  It will also recurse into 
+/// children referenced in the file and call their constructor too.
+/// @param fileName C string filename to read the region list from.
 
 RegionList::RegionList(const char* fileName)
 {
@@ -62,7 +66,7 @@ RegionList::RegionList(const char* fileName)
 
 
 // =======================================================================================
-// Destructor
+/// @brief Destructor
 
 RegionList::~RegionList(void)
 {
@@ -70,8 +74,9 @@ RegionList::~RegionList(void)
 
 
 // =======================================================================================
-// Singleton-ish structure where the global root is available anywhere through this
-// accessor method.
+/// @brief Singleton-ish structure where the global root is available anywhere through 
+/// this static accessor method.
+/// @returns A reference to the root RegionList
 
 RegionList& RegionList::getRoot(void)
 {
@@ -80,7 +85,9 @@ RegionList& RegionList::getRoot(void)
 
 
 // =======================================================================================
-// This is the entry point on initialization that sets up the tree structure.
+/// @brief Load the root regionList.
+/// 
+/// This is the entry point on initialization that sets up the tree structure.
 
 void RegionList::loadRoot(void)
 {
