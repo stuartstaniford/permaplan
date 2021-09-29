@@ -39,7 +39,6 @@ public:
   bool   quadSearchRecursive(HttpDebug* serv, int& nextRow, char* searchTerm, char* quadPath);
   bool        diagnosticHTML(HttpDebug* serv);
   void        selfValidate(unsigned l);
-
   
 private:
   

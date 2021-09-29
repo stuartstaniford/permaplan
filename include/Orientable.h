@@ -5,6 +5,7 @@
 
 #include "Positionable.h"
 
+
 // =======================================================================================
 /// @brief Superclass for things that have both a position and are rotatable in the x-y
 /// plane.
@@ -33,6 +34,9 @@ private:
   Orientable& operator=(const Orientable&);      // Prevent assignment
 
 };
+
+
+// =======================================================================================
 
 #endif
 

@@ -1,5 +1,7 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Apr 2021 -
-// Claff for rendering an arrow that follows part of the arc of a circle.
+// Class for rendering an element that consists of a tube (of varying width) 
+// that follows a specified path (set of points).  Provides support to things 
+// like semicircular arrows.
 
 #include "PathTube.h"
 #include "CircleIterator.h"
@@ -7,7 +9,7 @@
 
 
 // =======================================================================================
-// Constructor
+/// @brief Constructor
 
 PathTube::PathTube(void):
                   path(NULL),
@@ -18,7 +20,7 @@ PathTube::PathTube(void):
 
 
 // =======================================================================================
-// Destructor
+/// @brief Destructor
 
 PathTube::~PathTube(void)
 {
@@ -26,7 +28,11 @@ PathTube::~PathTube(void)
 
 
 // =======================================================================================
-// How much space we need in a TriangleBuffer
+/// @brief How much space we need in a TriangleBuffer
+/// @param vCount A reference to a count which will hold the number of Vertex objects 
+/// that will be generated.
+/// @param iCount A reference to a count which will hold the number of unsigned indices 
+/// that will be generated.
 
 void PathTube::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 {
@@ -49,7 +55,15 @@ void PathTube::triangleBufferSizes(unsigned& vCount, unsigned& iCount)
 
 
 // =======================================================================================
-// This is where the actual geometry is defined - we render it into a buffer on request
+/// @brief This is where the actual geometry is defined - we render it into a buffer 
+/// on request.
+/// @returns False if space cannot be obtained in the TriangleBuffer, true otherwise.
+/// @param T A pointer to a TriangleBuffer into which the object should insert its
+/// vertices and indices (see TriangleBuffer::requestSpace).
+/// @param offset A vec3 of the position of this element's containing object, thus 
+/// allowing the absolute position of the element to be computed (since we only know our
+/// relative position).
+
 // N.B. OpenGL faceculling: triangles are counterclockwise viewed from outside the tube
 
 bool PathTube::bufferGeometryOfElement(TriangleBuffer* T, vec3 offset)
@@ -216,8 +230,16 @@ bool PathTube::bufferGeometryOfElement(TriangleBuffer* T, vec3 offset)
 
 
 // =======================================================================================
-// Figure out whether a ray intersects the element or not
-// https://en.wikipedia.org/wiki/Skew_lines#Distance
+/// @brief Decide if a ray touches us.  
+/// @returns True if the ray touches us, otherwise false.
+/// @param position The vec3 for a point on the ray to be matched.
+/// @param direction The vec3 for the direction of the ray.
+/// @param lambda A reference to a float which will be used to store the multiple of 
+/// the direction vector from the position to the match point on the object.
+/// @param offset A vec3 which gives the position of this element relative to its
+/// containing object (since elements generally have relative positions, this is needed
+/// to compute absolute position matches).
+/// @todo The implementation of this appears to be incomplete and non-functional.
 
 bool PathTube::matchRayToElement(vec3& position, vec3& direction, float& lambda, vec3 offset)
 {
@@ -341,7 +363,12 @@ bool PathTube::matchRayToElement(vec3& position, vec3& direction, float& lambda,
 
 
 // =======================================================================================
-// Compute the bounding box.
+/// @brief Updates the bounding box.
+/// 
+/// Function to update an axis-aligned bounding box.    
+/// @returns True if the bounding box was changed in anyway, false otherwise.
+/// @param box The bounding box that is to be updated.
+/// @param offset The vec3 of our offset from a containing object.
 
 bool PathTube::updateBoundingBox(BoundingBox* box, vec3 offset)
 {
