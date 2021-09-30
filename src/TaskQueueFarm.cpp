@@ -7,7 +7,13 @@
 
 
 // =======================================================================================
-// First Constructor (out of two!!).  This one initializes nQueues task queues ourselves.
+/// @brief First Constructor (out of two!!).  
+/// 
+/// This constructor makes a new TaskFarm and also initializes nQueues new instances of
+/// TaskQueue to be managed by the new farm.
+/// @param nQueues The number of new TaskQueue instances to create.
+/// @param lName A const C-string name to use for logging about this particular 
+/// TaskQueueFarm.
 
 TaskQueueFarm::TaskQueueFarm(unsigned nQueues, const char* lName):
                                         nQ(nQueues), 
@@ -26,9 +32,16 @@ TaskQueueFarm::TaskQueueFarm(unsigned nQueues, const char* lName):
 
 
 // =======================================================================================
-// Second Constructor (of two).  This one takes a pointer to a set of taskqueue pointers
-// initialized by someone else.  The typical use case for this is the objects are really
-// some subclass of TaskQueue with extra state/behavior that we don't need to know about.
+/// @brief Second Constructor (of two).  
+/// 
+/// This constructor takes a pointer to a set of taskqueue pointers initialized by 
+/// someone else.  The typical use case for this is the objects are really some 
+/// subclass of TaskQueue with extra state/behavior that we don't need to know about.
+/// @param nQueues The number of pointers to TaskQueue being supplied to us.
+/// @param tQ A pointer to an array of pointers to TaskQueue (or a subclass thereof).  We
+/// will be assigning tasks to these queues going forward.
+/// @param lName A const C-string name to use for logging about this particular 
+/// TaskQueueFarm.
 
 TaskQueueFarm::TaskQueueFarm(unsigned nQueues, TaskQueue** tQ, const char* lName):
                                         nQ(nQueues), 
@@ -43,7 +56,7 @@ TaskQueueFarm::TaskQueueFarm(unsigned nQueues, TaskQueue** tQ, const char* lName
 
 
 // =======================================================================================
-// Destructor
+/// @brief Destructor
 
 TaskQueueFarm::~TaskQueueFarm(void)
 {
@@ -65,7 +78,11 @@ TaskQueueFarm::~TaskQueueFarm(void)
 
 
 // =======================================================================================
-// Function to add work to one of the queues
+/// @brief Function to add work to one of the queues
+/// @param i An index for which queue to use (will have modulus taken to fit in right
+/// range).
+/// @param work A C-style function pointer for the task function to be run.
+/// @param arg A void* pointer to the data to be supplied to the task function
 
 void TaskQueueFarm::addTask(unsigned i, void (*work)(void*, TaskQueue*), void* arg)
 {
@@ -75,8 +92,13 @@ void TaskQueueFarm::addTask(unsigned i, void (*work)(void*, TaskQueue*), void* a
   unlock();
 }
 
+
 // =======================================================================================
-// Function to implement load balancing.  Note this is called with the lock already held.
+/// @brief Function to implement load balancing.  
+/// 
+/// Currently this works by finding the queue with the least number of waiting items in.
+/// Note this is called with the lock already held.
+/// @returns An unsigned with our estimate of the best queue to use.
 
 unsigned TaskQueueFarm::findBestQueue(void)
 {
@@ -103,8 +125,9 @@ unsigned TaskQueueFarm::findBestQueue(void)
 
 
 // =======================================================================================
-// Function to called when we want to loadBalance a task, and don't have an index to 
-// use as in addTask
+/// @brief loadBalance a task without an index to use as in addTask
+/// @param work A C-style function pointer for the task function to be run.
+/// @param arg A void* pointer to the data to be supplied to the task function
 
 void TaskQueueFarm::loadBalanceTask(void (*work)(void*, TaskQueue*), void* arg)
 {
@@ -116,8 +139,9 @@ void TaskQueueFarm::loadBalanceTask(void (*work)(void*, TaskQueue*), void* arg)
 
 
 // =======================================================================================
-// Function to let us know that a piece of work is finished (generally called from 
-// within the work function at the end).
+/// @brief Function to let us know that a piece of work is finished.
+/// 
+/// This should generally called from within the work function at the end).
 
 void TaskQueueFarm::notifyTaskDone(void)
 {
@@ -129,7 +153,7 @@ void TaskQueueFarm::notifyTaskDone(void)
 
 
 // =======================================================================================
-// Function to wait until the farm has performed all current work
+/// @brief Wait until the farm has performed all current work
 
 void TaskQueueFarm::waitOnEmptyFarm(void)
 {
@@ -141,7 +165,9 @@ void TaskQueueFarm::waitOnEmptyFarm(void)
 
 
 // =======================================================================================
-// Provide a diagnostic page with a table about all the task queues
+/// @brief Provide a diagnostic page with a table about all the task queues
+/// @returns True if the desired HTML was written correctly, false if we ran out of space.
+/// @param serv The HTTP Debug server
 
 bool TaskQueueFarm::diagnosticHTML(HttpDebug* serv)
 {
