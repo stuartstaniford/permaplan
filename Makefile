@@ -4090,13 +4090,13 @@ src/SkySampleModel.o: /usr/local/include/cglm/ease.h
 src/SkySampleModel.o: /usr/local/include/cglm/curve.h
 src/SkySampleModel.o: /usr/local/include/cglm/bezier.h
 src/SkySampleModel.o: /usr/local/include/cglm/ray.h
-src/SkySampleModel.o: /usr/local/include/cglm/affine2d.h
-src/SkySampleModel.o: include/BoundingBox.h include/Shader.h
-src/SkySampleModel.o: include/VertexBufferCombo.h include/VertexArrayObject.h
+src/SkySampleModel.o: /usr/local/include/cglm/affine2d.h include/Logging.h
+src/SkySampleModel.o: include/MemoryTracker.h include/BoundingBox.h
+src/SkySampleModel.o: include/Shader.h include/VertexBufferCombo.h
+src/SkySampleModel.o: include/VertexArrayObject.h
 src/SkySampleModel.o: include/VertexBufferObject.h
 src/SkySampleModel.o: /usr/local/include/GL/glew.h
 src/SkySampleModel.o: /usr/local/include/GLFW/glfw3.h include/Global.h
-src/SkySampleModel.o: include/Logging.h include/MemoryTracker.h
 src/SkySampleModel.o: include/Vertex.h include/HttpDebug.h
 src/SkySampleModel.o: include/HttpRequestParser.h include/TaskQueue.h
 src/SkySampleModel.o: include/Lockable.h

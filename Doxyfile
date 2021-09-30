@@ -934,6 +934,7 @@ INPUT                  = doc \
                 include/SemicircularArrow.h src/SemicircularArrow.cpp \
                 include/Shader.h src/Shader.cpp \
                 include/Shed.h src/Shed.cpp \
+                include/SkySampleModel.h src/SkySampleModel.cpp \
                 include/TaskQueue.h src/TaskQueue.cpp \
                 include/Texture.h src/Texture.cpp \
                 include/Tree.h src/Tree.cpp \

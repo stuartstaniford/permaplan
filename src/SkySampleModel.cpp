@@ -14,6 +14,8 @@
 
 #include "SkySampleModel.h"
 #include "Logging.h"
+#include "BoundingBox.h"
+#include "HttpDebug.h"
 
 
 // =======================================================================================
@@ -22,12 +24,12 @@
 SkySampleModel* SkySampleModel::theSingleton = NULL;
 
 // =======================================================================================
-// Constructor
-
-// Currently hard-coded Ithaca values (approx) estimated from the monthly maps at
-// https://www.nrel.gov/gis/solar.html
-// XX need to actually look up based on latitude in a suitable dataset, such as
-//https://datacatalog.worldbank.org/dataset/world-direct-normal-irradiation-dni-gis-data-global-solar-atlas
+/// @brief Constructor
+/// @param lat The latitude based on which we should construct this model (in degrees)
+/// @todo Currently hard-coded Ithaca values (approx) estimated from the monthly 
+/// maps at https://www.nrel.gov/gis/solar.html
+/// Need to actually look up based on latitude in a suitable dataset, such as
+/// https://datacatalog.worldbank.org/dataset/world-direct-normal-irradiation-dni-gis-data-global-solar-atlas
 
 SkySampleModel::SkySampleModel(float lat):
                                   latitude(lat),
@@ -51,7 +53,7 @@ SkySampleModel::SkySampleModel(float lat):
 
 
 // =======================================================================================
-// Destructor
+/// @brief Destructor
 
 SkySampleModel::~SkySampleModel(void)
 {
@@ -59,9 +61,11 @@ SkySampleModel::~SkySampleModel(void)
 
 
 // =======================================================================================
-// Function that gives us a new random distribution in the samples (which we do 
-// periodically throughout the simulation to increase overall sampling power, rather than 
-// using the same ones year after simulated year.
+/// @brief Refresh the sky sample distribution.
+/// 
+/// Function that gives us a new random distribution in the samples (which we 
+/// do periodically throughout the simulation to increase overall sampling power, rather 
+/// than using the same ones year after simulated year.
 
 void SkySampleModel::setSamples(void)
 {
@@ -126,7 +130,7 @@ void SkySampleModel::setSamples(void)
 
 
 // =======================================================================================
-// Function to check if it's a different year, and if so, update the samples.
+/// @brief Function to check if it's a different year, and if so, update the samples.
 
 void SkySampleModel::updateIfNeeded(float simYear)
 {
@@ -137,25 +141,27 @@ void SkySampleModel::updateIfNeeded(float simYear)
    }
 }
 
-
 // =======================================================================================
-// Function to determine, based on bounding box positions, whether tree1 and tree2
-// might need to consider their mutual interaction in terms of shading one another.
-
-// Also to determine, based on bounding boxes whether tree1 and tree2
-// are so close to each other that for purposes of shading, they should be considered
-// as a single cluster (a "copse").  Can also be applied to clusters of trees.
-
-// These two somewhat distinct concepts are combined in this function to avoid doing
-// all the same calculations twice (eg the sqrtf() in the distance between the trees).
-
-// Returns an unsigned with bit fields set (defined in SkySampleModel.h.  
-// Can also be applied to clusters of trees.
-
-//XX in general this is crude and needs refinement over time.
 
 float minimalAngleAboveHorizon = atanf(22.5f/180.0f*M_PI);
 float minDistOverHeight = 0.33f;
+
+
+// =======================================================================================
+/// @brief Determine whether two objects shade each other.
+/// 
+/// Function to determine, based on bounding box positions, whether tree1 and tree2
+/// (or other objects) might need to consider their mutual interaction in terms of 
+/// shading one another.
+/// Also to determine, based on bounding boxes whether tree1 and tree2 are so close to 
+/// each other that for purposes of shading, they should be considered as a single 
+/// cluster (a "copse").  Can also be applied to clusters of trees.
+/// These two somewhat distinct concepts are combined in this function to avoid 
+/// doing all the same calculations twice (eg the sqrtf() in the distance between the 
+/// trees).
+/// @returns an unsigned with bit fields set (defined in SkySampleModel.h.)  
+/// Can also be applied to clusters of trees.
+/// @todo The current implementation is crude and needs refinement over time.
 
 unsigned SkySampleModel::treesInteract(BoundingBox* B1, BoundingBox* B2)
 {
@@ -188,10 +194,14 @@ unsigned SkySampleModel::treesInteract(BoundingBox* B1, BoundingBox* B2)
 
 
 // =======================================================================================
-// Function to return the declination angle of the sun based on day of year.  This is the
-// 'latitude' of the sun in an equatorial coordinate system - ie the angle above the 
-// equator.
-// See https://en.wikipedia.org/wiki/Position_of_the_Sun#Calculations
+/// @brief Compute the declination angle of the sun.
+/// 
+/// Function to return the declination angle of the sun based on day of year.  This is 
+/// the 'latitude' of the sun in an equatorial coordinate system - ie the angle above 
+/// the equator.
+/// See https://en.wikipedia.org/wiki/Position_of_the_Sun#Calculations
+/// @returns The declnation angle (in radians).
+/// @param dayOfYear A floating point version of the day of the year (0..366).
 
 float SkySampleModel::declination(float dayOfYear)
 {
@@ -201,8 +211,9 @@ float SkySampleModel::declination(float dayOfYear)
 
 
 // =======================================================================================
-// Helper function for diagnosticHTML to do one row of main tables
-// https://en.wikipedia.org/wiki/Sunrise_equation
+/// @brief Compute sunrise???
+/// https://en.wikipedia.org/wiki/Sunrise_equation
+/// @todo This is very incomplete.
 
 float SkySampleModel::sunrise(float declination)
 {
@@ -216,7 +227,10 @@ float SkySampleModel::sunrise(float declination)
 
 
 // =======================================================================================
-// Helper function for diagnosticHTML to do one row of main tables
+/// @brief Helper function for diagnosticHTML to do one row of main tables
+/// @returns True if the desired HTML was written correctly, false if we ran out of space.
+/// @param serv The HTTP Debug server
+/// @param i The row number in the table
 
 bool SkySampleModel::oneSampleRow(HttpDebug* serv, int i)
 {
@@ -233,7 +247,9 @@ bool SkySampleModel::oneSampleRow(HttpDebug* serv, int i)
 
 
 // =======================================================================================
-// Provide a diagnostic page with a table about all the current sky samples
+/// @brief Provide a diagnostic page with a table about all the current sky samples
+/// @returns True if the desired HTML was written correctly, false if we ran out of space.
+/// @param serv The HTTP Debug server
 
 bool SkySampleModel::diagnosticHTML(HttpDebug* serv)
 {
