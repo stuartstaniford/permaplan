@@ -19,7 +19,8 @@
 
 
 // =======================================================================================
-// Constructor
+/// @brief Constructor
+/// @param dirName The directory to search for textures.
 
 TextureAtlas::TextureAtlas(char* dirName):
                                 Texture(),
@@ -74,8 +75,11 @@ while( (dirEntry = readdir(atlasRoot)) )
 closedir(atlasRoot);
 */
 
+
 // =======================================================================================
-// Helper function to see if the file name of an extension might reasonably be an image.
+/// @brief See if the file name of an extension might reasonably be an image.
+/// @returns True if we think it might be an image, false otherwise.
+/// @param fileName A C-string for the fileName to check the extension of.
 
 bool fileNameAndExtensionCheck(char* fileName)
 {
@@ -85,7 +89,8 @@ bool fileNameAndExtensionCheck(char* fileName)
   // Now figure out the extension, and sanity check it.
   FileExtension extension = findExtension(fileName);
 
-  if(extension == ExtNoExtension) // treat things with no extension as though they might be an image
+  if(extension == ExtNoExtension) // treat things with no extension as though they 
+                                  // might be an image
    {
     LogAtlasAnomalies("Texture Atlas file with no extension %s.\n", fileName);
     return true;
@@ -109,8 +114,12 @@ bool fileNameAndExtensionCheck(char* fileName)
 
 
 // =======================================================================================
-// Compare two TANodes and decide which has the shortest perimeter, we want those at the
-// beginning of the list (which we will read from the back)
+/// @brief C function to compare two TANodes and decide which has the shortest perimeter.
+/// 
+/// We want those at the beginning of the list (which we will read from the back).
+/// @returns True if the first argument has a shorter perimeter, false otherwise.
+/// @param t Pointer to the first TANode to be compared.
+/// @param u Pointer to the first TANode to be compared.
 
 bool perimeterCompare (TANode* t, TANode* u)
 {
@@ -119,7 +128,10 @@ bool perimeterCompare (TANode* t, TANode* u)
 
 
 // =======================================================================================
-// Recursively search one particular directory, and stack the textures in it.
+/// @brief Recursively search a directory and stack the textures in it.
+/// @param dir A C-style DIR* pointer to the open directory to be searched.
+/// @param path A char* buffer to store the paths to textures found.  Needs to have 
+/// enough space to hold the longest path.
 
 void TextureAtlas::searchForTextures(DIR* dir, char* path)
 {
@@ -164,7 +176,11 @@ void TextureAtlas::searchForTextures(DIR* dir, char* path)
 
 
 // =======================================================================================
-// Create the image from the TANode tree and write it out.
+/// @brief Create the image from the TANode tree and write it out.  
+/// 
+/// Currently uses stbi_write_jpg.
+/// @returns True if we wrote successfully, false.
+/// @param name The directory path for where the atlas should be stored (as atlas.jpg).
 
 bool TextureAtlas::saveAtlasImage(char* name)
 {
@@ -188,8 +204,11 @@ bool TextureAtlas::saveAtlasImage(char* name)
 
 
 // =======================================================================================
-// After extracting the list of textures from one subdirectory tree, create the in-memory
-// image tree required to turn them into a single new texture.
+/// @brief Create an image tree of TANodes. 
+/// 
+/// After extracting the list of textures from one subdirectory tree, create the 
+/// in-memory image tree required to turn them into a single new texture.
+/// @param name The directory path for where the atlas should be stored (as atlas.jpg).
 
 void TextureAtlas::createImageTree(char* name)
 {
@@ -233,7 +252,8 @@ void TextureAtlas::createImageTree(char* name)
 
 
 // =======================================================================================
-// Constructor for a TA Node.
+/// @brief Constructor for a TA Node.
+/// @param T A pointer to the Texture to be included
 
 TANode::TANode(Texture* T):
               tex(T)
@@ -244,7 +264,7 @@ TANode::TANode(Texture* T):
 
 
 // =======================================================================================
-// Destructor for a TA Node.
+/// @brief Destructor for a TA Node.
 
 TANode::~TANode(void)
 {
@@ -255,8 +275,9 @@ TANode::~TANode(void)
 
 
 // =======================================================================================
-// Traverse the TA Node tree and create the pathMap so we can later figure out what image
-// is where in the atlas.
+/// @brief Traverse the TA Node tree and create the pathMap so we can later figure out 
+/// what image is where in the atlas.
+/// @param atlas A reference to the TextureAtlas.
 
 void TANode::addToPathMap(TextureAtlas& atlas)
 {
@@ -290,8 +311,13 @@ void TANode::addToPathMap(TextureAtlas& atlas)
 
 
 // =======================================================================================
-// Insert a node into the tree we are currently constructing.
-// Code loosely based on https://blackpawn.com/texts/lightmaps/default.html
+/// @brief Insert a node into the tree we are currently constructing.
+/// 
+/// Code loosely based on https://blackpawn.com/texts/lightmaps/default.html
+/// @returns ??? Not understood right now
+/// @param T The node to insert 
+/// @param wd ??? Not understood right now
+/// @param ht ??? Not understood right now
 
 TANode* TANode::insert(TANode* T, unsigned& wd, unsigned& ht)
 {
@@ -399,7 +425,7 @@ TANode* TANode::insert(TANode* T, unsigned& wd, unsigned& ht)
 
 
 // =======================================================================================
-// Destructor
+/// @brief Destructor
 
 TextureAtlas::~TextureAtlas(void)
 {
@@ -407,7 +433,7 @@ TextureAtlas::~TextureAtlas(void)
 
 
 // =======================================================================================
-// Recursive function to go down tree and call insertIntoImage on all the leaves.
+/// @brief Recursive function to go down tree and call insertIntoImage on all the leaves.
 
 void TANode::insertIntoImageRecursively(unsigned char* buf, unsigned width, unsigned height)
 {
@@ -425,7 +451,7 @@ void TANode::insertIntoImageRecursively(unsigned char* buf, unsigned width, unsi
 
 
 // =======================================================================================
-// Write a specific image into the image buffer for the Atlas.
+/// @brief Write a specific image into the image buffer for the Atlas.
 
 void TANode::insertIntoImage(unsigned char* buf, unsigned width, unsigned height)
 {

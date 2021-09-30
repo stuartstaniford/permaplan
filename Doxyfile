@@ -939,6 +939,7 @@ INPUT                  = doc \
                 include/TaskQueue.h src/TaskQueue.cpp \
                 include/TaskQueueFarm.h src/TaskQueueFarm.cpp \
                 include/Texture.h src/Texture.cpp \
+                include/TextureAtlas.h src/TextureAtlas.cpp \
                 include/Tree.h src/Tree.cpp \
                 include/TreeWindow.h src/TreeWindow.cpp \
                 include/TriangleBuffer.h src/TriangleBuffer.cpp \
