@@ -8,7 +8,7 @@
 
 
 // =======================================================================================
-// Constructor
+/// @brief Constructor
 
 SolarDatabase::SolarDatabase(void)
 {
@@ -16,7 +16,7 @@ SolarDatabase::SolarDatabase(void)
 
 
 // =======================================================================================
-// Destructor
+/// @brief Destructor
 
 SolarDatabase::~SolarDatabase(void)
 {
