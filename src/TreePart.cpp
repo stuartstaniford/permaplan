@@ -2,11 +2,13 @@
 // This class is an abstract interface for all parts of trees.
 
 #include "TreePart.h"
+#include "HttpDebug.h"
 #include <err.h>
 
 
 // =======================================================================================
-// Constructors.
+/// @brief Constructor.
+/// @param treeIndex Index of our tree in the static structures in Tree
 
 TreePart::TreePart(unsigned short treeIndex):
                                       ourTreeIndex(treeIndex)
@@ -15,7 +17,7 @@ TreePart::TreePart(unsigned short treeIndex):
 
 
 // =======================================================================================
-// Destructor
+/// @brief Destructor
 
 TreePart::~TreePart(void)
 {
@@ -23,7 +25,7 @@ TreePart::~TreePart(void)
 
 
 // =======================================================================================
-// Buffer the vertices/indices for this part - stub here, as base class for interface.
+/// @brief Buffer the vertices/indices for this part - stub here, as base class for interface.
 
 bool TreePart::bufferGeometry(TriangleBuffer* T, vec3 offset)
 {

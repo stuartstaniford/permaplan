@@ -1,18 +1,23 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Jan 2021 -
-// This class is an abstract interface for all parts of trees.
 
 #ifndef TREE_PART_H
 #define TREE_PART_H
 
-#include "HttpDebug.h"
-#include "Species.h"
-#include "TriangleBuffer.h"
-#include "BoundingBox.h"
+#include <cglm/cglm.h>
+#include "Logging.h"
 
 // =======================================================================================
-// Class variable initialization
+// Forward declarations
 
 class Tree;
+class HttpDebug;
+class Species;
+class TriangleBuffer;
+class BoundingBox;
+
+
+// =======================================================================================
+/// @brief This class is an abstract interface for all parts of trees.
 
 class TreePart
 {
@@ -46,6 +51,9 @@ private:
   TreePart(const TreePart&);                 // Prevent copy-construction
   TreePart& operator=(const TreePart&);      // Prevent assignment
 };
+
+
+// =======================================================================================
 
 #endif
 
