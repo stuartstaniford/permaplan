@@ -5,15 +5,20 @@
 
 #include <cglm/cglm.h>
 #include <vector>
-#include "Shader.h"
-#include "VertexArrayObject.h"
-#include "VertexBufferObject.h"
-#include "TexturedRect.h"
-#include "Quadtree.h"
-#include "Camera.h"
-#include "HeightMarker.h"
-#include "BezierPatch.h"
 #include "rapidjson/document.h"
+#include "BezierPatch.h"
+
+
+// =======================================================================================
+// Forward declarations
+
+class TexturedRect;
+class Quadtree;
+class HeightMarker;
+class Camera;
+class Scene;
+class TriangleBuffer;
+class HttpDebug;
 
 
 // =======================================================================================
@@ -66,7 +71,6 @@ class LandSurface
   void highlightNode(Quadtree* targetNode, vec4& color, float accent);
   LandSurface(const LandSurface&);                 // Prevent copy-construction
   LandSurface& operator=(const LandSurface&);      // Prevent assignment
-
 };
 
 

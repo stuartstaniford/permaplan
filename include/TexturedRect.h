@@ -1,22 +1,23 @@
 // Copyright Staniford Systems.  All Rights Reserved.  May 2020 -
-// This class is a very simple one that just creates a square from two
-// triangles and textures them from a file.  Draws on the x-y plane,
-// with specified width, height.  Useful for in-scene labels and the like,
-// after applying an appropriate model transformation.
-
 
 #ifndef TEXTUREDRECT_H
 #define TEXTUREDRECT_H
 
-#include <cglm/cglm.h>
 #include "Shader.h"
 #include "VertexArrayObject.h"
 #include "VertexBufferObject.h"
 #include "Texture.h"
+#include <cglm/cglm.h>
+
 
 // =======================================================================================
-// Class variable initialization
-
+/// @brief Create/render a textured rectangle.
+///
+/// This class is a very simple one that just creates a square from two triangles and 
+/// textures them from a file.  Draws on the x-y plane, with specified width, height.  
+/// @todo This code is very early, doesn't use TriangleBuffers, and has it's own VAO
+/// just for one square.  It works fine, but should be refactored or eliminated at some 
+/// point for the sake of uniformity and performance.
 
 class TexturedRect
 {
@@ -65,6 +66,9 @@ inline void bufferRectangle(Vertex* buf, float x, float y,
   buf[5].setPosition(x+width, y+height, 0.0f);  //upper right
   buf[5].setTexCoords(s+texW, t+texH);
 }
+
+
+// =======================================================================================
 
 #endif
 

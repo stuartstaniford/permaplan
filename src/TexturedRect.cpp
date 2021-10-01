@@ -13,7 +13,10 @@
 
 
 // =======================================================================================
-// Set up two triangles with co-ords and texture coords
+/// @brief Constructor sets up two triangles with co-ords and texture coordss.
+/// @param textureFileName A C-string with the name of the file to find the texture image.
+/// @param widthIn The width to make the rectangle.
+/// @param heightIn The height to make the rectangle
 
 TexturedRect::TexturedRect(const char* textureFileName, float widthIn,
                            float heightIn):
@@ -41,7 +44,7 @@ TexturedRect::TexturedRect(const char* textureFileName, float widthIn,
 
 
 // =======================================================================================
-// Destructor
+/// @brief Destructor
 
 TexturedRect::~TexturedRect(void)
 {
@@ -51,7 +54,7 @@ TexturedRect::~TexturedRect(void)
 
 
 // =======================================================================================
-// Render our part of the scene
+/// @brief Render our rectangle
 
 void TexturedRect::draw(void)
 {

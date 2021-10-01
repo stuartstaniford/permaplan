@@ -8,6 +8,7 @@
 #include "Timeval.h"
 #include "JSONStructureChecker.h"
 #include "Boundary.h"
+#include "BoundingBox.h"
 #include "rapidjson/document.h"
 #include "rapidjson/writer.h"
 #include "rapidjson/stringbuffer.h"

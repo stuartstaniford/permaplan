@@ -14,6 +14,7 @@
 #include "GLFWApplication.h"
 #include "loadFileToBuf.h"
 #include "HttpDebug.h"
+#include "TexturedRect.h"
 #include <pthread.h>
 #include <stdlib.h>
 #include <err.h>

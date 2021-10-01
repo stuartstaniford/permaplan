@@ -7,6 +7,7 @@
 #include "VertexArrayObject.h"
 #include "VertexBufferObject.h"
 #include "LandSurface.h"
+#include "TexturedRect.h"
 #include <cstdio>
 #include <stdexcept>
 #include <err.h>

@@ -6,6 +6,11 @@
 #include "LandSurface.h"
 #include "Camera.h"
 #include "PmodDesign.h"
+#include "TexturedRect.h"
+#include "Shader.h"
+#include "Quadtree.h"
+#include "Camera.h"
+#include "HeightMarker.h"
 #include <cstdio>
 #include <stdexcept>
 #include <err.h>
