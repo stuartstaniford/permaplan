@@ -9,14 +9,14 @@
 
 
 // =======================================================================================
-// Constructors
+/// @brief Constructor
 
 Timeval::Timeval(void)
 {
 }
 
 // =======================================================================================
-// Destructor
+/// @brief Destructor
 
 Timeval::~Timeval(void)
 {
@@ -24,7 +24,7 @@ Timeval::~Timeval(void)
 
 
 // =======================================================================================
-// Wrapper for finding the current time.
+/// @brief Set us to the current time.
 
 void Timeval::now(void)
 {
@@ -33,7 +33,12 @@ void Timeval::now(void)
 
 
 // =======================================================================================
-// Setting the inner timeval based on supplied arguments.
+/// @brief Set the inner timeval based on supplied arguments.
+/// 
+/// See 'man gettimeofday' for details of the structure.
+/// @param tv_sec_in The number of seconds since the unix epoch
+/// @param tv_usec_in The number of microseconds (to represent the fractional part of 
+/// the time).
 
 void Timeval::set(time_t tv_sec_in, suseconds_t tv_usec_in)
 {
@@ -43,10 +48,11 @@ void Timeval::set(time_t tv_sec_in, suseconds_t tv_usec_in)
 
 
 // =======================================================================================
-// Setting the inner timeval based on a JSON array in a character buffer.  Returns false
-// if buffer contents are not valid.  Should look like [<secs>, <usecs>].
-
-// This function has not been used/tested yet.
+/// @brief Setting the inner timeval based on a JSON array in a character buffer.  
+/// @returns false if buffer contents are not valid, true otherwise.  
+/// @param buf A C-string pointer to the section of JSON to be parsed (which should look 
+/// like [<secs>, <usecs>]).
+/// @todo This function has not been used/tested yet.
 
 bool Timeval::setFromJSON(char* buf)
 {
@@ -106,8 +112,9 @@ bool Timeval::setFromJSON(char* buf)
 
 
 // =======================================================================================
-// Return string version of time.  Note this loses fractions and includes \n - could
-// do with something better.
+/// @brief Return string version of time. 
+/// @returns A pointer to a C-string holding the result of ctime (see 'man ctime')
+/// @todo Note this loses fractions and includes \n - could do with something better.
 
 char* Timeval::ctimeString(void)
 {
@@ -116,7 +123,10 @@ char* Timeval::ctimeString(void)
 
 
 // =======================================================================================
-// Fill out a "struct tm" (see "man localtime") based on our current time.
+/// @brief Fill out a "struct tm" based on our current time.
+/// 
+/// See "man localtime" for details.
+/// @param result A pointer to a struct tm to hold the result.
 
 void Timeval::localtime(struct tm *result)
 {
@@ -125,7 +135,8 @@ void Timeval::localtime(struct tm *result)
 
 
 // =======================================================================================
-// Return the time expressed as a fractional year.
+/// @brief Return our current time expressed as a fractional year.
+/// @returns A floating point value expressing the time in years since the Unix epoch.
 
 float Timeval::floatYear(void)
 {
@@ -143,7 +154,7 @@ float Timeval::floatYear(void)
 
 
 // =======================================================================================
-// Give the difference between two times (in seconds, as a double)
+/// @brief Give the difference between two times (in seconds, as a double)
 
 double Timeval::operator-(const Timeval& t)
 {

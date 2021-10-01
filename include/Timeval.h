@@ -1,6 +1,4 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Sep 2020 -
-// Wrapper around struct timeval to make manipulations a little easier.
-
 
 #ifndef TIMEVAL_H
 #define TIMEVAL_H
@@ -8,9 +6,11 @@
 #include <unistd.h>
 #include <time.h>
 
-// =======================================================================================
-// Class variable initialization
 
+// =======================================================================================
+/// @brief Wrapper around Unix struct timeval to make manipulations a little easier.
+/// 
+/// See 'man gettimeofday' for details of the structure.
 
 class Timeval: public timeval
 {
@@ -30,7 +30,6 @@ class Timeval: public timeval
 
   double operator-(const Timeval& t); // Difference between two times (in seconds)
 
-
  private:
   
   // Instance variables - private
@@ -38,6 +37,8 @@ class Timeval: public timeval
   // Member functions - private
 };
 
+
+// =======================================================================================
 
 #endif
 
