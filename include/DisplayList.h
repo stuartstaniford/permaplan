@@ -4,8 +4,15 @@
 #define DISPLAY_LIST_H
 
 #include <unordered_set>
-#include "VisualObject.h"
-#include "LandSurfaceRegion.h"
+
+
+// =======================================================================================
+// Forward declarations
+
+class VisualObject;
+class LandSurfaceRegion;
+class TriangleBuffer;
+class HttpDebug;
 
 
 // =======================================================================================

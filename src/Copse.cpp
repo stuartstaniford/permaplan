@@ -2,6 +2,7 @@
 // This class is to capture groups of trees
 
 #include "Copse.h"
+#include "BoundingBox.h"
 
 
 // =======================================================================================

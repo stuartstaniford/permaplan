@@ -7,6 +7,12 @@
 
 
 // =======================================================================================
+// Forward declarations
+
+class BoundingBox;
+
+
+// =======================================================================================
 /// @brief This class is to capture groups of trees.  
 /// 
 /// It's used especially in growth simulation to form copses that are processed together 

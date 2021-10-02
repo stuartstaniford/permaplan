@@ -4,9 +4,6 @@
 #define CAMERA_H
 
 #include <cglm/cglm.h>
-#include "Shader.h"
-#include "HttpDebug.h"
-#include "Global.h"
 
 
 // =======================================================================================
@@ -33,6 +30,7 @@
 
 class Scene;
 class BoundingBox;
+class HttpDebug;
 
 
 // =======================================================================================
