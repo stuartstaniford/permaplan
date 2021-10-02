@@ -11,10 +11,14 @@
 
 #define WOOD_SEG_SIDES 10   //XX initial hack that needs to be made more LOD
 
+
 // =======================================================================================
-// Class variable initialization
+// Forward declarations
 
 class Tree;
+
+// =======================================================================================
+// Class variable initialization
 
 class WoodySegment: public TreePart
 {
@@ -35,9 +39,7 @@ class WoodySegment: public TreePart
   bool        matchRay(vec3& position, vec3& direction, vec3 offset);
   const char* objectName(void);
   bool        diagnosticHTML(HttpDebug* serv);
-#ifdef LOG_TREE_VALIDATION
   void        selfValidate(unsigned l);
-#endif
 
  private:
   float                   heartRadius;    // expressed in mm
@@ -54,6 +56,9 @@ class WoodySegment: public TreePart
   WoodySegment(const WoodySegment&);                 // Prevent copy-construction
   WoodySegment& operator=(const WoodySegment&);      // Prevent assignment
 };
+
+
+// =======================================================================================
 
 #endif
 

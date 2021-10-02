@@ -297,6 +297,7 @@ void HeightMarker::updateBoundingBox(void)
 
 // =======================================================================================
 /// @brief Tell callers our name at runtime.
+/// @returns A const pointer to a C-string with the name.
 
 const char* HeightMarker::objectName(void)
 {
