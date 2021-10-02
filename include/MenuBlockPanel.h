@@ -6,6 +6,7 @@
 #include "MenuPanel.h"
 #include <string>
 
+
 // =======================================================================================
 /// @brief This class handles the UI panel for inserting a block.
 ///

@@ -9,6 +9,9 @@
 #define PMOD_DESIGN_IMPLEMENTATION
 
 #include "PmodDesign.h"
+#include "PmodConfig.h"
+#include "JSONStructureChecker.h"
+#include "LandSurface.h"
 #include "loadFileToBuf.h"
 #include "Logging.h"
 #include "Global.h"

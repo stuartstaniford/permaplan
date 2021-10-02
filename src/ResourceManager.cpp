@@ -6,6 +6,7 @@
 
 #include "ResourceManager.h"
 #include "loadFileToBuf.h"
+#include "MainSceneWindow.h"
 #include <cstring>
 #include <dirent.h>
 #include <sys/types.h>

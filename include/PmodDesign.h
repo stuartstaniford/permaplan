@@ -3,12 +3,9 @@
 #ifndef PMODDESIGN_H
 #define PMODDESIGN_H
 
-#include "LandSurface.h"
-#include "PmodConfig.h"
-#include "Timeval.h"
-#include "JSONStructureChecker.h"
 #include "Boundary.h"
 #include "BoundingBox.h"
+#include "Timeval.h"
 #include "rapidjson/document.h"
 #include "rapidjson/writer.h"
 #include "rapidjson/stringbuffer.h"
@@ -34,6 +31,8 @@ extern char           spaceUnitAbbr;
 // Required forward declarations.
 
 class Species;
+class LandSurface;
+class JSONStructureChecker;
 
 
 // =======================================================================================

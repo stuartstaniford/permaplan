@@ -4,9 +4,8 @@
 #define MENU_PANEL_H
 
 #include "Logging.h"
-#include "VisualObject.h"
-#include "imgui.h"
 #include "InterfaceAction.h"
+#include "imgui.h"
 
 
 // =======================================================================================

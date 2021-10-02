@@ -5,6 +5,7 @@
 #include "Scene.h"
 #include "ObjectGroup.h"
 #include "Window3D.h"
+#include "LandSurfaceRegionPlanar.h"
 #include <cstdio>
 #include <stdexcept>
 #include <err.h>
@@ -289,14 +290,15 @@ void Quadtree::newObjectFromChild(VisualObject* obj)
 
 
 // =======================================================================================
-// Go through the quadtree and everything in it and double check that everything is
-// self consistent.  Called per frame if compiled in.  Should not be turned on in
-// production releases
+/// @brief Go through the quadtree and everything in it and double check that 
+/// everything is self consistent.  
 
-#ifdef LOG_TREE_VALIDATION
+/// Called per frame if compiled in.  Should not be turned on in production releases
+
 
 void Quadtree::selfValidate(unsigned l)
 {
+#ifdef LOG_TREE_VALIDATION
   // Checks at our own level
   if(l==0) // special cases at the root
    {
@@ -373,8 +375,8 @@ void Quadtree::selfValidate(unsigned l)
     kidCount++;
    }
   assert(kidCount == 0 || kidCount == 2 || kidCount == 4);
-}
 #endif
+}
 
 
 // =======================================================================================

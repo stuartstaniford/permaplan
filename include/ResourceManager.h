@@ -3,12 +3,17 @@
 #ifndef RESOURCE_MANAGER_H
 #define RESOURCE_MANAGER_H
 
-#include "MainSceneWindow.h"
 #include "HttpClient.h"
 #include "rapidjson/document.h"
 #include "rapidjson/writer.h"
 #include "rapidjson/stringbuffer.h"
 #include "rapidjson/error/en.h"
+
+
+// =======================================================================================
+// Forward declarations
+
+class MainSceneWindow;
 
 
 // =======================================================================================

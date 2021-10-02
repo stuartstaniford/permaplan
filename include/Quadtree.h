@@ -3,15 +3,16 @@
 #ifndef QUADTREE_H
 #define QUADTREE_H
 
-#include "Shader.h"
-#include "VertexArrayObject.h"
-#include "VertexBufferObject.h"
+#include "BoundingBox.h"
 #include "DisplayList.h"
-#include "LandSurfaceRegionPlanar.h"
+#include "Lockable.h"
 #include <cglm/cglm.h>
 #include <algorithm>
 #include <list>
 
+
+// =======================================================================================
+// Forward declarations
 
 // =======================================================================================
 /// @brief This manages the quadtree used for efficient organization of visual objects 
@@ -63,9 +64,7 @@ class Quadtree: public Lockable
   bool quadSearchHTML(HttpDebug* serv, char* searchTerm);
   bool quadSearchRecursive(HttpDebug* serv, int& nextRow, char* searchTerm, char* quadPath);
   bool diagnosticHTML(HttpDebug* serv, char* path);
-#ifdef LOG_TREE_VALIDATION
   void selfValidate(unsigned l);
-#endif
 
 
  private:

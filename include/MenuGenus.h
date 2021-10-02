@@ -3,8 +3,13 @@
 #ifndef MENU_GENUS_H
 #define MENU_GENUS_H
 
-#include "Species.h"
 #include "MenuPanel.h"
+
+
+// =======================================================================================
+// Forward declarations
+
+class Species;
 
 
 // =======================================================================================
@@ -40,7 +45,6 @@ private:
   // Member functions - private
   MenuGenus(const MenuGenus&);                 // Prevent copy-construction
   MenuGenus& operator=(const MenuGenus&);      // Prevent assignment
-
 };
 
 

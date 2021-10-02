@@ -8,6 +8,8 @@
 #include "Global.h"
 #include "PmodConfig.h"
 #include "PmodDesign.h"
+#include "JSONStructureChecker.h"
+#include "Logging.h"
 #include <dirent.h>
 #include <err.h>
 

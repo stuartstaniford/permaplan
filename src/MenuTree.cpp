@@ -7,6 +7,7 @@
 #include "MenuInterface.h"
 #include "MenuGenus.h"
 #include "MenuAllTree.h"
+#include "Species.h"
 
 
 // =======================================================================================

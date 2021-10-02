@@ -5,6 +5,7 @@
 
 #include "LandSurface.h"
 #include "Camera.h"
+#include "PmodConfig.h"
 #include "PmodDesign.h"
 #include "TexturedRect.h"
 #include "Shader.h"

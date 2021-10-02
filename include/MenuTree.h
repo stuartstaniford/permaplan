@@ -3,8 +3,12 @@
 #ifndef MENU_TREE_H
 #define MENU_TREE_H
 
-#include "Species.h"
 #include "MenuPanel.h"
+
+
+// =======================================================================================
+// Forward declarations
+
 
 // =======================================================================================
 /// @brief Floating menu to select a particular tree to insert (by latin/scientific name).
