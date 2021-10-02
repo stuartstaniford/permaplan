@@ -6,11 +6,16 @@
 #define INTERFACE_ACTION_H
 
 #include "Global.h"
-#include "DynamicallyTypable.h"
 
 
 // =======================================================================================
-// Enum for different types of action
+// Forward declarations
+
+class DynamicallyTypable;
+
+
+// =======================================================================================
+/// @brief Enum for different types of action
 
 enum ActionType
 {

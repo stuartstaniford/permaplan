@@ -7,6 +7,7 @@
 #include "LeafModel.h"
 #include "Global.h"
 #include "Logging.h"
+#include "JSONStructureChecker.h"
 #include <cstdio>
 #include <err.h>
 

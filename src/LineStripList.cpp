@@ -5,6 +5,7 @@
 // TriangleBuffer.
 
 #include "LineStripList.h"
+#include "VertexBufferCombo.h"
 #include "Shader.h"
 #include "HttpDebug.h"
 

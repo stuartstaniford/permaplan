@@ -3,8 +3,9 @@
 #ifndef GRID_H
 #define GRID_H
 
-#include <cglm/cglm.h>
 #include "LineStripList.h"
+#include <cglm/cglm.h>
+
 
 // =======================================================================================
 // Forward declarations

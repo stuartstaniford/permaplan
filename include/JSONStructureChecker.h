@@ -3,12 +3,12 @@
 #ifndef JSON_STRUCTURE_CHECKER_H
 #define JSON_STRUCTURE_CHECKER_H
 
+#include "Version.h"
 #include "rapidjson/document.h"
 #include "rapidjson/writer.h"
 #include "rapidjson/stringbuffer.h"
 #include "rapidjson/error/en.h"
-#include "Timeval.h"
-#include "Version.h"
+
 
 // =======================================================================================
 // Useful macros

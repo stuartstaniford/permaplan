@@ -4,7 +4,6 @@
 #define LIGHTING_MODEL_H
 
 #include <cglm/cglm.h>
-#include "Shader.h"
 
 
 // =======================================================================================

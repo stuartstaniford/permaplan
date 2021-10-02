@@ -5,7 +5,16 @@
 
 #include <vector>
 #include <cglm/cglm.h>
-#include "VertexBufferCombo.h"
+#include <GL/glew.h>
+#include "Vertex.h"
+
+
+// =======================================================================================
+// Forward declarations
+
+class VertexBufferCombo;
+class Vertex;
+class HttpDebug;
 
 
 // =======================================================================================

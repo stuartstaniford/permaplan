@@ -3,7 +3,6 @@
 #ifndef LEAF_MODEL_H
 #define LEAF_MODEL_H
 
-#include "JSONStructureChecker.h"
 #include <cglm/cglm.h>
 #include "rapidjson/document.h"
 #include "rapidjson/writer.h"
@@ -21,6 +20,7 @@ extern unsigned displaySeason;
 // Forward declarations
 
 class WoodySegment;
+class JSONStructureChecker;
 
 
 // =======================================================================================

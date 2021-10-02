@@ -6,6 +6,10 @@
 #include <unordered_map>
 #include <string>
 
+
+// =======================================================================================
+/// @brief An enum to encapsulate the different types of headers than can show up in HTTP.
+
 enum HTTPHeaderType
 {
   NoHeaderPresent,

@@ -6,7 +6,7 @@
 #include <cglm/cglm.h>
 #include <vector>
 #include "rapidjson/document.h"
-#include "BezierPatch.h"
+#include "BezierPatch.h"  // required for VISUALIZE_FITTING
 
 
 // =======================================================================================

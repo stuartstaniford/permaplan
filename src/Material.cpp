@@ -4,6 +4,7 @@
 
 #include "Material.h"
 #include "Logging.h"
+#include "TextureAtlas.h"
 #include "HttpDebug.h"
 #include <cstdio>
 #include <err.h>

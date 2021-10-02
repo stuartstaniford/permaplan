@@ -3,16 +3,18 @@
 #ifndef MATERIAL_H
 #define MATERIAL_H
 
-#include "TextureAtlas.h"
 #include <cglm/cglm.h>
 #include <map>
 #include <string>
+#include "Texture.h"
 
 
 // =======================================================================================
 // Forward declarations
 
 class HttpDebug;
+class TextureAtlas;
+class TexCoordsEntry;
 
 
 // =======================================================================================

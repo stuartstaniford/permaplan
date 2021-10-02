@@ -2,6 +2,7 @@
 // This is where all concerns to do with the scene lighting live.
 
 #include "LightingModel.h"
+#include "Shader.h"
 
 
 // =======================================================================================
