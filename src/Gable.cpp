@@ -8,6 +8,8 @@
 #include "BuildingRect.h"
 #include "JSONStructureChecker.h"
 #include "Scene.h"
+#include "Quadtree.h"
+#include "PmodConfig.h"
 
 
 // =======================================================================================

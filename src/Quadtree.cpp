@@ -6,6 +6,8 @@
 #include "ObjectGroup.h"
 #include "Window3D.h"
 #include "LandSurfaceRegionPlanar.h"
+#include "Shader.h"
+#include "PmodDesign.h"
 #include <cstdio>
 #include <stdexcept>
 #include <err.h>

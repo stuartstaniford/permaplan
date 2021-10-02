@@ -4,6 +4,7 @@
 
 #include "GLFWApplication.h"
 #include "Window3D.h"
+#include "Shader.h"
 
 
 // =======================================================================================

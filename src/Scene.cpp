@@ -15,6 +15,10 @@
 #include "loadFileToBuf.h"
 #include "HttpDebug.h"
 #include "TexturedRect.h"
+#include "ColoredAxes.h"
+#include "PmodConfig.h"
+#include "PmodDesign.h"
+#include "Grid.h"
 #include <pthread.h>
 #include <stdlib.h>
 #include <err.h>

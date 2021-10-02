@@ -3,21 +3,11 @@
 #ifndef SCENE_H
 #define SCENE_H
 
-#include "Shader.h"
-#include "ColoredAxes.h"
-#include "PmodConfig.h"
 #include "LandSurface.h"
-#include "PmodDesign.h"
-#include "Grid.h"
-#include "Quadtree.h"
-#include "TriangleBuffer.h"
-#include "Material.h"
-#include "LightingModel.h"
-#include "Species.h"
-#include "CO2Scenario.h"
-#include "TaskQueue.h"
 #include "Lockable.h"
 #include "InterfaceAction.h"
+#include "LightingModel.h"
+#include "CO2Scenario.h"
 #include <vector>
 
 #define SIMULATION_BASE_YEAR 1900.0f
@@ -26,6 +16,11 @@
 // Needed forward declarations
 
 class Camera;
+class TriangleBuffer;
+class Quadtree;
+class Material;
+class ColoredAxes;
+class Grid;
 
 
 // =======================================================================================

@@ -6,6 +6,7 @@
 #include "MenuInterface.h"
 #include "MenuErrorPanel.h"
 #include "Scene.h"
+#include "PmodDesign.h"
 
 
 // =======================================================================================
