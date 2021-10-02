@@ -5,16 +5,16 @@
 #define BEZIER_PATCH_H
 
 #include "LandSurfaceRegion.h"
-#include "Quadtree.h"
-#include "DisplayList.h"
 
 //#define BEZIER_DUMP_DETAIL
 #define VISUALIZE_FITTING 1
 
 // =======================================================================================
-// Class variable initialization
+// Forward declarations
 
-class PatchRayState; // forward declaration, see bottom of file
+class PatchRayState; 
+class Quadtree;
+class DisplayList;
 
 
 // =======================================================================================

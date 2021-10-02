@@ -6,14 +6,12 @@
 #include "AxialElement.h"
 #include "VisualObject.h"
 
-
-// =======================================================================================
-// Class variable initialization
-
 //XX probably these shouldn't be hard coded
 #define ARROW_HEAD 0.25          // fraction of the arrow in the head.
 #define ARROW_HEAD_WIDTH 1.0f    // multiple of the radius for the overhang over the shaft.
 
+
+// =======================================================================================
 ///@brief Class for rendering a simple straight arrow.
 ///
 /// Note that this is an instance of a common pattern in the code where an object type

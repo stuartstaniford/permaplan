@@ -101,7 +101,6 @@ src/Arrow.o: include/Global.h include/Logging.h include/MemoryTracker.h
 src/Arrow.o: include/Vertex.h include/ElementBufferObject.h
 src/Arrow.o: include/HttpDebug.h include/HttpRequestParser.h
 src/Arrow.o: include/TaskQueue.h include/Lockable.h include/BoundingBox.h
-src/Arrow.o: include/Shader.h include/VertexBufferCombo.h
 src/Arrow.o: include/DynamicallyTypable.h include/VisualObject.h
 src/Arrow.o: include/Cylinder.h
 src/AxialElement.o: include/AxialElement.h include/VisualElement.h
@@ -144,8 +143,7 @@ src/AxialElement.o: include/Logging.h include/MemoryTracker.h
 src/AxialElement.o: include/Vertex.h include/ElementBufferObject.h
 src/AxialElement.o: include/HttpDebug.h include/HttpRequestParser.h
 src/AxialElement.o: include/TaskQueue.h include/Lockable.h
-src/AxialElement.o: include/BoundingBox.h include/Shader.h
-src/AxialElement.o: include/VertexBufferCombo.h include/DynamicallyTypable.h
+src/AxialElement.o: include/BoundingBox.h include/DynamicallyTypable.h
 src/AxialElement.o: include/CircleIterator.h
 src/BezierPatch.o: include/BezierPatch.h include/LandSurfaceRegion.h
 src/BezierPatch.o: include/VisualObject.h include/VisualElement.h
@@ -187,12 +185,11 @@ src/BezierPatch.o: /usr/local/include/GLFW/glfw3.h include/Global.h
 src/BezierPatch.o: include/Logging.h include/MemoryTracker.h include/Vertex.h
 src/BezierPatch.o: include/ElementBufferObject.h include/HttpDebug.h
 src/BezierPatch.o: include/HttpRequestParser.h include/TaskQueue.h
-src/BezierPatch.o: include/Lockable.h include/BoundingBox.h include/Shader.h
-src/BezierPatch.o: include/VertexBufferCombo.h include/DynamicallyTypable.h
-src/BezierPatch.o: include/Quadtree.h include/DisplayList.h
-src/BezierPatch.o: include/LandSurfaceRegionPlanar.h include/HeightMarker.h
-src/BezierPatch.o: include/Positionable.h include/Arrow.h
-src/BezierPatch.o: include/AxialElement.h
+src/BezierPatch.o: include/Lockable.h include/BoundingBox.h
+src/BezierPatch.o: include/DynamicallyTypable.h include/HeightMarker.h
+src/BezierPatch.o: include/Positionable.h include/Quadtree.h include/Shader.h
+src/BezierPatch.o: include/DisplayList.h include/LandSurfaceRegionPlanar.h
+src/BezierPatch.o: include/Arrow.h include/AxialElement.h
 src/Boundary.o: include/Boundary.h /usr/local/include/cglm/cglm.h
 src/Boundary.o: /usr/local/include/cglm/common.h
 src/Boundary.o: /usr/local/include/cglm/types.h
@@ -245,12 +242,9 @@ src/Boundary.o: include/rapidjson/stringbuffer.h
 src/Boundary.o: include/rapidjson/stringbuffer.h include/rapidjson/error/en.h
 src/Boundary.o: include/rapidjson/error/error.h include/PmodConfig.h
 src/Boundary.o: include/Logging.h include/MemoryTracker.h include/Global.h
-src/Boundary.o: include/BoundingBox.h include/Shader.h
-src/Boundary.o: include/VertexBufferCombo.h include/VertexArrayObject.h
-src/Boundary.o: include/VertexBufferObject.h /usr/local/include/GL/glew.h
-src/Boundary.o: /usr/local/include/GLFW/glfw3.h include/Vertex.h
-src/Boundary.o: include/HttpDebug.h include/HttpRequestParser.h
-src/Boundary.o: include/TaskQueue.h include/Lockable.h
+src/Boundary.o: include/BoundingBox.h include/HttpDebug.h
+src/Boundary.o: include/HttpRequestParser.h include/TaskQueue.h
+src/Boundary.o: include/Lockable.h
 src/BoundingBox.o: include/BoundingBox.h /usr/local/include/cglm/cglm.h
 src/BoundingBox.o: /usr/local/include/cglm/common.h
 src/BoundingBox.o: /usr/local/include/cglm/types.h
@@ -282,12 +276,10 @@ src/BoundingBox.o: /usr/local/include/cglm/curve.h
 src/BoundingBox.o: /usr/local/include/cglm/bezier.h
 src/BoundingBox.o: /usr/local/include/cglm/ray.h
 src/BoundingBox.o: /usr/local/include/cglm/affine2d.h include/Shader.h
-src/BoundingBox.o: include/VertexBufferCombo.h include/VertexArrayObject.h
-src/BoundingBox.o: include/VertexBufferObject.h /usr/local/include/GL/glew.h
-src/BoundingBox.o: /usr/local/include/GLFW/glfw3.h include/Global.h
-src/BoundingBox.o: include/Logging.h include/MemoryTracker.h include/Vertex.h
-src/BoundingBox.o: include/HttpDebug.h include/HttpRequestParser.h
-src/BoundingBox.o: include/TaskQueue.h include/Lockable.h
+src/BoundingBox.o: include/Vertex.h include/Global.h include/Logging.h
+src/BoundingBox.o: include/MemoryTracker.h include/HttpDebug.h
+src/BoundingBox.o: include/HttpRequestParser.h include/TaskQueue.h
+src/BoundingBox.o: include/Lockable.h
 src/Box.o: include/Box.h include/VisualObject.h include/VisualElement.h
 src/Box.o: include/TriangleBuffer.h include/ElementBufferCombo.h
 src/Box.o: include/VertexArrayObject.h include/VertexBufferObject.h
@@ -312,12 +304,11 @@ src/Box.o: /usr/local/include/GL/glew.h /usr/local/include/GLFW/glfw3.h
 src/Box.o: include/Global.h include/Logging.h include/MemoryTracker.h
 src/Box.o: include/Vertex.h include/ElementBufferObject.h include/HttpDebug.h
 src/Box.o: include/HttpRequestParser.h include/TaskQueue.h include/Lockable.h
-src/Box.o: include/BoundingBox.h include/Shader.h include/VertexBufferCombo.h
-src/Box.o: include/DynamicallyTypable.h include/rapidjson/document.h
-src/Box.o: include/rapidjson/reader.h include/rapidjson/allocators.h
-src/Box.o: include/rapidjson/rapidjson.h include/rapidjson/stream.h
-src/Box.o: include/rapidjson/encodings.h include/rapidjson/encodedstream.h
-src/Box.o: include/rapidjson/memorystream.h
+src/Box.o: include/BoundingBox.h include/DynamicallyTypable.h
+src/Box.o: include/rapidjson/document.h include/rapidjson/reader.h
+src/Box.o: include/rapidjson/allocators.h include/rapidjson/rapidjson.h
+src/Box.o: include/rapidjson/stream.h include/rapidjson/encodings.h
+src/Box.o: include/rapidjson/encodedstream.h include/rapidjson/memorystream.h
 src/Box.o: include/rapidjson/internal/clzll.h include/rapidjson/rapidjson.h
 src/Box.o: include/rapidjson/internal/meta.h
 src/Box.o: include/rapidjson/internal/stack.h include/rapidjson/allocators.h
@@ -368,7 +359,6 @@ src/Building.o: include/Global.h include/Logging.h include/MemoryTracker.h
 src/Building.o: include/Vertex.h include/ElementBufferObject.h
 src/Building.o: include/HttpDebug.h include/HttpRequestParser.h
 src/Building.o: include/TaskQueue.h include/Lockable.h include/BoundingBox.h
-src/Building.o: include/Shader.h include/VertexBufferCombo.h
 src/Building.o: include/DynamicallyTypable.h include/DisplayList.h
 src/Building.o: include/LandSurfaceRegion.h include/rapidjson/document.h
 src/Building.o: include/rapidjson/reader.h include/rapidjson/allocators.h
@@ -397,12 +387,13 @@ src/Building.o: include/rapidjson/internal/itoa.h
 src/Building.o: include/rapidjson/stringbuffer.h
 src/Building.o: include/rapidjson/stringbuffer.h include/rapidjson/error/en.h
 src/Building.o: include/rapidjson/error/error.h include/PmodConfig.h
-src/Building.o: include/PmodDesign.h include/LandSurface.h include/Timeval.h
+src/Building.o: include/PmodDesign.h include/LandSurface.h
+src/Building.o: include/BezierPatch.h include/Timeval.h
 src/Building.o: include/JSONStructureChecker.h include/Version.h
 src/Building.o: include/Boundary.h include/Gable.h include/BuildingAssembly.h
 src/Building.o: include/Orientable.h include/Positionable.h include/Shed.h
 src/Building.o: include/BuildingRect.h include/Box.h include/Quadtree.h
-src/Building.o: include/LandSurfaceRegionPlanar.h
+src/Building.o: include/Shader.h include/LandSurfaceRegionPlanar.h
 src/BuildingAssembly.o: include/BuildingAssembly.h include/VisualObject.h
 src/BuildingAssembly.o: include/VisualElement.h include/TriangleBuffer.h
 src/BuildingAssembly.o: include/ElementBufferCombo.h
@@ -445,9 +436,8 @@ src/BuildingAssembly.o: include/Logging.h include/MemoryTracker.h
 src/BuildingAssembly.o: include/Vertex.h include/ElementBufferObject.h
 src/BuildingAssembly.o: include/HttpDebug.h include/HttpRequestParser.h
 src/BuildingAssembly.o: include/TaskQueue.h include/Lockable.h
-src/BuildingAssembly.o: include/BoundingBox.h include/Shader.h
-src/BuildingAssembly.o: include/VertexBufferCombo.h
-src/BuildingAssembly.o: include/DynamicallyTypable.h include/BuildingRect.h
+src/BuildingAssembly.o: include/BoundingBox.h include/DynamicallyTypable.h
+src/BuildingAssembly.o: include/BuildingRect.h
 src/BuildingRect.o: include/BuildingRect.h include/VisualElement.h
 src/BuildingRect.o: include/TriangleBuffer.h include/ElementBufferCombo.h
 src/BuildingRect.o: include/VertexArrayObject.h include/VertexBufferObject.h
@@ -488,8 +478,7 @@ src/BuildingRect.o: include/Logging.h include/MemoryTracker.h
 src/BuildingRect.o: include/Vertex.h include/ElementBufferObject.h
 src/BuildingRect.o: include/HttpDebug.h include/HttpRequestParser.h
 src/BuildingRect.o: include/TaskQueue.h include/Lockable.h
-src/BuildingRect.o: include/BoundingBox.h include/Shader.h
-src/BuildingRect.o: include/VertexBufferCombo.h include/DynamicallyTypable.h
+src/BuildingRect.o: include/BoundingBox.h include/DynamicallyTypable.h
 src/BuildingWindow.o: include/BuildingWindow.h
 src/BuildingWindow.o: include/ObjectInspectorWindow.h include/Window3D.h
 src/BuildingWindow.o: include/Scene.h include/Shader.h
@@ -553,7 +542,14 @@ src/BuildingWindow.o: include/rapidjson/internal/clzll.h
 src/BuildingWindow.o: include/rapidjson/internal/pow10.h
 src/BuildingWindow.o: include/rapidjson/error/error.h
 src/BuildingWindow.o: include/rapidjson/internal/strfunc.h
-src/BuildingWindow.o: include/rapidjson/stream.h include/PmodDesign.h
+src/BuildingWindow.o: include/rapidjson/stream.h include/BezierPatch.h
+src/BuildingWindow.o: include/LandSurfaceRegion.h include/VisualObject.h
+src/BuildingWindow.o: include/VisualElement.h include/TriangleBuffer.h
+src/BuildingWindow.o: include/ElementBufferCombo.h
+src/BuildingWindow.o: include/ElementBufferObject.h include/HttpDebug.h
+src/BuildingWindow.o: include/HttpRequestParser.h include/TaskQueue.h
+src/BuildingWindow.o: include/Lockable.h include/BoundingBox.h
+src/BuildingWindow.o: include/DynamicallyTypable.h include/PmodDesign.h
 src/BuildingWindow.o: include/Timeval.h include/JSONStructureChecker.h
 src/BuildingWindow.o: include/rapidjson/writer.h
 src/BuildingWindow.o: include/rapidjson/internal/dtoa.h
@@ -564,21 +560,13 @@ src/BuildingWindow.o: include/rapidjson/stringbuffer.h
 src/BuildingWindow.o: include/rapidjson/error/en.h
 src/BuildingWindow.o: include/rapidjson/error/error.h include/Version.h
 src/BuildingWindow.o: include/Boundary.h include/Grid.h include/Quadtree.h
-src/BuildingWindow.o: include/DisplayList.h include/VisualObject.h
-src/BuildingWindow.o: include/VisualElement.h include/TriangleBuffer.h
-src/BuildingWindow.o: include/ElementBufferCombo.h
-src/BuildingWindow.o: include/ElementBufferObject.h include/HttpDebug.h
-src/BuildingWindow.o: include/HttpRequestParser.h include/TaskQueue.h
-src/BuildingWindow.o: include/Lockable.h include/BoundingBox.h
-src/BuildingWindow.o: include/DynamicallyTypable.h
-src/BuildingWindow.o: include/LandSurfaceRegion.h
-src/BuildingWindow.o: include/LandSurfaceRegionPlanar.h include/Material.h
-src/BuildingWindow.o: include/TextureAtlas.h include/Texture.h
-src/BuildingWindow.o: include/LightingModel.h include/Species.h
-src/BuildingWindow.o: include/LeafModel.h include/CO2Scenario.h
-src/BuildingWindow.o: include/InterfaceAction.h include/Camera.h
-src/BuildingWindow.o: include/MenuInterface.h include/MenuPanel.h
-src/BuildingWindow.o: imgui/imgui.h imgui/imconfig.h
+src/BuildingWindow.o: include/DisplayList.h include/LandSurfaceRegionPlanar.h
+src/BuildingWindow.o: include/Material.h include/TextureAtlas.h
+src/BuildingWindow.o: include/Texture.h include/LightingModel.h
+src/BuildingWindow.o: include/Species.h include/LeafModel.h
+src/BuildingWindow.o: include/CO2Scenario.h include/InterfaceAction.h
+src/BuildingWindow.o: include/Camera.h include/MenuInterface.h
+src/BuildingWindow.o: include/MenuPanel.h imgui/imgui.h imgui/imconfig.h
 src/BuildingWindow.o: include/GLFWApplication.h include/Building.h
 src/BuildingWindow.o: include/ObjectGroup.h
 src/CO2Scenario.o: include/CO2Scenario.h include/rapidjson/document.h
@@ -688,20 +676,20 @@ src/Camera.o: include/rapidjson/internal/clzll.h
 src/Camera.o: include/rapidjson/internal/pow10.h
 src/Camera.o: include/rapidjson/error/error.h
 src/Camera.o: include/rapidjson/internal/strfunc.h include/rapidjson/stream.h
-src/Camera.o: include/PmodDesign.h include/Timeval.h
-src/Camera.o: include/JSONStructureChecker.h include/rapidjson/writer.h
-src/Camera.o: include/rapidjson/internal/dtoa.h
+src/Camera.o: include/BezierPatch.h include/LandSurfaceRegion.h
+src/Camera.o: include/VisualObject.h include/VisualElement.h
+src/Camera.o: include/TriangleBuffer.h include/ElementBufferCombo.h
+src/Camera.o: include/ElementBufferObject.h include/BoundingBox.h
+src/Camera.o: include/DynamicallyTypable.h include/PmodDesign.h
+src/Camera.o: include/Timeval.h include/JSONStructureChecker.h
+src/Camera.o: include/rapidjson/writer.h include/rapidjson/internal/dtoa.h
 src/Camera.o: include/rapidjson/internal/itoa.h
 src/Camera.o: include/rapidjson/internal/itoa.h
 src/Camera.o: include/rapidjson/stringbuffer.h
 src/Camera.o: include/rapidjson/stringbuffer.h include/rapidjson/error/en.h
 src/Camera.o: include/rapidjson/error/error.h include/Version.h
 src/Camera.o: include/Boundary.h include/Grid.h include/Quadtree.h
-src/Camera.o: include/DisplayList.h include/VisualObject.h
-src/Camera.o: include/VisualElement.h include/TriangleBuffer.h
-src/Camera.o: include/ElementBufferCombo.h include/ElementBufferObject.h
-src/Camera.o: include/BoundingBox.h include/DynamicallyTypable.h
-src/Camera.o: include/LandSurfaceRegion.h include/LandSurfaceRegionPlanar.h
+src/Camera.o: include/DisplayList.h include/LandSurfaceRegionPlanar.h
 src/Camera.o: include/Material.h include/TextureAtlas.h include/Texture.h
 src/Camera.o: include/LightingModel.h include/Species.h include/LeafModel.h
 src/Camera.o: include/CO2Scenario.h include/InterfaceAction.h
@@ -814,8 +802,7 @@ src/ControlGroup.o: include/Logging.h include/MemoryTracker.h
 src/ControlGroup.o: include/Vertex.h include/ElementBufferObject.h
 src/ControlGroup.o: include/HttpDebug.h include/HttpRequestParser.h
 src/ControlGroup.o: include/TaskQueue.h include/Lockable.h
-src/ControlGroup.o: include/BoundingBox.h include/Shader.h
-src/ControlGroup.o: include/VertexBufferCombo.h include/DynamicallyTypable.h
+src/ControlGroup.o: include/BoundingBox.h include/DynamicallyTypable.h
 src/ControlGroup.o: include/DisplayList.h include/LandSurfaceRegion.h
 src/ControlGroup.o: include/Arrow.h include/AxialElement.h
 src/ControlGroup.o: include/PmodDesign.h include/LandSurface.h
@@ -839,9 +826,9 @@ src/ControlGroup.o: include/rapidjson/internal/clzll.h
 src/ControlGroup.o: include/rapidjson/internal/pow10.h
 src/ControlGroup.o: include/rapidjson/error/error.h
 src/ControlGroup.o: include/rapidjson/internal/strfunc.h
-src/ControlGroup.o: include/rapidjson/stream.h include/PmodConfig.h
-src/ControlGroup.o: include/Timeval.h include/JSONStructureChecker.h
-src/ControlGroup.o: include/rapidjson/writer.h
+src/ControlGroup.o: include/rapidjson/stream.h include/BezierPatch.h
+src/ControlGroup.o: include/PmodConfig.h include/Timeval.h
+src/ControlGroup.o: include/JSONStructureChecker.h include/rapidjson/writer.h
 src/ControlGroup.o: include/rapidjson/internal/dtoa.h
 src/ControlGroup.o: include/rapidjson/internal/itoa.h
 src/ControlGroup.o: include/rapidjson/internal/itoa.h
@@ -878,7 +865,6 @@ src/Copse.o: include/Global.h include/Logging.h include/MemoryTracker.h
 src/Copse.o: include/Vertex.h include/ElementBufferObject.h
 src/Copse.o: include/HttpDebug.h include/HttpRequestParser.h
 src/Copse.o: include/TaskQueue.h include/Lockable.h include/BoundingBox.h
-src/Copse.o: include/Shader.h include/VertexBufferCombo.h
 src/Copse.o: include/DynamicallyTypable.h include/LandSurfaceRegion.h
 src/Cylinder.o: include/Cylinder.h include/AxialElement.h
 src/Cylinder.o: include/VisualElement.h include/TriangleBuffer.h
@@ -913,7 +899,6 @@ src/Cylinder.o: include/Global.h include/Logging.h include/MemoryTracker.h
 src/Cylinder.o: include/Vertex.h include/ElementBufferObject.h
 src/Cylinder.o: include/HttpDebug.h include/HttpRequestParser.h
 src/Cylinder.o: include/TaskQueue.h include/Lockable.h include/BoundingBox.h
-src/Cylinder.o: include/Shader.h include/VertexBufferCombo.h
 src/Cylinder.o: include/DynamicallyTypable.h
 src/DisplayList.o: include/DisplayList.h include/VisualObject.h
 src/DisplayList.o: include/VisualElement.h include/TriangleBuffer.h
@@ -955,10 +940,9 @@ src/DisplayList.o: /usr/local/include/GLFW/glfw3.h include/Global.h
 src/DisplayList.o: include/Logging.h include/MemoryTracker.h include/Vertex.h
 src/DisplayList.o: include/ElementBufferObject.h include/HttpDebug.h
 src/DisplayList.o: include/HttpRequestParser.h include/TaskQueue.h
-src/DisplayList.o: include/Lockable.h include/BoundingBox.h include/Shader.h
-src/DisplayList.o: include/VertexBufferCombo.h include/DynamicallyTypable.h
-src/DisplayList.o: include/LandSurfaceRegion.h include/HeightMarker.h
-src/DisplayList.o: include/Positionable.h
+src/DisplayList.o: include/Lockable.h include/BoundingBox.h
+src/DisplayList.o: include/DynamicallyTypable.h include/LandSurfaceRegion.h
+src/DisplayList.o: include/HeightMarker.h include/Positionable.h
 src/DynamicallyTypable.o: include/DynamicallyTypable.h
 src/ElementBufferCombo.o: include/ElementBufferCombo.h
 src/ElementBufferCombo.o: include/VertexArrayObject.h
@@ -1096,8 +1080,14 @@ src/GLFWApplication.o: include/rapidjson/internal/clzll.h
 src/GLFWApplication.o: include/rapidjson/internal/pow10.h
 src/GLFWApplication.o: include/rapidjson/error/error.h
 src/GLFWApplication.o: include/rapidjson/internal/strfunc.h
-src/GLFWApplication.o: include/rapidjson/stream.h include/PmodDesign.h
-src/GLFWApplication.o: include/JSONStructureChecker.h
+src/GLFWApplication.o: include/rapidjson/stream.h include/BezierPatch.h
+src/GLFWApplication.o: include/LandSurfaceRegion.h include/VisualObject.h
+src/GLFWApplication.o: include/VisualElement.h include/TriangleBuffer.h
+src/GLFWApplication.o: include/ElementBufferCombo.h
+src/GLFWApplication.o: include/ElementBufferObject.h include/HttpDebug.h
+src/GLFWApplication.o: include/HttpRequestParser.h include/TaskQueue.h
+src/GLFWApplication.o: include/BoundingBox.h include/DynamicallyTypable.h
+src/GLFWApplication.o: include/PmodDesign.h include/JSONStructureChecker.h
 src/GLFWApplication.o: include/rapidjson/writer.h
 src/GLFWApplication.o: include/rapidjson/internal/dtoa.h
 src/GLFWApplication.o: include/rapidjson/internal/itoa.h
@@ -1107,13 +1097,7 @@ src/GLFWApplication.o: include/rapidjson/stringbuffer.h
 src/GLFWApplication.o: include/rapidjson/error/en.h
 src/GLFWApplication.o: include/rapidjson/error/error.h include/Version.h
 src/GLFWApplication.o: include/Boundary.h include/Grid.h include/Quadtree.h
-src/GLFWApplication.o: include/DisplayList.h include/VisualObject.h
-src/GLFWApplication.o: include/VisualElement.h include/TriangleBuffer.h
-src/GLFWApplication.o: include/ElementBufferCombo.h
-src/GLFWApplication.o: include/ElementBufferObject.h include/HttpDebug.h
-src/GLFWApplication.o: include/HttpRequestParser.h include/TaskQueue.h
-src/GLFWApplication.o: include/BoundingBox.h include/DynamicallyTypable.h
-src/GLFWApplication.o: include/LandSurfaceRegion.h
+src/GLFWApplication.o: include/DisplayList.h
 src/GLFWApplication.o: include/LandSurfaceRegionPlanar.h include/Material.h
 src/GLFWApplication.o: include/TextureAtlas.h include/Texture.h
 src/GLFWApplication.o: include/LightingModel.h include/Species.h
@@ -1149,7 +1133,6 @@ src/Gable.o: include/Global.h include/Logging.h include/MemoryTracker.h
 src/Gable.o: include/Vertex.h include/ElementBufferObject.h
 src/Gable.o: include/HttpDebug.h include/HttpRequestParser.h
 src/Gable.o: include/TaskQueue.h include/Lockable.h include/BoundingBox.h
-src/Gable.o: include/Shader.h include/VertexBufferCombo.h
 src/Gable.o: include/DynamicallyTypable.h include/Orientable.h
 src/Gable.o: include/Positionable.h include/rapidjson/document.h
 src/Gable.o: include/rapidjson/reader.h include/rapidjson/allocators.h
@@ -1177,11 +1160,13 @@ src/Gable.o: include/rapidjson/error/error.h include/MenuGablePanel.h
 src/Gable.o: include/MenuPanel.h imgui/imgui.h imgui/imconfig.h
 src/Gable.o: include/InterfaceAction.h include/BuildingRect.h
 src/Gable.o: include/JSONStructureChecker.h include/Timeval.h
-src/Gable.o: include/Version.h include/Scene.h include/ColoredAxes.h
-src/Gable.o: include/LineStripList.h include/PmodConfig.h
-src/Gable.o: include/LandSurface.h include/PmodDesign.h include/Boundary.h
-src/Gable.o: include/Grid.h include/Quadtree.h include/DisplayList.h
-src/Gable.o: include/LandSurfaceRegion.h include/LandSurfaceRegionPlanar.h
+src/Gable.o: include/Version.h include/Scene.h include/Shader.h
+src/Gable.o: include/ColoredAxes.h include/LineStripList.h
+src/Gable.o: include/VertexBufferCombo.h include/PmodConfig.h
+src/Gable.o: include/LandSurface.h include/BezierPatch.h
+src/Gable.o: include/LandSurfaceRegion.h include/PmodDesign.h
+src/Gable.o: include/Boundary.h include/Grid.h include/Quadtree.h
+src/Gable.o: include/DisplayList.h include/LandSurfaceRegionPlanar.h
 src/Gable.o: include/Material.h include/TextureAtlas.h include/Texture.h
 src/Gable.o: include/LightingModel.h include/Species.h include/LeafModel.h
 src/Gable.o: include/CO2Scenario.h
@@ -1249,6 +1234,14 @@ src/Grid.o: include/rapidjson/internal/clzll.h
 src/Grid.o: include/rapidjson/internal/pow10.h
 src/Grid.o: include/rapidjson/error/error.h
 src/Grid.o: include/rapidjson/internal/strfunc.h include/rapidjson/stream.h
+src/Grid.o: include/BezierPatch.h include/LandSurfaceRegion.h
+src/Grid.o: include/VisualObject.h include/VisualElement.h
+src/Grid.o: include/TriangleBuffer.h include/ElementBufferCombo.h
+src/Grid.o: include/ElementBufferObject.h include/HttpDebug.h
+src/Grid.o: include/HttpRequestParser.h include/TaskQueue.h
+src/Grid.o: include/Lockable.h include/BoundingBox.h
+src/Grid.o: include/DynamicallyTypable.h include/TexturedRect.h
+src/Grid.o: include/Texture.h
 src/HeightMarker.o: include/HeightMarker.h include/VisualObject.h
 src/HeightMarker.o: include/VisualElement.h include/TriangleBuffer.h
 src/HeightMarker.o: include/ElementBufferCombo.h include/VertexArrayObject.h
@@ -1290,8 +1283,7 @@ src/HeightMarker.o: include/Logging.h include/MemoryTracker.h
 src/HeightMarker.o: include/Vertex.h include/ElementBufferObject.h
 src/HeightMarker.o: include/HttpDebug.h include/HttpRequestParser.h
 src/HeightMarker.o: include/TaskQueue.h include/Lockable.h
-src/HeightMarker.o: include/BoundingBox.h include/Shader.h
-src/HeightMarker.o: include/VertexBufferCombo.h include/DynamicallyTypable.h
+src/HeightMarker.o: include/BoundingBox.h include/DynamicallyTypable.h
 src/HeightMarker.o: include/Positionable.h
 src/HttpClient.o: include/HttpClient.h include/Logging.h
 src/HttpClient.o: include/MemoryTracker.h include/Global.h
@@ -1383,9 +1375,14 @@ src/HttpDebug.o: include/rapidjson/internal/clzll.h
 src/HttpDebug.o: include/rapidjson/internal/pow10.h
 src/HttpDebug.o: include/rapidjson/error/error.h
 src/HttpDebug.o: include/rapidjson/internal/strfunc.h
-src/HttpDebug.o: include/rapidjson/stream.h include/PmodDesign.h
-src/HttpDebug.o: include/Timeval.h include/JSONStructureChecker.h
-src/HttpDebug.o: include/rapidjson/writer.h include/rapidjson/internal/dtoa.h
+src/HttpDebug.o: include/rapidjson/stream.h include/BezierPatch.h
+src/HttpDebug.o: include/LandSurfaceRegion.h include/VisualObject.h
+src/HttpDebug.o: include/VisualElement.h include/TriangleBuffer.h
+src/HttpDebug.o: include/ElementBufferCombo.h include/ElementBufferObject.h
+src/HttpDebug.o: include/BoundingBox.h include/DynamicallyTypable.h
+src/HttpDebug.o: include/PmodDesign.h include/Timeval.h
+src/HttpDebug.o: include/JSONStructureChecker.h include/rapidjson/writer.h
+src/HttpDebug.o: include/rapidjson/internal/dtoa.h
 src/HttpDebug.o: include/rapidjson/internal/itoa.h
 src/HttpDebug.o: include/rapidjson/internal/itoa.h
 src/HttpDebug.o: include/rapidjson/stringbuffer.h
@@ -1393,10 +1390,6 @@ src/HttpDebug.o: include/rapidjson/stringbuffer.h
 src/HttpDebug.o: include/rapidjson/error/en.h include/rapidjson/error/error.h
 src/HttpDebug.o: include/Version.h include/Boundary.h include/Grid.h
 src/HttpDebug.o: include/Quadtree.h include/DisplayList.h
-src/HttpDebug.o: include/VisualObject.h include/VisualElement.h
-src/HttpDebug.o: include/TriangleBuffer.h include/ElementBufferCombo.h
-src/HttpDebug.o: include/ElementBufferObject.h include/BoundingBox.h
-src/HttpDebug.o: include/DynamicallyTypable.h include/LandSurfaceRegion.h
 src/HttpDebug.o: include/LandSurfaceRegionPlanar.h include/Material.h
 src/HttpDebug.o: include/TextureAtlas.h include/Texture.h
 src/HttpDebug.o: include/LightingModel.h include/Species.h
@@ -1609,9 +1602,21 @@ src/JSONStructureChecker.o: /usr/local/include/cglm/curve.h
 src/JSONStructureChecker.o: /usr/local/include/cglm/bezier.h
 src/JSONStructureChecker.o: /usr/local/include/cglm/ray.h
 src/JSONStructureChecker.o: /usr/local/include/cglm/affine2d.h
-src/JSONStructureChecker.o: include/PmodConfig.h include/Boundary.h
-src/JSONStructureChecker.o: include/loadFileToBuf.h include/Logging.h
-src/JSONStructureChecker.o: include/MemoryTracker.h include/Global.h
+src/JSONStructureChecker.o: include/BezierPatch.h include/LandSurfaceRegion.h
+src/JSONStructureChecker.o: include/VisualObject.h include/VisualElement.h
+src/JSONStructureChecker.o: include/TriangleBuffer.h
+src/JSONStructureChecker.o: include/ElementBufferCombo.h
+src/JSONStructureChecker.o: include/VertexArrayObject.h
+src/JSONStructureChecker.o: include/VertexBufferObject.h
+src/JSONStructureChecker.o: /usr/local/include/GL/glew.h
+src/JSONStructureChecker.o: /usr/local/include/GLFW/glfw3.h include/Global.h
+src/JSONStructureChecker.o: include/Logging.h include/MemoryTracker.h
+src/JSONStructureChecker.o: include/Vertex.h include/ElementBufferObject.h
+src/JSONStructureChecker.o: include/HttpDebug.h include/HttpRequestParser.h
+src/JSONStructureChecker.o: include/TaskQueue.h include/Lockable.h
+src/JSONStructureChecker.o: include/BoundingBox.h
+src/JSONStructureChecker.o: include/DynamicallyTypable.h include/PmodConfig.h
+src/JSONStructureChecker.o: include/Boundary.h include/loadFileToBuf.h
 src/LandSurface.o: include/LandSurface.h /usr/local/include/cglm/cglm.h
 src/LandSurface.o: /usr/local/include/cglm/common.h
 src/LandSurface.o: /usr/local/include/cglm/types.h
@@ -1663,12 +1668,20 @@ src/LandSurface.o: include/rapidjson/internal/clzll.h
 src/LandSurface.o: include/rapidjson/internal/pow10.h
 src/LandSurface.o: include/rapidjson/error/error.h
 src/LandSurface.o: include/rapidjson/internal/strfunc.h
-src/LandSurface.o: include/rapidjson/stream.h include/Camera.h
-src/LandSurface.o: include/Shader.h include/HttpDebug.h
+src/LandSurface.o: include/rapidjson/stream.h include/BezierPatch.h
+src/LandSurface.o: include/LandSurfaceRegion.h include/VisualObject.h
+src/LandSurface.o: include/VisualElement.h include/TriangleBuffer.h
+src/LandSurface.o: include/ElementBufferCombo.h include/VertexArrayObject.h
+src/LandSurface.o: include/VertexBufferObject.h /usr/local/include/GL/glew.h
+src/LandSurface.o: /usr/local/include/GLFW/glfw3.h include/Global.h
+src/LandSurface.o: include/Logging.h include/MemoryTracker.h include/Vertex.h
+src/LandSurface.o: include/ElementBufferObject.h include/HttpDebug.h
 src/LandSurface.o: include/HttpRequestParser.h include/TaskQueue.h
-src/LandSurface.o: include/Lockable.h include/Global.h include/PmodDesign.h
-src/LandSurface.o: include/PmodConfig.h include/Timeval.h
-src/LandSurface.o: include/JSONStructureChecker.h include/rapidjson/writer.h
+src/LandSurface.o: include/Lockable.h include/BoundingBox.h
+src/LandSurface.o: include/DynamicallyTypable.h include/Camera.h
+src/LandSurface.o: include/Shader.h include/PmodDesign.h include/PmodConfig.h
+src/LandSurface.o: include/Timeval.h include/JSONStructureChecker.h
+src/LandSurface.o: include/rapidjson/writer.h
 src/LandSurface.o: include/rapidjson/internal/dtoa.h
 src/LandSurface.o: include/rapidjson/internal/itoa.h
 src/LandSurface.o: include/rapidjson/internal/itoa.h
@@ -1677,18 +1690,9 @@ src/LandSurface.o: include/rapidjson/stringbuffer.h
 src/LandSurface.o: include/rapidjson/error/en.h
 src/LandSurface.o: include/rapidjson/error/error.h include/Version.h
 src/LandSurface.o: include/Boundary.h include/TexturedRect.h
-src/LandSurface.o: include/VertexArrayObject.h include/VertexBufferObject.h
-src/LandSurface.o: /usr/local/include/GL/glew.h
-src/LandSurface.o: /usr/local/include/GLFW/glfw3.h include/Logging.h
-src/LandSurface.o: include/MemoryTracker.h include/Vertex.h include/Texture.h
-src/LandSurface.o: include/Quadtree.h include/DisplayList.h
-src/LandSurface.o: include/VisualObject.h include/VisualElement.h
-src/LandSurface.o: include/TriangleBuffer.h include/ElementBufferCombo.h
-src/LandSurface.o: include/ElementBufferObject.h include/BoundingBox.h
-src/LandSurface.o: include/VertexBufferCombo.h include/DynamicallyTypable.h
-src/LandSurface.o: include/LandSurfaceRegion.h
+src/LandSurface.o: include/Texture.h include/Quadtree.h include/DisplayList.h
 src/LandSurface.o: include/LandSurfaceRegionPlanar.h include/HeightMarker.h
-src/LandSurface.o: include/Positionable.h include/BezierPatch.h
+src/LandSurface.o: include/Positionable.h
 src/LandSurfaceRegion.o: include/LandSurfaceRegion.h include/VisualObject.h
 src/LandSurfaceRegion.o: include/VisualElement.h include/TriangleBuffer.h
 src/LandSurfaceRegion.o: include/ElementBufferCombo.h
@@ -1731,9 +1735,7 @@ src/LandSurfaceRegion.o: include/Logging.h include/MemoryTracker.h
 src/LandSurfaceRegion.o: include/Vertex.h include/ElementBufferObject.h
 src/LandSurfaceRegion.o: include/HttpDebug.h include/HttpRequestParser.h
 src/LandSurfaceRegion.o: include/TaskQueue.h include/Lockable.h
-src/LandSurfaceRegion.o: include/BoundingBox.h include/Shader.h
-src/LandSurfaceRegion.o: include/VertexBufferCombo.h
-src/LandSurfaceRegion.o: include/DynamicallyTypable.h
+src/LandSurfaceRegion.o: include/BoundingBox.h include/DynamicallyTypable.h
 src/LandSurfaceRegionPlanar.o: include/LandSurfaceRegionPlanar.h
 src/LandSurfaceRegionPlanar.o: include/LandSurfaceRegion.h
 src/LandSurfaceRegionPlanar.o: include/VisualObject.h include/VisualElement.h
@@ -1780,8 +1782,7 @@ src/LandSurfaceRegionPlanar.o: include/ElementBufferObject.h
 src/LandSurfaceRegionPlanar.o: include/HttpDebug.h
 src/LandSurfaceRegionPlanar.o: include/HttpRequestParser.h
 src/LandSurfaceRegionPlanar.o: include/TaskQueue.h include/Lockable.h
-src/LandSurfaceRegionPlanar.o: include/BoundingBox.h include/Shader.h
-src/LandSurfaceRegionPlanar.o: include/VertexBufferCombo.h
+src/LandSurfaceRegionPlanar.o: include/BoundingBox.h
 src/LandSurfaceRegionPlanar.o: include/DynamicallyTypable.h
 src/LeafModel.o: include/LeafModel.h include/JSONStructureChecker.h
 src/LeafModel.o: include/rapidjson/document.h include/rapidjson/reader.h
@@ -1967,13 +1968,12 @@ src/Logging.o: include/VertexArrayObject.h include/VertexBufferObject.h
 src/Logging.o: /usr/local/include/GL/glew.h /usr/local/include/GLFW/glfw3.h
 src/Logging.o: include/ElementBufferObject.h include/HttpDebug.h
 src/Logging.o: include/HttpRequestParser.h include/TaskQueue.h
-src/Logging.o: include/Lockable.h include/BoundingBox.h include/Shader.h
-src/Logging.o: include/VertexBufferCombo.h include/DynamicallyTypable.h
-src/Logging.o: include/BuildingRect.h include/Orientable.h
-src/Logging.o: include/Positionable.h include/rapidjson/document.h
-src/Logging.o: include/rapidjson/reader.h include/rapidjson/allocators.h
-src/Logging.o: include/rapidjson/rapidjson.h include/rapidjson/stream.h
-src/Logging.o: include/rapidjson/encodings.h
+src/Logging.o: include/Lockable.h include/BoundingBox.h
+src/Logging.o: include/DynamicallyTypable.h include/BuildingRect.h
+src/Logging.o: include/Orientable.h include/Positionable.h
+src/Logging.o: include/rapidjson/document.h include/rapidjson/reader.h
+src/Logging.o: include/rapidjson/allocators.h include/rapidjson/rapidjson.h
+src/Logging.o: include/rapidjson/stream.h include/rapidjson/encodings.h
 src/Logging.o: include/rapidjson/encodedstream.h
 src/Logging.o: include/rapidjson/memorystream.h
 src/Logging.o: include/rapidjson/internal/clzll.h
@@ -2060,7 +2060,14 @@ src/MainSceneWindow.o: include/rapidjson/internal/clzll.h
 src/MainSceneWindow.o: include/rapidjson/internal/pow10.h
 src/MainSceneWindow.o: include/rapidjson/error/error.h
 src/MainSceneWindow.o: include/rapidjson/internal/strfunc.h
-src/MainSceneWindow.o: include/rapidjson/stream.h include/PmodDesign.h
+src/MainSceneWindow.o: include/rapidjson/stream.h include/BezierPatch.h
+src/MainSceneWindow.o: include/LandSurfaceRegion.h include/VisualObject.h
+src/MainSceneWindow.o: include/VisualElement.h include/TriangleBuffer.h
+src/MainSceneWindow.o: include/ElementBufferCombo.h
+src/MainSceneWindow.o: include/ElementBufferObject.h include/HttpDebug.h
+src/MainSceneWindow.o: include/HttpRequestParser.h include/TaskQueue.h
+src/MainSceneWindow.o: include/Lockable.h include/BoundingBox.h
+src/MainSceneWindow.o: include/DynamicallyTypable.h include/PmodDesign.h
 src/MainSceneWindow.o: include/Timeval.h include/JSONStructureChecker.h
 src/MainSceneWindow.o: include/rapidjson/writer.h
 src/MainSceneWindow.o: include/rapidjson/internal/dtoa.h
@@ -2071,14 +2078,7 @@ src/MainSceneWindow.o: include/rapidjson/stringbuffer.h
 src/MainSceneWindow.o: include/rapidjson/error/en.h
 src/MainSceneWindow.o: include/rapidjson/error/error.h include/Version.h
 src/MainSceneWindow.o: include/Boundary.h include/Grid.h include/Quadtree.h
-src/MainSceneWindow.o: include/DisplayList.h include/VisualObject.h
-src/MainSceneWindow.o: include/VisualElement.h include/TriangleBuffer.h
-src/MainSceneWindow.o: include/ElementBufferCombo.h
-src/MainSceneWindow.o: include/ElementBufferObject.h include/HttpDebug.h
-src/MainSceneWindow.o: include/HttpRequestParser.h include/TaskQueue.h
-src/MainSceneWindow.o: include/Lockable.h include/BoundingBox.h
-src/MainSceneWindow.o: include/DynamicallyTypable.h
-src/MainSceneWindow.o: include/LandSurfaceRegion.h
+src/MainSceneWindow.o: include/DisplayList.h
 src/MainSceneWindow.o: include/LandSurfaceRegionPlanar.h include/Material.h
 src/MainSceneWindow.o: include/TextureAtlas.h include/Texture.h
 src/MainSceneWindow.o: include/LightingModel.h include/Species.h
@@ -2193,8 +2193,7 @@ src/MenuAllTree.o: /usr/local/include/GLFW/glfw3.h include/Global.h
 src/MenuAllTree.o: include/Vertex.h include/ElementBufferObject.h
 src/MenuAllTree.o: include/HttpDebug.h include/HttpRequestParser.h
 src/MenuAllTree.o: include/TaskQueue.h include/Lockable.h
-src/MenuAllTree.o: include/BoundingBox.h include/Shader.h
-src/MenuAllTree.o: include/VertexBufferCombo.h include/DynamicallyTypable.h
+src/MenuAllTree.o: include/BoundingBox.h include/DynamicallyTypable.h
 src/MenuAllTree.o: imgui/imgui.h imgui/imconfig.h include/InterfaceAction.h
 src/MenuAllTree.o: include/Species.h include/rapidjson/document.h
 src/MenuAllTree.o: include/rapidjson/reader.h include/rapidjson/allocators.h
@@ -2227,11 +2226,12 @@ src/MenuAllTree.o: include/rapidjson/error/error.h include/LeafModel.h
 src/MenuAllTree.o: include/JSONStructureChecker.h include/Timeval.h
 src/MenuAllTree.o: include/Version.h include/RegionList.h
 src/MenuAllTree.o: include/MenuInterface.h include/Tree.h include/TreePart.h
-src/MenuAllTree.o: include/Quadtree.h include/DisplayList.h
+src/MenuAllTree.o: include/Quadtree.h include/Shader.h include/DisplayList.h
 src/MenuAllTree.o: include/LandSurfaceRegion.h
 src/MenuAllTree.o: include/LandSurfaceRegionPlanar.h include/Scene.h
 src/MenuAllTree.o: include/ColoredAxes.h include/LineStripList.h
-src/MenuAllTree.o: include/PmodConfig.h include/LandSurface.h
+src/MenuAllTree.o: include/VertexBufferCombo.h include/PmodConfig.h
+src/MenuAllTree.o: include/LandSurface.h include/BezierPatch.h
 src/MenuAllTree.o: include/PmodDesign.h include/Boundary.h include/Grid.h
 src/MenuAllTree.o: include/Material.h include/TextureAtlas.h
 src/MenuAllTree.o: include/Texture.h include/LightingModel.h
@@ -2278,12 +2278,11 @@ src/MenuBlockPanel.o: /usr/local/include/GLFW/glfw3.h include/Global.h
 src/MenuBlockPanel.o: include/Vertex.h include/ElementBufferObject.h
 src/MenuBlockPanel.o: include/HttpDebug.h include/HttpRequestParser.h
 src/MenuBlockPanel.o: include/TaskQueue.h include/Lockable.h
-src/MenuBlockPanel.o: include/BoundingBox.h include/Shader.h
-src/MenuBlockPanel.o: include/VertexBufferCombo.h
-src/MenuBlockPanel.o: include/DynamicallyTypable.h imgui/imgui.h
-src/MenuBlockPanel.o: imgui/imconfig.h include/InterfaceAction.h
-src/MenuBlockPanel.o: include/Material.h include/TextureAtlas.h
-src/MenuBlockPanel.o: include/Texture.h include/MenuInterface.h
+src/MenuBlockPanel.o: include/BoundingBox.h include/DynamicallyTypable.h
+src/MenuBlockPanel.o: imgui/imgui.h imgui/imconfig.h
+src/MenuBlockPanel.o: include/InterfaceAction.h include/Material.h
+src/MenuBlockPanel.o: include/TextureAtlas.h include/Texture.h
+src/MenuBlockPanel.o: include/Shader.h include/MenuInterface.h
 src/MenuBlockPanel.o: include/rapidjson/document.h include/rapidjson/reader.h
 src/MenuBlockPanel.o: include/rapidjson/allocators.h
 src/MenuBlockPanel.o: include/rapidjson/rapidjson.h
@@ -2314,11 +2313,12 @@ src/MenuBlockPanel.o: include/rapidjson/stringbuffer.h
 src/MenuBlockPanel.o: include/rapidjson/error/en.h
 src/MenuBlockPanel.o: include/rapidjson/error/error.h include/Scene.h
 src/MenuBlockPanel.o: include/ColoredAxes.h include/LineStripList.h
-src/MenuBlockPanel.o: include/PmodConfig.h include/LandSurface.h
-src/MenuBlockPanel.o: include/PmodDesign.h include/Timeval.h
-src/MenuBlockPanel.o: include/JSONStructureChecker.h include/Version.h
-src/MenuBlockPanel.o: include/Boundary.h include/Grid.h include/Quadtree.h
-src/MenuBlockPanel.o: include/DisplayList.h include/LandSurfaceRegion.h
+src/MenuBlockPanel.o: include/VertexBufferCombo.h include/PmodConfig.h
+src/MenuBlockPanel.o: include/LandSurface.h include/BezierPatch.h
+src/MenuBlockPanel.o: include/LandSurfaceRegion.h include/PmodDesign.h
+src/MenuBlockPanel.o: include/Timeval.h include/JSONStructureChecker.h
+src/MenuBlockPanel.o: include/Version.h include/Boundary.h include/Grid.h
+src/MenuBlockPanel.o: include/Quadtree.h include/DisplayList.h
 src/MenuBlockPanel.o: include/LandSurfaceRegionPlanar.h
 src/MenuBlockPanel.o: include/LightingModel.h include/Species.h
 src/MenuBlockPanel.o: include/LeafModel.h include/CO2Scenario.h
@@ -2364,10 +2364,9 @@ src/MenuErrorPanel.o: /usr/local/include/GLFW/glfw3.h include/Global.h
 src/MenuErrorPanel.o: include/Vertex.h include/ElementBufferObject.h
 src/MenuErrorPanel.o: include/HttpDebug.h include/HttpRequestParser.h
 src/MenuErrorPanel.o: include/TaskQueue.h include/Lockable.h
-src/MenuErrorPanel.o: include/BoundingBox.h include/Shader.h
-src/MenuErrorPanel.o: include/VertexBufferCombo.h
-src/MenuErrorPanel.o: include/DynamicallyTypable.h imgui/imgui.h
-src/MenuErrorPanel.o: imgui/imconfig.h include/InterfaceAction.h
+src/MenuErrorPanel.o: include/BoundingBox.h include/DynamicallyTypable.h
+src/MenuErrorPanel.o: imgui/imgui.h imgui/imconfig.h
+src/MenuErrorPanel.o: include/InterfaceAction.h
 src/MenuFocusOverlay.o: include/MenuFocusOverlay.h include/MenuPanel.h
 src/MenuFocusOverlay.o: include/Logging.h include/MemoryTracker.h
 src/MenuFocusOverlay.o: include/VisualObject.h include/VisualElement.h
@@ -2410,14 +2409,13 @@ src/MenuFocusOverlay.o: /usr/local/include/GLFW/glfw3.h include/Global.h
 src/MenuFocusOverlay.o: include/Vertex.h include/ElementBufferObject.h
 src/MenuFocusOverlay.o: include/HttpDebug.h include/HttpRequestParser.h
 src/MenuFocusOverlay.o: include/TaskQueue.h include/Lockable.h
-src/MenuFocusOverlay.o: include/BoundingBox.h include/Shader.h
-src/MenuFocusOverlay.o: include/VertexBufferCombo.h
-src/MenuFocusOverlay.o: include/DynamicallyTypable.h imgui/imgui.h
-src/MenuFocusOverlay.o: imgui/imconfig.h include/InterfaceAction.h
-src/MenuFocusOverlay.o: include/Window3D.h include/Scene.h
+src/MenuFocusOverlay.o: include/BoundingBox.h include/DynamicallyTypable.h
+src/MenuFocusOverlay.o: imgui/imgui.h imgui/imconfig.h
+src/MenuFocusOverlay.o: include/InterfaceAction.h include/Window3D.h
+src/MenuFocusOverlay.o: include/Scene.h include/Shader.h
 src/MenuFocusOverlay.o: include/ColoredAxes.h include/LineStripList.h
-src/MenuFocusOverlay.o: include/PmodConfig.h include/LandSurface.h
-src/MenuFocusOverlay.o: include/rapidjson/document.h
+src/MenuFocusOverlay.o: include/VertexBufferCombo.h include/PmodConfig.h
+src/MenuFocusOverlay.o: include/LandSurface.h include/rapidjson/document.h
 src/MenuFocusOverlay.o: include/rapidjson/reader.h
 src/MenuFocusOverlay.o: include/rapidjson/allocators.h
 src/MenuFocusOverlay.o: include/rapidjson/rapidjson.h
@@ -2439,7 +2437,8 @@ src/MenuFocusOverlay.o: include/rapidjson/internal/clzll.h
 src/MenuFocusOverlay.o: include/rapidjson/internal/pow10.h
 src/MenuFocusOverlay.o: include/rapidjson/error/error.h
 src/MenuFocusOverlay.o: include/rapidjson/internal/strfunc.h
-src/MenuFocusOverlay.o: include/rapidjson/stream.h include/PmodDesign.h
+src/MenuFocusOverlay.o: include/rapidjson/stream.h include/BezierPatch.h
+src/MenuFocusOverlay.o: include/LandSurfaceRegion.h include/PmodDesign.h
 src/MenuFocusOverlay.o: include/Timeval.h include/JSONStructureChecker.h
 src/MenuFocusOverlay.o: include/rapidjson/writer.h
 src/MenuFocusOverlay.o: include/rapidjson/internal/dtoa.h
@@ -2450,7 +2449,7 @@ src/MenuFocusOverlay.o: include/rapidjson/stringbuffer.h
 src/MenuFocusOverlay.o: include/rapidjson/error/en.h
 src/MenuFocusOverlay.o: include/rapidjson/error/error.h include/Version.h
 src/MenuFocusOverlay.o: include/Boundary.h include/Grid.h include/Quadtree.h
-src/MenuFocusOverlay.o: include/DisplayList.h include/LandSurfaceRegion.h
+src/MenuFocusOverlay.o: include/DisplayList.h
 src/MenuFocusOverlay.o: include/LandSurfaceRegionPlanar.h include/Material.h
 src/MenuFocusOverlay.o: include/TextureAtlas.h include/Texture.h
 src/MenuFocusOverlay.o: include/LightingModel.h include/Species.h
@@ -2499,13 +2498,12 @@ src/MenuGablePanel.o: /usr/local/include/GLFW/glfw3.h include/Global.h
 src/MenuGablePanel.o: include/Vertex.h include/ElementBufferObject.h
 src/MenuGablePanel.o: include/HttpDebug.h include/HttpRequestParser.h
 src/MenuGablePanel.o: include/TaskQueue.h include/Lockable.h
-src/MenuGablePanel.o: include/BoundingBox.h include/Shader.h
-src/MenuGablePanel.o: include/VertexBufferCombo.h
-src/MenuGablePanel.o: include/DynamicallyTypable.h imgui/imgui.h
-src/MenuGablePanel.o: imgui/imconfig.h include/InterfaceAction.h
-src/MenuGablePanel.o: include/Gable.h include/BuildingAssembly.h
-src/MenuGablePanel.o: include/Orientable.h include/Positionable.h
-src/MenuGablePanel.o: include/rapidjson/document.h include/rapidjson/reader.h
+src/MenuGablePanel.o: include/BoundingBox.h include/DynamicallyTypable.h
+src/MenuGablePanel.o: imgui/imgui.h imgui/imconfig.h
+src/MenuGablePanel.o: include/InterfaceAction.h include/Gable.h
+src/MenuGablePanel.o: include/BuildingAssembly.h include/Orientable.h
+src/MenuGablePanel.o: include/Positionable.h include/rapidjson/document.h
+src/MenuGablePanel.o: include/rapidjson/reader.h
 src/MenuGablePanel.o: include/rapidjson/allocators.h
 src/MenuGablePanel.o: include/rapidjson/rapidjson.h
 src/MenuGablePanel.o: include/rapidjson/stream.h
@@ -2535,16 +2533,18 @@ src/MenuGablePanel.o: include/rapidjson/stringbuffer.h
 src/MenuGablePanel.o: include/rapidjson/error/en.h
 src/MenuGablePanel.o: include/rapidjson/error/error.h include/MenuInterface.h
 src/MenuGablePanel.o: include/MenuErrorPanel.h include/Scene.h
-src/MenuGablePanel.o: include/ColoredAxes.h include/LineStripList.h
+src/MenuGablePanel.o: include/Shader.h include/ColoredAxes.h
+src/MenuGablePanel.o: include/LineStripList.h include/VertexBufferCombo.h
 src/MenuGablePanel.o: include/PmodConfig.h include/LandSurface.h
+src/MenuGablePanel.o: include/BezierPatch.h include/LandSurfaceRegion.h
 src/MenuGablePanel.o: include/PmodDesign.h include/Timeval.h
 src/MenuGablePanel.o: include/JSONStructureChecker.h include/Version.h
 src/MenuGablePanel.o: include/Boundary.h include/Grid.h include/Quadtree.h
-src/MenuGablePanel.o: include/DisplayList.h include/LandSurfaceRegion.h
-src/MenuGablePanel.o: include/LandSurfaceRegionPlanar.h include/Material.h
-src/MenuGablePanel.o: include/TextureAtlas.h include/Texture.h
-src/MenuGablePanel.o: include/LightingModel.h include/Species.h
-src/MenuGablePanel.o: include/LeafModel.h include/CO2Scenario.h
+src/MenuGablePanel.o: include/DisplayList.h include/LandSurfaceRegionPlanar.h
+src/MenuGablePanel.o: include/Material.h include/TextureAtlas.h
+src/MenuGablePanel.o: include/Texture.h include/LightingModel.h
+src/MenuGablePanel.o: include/Species.h include/LeafModel.h
+src/MenuGablePanel.o: include/CO2Scenario.h
 src/MenuGenus.o: include/MenuGenus.h include/Species.h
 src/MenuGenus.o: include/DynamicallyTypable.h include/HttpDebug.h
 src/MenuGenus.o: include/HttpRequestParser.h include/TaskQueue.h
@@ -2613,14 +2613,15 @@ src/MenuGenus.o: include/TriangleBuffer.h include/ElementBufferCombo.h
 src/MenuGenus.o: include/VertexArrayObject.h include/VertexBufferObject.h
 src/MenuGenus.o: /usr/local/include/GL/glew.h /usr/local/include/GLFW/glfw3.h
 src/MenuGenus.o: include/Vertex.h include/ElementBufferObject.h
-src/MenuGenus.o: include/BoundingBox.h include/Shader.h
-src/MenuGenus.o: include/VertexBufferCombo.h imgui/imgui.h imgui/imconfig.h
+src/MenuGenus.o: include/BoundingBox.h imgui/imgui.h imgui/imconfig.h
 src/MenuGenus.o: include/InterfaceAction.h include/MenuInterface.h
 src/MenuGenus.o: include/Tree.h include/TreePart.h include/Quadtree.h
-src/MenuGenus.o: include/DisplayList.h include/LandSurfaceRegion.h
+src/MenuGenus.o: include/Shader.h include/DisplayList.h
+src/MenuGenus.o: include/LandSurfaceRegion.h
 src/MenuGenus.o: include/LandSurfaceRegionPlanar.h include/Scene.h
 src/MenuGenus.o: include/ColoredAxes.h include/LineStripList.h
-src/MenuGenus.o: include/PmodConfig.h include/LandSurface.h
+src/MenuGenus.o: include/VertexBufferCombo.h include/PmodConfig.h
+src/MenuGenus.o: include/LandSurface.h include/BezierPatch.h
 src/MenuGenus.o: include/PmodDesign.h include/Boundary.h include/Grid.h
 src/MenuGenus.o: include/Material.h include/TextureAtlas.h include/Texture.h
 src/MenuGenus.o: include/LightingModel.h include/CO2Scenario.h
@@ -2666,11 +2667,10 @@ src/MenuHeightPanel.o: /usr/local/include/GLFW/glfw3.h include/Global.h
 src/MenuHeightPanel.o: include/Vertex.h include/ElementBufferObject.h
 src/MenuHeightPanel.o: include/HttpDebug.h include/HttpRequestParser.h
 src/MenuHeightPanel.o: include/TaskQueue.h include/Lockable.h
-src/MenuHeightPanel.o: include/BoundingBox.h include/Shader.h
-src/MenuHeightPanel.o: include/VertexBufferCombo.h
-src/MenuHeightPanel.o: include/DynamicallyTypable.h imgui/imgui.h
-src/MenuHeightPanel.o: imgui/imconfig.h include/InterfaceAction.h
-src/MenuHeightPanel.o: include/MenuInterface.h include/rapidjson/document.h
+src/MenuHeightPanel.o: include/BoundingBox.h include/DynamicallyTypable.h
+src/MenuHeightPanel.o: imgui/imgui.h imgui/imconfig.h
+src/MenuHeightPanel.o: include/InterfaceAction.h include/MenuInterface.h
+src/MenuHeightPanel.o: include/rapidjson/document.h
 src/MenuHeightPanel.o: include/rapidjson/reader.h
 src/MenuHeightPanel.o: include/rapidjson/allocators.h
 src/MenuHeightPanel.o: include/rapidjson/rapidjson.h
@@ -2700,12 +2700,14 @@ src/MenuHeightPanel.o: include/rapidjson/stringbuffer.h
 src/MenuHeightPanel.o: include/rapidjson/stringbuffer.h
 src/MenuHeightPanel.o: include/rapidjson/error/en.h
 src/MenuHeightPanel.o: include/rapidjson/error/error.h include/Scene.h
-src/MenuHeightPanel.o: include/ColoredAxes.h include/LineStripList.h
+src/MenuHeightPanel.o: include/Shader.h include/ColoredAxes.h
+src/MenuHeightPanel.o: include/LineStripList.h include/VertexBufferCombo.h
 src/MenuHeightPanel.o: include/PmodConfig.h include/LandSurface.h
+src/MenuHeightPanel.o: include/BezierPatch.h include/LandSurfaceRegion.h
 src/MenuHeightPanel.o: include/PmodDesign.h include/Timeval.h
 src/MenuHeightPanel.o: include/JSONStructureChecker.h include/Version.h
 src/MenuHeightPanel.o: include/Boundary.h include/Grid.h include/Quadtree.h
-src/MenuHeightPanel.o: include/DisplayList.h include/LandSurfaceRegion.h
+src/MenuHeightPanel.o: include/DisplayList.h
 src/MenuHeightPanel.o: include/LandSurfaceRegionPlanar.h include/Material.h
 src/MenuHeightPanel.o: include/TextureAtlas.h include/Texture.h
 src/MenuHeightPanel.o: include/LightingModel.h include/Species.h
@@ -2751,8 +2753,7 @@ src/MenuInitPanel.o: /usr/local/include/GLFW/glfw3.h include/Global.h
 src/MenuInitPanel.o: include/Vertex.h include/ElementBufferObject.h
 src/MenuInitPanel.o: include/HttpDebug.h include/HttpRequestParser.h
 src/MenuInitPanel.o: include/TaskQueue.h include/Lockable.h
-src/MenuInitPanel.o: include/BoundingBox.h include/Shader.h
-src/MenuInitPanel.o: include/VertexBufferCombo.h include/DynamicallyTypable.h
+src/MenuInitPanel.o: include/BoundingBox.h include/DynamicallyTypable.h
 src/MenuInitPanel.o: imgui/imgui.h imgui/imconfig.h include/InterfaceAction.h
 src/MenuInitPanel.o: imgui/backends/imgui_impl_opengl3.h
 src/MenuInitPanel.o: imgui/backends/imgui_impl_glfw.h
@@ -2796,8 +2797,7 @@ src/MenuInsert.o: /usr/local/include/GLFW/glfw3.h include/Global.h
 src/MenuInsert.o: include/Vertex.h include/ElementBufferObject.h
 src/MenuInsert.o: include/HttpDebug.h include/HttpRequestParser.h
 src/MenuInsert.o: include/TaskQueue.h include/Lockable.h
-src/MenuInsert.o: include/BoundingBox.h include/Shader.h
-src/MenuInsert.o: include/VertexBufferCombo.h include/DynamicallyTypable.h
+src/MenuInsert.o: include/BoundingBox.h include/DynamicallyTypable.h
 src/MenuInsert.o: imgui/imgui.h imgui/imconfig.h include/InterfaceAction.h
 src/MenuInsert.o: include/MenuBlockPanel.h include/MenuShedPanel.h
 src/MenuInsert.o: include/Shed.h include/BuildingRect.h include/Orientable.h
@@ -2876,10 +2876,9 @@ src/MenuInterface.o: /usr/local/include/GLFW/glfw3.h include/Global.h
 src/MenuInterface.o: include/Vertex.h include/ElementBufferObject.h
 src/MenuInterface.o: include/HttpDebug.h include/HttpRequestParser.h
 src/MenuInterface.o: include/TaskQueue.h include/Lockable.h
-src/MenuInterface.o: include/BoundingBox.h include/Shader.h
-src/MenuInterface.o: include/VertexBufferCombo.h imgui/imgui.h
-src/MenuInterface.o: imgui/imconfig.h include/InterfaceAction.h
-src/MenuInterface.o: include/rapidjson/document.h include/rapidjson/reader.h
+src/MenuInterface.o: include/BoundingBox.h imgui/imgui.h imgui/imconfig.h
+src/MenuInterface.o: include/InterfaceAction.h include/rapidjson/document.h
+src/MenuInterface.o: include/rapidjson/reader.h
 src/MenuInterface.o: include/rapidjson/allocators.h
 src/MenuInterface.o: include/rapidjson/rapidjson.h include/rapidjson/stream.h
 src/MenuInterface.o: include/rapidjson/encodings.h
@@ -2908,15 +2907,15 @@ src/MenuInterface.o: include/rapidjson/stringbuffer.h
 src/MenuInterface.o: include/rapidjson/error/en.h
 src/MenuInterface.o: include/rapidjson/error/error.h include/Material.h
 src/MenuInterface.o: include/TextureAtlas.h include/Texture.h
-src/MenuInterface.o: include/Species.h include/LeafModel.h
+src/MenuInterface.o: include/Shader.h include/Species.h include/LeafModel.h
 src/MenuInterface.o: include/JSONStructureChecker.h include/Timeval.h
 src/MenuInterface.o: include/Version.h include/Window3D.h include/Scene.h
 src/MenuInterface.o: include/ColoredAxes.h include/LineStripList.h
-src/MenuInterface.o: include/PmodConfig.h include/LandSurface.h
-src/MenuInterface.o: include/PmodDesign.h include/Boundary.h include/Grid.h
-src/MenuInterface.o: include/Quadtree.h include/DisplayList.h
-src/MenuInterface.o: include/LandSurfaceRegion.h
-src/MenuInterface.o: include/LandSurfaceRegionPlanar.h
+src/MenuInterface.o: include/VertexBufferCombo.h include/PmodConfig.h
+src/MenuInterface.o: include/LandSurface.h include/BezierPatch.h
+src/MenuInterface.o: include/LandSurfaceRegion.h include/PmodDesign.h
+src/MenuInterface.o: include/Boundary.h include/Grid.h include/Quadtree.h
+src/MenuInterface.o: include/DisplayList.h include/LandSurfaceRegionPlanar.h
 src/MenuInterface.o: include/LightingModel.h include/CO2Scenario.h
 src/MenuInterface.o: include/Camera.h include/GLFWApplication.h
 src/MenuInterface.o: include/MenuShedPanel.h include/Shed.h
@@ -2965,17 +2964,17 @@ src/MenuPanel.o: /usr/local/include/GL/glew.h /usr/local/include/GLFW/glfw3.h
 src/MenuPanel.o: include/Global.h include/Vertex.h
 src/MenuPanel.o: include/ElementBufferObject.h include/HttpDebug.h
 src/MenuPanel.o: include/HttpRequestParser.h include/TaskQueue.h
-src/MenuPanel.o: include/Lockable.h include/BoundingBox.h include/Shader.h
-src/MenuPanel.o: include/VertexBufferCombo.h include/DynamicallyTypable.h
-src/MenuPanel.o: imgui/imgui.h imgui/imconfig.h include/InterfaceAction.h
+src/MenuPanel.o: include/Lockable.h include/BoundingBox.h
+src/MenuPanel.o: include/DynamicallyTypable.h imgui/imgui.h imgui/imconfig.h
+src/MenuPanel.o: include/InterfaceAction.h
 src/MenuPanel.o: imgui/backends/imgui_impl_opengl3.h
 src/MenuPanel.o: imgui/backends/imgui_impl_glfw.h include/Window3D.h
-src/MenuPanel.o: include/Scene.h include/ColoredAxes.h
-src/MenuPanel.o: include/LineStripList.h include/PmodConfig.h
-src/MenuPanel.o: include/LandSurface.h include/rapidjson/document.h
-src/MenuPanel.o: include/rapidjson/reader.h include/rapidjson/allocators.h
-src/MenuPanel.o: include/rapidjson/rapidjson.h include/rapidjson/stream.h
-src/MenuPanel.o: include/rapidjson/encodings.h
+src/MenuPanel.o: include/Scene.h include/Shader.h include/ColoredAxes.h
+src/MenuPanel.o: include/LineStripList.h include/VertexBufferCombo.h
+src/MenuPanel.o: include/PmodConfig.h include/LandSurface.h
+src/MenuPanel.o: include/rapidjson/document.h include/rapidjson/reader.h
+src/MenuPanel.o: include/rapidjson/allocators.h include/rapidjson/rapidjson.h
+src/MenuPanel.o: include/rapidjson/stream.h include/rapidjson/encodings.h
 src/MenuPanel.o: include/rapidjson/encodedstream.h
 src/MenuPanel.o: include/rapidjson/memorystream.h
 src/MenuPanel.o: include/rapidjson/internal/clzll.h
@@ -2992,7 +2991,8 @@ src/MenuPanel.o: include/rapidjson/internal/clzll.h
 src/MenuPanel.o: include/rapidjson/internal/pow10.h
 src/MenuPanel.o: include/rapidjson/error/error.h
 src/MenuPanel.o: include/rapidjson/internal/strfunc.h
-src/MenuPanel.o: include/rapidjson/stream.h include/PmodDesign.h
+src/MenuPanel.o: include/rapidjson/stream.h include/BezierPatch.h
+src/MenuPanel.o: include/LandSurfaceRegion.h include/PmodDesign.h
 src/MenuPanel.o: include/Timeval.h include/JSONStructureChecker.h
 src/MenuPanel.o: include/rapidjson/writer.h include/rapidjson/internal/dtoa.h
 src/MenuPanel.o: include/rapidjson/internal/itoa.h
@@ -3002,7 +3002,6 @@ src/MenuPanel.o: include/rapidjson/stringbuffer.h
 src/MenuPanel.o: include/rapidjson/error/en.h include/rapidjson/error/error.h
 src/MenuPanel.o: include/Version.h include/Boundary.h include/Grid.h
 src/MenuPanel.o: include/Quadtree.h include/DisplayList.h
-src/MenuPanel.o: include/LandSurfaceRegion.h
 src/MenuPanel.o: include/LandSurfaceRegionPlanar.h include/Material.h
 src/MenuPanel.o: include/TextureAtlas.h include/Texture.h
 src/MenuPanel.o: include/LightingModel.h include/Species.h
@@ -3049,8 +3048,7 @@ src/MenuShedPanel.o: /usr/local/include/GLFW/glfw3.h include/Global.h
 src/MenuShedPanel.o: include/Vertex.h include/ElementBufferObject.h
 src/MenuShedPanel.o: include/HttpDebug.h include/HttpRequestParser.h
 src/MenuShedPanel.o: include/TaskQueue.h include/Lockable.h
-src/MenuShedPanel.o: include/BoundingBox.h include/Shader.h
-src/MenuShedPanel.o: include/VertexBufferCombo.h include/DynamicallyTypable.h
+src/MenuShedPanel.o: include/BoundingBox.h include/DynamicallyTypable.h
 src/MenuShedPanel.o: imgui/imgui.h imgui/imconfig.h include/InterfaceAction.h
 src/MenuShedPanel.o: include/Shed.h include/BuildingRect.h
 src/MenuShedPanel.o: include/Orientable.h include/Positionable.h
@@ -3082,7 +3080,8 @@ src/MenuShedPanel.o: include/rapidjson/stringbuffer.h
 src/MenuShedPanel.o: include/rapidjson/stringbuffer.h
 src/MenuShedPanel.o: include/rapidjson/error/en.h
 src/MenuShedPanel.o: include/rapidjson/error/error.h include/PmodDesign.h
-src/MenuShedPanel.o: include/LandSurface.h include/PmodConfig.h
+src/MenuShedPanel.o: include/LandSurface.h include/BezierPatch.h
+src/MenuShedPanel.o: include/LandSurfaceRegion.h include/PmodConfig.h
 src/MenuShedPanel.o: include/Timeval.h include/JSONStructureChecker.h
 src/MenuShedPanel.o: include/Version.h include/Boundary.h
 src/MenuShedPanel.o: include/MenuInterface.h include/MenuErrorPanel.h
@@ -3129,12 +3128,11 @@ src/MenuSimulationPanel.o: /usr/local/include/GLFW/glfw3.h include/Global.h
 src/MenuSimulationPanel.o: include/Vertex.h include/ElementBufferObject.h
 src/MenuSimulationPanel.o: include/HttpDebug.h include/HttpRequestParser.h
 src/MenuSimulationPanel.o: include/TaskQueue.h include/Lockable.h
-src/MenuSimulationPanel.o: include/BoundingBox.h include/Shader.h
-src/MenuSimulationPanel.o: include/VertexBufferCombo.h
-src/MenuSimulationPanel.o: include/DynamicallyTypable.h imgui/imgui.h
-src/MenuSimulationPanel.o: imgui/imconfig.h include/InterfaceAction.h
-src/MenuSimulationPanel.o: include/Shed.h include/BuildingRect.h
-src/MenuSimulationPanel.o: include/Orientable.h include/Positionable.h
+src/MenuSimulationPanel.o: include/BoundingBox.h include/DynamicallyTypable.h
+src/MenuSimulationPanel.o: imgui/imgui.h imgui/imconfig.h
+src/MenuSimulationPanel.o: include/InterfaceAction.h include/Shed.h
+src/MenuSimulationPanel.o: include/BuildingRect.h include/Orientable.h
+src/MenuSimulationPanel.o: include/Positionable.h
 src/MenuSimulationPanel.o: include/rapidjson/document.h
 src/MenuSimulationPanel.o: include/rapidjson/reader.h
 src/MenuSimulationPanel.o: include/rapidjson/allocators.h
@@ -3167,14 +3165,15 @@ src/MenuSimulationPanel.o: include/rapidjson/stringbuffer.h
 src/MenuSimulationPanel.o: include/rapidjson/error/en.h
 src/MenuSimulationPanel.o: include/rapidjson/error/error.h
 src/MenuSimulationPanel.o: include/PmodDesign.h include/LandSurface.h
+src/MenuSimulationPanel.o: include/BezierPatch.h include/LandSurfaceRegion.h
 src/MenuSimulationPanel.o: include/PmodConfig.h include/Timeval.h
 src/MenuSimulationPanel.o: include/JSONStructureChecker.h include/Version.h
 src/MenuSimulationPanel.o: include/Boundary.h include/MenuInterface.h
 src/MenuSimulationPanel.o: include/MenuErrorPanel.h include/LeafModel.h
-src/MenuSimulationPanel.o: include/Scene.h include/ColoredAxes.h
-src/MenuSimulationPanel.o: include/LineStripList.h include/Grid.h
+src/MenuSimulationPanel.o: include/Scene.h include/Shader.h
+src/MenuSimulationPanel.o: include/ColoredAxes.h include/LineStripList.h
+src/MenuSimulationPanel.o: include/VertexBufferCombo.h include/Grid.h
 src/MenuSimulationPanel.o: include/Quadtree.h include/DisplayList.h
-src/MenuSimulationPanel.o: include/LandSurfaceRegion.h
 src/MenuSimulationPanel.o: include/LandSurfaceRegionPlanar.h
 src/MenuSimulationPanel.o: include/Material.h include/TextureAtlas.h
 src/MenuSimulationPanel.o: include/Texture.h include/LightingModel.h
@@ -3242,8 +3241,7 @@ src/MenuTree.o: include/ElementBufferCombo.h include/VertexArrayObject.h
 src/MenuTree.o: include/VertexBufferObject.h /usr/local/include/GL/glew.h
 src/MenuTree.o: /usr/local/include/GLFW/glfw3.h include/Vertex.h
 src/MenuTree.o: include/ElementBufferObject.h include/BoundingBox.h
-src/MenuTree.o: include/Shader.h include/VertexBufferCombo.h imgui/imgui.h
-src/MenuTree.o: imgui/imconfig.h include/InterfaceAction.h
+src/MenuTree.o: imgui/imgui.h imgui/imconfig.h include/InterfaceAction.h
 src/MenuTree.o: include/MenuInterface.h include/MenuGenus.h
 src/MenuTree.o: include/MenuAllTree.h
 src/ObjectGroup.o: include/ObjectGroup.h include/VisualObject.h
@@ -3286,9 +3284,9 @@ src/ObjectGroup.o: /usr/local/include/GLFW/glfw3.h include/Global.h
 src/ObjectGroup.o: include/Logging.h include/MemoryTracker.h include/Vertex.h
 src/ObjectGroup.o: include/ElementBufferObject.h include/HttpDebug.h
 src/ObjectGroup.o: include/HttpRequestParser.h include/TaskQueue.h
-src/ObjectGroup.o: include/Lockable.h include/BoundingBox.h include/Shader.h
-src/ObjectGroup.o: include/VertexBufferCombo.h include/DynamicallyTypable.h
-src/ObjectGroup.o: include/DisplayList.h include/LandSurfaceRegion.h
+src/ObjectGroup.o: include/Lockable.h include/BoundingBox.h
+src/ObjectGroup.o: include/DynamicallyTypable.h include/DisplayList.h
+src/ObjectGroup.o: include/LandSurfaceRegion.h
 src/ObjectInspectorWindow.o: include/ObjectInspectorWindow.h
 src/ObjectInspectorWindow.o: include/Window3D.h include/Scene.h
 src/ObjectInspectorWindow.o: include/Shader.h /usr/local/include/cglm/cglm.h
@@ -3353,8 +3351,18 @@ src/ObjectInspectorWindow.o: include/rapidjson/internal/clzll.h
 src/ObjectInspectorWindow.o: include/rapidjson/internal/pow10.h
 src/ObjectInspectorWindow.o: include/rapidjson/error/error.h
 src/ObjectInspectorWindow.o: include/rapidjson/internal/strfunc.h
-src/ObjectInspectorWindow.o: include/rapidjson/stream.h include/PmodDesign.h
-src/ObjectInspectorWindow.o: include/Timeval.h include/JSONStructureChecker.h
+src/ObjectInspectorWindow.o: include/rapidjson/stream.h include/BezierPatch.h
+src/ObjectInspectorWindow.o: include/LandSurfaceRegion.h
+src/ObjectInspectorWindow.o: include/VisualObject.h include/VisualElement.h
+src/ObjectInspectorWindow.o: include/TriangleBuffer.h
+src/ObjectInspectorWindow.o: include/ElementBufferCombo.h
+src/ObjectInspectorWindow.o: include/ElementBufferObject.h
+src/ObjectInspectorWindow.o: include/HttpDebug.h include/HttpRequestParser.h
+src/ObjectInspectorWindow.o: include/TaskQueue.h include/Lockable.h
+src/ObjectInspectorWindow.o: include/BoundingBox.h
+src/ObjectInspectorWindow.o: include/DynamicallyTypable.h
+src/ObjectInspectorWindow.o: include/PmodDesign.h include/Timeval.h
+src/ObjectInspectorWindow.o: include/JSONStructureChecker.h
 src/ObjectInspectorWindow.o: include/rapidjson/writer.h
 src/ObjectInspectorWindow.o: include/rapidjson/internal/dtoa.h
 src/ObjectInspectorWindow.o: include/rapidjson/internal/itoa.h
@@ -3365,15 +3373,7 @@ src/ObjectInspectorWindow.o: include/rapidjson/error/en.h
 src/ObjectInspectorWindow.o: include/rapidjson/error/error.h
 src/ObjectInspectorWindow.o: include/Version.h include/Boundary.h
 src/ObjectInspectorWindow.o: include/Grid.h include/Quadtree.h
-src/ObjectInspectorWindow.o: include/DisplayList.h include/VisualObject.h
-src/ObjectInspectorWindow.o: include/VisualElement.h include/TriangleBuffer.h
-src/ObjectInspectorWindow.o: include/ElementBufferCombo.h
-src/ObjectInspectorWindow.o: include/ElementBufferObject.h
-src/ObjectInspectorWindow.o: include/HttpDebug.h include/HttpRequestParser.h
-src/ObjectInspectorWindow.o: include/TaskQueue.h include/Lockable.h
-src/ObjectInspectorWindow.o: include/BoundingBox.h
-src/ObjectInspectorWindow.o: include/DynamicallyTypable.h
-src/ObjectInspectorWindow.o: include/LandSurfaceRegion.h
+src/ObjectInspectorWindow.o: include/DisplayList.h
 src/ObjectInspectorWindow.o: include/LandSurfaceRegionPlanar.h
 src/ObjectInspectorWindow.o: include/Material.h include/TextureAtlas.h
 src/ObjectInspectorWindow.o: include/Texture.h include/LightingModel.h
@@ -3447,7 +3447,6 @@ src/PathTube.o: include/Global.h include/Logging.h include/MemoryTracker.h
 src/PathTube.o: include/Vertex.h include/ElementBufferObject.h
 src/PathTube.o: include/HttpDebug.h include/HttpRequestParser.h
 src/PathTube.o: include/TaskQueue.h include/Lockable.h include/BoundingBox.h
-src/PathTube.o: include/Shader.h include/VertexBufferCombo.h
 src/PathTube.o: include/DynamicallyTypable.h include/CircleIterator.h
 src/PmodConfig.o: include/PmodConfig.h
 src/PmodDesign.o: include/PmodDesign.h include/LandSurface.h
@@ -3502,7 +3501,17 @@ src/PmodDesign.o: include/rapidjson/internal/clzll.h
 src/PmodDesign.o: include/rapidjson/internal/pow10.h
 src/PmodDesign.o: include/rapidjson/error/error.h
 src/PmodDesign.o: include/rapidjson/internal/strfunc.h
-src/PmodDesign.o: include/rapidjson/stream.h include/PmodConfig.h
+src/PmodDesign.o: include/rapidjson/stream.h include/BezierPatch.h
+src/PmodDesign.o: include/LandSurfaceRegion.h include/VisualObject.h
+src/PmodDesign.o: include/VisualElement.h include/TriangleBuffer.h
+src/PmodDesign.o: include/ElementBufferCombo.h include/VertexArrayObject.h
+src/PmodDesign.o: include/VertexBufferObject.h /usr/local/include/GL/glew.h
+src/PmodDesign.o: /usr/local/include/GLFW/glfw3.h include/Global.h
+src/PmodDesign.o: include/Logging.h include/MemoryTracker.h include/Vertex.h
+src/PmodDesign.o: include/ElementBufferObject.h include/HttpDebug.h
+src/PmodDesign.o: include/HttpRequestParser.h include/TaskQueue.h
+src/PmodDesign.o: include/Lockable.h include/BoundingBox.h
+src/PmodDesign.o: include/DynamicallyTypable.h include/PmodConfig.h
 src/PmodDesign.o: include/Timeval.h include/JSONStructureChecker.h
 src/PmodDesign.o: include/rapidjson/writer.h
 src/PmodDesign.o: include/rapidjson/internal/dtoa.h
@@ -3513,23 +3522,13 @@ src/PmodDesign.o: include/rapidjson/stringbuffer.h
 src/PmodDesign.o: include/rapidjson/error/en.h
 src/PmodDesign.o: include/rapidjson/error/error.h include/Version.h
 src/PmodDesign.o: include/Boundary.h include/loadFileToBuf.h
-src/PmodDesign.o: include/Logging.h include/MemoryTracker.h include/Global.h
 src/PmodDesign.o: include/Building.h include/ObjectGroup.h
-src/PmodDesign.o: include/VisualObject.h include/VisualElement.h
-src/PmodDesign.o: include/TriangleBuffer.h include/ElementBufferCombo.h
-src/PmodDesign.o: include/VertexArrayObject.h include/VertexBufferObject.h
-src/PmodDesign.o: /usr/local/include/GL/glew.h
-src/PmodDesign.o: /usr/local/include/GLFW/glfw3.h include/Vertex.h
-src/PmodDesign.o: include/ElementBufferObject.h include/HttpDebug.h
-src/PmodDesign.o: include/HttpRequestParser.h include/TaskQueue.h
-src/PmodDesign.o: include/Lockable.h include/BoundingBox.h include/Shader.h
-src/PmodDesign.o: include/VertexBufferCombo.h include/DynamicallyTypable.h
-src/PmodDesign.o: include/DisplayList.h include/LandSurfaceRegion.h
-src/PmodDesign.o: include/Box.h include/Gable.h include/BuildingAssembly.h
-src/PmodDesign.o: include/Orientable.h include/Positionable.h include/Shed.h
+src/PmodDesign.o: include/DisplayList.h include/Box.h include/Gable.h
+src/PmodDesign.o: include/BuildingAssembly.h include/Orientable.h
+src/PmodDesign.o: include/Positionable.h include/Shed.h
 src/PmodDesign.o: include/BuildingRect.h include/Tree.h include/Species.h
 src/PmodDesign.o: include/LeafModel.h include/TreePart.h include/Quadtree.h
-src/PmodDesign.o: include/LandSurfaceRegionPlanar.h
+src/PmodDesign.o: include/Shader.h include/LandSurfaceRegionPlanar.h
 src/Positionable.o: include/Positionable.h /usr/local/include/cglm/cglm.h
 src/Positionable.o: /usr/local/include/cglm/common.h
 src/Positionable.o: /usr/local/include/cglm/types.h
@@ -3597,13 +3596,14 @@ src/Quadtree.o: include/VisualElement.h include/TriangleBuffer.h
 src/Quadtree.o: include/ElementBufferCombo.h include/ElementBufferObject.h
 src/Quadtree.o: include/HttpDebug.h include/HttpRequestParser.h
 src/Quadtree.o: include/TaskQueue.h include/Lockable.h include/BoundingBox.h
-src/Quadtree.o: include/VertexBufferCombo.h include/DynamicallyTypable.h
-src/Quadtree.o: include/LandSurfaceRegion.h include/LandSurfaceRegionPlanar.h
-src/Quadtree.o: include/Scene.h include/ColoredAxes.h include/LineStripList.h
-src/Quadtree.o: include/PmodConfig.h include/LandSurface.h
-src/Quadtree.o: include/rapidjson/document.h include/rapidjson/reader.h
-src/Quadtree.o: include/rapidjson/allocators.h include/rapidjson/rapidjson.h
-src/Quadtree.o: include/rapidjson/stream.h include/rapidjson/encodings.h
+src/Quadtree.o: include/DynamicallyTypable.h include/LandSurfaceRegion.h
+src/Quadtree.o: include/LandSurfaceRegionPlanar.h include/Scene.h
+src/Quadtree.o: include/ColoredAxes.h include/LineStripList.h
+src/Quadtree.o: include/VertexBufferCombo.h include/PmodConfig.h
+src/Quadtree.o: include/LandSurface.h include/rapidjson/document.h
+src/Quadtree.o: include/rapidjson/reader.h include/rapidjson/allocators.h
+src/Quadtree.o: include/rapidjson/rapidjson.h include/rapidjson/stream.h
+src/Quadtree.o: include/rapidjson/encodings.h
 src/Quadtree.o: include/rapidjson/encodedstream.h
 src/Quadtree.o: include/rapidjson/memorystream.h
 src/Quadtree.o: include/rapidjson/internal/clzll.h
@@ -3620,9 +3620,10 @@ src/Quadtree.o: include/rapidjson/internal/clzll.h
 src/Quadtree.o: include/rapidjson/internal/pow10.h
 src/Quadtree.o: include/rapidjson/error/error.h
 src/Quadtree.o: include/rapidjson/internal/strfunc.h
-src/Quadtree.o: include/rapidjson/stream.h include/PmodDesign.h
-src/Quadtree.o: include/Timeval.h include/JSONStructureChecker.h
-src/Quadtree.o: include/rapidjson/writer.h include/rapidjson/internal/dtoa.h
+src/Quadtree.o: include/rapidjson/stream.h include/BezierPatch.h
+src/Quadtree.o: include/PmodDesign.h include/Timeval.h
+src/Quadtree.o: include/JSONStructureChecker.h include/rapidjson/writer.h
+src/Quadtree.o: include/rapidjson/internal/dtoa.h
 src/Quadtree.o: include/rapidjson/internal/itoa.h
 src/Quadtree.o: include/rapidjson/internal/itoa.h
 src/Quadtree.o: include/rapidjson/stringbuffer.h
@@ -3763,7 +3764,14 @@ src/ResourceManager.o: include/rapidjson/internal/clzll.h
 src/ResourceManager.o: include/rapidjson/internal/pow10.h
 src/ResourceManager.o: include/rapidjson/error/error.h
 src/ResourceManager.o: include/rapidjson/internal/strfunc.h
-src/ResourceManager.o: include/rapidjson/stream.h include/PmodDesign.h
+src/ResourceManager.o: include/rapidjson/stream.h include/BezierPatch.h
+src/ResourceManager.o: include/LandSurfaceRegion.h include/VisualObject.h
+src/ResourceManager.o: include/VisualElement.h include/TriangleBuffer.h
+src/ResourceManager.o: include/ElementBufferCombo.h
+src/ResourceManager.o: include/ElementBufferObject.h include/HttpDebug.h
+src/ResourceManager.o: include/HttpRequestParser.h include/TaskQueue.h
+src/ResourceManager.o: include/Lockable.h include/BoundingBox.h
+src/ResourceManager.o: include/DynamicallyTypable.h include/PmodDesign.h
 src/ResourceManager.o: include/Timeval.h include/JSONStructureChecker.h
 src/ResourceManager.o: include/rapidjson/writer.h
 src/ResourceManager.o: include/rapidjson/internal/dtoa.h
@@ -3774,14 +3782,7 @@ src/ResourceManager.o: include/rapidjson/stringbuffer.h
 src/ResourceManager.o: include/rapidjson/error/en.h
 src/ResourceManager.o: include/rapidjson/error/error.h include/Version.h
 src/ResourceManager.o: include/Boundary.h include/Grid.h include/Quadtree.h
-src/ResourceManager.o: include/DisplayList.h include/VisualObject.h
-src/ResourceManager.o: include/VisualElement.h include/TriangleBuffer.h
-src/ResourceManager.o: include/ElementBufferCombo.h
-src/ResourceManager.o: include/ElementBufferObject.h include/HttpDebug.h
-src/ResourceManager.o: include/HttpRequestParser.h include/TaskQueue.h
-src/ResourceManager.o: include/Lockable.h include/BoundingBox.h
-src/ResourceManager.o: include/DynamicallyTypable.h
-src/ResourceManager.o: include/LandSurfaceRegion.h
+src/ResourceManager.o: include/DisplayList.h
 src/ResourceManager.o: include/LandSurfaceRegionPlanar.h include/Material.h
 src/ResourceManager.o: include/TextureAtlas.h include/Texture.h
 src/ResourceManager.o: include/LightingModel.h include/Species.h
@@ -3833,31 +3834,32 @@ src/Scene.o: include/rapidjson/internal/clzll.h
 src/Scene.o: include/rapidjson/internal/pow10.h
 src/Scene.o: include/rapidjson/error/error.h
 src/Scene.o: include/rapidjson/internal/strfunc.h include/rapidjson/stream.h
-src/Scene.o: include/PmodDesign.h include/Timeval.h
-src/Scene.o: include/JSONStructureChecker.h include/rapidjson/writer.h
-src/Scene.o: include/rapidjson/internal/dtoa.h
+src/Scene.o: include/BezierPatch.h include/LandSurfaceRegion.h
+src/Scene.o: include/VisualObject.h include/VisualElement.h
+src/Scene.o: include/TriangleBuffer.h include/ElementBufferCombo.h
+src/Scene.o: include/ElementBufferObject.h include/HttpDebug.h
+src/Scene.o: include/HttpRequestParser.h include/TaskQueue.h
+src/Scene.o: include/Lockable.h include/BoundingBox.h
+src/Scene.o: include/DynamicallyTypable.h include/PmodDesign.h
+src/Scene.o: include/Timeval.h include/JSONStructureChecker.h
+src/Scene.o: include/rapidjson/writer.h include/rapidjson/internal/dtoa.h
 src/Scene.o: include/rapidjson/internal/itoa.h
 src/Scene.o: include/rapidjson/internal/itoa.h
 src/Scene.o: include/rapidjson/stringbuffer.h
 src/Scene.o: include/rapidjson/stringbuffer.h include/rapidjson/error/en.h
 src/Scene.o: include/rapidjson/error/error.h include/Version.h
 src/Scene.o: include/Boundary.h include/Grid.h include/Quadtree.h
-src/Scene.o: include/DisplayList.h include/VisualObject.h
-src/Scene.o: include/VisualElement.h include/TriangleBuffer.h
-src/Scene.o: include/ElementBufferCombo.h include/ElementBufferObject.h
-src/Scene.o: include/HttpDebug.h include/HttpRequestParser.h
-src/Scene.o: include/TaskQueue.h include/Lockable.h include/BoundingBox.h
-src/Scene.o: include/DynamicallyTypable.h include/LandSurfaceRegion.h
-src/Scene.o: include/LandSurfaceRegionPlanar.h include/Material.h
-src/Scene.o: include/TextureAtlas.h include/Texture.h include/LightingModel.h
-src/Scene.o: include/Species.h include/LeafModel.h include/CO2Scenario.h
-src/Scene.o: include/InterfaceAction.h include/SkySampleModel.h
-src/Scene.o: include/ControlGroup.h include/ObjectGroup.h
-src/Scene.o: include/HeightMarker.h include/Positionable.h include/Box.h
-src/Scene.o: include/Tree.h include/TreePart.h include/Building.h
-src/Scene.o: include/Window3D.h include/Camera.h include/MenuInterface.h
-src/Scene.o: include/MenuPanel.h imgui/imgui.h imgui/imconfig.h
-src/Scene.o: include/GLFWApplication.h include/loadFileToBuf.h
+src/Scene.o: include/DisplayList.h include/LandSurfaceRegionPlanar.h
+src/Scene.o: include/Material.h include/TextureAtlas.h include/Texture.h
+src/Scene.o: include/LightingModel.h include/Species.h include/LeafModel.h
+src/Scene.o: include/CO2Scenario.h include/InterfaceAction.h
+src/Scene.o: include/SkySampleModel.h include/ControlGroup.h
+src/Scene.o: include/ObjectGroup.h include/HeightMarker.h
+src/Scene.o: include/Positionable.h include/Box.h include/Tree.h
+src/Scene.o: include/TreePart.h include/Building.h include/Window3D.h
+src/Scene.o: include/Camera.h include/MenuInterface.h include/MenuPanel.h
+src/Scene.o: imgui/imgui.h imgui/imconfig.h include/GLFWApplication.h
+src/Scene.o: include/loadFileToBuf.h include/TexturedRect.h
 src/SemicircularArrow.o: include/SemicircularArrow.h include/PathTube.h
 src/SemicircularArrow.o: include/VisualElement.h include/TriangleBuffer.h
 src/SemicircularArrow.o: include/ElementBufferCombo.h
@@ -3900,10 +3902,8 @@ src/SemicircularArrow.o: include/Logging.h include/MemoryTracker.h
 src/SemicircularArrow.o: include/Vertex.h include/ElementBufferObject.h
 src/SemicircularArrow.o: include/HttpDebug.h include/HttpRequestParser.h
 src/SemicircularArrow.o: include/TaskQueue.h include/Lockable.h
-src/SemicircularArrow.o: include/BoundingBox.h include/Shader.h
-src/SemicircularArrow.o: include/VertexBufferCombo.h
-src/SemicircularArrow.o: include/DynamicallyTypable.h include/VisualObject.h
-src/SemicircularArrow.o: include/CircleIterator.h
+src/SemicircularArrow.o: include/BoundingBox.h include/DynamicallyTypable.h
+src/SemicircularArrow.o: include/VisualObject.h include/CircleIterator.h
 src/Shader.o: include/Shader.h /usr/local/include/cglm/cglm.h
 src/Shader.o: /usr/local/include/cglm/common.h
 src/Shader.o: /usr/local/include/cglm/types.h
@@ -3953,7 +3953,6 @@ src/Shed.o: include/Global.h include/Logging.h include/MemoryTracker.h
 src/Shed.o: include/Vertex.h include/ElementBufferObject.h
 src/Shed.o: include/HttpDebug.h include/HttpRequestParser.h
 src/Shed.o: include/TaskQueue.h include/Lockable.h include/BoundingBox.h
-src/Shed.o: include/Shader.h include/VertexBufferCombo.h
 src/Shed.o: include/DynamicallyTypable.h include/BuildingRect.h
 src/Shed.o: include/Orientable.h include/Positionable.h
 src/Shed.o: include/rapidjson/document.h include/rapidjson/reader.h
@@ -4012,14 +4011,8 @@ src/SkySampleModel.o: /usr/local/include/cglm/bezier.h
 src/SkySampleModel.o: /usr/local/include/cglm/ray.h
 src/SkySampleModel.o: /usr/local/include/cglm/affine2d.h include/Logging.h
 src/SkySampleModel.o: include/MemoryTracker.h include/BoundingBox.h
-src/SkySampleModel.o: include/Shader.h include/VertexBufferCombo.h
-src/SkySampleModel.o: include/VertexArrayObject.h
-src/SkySampleModel.o: include/VertexBufferObject.h
-src/SkySampleModel.o: /usr/local/include/GL/glew.h
-src/SkySampleModel.o: /usr/local/include/GLFW/glfw3.h include/Global.h
-src/SkySampleModel.o: include/Vertex.h include/HttpDebug.h
-src/SkySampleModel.o: include/HttpRequestParser.h include/TaskQueue.h
-src/SkySampleModel.o: include/Lockable.h
+src/SkySampleModel.o: include/HttpDebug.h include/HttpRequestParser.h
+src/SkySampleModel.o: include/TaskQueue.h include/Lockable.h include/Global.h
 src/SolarDatabase.o: include/SolarDatabase.h
 src/Species.o: include/Species.h include/DynamicallyTypable.h
 src/Species.o: include/HttpDebug.h include/HttpRequestParser.h
@@ -4074,7 +4067,15 @@ src/Species.o: include/rapidjson/stringbuffer.h include/rapidjson/error/en.h
 src/Species.o: include/rapidjson/error/error.h include/LeafModel.h
 src/Species.o: include/JSONStructureChecker.h include/Timeval.h
 src/Species.o: include/Version.h include/loadFileToBuf.h include/PmodConfig.h
-src/Species.o: include/PmodDesign.h include/LandSurface.h include/Boundary.h
+src/Species.o: include/PmodDesign.h include/LandSurface.h
+src/Species.o: include/BezierPatch.h include/LandSurfaceRegion.h
+src/Species.o: include/VisualObject.h include/VisualElement.h
+src/Species.o: include/TriangleBuffer.h include/ElementBufferCombo.h
+src/Species.o: include/VertexArrayObject.h include/VertexBufferObject.h
+src/Species.o: /usr/local/include/GL/glew.h /usr/local/include/GLFW/glfw3.h
+src/Species.o: include/Logging.h include/MemoryTracker.h include/Vertex.h
+src/Species.o: include/ElementBufferObject.h include/BoundingBox.h
+src/Species.o: include/Boundary.h
 src/TaskQueue.o: include/TaskQueue.h include/Lockable.h include/Global.h
 src/TaskQueue.o: /usr/local/include/cglm/cglm.h
 src/TaskQueue.o: /usr/local/include/cglm/common.h
@@ -4200,8 +4201,9 @@ src/TextureAtlas.o: /usr/local/include/cglm/ray.h
 src/TextureAtlas.o: /usr/local/include/cglm/affine2d.h include/Logging.h
 src/TextureAtlas.o: include/MemoryTracker.h include/Global.h
 src/TextureAtlas.o: include/stb_image_write.h
-src/TexturedRect.o: include/TexturedRect.h include/Shader.h
-src/TexturedRect.o: /usr/local/include/cglm/cglm.h
+src/TexturedRect.o: include/TexturedRect.h include/VertexArrayObject.h
+src/TexturedRect.o: include/Texture.h /usr/local/include/GL/glew.h
+src/TexturedRect.o: include/Shader.h /usr/local/include/cglm/cglm.h
 src/TexturedRect.o: /usr/local/include/cglm/common.h
 src/TexturedRect.o: /usr/local/include/cglm/types.h
 src/TexturedRect.o: /usr/local/include/cglm/simd/intrin.h
@@ -4232,11 +4234,10 @@ src/TexturedRect.o: /usr/local/include/cglm/curve.h
 src/TexturedRect.o: /usr/local/include/cglm/bezier.h
 src/TexturedRect.o: /usr/local/include/cglm/ray.h
 src/TexturedRect.o: /usr/local/include/cglm/affine2d.h
-src/TexturedRect.o: include/VertexArrayObject.h include/VertexBufferObject.h
-src/TexturedRect.o: /usr/local/include/GL/glew.h
+src/TexturedRect.o: include/VertexBufferObject.h
 src/TexturedRect.o: /usr/local/include/GLFW/glfw3.h include/Global.h
 src/TexturedRect.o: include/Logging.h include/MemoryTracker.h
-src/TexturedRect.o: include/Vertex.h include/Texture.h
+src/TexturedRect.o: include/Vertex.h
 src/Timeval.o: include/Timeval.h include/Global.h
 src/Timeval.o: /usr/local/include/cglm/cglm.h
 src/Timeval.o: /usr/local/include/cglm/common.h
@@ -4286,7 +4287,6 @@ src/Tree.o: include/Global.h include/Logging.h include/MemoryTracker.h
 src/Tree.o: include/Vertex.h include/ElementBufferObject.h
 src/Tree.o: include/HttpDebug.h include/HttpRequestParser.h
 src/Tree.o: include/TaskQueue.h include/Lockable.h include/BoundingBox.h
-src/Tree.o: include/Shader.h include/VertexBufferCombo.h
 src/Tree.o: include/DynamicallyTypable.h include/Species.h
 src/Tree.o: include/rapidjson/document.h include/rapidjson/reader.h
 src/Tree.o: include/rapidjson/allocators.h include/rapidjson/rapidjson.h
@@ -4312,19 +4312,17 @@ src/Tree.o: include/rapidjson/stringbuffer.h include/rapidjson/stringbuffer.h
 src/Tree.o: include/rapidjson/error/en.h include/rapidjson/error/error.h
 src/Tree.o: include/LeafModel.h include/JSONStructureChecker.h
 src/Tree.o: include/Timeval.h include/Version.h include/TreePart.h
-src/Tree.o: include/Quadtree.h include/DisplayList.h
+src/Tree.o: include/Quadtree.h include/Shader.h include/DisplayList.h
 src/Tree.o: include/LandSurfaceRegion.h include/LandSurfaceRegionPlanar.h
 src/Tree.o: include/WoodySegment.h include/Cylinder.h include/AxialElement.h
-src/Tree.o: include/PmodDesign.h include/LandSurface.h include/PmodConfig.h
-src/Tree.o: include/Boundary.h include/Scene.h include/ColoredAxes.h
-src/Tree.o: include/LineStripList.h include/Grid.h include/Material.h
+src/Tree.o: include/PmodDesign.h include/LandSurface.h include/BezierPatch.h
+src/Tree.o: include/PmodConfig.h include/Boundary.h include/Scene.h
+src/Tree.o: include/ColoredAxes.h include/LineStripList.h
+src/Tree.o: include/VertexBufferCombo.h include/Grid.h include/Material.h
 src/Tree.o: include/TextureAtlas.h include/Texture.h include/LightingModel.h
 src/Tree.o: include/CO2Scenario.h include/InterfaceAction.h
 src/Tree.o: include/SkySampleModel.h include/TaskQueueFarm.h
-src/TreePart.o: include/TreePart.h include/HttpDebug.h
-src/TreePart.o: include/HttpRequestParser.h include/TaskQueue.h
-src/TreePart.o: include/Lockable.h include/Global.h
-src/TreePart.o: /usr/local/include/cglm/cglm.h
+src/TreePart.o: include/TreePart.h /usr/local/include/cglm/cglm.h
 src/TreePart.o: /usr/local/include/cglm/common.h
 src/TreePart.o: /usr/local/include/cglm/types.h
 src/TreePart.o: /usr/local/include/cglm/simd/intrin.h
@@ -4348,42 +4346,10 @@ src/TreePart.o: /usr/local/include/cglm/ease.h
 src/TreePart.o: /usr/local/include/cglm/curve.h
 src/TreePart.o: /usr/local/include/cglm/bezier.h
 src/TreePart.o: /usr/local/include/cglm/ray.h
-src/TreePart.o: /usr/local/include/cglm/affine2d.h include/Species.h
-src/TreePart.o: include/DynamicallyTypable.h include/rapidjson/document.h
-src/TreePart.o: include/rapidjson/reader.h include/rapidjson/allocators.h
-src/TreePart.o: include/rapidjson/rapidjson.h include/rapidjson/stream.h
-src/TreePart.o: include/rapidjson/encodings.h
-src/TreePart.o: include/rapidjson/encodedstream.h
-src/TreePart.o: include/rapidjson/memorystream.h
-src/TreePart.o: include/rapidjson/internal/clzll.h
-src/TreePart.o: include/rapidjson/rapidjson.h
-src/TreePart.o: include/rapidjson/internal/meta.h
-src/TreePart.o: include/rapidjson/internal/stack.h
-src/TreePart.o: include/rapidjson/allocators.h
-src/TreePart.o: include/rapidjson/internal/swap.h
-src/TreePart.o: include/rapidjson/internal/strtod.h
-src/TreePart.o: include/rapidjson/internal/ieee754.h
-src/TreePart.o: include/rapidjson/internal/biginteger.h
-src/TreePart.o: include/rapidjson/internal/diyfp.h
-src/TreePart.o: include/rapidjson/internal/clzll.h
-src/TreePart.o: include/rapidjson/internal/pow10.h
-src/TreePart.o: include/rapidjson/error/error.h
-src/TreePart.o: include/rapidjson/internal/strfunc.h
-src/TreePart.o: include/rapidjson/stream.h include/rapidjson/writer.h
-src/TreePart.o: include/rapidjson/internal/dtoa.h
-src/TreePart.o: include/rapidjson/internal/itoa.h
-src/TreePart.o: include/rapidjson/internal/itoa.h
-src/TreePart.o: include/rapidjson/stringbuffer.h
-src/TreePart.o: include/rapidjson/stringbuffer.h include/rapidjson/error/en.h
-src/TreePart.o: include/rapidjson/error/error.h include/LeafModel.h
-src/TreePart.o: include/JSONStructureChecker.h include/Timeval.h
-src/TreePart.o: include/Version.h include/TriangleBuffer.h
-src/TreePart.o: include/ElementBufferCombo.h include/VertexArrayObject.h
-src/TreePart.o: include/VertexBufferObject.h /usr/local/include/GL/glew.h
-src/TreePart.o: /usr/local/include/GLFW/glfw3.h include/Logging.h
-src/TreePart.o: include/MemoryTracker.h include/Vertex.h
-src/TreePart.o: include/ElementBufferObject.h include/BoundingBox.h
-src/TreePart.o: include/Shader.h include/VertexBufferCombo.h
+src/TreePart.o: /usr/local/include/cglm/affine2d.h include/Logging.h
+src/TreePart.o: include/MemoryTracker.h include/HttpDebug.h
+src/TreePart.o: include/HttpRequestParser.h include/TaskQueue.h
+src/TreePart.o: include/Lockable.h include/Global.h
 src/TreeWindow.o: include/TreeWindow.h include/ObjectInspectorWindow.h
 src/TreeWindow.o: include/Window3D.h include/Scene.h include/Shader.h
 src/TreeWindow.o: /usr/local/include/cglm/cglm.h
@@ -4443,9 +4409,15 @@ src/TreeWindow.o: include/rapidjson/internal/clzll.h
 src/TreeWindow.o: include/rapidjson/internal/pow10.h
 src/TreeWindow.o: include/rapidjson/error/error.h
 src/TreeWindow.o: include/rapidjson/internal/strfunc.h
-src/TreeWindow.o: include/rapidjson/stream.h include/PmodDesign.h
-src/TreeWindow.o: include/Timeval.h include/JSONStructureChecker.h
-src/TreeWindow.o: include/rapidjson/writer.h
+src/TreeWindow.o: include/rapidjson/stream.h include/BezierPatch.h
+src/TreeWindow.o: include/LandSurfaceRegion.h include/VisualObject.h
+src/TreeWindow.o: include/VisualElement.h include/TriangleBuffer.h
+src/TreeWindow.o: include/ElementBufferCombo.h include/ElementBufferObject.h
+src/TreeWindow.o: include/HttpDebug.h include/HttpRequestParser.h
+src/TreeWindow.o: include/TaskQueue.h include/Lockable.h
+src/TreeWindow.o: include/BoundingBox.h include/DynamicallyTypable.h
+src/TreeWindow.o: include/PmodDesign.h include/Timeval.h
+src/TreeWindow.o: include/JSONStructureChecker.h include/rapidjson/writer.h
 src/TreeWindow.o: include/rapidjson/internal/dtoa.h
 src/TreeWindow.o: include/rapidjson/internal/itoa.h
 src/TreeWindow.o: include/rapidjson/internal/itoa.h
@@ -4454,15 +4426,8 @@ src/TreeWindow.o: include/rapidjson/stringbuffer.h
 src/TreeWindow.o: include/rapidjson/error/en.h
 src/TreeWindow.o: include/rapidjson/error/error.h include/Version.h
 src/TreeWindow.o: include/Boundary.h include/Grid.h include/Quadtree.h
-src/TreeWindow.o: include/DisplayList.h include/VisualObject.h
-src/TreeWindow.o: include/VisualElement.h include/TriangleBuffer.h
-src/TreeWindow.o: include/ElementBufferCombo.h include/ElementBufferObject.h
-src/TreeWindow.o: include/HttpDebug.h include/HttpRequestParser.h
-src/TreeWindow.o: include/TaskQueue.h include/Lockable.h
-src/TreeWindow.o: include/BoundingBox.h include/DynamicallyTypable.h
-src/TreeWindow.o: include/LandSurfaceRegion.h
-src/TreeWindow.o: include/LandSurfaceRegionPlanar.h include/Material.h
-src/TreeWindow.o: include/TextureAtlas.h include/Texture.h
+src/TreeWindow.o: include/DisplayList.h include/LandSurfaceRegionPlanar.h
+src/TreeWindow.o: include/Material.h include/TextureAtlas.h include/Texture.h
 src/TreeWindow.o: include/LightingModel.h include/Species.h
 src/TreeWindow.o: include/LeafModel.h include/CO2Scenario.h
 src/TreeWindow.o: include/InterfaceAction.h include/Camera.h
@@ -4531,7 +4496,10 @@ src/TriangleBuffer.o: include/rapidjson/internal/clzll.h
 src/TriangleBuffer.o: include/rapidjson/internal/pow10.h
 src/TriangleBuffer.o: include/rapidjson/error/error.h
 src/TriangleBuffer.o: include/rapidjson/internal/strfunc.h
-src/TriangleBuffer.o: include/rapidjson/stream.h include/PmodConfig.h
+src/TriangleBuffer.o: include/rapidjson/stream.h include/BezierPatch.h
+src/TriangleBuffer.o: include/LandSurfaceRegion.h include/VisualObject.h
+src/TriangleBuffer.o: include/VisualElement.h include/BoundingBox.h
+src/TriangleBuffer.o: include/DynamicallyTypable.h include/PmodConfig.h
 src/TriangleBuffer.o: include/Timeval.h include/JSONStructureChecker.h
 src/TriangleBuffer.o: include/rapidjson/writer.h
 src/TriangleBuffer.o: include/rapidjson/internal/dtoa.h
@@ -4541,8 +4509,7 @@ src/TriangleBuffer.o: include/rapidjson/stringbuffer.h
 src/TriangleBuffer.o: include/rapidjson/stringbuffer.h
 src/TriangleBuffer.o: include/rapidjson/error/en.h
 src/TriangleBuffer.o: include/rapidjson/error/error.h include/Version.h
-src/TriangleBuffer.o: include/Boundary.h include/BoundingBox.h
-src/TriangleBuffer.o: include/VertexBufferCombo.h
+src/TriangleBuffer.o: include/Boundary.h
 src/TruncatedCone.o: include/TruncatedCone.h include/AxialElement.h
 src/TruncatedCone.o: include/VisualElement.h include/TriangleBuffer.h
 src/TruncatedCone.o: include/ElementBufferCombo.h include/VertexArrayObject.h
@@ -4584,8 +4551,7 @@ src/TruncatedCone.o: include/Logging.h include/MemoryTracker.h
 src/TruncatedCone.o: include/Vertex.h include/ElementBufferObject.h
 src/TruncatedCone.o: include/HttpDebug.h include/HttpRequestParser.h
 src/TruncatedCone.o: include/TaskQueue.h include/Lockable.h
-src/TruncatedCone.o: include/BoundingBox.h include/Shader.h
-src/TruncatedCone.o: include/VertexBufferCombo.h include/DynamicallyTypable.h
+src/TruncatedCone.o: include/BoundingBox.h include/DynamicallyTypable.h
 src/Version.o: include/Version.h include/rapidjson/document.h
 src/Version.o: include/rapidjson/reader.h include/rapidjson/allocators.h
 src/Version.o: include/rapidjson/rapidjson.h include/rapidjson/stream.h
@@ -4664,7 +4630,7 @@ src/Vertex.o: /usr/local/include/GL/glew.h /usr/local/include/GLFW/glfw3.h
 src/Vertex.o: include/ElementBufferObject.h include/HttpDebug.h
 src/Vertex.o: include/HttpRequestParser.h include/TaskQueue.h
 src/Vertex.o: include/Lockable.h include/BoundingBox.h
-src/Vertex.o: include/VertexBufferCombo.h include/DynamicallyTypable.h
+src/Vertex.o: include/DynamicallyTypable.h
 src/VertexArrayObject.o: include/VertexArrayObject.h include/Shader.h
 src/VertexArrayObject.o: /usr/local/include/cglm/cglm.h
 src/VertexArrayObject.o: /usr/local/include/cglm/common.h
@@ -4813,8 +4779,7 @@ src/VisualElement.o: include/Logging.h include/MemoryTracker.h
 src/VisualElement.o: include/Vertex.h include/ElementBufferObject.h
 src/VisualElement.o: include/HttpDebug.h include/HttpRequestParser.h
 src/VisualElement.o: include/TaskQueue.h include/Lockable.h
-src/VisualElement.o: include/BoundingBox.h include/Shader.h
-src/VisualElement.o: include/VertexBufferCombo.h include/DynamicallyTypable.h
+src/VisualElement.o: include/BoundingBox.h include/DynamicallyTypable.h
 src/VisualLayer.o: include/VisualLayer.h
 src/VisualObject.o: include/VisualObject.h include/VisualElement.h
 src/VisualObject.o: include/TriangleBuffer.h include/ElementBufferCombo.h
@@ -4856,11 +4821,10 @@ src/VisualObject.o: include/Logging.h include/MemoryTracker.h
 src/VisualObject.o: include/Vertex.h include/ElementBufferObject.h
 src/VisualObject.o: include/HttpDebug.h include/HttpRequestParser.h
 src/VisualObject.o: include/TaskQueue.h include/Lockable.h
-src/VisualObject.o: include/BoundingBox.h include/Shader.h
-src/VisualObject.o: include/VertexBufferCombo.h include/DynamicallyTypable.h
+src/VisualObject.o: include/BoundingBox.h include/DynamicallyTypable.h
 src/VisualObject.o: include/LandSurfaceRegion.h include/Quadtree.h
-src/VisualObject.o: include/DisplayList.h include/LandSurfaceRegionPlanar.h
-src/VisualObject.o: include/ObjectGroup.h
+src/VisualObject.o: include/Shader.h include/DisplayList.h
+src/VisualObject.o: include/LandSurfaceRegionPlanar.h include/ObjectGroup.h
 src/Window3D.o: include/Window3D.h include/Scene.h include/Shader.h
 src/Window3D.o: /usr/local/include/cglm/cglm.h
 src/Window3D.o: /usr/local/include/cglm/common.h
@@ -4911,7 +4875,13 @@ src/Window3D.o: include/rapidjson/internal/clzll.h
 src/Window3D.o: include/rapidjson/internal/pow10.h
 src/Window3D.o: include/rapidjson/error/error.h
 src/Window3D.o: include/rapidjson/internal/strfunc.h
-src/Window3D.o: include/rapidjson/stream.h include/PmodDesign.h
+src/Window3D.o: include/rapidjson/stream.h include/BezierPatch.h
+src/Window3D.o: include/LandSurfaceRegion.h include/VisualObject.h
+src/Window3D.o: include/VisualElement.h include/TriangleBuffer.h
+src/Window3D.o: include/ElementBufferCombo.h include/ElementBufferObject.h
+src/Window3D.o: include/HttpDebug.h include/HttpRequestParser.h
+src/Window3D.o: include/TaskQueue.h include/Lockable.h include/BoundingBox.h
+src/Window3D.o: include/DynamicallyTypable.h include/PmodDesign.h
 src/Window3D.o: include/Timeval.h include/JSONStructureChecker.h
 src/Window3D.o: include/rapidjson/writer.h include/rapidjson/internal/dtoa.h
 src/Window3D.o: include/rapidjson/internal/itoa.h
@@ -4920,14 +4890,8 @@ src/Window3D.o: include/rapidjson/stringbuffer.h
 src/Window3D.o: include/rapidjson/stringbuffer.h include/rapidjson/error/en.h
 src/Window3D.o: include/rapidjson/error/error.h include/Version.h
 src/Window3D.o: include/Boundary.h include/Grid.h include/Quadtree.h
-src/Window3D.o: include/DisplayList.h include/VisualObject.h
-src/Window3D.o: include/VisualElement.h include/TriangleBuffer.h
-src/Window3D.o: include/ElementBufferCombo.h include/ElementBufferObject.h
-src/Window3D.o: include/HttpDebug.h include/HttpRequestParser.h
-src/Window3D.o: include/TaskQueue.h include/Lockable.h include/BoundingBox.h
-src/Window3D.o: include/DynamicallyTypable.h include/LandSurfaceRegion.h
-src/Window3D.o: include/LandSurfaceRegionPlanar.h include/Material.h
-src/Window3D.o: include/TextureAtlas.h include/Texture.h
+src/Window3D.o: include/DisplayList.h include/LandSurfaceRegionPlanar.h
+src/Window3D.o: include/Material.h include/TextureAtlas.h include/Texture.h
 src/Window3D.o: include/LightingModel.h include/Species.h include/LeafModel.h
 src/Window3D.o: include/CO2Scenario.h include/InterfaceAction.h
 src/Window3D.o: include/Camera.h include/MenuInterface.h include/MenuPanel.h
@@ -4936,8 +4900,6 @@ src/Window3D.o: include/PmodException.h include/MenuInsert.h
 src/Window3D.o: include/MenuInitPanel.h imgui/backends/imgui_impl_opengl3.h
 src/Window3D.o: imgui/backends/imgui_impl_glfw.h
 src/WoodySegment.o: include/WoodySegment.h include/TreePart.h
-src/WoodySegment.o: include/HttpDebug.h include/HttpRequestParser.h
-src/WoodySegment.o: include/TaskQueue.h include/Lockable.h include/Global.h
 src/WoodySegment.o: /usr/local/include/cglm/cglm.h
 src/WoodySegment.o: /usr/local/include/cglm/common.h
 src/WoodySegment.o: /usr/local/include/cglm/types.h
@@ -4968,9 +4930,20 @@ src/WoodySegment.o: /usr/local/include/cglm/ease.h
 src/WoodySegment.o: /usr/local/include/cglm/curve.h
 src/WoodySegment.o: /usr/local/include/cglm/bezier.h
 src/WoodySegment.o: /usr/local/include/cglm/ray.h
-src/WoodySegment.o: /usr/local/include/cglm/affine2d.h include/Species.h
-src/WoodySegment.o: include/DynamicallyTypable.h include/rapidjson/document.h
-src/WoodySegment.o: include/rapidjson/reader.h include/rapidjson/allocators.h
+src/WoodySegment.o: /usr/local/include/cglm/affine2d.h include/Logging.h
+src/WoodySegment.o: include/MemoryTracker.h include/Cylinder.h
+src/WoodySegment.o: include/AxialElement.h include/VisualElement.h
+src/WoodySegment.o: include/TriangleBuffer.h include/ElementBufferCombo.h
+src/WoodySegment.o: include/VertexArrayObject.h include/VertexBufferObject.h
+src/WoodySegment.o: /usr/local/include/GL/glew.h
+src/WoodySegment.o: /usr/local/include/GLFW/glfw3.h include/Global.h
+src/WoodySegment.o: include/Vertex.h include/ElementBufferObject.h
+src/WoodySegment.o: include/HttpDebug.h include/HttpRequestParser.h
+src/WoodySegment.o: include/TaskQueue.h include/Lockable.h
+src/WoodySegment.o: include/BoundingBox.h include/DynamicallyTypable.h
+src/WoodySegment.o: include/PmodDesign.h include/LandSurface.h
+src/WoodySegment.o: include/rapidjson/document.h include/rapidjson/reader.h
+src/WoodySegment.o: include/rapidjson/allocators.h
 src/WoodySegment.o: include/rapidjson/rapidjson.h include/rapidjson/stream.h
 src/WoodySegment.o: include/rapidjson/encodings.h
 src/WoodySegment.o: include/rapidjson/encodedstream.h
@@ -4989,29 +4962,21 @@ src/WoodySegment.o: include/rapidjson/internal/clzll.h
 src/WoodySegment.o: include/rapidjson/internal/pow10.h
 src/WoodySegment.o: include/rapidjson/error/error.h
 src/WoodySegment.o: include/rapidjson/internal/strfunc.h
-src/WoodySegment.o: include/rapidjson/stream.h include/rapidjson/writer.h
+src/WoodySegment.o: include/rapidjson/stream.h include/BezierPatch.h
+src/WoodySegment.o: include/LandSurfaceRegion.h include/VisualObject.h
+src/WoodySegment.o: include/PmodConfig.h include/Timeval.h
+src/WoodySegment.o: include/JSONStructureChecker.h include/rapidjson/writer.h
 src/WoodySegment.o: include/rapidjson/internal/dtoa.h
 src/WoodySegment.o: include/rapidjson/internal/itoa.h
 src/WoodySegment.o: include/rapidjson/internal/itoa.h
 src/WoodySegment.o: include/rapidjson/stringbuffer.h
 src/WoodySegment.o: include/rapidjson/stringbuffer.h
 src/WoodySegment.o: include/rapidjson/error/en.h
-src/WoodySegment.o: include/rapidjson/error/error.h include/LeafModel.h
-src/WoodySegment.o: include/JSONStructureChecker.h include/Timeval.h
-src/WoodySegment.o: include/Version.h include/TriangleBuffer.h
-src/WoodySegment.o: include/ElementBufferCombo.h include/VertexArrayObject.h
-src/WoodySegment.o: include/VertexBufferObject.h /usr/local/include/GL/glew.h
-src/WoodySegment.o: /usr/local/include/GLFW/glfw3.h include/Logging.h
-src/WoodySegment.o: include/MemoryTracker.h include/Vertex.h
-src/WoodySegment.o: include/ElementBufferObject.h include/BoundingBox.h
-src/WoodySegment.o: include/Shader.h include/VertexBufferCombo.h
-src/WoodySegment.o: include/Cylinder.h include/AxialElement.h
-src/WoodySegment.o: include/VisualElement.h include/PmodDesign.h
-src/WoodySegment.o: include/LandSurface.h include/PmodConfig.h
-src/WoodySegment.o: include/Boundary.h include/Tree.h include/VisualObject.h
-src/WoodySegment.o: include/Quadtree.h include/DisplayList.h
-src/WoodySegment.o: include/LandSurfaceRegion.h
-src/WoodySegment.o: include/LandSurfaceRegionPlanar.h include/TruncatedCone.h
+src/WoodySegment.o: include/rapidjson/error/error.h include/Version.h
+src/WoodySegment.o: include/Boundary.h include/Tree.h include/Species.h
+src/WoodySegment.o: include/LeafModel.h include/Quadtree.h include/Shader.h
+src/WoodySegment.o: include/DisplayList.h include/LandSurfaceRegionPlanar.h
+src/WoodySegment.o: include/TruncatedCone.h
 src/imgui.o: imgui/imgui.h imgui/imconfig.h imgui/imgui_internal.h
 src/imgui.o: imgui/imstb_textedit.h
 src/imgui_demo.o: imgui/imgui.h imgui/imconfig.h
@@ -5070,20 +5035,21 @@ src/main.o: include/rapidjson/internal/clzll.h
 src/main.o: include/rapidjson/internal/pow10.h
 src/main.o: include/rapidjson/error/error.h
 src/main.o: include/rapidjson/internal/strfunc.h include/rapidjson/stream.h
-src/main.o: include/PmodDesign.h include/Timeval.h
-src/main.o: include/JSONStructureChecker.h include/rapidjson/writer.h
-src/main.o: include/rapidjson/internal/dtoa.h
+src/main.o: include/BezierPatch.h include/LandSurfaceRegion.h
+src/main.o: include/VisualObject.h include/VisualElement.h
+src/main.o: include/TriangleBuffer.h include/ElementBufferCombo.h
+src/main.o: include/ElementBufferObject.h include/HttpDebug.h
+src/main.o: include/HttpRequestParser.h include/TaskQueue.h
+src/main.o: include/Lockable.h include/BoundingBox.h
+src/main.o: include/DynamicallyTypable.h include/PmodDesign.h
+src/main.o: include/Timeval.h include/JSONStructureChecker.h
+src/main.o: include/rapidjson/writer.h include/rapidjson/internal/dtoa.h
 src/main.o: include/rapidjson/internal/itoa.h
 src/main.o: include/rapidjson/internal/itoa.h
 src/main.o: include/rapidjson/stringbuffer.h include/rapidjson/stringbuffer.h
 src/main.o: include/rapidjson/error/en.h include/rapidjson/error/error.h
 src/main.o: include/Version.h include/Boundary.h include/Grid.h
-src/main.o: include/Quadtree.h include/DisplayList.h include/VisualObject.h
-src/main.o: include/VisualElement.h include/TriangleBuffer.h
-src/main.o: include/ElementBufferCombo.h include/ElementBufferObject.h
-src/main.o: include/HttpDebug.h include/HttpRequestParser.h
-src/main.o: include/TaskQueue.h include/Lockable.h include/BoundingBox.h
-src/main.o: include/DynamicallyTypable.h include/LandSurfaceRegion.h
+src/main.o: include/Quadtree.h include/DisplayList.h
 src/main.o: include/LandSurfaceRegionPlanar.h include/Material.h
 src/main.o: include/TextureAtlas.h include/Texture.h include/LightingModel.h
 src/main.o: include/Species.h include/LeafModel.h include/CO2Scenario.h

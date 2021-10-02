@@ -1,6 +1,4 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Mar 2021 -
-// Class to model/manipulate OLDF, OTDL, etc version numbers.
-
 
 #ifndef VERSION_H
 #define VERSION_H
@@ -12,8 +10,9 @@
 
 
 // =======================================================================================
-// Class variable initialization
-
+/// @brief Class to model/manipulate OLDF, OTDL, etc version numbers.  These generally
+/// have three components, a major version number, a minor version number, and an 
+/// increment/
 
 class Version
 {
@@ -45,7 +44,7 @@ class Version
 };
 
 
-#endif
+// =======================================================================================
 
 #ifndef VERSION_IMPLEMENTATION
 extern Version currentOLDFVersion;
@@ -53,3 +52,8 @@ extern Version currentOTDLVersion;
 #endif
 
 void setExternVersions(void);
+
+#endif
+
+
+// =======================================================================================

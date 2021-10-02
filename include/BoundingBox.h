@@ -4,9 +4,15 @@
 #define BOUNDING_BOX_H
 
 #include <cglm/cglm.h>
-#include "Shader.h"
-#include "VertexBufferCombo.h"
-#include "HttpDebug.h"
+
+
+// =======================================================================================
+// Forward declarations
+
+class Shader;
+class VertexBufferCombo;
+class HttpDebug;
+class Vertex;
 
 
 // =======================================================================================

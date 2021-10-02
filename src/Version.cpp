@@ -8,14 +8,17 @@
 #include <cstdio>
 #include <err.h>
 
-char Version::buf[64];
-
 // =======================================================================================
-// Utility function to set globally useful version values.
+// Static variables etc
 
+char Version::buf[64];
 bool externVersionsSet = false;
 Version currentOLDFVersion;
 Version currentOTDLVersion;
+
+
+// =======================================================================================
+/// @brief Utility function to set globally useful version values.
 
 void setExternVersions(void)
 {
@@ -26,7 +29,11 @@ void setExternVersions(void)
 
 
 // =======================================================================================
-// Constructors
+/// @brief Constructor
+/// @param major The major version number
+/// @param minor The minor version number
+/// @param increment The increment (Ie version numbers are like 1.2.17, meaning the 17th
+/// increment of version 1.2).
 
 Version::Version(unsigned major, unsigned minor, unsigned increment)
 {
@@ -37,7 +44,7 @@ Version::Version(unsigned major, unsigned minor, unsigned increment)
 
 
 // =======================================================================================
-// Destructor
+/// @brief Destructor
 
 Version::~Version(void)
 {
@@ -45,7 +52,11 @@ Version::~Version(void)
 
 
 // =======================================================================================
-// Set function, for when we have to change it after creation.
+/// @brief Set function, for when we have to change the version after creation.
+/// @param major The major version number
+/// @param minor The minor version number
+/// @param increment The increment (Ie version numbers are like 1.2.17, meaning the 17th
+/// increment of version 1.2).
 
 void Version::set(unsigned major, unsigned minor, unsigned increment)
 {
@@ -56,8 +67,9 @@ void Version::set(unsigned major, unsigned minor, unsigned increment)
 
 
 // =======================================================================================
-// Print in our static buffer a JSON array version, and return a ptr to it.
-// Not thread-safe.
+/// @brief Print in our static buffer a JSON array version
+/// @returns A ptr to the JSON array text in our static buffer.
+/// Note this is not thread-safe.
 
 char* Version::printJSON(void)
 {
@@ -67,7 +79,7 @@ char* Version::printJSON(void)
 
 
 // =======================================================================================
-// Assignment operator
+/// @brief Assignment operator
 
 void Version::operator=(const Version& inward)
 {
@@ -76,7 +88,7 @@ void Version::operator=(const Version& inward)
 
 
 // =======================================================================================
-// Subscript operator
+/// @brief Subscript operator so, eg, you can say ver[1] and get the minor number.
 
 unsigned Version::operator[] (int i)
 {

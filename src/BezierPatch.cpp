@@ -4,6 +4,8 @@
 
 #include "BezierPatch.h"
 #include "HeightMarker.h"
+#include "Quadtree.h"
+#include "DisplayList.h"
 #include "Arrow.h"
 #include <err.h>
 

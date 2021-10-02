@@ -7,6 +7,8 @@
 
 #include "BoundingBox.h"
 #include "Shader.h"
+#include "Vertex.h"
+#include "HttpDebug.h"
 #include <assert.h>
 #include <math.h>
 #include <cstdio>
