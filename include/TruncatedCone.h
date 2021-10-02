@@ -1,14 +1,15 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Mar 2021 -
-// Class for rendering a section of a cone cut off at right angles at both ends.
-// Used for rendering sections of tree-trunks and the like.
 
 #ifndef TRUNCATED_CONE_H
 #define TRUNCATED_CONE_H
 
 #include "AxialElement.h"
 
+
 // =======================================================================================
-// Class variable initialization
+/// @brief Render a section of a cone cut off at right angles at both ends.
+/// This is used for rendering sections of tree-trunks and the like.  Most of the 
+/// implementation is inherited from AxialElement.
 
 class TruncatedCone: public AxialElement
 {
@@ -33,6 +34,9 @@ class TruncatedCone: public AxialElement
   TruncatedCone(const TruncatedCone&);                 // Prevent copy-construction
   TruncatedCone& operator=(const TruncatedCone&);      // Prevent assignment
 };
+
+
+// =======================================================================================
 
 #endif
 

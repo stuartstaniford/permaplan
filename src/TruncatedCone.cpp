@@ -8,7 +8,12 @@
 
 
 // =======================================================================================
-// Constructors.
+/// @brief Constructor.
+/// @param root A vector to the base of the axis of the cone.
+/// @param dir A vector of the length and direction of the axis of the truncated cone.
+/// @param r The (float) small radius at the truncated top of the cylinder.
+/// @param R The (float) large radius at the base of the cylinder.
+/// @param S An unsigned for the number of sides to use in approximating the cylinder.
 
 TruncatedCone::TruncatedCone(vec3 root, vec3 dir, float r, float R, unsigned S):
                                                   AxialElement(root, dir, R, S),
@@ -21,7 +26,7 @@ TruncatedCone::TruncatedCone(vec3 root, vec3 dir, float r, float R, unsigned S):
 
 
 // =======================================================================================
-// Destructor
+/// @brief Destructor
 
 TruncatedCone::~TruncatedCone(void)
 {
@@ -29,9 +34,8 @@ TruncatedCone::~TruncatedCone(void)
 
 
 // =======================================================================================
-// Function to print out in JSON format.
-
-#define bufprintf(...) if((buf += snprintf(buf, end-buf,  __VA_ARGS__)) >= end) {return -1;}
+/// @brief Function to print out in JSON format.
+/// @todo not implemented.
 
 int TruncatedCone::printOPSF(char*& buf, unsigned bufSize)
 {
@@ -42,7 +46,8 @@ int TruncatedCone::printOPSF(char*& buf, unsigned bufSize)
 
 
 // =======================================================================================
-// Tell callers our name at runtime.
+/// @brief Tell callers our name at runtime.
+/// @returns A const pointer to a C-string with the name.
 
 const char* TruncatedCone::objectName(void)
 {
@@ -52,8 +57,12 @@ const char* TruncatedCone::objectName(void)
 
 
 // =======================================================================================
-// We assume we are part of a table of visual objects and we just contribute one row
-// about this particular HeightMarker.
+/// @brief Report on our object to an HTTP page.
+/// 
+/// We assume we are part of a table of visual objects and we just contribute 
+/// one row about this particular object.  This is the version called from Quadtree pages
+/// @returns True if the desired HTML was written correctly, false if we ran out of space.
+/// @param serv The HTTP Debug server
 
 bool TruncatedCone::diagnosticHTML(HttpDebug* serv)
 {
