@@ -133,7 +133,9 @@ void Species::initializeOverViewData(Value& overviewData)
 
 
 // =======================================================================================
-// Subroutine for the constructor to handle the wood data
+/// @brief Subroutine for the constructor to handle the wood data in the OTDL doc.
+/// @param otdlDoc A reference to the rapidson::Document for the OTDL file describing
+/// this species.
 
 void Species::initializeWoodData(Document& otdlDoc)
 {
@@ -208,8 +210,8 @@ void Species::initializeWoodData(Document& otdlDoc)
 
 
 // =======================================================================================
-// Destructor - currently should never be called as species stay around for the life of
-// the program.
+/// @brief Destructor currently should never be called as species stay around for the 
+/// life of the program.
 
 Species::~Species(void)
 {
@@ -217,12 +219,16 @@ Species::~Species(void)
 
 
 // =======================================================================================
-// Braindead trunk growth model that assumes that growth follows a logistic function,
-// specifically that a tree of age zero corresponds to -5, and that at maxAge/2 (for the
-// species) the tree will have reached maxHeight/2 and maxRadius/2, which will correspond
-// to +5 on the logistic curve x-axis.
-// See https://en.wikipedia.org/wiki/Logistic_function
-// for reference.
+/// @brief Simple tree growth model following a logistic curve.
+///
+/// Braindead trunk growth model that assumes that growth follows a logistic 
+/// function, specifically that a tree of age zero corresponds to -5, and that at 
+/// maxAge/2 (for the species) the tree will have reached maxHeight/2 and maxRadius/2, 
+/// which will correspond to +5 on the logistic curve x-axis. See
+/// https://en.wikipedia.org/wiki/Logistic_function for reference.
+/// @param age The float age of the tree in years
+/// @param radius A reference to a float to store the new radius.
+/// @param height A reference to a float to store the new height
 
 void Species::logisticGrowthModel(float age, float& radius, float& height)
 {
@@ -246,7 +252,9 @@ void Species::logisticGrowthModel(float age, float& radius, float& height)
 
 
 // =======================================================================================
-// Extract and store the bark colors for later use in visualization.
+/// @brief Extract and store the bark colors for later use in visualization.
+/// @param colorsArray The section of OTDL/JSON with the array associated with the 
+/// barkColors tag.
 
 void Species::extractBarkColors(Value& colorsArray)
 {
