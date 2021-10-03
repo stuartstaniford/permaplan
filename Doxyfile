@@ -957,6 +957,7 @@ INPUT                  = doc \
                 include/VisualLayer.h src/VisualLayer.cpp \
                 include/VisualObject.h src/VisualObject.cpp \
                 include/Window3D.h src/Window3D.cpp \
+                include/WoodySegment.h src/WoodySegment.cpp \
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding. Doxygen uses

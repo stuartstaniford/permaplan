@@ -1,12 +1,10 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Jan 2021 -
-// This class manages a segment of a trunk/branch/stem of a woody plant or tree.  It
-// models the heartwood/sapwood/bark, etc.
 
 #ifndef WOODY_SEGMENT_H
 #define WOODY_SEGMENT_H
 
-#include <vector>
 #include "TreePart.h"
+#include <vector>
 
 #define WOOD_SEG_SIDES 10   //XX initial hack that needs to be made more LOD
 
@@ -19,7 +17,10 @@ class AxialElement;
 
 
 // =======================================================================================
-// Class variable initialization
+/// @brief Model a segment of branch/trunk in a plant.
+/// 
+/// This class manages a segment of a trunk/branch/stem of a woody plant or tree.  It
+/// models the heartwood/sapwood/bark, etc.
 
 class WoodySegment: public TreePart
 {
