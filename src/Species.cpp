@@ -410,7 +410,10 @@ bool Species::validateBarkTextures(Value& obj)
 
 
 // =======================================================================================
-// Validate the bark colors section of an OTDL object.
+/// @brief Validate the bark colors section of an OTDL object.
+/// @returns True if the syntax is correct, false otherwise.
+/// @param colorsArray The section of OTDL/JSON with the array associated with the 
+/// barkColors tag.
 
 bool Species::validateBarkColors(Value& colorsArray)
 {
@@ -477,8 +480,11 @@ bool Species::validateBarkColors(Value& colorsArray)
 
 
 // =======================================================================================
-// Validate the wood section of an OTDL object.  This is the version for a standalone
-// object with no parent.
+/// @brief Validate the wood section of an OTDL object.  
+/// 
+/// @returns True if the syntax is correct, false otherwise.
+/// @param doc A reference to the rapidson::Document for the OTDL file describing
+/// this species.
 
 bool Species::validateWood(Document& doc)
 {
@@ -546,7 +552,13 @@ bool Species::validateWood(Document& doc)
 
 
 // =======================================================================================
-// Validate OTDL/JSON structure of the type of tree we are.
+/// @brief Validate OTDL/JSON structure of the type of tree we are.
+///
+/// This coordinates the overall process of validating OTDL.  It relies on different
+/// subroutines above to check the individual sections.
+/// @returns True if the syntax is correct, false otherwise.
+/// @param doc A reference to the rapidson::Document for the OTDL file describing
+/// this species.
 
 bool Species::validateOTDL(Document& doc)
 {
