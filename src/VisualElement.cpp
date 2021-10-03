@@ -9,6 +9,7 @@
 #define VISUAL_ELEMENT_IMPLEMENTATION
 
 #include "VisualElement.h"
+#include "BoundingBox.h"
 #include <assert.h>
 
 

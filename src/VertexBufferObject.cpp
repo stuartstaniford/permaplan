@@ -2,10 +2,11 @@
 // This is a C++ wrapper around the openGL vertex buffer object.
 
 #include "VertexBufferObject.h"
+#include "Shader.h"
+#include "Vertex.h"
 #include <cstdio>
 #include <stdexcept>
 #include <err.h>
-#include "Shader.h"
 
 
 // =======================================================================================

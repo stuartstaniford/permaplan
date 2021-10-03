@@ -5,6 +5,7 @@
 
 #include "BuildingRect.h"
 #include "HttpDebug.h"
+#include "BoundingBox.h"
 
 
 // =======================================================================================

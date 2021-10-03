@@ -5,6 +5,7 @@
 
 #include "PathTube.h"
 #include "CircleIterator.h"
+#include "BoundingBox.h"
 #include <assert.h>
 
 

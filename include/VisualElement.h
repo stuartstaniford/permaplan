@@ -3,13 +3,21 @@
 #ifndef VISUAL_ELEMENT_H
 #define VISUAL_ELEMENT_H
 
-#include "TriangleBuffer.h"
-#include "BoundingBox.h"
 #include "DynamicallyTypable.h"
+#include "TriangleBuffer.h"
+#include "Vertex.h"
+
+#include <cglm/cglm.h>
 
 #ifndef VISUAL_ELEMENT_IMPLEMENTATION
 extern vec3 zeroVec;
 #endif
+
+// =======================================================================================
+// Forward declarations
+
+class BoundingBox;
+class TriangleBuffer;
 
 
 // =======================================================================================
@@ -60,6 +68,9 @@ private:
   VisualElement(const VisualElement&);                 // Prevent copy-construction
   VisualElement& operator=(const VisualElement&);      // Prevent assignment
 };
+
+
+// =======================================================================================
 
 #endif
 

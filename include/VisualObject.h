@@ -6,6 +6,7 @@
 
 #include "VisualElement.h"
 #include "Lockable.h"
+#include "BoundingBox.h"
 #include <unordered_map>
 
 // =======================================================================================

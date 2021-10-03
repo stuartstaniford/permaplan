@@ -6,6 +6,8 @@
 
 #include "AxialElement.h"
 #include "CircleIterator.h"
+#include "TriangleBuffer.h"
+#include "BoundingBox.h"
 #include <assert.h>
 
 

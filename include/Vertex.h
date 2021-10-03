@@ -5,11 +5,11 @@
 #ifndef VERTEX_H
 #define VERTEX_H
 
+#include "Global.h"
+#include "Logging.h"
 #include <cstring>
 #include <stdio.h>
 #include <cglm/cglm.h>
-#include "Global.h"
-#include "Logging.h"
 
 
 // =======================================================================================

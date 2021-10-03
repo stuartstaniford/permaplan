@@ -7,6 +7,7 @@
 #include "TexturedRect.h"
 #include "VertexBufferObject.h"
 #include "Shader.h"
+#include "Vertex.h"
 #include <cstdio>
 #include <stdexcept>
 #include <err.h>
