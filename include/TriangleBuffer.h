@@ -3,9 +3,16 @@
 #ifndef TRIANGLE_BUFFER_H
 #define TRIANGLE_BUFFER_H
 
+#include "Vertex.h"
 #include <err.h>
-#include "ElementBufferCombo.h"
-#include "HttpDebug.h"
+#include <GL/glew.h>
+
+
+// =======================================================================================
+// Forward declarations
+
+class ElementBufferCombo;
+class HttpDebug;
 
 
 // =======================================================================================

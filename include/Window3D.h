@@ -7,6 +7,8 @@
 #include "MenuInterface.h"
 #include "GLFWApplication.h"
 #include <sys/time.h>
+#include <GLFW/glfw3.h>
+
 
 // =======================================================================================
 // Forward declarations

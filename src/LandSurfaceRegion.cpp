@@ -4,6 +4,7 @@
 // the interface that any implementation providing this service needs to conform to.
 
 #include "LandSurfaceRegion.h"
+#include "HttpDebug.h"
 #include <err.h>
 
 

@@ -5,6 +5,7 @@
 #include "Logging.h"
 #include "Scene.h"
 #include "Shader.h"
+#include "HttpDebug.h"
 #include <stdlib.h>
 #include <err.h>
 #include <GL/glew.h>

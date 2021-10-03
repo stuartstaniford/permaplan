@@ -20,6 +20,8 @@
 
 class WoodySegment;
 class Species;
+class TaskQueue;
+class Scene;
 
 void growOneTree(void* arg);
 

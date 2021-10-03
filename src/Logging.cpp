@@ -8,6 +8,7 @@
 
 #include "Logging.h"
 #include "Vertex.h"
+#include "HttpDebug.h"
 #include "Shed.h"
 #include <err.h>
 #include <stdio.h>

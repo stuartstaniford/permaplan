@@ -3,6 +3,7 @@
 // a unit (and appear in the Quadtree together).
 
 #include "ObjectGroup.h"
+#include "HttpDebug.h"
 
 
 // =======================================================================================

@@ -3,8 +3,8 @@
 #ifndef TREE_PART_H
 #define TREE_PART_H
 
-#include <cglm/cglm.h>
 #include "Logging.h"
+#include <cglm/cglm.h>
 
 
 // =======================================================================================

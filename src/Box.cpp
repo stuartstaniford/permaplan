@@ -1,6 +1,7 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Oct 2020 -
 
 #include "Box.h"
+#include "HttpDebug.h"
 #include <err.h>
 
 #define BOX_ICOUNT 36u

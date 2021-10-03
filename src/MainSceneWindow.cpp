@@ -7,6 +7,7 @@
 #include "MenuInterface.h"
 #include "MenuInsert.h"
 #include "TreeWindow.h"
+#include "HttpDebug.h"
 
 
 // =======================================================================================

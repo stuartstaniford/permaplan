@@ -8,6 +8,7 @@
 #include "SkySampleModel.h"
 #include "TaskQueueFarm.h"
 #include "Species.h"
+#include "HttpDebug.h"
 #include <err.h>
 
 

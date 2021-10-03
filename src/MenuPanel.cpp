@@ -6,6 +6,7 @@
 #include "imgui_impl_opengl3.h"
 #include "imgui_impl_glfw.h"
 #include "Window3D.h"
+#include "HttpDebug.h"
 #include <err.h>
 
 
@@ -202,7 +203,7 @@ bool MenuPanel::createAction(HttpDebug* serv, ActionType actionType,
     return false;
    }
   scene->actions.push_back(action);
-  httPrintf("OK\n")
+  httPrintf("OK\n");
   return true;
 }
 

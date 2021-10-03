@@ -8,6 +8,7 @@
 #include "LandSurfaceRegionPlanar.h"
 #include "Shader.h"
 #include "PmodDesign.h"
+#include "HttpDebug.h"
 #include <cstdio>
 #include <stdexcept>
 #include <err.h>

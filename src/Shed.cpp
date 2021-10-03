@@ -4,6 +4,7 @@
 
 #include "Shed.h"
 #include "MenuShedPanel.h"
+#include "HttpDebug.h"
 
 
 // =======================================================================================

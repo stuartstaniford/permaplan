@@ -2,6 +2,7 @@
 // Class for rendering a cylinder
 
 #include "Cylinder.h"
+#include "HttpDebug.h"
 #include <cstdio>
 #include <err.h>
 

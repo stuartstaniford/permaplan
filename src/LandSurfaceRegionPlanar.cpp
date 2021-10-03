@@ -6,6 +6,7 @@
 // to norm.
 
 #include "LandSurfaceRegionPlanar.h"
+#include "HttpDebug.h"
 #include <err.h>
 
 /* For reference: the arrangement of kids in a quadtree node is as follows:

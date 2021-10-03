@@ -8,6 +8,7 @@
 #include "MenuInterface.h"
 #include "Tree.h"
 #include "Scene.h"
+#include "HttpDebug.h"
 
 
 // =======================================================================================

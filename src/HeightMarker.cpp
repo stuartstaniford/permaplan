@@ -4,6 +4,7 @@
 // Renders them as an octahedron balanced on the actual height position
 
 #include "HeightMarker.h"
+#include "HttpDebug.h"
 #include <err.h>
 
 // =======================================================================================

@@ -4,6 +4,7 @@
 
 #include "Arrow.h"
 #include "Cylinder.h"
+#include "HttpDebug.h"
 #include <cstdio>
 #include <err.h>
 

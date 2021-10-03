@@ -15,6 +15,7 @@
 #include "MenuInsert.h"
 #include "MenuGenus.h"
 #include "MenuTree.h"
+#include "HttpDebug.h"
 #include "loadFileToBuf.h"
 #include "RegionList.h"
 #include "imgui_impl_opengl3.h"

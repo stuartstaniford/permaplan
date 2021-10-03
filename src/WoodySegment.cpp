@@ -9,6 +9,7 @@
 #include "TruncatedCone.h"
 #include "LeafModel.h"
 #include "Species.h"
+#include "HttpDebug.h"
 #include <err.h>
 
 

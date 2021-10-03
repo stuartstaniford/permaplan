@@ -3,6 +3,7 @@
 // Used for rendering sections of tree-trunks and the like.
 
 #include "TruncatedCone.h"
+#include "HttpDebug.h"
 #include <cstdio>
 #include <err.h>
 

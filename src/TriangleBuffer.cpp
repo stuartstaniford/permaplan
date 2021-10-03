@@ -9,6 +9,8 @@
 #include "Shader.h"
 #include "PmodDesign.h"
 #include "BoundingBox.h"
+#include "HttpDebug.h"
+#include "ElementBufferCombo.h"
 #include <err.h>
 #include <assert.h>
 

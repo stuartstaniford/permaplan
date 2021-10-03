@@ -16,6 +16,7 @@
 class MenuGablePanel;
 class Gable;
 class JSONStructureChecker;
+class Scene;
 
 
 // =======================================================================================

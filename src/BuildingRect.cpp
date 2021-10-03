@@ -3,8 +3,8 @@
 // one plane of a roof.  It provides for keeping track of its orientation and size
 // relative to the larger structure, and for keeping track of texture.
 
-
 #include "BuildingRect.h"
+#include "HttpDebug.h"
 
 
 // =======================================================================================

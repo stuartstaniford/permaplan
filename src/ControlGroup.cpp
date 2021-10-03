@@ -6,6 +6,7 @@
 #include "Arrow.h"
 #include "PmodDesign.h"
 #include "SemicircularArrow.h"
+#include "HttpDebug.h"
 
 
 // =======================================================================================

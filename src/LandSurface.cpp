@@ -12,6 +12,7 @@
 #include "Quadtree.h"
 #include "Camera.h"
 #include "HeightMarker.h"
+#include "HttpDebug.h"
 #include <cstdio>
 #include <stdexcept>
 #include <err.h>

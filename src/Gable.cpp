@@ -10,6 +10,7 @@
 #include "Scene.h"
 #include "Quadtree.h"
 #include "PmodConfig.h"
+#include "HttpDebug.h"
 
 
 // =======================================================================================
