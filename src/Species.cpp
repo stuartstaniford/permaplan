@@ -623,7 +623,12 @@ bool Species::validateOTDL(Document& doc)
 
 
 // =======================================================================================
-// Static function to find the entry for a particular "genus/species".
+/// @brief Static function to find the entry for a particular "genus/species".
+/// 
+/// Function will first check our static data structures, loading it from elsewhere if 
+/// it's not already in memory.
+/// @returns A pointer to the Species entry.
+/// @param speciesPath A C-string with the genus/species etc path of the species.
 
 Species* Species::getSpeciesByPath(const char* speciesPath)
 {
@@ -650,10 +655,13 @@ Species* Species::getSpeciesByPath(const char* speciesPath)
 
 
 // =======================================================================================
-// Utility function to find an OTDL file in a directory.
-// XX We currently just return the first one found.
+/// @brief Static function to find an OTDL file in a directory.
+/// @param path A C-string containing the directory path to search, to which we will 
+/// append the name of the OTDL file we find.
+/// @param pathSize The maximum allowable storage in the path variable.
+/// @todo We currently just return the first one found.
 
-void findOTDLFileName(char* path, unsigned pathSize)
+void Species::findOTDLFileName(char* path, unsigned pathSize)
 {
   bool found = false;
   
@@ -709,14 +717,16 @@ void findOTDLFileName(char* path, unsigned pathSize)
 
 
 // =======================================================================================
-// Static function to try and load a particular "genus/species" from local disk
+/// @brief Static function to try and load a particular "genus/species" from local disk
+/// @returns A pointer to the Species entry, if found, else NULL.
+/// @param speciesPath A C-string with the genus/species etc path of the species.
 
 Species* Species::loadLocalOTDLEntry(const char* speciesPath)
 {
   const PmodConfig& config = PmodConfig::getConfig();
   char path[256];
   snprintf(path, 256, "%s/%s/", config.speciesDirectory, speciesPath);
-  findOTDLFileName(path, 256);
+  Species::findOTDLFileName(path, 256);
   unless(regularFileExists(path))
     return NULL;
   unsigned bufSize;
@@ -734,12 +744,18 @@ Species* Species::loadLocalOTDLEntry(const char* speciesPath)
 
 
 // =======================================================================================
-// Write out the OTDL object to a buffer (eg used by diagnosticHTML for Species page).
-
-// NOTE WELL.  Numeric values in OTDL are expressed in mm, but for uniformity in graphic
-// calculations, internally we must store them in spaceUnits.
 
 #define bufprintf(...) if((buf += snprintf(buf, end-buf,  __VA_ARGS__)) >= end) {return -1;}
+
+// =======================================================================================
+/// @brief Write out the OTDL object to a buffer (eg used by diagnosticHTML for Species 
+/// page).
+///
+/// NOTE WELL.  Numeric values in OTDL are expressed in mm, but for uniformity in graphic
+/// calculations, internally we must store them in spaceUnits.
+/// @returns The number of bytes written into the buffer
+/// @param buf A char array where the OTDL text should be written.
+/// @param bufSize The maximum size of the buffer.
 
 int Species::writeOTDL(char* buf, unsigned bufSize)
 {
@@ -795,7 +811,8 @@ int Species::writeOTDL(char* buf, unsigned bufSize)
 
 
 // =======================================================================================
-// Tell callers our name at runtime.
+/// @brief Tell callers our name at runtime.
+/// @returns A const pointer to a C-string with the name.
 
 const char* Species::objectName(void)
 {
@@ -805,8 +822,9 @@ const char* Species::objectName(void)
 
 
 // =======================================================================================
-// We assume we are part of a table of visual objects and we just contribute one row
-// about this particular object.
+/// @brief Provide a section about this particular species in a diagnostic page
+/// @returns True if the desired HTML was written correctly, false if we ran out of space.
+/// @param serv The HTTP Debug server
 
 bool Species::diagnosticHTML(HttpDebug* serv)
 {
@@ -832,8 +850,11 @@ bool Species::diagnosticHTML(HttpDebug* serv)
 
 
 // =======================================================================================
-// Simple static function just to find the right species, and then return the
-// diagnosticHTML for it.
+/// @brief Simple static function just to find the right species, and then return the 
+/// diagnosticHTML for it.
+/// @returns True if the desired HTML was written correctly, false if we ran out of space.
+/// @param serv The HTTP Debug server
+/// @param path The genus/species/var for the species of interest
 
 bool Species::findSpeciesForHTTPDebug(HttpDebug* serv, char* path)
 {

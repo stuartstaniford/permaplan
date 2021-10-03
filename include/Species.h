@@ -96,6 +96,7 @@ class Species: public DynamicallyTypable
   static rapidjson::Document& readOTDLFromBuf(char* buf, char* sourceName);
   static Species* getSpeciesByPath(const char* speciesPath);
   static Species* loadLocalOTDLEntry(const char* speciesPath);
+  static void findOTDLFileName(char* path, unsigned pathSize);
   static bool findSpeciesForHTTPDebug(HttpDebug* serv, char* path);
 
   // static public variables
