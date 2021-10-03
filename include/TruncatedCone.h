@@ -8,6 +8,7 @@
 
 // =======================================================================================
 /// @brief Render a section of a cone cut off at right angles at both ends.
+/// 
 /// This is used for rendering sections of tree-trunks and the like.  Most of the 
 /// implementation is inherited from AxialElement.
 

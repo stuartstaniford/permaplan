@@ -1,18 +1,14 @@
 // Copyright Staniford Systems.  All Rights Reserved.  Jan 2021 -
-// This class is a container for the factors governing the evolution of a particular
-// species (mainly extracted from an OTDL JSON object).
 
 #ifndef SPECIES_H
 #define SPECIES_H
 
 #include "DynamicallyTypable.h"
-#include "HttpDebug.h"
+#include "Version.h"
 #include "rapidjson/document.h"
 #include "rapidjson/writer.h"
 #include "rapidjson/stringbuffer.h"
 #include "rapidjson/error/en.h"
-#include "LeafModel.h"
-#include "Version.h"
 #include <map>
 #include <unordered_map>
 #include <string>
@@ -21,14 +17,30 @@
                                    // a fudge factor for variety names.
                                    //https://en.wikipedia.org/wiki/List_of_long_species_names
 
+
 // =======================================================================================
-// Class variable initialization
+// Forward declarations
 
 class Species;
+class HttpDebug;
+class LeafModel;
+class JSONStructureChecker;
+
+
+// =======================================================================================
+/// @brief Container class for a collection of Species indexed by a string name.
+
 class SpeciesList: public std::unordered_map<std::string, Species*>
 {
   
 };
+
+
+// =======================================================================================
+/// @brief Manage information about a apecies
+///
+/// This class is a container for the factors governing the evolution of a particular
+/// species (mainly extracted from an OTDL JSON object).
 
 class Species: public DynamicallyTypable
 {
@@ -102,6 +114,12 @@ class Species: public DynamicallyTypable
   //Species& operator=(const Species&);      // Prevent assignment
 };
 
+
+// =======================================================================================
+/// @brief A placeholder for a species that has not been loaded into memory.
+/// 
+/// We store its path
+
 class SpeciesPath: public DynamicallyTypable
 {
   private:
@@ -122,5 +140,7 @@ class SpeciesPath: public DynamicallyTypable
 inline unsigned season(float year)
 { return (int)((year - floorf(year)-1.0f/6.0f)*4.0f)%4;}
 
+
+// =======================================================================================
 
 #endif

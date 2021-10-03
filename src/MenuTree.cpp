@@ -8,7 +8,7 @@
 #include "MenuGenus.h"
 #include "MenuAllTree.h"
 #include "Species.h"
-
+#include "HttpDebug.h"
 
 // =======================================================================================
 /// @brief Constructor

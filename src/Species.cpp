@@ -2,6 +2,8 @@
 // This class is a container for the factors governing the evolution of a particular
 // species (mainly extracted from an OTDL JSON object).
 
+// NOTE WELL.  Numeric values in OTDL are expressed in mm, but for uniformity in graphic
+// calculations, internally we must store them in spaceUnits.
 
 #include "Species.h"
 #include "loadFileToBuf.h"
@@ -10,9 +12,14 @@
 #include "PmodDesign.h"
 #include "JSONStructureChecker.h"
 #include "Logging.h"
+#include "LeafModel.h"
+#include "HttpDebug.h"
 #include <dirent.h>
 #include <err.h>
 
+
+// =======================================================================================
+// Static variables etc
 
 using namespace rapidjson;
 
@@ -22,11 +29,11 @@ std::unordered_map<std::string, unsigned> Species::genusList;
 std::unordered_map<std::string, SpeciesList*> Species::genusSpeciesList;
 
 
-// NOTE WELL.  Numeric values in OTDL are expressed in mm, but for uniformity in graphic
-// calculations, internally we must store them in spaceUnits.
-
 // =======================================================================================
-// Constructors.
+/// @brief Constructor.
+/// @param otdlDoc A reference to the rapidson::Document for the OTDL file describing
+/// this species.  See docs/open-tree-description-language.md for detailes on the format.
+/// @param source A pointer to a C-string with the name of the OTDL document.
 
 Species::Species(Document& otdlDoc, char* source):
                                 sourceName(source),
@@ -57,7 +64,9 @@ Species::Species(Document& otdlDoc, char* source):
 
 
 // =======================================================================================
-// Subroutine for the constructor to handle the overviewData
+/// @brief Subroutine for the constructor to handle the overviewData in the OTDL doc.
+/// @param overviewData The rapidjson::Value for the overviewData JSON object inside the
+/// OTDL doc.
 
 void Species::initializeOverViewData(Value& overviewData)
 {

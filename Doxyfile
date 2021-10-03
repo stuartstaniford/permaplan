@@ -936,7 +936,8 @@ INPUT                  = doc \
                 include/Shed.h src/Shed.cpp \
                 include/SkySampleModel.h src/SkySampleModel.cpp \
                 include/SolarDatabase.h src/SolarDatabase.cpp \
-                include/TaskQueue.h src/TaskQueue.cpp \
+                include/SolarDatabase.h src/SolarDatabase.cpp \
+                include/Species.h src/Species.cpp \
                 include/TaskQueueFarm.h src/TaskQueueFarm.cpp \
                 include/Texture.h src/Texture.cpp \
                 include/TextureAtlas.h src/TextureAtlas.cpp \

@@ -7,6 +7,7 @@
 #include "Tree.h"
 #include "JSONStructureChecker.h"
 #include "TruncatedCone.h"
+#include "LeafModel.h"
 #include <err.h>
 
 
