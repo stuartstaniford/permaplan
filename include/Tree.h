@@ -4,7 +4,6 @@
 #define TREE_H
 
 #include "VisualObject.h"
-#include "Species.h"
 #include "rapidjson/document.h"
 #include "rapidjson/writer.h"
 #include "rapidjson/stringbuffer.h"
@@ -20,6 +19,7 @@
 // Necessary forward declarations
 
 class WoodySegment;
+class Species;
 
 void growOneTree(void* arg);
 

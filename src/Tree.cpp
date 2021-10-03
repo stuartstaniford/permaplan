@@ -7,6 +7,7 @@
 #include "Scene.h"
 #include "SkySampleModel.h"
 #include "TaskQueueFarm.h"
+#include "Species.h"
 #include <err.h>
 
 

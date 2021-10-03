@@ -4,7 +4,6 @@
 #define TEXTURE_H
 
 #include <GL/glew.h>
-#include "Shader.h"
 
 #define TexPathLimit 2048
 

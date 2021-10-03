@@ -2,6 +2,7 @@
 // Class that provides an abstraction for openGL textures.
 
 #include "Texture.h"
+#include "Shader.h"
 #include <stdlib.h>
 #include <err.h>
 #include <GL/glew.h>

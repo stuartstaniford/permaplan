@@ -1144,8 +1144,7 @@ src/Global.o: /usr/local/include/cglm/sphere.h /usr/local/include/cglm/ease.h
 src/Global.o: /usr/local/include/cglm/curve.h
 src/Global.o: /usr/local/include/cglm/bezier.h /usr/local/include/cglm/ray.h
 src/Global.o: /usr/local/include/cglm/affine2d.h include/TaskQueueFarm.h
-src/Global.o: include/TaskQueue.h include/Lockable.h include/HttpDebug.h
-src/Global.o: include/HttpRequestParser.h include/Logging.h
+src/Global.o: include/TaskQueue.h include/Lockable.h include/Logging.h
 src/Global.o: include/MemoryTracker.h
 src/Grid.o: include/Grid.h include/LineStripList.h
 src/Grid.o: /usr/local/include/cglm/cglm.h /usr/local/include/cglm/common.h
@@ -2029,11 +2028,10 @@ src/Material.o: /usr/local/include/cglm/curve.h
 src/Material.o: /usr/local/include/cglm/bezier.h
 src/Material.o: /usr/local/include/cglm/ray.h
 src/Material.o: /usr/local/include/cglm/affine2d.h include/Texture.h
-src/Material.o: /usr/local/include/GL/glew.h include/Shader.h
-src/Material.o: include/Logging.h include/MemoryTracker.h
-src/Material.o: include/TextureAtlas.h include/HttpDebug.h
-src/Material.o: include/HttpRequestParser.h include/TaskQueue.h
-src/Material.o: include/Lockable.h include/Global.h
+src/Material.o: /usr/local/include/GL/glew.h include/Logging.h
+src/Material.o: include/MemoryTracker.h include/TextureAtlas.h
+src/Material.o: include/HttpDebug.h include/HttpRequestParser.h
+src/Material.o: include/TaskQueue.h include/Lockable.h include/Global.h
 src/MemoryTracker.o: include/MemoryTracker.h include/HttpDebug.h
 src/MemoryTracker.o: include/HttpRequestParser.h include/TaskQueue.h
 src/MemoryTracker.o: include/Lockable.h include/Global.h
@@ -2181,9 +2179,8 @@ src/MenuBlockPanel.o: /usr/local/include/cglm/bezier.h
 src/MenuBlockPanel.o: /usr/local/include/cglm/ray.h
 src/MenuBlockPanel.o: /usr/local/include/cglm/affine2d.h imgui/imgui.h
 src/MenuBlockPanel.o: imgui/imconfig.h include/Material.h include/Texture.h
-src/MenuBlockPanel.o: /usr/local/include/GL/glew.h include/Shader.h
-src/MenuBlockPanel.o: include/MenuInterface.h include/rapidjson/document.h
-src/MenuBlockPanel.o: include/rapidjson/reader.h
+src/MenuBlockPanel.o: /usr/local/include/GL/glew.h include/MenuInterface.h
+src/MenuBlockPanel.o: include/rapidjson/document.h include/rapidjson/reader.h
 src/MenuBlockPanel.o: include/rapidjson/allocators.h
 src/MenuBlockPanel.o: include/rapidjson/rapidjson.h
 src/MenuBlockPanel.o: include/rapidjson/stream.h
@@ -2745,13 +2742,13 @@ src/MenuInterface.o: include/rapidjson/stringbuffer.h
 src/MenuInterface.o: include/rapidjson/error/en.h
 src/MenuInterface.o: include/rapidjson/error/error.h include/Material.h
 src/MenuInterface.o: include/Texture.h /usr/local/include/GL/glew.h
-src/MenuInterface.o: include/Shader.h include/Species.h
-src/MenuInterface.o: include/DynamicallyTypable.h include/Version.h
-src/MenuInterface.o: include/Window3D.h include/Scene.h include/LandSurface.h
-src/MenuInterface.o: include/BezierPatch.h include/LandSurfaceRegion.h
-src/MenuInterface.o: include/VisualObject.h include/VisualElement.h
-src/MenuInterface.o: include/TriangleBuffer.h include/ElementBufferCombo.h
-src/MenuInterface.o: include/VertexArrayObject.h include/VertexBufferObject.h
+src/MenuInterface.o: include/Species.h include/DynamicallyTypable.h
+src/MenuInterface.o: include/Version.h include/Window3D.h include/Scene.h
+src/MenuInterface.o: include/LandSurface.h include/BezierPatch.h
+src/MenuInterface.o: include/LandSurfaceRegion.h include/VisualObject.h
+src/MenuInterface.o: include/VisualElement.h include/TriangleBuffer.h
+src/MenuInterface.o: include/ElementBufferCombo.h include/VertexArrayObject.h
+src/MenuInterface.o: include/VertexBufferObject.h
 src/MenuInterface.o: /usr/local/include/GLFW/glfw3.h include/Vertex.h
 src/MenuInterface.o: include/ElementBufferObject.h include/HttpDebug.h
 src/MenuInterface.o: include/HttpRequestParser.h include/TaskQueue.h
@@ -3906,9 +3903,9 @@ src/TaskQueueFarm.o: /usr/local/include/cglm/ease.h
 src/TaskQueueFarm.o: /usr/local/include/cglm/curve.h
 src/TaskQueueFarm.o: /usr/local/include/cglm/bezier.h
 src/TaskQueueFarm.o: /usr/local/include/cglm/ray.h
-src/TaskQueueFarm.o: /usr/local/include/cglm/affine2d.h include/HttpDebug.h
-src/TaskQueueFarm.o: include/HttpRequestParser.h include/Logging.h
-src/TaskQueueFarm.o: include/MemoryTracker.h
+src/TaskQueueFarm.o: /usr/local/include/cglm/affine2d.h include/Logging.h
+src/TaskQueueFarm.o: include/MemoryTracker.h include/HttpDebug.h
+src/TaskQueueFarm.o: include/HttpRequestParser.h
 src/Texture.o: include/Texture.h /usr/local/include/GL/glew.h
 src/Texture.o: include/Shader.h /usr/local/include/cglm/cglm.h
 src/Texture.o: /usr/local/include/cglm/common.h
@@ -3933,7 +3930,8 @@ src/Texture.o: /usr/local/include/cglm/ease.h /usr/local/include/cglm/curve.h
 src/Texture.o: /usr/local/include/cglm/bezier.h /usr/local/include/cglm/ray.h
 src/Texture.o: /usr/local/include/cglm/affine2d.h include/stb_image.h
 src/TextureAtlas.o: include/TextureAtlas.h include/Texture.h
-src/TextureAtlas.o: /usr/local/include/GL/glew.h include/Shader.h
+src/TextureAtlas.o: /usr/local/include/GL/glew.h include/Logging.h
+src/TextureAtlas.o: include/MemoryTracker.h include/Global.h
 src/TextureAtlas.o: /usr/local/include/cglm/cglm.h
 src/TextureAtlas.o: /usr/local/include/cglm/common.h
 src/TextureAtlas.o: /usr/local/include/cglm/types.h
@@ -3964,12 +3962,11 @@ src/TextureAtlas.o: /usr/local/include/cglm/ease.h
 src/TextureAtlas.o: /usr/local/include/cglm/curve.h
 src/TextureAtlas.o: /usr/local/include/cglm/bezier.h
 src/TextureAtlas.o: /usr/local/include/cglm/ray.h
-src/TextureAtlas.o: /usr/local/include/cglm/affine2d.h include/Logging.h
-src/TextureAtlas.o: include/MemoryTracker.h include/Global.h
+src/TextureAtlas.o: /usr/local/include/cglm/affine2d.h
 src/TextureAtlas.o: include/stb_image_write.h
 src/TexturedRect.o: include/TexturedRect.h include/VertexArrayObject.h
 src/TexturedRect.o: include/Texture.h /usr/local/include/GL/glew.h
-src/TexturedRect.o: include/Shader.h /usr/local/include/cglm/cglm.h
+src/TexturedRect.o: /usr/local/include/cglm/cglm.h
 src/TexturedRect.o: /usr/local/include/cglm/common.h
 src/TexturedRect.o: /usr/local/include/cglm/types.h
 src/TexturedRect.o: /usr/local/include/cglm/simd/intrin.h
@@ -4003,7 +4000,7 @@ src/TexturedRect.o: /usr/local/include/cglm/affine2d.h
 src/TexturedRect.o: include/VertexBufferObject.h
 src/TexturedRect.o: /usr/local/include/GLFW/glfw3.h include/Global.h
 src/TexturedRect.o: include/Logging.h include/MemoryTracker.h
-src/TexturedRect.o: include/Vertex.h
+src/TexturedRect.o: include/Vertex.h include/Shader.h
 src/Timeval.o: include/Timeval.h include/Global.h
 src/Timeval.o: /usr/local/include/cglm/cglm.h
 src/Timeval.o: /usr/local/include/cglm/common.h
@@ -4640,9 +4637,8 @@ src/Window3D.o: include/rapidjson/error/error.h include/Camera.h
 src/Window3D.o: include/MenuInterface.h include/MenuPanel.h imgui/imgui.h
 src/Window3D.o: imgui/imconfig.h include/GLFWApplication.h include/Timeval.h
 src/Window3D.o: include/PmodException.h include/Material.h include/Texture.h
-src/Window3D.o: include/Shader.h include/Species.h include/Version.h
-src/Window3D.o: include/MenuInsert.h include/MenuInitPanel.h
-src/Window3D.o: imgui/backends/imgui_impl_opengl3.h
+src/Window3D.o: include/Species.h include/Version.h include/MenuInsert.h
+src/Window3D.o: include/MenuInitPanel.h imgui/backends/imgui_impl_opengl3.h
 src/Window3D.o: imgui/backends/imgui_impl_glfw.h
 src/WoodySegment.o: include/WoodySegment.h include/TreePart.h
 src/WoodySegment.o: /usr/local/include/cglm/cglm.h

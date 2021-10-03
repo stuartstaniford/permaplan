@@ -7,6 +7,7 @@
 #include "MenuInterface.h"
 #include "Tree.h"
 #include "Scene.h"
+#include "Species.h"
 
 
 // =======================================================================================

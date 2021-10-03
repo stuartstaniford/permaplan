@@ -9,6 +9,7 @@
 #include "Species.h"
 #include "MenuInsert.h"
 #include "MenuInitPanel.h"
+#include "Shader.h"
 #include <cstdio>
 #include <stdexcept>
 #include <err.h>

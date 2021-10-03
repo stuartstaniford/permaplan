@@ -8,6 +8,7 @@
 #include "JSONStructureChecker.h"
 #include "TruncatedCone.h"
 #include "LeafModel.h"
+#include "Species.h"
 #include <err.h>
 
 
