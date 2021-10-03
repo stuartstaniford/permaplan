@@ -267,7 +267,9 @@ void Species::extractBarkColors(Value& colorsArray)
 
 
 // =======================================================================================
-// Return a barkColor from the array based on the age of the bark in question.
+/// @brief Get a barkColor from the array based on the age of the bark in question.
+/// @returns An unsigned represenation of the RGBA color appropriate to the supplied age.
+/// @param age A floating point age in years.
 
 unsigned Species::getBarkColor(float age)
 {
@@ -277,7 +279,11 @@ unsigned Species::getBarkColor(float age)
 
 
 // =======================================================================================
-// Read a buffer containing an OTDL description of the type of tree we are.
+/// @brief Read a buffer containing an OTDL description of the type of tree we are.
+/// @returns A reference to the rapidjson::document for the whole OTDL document after
+/// the JSON has been parsed.
+/// @param buf A pointer to a character array containing the complete OTDL document text.
+/// @param sourceName The name of the file for error reporting and logging.
 
 Document& Species::readOTDLFromBuf(char* buf, char* sourceName)
 {
@@ -298,7 +304,11 @@ Document& Species::readOTDLFromBuf(char* buf, char* sourceName)
 
 
 // =======================================================================================
-// Function to check the mandatory OTDL commonNames object inside overviewData.
+/// @brief Function to check the syntax of the mandatory OTDL commonNames object 
+/// inside overviewData.
+/// @returns True if the syntax is correct, false otherwise.
+/// @param containObj Should be a reference to the rapidjson::Value for the overviewData
+/// object.
 
 bool Species::validateCommonNames(Value& containObj)
 {
@@ -319,7 +329,10 @@ bool Species::validateCommonNames(Value& containObj)
 
 
 // =======================================================================================
-// Validate the overviewData section of an OTDL object.
+/// @brief Validate the overviewData section of an OTDL object.
+/// @returns True if the syntax is correct, false otherwise.
+/// @param doc A reference to the rapidson::Document for the OTDL file describing
+/// this species.
 
 bool Species::validateOverviewData(Document& doc)
 {
@@ -385,7 +398,8 @@ bool Species::validateOverviewData(Document& doc)
 
 
 // =======================================================================================
-// Validate the bark textures section of an OTDL object.
+/// @brief Validate the bark textures section of an OTDL object.
+/// @todo Stub implementation that always returns true.
 
 bool Species::validateBarkTextures(Value& obj)
 {
