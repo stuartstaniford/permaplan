@@ -1,7 +1,7 @@
 #include <cstdio>
 #include <exception>
 
-class pmodException: std::runtime_error
+class pmodException: public std::runtime_error
 {
  public:
   pmodException(char* msg) : std::runtime_error(msg)

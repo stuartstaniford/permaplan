@@ -7,7 +7,6 @@
 
 #include <vector>
 #include "TreePart.h"
-#include "Cylinder.h"
 
 #define WOOD_SEG_SIDES 10   //XX initial hack that needs to be made more LOD
 
@@ -16,6 +15,8 @@
 // Forward declarations
 
 class Tree;
+class AxialElement;
+
 
 // =======================================================================================
 // Class variable initialization

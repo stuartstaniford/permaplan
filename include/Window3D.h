@@ -2,11 +2,11 @@
 
 #ifndef WINDOW3D_H
 #define WINDOW3D_H
-#include "Scene.h"
 #include "Camera.h"
-#include "MenuInterface.h"
-#include "GLFWApplication.h"
+#include "Timeval.h"
+#include "InterfaceAction.h"
 #include <sys/time.h>
+#include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
 
@@ -15,6 +15,9 @@
 
 class MenuFocusOverlay;
 class HttpDebug;
+class Scene;
+class GLFWApplication;
+class MenuPanel;
 
 
 // =======================================================================================

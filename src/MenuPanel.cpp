@@ -3,10 +3,11 @@
 // system.  Individual menus should inherit from this and conform to this interface
 
 #include "MenuPanel.h"
-#include "imgui_impl_opengl3.h"
-#include "imgui_impl_glfw.h"
 #include "Window3D.h"
 #include "HttpDebug.h"
+#include "Scene.h"
+#include "imgui_impl_opengl3.h"
+#include "imgui_impl_glfw.h"
 #include <err.h>
 
 

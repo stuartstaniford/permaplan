@@ -7,6 +7,12 @@
 
 
 // =======================================================================================
+// Forward declarations
+
+class MenuInterface;
+
+
+// =======================================================================================
 /// @brief The main window for viewing the entire scene.
 ///
 /// This subclass of Window3D is specialized to view the scene as a whole, and is the 
@@ -43,7 +49,6 @@ private:
   MainSceneWindow(const MainSceneWindow&);       
   /// @brief Prevent assignment.
   MainSceneWindow& operator=(const MainSceneWindow&);      
-
 };
 
 

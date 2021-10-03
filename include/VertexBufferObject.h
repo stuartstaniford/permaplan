@@ -3,12 +3,12 @@
 #ifndef VERTEX_BUFFER_OBJECT_H
 #define VERTEX_BUFFER_OBJECT_H
 
+#include "Global.h"
+#include "Logging.h"
 #include <cstring>
 #include <cglm/cglm.h>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include "Global.h"
-#include "Logging.h"
 
 
 // =======================================================================================

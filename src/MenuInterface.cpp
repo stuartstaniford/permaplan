@@ -8,6 +8,7 @@
 #include "Material.h"
 #include "Species.h"
 #include "Window3D.h"
+#include "Scene.h"
 #include "MenuShedPanel.h"
 #include "MenuBlockPanel.h"
 #include "MenuFocusOverlay.h"

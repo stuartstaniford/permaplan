@@ -3,6 +3,8 @@
 
 #include "MenuFocusOverlay.h"
 #include "Window3D.h"
+#include "Scene.h"
+#include "GLFWApplication.h"
 
 
 // =======================================================================================

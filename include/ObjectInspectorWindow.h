@@ -7,6 +7,12 @@
 
 
 // =======================================================================================
+// Forward declarations
+
+class VisualObject;
+
+
+// =======================================================================================
 /// @brief Functionality for all windows that serve to allow focussed 
 /// inspection/manipulation of a particular object in the scene.
 /// 

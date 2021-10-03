@@ -10,6 +10,7 @@
 #include "LeafModel.h"
 #include "Species.h"
 #include "HttpDebug.h"
+#include "Cylinder.h"
 #include <err.h>
 
 

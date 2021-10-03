@@ -8,6 +8,7 @@
 // be manipulated/displayed in an inspector window.
 
 #include "ObjectInspectorWindow.h"
+#include "VisualObject.h"
 
 
 // =======================================================================================

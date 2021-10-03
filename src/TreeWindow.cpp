@@ -6,6 +6,7 @@
 #include "TreeWindow.h"
 #include "Tree.h"
 #include "HttpDebug.h"
+#include "Scene.h"
 
 
 // =======================================================================================

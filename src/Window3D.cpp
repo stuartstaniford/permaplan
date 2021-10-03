@@ -4,11 +4,12 @@
 // hide that.
 
 #include "Window3D.h"
-#include "PmodException.h"
 #include "Material.h"
 #include "Species.h"
 #include "MenuInsert.h"
 #include "MenuInitPanel.h"
+#include "GLFWApplication.h"
+#include "Scene.h"
 #include "Shader.h"
 #include <cstdio>
 #include <stdexcept>

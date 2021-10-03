@@ -6,6 +6,8 @@
 #include "Window3D.h"
 #include "Shader.h"
 #include "HttpDebug.h"
+#include "Logging.h"
+#include "Scene.h"
 
 
 // =======================================================================================

@@ -12,6 +12,7 @@
 /// those classes.  A few prepopulated layers will be supplied, but the intent is to 
 /// allow the user to also create custom layers.  Layers are implemnted as a bitmap, and
 /// thus are currently restricted to 32 total layers.
+/// @todo This class is a stub right now.
 
 class VisualLayer
 {

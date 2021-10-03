@@ -9,6 +9,7 @@
 #include "Shader.h"
 #include "PmodDesign.h"
 #include "HttpDebug.h"
+#include "GLFWApplication.h"
 #include <cstdio>
 #include <stdexcept>
 #include <err.h>

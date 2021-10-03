@@ -7,6 +7,7 @@
 #include "BuildingWindow.h"
 #include "Building.h"
 
+
 // =======================================================================================
 /// @brief Constructor
 /// @param building The Building we are being called to inspect/manipulate.

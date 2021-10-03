@@ -7,10 +7,12 @@
 #include "ResourceManager.h"
 #include "loadFileToBuf.h"
 #include "MainSceneWindow.h"
+#include "Logging.h"
 #include <cstring>
 #include <dirent.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <err.h>
 
 
 // =======================================================================================

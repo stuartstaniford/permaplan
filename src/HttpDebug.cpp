@@ -15,6 +15,7 @@
 #include "MainSceneWindow.h"
 #include "Window3D.h"
 #include "Species.h"
+#include "GLFWApplication.h"
 #include <stdio.h>
 #include <netdb.h>
 #include <netinet/in.h>

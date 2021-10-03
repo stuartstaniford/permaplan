@@ -10,9 +10,10 @@
 
 
 // =======================================================================================
-/// @brief Class to model/manipulate OLDF, OTDL, etc version numbers.  These generally
-/// have three components, a major version number, a minor version number, and an 
-/// increment/
+/// @brief Class to model/manipulate OLDF, OTDL, etc version numbers.  
+/// 
+/// These generally have three components, a major version number, a minor version 
+/// number, and an increment.
 
 class Version
 {
