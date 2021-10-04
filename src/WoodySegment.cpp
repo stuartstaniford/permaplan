@@ -15,7 +15,12 @@
 
 
 // =======================================================================================
-// Constructors.
+/// @brief Constructor to make a new segment of a plant.
+/// @param species A reference to the species of plant that we are part of.
+/// @param treeIndex The index into the particular individual tree we are part of.
+/// @param lev The recursive depth within the branching of the tree
+/// @param loc Our location (vec3)
+/// @param dir The vec3 direction that our branch/trunk points in (and it's length)
 
 WoodySegment::WoodySegment(Species& species, unsigned short treeIndex,
                                                   unsigned short lev, vec3 loc, vec3 dir):
@@ -38,7 +43,7 @@ WoodySegment::WoodySegment(Species& species, unsigned short treeIndex,
 
 
 // =======================================================================================
-// Destructor
+/// @brief Destructor
 
 WoodySegment::~WoodySegment(void)
 {
@@ -52,7 +57,9 @@ WoodySegment::~WoodySegment(void)
 
 
 // =======================================================================================
-// Update a supplied bounding box.
+/// @brief Update a supplied bounding box.
+/// @param box Pointer to the BoundingBox to update.
+/// @param altitude our height
 
 bool WoodySegment::updateBoundingBox(BoundingBox* box, float altitude)
 {
@@ -75,12 +82,12 @@ bool WoodySegment::updateBoundingBox(BoundingBox* box, float altitude)
 
 
 // =======================================================================================
-// Function to validate the tree.
-
-#ifdef LOG_TREE_VALIDATION
+/// @brief Function to validate the tree.
+/// @param l The recursive depth in the tree of validation
 
 void WoodySegment::selfValidate(unsigned l)
 {
+#ifdef LOG_TREE_VALIDATION
   assert(cylinder);
   
   int N = kids.size();
@@ -90,14 +97,21 @@ void WoodySegment::selfValidate(unsigned l)
     assert(kids[i]->getTreeIndex() == ourTreeIndex);
     kids[i]->selfValidate(l+1);
    }
-}
-
 #endif
+}
 
 
 // =======================================================================================
-// Match a ray.  Subclassses need to implement this so we can tell whether the mouse
-// is over the tree or not.
+/// @brief Decide if a ray touches us.  
+/// 
+/// Function to decide whether a given line touches the element or not.  It is extensively 
+/// used for things like identifying the object at mouse position, deciding if light 
+/// hits trees from particular angles, etc, etc.  
+/// @param position The vec3 for a point on the ray to be matched.
+/// @param direction The vec3 for the direction of the ray.
+/// @param offset A vec3 which gives the position of this element relative to its
+/// containing object (since elements generally have relative positions, this is needed
+/// to compute absolute position matches).
 
 bool WoodySegment::matchRay(vec3& position, vec3& direction, vec3 offset)
 {
@@ -120,7 +134,12 @@ bool WoodySegment::matchRay(vec3& position, vec3& direction, vec3 offset)
 
 
 // =======================================================================================
-// Buffer the vertices/indices for this part.
+/// @brief Buffer the vertices/indices for this part.
+/// @returns False if space cannot be obtained in the TriangleBuffer, true otherwise.
+/// @param T A pointer to a TriangleBuffer into which the object should insert its
+/// vertices and indices (see TriangleBuffer::requestSpace).
+/// @param offset A vec3 of the position of this element relative to it's containing
+/// object, thus allowing it's absolute position to be computed.
 
 bool WoodySegment::bufferGeometry(TriangleBuffer* T, vec3 offset)
 {
@@ -149,8 +168,12 @@ bool WoodySegment::bufferGeometry(TriangleBuffer* T, vec3 offset)
 
 
 // =======================================================================================
-// Assess the number of vertices/indices required in a triangle buffer to render us
-// and all our children.
+/// @brief Assess the number of vertices/indices required in a triangle buffer to 
+/// render us and all our children.
+/// @param vCount A reference to a count which will hold the number of Vertex objects 
+/// that will be generated.
+/// @param iCount A reference to a count which will hold the number of unsigned indices 
+/// that will be generated.
 
 void WoodySegment::triangleBufferSizesRecurse(unsigned& vCount, unsigned& iCount)
 {
@@ -169,7 +192,11 @@ void WoodySegment::triangleBufferSizesRecurse(unsigned& vCount, unsigned& iCount
 
 
 // =======================================================================================
-// Function that defines how many branches we should now have, based on our length, etc.
+/// @brief Function that defines how many branches we should now have, based on a new 
+/// length that has been computed.
+/// @returns The number of children
+/// @param len The length to estimate based on
+/// @todo (Why do we require len as a parameter here rather than 
 
 unsigned WoodySegment::expectedKids(float len)
 {
@@ -181,8 +208,8 @@ unsigned WoodySegment::expectedKids(float len)
 
 
 // =======================================================================================
-// Function that is applied to grow the tree by a certain number of years (possibly
-// fractional).
+/// @brief Grow this segment by a certain number of years (possibly fractional).
+/// @param years The number of additional years to add to growth
 
 void WoodySegment::growStep(float years)
 {
@@ -291,18 +318,26 @@ void WoodySegment::growStep(float years)
       kids[i]->growStep(years);
 }
 
-  
+
 // =======================================================================================
-// Function to print out in JSON format.
 
 #define bufprintf(...) if((buf += snprintf(buf, end-buf,  __VA_ARGS__)) >= end) {return -1;}
+
+
+// =======================================================================================
+/// @brief Function to print out this segment in JSON format.
+/// @returns The number of bytes written
+/// @param buf A refence to a char array pointer.  We will start writing to the beginning
+/// of this pointer, but then update it to the end of where we wrote to, so the next 
+/// segment can be added.
+/// @param bufSize The size of the buffer supplied
+/// @todo this isn't quite formulated right at present.  We are starting as though 
+/// we are within an object, yet putting the kids in an array.
 
 int WoodySegment::printOPSF(char*& buf, unsigned bufSize)
 {
   char* end = buf + bufSize;
 
-  // XX this isn't quite formulated right at present.  We are starting as though we are within
-  // an object, yet putting the kids in an array.
   
   // Our own information
   bufprintf("\"woodySegment\": {\n");
@@ -330,7 +365,8 @@ int WoodySegment::printOPSF(char*& buf, unsigned bufSize)
 
 
 // =======================================================================================
-// Tell callers our name at runtime.
+/// @brief Tell callers our name at runtime.
+/// @returns A const pointer to a C-string with the name.
 
 const char* WoodySegment::objectName(void)
 {
@@ -340,8 +376,10 @@ const char* WoodySegment::objectName(void)
 
 
 // =======================================================================================
-// We assume we are part of a table of visual objects and we just contribute one row
-// about this particular object.
+/// @brief  Provide one row of a table of tree parts about this particular segment.
+///
+/// @returns True if the object was written correctly, false if we ran out of space.
+/// @param serv The HTTP Debug server
 
 bool WoodySegment::diagnosticHTML(HttpDebug* serv)
 {
