@@ -895,6 +895,7 @@ INPUT                  = doc \
                 include/HttpLoadBalancer.h src/HttpLoadBalancer.cpp \
                 include/HttpRequestParser.h src/HttpRequestParser.cpp \
                 include/InterfaceAction.h src/InterfaceAction.cpp \
+                include/InterfaceMainSceneWin.h src/InterfaceMainSceneWin.cpp \
                 include/JSONStructureChecker.h src/JSONStructureChecker.cpp \
                 include/LandSurface.h src/LandSurface.cpp \
                 include/LandSurfaceRegion.h src/LandSurfaceRegion.cpp \

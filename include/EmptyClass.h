@@ -1,4 +1,4 @@
-// Copyright Staniford Systems.  All Rights Reserved.  September 2021 -
+// Copyright Staniford Systems.  All Rights Reserved.  October 2021 -
 
 #ifndef EMPTY_CLASS_H
 #define EMPTY_CLASS_H
@@ -28,7 +28,6 @@ private:
   EmptyClass(const EmptyClass&);       
   /// @brief Prevent assignment.
   EmptyClass& operator=(const EmptyClass&);      
-
 };
 
 
