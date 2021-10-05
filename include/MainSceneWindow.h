@@ -9,7 +9,7 @@
 // =======================================================================================
 // Forward declarations
 
-class MenuInterface;
+class InterfaceMainSceneWin;
 
 
 // =======================================================================================
@@ -24,7 +24,7 @@ class MainSceneWindow: public Window3D
 public:
   
   // Instance variables - public
-  MenuInterface*  imgMenu;
+  InterfaceMainSceneWin*  imgMenu;
 
   // Member functions - public
   MainSceneWindow(int pixWidth, int pixHeight, GLFWApplication& app);

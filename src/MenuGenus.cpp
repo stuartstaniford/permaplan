@@ -4,7 +4,7 @@
 // planting time.
 
 #include "MenuGenus.h"
-#include "MenuInterface.h"
+#include "InterfaceMainSceneWin.h"
 #include "Tree.h"
 #include "Scene.h"
 #include "Species.h"
@@ -42,7 +42,7 @@ void MenuGenus::speciesSelected(Species* S)
                                     scene->lastDoubleClick[0], scene->lastDoubleClick[1]);
   Tree* tree = new Tree(S, scene->lastDoubleClick, atof(ageBuf), scene->getSimYear());
   scene->insertVisualObject(tree);
-  mainMenu->genusMenu = NULL;
+  ((InterfaceMainSceneWin*)mainMenu)->genusMenu = NULL;
   delete this;
 }
 

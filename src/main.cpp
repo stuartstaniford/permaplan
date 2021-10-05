@@ -11,7 +11,7 @@
 #include "RegionList.h"
 #include "ResourceManager.h"
 #include "GLFWApplication.h"
-#include "MenuInterface.h"
+#include "InterfaceMainSceneWin.h"
 #include "Scene.h"
 #include <cstdio>
 #include <stdexcept>

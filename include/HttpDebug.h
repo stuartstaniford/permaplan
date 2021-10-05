@@ -27,7 +27,7 @@
 // forward declarations
 
 class Scene; 
-class MenuInterface; 
+class InterfaceMainSceneWin; 
 class GLFWApplication;
 
 
@@ -48,7 +48,7 @@ public:
   char*               respPtr;
   char*               respEnd;
   Scene&              scene;
-  MenuInterface*      menuInterface;
+  InterfaceMainSceneWin*      menuInterface;
   GLFWApplication&    windowApp;
   bool                respBufOverflow;
 

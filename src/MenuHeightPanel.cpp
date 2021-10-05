@@ -4,7 +4,7 @@
 // the most used entry point to this interface will be via a phone app using GPS.
 
 #include "MenuHeightPanel.h"
-#include "MenuInterface.h"
+#include "InterfaceMainSceneWin.h"
 #include "Scene.h"
 
 
@@ -63,7 +63,7 @@ void MenuHeightPanel::heightEntered(float z)
 {
   scene->lastDoubleClick[2] = z;
   scene->newLandHeight(scene->lastDoubleClick, NULL); 
-  mainMenu->heightPanel = NULL;
+  ((InterfaceMainSceneWin*)mainMenu)->heightPanel = NULL;
   delete this;
 }
 

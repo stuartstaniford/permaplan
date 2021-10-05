@@ -3,7 +3,7 @@
 
 #include "MenuBlockPanel.h"
 #include "Material.h"
-#include "MenuInterface.h"
+#include "InterfaceMainSceneWin.h"
 #include "Scene.h"
 
 
@@ -110,7 +110,7 @@ void MenuBlockPanel::blockEntered(float blockSize, const std::string& matName)
   scene->insertVisibleObject((char*)"Block", blockSize, scene->lastDoubleClick, iter->second);
   LogMaterialSelections("Material %s selected for block, carbon density %.2f.\n",
                         matName, iter->second->carbonDensity);
-  mainMenu->blockPanel = NULL;
+  ((InterfaceMainSceneWin*)mainMenu)->blockPanel = NULL;
   delete this;
 }
 

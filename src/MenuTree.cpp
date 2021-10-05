@@ -4,7 +4,7 @@
 // been used in this scene.
 
 #include "MenuTree.h"
-#include "MenuInterface.h"
+#include "InterfaceMainSceneWin.h"
 #include "MenuGenus.h"
 #include "MenuAllTree.h"
 #include "Species.h"
@@ -66,11 +66,12 @@ void MenuTree::imGuiDisplay(void)
 void MenuTree::treeMenuSelection(const char* genusString)
 {
   if(strcmp(genusString, "All Tree Selector") == 0)
-    mainMenu->allTreeMenu = new MenuAllTree(mainMenu, scene);
+    ((InterfaceMainSceneWin*)mainMenu)->allTreeMenu = new MenuAllTree(mainMenu, scene);
   else
-    mainMenu->genusMenu = new MenuGenus(mainMenu, scene, genusString);
+    ((InterfaceMainSceneWin*)mainMenu)->genusMenu 
+                                            = new MenuGenus(mainMenu, scene, genusString);
   
-  mainMenu->treeMenu = NULL;
+  ((InterfaceMainSceneWin*)mainMenu)->treeMenu = NULL;
   delete this;
   LogFlush();
 }

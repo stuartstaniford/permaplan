@@ -7,7 +7,7 @@
 #include "MenuBlockPanel.h"
 #include "MenuShedPanel.h"
 #include "MenuGablePanel.h"
-#include "MenuInterface.h"
+#include "InterfaceMainSceneWin.h"
 #include "MenuTree.h"
 #include "MenuHeightPanel.h"
 
@@ -62,9 +62,9 @@ void MenuInsert::imGuiDisplay(void)
 
 void MenuInsert::insertHeight(void)
 {
-  unless(mainMenu->heightPanel)
-    mainMenu->heightPanel = new MenuHeightPanel(mainMenu, scene);
-  mainMenu->insertMenu = NULL;
+  unless(((InterfaceMainSceneWin*)mainMenu)->heightPanel)
+    ((InterfaceMainSceneWin*)mainMenu)->heightPanel = new MenuHeightPanel(mainMenu, scene);
+  ((InterfaceMainSceneWin*)mainMenu)->insertMenu = NULL;
   delete this;
 }
 
@@ -74,9 +74,9 @@ void MenuInsert::insertHeight(void)
 
 void MenuInsert::insertBlock(void)
 {
-  unless(mainMenu->blockPanel)
-    mainMenu->blockPanel = new MenuBlockPanel(mainMenu, scene);
-  mainMenu->insertMenu = NULL;
+  unless(((InterfaceMainSceneWin*)mainMenu)->blockPanel)
+    ((InterfaceMainSceneWin*)mainMenu)->blockPanel = new MenuBlockPanel(mainMenu, scene);
+  ((InterfaceMainSceneWin*)mainMenu)->insertMenu = NULL;
   delete this;
 }
 
@@ -86,9 +86,9 @@ void MenuInsert::insertBlock(void)
 
 void MenuInsert::insertShed(void)
 {
-  unless(mainMenu->shedPanel)
-    mainMenu->shedPanel = new MenuShedPanel(mainMenu, scene);
-  mainMenu->insertMenu = NULL;
+  unless(((InterfaceMainSceneWin*)mainMenu)->shedPanel)
+    ((InterfaceMainSceneWin*)mainMenu)->shedPanel = new MenuShedPanel(mainMenu, scene);
+  ((InterfaceMainSceneWin*)mainMenu)->insertMenu = NULL;
   delete this;
 }
 
@@ -98,9 +98,9 @@ void MenuInsert::insertShed(void)
 
 void MenuInsert::insertGable(void)
 {
-  unless(mainMenu->gablePanel)
-    mainMenu->gablePanel = new MenuGablePanel(mainMenu, scene);
-  mainMenu->insertMenu = NULL;
+  unless(((InterfaceMainSceneWin*)mainMenu)->gablePanel)
+    ((InterfaceMainSceneWin*)mainMenu)->gablePanel = new MenuGablePanel(mainMenu, scene);
+  ((InterfaceMainSceneWin*)mainMenu)->insertMenu = NULL;
   delete this;
 }
 
@@ -110,8 +110,8 @@ void MenuInsert::insertGable(void)
 
 void MenuInsert::insertTree(void)
 {
-  mainMenu->treeMenu = new MenuTree(mainMenu, scene);
-  mainMenu->insertMenu = NULL;
+  ((InterfaceMainSceneWin*)mainMenu)->treeMenu = new MenuTree(mainMenu, scene);
+  ((InterfaceMainSceneWin*)mainMenu)->insertMenu = NULL;
   delete this;
 }
 

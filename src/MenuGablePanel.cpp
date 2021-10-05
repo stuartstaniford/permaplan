@@ -3,7 +3,7 @@
 // inserting or editing a gable building (or gable-like component of a larger building.) 
 
 #include "MenuGablePanel.h"
-#include "MenuInterface.h"
+#include "InterfaceMainSceneWin.h"
 #include "MenuErrorPanel.h"
 #include "Scene.h"
 #include "PmodDesign.h"
@@ -153,7 +153,7 @@ void MenuGablePanel::gableEntered(void)
   setPosition(scene->lastDoubleClick);
   Gable* newGable = new Gable(*this);
   scene->insertVisualObject(newGable);
-  mainMenu->gablePanel = NULL;
+  ((InterfaceMainSceneWin*)mainMenu)->gablePanel = NULL;
   delete this; 
 }
 

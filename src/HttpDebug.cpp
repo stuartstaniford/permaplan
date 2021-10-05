@@ -11,7 +11,7 @@
 #include "TaskQueueFarm.h"
 #include "SkySampleModel.h"
 #include "InterfaceAction.h"
-#include "MenuInterface.h"
+#include "InterfaceMainSceneWin.h"
 #include "MainSceneWindow.h"
 #include "Window3D.h"
 #include "Species.h"

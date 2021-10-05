@@ -4,7 +4,7 @@
 // from this.
 
 #include "MainSceneWindow.h"
-#include "MenuInterface.h"
+#include "InterfaceMainSceneWin.h"
 #include "MenuInsert.h"
 #include "TreeWindow.h"
 #include "Scene.h"
@@ -20,7 +20,7 @@ MainSceneWindow::MainSceneWindow(int pixWidth, int pixHeight, GLFWApplication& a
                                            (char*)"Landscape Simulation", app)
 {
   // Dear ImGui initialization
-  imgMenu = new MenuInterface(*this);
+  imgMenu = new InterfaceMainSceneWin(*this);
 }
 
 

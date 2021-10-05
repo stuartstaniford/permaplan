@@ -5,7 +5,7 @@
 #include "DynamicallyTypable.h"
 #include "Species.h"
 #include "RegionList.h"
-#include "MenuInterface.h"
+#include "InterfaceMainSceneWin.h"
 #include "Tree.h"
 #include "Scene.h"
 #include "HttpDebug.h"
@@ -112,7 +112,7 @@ void MenuAllTree::allTreeSelection(const char* name, DynamicallyTypable* value)
                         scene->lastDoubleClick[0], scene->lastDoubleClick[1]);
       Tree* tree = new Tree(S, scene->lastDoubleClick, 1.0f, scene->getSimYear());
       scene->insertVisualObject(tree);
-      mainMenu->allTreeMenu = NULL;
+      ((InterfaceMainSceneWin*)mainMenu)->allTreeMenu = NULL;
       delete this;
      }
    }
