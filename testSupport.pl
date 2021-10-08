@@ -66,8 +66,8 @@ sub startPermaplan
     print("Hit return when ready:");
     my $response = <STDIN>;
    }
-  $http = HTTP::Tiny->new();
-
+  $http = HTTP::Tiny->new(('timeout' => 3));
+  
   while(1)
    {
     my $response = $http->get("http://127.0.0.1:$port/alive/");
