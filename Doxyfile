@@ -949,6 +949,7 @@ INPUT                  = doc \
                 include/TreeWindow.h src/TreeWindow.cpp \
                 include/TriangleBuffer.h src/TriangleBuffer.cpp \
                 include/TruncatedCone.h src/TruncatedCone.cpp \
+                include/unitCubeFunction.h src/unitCubeFunction.cpp \
                 include/Version.h src/Version.cpp \
                 include/Vertex.h src/Vertex.cpp \
                 include/VertexArrayObject.h src/VertexArrayObject.cpp \
