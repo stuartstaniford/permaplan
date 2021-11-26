@@ -11,6 +11,10 @@
 /// A variety of more specific functional forms inherit from this and are used for 
 /// various empirical functional forms for tree growth etc.
 
+/// See https://www.fs.usda.gov/treesearch/pubs/52933
+/// and https://www.fs.usda.gov/rds/archive/Catalog/RDS-2016-0005
+/// for more background information.
+
 class unitCubeFunction
 {
 public:
