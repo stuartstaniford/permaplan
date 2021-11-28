@@ -1,5 +1,7 @@
 #!/usr/bin/perl
 
+use Text::CSV_XS;
+
 $rawTreeFile = "ForestServiceUrbanDatabase/Data/TS3_Raw_tree_data.csv";
 $coefficientFile = "ForestServiceUrbanDatabase/Data/TS6_Growth_coefficients.csv";
 $outFile = "ForestServiceUrbanDatabase/json/trees.json";
