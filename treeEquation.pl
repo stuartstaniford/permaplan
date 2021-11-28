@@ -1,5 +1,7 @@
 #!/usr/bin/perl
 
+# See https://metacpan.org/pod/Text::CSV_XS
+# for usage information on the Text::CSV_XS module
 use Text::CSV_XS;
 $csv = Text::CSV_XS->new ({ binary => 1, auto_diag => 1 });
 
