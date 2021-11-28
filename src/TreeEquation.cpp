@@ -4,13 +4,13 @@
 // specific functional forms inherit from this and are used for various empirical 
 // functional forms for tree growth etc.
 
-#include "unitCubeFunction.h"
+#include "TreeEquation.h"
 
 
 // =======================================================================================
 /// @brief Constructor
 
-unitCubeFunction::unitCubeFunction(void)
+TreeEquation::TreeEquation(void)
 {
 }
 
@@ -18,7 +18,7 @@ unitCubeFunction::unitCubeFunction(void)
 // =======================================================================================
 /// @brief Destructor
 
-unitCubeFunction::~unitCubeFunction(void)
+TreeEquation::~TreeEquation(void)
 {
 }
 

@@ -1,7 +1,7 @@
 // Copyright Staniford Systems.  All Rights Reserved.  October 2021 -
 
-#ifndef UNIT_CUBE_FUNCTION_H
-#define UNIT_CUBE_FUNCTION_H
+#ifndef TREE_EQUATION_H
+#define TREE_EQUATION_H
 
 
 // =======================================================================================
@@ -15,15 +15,15 @@
 /// and https://www.fs.usda.gov/rds/archive/Catalog/RDS-2016-0005
 /// for more background information.
 
-class unitCubeFunction
+class TreeEquation
 {
 public:
   
   // Instance variables - public
   
   // Member functions - public
-  unitCubeFunction(void);
-  ~unitCubeFunction(void);
+  TreeEquation(void);
+  ~TreeEquation(void);
   
 private:
   
@@ -31,9 +31,9 @@ private:
   
   // Member functions - private
   /// @brief Prevent copy-construction.
-  unitCubeFunction(const unitCubeFunction&);       
+  TreeEquation(const TreeEquation&);       
   /// @brief Prevent assignment.
-  unitCubeFunction& operator=(const unitCubeFunction&);      
+  TreeEquation& operator=(const TreeEquation&);      
 };
 
 
