@@ -1,24 +1,25 @@
 #!/usr/bin/perl
 
 use Text::CSV_XS;
+$csv = Text::CSV_XS->new ({ binary => 1, auto_diag => 1 });
 
 $rawTreeFile = "ForestServiceUrbanDatabase/Data/TS3_Raw_tree_data.csv";
 $coefficientFile = "ForestServiceUrbanDatabase/Data/TS6_Growth_coefficients.csv";
 $outFile = "ForestServiceUrbanDatabase/json/trees.json";
 
-open(RAWFILE, $rawTreeFile) || die("Couldn't open $rawTreeFile.\n");
+open(RAWFILE, "<:encoding(utf8)", $rawTreeFile) || die("Couldn't open $rawTreeFile.\n");
 open(COEFFILE, $coefficientFile) || die("Couldn't open $coefficientFile.\n");
 
 open(OUT, ">$outFile") || die("Couldn't open $outFile.\n");
 
-$firstRow = <RAWFILE>;
-$firstRow =~ s/[\r\n]//g;
+$firstRow = $csv->getline(RAWFILE);
 
-@names = split('\,', $firstRow);
+@names = @$firstRow;
 
 print OUT "\[\n";
 $firstLine = 1;
-while(<RAWFILE>)
+my $row;
+while($row = $csv->getline(RAWFILE))
 {
   if($firstLine)
    {
@@ -29,8 +30,7 @@ while(<RAWFILE>)
     print OUT ",\n"; # terminate the previous line
    }
   print OUT "\{\n";
-  s/[\r\n]//g;
-  @vals = split('\,', $_);
+  @vals = @$row;
   $firstVal = 1;
   foreach $i (0.. $#names)
    {
