@@ -21,6 +21,7 @@ $firstRow = $csv->getline(RAWFILE);
 print OUT "\[\n";
 $firstLine = 1;
 my $row;
+my %record;
 while($row = $csv->getline(RAWFILE))
 {
   if($firstLine)
@@ -46,12 +47,61 @@ while($row = $csv->getline(RAWFILE))
        {
         print OUT ",\n"; # terminate the previous line
        }
+      $vals[$i] =~ s/\s*$//;
       print OUT "\'$names[$i]\'\:\t\'$vals[$i]\'";
+      $record{$names[$i]} = $vals[$i];
      }
    }
   print OUT "\n\}";
+  print $record{ScientificName}."\t|$record{City}\n";
+  undef %record;
 }
 print OUT "\n]\n";
+
+$firstRow = $csv->getline(COEFFILE);
+
+@names = @$firstRow;
+
+print OUT "\[\n";
+$firstLine = 1;
+my $row;
+my %record;
+while($row = $csv->getline(COEFFILE))
+{
+  if($firstLine)
+   {
+    $firstLine = 0;
+   }
+  else
+   {
+    print OUT ",\n"; # terminate the previous line
+   }
+  print OUT "\{\n";
+  @vals = @$row;
+  $firstVal = 1;
+  foreach $i (0.. $#names)
+   {
+    if(defined $vals[$i] && $vals[$i])
+     {
+      if($firstVal)
+       {
+        $firstVal = 0;
+       }
+      else
+       {
+        print OUT ",\n"; # terminate the previous line
+       }
+      $vals[$i] =~ s/\s*$//;
+      print OUT "\'$names[$i]\'\:\t\'$vals[$i]\'";
+      $record{$names[$i]} = $vals[$i];
+     }
+   }
+  print OUT "\n\}";
+  print $record{ScientificName}."\t|$record{City}\n";
+  undef %record;
+}
+print OUT "\n]\n";
+
 
 close(RAWFILE);
 close(COEFFILE);
