@@ -31,6 +31,7 @@ SkySampleModel* SkySampleModel::theSingleton = NULL;
 /// maps at https://www.nrel.gov/gis/solar.html
 /// Need to actually look up based on latitude in a suitable dataset, such as
 /// https://datacatalog.worldbank.org/dataset/world-direct-normal-irradiation-dni-gis-data-global-solar-atlas
+/// or https://globalsolaratlas.info/
 
 SkySampleModel::SkySampleModel(float lat):
                                   latitude(lat),
