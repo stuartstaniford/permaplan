@@ -24,10 +24,11 @@ class HttpDebug;
 // =======================================================================================
 /// @brief Model irradiance from the sky.
 /// 
-/// This class encapsulates what is needed to sample the sky from any given location 
-/// in order to estimate photosynthetic availability over the growing season.  It 
-/// provides a method to come up with a series of directions, and a weight in each of 
-/// those directions if a ray can in fact reach the sky in that direction.
+/// This singleton class encapsulates what is needed to sample the sky from any given 
+/// location in order to estimate photosynthetic availability over the growing season.  
+/// It provides a method (setSamples()) to come up with a series of directions, and a 
+/// weight in each of those directions if a ray can in fact reach the sky in that 
+/// direction.
 ///
 /// Useful resources:
 /// https://www.nrel.gov/gis/solar.html

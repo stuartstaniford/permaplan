@@ -9,6 +9,7 @@
 // https://en.wikipedia.org/wiki/Hour_angle
 // https://en.wikipedia.org/wiki/Sunrise_equation
 
+// Also see Perez et al "Dynamic Global-to-Direct Irradiance Conversion Models" (1992)
 // For converting W/m^2 to photon fluxes:
 //https://www.researchgate.net/post/Can-I-convert-PAR-photo-active-radiation-value-of-micro-mole-M2-S-to-Solar-radiation-in-Watt-m2/59ca6422217e201e2b23415f/citation/download
 
@@ -101,6 +102,12 @@ void SkySampleModel::setSamples(void)
   // Strategy is to pick random points in the celestial sphere, filter them out
   // if they don't work, then project into directions.
   float sphereRadius = 1000.0f;
+  float rSquared = sphereRadius*sphereRadius;
+  float avgGHI = 0.0f;
+  for(int i=0; i<12; i++)
+    avgGHI += gHI[i];
+  avgGHI /= 12.0f;
+
   vec3 point;
   while(pointsAchieved < SKY_SAMPLES)
    {
@@ -109,20 +116,22 @@ void SkySampleModel::setSamples(void)
     point[1] = (float)( (double)random()/(double)RAND_MAX*sphereRadius*2.0f - sphereRadius);
     point[2] = (float)( (double)random()/(double)RAND_MAX*sphereRadius);
 
+    float pointSquared = point[0]*point[0] + point[1]*point[1] + point[2]*point[2];
+    
     // Get rid of ones that aren't in the upper half sphere
-    if(point[0]*point[0] + point[1]*point[1] + point[2]*point[2] > sphereRadius*sphereRadius)
+    if(pointSquared > rSquared)
       continue;
     
     // get rid of things that will cause numerical blow-ups.
-    if(fabs(point[1]) < EPSILON)
+    if(pointSquared < EPSILON)
       continue;
-      
+    
+    // Make it a unit vector
     glm_vec3_scale_as(point, 1.0f, samples[pointsAchieved]);
     
     // The amount of power coming from this direction is the GHI integrated over the
-    // season.
-    
-    samples[pointsAchieved][3] = 3.14159f;
+    // season.    
+    samples[pointsAchieved][3] = avgGHI;
     
     pointsAchieved++;
    }
