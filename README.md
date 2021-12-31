@@ -19,7 +19,7 @@ Clone rapidjson (https://github.com/Tencent/rapidjson.git) into the subdirectory
 
 You'll need cglm (https://github.com/recp/cglm) installed somewhere (I do "brew install cglm").
 
-Also libgeotiff (to read solar databases).  Get via "brew install libgeotiff".
+Also gdal (to read solar databases).  Get via "brew install gdal".
 
 Building the source code documentation requires doxygen ("brew install doxygen").
 
