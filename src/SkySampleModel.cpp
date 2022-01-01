@@ -17,6 +17,7 @@
 #include "Logging.h"
 #include "BoundingBox.h"
 #include "HttpDebug.h"
+#include "SolarDatabase.h"
 
 
 // =======================================================================================
@@ -50,6 +51,7 @@ SkySampleModel::SkySampleModel(float lat):
   else
     theSingleton = this;
 
+  solarDatabase = new SolarDatabase;
   setSamples();
 }
 

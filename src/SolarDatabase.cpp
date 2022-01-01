@@ -16,6 +16,7 @@
 
 // For more on the gdal library see
 // http://pkg.cs.ovgu.de/LNF/i386/5.10/LNFgdal-docs/reloc/gdal/html/gdal_tutorial.html
+// http://pkg.cs.ovgu.de/LNF/i386/5.10/LNFgdal-docs/reloc/gdal/html/gdal_datamodel.html
 // https://developers.planet.com/planetschool/getting-started-with-gdal/
 
 #include "SolarDatabase.h"
