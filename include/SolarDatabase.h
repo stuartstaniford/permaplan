@@ -28,6 +28,8 @@ private:
   // Instance variables - private
   
   // Member functions - private
+  void getDifData(void);
+  
   SolarDatabase(const SolarDatabase&);                 // Prevent copy-construction
   SolarDatabase& operator=(const SolarDatabase&);      // Prevent assignment
 

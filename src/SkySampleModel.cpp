@@ -25,6 +25,7 @@
 
 SkySampleModel* SkySampleModel::theSingleton = NULL;
 
+
 // =======================================================================================
 /// @brief Constructor
 /// @param lat The latitude based on which we should construct this model (in degrees)

@@ -23,7 +23,11 @@
 #include "gdal_priv.h"
 #include <err.h>
 
+// =======================================================================================
+// File level constants
+
 char* solarFilename = (char*) "Materials/Solar/World_DIF_GISdata_LTAy_AvgDailyTotals_GlobalSolarAtlas-v2_GEOTIFF/DIF.tif";
+
 
 // =======================================================================================
 /// @brief Constructor
@@ -37,6 +41,8 @@ SolarDatabase::SolarDatabase(void)
    {
     err(-1, "Couldn't open %s.\n", solarFilename);
    }
+  
+  getDifData();
 }
 
 
@@ -45,6 +51,15 @@ SolarDatabase::SolarDatabase(void)
 
 SolarDatabase::~SolarDatabase(void)
 {
+}
+
+
+// =======================================================================================
+/// @brief Obtain the diffuse horizontal data.
+
+void SolarDatabase::getDifData(void)
+{
+  
 }
 
 
