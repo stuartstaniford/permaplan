@@ -20,7 +20,8 @@
 // https://developers.planet.com/planetschool/getting-started-with-gdal/
 
 #include "SolarDatabase.h"
-#include "gdal_priv.h"
+#include "Global.h"
+#include <gdal_priv.h>
 #include <err.h>
 
 // =======================================================================================
@@ -36,13 +37,11 @@ SolarDatabase::SolarDatabase(void)
 {
   GDALAllRegister();
 
-  GDALDataset* poDataset = (GDALDataset*) GDALOpen(solarFilename , GA_ReadOnly);
-  if(poDataset == NULL)
-   {
+  GDALDataset* difDataset = (GDALDataset*) GDALOpen(solarFilename , GA_ReadOnly);
+  unless(difDataset)
     err(-1, "Couldn't open %s.\n", solarFilename);
-   }
   
-  getDifData();
+  getDifData(difDataset);
 }
 
 
@@ -57,10 +56,31 @@ SolarDatabase::~SolarDatabase(void)
 // =======================================================================================
 /// @brief Obtain the diffuse horizontal data.
 
-void SolarDatabase::getDifData(void)
+void SolarDatabase::getDifData(GDALDataset* difDataset)
 {
-  
-}
+  GDALRasterBand  *difBand;
+  int             nBlockXSize, nBlockYSize;
+  int             bGotMin, bGotMax;
+  double          adfMinMax[2];
+         
+  difBand = difDataset->GetRasterBand(1);
+  difBand->GetBlockSize( &nBlockXSize, &nBlockYSize );
+  printf( "Block=%dx%d Type=%s, ColorInterp=%s\n",
+            nBlockXSize, nBlockYSize,
+            GDALGetDataTypeName(difBand->GetRasterDataType()),
+            GDALGetColorInterpretationName(difBand->GetColorInterpretation()) );
+
+  adfMinMax[0] = difBand->GetMinimum( &bGotMin );
+  adfMinMax[1] = difBand->GetMaximum( &bGotMax );
+  unless(bGotMin && bGotMax)
+    GDALComputeRasterMinMax((GDALRasterBandH)difBand, TRUE, adfMinMax);
+  printf( "Min=%.3fd, Max=%.3f\n", adfMinMax[0], adfMinMax[1] );
+  if(difBand->GetOverviewCount() > 0 )
+    printf( "Band has %d overviews.\n", difBand->GetOverviewCount() );
+  if(difBand->GetColorTable() != NULL )
+    printf( "Band has a color table with %d entries.\n", 
+                                        difBand->GetColorTable()->GetColorEntryCount() );
+ }
 
 
 // =======================================================================================

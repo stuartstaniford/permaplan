@@ -5,6 +5,12 @@
 
 
 // =======================================================================================
+// Forward declarations
+
+class GDALDataset;
+
+
+// =======================================================================================
 /// @brief Interface to solar databases.
 ///  
 /// This class provides an interface to databases of information required to do solar
@@ -28,7 +34,7 @@ private:
   // Instance variables - private
   
   // Member functions - private
-  void getDifData(void);
+  void getDifData(GDALDataset* difDataset);
   
   SolarDatabase(const SolarDatabase&);                 // Prevent copy-construction
   SolarDatabase& operator=(const SolarDatabase&);      // Prevent assignment
