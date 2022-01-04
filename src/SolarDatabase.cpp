@@ -64,22 +64,21 @@ void SolarDatabase::getDifData(GDALDataset* difDataset)
   double          adfMinMax[2];
          
   difBand = difDataset->GetRasterBand(1);
-  difBand->GetBlockSize( &nBlockXSize, &nBlockYSize );
+  difBand->GetBlockSize(&nBlockXSize, &nBlockYSize);
   printf( "Block=%dx%d Type=%s, ColorInterp=%s\n",
             nBlockXSize, nBlockYSize,
             GDALGetDataTypeName(difBand->GetRasterDataType()),
             GDALGetColorInterpretationName(difBand->GetColorInterpretation()) );
 
-  adfMinMax[0] = difBand->GetMinimum( &bGotMin );
-  adfMinMax[1] = difBand->GetMaximum( &bGotMax );
+  adfMinMax[0] = difBand->GetMinimum(&bGotMin);
+  adfMinMax[1] = difBand->GetMaximum(&bGotMax);
   unless(bGotMin && bGotMax)
     GDALComputeRasterMinMax((GDALRasterBandH)difBand, TRUE, adfMinMax);
-  printf( "Min=%.3fd, Max=%.3f\n", adfMinMax[0], adfMinMax[1] );
+  printf("Min=%.3fd, Max=%.3f\n", adfMinMax[0], adfMinMax[1]);
   if(difBand->GetOverviewCount() > 0 )
-    printf( "Band has %d overviews.\n", difBand->GetOverviewCount() );
-  if(difBand->GetColorTable() != NULL )
-    printf( "Band has a color table with %d entries.\n", 
-                                        difBand->GetColorTable()->GetColorEntryCount() );
+    printf("Band has %d overviews.\n", difBand->GetOverviewCount());
+  if(difBand->GetUnitType())
+    printf("Band has %s units.\n", difBand->GetUnitType());
  }
 
 
