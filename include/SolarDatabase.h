@@ -3,21 +3,16 @@
 #ifndef SOLAR_DATABASE_H
 #define SOLAR_DATABASE_H
 
-
-// =======================================================================================
-// Forward declarations
-
-class GDALDataset;
+#include "GdalFileInterface.h"
 
 
 // =======================================================================================
 /// @brief Interface to solar databases.
 ///  
 /// This class provides an interface to databases of information required to do solar
-/// irradiance calculations.  Currently, it uses libgeotiff to read information from
-/// the raster files downloaded from 
+/// irradiance calculations.  Currently, it uses GdalFileInterface to read information 
+/// from the raster files downloaded from 
 ///https://datacatalog.worldbank.org/dataset/world-direct-normal-irradiation-dni-gis-data-global-solar-atlas
-/// @todo This is a stub with no implementation yet.
 
 class SolarDatabase
 {
@@ -32,9 +27,10 @@ public:
 private:
   
   // Instance variables - private
+  GdalFileInterface difFile;
   
   // Member functions - private
-  void getDifData(GDALDataset* difDataset);
+  void getDifData(GdalFileInterface* difDataset);
   
   SolarDatabase(const SolarDatabase&);                 // Prevent copy-construction
   SolarDatabase& operator=(const SolarDatabase&);      // Prevent assignment
