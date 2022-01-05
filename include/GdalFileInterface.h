@@ -32,7 +32,8 @@ public:
 private:
   
   // Instance variables - private
-  GDALDataset* dataset;
+  GDALDataset*  dataset;
+  double        geoTransform[6];       
 
   // Member functions - private
   /// @brief Prevent copy-construction.
