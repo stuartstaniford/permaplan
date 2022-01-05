@@ -69,7 +69,13 @@ void GdalFileInterface::printOverviewData()
   int             nBlockXSize, nBlockYSize;
   int             bGotMin, bGotMax;
   double          adfMinMax[2];
-         
+  double          geoTransform[6];       
+  
+  CPLErr transErr = dataset->GetGeoTransform(geoTransform);
+  unless(transErr == CE_None)
+    err(-1, "GetGeoTransform failed in GdalFileInterface::printOverviewData.\n");
+  for(int i=0; i<6; i++)
+    printf("geoTransform[%d] is %.3f\n", i, geoTransform[i]);
   difBand = dataset->GetRasterBand(1);
   difBand->GetBlockSize(&nBlockXSize, &nBlockYSize);
   printf( "Block=%dx%d Type=%s, ColorInterp=%s\n",
