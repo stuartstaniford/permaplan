@@ -40,7 +40,9 @@ SolarDatabase::~SolarDatabase(void)
  
 float SolarDatabase::getDIFValue(float lat, float longt)
 {
-  return 0.0f;
+  float retVal;
+  difFile.getValueAtLocation(0, lat, longt, retVal);
+  return retVal;
 }
 
 
