@@ -32,3 +32,16 @@ SolarDatabase::~SolarDatabase(void)
 
 
 // =======================================================================================
+/// @brief Get the diffuse horizontal irradiance value at a given location
+/// 
+/// @returns A float with the value for diffuse horizontal irradiance
+/// @param lat Latitude of the location we are querying about.
+/// @param longt Longtitude of the location we are querying about.
+ 
+float SolarDatabase::getDIFValue(float lat, float longt)
+{
+  return 0.0f;
+}
+
+
+// =======================================================================================

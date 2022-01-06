@@ -23,6 +23,7 @@ public:
   // Member functions - public
   SolarDatabase(void);
   ~SolarDatabase(void);
+  float getDIFValue(float lat, float longt);
   
 private:
   
