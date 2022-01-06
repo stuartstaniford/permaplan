@@ -56,7 +56,8 @@ int main (int argc, char* argv[])
   ResourceManager resources(window);
   PmodDesign design;
   Scene scene;
-  SkySampleModel skySampler(design.boundary.referencePoint[0]);
+  SkySampleModel skySampler(design.boundary.referencePoint[0], 
+                                                        design.boundary.referencePoint[1]);
   glfwApp.scene = &scene;
   glfwApp.addWindow(window);
   window.imgMenu->scene = &scene;

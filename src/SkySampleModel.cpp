@@ -29,14 +29,11 @@ SkySampleModel* SkySampleModel::theSingleton = NULL;
 // =======================================================================================
 /// @brief Constructor
 /// @param lat The latitude based on which we should construct this model (in degrees)
-/// @todo Currently hard-coded Ithaca values (approx) estimated from the monthly 
-/// maps at https://www.nrel.gov/gis/solar.html
-/// Need to actually look up based on latitude in a suitable dataset, such as
-/// https://datacatalog.worldbank.org/dataset/world-direct-normal-irradiation-dni-gis-data-global-solar-atlas
-/// or https://globalsolaratlas.info/
+/// @param longt The longtitude based on which we should construct this model (in degrees)
 
-SkySampleModel::SkySampleModel(float lat):
+SkySampleModel::SkySampleModel(float lat, float longt):
                                   latitude(lat),
+                                  longtitude(longt),
                                   gHI{1.0f, 1.5f, 3.5f, 4.5f, 5.6f, 5.8f,
                                       5.8f, 5.4f, 4.25f, 3.5f, 1.8f, 1.0f},
                                   dNI{3.1f, 3.2f, 4.2f, 4.7f, 4.7f, 5.0f,

@@ -75,7 +75,7 @@ private:
 public:
   
   // Member functions - public
-  SkySampleModel(float lat);
+  SkySampleModel(float lat, float longt);
   ~SkySampleModel(void);
   void setSamples(void);
   unsigned treesInteract(BoundingBox* B1, BoundingBox* B2);
@@ -94,6 +94,7 @@ private:
   // Instance variables - private
   SolarDatabase*  solarDatabase;
   float           latitude;         // in degrees
+  float           longtitude;       // in degrees
   float           gHI[12];          // global horizontal irradiance - kWH/m^2/day
   float           dNI[12];          // direct normal irradiance - kWH/m^2/day
   float           dFI[12];          // diffuse horizontal irradiance - kWH/m^2/day
