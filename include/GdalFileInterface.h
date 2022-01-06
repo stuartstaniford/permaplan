@@ -27,6 +27,7 @@ public:
   // Member functions - public
   GdalFileInterface(char* fileName);
   ~GdalFileInterface(void);
+  bool getValueAtLocation(int band, float latitude, float longtitude, float& retVal);
   void printOverviewData();
   
 private:

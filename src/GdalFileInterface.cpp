@@ -64,6 +64,23 @@ GdalFileInterface::~GdalFileInterface(void)
 
 
 // =======================================================================================
+/// @brief Get a value from a given raster band in the file.
+/// 
+/// @returns True if the file has a value for the given location in the given band, 
+/// false in the event of an error (eg no such band, location not covered).
+/// @param retVal A reference to a float to return the value found.
+/// @param band An integer specifying the band to look in 
+/// @param latitude The latitude of the location we are looking up.
+/// @param longtitude The longtitude of the location we are looking up.
+
+bool GdalFileInterface::getValueAtLocation(int band, float latitude, float longtitude, 
+                                                                            float& retVal)
+{
+  return false;
+}
+
+
+// =======================================================================================
 /// @brief Print some summary data about the file.
 
 void GdalFileInterface::printOverviewData()
