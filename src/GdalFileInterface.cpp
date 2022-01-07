@@ -4,20 +4,26 @@
 // powerful, and this class provides a simplified interface which just abstracts 
 // the limited amount of functionality we actually require
 
-// For more on the geotiff format see
-// http://docs.opengeospatial.org/is/19-008r4/19-008r4.html
-
-// For more on libgeotiff see
-// https://github.com/OSGeo/libgeotiff
-// https://svn.osgeo.org/metacrs/geotiff/trunk/libgeotiff/docs/manual.txt
-
-// Geotiff is a special case of TIFF, and this is the spec for that:
-// https://www.adobe.io/content/dam/udp/en/open/standards/tiff/TIFF6.pdf
-
 // For more on the gdal library see
 // http://pkg.cs.ovgu.de/LNF/i386/5.10/LNFgdal-docs/reloc/gdal/html/gdal_tutorial.html
 // http://pkg.cs.ovgu.de/LNF/i386/5.10/LNFgdal-docs/reloc/gdal/html/gdal_datamodel.html
 // https://developers.planet.com/planetschool/getting-started-with-gdal/
+// https://www.gis.usu.edu/~chrisg/python/2009/lectures/ospy_slides4.pdf
+
+
+// =======================================================================================
+// We are no longer planning to use libgeotiff, but if that changes, here are useful 
+// links: 
+// For more on the geotiff format see
+// http://docs.opengeospatial.org/is/19-008r4/19-008r4.html
+// For more on libgeotiff see
+// https://github.com/OSGeo/libgeotiff
+// https://svn.osgeo.org/metacrs/geotiff/trunk/libgeotiff/docs/manual.txt
+// Geotiff is a special case of TIFF, and this is the spec for that:
+// https://www.adobe.io/content/dam/udp/en/open/standards/tiff/TIFF6.pdf
+
+
+// =======================================================================================
 
 #include "GdalFileInterface.h"
 #include "Global.h"
@@ -76,7 +82,13 @@ GdalFileInterface::~GdalFileInterface(void)
 bool GdalFileInterface::getValueAtLocation(int band, float latitude, float longtitude, 
                                                                             float& retVal)
 {
-  return false;
+  int nBlockXSize, nBlockYSize;
+  GDALRasterBand* rasterBand = dataset->GetRasterBand(band);
+  rasterBand->GetBlockSize(&nBlockXSize, &nBlockYSize);
+  int rasterXSize = dataset->GetRasterXSize();
+  int rasterYSize = dataset->GetRasterYSize();
+  
+  return (rasterXSize*rasterYSize < 0);
 }
 
 
