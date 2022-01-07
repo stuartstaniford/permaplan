@@ -83,8 +83,8 @@ GdalFileInterface::~GdalFileInterface(void)
 
 bool GdalFileInterface::getValueAtLocation(int band, float latitude, float longtitude, 
                                                                             float& retVal)
-{
-  int nBlockXSize, nBlockYSize;
+{  
+  // Get the correct raster band
   GDALRasterBand* rasterBand = dataset->GetRasterBand(band);
   unless(rasterBand)
    {
@@ -92,15 +92,32 @@ bool GdalFileInterface::getValueAtLocation(int band, float latitude, float longt
     return false;
    }
 
+  // This function is expecting float data
   unless(rasterBand->GetRasterDataType() == GDT_Float32) 
    {
     LogGdalError("Raster band %d in file %s is not float32.\n", band, srcFileName);
     return false;  
    }
   
+  // Get and validate the block size
+  int nBlockXSize, nBlockYSize;
   rasterBand->GetBlockSize(&nBlockXSize, &nBlockYSize);
+  unless(nBlockXSize > 0 && nBlockYSize > 0) 
+   {
+    LogGdalError("Raster band %d in file %s has bad block sizes %d,%d.\n", 
+                                        band, srcFileName, nBlockXSize, nBlockYSize);
+    return false;  
+   }
+
+  // Get and validate the image size in pixels
   int rasterXSize = dataset->GetRasterXSize();
   int rasterYSize = dataset->GetRasterYSize();
+  unless(rasterXSize > 0 && rasterYSize > 0) 
+   {
+    LogGdalError("Raster band %d in file %s has bad sizes %d,%d.\n", 
+                                        band, srcFileName, rasterXSize, rasterYSize);
+    return false;  
+   }
   
   return (rasterXSize*rasterYSize < 0);
 }
