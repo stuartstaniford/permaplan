@@ -149,10 +149,18 @@ bool GdalFileInterface::getValueAtLocation(int band, float latitude, float longt
    }
   
   // Read the block
-  //int iXBlock;
-  //int iYBlock;
-  //rasterBand->ReadBlock( iXBlock, iYBlock, pabyData );
+  int xBlock = xPixel/nBlockXSize;
+  int yBlock = yLine/nBlockYSize;
+  unless(rasterBand->ReadBlock(xBlock, yBlock, buf) == CE_None)
+   {
+    LogGdalError("Failed to read block location [%d, %d] in band %d in file %s.\n", 
+                                                      xBlock, yBlock, band, srcFileName);
+    return false;  
+   }
            
+  // Extract the actual value we are looking for
+  // UP TO HERE
+  
   // Clean up before going home.
   delete[] buf;
            
