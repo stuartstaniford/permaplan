@@ -57,6 +57,10 @@ GdalFileInterface::GdalFileInterface(char* fileName):
   unless(transErr == CE_None)
     err(-1, "GetGeoTransform failed in GdalFileInterface::printOverviewData.\n");
 
+  unless(fabs(geoTransform[2]) < EPSILON &&  fabs(geoTransform[4]) < EPSILON)
+    err(-1, "Reading %s failed, not north-up: (%.2f,%.2f) != (0.0, 0.0).\n", 
+                                        fileName, geoTransform[2], geoTransform[4]);  
+
   printOverviewData();
 }
 
@@ -94,6 +98,22 @@ bool GdalFileInterface::getValueAtLocation(int band, float latitude, float longt
     return false;  
    }
 
+  // Compute the pixel position and validate it.
+  int xPixel = (latitude - geoTransform[0])/geoTransform[1];
+  unless(xPixel >= 0 && xPixel < rasterXSize)
+   {
+    LogGdalError("xPixel %d out of range [0,%d] for band %d in file %s.\n", 
+                                            xPixel, rasterXSize, band, srcFileName);
+    return false;  
+   }
+  int yLine = (latitude - geoTransform[3])/geoTransform[5];
+  unless(yLine >= 0 && yLine < rasterYSize)
+   {
+    LogGdalError("yLine %d out of range [0,%d] for band %d in file %s.\n", 
+                                            yLine, rasterYSize, band, srcFileName);
+    return false;  
+   }
+  
   // Get the correct raster band
   GDALRasterBand* rasterBand = dataset->GetRasterBand(band);
   unless(rasterBand)
@@ -128,6 +148,10 @@ bool GdalFileInterface::getValueAtLocation(int band, float latitude, float longt
     return false;  
    }
   
+  // Read the block
+  //int iXBlock;
+  //int iYBlock;
+  //rasterBand->ReadBlock( iXBlock, iYBlock, pabyData );
            
   // Clean up before going home.
   delete[] buf;
