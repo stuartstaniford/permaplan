@@ -65,7 +65,8 @@
 // =======================================================================================
 // Logging options to do with sky sampling and lighting
 
-#define LOG_SKY_SAMPLE_INIT      // Log the setup of the sky sampling model
+#define LOG_SKY_SAMPLE_INIT       // Log the setup of the sky sampling model
+#define LOG_GDAL_ERROR            // Log problems in accessing files via libgdal
 
 // =======================================================================================
 // Logging options for Trees/Plants
@@ -215,6 +216,7 @@ extern bool doLogPathMap;             // Log storage and use of the path map
 
 // Logging options to do with sky sampling and lighting
 extern bool doLogSkySampleInit;       // Log the setup of the sky sampling model
+extern bool doLogGdalError;           // Log problems in accessing files via libgdal
 
 // Logging options for Trees/Plants
 extern bool doLogTreeSelections;      // Log when a tree is selected.
@@ -554,6 +556,14 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
                                             LogStatement("LogSkySampleInit: " __VA_ARGS__)
 #else
 #define LogSkySampleInit(...)
+#endif
+
+// Log problems in accessing files via libgdal
+#ifdef LOG_GDAL_ERROR
+#define LogGdalError(...) if(doLogGdalError) \
+                                            LogStatement("LogLogGdalError: " __VA_ARGS__)
+#else
+#define LogGdalError(...)
 #endif
 
 

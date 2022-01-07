@@ -34,7 +34,8 @@ private:
   
   // Instance variables - private
   GDALDataset*  dataset;
-  double        geoTransform[6];       
+  char*         srcFileName;
+  double        geoTransform[6];   
 
   // Member functions - private
   /// @brief Prevent copy-construction.

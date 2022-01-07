@@ -27,6 +27,7 @@
 
 #include "GdalFileInterface.h"
 #include "Global.h"
+#include "Logging.h"
 #include <gdal_priv.h>
 #include <err.h>
 
@@ -40,7 +41,8 @@ bool gdalIsRegistered = false;
 // =======================================================================================
 /// @brief Constructor
 
-GdalFileInterface::GdalFileInterface(char* fileName)
+GdalFileInterface::GdalFileInterface(char* fileName):
+                                          srcFileName(fileName)
 {
   unless(gdalIsRegistered)
    {
@@ -84,6 +86,18 @@ bool GdalFileInterface::getValueAtLocation(int band, float latitude, float longt
 {
   int nBlockXSize, nBlockYSize;
   GDALRasterBand* rasterBand = dataset->GetRasterBand(band);
+  unless(rasterBand)
+   {
+    LogGdalError("Cannot get raster band index %d from file %s.\n", band, srcFileName);
+    return false;
+   }
+
+  unless(rasterBand->GetRasterDataType() == GDT_Float32) 
+   {
+    LogGdalError("Raster band %d in file %s is not float32.\n", band, srcFileName);
+    return false;  
+   }
+  
   rasterBand->GetBlockSize(&nBlockXSize, &nBlockYSize);
   int rasterXSize = dataset->GetRasterXSize();
   int rasterYSize = dataset->GetRasterYSize();
