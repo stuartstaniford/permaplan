@@ -5,37 +5,41 @@
 // time series from climate model runs).
 
 #include "HttpLoadBalancer.h"
+#include "Logging.h"
 #include <cstdio>
 #include <stdexcept>
 #include <pthread.h>
+#include <err.h>
+#include <unistd.h>
 
 
 // =======================================================================================
 // C function to launder C++ method into pthread_create
-
+/*
 void* callProcessConn(void* arg)
 {
-  HttpLoadBalancer* hd = (HttpLoadBalancer*)arg;
-  return hd->processConnections();
+  //HttpLoadBalancer* hd = (HttpLoadBalancer*)arg;
+  return NULL; //hd->processConnections();
 }
-
+*/
 
 // =======================================================================================
 // Main function
-
+/*
 int main (int argc, char* argv[])
 {
   // Initialize logging so we can record the rest of the start-up.
   LogInit();
     
   // Start up the debugging http server
-  HttpLoadBalancer   httpServer(config.debugPort, scene, glfwApp);
+  //HttpLoadBalancer   httpServer(config.debugPort, scene, glfwApp);
   int         pthreadErr;
   pthread_t   httpThread;
-  if((pthreadErr = pthread_create(&httpThread, NULL, callProcessConn, &httpServer)) != 0)
+//  if((pthreadErr = pthread_create(&httpThread, NULL, callProcessConn, &httpServer)) != 0)
     err(-1, "Couldn't spawn HTTP server thread in %s.\n", argv[0]);
   
   sleep(1e8);
   
   return 0;
 }
+*/
