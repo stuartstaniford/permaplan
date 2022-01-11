@@ -50,6 +50,8 @@ SkySampleModel::SkySampleModel(float lat, float longt):
     theSingleton = this;
 
   solarDatabase = new SolarDatabase;
+  difSolarValue = solarDatabase->getDIFValue(latitude, longtitude);
+
   setSamples();
 }
 

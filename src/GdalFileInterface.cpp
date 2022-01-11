@@ -61,7 +61,7 @@ GdalFileInterface::GdalFileInterface(char* fileName):
     err(-1, "Reading %s failed, not north-up: (%.2f,%.2f) != (0.0, 0.0).\n", 
                                         fileName, geoTransform[2], geoTransform[4]);  
 
-  printOverviewData();
+  //printOverviewData();
 }
 
 
@@ -159,7 +159,8 @@ bool GdalFileInterface::getValueAtLocation(int band, float latitude, float longt
    }
            
   // Extract the actual value we are looking for
-  // UP TO HERE
+  retVal = buf[(yLine - yBlock*nBlockYSize)*nBlockXSize + xPixel-xBlock*nBlockXSize];
+  printf("Retval is %.4f.\n", retVal);
   
   // Clean up before going home.
   delete[] buf;

@@ -70,8 +70,13 @@ public:
 
 private:
   
+  // Instance private variables
+  float difSolarValue;
+  
+  // Static private variables
   static SkySampleModel* theSingleton;
 
+  
 public:
   
   // Member functions - public
