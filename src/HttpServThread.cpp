@@ -10,7 +10,8 @@
 // =======================================================================================
 /// @brief Constructor
 
-HttpServThread::HttpServThread(void)
+HttpServThread::HttpServThread(unsigned index):
+                                    TaskQueue(index)
 {
 }
 

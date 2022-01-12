@@ -4,7 +4,7 @@
 #define HTTP_DEBUG_H
 
 #include "HttpRequestParser.h"
-#include "TaskQueue.h"
+#include "HttpServThread.h"
 #include <netinet/in.h>
 #include <sys/socket.h>
 #include <sys/types.h>
@@ -40,7 +40,7 @@ class GLFWApplication;
 /// object, and we inherit from TaskQueue in order to have incoming requests queued for
 /// us to process. 
 
-class HttpDebug: public TaskQueue
+class HttpDebug: public HttpServThread
 {  
 public:
   

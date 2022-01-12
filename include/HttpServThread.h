@@ -3,6 +3,7 @@
 #ifndef HTTP_SERV_THREAD_H
 #define HTTP_SERV_THREAD_H
 
+#include "TaskQueue.h"
 
 // =======================================================================================
 /// @brief Superclass for any thread that is going to handle the specifics of an HTTP
@@ -13,14 +14,14 @@
 /// subclassed, and the subclass should handle the specific requests of a given server
 /// (eg see HttpDebug as the original subclass of this).
 
-class HttpServThread
+class HttpServThread: public TaskQueue
 {
 public:
   
   // Instance variables - public
   
   // Member functions - public
-  HttpServThread(void);
+  HttpServThread(unsigned index);
   ~HttpServThread(void);
   
 private:

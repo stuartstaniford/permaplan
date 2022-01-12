@@ -33,7 +33,7 @@
 /// index An unsigned index of which TaskQueue we are in the loadBalancer.
 
 HttpDebug::HttpDebug(Scene& S, GLFWApplication& winApp, unsigned index):
-                        TaskQueue(index),
+                        HttpServThread(index),
                         scene(S),
                         menuInterface(NULL),
                         windowApp(winApp),
