@@ -144,23 +144,6 @@ bool HttpDebug::carbonSummary(void)
 
 
 // =======================================================================================
-/// @brief Generate an Error Page.
-/// @param error A C string with the specific error to tell the user.
-
-bool HttpDebug::errorPage(const char* error)
-{
-  unless(startResponsePage("Error"))
-    return false;
-  internalPrintf("Sorry, an error has occurred: <b>");
-  internalPrintf("%s", error);
-  internalPrintf(".</b>\n");
-  unless(endResponsePage())
-    return false;
-  return true;
-}
-
-
-// =======================================================================================
 /// @brief Process a single header, and construct the response.
 /// 
 /// Calls the HTTRequestParser instance to extract the URL, and then routes the request

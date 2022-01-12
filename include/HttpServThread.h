@@ -52,6 +52,7 @@ public:
   ~HttpServThread(void);
   bool  startResponsePage(const char* title, unsigned refresh = 0u);
   bool  endResponsePage(void);
+  bool  errorPage(const char* error);
 
 protected:
   
