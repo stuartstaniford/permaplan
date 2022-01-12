@@ -2,7 +2,7 @@
 #include "PmodConfig.h"
 #include "PmodDesign.h"
 #include "Shader.h"
-#include "HttpLoadBalancer.h"
+#include "HttpLBDebug.h"
 #include "TextureAtlas.h"
 #include "Material.h"
 #include "Tree.h"
@@ -23,7 +23,7 @@
 
 void* callProcessConn(void* arg)
 {
-  HttpLoadBalancer* hd = (HttpLoadBalancer*)arg;
+  HttpLBDebug* hd = (HttpLBDebug*)arg;
   return hd->processConnections();
 }
 
@@ -67,7 +67,7 @@ int main (int argc, char* argv[])
   RegionList::loadRoot();
   
   // Start up the debugging http server
-  HttpLoadBalancer   httpServer(config.debugPort, scene, glfwApp);
+  HttpLBDebug httpServer(config.debugPort, scene, glfwApp);
   int         pthreadErr;
   pthread_t   httpThread;
   if((pthreadErr = pthread_create(&httpThread, NULL, callProcessConn, &httpServer)) != 0)

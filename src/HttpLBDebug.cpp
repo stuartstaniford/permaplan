@@ -11,7 +11,8 @@
 // =======================================================================================
 /// @brief Constructor
 
-HttpLBDebug::HttpLBDebug(void)
+HttpLBDebug::HttpLBDebug(unsigned short servPort, Scene& S, GLFWApplication& winApp):
+                    HttpLoadBalancer(servPort, S, winApp)
 {
 }
 

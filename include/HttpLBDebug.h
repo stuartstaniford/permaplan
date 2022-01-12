@@ -15,14 +15,14 @@
 /// handling an individual connection.  This allows multiple clients to talk to the 
 /// HTTP interface.
 
-class HttpLBDebug//: public HttpLoadBalancer
+class HttpLBDebug: public HttpLoadBalancer
 {
 public:
   
   // Instance variables - public
   
   // Member functions - public
-  HttpLBDebug(void);
+  HttpLBDebug(unsigned short servPort, Scene& S, GLFWApplication& winApp);
   ~HttpLBDebug(void);
   
 private:
