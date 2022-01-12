@@ -24,9 +24,7 @@
 /// will need to interact with it.
 /// @param windowApp A reference to the GLFWApplication.
 
-HttpLoadBalancer::HttpLoadBalancer(unsigned short servPort, Scene& S, 
-                                                              GLFWApplication& windowApp):
-                                    scene(S),
+HttpLoadBalancer::HttpLoadBalancer(unsigned short servPort):
                                     shutDownNow(false),
                                     port(servPort)
 {
@@ -48,11 +46,8 @@ HttpLoadBalancer::HttpLoadBalancer(unsigned short servPort, Scene& S,
   if ((listen(sockfd, 6)) != 0)
     err(-1, "Listen failed on socket %d in __func__\n", sockfd);
 
-  HttpDebug** httpThreads = new HttpDebug*[HTTP_THREAD_COUNT];  
-  for(unsigned i=0; i<HTTP_THREAD_COUNT;i++)
-    httpThreads[i] = new HttpDebug(scene, windowApp, i);
-  servFarm = new TaskQueueFarm(HTTP_THREAD_COUNT, (TaskQueue**)httpThreads, 
-                                                                    (char*)"httpFarm");
+  httpThreads = new TaskQueue*[HTTP_THREAD_COUNT];  
+  servFarm = new TaskQueueFarm(HTTP_THREAD_COUNT, httpThreads, (char*)"httpFarm");
 }
 
 

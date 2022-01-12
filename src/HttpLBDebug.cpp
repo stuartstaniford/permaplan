@@ -6,14 +6,17 @@
 // allows multiple clients to talk to the HTTP interface.
 
 #include "HttpLBDebug.h"
-
+#include "HttpDebug.h"
 
 // =======================================================================================
 /// @brief Constructor
 
 HttpLBDebug::HttpLBDebug(unsigned short servPort, Scene& S, GLFWApplication& winApp):
-                    HttpLoadBalancer(servPort, S, winApp)
+                    HttpLoadBalancer(servPort),
+                    scene(S)
 {
+  for(unsigned i=0; i<HTTP_THREAD_COUNT;i++)
+    httpThreads[i] = (TaskQueue*) new HttpDebug(scene, winApp, i);
 }
 
 

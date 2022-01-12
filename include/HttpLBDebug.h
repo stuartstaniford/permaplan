@@ -20,7 +20,8 @@ class HttpLBDebug: public HttpLoadBalancer
 public:
   
   // Instance variables - public
-  
+  Scene&              scene;
+
   // Member functions - public
   HttpLBDebug(unsigned short servPort, Scene& S, GLFWApplication& winApp);
   ~HttpLBDebug(void);

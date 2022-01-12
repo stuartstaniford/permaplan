@@ -17,6 +17,7 @@ class Scene;
 class MenuInterface; 
 class HttpDebug;
 class TaskQueueFarm;
+class TaskQueue;
 class GLFWApplication;
 
 
@@ -34,13 +35,16 @@ class HttpLoadBalancer
 public:
   
   // Instance variables - public
-  Scene&              scene;
   bool                shutDownNow; // Reads/writes on a single bool should be atomic, no lock.
   
   // Member functions - public
-  HttpLoadBalancer(unsigned short servPort, Scene& S, GLFWApplication& winApp);
+  HttpLoadBalancer(unsigned short servPort);
   ~HttpLoadBalancer(void);
   void* processConnections(void);
+
+protected:
+  TaskQueue**         httpThreads; // must be initialized by subclass that knows the real type
+                                   // of these
   
 private:
   
