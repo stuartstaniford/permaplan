@@ -57,6 +57,13 @@ protected:
   
   // Member functions - protected
   unsigned  generateHeader(unsigned bodySize, unsigned code, const char* msg);
+  bool      reallocateResponseBuf(void);
+
+  inline void resetResponse(void)
+   {
+    respPtr = respBuf;
+    respEnd = respBuf + respBufSize;
+   }
 
 private:
   

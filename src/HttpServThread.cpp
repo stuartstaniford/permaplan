@@ -6,7 +6,7 @@
 // (eg see HttpDebug as the original subclass of this).
 
 #include "HttpServThread.h"
-
+#include "Logging.h"
 
 // =======================================================================================
 /// @brief Constructor
@@ -57,6 +57,27 @@ unsigned HttpServThread::generateHeader(unsigned bodySize, unsigned code, const 
   return (ptr-headBuf);
 }
   
+
+// ======================================================================================
+/// @brief Grow the response buf when it's not big enough
+/// @returns True if we successfully grew it, false if we ran up against the limit.
+
+bool HttpServThread::reallocateResponseBuf(void)
+{
+  respBufSize *= 2;
+  if(respBufSize > 16*1024*1024)
+   {
+    LogHTTPBufferOps("HTTP max response buffer exceeded at %u.\n", respBufSize);
+    return false;
+   }
+  LogHTTPBufferOps("HTTP response buffer size increased to %u.\n", respBufSize);
+  delete[] respBuf;
+  respBuf = new char[respBufSize];
+  respBufOverflow = false;
+  resetResponse();
+  return true;
+}
+
 
 // =======================================================================================
 /// @brief Generate an HTML page opening into the response buffer.
