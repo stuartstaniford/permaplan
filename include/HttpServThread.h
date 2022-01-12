@@ -4,6 +4,19 @@
 #define HTTP_SERV_THREAD_H
 
 #include "TaskQueue.h"
+#include "HttpRequestParser.h"
+
+
+// =======================================================================================
+// Useful macros
+
+#define httPrintf(...) if((serv->respPtr += snprintf(serv->respPtr, \
+              serv->respEnd-serv->respPtr,  __VA_ARGS__)) >= serv->respEnd) \
+                {serv->respBufOverflow = true; return false;}
+#define internalPrintf(...) if((respPtr += snprintf(respPtr, \
+              respEnd-respPtr,  __VA_ARGS__)) >= respEnd) \
+                {respBufOverflow = true; return false;}
+
 
 // =======================================================================================
 /// @brief Superclass for any thread that is going to handle the specifics of an HTTP
@@ -19,7 +32,17 @@ class HttpServThread: public TaskQueue
 public:
   
   // Instance variables - public
-  
+  char*               respPtr;
+  char*               respEnd;
+  bool                respBufOverflow;
+
+  // Instance variables - protected
+  HttpRequestParser   reqParser;
+  unsigned            respBufSize;
+  unsigned            headBufSize;
+  char*               respBuf;
+  char*               headBuf;
+
   // Member functions - public
   HttpServThread(unsigned index);
   ~HttpServThread(void);

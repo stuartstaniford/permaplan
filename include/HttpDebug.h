@@ -3,24 +3,12 @@
 #ifndef HTTP_DEBUG_H
 #define HTTP_DEBUG_H
 
-#include "HttpRequestParser.h"
 #include "HttpServThread.h"
 #include <netinet/in.h>
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <err.h>
 #include <cstdio>
-
-
-// =======================================================================================
-// Useful macros
-
-#define httPrintf(...) if((serv->respPtr += snprintf(serv->respPtr, \
-              serv->respEnd-serv->respPtr,  __VA_ARGS__)) >= serv->respEnd) \
-                {serv->respBufOverflow = true; return false;}
-#define internalPrintf(...) if((respPtr += snprintf(respPtr, \
-              respEnd-respPtr,  __VA_ARGS__)) >= respEnd) \
-                {respBufOverflow = true; return false;}
 
 
 // =======================================================================================
@@ -45,12 +33,9 @@ class HttpDebug: public HttpServThread
 public:
   
   // Instance variables - public
-  char*               respPtr;
-  char*               respEnd;
-  Scene&              scene;
-  InterfaceMainSceneWin*      menuInterface;
-  GLFWApplication&    windowApp;
-  bool                respBufOverflow;
+  Scene&                  scene;
+  InterfaceMainSceneWin*  menuInterface;
+  GLFWApplication&        windowApp;
 
   // Member functions - public
   HttpDebug(Scene& S, GLFWApplication& winApp, unsigned index);
@@ -81,11 +66,6 @@ public:
 private:
   
   // Instance variables - private
-  HttpRequestParser   reqParser;
-  unsigned            respBufSize;
-  unsigned            headBufSize;
-  char*               respBuf;
-  char*               headBuf;
 
   // Member functions - private
   unsigned    generateHeader(unsigned bodySize, unsigned code, const char* msg);

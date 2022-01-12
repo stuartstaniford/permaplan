@@ -893,8 +893,10 @@ INPUT                  = doc \
                 include/Grid.h src/Grid.cpp \
                 include/HeightMarker.h src/HeightMarker.cpp \
                 include/HttpDebug.h src/HttpDebug.cpp \
+                include/HttpLBDebug.h src/HttpLBDebug.cpp \
                 include/HttpLoadBalancer.h src/HttpLoadBalancer.cpp \
                 include/HttpRequestParser.h src/HttpRequestParser.cpp \
+                include/HttpServThread.h src/HttpServThread.cpp \
                 include/InterfaceAction.h src/InterfaceAction.cpp \
                 include/InterfaceMainSceneWin.h src/InterfaceMainSceneWin.cpp \
                 include/JSONStructureChecker.h src/JSONStructureChecker.cpp \
@@ -940,6 +942,7 @@ INPUT                  = doc \
                 include/SolarDatabase.h src/SolarDatabase.cpp \
                 include/Species.h src/Species.cpp \
                 include/TaskQueueFarm.h src/TaskQueueFarm.cpp \
+                include/TaskQueue.h src/TaskQueue.cpp \
                 include/Texture.h src/Texture.cpp \
                 include/TextureAtlas.h src/TextureAtlas.cpp \
                 include/TexturedRect.h src/TexturedRect.cpp \

@@ -36,16 +36,8 @@ HttpDebug::HttpDebug(Scene& S, GLFWApplication& winApp, unsigned index):
                         HttpServThread(index),
                         scene(S),
                         menuInterface(NULL),
-                        windowApp(winApp),
-                        respBufOverflow(false),
-                        reqParser(8192),
-                        respBufSize(16384),
-                        headBufSize(4096)
+                        windowApp(winApp)
 {
-  respBuf = new char[respBufSize];
-  headBuf = new char[headBufSize];
-  if(!respBuf || !headBuf)
-    err(-1, "Couldn't allocate memory in __func__\n");
   MainSceneWindow& mainWin = (MainSceneWindow&)winApp.getMainWin();
   menuInterface = mainWin.imgMenu;
   resetResponse();

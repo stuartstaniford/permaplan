@@ -11,8 +11,16 @@
 /// @brief Constructor
 
 HttpServThread::HttpServThread(unsigned index):
-                                    TaskQueue(index)
+                                    TaskQueue(index),
+                                    respBufOverflow(false),
+                                    reqParser(8192),
+                                    respBufSize(16384),
+                                    headBufSize(4096)
 {
+  respBuf = new char[respBufSize];
+  headBuf = new char[headBufSize];
+  if(!respBuf || !headBuf)
+    err(-1, "Couldn't allocate memory in __func__\n");
 }
 
 
