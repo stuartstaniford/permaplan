@@ -17,13 +17,6 @@
 #include "Species.h"
 #include "GLFWApplication.h"
 #include <stdio.h>
-#include <netdb.h>
-#include <netinet/in.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/socket.h>
-#include <sys/types.h>
-#include <unistd.h>
 
 
 // =======================================================================================
@@ -268,32 +261,6 @@ bool HttpDebug::processRequestHeader(void)
   scene.unlock();
 
   return retVal;
-}
-
-
-// =======================================================================================
-/// @brief Utility function to keep writing till we've gotten it done, or encounter error
-/// @returns true if success, false if there's a write failure.
-/// @param fildes The file descriptor of the socket to write to.
-/// @param buf The char buffer to write from
-/// @param nbyte The number of bytes that must be written.
-
-bool HttpDebug::writeLoop(int fildes, char *buf, size_t nbyte)
-{
-  char* p = buf;
-  int bytesWritten;
-  
-  while(p-buf < nbyte)
-   {
-    bytesWritten = write(fildes, p, nbyte - (p-buf));
-    if(bytesWritten < 0)
-     {
-      LogRequestErrors("Write call failed in writeLoop\n");
-      return false;
-     }
-    p += bytesWritten;
-   }
-  return true;
 }
 
 

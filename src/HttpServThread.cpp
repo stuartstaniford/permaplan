@@ -7,6 +7,8 @@
 
 #include "HttpServThread.h"
 #include "Logging.h"
+#include <unistd.h>
+
 
 // =======================================================================================
 /// @brief Constructor
@@ -124,6 +126,32 @@ bool HttpServThread::errorPage(const char* error)
   internalPrintf(".</b>\n");
   unless(endResponsePage())
     return false;
+  return true;
+}
+
+
+// =======================================================================================
+/// @brief Utility function to keep writing till we've gotten it done, or encounter error
+/// @returns true if success, false if there's a write failure.
+/// @param fildes The file descriptor of the socket to write to.
+/// @param buf The char buffer to write from
+/// @param nbyte The number of bytes that must be written.
+
+bool HttpServThread::writeLoop(int fildes, char *buf, size_t nbyte)
+{
+  char* p = buf;
+  int bytesWritten;
+  
+  while(p-buf < nbyte)
+   {
+    bytesWritten = write(fildes, p, nbyte - (p-buf));
+    if(bytesWritten < 0)
+     {
+      LogRequestErrors("Write call failed in writeLoop\n");
+      return false;
+     }
+    p += bytesWritten;
+   }
   return true;
 }
 

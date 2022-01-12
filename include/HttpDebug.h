@@ -66,7 +66,6 @@ private:
 
   // Member functions - private
   bool        processRequestHeader(void);
-  bool        writeLoop(int fildes, char *buf, size_t nbyte);
   bool        indexPage(void);
   HttpDebug(const HttpDebug&);                 // Prevent copy-construction
   HttpDebug& operator=(const HttpDebug&);      // Prevent assignment

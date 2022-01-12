@@ -59,6 +59,7 @@ protected:
   // Member functions - protected
   unsigned  generateHeader(unsigned bodySize, unsigned code, const char* msg);
   bool      reallocateResponseBuf(void);
+  bool      writeLoop(int fildes, char *buf, size_t nbyte);
 
   inline void resetResponse(void)
    {
