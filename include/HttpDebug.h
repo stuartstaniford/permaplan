@@ -68,7 +68,6 @@ private:
   // Instance variables - private
 
   // Member functions - private
-  unsigned    generateHeader(unsigned bodySize, unsigned code, const char* msg);
   bool        processRequestHeader(void);
   bool        reallocateResponseBuf(void);
   bool        writeLoop(int fildes, char *buf, size_t nbyte);

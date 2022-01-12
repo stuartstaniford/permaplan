@@ -36,6 +36,8 @@ public:
   char*               respEnd;
   bool                respBufOverflow;
 
+protected:
+  
   // Instance variables - protected
   HttpRequestParser   reqParser;
   unsigned            respBufSize;
@@ -46,7 +48,12 @@ public:
   // Member functions - public
   HttpServThread(unsigned index);
   ~HttpServThread(void);
+
+protected:
   
+  // Member functions - protected
+  unsigned  generateHeader(unsigned bodySize, unsigned code, const char* msg);
+
 private:
   
   // Instance variables - private
