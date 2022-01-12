@@ -40,8 +40,6 @@ public:
   // Member functions - public
   HttpDebug(Scene& S, GLFWApplication& winApp, unsigned index);
   ~HttpDebug(void);
-  bool        startResponsePage(const char* title, unsigned refresh = 0u);
-  bool        endResponsePage(void);
   bool        errorPage(const char* error);
   bool        carbonSummary(void);
   void        processOneHTTP1_1(int connfd, unsigned short clientPort);

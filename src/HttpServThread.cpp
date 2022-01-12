@@ -30,6 +30,8 @@ HttpServThread::HttpServThread(unsigned index):
 
 HttpServThread::~HttpServThread(void)
 {
+  delete[] respBuf;
+  delete[] headBuf;
 }
 
 
@@ -55,5 +57,37 @@ unsigned HttpServThread::generateHeader(unsigned bodySize, unsigned code, const 
   return (ptr-headBuf);
 }
   
+
+// =======================================================================================
+/// @brief Generate an HTML page opening into the response buffer.
+/// @returns True if we successfully generated the HTML, false if we ran out of space.
+/// @param title A C string to use in the title tag and also h1 tag at the top of the 
+/// page.
+/// @param refresh A refresh interval for the page (defaults to 0u if missing).
+
+bool HttpServThread::startResponsePage(const char* title, unsigned refresh)
+{
+  internalPrintf("<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n");
+  internalPrintf("<title>%s</title>\n", title);
+  internalPrintf("<link rel=\"stylesheet\" href=\"css/styles.css\">\n");
+  if(refresh > 0)
+    internalPrintf("<meta http-equiv=\"refresh\" content=\"%u\">\n", refresh);
+  internalPrintf("</head>\n<body>\n");
+  internalPrintf("<center><h1>%s</h1></center>\n", title);
+  return true;
+}
+
+
+// =======================================================================================
+/// @brief Generate an HTML page ending into the response buffer.
+/// @returns True if we successfully generated the HTML, false if we ran out of space.
+
+bool HttpServThread::endResponsePage(void)
+{
+  internalPrintf("<hr><center><span name=\"copyright\">Staniford Systems</span>");
+  internalPrintf("</center>\n</body>\n</html>\n");
+  return true;
+}
+
 
 // =======================================================================================

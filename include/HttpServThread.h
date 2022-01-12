@@ -45,9 +45,13 @@ protected:
   char*               respBuf;
   char*               headBuf;
 
+public:
+  
   // Member functions - public
   HttpServThread(unsigned index);
   ~HttpServThread(void);
+  bool  startResponsePage(const char* title, unsigned refresh = 0u);
+  bool  endResponsePage(void);
 
 protected:
   
