@@ -41,23 +41,6 @@ public:
   HttpDebug(Scene& S, GLFWApplication& winApp, unsigned index);
   ~HttpDebug(void);
   bool        carbonSummary(void);
-  inline bool startTable(char* name = NULL)
-   {
-    if(name)
-     {
-      internalPrintf("<table name=\"%s\" cellpadding=\"1\" border=\"1\">\n", name);
-     }
-    else
-     {
-      internalPrintf("<table cellpadding=\"1\" border=\"1\">\n");
-     }
-    return true;
-   }
-  inline bool newSection(const char* title)
-   {
-    internalPrintf("<hr><center><h3>%s</h3>\n", title);
-    return true;
-   }
 
 private:
   
