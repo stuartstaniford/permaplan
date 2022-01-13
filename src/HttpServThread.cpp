@@ -24,6 +24,7 @@ HttpServThread::HttpServThread(unsigned index):
   headBuf = new char[headBufSize];
   if(!respBuf || !headBuf)
     err(-1, "Couldn't allocate memory in __func__\n");
+  resetResponse();
 }
 
 

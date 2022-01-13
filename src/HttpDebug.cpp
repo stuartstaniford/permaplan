@@ -33,7 +33,6 @@ HttpDebug::HttpDebug(Scene& S, GLFWApplication& winApp, unsigned index):
 {
   MainSceneWindow& mainWin = (MainSceneWindow&)winApp.getMainWin();
   menuInterface = mainWin.imgMenu;
-  resetResponse();
 }
 
 

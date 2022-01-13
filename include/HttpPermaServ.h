@@ -28,6 +28,9 @@ private:
   // Instance variables - private
   
   // Member functions - private
+  bool  processRequestHeader(void);
+  bool  indexPage(void);
+
   /// @brief Prevent copy-construction.
   HttpPermaServ(const HttpPermaServ&);       
   /// @brief Prevent assignment.
