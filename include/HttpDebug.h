@@ -4,11 +4,6 @@
 #define HTTP_DEBUG_H
 
 #include "HttpServThread.h"
-#include <netinet/in.h>
-#include <sys/socket.h>
-#include <sys/types.h>
-#include <err.h>
-#include <cstdio>
 
 
 // =======================================================================================
