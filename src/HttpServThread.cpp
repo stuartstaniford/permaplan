@@ -157,3 +157,16 @@ bool HttpServThread::writeLoop(int fildes, char *buf, size_t nbyte)
 
 
 // =======================================================================================
+/// @brief Interface for method to process a single header, and construct the response.
+/// 
+/// This is the main interface that a subclass must implement in order to examine and
+/// act on a given request (eg by interrogating the reqParser protected variable).
+/// The implementation in this class should never be called, and errs out if it is. 
+
+bool HttpServThread::processRequestHeader(void)
+{
+   err(-1, "Unimplemented superclass version of HttpServThread::processRequestHeader.\n");
+}
+
+
+// =======================================================================================
