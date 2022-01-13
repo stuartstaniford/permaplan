@@ -170,3 +170,58 @@ bool HttpServThread::processRequestHeader(void)
 
 
 // =======================================================================================
+/// @brief Process one HTTP/1.1 connection, looping over the request headers and 
+/// arranging for them to be dealt with individually.
+/// @param connfd The socket file descriptor
+/// @param clientPort The client port of the underlying TCP connection (mainly for 
+/// logging purposes).
+
+void HttpServThread::processOneHTTP1_1(int connfd, unsigned short clientPort)
+{
+  LogHTTPLoadBalance("HTTPDebug %d handling client on port %u.\n", queueIndex, clientPort);
+
+  reqParser.setNewConnection(connfd);
+  
+  while(reqParser.getNextRequest())
+   {
+    resetResponse();
+
+    unsigned headerLen;
+    bool returnOK;
+    while(1)
+     {
+      returnOK = processRequestHeader();
+      LogHTTPLoadBalance("HTTPDebug %d: client port %u, request %s.\n", 
+                          queueIndex, clientPort, reqParser.getUrl());
+      if(returnOK)
+        break;
+      unless(respBufOverflow)
+       {
+        LogHTTPBufferOps("None size related false return from processRequestHeader.\n");
+        break;
+       }
+      unless(reallocateResponseBuf())
+        break;
+     }
+    if(returnOK)
+      headerLen = generateHeader(respPtr-respBuf, 200, "OK");
+    else
+     {
+      LogRequestErrors("500 error being returned on HTTP request.\n");
+      headerLen = generateHeader(0u, 500, "ERROR");
+     }
+    
+    // respond to client
+    unless(writeLoop(connfd, headBuf, headerLen))
+      break;
+    if(returnOK)
+      unless(writeLoop(connfd, respBuf, respPtr-respBuf))
+        break;
+    if(reqParser.connectionWillClose)
+        break;
+   }
+  reqParser.resetForReuse();
+}
+
+
+// =======================================================================================

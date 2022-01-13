@@ -53,6 +53,7 @@ public:
   bool  startResponsePage(const char* title, unsigned refresh = 0u);
   bool  endResponsePage(void);
   bool  errorPage(const char* error);
+  void  processOneHTTP1_1(int connfd, unsigned short clientPort);
 
 protected:
   
