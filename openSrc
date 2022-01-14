@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-system("open -a XCode src/*.cpp src/*.c");
+system("open -a XCode src/*.cpp src/*.c permaserv/*.cpp");
 system("open -a XCode include/*.h");
 $otdlFiles = `find Materials/Trees -name '*.otdl'`;
 $otdlFiles =~ s/\n/ /g;
@@ -11,4 +11,4 @@ $testFiles .= `find tests -name \'*.oldf\'`;
 $testFiles .= `find tests -name \'*.lctl\'`;
 $testFiles =~ s/\S+\.out\.oldf//g;
 $testFiles =~ s/\n/ /g;
-system("open -a XCode Doxyfile ~/.zshrc Makefile README.md openSrc *.pl compilePmod 812/812.oldf src/*.glsl CMakeLists.txt web/*.js web/views/*.ejs web/views/*.js docs/*.md $testFiles *.json Materials/*.json $regionFiles $otdlFiles");
+system("open -a XCode Doxyfile ~/.zshrc Makefile permaserv/Makefile README.md openSrc *.pl compilePmod 812/812.oldf src/*.glsl CMakeLists.txt web/*.js web/views/*.ejs web/views/*.js docs/*.md $testFiles *.json Materials/*.json $regionFiles $otdlFiles");

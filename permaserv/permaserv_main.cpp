@@ -15,17 +15,17 @@
 
 // =======================================================================================
 // C function to launder C++ method into pthread_create
-/*
+
 void* callProcessConn(void* arg)
 {
   //HttpLoadBalancer* hd = (HttpLoadBalancer*)arg;
   return NULL; //hd->processConnections();
 }
-*/
+
 
 // =======================================================================================
 // Main function
-/*
+
 int main (int argc, char* argv[])
 {
   // Initialize logging so we can record the rest of the start-up.
@@ -42,4 +42,4 @@ int main (int argc, char* argv[])
   
   return 0;
 }
-*/
+

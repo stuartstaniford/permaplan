@@ -12,7 +12,7 @@ $testFiles .= `find tests -name \'*.lctl\'`;
 $testFiles =~ s/\S+\.out\.oldf//g;
 $testFiles =~ s/\n/ /g;
 
-open(FILE, "wc unixTime.cpp src/*.cpp include/*.h openSrc *.pl 812/*.oldf src/*.glsl CMakeLists.txt web/*.js web/views/*js README.md docs/*.md $testFiles Materials/*.json $regionFiles co2-scenarios.json $otdlFiles|")
+open(FILE, "wc unixTime.cpp src/*.cpp include/*.h permaserv/*.cpp openSrc *.pl 812/*.oldf src/*.glsl CMakeLists.txt web/*.js web/views/*js README.md docs/*.md $testFiles Materials/*.json $regionFiles co2-scenarios.json $otdlFiles|")
 || die("Couldn't run wc.\n");
 
 
