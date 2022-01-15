@@ -3,20 +3,24 @@
 #ifndef HTTP_LB_PERMASERV_H
 #define HTTP_LB_PERMASERV_H
 
+#include "HttpLoadBalancer.h"
+
 
 // =======================================================================================
-/// @brief This is a template for new classes.  Quick description of the class here.
+/// @brief A subclass of HttpLoadBalancer that is used for in the permaserv processing
+/// for handling HTTP requests.
 ///
-/// More details of the class go here.
+/// This subclass basically exists to make sure that requests get handled by the correct
+/// HttpPermaServ instances that know how to interpret the permaserv API. 
 
-class HttpLBPermaserv
+class HttpLBPermaserv: public HttpLoadBalancer
 {
 public:
   
   // Instance variables - public
   
   // Member functions - public
-  HttpLBPermaserv(void);
+  HttpLBPermaserv(unsigned short servPort);
   ~HttpLBPermaserv(void);
   
 private:

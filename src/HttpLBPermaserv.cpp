@@ -1,5 +1,8 @@
 // Copyright Staniford Systems.  All Rights Reserved.  January 2022 -
-// This class ..... is a template for real classes
+// A subclass of HttpLoadBalancer that is used for in the permaserv processing for 
+// handling HTTP requests.  This subclass basically exists to make sure that requests 
+// get handled by the correct HttpPermaServ instances that know how to interpret 
+// the permaserv API.
 
 #include "HttpLBPermaserv.h"
 
@@ -7,7 +10,8 @@
 // =======================================================================================
 /// @brief Constructor
 
-HttpLBPermaserv::HttpLBPermaserv(void)
+HttpLBPermaserv::HttpLBPermaserv(unsigned short servPort):
+                                          HttpLoadBalancer(servPort)
 {
 }
 
