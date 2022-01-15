@@ -33,8 +33,8 @@ int main (int argc, char* argv[])
     
   // Start up the debugging http server
   //HttpLoadBalancer   httpServer(config.debugPort, scene, glfwApp);
-  int         pthreadErr;
-  pthread_t   httpThread;
+  //int         pthreadErr;
+  //pthread_t   httpThread;
 //  if((pthreadErr = pthread_create(&httpThread, NULL, callProcessConn, &httpServer)) != 0)
     err(-1, "Couldn't spawn HTTP server thread in %s.\n", argv[0]);
   
