@@ -4,7 +4,7 @@
 // values from soil databases at particular locations, temperature or precipitation
 // time series from climate model runs).
 
-#include "HttpLoadBalancer.h"
+#include "HttpLBPermaserv.h"
 #include "Logging.h"
 #include <cstdio>
 #include <stdexcept>
@@ -18,8 +18,8 @@
 
 void* callProcessConn(void* arg)
 {
-  //HttpLoadBalancer* hd = (HttpLoadBalancer*)arg;
-  return NULL; //hd->processConnections();
+  HttpLBPermaserv* hd = (HttpLBPermaserv*)arg;
+  return hd->processConnections();
 }
 
 
@@ -32,10 +32,10 @@ int main (int argc, char* argv[])
   LogInit();
     
   // Start up the debugging http server
-  //HttpLoadBalancer   httpServer(config.debugPort, scene, glfwApp);
-  //int         pthreadErr;
-  //pthread_t   httpThread;
-//  if((pthreadErr = pthread_create(&httpThread, NULL, callProcessConn, &httpServer)) != 0)
+  HttpLBPermaserv httpServer(2080);
+  int             pthreadErr;
+  pthread_t       httpThread;
+  if((pthreadErr = pthread_create(&httpThread, NULL, callProcessConn, &httpServer)) != 0)
     err(-1, "Couldn't spawn HTTP server thread in %s.\n", argv[0]);
   
   sleep(1e8);

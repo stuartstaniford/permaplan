@@ -5,7 +5,7 @@
 // the permaserv API.
 
 #include "HttpLBPermaserv.h"
-
+#include "HttpPermaServ.h"
 
 // =======================================================================================
 /// @brief Constructor
@@ -13,6 +13,8 @@
 HttpLBPermaserv::HttpLBPermaserv(unsigned short servPort):
                                           HttpLoadBalancer(servPort)
 {
+  for(unsigned i=0; i<HTTP_THREAD_COUNT;i++)
+    httpThreads[i] = (TaskQueue*) new HttpPermaServ(i);
 }
 
 
