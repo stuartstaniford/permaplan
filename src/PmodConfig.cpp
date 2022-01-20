@@ -21,8 +21,8 @@ PmodConfig* PmodConfig::config = NULL;
 /// @brief Constructor processes the command line.
 /// 
 /// Uses C-style getopt() processing.  It may possibly exit if we don't like the taste.
-/// @param Number of command line arguments from main()
-/// argv Command line arguments from main().
+/// @param argc Number of command line arguments from main()
+/// @param argv Command line arguments from main().
 
 PmodConfig::PmodConfig(int argc, char* argv[])
 {

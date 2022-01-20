@@ -43,7 +43,11 @@ bool HttpPermaServ::indexPage(void)
   
   // DIF
   internalPrintf("<tr><td><a href=\"/dif?42.441570,-76.498665/\">dif?lat,long</a></td>");
-  internalPrintf("<td>Average value of diffuse horizontal irradiation at location.</td></tr>\n");
+  internalPrintf("<td>Average diffuse horizontal irradiation at location (kWh/m²/day).</td></tr>\n");
+
+  // DNI
+  internalPrintf("<tr><td><a href=\"/dni?42.441570,-76.498665/\">dni?lat,long</a></td>");
+  internalPrintf("<td>Average direct normal irradiation at location (kWh/m²/day).</td></tr>\n");
 
   // End table and page
   internalPrintf("</table></center>\n");
@@ -72,6 +76,18 @@ bool HttpPermaServ::processRequestHeader(void)
   if( strlen(url) == 7 && strncmp(url, "/alive/", 7) == 0)
    {
     internalPrintf("OK\n");
+    retVal = true;
+   }
+
+  else if( strlen(url) >= 8 && strncmp(url, "/dif?", 5) == 0)
+   {
+    internalPrintf("DIF request\n");
+    retVal = true;
+   }
+
+  else if( strlen(url) >= 8 && strncmp(url, "/dni?", 5) == 0)
+   {
+    internalPrintf("DNI request\n");
     retVal = true;
    }
   
