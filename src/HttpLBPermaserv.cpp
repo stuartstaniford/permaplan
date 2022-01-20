@@ -6,6 +6,7 @@
 
 #include "HttpLBPermaserv.h"
 #include "HttpPermaServ.h"
+#include "SolarDatabase.h"
 
 
 // =======================================================================================
@@ -14,8 +15,9 @@
 HttpLBPermaserv::HttpLBPermaserv(unsigned short servPort):
                                           HttpLoadBalancer(servPort)
 {
+  solarDatabase = new SolarDatabase;
   for(unsigned i=0; i<HTTP_THREAD_COUNT;i++)
-    httpThreads[i] = (TaskQueue*) new HttpPermaServ(i);
+    httpThreads[i] = (TaskQueue*) new HttpPermaServ(i, solarDatabase);
 }
 
 

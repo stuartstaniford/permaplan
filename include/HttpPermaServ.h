@@ -7,6 +7,12 @@
 
 
 // =======================================================================================
+// Forward declarations
+
+class SolarDatabase;
+
+
+// =======================================================================================
 /// @brief Http processing for requests to the permaserv server. 
 ///
 /// Permaserv provides information from large geospatial databases to permaplan 
@@ -20,12 +26,13 @@ public:
   // Instance variables - public
   
   // Member functions - public
-  HttpPermaServ(unsigned index);
+  HttpPermaServ(unsigned index, SolarDatabase* solarD);
   ~HttpPermaServ(void);
   
 private:
   
   // Instance variables - private
+  SolarDatabase* solarDatabase;
   
   // Member functions - private
   bool  processRequestHeader(void);

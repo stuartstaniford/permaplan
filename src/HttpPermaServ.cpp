@@ -3,12 +3,16 @@
 
 #include "HttpPermaServ.h"
 #include "Logging.h"
+#include "SolarDatabase.h"
+
 
 // =======================================================================================
 /// @brief Constructor
 
-HttpPermaServ::HttpPermaServ(unsigned index):
-                            HttpServThread(index)
+HttpPermaServ::HttpPermaServ(unsigned index, SolarDatabase* solarD):
+                            HttpServThread(index),
+                            solarDatabase(solarD)
+
 {
 }
 

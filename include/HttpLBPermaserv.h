@@ -7,6 +7,12 @@
 
 
 // =======================================================================================
+// Forward declarations
+
+class SolarDatabase;
+
+
+// =======================================================================================
 /// @brief A subclass of HttpLoadBalancer that is used for in the permaserv processing
 /// for handling HTTP requests.
 ///
@@ -26,7 +32,8 @@ public:
 private:
   
   // Instance variables - private
-  
+  SolarDatabase* solarDatabase;
+
   // Member functions - private
   /// @brief Prevent copy-construction.
   HttpLBPermaserv(const HttpLBPermaserv&);       
