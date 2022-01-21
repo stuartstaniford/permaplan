@@ -90,3 +90,17 @@ bool HttpClient::fetchFile(const char* url, const char* path)
 
 
 // =======================================================================================
+/// @brief  Fetch a response from a given URL and store it in a designated memory buffer.  
+/// @returns true on success or false on failure.
+/// @param url A const C-string with the URL to fetch from
+/// @param buf A char* buffer to write the data to.
+/// @param bufSize An unsigned denoting the size of the buffer in bytes. 
+/// @todo Currently always starts over from the beginning if a prior transfer was incomplete.
+
+bool HttpClient::fetchBuffer(const char* url, char* buf, unsigned bufSize)
+{
+  return false;
+}
+
+
+// =======================================================================================
