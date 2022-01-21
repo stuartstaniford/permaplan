@@ -10,7 +10,7 @@
 /// @brief This class isolates HTTP client functionality from the rest of the code.  
 /// 
 /// Used by the resource manager in fetching stuff, and also used when permaplan 
-/// wants to query permaserv for things.
+/// wants to query permaserv for things (HttpPermaservClient calls this).
 /// 
 /// Currently it is a gateway to libcurl.   See the tutorial at 
 /// https://curl.se/libcurl/c/libcurl-tutorial.html
