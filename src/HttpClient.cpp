@@ -7,6 +7,7 @@
 #include "Logging.h"
 #include "Global.h"
 #include <err.h>
+#include <string.h>
 
 
 // =======================================================================================
@@ -57,6 +58,22 @@ size_t writeToFile(void *buffer, size_t size, size_t nmemb, void *userp)
 
 
 // =======================================================================================
+// Helper C function to do the file writing for HttpClient::fetchBuffer via
+// curl_easy_setopt(...CURLOPT_WRITEFUNCTION...)
+
+size_t writeToBuffer(void *buffer, size_t size, size_t nmemb, void *userp)
+{
+  char* dest = (char*)userp;
+  
+  
+  // HAS OVERFLOWS _ NEED TO PASS IN SIZE AND CHECK.
+  
+  memcpy(dest, buffer, size*nmemb);
+  return size*nmemb;
+}
+
+
+// =======================================================================================
 /// @brief  Fetch a file from a given URL and store it in a designated path location.  
 /// @returns true on success or false on failure.
 /// @param url A const C-string with the URL to fetch from
@@ -99,7 +116,19 @@ bool HttpClient::fetchFile(const char* url, const char* path)
 
 bool HttpClient::fetchBuffer(const char* url, char* buf, unsigned bufSize)
 {
-  return false;
+  curl_easy_setopt(easyHandle, CURLOPT_URL, url);
+  curl_easy_setopt(easyHandle, CURLOPT_WRITEFUNCTION, writeToBuffer);
+  curl_easy_setopt(easyHandle, CURLOPT_WRITEDATA, buf);
+
+  CURLcode result = curl_easy_perform(easyHandle);
+
+  if(result == CURLE_OK)
+    return true;
+  else
+   {
+    LogHttpClientErrors("Could not transfer from %s:%s.\n", url, errorBuf);
+    return false;
+   }
 }
 
 
