@@ -128,9 +128,10 @@ bool doLogObjectAltitudes     = true; // Log finding the altitudes of objects ab
 
 FILE* LogFile;
 
-void LogInit(void)
+void LogInit(char* fileName)
 {
-  char* fileName = (char*)"permaplan.log";
+  unless(fileName)
+    fileName = (char*)"permaplan.log";
   
   LogFile = fopen(fileName, "w");
   if(!LogFile)

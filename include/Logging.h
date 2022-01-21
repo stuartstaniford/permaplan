@@ -3,6 +3,9 @@
 // are defined at the beginning that implement conditional compilation of all the
 // different kinds of logging.
 
+#ifndef LOGGING_H
+#define LOGGING_H
+
 #include "MemoryTracker.h"
 #include <cstdio>
 
@@ -163,7 +166,7 @@
 #define LogStatement(...) fprintf(LogFile, __VA_ARGS__)
 
 class HTTPDebug;
-void LogInit(void);
+void LogInit(char* fileName = NULL);
 void LogFlush(void);
 bool LogControlHTML(HttpDebug* serv, char* path);
 extern FILE* LogFile;
@@ -946,5 +949,7 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
 #define LogObjectAltitudes(...)
 #endif
 
+
+#endif //LOGGING_H
 
 // =======================================================================================

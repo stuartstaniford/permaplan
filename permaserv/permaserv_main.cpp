@@ -79,7 +79,7 @@ void processCommandLine(int argc, char* argv[])
 int main (int argc, char* argv[])
 {
   // Initialize logging so we can record the rest of the start-up.
-  LogInit();
+  LogInit((char*)"permaserv.log");
     
   processCommandLine(argc, argv);
   

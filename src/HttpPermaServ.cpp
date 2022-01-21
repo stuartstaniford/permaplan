@@ -46,11 +46,11 @@ bool HttpPermaServ::indexPage(void)
   internalPrintf("<tr><th>Link</th><th>notes</th></tr>\n");
   
   // DIF
-  internalPrintf("<tr><td><a href=\"/dif?42.441570,-76.498665/\">dif?lat,long</a></td>");
+  internalPrintf("<tr><td><a href=\"/dif?42.441570:-76.498665/\">dif?lat:long</a></td>");
   internalPrintf("<td>Average diffuse horizontal irradiation at location (kWh/m²/day).</td></tr>\n");
 
   // DNI
-  internalPrintf("<tr><td><a href=\"/dni?42.441570,-76.498665/\">dni?lat,long</a></td>");
+  internalPrintf("<tr><td><a href=\"/dni?42.441570:-76.498665/\">dni?lat:long</a></td>");
   internalPrintf("<td>Average direct normal irradiation at location (kWh/m²/day).</td></tr>\n");
 
   // End table and page
@@ -70,6 +70,7 @@ bool HttpPermaServ::indexPage(void)
 bool HttpPermaServ::processRequestHeader(void)
 {
   char* url = reqParser.getUrl();
+  float latLong[2];
   
   if( (strlen(url) == 1 && url[0] == '/') || strncmp(url, "/index.", 7) == 0)
     return indexPage();
@@ -85,13 +86,23 @@ bool HttpPermaServ::processRequestHeader(void)
 
   else if( strlen(url) >= 8 && strncmp(url, "/dif?", 5) == 0)
    {
-    internalPrintf("DIF request\n");
+    unless(extractColonVecN(url+5, 2, latLong))
+     {
+      LogRequestErrors("Bad dif request: %s\n", url);
+      retVal = false;
+     }
+
+    
     retVal = true;
    }
 
   else if( strlen(url) >= 8 && strncmp(url, "/dni?", 5) == 0)
    {
-    internalPrintf("DNI request\n");
+    unless(extractColonVecN(url+5, 2, latLong))
+     {
+      LogRequestErrors("Bad dni request: %s\n", url);
+      retVal = false;
+     }
     retVal = true;
    }
   
