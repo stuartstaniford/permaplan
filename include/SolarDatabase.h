@@ -24,11 +24,13 @@ public:
   SolarDatabase(void);
   ~SolarDatabase(void);
   float getDIFValue(float lat, float longt);
+  float getDNIValue(float lat, float longt);
   
 private:
   
   // Instance variables - private
   GdalFileInterface difFile;
+  GdalFileInterface dniFile;
   
   // Member functions - private
   void getDifData(GdalFileInterface* difDataset);

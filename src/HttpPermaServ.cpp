@@ -91,7 +91,7 @@ bool HttpPermaServ::processRequestHeader(void)
       LogRequestErrors("Bad dif request: %s\n", url);
       retVal = false;
      }
-    internalPrintf("Dif: %.3f\n", solarDatabase->getDIFValue(latLong[0], latLong[1]));
+    internalPrintf("DIF: %.3f\n", solarDatabase->getDIFValue(latLong[0], latLong[1]));
     retVal = true;
    }
 
@@ -102,7 +102,7 @@ bool HttpPermaServ::processRequestHeader(void)
       LogRequestErrors("Bad dni request: %s\n", url);
       retVal = false;
      }
-    internalPrintf("Dif: %.3f\n", 0.0f); //solarDatabase->getDNIValue(lat, long))
+    internalPrintf("DNI: %.3f\n", solarDatabase->getDNIValue(latLong[0], latLong[1]));
     retVal = true;
    }
   

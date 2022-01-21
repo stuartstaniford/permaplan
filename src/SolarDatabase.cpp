@@ -11,14 +11,18 @@
 // =======================================================================================
 // File level constants
 
-char* solarFilename = (char*) "Materials/Solar/World_DIF_GISdata_LTAy_AvgDailyTotals_GlobalSolarAtlas-v2_GEOTIFF/DIF.tif";
+char* difFileName = (char*) "Materials/Solar/World_DIF_GISdata_LTAy_AvgDailyTotals_GlobalSolarAtlas-v2_GEOTIFF/DIF.tif";
+
+char* dniFileName = (char*)
+    "Materials/Solar/World_DNI_GISdata_LTAy_AvgDailyTotals_GlobalSolarAtlas-v2_AAIGRID/DNI.asc";
 
 
 // =======================================================================================
 /// @brief Constructor
 
 SolarDatabase::SolarDatabase(void):
-                            difFile(solarFilename)
+                            difFile(difFileName),
+                            dniFile(dniFileName)
 {
 }
 
@@ -42,6 +46,21 @@ float SolarDatabase::getDIFValue(float lat, float longt)
 {
   float retVal;
   difFile.getValueAtLocation(1, lat, longt, retVal);
+  return retVal;
+}
+
+
+// =======================================================================================
+/// @brief Get the direct normal irradiance value at a given location
+/// 
+/// @returns A float with the value for direct normal irradiance
+/// @param lat Latitude of the location we are querying about.
+/// @param longt Longtitude of the location we are querying about.
+ 
+float SolarDatabase::getDNIValue(float lat, float longt)
+{
+  float retVal;
+  dniFile.getValueAtLocation(1, lat, longt, retVal);
   return retVal;
 }
 
