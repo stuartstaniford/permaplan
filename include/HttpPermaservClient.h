@@ -21,7 +21,9 @@ public:
   // Member functions - public
   HttpPermaservClient(void);
   ~HttpPermaservClient(void);
-  
+  float getDIFValue(float lat, float longt);
+  float getDNIValue(float lat, float longt);
+
 private:
   
   // Instance variables - private
