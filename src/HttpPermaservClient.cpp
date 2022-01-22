@@ -4,12 +4,15 @@
 // bug it too often
 
 #include "HttpPermaservClient.h"
+#include "Global.h"
+#include <err.h>
 
 
 // =======================================================================================
 /// @brief Constructor
 
-HttpPermaservClient::HttpPermaservClient(void)
+HttpPermaservClient::HttpPermaservClient(unsigned short sPort):
+                                              servPort(sPort)
 {
 }
 
@@ -29,8 +32,24 @@ HttpPermaservClient::~HttpPermaservClient(void)
 /// @param lat Latitude of the location we are querying about.
 /// @param longt Longtitude of the location we are querying about.
 
-bool HttpPermaservClient::getSingleValue(char* name, float lat, float longt, float retVal)
+#define FULL_URL_BUFSIZE 128
+#define SINGLE_VAL_BUFSIZE 128
+
+bool HttpPermaservClient::getSingleValue(char* url, char* name, float lat, float longt, float& retVal)
 {
+  char fullUrl[FULL_URL_BUFSIZE];
+  char recvBuf[SINGLE_VAL_BUFSIZE];
+  
+  int printRet = snprintf(fullUrl, FULL_URL_BUFSIZE, "http://127.0.0.1:%u/%s?%f,%f", 
+                                                                  servPort, url, lat, longt);
+  if(printRet < 1 || printRet >= FULL_URL_BUFSIZE)
+    err(-1, "Overflow in HttpPermaservClient::getSingleValue");
+  
+  unless(fetchBuffer(fullUrl, recvBuf, SINGLE_VAL_BUFSIZE))
+   {
+    return false; // NEED LOGGING!!!
+   }
+  
   return false;  
 }
 
@@ -45,7 +64,7 @@ bool HttpPermaservClient::getSingleValue(char* name, float lat, float longt, flo
 float HttpPermaservClient::getDIFValue(float lat, float longt)
 {
   float retVal;
-  if(getSingleValue("DIF", lat, longt, retVal))
+  if(getSingleValue((char*)"dif", (char*)"DIF", lat, longt, retVal))
     return retVal;
   else
    {
