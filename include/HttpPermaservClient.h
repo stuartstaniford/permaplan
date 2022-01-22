@@ -3,6 +3,8 @@
 #ifndef HTTP_PERMASERV_CLIENT_H
 #define HTTP_PERMASERV_CLIENT_H
 
+#include "HttpClient.h"
+
 
 // =======================================================================================
 /// @brief Access permaserv from within permaplan
@@ -10,7 +12,7 @@
 /// This implements the client side of the permaserv api, and also implements caching
 /// of answers from permaserv so we don't bug it too often.
 
-class HttpPermaservClient
+class HttpPermaservClient: public HttpClient
 {
 public:
   

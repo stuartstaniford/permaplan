@@ -1374,6 +1374,42 @@ src/HttpLBDebug.o: /usr/local/include/cglm/bezier.h
 src/HttpLBDebug.o: /usr/local/include/cglm/ray.h
 src/HttpLBDebug.o: /usr/local/include/cglm/affine2d.h
 src/HttpLBDebug.o: include/HttpRequestParser.h
+src/HttpLBPermaserv.o: include/HttpLBPermaserv.h include/HttpLoadBalancer.h
+src/HttpLBPermaserv.o: include/HttpPermaServ.h include/HttpServThread.h
+src/HttpLBPermaserv.o: include/TaskQueue.h include/Lockable.h
+src/HttpLBPermaserv.o: include/Global.h /usr/local/include/cglm/cglm.h
+src/HttpLBPermaserv.o: /usr/local/include/cglm/common.h
+src/HttpLBPermaserv.o: /usr/local/include/cglm/types.h
+src/HttpLBPermaserv.o: /usr/local/include/cglm/simd/intrin.h
+src/HttpLBPermaserv.o: /usr/local/include/cglm/vec2.h
+src/HttpLBPermaserv.o: /usr/local/include/cglm/util.h
+src/HttpLBPermaserv.o: /usr/local/include/cglm/vec2-ext.h
+src/HttpLBPermaserv.o: /usr/local/include/cglm/vec3.h
+src/HttpLBPermaserv.o: /usr/local/include/cglm/vec4.h
+src/HttpLBPermaserv.o: /usr/local/include/cglm/vec4-ext.h
+src/HttpLBPermaserv.o: /usr/local/include/cglm/vec3-ext.h
+src/HttpLBPermaserv.o: /usr/local/include/cglm/mat4.h
+src/HttpLBPermaserv.o: /usr/local/include/cglm/mat3.h
+src/HttpLBPermaserv.o: /usr/local/include/cglm/mat2.h
+src/HttpLBPermaserv.o: /usr/local/include/cglm/affine.h
+src/HttpLBPermaserv.o: /usr/local/include/cglm/affine-mat.h
+src/HttpLBPermaserv.o: /usr/local/include/cglm/cam.h
+src/HttpLBPermaserv.o: /usr/local/include/cglm/plane.h
+src/HttpLBPermaserv.o: /usr/local/include/cglm/frustum.h
+src/HttpLBPermaserv.o: /usr/local/include/cglm/quat.h
+src/HttpLBPermaserv.o: /usr/local/include/cglm/euler.h
+src/HttpLBPermaserv.o: /usr/local/include/cglm/box.h
+src/HttpLBPermaserv.o: /usr/local/include/cglm/color.h
+src/HttpLBPermaserv.o: /usr/local/include/cglm/io.h
+src/HttpLBPermaserv.o: /usr/local/include/cglm/project.h
+src/HttpLBPermaserv.o: /usr/local/include/cglm/sphere.h
+src/HttpLBPermaserv.o: /usr/local/include/cglm/ease.h
+src/HttpLBPermaserv.o: /usr/local/include/cglm/curve.h
+src/HttpLBPermaserv.o: /usr/local/include/cglm/bezier.h
+src/HttpLBPermaserv.o: /usr/local/include/cglm/ray.h
+src/HttpLBPermaserv.o: /usr/local/include/cglm/affine2d.h
+src/HttpLBPermaserv.o: include/HttpRequestParser.h include/SolarDatabase.h
+src/HttpLBPermaserv.o: include/GdalFileInterface.h
 src/HttpLoadBalancer.o: include/HttpLoadBalancer.h include/HttpDebug.h
 src/HttpLoadBalancer.o: include/HttpServThread.h include/TaskQueue.h
 src/HttpLoadBalancer.o: include/Lockable.h include/Global.h
@@ -1410,6 +1446,43 @@ src/HttpLoadBalancer.o: /usr/local/include/cglm/ray.h
 src/HttpLoadBalancer.o: /usr/local/include/cglm/affine2d.h
 src/HttpLoadBalancer.o: include/HttpRequestParser.h include/TaskQueueFarm.h
 src/HttpLoadBalancer.o: include/Logging.h include/MemoryTracker.h
+src/HttpPermaServ.o: include/HttpPermaServ.h include/HttpServThread.h
+src/HttpPermaServ.o: include/TaskQueue.h include/Lockable.h include/Global.h
+src/HttpPermaServ.o: /usr/local/include/cglm/cglm.h
+src/HttpPermaServ.o: /usr/local/include/cglm/common.h
+src/HttpPermaServ.o: /usr/local/include/cglm/types.h
+src/HttpPermaServ.o: /usr/local/include/cglm/simd/intrin.h
+src/HttpPermaServ.o: /usr/local/include/cglm/vec2.h
+src/HttpPermaServ.o: /usr/local/include/cglm/util.h
+src/HttpPermaServ.o: /usr/local/include/cglm/vec2-ext.h
+src/HttpPermaServ.o: /usr/local/include/cglm/vec3.h
+src/HttpPermaServ.o: /usr/local/include/cglm/vec4.h
+src/HttpPermaServ.o: /usr/local/include/cglm/vec4-ext.h
+src/HttpPermaServ.o: /usr/local/include/cglm/vec3-ext.h
+src/HttpPermaServ.o: /usr/local/include/cglm/mat4.h
+src/HttpPermaServ.o: /usr/local/include/cglm/mat3.h
+src/HttpPermaServ.o: /usr/local/include/cglm/mat2.h
+src/HttpPermaServ.o: /usr/local/include/cglm/affine.h
+src/HttpPermaServ.o: /usr/local/include/cglm/affine-mat.h
+src/HttpPermaServ.o: /usr/local/include/cglm/cam.h
+src/HttpPermaServ.o: /usr/local/include/cglm/plane.h
+src/HttpPermaServ.o: /usr/local/include/cglm/frustum.h
+src/HttpPermaServ.o: /usr/local/include/cglm/quat.h
+src/HttpPermaServ.o: /usr/local/include/cglm/euler.h
+src/HttpPermaServ.o: /usr/local/include/cglm/box.h
+src/HttpPermaServ.o: /usr/local/include/cglm/color.h
+src/HttpPermaServ.o: /usr/local/include/cglm/io.h
+src/HttpPermaServ.o: /usr/local/include/cglm/project.h
+src/HttpPermaServ.o: /usr/local/include/cglm/sphere.h
+src/HttpPermaServ.o: /usr/local/include/cglm/ease.h
+src/HttpPermaServ.o: /usr/local/include/cglm/curve.h
+src/HttpPermaServ.o: /usr/local/include/cglm/bezier.h
+src/HttpPermaServ.o: /usr/local/include/cglm/ray.h
+src/HttpPermaServ.o: /usr/local/include/cglm/affine2d.h
+src/HttpPermaServ.o: include/HttpRequestParser.h include/Logging.h
+src/HttpPermaServ.o: include/MemoryTracker.h include/SolarDatabase.h
+src/HttpPermaServ.o: include/GdalFileInterface.h
+src/HttpPermaservClient.o: include/HttpPermaservClient.h include/HttpClient.h
 src/HttpRequestParser.o: include/HttpRequestParser.h include/Global.h
 src/HttpRequestParser.o: /usr/local/include/cglm/cglm.h
 src/HttpRequestParser.o: /usr/local/include/cglm/common.h
@@ -1476,7 +1549,8 @@ src/HttpServThread.o: /usr/local/include/cglm/curve.h
 src/HttpServThread.o: /usr/local/include/cglm/bezier.h
 src/HttpServThread.o: /usr/local/include/cglm/ray.h
 src/HttpServThread.o: /usr/local/include/cglm/affine2d.h
-src/HttpServThread.o: include/HttpRequestParser.h
+src/HttpServThread.o: include/HttpRequestParser.h include/Logging.h
+src/HttpServThread.o: include/MemoryTracker.h
 src/InterfaceAction.o: include/InterfaceAction.h include/Global.h
 src/InterfaceAction.o: /usr/local/include/cglm/cglm.h
 src/InterfaceAction.o: /usr/local/include/cglm/common.h
@@ -4761,5 +4835,3 @@ src/main.o: include/MenuPanel.h imgui/imgui.h imgui/imconfig.h
 src/main.o: include/Scene.h include/LandSurface.h include/BezierPatch.h
 src/main.o: include/LandSurfaceRegion.h include/LightingModel.h
 src/main.o: include/CO2Scenario.h
-src/permaserv_main.o: include/HttpLoadBalancer.h include/Logging.h
-src/permaserv_main.o: include/MemoryTracker.h
