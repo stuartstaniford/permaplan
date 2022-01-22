@@ -6,6 +6,7 @@
 #include "HttpPermaservClient.h"
 #include "Global.h"
 #include <err.h>
+#include <string.h>
 
 
 // =======================================================================================
@@ -47,7 +48,15 @@ bool HttpPermaservClient::getSingleValue(char* url, char* name, float lat, float
   
   unless(fetchBuffer(fullUrl, recvBuf, SINGLE_VAL_BUFSIZE))
    {
-    return false; // NEED LOGGING!!!
+    // NEED LOGGING that we couldn't get a response from the server
+    return false; 
+   }
+  int l = strlen(name);
+  
+  unless(strncmp(name, recvBuf, l) == 0 && recvBuf[l] == ':')
+   {
+    // NEED LOGGING that format wasn't right
+    return false;
    }
   
   return false;  
