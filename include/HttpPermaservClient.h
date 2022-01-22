@@ -21,6 +21,7 @@ public:
   // Member functions - public
   HttpPermaservClient(void);
   ~HttpPermaservClient(void);
+  bool getSingleValue(char* name, float lat, float longt, float retVal);
   float getDIFValue(float lat, float longt);
   float getDNIValue(float lat, float longt);
 

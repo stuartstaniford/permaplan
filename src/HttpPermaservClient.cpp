@@ -23,6 +23,19 @@ HttpPermaservClient::~HttpPermaservClient(void)
 
 
 // =======================================================================================
+/// @brief Get a value from the API that has the form "Name: value\n"
+/// 
+/// @returns A float with the value for diffuse horizontal irradiance
+/// @param lat Latitude of the location we are querying about.
+/// @param longt Longtitude of the location we are querying about.
+
+bool HttpPermaservClient::getSingleValue(char* name, float lat, float longt, float retVal)
+{
+  return false;  
+}
+
+
+// =======================================================================================
 /// @brief Get the diffuse horizontal irradiance value at a given location
 /// 
 /// @returns A float with the value for diffuse horizontal irradiance
@@ -31,7 +44,14 @@ HttpPermaservClient::~HttpPermaservClient(void)
  
 float HttpPermaservClient::getDIFValue(float lat, float longt)
 {
-  return 0.0f;
+  float retVal;
+  if(getSingleValue("DIF", lat, longt, retVal))
+    return retVal;
+  else
+   {
+    // LOG ERROR HERE!!!
+    return 0.0f;
+   }
 }
 
 
