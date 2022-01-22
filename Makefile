@@ -1483,6 +1483,37 @@ src/HttpPermaServ.o: include/HttpRequestParser.h include/Logging.h
 src/HttpPermaServ.o: include/MemoryTracker.h include/SolarDatabase.h
 src/HttpPermaServ.o: include/GdalFileInterface.h
 src/HttpPermaservClient.o: include/HttpPermaservClient.h include/HttpClient.h
+src/HttpPermaservClient.o: include/Global.h /usr/local/include/cglm/cglm.h
+src/HttpPermaservClient.o: /usr/local/include/cglm/common.h
+src/HttpPermaservClient.o: /usr/local/include/cglm/types.h
+src/HttpPermaservClient.o: /usr/local/include/cglm/simd/intrin.h
+src/HttpPermaservClient.o: /usr/local/include/cglm/vec2.h
+src/HttpPermaservClient.o: /usr/local/include/cglm/util.h
+src/HttpPermaservClient.o: /usr/local/include/cglm/vec2-ext.h
+src/HttpPermaservClient.o: /usr/local/include/cglm/vec3.h
+src/HttpPermaservClient.o: /usr/local/include/cglm/vec4.h
+src/HttpPermaservClient.o: /usr/local/include/cglm/vec4-ext.h
+src/HttpPermaservClient.o: /usr/local/include/cglm/vec3-ext.h
+src/HttpPermaservClient.o: /usr/local/include/cglm/mat4.h
+src/HttpPermaservClient.o: /usr/local/include/cglm/mat3.h
+src/HttpPermaservClient.o: /usr/local/include/cglm/mat2.h
+src/HttpPermaservClient.o: /usr/local/include/cglm/affine.h
+src/HttpPermaservClient.o: /usr/local/include/cglm/affine-mat.h
+src/HttpPermaservClient.o: /usr/local/include/cglm/cam.h
+src/HttpPermaservClient.o: /usr/local/include/cglm/plane.h
+src/HttpPermaservClient.o: /usr/local/include/cglm/frustum.h
+src/HttpPermaservClient.o: /usr/local/include/cglm/quat.h
+src/HttpPermaservClient.o: /usr/local/include/cglm/euler.h
+src/HttpPermaservClient.o: /usr/local/include/cglm/box.h
+src/HttpPermaservClient.o: /usr/local/include/cglm/color.h
+src/HttpPermaservClient.o: /usr/local/include/cglm/io.h
+src/HttpPermaservClient.o: /usr/local/include/cglm/project.h
+src/HttpPermaservClient.o: /usr/local/include/cglm/sphere.h
+src/HttpPermaservClient.o: /usr/local/include/cglm/ease.h
+src/HttpPermaservClient.o: /usr/local/include/cglm/curve.h
+src/HttpPermaservClient.o: /usr/local/include/cglm/bezier.h
+src/HttpPermaservClient.o: /usr/local/include/cglm/ray.h
+src/HttpPermaservClient.o: /usr/local/include/cglm/affine2d.h
 src/HttpRequestParser.o: include/HttpRequestParser.h include/Global.h
 src/HttpRequestParser.o: /usr/local/include/cglm/cglm.h
 src/HttpRequestParser.o: /usr/local/include/cglm/common.h

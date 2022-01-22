@@ -4,6 +4,7 @@
 // bug it too often
 
 #include "HttpPermaservClient.h"
+#include "Logging.h"
 #include "Global.h"
 #include <err.h>
 #include <string.h>
@@ -48,14 +49,16 @@ bool HttpPermaservClient::getSingleValue(char* url, char* name, float lat, float
   
   unless(fetchBuffer(fullUrl, recvBuf, SINGLE_VAL_BUFSIZE))
    {
-    // NEED LOGGING that we couldn't get a response from the server
+    LogPermaservClientErrors("Couldn't get response from %s "
+                             "in HttpPermaservClient::getSingleValue.\n", fullUrl);
     return false; 
    }
   int l = strlen(name);
   
   unless(strncmp(name, recvBuf, l) == 0 && recvBuf[l] == ':')
    {
-    // NEED LOGGING that format wasn't right
+    LogPermaservClientErrors("Invalid name tag format in response from %s: %s "
+                             "in HttpPermaservClient::getSingleValue.\n", fullUrl, recvBuf);
     return false;
    }
   

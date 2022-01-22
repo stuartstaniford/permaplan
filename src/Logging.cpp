@@ -26,10 +26,11 @@ bool doLogOpenGLConstants     = true; // Log various openGL parameters
 bool doLogTreeValidation      = true; // Validate data structures after every frame
 
 // Logging options to do with resource management and collection
-bool doLogResourceErrors      = true; // Clear errors in the resource manager
-bool doLogResourceActions     = true; // Stuff the resource manager actually does
-bool doLogResourceDetails     = true; // Micro-detail of the resource manager operating
-bool doLogHttpClientErrors    = true; // Log things going wrong in the HTTP Client
+bool doLogResourceErrors        = true; // Clear errors in the resource manager
+bool doLogResourceActions       = true; // Stuff the resource manager actually does
+bool doLogResourceDetails       = true; // Micro-detail of the resource manager operating
+bool doLogHttpClientErrors      = true; // Log things going wrong in the HTTP Client
+bool doLogPermaservClientErrors = true; // Log things going wrong in the Permaserv Client layer
 
 // Logging options to do with parsing and validating OLDF and OTDL files
 bool doLogOLDFValidity        = true; // Log validity problems in the file
@@ -250,6 +251,11 @@ bool LogControlHTML(HttpDebug* serv, char* path)
 #ifdef LOG_HTTP_CLIENT_ERRORS // Log things going wrong in the HTTP Client
   if(strncmp(path, "doLogHttpClientErrors", sizeof("doLogHttpClientErrors")-1)==0)
     return oneLogControl(serv, path, doLogHttpClientErrors);
+#endif
+
+#ifdef LOG_PERMASERV_CLIENT_ERRORS // Log things going wrong in the Permaserv Client layer
+  if(strncmp(path, "doLogPermaservClientErrors", sizeof("doLogPermaservClientErrors")-1)==0)
+    return oneLogControl(serv, path, doLogPermaservClientErrors);
 #endif
 
   

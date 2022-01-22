@@ -24,10 +24,11 @@
 // =======================================================================================
 // Logging options to do with resource management and collection
 
-#define LOG_RESOURCE_ERRORS      // Clear errors in the resource manager
-#define LOG_RESOURCE_ACTIONS     // Stuff the resource manager actually does
-#define LOG_RESOURCE_DETAILS     // Micro-detail of the resource manager operating
-#define LOG_HTTP_CLIENT_ERRORS   // Log things going wrong in the HTTP Client
+#define LOG_RESOURCE_ERRORS         // Clear errors in the resource manager
+#define LOG_RESOURCE_ACTIONS        // Stuff the resource manager actually does
+#define LOG_RESOURCE_DETAILS        // Micro-detail of the resource manager operating
+#define LOG_HTTP_CLIENT_ERRORS      // Log things going wrong in the HTTP Client
+#define LOG_PERMASERV_CLIENT_ERRORS // Log things going wrong in the Permaserv Client layer
 
 
 // =======================================================================================
@@ -54,6 +55,7 @@
 #define LOG_WINDOW_OPERATIONS   // Log changes to the window (eg resizing).
 #define LOG_CAMERA_FRAMES       // Log camera variables every frame
 #define LOG_GLFW_ERRORS         // Log when the GLFW library needs to report errors
+
 
 // =======================================================================================
 // Logging options to do with materials and textures
@@ -185,10 +187,11 @@ extern bool doLogOpenGLConstants; // Log various openGL parameters
 extern bool doLogTreeValidation;  // Validate data structures after every frame
 
 // Logging options to do with resource management and collection
-extern bool doLogResourceErrors;  // Clear errors in the resource manager
-extern bool doLogResourceActions;  // Stuff the resource manager actually does
-extern bool doLogResourceDetails;  // Micro-detail of the resource manager operating
-extern bool doLogHttpClientErrors; // Log things going wrong in the HTTP Client
+extern bool doLogResourceErrors;        // Clear errors in the resource manager
+extern bool doLogResourceActions;       // Stuff the resource manager actually does
+extern bool doLogResourceDetails;       // Micro-detail of the resource manager operating
+extern bool doLogHttpClientErrors;      // Log things going wrong in the HTTP Client
+extern bool doLogPermaservClientErrors; // Log things going wrong in the Permaserv Client layer
 
 // Logging options to do with parsing and validating OLDF and OTDL files
 extern bool doLogOLDFValidity;    // Log validity problems in the file
@@ -370,6 +373,14 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
 #define LogHttpClientErrors(...)
 #endif
       
+// Log things going wrong in the Permaserv Client layer
+#ifdef LOG_PERMASERV_CLIENT_ERRORS
+#define LogPermaservClientErrors(...) if(doLogPermaservClientErrors) \
+                                          LogStatement("LogPermaservClientErrors: " __VA_ARGS__)
+#else
+#define LogPermaservClientErrors(...)
+#endif
+
 
 // =======================================================================================
 // Logging options to do with parsing and validating OLDF and OTDL files
