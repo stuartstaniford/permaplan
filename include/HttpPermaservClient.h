@@ -19,7 +19,7 @@ public:
   // Instance variables - public
   
   // Member functions - public
-  HttpPermaservClient(unsigned short sPort);
+  HttpPermaservClient(void);
   ~HttpPermaservClient(void);
   bool getSingleValue(char* url, char* name, float lat, float longt, float& retVal);
   float getDIFValue(float lat, float longt);

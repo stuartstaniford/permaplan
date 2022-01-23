@@ -38,7 +38,8 @@ PmodConfig::PmodConfig(int argc, char* argv[])
   progName            = strdup(argv[0]);
   plotAxes            = false;
   designFileName      = NULL;
-  debugPort           = 2080;
+  debugPort           = 2080u;
+  permaservPort       = 2090u;
   levelPlane          = false;
   bezReadFileName     = NULL;
   bezWriteFileName    = NULL;
@@ -46,7 +47,7 @@ PmodConfig::PmodConfig(int argc, char* argv[])
   speciesDirectory    = NULL;
   nSimThreads         = 4;
   
-  while( (optionChar = getopt(argc, argv, "Ab:B:d:D:g:Lp:P:s:")) != -1)
+  while( (optionChar = getopt(argc, argv, "Ab:B:d:D:g:Lp:P:s:S:")) != -1)
     switch (optionChar)
      {
       case 'A':
@@ -83,7 +84,7 @@ PmodConfig::PmodConfig(int argc, char* argv[])
        case 'p':
          debugPort = atoi(optarg);
          if(!debugPort)
-           err(-1, "Bad port number via -p: %s\n", optarg);
+           err(-1, "Bad debug port number via -p: %s\n", optarg);
          break;
 
        case 'P':
@@ -94,6 +95,12 @@ PmodConfig::PmodConfig(int argc, char* argv[])
         nSimThreads = atoi(optarg);
          if(nSimThreads <= 0)
            err(-1, "Bad simulation thread number via -s: %s\n", optarg);
+         break;
+
+       case 'S':
+        permaservPort = atoi(optarg);
+         if(!permaservPort)
+           err(-1, "Bad permaserv port number via -S: %s\n", optarg);
          break;
 
        default:

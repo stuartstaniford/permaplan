@@ -4,6 +4,7 @@
 // bug it too often
 
 #include "HttpPermaservClient.h"
+#include "PmodConfig.h"
 #include "Logging.h"
 #include "Global.h"
 #include <err.h>
@@ -13,9 +14,10 @@
 // =======================================================================================
 /// @brief Constructor
 
-HttpPermaservClient::HttpPermaservClient(unsigned short sPort):
-                                              servPort(sPort)
+HttpPermaservClient::HttpPermaservClient(void)
+                                              
 {
+  servPort = PmodConfig::getConfig().permaservPort;
 }
 
 
@@ -30,9 +32,13 @@ HttpPermaservClient::~HttpPermaservClient(void)
 // =======================================================================================
 /// @brief Get a value from the API that has the form "Name: value\n"
 /// 
-/// @returns A float with the value for diffuse horizontal irradiance
+/// @returns True if we successfully found a value, false if we failed somehow (which
+/// will be logged).
+/// @param url The path of the url for this resource on the permaserv server
+/// @param name The expected name of the value (before the ':') in the response.
 /// @param lat Latitude of the location we are querying about.
 /// @param longt Longtitude of the location we are querying about.
+/// @param retVal A reference to a float to store the value found.
 
 #define FULL_URL_BUFSIZE 128
 #define SINGLE_VAL_BUFSIZE 128
@@ -80,7 +86,8 @@ float HttpPermaservClient::getDIFValue(float lat, float longt)
     return retVal;
   else
    {
-    // LOG ERROR HERE!!!
+    LogPermaservClientErrors("Failed to obtain diffuse horizontal irradiance" 
+                                                                    "from permaserv.\n");
     return 0.0f;
    }
 }
@@ -95,7 +102,15 @@ float HttpPermaservClient::getDIFValue(float lat, float longt)
  
 float HttpPermaservClient::getDNIValue(float lat, float longt)
 {
-  return 0.0f;
+  float retVal;
+  if(getSingleValue((char*)"dni", (char*)"DNI", lat, longt, retVal))
+    return retVal;
+  else
+   {
+    LogPermaservClientErrors("Failed to obtain direct normal irradiance" 
+                                                                    "from permaserv.\n");
+    return 0.0f;
+   }
 }
 
 

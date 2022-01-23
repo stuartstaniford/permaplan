@@ -1483,7 +1483,9 @@ src/HttpPermaServ.o: include/HttpRequestParser.h include/Logging.h
 src/HttpPermaServ.o: include/MemoryTracker.h include/SolarDatabase.h
 src/HttpPermaServ.o: include/GdalFileInterface.h
 src/HttpPermaservClient.o: include/HttpPermaservClient.h include/HttpClient.h
-src/HttpPermaservClient.o: include/Global.h /usr/local/include/cglm/cglm.h
+src/HttpPermaservClient.o: include/PmodConfig.h include/Logging.h
+src/HttpPermaservClient.o: include/MemoryTracker.h include/Global.h
+src/HttpPermaservClient.o: /usr/local/include/cglm/cglm.h
 src/HttpPermaservClient.o: /usr/local/include/cglm/common.h
 src/HttpPermaservClient.o: /usr/local/include/cglm/types.h
 src/HttpPermaservClient.o: /usr/local/include/cglm/simd/intrin.h

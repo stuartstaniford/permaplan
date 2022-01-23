@@ -22,6 +22,7 @@ class PmodConfig
   bool            plotGrid;
   float           gridSpacing;
   unsigned short  debugPort;
+  unsigned short  permaservPort;
   bool            levelPlane;
   char*           bezReadFileName;
   char*           bezWriteFileName;

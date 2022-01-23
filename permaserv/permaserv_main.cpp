@@ -16,7 +16,7 @@
 // =======================================================================================
 // Global variables
 
-unsigned short servPort = 2080u;
+unsigned short servPort = 2090u;
 
 // =======================================================================================
 // C function to launder C++ method into pthread_create
