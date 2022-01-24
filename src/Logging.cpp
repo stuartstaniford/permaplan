@@ -31,6 +31,7 @@ bool doLogResourceActions       = true; // Stuff the resource manager actually d
 bool doLogResourceDetails       = true; // Micro-detail of the resource manager operating
 bool doLogHttpClientErrors      = true; // Log things going wrong in the HTTP Client
 bool doLogPermaservClientErrors = true; // Log things going wrong in the Permaserv Client layer
+bool doLogPermaservOps          = true; // Log normal operation of the Permaserv server
 
 // Logging options to do with parsing and validating OLDF and OTDL files
 bool doLogOLDFValidity        = true; // Log validity problems in the file
@@ -256,6 +257,11 @@ bool LogControlHTML(HttpDebug* serv, char* path)
 #ifdef LOG_PERMASERV_CLIENT_ERRORS // Log things going wrong in the Permaserv Client layer
   if(strncmp(path, "doLogPermaservClientErrors", sizeof("doLogPermaservClientErrors")-1)==0)
     return oneLogControl(serv, path, doLogPermaservClientErrors);
+#endif
+
+#ifdef LOG_PERMASERV_OPS // Log normal operation of the Permaserv server
+  if(strncmp(path, "doLogPermaservOps", sizeof("doLogPermaservOps")-1)==0)
+    return oneLogControl(serv, path, doLogPermaservOps);
 #endif
 
   

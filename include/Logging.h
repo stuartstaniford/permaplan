@@ -192,6 +192,7 @@ extern bool doLogResourceActions;       // Stuff the resource manager actually d
 extern bool doLogResourceDetails;       // Micro-detail of the resource manager operating
 extern bool doLogHttpClientErrors;      // Log things going wrong in the HTTP Client
 extern bool doLogPermaservClientErrors; // Log things going wrong in the Permaserv Client layer
+extern bool doLogPermaservOps;          // Log normal operation of the Permaserv server
 
 // Logging options to do with parsing and validating OLDF and OTDL files
 extern bool doLogOLDFValidity;    // Log validity problems in the file
@@ -379,6 +380,14 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
                                           LogStatement("LogPermaservClientErrors: " __VA_ARGS__)
 #else
 #define LogPermaservClientErrors(...)
+#endif
+
+// Log normal operation of the Permaserv server
+#ifdef LOG_PERMASERV_OPS
+#define LogPermaservOps(...) if(doLogPermaservOps) \
+                                          LogStatement("LogPermaservOps: " __VA_ARGS__)
+#else
+#define LogPermaservOps(...)
 #endif
 
 
