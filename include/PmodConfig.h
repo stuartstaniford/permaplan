@@ -32,6 +32,7 @@ class PmodConfig
 
   private:
   
+  // Private static variables
   static PmodConfig* config;
 
   public:

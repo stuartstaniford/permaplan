@@ -25,8 +25,17 @@ public:
   float getDIFValue(float lat, float longt);
   float getDNIValue(float lat, float longt);
 
+  // Static public member functions
+  static const HttpPermaservClient& getPermaservClient(void) // Get the singleton instance
+   {
+    return *theClient;
+   }
+
 private:
   
+  // Private static variables
+  static HttpPermaservClient* theClient;
+
   // Instance variables - private
   unsigned short servPort;
   

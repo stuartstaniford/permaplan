@@ -12,11 +12,24 @@
 
 
 // =======================================================================================
+// Static variables
+
+HttpPermaservClient* HttpPermaservClient::theClient = NULL;
+
+
+// =======================================================================================
 /// @brief Constructor
 
 HttpPermaservClient::HttpPermaservClient(void)
                                               
 {
+  // Constructor should only be called once at startup.  Everyone else gets us via
+  // getPermaservClient()
+  if(theClient)
+    return;
+  else
+    theClient = this;
+
   servPort = PmodConfig::getConfig().permaservPort;
 }
 
