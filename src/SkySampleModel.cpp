@@ -18,6 +18,7 @@
 #include "BoundingBox.h"
 #include "HttpDebug.h"
 #include "SolarDatabase.h"
+#include "HttpPermaservClient.h"
 
 
 // =======================================================================================
@@ -49,8 +50,9 @@ SkySampleModel::SkySampleModel(float lat, float longt):
   else
     theSingleton = this;
 
-  solarDatabase = new SolarDatabase;
-  difSolarValue = solarDatabase->getDIFValue(latitude, longtitude);
+  HttpPermaservClient& permaservClient = HttpPermaservClient::getPermaservClient();
+  difSolarValue = permaservClient.getDIFValue(latitude, longtitude);
+  dniSolarValue = permaservClient.getDNIValue(latitude, longtitude);
 
   setSamples();
 }

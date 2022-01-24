@@ -26,7 +26,7 @@ public:
   float getDNIValue(float lat, float longt);
 
   // Static public member functions
-  static const HttpPermaservClient& getPermaservClient(void) // Get the singleton instance
+  static HttpPermaservClient& getPermaservClient(void) // Get the singleton instance
    {
     return *theClient;
    }

@@ -3861,6 +3861,7 @@ src/SkySampleModel.o: include/HttpDebug.h include/HttpServThread.h
 src/SkySampleModel.o: include/TaskQueue.h include/Lockable.h include/Global.h
 src/SkySampleModel.o: include/HttpRequestParser.h include/SolarDatabase.h
 src/SkySampleModel.o: include/GdalFileInterface.h
+src/SkySampleModel.o: include/HttpPermaservClient.h include/HttpClient.h
 src/SolarDatabase.o: include/SolarDatabase.h include/GdalFileInterface.h
 src/SolarDatabase.o: include/Global.h /usr/local/include/cglm/cglm.h
 src/SolarDatabase.o: /usr/local/include/cglm/common.h
@@ -4865,6 +4866,7 @@ src/main.o: include/RegionList.h include/ResourceManager.h
 src/main.o: include/HttpClient.h include/GLFWApplication.h
 src/main.o: include/InterfaceMainSceneWin.h include/MenuInterface.h
 src/main.o: include/MenuPanel.h imgui/imgui.h imgui/imconfig.h
-src/main.o: include/Scene.h include/LandSurface.h include/BezierPatch.h
+src/main.o: include/HttpPermaservClient.h include/Scene.h
+src/main.o: include/LandSurface.h include/BezierPatch.h
 src/main.o: include/LandSurfaceRegion.h include/LightingModel.h
 src/main.o: include/CO2Scenario.h

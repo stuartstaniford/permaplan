@@ -19,7 +19,6 @@
 
 class BoundingBox;
 class HttpDebug;
-class SolarDatabase;
 
 
 // =======================================================================================
@@ -72,6 +71,7 @@ private:
   
   // Instance private variables
   float difSolarValue;
+  float dniSolarValue;
   
   // Static private variables
   static SkySampleModel* theSingleton;
@@ -97,7 +97,6 @@ public:
 private:
   
   // Instance variables - private
-  SolarDatabase*  solarDatabase;
   float           latitude;         // in degrees
   float           longtitude;       // in degrees
   float           gHI[12];          // global horizontal irradiance - kWH/m^2/day
