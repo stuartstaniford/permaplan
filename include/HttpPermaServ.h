@@ -37,6 +37,8 @@ private:
   // Member functions - private
   bool  processRequestHeader(void);
   bool  indexPage(void);
+  bool  processDNIRequest(char* url);
+  bool  processDIFRequest(char* url);
 
   /// @brief Prevent copy-construction.
   HttpPermaServ(const HttpPermaServ&);       

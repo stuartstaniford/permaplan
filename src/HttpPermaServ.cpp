@@ -64,6 +64,48 @@ bool HttpPermaServ::indexPage(void)
 
 
 // =======================================================================================
+/// @brief Process the case of a request for a DIF value.
+/// @param url The balance of the URL that we are to deal with (ie after the '?')
+/// @returns True if all went well, false if we couldn't correctly write a good page.
+
+bool HttpPermaServ::processDIFRequest(char* url)
+{
+  float latLong[2];
+  unless(extractColonVecN(url, 2, latLong))
+   {
+    LogRequestErrors("Bad dif request: /dif?%s\n", url);
+    return false;
+   }
+  float dif = solarDatabase->getDIFValue(latLong[0], latLong[1]);
+  internalPrintf("DIF: %.3f\n", dif);
+  LogPermaservOps("Serviced DIF request (%.3f) for %f,%f from client on port %u.\n", 
+                                                  dif, latLong[0], latLong[1], clientP);
+  return true;
+}
+
+
+// =======================================================================================
+/// @brief Process the case of a request for a DNI value.
+/// @param url The balance of the URL that we are to deal with (ie after the '?')
+/// @returns True if all went well, false if we couldn't correctly write a good page.
+
+bool HttpPermaServ::processDNIRequest(char* url)
+{
+  float latLong[2];
+  unless(extractColonVecN(url, 2, latLong))
+   {
+    LogRequestErrors("Bad dni request: dni?%s\n", url);
+    return false;
+   }
+  float dni = solarDatabase->getDNIValue(latLong[0], latLong[1]);
+  internalPrintf("DNI: %.3f\n", dni);
+  LogPermaservOps("Serviced DNI request (%.3f) for %f,%f from client on port %u.\n", 
+                                                      dni, latLong[0], latLong[1], clientP);
+  return true;
+}
+
+
+// =======================================================================================
 /// @brief Process a single header, and construct the response.
 /// 
 /// Calls the HTTRequestParser instance to extract the URL, and then routes the request
@@ -73,7 +115,6 @@ bool HttpPermaServ::indexPage(void)
 bool HttpPermaServ::processRequestHeader(void)
 {
   char* url = reqParser.getUrl();
-  float latLong[2];
   
   if( (strlen(url) == 1 && url[0] == '/') || strncmp(url, "/index.", 7) == 0)
     return indexPage();
@@ -88,32 +129,10 @@ bool HttpPermaServ::processRequestHeader(void)
    }
 
   else if( strlen(url) >= 8 && strncmp(url, "/dif?", 5) == 0)
-   {
-    unless(extractColonVecN(url+5, 2, latLong))
-     {
-      LogRequestErrors("Bad dif request: %s\n", url);
-      retVal = false;
-     }
-    float dif = solarDatabase->getDIFValue(latLong[0], latLong[1]);
-    internalPrintf("DIF: %.3f\n", dif);
-    LogPermaservOps("Serviced DIF request (%.3f) for %f,%f from client on port %u.\n", 
-                                                    dif, latLong[0], latLong[1], clientP);
-    retVal = true;
-   }
+    retVal = processDIFRequest(url+5);
 
   else if( strlen(url) >= 8 && strncmp(url, "/dni?", 5) == 0)
-   {
-    unless(extractColonVecN(url+5, 2, latLong))
-     {
-      LogRequestErrors("Bad dni request: %s\n", url);
-      retVal = false;
-     }
-    float dni = solarDatabase->getDNIValue(latLong[0], latLong[1]);
-    internalPrintf("DNI: %.3f\n", dni);
-    LogPermaservOps("Serviced DNI request (%.3f) for %f,%f from client on port %u.\n", 
-                                                        dni, latLong[0], latLong[1], clientP);
-    retVal = true;
-   }
+    retVal = processDNIRequest(url+5);
   
   else
    {
