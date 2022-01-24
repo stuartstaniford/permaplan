@@ -7,15 +7,19 @@
 #include "PmodConfig.h"
 #include "Logging.h"
 #include "Global.h"
+#include "loadFileToBuf.h"
 #include <err.h>
 #include <string.h>
+#include <sys/stat.h>
 
 
 // =======================================================================================
-// Static variables
+// Static variables, etc
 
-HttpPermaservClient* HttpPermaservClient::theClient = NULL;
+HttpPermaservClient*  HttpPermaservClient::theClient  = NULL;
+char*                 cacheFileName                   = (char*)"client-cache.json";
 
+using namespace rapidjson;
 
 // =======================================================================================
 /// @brief Constructor
@@ -31,6 +35,40 @@ HttpPermaservClient::HttpPermaservClient(void)
     theClient = this;
 
   servPort = PmodConfig::getConfig().permaservPort;
+  
+  unsigned bufSize;
+  char* buf = NULL;
+  struct stat cacheStatStruct;
+  if(stat(cacheFileName, &cacheStatStruct) == 0)
+   {
+    // We have a file
+    if(cacheStatStruct.st_mode & S_IFREG)
+      buf = loadFileToBuf(cacheFileName, &bufSize);
+   }
+  else
+   {
+    // No file, leave buf NULL to signal that downfunction.
+   }
+  
+  if(buf)
+   {
+    ParseResult ok = doc.ParseInsitu<kParseCommentsFlag>(buf);
+    if (!ok)
+     {
+      fprintf(stderr, "JSON parse error on Permaserv client cache file %s: %s (%u)\n",
+                      cacheFileName, GetParseError_En(ok.Code()), (unsigned)(ok.Offset()));
+      exit(1);
+     }
+    if(!doc.IsObject())
+      err(-1, "Base of cache file %s is not JSON object.\n", cacheFileName);
+    cachePresent = true;
+   }
+  else
+   {
+    cachePresent = false;
+    LogPermaservClientErrors("Cache file %s not found or not readable"
+                             "in HttpPermaservClient constructor.\n", cacheFileName);
+   }
 }
 
 

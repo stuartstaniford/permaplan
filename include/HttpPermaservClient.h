@@ -4,6 +4,14 @@
 #define HTTP_PERMASERV_CLIENT_H
 
 #include "HttpClient.h"
+#include "rapidjson/document.h"
+#include "rapidjson/writer.h"
+#include "rapidjson/stringbuffer.h"
+#include "rapidjson/error/en.h"
+
+
+// =======================================================================================
+// Forward declarations
 
 
 // =======================================================================================
@@ -37,7 +45,9 @@ private:
   static HttpPermaservClient* theClient;
 
   // Instance variables - private
-  unsigned short servPort;
+  rapidjson::Document   doc;
+  unsigned short        servPort;
+  bool                  cachePresent;
   
   // Member functions - private
   /// @brief Prevent copy-construction.

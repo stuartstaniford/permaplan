@@ -25,6 +25,9 @@
 #include <math.h>
 
 
+// =======================================================================================
+// Static variables, etc.
+
 using namespace rapidjson;
 
 PmodDesign* PmodDesign::design = NULL;

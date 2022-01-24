@@ -1483,6 +1483,37 @@ src/HttpPermaServ.o: include/HttpRequestParser.h include/Logging.h
 src/HttpPermaServ.o: include/MemoryTracker.h include/SolarDatabase.h
 src/HttpPermaServ.o: include/GdalFileInterface.h
 src/HttpPermaservClient.o: include/HttpPermaservClient.h include/HttpClient.h
+src/HttpPermaservClient.o: include/rapidjson/document.h
+src/HttpPermaservClient.o: include/rapidjson/reader.h
+src/HttpPermaservClient.o: include/rapidjson/allocators.h
+src/HttpPermaservClient.o: include/rapidjson/rapidjson.h
+src/HttpPermaservClient.o: include/rapidjson/stream.h
+src/HttpPermaservClient.o: include/rapidjson/encodings.h
+src/HttpPermaservClient.o: include/rapidjson/encodedstream.h
+src/HttpPermaservClient.o: include/rapidjson/memorystream.h
+src/HttpPermaservClient.o: include/rapidjson/internal/clzll.h
+src/HttpPermaservClient.o: include/rapidjson/rapidjson.h
+src/HttpPermaservClient.o: include/rapidjson/internal/meta.h
+src/HttpPermaservClient.o: include/rapidjson/internal/stack.h
+src/HttpPermaservClient.o: include/rapidjson/allocators.h
+src/HttpPermaservClient.o: include/rapidjson/internal/swap.h
+src/HttpPermaservClient.o: include/rapidjson/internal/strtod.h
+src/HttpPermaservClient.o: include/rapidjson/internal/ieee754.h
+src/HttpPermaservClient.o: include/rapidjson/internal/biginteger.h
+src/HttpPermaservClient.o: include/rapidjson/internal/diyfp.h
+src/HttpPermaservClient.o: include/rapidjson/internal/clzll.h
+src/HttpPermaservClient.o: include/rapidjson/internal/pow10.h
+src/HttpPermaservClient.o: include/rapidjson/error/error.h
+src/HttpPermaservClient.o: include/rapidjson/internal/strfunc.h
+src/HttpPermaservClient.o: include/rapidjson/stream.h
+src/HttpPermaservClient.o: include/rapidjson/writer.h
+src/HttpPermaservClient.o: include/rapidjson/internal/dtoa.h
+src/HttpPermaservClient.o: include/rapidjson/internal/itoa.h
+src/HttpPermaservClient.o: include/rapidjson/internal/itoa.h
+src/HttpPermaservClient.o: include/rapidjson/stringbuffer.h
+src/HttpPermaservClient.o: include/rapidjson/stringbuffer.h
+src/HttpPermaservClient.o: include/rapidjson/error/en.h
+src/HttpPermaservClient.o: include/rapidjson/error/error.h
 src/HttpPermaservClient.o: include/PmodConfig.h include/Logging.h
 src/HttpPermaservClient.o: include/MemoryTracker.h include/Global.h
 src/HttpPermaservClient.o: /usr/local/include/cglm/cglm.h
@@ -1516,6 +1547,7 @@ src/HttpPermaservClient.o: /usr/local/include/cglm/curve.h
 src/HttpPermaservClient.o: /usr/local/include/cglm/bezier.h
 src/HttpPermaservClient.o: /usr/local/include/cglm/ray.h
 src/HttpPermaservClient.o: /usr/local/include/cglm/affine2d.h
+src/HttpPermaservClient.o: include/loadFileToBuf.h
 src/HttpRequestParser.o: include/HttpRequestParser.h include/Global.h
 src/HttpRequestParser.o: /usr/local/include/cglm/cglm.h
 src/HttpRequestParser.o: /usr/local/include/cglm/common.h
@@ -3862,6 +3894,35 @@ src/SkySampleModel.o: include/TaskQueue.h include/Lockable.h include/Global.h
 src/SkySampleModel.o: include/HttpRequestParser.h include/SolarDatabase.h
 src/SkySampleModel.o: include/GdalFileInterface.h
 src/SkySampleModel.o: include/HttpPermaservClient.h include/HttpClient.h
+src/SkySampleModel.o: include/rapidjson/document.h include/rapidjson/reader.h
+src/SkySampleModel.o: include/rapidjson/allocators.h
+src/SkySampleModel.o: include/rapidjson/rapidjson.h
+src/SkySampleModel.o: include/rapidjson/stream.h
+src/SkySampleModel.o: include/rapidjson/encodings.h
+src/SkySampleModel.o: include/rapidjson/encodedstream.h
+src/SkySampleModel.o: include/rapidjson/memorystream.h
+src/SkySampleModel.o: include/rapidjson/internal/clzll.h
+src/SkySampleModel.o: include/rapidjson/rapidjson.h
+src/SkySampleModel.o: include/rapidjson/internal/meta.h
+src/SkySampleModel.o: include/rapidjson/internal/stack.h
+src/SkySampleModel.o: include/rapidjson/allocators.h
+src/SkySampleModel.o: include/rapidjson/internal/swap.h
+src/SkySampleModel.o: include/rapidjson/internal/strtod.h
+src/SkySampleModel.o: include/rapidjson/internal/ieee754.h
+src/SkySampleModel.o: include/rapidjson/internal/biginteger.h
+src/SkySampleModel.o: include/rapidjson/internal/diyfp.h
+src/SkySampleModel.o: include/rapidjson/internal/clzll.h
+src/SkySampleModel.o: include/rapidjson/internal/pow10.h
+src/SkySampleModel.o: include/rapidjson/error/error.h
+src/SkySampleModel.o: include/rapidjson/internal/strfunc.h
+src/SkySampleModel.o: include/rapidjson/stream.h include/rapidjson/writer.h
+src/SkySampleModel.o: include/rapidjson/internal/dtoa.h
+src/SkySampleModel.o: include/rapidjson/internal/itoa.h
+src/SkySampleModel.o: include/rapidjson/internal/itoa.h
+src/SkySampleModel.o: include/rapidjson/stringbuffer.h
+src/SkySampleModel.o: include/rapidjson/stringbuffer.h
+src/SkySampleModel.o: include/rapidjson/error/en.h
+src/SkySampleModel.o: include/rapidjson/error/error.h
 src/SolarDatabase.o: include/SolarDatabase.h include/GdalFileInterface.h
 src/SolarDatabase.o: include/Global.h /usr/local/include/cglm/cglm.h
 src/SolarDatabase.o: /usr/local/include/cglm/common.h
