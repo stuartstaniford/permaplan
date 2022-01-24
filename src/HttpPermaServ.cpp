@@ -44,9 +44,17 @@ bool HttpPermaServ::indexPage(void)
   unless(startTable())
     return false;
   internalPrintf("<tr><th>Link</th><th>notes</th></tr>\n");
+
+  // Alive (test server is up)
+  internalPrintf("<tr><td><a href=\"/alive/\">alive/</a></td>");
+  internalPrintf("<td>Confirm server is up and functioning.</td></tr>\n");
+
+  // Quit (shut server down)
+  internalPrintf("<tr><td><a href=\"/quit/\">quit/</a></td>");
+  internalPrintf("<td>Shut the server down in an orderly manner.</td></tr>\n");
   
   // DIF
-  internalPrintf("<tr><td><a href=\"/dif?42.441570:-76.498665/\">dif?lat:long</a></td>");
+  internalPrintf("<tr><td><a href=\"/dif?42.441570:-76.498665\">dif?lat:long</a></td>");
   internalPrintf("<td>Average diffuse horizontal irradiation at location (kWh/m²/day).</td></tr>\n");
 
   // DNI
@@ -123,6 +131,12 @@ bool HttpPermaServ::processRequestHeader(void)
 
   // Possible paths (in alphabetical order  
   if( strlen(url) == 7 && strncmp(url, "/alive/", 7) == 0)
+   {
+    internalPrintf("OK\n");
+    retVal = true;
+   }
+
+  if( strlen(url) == 6 && strncmp(url, "/quit/", 6) == 0)
    {
     internalPrintf("OK\n");
     retVal = true;
