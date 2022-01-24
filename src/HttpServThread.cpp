@@ -18,7 +18,8 @@ HttpServThread::HttpServThread(unsigned index):
                                     respBufOverflow(false),
                                     reqParser(8192),
                                     respBufSize(16384),
-                                    headBufSize(4096)
+                                    headBufSize(4096),
+                                    clientP(0)
 {
   respBuf = new char[respBufSize];
   headBuf = new char[headBufSize];
@@ -180,7 +181,8 @@ bool HttpServThread::processRequestHeader(void)
 void HttpServThread::processOneHTTP1_1(int connfd, unsigned short clientPort)
 {
   LogHTTPLoadBalance("HTTPDebug %d handling client on port %u.\n", queueIndex, clientPort);
-
+  clientP = clientPort; // make this available for logging by subclasses.
+  
   reqParser.setNewConnection(connfd);
   
   while(reqParser.getNextRequest())

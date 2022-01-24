@@ -56,6 +56,9 @@ bool HttpPermaServ::indexPage(void)
   // End table and page
   internalPrintf("</table></center>\n");
   endResponsePage();
+  
+  LogPermaservOps("Served index page to client on port %u.\n", clientP);
+  
   return true;
 }
 
@@ -91,7 +94,10 @@ bool HttpPermaServ::processRequestHeader(void)
       LogRequestErrors("Bad dif request: %s\n", url);
       retVal = false;
      }
-    internalPrintf("DIF: %.3f\n", solarDatabase->getDIFValue(latLong[0], latLong[1]));
+    float dif = solarDatabase->getDIFValue(latLong[0], latLong[1]);
+    internalPrintf("DIF: %.3f\n", dif);
+    LogPermaservOps("Serviced DIF request (%.3f) for %f,%f from client on port %u.\n", 
+                                                    dif, latLong[0], latLong[1], clientP);
     retVal = true;
    }
 
@@ -102,7 +108,10 @@ bool HttpPermaServ::processRequestHeader(void)
       LogRequestErrors("Bad dni request: %s\n", url);
       retVal = false;
      }
-    internalPrintf("DNI: %.3f\n", solarDatabase->getDNIValue(latLong[0], latLong[1]));
+    float dni = solarDatabase->getDNIValue(latLong[0], latLong[1]);
+    internalPrintf("DNI: %.3f\n", dni);
+    LogPermaservOps("Serviced DNI request (%.3f) for %f,%f from client on port %u.\n", 
+                                                        dni, latLong[0], latLong[1], clientP);
     retVal = true;
    }
   

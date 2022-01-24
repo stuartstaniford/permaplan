@@ -160,7 +160,6 @@ bool GdalFileInterface::getValueAtLocation(int band, float latitude, float longt
            
   // Extract the actual value we are looking for
   retVal = buf[(yLine - yBlock*nBlockYSize)*nBlockXSize + xPixel-xBlock*nBlockXSize];
-  printf("Retval is %.4f.\n", retVal);
   
   // Clean up before going home.
   delete[] buf;

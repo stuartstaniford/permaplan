@@ -44,6 +44,7 @@ protected:
   unsigned            headBufSize;
   char*               respBuf;
   char*               headBuf;
+  unsigned short      clientP;
 
 public:
   
