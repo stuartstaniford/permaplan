@@ -34,7 +34,8 @@ public:
   inline void lock(void)
    {
 #ifdef MULTI_THREADED_SIMULATION
-    if(pthread_mutex_lock(&mutex)) err(-1, "Lock failure.\n");
+    if(pthread_mutex_lock(&mutex)) 
+      err(-1, "Lock failure.\n");
 #endif
    }
 

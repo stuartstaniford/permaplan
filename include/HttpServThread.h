@@ -19,6 +19,12 @@
 
 
 // =======================================================================================
+// Forward declarations
+
+class HttpLoadBalancer;
+
+
+// =======================================================================================
 /// @brief Superclass for any thread that is going to handle the specifics of an HTTP
 /// server.
 ///
@@ -29,6 +35,8 @@
 
 class HttpServThread: public TaskQueue
 {
+  friend HttpLoadBalancer;
+  
 public:
   
   // Instance variables - public

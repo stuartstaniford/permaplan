@@ -17,7 +17,7 @@
 // =======================================================================================
 /// @brief Constructor for a new load balancer farm.
 /// 
-/// Creates the socket, binds to the port, and fires up a TaskQueueFarm of HttpDebug
+/// Creates the socket, binds to the port, and fires up a TaskQueueFarm of HttpServThread
 /// instances to handle future requests.
 /// @param servPort The server port to open up
 /// @param S A reference to the scene (pass through to the HttpDebug instances, which
@@ -46,8 +46,8 @@ HttpLoadBalancer::HttpLoadBalancer(unsigned short servPort):
   if ((listen(sockfd, 6)) != 0)
     err(-1, "Listen failed on socket %d in __func__\n", sockfd);
 
-  httpThreads = new TaskQueue*[HTTP_THREAD_COUNT];  
-  servFarm = new TaskQueueFarm(HTTP_THREAD_COUNT, httpThreads, (char*)"httpFarm");
+  httpThreads = new HttpServThread*[HTTP_THREAD_COUNT];  
+  servFarm = new TaskQueueFarm(HTTP_THREAD_COUNT, (TaskQueue**)httpThreads, (char*)"httpFarm");
 }
 
 
@@ -65,7 +65,7 @@ HttpLoadBalancer::~HttpLoadBalancer(void)
 
 void processOneConnection(void* arg, TaskQueue* T)
 {
-  HttpDebug* http = (HttpDebug*)T;
+  HttpServThread* http = (HttpServThread*)T;
   HttpLBWorkUnit* unit = (HttpLBWorkUnit*)arg;
   int connfd = unit->fileDescriptor;
   http->processOneHTTP1_1(connfd, unit->clientPort);
@@ -106,6 +106,9 @@ void* HttpLoadBalancer::processConnections(void)
         
     if(shutDownNow)
       break;
+    for(int i=0; i<HTTP_THREAD_COUNT; i++)
+      if(httpThreads[i]->shutdownRequested)
+        break;
    }
   
   LogCloseDown("HttpDebug server shutting down normally.\n");

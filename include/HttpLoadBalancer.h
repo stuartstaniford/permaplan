@@ -19,6 +19,7 @@ class HttpDebug;
 class TaskQueueFarm;
 class TaskQueue;
 class GLFWApplication;
+class HttpServThread;
 
 
 // =======================================================================================
@@ -43,8 +44,8 @@ public:
   void* processConnections(void);
 
 protected:
-  TaskQueue**         httpThreads; // must be initialized by subclass that knows the real type
-                                   // of these
+  HttpServThread**  httpThreads;  // must be initialized by subclass that knows the 
+                                  // real type of these
   
 private:
   
