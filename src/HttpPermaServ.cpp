@@ -122,12 +122,11 @@ bool HttpPermaServ::processDNIRequest(char* url)
 
 bool HttpPermaServ::processRequestHeader(void)
 {
-  char* url = reqParser.getUrl();
+  bool retVal = false;
+  char* url   = reqParser.getUrl();
   
   if( (strlen(url) == 1 && url[0] == '/') || strncmp(url, "/index.", 7) == 0)
     return indexPage();
-
-  bool retVal = false;
 
   // Possible paths (in alphabetical order  
   if( strlen(url) == 7 && strncmp(url, "/alive/", 7) == 0)
@@ -139,6 +138,7 @@ bool HttpPermaServ::processRequestHeader(void)
   if( strlen(url) == 6 && strncmp(url, "/quit/", 6) == 0)
    {
     internalPrintf("OK\n");
+    shutdownRequested = true;
     retVal = true;
    }
 

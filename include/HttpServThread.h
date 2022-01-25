@@ -45,6 +45,7 @@ protected:
   char*               respBuf;
   char*               headBuf;
   unsigned short      clientP;
+  bool                shutdownRequested;
 
 public:
   

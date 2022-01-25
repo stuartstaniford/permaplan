@@ -19,7 +19,8 @@ HttpServThread::HttpServThread(unsigned index):
                                     reqParser(8192),
                                     respBufSize(16384),
                                     headBufSize(4096),
-                                    clientP(0)
+                                    clientP(0),
+                                    shutdownRequested(false)
 {
   respBuf = new char[respBufSize];
   headBuf = new char[headBufSize];
