@@ -44,6 +44,7 @@ bool gdalIsRegistered = false;
 GdalFileInterface::GdalFileInterface(char* fileName):
                                           srcFileName(fileName)
 {
+  lock();
   unless(gdalIsRegistered)
    {
     GDALAllRegister();
@@ -61,6 +62,7 @@ GdalFileInterface::GdalFileInterface(char* fileName):
     err(-1, "Reading %s failed, not north-up: (%.2f,%.2f) != (0.0, 0.0).\n", 
                                         fileName, geoTransform[2], geoTransform[4]);  
 
+  unlock();
   //printOverviewData();
 }
 
@@ -70,8 +72,10 @@ GdalFileInterface::GdalFileInterface(char* fileName):
 
 GdalFileInterface::~GdalFileInterface(void)
 {
+  lock();
   if(dataset)
     GDALClose(dataset);
+  unlock();
 }
 
 
@@ -88,6 +92,7 @@ GdalFileInterface::~GdalFileInterface(void)
 bool GdalFileInterface::getValueAtLocation(int band, float latitude, float longtitude, 
                                                                             float& retVal)
 {  
+  lock();
   // Get and validate the image size in pixels
   int rasterXSize = dataset->GetRasterXSize();
   int rasterYSize = dataset->GetRasterYSize();
@@ -95,6 +100,7 @@ bool GdalFileInterface::getValueAtLocation(int band, float latitude, float longt
    {
     LogGdalError("Raster band %d in file %s has bad sizes %d,%d.\n", 
                                         band, srcFileName, rasterXSize, rasterYSize);
+    unlock();
     return false;  
    }
 
@@ -104,6 +110,7 @@ bool GdalFileInterface::getValueAtLocation(int band, float latitude, float longt
    {
     LogGdalError("xPixel %d out of range [0,%d] for band %d in file %s.\n", 
                                             xPixel, rasterXSize, band, srcFileName);
+    unlock();
     return false;  
    }
   int yLine = (latitude - geoTransform[3])/geoTransform[5];
@@ -111,6 +118,7 @@ bool GdalFileInterface::getValueAtLocation(int band, float latitude, float longt
    {
     LogGdalError("yLine %d out of range [0,%d] for band %d in file %s.\n", 
                                             yLine, rasterYSize, band, srcFileName);
+    unlock();
     return false;  
    }
   
@@ -119,6 +127,7 @@ bool GdalFileInterface::getValueAtLocation(int band, float latitude, float longt
   unless(rasterBand)
    {
     LogGdalError("Cannot get raster band index %d from file %s.\n", band, srcFileName);
+    unlock();
     return false;
    }
 
@@ -126,6 +135,7 @@ bool GdalFileInterface::getValueAtLocation(int band, float latitude, float longt
   unless(rasterBand->GetRasterDataType() == GDT_Float32) 
    {
     LogGdalError("Raster band %d in file %s is not float32.\n", band, srcFileName);
+    unlock();
     return false;  
    }
   
@@ -136,6 +146,7 @@ bool GdalFileInterface::getValueAtLocation(int band, float latitude, float longt
    {
     LogGdalError("Raster band %d in file %s has bad block sizes %d,%d.\n", 
                                         band, srcFileName, nBlockXSize, nBlockYSize);
+    unlock();
     return false;  
    }
 
@@ -145,6 +156,7 @@ bool GdalFileInterface::getValueAtLocation(int band, float latitude, float longt
    {
     LogGdalError("Couldn't allocate buffer of %d floats in band %d in file %s.\n", 
                                               nBlockXSize*nBlockYSize, band, srcFileName);
+    unlock();
     return false;  
    }
   
@@ -155,6 +167,7 @@ bool GdalFileInterface::getValueAtLocation(int band, float latitude, float longt
    {
     LogGdalError("Failed to read block location [%d, %d] in band %d in file %s.\n", 
                                                       xBlock, yBlock, band, srcFileName);
+    unlock();
     return false;  
    }
            
@@ -164,6 +177,7 @@ bool GdalFileInterface::getValueAtLocation(int band, float latitude, float longt
   // Clean up before going home.
   delete[] buf;
            
+  unlock();
   return true;
 }
 
@@ -178,6 +192,7 @@ void GdalFileInterface::printOverviewData()
   int             bGotMin, bGotMax;
   double          adfMinMax[2];
   
+  lock();
   for(int i=0; i<6; i++)
     printf("geoTransform[%d] is %.3f\n", i, geoTransform[i]);
   printf("%d pixels in each of %d lines with %d bands.\n", dataset->GetRasterXSize(),
@@ -198,6 +213,7 @@ void GdalFileInterface::printOverviewData()
     printf("Band has %d overviews.\n", difBand->GetOverviewCount());
   if(difBand->GetUnitType())
     printf("Band has %s units.\n", difBand->GetUnitType());
+  unlock();
  }
 
 

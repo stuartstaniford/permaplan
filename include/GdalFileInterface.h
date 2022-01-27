@@ -3,6 +3,8 @@
 #ifndef GDAL_FILE_INTERFACE_H
 #define GDAL_FILE_INTERFACE_H
 
+#include "Lockable.h"
+
 
 // =======================================================================================
 // Forward declarations
@@ -18,7 +20,7 @@ class GDALDataset;
 /// just abstracts the limited amount of functionality we actually require.
 
 
-class GdalFileInterface
+class GdalFileInterface: public Lockable
 {
 public:
   
