@@ -13,6 +13,11 @@
 // For converting W/m^2 to photon fluxes:
 //https://www.researchgate.net/post/Can-I-convert-PAR-photo-active-radiation-value-of-micro-mole-M2-S-to-Solar-radiation-in-Watt-m2/59ca6422217e201e2b23415f/citation/download
 
+// Other useful links
+//https://www.researchgate.net/post/How_can_I_calculate_DNI_and_DHI_components_starting_only_from_GHI_to_build_an_E_weather_file
+// https://www.nrel.gov/docs/legosti/old/3087.pdf
+// https://globalsolaratlas.info/download/world
+
 #include "SkySampleModel.h"
 #include "Logging.h"
 #include "BoundingBox.h"
