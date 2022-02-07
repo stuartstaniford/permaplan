@@ -9,6 +9,10 @@
 // http://pkg.cs.ovgu.de/LNF/i386/5.10/LNFgdal-docs/reloc/gdal/html/gdal_datamodel.html
 // https://developers.planet.com/planetschool/getting-started-with-gdal/
 // https://www.gis.usu.edu/~chrisg/python/2009/lectures/ospy_slides4.pdf
+// https://gdal.org/api/gdalrasterband_cpp.html
+// https://stackoverflow.com/questions/47789256/how-to-get-the-value-of-lat-long-from-a-hdf-file
+// https://gdal.org/doxygen/classGDALDataset.html
+// https://gdal.org/user/raster_data_model.html
 
 
 // =======================================================================================

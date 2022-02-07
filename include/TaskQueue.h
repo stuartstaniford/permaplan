@@ -35,7 +35,7 @@ class Task
 /// This is used to manage a worker thread which has a queue of tasks to perform.  Other
 /// threads can add things to the queue, and the worker will get to them.  Uses pthreads.
 
-class TaskQueue: public std::list<Task*>, public Lockable
+class TaskQueue: public Lockable, public std::list<Task*> 
 {
   friend TaskQueueFarm;
 

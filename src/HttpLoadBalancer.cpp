@@ -65,7 +65,7 @@ HttpLoadBalancer::~HttpLoadBalancer(void)
 
 void processOneConnection(void* arg, TaskQueue* T)
 {
-  HttpServThread* http = (HttpServThread*)T;
+  HttpDebug* http = (HttpDebug*)T;
   HttpLBWorkUnit* unit = (HttpLBWorkUnit*)arg;
   int connfd = unit->fileDescriptor;
   http->processOneHTTP1_1(connfd, unit->clientPort);
