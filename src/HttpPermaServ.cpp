@@ -138,7 +138,7 @@ bool HttpPermaServ::processRequestHeader(void)
   if( strlen(url) == 6 && strncmp(url, "/quit/", 6) == 0)
    {
     internalPrintf("OK\n");
-    shutdownRequested = true;
+    timeToDie = true;
     retVal = true;
    }
 

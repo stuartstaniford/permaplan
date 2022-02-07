@@ -44,7 +44,7 @@ public:
   void* processConnections(void);
 
 protected:
-  HttpServThread**  httpThreads;  // must be initialized by subclass that knows the 
+  TaskQueue**  httpThreads;  // must be initialized by subclass that knows the 
                                   // real type of these
   
 private:

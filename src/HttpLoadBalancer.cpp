@@ -46,7 +46,7 @@ HttpLoadBalancer::HttpLoadBalancer(unsigned short servPort):
   if ((listen(sockfd, 6)) != 0)
     err(-1, "Listen failed on socket %d in __func__\n", sockfd);
 
-  httpThreads = new HttpServThread*[HTTP_THREAD_COUNT];  
+  httpThreads = new TaskQueue*[HTTP_THREAD_COUNT];  
   servFarm = new TaskQueueFarm(HTTP_THREAD_COUNT, (TaskQueue**)httpThreads, (char*)"httpFarm");
 }
 
@@ -107,7 +107,7 @@ void* HttpLoadBalancer::processConnections(void)
     if(shutDownNow)
       break;
     for(int i=0; i<HTTP_THREAD_COUNT; i++)
-      if(httpThreads[i]->shutdownRequested)
+      if(httpThreads[i]->timeToDie)
         break;
    }
   

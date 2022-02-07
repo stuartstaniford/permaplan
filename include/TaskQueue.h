@@ -12,6 +12,8 @@
 
 class TaskQueue;
 class TaskQueueFarm;
+class HttpLoadBalancer;
+
 
 // =======================================================================================
 /// @brief Specify a chuck of work that can be placed on a TaskQueue.
@@ -38,7 +40,8 @@ class Task
 class TaskQueue: public Lockable, public std::list<Task*> 
 {
   friend TaskQueueFarm;
-
+  friend HttpLoadBalancer;
+  
  public:
   
   // Instance variables - public
