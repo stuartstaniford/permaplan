@@ -135,7 +135,7 @@ bool HttpPermaServ::processRequestHeader(void)
     retVal = true;
    }
 
-  if( strlen(url) == 6 && strncmp(url, "/quit/", 6) == 0)
+  else if( strlen(url) == 6 && strncmp(url, "/quit/", 6) == 0)
    {
     internalPrintf("OK\n");
     timeToDie = true;
@@ -143,11 +143,15 @@ bool HttpPermaServ::processRequestHeader(void)
    }
 
   else if( strlen(url) >= 8 && strncmp(url, "/dif?", 5) == 0)
+   {
     retVal = processDIFRequest(url+5);
+   }
 
   else if( strlen(url) >= 8 && strncmp(url, "/dni?", 5) == 0)
+   {
     retVal = processDNIRequest(url+5);
-  
+   }
+
   else
    {
     LogRequestErrors("Request for unknown resource %s\n", url);
