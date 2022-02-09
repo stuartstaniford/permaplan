@@ -65,7 +65,7 @@ HttpLoadBalancer::~HttpLoadBalancer(void)
 
 void processOneConnection(void* arg, TaskQueue* T)
 {
-  HttpDebug* http = (HttpDebug*)T;
+  HttpServThread* http = (HttpServThread*)T;
   HttpLBWorkUnit* unit = (HttpLBWorkUnit*)arg;
   int connfd = unit->fileDescriptor;
   http->processOneHTTP1_1(connfd, unit->clientPort);
@@ -80,7 +80,7 @@ void processOneConnection(void* arg, TaskQueue* T)
 /// @brief Main connection processing loop.
 /// 
 /// Loop sitting on the socket accepting connections and handing them off to one of our
-/// HttpDebug instances to process.
+/// TaskQueue instances to process.
 
 void* HttpLoadBalancer::processConnections(void)
 {
@@ -104,11 +104,14 @@ void* HttpLoadBalancer::processConnections(void)
     
     servFarm->loadBalanceTask(processOneConnection, unit);
         
+    for(int i=0; i<HTTP_THREAD_COUNT; i++)
+     {
+      //fprintf(stderr, "Checking timeToDie on %d: %d.\n", i, httpThreads[i]->timeToDie);
+      if(httpThreads[i]->timeToDie)
+        shutDownNow = true;
+     }
     if(shutDownNow)
       break;
-    for(int i=0; i<HTTP_THREAD_COUNT; i++)
-      if(httpThreads[i]->timeToDie)
-        break;
    }
   
   LogCloseDown("HttpDebug server shutting down normally.\n");

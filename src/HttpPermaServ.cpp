@@ -129,15 +129,15 @@ bool HttpPermaServ::processRequestHeader(void)
     return indexPage();
 
   // Possible paths (in alphabetical order  
-  if( strlen(url) == 7 && strncmp(url, "/alive/", 7) == 0)
+  else if( strlen(url) == 7 && strncmp(url, "/alive/", 7) == 0)
    {
-    internalPrintf("OK\n");
+    internalPrintf("OK at time %ld\n", time(NULL));
     retVal = true;
    }
 
   else if( strlen(url) == 6 && strncmp(url, "/quit/", 6) == 0)
    {
-    internalPrintf("OK\n");
+    internalPrintf("Quitting at time %ld\n", time(NULL));
     timeToDie = true;
     retVal = true;
    }

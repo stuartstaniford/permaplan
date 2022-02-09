@@ -220,8 +220,9 @@ void HttpServThread::processOneHTTP1_1(int connfd, unsigned short clientPort)
     if(returnOK)
       unless(writeLoop(connfd, respBuf, respPtr-respBuf))
         break;
-    if(reqParser.connectionWillClose)
-        break;
+    //fprintf(stderr, "timeToDie on %d is %d.\n", queueIndex, timeToDie);
+    if(timeToDie || reqParser.connectionWillClose)
+        break;      
    }
   reqParser.resetForReuse();
 }
