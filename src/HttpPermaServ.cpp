@@ -54,11 +54,11 @@ bool HttpPermaServ::indexPage(void)
   internalPrintf("<td>Shut the server down in an orderly manner.</td></tr>\n");
   
   // DIF
-  internalPrintf("<tr><td><a href=\"/dif?42.441570:-76.498665\">dif?lat:long</a></td>");
+  internalPrintf("<tr><td><a href=\"/dif?42.441570:-76.498665:\">dif?lat:long:</a></td>");
   internalPrintf("<td>Average diffuse horizontal irradiation at location (kWh/m²/day).</td></tr>\n");
 
   // DNI
-  internalPrintf("<tr><td><a href=\"/dni?42.441570:-76.498665/\">dni?lat:long</a></td>");
+  internalPrintf("<tr><td><a href=\"/dni?42.441570:-76.498665:/\">dni?lat:long:</a></td>");
   internalPrintf("<td>Average direct normal irradiation at location (kWh/m²/day).</td></tr>\n");
 
   // End table and page
