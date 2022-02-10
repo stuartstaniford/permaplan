@@ -50,7 +50,7 @@ MAIN = permaplan
 
 .PHONY: depend clean
 
-all:    doc $(MAIN)
+all:    doc $(MAIN) permaserv
 				@echo $(MAIN) has been compiled.
 
 $(MAIN): $(OBJS)
@@ -58,6 +58,9 @@ $(MAIN): $(OBJS)
 
 doc:		$(SRCS) $(wildcard include/*.h) Doxyfile
 				doxygen Doxyfile
+
+permaserv: $(OBJS)
+							$(CPP) $(CFLAGS) -o permaserv/permaserv -I ./include -I /usr/local/include -lgdal src/Logging.o src/Global.o src/SolarDatabase.o src/GdalFileInterface.o src/HttpLBPermaserv.o src/HttpPermaServ.o src/HttpServThread.o src/HttpLoadBalancer.o src/HttpRequestParser.o src/TaskQueueFarm.o src/TaskQueue.o src/Lockable.o permaserv/permaserv_main.cpp
 
 # this is a suffix replacement rule for building .o's from .c's
 # it uses automatic variables $<: the name of the prerequisite of
@@ -67,7 +70,7 @@ doc:		$(SRCS) $(wildcard include/*.h) Doxyfile
 				$(CPP) $(CFLAGS) $(INCLUDES) -c $<  -o $@
 
 clean:
-				$(RM) src/*.o *~ $(MAIN)
+				$(RM) src/*.o *~ $(MAIN) permaserv/permaserv
 
 depend: $(SRCS)
 				makedepend $(INCLUDES) $^
