@@ -41,11 +41,53 @@ $outLines = 0;
 
 
 #===========================================================================
+# Function to find how many instances of a given process exist.  Returns
+# a list of the process ids found.
+
+sub listProcessIds
+{
+  my($processName) = @_;
+  my(@returnArray) = ();
+  open(PS, "ps -ax|") || die("Couldn't start ps.\n");
+  my(@tokens);
+  while(<PS>)
+   {
+    @tokens = split;
+    #print join('|', @tokens)."\n";
+    next unless $tokens[3] eq $processName;
+    push @returnArray, $tokens[0]; 
+   }
+  return sort @returnArray;
+}
+
+
+#===========================================================================
+# Function to kill all members of a process list
+
+sub killAll
+{
+  my(@pidList) = @_;
+  
+  foreach(@pidList)
+   {
+    system("kill -9 $_");
+   }
+}
+
+
+#===========================================================================
 # Function to check if permaserv is available and up-to-date, and start or
 # restart it if necessary.
 
 sub checkPermaserv
 {
+  my @pids = listProcessIds('permaserv/permaserv');
+  if(scalar(@pids) > 1)
+   {
+    # Too confusing - cleanup
+    killAll(@pids);
+   }
+  
   if(-f $servPortFile)
    {
     open(PORT, $servPortFile) || die("Couldn't read $servPortFile.\n");
