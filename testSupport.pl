@@ -3,11 +3,13 @@
 # are required in more than one test script - get for starting and
 # communicating with permaplan, and parsing the logs.
 
+
 #===========================================================================
 # Modules needed
 
 use HTTP::Tiny;
 use HTML::TreeBuilder;
+
 
 #===========================================================================
 # File level constants/parameters
@@ -16,6 +18,8 @@ $portFileName   = "portPermaplan.txt";
 $portBase       = 2080;
 $portRangeSize  = 10;
 $logFileName    = "permaplan.log";
+$servPortFile   = "permaserv-port.txt";
+$servPort       = 0;
 
 @errorLogTypes = (
                   "LogOLDFValidity",
@@ -34,6 +38,22 @@ $port     = $portBase;
 $winWidth   = undef;
 $winHeight  = undef;
 $outLines = 0;
+
+
+#===========================================================================
+# Function to check if permaserv is available and up-to-date, and start or
+# restart it if necessary.
+
+sub checkPermaserv
+{
+  if(-f $servPortFile)
+   {
+    open(PORT, $servPortFile) || die("Couldn't read $servPortFile.\n");
+    $servPort = <PORT>;
+    close(PORT);   
+   }
+
+}
 
 
 #===========================================================================
