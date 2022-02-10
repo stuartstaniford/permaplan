@@ -4,6 +4,7 @@
 #define HTTP_LB_PERMASERV_H
 
 #include "HttpLoadBalancer.h"
+#include <time.h>
 
 
 // =======================================================================================
@@ -26,14 +27,15 @@ public:
   // Instance variables - public
   
   // Member functions - public
-  HttpLBPermaserv(unsigned short servPort);
+  HttpLBPermaserv(unsigned short servPort, time_t compTime);
   ~HttpLBPermaserv(void);
   
 private:
   
   // Instance variables - private
-  SolarDatabase* solarDatabase;
-
+  SolarDatabase*  solarDatabase;
+  time_t          compileTime;
+  
   // Member functions - private
   /// @brief Prevent copy-construction.
   HttpLBPermaserv(const HttpLBPermaserv&);       

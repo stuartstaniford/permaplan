@@ -11,6 +11,8 @@
 #include <pthread.h>
 #include <err.h>
 #include <unistd.h>
+#include <time.h>
+#include <sys/stat.h>
 
 
 // =======================================================================================
@@ -74,6 +76,20 @@ void processCommandLine(int argc, char* argv[])
 
 
 // =======================================================================================
+// Function to figure out the time our file was created, so we can report it to test
+// scripts which can check if we need to be restarted.
+
+time_t getCompileTime(char* progName)
+{
+  struct stat statRecord;
+  if(stat(progName, &statRecord) < 0)
+    err(-1, "Couldn't stat %s.\n", progName);
+  
+  return statRecord.st_mtime;
+}
+
+
+// =======================================================================================
 // Main function
 
 int main (int argc, char* argv[])
@@ -83,8 +99,10 @@ int main (int argc, char* argv[])
     
   processCommandLine(argc, argv);
   
+  time_t compileTime = getCompileTime(argv[0]);
+  
   // Start up the debugging http server
-  HttpLBPermaserv httpServer(servPort);
+  HttpLBPermaserv httpServer(servPort, compileTime);
   int             pthreadErr;
   pthread_t       httpThread;
   if((pthreadErr = pthread_create(&httpThread, NULL, callProcessConn, &httpServer)) != 0)

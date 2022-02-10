@@ -12,8 +12,9 @@
 // =======================================================================================
 /// @brief Constructor
 
-HttpLBPermaserv::HttpLBPermaserv(unsigned short servPort):
-                                          HttpLoadBalancer(servPort)
+HttpLBPermaserv::HttpLBPermaserv(unsigned short servPort, time_t compTime):
+                                          HttpLoadBalancer(servPort),
+                                          compileTime(compTime)
 {
   solarDatabase = new SolarDatabase;
   for(unsigned i=0; i<HTTP_THREAD_COUNT;i++)
