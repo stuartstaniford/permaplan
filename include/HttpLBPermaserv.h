@@ -11,6 +11,7 @@
 // Forward declarations
 
 class SolarDatabase;
+class HttpPermaServ;
 
 
 // =======================================================================================
@@ -22,6 +23,8 @@ class SolarDatabase;
 
 class HttpLBPermaserv: public HttpLoadBalancer
 {
+  friend HttpPermaServ; // required for access to compileTime
+  
 public:
   
   // Instance variables - public

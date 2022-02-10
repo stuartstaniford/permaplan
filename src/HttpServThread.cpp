@@ -13,13 +13,14 @@
 // =======================================================================================
 /// @brief Constructor
 
-HttpServThread::HttpServThread(unsigned index):
+HttpServThread::HttpServThread(unsigned index, HttpLoadBalancer* parent):
                                     TaskQueue(index),
                                     respBufOverflow(false),
                                     reqParser(8192),
                                     respBufSize(16384),
                                     headBufSize(4096),
-                                    clientP(0)
+                                    clientP(0),
+                                    parentLB(parent)
 {
   respBuf = new char[respBufSize];
   headBuf = new char[headBufSize];

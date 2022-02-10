@@ -26,7 +26,7 @@ public:
   // Instance variables - public
   
   // Member functions - public
-  HttpPermaServ(unsigned index, SolarDatabase* solarD);
+  HttpPermaServ(unsigned index, SolarDatabase* solarD, HttpLoadBalancer* parent);
   ~HttpPermaServ(void);
   
 private:

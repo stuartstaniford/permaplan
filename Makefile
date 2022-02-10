@@ -1072,8 +1072,8 @@ src/Gable.o: include/CO2Scenario.h include/Quadtree.h include/DisplayList.h
 src/Gable.o: include/PmodConfig.h include/HttpDebug.h
 src/Gable.o: include/HttpServThread.h include/TaskQueue.h
 src/Gable.o: include/HttpRequestParser.h
-src/GdalFileInterface.o: include/GdalFileInterface.h include/Global.h
-src/GdalFileInterface.o: /usr/local/include/cglm/cglm.h
+src/GdalFileInterface.o: include/GdalFileInterface.h include/Lockable.h
+src/GdalFileInterface.o: include/Global.h /usr/local/include/cglm/cglm.h
 src/GdalFileInterface.o: /usr/local/include/cglm/common.h
 src/GdalFileInterface.o: /usr/local/include/cglm/types.h
 src/GdalFileInterface.o: /usr/local/include/cglm/simd/intrin.h
@@ -3927,7 +3927,8 @@ src/SkySampleModel.o: include/rapidjson/stringbuffer.h
 src/SkySampleModel.o: include/rapidjson/error/en.h
 src/SkySampleModel.o: include/rapidjson/error/error.h
 src/SolarDatabase.o: include/SolarDatabase.h include/GdalFileInterface.h
-src/SolarDatabase.o: include/Global.h /usr/local/include/cglm/cglm.h
+src/SolarDatabase.o: include/Lockable.h include/Global.h
+src/SolarDatabase.o: /usr/local/include/cglm/cglm.h
 src/SolarDatabase.o: /usr/local/include/cglm/common.h
 src/SolarDatabase.o: /usr/local/include/cglm/types.h
 src/SolarDatabase.o: /usr/local/include/cglm/simd/intrin.h

@@ -16,7 +16,7 @@ HttpLBDebug::HttpLBDebug(unsigned short servPort, Scene& S, GLFWApplication& win
                     scene(S)
 {
   for(unsigned i=0; i<HTTP_THREAD_COUNT;i++)
-    httpThreads[i] = (TaskQueue*) new HttpDebug(scene, winApp, i);
+    httpThreads[i] = (TaskQueue*) new HttpDebug(scene, winApp, i, (HttpLoadBalancer*)this);
 }
 
 

@@ -18,7 +18,8 @@ HttpLBPermaserv::HttpLBPermaserv(unsigned short servPort, time_t compTime):
 {
   solarDatabase = new SolarDatabase;
   for(unsigned i=0; i<HTTP_THREAD_COUNT;i++)
-    httpThreads[i] = (TaskQueue*) new HttpPermaServ(i, solarDatabase);
+    httpThreads[i] = (TaskQueue*) new HttpPermaServ(i, solarDatabase, 
+                                                          (HttpLoadBalancer*)this);
 }
 
 

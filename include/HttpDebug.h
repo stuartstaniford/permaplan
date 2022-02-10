@@ -33,7 +33,7 @@ public:
   GLFWApplication&        windowApp;
 
   // Member functions - public
-  HttpDebug(Scene& S, GLFWApplication& winApp, unsigned index);
+  HttpDebug(Scene& S, GLFWApplication& winApp, unsigned index, HttpLoadBalancer* parent);
   ~HttpDebug(void);
   bool        carbonSummary(void);
 

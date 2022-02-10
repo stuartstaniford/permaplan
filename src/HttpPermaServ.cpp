@@ -4,13 +4,14 @@
 #include "HttpPermaServ.h"
 #include "Logging.h"
 #include "SolarDatabase.h"
+#include "HttpLBPermaserv.h"
 
 
 // =======================================================================================
 /// @brief Constructor
 
-HttpPermaServ::HttpPermaServ(unsigned index, SolarDatabase* solarD):
-                            HttpServThread(index),
+HttpPermaServ::HttpPermaServ(unsigned index, SolarDatabase* solarD, HttpLoadBalancer* parent):
+                            HttpServThread(index, parent),
                             solarDatabase(solarD)
 
 {
@@ -52,6 +53,10 @@ bool HttpPermaServ::indexPage(void)
   // Quit (shut server down)
   internalPrintf("<tr><td><a href=\"/quit/\">quit/</a></td>");
   internalPrintf("<td>Shut the server down in an orderly manner.</td></tr>\n");
+
+  // Compile time (When was the running program compiled?)
+  internalPrintf("<tr><td><a href=\"/compileTime/\">compileTime/</a></td>");
+  internalPrintf("<td>Determine when the running server was compiled.</td></tr>\n");
   
   // DIF
   internalPrintf("<tr><td><a href=\"/dif?42.441570:-76.498665:\">dif?lat:long:</a></td>");
@@ -122,32 +127,39 @@ bool HttpPermaServ::processDNIRequest(char* url)
 
 bool HttpPermaServ::processRequestHeader(void)
 {
-  bool retVal = false;
-  char* url   = reqParser.getUrl();
+  bool retVal   = false;
+  char* url     = reqParser.getUrl();
+  int strlenUrl = strlen(url);
   
-  if( (strlen(url) == 1 && url[0] == '/') || strncmp(url, "/index.", 7) == 0)
+  if( (strlenUrl == 1 && url[0] == '/') || strncmp(url, "/index.", 7) == 0)
     return indexPage();
 
   // Possible paths (in alphabetical order  
-  else if( strlen(url) == 7 && strncmp(url, "/alive/", 7) == 0)
+  else if( strlenUrl == 7 && strncmp(url, "/alive/", 7) == 0)
    {
     internalPrintf("OK at time %ld\n", time(NULL));
     retVal = true;
    }
 
-  else if( strlen(url) == 6 && strncmp(url, "/quit/", 6) == 0)
+  else if( strlenUrl == 6 && strncmp(url, "/quit/", 6) == 0)
    {
     internalPrintf("Quitting at time %ld\n", time(NULL));
     timeToDie = true;
     retVal = true;
    }
 
-  else if( strlen(url) >= 8 && strncmp(url, "/dif?", 5) == 0)
+  else if( strlenUrl == 13 && strncmp(url, "/compileTime/", 13) == 0)
+   {
+    internalPrintf("compileTime: %ld\n", ((HttpLBPermaserv*)parentLB)->compileTime);
+    retVal = true;
+   }
+
+  else if( strlenUrl >= 8 && strncmp(url, "/dif?", 5) == 0)
    {
     retVal = processDIFRequest(url+5);
    }
 
-  else if( strlen(url) >= 8 && strncmp(url, "/dni?", 5) == 0)
+  else if( strlenUrl >= 8 && strncmp(url, "/dni?", 5) == 0)
    {
     retVal = processDNIRequest(url+5);
    }

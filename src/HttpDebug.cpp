@@ -25,8 +25,9 @@
 /// windowApp A reference to the application object that manages the windows
 /// index An unsigned index of which TaskQueue we are in the loadBalancer.
 
-HttpDebug::HttpDebug(Scene& S, GLFWApplication& winApp, unsigned index):
-                        HttpServThread(index),
+HttpDebug::HttpDebug(Scene& S, GLFWApplication& winApp, unsigned index, 
+                                                          HttpLoadBalancer* parent):
+                        HttpServThread(index, parent),
                         scene(S),
                         menuInterface(NULL),
                         windowApp(winApp)

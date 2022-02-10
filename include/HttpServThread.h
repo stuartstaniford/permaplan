@@ -53,11 +53,12 @@ protected:
   char*               respBuf;
   char*               headBuf;
   unsigned short      clientP;
-
+  HttpLoadBalancer*   parentLB;
+  
 public:
   
   // Member functions - public
-  HttpServThread(unsigned index);
+  HttpServThread(unsigned index, HttpLoadBalancer* parent);
   ~HttpServThread(void);
   bool  startResponsePage(const char* title, unsigned refresh = 0u);
   bool  endResponsePage(void);
