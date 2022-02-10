@@ -15,7 +15,7 @@ class HttpPermaServ;
 
 
 // =======================================================================================
-/// @brief A subclass of HttpLoadBalancer that is used for in the permaserv processing
+/// @brief A subclass of HttpLoadBalancer that is used in permaserv processing
 /// for handling HTTP requests.
 ///
 /// This subclass basically exists to make sure that requests get handled by the correct

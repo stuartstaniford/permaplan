@@ -6,6 +6,7 @@
 
 #include "HttpLBPermaserv.h"
 #include "Logging.h"
+#include "Global.h"
 #include <cstdio>
 #include <stdexcept>
 #include <pthread.h>
@@ -90,6 +91,19 @@ time_t getCompileTime(char* progName)
 
 
 // =======================================================================================
+// Function to record our port number in a file so test scripts can find us.
+
+void recordPort(void)
+{
+  FILE* portFile = fopen("permaserv-port.txt", "w");
+  unless(portFile)
+    err(-1, "Couldn't open permaserv-port.txt to write port number.\n");
+  fprintf(portFile, "%d\n", servPort);
+  fclose(portFile);
+}
+
+
+// =======================================================================================
 // Main function
 
 int main (int argc, char* argv[])
@@ -97,9 +111,10 @@ int main (int argc, char* argv[])
   // Initialize logging so we can record the rest of the start-up.
   LogInit((char*)"permaserv.log");
     
+  // Startup tasks
   processCommandLine(argc, argv);
-  
   time_t compileTime = getCompileTime(argv[0]);
+  recordPort();
   
   // Start up the debugging http server
   HttpLBPermaserv httpServer(servPort, compileTime);
