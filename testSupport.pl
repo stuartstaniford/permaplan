@@ -20,6 +20,7 @@ $portRangeSize  = 10;
 $logFileName    = "permaplan.log";
 $servPortFile   = "permaserv-port.txt";
 $servPort       = 0;
+$permaservHttp  = '';
 
 @errorLogTypes = (
                   "LogOLDFValidity",
@@ -74,6 +75,29 @@ sub killAll
    }
 }
 
+#===========================================================================
+# Function to connect to permaserv on $servPort and test that it is
+# responsive.  Will block if the response is slow (eg during server 
+# startup).
+
+sub testPermaservAlive
+{
+  unless($permaservHttp)
+   {
+    $permaservHttp = HTTP::Tiny->new(('timeout' => 3));
+   }
+  
+  foreach(1..5)
+   {
+    my $response = $http->get("http://127.0.0.1:$servPort/alive/");
+    if(length $response->{content} && $response->{content} =~ /^OK/)
+     {
+      last;
+     }
+    sleep(1);
+   }
+}
+
 
 #===========================================================================
 # Function to check if permaserv is available and up-to-date, and start or
@@ -81,20 +105,73 @@ sub killAll
 
 sub checkPermaserv
 {
+  my $startRequired = 0;
+  
   my @pids = listProcessIds('permaserv/permaserv');
   if(scalar(@pids) > 1)
    {
-    # Too confusing - cleanup
+    # Many permaservs, too confusing - cleanup
     killAll(@pids);
+    $startRequired = 1;
    }
-  
-  if(-f $servPortFile)
+  elsif(scalar(@pids) == 0)
    {
+    # No permaserv running at all
+    $startRequired = 1;
+   }
+  elsif(-f $servPortFile)
+   {
+    # One permaserv running and port file exists
     open(PORT, $servPortFile) || die("Couldn't read $servPortFile.\n");
     $servPort = <PORT>;
-    close(PORT);   
+    close(PORT);
+    unless(testPermaservAlive())
+     {
+      # Permaserv present but unresponsive, kill it and start over
+      killAll(@pids);
+      $startRequired = 1;
+     }
    }
-
+  else
+   {
+    # Screwed up - a permaserv is running but there's no port file for it
+    killAll(@pids);
+    $startRequired = 1;
+   }
+  
+  if(!$startRequired)
+   {
+    # There seems to be a running, responding permaserv, but we still need
+    # to test that it's running the latest and greatest version of the code.
+   }
+  
+  
+  if($startRequired)
+   {
+    if(-f $servPortFile)
+     {
+      if(!$servPort)
+       {
+        open(PORT, $servPortFile) || die("Couldn't read $servPortFile.\n");
+        $servPort = <PORT>;
+        close(PORT);
+       }
+      unlink($servPortFile);
+     }
+    if($servPort)
+     {
+      $servPort = ($servPort+1-2090)%10 + 2090;
+     }
+    else
+     {
+      $servPort = 2090;
+     }
+    system("permaserv/permaserv -p $servPort &");
+    testPermaservAlive();
+   }
+  
+  # At this point, there should be a current working permaserv running 
+  # and responding
 }
 
 
