@@ -14,13 +14,14 @@ use HTML::TreeBuilder;
 #===========================================================================
 # File level constants/parameters
 
-$portFileName   = "portPermaplan.txt";
-$portBase       = 2080;
-$portRangeSize  = 10;
-$logFileName    = "permaplan.log";
-$servPortFile   = "permaserv-port.txt";
-$servPort       = 0;
-$permaservHttp  = '';
+$portFileName         = "portPermaplan.txt";
+$portBase             = 2080;
+$portRangeSize        = 10;
+$logFileName          = "permaplan.log";
+$servPortFile         = "permaserv-port.txt";
+$servPort             = 0;
+$permaservHttp        = '';
+$permaservExecutable  = 'permaserv/permaserv';
 
 @errorLogTypes = (
                   "LogOLDFValidity",
@@ -75,6 +76,7 @@ sub killAll
    }
 }
 
+
 #===========================================================================
 # Function to connect to permaserv on $servPort and test that it is
 # responsive.  Will block if the response is slow (eg during server 
@@ -89,12 +91,37 @@ sub testPermaservAlive
   
   foreach(1..5)
    {
-    my $response = $http->get("http://127.0.0.1:$servPort/alive/");
+    my $response = $permaservHttp->get("http://127.0.0.1:$servPort/alive/");
     if(length $response->{content} && $response->{content} =~ /^OK/)
      {
       last;
      }
     sleep(1);
+   }
+}
+
+
+#===========================================================================
+# Function to check if the running permaserv is the latest version or not.
+
+sub permaservUpToDate
+{
+  my ($dev, $ino, $mode, $nlink, $uid, $gid, $rdev, $size, $atime,
+              $mtime, $ctime, $blksize, $blocks) = stat($permaservExecutable);
+  my $response 
+          = $permaservHttp->get("http://127.0.0.1:$servPort/compileTime/");
+  unless($response && length $response->{content})
+   {
+    return 0;
+   }
+  $response->{content} =~ /^compileTime:\s*(\d+)\s*$/;
+  if($1 == $mtime)   
+   {
+    return 1;
+   }
+  else
+   {
+    return 0;
    }
 }
 
@@ -107,7 +134,7 @@ sub checkPermaserv
 {
   my $startRequired = 0;
   
-  my @pids = listProcessIds('permaserv/permaserv');
+  my @pids = listProcessIds($permaservExecutable);
   if(scalar(@pids) > 1)
    {
     # Many permaservs, too confusing - cleanup
@@ -143,8 +170,12 @@ sub checkPermaserv
    {
     # There seems to be a running, responding permaserv, but we still need
     # to test that it's running the latest and greatest version of the code.
+    unless(permaservUpToDate())
+     {
+      killAll(@pids);
+      $startRequired = 1;     
+     }
    }
-  
   
   if($startRequired)
    {
@@ -166,7 +197,7 @@ sub checkPermaserv
      {
       $servPort = 2090;
      }
-    system("permaserv/permaserv -p $servPort &");
+    system("$permaservExecutable -p $servPort &");
     testPermaservAlive();
    }
   
