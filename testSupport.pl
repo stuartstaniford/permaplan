@@ -84,6 +84,8 @@ sub killAll
 
 sub testPermaservAlive
 {
+  my $url = "http://127.0.0.1:$servPort/alive/";
+  
   unless($permaservHttp)
    {
     $permaservHttp = HTTP::Tiny->new(('timeout' => 3));
@@ -91,13 +93,16 @@ sub testPermaservAlive
   
   foreach(1..5)
    {
-    my $response = $permaservHttp->get("http://127.0.0.1:$servPort/alive/");
+    print "Url is: $url\n";
+    my $response = $permaservHttp->get($url);
+    print "Got response: ".$response->{content}."\n";
     if(length $response->{content} && $response->{content} =~ /^OK/)
      {
-      last;
+      return 1;
      }
     sleep(1);
    }
+  return 0;
 }
 
 
@@ -115,6 +120,7 @@ sub permaservUpToDate
     return 0;
    }
   $response->{content} =~ /^compileTime:\s*(\d+)\s*$/;
+  print "Running permaserv is $1, compiled is $mtime.\n";
   if($1 == $mtime)   
    {
     return 1;
@@ -135,6 +141,7 @@ sub checkPermaserv
   my $startRequired = 0;
   
   my @pids = listProcessIds($permaservExecutable);
+  #print "Pids: ".join('|', @pids)."\n";
   if(scalar(@pids) > 1)
    {
     # Many permaservs, too confusing - cleanup
@@ -151,7 +158,9 @@ sub checkPermaserv
     # One permaserv running and port file exists
     open(PORT, $servPortFile) || die("Couldn't read $servPortFile.\n");
     $servPort = <PORT>;
+    chomp $servPort;
     close(PORT);
+    print "servPort is: $servPort\n";
     unless(testPermaservAlive())
      {
       # Permaserv present but unresponsive, kill it and start over
@@ -185,7 +194,8 @@ sub checkPermaserv
        {
         open(PORT, $servPortFile) || die("Couldn't read $servPortFile.\n");
         $servPort = <PORT>;
-        close(PORT);
+        chomp $servPort;
+       close(PORT);
        }
       unlink($servPortFile);
      }
