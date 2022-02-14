@@ -67,7 +67,7 @@ HttpPermaservClient::HttpPermaservClient(void)
    {
     cachePresent = false;
     LogPermaservClientErrors("Cache file %s not found or not readable"
-                             "in HttpPermaservClient constructor.\n", cacheFileName);
+                             " in HttpPermaservClient constructor.\n", cacheFileName);
    }
 }
 
@@ -77,6 +77,15 @@ HttpPermaservClient::HttpPermaservClient(void)
 
 HttpPermaservClient::~HttpPermaservClient(void)
 {
+}
+
+
+// =======================================================================================
+/// @brief Write the cache file out to the disk
+
+void HttpPermaservClient::writeCacheFile(void)
+{
+  
 }
 
 
