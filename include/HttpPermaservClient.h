@@ -50,6 +50,10 @@ private:
   unsigned short        servPort;
   bool                  cachePresent;
   
+  // Actual values that are cached and/or fetched.
+  float                 dif;
+  float                 dni;
+  
   // Member functions - private
   /// @brief Prevent copy-construction.
   HttpPermaservClient(const HttpPermaservClient&);       

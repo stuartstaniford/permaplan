@@ -85,7 +85,11 @@ HttpPermaservClient::~HttpPermaservClient(void)
 
 void HttpPermaservClient::writeCacheFile(void)
 {
-  
+  Document cache; // Null
+  cache.SetObject();
+   
+  cache.AddMember("DIF", dif, cache.GetAllocator());
+  cache.AddMember("DNI", dni, cache.GetAllocator());
 }
 
 
@@ -141,9 +145,8 @@ bool HttpPermaservClient::getSingleValue(char* url, char* name, float lat, float
  
 float HttpPermaservClient::getDIFValue(float lat, float longt)
 {
-  float retVal;
-  if(getSingleValue((char*)"dif", (char*)"DIF", lat, longt, retVal))
-    return retVal;
+  if(getSingleValue((char*)"dif", (char*)"DIF", lat, longt, dif))
+    return dif;
   else
    {
     LogPermaservClientErrors("Failed to obtain diffuse horizontal irradiance " 
@@ -162,9 +165,8 @@ float HttpPermaservClient::getDIFValue(float lat, float longt)
  
 float HttpPermaservClient::getDNIValue(float lat, float longt)
 {
-  float retVal;
-  if(getSingleValue((char*)"dni", (char*)"DNI", lat, longt, retVal))
-    return retVal;
+  if(getSingleValue((char*)"dni", (char*)"DNI", lat, longt, dni))
+    return dni;
   else
    {
     LogPermaservClientErrors("Failed to obtain direct normal irradiance " 
