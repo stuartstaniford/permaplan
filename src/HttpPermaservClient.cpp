@@ -90,6 +90,17 @@ void HttpPermaservClient::writeCacheFile(void)
    
   cache.AddMember("DIF", dif, cache.GetAllocator());
   cache.AddMember("DNI", dni, cache.GetAllocator());
+  StringBuffer buffer;
+  Writer<StringBuffer> writer(buffer);
+  cache.Accept(writer);
+  const char* output = buffer.GetString();
+  int size = strlen(output);
+  FILE* file = fopen(cacheFileName, "w");
+  unless(file)
+    err(-1, "Couldn't open cache file for writing %s.", cacheFileName);
+  unless(fwrite(output, size, 1, file) == size)
+    err(-1, "Couldn't write cache file %s.", cacheFileName);
+  fclose(file);
 }
 
 
