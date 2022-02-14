@@ -218,7 +218,7 @@ sub checkPermaserv
 
 #===========================================================================
 # Function to reliably start permaplan and wait till it's definitely up
-# and responding to it's HTTP interface.  Typically takes four or five
+# and responding to its HTTP interface.  Typically takes four or five
 # seconds.
 
 sub startPermaplan
@@ -235,7 +235,7 @@ sub startPermaplan
   print PORT $nextPort;
   close(PORT);
 
-  $options .= " -p $port";
+  $options .= " -p $port -S $servPort";
   unless($debuggerMode)
    {
     system("./permaplan $options &");

@@ -136,7 +136,8 @@ void PmodConfig::usage()
   printf("\t-L\tLeave land surface as a plane.\n");
   printf("\t-p P\tRun debug server on port P .\n");
   printf("\t-P S\tUse S as plant species directory.\n");
-  printf("\t-s N\tUse s simulation threads.\n");
+  printf("\t-s N\tUse N simulation threads.\n");
+  printf("\t-S N\tUse N as the permaserv port.\n");
   printf("\n");
   exit(0);
 }

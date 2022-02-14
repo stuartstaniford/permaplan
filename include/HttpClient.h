@@ -7,6 +7,18 @@
 
 
 // =======================================================================================
+/// @brief POD Helper class for passing a sized buffer to a callback function
+
+class SizedBuffer
+{
+public:
+  
+  char* buf;
+  unsigned size;
+};
+
+
+// =======================================================================================
 /// @brief This class isolates HTTP client functionality from the rest of the code.  
 /// 
 /// Used by the resource manager in fetching stuff, and also used when permaplan 

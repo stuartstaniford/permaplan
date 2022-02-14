@@ -99,7 +99,7 @@ bool HttpPermaservClient::getSingleValue(char* url, char* name, float lat, float
   char fullUrl[FULL_URL_BUFSIZE];
   char recvBuf[SINGLE_VAL_BUFSIZE];
   
-  int printRet = snprintf(fullUrl, FULL_URL_BUFSIZE, "http://127.0.0.1:%u/%s?%f,%f:", 
+  int printRet = snprintf(fullUrl, FULL_URL_BUFSIZE, "http://127.0.0.1:%u/%s?%f:%f:", 
                                                                   servPort, url, lat, longt);
   if(printRet < 1 || printRet >= FULL_URL_BUFSIZE)
     err(-1, "Overflow in HttpPermaservClient::getSingleValue");
@@ -119,7 +119,7 @@ bool HttpPermaservClient::getSingleValue(char* url, char* name, float lat, float
     return false;
    }
   
-  return false;  
+  return true;  
 }
 
 
@@ -137,7 +137,7 @@ float HttpPermaservClient::getDIFValue(float lat, float longt)
     return retVal;
   else
    {
-    LogPermaservClientErrors("Failed to obtain diffuse horizontal irradiance" 
+    LogPermaservClientErrors("Failed to obtain diffuse horizontal irradiance " 
                                                                     "from permaserv.\n");
     return 0.0f;
    }
@@ -158,7 +158,7 @@ float HttpPermaservClient::getDNIValue(float lat, float longt)
     return retVal;
   else
    {
-    LogPermaservClientErrors("Failed to obtain direct normal irradiance" 
+    LogPermaservClientErrors("Failed to obtain direct normal irradiance " 
                                                                     "from permaserv.\n");
     return 0.0f;
    }

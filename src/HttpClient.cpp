@@ -63,13 +63,26 @@ size_t writeToFile(void *buffer, size_t size, size_t nmemb, void *userp)
 
 size_t writeToBuffer(void *buffer, size_t size, size_t nmemb, void *userp)
 {
-  char* dest = (char*)userp;
+  SizedBuffer* S = (SizedBuffer*)userp;
   
+  if(S->size == 0u)
+    return 0u;
   
-  // HAS OVERFLOWS _ NEED TO PASS IN SIZE AND CHECK.
-  
-  memcpy(dest, buffer, size*nmemb);
-  return size*nmemb;
+  if(size*nmemb < S->size)
+   {
+    memcpy(S->buf, buffer, size*nmemb);
+    S->size -= size*nmemb;
+    return size*nmemb;
+   }
+  else
+   {
+    LogHttpClientErrors("Overflow in writeToBuffer, %lu cannot fit in %u.\n", size*nmemb,
+                        S->size);
+    memcpy(S->buf, buffer, S->size-1);
+    S->buf[S->size-1] = '\0';
+    S->size = 0u;
+    return S->size-1;
+   }
 }
 
 
@@ -116,9 +129,13 @@ bool HttpClient::fetchFile(const char* url, const char* path)
 
 bool HttpClient::fetchBuffer(const char* url, char* buf, unsigned bufSize)
 {
+  SizedBuffer S;
+  S.size  = bufSize;
+  S.buf   = buf;
+  
   curl_easy_setopt(easyHandle, CURLOPT_URL, url);
   curl_easy_setopt(easyHandle, CURLOPT_WRITEFUNCTION, writeToBuffer);
-  curl_easy_setopt(easyHandle, CURLOPT_WRITEDATA, buf);
+  curl_easy_setopt(easyHandle, CURLOPT_WRITEDATA, &S);
 
   CURLcode result = curl_easy_perform(easyHandle);
 
