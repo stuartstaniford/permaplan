@@ -11,6 +11,7 @@
 #include <err.h>
 #include <string.h>
 #include <sys/stat.h>
+#include <stdlib.h>
 
 
 // =======================================================================================
@@ -144,6 +145,9 @@ bool HttpPermaservClient::getSingleValue(char* url, char* name, float lat, float
     return false;
    }
   
+  retVal = atof(recvBuf+l+1);
+  LogPermaservClientOps("HttpPermaservClient::getSingleValue reads %f for tag %s.\n", 
+                                                                            retVal, name);
   return true;  
 }
 
@@ -157,9 +161,9 @@ bool HttpPermaservClient::getSingleValue(char* url, char* name, float lat, float
  
 float HttpPermaservClient::getDIFValue(float lat, float longt)
 {
-  if(cachePresent && doc.HasMember("dif"))
+  if(cachePresent && doc.HasMember("DIF"))
    {
-    dif = doc["dif"].GetFloat();
+    dif = doc["DIF"].GetFloat();
     LogPermaservClientOps("Obtained diffuse horizontal irradiance value"
                                                   " from cache file: %.3f.\n", dif); 
     return dif;
@@ -188,9 +192,9 @@ float HttpPermaservClient::getDIFValue(float lat, float longt)
  
 float HttpPermaservClient::getDNIValue(float lat, float longt)
 {
-  if(cachePresent && doc.HasMember("dni"))
+  if(cachePresent && doc.HasMember("DNI"))
    {
-    dif = doc["dni"].GetFloat();
+    dni = doc["DNI"].GetFloat();
     LogPermaservClientOps("Obtained direct normal irradiance value"
                                                   " from cache file: %.3f.\n", dni); 
     return dni;

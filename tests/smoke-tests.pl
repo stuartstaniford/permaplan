@@ -1,4 +1,9 @@
 #!/usr/bin/perl
+
+require './testSupport.pl';
+
+unlink($clientCacheFile);
+
 system("tests/basic-smoke/test1.pl -L 2");
 system("tests/simulate/test2.pl  -y 1920");
 system("tests/add-blocks/test3.pl");
