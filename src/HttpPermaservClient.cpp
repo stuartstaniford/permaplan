@@ -98,7 +98,7 @@ void HttpPermaservClient::writeCacheFile(void)
   FILE* file = fopen(cacheFileName, "w");
   unless(file)
     err(-1, "Couldn't open cache file for writing %s.", cacheFileName);
-  unless(fwrite(output, size, 1, file) == size)
+  unless(fwrite(output, 1, size, file) == size)
     err(-1, "Couldn't write cache file %s.", cacheFileName);
   fclose(file);
 }

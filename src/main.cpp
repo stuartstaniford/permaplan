@@ -47,7 +47,7 @@ int main (int argc, char* argv[])
 
   initGlobals(config.nSimThreads);
   
-  // Initialize everything
+  // Now we have the configuration, initialize the main data structures, 
   setExternVersions();
   GLFWApplication glfwApp;
   MainSceneWindow window(800, 600, glfwApp);
@@ -67,6 +67,9 @@ int main (int argc, char* argv[])
   TextureAtlas treesAtlas((char*)"Materials/Trees");
   MaterialList materials(blocksAtlas);
   RegionList::loadRoot();
+  
+  // By now we should have gotten anything we need from permaserv, so save the cache
+  permaservClient.writeCacheFile();
   
   // Start up the debugging http server
   HttpLBDebug httpServer(config.debugPort, scene, glfwApp);

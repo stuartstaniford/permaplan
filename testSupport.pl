@@ -22,6 +22,7 @@ $servPortFile         = "permaserv-port.txt";
 $servPort             = 0;
 $permaservHttp        = '';
 $permaservExecutable  = 'permaserv/permaserv';
+$clientCacheFile      = 'client-cache.json';
 
 @errorLogTypes = (
                   "LogOLDFValidity",
@@ -208,6 +209,11 @@ sub checkPermaserv
       $servPort = 2090;
      }
     system("$permaservExecutable -p $servPort &");
+    if(-f $clientCacheFile)
+     {
+      # Need to remove old client cache since we have a new server
+      unlink($clientCacheFile);
+     }
     testPermaservAlive();
    }
   
