@@ -62,6 +62,7 @@ HttpPermaservClient::HttpPermaservClient(void)
     if(!doc.IsObject())
       err(-1, "Base of cache file %s is not JSON object.\n", cacheFileName);
     cachePresent = true;
+    LogPermaservClientOps("Successfully loaded cache file %s.\n", cacheFileName);
    }
   else
    {
@@ -156,8 +157,19 @@ bool HttpPermaservClient::getSingleValue(char* url, char* name, float lat, float
  
 float HttpPermaservClient::getDIFValue(float lat, float longt)
 {
-  if(getSingleValue((char*)"dif", (char*)"DIF", lat, longt, dif))
+  if(cachePresent && doc.HasMember("dif"))
+   {
+    dif = doc["dif"].GetFloat();
+    LogPermaservClientOps("Obtained diffuse horizontal irradiance value"
+                                                  " from cache file: %.3f.\n", dif); 
     return dif;
+   }
+  else if(getSingleValue((char*)"dif", (char*)"DIF", lat, longt, dif))
+   {
+    LogPermaservClientOps("Obtained diffuse horizontal irradiance value"
+                                                  " from permaserv: %.3f.\n", dif); 
+    return dif;
+   }
   else
    {
     LogPermaservClientErrors("Failed to obtain diffuse horizontal irradiance " 
@@ -176,8 +188,19 @@ float HttpPermaservClient::getDIFValue(float lat, float longt)
  
 float HttpPermaservClient::getDNIValue(float lat, float longt)
 {
-  if(getSingleValue((char*)"dni", (char*)"DNI", lat, longt, dni))
+  if(cachePresent && doc.HasMember("dni"))
+   {
+    dif = doc["dni"].GetFloat();
+    LogPermaservClientOps("Obtained direct normal irradiance value"
+                                                  " from cache file: %.3f.\n", dni); 
     return dni;
+   }
+  if(getSingleValue((char*)"dni", (char*)"DNI", lat, longt, dni))
+   {
+    LogPermaservClientOps("Obtained direct normal irradiance value"
+                                                          " from permaserv: %.3f.\n", dni); 
+    return dni;
+   }
   else
    {
     LogPermaservClientErrors("Failed to obtain direct normal irradiance " 
