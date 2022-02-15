@@ -11,6 +11,8 @@ unshift(@ARGV, "-y", "1910");
 
 my($loopLimit, $simLimit) = processArgs(@ARGV);
 
+checkPermaserv();
+
 foreach my $i (1..$loopLimit)
  {
   system("rm -rf $testDir/test8.out.oldf");

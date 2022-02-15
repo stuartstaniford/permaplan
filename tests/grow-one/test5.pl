@@ -8,6 +8,8 @@ $dir = 'tests/grow-one';
 
 my($loopLimit, $simLimit) = processArgs(@ARGV);
 
+checkPermaserv();
+
 foreach my $i (1..$loopLimit)
  {
   system("rm -rf $dir/test5.out.oldf");

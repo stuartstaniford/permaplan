@@ -7,6 +7,9 @@ $resourceDir = 'tests/basic-smoke';
 $testDir = 'tests/hammer';
 
 my($loopLimit, $simLimit) = processArgs(@ARGV);
+
+checkPermaserv();
+
 $loopLimit = 100 if $loopLimit == 1;
 system("rm -rf $testDir/test4.out.oldf");
 system("rm -rf $testDir/*.tmp $testDir/*.diff");

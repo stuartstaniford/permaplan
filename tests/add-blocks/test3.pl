@@ -10,6 +10,8 @@ $boxCount = 30;
 
 my($loopLimit, $simLimit) = processArgs(@ARGV);
 
+checkPermaserv();
+
 foreach my $i (1..$loopLimit)
  {
   system("rm -rf $testDir/test3.out.oldf");

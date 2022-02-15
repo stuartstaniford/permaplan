@@ -9,6 +9,8 @@ $testDir = 'tests/simulate';
 
 my($loopLimit, $simLimit) = processArgs(@ARGV);
 
+checkPermaserv();
+
 foreach my $i (1..$loopLimit)
  {
   system("rm -rf $testDir/test2.out.oldf");

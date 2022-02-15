@@ -19,6 +19,8 @@ my @treeMenuChoices = (
 
 my($loopLimit, $simLimit) = processArgs(@ARGV);
 
+checkPermaserv();
+
 foreach my $i (1..$loopLimit)
  {
   system("rm -rf $dir/test6.out.oldf");

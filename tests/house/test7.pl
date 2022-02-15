@@ -10,6 +10,8 @@ $testStub = 'test7';
 
 my($loopLimit, $simLimit) = processArgs(@ARGV);
 
+checkPermaserv();
+
 foreach my $i (1..$loopLimit)
  {
   system("rm -rf $testDir/$testStub.out.oldf");
