@@ -82,6 +82,17 @@ class SoilHorizon
   /// @brief The USDA texture class.  Enum defined above, for full detail,  see p13 of 
   /// https://www.fao.org/3/aq361e/aq361e.pdf
   USDATextureClass usdaTextureClass;
+  
+  /// @brief The reference bulk density of the soil (kg/l) 
+  float bulkDensity;  
+  
+  /// @brief The weight fraction of carbon in organic molecules in the fine earth
+  /// component of the soil.  For useful background see:
+  /// https://www.soilquality.org.au/factsheets/organic-carbon
+  float organicCarbonFraction;
+  
+  /// @brief The soil pH (measured in a soil-water solution).
+  float pH;
 };
 
 
