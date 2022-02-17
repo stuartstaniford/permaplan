@@ -48,7 +48,7 @@ char* USDATextureName[] = {
 };
 
 // =======================================================================================
-/// @brief POD Helper class for a single soil horizon in a soil profile
+/// @brief Helper class for a single soil horizon in a soil profile
 ///
 /// This class represents one unit of soil in a soil profile (eg taken from some database
 /// or soil survey map).  For example the topsoil (or "A horizon") might be an example.
@@ -56,6 +56,9 @@ char* USDATextureName[] = {
 class SoilHorizon
 {
   public:
+  
+  
+  // The data fields.
   
   /// @brief The depth of this particular soil layer (cm).
   float depth;                  
@@ -93,6 +96,10 @@ class SoilHorizon
   
   /// @brief The soil pH (measured in a soil-water solution).
   float pH;
+  
+  
+  // Useful methods
+  SoilHorizon(char* json);
 };
 
 
