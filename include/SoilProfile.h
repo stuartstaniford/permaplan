@@ -15,9 +15,37 @@ enum USDATextureClass
 {
   NoTextureClass,
   HeavyClay,
-  Clay  
+  SiltyClay,
+  Clay,
+  SiltyClayLoam,
+  ClayLoam,
+  Silt,
+  SiltyLoam,
+  SandyClay,
+  Loam,
+  SandyClayLoam,
+  SandyLoam,
+  LoamySand,
+  Sand
 };
 
+
+char* USDATextureName[] = {
+                            (char*)"NoTextureClass", 
+                            (char*)"HeavyClay",
+                            (char*)"SiltyClay",
+                            (char*)"Clay",
+                            (char*)"SiltyClayLoam",
+                            (char*)"ClayLoam",
+                            (char*)"Silt",
+                            (char*)"SiltyLoam",
+                            (char*)"SandyClay",
+                            (char*)"Loam",
+                            (char*)"SandyClayLoam",
+                            (char*)"SandyLoam",
+                            (char*)"LoamySand",
+                            (char*)"Sand"
+};
 
 // =======================================================================================
 /// @brief POD Helper class for a single soil horizon in a soil profile
@@ -29,29 +57,29 @@ class SoilHorizon
 {
   public:
   
-  /// The depth of this particular soil layer (cm).
+  /// @brief The depth of this particular soil layer (cm).
   float depth;                  
   
-  /// The volumetric fraction of gravel/channers/etc (0.0 - 1.0).  Coarse Fragments are
-  /// considered to be those over 2mm in size.
+  /// @brief The volumetric fraction of gravel/channers/etc (0.0 - 1.0).  Coarse 
+  /// Fragments are considered to be those over 2mm in size.
   float coarseFragmentFraction; 
   
-  /// The weight fraction of sand in the soil horizon (0.0 - 1.0).  Sand comprises 
-  /// particles, or granules, ranging in diameter from 0.0625 mm (or 1⁄16 mm) to 
-  /// 2 millimeters.  (Assumed to be the fraction of the fine earth but this is TBD.)
+  /// @brief The weight fraction of sand in the soil horizon (0.0 - 1.0).  Sand 
+  /// comprises particles, or granules, ranging in diameter from 0.0625 mm (or 1⁄16 mm) 
+  /// to 2 millimeters.  (Assumed to be the fraction of the fine earth but this is TBD.)
   float sandFraction;
 
-  /// The weight fraction of silt in the soil horizon (0.0 - 1.0).  Silt comprises 
-  /// particles, or granules, ranging in diameter from 0.002mm to 0.0625 mm 
+  /// @brief The weight fraction of silt in the soil horizon (0.0 - 1.0).  Silt 
+  /// comprises particles, or granules, ranging in diameter from 0.002mm to 0.0625 mm 
   /// (or 1⁄16 mm).  (Assumed to be the fraction of the fine earth but this is TBD.)
   float siltFraction;
 
-  /// The weight fraction of clay in the soil horizon (0.0 - 1.0).  Clay comprises 
+  /// @brief The weight fraction of clay in the soil horizon (0.0 - 1.0).  Clay comprises 
   /// particles, or granules, with diameter below 0.002mm to 0.0625 mm.  (Assumed to 
   /// be the fraction of the fine earth but this is TBD.)
   float clayFraction;
   
-  /// The USDA texture class.  Enum defined above, for full detail,  see p13 of 
+  /// @brief The USDA texture class.  Enum defined above, for full detail,  see p13 of 
   /// https://www.fao.org/3/aq361e/aq361e.pdf
   USDATextureClass usdaTextureClass;
 };
