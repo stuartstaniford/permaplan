@@ -1484,7 +1484,8 @@ src/HttpPermaServ.o: /usr/local/include/cglm/ray.h
 src/HttpPermaServ.o: /usr/local/include/cglm/affine2d.h
 src/HttpPermaServ.o: include/HttpRequestParser.h include/Logging.h
 src/HttpPermaServ.o: include/MemoryTracker.h include/SolarDatabase.h
-src/HttpPermaServ.o: include/GdalFileInterface.h
+src/HttpPermaServ.o: include/GdalFileInterface.h include/HttpLBPermaserv.h
+src/HttpPermaServ.o: include/HttpLoadBalancer.h
 src/HttpPermaservClient.o: include/HttpPermaservClient.h include/HttpClient.h
 src/HttpPermaservClient.o: include/rapidjson/document.h
 src/HttpPermaservClient.o: include/rapidjson/reader.h
@@ -3926,6 +3927,7 @@ src/SkySampleModel.o: include/rapidjson/stringbuffer.h
 src/SkySampleModel.o: include/rapidjson/stringbuffer.h
 src/SkySampleModel.o: include/rapidjson/error/en.h
 src/SkySampleModel.o: include/rapidjson/error/error.h
+src/SoilProfile.o: include/SoilProfile.h
 src/SolarDatabase.o: include/SolarDatabase.h include/GdalFileInterface.h
 src/SolarDatabase.o: include/Lockable.h include/Global.h
 src/SolarDatabase.o: /usr/local/include/cglm/cglm.h
