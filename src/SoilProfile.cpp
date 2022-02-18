@@ -16,7 +16,7 @@
 
 #include "SoilProfile.h"
 #include <stdio.h>
-
+#include "Global.h"
 
 // =======================================================================================
 // Static variables, etc.
@@ -87,7 +87,60 @@ int SoilHorizon::writeJson(char* buf, unsigned bufSize)
 
 bool SoilHorizon::isValid(rapidjson::Value json)
 {
+  unless(json.IsObject())
+   {
+    return false;
+   }
+
+  unless(json.HasMember("depth") && json["depth"].IsFloat())
+   {
+    return false;
+   }
+
+  unless(json.HasMember("coarseFragmentFraction") 
+                                          && json["coarseFragmentFraction"].IsFloat())
+   {
+    return false;
+   }
+
+  unless(json.HasMember("sandFraction") && json["sandFraction"].IsFloat())
+   {
+    return false;
+   }
+
+  unless(json.HasMember("siltFraction") && json["siltFraction"].IsFloat())
+   {
+    return false;
+   }
+
+  unless(json.HasMember("clayFraction") && json["clayFraction"].IsFloat())
+   {
+    return false;
+   }
+
+/*  if(json.HasMember("usdaTextureClass"))
+                                      && json["usdaTextureClass"].IsString())
+   {
+    return false;
+   }*/
+
+  unless(json.HasMember("bulkDensity") && json["bulkDensity"].IsFloat())
+   {
+    return false;
+   }
+
+  unless(json.HasMember("organicCarbonFraction") 
+                                      && json["organicCarbonFraction"].IsFloat())
+   {
+    return false;
+   }
+
+  unless(json.HasMember("pH") && json["pH"].IsFloat())
+   {
+    return false;
+   }
   
+  return true;
 }
 
 
