@@ -104,6 +104,9 @@ class SoilHorizon
   // Useful methods
   SoilHorizon(rapidjson::Value json);
   int writeJson(char* buf, unsigned bufSize);
+  
+  // Static methods
+  static bool isValid(rapidjson::Value json);
 };
 
 

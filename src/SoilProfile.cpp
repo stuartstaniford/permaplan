@@ -83,7 +83,18 @@ int SoilHorizon::writeJson(char* buf, unsigned bufSize)
 
 
 // =======================================================================================
+/// @brief Static function to test that some json would make a valid SoilHorizon object
+
+bool SoilHorizon::isValid(rapidjson::Value json)
+{
+  
+}
+
+
+// =======================================================================================
 /// @brief Constructor
+/// 
+/// Note - call isValid first to ensure the JSON is valid
 
 SoilProfile::SoilProfile(void)
 {
