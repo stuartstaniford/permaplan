@@ -103,7 +103,7 @@ class SoilHorizon
   
   // Useful methods
   SoilHorizon(rapidjson::Value json);
-  bool writeJson(char* buf, unsigned bufSize);
+  int writeJson(char* buf, unsigned bufSize);
 };
 
 

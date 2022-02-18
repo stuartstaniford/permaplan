@@ -15,6 +15,7 @@
 // https://essd.copernicus.org/articles/12/299/2020/essd-12-299-2020.pdf
 
 #include "SoilProfile.h"
+#include <stdio.h>
 
 
 // =======================================================================================
@@ -34,9 +35,50 @@ SoilHorizon::SoilHorizon(Value json)
 // =======================================================================================
 /// @brief Constructor
 
-bool SoilHorizon::writeJson(char* buf, unsigned bufSize)
+#define ERROR_MARGIN 32
+
+int SoilHorizon::writeJson(char* buf, unsigned bufSize)
 {
+  char* writePoint = buf;
+  if(bufSize < ERROR_MARGIN) goto ErrorReturn;
+    
+  writePoint += sprintf(writePoint, "{\n");
+  if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
   
+  writePoint += sprintf(writePoint, "depth: %.2f,\n", depth);
+  if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
+
+  writePoint += sprintf(writePoint, "coarseFragmentFraction: %.4f,\n", coarseFragmentFraction);
+  if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
+
+  writePoint += sprintf(writePoint, "sandFraction: %.4f,\n", sandFraction);
+  if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
+
+  writePoint += sprintf(writePoint, "siltFraction: %.4f,\n", siltFraction);
+  if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
+
+  writePoint += sprintf(writePoint, "clayFraction: %.4f,\n", clayFraction);
+  if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
+
+  writePoint += sprintf(writePoint, "usdaTextureClass: %s,\n", USDATextureName[usdaTextureClass]);
+  if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
+
+  writePoint += sprintf(writePoint, "bulkDensity: %.2f,\n", bulkDensity);
+  if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
+
+  writePoint += sprintf(writePoint, "organicCarbonFraction: %.4f,\n", organicCarbonFraction);
+  if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
+
+  writePoint += sprintf(writePoint, "pH: %.2f\n", pH);  // last one, no comma
+  if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
+
+  writePoint += sprintf(writePoint, "}\n\n");
+  
+  return writePoint - buf;
+  
+  ErrorReturn:
+  // Log the error
+  return -1;
 }
 
 
