@@ -4,6 +4,10 @@
 #define SOIL_PROFILE_H
 
 #include <vector>
+#include "rapidjson/document.h"
+#include "rapidjson/writer.h"
+#include "rapidjson/stringbuffer.h"
+#include "rapidjson/error/en.h"
 
 
 // =======================================================================================
@@ -97,9 +101,9 @@ class SoilHorizon
   /// @brief The soil pH (measured in a soil-water solution).
   float pH;
   
-  
   // Useful methods
-  SoilHorizon(char* json);
+  SoilHorizon(rapidjson::Value json);
+  bool writeJson(char* buf, unsigned bufSize);
 };
 
 

@@ -18,10 +18,25 @@
 
 
 // =======================================================================================
+// Static variables, etc.
+
+using namespace rapidjson;
+
+
+// =======================================================================================
 /// @brief Constructor
 
-SoilHorizon::SoilHorizon(char* json)
+SoilHorizon::SoilHorizon(Value json)
 {
+}
+
+
+// =======================================================================================
+/// @brief Constructor
+
+bool SoilHorizon::writeJson(char* buf, unsigned bufSize)
+{
+  
 }
 
 
