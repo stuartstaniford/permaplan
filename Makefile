@@ -1196,6 +1196,34 @@ src/Grid.o: include/VisualObject.h include/VisualElement.h
 src/Grid.o: include/DynamicallyTypable.h include/TriangleBuffer.h
 src/Grid.o: include/Lockable.h include/BoundingBox.h include/TexturedRect.h
 src/Grid.o: include/Texture.h
+src/GroundLayer.o: include/GroundLayer.h include/rapidjson/document.h
+src/GroundLayer.o: include/rapidjson/reader.h include/rapidjson/allocators.h
+src/GroundLayer.o: include/rapidjson/rapidjson.h include/rapidjson/stream.h
+src/GroundLayer.o: include/rapidjson/encodings.h
+src/GroundLayer.o: include/rapidjson/encodedstream.h
+src/GroundLayer.o: include/rapidjson/memorystream.h
+src/GroundLayer.o: include/rapidjson/internal/clzll.h
+src/GroundLayer.o: include/rapidjson/rapidjson.h
+src/GroundLayer.o: include/rapidjson/internal/meta.h
+src/GroundLayer.o: include/rapidjson/internal/stack.h
+src/GroundLayer.o: include/rapidjson/allocators.h
+src/GroundLayer.o: include/rapidjson/internal/swap.h
+src/GroundLayer.o: include/rapidjson/internal/strtod.h
+src/GroundLayer.o: include/rapidjson/internal/ieee754.h
+src/GroundLayer.o: include/rapidjson/internal/biginteger.h
+src/GroundLayer.o: include/rapidjson/internal/diyfp.h
+src/GroundLayer.o: include/rapidjson/internal/clzll.h
+src/GroundLayer.o: include/rapidjson/internal/pow10.h
+src/GroundLayer.o: include/rapidjson/error/error.h
+src/GroundLayer.o: include/rapidjson/internal/strfunc.h
+src/GroundLayer.o: include/rapidjson/stream.h include/rapidjson/writer.h
+src/GroundLayer.o: include/rapidjson/internal/dtoa.h
+src/GroundLayer.o: include/rapidjson/internal/itoa.h
+src/GroundLayer.o: include/rapidjson/internal/itoa.h
+src/GroundLayer.o: include/rapidjson/stringbuffer.h
+src/GroundLayer.o: include/rapidjson/stringbuffer.h
+src/GroundLayer.o: include/rapidjson/error/en.h
+src/GroundLayer.o: include/rapidjson/error/error.h
 src/HeightMarker.o: include/HeightMarker.h include/VisualObject.h
 src/HeightMarker.o: include/VisualElement.h include/DynamicallyTypable.h
 src/HeightMarker.o: include/TriangleBuffer.h include/Vertex.h
@@ -3927,7 +3955,98 @@ src/SkySampleModel.o: include/rapidjson/stringbuffer.h
 src/SkySampleModel.o: include/rapidjson/stringbuffer.h
 src/SkySampleModel.o: include/rapidjson/error/en.h
 src/SkySampleModel.o: include/rapidjson/error/error.h
-src/SoilProfile.o: include/SoilProfile.h
+src/SoilHorizon.o: include/SoilHorizon.h include/GroundLayer.h
+src/SoilHorizon.o: include/rapidjson/document.h include/rapidjson/reader.h
+src/SoilHorizon.o: include/rapidjson/allocators.h
+src/SoilHorizon.o: include/rapidjson/rapidjson.h include/rapidjson/stream.h
+src/SoilHorizon.o: include/rapidjson/encodings.h
+src/SoilHorizon.o: include/rapidjson/encodedstream.h
+src/SoilHorizon.o: include/rapidjson/memorystream.h
+src/SoilHorizon.o: include/rapidjson/internal/clzll.h
+src/SoilHorizon.o: include/rapidjson/rapidjson.h
+src/SoilHorizon.o: include/rapidjson/internal/meta.h
+src/SoilHorizon.o: include/rapidjson/internal/stack.h
+src/SoilHorizon.o: include/rapidjson/allocators.h
+src/SoilHorizon.o: include/rapidjson/internal/swap.h
+src/SoilHorizon.o: include/rapidjson/internal/strtod.h
+src/SoilHorizon.o: include/rapidjson/internal/ieee754.h
+src/SoilHorizon.o: include/rapidjson/internal/biginteger.h
+src/SoilHorizon.o: include/rapidjson/internal/diyfp.h
+src/SoilHorizon.o: include/rapidjson/internal/clzll.h
+src/SoilHorizon.o: include/rapidjson/internal/pow10.h
+src/SoilHorizon.o: include/rapidjson/error/error.h
+src/SoilHorizon.o: include/rapidjson/internal/strfunc.h
+src/SoilHorizon.o: include/rapidjson/stream.h include/rapidjson/writer.h
+src/SoilHorizon.o: include/rapidjson/internal/dtoa.h
+src/SoilHorizon.o: include/rapidjson/internal/itoa.h
+src/SoilHorizon.o: include/rapidjson/internal/itoa.h
+src/SoilHorizon.o: include/rapidjson/stringbuffer.h
+src/SoilHorizon.o: include/rapidjson/stringbuffer.h
+src/SoilHorizon.o: include/rapidjson/error/en.h
+src/SoilHorizon.o: include/rapidjson/error/error.h include/Global.h
+src/SoilHorizon.o: /usr/local/include/cglm/cglm.h
+src/SoilHorizon.o: /usr/local/include/cglm/common.h
+src/SoilHorizon.o: /usr/local/include/cglm/types.h
+src/SoilHorizon.o: /usr/local/include/cglm/simd/intrin.h
+src/SoilHorizon.o: /usr/local/include/cglm/vec2.h
+src/SoilHorizon.o: /usr/local/include/cglm/util.h
+src/SoilHorizon.o: /usr/local/include/cglm/vec2-ext.h
+src/SoilHorizon.o: /usr/local/include/cglm/vec3.h
+src/SoilHorizon.o: /usr/local/include/cglm/vec4.h
+src/SoilHorizon.o: /usr/local/include/cglm/vec4-ext.h
+src/SoilHorizon.o: /usr/local/include/cglm/vec3-ext.h
+src/SoilHorizon.o: /usr/local/include/cglm/mat4.h
+src/SoilHorizon.o: /usr/local/include/cglm/mat3.h
+src/SoilHorizon.o: /usr/local/include/cglm/mat2.h
+src/SoilHorizon.o: /usr/local/include/cglm/affine.h
+src/SoilHorizon.o: /usr/local/include/cglm/affine-mat.h
+src/SoilHorizon.o: /usr/local/include/cglm/cam.h
+src/SoilHorizon.o: /usr/local/include/cglm/plane.h
+src/SoilHorizon.o: /usr/local/include/cglm/frustum.h
+src/SoilHorizon.o: /usr/local/include/cglm/quat.h
+src/SoilHorizon.o: /usr/local/include/cglm/euler.h
+src/SoilHorizon.o: /usr/local/include/cglm/box.h
+src/SoilHorizon.o: /usr/local/include/cglm/color.h
+src/SoilHorizon.o: /usr/local/include/cglm/io.h
+src/SoilHorizon.o: /usr/local/include/cglm/project.h
+src/SoilHorizon.o: /usr/local/include/cglm/sphere.h
+src/SoilHorizon.o: /usr/local/include/cglm/ease.h
+src/SoilHorizon.o: /usr/local/include/cglm/curve.h
+src/SoilHorizon.o: /usr/local/include/cglm/bezier.h
+src/SoilHorizon.o: /usr/local/include/cglm/ray.h
+src/SoilHorizon.o: /usr/local/include/cglm/affine2d.h
+src/SoilProfile.o: include/SoilProfile.h include/Global.h
+src/SoilProfile.o: /usr/local/include/cglm/cglm.h
+src/SoilProfile.o: /usr/local/include/cglm/common.h
+src/SoilProfile.o: /usr/local/include/cglm/types.h
+src/SoilProfile.o: /usr/local/include/cglm/simd/intrin.h
+src/SoilProfile.o: /usr/local/include/cglm/vec2.h
+src/SoilProfile.o: /usr/local/include/cglm/util.h
+src/SoilProfile.o: /usr/local/include/cglm/vec2-ext.h
+src/SoilProfile.o: /usr/local/include/cglm/vec3.h
+src/SoilProfile.o: /usr/local/include/cglm/vec4.h
+src/SoilProfile.o: /usr/local/include/cglm/vec4-ext.h
+src/SoilProfile.o: /usr/local/include/cglm/vec3-ext.h
+src/SoilProfile.o: /usr/local/include/cglm/mat4.h
+src/SoilProfile.o: /usr/local/include/cglm/mat3.h
+src/SoilProfile.o: /usr/local/include/cglm/mat2.h
+src/SoilProfile.o: /usr/local/include/cglm/affine.h
+src/SoilProfile.o: /usr/local/include/cglm/affine-mat.h
+src/SoilProfile.o: /usr/local/include/cglm/cam.h
+src/SoilProfile.o: /usr/local/include/cglm/plane.h
+src/SoilProfile.o: /usr/local/include/cglm/frustum.h
+src/SoilProfile.o: /usr/local/include/cglm/quat.h
+src/SoilProfile.o: /usr/local/include/cglm/euler.h
+src/SoilProfile.o: /usr/local/include/cglm/box.h
+src/SoilProfile.o: /usr/local/include/cglm/color.h
+src/SoilProfile.o: /usr/local/include/cglm/io.h
+src/SoilProfile.o: /usr/local/include/cglm/project.h
+src/SoilProfile.o: /usr/local/include/cglm/sphere.h
+src/SoilProfile.o: /usr/local/include/cglm/ease.h
+src/SoilProfile.o: /usr/local/include/cglm/curve.h
+src/SoilProfile.o: /usr/local/include/cglm/bezier.h
+src/SoilProfile.o: /usr/local/include/cglm/ray.h
+src/SoilProfile.o: /usr/local/include/cglm/affine2d.h
 src/SolarDatabase.o: include/SolarDatabase.h include/GdalFileInterface.h
 src/SolarDatabase.o: include/Lockable.h include/Global.h
 src/SolarDatabase.o: /usr/local/include/cglm/cglm.h
