@@ -39,6 +39,7 @@ public:
   // Member functions - public
   GroundLayer(void);
   ~GroundLayer(void);
+  static bool isValid(rapidjson::Value& json);
   
 private:
   

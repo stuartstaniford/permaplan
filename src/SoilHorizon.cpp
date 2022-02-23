@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include "Global.h"
 
+
 // =======================================================================================
 // Static variables, etc.
 
@@ -82,14 +83,15 @@ int SoilHorizon::writeJson(char* buf, unsigned bufSize)
 // =======================================================================================
 /// @brief Static function to test that some json would make a valid SoilHorizon object
 
-bool SoilHorizon::isValid(rapidjson::Value json)
+bool SoilHorizon::isValid(Value& json)
 {
   unless(json.IsObject())
    {
     return false;
    }
 
-  unless(json.HasMember("depth") && json["depth"].IsFloat())
+  unless(json.HasMember("GroundLayer") 
+              && GroundLayer::isValid(json["GroundLayer"]))
    {
     return false;
    }
@@ -120,17 +122,6 @@ bool SoilHorizon::isValid(rapidjson::Value json)
    {
     return false;
    }*/
-
-  unless(json.HasMember("bulkDensity") && json["bulkDensity"].IsFloat())
-   {
-    return false;
-   }
-
-  unless(json.HasMember("organicCarbonFraction") 
-                                      && json["organicCarbonFraction"].IsFloat())
-   {
-    return false;
-   }
 
   unless(json.HasMember("pH") && json["pH"].IsFloat())
    {

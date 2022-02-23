@@ -7,6 +7,13 @@
 // siltFraction or pH.
 
 #include "GroundLayer.h"
+#include "Global.h"
+
+
+// =======================================================================================
+// Static variables, etc
+
+using namespace rapidjson;
 
 
 // =======================================================================================
@@ -22,6 +29,36 @@ GroundLayer::GroundLayer(void)
 
 GroundLayer::~GroundLayer(void)
 {
+}
+
+
+// =======================================================================================
+/// @brief Static function to test that some json would make a valid SoilHorizon object
+
+bool GroundLayer::isValid(Value& json)
+{
+  unless(json.IsObject())
+   {
+    return false;
+   }
+
+  unless(json.HasMember("depth") && json["depth"].IsFloat())
+   {
+    return false;
+   }
+
+  unless(json.HasMember("bulkDensity") && json["bulkDensity"].IsFloat())
+   {
+    return false;
+   }
+
+  unless(json.HasMember("organicCarbonFraction") 
+                                      && json["organicCarbonFraction"].IsFloat())
+   {
+    return false;
+   }
+  
+  return true;
 }
 
 

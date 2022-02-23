@@ -58,7 +58,6 @@ class SoilHorizon: public GroundLayer
 {
   public:
   
-  
   // The data fields.
   
   /// @brief The volumetric fraction of gravel/channers/etc (0.0 - 1.0).  Coarse 
@@ -93,7 +92,7 @@ class SoilHorizon: public GroundLayer
   int writeJson(char* buf, unsigned bufSize);
   
   // Static methods
-  static bool isValid(rapidjson::Value json);
+  static bool isValid(rapidjson::Value& json);
 
   // Member functions - private
   /// @brief Prevent copy-construction.
