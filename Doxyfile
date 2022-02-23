@@ -868,6 +868,7 @@ INPUT                  = doc \
                 include/Arrow.h src/Arrow.cpp \
                 include/AxialElement.h src/AxialElement.cpp \
                 include/BezierPatch.h src/BezierPatch.cpp \
+                include/BILFile.h src/BILFile.cpp \
                 include/Boundary.h src/Boundary.cpp \
                 include/BoundingBox.h src/BoundingBox.cpp \
                 include/Box.h src/Box.cpp \
@@ -891,6 +892,7 @@ INPUT                  = doc \
                 include/Gable.h src/Gable.cpp \
                 include/GdalFileInterface.h src/GdalFileInterface.cpp \
                 include/Grid.h src/Grid.cpp \
+                include/GroundLayer.h src/GroundLayer.cpp \
                 include/HeightMarker.h src/HeightMarker.cpp \
                 include/HttpDebug.h src/HttpDebug.cpp \
                 include/HttpLBDebug.h src/HttpLBDebug.cpp \
@@ -941,6 +943,7 @@ INPUT                  = doc \
                 include/Shader.h src/Shader.cpp \
                 include/Shed.h src/Shed.cpp \
                 include/SkySampleModel.h src/SkySampleModel.cpp \
+                include/SoilHorizon.h src/SoilHorizon.cpp \
                 include/SoilProfile.h src/SoilProfile.cpp \
                 include/SolarDatabase.h src/SolarDatabase.cpp \
                 include/Species.h src/Species.cpp \
