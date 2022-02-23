@@ -25,6 +25,8 @@ private:
   // Instance variables - private
   
   // Member functions - private
+  bool readHdrFile(char* path, char* stub);
+  
   /// @brief Prevent copy-construction.
   BILFile(const BILFile&);       
   /// @brief Prevent assignment.

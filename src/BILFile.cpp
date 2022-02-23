@@ -26,3 +26,13 @@ BILFile::~BILFile(void)
 
 
 // =======================================================================================
+/// @brief Function to read the header file so that we have the basic parameters of the
+/// raster data.
+
+bool BILFile::readHdrFile(char* path, char* stub)
+{
+  
+}
+
+
+// =======================================================================================
