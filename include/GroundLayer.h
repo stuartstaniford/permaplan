@@ -40,7 +40,8 @@ public:
   GroundLayer(void);
   ~GroundLayer(void);
   static bool isValid(rapidjson::Value& json);
-  
+  int writeJson(char* buf, unsigned bufSize);
+
 private:
   
   // Instance variables - private

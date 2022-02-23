@@ -43,7 +43,10 @@ int SoilHorizon::writeJson(char* buf, unsigned bufSize)
   writePoint += sprintf(writePoint, "{\n");
   if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
   
-  writePoint += sprintf(writePoint, "depth: %.2f,\n", depth);
+  writePoint += sprintf(writePoint, "GroundLayer:\n");
+  if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
+
+  writePoint += GroundLayer::writeJson(writePoint, bufSize - (writePoint-buf));
   if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
 
   writePoint += sprintf(writePoint, "coarseFragmentFraction: %.4f,\n", coarseFragmentFraction);
@@ -59,12 +62,6 @@ int SoilHorizon::writeJson(char* buf, unsigned bufSize)
   if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
 
   writePoint += sprintf(writePoint, "usdaTextureClass: %s,\n", USDATextureName[usdaTextureClass]);
-  if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
-
-  writePoint += sprintf(writePoint, "bulkDensity: %.2f,\n", bulkDensity);
-  if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
-
-  writePoint += sprintf(writePoint, "organicCarbonFraction: %.4f,\n", organicCarbonFraction);
   if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
 
   writePoint += sprintf(writePoint, "pH: %.2f\n", pH);  // last one, no comma

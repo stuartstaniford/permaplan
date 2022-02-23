@@ -33,6 +33,40 @@ GroundLayer::~GroundLayer(void)
 
 
 // =======================================================================================
+/// @brief Function to write out the json representation of this particular GroundLayer
+/// to a char buffer.
+
+#define ERROR_MARGIN 32
+
+int GroundLayer::writeJson(char* buf, unsigned bufSize)
+{
+  char* writePoint = buf;
+  if(bufSize < ERROR_MARGIN) goto ErrorReturn;
+    
+  writePoint += sprintf(writePoint, "{\n");
+  if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
+  
+  writePoint += sprintf(writePoint, "depth: %.2f,\n", depth);
+  if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
+
+  writePoint += sprintf(writePoint, "bulkDensity: %.2f,\n", bulkDensity);
+  if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
+
+  // last one, no comma
+  writePoint += sprintf(writePoint, "organicCarbonFraction: %.4f\n", organicCarbonFraction);
+  if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
+
+  writePoint += sprintf(writePoint, "}\n\n");
+  
+  return writePoint - buf;
+  
+  ErrorReturn:
+  // Log the error
+  return -1;
+}
+
+
+// =======================================================================================
 /// @brief Static function to test that some json would make a valid SoilHorizon object
 
 bool GroundLayer::isValid(Value& json)
