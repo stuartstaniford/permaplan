@@ -47,6 +47,9 @@ bool BILFile::readHdrFile(char* path, char* stub)
   // Loop over the lines in the file
   while(fgets(line, 128, file))
    {
+    
+    // See https://developer.ibm.com/articles/au-endianc/ for a helpful discussion
+    // of byte order
     if( (strncmp(line, "BYTEORDER", 9) == 0) || (strncmp(line, "byteorder", 9) == 0))
      {
       

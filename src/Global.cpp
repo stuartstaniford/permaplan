@@ -189,3 +189,19 @@ void updateCrossVectors(vec3 dir, vec3 f1, vec3 f2, float radius)
 
 
 // =======================================================================================
+// Function to determine the endianness of the machine we are running on 
+// Stolen from https://developer.ibm.com/articles/au-endianc/
+
+int endian(void) 
+{
+    int i = 1;
+    char* p = (char*)&i;
+
+    if (p[0] == 1)
+        return LITTLE_ENDIAN;
+    else
+        return BIG_ENDIAN;
+}
+
+
+// =======================================================================================
