@@ -10,15 +10,15 @@
 /// The main purpose of this at the moment is reading data from the World Harmonized 
 /// Soil Database.  For more, see https://www.fao.org/3/aq361e/aq361e.pdf.
 
-class BIPFile
+class BILFile
 {
 public:
   
   // Instance variables - public
   
   // Member functions - public
-  BIPFile(void);
-  ~BIPFile(void);
+  BILFile(void);
+  ~BILFile(void);
   
 private:
   
@@ -26,9 +26,9 @@ private:
   
   // Member functions - private
   /// @brief Prevent copy-construction.
-  BIPFile(const BIPFile&);       
+  BILFile(const BILFile&);       
   /// @brief Prevent assignment.
-  BIPFile& operator=(const BIPFile&);      
+  BILFile& operator=(const BILFile&);      
 };
 
 

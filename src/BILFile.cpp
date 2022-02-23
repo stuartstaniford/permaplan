@@ -12,7 +12,7 @@
 // =======================================================================================
 /// @brief Constructor
 
-BIPFile::BIPFile(void)
+BILFile::BILFile(void)
 {
 }
 
@@ -20,7 +20,7 @@ BIPFile::BIPFile(void)
 // =======================================================================================
 /// @brief Destructor
 
-BIPFile::~BIPFile(void)
+BILFile::~BILFile(void)
 {
 }
 
