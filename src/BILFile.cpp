@@ -52,7 +52,15 @@ bool BILFile::readHdrFile(char* path, char* stub)
     // of byte order
     if( (strncmp(line, "BYTEORDER", 9) == 0) || (strncmp(line, "byteorder", 9) == 0))
      {
-      
+      // I—Intel byte order (Silicon Graphics, DEC Alpha, PC); also known as little endian
+      // M—Motorola byte order (Sun, HP, and others); also known as big endian
+      char* byteStr;
+      if(index(line + 9, 'I'))
+        byteOrder = LITTLE_ENDIAN;
+      else if(index(line + 9, 'M'))
+        byteOrder = BIG_ENDIAN;
+      else
+        err(-1, "Bad byteOrder in file %s.\n", fileName);
      }
 
     if( (strncmp(line, "LAYOUT", 6) == 0) || (strncmp(line, "layout", 6) == 0))
