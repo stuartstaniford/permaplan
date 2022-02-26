@@ -75,17 +75,22 @@ bool BILFile::readHdrFile(char* path, char* stub)
 
     if( (strncmp(line, "NROWS", 5) == 0) || (strncmp(line, "nrows", 5) == 0))
      {
-      
+      if(sscanf(line+5, "%d", &nRows) != 1)
+        err(-1, "Could not get NROWS from file %s.\n", fileName);
      }
 
     if( (strncmp(line, "NCOLS", 5) == 0) || (strncmp(line, "ncols", 5) == 0))
      {
-      
+      if(sscanf(line+5, "%d", &nCols) != 1)
+        err(-1, "Could not get NCOLS from file %s.\n", fileName);
      }
 
     if( (strncmp(line, "NBANDS", 6) == 0) || (strncmp(line, "nbands", 6) == 0))
      {
-      
+      if(sscanf(line+6, "%d", &nBands) != 1)
+        err(-1, "Could not get NBANDS from file %s.\n", fileName);
+      if(nBands !=1)
+        err(-1, "NBANDS is %d not 1 in file %s.\n", nBands, fileName);
      }
 
     if( (strncmp(line, "NBITS", 5) == 0) || (strncmp(line, "nbits", 5) == 0))
