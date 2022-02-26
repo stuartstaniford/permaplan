@@ -54,7 +54,6 @@ bool BILFile::readHdrFile(char* path, char* stub)
      {
       // I—Intel byte order (Silicon Graphics, DEC Alpha, PC); also known as little endian
       // M—Motorola byte order (Sun, HP, and others); also known as big endian
-      char* byteStr;
       if(index(line + 9, 'I'))
         byteOrder = LITTLE_ENDIAN;
       else if(index(line + 9, 'M'))
@@ -65,7 +64,13 @@ bool BILFile::readHdrFile(char* path, char* stub)
 
     if( (strncmp(line, "LAYOUT", 6) == 0) || (strncmp(line, "layout", 6) == 0))
      {
-      
+      char buf[8];
+      if( (sscanf(line+6, "%7s", buf) == 1) && strcmp(buf, "BIL") == 0)
+       {
+        // Ok, do nothing
+       }
+      else
+        err(-1, "LAYOUT is not BIL in file %s.\n", fileName);
      }
 
     if( (strncmp(line, "NROWS", 5) == 0) || (strncmp(line, "nrows", 5) == 0))
