@@ -139,6 +139,29 @@ src/AxialElement.o: /usr/local/include/cglm/ray.h
 src/AxialElement.o: /usr/local/include/cglm/affine2d.h include/Logging.h
 src/AxialElement.o: include/MemoryTracker.h /usr/local/include/GL/glew.h
 src/AxialElement.o: include/CircleIterator.h include/BoundingBox.h
+src/BILFile.o: include/BILFile.h include/Global.h
+src/BILFile.o: /usr/local/include/cglm/cglm.h
+src/BILFile.o: /usr/local/include/cglm/common.h
+src/BILFile.o: /usr/local/include/cglm/types.h
+src/BILFile.o: /usr/local/include/cglm/simd/intrin.h
+src/BILFile.o: /usr/local/include/cglm/vec2.h /usr/local/include/cglm/util.h
+src/BILFile.o: /usr/local/include/cglm/vec2-ext.h
+src/BILFile.o: /usr/local/include/cglm/vec3.h /usr/local/include/cglm/vec4.h
+src/BILFile.o: /usr/local/include/cglm/vec4-ext.h
+src/BILFile.o: /usr/local/include/cglm/vec3-ext.h
+src/BILFile.o: /usr/local/include/cglm/mat4.h /usr/local/include/cglm/mat3.h
+src/BILFile.o: /usr/local/include/cglm/mat2.h
+src/BILFile.o: /usr/local/include/cglm/affine.h
+src/BILFile.o: /usr/local/include/cglm/affine-mat.h
+src/BILFile.o: /usr/local/include/cglm/cam.h /usr/local/include/cglm/plane.h
+src/BILFile.o: /usr/local/include/cglm/frustum.h
+src/BILFile.o: /usr/local/include/cglm/quat.h /usr/local/include/cglm/euler.h
+src/BILFile.o: /usr/local/include/cglm/box.h /usr/local/include/cglm/color.h
+src/BILFile.o: /usr/local/include/cglm/io.h /usr/local/include/cglm/project.h
+src/BILFile.o: /usr/local/include/cglm/sphere.h
+src/BILFile.o: /usr/local/include/cglm/ease.h /usr/local/include/cglm/curve.h
+src/BILFile.o: /usr/local/include/cglm/bezier.h /usr/local/include/cglm/ray.h
+src/BILFile.o: /usr/local/include/cglm/affine2d.h
 src/BezierPatch.o: include/BezierPatch.h include/LandSurfaceRegion.h
 src/BezierPatch.o: include/VisualObject.h include/VisualElement.h
 src/BezierPatch.o: include/DynamicallyTypable.h include/TriangleBuffer.h
@@ -1223,7 +1246,38 @@ src/GroundLayer.o: include/rapidjson/internal/itoa.h
 src/GroundLayer.o: include/rapidjson/stringbuffer.h
 src/GroundLayer.o: include/rapidjson/stringbuffer.h
 src/GroundLayer.o: include/rapidjson/error/en.h
-src/GroundLayer.o: include/rapidjson/error/error.h
+src/GroundLayer.o: include/rapidjson/error/error.h include/Global.h
+src/GroundLayer.o: /usr/local/include/cglm/cglm.h
+src/GroundLayer.o: /usr/local/include/cglm/common.h
+src/GroundLayer.o: /usr/local/include/cglm/types.h
+src/GroundLayer.o: /usr/local/include/cglm/simd/intrin.h
+src/GroundLayer.o: /usr/local/include/cglm/vec2.h
+src/GroundLayer.o: /usr/local/include/cglm/util.h
+src/GroundLayer.o: /usr/local/include/cglm/vec2-ext.h
+src/GroundLayer.o: /usr/local/include/cglm/vec3.h
+src/GroundLayer.o: /usr/local/include/cglm/vec4.h
+src/GroundLayer.o: /usr/local/include/cglm/vec4-ext.h
+src/GroundLayer.o: /usr/local/include/cglm/vec3-ext.h
+src/GroundLayer.o: /usr/local/include/cglm/mat4.h
+src/GroundLayer.o: /usr/local/include/cglm/mat3.h
+src/GroundLayer.o: /usr/local/include/cglm/mat2.h
+src/GroundLayer.o: /usr/local/include/cglm/affine.h
+src/GroundLayer.o: /usr/local/include/cglm/affine-mat.h
+src/GroundLayer.o: /usr/local/include/cglm/cam.h
+src/GroundLayer.o: /usr/local/include/cglm/plane.h
+src/GroundLayer.o: /usr/local/include/cglm/frustum.h
+src/GroundLayer.o: /usr/local/include/cglm/quat.h
+src/GroundLayer.o: /usr/local/include/cglm/euler.h
+src/GroundLayer.o: /usr/local/include/cglm/box.h
+src/GroundLayer.o: /usr/local/include/cglm/color.h
+src/GroundLayer.o: /usr/local/include/cglm/io.h
+src/GroundLayer.o: /usr/local/include/cglm/project.h
+src/GroundLayer.o: /usr/local/include/cglm/sphere.h
+src/GroundLayer.o: /usr/local/include/cglm/ease.h
+src/GroundLayer.o: /usr/local/include/cglm/curve.h
+src/GroundLayer.o: /usr/local/include/cglm/bezier.h
+src/GroundLayer.o: /usr/local/include/cglm/ray.h
+src/GroundLayer.o: /usr/local/include/cglm/affine2d.h
 src/HeightMarker.o: include/HeightMarker.h include/VisualObject.h
 src/HeightMarker.o: include/VisualElement.h include/DynamicallyTypable.h
 src/HeightMarker.o: include/TriangleBuffer.h include/Vertex.h
@@ -4015,7 +4069,35 @@ src/SoilHorizon.o: /usr/local/include/cglm/curve.h
 src/SoilHorizon.o: /usr/local/include/cglm/bezier.h
 src/SoilHorizon.o: /usr/local/include/cglm/ray.h
 src/SoilHorizon.o: /usr/local/include/cglm/affine2d.h
-src/SoilProfile.o: include/SoilProfile.h include/Global.h
+src/SoilProfile.o: include/SoilProfile.h include/GroundLayer.h
+src/SoilProfile.o: include/rapidjson/document.h include/rapidjson/reader.h
+src/SoilProfile.o: include/rapidjson/allocators.h
+src/SoilProfile.o: include/rapidjson/rapidjson.h include/rapidjson/stream.h
+src/SoilProfile.o: include/rapidjson/encodings.h
+src/SoilProfile.o: include/rapidjson/encodedstream.h
+src/SoilProfile.o: include/rapidjson/memorystream.h
+src/SoilProfile.o: include/rapidjson/internal/clzll.h
+src/SoilProfile.o: include/rapidjson/rapidjson.h
+src/SoilProfile.o: include/rapidjson/internal/meta.h
+src/SoilProfile.o: include/rapidjson/internal/stack.h
+src/SoilProfile.o: include/rapidjson/allocators.h
+src/SoilProfile.o: include/rapidjson/internal/swap.h
+src/SoilProfile.o: include/rapidjson/internal/strtod.h
+src/SoilProfile.o: include/rapidjson/internal/ieee754.h
+src/SoilProfile.o: include/rapidjson/internal/biginteger.h
+src/SoilProfile.o: include/rapidjson/internal/diyfp.h
+src/SoilProfile.o: include/rapidjson/internal/clzll.h
+src/SoilProfile.o: include/rapidjson/internal/pow10.h
+src/SoilProfile.o: include/rapidjson/error/error.h
+src/SoilProfile.o: include/rapidjson/internal/strfunc.h
+src/SoilProfile.o: include/rapidjson/stream.h include/rapidjson/writer.h
+src/SoilProfile.o: include/rapidjson/internal/dtoa.h
+src/SoilProfile.o: include/rapidjson/internal/itoa.h
+src/SoilProfile.o: include/rapidjson/internal/itoa.h
+src/SoilProfile.o: include/rapidjson/stringbuffer.h
+src/SoilProfile.o: include/rapidjson/stringbuffer.h
+src/SoilProfile.o: include/rapidjson/error/en.h
+src/SoilProfile.o: include/rapidjson/error/error.h include/Global.h
 src/SoilProfile.o: /usr/local/include/cglm/cglm.h
 src/SoilProfile.o: /usr/local/include/cglm/common.h
 src/SoilProfile.o: /usr/local/include/cglm/types.h

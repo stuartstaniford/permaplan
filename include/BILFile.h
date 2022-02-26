@@ -23,6 +23,14 @@ public:
 private:
   
   // Instance variables - private
+  int byteOrder;
+  int nRows;
+  int nCols;
+  int nBands;
+  int nBits;
+  int bandRowBytes;
+  int totalRowBytes;
+  int bandGapBytes;
   
   // Member functions - private
   bool readHdrFile(char* path, char* stub);
