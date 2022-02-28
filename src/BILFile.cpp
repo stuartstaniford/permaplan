@@ -32,6 +32,17 @@ BILFile::~BILFile(void)
 /// @brief Function to read the header file so that we have the basic parameters of the
 /// raster data.
 
+// Example file from Materials/Solar/HWSD_RASTER/hwsd.hdr
+//BYTEORDER      I
+//LAYOUT       BIL
+//NROWS         21600
+//NCOLS         43200
+//NBANDS        1
+//NBITS         16
+//BANDROWBYTES         86400
+//TOTALROWBYTES        86400
+//BANDGAPBYTES         0
+
 bool BILFile::readHdrFile(char* path, char* stub)
 {
   char fileName[256];
@@ -89,28 +100,31 @@ bool BILFile::readHdrFile(char* path, char* stub)
      {
       if(sscanf(line+6, "%d", &nBands) != 1)
         err(-1, "Could not get NBANDS from file %s.\n", fileName);
-      if(nBands !=1)
+      if(nBands != 1)
         err(-1, "NBANDS is %d not 1 in file %s.\n", nBands, fileName);
      }
 
     if( (strncmp(line, "NBITS", 5) == 0) || (strncmp(line, "nbits", 5) == 0))
      {
-      
+      if(sscanf(line+5, "%d", &nBits) != 1)
+        err(-1, "Could not get NBITS from file %s.\n", fileName);
+      if(nBits != 16)
+        err(-1, "NBITS is %d not 16 in file %s.\n", nBits, fileName);      
      }
 
     if( (strncmp(line, "BANDROWBYTES", 12) == 0) || (strncmp(line, "bandrowbytes", 12) == 0))
      {
-      
+      continue;
      }
 
     if( (strncmp(line, "TOTALROWBYTES", 13) == 0) || (strncmp(line, "totalrowbytes", 13) == 0))
      {
-      
+      continue;
      }
 
     if( (strncmp(line, "BANDGAPBYTES", 12) == 0) || (strncmp(line, "bandgapbytes", 12) == 0))
      {
-      
+      continue;
      }
     
    }
