@@ -58,13 +58,18 @@ bool HttpPermaServ::indexPage(void)
   internalPrintf("<tr><td><a href=\"/compileTime/\">compileTime/</a></td>");
   internalPrintf("<td>Determine when the running server was compiled.</td></tr>\n");
   
-  // DIF
+  // DIF at a particular point
   internalPrintf("<tr><td><a href=\"/dif?42.441570:-76.498665:\">dif?lat:long:</a></td>");
   internalPrintf("<td>Average diffuse horizontal irradiation at location (kWh/m²/day).</td></tr>\n");
 
-  // DNI
+  // DNI at a particular point
   internalPrintf("<tr><td><a href=\"/dni?42.441570:-76.498665:/\">dni?lat:long:</a></td>");
   internalPrintf("<td>Average direct normal irradiation at location (kWh/m²/day).</td></tr>\n");
+
+  // Soil profile at a particular point
+  internalPrintf("<tr><td><a href=\"/soilPoint?42.441570:-76.498665:/\">"
+                                                            "soilPoint?lat:long:</a></td>");
+  internalPrintf("<td>Soil Profile at location (json).</td></tr>\n");
 
   // End table and page
   internalPrintf("</table></center>\n");
