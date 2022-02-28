@@ -124,6 +124,27 @@ bool HttpPermaServ::processDNIRequest(char* url)
 
 
 // =======================================================================================
+/// @brief Process the case of a request for a soil profile at a particular location.
+/// @param url The balance of the URL that we are to deal with (ie after the '?')
+/// @returns True if all went well, false if we couldn't correctly write a good page.
+
+bool HttpPermaServ::processSoilPointRequest(char* url)
+{
+  float latLong[2];
+  unless(extractColonVecN(url, 2, latLong))
+   {
+    LogRequestErrors("Bad soilPoint request: dni?%s\n", url);
+    return false;
+   }
+  //float dni = solarDatabase->getDNIValue(latLong[0], latLong[1]);
+  internalPrintf("Stub soilPoint result.\n");
+  LogPermaservOps("Serviced soilPoint request for %f,%f from client on port %u.\n", 
+                                                      latLong[0], latLong[1], clientP);
+  return true;
+}
+
+
+// =======================================================================================
 /// @brief Process a single header, and construct the response.
 /// 
 /// Calls the HTTRequestParser instance to extract the URL, and then routes the request
@@ -159,14 +180,19 @@ bool HttpPermaServ::processRequestHeader(void)
     retVal = true;
    }
 
-  else if( strlenUrl >= 8 && strncmp(url, "/dif?", 5) == 0)
+  else if( strlenUrl >= 9 && strncmp(url, "/dif?", 5) == 0)
    {
     retVal = processDIFRequest(url+5);
    }
 
-  else if( strlenUrl >= 8 && strncmp(url, "/dni?", 5) == 0)
+  else if( strlenUrl >= 9 && strncmp(url, "/dni?", 5) == 0)
    {
     retVal = processDNIRequest(url+5);
+   }
+
+  else if( strlenUrl >= 15 && strncmp(url, "/soilPoint?", 11) == 0)
+   {
+    retVal = processSoilPointRequest(url+5);
    }
 
   else

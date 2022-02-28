@@ -39,6 +39,7 @@ private:
   bool  indexPage(void);
   bool  processDNIRequest(char* url);
   bool  processDIFRequest(char* url);
+  bool  processSoilPointRequest(char* url);
 
   /// @brief Prevent copy-construction.
   HttpPermaServ(const HttpPermaServ&);       
