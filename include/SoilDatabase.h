@@ -22,7 +22,8 @@ public:
   // Member functions - public
   SoilDatabase(void);
   ~SoilDatabase(void);
-  
+  unsigned printJsonSoilProfileAtPoint(char* buf, unsigned bufSize, float lat, float longt);
+
 private:
   
   // Instance variables - private

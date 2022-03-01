@@ -26,3 +26,24 @@ SoilDatabase::~SoilDatabase(void)
 
 
 // =======================================================================================
+/// @brief Output JSON soil profile format for a particular location to a buffer.
+///
+/// Note this function does not itself write out JSON, but rather is a gateway which
+/// selects the right database (based on the location), retrieves a SoilProfile object
+/// from that database, and then delegates actually generating the correct JSON output 
+/// to the SoilProfile class.
+/// 
+/// @returns The number of bytes written to the buffer.
+/// @param buf The char buffer to write the JSON to.
+/// @param bufSize The size of the buffer, which must not be overwritten after the end.
+/// @param lat The latitude selected.
+/// @param longt The longtitude selected.
+
+unsigned SoilDatabase::printJsonSoilProfileAtPoint(char* buf, unsigned bufSize, 
+                                                            float lat, float longt)
+{
+  return 0u;
+}
+
+
+// =======================================================================================

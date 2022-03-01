@@ -138,8 +138,12 @@ bool HttpPermaServ::processSoilPointRequest(char* url)
     LogRequestErrors("Bad soilPoint request: dni?%s\n", url);
     return false;
    }
-  //float dni = solarDatabase->getDNIValue(latLong[0], latLong[1]);
-  internalPrintf("Stub soilPoint result.\n");
+  if( (respPtr += soilDatabase->printJsonSoilProfileAtPoint(respPtr, 
+                respEnd-respPtr, latLong[0], latLong[1])) >= respEnd)
+   {
+    respBufOverflow = true; 
+    return false;
+   }
   LogPermaservOps("Serviced soilPoint request for %f,%f from client on port %u.\n", 
                                                       latLong[0], latLong[1], clientP);
   return true;
