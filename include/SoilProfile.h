@@ -29,7 +29,8 @@ public:
   // Member functions - public
   SoilProfile(void);
   ~SoilProfile(void);
-  
+  unsigned writeJson(char* buf, unsigned bufSize);
+ 
 private:
   
   // Instance variables - private

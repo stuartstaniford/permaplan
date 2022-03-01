@@ -43,3 +43,18 @@ SoilProfile::~SoilProfile(void)
 
 
 // =======================================================================================
+/// @brief Output JSON soil profile format to a buffer.
+/// 
+/// @returns The number of bytes written to the buffer.  If greater than or equal to 
+/// the supplied bufSize parameter, it indicates the buffer was not big enough and the
+/// output will have been truncated/incomplete.
+/// @param buf The char buffer to write the JSON to.
+/// @param bufSize The size of the buffer, which must not be overwritten after the end.
+
+unsigned SoilProfile::writeJson(char* buf, unsigned bufSize)
+{
+  return 0u;
+}
+
+
+// =======================================================================================
