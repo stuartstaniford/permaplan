@@ -51,8 +51,34 @@ SoilProfile::~SoilProfile(void)
 /// @param buf The char buffer to write the JSON to.
 /// @param bufSize The size of the buffer, which must not be overwritten after the end.
 
+#define bufPrintf(...) if((writePt += snprintf(writePt, \
+              writeEnd-writePt,  __VA_ARGS__)) >= writeEnd) \
+                 return writePt-buf
+
 unsigned SoilProfile::writeJson(char* buf, unsigned bufSize)
 {
+  char* writePt = buf;
+  char* writeEnd = buf + bufSize;
+  
+  bufPrintf("[\n");
+
+  int layersWritten = 0;
+  for(GroundLayer* horizon: *this)
+   {
+    if( (writePt += horizon->writeJson(writePt, writeEnd-writePt)) >= writeEnd)
+      return writePt-buf;
+    bufPrintf(",\n");
+    layersWritten++;
+   }
+  if(layersWritten)
+   {
+    // Remove the last comma in the array
+    writePt -= 2;
+    bufPrintf("\n");
+   }
+
+  bufPrintf("]\n");
+  
   return 0u;
 }
 
