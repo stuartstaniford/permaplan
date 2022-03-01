@@ -38,7 +38,7 @@ SRCS = $(wildcard src/*.cpp)
 # with the .o suffix
 #
 OBJS = $(SRCS:.cpp=.o)
-SERV_OBJS = src/Logging.o src/Global.o src/SolarDatabase.o src/GdalFileInterface.o src/HttpLBPermaserv.o src/HttpPermaServ.o src/HttpServThread.o src/HttpLoadBalancer.o src/HttpRequestParser.o src/TaskQueueFarm.o src/TaskQueue.o src/Lockable.o src/SoilDatabase.o
+SERV_OBJS = src/Logging.o src/Global.o src/SolarDatabase.o src/SoilDatabase.o src/BILFile.o src/GdalFileInterface.o src/HttpLBPermaserv.o src/HttpPermaServ.o src/HttpServThread.o src/HttpLoadBalancer.o src/HttpRequestParser.o src/TaskQueueFarm.o src/TaskQueue.o src/Lockable.o 
 
 # define the executable file
 MAIN = permaplan
@@ -1496,6 +1496,7 @@ src/HttpLBPermaserv.o: /usr/local/include/cglm/ray.h
 src/HttpLBPermaserv.o: /usr/local/include/cglm/affine2d.h
 src/HttpLBPermaserv.o: include/HttpRequestParser.h include/SolarDatabase.h
 src/HttpLBPermaserv.o: include/GdalFileInterface.h include/SoilDatabase.h
+src/HttpLBPermaserv.o: include/BILFile.h
 src/HttpLoadBalancer.o: include/HttpLoadBalancer.h include/HttpDebug.h
 src/HttpLoadBalancer.o: include/HttpServThread.h include/TaskQueue.h
 src/HttpLoadBalancer.o: include/Lockable.h include/Global.h
@@ -1568,7 +1569,8 @@ src/HttpPermaServ.o: /usr/local/include/cglm/affine2d.h
 src/HttpPermaServ.o: include/HttpRequestParser.h include/Logging.h
 src/HttpPermaServ.o: include/MemoryTracker.h include/SolarDatabase.h
 src/HttpPermaServ.o: include/GdalFileInterface.h include/SoilDatabase.h
-src/HttpPermaServ.o: include/HttpLBPermaserv.h include/HttpLoadBalancer.h
+src/HttpPermaServ.o: include/BILFile.h include/HttpLBPermaserv.h
+src/HttpPermaServ.o: include/HttpLoadBalancer.h
 src/HttpPermaservClient.o: include/HttpPermaservClient.h include/HttpClient.h
 src/HttpPermaservClient.o: include/rapidjson/document.h
 src/HttpPermaservClient.o: include/rapidjson/reader.h
@@ -4010,7 +4012,7 @@ src/SkySampleModel.o: include/rapidjson/stringbuffer.h
 src/SkySampleModel.o: include/rapidjson/stringbuffer.h
 src/SkySampleModel.o: include/rapidjson/error/en.h
 src/SkySampleModel.o: include/rapidjson/error/error.h
-src/SoilDatabase.o: include/SoilDatabase.h
+src/SoilDatabase.o: include/SoilDatabase.h include/BILFile.h
 src/SoilHorizon.o: include/SoilHorizon.h include/GroundLayer.h
 src/SoilHorizon.o: include/rapidjson/document.h include/rapidjson/reader.h
 src/SoilHorizon.o: include/rapidjson/allocators.h

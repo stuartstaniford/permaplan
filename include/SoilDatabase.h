@@ -3,6 +3,8 @@
 #ifndef SOIL_DATABASE_H
 #define SOIL_DATABASE_H
 
+#include "BILFile.h"
+
 
 // =======================================================================================
 /// @brief Interface to soil databases.
@@ -27,7 +29,8 @@ public:
 private:
   
   // Instance variables - private
-  
+  BILFile worldSoilBilFile;
+
   // Member functions - private
   /// @brief Prevent copy-construction.
   SoilDatabase(const SoilDatabase&);       

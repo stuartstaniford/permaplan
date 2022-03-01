@@ -17,7 +17,7 @@ public:
   // Instance variables - public
   
   // Member functions - public
-  BILFile(void);
+  BILFile(char* fileNameStub);
   ~BILFile(void);
   
 private:

@@ -8,11 +8,14 @@
 #include "SoilDatabase.h"
 #include <stdio.h>
 
+char* worldSoilBilFileName = (char*)"Materials/Solar/HWSD_RASTER/hwsd";
+
 
 // =======================================================================================
 /// @brief Constructor
 
-SoilDatabase::SoilDatabase(void)
+SoilDatabase::SoilDatabase(void):
+                          worldSoilBilFile(worldSoilBilFileName)
 {
 }
 
@@ -33,11 +36,15 @@ SoilDatabase::~SoilDatabase(void)
 /// from that database, and then delegates actually generating the correct JSON output 
 /// to the SoilProfile class.
 /// 
-/// @returns The number of bytes written to the buffer.
+/// @returns The number of bytes written to the buffer.  If greater than or equal to 
+/// the supplied bufSize parameter, it indicates the buffer was not big enough and the
+/// output will have been truncated/incomplete.
 /// @param buf The char buffer to write the JSON to.
 /// @param bufSize The size of the buffer, which must not be overwritten after the end.
 /// @param lat The latitude selected.
 /// @param longt The longtitude selected.
+/// @todo Currently we always pull from the Harmonized World Soil Database, but ultimately
+/// we should select the best database for a given location.
 
 unsigned SoilDatabase::printJsonSoilProfileAtPoint(char* buf, unsigned bufSize, 
                                                             float lat, float longt)

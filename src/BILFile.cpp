@@ -15,7 +15,7 @@
 // =======================================================================================
 /// @brief Constructor
 
-BILFile::BILFile(void)
+BILFile::BILFile(char* fileNameStub)
 {
 }
 
