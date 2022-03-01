@@ -10,6 +10,7 @@
 // Forward declarations
 
 class SolarDatabase;
+class SoilDatabase;
 
 
 // =======================================================================================
@@ -26,13 +27,15 @@ public:
   // Instance variables - public
   
   // Member functions - public
-  HttpPermaServ(unsigned index, SolarDatabase* solarD, HttpLoadBalancer* parent);
+  HttpPermaServ(unsigned index, SolarDatabase* solarD, SoilDatabase* soilD,
+                                                            HttpLoadBalancer* parent);
   ~HttpPermaServ(void);
   
 private:
   
   // Instance variables - private
   SolarDatabase* solarDatabase;
+  SoilDatabase* soilDatabase;
   
   // Member functions - private
   bool  processRequestHeader(void);

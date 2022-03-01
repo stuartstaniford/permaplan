@@ -7,6 +7,7 @@
 #include "HttpLBPermaserv.h"
 #include "HttpPermaServ.h"
 #include "SolarDatabase.h"
+#include "SoilDatabase.h"
 
 
 // =======================================================================================
@@ -17,8 +18,9 @@ HttpLBPermaserv::HttpLBPermaserv(unsigned short servPort, time_t compTime):
                                           compileTime(compTime)
 {
   solarDatabase = new SolarDatabase;
+  soilDatabase = new SoilDatabase;
   for(unsigned i=0; i<HTTP_THREAD_COUNT;i++)
-    httpThreads[i] = (TaskQueue*) new HttpPermaServ(i, solarDatabase, 
+    httpThreads[i] = (TaskQueue*) new HttpPermaServ(i, solarDatabase, soilDatabase,
                                                           (HttpLoadBalancer*)this);
 }
 

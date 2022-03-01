@@ -11,6 +11,7 @@
 // Forward declarations
 
 class SolarDatabase;
+class SoilDatabase;
 class HttpPermaServ;
 
 
@@ -37,6 +38,7 @@ private:
   
   // Instance variables - private
   SolarDatabase*  solarDatabase;
+  SoilDatabase*   soilDatabase;
   time_t          compileTime;
   
   // Member functions - private

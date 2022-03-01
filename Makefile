@@ -38,6 +38,7 @@ SRCS = $(wildcard src/*.cpp)
 # with the .o suffix
 #
 OBJS = $(SRCS:.cpp=.o)
+SERV_OBJS = src/Logging.o src/Global.o src/SolarDatabase.o src/GdalFileInterface.o src/HttpLBPermaserv.o src/HttpPermaServ.o src/HttpServThread.o src/HttpLoadBalancer.o src/HttpRequestParser.o src/TaskQueueFarm.o src/TaskQueue.o src/Lockable.o src/SoilDatabase.o
 
 # define the executable file
 MAIN = permaplan
@@ -59,8 +60,8 @@ $(MAIN): $(OBJS)
 doc:		$(SRCS) $(wildcard include/*.h) Doxyfile
 				doxygen Doxyfile
 
-permaserv/permaserv: $(OBJS) permaserv/permaserv_main.cpp
-							$(CPP) $(CFLAGS) -o permaserv/permaserv -I ./include -I /usr/local/include -lgdal src/Logging.o src/Global.o src/SolarDatabase.o src/GdalFileInterface.o src/HttpLBPermaserv.o src/HttpPermaServ.o src/HttpServThread.o src/HttpLoadBalancer.o src/HttpRequestParser.o src/TaskQueueFarm.o src/TaskQueue.o src/Lockable.o permaserv/permaserv_main.cpp
+permaserv/permaserv: $(SERV_OBJS) permaserv/permaserv_main.cpp
+							$(CPP) $(CFLAGS) -o permaserv/permaserv -I ./include -I /usr/local/include -lgdal  $(SERV_OBJS) permaserv/permaserv_main.cpp
 
 # this is a suffix replacement rule for building .o's from .c's
 # it uses automatic variables $<: the name of the prerequisite of
@@ -1494,7 +1495,7 @@ src/HttpLBPermaserv.o: /usr/local/include/cglm/bezier.h
 src/HttpLBPermaserv.o: /usr/local/include/cglm/ray.h
 src/HttpLBPermaserv.o: /usr/local/include/cglm/affine2d.h
 src/HttpLBPermaserv.o: include/HttpRequestParser.h include/SolarDatabase.h
-src/HttpLBPermaserv.o: include/GdalFileInterface.h
+src/HttpLBPermaserv.o: include/GdalFileInterface.h include/SoilDatabase.h
 src/HttpLoadBalancer.o: include/HttpLoadBalancer.h include/HttpDebug.h
 src/HttpLoadBalancer.o: include/HttpServThread.h include/TaskQueue.h
 src/HttpLoadBalancer.o: include/Lockable.h include/Global.h
@@ -1566,8 +1567,8 @@ src/HttpPermaServ.o: /usr/local/include/cglm/ray.h
 src/HttpPermaServ.o: /usr/local/include/cglm/affine2d.h
 src/HttpPermaServ.o: include/HttpRequestParser.h include/Logging.h
 src/HttpPermaServ.o: include/MemoryTracker.h include/SolarDatabase.h
-src/HttpPermaServ.o: include/GdalFileInterface.h include/HttpLBPermaserv.h
-src/HttpPermaServ.o: include/HttpLoadBalancer.h
+src/HttpPermaServ.o: include/GdalFileInterface.h include/SoilDatabase.h
+src/HttpPermaServ.o: include/HttpLBPermaserv.h include/HttpLoadBalancer.h
 src/HttpPermaservClient.o: include/HttpPermaservClient.h include/HttpClient.h
 src/HttpPermaservClient.o: include/rapidjson/document.h
 src/HttpPermaservClient.o: include/rapidjson/reader.h
@@ -4009,6 +4010,7 @@ src/SkySampleModel.o: include/rapidjson/stringbuffer.h
 src/SkySampleModel.o: include/rapidjson/stringbuffer.h
 src/SkySampleModel.o: include/rapidjson/error/en.h
 src/SkySampleModel.o: include/rapidjson/error/error.h
+src/SoilDatabase.o: include/SoilDatabase.h
 src/SoilHorizon.o: include/SoilHorizon.h include/GroundLayer.h
 src/SoilHorizon.o: include/rapidjson/document.h include/rapidjson/reader.h
 src/SoilHorizon.o: include/rapidjson/allocators.h

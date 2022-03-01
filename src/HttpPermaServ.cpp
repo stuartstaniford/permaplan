@@ -4,16 +4,18 @@
 #include "HttpPermaServ.h"
 #include "Logging.h"
 #include "SolarDatabase.h"
+#include "SoilDatabase.h"
 #include "HttpLBPermaserv.h"
 
 
 // =======================================================================================
 /// @brief Constructor
 
-HttpPermaServ::HttpPermaServ(unsigned index, SolarDatabase* solarD, HttpLoadBalancer* parent):
-                            HttpServThread(index, parent),
-                            solarDatabase(solarD)
-
+HttpPermaServ::HttpPermaServ(unsigned index, SolarDatabase* solarD, SoilDatabase* soilD, 
+                                                                    HttpLoadBalancer* parent):
+                                          HttpServThread(index, parent),
+                                          solarDatabase(solarD),
+                                          soilDatabase(soilD)
 {
 }
 
