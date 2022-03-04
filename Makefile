@@ -162,7 +162,34 @@ src/BILFile.o: /usr/local/include/cglm/io.h /usr/local/include/cglm/project.h
 src/BILFile.o: /usr/local/include/cglm/sphere.h
 src/BILFile.o: /usr/local/include/cglm/ease.h /usr/local/include/cglm/curve.h
 src/BILFile.o: /usr/local/include/cglm/bezier.h /usr/local/include/cglm/ray.h
-src/BILFile.o: /usr/local/include/cglm/affine2d.h
+src/BILFile.o: /usr/local/include/cglm/affine2d.h include/SoilProfile.h
+src/BILFile.o: include/GroundLayer.h include/rapidjson/document.h
+src/BILFile.o: include/rapidjson/reader.h include/rapidjson/allocators.h
+src/BILFile.o: include/rapidjson/rapidjson.h include/rapidjson/stream.h
+src/BILFile.o: include/rapidjson/encodings.h
+src/BILFile.o: include/rapidjson/encodedstream.h
+src/BILFile.o: include/rapidjson/memorystream.h
+src/BILFile.o: include/rapidjson/internal/clzll.h
+src/BILFile.o: include/rapidjson/rapidjson.h
+src/BILFile.o: include/rapidjson/internal/meta.h
+src/BILFile.o: include/rapidjson/internal/stack.h
+src/BILFile.o: include/rapidjson/allocators.h
+src/BILFile.o: include/rapidjson/internal/swap.h
+src/BILFile.o: include/rapidjson/internal/strtod.h
+src/BILFile.o: include/rapidjson/internal/ieee754.h
+src/BILFile.o: include/rapidjson/internal/biginteger.h
+src/BILFile.o: include/rapidjson/internal/diyfp.h
+src/BILFile.o: include/rapidjson/internal/clzll.h
+src/BILFile.o: include/rapidjson/internal/pow10.h
+src/BILFile.o: include/rapidjson/error/error.h
+src/BILFile.o: include/rapidjson/internal/strfunc.h
+src/BILFile.o: include/rapidjson/stream.h include/rapidjson/writer.h
+src/BILFile.o: include/rapidjson/internal/dtoa.h
+src/BILFile.o: include/rapidjson/internal/itoa.h
+src/BILFile.o: include/rapidjson/internal/itoa.h
+src/BILFile.o: include/rapidjson/stringbuffer.h
+src/BILFile.o: include/rapidjson/stringbuffer.h include/rapidjson/error/en.h
+src/BILFile.o: include/rapidjson/error/error.h
 src/BezierPatch.o: include/BezierPatch.h include/LandSurfaceRegion.h
 src/BezierPatch.o: include/VisualObject.h include/VisualElement.h
 src/BezierPatch.o: include/DynamicallyTypable.h include/TriangleBuffer.h

@@ -8,6 +8,7 @@
 
 #include "BILFile.h"
 #include "Global.h"
+#include "SoilProfile.h"
 #include <string.h>
 #include <err.h>
 
@@ -31,6 +32,10 @@ BILFile::~BILFile(void)
 // =======================================================================================
 /// @brief Function to read the header file so that we have the basic parameters of the
 /// raster data.
+/// 
+/// @returns True if successfully read and parsed header file, false otherwise
+/// @param path The path to the directory of the BIL file.
+/// @param stub The part of the filename prior to the .extension (such as .hdr).
 
 // Example file from Materials/Solar/HWSD_RASTER/hwsd.hdr
 //BYTEORDER      I
@@ -131,7 +136,20 @@ bool BILFile::readHdrFile(char* path, char* stub)
   
   // Clean up and go home.
   fclose(file);
-  return false;
+  return true;
+}
+
+
+// =======================================================================================
+/// @brief Allocate a new soil profile structure for a particular location.
+/// 
+/// @returns True if successfully read and parsed header file, false otherwise
+/// @param path The path to the directory of the BIL file.
+/// @param stub The part of the filename prior to the .extension (such as .hdr).
+
+SoilProfile* BILFile::newProfileAtPoint(float lat, float longt)
+{
+  return NULL;
 }
 
 

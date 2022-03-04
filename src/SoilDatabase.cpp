@@ -49,6 +49,12 @@ SoilDatabase::~SoilDatabase(void)
 unsigned SoilDatabase::printJsonSoilProfileAtPoint(char* buf, unsigned bufSize, 
                                                             float lat, float longt)
 {
+  SoilProfile* soilProfile = worldSoilBilFile.newProfileAtPoint(lat, longt);
+  if(!soilProfile)
+   {
+    // 
+    return 0u;    
+   }
   return 0u;
 }
 
