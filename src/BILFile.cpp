@@ -22,6 +22,11 @@
 BILFile::BILFile(char* fileNameStub)
 {
   readHdrFile(fileNameStub);
+  char fileName[256];
+  snprintf(fileName, 256, "%s.bil", fileNameStub);
+  dataFile = fopen(fileName, "r");
+  unless(dataFile)
+    err(-1, "Couldn't open %s.\n", fileName);
 }
 
 

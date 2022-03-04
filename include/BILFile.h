@@ -3,6 +3,8 @@
 #ifndef BIL_FILE_H
 #define BIL_FILE_H
 
+#include <stdio.h>
+
 
 // =======================================================================================
 // Forward declarations, etc
@@ -30,14 +32,15 @@ public:
 private:
   
   // Instance variables - private
-  int byteOrder;
-  int nRows;
-  int nCols;
-  int nBands;
-  int nBits;
-  int bandRowBytes;
-  int totalRowBytes;
-  int bandGapBytes;
+  int   byteOrder;
+  int   nRows;
+  int   nCols;
+  int   nBands;
+  int   nBits;
+  int   bandRowBytes;
+  int   totalRowBytes;
+  int   bandGapBytes;
+  FILE* dataFile;
   
   // Member functions - private
   bool readHdrFile(char* fileNameStub);
