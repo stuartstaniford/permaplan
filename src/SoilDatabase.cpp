@@ -6,6 +6,8 @@
 //https://www.fao.org/soils-portal/soil-survey/soil-maps-and-databases/harmonized-world-soil-database-v12/en/
 
 #include "SoilDatabase.h"
+#include "SoilProfile.h"
+#include "Logging.h"
 #include <stdio.h>
 
 char* worldSoilBilFileName = (char*)"Materials/Solar/HWSD_RASTER/hwsd";
@@ -52,10 +54,10 @@ unsigned SoilDatabase::printJsonSoilProfileAtPoint(char* buf, unsigned bufSize,
   SoilProfile* soilProfile = worldSoilBilFile.newProfileAtPoint(lat, longt);
   if(!soilProfile)
    {
-    // 
+    LogSoilDbErr("Could not get soil profile for lat,long: %.3f, %.3f.\n", lat, longt);
     return 0u;    
    }
-  return 0u;
+  return soilProfile->writeJson(buf, bufSize);
 }
 
 
