@@ -65,6 +65,9 @@ bool doLogPathMap             = true; // Log storage and use of the path map
 bool doLogSkySampleInit       = true; // Log the setup of the sky sampling model
 bool doLogGdalError           = true; // Log problems in accessing files via libgdal
 
+// Logging options to do with soil stuff
+bool doLogSoilDbErr           = true; // Log problems in the soil database operation
+
 // Logging options for Trees/Plants
 bool doLogTreeSelections      = true; // Log when a tree is selected.
 bool doLogTreeReads           = true; // Log when a tree is read in from a file or url
@@ -403,6 +406,14 @@ bool LogControlHTML(HttpDebug* serv, char* path)
 #endif
 
 
+// Logging options to do with soil stuff
+
+#ifdef LOG_SOIL_DB_ERR // Log problems in the soil database operation
+  if(strncmp(path, "doLogSoilDbErr", sizeof("doLogSoilDbErr")-1)==0)
+    return oneLogControl(serv, path, doLogSoilDbErr);
+#endif
+
+  
 // Logging options for Trees/Plants
 
 #ifdef LOG_TREE_SELECTIONS // Log when a tree is selected.

@@ -143,9 +143,9 @@ bool BILFile::readHdrFile(char* path, char* stub)
 // =======================================================================================
 /// @brief Allocate a new soil profile structure for a particular location.
 /// 
-/// @returns True if successfully read and parsed header file, false otherwise
-/// @param path The path to the directory of the BIL file.
-/// @param stub The part of the filename prior to the .extension (such as .hdr).
+/// @returns A pointer to the new soil profile structure, NULL if it can't be created.
+/// @param lat The float latitude of the requested location.
+/// @param stub The The float longtitude of the requested location.
 
 SoilProfile* BILFile::newProfileAtPoint(float lat, float longt)
 {
