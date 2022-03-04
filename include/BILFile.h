@@ -40,7 +40,7 @@ private:
   int bandGapBytes;
   
   // Member functions - private
-  bool readHdrFile(char* path, char* stub);
+  bool readHdrFile(char* fileNameStub);
   
   /// @brief Prevent copy-construction.
   BILFile(const BILFile&);       

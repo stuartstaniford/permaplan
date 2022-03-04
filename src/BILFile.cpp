@@ -15,9 +15,13 @@
 
 // =======================================================================================
 /// @brief Constructor
+/// 
+/// @param fileNameStub The path to the directory of the BIL file, together with the 
+/// part of the filename prior to the .extension (such as .hdr)
 
 BILFile::BILFile(char* fileNameStub)
 {
+  readHdrFile(fileNameStub);
 }
 
 
@@ -34,8 +38,8 @@ BILFile::~BILFile(void)
 /// raster data.
 /// 
 /// @returns True if successfully read and parsed header file, false otherwise
-/// @param path The path to the directory of the BIL file.
-/// @param stub The part of the filename prior to the .extension (such as .hdr).
+/// @param fileNameStub The path to the directory of the BIL file, together with the 
+/// part of the filename prior to the .extension (such as .hdr)
 
 // Example file from Materials/Solar/HWSD_RASTER/hwsd.hdr
 //BYTEORDER      I
@@ -48,14 +52,14 @@ BILFile::~BILFile(void)
 //TOTALROWBYTES        86400
 //BANDGAPBYTES         0
 
-bool BILFile::readHdrFile(char* path, char* stub)
+bool BILFile::readHdrFile(char* fileNameStub)
 {
   char fileName[256];
   char line[128];
   FILE* file;
   
   // Figure out the file name and open the file.
-  snprintf(fileName, 256, "%s/%s.hdr", path, stub);
+  snprintf(fileName, 256, "%s.hdr", fileNameStub);
   file = fopen(fileName, "r");
   unless(file)
     err(-1, "Couldn't open %s.\n", fileName);
@@ -149,7 +153,8 @@ bool BILFile::readHdrFile(char* path, char* stub)
 
 SoilProfile* BILFile::newProfileAtPoint(float lat, float longt)
 {
-  return NULL;
+  SoilProfile* prof = new SoilProfile();
+  return prof;
 }
 
 
