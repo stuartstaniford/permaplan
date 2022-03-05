@@ -51,15 +51,16 @@ SoilDatabase::~SoilDatabase(void)
 unsigned SoilDatabase::printJsonSoilProfileAtPoint(char* buf, unsigned bufSize, 
                                                             float lat, float longt)
 {
-  SoilProfile* soilProfile = worldSoilBilFile.newProfileAtPoint(lat, longt);
-  if(!soilProfile)
+  unsigned short soilIndex = worldSoilBilFile.valueAtPoint(lat, longt);
+  if(!soilIndex)
    {
-    LogSoilDbErr("Could not get soil profile for lat,long: %.3f, %.3f.\n", lat, longt);
+    LogSoilDbErr("Could not get soil index for lat,long: %.3f, %.3f.\n", lat, longt);
     return 0u;    
    }
-  unsigned retVal = soilProfile->writeJson(buf, bufSize);
-  delete soilProfile;
-  return retVal;
+  //unsigned retVal = soilProfile->writeJson(buf, bufSize);
+  //delete soilProfile;
+  //return retVal;
+  return 0u;
 }
 
 

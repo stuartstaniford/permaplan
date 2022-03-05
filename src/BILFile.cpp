@@ -150,16 +150,17 @@ bool BILFile::readHdrFile(char* fileNameStub)
 
 
 // =======================================================================================
-/// @brief Allocate a new soil profile structure for a particular location.
+/// @brief Find the value at a particular point from the binary bilFile itself.
 /// 
-/// @returns A pointer to the new soil profile structure, NULL if it can't be created.
+/// @returns The value in the bilFile at the given lat,longt.
 /// @param lat The float latitude of the requested location.
-/// @param stub The The float longtitude of the requested location.
+/// @param longt The The float longtitude of the requested location.
 
-SoilProfile* BILFile::newProfileAtPoint(float lat, float longt)
-{
-  SoilProfile* prof = new SoilProfile();
-  return prof;
+unsigned short BILFile::valueAtPoint(float lat, float longt)
+{  
+  // Need to fseek in the bilfile.
+  
+  return 0u;
 }
 
 
