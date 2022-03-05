@@ -13,7 +13,7 @@ CFLAGS = -Wall -g -std=c++11
 
 # define any directories containing header files other than /usr/include
 #
-INCLUDES = -I include -I imgui -I imgui/backends -I /usr/local/include
+INCLUDES = -I include -I imgui -I imgui/backends -I /usr/local/include -I /usr/local/include/glib-2.0 -I /usr/local/Cellar/glib/2.70.4/lib/glib-2.0/include
 
 # define library paths in addition to /usr/lib
 #   if I wanted to include libraries not in /usr/lib I'd specify

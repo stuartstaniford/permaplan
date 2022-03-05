@@ -5,6 +5,13 @@
 
 
 // =======================================================================================
+// Forward declarations
+
+class MdbHandle;
+class MdbCatalogEntry;
+
+
+// =======================================================================================
 /// @brief A wrapper for the mdbtools library libmdb.wrapper
 /// 
 /// MDBTools is a set of tools for reading ".mdb" files - Microsoft Access Database 
@@ -25,7 +32,9 @@ public:
 private:
   
   // Instance variables - private
-  
+  MdbHandle*        mdb;
+  MdbCatalogEntry*  entry;
+
   // Member functions - private
   /// @brief Prevent copy-construction.
   MdbFile(const MdbFile&);       
