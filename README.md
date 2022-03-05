@@ -21,6 +21,8 @@ You'll need cglm (https://github.com/recp/cglm) installed somewhere (I do "brew 
 
 Also gdal (to read solar databases).  Get via "brew install gdal".
 
+Mdbtools is needed (to read the world soil database).  Get via "brew install mdbtools".
+
 Building the source code documentation requires doxygen ("brew install doxygen").
 
 Then:

@@ -38,7 +38,7 @@ SRCS = $(wildcard src/*.cpp)
 # with the .o suffix
 #
 OBJS = $(SRCS:.cpp=.o)
-SERV_OBJS = src/Logging.o src/Global.o src/GroundLayer.o src/SolarDatabase.o src/SoilDatabase.o src/SoilProfile.o src/BILFile.o src/GdalFileInterface.o src/HttpLBPermaserv.o src/HttpPermaServ.o src/HttpServThread.o src/HttpLoadBalancer.o src/HttpRequestParser.o src/TaskQueueFarm.o src/TaskQueue.o src/Lockable.o 
+SERV_OBJS = src/BILFile.o src/Global.o src/GroundLayer.o   src/GdalFileInterface.o src/HttpLBPermaserv.o src/HttpPermaServ.o src/HttpServThread.o src/HttpLoadBalancer.o src/HttpRequestParser.o src/Logging.o src/MdbFile.o src/SoilDatabase.o src/SoilProfile.o src/SolarDatabase.o src/TaskQueueFarm.o src/TaskQueue.o src/Lockable.o 
 
 # define the executable file
 MAIN = permaplan
