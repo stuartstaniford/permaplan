@@ -11,7 +11,7 @@
 // =======================================================================================
 /// @brief Constructor
 
-MdbFile::MdbFile(void)
+MdbFile::MdbFile(char* fileName)
 {
 }
 

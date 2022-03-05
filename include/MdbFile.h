@@ -19,7 +19,7 @@ public:
   // Instance variables - public
   
   // Member functions - public
-  MdbFile(void);
+  MdbFile(char* fileName);
   ~MdbFile(void);
   
 private:

@@ -12,12 +12,14 @@
 
 char* worldSoilBilFileName = (char*)"Materials/Solar/HWSD_RASTER/hwsd";
 
+char* worldSoilMdbFileName = (char*)"Materials/Solar/HWSD.mdb";
 
 // =======================================================================================
 /// @brief Constructor
 
 SoilDatabase::SoilDatabase(void):
-                          worldSoilBilFile(worldSoilBilFileName)
+                              worldSoilBilFile(worldSoilBilFileName),
+                              worldSoilMdbFile(worldSoilMdbFileName)
 {
 }
 

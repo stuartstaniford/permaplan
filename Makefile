@@ -1523,7 +1523,7 @@ src/HttpLBPermaserv.o: /usr/local/include/cglm/ray.h
 src/HttpLBPermaserv.o: /usr/local/include/cglm/affine2d.h
 src/HttpLBPermaserv.o: include/HttpRequestParser.h include/SolarDatabase.h
 src/HttpLBPermaserv.o: include/GdalFileInterface.h include/SoilDatabase.h
-src/HttpLBPermaserv.o: include/BILFile.h
+src/HttpLBPermaserv.o: include/BILFile.h include/MdbFile.h
 src/HttpLoadBalancer.o: include/HttpLoadBalancer.h include/HttpDebug.h
 src/HttpLoadBalancer.o: include/HttpServThread.h include/TaskQueue.h
 src/HttpLoadBalancer.o: include/Lockable.h include/Global.h
@@ -1596,8 +1596,8 @@ src/HttpPermaServ.o: /usr/local/include/cglm/affine2d.h
 src/HttpPermaServ.o: include/HttpRequestParser.h include/Logging.h
 src/HttpPermaServ.o: include/MemoryTracker.h include/SolarDatabase.h
 src/HttpPermaServ.o: include/GdalFileInterface.h include/SoilDatabase.h
-src/HttpPermaServ.o: include/BILFile.h include/HttpLBPermaserv.h
-src/HttpPermaServ.o: include/HttpLoadBalancer.h
+src/HttpPermaServ.o: include/BILFile.h include/MdbFile.h
+src/HttpPermaServ.o: include/HttpLBPermaserv.h include/HttpLoadBalancer.h
 src/HttpPermaservClient.o: include/HttpPermaservClient.h include/HttpClient.h
 src/HttpPermaservClient.o: include/rapidjson/document.h
 src/HttpPermaservClient.o: include/rapidjson/reader.h
@@ -2427,6 +2427,7 @@ src/Material.o: include/MemoryTracker.h include/TextureAtlas.h
 src/Material.o: include/HttpDebug.h include/HttpServThread.h
 src/Material.o: include/TaskQueue.h include/Lockable.h include/Global.h
 src/Material.o: include/HttpRequestParser.h
+src/MdbFile.o: include/MdbFile.h
 src/MemoryTracker.o: include/MemoryTracker.h include/HttpDebug.h
 src/MemoryTracker.o: include/HttpServThread.h include/TaskQueue.h
 src/MemoryTracker.o: include/Lockable.h include/Global.h
@@ -4040,6 +4041,36 @@ src/SkySampleModel.o: include/rapidjson/stringbuffer.h
 src/SkySampleModel.o: include/rapidjson/error/en.h
 src/SkySampleModel.o: include/rapidjson/error/error.h
 src/SoilDatabase.o: include/SoilDatabase.h include/BILFile.h
+src/SoilDatabase.o: include/MdbFile.h include/SoilProfile.h
+src/SoilDatabase.o: include/GroundLayer.h include/rapidjson/document.h
+src/SoilDatabase.o: include/rapidjson/reader.h include/rapidjson/allocators.h
+src/SoilDatabase.o: include/rapidjson/rapidjson.h include/rapidjson/stream.h
+src/SoilDatabase.o: include/rapidjson/encodings.h
+src/SoilDatabase.o: include/rapidjson/encodedstream.h
+src/SoilDatabase.o: include/rapidjson/memorystream.h
+src/SoilDatabase.o: include/rapidjson/internal/clzll.h
+src/SoilDatabase.o: include/rapidjson/rapidjson.h
+src/SoilDatabase.o: include/rapidjson/internal/meta.h
+src/SoilDatabase.o: include/rapidjson/internal/stack.h
+src/SoilDatabase.o: include/rapidjson/allocators.h
+src/SoilDatabase.o: include/rapidjson/internal/swap.h
+src/SoilDatabase.o: include/rapidjson/internal/strtod.h
+src/SoilDatabase.o: include/rapidjson/internal/ieee754.h
+src/SoilDatabase.o: include/rapidjson/internal/biginteger.h
+src/SoilDatabase.o: include/rapidjson/internal/diyfp.h
+src/SoilDatabase.o: include/rapidjson/internal/clzll.h
+src/SoilDatabase.o: include/rapidjson/internal/pow10.h
+src/SoilDatabase.o: include/rapidjson/error/error.h
+src/SoilDatabase.o: include/rapidjson/internal/strfunc.h
+src/SoilDatabase.o: include/rapidjson/stream.h include/rapidjson/writer.h
+src/SoilDatabase.o: include/rapidjson/internal/dtoa.h
+src/SoilDatabase.o: include/rapidjson/internal/itoa.h
+src/SoilDatabase.o: include/rapidjson/internal/itoa.h
+src/SoilDatabase.o: include/rapidjson/stringbuffer.h
+src/SoilDatabase.o: include/rapidjson/stringbuffer.h
+src/SoilDatabase.o: include/rapidjson/error/en.h
+src/SoilDatabase.o: include/rapidjson/error/error.h include/Logging.h
+src/SoilDatabase.o: include/MemoryTracker.h
 src/SoilHorizon.o: include/SoilHorizon.h include/GroundLayer.h
 src/SoilHorizon.o: include/rapidjson/document.h include/rapidjson/reader.h
 src/SoilHorizon.o: include/rapidjson/allocators.h

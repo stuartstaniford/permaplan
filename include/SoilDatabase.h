@@ -4,6 +4,7 @@
 #define SOIL_DATABASE_H
 
 #include "BILFile.h"
+#include "MdbFile.h"
 
 
 // =======================================================================================
@@ -30,6 +31,7 @@ private:
   
   // Instance variables - private
   BILFile worldSoilBilFile;
+  MdbFile worldSoilMdbFile;
 
   // Member functions - private
   /// @brief Prevent copy-construction.
