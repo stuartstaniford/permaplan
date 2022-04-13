@@ -9,17 +9,17 @@
 // https://github.com/mdbtools/mdbtools/blob/dev/src/util/mdb-tables.c
 
 #include "MdbFile.h"
-//#include "mdbtools.h"
 //#include "mdbver.h"
-
+#include "Global.h"
+#include <err.h>
 
 // =======================================================================================
 /// @brief Constructor
 
-MdbFile::MdbFile(char* fileName)
+MdbDatabase::MdbDatabase(char* fileName)
 {
- // unless((mdb = mdb_open (fileName, MDB_NOFLAGS))) 
-  //  err(-1, "Couldn't open .mdb file %s.\n", fileName);
+//  unless((mdb = mdb_open (fileName, MDB_NOFLAGS))) 
+//    err(-1, "Couldn't open .mdb file %s.\n", fileName);
 
 }
 
@@ -27,7 +27,7 @@ MdbFile::MdbFile(char* fileName)
 // =======================================================================================
 /// @brief Destructor
 
-MdbFile::~MdbFile(void)
+MdbDatabase::~MdbDatabase(void)
 {
 }
 

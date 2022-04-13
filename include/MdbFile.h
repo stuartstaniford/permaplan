@@ -3,12 +3,10 @@
 #ifndef MDB_FILE_H
 #define MDB_FILE_H
 
+#include "mdbtools.h"
 
 // =======================================================================================
 // Forward declarations
-
-class MdbHandle;
-class MdbCatalogEntry;
 
 
 // =======================================================================================
@@ -19,15 +17,15 @@ class MdbCatalogEntry;
 /// a cleaner C++ interface.  It was originally introduced into the code for reading
 /// the MDB file from the Harmonized World Soil Database 
 
-class MdbFile
+class MdbDatabase
 {
 public:
   
   // Instance variables - public
   
   // Member functions - public
-  MdbFile(char* fileName);
-  ~MdbFile(void);
+  MdbDatabase(char* fileName);
+  ~MdbDatabase(void);
   
 private:
   
@@ -37,9 +35,9 @@ private:
 
   // Member functions - private
   /// @brief Prevent copy-construction.
-  MdbFile(const MdbFile&);       
+  MdbDatabase(const MdbDatabase&);       
   /// @brief Prevent assignment.
-  MdbFile& operator=(const MdbFile&);      
+  MdbDatabase& operator=(const MdbDatabase&);      
 };
 
 

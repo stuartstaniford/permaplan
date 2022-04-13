@@ -31,7 +31,7 @@ private:
   
   // Instance variables - private
   BILFile worldSoilBilFile;
-  MdbFile worldSoilMdbFile;
+  MdbDatabase worldSoilMdbDatabase;
 
   // Member functions - private
   /// @brief Prevent copy-construction.

@@ -17,13 +17,17 @@ INCLUDES = -I include -I imgui -I imgui/backends -I /usr/local/include -I /usr/l
 
 # define library paths in addition to /usr/lib
 #   if I wanted to include libraries not in /usr/lib I'd specify
+
+
+# define library paths in addition to /usr/lib
+#   if I wanted to include libraries not in /usr/lib I'd specify
 #   their path using -Lpath, something like:
 LFLAGS =
 
 # define any libraries to link into executable:
 #   if I want to link in libraries (libx.so or libx.a) I use the -llibname
 #   option, something like (this will link in libmylib.so and libm.so:
-LIBS = -framework OpenGL -lglfw -lGLEW -lcurl -lgdal
+LIBS = -framework OpenGL -lglfw -lGLEW -lcurl -lgdal -lmdb
 
 # define the source files
 SRCS = $(wildcard src/*.cpp)
