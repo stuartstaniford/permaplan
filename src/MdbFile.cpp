@@ -16,10 +16,52 @@
 // =======================================================================================
 /// @brief Constructor
 
-MdbDatabase::MdbDatabase(char* fileName)
+MdbDatabase::MdbDatabase(char* fileName):
+                                dbName(fileName)
 {
     unless((mdb = mdb_open(fileName, MDB_NOFLAGS))) 
-      err(-1, "Couldn't open .mdb file %s.\n", fileName);
+      err(-1, "Couldn't open .mdb file %s.\n", fileName);  
+  
+  logCatalog();
+}
+
+
+// =======================================================================================
+/// @brief Log the catalog of the database file
+
+void MdbDatabase::logCatalog(void)
+{
+  // Read the catalog
+  unless(mdb_read_catalog(mdb, MDB_ANY))
+    err(-1, "File %s does not appear to be an Access database.\n", dbName);
+
+  /*
+  // loop over each entry in the catalog
+  for (int i=0; i < mdb->num_catalog; i++) 
+   {
+    entry = g_ptr_array_index (mdb->catalog, i);
+
+    if (entry->object_type != objtype && objtype!=MDB_ANY)
+      continue;
+    if (skip_sys && mdb_is_system_table(entry))
+      continue;
+
+    if (show_type) 
+     {
+      if (delimiter)
+        puts(delimiter);
+      printf("%d ", entry->object_type);
+     }
+    if (line_break) 
+      printf ("%s\n", entry->object_name);
+    else if (delimiter) 
+      printf ("%s%s", entry->object_name, delimiter);
+    else 
+      printf ("%s ", entry->object_name);
+   }
+  if(!line_break) 
+   fprintf (stdout, "\n");
+*/
 }
 
 
@@ -28,6 +70,7 @@ MdbDatabase::MdbDatabase(char* fileName)
 
 MdbDatabase::~MdbDatabase(void)
 {
+  mdb_close(mdb);
 }
 
 

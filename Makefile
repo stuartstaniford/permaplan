@@ -22,7 +22,7 @@ INCLUDES = -I include -I imgui -I imgui/backends -I /usr/local/include -I /usr/l
 # define library paths in addition to /usr/lib
 #   if I wanted to include libraries not in /usr/lib I'd specify
 #   their path using -Lpath, something like:
-LFLAGS = /usr/local/lib
+LFLAGS = 
 
 # define any libraries to link into executable:
 #   if I want to link in libraries (libx.so or libx.a) I use the -llibname

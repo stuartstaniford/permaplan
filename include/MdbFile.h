@@ -25,6 +25,7 @@ public:
   
   // Member functions - public
   MdbDatabase(char* fileName);
+  void logCatalog(void);
   ~MdbDatabase(void);
   
 private:
@@ -32,6 +33,7 @@ private:
   // Instance variables - private
   MdbHandle*        mdb;
   MdbCatalogEntry*  entry;
+  char*             dbName;
 
   // Member functions - private
   /// @brief Prevent copy-construction.
