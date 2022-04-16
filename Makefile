@@ -22,7 +22,7 @@ INCLUDES = -I include -I imgui -I imgui/backends -I /usr/local/include -I /usr/l
 # define library paths in addition to /usr/lib
 #   if I wanted to include libraries not in /usr/lib I'd specify
 #   their path using -Lpath, something like:
-LFLAGS =
+LFLAGS = /usr/local/lib
 
 # define any libraries to link into executable:
 #   if I want to link in libraries (libx.so or libx.a) I use the -llibname
@@ -65,7 +65,7 @@ doc:		$(SRCS) $(wildcard include/*.h) Doxyfile
 				doxygen Doxyfile
 
 permaserv/permaserv: $(SERV_OBJS) permaserv/permaserv_main.cpp
-							$(CPP) $(CFLAGS) -o permaserv/permaserv -I ./include -I /usr/local/include -lgdal  $(SERV_OBJS) permaserv/permaserv_main.cpp
+							$(CPP) $(CFLAGS) -o permaserv/permaserv -I ./include -I /usr/local/include $(LIBS)  $(SERV_OBJS) permaserv/permaserv_main.cpp
 
 # this is a suffix replacement rule for building .o's from .c's
 # it uses automatic variables $<: the name of the prerequisite of
@@ -1528,6 +1528,92 @@ src/HttpLBPermaserv.o: /usr/local/include/cglm/affine2d.h
 src/HttpLBPermaserv.o: include/HttpRequestParser.h include/SolarDatabase.h
 src/HttpLBPermaserv.o: include/GdalFileInterface.h include/SoilDatabase.h
 src/HttpLBPermaserv.o: include/BILFile.h include/MdbFile.h
+src/HttpLBPermaserv.o: /usr/local/include/mdbtools.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/galloca.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gtypes.h
+src/HttpLBPermaserv.o: /usr/local/Cellar/glib/2.70.4/lib/glib-2.0/include/glibconfig.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gmacros.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gversionmacros.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/garray.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gasyncqueue.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gthread.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gatomic.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/glib-typeof.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gerror.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gquark.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gutils.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gbacktrace.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gbase64.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gbitlock.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gbookmarkfile.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gdatetime.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gtimezone.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gbytes.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gcharset.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gchecksum.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gconvert.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gdataset.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gdate.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gdir.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/genviron.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gfileutils.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/ggettext.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/ghash.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/glist.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gmem.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gnode.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/ghmac.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gchecksum.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/ghook.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/ghostutils.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/giochannel.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gmain.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gpoll.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gslist.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gstring.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gunicode.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gkeyfile.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gmappedfile.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gmarkup.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gmessages.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gvariant.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gvarianttype.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/goption.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gpattern.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gprimes.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gqsort.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gqueue.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/grand.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/grcbox.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/grefcount.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/grefstring.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gmem.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gmacros.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gregex.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gscanner.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gsequence.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gshell.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gslice.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gspawn.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gstrfuncs.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gstringchunk.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gstrvbuilder.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gtestutils.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gthreadpool.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gtimer.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gtrashstack.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gtree.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/guri.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/guuid.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gversion.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/deprecated/gallocator.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/deprecated/gcache.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/deprecated/gcompletion.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/deprecated/gmain.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/deprecated/grel.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/deprecated/gthread.h
+src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/glib-autocleanups.h
 src/HttpLoadBalancer.o: include/HttpLoadBalancer.h include/HttpDebug.h
 src/HttpLoadBalancer.o: include/HttpServThread.h include/TaskQueue.h
 src/HttpLoadBalancer.o: include/Lockable.h include/Global.h
@@ -1601,6 +1687,92 @@ src/HttpPermaServ.o: include/HttpRequestParser.h include/Logging.h
 src/HttpPermaServ.o: include/MemoryTracker.h include/SolarDatabase.h
 src/HttpPermaServ.o: include/GdalFileInterface.h include/SoilDatabase.h
 src/HttpPermaServ.o: include/BILFile.h include/MdbFile.h
+src/HttpPermaServ.o: /usr/local/include/mdbtools.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/galloca.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gtypes.h
+src/HttpPermaServ.o: /usr/local/Cellar/glib/2.70.4/lib/glib-2.0/include/glibconfig.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gmacros.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gversionmacros.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/garray.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gasyncqueue.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gthread.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gatomic.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/glib-typeof.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gerror.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gquark.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gutils.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gbacktrace.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gbase64.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gbitlock.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gbookmarkfile.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gdatetime.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gtimezone.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gbytes.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gcharset.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gchecksum.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gconvert.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gdataset.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gdate.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gdir.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/genviron.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gfileutils.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/ggettext.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/ghash.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/glist.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gmem.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gnode.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/ghmac.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gchecksum.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/ghook.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/ghostutils.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/giochannel.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gmain.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gpoll.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gslist.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gstring.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gunicode.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gkeyfile.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gmappedfile.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gmarkup.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gmessages.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gvariant.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gvarianttype.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/goption.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gpattern.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gprimes.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gqsort.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gqueue.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/grand.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/grcbox.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/grefcount.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/grefstring.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gmem.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gmacros.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gregex.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gscanner.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gsequence.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gshell.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gslice.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gspawn.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gstrfuncs.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gstringchunk.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gstrvbuilder.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gtestutils.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gthreadpool.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gtimer.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gtrashstack.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gtree.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/guri.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/guuid.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gversion.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/deprecated/gallocator.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/deprecated/gcache.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/deprecated/gcompletion.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/deprecated/gmain.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/deprecated/grel.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/deprecated/gthread.h
+src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/glib-autocleanups.h
 src/HttpPermaServ.o: include/HttpLBPermaserv.h include/HttpLoadBalancer.h
 src/HttpPermaservClient.o: include/HttpPermaservClient.h include/HttpClient.h
 src/HttpPermaservClient.o: include/rapidjson/document.h
@@ -2431,7 +2603,114 @@ src/Material.o: include/MemoryTracker.h include/TextureAtlas.h
 src/Material.o: include/HttpDebug.h include/HttpServThread.h
 src/Material.o: include/TaskQueue.h include/Lockable.h include/Global.h
 src/Material.o: include/HttpRequestParser.h
-src/MdbFile.o: include/MdbFile.h
+src/MdbFile.o: include/MdbFile.h /usr/local/include/mdbtools.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/galloca.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gtypes.h
+src/MdbFile.o: /usr/local/Cellar/glib/2.70.4/lib/glib-2.0/include/glibconfig.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gmacros.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gversionmacros.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/garray.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gasyncqueue.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gthread.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gatomic.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/glib-typeof.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gerror.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gquark.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gutils.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gbacktrace.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gbase64.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gbitlock.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gbookmarkfile.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gdatetime.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gtimezone.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gbytes.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gcharset.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gchecksum.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gconvert.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gdataset.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gdate.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gdir.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/genviron.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gfileutils.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/ggettext.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/ghash.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/glist.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gmem.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gnode.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/ghmac.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gchecksum.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/ghook.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/ghostutils.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/giochannel.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gmain.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gpoll.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gslist.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gstring.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gunicode.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gkeyfile.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gmappedfile.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gmarkup.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gmessages.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gvariant.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gvarianttype.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/goption.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gpattern.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gprimes.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gqsort.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gqueue.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/grand.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/grcbox.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/grefcount.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/grefstring.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gmem.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gmacros.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gregex.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gscanner.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gsequence.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gshell.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gslice.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gspawn.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gstrfuncs.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gstringchunk.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gstrvbuilder.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gtestutils.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gthreadpool.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gtimer.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gtrashstack.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gtree.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/guri.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/guuid.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/gversion.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/deprecated/gallocator.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/deprecated/gcache.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/deprecated/gcompletion.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/deprecated/gmain.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/deprecated/grel.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/deprecated/gthread.h
+src/MdbFile.o: /usr/local/include/glib-2.0/glib/glib-autocleanups.h
+src/MdbFile.o: include/Global.h /usr/local/include/cglm/cglm.h
+src/MdbFile.o: /usr/local/include/cglm/common.h
+src/MdbFile.o: /usr/local/include/cglm/types.h
+src/MdbFile.o: /usr/local/include/cglm/simd/intrin.h
+src/MdbFile.o: /usr/local/include/cglm/vec2.h /usr/local/include/cglm/util.h
+src/MdbFile.o: /usr/local/include/cglm/vec2-ext.h
+src/MdbFile.o: /usr/local/include/cglm/vec3.h /usr/local/include/cglm/vec4.h
+src/MdbFile.o: /usr/local/include/cglm/vec4-ext.h
+src/MdbFile.o: /usr/local/include/cglm/vec3-ext.h
+src/MdbFile.o: /usr/local/include/cglm/mat4.h /usr/local/include/cglm/mat3.h
+src/MdbFile.o: /usr/local/include/cglm/mat2.h
+src/MdbFile.o: /usr/local/include/cglm/affine.h
+src/MdbFile.o: /usr/local/include/cglm/affine-mat.h
+src/MdbFile.o: /usr/local/include/cglm/cam.h /usr/local/include/cglm/plane.h
+src/MdbFile.o: /usr/local/include/cglm/frustum.h
+src/MdbFile.o: /usr/local/include/cglm/quat.h /usr/local/include/cglm/euler.h
+src/MdbFile.o: /usr/local/include/cglm/box.h /usr/local/include/cglm/color.h
+src/MdbFile.o: /usr/local/include/cglm/io.h /usr/local/include/cglm/project.h
+src/MdbFile.o: /usr/local/include/cglm/sphere.h
+src/MdbFile.o: /usr/local/include/cglm/ease.h /usr/local/include/cglm/curve.h
+src/MdbFile.o: /usr/local/include/cglm/bezier.h /usr/local/include/cglm/ray.h
+src/MdbFile.o: /usr/local/include/cglm/affine2d.h
 src/MemoryTracker.o: include/MemoryTracker.h include/HttpDebug.h
 src/MemoryTracker.o: include/HttpServThread.h include/TaskQueue.h
 src/MemoryTracker.o: include/Lockable.h include/Global.h
@@ -4045,9 +4324,95 @@ src/SkySampleModel.o: include/rapidjson/stringbuffer.h
 src/SkySampleModel.o: include/rapidjson/error/en.h
 src/SkySampleModel.o: include/rapidjson/error/error.h
 src/SoilDatabase.o: include/SoilDatabase.h include/BILFile.h
-src/SoilDatabase.o: include/MdbFile.h include/SoilProfile.h
-src/SoilDatabase.o: include/GroundLayer.h include/rapidjson/document.h
-src/SoilDatabase.o: include/rapidjson/reader.h include/rapidjson/allocators.h
+src/SoilDatabase.o: include/MdbFile.h /usr/local/include/mdbtools.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/galloca.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gtypes.h
+src/SoilDatabase.o: /usr/local/Cellar/glib/2.70.4/lib/glib-2.0/include/glibconfig.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gmacros.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gversionmacros.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/garray.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gasyncqueue.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gthread.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gatomic.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/glib-typeof.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gerror.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gquark.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gutils.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gbacktrace.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gbase64.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gbitlock.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gbookmarkfile.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gdatetime.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gtimezone.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gbytes.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gcharset.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gchecksum.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gconvert.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gdataset.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gdate.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gdir.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/genviron.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gfileutils.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/ggettext.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/ghash.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/glist.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gmem.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gnode.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/ghmac.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gchecksum.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/ghook.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/ghostutils.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/giochannel.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gmain.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gpoll.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gslist.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gstring.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gunicode.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gkeyfile.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gmappedfile.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gmarkup.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gmessages.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gvariant.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gvarianttype.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/goption.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gpattern.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gprimes.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gqsort.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gqueue.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/grand.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/grcbox.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/grefcount.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/grefstring.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gmem.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gmacros.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gregex.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gscanner.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gsequence.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gshell.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gslice.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gspawn.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gstrfuncs.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gstringchunk.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gstrvbuilder.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gtestutils.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gthreadpool.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gtimer.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gtrashstack.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gtree.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/guri.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/guuid.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gversion.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/deprecated/gallocator.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/deprecated/gcache.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/deprecated/gcompletion.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/deprecated/gmain.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/deprecated/grel.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/deprecated/gthread.h
+src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/glib-autocleanups.h
+src/SoilDatabase.o: include/SoilProfile.h include/GroundLayer.h
+src/SoilDatabase.o: include/rapidjson/document.h include/rapidjson/reader.h
+src/SoilDatabase.o: include/rapidjson/allocators.h
 src/SoilDatabase.o: include/rapidjson/rapidjson.h include/rapidjson/stream.h
 src/SoilDatabase.o: include/rapidjson/encodings.h
 src/SoilDatabase.o: include/rapidjson/encodedstream.h
