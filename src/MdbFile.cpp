@@ -31,37 +31,22 @@ MdbDatabase::MdbDatabase(char* fileName):
 
 void MdbDatabase::logCatalog(void)
 {
+  int objtype = MDB_TABLE;
   // Read the catalog
   unless(mdb_read_catalog(mdb, MDB_ANY))
     err(-1, "File %s does not appear to be an Access database.\n", dbName);
 
-  /*
   // loop over each entry in the catalog
-  for (int i=0; i < mdb->num_catalog; i++) 
+  for (int i=0; i<mdb->num_catalog; i++) 
    {
-    entry = g_ptr_array_index (mdb->catalog, i);
+    entry = (MdbCatalogEntry*)g_ptr_array_index(mdb->catalog, i);
 
     if (entry->object_type != objtype && objtype!=MDB_ANY)
       continue;
-    if (skip_sys && mdb_is_system_table(entry))
-      continue;
 
-    if (show_type) 
-     {
-      if (delimiter)
-        puts(delimiter);
-      printf("%d ", entry->object_type);
-     }
-    if (line_break) 
-      printf ("%s\n", entry->object_name);
-    else if (delimiter) 
-      printf ("%s%s", entry->object_name, delimiter);
-    else 
-      printf ("%s ", entry->object_name);
+    printf("%d\t", entry->object_type);
+    printf ("%s\n", entry->object_name);
    }
-  if(!line_break) 
-   fprintf (stdout, "\n");
-*/
 }
 
 
