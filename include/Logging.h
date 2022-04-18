@@ -78,7 +78,9 @@
 // =======================================================================================
 // Logging options to do with soil stuff
 
-#define LOG_SOIL_DB_ERR            // Log problems in the soil database operation
+#define LOG_SOIL_DB_ERR             // Log problems in the soil database operation
+#define LOG_SOIL_DB_OPS             // Log normal operations on the soil database
+#define LOG_SOIL_DB_DETAILS         // Log extra details in the soil database operation
 
 
 // =======================================================================================
@@ -236,6 +238,8 @@ extern bool doLogGdalError;           // Log problems in accessing files via lib
 
 // Logging options to do with soil stuff
 extern bool doLogSoilDbErr;           // Log problems in the soil database operation
+extern bool doLogSoilDbOps;           // Log normal operations on the soil database
+extern bool doLogSoilDbDetails;       // Log extra details in the soil database operation
 
 // Logging options for Trees/Plants
 extern bool doLogTreeSelections;      // Log when a tree is selected.
@@ -620,6 +624,23 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
 #else
 #define LogSoilDbErr(...)
 #endif
+
+// Log normal operations on the soil database
+#ifdef LOG_SOIL_DB_OPS
+#define LogSoilDbOps(...) if(doLogSoilDbOps) \
+                                            LogStatement("LogSoilDbOps: " __VA_ARGS__)
+#else
+#define LogSoilDbOps(...)
+#endif
+
+// Log extra details in the soil database operation
+#ifdef LOG_SOIL_DB_DETAILS
+#define LogSoilDbDetails(...) if(doLogSoilDbDetails) \
+                                            LogStatement("LogSoilDbDetails: " __VA_ARGS__)
+#else
+#define LogSoilDbDetails(...)
+#endif
+
 
 // =======================================================================================
 // Logging options for Trees/Plants
