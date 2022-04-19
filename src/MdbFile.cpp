@@ -7,9 +7,11 @@
 
 // MdbTools is not very well documented.  This file was developed by studying the files:
 // https://github.com/mdbtools/mdbtools/blob/dev/src/util/mdb-tables.c
+// https://github.com/mdbtools/mdbtools/blob/dev/src/util/mdb-schema.c
 
 #include "MdbFile.h"
 //#include "mdbver.h"
+#include "SoilProfile.h"
 #include "Global.h"
 #include <err.h>
 
@@ -47,7 +49,19 @@ void MdbDatabase::logCatalog(void)
 
     printf("%d\t", entry->object_type);
     printf ("%s\n", entry->object_name);
+    mdb_print_schema(mdb, stdout, entry->object_name, NULL, MDB_SHEXP_DEFAULT);
    }
+}
+
+
+// =======================================================================================
+/// @brief Log the catalog of the database file
+
+SoilProfile* MdbDatabase::fetchProfile(unsigned short soilIndex)
+{
+//HWSD_DATA
+
+  return NULL;
 }
 
 

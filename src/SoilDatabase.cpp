@@ -59,6 +59,9 @@ unsigned SoilDatabase::printJsonSoilProfileAtPoint(char* buf, unsigned bufSize,
     LogSoilDbErr("Could not get soil index for lat,long: %.3f, %.3f.\n", lat, longt);
     return 0u;    
    }
+  LogSoilDbOps("Obtained soil index %u for lat,long: %.3f, %.3f.\n", 
+                                                                  soilIndex, lat, longt);
+
   //unsigned retVal = soilProfile->writeJson(buf, bufSize);
   //delete soilProfile;
   //return retVal;

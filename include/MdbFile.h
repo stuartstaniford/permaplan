@@ -8,9 +8,11 @@
 // =======================================================================================
 // Forward declarations
 
+class SoilProfile;
+
 
 // =======================================================================================
-/// @brief A wrapper for the mdbtools library libmdb.wrapper
+/// @brief A wrapper for the mdbtools library libmdb.
 /// 
 /// MDBTools is a set of tools for reading ".mdb" files - Microsoft Access Database 
 /// Files.  This abstracts the limited amount of functionality we have needed and creates
@@ -26,6 +28,7 @@ public:
   // Member functions - public
   MdbDatabase(char* fileName);
   void logCatalog(void);
+  SoilProfile* fetchProfile(unsigned short soilIndex);
   ~MdbDatabase(void);
   
 private:

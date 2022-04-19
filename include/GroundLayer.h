@@ -23,6 +23,9 @@ class GroundLayer
 public:
   
   // Instance variables - public
+
+  /// @brief The name of this particular ground layer (eg "litter", "topsoil").
+  char* name;                  
   
   /// @brief The depth of this particular soil layer (cm).
   float depth;                  

@@ -3,7 +3,7 @@ Permaculture planning software.
 
 The goal is to be able to model and visualize a landscape design as it evolves into the future - double-click on a map to add trees, buildings, etc, and then watch the landscape grow from any vantage point, and estimate the future carbon capture vs carbon consumption in maintenance.  Possible extensions include estimating resilence to fire, flood, drought, and all the other upcoming nasties.
 
-Right now, it's In the early stages of development; do not try to use it yet.  I'm shooting to have alpha semi-usable code late in 2021 (so I can use it for design work on my own landscape over the winter before the 2022 growing season).  The full vision is going to take years of work (I've bitten off a very big ambitious thing, and there's a lot of chewing required).
+Right now, it's In the early stages of development; do not try to use it yet.  I'm shooting to have alpha semi-usable code late in 2022 (so I can use it for design work on my own landscape over the winter before the 2023 growing season).  The full vision is going to take years of work (I've bitten off a very big ambitious thing, and there's a lot of chewing required).
 
 I intend to ultimately open-source it, but right now it is still all rights-reserved with no license to copy.  That said, shoot me a note if you are interested in playing with or contributing to it.
 
