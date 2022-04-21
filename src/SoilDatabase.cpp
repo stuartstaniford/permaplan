@@ -21,6 +21,7 @@ SoilDatabase::SoilDatabase(void):
                               worldSoilBilFile(worldSoilBilFileName),
                               worldSoilMdbDatabase(worldSoilMdbDBName)
 {
+  loadHWSDProfiles();
 }
 
 
@@ -29,6 +30,8 @@ SoilDatabase::SoilDatabase(void):
 
 SoilDatabase::~SoilDatabase(void)
 {
+  for(auto profile: worldSoilProfiles)
+    delete profile.second;
 }
 
 
