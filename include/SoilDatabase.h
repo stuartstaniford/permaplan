@@ -26,6 +26,7 @@ public:
   // Member functions - public
   SoilDatabase(void);
   ~SoilDatabase(void);
+  void loadHWSDProfiles(void);
   unsigned printJsonSoilProfileAtPoint(char* buf, unsigned bufSize, float lat, float longt);
 
 private:

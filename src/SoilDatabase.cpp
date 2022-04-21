@@ -33,6 +33,18 @@ SoilDatabase::~SoilDatabase(void)
 
 
 // =======================================================================================
+/// @brief Read the table of all the soil profiles at startup.
+/// 
+/// Reads them from the MS Access database worldSoilMdbDBName and stores them all in 
+/// the worldSoilProfiles unordered_map in memory for later efficient retrieval (a single
+/// hash look-up).
+
+void SoilDatabase::loadHWSDProfiles(void)
+{
+}
+
+
+/// =======================================================================================
 /// @brief Output JSON soil profile format for a particular location to a buffer.
 ///
 /// Note this function does not itself write out JSON, but rather is a gateway which
