@@ -55,7 +55,7 @@ void MdbDatabase::logCatalog(void)
 
 
 // =======================================================================================
-/// @brief Log the catalog of the database file
+/// @brief Fetch a particular soil profile.
 
 SoilProfile* MdbDatabase::fetchProfile(unsigned short soilIndex)
 {

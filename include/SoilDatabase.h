@@ -5,6 +5,7 @@
 
 #include "BILFile.h"
 #include "MdbFile.h"
+#include <unordered_map>
 
 
 // =======================================================================================
@@ -32,7 +33,8 @@ private:
   // Instance variables - private
   BILFile worldSoilBilFile;
   MdbDatabase worldSoilMdbDatabase;
-
+  std::unordered_map<unsigned, SoilProfile*> worldSoilProfiles;
+  
   // Member functions - private
   /// @brief Prevent copy-construction.
   SoilDatabase(const SoilDatabase&);       
