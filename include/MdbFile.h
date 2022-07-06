@@ -4,12 +4,34 @@
 #define MDB_FILE_H
 
 #include "mdbtools.h"
+#include <vector>
+
 
 // =======================================================================================
 // Forward declarations
 
 class SoilProfile;
 
+
+// =======================================================================================
+/// @brief The information required to extract a particular entry in one column from a 
+/// table and insert it into a structure (which is handled as byte offsets into a void*).
+
+class MdbTableSchemaEntry
+{
+  //int         colIndex;
+  //MdbColumn*  column;
+  //int         offset;
+};
+
+// =======================================================================================
+/// @brief The information required to extract particular rows from a table and insert
+/// them into a structure (which is handled as byte offsets into a void*).
+
+class MdbTableSchema: public std::vector<MdbTableSchemaEntry>
+{
+  
+};
 
 // =======================================================================================
 /// @brief A wrapper for the mdbtools library libmdb.
@@ -28,7 +50,7 @@ public:
   // Member functions - public
   MdbDatabase(char* fileName);
   void logCatalog(void);
-  SoilProfile* fetchProfile(unsigned short soilIndex);
+  bool fetchNextRowToStructure(void* S);
   ~MdbDatabase(void);
   
 private:

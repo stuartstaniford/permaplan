@@ -13,7 +13,7 @@ CFLAGS = -Wall -g -std=c++11
 
 # define any directories containing header files other than /usr/include
 #
-INCLUDES = -I include -I imgui -I imgui/backends -I /usr/local/include -I /usr/local/include/glib-2.0 -I /usr/local/Cellar/glib/2.70.4/lib/glib-2.0/include
+INCLUDES = -I ./include -I imgui -I imgui/backends -I /usr/local/include -I/usr/local/Cellar/glib/2.72.2/include/glib-2.0 -I/usr/local/Cellar/glib/2.72.2/lib/glib-2.0/include -I/usr/local/opt/gettext/include -I/usr/local/Cellar/pcre/8.45/include
 
 # define library paths in addition to /usr/lib
 #   if I wanted to include libraries not in /usr/lib I'd specify
@@ -65,7 +65,7 @@ doc:		$(SRCS) $(wildcard include/*.h) Doxyfile
 				doxygen Doxyfile
 
 permaserv/permaserv: $(SERV_OBJS) permaserv/permaserv_main.cpp
-							$(CPP) $(CFLAGS) -o permaserv/permaserv -I ./include -I /usr/local/include $(LIBS)  $(SERV_OBJS) permaserv/permaserv_main.cpp
+							$(CPP) $(CFLAGS) -o permaserv/permaserv $(INCLUDES) $(LIBS)  $(SERV_OBJS) permaserv/permaserv_main.cpp
 
 # this is a suffix replacement rule for building .o's from .c's
 # it uses automatic variables $<: the name of the prerequisite of
@@ -1532,7 +1532,6 @@ src/HttpLBPermaserv.o: /usr/local/include/mdbtools.h
 src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib.h
 src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/galloca.h
 src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gtypes.h
-src/HttpLBPermaserv.o: /usr/local/Cellar/glib/2.70.4/lib/glib-2.0/include/glibconfig.h
 src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gmacros.h
 src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/gversionmacros.h
 src/HttpLBPermaserv.o: /usr/local/include/glib-2.0/glib/garray.h
@@ -1691,7 +1690,6 @@ src/HttpPermaServ.o: /usr/local/include/mdbtools.h
 src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib.h
 src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/galloca.h
 src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gtypes.h
-src/HttpPermaServ.o: /usr/local/Cellar/glib/2.70.4/lib/glib-2.0/include/glibconfig.h
 src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gmacros.h
 src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/gversionmacros.h
 src/HttpPermaServ.o: /usr/local/include/glib-2.0/glib/garray.h
@@ -2607,7 +2605,6 @@ src/MdbFile.o: include/MdbFile.h /usr/local/include/mdbtools.h
 src/MdbFile.o: /usr/local/include/glib-2.0/glib.h
 src/MdbFile.o: /usr/local/include/glib-2.0/glib/galloca.h
 src/MdbFile.o: /usr/local/include/glib-2.0/glib/gtypes.h
-src/MdbFile.o: /usr/local/Cellar/glib/2.70.4/lib/glib-2.0/include/glibconfig.h
 src/MdbFile.o: /usr/local/include/glib-2.0/glib/gmacros.h
 src/MdbFile.o: /usr/local/include/glib-2.0/glib/gversionmacros.h
 src/MdbFile.o: /usr/local/include/glib-2.0/glib/garray.h
@@ -2689,7 +2686,34 @@ src/MdbFile.o: /usr/local/include/glib-2.0/glib/deprecated/gmain.h
 src/MdbFile.o: /usr/local/include/glib-2.0/glib/deprecated/grel.h
 src/MdbFile.o: /usr/local/include/glib-2.0/glib/deprecated/gthread.h
 src/MdbFile.o: /usr/local/include/glib-2.0/glib/glib-autocleanups.h
-src/MdbFile.o: include/Global.h /usr/local/include/cglm/cglm.h
+src/MdbFile.o: include/SoilProfile.h include/GroundLayer.h
+src/MdbFile.o: include/rapidjson/document.h include/rapidjson/reader.h
+src/MdbFile.o: include/rapidjson/allocators.h include/rapidjson/rapidjson.h
+src/MdbFile.o: include/rapidjson/stream.h include/rapidjson/encodings.h
+src/MdbFile.o: include/rapidjson/encodedstream.h
+src/MdbFile.o: include/rapidjson/memorystream.h
+src/MdbFile.o: include/rapidjson/internal/clzll.h
+src/MdbFile.o: include/rapidjson/rapidjson.h
+src/MdbFile.o: include/rapidjson/internal/meta.h
+src/MdbFile.o: include/rapidjson/internal/stack.h
+src/MdbFile.o: include/rapidjson/allocators.h
+src/MdbFile.o: include/rapidjson/internal/swap.h
+src/MdbFile.o: include/rapidjson/internal/strtod.h
+src/MdbFile.o: include/rapidjson/internal/ieee754.h
+src/MdbFile.o: include/rapidjson/internal/biginteger.h
+src/MdbFile.o: include/rapidjson/internal/diyfp.h
+src/MdbFile.o: include/rapidjson/internal/clzll.h
+src/MdbFile.o: include/rapidjson/internal/pow10.h
+src/MdbFile.o: include/rapidjson/error/error.h
+src/MdbFile.o: include/rapidjson/internal/strfunc.h
+src/MdbFile.o: include/rapidjson/stream.h include/rapidjson/writer.h
+src/MdbFile.o: include/rapidjson/internal/dtoa.h
+src/MdbFile.o: include/rapidjson/internal/itoa.h
+src/MdbFile.o: include/rapidjson/internal/itoa.h
+src/MdbFile.o: include/rapidjson/stringbuffer.h
+src/MdbFile.o: include/rapidjson/stringbuffer.h include/rapidjson/error/en.h
+src/MdbFile.o: include/rapidjson/error/error.h include/Global.h
+src/MdbFile.o: /usr/local/include/cglm/cglm.h
 src/MdbFile.o: /usr/local/include/cglm/common.h
 src/MdbFile.o: /usr/local/include/cglm/types.h
 src/MdbFile.o: /usr/local/include/cglm/simd/intrin.h
@@ -4328,7 +4352,6 @@ src/SoilDatabase.o: include/MdbFile.h /usr/local/include/mdbtools.h
 src/SoilDatabase.o: /usr/local/include/glib-2.0/glib.h
 src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/galloca.h
 src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gtypes.h
-src/SoilDatabase.o: /usr/local/Cellar/glib/2.70.4/lib/glib-2.0/include/glibconfig.h
 src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gmacros.h
 src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/gversionmacros.h
 src/SoilDatabase.o: /usr/local/include/glib-2.0/glib/garray.h

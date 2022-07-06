@@ -57,11 +57,9 @@ void MdbDatabase::logCatalog(void)
 // =======================================================================================
 /// @brief Fetch a particular soil profile.
 
-SoilProfile* MdbDatabase::fetchProfile(unsigned short soilIndex)
+bool MdbDatabase::fetchNextRowToStructure(void* S)
 {
-//HWSD_DATA
-
-  return NULL;
+  return false;
 }
 
 
