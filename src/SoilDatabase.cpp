@@ -4,6 +4,7 @@
 // Currently, it uses BILFile to provide information from the Harmonized World Soil 
 // Database v 1.2
 //https://www.fao.org/soils-portal/soil-survey/soil-maps-and-databases/harmonized-world-soil-database-v12/en/
+// See also the tech report at https://www.fao.org/3/aq361e/aq361e.pdf
 
 #include "SoilDatabase.h"
 #include "SoilProfile.h"

@@ -48,8 +48,10 @@ void MdbDatabase::logCatalog(void)
       continue;
 
     printf("%d\t", entry->object_type);
-    printf ("%s\n", entry->object_name);
-    mdb_print_schema(mdb, stdout, entry->object_name, NULL, MDB_SHEXP_DEFAULT);
+    printf("%s:\t", entry->object_name);
+    MdbTableDef *table = mdb_read_table(entry);
+    printf("%d rows\n", table->num_rows);
+    //mdb_print_schema(mdb, stdout, entry->object_name, NULL, MDB_SHEXP_DEFAULT);
    }
 }
 

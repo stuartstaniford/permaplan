@@ -13,6 +13,8 @@ CFLAGS = -Wall -g -std=c++11
 
 # define any directories containing header files other than /usr/include
 #
+# Note that the glib stuff came from pkg-config.  See eg
+# https://docs.gtk.org/glib/compiling.html
 INCLUDES = -I ./include -I imgui -I imgui/backends -I /usr/local/include -I/usr/local/Cellar/glib/2.72.2/include/glib-2.0 -I/usr/local/Cellar/glib/2.72.2/lib/glib-2.0/include -I/usr/local/opt/gettext/include -I/usr/local/Cellar/pcre/8.45/include
 
 # define library paths in addition to /usr/lib
