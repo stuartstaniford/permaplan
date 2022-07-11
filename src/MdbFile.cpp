@@ -5,15 +5,37 @@
 // It was originally introduced into the code for reading the MDB file from the 
 // Harmonized World Soil Database 
 
-// MdbTools is not very well documented.  This file was developed by studying the files:
+// MdbTools is poorly documented.  This file was developed by studying the files:
 // https://github.com/mdbtools/mdbtools/blob/dev/src/util/mdb-tables.c
 // https://github.com/mdbtools/mdbtools/blob/dev/src/util/mdb-schema.c
+// https://github.com/mdbtools/mdbtools/blob/dev/src/util/mdb-json.c
 
 #include "MdbFile.h"
 //#include "mdbver.h"
 #include "SoilProfile.h"
 #include "Global.h"
 #include <err.h>
+
+
+// =======================================================================================
+/// @brief Constructor
+
+MdbTableReader::MdbTableReader(MdbHandle* mdb, char* table_name)
+{
+  table = mdb_read_table_by_name(mdb, table_name, MDB_TABLE);
+  unless(table) 
+    err(-1, "Error: Table %s does not exist in this database.\n", table_name);
+
+}
+
+
+// =======================================================================================
+/// @brief Destructor
+
+MdbTableReader::~MdbTableReader(void)
+{
+  mdb_free_tabledef(table);
+}
 
 
 // =======================================================================================
@@ -51,7 +73,7 @@ void MdbDatabase::logCatalog(void)
     printf("%s:\t", entry->object_name);
     MdbTableDef *table = mdb_read_table(entry);
     printf("%d rows\n", table->num_rows);
-    //mdb_print_schema(mdb, stdout, entry->object_name, NULL, MDB_SHEXP_DEFAULT);
+    mdb_print_schema(mdb, stdout, entry->object_name, NULL, MDB_SHEXP_DEFAULT);
    }
 }
 

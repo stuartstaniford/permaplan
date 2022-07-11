@@ -24,6 +24,7 @@ class MdbTableSchemaEntry
   //int         offset;
 };
 
+
 // =======================================================================================
 /// @brief The information required to extract particular rows from a table and insert
 /// them into a structure (which is handled as byte offsets into a void*).
@@ -32,6 +33,22 @@ class MdbTableSchema: public std::vector<MdbTableSchemaEntry>
 {
   
 };
+
+
+// =======================================================================================
+/// @brief The information required to read a table and extract the fields into an 
+/// array of big buffers
+
+class MdbTableReader
+{
+  MdbTableReader(MdbHandle* mdb, char* table_name);
+  ~MdbTableReader(void);
+
+  // Instance variables - private
+  MdbTableDef *table;
+
+};
+
 
 // =======================================================================================
 /// @brief A wrapper for the mdbtools library libmdb.
