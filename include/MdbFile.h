@@ -44,13 +44,14 @@ class MdbTableReader
 {
 
  public:
-  MdbTableReader(MdbHandle* mdb, char* table_name);
+  MdbTableReader(MdbHandle* mdb, char* table_name, unsigned bindSize);
   ~MdbTableReader(void);
 
  private:
   // Instance variables - private
-  MdbTableDef *table;
-
+  MdbTableDef*  table;
+  char**        boundValues;
+  int*          boundLens;
 };
 
 

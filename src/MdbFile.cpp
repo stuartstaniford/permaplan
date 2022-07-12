@@ -20,12 +20,27 @@
 // =======================================================================================
 /// @brief Constructor
 
-MdbTableReader::MdbTableReader(MdbHandle* mdb, char* table_name)
+MdbTableReader::MdbTableReader(MdbHandle* mdb, char* table_name, unsigned bindSize)
 {
   table = mdb_read_table_by_name(mdb, table_name, MDB_TABLE);
   unless(table) 
     err(-1, "Error: Table %s does not exist in this database.\n", table_name);
 
+  /* read table */
+  mdb_read_columns(table);
+  mdb_rewind_table(table);
+
+  boundValues  = (char**)calloc(table->num_cols, sizeof(char *));
+  boundLens    = (int*)calloc(table->num_cols, sizeof(int));
+  
+  for(int i=0; i<table->num_cols; i++) 
+   {
+    /* bind columns */
+    boundValues[i] = (char*)calloc(bindSize, sizeof(char));
+    int ret = mdb_bind_column(table, i+1, boundValues[i], &boundLens[i]);
+    if (ret == -1) 
+      err(-1, "Failed to bind column %d\n", i + 1);
+   }
 }
 
 
@@ -34,6 +49,10 @@ MdbTableReader::MdbTableReader(MdbHandle* mdb, char* table_name)
 
 MdbTableReader::~MdbTableReader(void)
 {
+  for(int i=0; i<table->num_cols; i++)
+    free(boundValues[i]);
+  free(boundValues);
+  free(boundLens);
   mdb_free_tabledef(table);
 }
 
