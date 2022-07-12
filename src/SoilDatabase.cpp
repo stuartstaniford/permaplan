@@ -45,6 +45,8 @@ SoilDatabase::~SoilDatabase(void)
 
 void SoilDatabase::loadHWSDProfiles(void)
 {
+  MdbTableReader hwsdTable(worldSoilMdbDatabase.mdb, (char*)"HWSD_DATA");
+  
 }
 
 

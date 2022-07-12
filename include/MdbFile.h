@@ -11,6 +11,7 @@
 // Forward declarations
 
 class SoilProfile;
+class SoilDatabase;
 
 
 // =======================================================================================
@@ -41,9 +42,12 @@ class MdbTableSchema: public std::vector<MdbTableSchemaEntry>
 
 class MdbTableReader
 {
+
+ public:
   MdbTableReader(MdbHandle* mdb, char* table_name);
   ~MdbTableReader(void);
 
+ private:
   // Instance variables - private
   MdbTableDef *table;
 
@@ -60,6 +64,8 @@ class MdbTableReader
 
 class MdbDatabase
 {
+  friend SoilDatabase;
+  
 public:
   
   // Instance variables - public
