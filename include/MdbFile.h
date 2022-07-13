@@ -16,13 +16,20 @@ class SoilDatabase;
 
 // =======================================================================================
 /// @brief The information required to extract a particular entry in one column from a 
-/// table and insert it into a structure (which is handled as byte offsets into a void*).
+/// table and insert it into a structure.
+/// This is handled as byte offsets into a void*.  Note this operation is a fairly 
+/// tricky and trouble prone thing to do, and mistakes will turn the structure into 
+/// binary mush.  Pay careful attention to types.
 
 class MdbTableSchemaEntry
 {
-  //int         colIndex;
+public:
+  MdbTableSchemaEntry(int col, int offs);
+  
+private:
+  int         colIndex;
   //MdbColumn*  column;
-  //int         offset;
+  int         offset;
 };
 
 

@@ -20,6 +20,16 @@
 // =======================================================================================
 /// @brief Constructor
 /// @param mdb Pointer to the MdbHandle for the database (which should be open already).
+
+MdbTableSchemaEntry::MdbTableSchemaEntry(int col, int offs): colIndex(col), offset(offs)
+{
+  printf("%d %d\n", colIndex, offset);
+}
+
+
+// =======================================================================================
+/// @brief Constructor
+/// @param mdb Pointer to the MdbHandle for the database (which should be open already).
 /// @param table_name The (char*) name of the table we want to open and read from.
 /// @param bindSize The size (in bytes) of the buffers to use for reading out values.
 

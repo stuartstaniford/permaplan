@@ -37,6 +37,15 @@ SoilDatabase::~SoilDatabase(void)
 
 
 // =======================================================================================
+/// @brief Create the schema for the HWSD table 
+
+void SoilDatabase::createHWSDSchema(void)
+{
+  
+}
+
+
+// =======================================================================================
 /// @brief Read the table of all the soil profiles at startup.
 /// 
 /// Reads them from the MS Access database worldSoilMdbDBName and stores them all in 
