@@ -46,7 +46,8 @@ class MdbTableReader
  public:
   MdbTableReader(MdbHandle* mdb, char* table_name, unsigned bindSize);
   ~MdbTableReader(void);
-
+  bool getNextRow(void);
+  
  private:
   // Instance variables - private
   MdbTableDef*  table;

@@ -19,9 +19,13 @@
 
 // =======================================================================================
 /// @brief Constructor
+/// @param mdb Pointer to the MdbHandle for the database (which should be open already).
+/// @param table_name The (char*) name of the table we want to open and read from.
+/// @param bindSize The size (in bytes) of the buffers to use for reading out values.
 
 MdbTableReader::MdbTableReader(MdbHandle* mdb, char* table_name, unsigned bindSize)
 {
+  mdb_set_bind_size(mdb, bindSize);
   table = mdb_read_table_by_name(mdb, table_name, MDB_TABLE);
   unless(table) 
     err(-1, "Error: Table %s does not exist in this database.\n", table_name);
@@ -54,6 +58,18 @@ MdbTableReader::~MdbTableReader(void)
   free(boundValues);
   free(boundLens);
   mdb_free_tabledef(table);
+}
+
+
+// =======================================================================================
+/// @brief Read the next row into our buffer structure
+/// @returns True if we successfully read another row, false on end of the table.
+
+bool MdbTableReader::getNextRow(void)
+{
+  return mdb_fetch_row(table);
+  
+  ///@todo Sanity checking here
 }
 
 
