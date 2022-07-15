@@ -37,7 +37,7 @@ private:
 /// @brief The information required to extract particular rows from a table and insert
 /// them into a structure (which is handled as byte offsets into a void*).
 
-class MdbTableSchema: public std::vector<MdbTableSchemaEntry>
+class MdbTableSchema: public std::vector<MdbTableSchemaEntry*>
 {
   
 };

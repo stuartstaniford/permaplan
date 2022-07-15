@@ -36,6 +36,7 @@ private:
   BILFile worldSoilBilFile;
   MdbDatabase worldSoilMdbDatabase;
   std::unordered_map<unsigned, SoilProfile*> worldSoilProfiles;
+  MdbTableSchema hwsdSchema;
   
   // Member functions - private
   /// @brief Prevent copy-construction.

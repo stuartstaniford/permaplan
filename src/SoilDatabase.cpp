@@ -41,7 +41,12 @@ SoilDatabase::~SoilDatabase(void)
 
 void SoilDatabase::createHWSDSchema(void)
 {
+  MdbTableSchemaEntry* schemaEntry;
+  
   //[ID]      Long Integer, 
+  schemaEntry = new MdbTableSchemaEntry(0,0);
+  hwsdSchema.push_back(schemaEntry);
+  
   //[MU_GLOBAL]      Long Integer, 
   //[MU_SOURCE1]      Text (12), 
   //[MU_SOURCE2]      Long Integer, 
