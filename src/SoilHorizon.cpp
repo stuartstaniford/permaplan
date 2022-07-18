@@ -1,6 +1,7 @@
 // Copyright Staniford Systems.  All Rights Reserved.  February 2022 -
 // This class ..... is a template for real classes
 
+
 #include "SoilHorizon.h"
 #include <stdio.h>
 #include "Global.h"
@@ -11,9 +12,34 @@
 
 using namespace rapidjson;
 
+char* USDATextureName[] = {
+                            (char*)"NoTextureClass", 
+                            (char*)"HeavyClay",
+                            (char*)"SiltyClay",
+                            (char*)"Clay",
+                            (char*)"SiltyClayLoam",
+                            (char*)"ClayLoam",
+                            (char*)"Silt",
+                            (char*)"SiltyLoam",
+                            (char*)"SandyClay",
+                            (char*)"Loam",
+                            (char*)"SandyClayLoam",
+                            (char*)"SandyLoam",
+                            (char*)"LoamySand",
+                            (char*)"Sand"
+};
+
 
 // =======================================================================================
-/// @brief Constructor
+/// @brief Blank constructor used, eg, for reading from the HWSD.
+
+SoilHorizon::SoilHorizon(char* nm): name(nm)
+{
+}
+
+
+// =======================================================================================
+/// @brief Constructor for reading from the JSON format
 ///
 /// Note - call isValid first to ensure the JSON is valid
 

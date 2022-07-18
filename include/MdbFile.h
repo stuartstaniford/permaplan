@@ -1,4 +1,8 @@
 // Copyright Staniford Systems.  All Rights Reserved.  March 2022 -
+// 
+// Useful for problems with compiling the glib headers in mdbtools.h:
+// https://docs.gtk.org/glib/compiling.html
+
 
 #ifndef MDB_FILE_H
 #define MDB_FILE_H

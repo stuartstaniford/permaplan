@@ -30,24 +30,6 @@ enum USDATextureClass
 };
 
 
-char* USDATextureName[] = {
-                            (char*)"NoTextureClass", 
-                            (char*)"HeavyClay",
-                            (char*)"SiltyClay",
-                            (char*)"Clay",
-                            (char*)"SiltyClayLoam",
-                            (char*)"ClayLoam",
-                            (char*)"Silt",
-                            (char*)"SiltyLoam",
-                            (char*)"SandyClay",
-                            (char*)"Loam",
-                            (char*)"SandyClayLoam",
-                            (char*)"SandyLoam",
-                            (char*)"LoamySand",
-                            (char*)"Sand"
-};
-
-
 // =======================================================================================
 /// @brief Helper class for a single soil horizon in a soil profile
 ///
@@ -59,6 +41,9 @@ class SoilHorizon: public GroundLayer
   public:
   
   // The data fields.
+
+  /// @brief Descriptive name of this horizon.
+  char* name; 
   
   /// @brief The volumetric fraction of gravel/channers/etc (0.0 - 1.0).  Coarse 
   /// Fragments are considered to be those over 2mm in size.
@@ -87,6 +72,7 @@ class SoilHorizon: public GroundLayer
   float pH;
   
   // Useful methods
+  SoilHorizon(char* nm);
   SoilHorizon(rapidjson::Value json);
   ~SoilHorizon(void);
   int writeJson(char* buf, unsigned bufSize);
