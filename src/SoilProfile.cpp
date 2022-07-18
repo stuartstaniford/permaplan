@@ -35,6 +35,19 @@ SoilProfile::SoilProfile(void)
 
 
 // =======================================================================================
+/// @brief Constructor used when reading from the Harmonized World Soil Database.
+/// 
+/// @param hwsdTableReader An MdbTableReader which should already have been initialized
+/// and into which the next row should have been read.  We examine the buffers and
+/// extract the information into our structures.
+
+SoilProfile::SoilProfile(MdbTableReader& hwsdTableReader)
+{
+  
+}
+
+
+// =======================================================================================
 /// @brief Destructor
 
 SoilProfile::~SoilProfile(void)

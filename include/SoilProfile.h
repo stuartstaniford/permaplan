@@ -6,6 +6,13 @@
 #include "GroundLayer.h"
 #include <vector>
 
+
+// =======================================================================================
+// Forward declarations
+
+class MdbTableReader;
+
+
 // =======================================================================================
 /// @brief Model the nature of the soil at a given location.
 ///
@@ -28,6 +35,7 @@ public:
   
   // Member functions - public
   SoilProfile(void);
+  SoilProfile(MdbTableReader& hwsdTableReader);
   ~SoilProfile(void);
   unsigned writeJson(char* buf, unsigned bufSize);
  

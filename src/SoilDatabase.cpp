@@ -116,7 +116,12 @@ void SoilDatabase::createHWSDSchema(void)
 void SoilDatabase::loadHWSDProfiles(void)
 {
   MdbTableReader hwsdTable(worldSoilMdbDatabase.mdb, (char*)"HWSD_DATA", 2048);
+  SoilProfile* soil;
   
+  while(hwsdTable.getNextRow())
+   {
+    soil = new SoilProfile(hwsdTable);
+   }
 }
 
 
