@@ -92,7 +92,7 @@ MdbDatabase::MdbDatabase(char* fileName):
     unless((mdb = mdb_open(fileName, MDB_NOFLAGS))) 
       err(-1, "Couldn't open .mdb file %s.\n", fileName);  
   
-  logCatalog();
+  //logCatalog();
 }
 
 

@@ -7,6 +7,7 @@
 
 #include "HWSDProfile.h"
 #include "SoilHorizon.h"
+#include "MdbFile.h"
 
 
 // =======================================================================================
@@ -21,7 +22,13 @@ HWSDProfile::HWSDProfile(MdbTableReader& hwsdTableReader)
   // Global information about the profile
 
   //[ID]      Long Integer,   
+  printf("id len: %d\n", hwsdTableReader.boundLens[0]);
+  //hwsdTableReader.table->
+  
   //[MU_GLOBAL]      Long Integer, 
+  printf("MU_GLOBAL len: %d\n", hwsdTableReader.boundLens[2]);
+  
+  
   //[MU_SOURCE1]      Text (12), 
   //[MU_SOURCE2]      Long Integer, 
   //[ISSOIL]      Byte, 

@@ -69,6 +69,7 @@ bool doLogGdalError           = true; // Log problems in accessing files via lib
 bool doLogSoilDbErr           = true; // Log problems in the soil database operation
 bool doLogSoilDbOps           = true; // Log normal operations on the soil database
 bool doLogSoilDbDetails       = true; // Log extra details in the soil database operation
+bool doLogHSWDExhaustive      = true; // Log every field read from the HSWD database
 
 // Logging options for Trees/Plants
 bool doLogTreeSelections      = true; // Log when a tree is selected.
@@ -423,6 +424,11 @@ bool LogControlHTML(HttpDebug* serv, char* path)
 #ifdef LOG_SOIL_DB_DETAILS // Log extra details in the soil database operation
   if(strncmp(path, "doLogSoilDbDetails", sizeof("doLogSoilDbDetails")-1)==0)
     return oneLogControl(serv, path, doLogSoilDbDetails);
+#endif
+
+#ifdef LOG_HSWD_EXHAUSTIVE // Log every field read from the HSWD database
+  if(strncmp(path, "doLogHSWDExhaustive", sizeof("doLogHSWDExhaustive")-1)==0)
+    return oneLogControl(serv, path, doLogHSWDExhaustive);
 #endif
 
   

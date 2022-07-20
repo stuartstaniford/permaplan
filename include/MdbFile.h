@@ -16,6 +16,7 @@
 
 class SoilProfile;
 class SoilDatabase;
+class HWSDProfile;
 
 
 // =======================================================================================
@@ -53,7 +54,8 @@ class MdbTableSchema: public std::vector<MdbTableSchemaEntry*>
 
 class MdbTableReader
 {
-
+  friend HWSDProfile;
+  
  public:
   MdbTableReader(MdbHandle* mdb, char* table_name, unsigned bindSize);
   ~MdbTableReader(void);
