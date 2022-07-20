@@ -8,6 +8,22 @@
 #include "HWSDProfile.h"
 #include "SoilHorizon.h"
 #include "MdbFile.h"
+#include "Logging.h"
+#include "Global.h"
+
+
+
+// =======================================================================================
+/// @brief helper function to error check as we read the database in the constructor.
+
+void HWSDProfile::columnCheck(MdbTableReader& hwsdTableReader, int column, char* colName, 
+                                    int expectedType)
+{
+  LogHSWDExhaustive("%s len: %d\n", colName, hwsdTableReader.boundLens[column]);
+  MdbColumn *col = (MdbColumn*)g_ptr_array_index(hwsdTableReader.table->columns, column);
+  unless(col->col_type == expectedType)
+    LogSoilDbErr("Wrong type %d in column %d.\n", col->col_type, column);
+}
 
 
 // =======================================================================================
@@ -19,16 +35,16 @@
 
 HWSDProfile::HWSDProfile(MdbTableReader& hwsdTableReader)
 { 
+
   // Global information about the profile
 
   //[ID]      Long Integer,   
-  printf("id len: %d\n", hwsdTableReader.boundLens[0]);
-  //hwsdTableReader.table->
+  columnCheck(hwsdTableReader, 0, (char*)"ID", MDB_LONGINT);
   
   //[MU_GLOBAL]      Long Integer, 
-  printf("MU_GLOBAL len: %d\n", hwsdTableReader.boundLens[2]);
+  columnCheck(hwsdTableReader, 1, (char*)"MU_GLOBAL", MDB_LONGINT);
   
-  
+
   //[MU_SOURCE1]      Text (12), 
   //[MU_SOURCE2]      Long Integer, 
   //[ISSOIL]      Byte, 
@@ -95,6 +111,7 @@ HWSDProfile::HWSDProfile(MdbTableReader& hwsdTableReader)
   //[T_BULK_DENSITY]      Double, 
   //[S_BULK_DENSITY]      Double
 
+  LogFlush();
 }
 
 

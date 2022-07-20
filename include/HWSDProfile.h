@@ -31,7 +31,8 @@ public:
   // Member functions - public
   HWSDProfile(MdbTableReader& hwsdTableReader);
   ~HWSDProfile(void);
-  
+  void columnCheck(MdbTableReader& hwsdTableReader, int column, char* colName, int expectedType);
+
 private:
   
   // Instance variables - private
