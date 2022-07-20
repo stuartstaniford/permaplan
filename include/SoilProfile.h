@@ -8,12 +8,6 @@
 
 
 // =======================================================================================
-// Forward declarations
-
-class MdbTableReader;
-
-
-// =======================================================================================
 /// @brief Model the nature of the soil at a given location.
 ///
 /// This class provides methods and data required to model the state of the soil profile
@@ -27,7 +21,7 @@ class MdbTableReader;
 /// vector is empty (zero SoilHorizons) that indicates a no soil condition (eg bare rock,
 /// deep water, etc).
 
-class SoilProfile: std::vector<GroundLayer*>
+class SoilProfile: public std::vector<GroundLayer*>
 {
 public:
   
@@ -35,7 +29,6 @@ public:
   
   // Member functions - public
   SoilProfile(void);
-  SoilProfile(MdbTableReader& hwsdTableReader);
   ~SoilProfile(void);
   unsigned writeJson(char* buf, unsigned bufSize);
  

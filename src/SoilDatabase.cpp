@@ -9,6 +9,7 @@
 #include "SoilDatabase.h"
 #include "SoilProfile.h"
 #include "Logging.h"
+#include "HWSDProfile.h"
 #include <stdio.h>
 
 char* worldSoilBilFileName = (char*)"Materials/Solar/HWSD_RASTER/hwsd";
@@ -54,11 +55,11 @@ void SoilDatabase::createHWSDSchema(void)
 void SoilDatabase::loadHWSDProfiles(void)
 {
   MdbTableReader hwsdTable(worldSoilMdbDatabase.mdb, (char*)"HWSD_DATA", 2048);
-  SoilProfile* soil;
+  HWSDProfile* soil;
   
   while(hwsdTable.getNextRow())
    {
-    soil = new SoilProfile(hwsdTable);
+    soil = new HWSDProfile(hwsdTable);
    }
 }
 

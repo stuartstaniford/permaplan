@@ -7,6 +7,12 @@
 
 
 // =======================================================================================
+// Forward declarations
+
+class MdbTableReader;
+
+
+// =======================================================================================
 /// @brief Subclass of SoilProfile for information and code specific to the Harmonized
 /// World Soil Database (HWSD).
 ///
@@ -23,7 +29,7 @@ public:
   // Instance variables - public
   
   // Member functions - public
-  HWSDProfile(void);
+  HWSDProfile(MdbTableReader& hwsdTableReader);
   ~HWSDProfile(void);
   
 private:
