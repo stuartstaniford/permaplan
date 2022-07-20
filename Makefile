@@ -1690,7 +1690,7 @@ src/HWSDProfile.o: ./include/rapidjson/internal/itoa.h
 src/HWSDProfile.o: ./include/rapidjson/stringbuffer.h
 src/HWSDProfile.o: ./include/rapidjson/stringbuffer.h
 src/HWSDProfile.o: ./include/rapidjson/error/en.h
-src/HWSDProfile.o: ./include/rapidjson/error/error.h
+src/HWSDProfile.o: ./include/rapidjson/error/error.h ./include/SoilHorizon.h
 src/HeightMarker.o: ./include/HeightMarker.h ./include/VisualObject.h
 src/HeightMarker.o: ./include/VisualElement.h ./include/DynamicallyTypable.h
 src/HeightMarker.o: ./include/TriangleBuffer.h ./include/Vertex.h
@@ -5553,7 +5553,7 @@ src/SoilDatabase.o: ./include/rapidjson/stringbuffer.h
 src/SoilDatabase.o: ./include/rapidjson/stringbuffer.h
 src/SoilDatabase.o: ./include/rapidjson/error/en.h
 src/SoilDatabase.o: ./include/rapidjson/error/error.h ./include/Logging.h
-src/SoilDatabase.o: ./include/MemoryTracker.h
+src/SoilDatabase.o: ./include/MemoryTracker.h ./include/HWSDProfile.h
 src/SoilHorizon.o: ./include/SoilHorizon.h ./include/GroundLayer.h
 src/SoilHorizon.o: ./include/rapidjson/document.h
 src/SoilHorizon.o: ./include/rapidjson/reader.h

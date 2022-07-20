@@ -35,6 +35,17 @@ public:
 private:
   
   // Instance variables - private
+  int             dbId;
+  int             muGlobal;
+  char            muSource1[12];
+  int             muSource2;
+  int             coverage;
+  unsigned char   isSoil;
+  float           share;
+  unsigned char   seq;
+  
+  ///@todo SU_ variables not clear if in here or soilProfile
+  
   
   // Member functions - private
   /// @brief Prevent copy-construction.
