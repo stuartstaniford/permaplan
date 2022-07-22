@@ -24,8 +24,7 @@ void HWSDProfile::columnCheck(int column, char* colName, int expectedType)
     LogSoilDbErr("Wrong type %d in column %d.\n", col->col_type, column);
     return;
    }
-  if(col->col_type == MDB_LONGINT)
-    LogHSWDExhaustive("%s len: %d; val: %s\n", colName, hwsdReader.boundLens[column],
+  LogHSWDExhaustive("%s len: %d; val: %s\n", colName, hwsdReader.boundLens[column],
                       hwsdReader.boundValues[column]);
 }
 
@@ -35,26 +34,39 @@ void HWSDProfile::columnCheck(int column, char* colName, int expectedType)
 /// 
 /// @param hwsdTableReader An MdbTableReader which should already have been initialized
 /// and into which the next row should have been read.  We examine the buffers and
-/// extract the information into our structures.
+/// extract the information into our structures.  See the technical report at
+/// https://www.fao.org/3/aq361e/aq361e.pdf for the semantics of the different fields.
 
 HWSDProfile::HWSDProfile(MdbTableReader& hwsdTableReader): hwsdReader(hwsdTableReader)
 { 
-
+  int i = 0;
   // Global information about the profile
 
   //[ID]      Long Integer,   
-  columnCheck(0, (char*)"ID", MDB_LONGINT);
-  dbId = atoi(hwsdReader.boundValues[0]);
+  columnCheck(i, (char*)"ID", MDB_LONGINT);
+  dbId = atoi(hwsdReader.boundValues[i++]);
   
   //[MU_GLOBAL]      Long Integer, 
-  columnCheck(1, (char*)"MU_GLOBAL", MDB_LONGINT);
+  columnCheck(i, (char*)"MU_GLOBAL", MDB_LONGINT);
+  muGlobal = atoi(hwsdReader.boundValues[i++]);
   
   //[MU_SOURCE1]      Text (12), 
-  columnCheck(2, (char*)"MU_SOURCE1", MDB_TEXT);
-
+  columnCheck(i, (char*)"MU_SOURCE1", MDB_TEXT);
+  strncpy(muSource1, hwsdReader.boundValues[i++], 12);
+  
   //[MU_SOURCE2]      Long Integer, 
+  columnCheck(i, (char*)"MU_SOURCE2", MDB_LONGINT);
+  muSource2 = atoi(hwsdReader.boundValues[i++]);
+
   //[ISSOIL]      Byte, 
+  columnCheck(i, (char*)"ISSOIL", MDB_BYTE);
+  isSoil = (hwsdReader.boundValues[i++][0] == '1');
+  
   //[SHARE]      Single, 
+  columnCheck(i, (char*)"SHARE", MDB_FLOAT);
+  share = atof(hwsdReader.boundValues[i++]);
+  
+  
   //[SEQ]      Byte, 
   //[SU_SYM74]      Text (6), 
   //[SU_CODE74]      Integer, 

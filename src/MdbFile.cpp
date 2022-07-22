@@ -14,6 +14,7 @@
 //#include "mdbver.h"
 #include "SoilProfile.h"
 #include "Global.h"
+#include "Logging.h"
 #include <err.h>
 
 
@@ -92,7 +93,9 @@ MdbDatabase::MdbDatabase(char* fileName):
     unless((mdb = mdb_open(fileName, MDB_NOFLAGS))) 
       err(-1, "Couldn't open .mdb file %s.\n", fileName);  
   
-  //logCatalog();
+#ifdef LOG_HSWD_EXHAUSTIVE
+  logCatalog();
+#endif
 }
 
 
@@ -114,11 +117,9 @@ void MdbDatabase::logCatalog(void)
     if (entry->object_type != objtype && objtype!=MDB_ANY)
       continue;
 
-    printf("%d\t", entry->object_type);
-    printf("%s:\t", entry->object_name);
     MdbTableDef *table = mdb_read_table(entry);
-    printf("%d rows\n", table->num_rows);
-    mdb_print_schema(mdb, stdout, entry->object_name, NULL, MDB_SHEXP_DEFAULT);
+    LogHSWDExhaustive("%d\t%s:%d rows\t", entry->object_type, entry->object_name, table->num_rows);
+    mdb_print_schema(mdb, LogFile, entry->object_name, NULL, MDB_SHEXP_DEFAULT);
    }
 }
 

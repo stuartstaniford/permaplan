@@ -61,7 +61,7 @@ void SoilDatabase::loadHWSDProfiles(void)
   while(hwsdTable.getNextRow())
    {
     soil = new HWSDProfile(hwsdTable);
-    if(++rowCount >= 3)
+    if(++rowCount >= 5)
       break;
    }
 }

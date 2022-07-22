@@ -41,8 +41,7 @@ private:
   int             muGlobal;
   char            muSource1[12];
   int             muSource2;
-  int             coverage;
-  unsigned char   isSoil;
+  bool            isSoil;
   float           share;
   unsigned char   seq;
   
