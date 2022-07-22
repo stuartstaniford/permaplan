@@ -85,6 +85,9 @@ sub killAll
 
 sub testPermaservAlive
 {
+  my($iterations) = @_;
+  
+  $iterations = 5 unless defined $iterations && $iterations > 0;
   my $url = "http://127.0.0.1:$servPort/alive/";
   
   unless($permaservHttp)
@@ -92,7 +95,7 @@ sub testPermaservAlive
     $permaservHttp = HTTP::Tiny->new(('timeout' => 3));
    }
   
-  foreach(1..5)
+  foreach(1..$iterations)
    {
     print "Url is: $url\n";
     my $response = $permaservHttp->get($url);
@@ -214,7 +217,10 @@ sub checkPermaserv
       # Need to remove old client cache since we have a new server
       unlink($clientCacheFile);
      }
-    testPermaservAlive();
+    unless(testPermaservAlive(10))
+     {
+      print "Permaserv startup failed.\n"
+     }
    }
   
   # At this point, there should be a current working permaserv running 

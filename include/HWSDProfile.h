@@ -31,11 +31,12 @@ public:
   // Member functions - public
   HWSDProfile(MdbTableReader& hwsdTableReader);
   ~HWSDProfile(void);
-  void columnCheck(MdbTableReader& hwsdTableReader, int column, char* colName, int expectedType);
+  void columnCheck(int column, char* colName, int expectedType);
 
 private:
   
   // Instance variables - private
+  MdbTableReader& hwsdReader;
   int             dbId;
   int             muGlobal;
   char            muSource1[12];

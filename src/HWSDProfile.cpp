@@ -16,13 +16,17 @@
 // =======================================================================================
 /// @brief helper function to error check as we read the database in the constructor.
 
-void HWSDProfile::columnCheck(MdbTableReader& hwsdTableReader, int column, char* colName, 
-                                    int expectedType)
+void HWSDProfile::columnCheck(int column, char* colName, int expectedType)
 {
-  LogHSWDExhaustive("%s len: %d\n", colName, hwsdTableReader.boundLens[column]);
-  MdbColumn *col = (MdbColumn*)g_ptr_array_index(hwsdTableReader.table->columns, column);
+  MdbColumn *col = (MdbColumn*)g_ptr_array_index(hwsdReader.table->columns, column);
   unless(col->col_type == expectedType)
+   {
     LogSoilDbErr("Wrong type %d in column %d.\n", col->col_type, column);
+    return;
+   }
+  if(col->col_type == MDB_LONGINT)
+    LogHSWDExhaustive("%s len: %d; val: %s\n", colName, hwsdReader.boundLens[column],
+                      hwsdReader.boundValues[column]);
 }
 
 
@@ -33,19 +37,21 @@ void HWSDProfile::columnCheck(MdbTableReader& hwsdTableReader, int column, char*
 /// and into which the next row should have been read.  We examine the buffers and
 /// extract the information into our structures.
 
-HWSDProfile::HWSDProfile(MdbTableReader& hwsdTableReader)
+HWSDProfile::HWSDProfile(MdbTableReader& hwsdTableReader): hwsdReader(hwsdTableReader)
 { 
 
   // Global information about the profile
 
   //[ID]      Long Integer,   
-  columnCheck(hwsdTableReader, 0, (char*)"ID", MDB_LONGINT);
+  columnCheck(0, (char*)"ID", MDB_LONGINT);
+  dbId = atoi(hwsdReader.boundValues[0]);
   
   //[MU_GLOBAL]      Long Integer, 
-  columnCheck(hwsdTableReader, 1, (char*)"MU_GLOBAL", MDB_LONGINT);
+  columnCheck(1, (char*)"MU_GLOBAL", MDB_LONGINT);
   
-
   //[MU_SOURCE1]      Text (12), 
+  columnCheck(2, (char*)"MU_SOURCE1", MDB_TEXT);
+
   //[MU_SOURCE2]      Long Integer, 
   //[ISSOIL]      Byte, 
   //[SHARE]      Single, 
