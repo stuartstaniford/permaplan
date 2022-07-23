@@ -66,24 +66,74 @@ HWSDProfile::HWSDProfile(MdbTableReader& hwsdTableReader): hwsdReader(hwsdTableR
   columnCheck(i, (char*)"SHARE", MDB_FLOAT);
   share = atof(hwsdReader.boundValues[i++]);
   
+  //[SEQ]      Byte,
+  columnCheck(i, (char*)"SEQ", MDB_BYTE);
+  seq = (unsigned char)atoi(hwsdReader.boundValues[i++]);
   
-  //[SEQ]      Byte, 
   //[SU_SYM74]      Text (6), 
-  //[SU_CODE74]      Integer, 
-  //[SU_SYM85]      Text (6), 
-  //[SU_CODE85]      Integer, 
-  //[SU_SYM90]      Text (6), 
-  //[SU_CODE90]      Integer, 
-  //[T_TEXTURE]      Byte, 
-  //[DRAINAGE]      Integer, 
-  //[REF_DEPTH]      Integer, 
-  //[AWC_CLASS]      Byte, 
-  //[PHASE1]      Byte, 
-  //[PHASE2]      Byte, 
-  //[ROOTS]      Byte, 
-  //[IL]      Byte, 
-  //[SWR]      Byte, 
-  //[ADD_PROP]      Byte, 
+  columnCheck(i, (char*)"SU_SYM74", MDB_TEXT);
+  strncpy(suSym74, hwsdReader.boundValues[i++], 6);
+
+  //[SU_CODE74]      Integer,
+  columnCheck(i, (char*)"SU_CODE74", MDB_INT);
+  suCode74 = atoi(hwsdReader.boundValues[i++]);
+
+  //[SU_SYM85]      Text (6),
+  columnCheck(i, (char*)"SU_SYM85", MDB_TEXT);
+  strncpy(suSym85, hwsdReader.boundValues[i++], 6);
+
+  //[SU_CODE85]      Integer,
+  columnCheck(i, (char*)"SU_CODE85", MDB_INT);
+  suCode85 = atoi(hwsdReader.boundValues[i++]);
+
+  //[SU_SYM90]      Text (6),
+  columnCheck(i, (char*)"SU_SYM90", MDB_TEXT);
+  strncpy(suSym90, hwsdReader.boundValues[i++], 6);
+
+  //[SU_CODE90]      Integer,
+  columnCheck(i, (char*)"SU_CODE90", MDB_INT);
+  suCode90 = atoi(hwsdReader.boundValues[i++]);
+
+  //[T_TEXTURE]      Byte,
+  columnCheck(i, (char*)"T_TEXTURE", MDB_BYTE);
+  tTexture = (unsigned char)atoi(hwsdReader.boundValues[i++]);
+
+  //[DRAINAGE]      Integer,
+  columnCheck(i, (char*)"DRAINAGE", MDB_INT);
+  drainage = atoi(hwsdReader.boundValues[i++]);
+
+  //[REF_DEPTH]      Integer,
+  columnCheck(i, (char*)"REF_DEPTH", MDB_INT);
+  refDepth = atoi(hwsdReader.boundValues[i++]);
+  
+  //[AWC_CLASS]      Byte,
+  columnCheck(i, (char*)"AWC_CLASS", MDB_BYTE);
+  awcClass = (unsigned char)atoi(hwsdReader.boundValues[i++]);
+
+  //[PHASE1]      Byte,
+  columnCheck(i, (char*)"PHASE1", MDB_BYTE);
+  phase1 = (unsigned char)atoi(hwsdReader.boundValues[i++]);
+
+  //[PHASE2]      Byte,
+  columnCheck(i, (char*)"PHASE2", MDB_BYTE);
+  phase2 = (unsigned char)atoi(hwsdReader.boundValues[i++]);
+
+  //[ROOTS]      Byte,
+  columnCheck(i, (char*)"ROOTS", MDB_BYTE);
+  roots = (unsigned char)atoi(hwsdReader.boundValues[i++]);
+
+  //[IL]      Byte,
+  columnCheck(i, (char*)"IL", MDB_BYTE);
+  il = (unsigned char)atoi(hwsdReader.boundValues[i++]);
+
+  //[SWR]      Byte,
+  columnCheck(i, (char*)"SWR", MDB_BYTE);
+  swr = (unsigned char)atoi(hwsdReader.boundValues[i++]);
+
+  //[ADD_PROP]      Byte,
+  columnCheck(i, (char*)"ADD_PROP", MDB_BYTE);
+  addProp = (unsigned char)atoi(hwsdReader.boundValues[i++]);
+  
   
   // Deal with the topsoil qualities
   SoilHorizon* topSoil = new SoilHorizon((char*)"topSoil");
