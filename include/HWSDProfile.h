@@ -35,15 +35,32 @@ public:
 
 private:
   
-  // Instance variables - private
+  // Instance variables - private.
+  // Note some reordering has been done to improve packing
   MdbTableReader& hwsdReader;
   int             dbId;
   int             muGlobal;
   char            muSource1[12];
   int             muSource2;
-  bool            isSoil;
   float           share;
+  char            suSym74[6];
+  bool            isSoil;
   unsigned char   seq;
+  int             suCode74;
+  char            suSym85[6];
+  unsigned char   tTexture;
+  unsigned char   awcClass;
+  int             suCode85;
+  char            suSym90[6];
+  unsigned char   phase1;
+  unsigned char   phase2;
+  int             suCode90;
+  int             drainage;
+  int             refDepth;
+  unsigned char   roots;
+  unsigned char   il;
+  unsigned char   swr;
+  unsigned char   addProp;
   
   ///@todo SU_ variables not clear if in here or soilProfile
   
@@ -59,7 +76,3 @@ private:
 // =======================================================================================
 
 #endif
-
-
-
-
