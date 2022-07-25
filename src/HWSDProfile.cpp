@@ -173,13 +173,36 @@ HWSDProfile::HWSDProfile(MdbTableReader& hwsdTableReader): hwsdReader(hwsdTableR
   topSoil->pH = atof(hwsdReader.boundValues[i++]);
 
   //[T_CEC_CLAY]      Double, 
+  columnCheck(i, (char*)"T_CEC_CLAY", MDB_DOUBLE);
+  topSoil->cecClay = atof(hwsdReader.boundValues[i++]);
+
   //[T_CEC_SOIL]      Double, 
+  columnCheck(i, (char*)"T_CEC_SOIL", MDB_DOUBLE);
+  topSoil->cecSoil = atof(hwsdReader.boundValues[i++]);
+
   //[T_BS]      Double, 
+  columnCheck(i, (char*)"T_BS", MDB_DOUBLE);
+  topSoil->baseSaturation = atof(hwsdReader.boundValues[i++]);
+
   //[T_TEB]      Double, 
+  columnCheck(i, (char*)"T_TEB", MDB_DOUBLE);
+  topSoil->totalExchangeableBases = atof(hwsdReader.boundValues[i++]);
+
   //[T_CACO3]      Double, 
+  columnCheck(i, (char*)"T_CACO3", MDB_DOUBLE);
+  topSoil->limeContent = atof(hwsdReader.boundValues[i++]);
+    
   //[T_CASO4]      Double, 
+  columnCheck(i, (char*)"T_CASO4", MDB_DOUBLE);
+  topSoil->gypsumContent = atof(hwsdReader.boundValues[i++]);
+
   //[T_ESP]      Double, 
+  columnCheck(i, (char*)"T_ESP", MDB_DOUBLE);
+  topSoil->exchangeableNaPercentage = atof(hwsdReader.boundValues[i++]);
+
   //[T_ECE]      Double, 
+  columnCheck(i, (char*)"T_ECE", MDB_DOUBLE);
+  topSoil->electricalConductivity = atof(hwsdReader.boundValues[i++]);
 
   // Deal with the subsoil qualities
   SoilHorizon* subSoil = new SoilHorizon((char*)"subSoil");

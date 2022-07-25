@@ -76,6 +76,32 @@ class SoilHorizon: public GroundLayer
   
   /// @brief The soil pH (measured in a soil-water solution).
   float pH;
+
+  /// @brief The cation exchange capacity of the clay component of the soil (cmol/Kg).
+  float cecClay;
+
+  /// @brief The cation exchange capacity of the whole soil (cmol/Kg).
+  float cecSoil;
+
+  /// @brief the sum of exchangeable cations (nutrients) Na, Ca, Mg and K as a 
+  /// percentage of the overall exchange capacity of the soil (including the 
+  /// same cations plus H and Al)..
+  float baseSaturation;
+
+  /// @brief Total exchangeable bases in the soil horizon.
+  float totalExchangeableBases;
+
+  /// @brief Total lime (calcium carbonate) content in the soil horizon.
+  float limeContent;
+
+  /// @brief Total gypsum (calcium sulphate) content in the soil horizon.
+  float gypsumContent;
+
+  /// @brief Exchangeable sodium percentage in the soil horizon.
+  float exchangeableNaPercentage;
+
+  /// @brief Electrical Conductivity of the soil (dS/m).
+  float electricalConductivity;
   
   // Useful methods
   SoilHorizon(char* nm);
