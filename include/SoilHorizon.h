@@ -67,6 +67,12 @@ class SoilHorizon: public GroundLayer
   /// @brief The USDA texture class.  Enum defined above, for full detail,  see p13 of 
   /// https://www.fao.org/3/aq361e/aq361e.pdf
   USDATextureClass usdaTextureClass;
+
+  /// @brief The bulk density of the soil horizon
+  float bulkDensity;
+
+  /// @brief The percentage of organic carbon in the soil
+  float organicCarbonPercent;
   
   /// @brief The soil pH (measured in a soil-water solution).
   float pH;

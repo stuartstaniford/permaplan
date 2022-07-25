@@ -140,13 +140,38 @@ HWSDProfile::HWSDProfile(MdbTableReader& hwsdTableReader): hwsdReader(hwsdTableR
   push_back(topSoil);
 
   //[T_GRAVEL]      Integer, 
+  columnCheck(i, (char*)"T_GRAVEL", MDB_INT);
+  topSoil->coarseFragmentFraction = atof(hwsdReader.boundValues[i++])/100.0f;
+
   //[T_SAND]      Integer, 
+  columnCheck(i, (char*)"T_SAND", MDB_INT);
+  topSoil->sandFraction = atof(hwsdReader.boundValues[i++])/100.0f;
+
   //[T_SILT]      Integer, 
+  columnCheck(i, (char*)"T_SILT", MDB_INT);
+  topSoil->siltFraction = atof(hwsdReader.boundValues[i++])/100.0f;
+
   //[T_CLAY]      Integer, 
+  columnCheck(i, (char*)"T_CLAY", MDB_INT);
+  topSoil->clayFraction = atof(hwsdReader.boundValues[i++])/100.0f;
+
   //[T_USDA_TEX_CLASS]      Byte, 
+  columnCheck(i, (char*)"T_USDA_TEX_CLASS", MDB_BYTE);
+  topSoil->usdaTextureClass = (USDATextureClass)atoi(hwsdReader.boundValues[i++]);
+    
   //[T_REF_BULK_DENSITY]      Double, 
+  // See also http://www.pedosphere.com/resources/bulkdensity/index.html. 
+  columnCheck(i, (char*)"T_REF_BULK_DENSITY", MDB_DOUBLE);
+  topSoil->bulkDensity = atof(hwsdReader.boundValues[i++]);
+
   //[T_OC]      Double, 
+  columnCheck(i, (char*)"T_OC", MDB_DOUBLE);
+  topSoil->organicCarbonPercent = atof(hwsdReader.boundValues[i++]);
+  
   //[T_PH_H2O]      Double, 
+  columnCheck(i, (char*)"T_PH_H2O", MDB_DOUBLE);
+  topSoil->pH = atof(hwsdReader.boundValues[i++]);
+
   //[T_CEC_CLAY]      Double, 
   //[T_CEC_SOIL]      Double, 
   //[T_BS]      Double, 

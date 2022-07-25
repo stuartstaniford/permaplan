@@ -1691,6 +1691,136 @@ src/HWSDProfile.o: ./include/rapidjson/stringbuffer.h
 src/HWSDProfile.o: ./include/rapidjson/stringbuffer.h
 src/HWSDProfile.o: ./include/rapidjson/error/en.h
 src/HWSDProfile.o: ./include/rapidjson/error/error.h ./include/SoilHorizon.h
+src/HWSDProfile.o: ./include/MdbFile.h /usr/local/include/mdbtools.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/galloca.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gtypes.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/lib/glib-2.0/include/glibconfig.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gmacros.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gversionmacros.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/garray.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gasyncqueue.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gthread.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gatomic.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/glib-typeof.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gerror.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gquark.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gutils.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gbacktrace.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gbase64.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gbitlock.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gbookmarkfile.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gdatetime.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gtimezone.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gbytes.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gcharset.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gchecksum.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gconvert.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gdataset.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gdate.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gdir.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/genviron.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gfileutils.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/ggettext.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/ghash.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/glist.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gmem.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gnode.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/ghmac.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gchecksum.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/ghook.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/ghostutils.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/giochannel.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gmain.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gpoll.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gslist.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gstring.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gunicode.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gkeyfile.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gmappedfile.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gmarkup.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gmessages.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gvariant.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gvarianttype.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/goption.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gpattern.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gprimes.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gqsort.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gqueue.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/grand.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/grcbox.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/grefcount.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/grefstring.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gmem.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gmacros.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gregex.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gscanner.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gsequence.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gshell.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gslice.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gspawn.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gstrfuncs.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gstringchunk.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gstrvbuilder.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gtestutils.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gthreadpool.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gtimer.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gtrashstack.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gtree.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/guri.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/guuid.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gversion.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/deprecated/gallocator.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/deprecated/gcache.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/deprecated/gcompletion.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/deprecated/gmain.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/deprecated/grel.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/deprecated/gthread.h
+src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/glib-autocleanups.h
+src/HWSDProfile.o: ./include/Logging.h ./include/MemoryTracker.h
+src/HWSDProfile.o: ./include/Global.h /usr/local/include/cglm/cglm.h
+src/HWSDProfile.o: /usr/local/include/cglm/common.h
+src/HWSDProfile.o: /usr/local/include/cglm/types.h
+src/HWSDProfile.o: /usr/local/include/cglm/simd/intrin.h
+src/HWSDProfile.o: /usr/local/include/cglm/vec2.h
+src/HWSDProfile.o: /usr/local/include/cglm/util.h
+src/HWSDProfile.o: /usr/local/include/cglm/vec2-ext.h
+src/HWSDProfile.o: /usr/local/include/cglm/vec3.h
+src/HWSDProfile.o: /usr/local/include/cglm/vec4.h
+src/HWSDProfile.o: /usr/local/include/cglm/vec4-ext.h
+src/HWSDProfile.o: /usr/local/include/cglm/vec3-ext.h
+src/HWSDProfile.o: /usr/local/include/cglm/mat4.h
+src/HWSDProfile.o: /usr/local/include/cglm/mat3.h
+src/HWSDProfile.o: /usr/local/include/cglm/mat2.h
+src/HWSDProfile.o: /usr/local/include/cglm/affine.h
+src/HWSDProfile.o: /usr/local/include/cglm/affine-mat.h
+src/HWSDProfile.o: /usr/local/include/cglm/cam.h
+src/HWSDProfile.o: /usr/local/include/cglm/plane.h
+src/HWSDProfile.o: /usr/local/include/cglm/clipspace/persp.h
+src/HWSDProfile.o: /usr/local/include/cglm/common.h
+src/HWSDProfile.o: /usr/local/include/cglm/plane.h
+src/HWSDProfile.o: /usr/local/include/cglm/mat4.h
+src/HWSDProfile.o: /usr/local/include/cglm/clipspace/ortho_rh_no.h
+src/HWSDProfile.o: /usr/local/include/cglm/clipspace/persp_rh_no.h
+src/HWSDProfile.o: /usr/local/include/cglm/clipspace/persp.h
+src/HWSDProfile.o: /usr/local/include/cglm/clipspace/view_rh_no.h
+src/HWSDProfile.o: /usr/local/include/cglm/clipspace/view_rh.h
+src/HWSDProfile.o: /usr/local/include/cglm/frustum.h
+src/HWSDProfile.o: /usr/local/include/cglm/quat.h
+src/HWSDProfile.o: /usr/local/include/cglm/euler.h
+src/HWSDProfile.o: /usr/local/include/cglm/box.h
+src/HWSDProfile.o: /usr/local/include/cglm/color.h
+src/HWSDProfile.o: /usr/local/include/cglm/io.h
+src/HWSDProfile.o: /usr/local/include/cglm/project.h
+src/HWSDProfile.o: /usr/local/include/cglm/clipspace/project_no.h
+src/HWSDProfile.o: /usr/local/include/cglm/vec3.h
+src/HWSDProfile.o: /usr/local/include/cglm/vec4.h
+src/HWSDProfile.o: /usr/local/include/cglm/sphere.h
+src/HWSDProfile.o: /usr/local/include/cglm/ease.h
+src/HWSDProfile.o: /usr/local/include/cglm/curve.h
+src/HWSDProfile.o: /usr/local/include/cglm/bezier.h
+src/HWSDProfile.o: /usr/local/include/cglm/ray.h
+src/HWSDProfile.o: /usr/local/include/cglm/affine2d.h
 src/HeightMarker.o: ./include/HeightMarker.h ./include/VisualObject.h
 src/HeightMarker.o: ./include/VisualElement.h ./include/DynamicallyTypable.h
 src/HeightMarker.o: ./include/TriangleBuffer.h ./include/Vertex.h
@@ -3431,7 +3561,8 @@ src/MdbFile.o: /usr/local/include/cglm/vec3.h /usr/local/include/cglm/vec4.h
 src/MdbFile.o: /usr/local/include/cglm/sphere.h
 src/MdbFile.o: /usr/local/include/cglm/ease.h /usr/local/include/cglm/curve.h
 src/MdbFile.o: /usr/local/include/cglm/bezier.h /usr/local/include/cglm/ray.h
-src/MdbFile.o: /usr/local/include/cglm/affine2d.h
+src/MdbFile.o: /usr/local/include/cglm/affine2d.h ./include/Logging.h
+src/MdbFile.o: ./include/MemoryTracker.h
 src/MemoryTracker.o: ./include/MemoryTracker.h ./include/HttpDebug.h
 src/MemoryTracker.o: ./include/HttpServThread.h ./include/TaskQueue.h
 src/MemoryTracker.o: ./include/Lockable.h ./include/Global.h
