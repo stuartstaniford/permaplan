@@ -75,6 +75,9 @@ int SoilHorizon::writeJson(char* buf, unsigned bufSize)
   writePoint += GroundLayer::writeJson(writePoint, bufSize - (writePoint-buf));
   if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
 
+  writePoint += sprintf(writePoint, "name: %s,\n", name);
+  if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
+
   writePoint += sprintf(writePoint, "coarseFragmentFraction: %.4f,\n", coarseFragmentFraction);
   if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
 
@@ -90,9 +93,45 @@ int SoilHorizon::writeJson(char* buf, unsigned bufSize)
   writePoint += sprintf(writePoint, "usdaTextureClass: %s,\n", USDATextureName[usdaTextureClass]);
   if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
 
-  writePoint += sprintf(writePoint, "pH: %.2f\n", pH);  // last one, no comma
+  writePoint += sprintf(writePoint, "bulkDensity: %.2f,\n", bulkDensity);  
   if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
 
+  writePoint += sprintf(writePoint, "organicCarbonPercent: %.1f,\n", organicCarbonPercent);  
+  if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
+
+  writePoint += sprintf(writePoint, "pH: %.2f,\n", pH);  
+  if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
+
+  writePoint += sprintf(writePoint, "cecClay: %.1f,\n", cecClay);
+  if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
+
+  writePoint += sprintf(writePoint, "cecSoil: %.1f,\n", cecSoil);
+  if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
+
+  writePoint += sprintf(writePoint, "baseSaturation: %.1f,\n", baseSaturation);
+  if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
+
+  writePoint += sprintf(writePoint, "totalExchangeableBases: %.1f,\n", totalExchangeableBases);
+  if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
+
+  writePoint += sprintf(writePoint, "limeContent: %.1f,\n", limeContent);
+  if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
+
+  writePoint += sprintf(writePoint, "gypsumContent: %.1f,\n", gypsumContent);
+  if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
+
+  writePoint += sprintf(writePoint, "exchangeableNaPercentage: %.1f,\n",
+                                                            exchangeableNaPercentage);
+  if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
+
+  writePoint += sprintf(writePoint, "electricalConductivity: %.1f,\n", 
+                                                                electricalConductivity);
+  if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
+
+  // Last one, no comma
+  writePoint += sprintf(writePoint, "bulkDensityNonRef: %.1f\n", bulkDensityNonRef);
+  if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
+  
   writePoint += sprintf(writePoint, "}\n\n");
   
   return writePoint - buf;
