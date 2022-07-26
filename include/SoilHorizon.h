@@ -102,6 +102,9 @@ class SoilHorizon: public GroundLayer
 
   /// @brief Electrical Conductivity of the soil (dS/m).
   float electricalConductivity;
+
+  /// @brief Bulk Density (extra fields at end of HWSD).
+  float bulkDensityNonRef;
   
   // Useful methods
   SoilHorizon(char* nm);

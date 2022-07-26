@@ -204,28 +204,86 @@ HWSDProfile::HWSDProfile(MdbTableReader& hwsdTableReader): hwsdReader(hwsdTableR
   columnCheck(i, (char*)"T_ECE", MDB_DOUBLE);
   topSoil->electricalConductivity = atof(hwsdReader.boundValues[i++]);
 
+  
   // Deal with the subsoil qualities
   SoilHorizon* subSoil = new SoilHorizon((char*)"subSoil");
   push_back(subSoil);
 
   //[S_GRAVEL]      Integer, 
+  columnCheck(i, (char*)"S_GRAVEL", MDB_INT);
+  subSoil->coarseFragmentFraction = atof(hwsdReader.boundValues[i++])/100.0f;
+
   //[S_SAND]      Integer, 
+  columnCheck(i, (char*)"S_SAND", MDB_INT);
+  subSoil->sandFraction = atof(hwsdReader.boundValues[i++])/100.0f;
+
   //[S_SILT]      Integer, 
+  columnCheck(i, (char*)"S_SILT", MDB_INT);
+  subSoil->siltFraction = atof(hwsdReader.boundValues[i++])/100.0f;
+
   //[S_CLAY]      Integer, 
+  columnCheck(i, (char*)"S_CLAY", MDB_INT);
+  subSoil->clayFraction = atof(hwsdReader.boundValues[i++])/100.0f;
+
   //[S_USDA_TEX_CLASS]      Byte, 
+  columnCheck(i, (char*)"S_USDA_TEX_CLASS", MDB_BYTE);
+  subSoil->usdaTextureClass = (USDATextureClass)atoi(hwsdReader.boundValues[i++]);
+    
   //[S_REF_BULK_DENSITY]      Double, 
+  // See also http://www.pedosphere.com/resources/bulkdensity/index.html. 
+  columnCheck(i, (char*)"S_REF_BULK_DENSITY", MDB_DOUBLE);
+  subSoil->bulkDensity = atof(hwsdReader.boundValues[i++]);
+  
   //[S_OC]      Double, 
+  columnCheck(i, (char*)"S_OC", MDB_DOUBLE);
+  subSoil->organicCarbonPercent = atof(hwsdReader.boundValues[i++]);
+  
   //[S_PH_H2O]      Double, 
+  columnCheck(i, (char*)"S_PH_H2O", MDB_DOUBLE);
+  subSoil->pH = atof(hwsdReader.boundValues[i++]);
+
   //[S_CEC_CLAY]      Double, 
+  columnCheck(i, (char*)"S_CEC_CLAY", MDB_DOUBLE);
+  subSoil->cecClay = atof(hwsdReader.boundValues[i++]);
+
   //[S_CEC_SOIL]      Double, 
+  columnCheck(i, (char*)"S_CEC_SOIL", MDB_DOUBLE);
+  subSoil->cecSoil = atof(hwsdReader.boundValues[i++]);
+
   //[S_BS]      Double, 
+  columnCheck(i, (char*)"S_BS", MDB_DOUBLE);
+  subSoil->baseSaturation = atof(hwsdReader.boundValues[i++]);
+
   //[S_TEB]      Double, 
+  columnCheck(i, (char*)"S_TEB", MDB_DOUBLE);
+  subSoil->totalExchangeableBases = atof(hwsdReader.boundValues[i++]);
+
   //[S_CACO3]      Double, 
+  columnCheck(i, (char*)"S_CACO3", MDB_DOUBLE);
+  subSoil->limeContent = atof(hwsdReader.boundValues[i++]);
+    
   //[S_CASO4]      Double, 
+  columnCheck(i, (char*)"S_CASO4", MDB_DOUBLE);
+  subSoil->gypsumContent = atof(hwsdReader.boundValues[i++]);
+
   //[S_ESP]      Double, 
-  //[S_ECE]      Double, 
+  columnCheck(i, (char*)"S_ESP", MDB_DOUBLE);
+  subSoil->exchangeableNaPercentage = atof(hwsdReader.boundValues[i++]);
+
+  //[S_ECE]      S_ECE, 
+  columnCheck(i, (char*)"T_ECE", MDB_DOUBLE);
+  subSoil->electricalConductivity = atof(hwsdReader.boundValues[i++]);
+
+  // These next two fields are tacked on the end of the database schema but
+  // not documented in the techn report.
+  
   //[T_BULK_DENSITY]      Double, 
-  //[S_BULK_DENSITY]      Double
+  columnCheck(i, (char*)"T_BULK_DENSITY", MDB_DOUBLE);
+  topSoil->bulkDensity = atof(hwsdReader.boundValues[i++]);
+
+  //[S_BULK_DENSITY]      Double, 
+  columnCheck(i, (char*)"S_BULK_DENSITY", MDB_DOUBLE);
+  subSoil->bulkDensity = atof(hwsdReader.boundValues[i++]);
 
   LogFlush();
 }
