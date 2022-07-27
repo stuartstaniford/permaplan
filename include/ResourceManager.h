@@ -30,7 +30,9 @@ public:
   // Instance variables - public
   
   // Member functions - public
+#ifndef PERMASERV
   ResourceManager(MainSceneWindow& window, char* manifestFile);
+#endif
   ResourceManager(char* manifestFile);
   ~ResourceManager(void);
 
