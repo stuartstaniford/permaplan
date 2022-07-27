@@ -19,7 +19,8 @@ enum DynamicType
   TypeSpeciesPath,
   TypeTree,
   TypeVisualElement,
-  TypeVisualObject
+  TypeVisualObject,
+  TypeHWSDProfile
 };
 
 
@@ -28,9 +29,10 @@ enum DynamicType
 /// different things, and resolve at run time which kind they are.  
 /// 
 /// This class provides means to do that.  The class should be subclassed for any new 
-/// dynamic types, and a new case added to the enum DynamicType.  The only method of
+/// dynamic types, and a new case added to the enum DynamicType.  The method of most
 /// consequence is getDynamicType, which should be overridden to return the 
-/// class-specific value.
+/// class-specific value.  There's also a writeJson method which can be used to provide
+/// json objects which a receiver can parse based on the dynamic type.
 
 
 class DynamicallyTypable
@@ -46,6 +48,7 @@ public:
   /// @brief Interface for methods to return their dynamic type 
   /// @returns the DynamicType of this particular object.
   inline virtual DynamicType getDynamicType(void) {return TypeDynamicallyTypable;}
+  virtual int writeJson(char* buf, unsigned bufSize);
   
 private:
   
@@ -61,7 +64,3 @@ private:
 // =======================================================================================
 
 #endif
-
-
-
-
