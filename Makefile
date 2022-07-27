@@ -44,7 +44,7 @@ SRCS = $(wildcard src/*.cpp)
 # with the .o suffix
 #
 OBJS = $(SRCS:.cpp=.o)
-SERV_OBJS = src/BILFile.o src/Global.o src/GroundLayer.o   src/GdalFileInterface.o src/HttpLBPermaserv.o src/HttpPermaServ.o src/HttpServThread.o src/HttpLoadBalancer.o src/HttpRequestParser.o src/HWSDProfile.o src/Logging.o src/MdbFile.o src/SoilDatabase.o src/SoilProfile.o src/SoilHorizon.o src/SolarDatabase.o src/TaskQueueFarm.o src/TaskQueue.o src/Lockable.o 
+SERV_OBJS = src/BILFile.o src/Global.o src/GroundLayer.o   src/GdalFileInterface.o src/HttpLBPermaserv.o src/HttpPermaServ.o src/HttpServThread.o src/HttpLoadBalancer.o src/HttpRequestParser.o src/HttpClient.o src/HWSDProfile.o src/Logging.o src/MdbFile.o src/SoilDatabase.o src/SoilProfile.o src/SoilHorizon.o src/SolarDatabase.o src/TaskQueueFarm.o src/TaskQueue.o src/Lockable.o src/ResourceManager.o src/loadFileToBuf.o
 
 # define the executable file
 MAIN = permaplan
@@ -61,13 +61,15 @@ all:    doc $(MAIN) permaserv/permaserv
 				@echo $(MAIN) has been compiled.
 
 $(MAIN): $(OBJS)
+			$(CPP) $(CFLAGS) $(INCLUDES) -c src/ResourceManager.cpp -o src/ResourceManager.o
 			$(CPP) $(CFLAGS) $(INCLUDES) -o $(MAIN) $(OBJS) $(LFLAGS) $(LIBS)
 
 doc:		$(SRCS) $(wildcard include/*.h) Doxyfile
 				doxygen Doxyfile
 
 permaserv/permaserv: $(SERV_OBJS) permaserv/permaserv_main.cpp
-							$(CPP) $(CFLAGS) -o permaserv/permaserv $(INCLUDES) $(LIBS)  $(SERV_OBJS) permaserv/permaserv_main.cpp
+			$(CPP) $(CFLAGS) -D PERMASERV $(INCLUDES) -c src/ResourceManager.cpp -o src/ResourceManager.o
+			$(CPP) $(CFLAGS) -o permaserv/permaserv $(INCLUDES) $(LIBS)  $(SERV_OBJS) permaserv/permaserv_main.cpp
 
 # this is a suffix replacement rule for building .o's from .c's
 # it uses automatic variables $<: the name of the prerequisite of
