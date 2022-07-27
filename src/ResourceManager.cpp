@@ -19,26 +19,26 @@
 // Useful constants
 
 #define MATERIALS_DIR (char*)"Materials"
-#define MANIFEST_FILE (char*)"manifest.json"
 #define PATH_BUF_SIZE 256
 
 using namespace rapidjson;
 
 
 // =======================================================================================
-/// @brief Constructor
+/// @brief Constructor used from permaplan where there is an interactive window.
 ///
 /// Most of the work in this class occurs in the constructor.  The other methods in the
 /// class are helper functions invoked at construction time.
 /// @param window A reference to the open window at the time of our invocation (needed 
 /// in case we have to do some user-interaction).
+/// @param manifestFile - the name of the manifest file to use to search for resources.
 
-ResourceManager::ResourceManager(MainSceneWindow& window)
+ResourceManager::ResourceManager(MainSceneWindow& window, char* manifestFile)
 {
-  char buf[PATH_BUF_SIZE];
   // First check if the Materials directory exists, create it if necessary and approved
   if(!directoryExists(MATERIALS_DIR))
    {
+    char buf[PATH_BUF_SIZE];
     // It's possible we are just being run in the wrong place - double check.
     getcwd(buf, PATH_BUF_SIZE);
     LogResourceErrors("Directory %s not found in %s.", MATERIALS_DIR, buf);
@@ -53,11 +53,44 @@ ResourceManager::ResourceManager(MainSceneWindow& window)
       err(-1, "No %s directory in %s.\n", MATERIALS_DIR, buf);
     mkdir(MATERIALS_DIR, S_IRWXU|S_IRWXG);
    }
+  
+  processManifest(manifestFile);
+}
+
+
+// =======================================================================================
+/// @brief Constructor used from permaserv where there is no interactive window.
+///
+/// @param manifestFile - the name of the manifest file to use to search for resources.
+
+ResourceManager::ResourceManager(char* manifestFile)
+{
+  if(!directoryExists(MATERIALS_DIR))
+   {
+    char buf[PATH_BUF_SIZE];
+    getcwd(buf, PATH_BUF_SIZE);
+    LogResourceErrors("Directory %s not found in %s.", MATERIALS_DIR, buf);
+    LogFlush();
+    err(-1, "No %s directory in %s.\n", MATERIALS_DIR, buf);
+   }
+  processManifest(manifestFile);
+}
+
+
+// =======================================================================================
+/// @brief Helper function which checks the existence of the manifest file, then fetches
+/// all the resources.
+///
+/// @param manifestFile - the name of the manifest file to use to search for resources.
+
+void ResourceManager::processManifest(char* manifestFile)
+{
+  char buf[PATH_BUF_SIZE];
   DIR* dir;
   dir = opendir(MATERIALS_DIR);
-  
+
   // Check if the manifest.json file exists, fetch it if necessary.
-  snprintf(buf, PATH_BUF_SIZE, "%s/%s", MATERIALS_DIR, MANIFEST_FILE);
+  snprintf(buf, PATH_BUF_SIZE, "%s/%s", MATERIALS_DIR, manifestFile);
   unless(regularFileExists(buf))
    {
     ; // XX need website where this would live
@@ -72,13 +105,13 @@ ResourceManager::ResourceManager(MainSceneWindow& window)
   if (!ok)
    {
     fprintf(stderr, "JSON parse error on %s file: %s (%u)\n",
-            MANIFEST_FILE, GetParseError_En(ok.Code()), (unsigned)(ok.Offset()));
+            manifestFile, GetParseError_En(ok.Code()), (unsigned)(ok.Offset()));
     exit(1);
    }
   if(!doc.IsObject())
-    err(-1, "Base of JSON file %s is not JSON object.\n", MANIFEST_FILE);
+    err(-1, "Base of JSON file %s is not JSON object.\n", manifestFile);
   unless(doc.HasMember("directories") && doc["directories"].IsArray())
-    err(-1, "No directories object in %s.\n", MANIFEST_FILE);
+    err(-1, "No directories object in %s.\n", manifestFile);
   
   int sz = strlen(MATERIALS_DIR);
   buf[sz+1] = '\0';
