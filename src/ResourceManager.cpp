@@ -33,6 +33,8 @@ using namespace rapidjson;
 /// in case we have to do some user-interaction).
 /// @param manifestFile - the name of the manifest file to use to search for resources.
 
+#ifndef PERMASERV
+
 ResourceManager::ResourceManager(MainSceneWindow& window, char* manifestFile)
 {
   // First check if the Materials directory exists, create it if necessary and approved
@@ -56,7 +58,7 @@ ResourceManager::ResourceManager(MainSceneWindow& window, char* manifestFile)
   
   processManifest(manifestFile);
 }
-
+#endif
 
 // =======================================================================================
 /// @brief Constructor used from permaserv where there is no interactive window.
@@ -204,7 +206,10 @@ void ResourceManager::checkFiles(Value& fileList, char* path, unsigned pathlen)
   
   int N = fileList.Size();
   for(int i=0; i<N; i++)
+   {
+    LogResourceDetails("Checking file %d: %s\n", i, path);
     checkOneFile(fileList[i], i, path, pathlen);
+   }
 }
 
 
@@ -231,6 +236,9 @@ void ResourceManager::checkOneFile(Value& fileObject, int i, char* path, unsigne
   while(!success && j < N)
    {
     success = success || httpClient.fetchFile(fileObject["sources"][j].GetString(), path);
+    if(success)
+      LogResourceActions("Obtained file %d from source %d: %s\n", i, j, path);
+
     j++;
    }
   unless(success)
