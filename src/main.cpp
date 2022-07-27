@@ -54,7 +54,7 @@ int main (int argc, char* argv[])
   glfwApp.addWindow(window);
   Shader shader("src/pmodVert.glsl", "src/pmodFrag.glsl");
   window.camera.makeActive(); // Can't do till shader is set up.
-  ResourceManager resources(window);
+  ResourceManager resources(window, (char*)"manifest.json");
   HttpPermaservClient permaservClient;
   PmodDesign design;
   Scene scene;
