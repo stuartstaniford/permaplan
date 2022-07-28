@@ -3,6 +3,7 @@
 #ifndef DYNAMICALLY_TYPABLE_H
 #define DYNAMICALLY_TYPABLE_H
 
+#define bufprintf(...) if((buf += snprintf(buf, end-buf,  __VA_ARGS__)) >= end) {return -1;}
 
 // =======================================================================================
 /// @brief Enum representing the types that can inherit from DynamicallyTypable and 
@@ -51,7 +52,8 @@ public:
   /// @brief Interface for methods to return their dynamic type 
   /// @returns the DynamicType of this particular object.
   inline virtual DynamicType getDynamicType(void) {return TypeDynamicallyTypable;}
-  virtual int writeJson(char* buf, unsigned bufSize);
+  int writeJson(char* buf, unsigned bufSize);
+  virtual int writeJsonFields(char* buf, unsigned bufSize);
   
 private:
   
