@@ -7,6 +7,9 @@
 // =======================================================================================
 /// @brief Enum representing the types that can inherit from DynamicallyTypable and 
 /// be represented.
+/// 
+/// Note that any additions to this list must also be reflected in the
+/// dynamicallyTypableName array in DynamicallyTypable.cpp
 
 enum DynamicType
 {
