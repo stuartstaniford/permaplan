@@ -4,6 +4,7 @@
 #define SOIL_PROFILE_H
 
 #include "GroundLayer.h"
+#include "DynamicallyTypable.h"
 #include <vector>
 
 
@@ -21,7 +22,7 @@
 /// vector is empty (zero SoilHorizons) that indicates a no soil condition (eg bare rock,
 /// deep water, etc).
 
-class SoilProfile: public std::vector<GroundLayer*>
+class SoilProfile: public DynamicallyTypable, public std::vector<GroundLayer*>
 {
 public:
   
@@ -29,8 +30,9 @@ public:
   
   // Member functions - public
   SoilProfile(void);
-  ~SoilProfile(void);
-  unsigned writeJson(char* buf, unsigned bufSize);
+  virtual ~SoilProfile(void);
+  virtual DynamicType getDynamicType(void) {return TypeSoilProfile;}
+  virtual int writeJsonFields(char* buf, unsigned bufSize);
  
 private:
   
@@ -47,7 +49,3 @@ private:
 // =======================================================================================
 
 #endif
-
-
-
-
