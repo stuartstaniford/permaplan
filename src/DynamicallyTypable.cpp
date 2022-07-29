@@ -24,6 +24,32 @@ char* dynamicallyTypableName[] = {
 
 
 // =======================================================================================
+/// @brief Constructor.
+
+DynamicallyTypable::DynamicallyTypable(void)
+{
+}
+
+
+// =======================================================================================
+/// @brief Destructor.
+
+DynamicallyTypable::~DynamicallyTypable(void)
+{
+}
+
+
+// =======================================================================================
+/// @brief Interface for methods to return their dynamic type
+/// @returns the DynamicType of this particular object.
+
+DynamicType DynamicallyTypable::getDynamicType(void)
+{
+  return TypeDynamicallyTypable;
+}
+
+
+/// =======================================================================================
 /// @brief Provide json objects which a receiver can parse based on the dynamic type.
 /// @returns The number of bytes written.
 /// @param buf The place in memory to output the JSON text to.
