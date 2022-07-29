@@ -88,8 +88,6 @@ ResourceManager::ResourceManager(char* manifestFile)
 void ResourceManager::processManifest(char* manifestFile)
 {
   char buf[PATH_BUF_SIZE];
-  DIR* dir;
-  dir = opendir(MATERIALS_DIR);
 
   // Check if the manifest.json file exists, fetch it if necessary.
   snprintf(buf, PATH_BUF_SIZE, "%s/%s", MATERIALS_DIR, manifestFile);
