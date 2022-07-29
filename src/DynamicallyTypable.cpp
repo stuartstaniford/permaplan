@@ -75,6 +75,7 @@ int DynamicallyTypable::writeJson(char* buf, unsigned bufSize)
 /// @returns The number of bytes written.
 /// @param buf The place in memory to output the JSON text to.
 /// @param bufSize The size of the buffer that can safely be written to.
+/// @todo Deal with commas at end of list.
 
 int DynamicallyTypable::writeJsonFields(char* buf, unsigned bufSize)
 {
