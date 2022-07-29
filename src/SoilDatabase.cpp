@@ -63,6 +63,7 @@ void SoilDatabase::loadHWSDProfiles(void)
     soil = new HWSDProfile(hwsdTable);
     if(++rowCount >= 7)
       break;
+    printf("Soil: %d", soil->dbId);
    }
 }
 
