@@ -24,6 +24,7 @@ enum DynamicType
   TypeTree,
   TypeVisualElement,
   TypeVisualObject,
+  TypeSoilProfile,
   TypeHWSDProfile
 };
 
@@ -46,12 +47,9 @@ public:
   // Instance variables - public
 
   // Member functions - public
-  inline DynamicallyTypable(void) {};
-  inline virtual ~DynamicallyTypable(void) {};
-  
-  /// @brief Interface for methods to return their dynamic type 
-  /// @returns the DynamicType of this particular object.
-  inline virtual DynamicType getDynamicType(void) {return TypeDynamicallyTypable;}
+  DynamicallyTypable(void);
+  virtual ~DynamicallyTypable(void);
+  virtual DynamicType getDynamicType(void);
   int writeJson(char* buf, unsigned bufSize);
   virtual int writeJsonFields(char* buf, unsigned bufSize);
   
