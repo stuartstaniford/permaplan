@@ -273,25 +273,18 @@ bool PmodDesign::validateTexture(Value& landSurface)
     bool urlOk    = true;
     bool offsetOk = true;
     
-    float width;
-    if(texture.HasMember("width") && texture["width"].IsNumber())
-      width = texture["width"].GetFloat();
-    else
+    unless(texture.HasMember("width") && texture["width"].IsNumber())
      {
       LogOLDFValidity("Bad landSurface:texture:width in OLDF file %s\n",
                                                                 config.designFileName);
       widthOk = false;
      }
-    const char* url;
-    if(texture.HasMember("url") && texture["url"].IsString())
-      url = texture["url"].GetString();
-    else
+    unless(texture.HasMember("url") && texture["url"].IsString())
      {
       LogOLDFValidity("Bad landSurface:texture:url in OLDF file %s\n",
                                                                 config.designFileName);
       urlOk = false;
      }
-    float west, south;
     if(texture.HasMember("offset") && texture["offset"].IsArray())
      {
       Value& offset = texture["offset"];
@@ -303,12 +296,7 @@ bool PmodDesign::validateTexture(Value& landSurface)
        }
       else
        {
-        if(offset[0].IsNumber() && offset[1].IsNumber())
-         {
-          west  = offset[0].GetFloat();
-          south = offset[1].GetFloat();
-         }
-        else
+        unless(offset[0].IsNumber() && offset[1].IsNumber())
          {
           LogOLDFValidity("landSurface:texture:offset: non-numerical vals in OLDF file %s\n",
                                                                   config.designFileName);
