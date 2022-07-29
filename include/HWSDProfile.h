@@ -10,6 +10,7 @@
 // Forward declarations
 
 class MdbTableReader;
+class SoilDatabase;
 
 
 // =======================================================================================
@@ -24,6 +25,7 @@ class MdbTableReader;
 
 class HWSDProfile: public SoilProfile
 {
+  friend SoilDatabase;
 public:
   
   // Instance variables - public
@@ -32,6 +34,8 @@ public:
   HWSDProfile(MdbTableReader& hwsdTableReader);
   ~HWSDProfile(void);
   void columnCheck(int column, char* colName, int expectedType);
+  virtual DynamicType getDynamicType(void) {return TypeHWSDProfile;}
+  virtual int writeJsonFields(char* buf, unsigned bufSize);
 
 private:
   
