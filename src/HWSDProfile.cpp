@@ -298,3 +298,48 @@ HWSDProfile::~HWSDProfile(void)
 
 
 // =======================================================================================
+/// @brief Output JSON soil profile format to a buffer.
+///
+/// @returns The number of bytes written to the buffer.  If greater than or equal to
+/// the supplied bufSize parameter, it indicates the buffer was not big enough and the
+/// output will have been truncated/incomplete.
+/// @param buf The char buffer to write the JSON to.
+/// @param bufSize The size of the buffer, which must not be overwritten after the end.
+
+int HWSDProfile::writeJsonFields(char* buf, unsigned bufSize)
+{
+  char* end = buf + bufSize;
+  
+  buf += SoilProfile::writeJsonFields(buf, bufSize);
+  
+  // Write our own fields
+  bufprintf("\"dbId\": %d", dbId);
+  bufprintf("\"muGlobal\": %d", muGlobal);
+  bufprintf("\"muSource1\": \"%s\"", muSource1);
+  bufprintf("\"muSource2\": %d", muSource2);
+  bufprintf("\"isSoil\": %d", isSoil);
+  bufprintf("\"share\": %.3f", share);
+  bufprintf("\"seq\": %d", seq);
+  bufprintf("\"suSym74\": \"%s\"", suSym74);
+  bufprintf("\"suCode74\": %d", suCode74);
+  bufprintf("\"suSym85\": \"%s\"", suSym85);
+  bufprintf("\"suCode85\": %d", suCode85);
+  bufprintf("\"suSym90\": \"%s\"", suSym90);
+  bufprintf("\"suCode90\": %d", suCode90);
+  bufprintf("\"suCode90\": %d", suCode90);
+  bufprintf("\"tTexture\": %d", tTexture);
+  bufprintf("\"drainage\": %d", drainage);
+  bufprintf("\"refDepth\": %d", refDepth);
+  bufprintf("\"awcClass\": %d", awcClass);
+  bufprintf("\"phase1\": %d", phase1);
+  bufprintf("\"phase2\": %d", phase2);
+  bufprintf("\"roots\": %d", roots);
+  bufprintf("\"il\": %d", il);
+  bufprintf("\"swr\": %d", swr);
+  bufprintf("\"addProp\": %d", addProp);
+
+  return bufSize - (end-buf);
+}
+
+
+// =======================================================================================
