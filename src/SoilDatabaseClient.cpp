@@ -1,13 +1,15 @@
 // Copyright Staniford Systems.  All Rights Reserved.  August 2022 -
-// This class ..... is a template for real classes
+// A class to manage the permaplan client side process of getting soil profiles
+// from the SoilDatabase in permaserv, and making them available for plant growth
+// algorithms as needed.
 
-#include "EmptyClass.h"
+#include "SoilDatabaseClient.h"
 
 
 // =======================================================================================
 /// @brief Constructor
 
-EmptyClass::EmptyClass(void)
+SoilDatabaseClient::SoilDatabaseClient(void)
 {
 }
 
@@ -15,7 +17,7 @@ EmptyClass::EmptyClass(void)
 // =======================================================================================
 /// @brief Destructor
 
-EmptyClass::~EmptyClass(void)
+SoilDatabaseClient::~SoilDatabaseClient(void)
 {
 }
 

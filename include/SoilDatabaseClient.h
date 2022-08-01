@@ -1,23 +1,25 @@
 // Copyright Staniford Systems.  All Rights Reserved.  August 2022 -
 
-#ifndef EMPTY_CLASS_H
-#define EMPTY_CLASS_H
+#ifndef SOIL_DATABASE_CLIENT_H
+#define SOIL_DATABASE_CLIENT_H
 
 
 // =======================================================================================
-/// @brief This is a template for new classes.  Quick description of the class here.
+/// @brief Client side access to SoilDatabase.
 ///
-/// More details of the class go here.
+/// A class to manage the permaplan client side process of getting soil profiles
+/// from the SoilDatabase in permaserv, and making them available for plant growth
+/// algorithms as needed.
 
-class EmptyClass
+class SoilDatabaseClient
 {
 public:
   
   // Instance variables - public
   
   // Member functions - public
-  EmptyClass(void);
-  ~EmptyClass(void);
+  SoilDatabaseClient(void);
+  ~SoilDatabaseClient(void);
   
 private:
   
@@ -25,9 +27,9 @@ private:
   
   // Member functions - private
   /// @brief Prevent copy-construction.
-  EmptyClass(const EmptyClass&);       
+  SoilDatabaseClient(const SoilDatabaseClient&);       
   /// @brief Prevent assignment.
-  EmptyClass& operator=(const EmptyClass&);      
+  SoilDatabaseClient& operator=(const SoilDatabaseClient&);      
 };
 
 

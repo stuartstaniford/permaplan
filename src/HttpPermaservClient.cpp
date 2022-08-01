@@ -225,6 +225,22 @@ float HttpPermaservClient::getDNIValue(float lat, float longt)
 void HttpPermaservClient::getSoilProfiles(float lowLat, float lowLong, 
                                                               float hiLat, float hiLong)
 {
+  if(cachePresent && doc.HasMember("soilSamples"))
+   {
+    //dni = doc["DNI"].GetFloat();
+    LogPermaservClientOps("Obtained soil samples from cache file.\n"); 
+    return;
+   }
+  if(0)
+   {
+    LogPermaservClientOps("Obtained soil samples from permaserv.\n"); 
+    return;
+   }
+  else
+   {
+    LogPermaservClientErrors("Failed to obtain soil samples from permaserv.\n");
+    return;
+   }
 }
 
 
