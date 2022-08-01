@@ -215,3 +215,17 @@ float HttpPermaservClient::getDNIValue(float lat, float longt)
 
 
 // =======================================================================================
+/// @brief Get the available soil profiles for a rectangular region of lat/long space 
+/// 
+/// @param lowLat Low end of the latitude of the region we are querying about.
+/// @param lowLong Low end of the longtitude of the region we are querying about.
+/// @param hiLat High end of the latitude of the region we are querying about.
+/// @param hiLong High end of the longtitude of the region we are querying about.
+ 
+void HttpPermaservClient::getSoilProfiles(float lowLat, float lowLong, 
+                                                              float hiLat, float hiLong)
+{
+}
+
+
+// =======================================================================================

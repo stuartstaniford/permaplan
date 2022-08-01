@@ -56,7 +56,7 @@ int GroundLayer::writeJson(char* buf, unsigned bufSize)
   writePoint += sprintf(writePoint, "organicCarbonFraction: %.4f\n", organicCarbonFraction);
   if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
 
-  writePoint += sprintf(writePoint, "}\n\n");
+  writePoint += sprintf(writePoint, "}");
   
   return writePoint - buf;
   

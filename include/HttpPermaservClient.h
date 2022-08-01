@@ -8,10 +8,13 @@
 #include "rapidjson/writer.h"
 #include "rapidjson/stringbuffer.h"
 #include "rapidjson/error/en.h"
+#include <vector>
 
 
 // =======================================================================================
 // Forward declarations
+
+class SoilProfile;
 
 
 // =======================================================================================
@@ -33,6 +36,7 @@ public:
   bool getSingleValue(char* url, char* name, float lat, float longt, float& retVal);
   float getDIFValue(float lat, float longt);
   float getDNIValue(float lat, float longt);
+  void getSoilProfiles(float lowLat, float lowLong, float hiLat, float hiLong);
 
   // Static public member functions
   static HttpPermaservClient& getPermaservClient(void) // Get the singleton instance
@@ -51,8 +55,9 @@ private:
   bool                  cachePresent;
   
   // Actual values that are cached and/or fetched.
-  float                 dif;
-  float                 dni;
+  float                     dif;
+  float                     dni;
+  std::vector<SoilProfile*> soilSamples;
   
   // Member functions - private
   /// @brief Prevent copy-construction.
