@@ -80,7 +80,7 @@ int SoilProfile::writeJsonFields(char* buf, unsigned bufSize)
     bufprintf("\n");
    }
    
-  bufprintf("]\n");
+  bufprintf("]"); // no ,\n as we don't know we are last
   return bufSize - (end-buf);
 }
 

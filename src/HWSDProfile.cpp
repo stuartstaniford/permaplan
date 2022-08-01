@@ -311,32 +311,33 @@ int HWSDProfile::writeJsonFields(char* buf, unsigned bufSize)
   char* end = buf + bufSize;
   
   buf += SoilProfile::writeJsonFields(buf, bufSize);
+  bufprintf(",\n")
   
   // Write our own fields
-  bufprintf("\"dbId\": %d", dbId);
-  bufprintf("\"muGlobal\": %d", muGlobal);
-  bufprintf("\"muSource1\": \"%s\"", muSource1);
-  bufprintf("\"muSource2\": %d", muSource2);
-  bufprintf("\"isSoil\": %d", isSoil);
-  bufprintf("\"share\": %.3f", share);
-  bufprintf("\"seq\": %d", seq);
-  bufprintf("\"suSym74\": \"%s\"", suSym74);
-  bufprintf("\"suCode74\": %d", suCode74);
-  bufprintf("\"suSym85\": \"%s\"", suSym85);
-  bufprintf("\"suCode85\": %d", suCode85);
-  bufprintf("\"suSym90\": \"%s\"", suSym90);
-  bufprintf("\"suCode90\": %d", suCode90);
-  bufprintf("\"suCode90\": %d", suCode90);
-  bufprintf("\"tTexture\": %d", tTexture);
-  bufprintf("\"drainage\": %d", drainage);
-  bufprintf("\"refDepth\": %d", refDepth);
-  bufprintf("\"awcClass\": %d", awcClass);
-  bufprintf("\"phase1\": %d", phase1);
-  bufprintf("\"phase2\": %d", phase2);
-  bufprintf("\"roots\": %d", roots);
-  bufprintf("\"il\": %d", il);
-  bufprintf("\"swr\": %d", swr);
-  bufprintf("\"addProp\": %d", addProp);
+  bufprintf("\"dbId\": %d,\n", dbId);
+  bufprintf("\"muGlobal\": %d,\n", muGlobal);
+  bufprintf("\"muSource1\": \"%s\",\n", muSource1);
+  bufprintf("\"muSource2\": %d,\n", muSource2);
+  bufprintf("\"isSoil\": %d,\n", isSoil);
+  bufprintf("\"share\": %.3f,\n", share);
+  bufprintf("\"seq\": %d,\n", seq);
+  bufprintf("\"suSym74\": \"%s\",\n", suSym74);
+  bufprintf("\"suCode74\": %d,\n", suCode74);
+  bufprintf("\"suSym85\": \"%s\",\n", suSym85);
+  bufprintf("\"suCode85\": %d,\n", suCode85);
+  bufprintf("\"suSym90\": \"%s\",\n", suSym90);
+  bufprintf("\"suCode90\": %d,\n", suCode90);
+  bufprintf("\"suCode90\": %d,\n", suCode90);
+  bufprintf("\"tTexture\": %d,\n", tTexture);
+  bufprintf("\"drainage\": %d,\n", drainage);
+  bufprintf("\"refDepth\": %d,\n", refDepth);
+  bufprintf("\"awcClass\": %d,\n", awcClass);
+  bufprintf("\"phase1\": %d,\n", phase1);
+  bufprintf("\"phase2\": %d,\n", phase2);
+  bufprintf("\"roots\": %d,\n", roots);
+  bufprintf("\"il\": %d,\n", il);
+  bufprintf("\"swr\": %d,\n", swr);
+  bufprintf("\"addProp\": %d", addProp);  // last one, no comma
 
   return bufSize - (end-buf);
 }

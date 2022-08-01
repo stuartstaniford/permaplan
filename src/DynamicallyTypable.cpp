@@ -60,7 +60,7 @@ int DynamicallyTypable::writeJson(char* buf, unsigned bufSize)
   char* end = buf + bufSize;
   bufprintf("{\n");
   buf += writeJsonFields(buf, end-buf);
-  bufprintf("}\n");
+  bufprintf(",\n}\n");
   return (bufSize - (int)(end-buf));
 }
 
