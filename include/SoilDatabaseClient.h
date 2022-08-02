@@ -29,6 +29,7 @@ public:
   // Member functions - public
   SoilDatabaseClient(HttpPermaservClient& httpPermCli);
   ~SoilDatabaseClient(void);
+  SoilProfile* getSoil(float latitude, float longtitude);
   
 private:
   

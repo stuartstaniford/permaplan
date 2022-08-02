@@ -29,3 +29,21 @@ SoilDatabaseClient::~SoilDatabaseClient(void)
 
 
 // =======================================================================================
+/// @brief Get a pointer to the soil profile at a particular <lat,long>.
+/// 
+/// This is called by other code in permaserv that needs soil information.  It may
+/// trigger fetching further soil information from permaserv if that has not been done
+/// yet.  However, it is anticipated that most calls will return quickly with a pointer
+/// to soil information we already have.
+/// @returns A pointer to a SoilProfile that the caller can use when soil properties
+/// are required (eg for input to plant growth algorithms).
+/// @param latitude The float latitude of where we are hoping to find out soil info for
+/// @param longtitude The float longtitude of where we are hoping to find out soil info for
+
+SoilProfile* SoilDatabaseClient::getSoil(float latitude, float longtitude)
+{
+  return NULL;
+}
+
+
+// =======================================================================================
