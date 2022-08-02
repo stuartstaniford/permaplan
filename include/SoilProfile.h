@@ -27,6 +27,10 @@ class SoilProfile: public DynamicallyTypable, public std::vector<GroundLayer*>
 public:
   
   // Instance variables - public
+  ///@brief Latitude of location where this profile is believed valid
+  float latitude;
+  ///@brief Longtitude of location where this profile is believed valid
+  float longtitude;
   
   // Member functions - public
   SoilProfile(void);

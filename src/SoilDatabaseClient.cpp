@@ -5,6 +5,7 @@
 
 #include "SoilDatabaseClient.h"
 #include "HttpPermaservClient.h"
+#include "SoilProfile.h"
 
 
 // =======================================================================================

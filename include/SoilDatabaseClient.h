@@ -3,11 +3,14 @@
 #ifndef SOIL_DATABASE_CLIENT_H
 #define SOIL_DATABASE_CLIENT_H
 
+#include <vector>
+
 
 // =======================================================================================
 // Forward declarations
 
 class HttpPermaservClient;
+class SoilProfile;
 
 
 // =======================================================================================
@@ -31,6 +34,7 @@ private:
   
   // Instance variables - private
   HttpPermaservClient& httpPermClient;
+  std::vector<SoilProfile*> soilSamples;
   
   // Member functions - private
   /// @brief Prevent copy-construction.

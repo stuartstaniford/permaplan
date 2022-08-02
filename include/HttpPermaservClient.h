@@ -57,7 +57,6 @@ private:
   // Actual values that are cached and/or fetched.
   float                     dif;
   float                     dni;
-  std::vector<SoilProfile*> soilSamples;
   
   // Member functions - private
   /// @brief Prevent copy-construction.
