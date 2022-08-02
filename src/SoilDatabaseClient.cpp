@@ -39,6 +39,16 @@ SoilDatabaseClient::~SoilDatabaseClient(void)
 
 
 // =======================================================================================
+/// @brief Fetch the available profiles from the database.
+/// @returns True if we could fetch a non-zero number of profiles, false otherwise.
+
+bool SoilDatabaseClient::getProfilesFromSoilDatabase(void)
+{
+  return false;
+}
+
+
+// =======================================================================================
 /// @brief Get a pointer to the soil profile at a particular <lat,long>.
 /// 
 /// This is called by other code in permaserv that needs soil information.  It may
@@ -57,7 +67,12 @@ SoilProfile* SoilDatabaseClient::getSoil(float latitude, float longtitude)
   if(soilSamples.size() > 0)
     return soilSamples[0];
   else
-    return NULL;
+   {
+    if(getProfilesFromSoilDatabase() && soilSamples.size() > 0)
+      return soilSamples[0];
+    else
+      return NULL;
+   }
 }
 
 

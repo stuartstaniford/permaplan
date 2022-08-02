@@ -30,6 +30,7 @@ public:
   SoilDatabaseClient(HttpPermaservClient& httpPermCli);
   ~SoilDatabaseClient(void);
   SoilProfile* getSoil(float latitude, float longtitude);
+  bool getProfilesFromSoilDatabase(void);
 
   // Static member functions
   static SoilDatabaseClient& getSoilDbClient(void) // Get the singleton instance
