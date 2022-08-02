@@ -22,6 +22,7 @@ class WoodySegment;
 class Species;
 class TaskQueue;
 class Scene;
+class SoilProfile;
 
 void growOneTree(void* arg);
 
@@ -41,17 +42,18 @@ class Tree: public VisualObject
  public:
   
   // Instance variables - public
-  mat4            trans;
-  Species*        species;
-  float           yearPlanted;
-  float           ageNow;
-  unsigned short  treePtrArrayIndex; // used by all our subparts to find us
-  short           taskId;             // which thread has us
-  float           trunkRadiusObserved;
-  float           yearTrunkMeasured;
-  const char*     commonName;
-  const char*     taxonomyLink;
-
+  mat4                trans;
+  Species*            species;
+  float               yearPlanted;
+  float               ageNow;
+  unsigned short      treePtrArrayIndex; // used by all our subparts to find us
+  short               taskId;             // which thread has us
+  float               trunkRadiusObserved;
+  float               yearTrunkMeasured;
+  const char*         commonName;
+  const char*         taxonomyLink;
+  const SoilProfile*  soil;
+  
   // Member functions - public
   Tree(Species* S, vec3 loc, float age, float now);
   Tree(rapidjson::Value& plantObject);

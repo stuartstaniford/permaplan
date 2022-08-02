@@ -5725,6 +5725,8 @@ src/SoilDatabaseClient.o: ./include/rapidjson/stringbuffer.h
 src/SoilDatabaseClient.o: ./include/rapidjson/stringbuffer.h
 src/SoilDatabaseClient.o: ./include/rapidjson/error/en.h
 src/SoilDatabaseClient.o: ./include/rapidjson/error/error.h
+src/SoilDatabaseClient.o: ./include/SoilProfile.h ./include/GroundLayer.h
+src/SoilDatabaseClient.o: ./include/DynamicallyTypable.h
 src/SoilHorizon.o: ./include/SoilHorizon.h ./include/GroundLayer.h
 src/SoilHorizon.o: ./include/rapidjson/document.h
 src/SoilHorizon.o: ./include/rapidjson/reader.h
@@ -6310,6 +6312,7 @@ src/Tree.o: ./include/SkySampleModel.h ./include/TaskQueueFarm.h
 src/Tree.o: ./include/TaskQueue.h ./include/Species.h ./include/Version.h
 src/Tree.o: ./include/HttpDebug.h ./include/HttpServThread.h
 src/Tree.o: ./include/HttpRequestParser.h ./include/AxialElement.h
+src/Tree.o: ./include/SoilProfile.h ./include/GroundLayer.h
 src/TreeEquation.o: ./include/TreeEquation.h
 src/TreePart.o: ./include/TreePart.h ./include/Logging.h
 src/TreePart.o: ./include/MemoryTracker.h /usr/local/include/cglm/cglm.h

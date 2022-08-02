@@ -10,6 +10,9 @@
 #include "Species.h"
 #include "HttpDebug.h"
 #include "AxialElement.h"
+#include "SoilProfile.h"
+#include "SoilDatabaseClient.h"
+
 #include <err.h>
 
 
@@ -32,6 +35,7 @@ using namespace rapidjson;
 /// year planted can be computed.
 /// @todo Tree should inherit from Positionable, not have its own location
 /// field.
+/// @todo Currently we are getting the soil at 0,0 instead of our actual lat/long
 
 Tree::Tree(Species* S, vec3 loc, float age, float now):
                           VisualObject(false),
@@ -48,6 +52,12 @@ Tree::Tree(Species* S, vec3 loc, float age, float now):
   treePtrArray[(treePtrArrayIndex = treeCount++)] = this;
   growStep(age);
   updateBoundingBox();
+  
+  // Get the soil at our location
+  SoilDatabaseClient& theSoilClient = SoilDatabaseClient::getSoilDbClient();
+  soil = theSoilClient.getSoil(0.0f, 0.0f);
+  
+  // Log/record and go home
   incrementTreeMemory(sizeof(Tree));
   LogObjectCreation("Object created of type %s with id %u.\n", objectName(), objIndex);
 }
