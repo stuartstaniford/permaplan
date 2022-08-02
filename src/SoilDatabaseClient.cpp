@@ -39,10 +39,15 @@ SoilDatabaseClient::~SoilDatabaseClient(void)
 /// are required (eg for input to plant growth algorithms).
 /// @param latitude The float latitude of where we are hoping to find out soil info for
 /// @param longtitude The float longtitude of where we are hoping to find out soil info for
+/// @todo Currently we just return the first and only element of the array.  Ultimately
+/// we should handle complex cases of heterogeneity in the soil across the planned design.
 
 SoilProfile* SoilDatabaseClient::getSoil(float latitude, float longtitude)
 {
-  return NULL;
+  if(soilSamples.size() > 0)
+    return soilSamples[0];
+  else
+    return NULL;
 }
 
 
