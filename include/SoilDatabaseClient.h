@@ -5,6 +5,12 @@
 
 
 // =======================================================================================
+// Forward declarations
+
+class HttpPermaservClient;
+
+
+// =======================================================================================
 /// @brief Client side access to SoilDatabase.
 ///
 /// A class to manage the permaplan client side process of getting soil profiles
@@ -18,12 +24,13 @@ public:
   // Instance variables - public
   
   // Member functions - public
-  SoilDatabaseClient(void);
+  SoilDatabaseClient(HttpPermaservClient& httpPermCli);
   ~SoilDatabaseClient(void);
   
 private:
   
   // Instance variables - private
+  HttpPermaservClient& httpPermClient;
   
   // Member functions - private
   /// @brief Prevent copy-construction.

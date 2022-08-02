@@ -4,12 +4,17 @@
 // algorithms as needed.
 
 #include "SoilDatabaseClient.h"
+#include "HttpPermaservClient.h"
 
 
 // =======================================================================================
 /// @brief Constructor
+///
+/// @param httpPermCli a reference to the instance of HttpPermaservClient we will use
+/// to communicate with permaserv (where we want to talk to the SoilDatabase).
 
-SoilDatabaseClient::SoilDatabaseClient(void)
+SoilDatabaseClient::SoilDatabaseClient(HttpPermaservClient& httpPermCli):
+                                                            httpPermClient(httpPermCli)
 {
 }
 

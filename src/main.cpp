@@ -13,6 +13,7 @@
 #include "GLFWApplication.h"
 #include "InterfaceMainSceneWin.h"
 #include "HttpPermaservClient.h"
+#include "SoilDatabaseClient.h"
 #include "Scene.h"
 #include <cstdio>
 #include <stdexcept>
@@ -56,6 +57,7 @@ int main (int argc, char* argv[])
   window.camera.makeActive(); // Can't do till shader is set up.
   ResourceManager resources(window, (char*)"manifest.json");
   HttpPermaservClient permaservClient;
+  SoilDatabaseClient soilDBClient(permaservClient);
   PmodDesign design;
   Scene scene;
   SkySampleModel skySampler(design.boundary.referencePoint[0], 
