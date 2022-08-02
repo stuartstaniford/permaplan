@@ -30,9 +30,16 @@ public:
   SoilDatabaseClient(HttpPermaservClient& httpPermCli);
   ~SoilDatabaseClient(void);
   SoilProfile* getSoil(float latitude, float longtitude);
+
+  // Static member functions
+  static SoilDatabaseClient& getSoilDbClient(void) // Get the singleton instance
+        { return *theSoilDbClient; }
   
 private:
   
+  // Static variables - private
+  static SoilDatabaseClient* theSoilDbClient;
+
   // Instance variables - private
   HttpPermaservClient& httpPermClient;
   std::vector<SoilProfile*> soilSamples;

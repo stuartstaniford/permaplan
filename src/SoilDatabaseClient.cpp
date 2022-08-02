@@ -9,6 +9,12 @@
 
 
 // =======================================================================================
+// Initialization of variables, etc
+
+SoilDatabaseClient* SoilDatabaseClient::theSoilDbClient = NULL;
+
+
+// =======================================================================================
 /// @brief Constructor
 ///
 /// @param httpPermCli a reference to the instance of HttpPermaservClient we will use
@@ -17,6 +23,10 @@
 SoilDatabaseClient::SoilDatabaseClient(HttpPermaservClient& httpPermCli):
                                                             httpPermClient(httpPermCli)
 {
+  if(theSoilDbClient)
+    return;
+  else
+    theSoilDbClient = this;
 }
 
 
