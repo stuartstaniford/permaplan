@@ -35,6 +35,7 @@ PmodDesign* PmodDesign::design = NULL;
 // These unit things are used all over the place, so we have them in the global namespace
 // for syntactic convenience (they are externed in PmodDesign.h)
 float          mmPerSpaceUnit;
+float          spaceUnitsPerDegree;
 char*          spaceUnitName;
 char           spaceUnitAbbr;
 
@@ -98,6 +99,7 @@ bool PmodDesign::validateSpaceUnits(Value& introductoryData)
       mmPerSpaceUnit  = MM_PER_FOOT;
       spaceUnitName   = (char*)"feet";
       spaceUnitAbbr   = '\'';
+      spaceUnitsPerDegree = EARTH_RADIUS_KM*M_PI/180.f*1000.0f*(1000.0f/MM_PER_FOOT);
      }
     else if(strcmp(token, "meters") == 0 )
      {
@@ -106,6 +108,7 @@ bool PmodDesign::validateSpaceUnits(Value& introductoryData)
       mmPerSpaceUnit  = 1000.0f;
       spaceUnitName   = (char*)"meters";
       spaceUnitAbbr   = 'm';
+      spaceUnitsPerDegree = EARTH_RADIUS_KM*M_PI/180.f*1000.0f;
      }
     else
      {

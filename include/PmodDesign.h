@@ -16,8 +16,11 @@
 // These unit things are used all over the place, so we have them in the global namespace
 // for syntactic convenience
 #define MM_PER_FOOT 304.8f
+#define EARTH_RADIUS_KM 6371.0f // In km
+
 #ifndef PMOD_DESIGN_IMPLEMENTATION
 extern float          mmPerSpaceUnit;
+extern float          spaceUnitsPerDegree;
 extern char*          spaceUnitName;
 extern char           spaceUnitAbbr;
 #endif
@@ -26,6 +29,7 @@ extern char           spaceUnitAbbr;
 #define TOLERANCE_UP      600.0f
 #define TOLERANCE_DOWN    200.0f
 #define TOLERANCE_LATERAL 500.0f
+
 
 // =======================================================================================
 // Required forward declarations.

@@ -8,6 +8,7 @@
 #include "Global.h"
 #include "BoundingBox.h"
 #include "HttpDebug.h"
+#include "PmodDesign.h"
 
 using namespace rapidjson;
 
@@ -87,7 +88,9 @@ bool Boundary::extendBoundingBox(BoundingBox& box)
 // =======================================================================================
 /// @brief Find the minimum and maximum extent of our boundary as latitude and longtitude.
 /// 
-/// This is used for example in asking Permaserv for soil profile information, etc 
+/// This is used for example in asking Permaserv for soil profile information, etc.  Note
+/// that the boundary object is confusing, in that reference point is <lat, long> ie kind
+/// of <y,x>, whereas the arcs, x comes before y.
 /// (possibly climatic information in future).
 /// @param loLat A reference to a float to store the lowest latitude.
 /// @param hiLat A reference to a float to store the highest latitude.
@@ -96,7 +99,33 @@ bool Boundary::extendBoundingBox(BoundingBox& box)
 
 void Boundary::latLongRange(float& loLat, float& hiLat, float& loLong, float& hiLong)
 {
+  // Handling of the reference point
+  float latT = referencePoint[0];
+  float longT  = referencePoint[1];
   
+  // Other initialization
+  loLat = hiLat = latT;
+  loLong = hiLong = longT;
+  int N = arcs.size()/2;
+  float cosLat = cosf(latT);  // latitude circles shrink towards the poles
+  
+  // Now loop over the arcs, deciding whether or not this expands the rectangle
+  for(int i=0; i<2*N; i+=2)
+   {
+    latT += arcs[i+1]*spaceUnitsPerDegree*cosLat;
+    longT += arcs[i]*spaceUnitsPerDegree;
+    
+    if(latT < loLat)
+      loLat = latT;
+    else
+      if(latT > hiLat)
+        hiLat = latT;
+    if(longT < loLong)
+      loLong = longT;
+    else
+      if(longT > hiLong)
+        hiLong = longT;
+   }
 }
 
 
