@@ -26,8 +26,8 @@ class Boundary
  public:
   
   // Instance variables - public
-  vec2 referencePoint;
-  std::vector<float> arcs;
+  vec2 referencePoint;       // lat, long - see OLDF doc for details
+  std::vector<float> arcs;   // in spaceUnits - see OLDF doc
 
   // Member functions - public
   Boundary(void);
@@ -39,6 +39,7 @@ class Boundary
   bool validateBoundaries(rapidjson::Value&  boundaries);
   void writeOLDFSection(FILE* file, char* indent);
   bool diagnosticHTML(HttpDebug* serv);
+  void latLongRange(float& loLat, float& hiLat, float& loLong, float& hiLong);
 
  private:
   

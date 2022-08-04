@@ -85,6 +85,22 @@ bool Boundary::extendBoundingBox(BoundingBox& box)
 
 
 // =======================================================================================
+/// @brief Find the minimum and maximum extent of our boundary as latitude and longtitude.
+/// 
+/// This is used for example in asking Permaserv for soil profile information, etc 
+/// (possibly climatic information in future).
+/// @param loLat A reference to a float to store the lowest latitude.
+/// @param hiLat A reference to a float to store the highest latitude.
+/// @param loLong A reference to a float to store the lowest longtitude.
+/// @param hiLong A reference to a float to store the highest longtitude.
+
+void Boundary::latLongRange(float& loLat, float& hiLat, float& loLong, float& hiLong)
+{
+  
+}
+
+
+// =======================================================================================
 /// @brief Validate the OLDF boundary reference point.
 /// @returns True if the OLDF is valid, false otherwise.
 /// @param boundaries A reference to the rapidjson::Value with the JSON/OLDF for the 
