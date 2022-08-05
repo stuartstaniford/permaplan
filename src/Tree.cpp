@@ -121,6 +121,11 @@ Tree::Tree(Value& plantObject):
   trunkRadiusObserved = plantObject["treeGirth"][0].GetFloat()*mmPerSpaceUnit/2.0f/M_PI;
   yearTrunkMeasured =   plantObject["treeGirth"][1].GetFloat();
   
+  // Get the soil at our location
+  SoilDatabaseClient& theSoilClient = SoilDatabaseClient::getSoilDbClient();
+  soil = theSoilClient.getSoil(0.0f, 0.0f);
+  
+  // Final accounting
   treePtrArray[(treePtrArrayIndex = treeCount++)] = this;
   updateBoundingBox();
   LogTreeReads("Tree %d (%s %s) read in from OLDF file.\n", treePtrArrayIndex,

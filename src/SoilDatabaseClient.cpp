@@ -59,7 +59,7 @@ bool SoilDatabaseClient::getProfilesFromSoilDatabase(void)
   unless(httpPermClient.getSoilProfiles(loLat, hiLat, loLong, hiLong))
    {
     LogPermaservClientErrors("Failed to get soil profile response in "            
-                                      "SoilDatabaseClient::getProfilesFromSoilDatabase.");
+                                      "SoilDatabaseClient::getProfilesFromSoilDatabase.\n");
     return false;
    }
   
