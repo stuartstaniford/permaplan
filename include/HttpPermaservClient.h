@@ -15,6 +15,7 @@
 // Forward declarations
 
 class SoilProfile;
+class SoilDatabaseClient;
 
 
 // =======================================================================================
@@ -25,6 +26,8 @@ class SoilProfile;
 
 class HttpPermaservClient: public HttpClient
 {
+  friend SoilDatabaseClient;
+  
 public:
   
   // Instance variables - public
@@ -36,7 +39,7 @@ public:
   bool getSingleValue(char* url, char* name, float lat, float longt, float& retVal);
   float getDIFValue(float lat, float longt);
   float getDNIValue(float lat, float longt);
-  void getSoilProfiles(float lowLat, float lowLong, float hiLat, float hiLong);
+  bool getSoilProfiles(float lowLat, float lowLong, float hiLat, float hiLong);
 
   // Static public member functions
   static HttpPermaservClient& getPermaservClient(void) // Get the singleton instance

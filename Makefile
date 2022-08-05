@@ -356,7 +356,8 @@ src/Boundary.o: ./include/Logging.h ./include/MemoryTracker.h
 src/Boundary.o: ./include/Global.h ./include/BoundingBox.h
 src/Boundary.o: ./include/HttpDebug.h ./include/HttpServThread.h
 src/Boundary.o: ./include/TaskQueue.h ./include/Lockable.h
-src/Boundary.o: ./include/HttpRequestParser.h
+src/Boundary.o: ./include/HttpRequestParser.h ./include/PmodDesign.h
+src/Boundary.o: ./include/Timeval.h
 src/BoundingBox.o: ./include/BoundingBox.h /usr/local/include/cglm/cglm.h
 src/BoundingBox.o: /usr/local/include/cglm/common.h
 src/BoundingBox.o: /usr/local/include/cglm/types.h
@@ -5727,6 +5728,53 @@ src/SoilDatabaseClient.o: ./include/rapidjson/error/en.h
 src/SoilDatabaseClient.o: ./include/rapidjson/error/error.h
 src/SoilDatabaseClient.o: ./include/SoilProfile.h ./include/GroundLayer.h
 src/SoilDatabaseClient.o: ./include/DynamicallyTypable.h
+src/SoilDatabaseClient.o: ./include/PmodDesign.h ./include/Boundary.h
+src/SoilDatabaseClient.o: /usr/local/include/cglm/cglm.h
+src/SoilDatabaseClient.o: /usr/local/include/cglm/common.h
+src/SoilDatabaseClient.o: /usr/local/include/cglm/types.h
+src/SoilDatabaseClient.o: /usr/local/include/cglm/simd/intrin.h
+src/SoilDatabaseClient.o: /usr/local/include/cglm/vec2.h
+src/SoilDatabaseClient.o: /usr/local/include/cglm/util.h
+src/SoilDatabaseClient.o: /usr/local/include/cglm/vec2-ext.h
+src/SoilDatabaseClient.o: /usr/local/include/cglm/vec3.h
+src/SoilDatabaseClient.o: /usr/local/include/cglm/vec4.h
+src/SoilDatabaseClient.o: /usr/local/include/cglm/vec4-ext.h
+src/SoilDatabaseClient.o: /usr/local/include/cglm/vec3-ext.h
+src/SoilDatabaseClient.o: /usr/local/include/cglm/mat4.h
+src/SoilDatabaseClient.o: /usr/local/include/cglm/mat3.h
+src/SoilDatabaseClient.o: /usr/local/include/cglm/mat2.h
+src/SoilDatabaseClient.o: /usr/local/include/cglm/affine.h
+src/SoilDatabaseClient.o: /usr/local/include/cglm/affine-mat.h
+src/SoilDatabaseClient.o: /usr/local/include/cglm/cam.h
+src/SoilDatabaseClient.o: /usr/local/include/cglm/plane.h
+src/SoilDatabaseClient.o: /usr/local/include/cglm/clipspace/persp.h
+src/SoilDatabaseClient.o: /usr/local/include/cglm/common.h
+src/SoilDatabaseClient.o: /usr/local/include/cglm/plane.h
+src/SoilDatabaseClient.o: /usr/local/include/cglm/mat4.h
+src/SoilDatabaseClient.o: /usr/local/include/cglm/clipspace/ortho_rh_no.h
+src/SoilDatabaseClient.o: /usr/local/include/cglm/clipspace/persp_rh_no.h
+src/SoilDatabaseClient.o: /usr/local/include/cglm/clipspace/persp.h
+src/SoilDatabaseClient.o: /usr/local/include/cglm/clipspace/view_rh_no.h
+src/SoilDatabaseClient.o: /usr/local/include/cglm/clipspace/view_rh.h
+src/SoilDatabaseClient.o: /usr/local/include/cglm/frustum.h
+src/SoilDatabaseClient.o: /usr/local/include/cglm/quat.h
+src/SoilDatabaseClient.o: /usr/local/include/cglm/euler.h
+src/SoilDatabaseClient.o: /usr/local/include/cglm/box.h
+src/SoilDatabaseClient.o: /usr/local/include/cglm/color.h
+src/SoilDatabaseClient.o: /usr/local/include/cglm/io.h
+src/SoilDatabaseClient.o: /usr/local/include/cglm/project.h
+src/SoilDatabaseClient.o: /usr/local/include/cglm/clipspace/project_no.h
+src/SoilDatabaseClient.o: /usr/local/include/cglm/vec3.h
+src/SoilDatabaseClient.o: /usr/local/include/cglm/vec4.h
+src/SoilDatabaseClient.o: /usr/local/include/cglm/sphere.h
+src/SoilDatabaseClient.o: /usr/local/include/cglm/ease.h
+src/SoilDatabaseClient.o: /usr/local/include/cglm/curve.h
+src/SoilDatabaseClient.o: /usr/local/include/cglm/bezier.h
+src/SoilDatabaseClient.o: /usr/local/include/cglm/ray.h
+src/SoilDatabaseClient.o: /usr/local/include/cglm/affine2d.h
+src/SoilDatabaseClient.o: ./include/BoundingBox.h ./include/Timeval.h
+src/SoilDatabaseClient.o: ./include/Global.h ./include/Logging.h
+src/SoilDatabaseClient.o: ./include/MemoryTracker.h
 src/SoilHorizon.o: ./include/SoilHorizon.h ./include/GroundLayer.h
 src/SoilHorizon.o: ./include/rapidjson/document.h
 src/SoilHorizon.o: ./include/rapidjson/reader.h
@@ -6313,6 +6361,7 @@ src/Tree.o: ./include/TaskQueue.h ./include/Species.h ./include/Version.h
 src/Tree.o: ./include/HttpDebug.h ./include/HttpServThread.h
 src/Tree.o: ./include/HttpRequestParser.h ./include/AxialElement.h
 src/Tree.o: ./include/SoilProfile.h ./include/GroundLayer.h
+src/Tree.o: ./include/SoilDatabaseClient.h
 src/TreeEquation.o: ./include/TreeEquation.h
 src/TreePart.o: ./include/TreePart.h ./include/Logging.h
 src/TreePart.o: ./include/MemoryTracker.h /usr/local/include/cglm/cglm.h

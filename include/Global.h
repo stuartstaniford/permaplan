@@ -43,7 +43,7 @@ enum FileExtension
 // Inline utility functions
 
 /// @brief Function to rescale a float interval about its centroid.
-inline void scaleInterval(float& scale, float& lo, float& hi)
+inline void scaleInterval(const float& scale, float& lo, float& hi)
 {
   float center = (lo+hi)/2.0f;
   float halfExtent = scale*(hi-lo)/2.0f;
@@ -52,7 +52,7 @@ inline void scaleInterval(float& scale, float& lo, float& hi)
 }
 
 /// @brief Function to rescale a rectangle defined by lat/long coords about it's centroid.
-inline void scaleLatLongRectangle(float& scale, float& loLat, float& hiLat, 
+inline void scaleLatLongRectangle(const float& scale, float& loLat, float& hiLat, 
                                                             float& loLong, float& hiLong)
 {
   scaleInterval(scale, loLat, hiLat);

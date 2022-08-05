@@ -222,24 +222,24 @@ float HttpPermaservClient::getDNIValue(float lat, float longt)
 /// @param hiLat High end of the latitude of the region we are querying about.
 /// @param hiLong High end of the longtitude of the region we are querying about.
  
-void HttpPermaservClient::getSoilProfiles(float lowLat, float lowLong, 
+bool HttpPermaservClient::getSoilProfiles(float lowLat, float lowLong, 
                                                               float hiLat, float hiLong)
 {
   if(cachePresent && doc.HasMember("soilSamples"))
    {
     //dni = doc["DNI"].GetFloat();
     LogPermaservClientOps("Obtained soil samples from cache file.\n"); 
-    return;
+    return true;
    }
   if(0)
    {
     LogPermaservClientOps("Obtained soil samples from permaserv.\n"); 
-    return;
+    return true;
    }
   else
    {
-    LogPermaservClientErrors("Failed to obtain soil samples from permaserv.\n");
-    return;
+    LogPermaservClientErrors("Failed to obtain soil samples from cache or permaserv.\n");
+    return false;
    }
 }
 

@@ -6,6 +6,9 @@
 #include "SoilDatabaseClient.h"
 #include "HttpPermaservClient.h"
 #include "SoilProfile.h"
+#include "PmodDesign.h"
+#include "Global.h"
+#include "Logging.h"
 
 
 // =======================================================================================
@@ -39,12 +42,32 @@ SoilDatabaseClient::~SoilDatabaseClient(void)
 
 
 // =======================================================================================
-/// @brief Fetch the available profiles from the database.
+/// @brief Fetch the available soil profiles from the SoilDatabase in Permaserv.
 /// @returns True if we could fetch a non-zero number of profiles, false otherwise.
+
+using namespace rapidjson;
 
 bool SoilDatabaseClient::getProfilesFromSoilDatabase(void)
 {
-  return false;
+  // Figure out the area where we need to ask for soil profiles
+  PmodDesign& design = PmodDesign::getDesign();
+  float loLat, hiLat, loLong, hiLong;
+  design.boundary.latLongRange(loLat, hiLat, loLong, hiLong);
+  scaleLatLongRectangle(2.0f, loLat, hiLat, loLong, hiLong);
+  
+  // Send the request to permaserv
+  unless(httpPermClient.getSoilProfiles(loLat, hiLat, loLong, hiLong))
+   {
+    LogPermaservClientErrors("Failed to get soil profile response in "            
+                                      "SoilDatabaseClient::getProfilesFromSoilDatabase.");
+    return false;
+   }
+  
+  // Parse the returned document to extract the soil profiles.  Note we are a friend
+  // of HttpPermaservClient so we can access it's private doc variable - makes more 
+  // sense to keep the detailed knowledge of soil profile JSON structure here.
+  
+  return true;
 }
 
 
