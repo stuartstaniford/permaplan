@@ -117,7 +117,7 @@ void HttpPermaservClient::writeCacheFile(void)
 /// @param longt Longtitude of the location we are querying about.
 /// @param retVal A reference to a float to store the value found.
 
-#define FULL_URL_BUFSIZE 128
+#define FULL_URL_BUFSIZE 256
 #define SINGLE_VAL_BUFSIZE 128
 
 bool HttpPermaservClient::getSingleValue(char* url, char* name, float lat, float longt, float& retVal)
@@ -148,6 +148,40 @@ bool HttpPermaservClient::getSingleValue(char* url, char* name, float lat, float
   retVal = atof(recvBuf+l+1);
   LogPermaservClientOps("HttpPermaservClient::getSingleValue reads %f for tag %s.\n", 
                                                                             retVal, name);
+  return true;  
+}
+
+
+// =======================================================================================
+/// @brief Get a JSON object from the API.\n"
+/// 
+/// The returned JSON (as a rapidjson Document) will be stored in our private doc 
+/// variable, from where a friend class can get it.
+/// @returns True if we successfully found an object and it parsed as valid json, 
+/// false if we failed somehow (which will be logged).
+/// @param fullUrl The path of the url for this resource on the permaserv server
+
+#define JSON_OBJ_BUFSIZE 16384
+
+bool HttpPermaservClient::getJSONObject(char* url)
+{
+  char fullUrl[FULL_URL_BUFSIZE];
+  char recvBuf[JSON_OBJ_BUFSIZE];
+  
+  int printRet = snprintf(fullUrl, FULL_URL_BUFSIZE, "http://127.0.0.1:%u/%s", 
+                                                                          servPort, url);
+  if(printRet < 1 || printRet >= FULL_URL_BUFSIZE)
+    err(-1, "Overflow in HttpPermaservClient::getJSONObject");
+  
+  unless(fetchBuffer(fullUrl, recvBuf, JSON_OBJ_BUFSIZE))
+   {
+    LogPermaservClientErrors("Couldn't get response from %s "
+                             "in HttpPermaservClient::getJSONObject.\n", fullUrl);
+    return false; 
+   }
+
+  LogPermaservClientOps("HttpPermaservClient::getJSONObject got valid json of %lu bytes"
+                                            " for url %s.\n", strlen(recvBuf), url);
   return true;  
 }
 

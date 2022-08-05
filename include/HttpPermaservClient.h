@@ -37,6 +37,7 @@ public:
   ~HttpPermaservClient(void);
   void writeCacheFile(void);
   bool getSingleValue(char* url, char* name, float lat, float longt, float& retVal);
+  bool getJSONObject(char* url);
   float getDIFValue(float lat, float longt);
   float getDNIValue(float lat, float longt);
   bool getSoilProfiles(float lowLat, float lowLong, float hiLat, float hiLong);
