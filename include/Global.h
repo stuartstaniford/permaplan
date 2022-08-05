@@ -40,7 +40,28 @@ enum FileExtension
 
 
 // =======================================================================================
-// Function prototypes
+// Inline utility functions
+
+/// @brief Function to rescale a float interval about its centroid.
+inline void scaleInterval(float& scale, float& lo, float& hi)
+{
+  float center = (lo+hi)/2.0f;
+  float halfExtent = scale*(hi-lo)/2.0f;
+  lo = center - halfExtent;
+  hi = center + halfExtent;
+}
+
+/// @brief Function to rescale a rectangle defined by lat/long coords about it's centroid.
+inline void scaleLatLongRectangle(float& scale, float& loLat, float& hiLat, 
+                                                            float& loLong, float& hiLong)
+{
+  scaleInterval(scale, loLat, hiLat);
+  scaleInterval(scale, loLong, hiLong);  
+}
+
+
+// =======================================================================================
+// Utility function prototypes
 
 void initGlobals(int nThreads);
 bool extractColonVecN(char* path, int N, float* dest);
