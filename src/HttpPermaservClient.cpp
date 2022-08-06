@@ -84,6 +84,7 @@ HttpPermaservClient::~HttpPermaservClient(void)
 
 // =======================================================================================
 /// @brief Write the cache file out to the disk
+/// @todo writing soil profiles is not implemented.
 
 void HttpPermaservClient::writeCacheFile(void)
 {
@@ -260,19 +261,20 @@ float HttpPermaservClient::getDNIValue(float lat, float longt)
 /// @param lowLong Low end of the longtitude of the region we are querying about.
 /// @param hiLat High end of the latitude of the region we are querying about.
 /// @param hiLong High end of the longtitude of the region we are querying about.
+/// @todo reading from the cache file is not implemented.
  
 bool HttpPermaservClient::getSoilProfiles(float lowLat, float lowLong, 
                                                               float hiLat, float hiLong)
 {
   if(cachePresent && doc.HasMember("soilSamples"))
    {
-    //dni = doc["DNI"].GetFloat();
     LogPermaservClientOps("Obtained soil samples from cache file.\n"); 
     return true;
    }
-  if(0)
+  char url[FULL_URL_BUFSIZE];
+  snprintf(url, FULL_URL_BUFSIZE, "soil?%f:%f:%f:%f:", lowLat, lowLong, hiLat, hiLong);
+  if(getJSONObject(url))
    {
-    
     LogPermaservClientOps("Obtained soil samples from permaserv.\n"); 
     return true;
    }

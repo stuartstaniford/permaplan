@@ -68,8 +68,8 @@ bool HttpPermaServ::indexPage(void)
   internalPrintf("<tr><td><a href=\"/dni?42.441570:-76.498665:/\">dni?lat:long:</a></td>");
   internalPrintf("<td>Average direct normal irradiation at location (kWh/m²/day).</td></tr>\n");
 
-  // Soil profile at a particular point
-  internalPrintf("<tr><td><a href=\"/soilPoint?42.441570:-76.498665:/\">"
+  // Soil profiles in some region
+  internalPrintf("<tr><td><a href=\"/soil?42.441570:-76.498665:/\">"
                                                             "soilPoint?lat:long:</a></td>");
   internalPrintf("<td>Soil Profile at location (json).</td></tr>\n");
 
