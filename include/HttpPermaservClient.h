@@ -10,6 +10,8 @@
 #include "rapidjson/error/en.h"
 #include <vector>
 
+#define JSON_OBJ_BUFSIZE 16384
+
 
 // =======================================================================================
 // Forward declarations
@@ -54,13 +56,14 @@ private:
   static HttpPermaservClient* theClient;
 
   // Instance variables - private
-  rapidjson::Document   doc;
   unsigned short        servPort;
   bool                  cachePresent;
+  char                  recvBuf[JSON_OBJ_BUFSIZE];
   
   // Actual values that are cached and/or fetched.
-  float                     dif;
-  float                     dni;
+  float                 dif;
+  float                 dni;
+  rapidjson::Document   doc;
   
   // Member functions - private
   /// @brief Prevent copy-construction.

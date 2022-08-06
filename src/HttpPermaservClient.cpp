@@ -161,12 +161,10 @@ bool HttpPermaservClient::getSingleValue(char* url, char* name, float lat, float
 /// false if we failed somehow (which will be logged).
 /// @param fullUrl The path of the url for this resource on the permaserv server
 
-#define JSON_OBJ_BUFSIZE 16384
 
 bool HttpPermaservClient::getJSONObject(char* url)
 {
   char fullUrl[FULL_URL_BUFSIZE];
-  char recvBuf[JSON_OBJ_BUFSIZE];
   
   int printRet = snprintf(fullUrl, FULL_URL_BUFSIZE, "http://127.0.0.1:%u/%s", 
                                                                           servPort, url);
@@ -180,6 +178,13 @@ bool HttpPermaservClient::getJSONObject(char* url)
     return false; 
    }
 
+  ParseResult ok = doc.ParseInsitu<kParseCommentsFlag>(recvBuf);
+  if (!ok)
+   {
+    LogPermaservClientErrors("JSON parse error in HttpPermaservClient::getJSONObject"
+                                                            " for url %s.\n", url);
+    return false; 
+   }
   LogPermaservClientOps("HttpPermaservClient::getJSONObject got valid json of %lu bytes"
                                             " for url %s.\n", strlen(recvBuf), url);
   return true;  
@@ -267,6 +272,7 @@ bool HttpPermaservClient::getSoilProfiles(float lowLat, float lowLong,
    }
   if(0)
    {
+    
     LogPermaservClientOps("Obtained soil samples from permaserv.\n"); 
     return true;
    }
