@@ -27,7 +27,7 @@ public:
   SoilDatabase(void);
   ~SoilDatabase(void);
   void loadHWSDProfiles(void);
-  unsigned printJsonSoilProfileAtPoint(char* buf, unsigned bufSize, float lat, float longt);
+  unsigned printJsonSoilProfiles(char* buf, unsigned bufSize, float lat, float longt);
   void createHWSDSchema(void);
 
 private:

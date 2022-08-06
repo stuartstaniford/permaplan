@@ -69,9 +69,9 @@ bool HttpPermaServ::indexPage(void)
   internalPrintf("<td>Average direct normal irradiation at location (kWh/m²/day).</td></tr>\n");
 
   // Soil profiles in some region
-  internalPrintf("<tr><td><a href=\"/soil?42.441570:-76.498665:/\">"
-                                                            "soilPoint?lat:long:</a></td>");
-  internalPrintf("<td>Soil Profile at location (json).</td></tr>\n");
+  internalPrintf("<tr><td><a href=\"/soil?42.441570:42.441870:-76.498665:-76.496665/\">"
+                                              "soil?loLat:hiLat:loLong:hiLong</a></td>");
+  internalPrintf("<td>Soil Profiles in region (json).</td></tr>\n");
 
   // End table and page
   internalPrintf("</table></center>\n");
@@ -126,26 +126,27 @@ bool HttpPermaServ::processDNIRequest(char* url)
 
 
 // =======================================================================================
-/// @brief Process the case of a request for a soil profile at a particular location.
+/// @brief Process the case of a request for the soil profiles available in some specific
+/// region of lat/long space.
 /// @param url The balance of the URL that we are to deal with (ie after the '?')
 /// @returns True if all went well, false if we couldn't correctly write a good page.
 
-bool HttpPermaServ::processSoilPointRequest(char* url)
+bool HttpPermaServ::processSoilRequest(char* url)
 {
-  float latLong[2];
-  unless(extractColonVecN(url, 2, latLong))
+  float latLongRegion[4]; // (loLat, hiLat, loLong, hiLong) 
+  unless(extractColonVecN(url, 4, latLongRegion))
    {
-    LogRequestErrors("Bad soilPoint request: dni?%s\n", url);
+    LogRequestErrors("Bad soil request: dni?%s\n", url);
     return false;
    }
-  if( (respPtr += soilDatabase->printJsonSoilProfileAtPoint(respPtr, 
-                respEnd-respPtr, latLong[0], latLong[1])) >= respEnd)
+  if( (respPtr += soilDatabase->printJsonSoilProfiles(respPtr, 
+                respEnd-respPtr, latLongRegion[0], latLongRegion[2])) >= respEnd)
    {
     respBufOverflow = true; 
     return false;
    }
-  LogPermaservOps("Serviced soilPoint request for %f,%f from client on port %u.\n", 
-                                                      latLong[0], latLong[1], clientP);
+  LogPermaservOps("Serviced soil request for %f,%f from client on port %u.\n", 
+                  latLongRegion[0], latLongRegion[2], clientP);
   return true;
 }
 
@@ -196,9 +197,9 @@ bool HttpPermaServ::processRequestHeader(void)
     retVal = processDNIRequest(url+5);
    }
 
-  else if( strlenUrl >= 15 && strncmp(url, "/soilPoint?", 11) == 0)
+  else if( strlenUrl >= 14 && strncmp(url, "/soil?", 6) == 0)
    {
-    retVal = processSoilPointRequest(url+5);
+    retVal = processSoilRequest(url+6);
    }
 
   else

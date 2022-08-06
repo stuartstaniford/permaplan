@@ -86,7 +86,7 @@ void SoilDatabase::loadHWSDProfiles(void)
 /// @todo Currently we always pull from the Harmonized World Soil Database, but ultimately
 /// we should select the best database for a given location.
 
-unsigned SoilDatabase::printJsonSoilProfileAtPoint(char* buf, unsigned bufSize, 
+unsigned SoilDatabase::printJsonSoilProfiles(char* buf, unsigned bufSize, 
                                                             float lat, float longt)
 {
   unsigned short soilIndex = worldSoilBilFile.valueAtPoint(lat, longt);
