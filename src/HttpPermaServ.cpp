@@ -139,14 +139,16 @@ bool HttpPermaServ::processSoilRequest(char* url)
     LogRequestErrors("Bad soil request: dni?%s\n", url);
     return false;
    }
-  if( (respPtr += soilDatabase->printJsonSoilProfiles(respPtr, 
-                respEnd-respPtr, latLongRegion[0], latLongRegion[2])) >= respEnd)
+  if( (respPtr += soilDatabase->printJsonSoilProfiles(respPtr, respEnd-respPtr, 
+                    latLongRegion[0], latLongRegion[1], latLongRegion[2], latLongRegion[3]))
+          >= respEnd)
    {
     respBufOverflow = true; 
     return false;
    }
-  LogPermaservOps("Serviced soil request for %f,%f from client on port %u.\n", 
-                  latLongRegion[0], latLongRegion[2], clientP);
+  LogPermaservOps("Serviced soil request for %f,%f,%f,%f from client on port %u.\n", 
+                  latLongRegion[0], latLongRegion[1], latLongRegion[2], latLongRegion[3],
+                  clientP);
   return true;
 }
 

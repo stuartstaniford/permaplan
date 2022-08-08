@@ -85,10 +85,15 @@ void SoilDatabase::loadHWSDProfiles(void)
 /// @param longt The longtitude selected.
 /// @todo Currently we always pull from the Harmonized World Soil Database, but ultimately
 /// we should select the best database for a given location.
+/// @todo Currently we only accommodate finding and returning a single profile, even if
+/// there were actually more to find.
 
 unsigned SoilDatabase::printJsonSoilProfiles(char* buf, unsigned bufSize, 
-                                                            float lat, float longt)
+                                      float loLat, float hiLat, float loLong, float hiLong)
 {
+  float lat = (loLat + hiLat)/2.0f;
+  float longt = (loLong + hiLong)/2.0f;
+  
   unsigned short soilIndex = worldSoilBilFile.valueAtPoint(lat, longt);
   if(!soilIndex)
    {
