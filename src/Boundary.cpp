@@ -110,11 +110,12 @@ void Boundary::latLongRange(float& loLat, float& hiLat, float& loLong, float& hi
   float cosLat = cosf(latT);  // latitude circles shrink towards the poles
   
   // Now loop over the arcs, deciding whether or not this expands the rectangle
+  //printf("Ref; latT: %f, longT: %f\n", latT, longT);
   for(int i=0; i<2*N; i+=2)
    {
-    latT += arcs[i+1]*spaceUnitsPerDegree*cosLat;
-    longT += arcs[i]*spaceUnitsPerDegree;
-    
+    latT += arcs[i+1]/spaceUnitsPerDegree*cosLat;
+    longT += arcs[i]/spaceUnitsPerDegree;
+    //printf("i: %d; latT: %f, longT: %f\n", i, latT, longT);
     if(latT < loLat)
       loLat = latT;
     else
@@ -126,6 +127,8 @@ void Boundary::latLongRange(float& loLat, float& hiLat, float& loLong, float& hi
       if(longT > hiLong)
         hiLong = longT;
    }
+  LogSoilDbDetails("Boundary::latLongRange has Lat: [%.6f, %.6f], Long: [%.6f, %.6f].\n",
+                                                            loLat, hiLat, loLong, hiLong);
 }
 
 
