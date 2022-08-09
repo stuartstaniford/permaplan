@@ -9,6 +9,7 @@
 #include "BILFile.h"
 #include "Global.h"
 #include "SoilProfile.h"
+#include "Logging.h"
 #include <string.h>
 #include <err.h>
 
@@ -27,6 +28,8 @@ BILFile::BILFile(char* fileNameStub)
   dataFile = fopen(fileName, "r");
   unless(dataFile)
     err(-1, "Couldn't open %s.\n", fileName);
+  else
+    LogBilFileDetails("Opened Bilfile data file %s for reading.\n", fileName);
 }
 
 
@@ -68,6 +71,8 @@ bool BILFile::readHdrFile(char* fileNameStub)
   file = fopen(fileName, "r");
   unless(file)
     err(-1, "Couldn't open %s.\n", fileName);
+  else
+    LogBilFileDetails("Opened Bilfile header %s for reading.\n", fileName);
   
   // Loop over the lines in the file
   while(fgets(line, 128, file))
@@ -80,9 +85,15 @@ bool BILFile::readHdrFile(char* fileNameStub)
       // I—Intel byte order (Silicon Graphics, DEC Alpha, PC); also known as little endian
       // M—Motorola byte order (Sun, HP, and others); also known as big endian
       if(index(line + 9, 'I'))
+       {
         byteOrder = LITTLE_ENDIAN;
+        LogBilFileDetails("Bilfile header %s reports LITTLE_ENDIAN.\n", fileName);        
+       }
       else if(index(line + 9, 'M'))
+       {
         byteOrder = BIG_ENDIAN;
+        LogBilFileDetails("Bilfile header %s reports BIG_ENDIAN.\n", fileName);        
+       }
       else
         err(-1, "Bad byteOrder in file %s.\n", fileName);
      }
@@ -92,7 +103,7 @@ bool BILFile::readHdrFile(char* fileNameStub)
       char buf[8];
       if( (sscanf(line+6, "%7s", buf) == 1) && strcmp(buf, "BIL") == 0)
        {
-        // Ok, do nothing
+        LogBilFileDetails("Bilfile header %s reports layout is BIL.\n", fileName);        
        }
       else
         err(-1, "LAYOUT is not BIL in file %s.\n", fileName);
@@ -102,18 +113,24 @@ bool BILFile::readHdrFile(char* fileNameStub)
      {
       if(sscanf(line+5, "%d", &nRows) != 1)
         err(-1, "Could not get NROWS from file %s.\n", fileName);
+      else
+        LogBilFileDetails("Bilfile header %s reports nRows = %d.\n", fileName, nRows);        
      }
 
     if( (strncmp(line, "NCOLS", 5) == 0) || (strncmp(line, "ncols", 5) == 0))
      {
       if(sscanf(line+5, "%d", &nCols) != 1)
         err(-1, "Could not get NCOLS from file %s.\n", fileName);
+      else
+        LogBilFileDetails("Bilfile header %s reports nCols = %d.\n", fileName, nCols);        
      }
 
     if( (strncmp(line, "NBANDS", 6) == 0) || (strncmp(line, "nbands", 6) == 0))
      {
       if(sscanf(line+6, "%d", &nBands) != 1)
         err(-1, "Could not get NBANDS from file %s.\n", fileName);
+      else
+        LogBilFileDetails("Bilfile header %s reports nBands = %d.\n", fileName, nBands);        
       if(nBands != 1)
         err(-1, "NBANDS is %d not 1 in file %s.\n", nBands, fileName);
      }
@@ -122,6 +139,8 @@ bool BILFile::readHdrFile(char* fileNameStub)
      {
       if(sscanf(line+5, "%d", &nBits) != 1)
         err(-1, "Could not get NBITS from file %s.\n", fileName);
+      else
+        LogBilFileDetails("Bilfile header %s reports nBits = %d.\n", fileName, nBits);        
       if(nBits != 16)
         err(-1, "NBITS is %d not 16 in file %s.\n", nBits, fileName);      
      }
