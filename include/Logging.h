@@ -82,6 +82,7 @@
 #define LOG_SOIL_DB_OPS             // Log normal operations on the soil database
 #define LOG_SOIL_DB_DETAILS         // Log extra details in the soil database operation
 #define LOG_HSWD_EXHAUSTIVE         // Log every field read from the HSWD database
+#define LOG_BILFILE_DETAILS         // Log details of reading from a BILFILE
 
 
 // =======================================================================================
@@ -242,6 +243,7 @@ extern bool doLogSoilDbErr;           // Log problems in the soil database opera
 extern bool doLogSoilDbOps;           // Log normal operations on the soil database
 extern bool doLogSoilDbDetails;       // Log extra details in the soil database operation
 extern bool doLogHSWDExhaustive;      // Log every field read from the HSWD database
+extern bool doLogBilFileDetails;      // Log details of reading from a BILFILE
 
 // Logging options for Trees/Plants
 extern bool doLogTreeSelections;      // Log when a tree is selected.
@@ -649,6 +651,14 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
                                             LogStatement("LogHSWDExhaustive: " __VA_ARGS__)
 #else
 #define LogHSWDExhaustive(...)
+#endif
+
+// Log details of reading from a BILFILE
+#ifdef LOG_BILFILE_DETAILS
+#define LogBilFileDetails(...) if(doLogBilFileDetails) \
+                                            LogStatement("LogBilFileDetails: " __VA_ARGS__)
+#else
+#define LogBilFileDetails(...)
 #endif
 
 
