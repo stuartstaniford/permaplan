@@ -38,7 +38,8 @@ private:
   
   // Member functions - private
   bool readHdrFile(char* fileNameStub);
-  
+  bool readBlwFile(char* fileNameStub);
+ 
   /// @brief Prevent copy-construction.
   BILFile(const BILFile&);       
   /// @brief Prevent assignment.

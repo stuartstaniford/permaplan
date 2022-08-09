@@ -23,6 +23,7 @@
 BILFile::BILFile(char* fileNameStub)
 {
   readHdrFile(fileNameStub);
+  readBlwFile(fileNameStub);
   char fileName[256];
   snprintf(fileName, 256, "%s.bil", fileNameStub);
   dataFile = fopen(fileName, "r");
@@ -38,6 +39,46 @@ BILFile::BILFile(char* fileNameStub)
 
 BILFile::~BILFile(void)
 {
+}
+
+
+// =======================================================================================
+/// @brief Function to read the BLW file which describes the mapping between world coords
+/// and raster coords.
+/// 
+/// @returns True if successfully read and parsed the BLW file, false otherwise
+/// @param fileNameStub The path to the directory of the BIL file, together with the 
+/// part of the filename prior to the .extension (such as .hdr)
+
+// Example file from Materials/Solar/HWSD_RASTER/hwsd.blw
+//          0.00833333333333 
+//          0.00000000000000 
+//          0.00000000000000 
+//          -0.00833333333333 
+//          -179.99583333333334 
+//          89.99583333326137 
+
+bool BILFile::readBlwFile(char* fileNameStub)
+{
+  char fileName[256];
+  char line[128];
+  FILE* file;
+  
+  // Figure out the file name and open the file.
+  snprintf(fileName, 256, "%s.blw", fileNameStub);
+  file = fopen(fileName, "r");
+  unless(file)
+    err(-1, "Couldn't open %s.\n", fileName);
+  else
+    LogBilFileDetails("Opened Bilfile blw %s for reading.\n", fileName);
+  
+  // Work through the lines in the file
+
+  fgets(line, 128, file);
+  
+  // Clean up and go home.
+  fclose(file);
+  return true;
 }
 
 
@@ -178,7 +219,7 @@ bool BILFile::readHdrFile(char* fileNameStub)
 unsigned short BILFile::valueAtPoint(float lat, float longt)
 {  
   // Need to fseek in the bilfile.
-  
+  //int row = 
   return 0u;
 }
 
