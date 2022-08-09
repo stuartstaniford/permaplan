@@ -48,7 +48,8 @@ BILFile::~BILFile(void)
 /// 
 /// @returns True if successfully read and parsed the BLW file, false otherwise
 /// @param fileNameStub The path to the directory of the BIL file, together with the 
-/// part of the filename prior to the .extension (such as .hdr)
+/// part of the filename prior to the .extension (such as .hdr).  The format is poorly
+/// documented but see Annex 3 of https://www.fao.org/3/aq361e/aq361e.pdf
 
 // Example file from Materials/Solar/HWSD_RASTER/hwsd.blw
 //          0.00833333333333 
@@ -57,6 +58,8 @@ BILFile::~BILFile(void)
 //          -0.00833333333333 
 //          -179.99583333333334 
 //          89.99583333326137 
+
+
 
 bool BILFile::readBlwFile(char* fileNameStub)
 {
@@ -74,6 +77,22 @@ bool BILFile::readBlwFile(char* fileNameStub)
   
   // Work through the lines in the file
 
+  // Long pixel delta
+  fgets(line, 128, file);
+
+  // Unknown
+  fgets(line, 128, file);
+
+  // Unknown
+  fgets(line, 128, file);
+
+  // Lat pixel delta
+  fgets(line, 128, file);
+
+  // Long pixel start
+  fgets(line, 128, file);
+
+  // Lat pixel start
   fgets(line, 128, file);
   
   // Clean up and go home.

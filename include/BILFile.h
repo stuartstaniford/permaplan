@@ -34,6 +34,10 @@ private:
   int   bandRowBytes;
   int   totalRowBytes;
   int   bandGapBytes;
+  float latPixelDelta;
+  float longPixelDelta;
+  float latPixelStart;
+  float longPixelStart;
   FILE* dataFile;
   
   // Member functions - private
