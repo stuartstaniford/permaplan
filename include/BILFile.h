@@ -34,11 +34,11 @@ private:
   int     bandRowBytes;
   int     totalRowBytes;
   int     bandGapBytes;
-  double latPixelDelta;
-  double longPixelDelta;
-  double latPixelStart;
-  double longPixelStart;
-  FILE* dataFile;
+  double  latPixelDelta;
+  double  longPixelDelta;
+  double  latPixelStart;
+  double  longPixelStart;
+  FILE*   dataFile;
   
   // Member functions - private
   bool readHdrFile(char* fileNameStub);

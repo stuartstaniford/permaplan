@@ -244,8 +244,15 @@ bool BILFile::readHdrFile(char* fileNameStub)
 unsigned short BILFile::valueAtPoint(float lat, float longt)
 {  
   // Need to fseek in the bilfile.
-  //int row = 
-  return 0u;
+  int row = round((lat - latPixelStart)/latPixelDelta);
+  int col = round((longPixelStart - latPixelStart)/longPixelDelta);
+  int byteOffset = (row*nCols+col)*(nBits/8);
+  fseek(dataFile, byteOffset, SEEK_SET);
+  unsigned short retVal = 0u;
+  fread(&retVal, nBits/8, 1, dataFile);
+  LogBilFileDetails("Read %u from offset %u (row %u, col %u, lat %.6f, long %.6f.\n", 
+                    retVal, byteOffset, row, col, lat, longt);
+  return retVal;
 }
 
 
