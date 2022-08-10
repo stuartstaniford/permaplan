@@ -26,18 +26,18 @@ public:
 private:
   
   // Instance variables - private
-  int   byteOrder;
-  int   nRows;
-  int   nCols;
-  int   nBands;
-  int   nBits;
-  int   bandRowBytes;
-  int   totalRowBytes;
-  int   bandGapBytes;
-  float latPixelDelta;
-  float longPixelDelta;
-  float latPixelStart;
-  float longPixelStart;
+  int     byteOrder;
+  int     nRows;
+  int     nCols;
+  int     nBands;
+  int     nBits;
+  int     bandRowBytes;
+  int     totalRowBytes;
+  int     bandGapBytes;
+  double latPixelDelta;
+  double longPixelDelta;
+  double latPixelStart;
+  double longPixelStart;
   FILE* dataFile;
   
   // Member functions - private

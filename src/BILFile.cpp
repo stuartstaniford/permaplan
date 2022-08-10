@@ -59,8 +59,6 @@ BILFile::~BILFile(void)
 //          -179.99583333333334 
 //          89.99583333326137 
 
-
-
 bool BILFile::readBlwFile(char* fileNameStub)
 {
   char fileName[256];
@@ -79,6 +77,8 @@ bool BILFile::readBlwFile(char* fileNameStub)
 
   // Long pixel delta
   fgets(line, 128, file);
+  sscanf(line, " %lf", &longPixelDelta);
+  LogBilFileDetails("longPixelDelta: %f\n", longPixelDelta);
 
   // Unknown
   fgets(line, 128, file);
@@ -88,12 +88,18 @@ bool BILFile::readBlwFile(char* fileNameStub)
 
   // Lat pixel delta
   fgets(line, 128, file);
+  sscanf(line, " %lf", &latPixelDelta);
+  LogBilFileDetails("latPixelDelta: %f\n", latPixelDelta);
 
   // Long pixel start
   fgets(line, 128, file);
+  sscanf(line, " %lf", &longPixelStart);
+  LogBilFileDetails("longPixelStart: %f\n", longPixelStart);
 
   // Lat pixel start
   fgets(line, 128, file);
+  sscanf(line, " %lf", &latPixelStart);
+  LogBilFileDetails("latPixelStart: %f\n", latPixelStart);
   
   // Clean up and go home.
   fclose(file);
