@@ -245,7 +245,7 @@ unsigned short BILFile::valueAtPoint(float lat, float longt)
 {  
   // Need to fseek in the bilfile.
   int row = round((lat - latPixelStart)/latPixelDelta);
-  int col = round((longPixelStart - latPixelStart)/longPixelDelta);
+  int col = round((longt - longPixelStart)/longPixelDelta);
   int byteOffset = (row*nCols+col)*(nBits/8);
   fseek(dataFile, byteOffset, SEEK_SET);
   unsigned short retVal = 0u;
