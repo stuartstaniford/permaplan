@@ -167,17 +167,22 @@ bool HttpPermaServ::processRequestHeader(void)
   int strlenUrl = strlen(url);
   
   if( (strlenUrl == 1 && url[0] == '/') || strncmp(url, "/index.", 7) == 0)
+   {
+    LogPermaservOpDetails("Processing index request.\n");
     return indexPage();
-
+   }
+  
   // Possible paths (in alphabetical order  
   else if( strlenUrl == 7 && strncmp(url, "/alive/", 7) == 0)
    {
+    LogPermaservOpDetails("Processing alive check request.\n");
     internalPrintf("OK at time %ld\n", time(NULL));
     retVal = true;
    }
 
   else if( strlenUrl == 6 && strncmp(url, "/quit/", 6) == 0)
    {
+    LogPermaservOpDetails("Processing quit request.\n");
     internalPrintf("Quitting at time %ld\n", time(NULL));
     timeToDie = true;
     retVal = true;
@@ -185,22 +190,26 @@ bool HttpPermaServ::processRequestHeader(void)
 
   else if( strlenUrl == 13 && strncmp(url, "/compileTime/", 13) == 0)
    {
+    LogPermaservOpDetails("Processing compileTime request.\n");
     internalPrintf("compileTime: %ld\n", ((HttpLBPermaserv*)parentLB)->compileTime);
     retVal = true;
    }
 
   else if( strlenUrl >= 9 && strncmp(url, "/dif?", 5) == 0)
    {
+    LogPermaservOpDetails("Processing DIF request for %s.\n", url+5);
     retVal = processDIFRequest(url+5);
    }
 
   else if( strlenUrl >= 9 && strncmp(url, "/dni?", 5) == 0)
    {
+    LogPermaservOpDetails("Processing DNI request for %s.\n", url+5);
     retVal = processDNIRequest(url+5);
    }
 
   else if( strlenUrl >= 14 && strncmp(url, "/soil?", 6) == 0)
    {
+    LogPermaservOpDetails("Processing soil request for %s.\n", url+6);
     retVal = processSoilRequest(url+6);
    }
 
@@ -209,7 +218,11 @@ bool HttpPermaServ::processRequestHeader(void)
     LogRequestErrors("Request for unknown resource %s\n", url);
     errorPage("Resource not found");
    }
-  
+
+#ifdef LOG_PERMASERV_OP_DETAILS
+  LogFlush();
+#endif 
+    
   return retVal;
 }
 
