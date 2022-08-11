@@ -36,7 +36,7 @@ private:
   // Instance variables - private
   BILFile worldSoilBilFile;
   MdbDatabase worldSoilMdbDatabase;
-  std::unordered_map<unsigned, SoilProfile*> worldSoilProfiles;
+  std::unordered_map<unsigned short, SoilProfile*> worldSoilProfiles;
   MdbTableSchema hwsdSchema;
   
   // Member functions - private

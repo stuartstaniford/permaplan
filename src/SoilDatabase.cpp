@@ -10,6 +10,8 @@
 #include "SoilProfile.h"
 #include "Logging.h"
 #include "HWSDProfile.h"
+#include "Global.h"
+
 #include <stdio.h>
 
 char* worldSoilBilFileName = (char*)"Materials/Solar/HWSD_RASTER/hwsd";
@@ -95,14 +97,20 @@ unsigned SoilDatabase::printJsonSoilProfiles(char* buf, unsigned bufSize,
   float longt = (loLong + hiLong)/2.0f;
   
   unsigned short soilIndex = worldSoilBilFile.valueAtPoint(lat, longt);
-  if(!soilIndex)
+  unless(soilIndex)
    {
     LogSoilDbErr("Could not get soil index for lat,long: %.3f, %.3f.\n", lat, longt);
     return 0u;    
    }
   LogSoilDbOps("Obtained soil index %u for lat,long: %.3f, %.3f.\n", 
                                                                   soilIndex, lat, longt);
-
+  unless(worldSoilProfiles.count(soilIndex))
+   {
+    LogSoilDbErr("Could not get profile for soilIndex %u at lat,long: %.3f, %.3f.\n", 
+                                                                    soilIndex, lat, longt);
+    return 0u;    
+   }
+  
   //unsigned retVal = soilProfile->writeJson(buf, bufSize);
   //delete soilProfile;
   //return retVal;
