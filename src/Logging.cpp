@@ -33,6 +33,7 @@ bool doLogHttpClientErrors      = true; // Log things going wrong in the HTTP Cl
 bool doLogPermaservClientErrors = true; // Log things going wrong in the Permaserv Client layer
 bool doLogPermaservClientOps    = true; // Log normal operations in the Permaserv Client layer
 bool doLogPermaservOps          = true; // Log normal operation of the Permaserv server
+bool doLogPermaservOpDetails    = true; // Log detailed operation of Permaserv for debugging
 
 // Logging options to do with parsing and validating OLDF and OTDL files
 bool doLogOLDFValidity        = true; // Log validity problems in the file
@@ -275,6 +276,11 @@ bool LogControlHTML(HttpDebug* serv, char* path)
 #ifdef LOG_PERMASERV_OPS // Log normal operation of the Permaserv server
   if(strncmp(path, "doLogPermaservOps", sizeof("doLogPermaservOps")-1)==0)
     return oneLogControl(serv, path, doLogPermaservOps);
+#endif
+
+#ifdef LOG_PERMASERV_OP_DETAILS // Log detailed operation of Permaserv for debugging
+  if(strncmp(path, "doLogPermaservOpDetails", sizeof("doLogPermaservOpDetails")-1)==0)
+    return oneLogControl(serv, path, doLogPermaservOpDetails);
 #endif
 
   

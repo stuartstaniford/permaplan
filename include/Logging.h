@@ -31,6 +31,8 @@
 #define LOG_PERMASERV_CLIENT_ERRORS // Log things going wrong in the Permaserv Client layer
 #define LOG_PERMASERV_CLIENT_OPS    // Log normal operations in the Permaserv Client layer
 #define LOG_PERMASERV_OPS           // Log normal operation of the Permaserv server
+#define LOG_PERMASERV_OP_DETAILS    // Log detailed operation of Permaserv for debugging
+
 
 // =======================================================================================
 // Logging options to do with parsing and validating OLDF and OTDL files
@@ -81,7 +83,7 @@
 #define LOG_SOIL_DB_ERR             // Log problems in the soil database operation
 #define LOG_SOIL_DB_OPS             // Log normal operations on the soil database
 #define LOG_SOIL_DB_DETAILS         // Log extra details in the soil database operation
-#define LOG_HSWD_EXHAUSTIVE         // Log every field read from the HSWD database
+//#define LOG_HSWD_EXHAUSTIVE         // Log every field read from the HSWD database
 #define LOG_BILFILE_DETAILS         // Log details of reading from a BILFILE
 
 
@@ -131,6 +133,7 @@
 #define LOG_HTTP_LOAD_BALANCE     // Log which connections get processed where
 //#define LOG_REQUEST_PARSING        // Log exactly what happens when parsing a request
 #define LOG_PSEUDO_ACTIONS      // Log as the main thread processes pseudo-actions
+
 
 // =======================================================================================
 // Logging options to do with quadtree operations
@@ -203,9 +206,10 @@ extern bool doLogResourceErrors;        // Clear errors in the resource manager
 extern bool doLogResourceActions;       // Stuff the resource manager actually does
 extern bool doLogResourceDetails;       // Micro-detail of the resource manager operating
 extern bool doLogHttpClientErrors;      // Log things going wrong in the HTTP Client
-extern bool doLogPermaservClientErrors; // Log things going wrong in the Permaserv Client layer
+extern bool doLogPermaservClientErrors; // Log errors in the Permaserv Client layer
 extern bool doLogPermaservClientOps;    // Log normal operations in the Permaserv Client layer
 extern bool doLogPermaservOps;          // Log normal operation of the Permaserv server
+extern bool doLogPermaservOpDetails;    // Log detailed operation of Permaserv for debugging
 
 // Logging options to do with parsing and validating OLDF and OTDL files
 extern bool doLogOLDFValidity;    // Log validity problems in the file
@@ -416,6 +420,14 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
                                           LogStatement("LogPermaservOps: " __VA_ARGS__)
 #else
 #define LogPermaservOps(...)
+#endif
+
+// Log detailed operation of Permaserv for debugging
+#ifdef LOG_PERMASERV_OP_DETAILS
+#define LogPermaservOpDetails(...) if(doLogPermaservOpDetails) \
+                                      LogStatement("LogPermaservOpDetails: " __VA_ARGS__)
+#else
+#define LogPermaservOpDetails(...)
 #endif
 
 

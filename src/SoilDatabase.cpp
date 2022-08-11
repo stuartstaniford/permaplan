@@ -58,14 +58,12 @@ void SoilDatabase::loadHWSDProfiles(void)
 {
   MdbTableReader hwsdTable(worldSoilMdbDatabase.mdb, (char*)"HWSD_DATA", 2048);
   HWSDProfile* soil;
-  int rowCount = 0;
   
   while(hwsdTable.getNextRow())
    {
     soil = new HWSDProfile(hwsdTable);
-    if(++rowCount >= 7)
-      break;
-    printf("Soil: %d", soil->dbId);
+    worldSoilProfiles[soil->muGlobal] = soil;
+    LogSoilDbOps("Got HWSD profile for soil index %u.\n",  soil->muGlobal);
    }
 }
 

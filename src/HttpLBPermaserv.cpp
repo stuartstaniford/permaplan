@@ -8,6 +8,7 @@
 #include "HttpPermaServ.h"
 #include "SolarDatabase.h"
 #include "SoilDatabase.h"
+#include "Logging.h"
 
 
 // =======================================================================================
@@ -17,8 +18,13 @@ HttpLBPermaserv::HttpLBPermaserv(unsigned short servPort, time_t compTime):
                                           HttpLoadBalancer(servPort),
                                           compileTime(compTime)
 {
+  // Set up our component database objects
   solarDatabase = new SolarDatabase;
   soilDatabase = new SoilDatabase;
+  LogPermaservOps("Initialization of databases complete.\n");
+  LogFlush();
+  
+  // Run the threads to service requests
   for(unsigned i=0; i<HTTP_THREAD_COUNT;i++)
     httpThreads[i] = (TaskQueue*) new HttpPermaServ(i, solarDatabase, soilDatabase,
                                                           (HttpLoadBalancer*)this);

@@ -117,8 +117,11 @@ void MdbDatabase::logCatalog(void)
     if (entry->object_type != objtype && objtype!=MDB_ANY)
       continue;
 
+#ifdef LOG_HSWD_EXHAUSTIVE
     MdbTableDef *table = mdb_read_table(entry);
     LogHSWDExhaustive("%d\t%s:%d rows\t", entry->object_type, entry->object_name, table->num_rows);
+#endif
+    
     mdb_print_schema(mdb, LogFile, entry->object_name, NULL, MDB_SHEXP_DEFAULT);
    }
 }

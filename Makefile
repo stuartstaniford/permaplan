@@ -233,7 +233,8 @@ src/BILFile.o: ./include/rapidjson/stringbuffer.h
 src/BILFile.o: ./include/rapidjson/stringbuffer.h
 src/BILFile.o: ./include/rapidjson/error/en.h
 src/BILFile.o: ./include/rapidjson/error/error.h
-src/BILFile.o: ./include/DynamicallyTypable.h
+src/BILFile.o: ./include/DynamicallyTypable.h ./include/Logging.h
+src/BILFile.o: ./include/MemoryTracker.h
 src/BezierPatch.o: ./include/BezierPatch.h ./include/LandSurfaceRegion.h
 src/BezierPatch.o: ./include/VisualObject.h ./include/VisualElement.h
 src/BezierPatch.o: ./include/DynamicallyTypable.h ./include/TriangleBuffer.h
@@ -5692,6 +5693,49 @@ src/SoilDatabase.o: ./include/rapidjson/error/en.h
 src/SoilDatabase.o: ./include/rapidjson/error/error.h
 src/SoilDatabase.o: ./include/DynamicallyTypable.h ./include/Logging.h
 src/SoilDatabase.o: ./include/MemoryTracker.h ./include/HWSDProfile.h
+src/SoilDatabase.o: ./include/Global.h /usr/local/include/cglm/cglm.h
+src/SoilDatabase.o: /usr/local/include/cglm/common.h
+src/SoilDatabase.o: /usr/local/include/cglm/types.h
+src/SoilDatabase.o: /usr/local/include/cglm/simd/intrin.h
+src/SoilDatabase.o: /usr/local/include/cglm/vec2.h
+src/SoilDatabase.o: /usr/local/include/cglm/util.h
+src/SoilDatabase.o: /usr/local/include/cglm/vec2-ext.h
+src/SoilDatabase.o: /usr/local/include/cglm/vec3.h
+src/SoilDatabase.o: /usr/local/include/cglm/vec4.h
+src/SoilDatabase.o: /usr/local/include/cglm/vec4-ext.h
+src/SoilDatabase.o: /usr/local/include/cglm/vec3-ext.h
+src/SoilDatabase.o: /usr/local/include/cglm/mat4.h
+src/SoilDatabase.o: /usr/local/include/cglm/mat3.h
+src/SoilDatabase.o: /usr/local/include/cglm/mat2.h
+src/SoilDatabase.o: /usr/local/include/cglm/affine.h
+src/SoilDatabase.o: /usr/local/include/cglm/affine-mat.h
+src/SoilDatabase.o: /usr/local/include/cglm/cam.h
+src/SoilDatabase.o: /usr/local/include/cglm/plane.h
+src/SoilDatabase.o: /usr/local/include/cglm/clipspace/persp.h
+src/SoilDatabase.o: /usr/local/include/cglm/common.h
+src/SoilDatabase.o: /usr/local/include/cglm/plane.h
+src/SoilDatabase.o: /usr/local/include/cglm/mat4.h
+src/SoilDatabase.o: /usr/local/include/cglm/clipspace/ortho_rh_no.h
+src/SoilDatabase.o: /usr/local/include/cglm/clipspace/persp_rh_no.h
+src/SoilDatabase.o: /usr/local/include/cglm/clipspace/persp.h
+src/SoilDatabase.o: /usr/local/include/cglm/clipspace/view_rh_no.h
+src/SoilDatabase.o: /usr/local/include/cglm/clipspace/view_rh.h
+src/SoilDatabase.o: /usr/local/include/cglm/frustum.h
+src/SoilDatabase.o: /usr/local/include/cglm/quat.h
+src/SoilDatabase.o: /usr/local/include/cglm/euler.h
+src/SoilDatabase.o: /usr/local/include/cglm/box.h
+src/SoilDatabase.o: /usr/local/include/cglm/color.h
+src/SoilDatabase.o: /usr/local/include/cglm/io.h
+src/SoilDatabase.o: /usr/local/include/cglm/project.h
+src/SoilDatabase.o: /usr/local/include/cglm/clipspace/project_no.h
+src/SoilDatabase.o: /usr/local/include/cglm/vec3.h
+src/SoilDatabase.o: /usr/local/include/cglm/vec4.h
+src/SoilDatabase.o: /usr/local/include/cglm/sphere.h
+src/SoilDatabase.o: /usr/local/include/cglm/ease.h
+src/SoilDatabase.o: /usr/local/include/cglm/curve.h
+src/SoilDatabase.o: /usr/local/include/cglm/bezier.h
+src/SoilDatabase.o: /usr/local/include/cglm/ray.h
+src/SoilDatabase.o: /usr/local/include/cglm/affine2d.h
 src/SoilDatabaseClient.o: ./include/SoilDatabaseClient.h
 src/SoilDatabaseClient.o: ./include/HttpPermaservClient.h
 src/SoilDatabaseClient.o: ./include/HttpClient.h
