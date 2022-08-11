@@ -111,10 +111,9 @@ unsigned SoilDatabase::printJsonSoilProfiles(char* buf, unsigned bufSize,
     return 0u;    
    }
   
-  //unsigned retVal = soilProfile->writeJson(buf, bufSize);
-  //delete soilProfile;
-  //return retVal;
-  return 0u;
+  SoilProfile* soilProfile = worldSoilProfiles[soilIndex];
+  unsigned retVal = soilProfile->writeJson(buf, bufSize);
+  return retVal;
 }
 
 
