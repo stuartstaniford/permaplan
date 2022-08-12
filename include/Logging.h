@@ -8,6 +8,7 @@
 
 #include "MemoryTracker.h"
 #include "Timeval.h"
+#include "Lockable.h"
 #include <cstdio>
 
 
@@ -184,6 +185,7 @@
 #define LOGGING_BUF_SIZE 2048
 
 #define LogStatement(...) { \
+    logLock.lock();\
     logWritePt = loggingBuf;\
     loggingNow.now();\
     logWritePt += snprintf(logWritePt, LOGGING_BUF_SIZE - (logWritePt-loggingBuf),\
@@ -191,6 +193,7 @@
     logWritePt += snprintf(logWritePt, LOGGING_BUF_SIZE - (logWritePt-loggingBuf), \
                     __VA_ARGS__);\
     fputs(loggingBuf, LogFile);\
+    logLock.unlock();\
     }
 
 class HTTPDebug;
@@ -204,11 +207,12 @@ bool LogControlHTML(HttpDebug* serv, char* path);
 
 #ifdef LOGGING_IMPLEMENTATION
 
-char    loggingBuf[LOGGING_BUF_SIZE];
-char*   logWritePt;
-Timeval loggingStart;
-Timeval loggingNow;
-FILE*   LogFile;
+char      loggingBuf[LOGGING_BUF_SIZE];
+char*     logWritePt;
+Timeval   loggingStart;
+Timeval   loggingNow;
+FILE*     LogFile;
+Lockable  logLock;
 
 #else
 
@@ -217,6 +221,7 @@ extern char*    logWritePt;
 extern Timeval  loggingStart;
 extern Timeval  loggingNow;
 extern FILE*    LogFile;
+extern Lockable logLock;
 
 
 // =======================================================================================
