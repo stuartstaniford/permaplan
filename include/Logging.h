@@ -7,6 +7,7 @@
 #define LOGGING_H
 
 #include "MemoryTracker.h"
+#include "Timeval.h"
 #include <cstdio>
 
 
@@ -131,7 +132,7 @@
 //#define LOG_HTTP_BUFFER_OPS        // Log operations on the main HTTP buffers
 //#define LOG_HTTP_DETAILS        // Log normal details of HTTP operations
 #define LOG_HTTP_LOAD_BALANCE     // Log which connections get processed where
-//#define LOG_REQUEST_PARSING        // Log exactly what happens when parsing a request
+#define LOG_REQUEST_PARSING        // Log exactly what happens when parsing a request
 #define LOG_PSEUDO_ACTIONS      // Log as the main thread processes pseudo-actions
 
 
@@ -180,18 +181,46 @@
 // =======================================================================================
 // General logging mechanism
 
-#define LogStatement(...) fprintf(LogFile, __VA_ARGS__)
+#define LOGGING_BUF_SIZE 2048
+
+#define LogStatement(...) { \
+    logWritePt = loggingBuf;\
+    loggingNow.now();\
+    logWritePt += snprintf(logWritePt, LOGGING_BUF_SIZE - (logWritePt-loggingBuf),\
+                    "%8.3lf ", loggingNow - loggingStart);\
+    logWritePt += snprintf(logWritePt, LOGGING_BUF_SIZE - (logWritePt-loggingBuf), \
+                    __VA_ARGS__);\
+    fputs(loggingBuf, LogFile);\
+    }
 
 class HTTPDebug;
 void LogInit(char* fileName = NULL);
 void LogFlush(void);
 bool LogControlHTML(HttpDebug* serv, char* path);
-extern FILE* LogFile;
+
+
+// =======================================================================================
+// Variables needed in the logging implementation
+
+#ifdef LOGGING_IMPLEMENTATION
+
+char    loggingBuf[LOGGING_BUF_SIZE];
+char*   logWritePt;
+Timeval loggingStart;
+Timeval loggingNow;
+FILE*   LogFile;
+
+#else
+
+extern char     loggingBuf[];
+extern char*    logWritePt;
+extern Timeval  loggingStart;
+extern Timeval  loggingNow;
+extern FILE*    LogFile;
+
 
 // =======================================================================================
 // Control variables for real time control of which logging is turned on
-
-#ifndef LOGGING_IMPLEMENTATION
 
 // Logging options to do with overall control flow and speed
 extern bool doLogFrameStarts;     // Log each frame as it begins

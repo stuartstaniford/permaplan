@@ -137,8 +137,6 @@ bool doLogObjectAltitudes     = true; // Log finding the altitudes of objects ab
 // =======================================================================================
 // Function to start up logging
 
-FILE* LogFile;
-
 void LogInit(char* fileName)
 {
   unless(fileName)
@@ -147,6 +145,7 @@ void LogInit(char* fileName)
   LogFile = fopen(fileName, "w");
   if(!LogFile)
     err(-1, "Couldn't create log file %s\n", fileName);
+  loggingStart.now();
   
   LogStructureSizes("Size of Vertex: %lu bytes.\n", sizeof(Vertex));
   LogStructureSizes("Size of BuildingRect: %lu bytes.\n", sizeof(BuildingRect));

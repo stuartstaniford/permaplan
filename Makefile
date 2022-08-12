@@ -44,7 +44,7 @@ SRCS = $(wildcard src/*.cpp)
 # with the .o suffix
 #
 OBJS = $(SRCS:.cpp=.o)
-SERV_OBJS = src/BILFile.o src/Global.o src/GroundLayer.o   src/GdalFileInterface.o src/HttpLBPermaserv.o src/HttpPermaServ.o src/HttpServThread.o src/HttpLoadBalancer.o src/HttpRequestParser.o src/HttpClient.o src/HWSDProfile.o src/Logging.o src/MdbFile.o src/SoilDatabase.o src/SoilProfile.o src/SoilHorizon.o src/SolarDatabase.o src/TaskQueueFarm.o src/TaskQueue.o src/Lockable.o src/ResourceManager.o src/loadFileToBuf.o src/DynamicallyTypable.o
+SERV_OBJS = src/BILFile.o src/Global.o src/GroundLayer.o   src/GdalFileInterface.o src/HttpLBPermaserv.o src/HttpPermaServ.o src/HttpServThread.o src/HttpLoadBalancer.o src/HttpRequestParser.o src/HttpClient.o src/HWSDProfile.o src/Logging.o src/MdbFile.o src/SoilDatabase.o src/SoilProfile.o src/SoilHorizon.o src/SolarDatabase.o src/TaskQueueFarm.o src/TaskQueue.o src/Lockable.o src/ResourceManager.o src/loadFileToBuf.o src/DynamicallyTypable.o src/Timeval.o
 
 # define the executable file
 MAIN = permaplan
@@ -119,11 +119,11 @@ src/Arrow.o: /usr/local/include/cglm/sphere.h /usr/local/include/cglm/ease.h
 src/Arrow.o: /usr/local/include/cglm/curve.h /usr/local/include/cglm/bezier.h
 src/Arrow.o: /usr/local/include/cglm/ray.h /usr/local/include/cglm/affine2d.h
 src/Arrow.o: ./include/Logging.h ./include/MemoryTracker.h
-src/Arrow.o: /usr/local/include/GL/glew.h ./include/VisualObject.h
-src/Arrow.o: ./include/Lockable.h ./include/BoundingBox.h
-src/Arrow.o: ./include/Cylinder.h ./include/HttpDebug.h
-src/Arrow.o: ./include/HttpServThread.h ./include/TaskQueue.h
-src/Arrow.o: ./include/HttpRequestParser.h
+src/Arrow.o: ./include/Timeval.h /usr/local/include/GL/glew.h
+src/Arrow.o: ./include/VisualObject.h ./include/Lockable.h
+src/Arrow.o: ./include/BoundingBox.h ./include/Cylinder.h
+src/Arrow.o: ./include/HttpDebug.h ./include/HttpServThread.h
+src/Arrow.o: ./include/TaskQueue.h ./include/HttpRequestParser.h
 src/AxialElement.o: ./include/AxialElement.h ./include/VisualElement.h
 src/AxialElement.o: ./include/DynamicallyTypable.h ./include/TriangleBuffer.h
 src/AxialElement.o: ./include/Vertex.h ./include/Global.h
@@ -170,8 +170,9 @@ src/AxialElement.o: /usr/local/include/cglm/curve.h
 src/AxialElement.o: /usr/local/include/cglm/bezier.h
 src/AxialElement.o: /usr/local/include/cglm/ray.h
 src/AxialElement.o: /usr/local/include/cglm/affine2d.h ./include/Logging.h
-src/AxialElement.o: ./include/MemoryTracker.h /usr/local/include/GL/glew.h
-src/AxialElement.o: ./include/CircleIterator.h ./include/BoundingBox.h
+src/AxialElement.o: ./include/MemoryTracker.h ./include/Timeval.h
+src/AxialElement.o: /usr/local/include/GL/glew.h ./include/CircleIterator.h
+src/AxialElement.o: ./include/BoundingBox.h
 src/BILFile.o: ./include/BILFile.h ./include/Global.h
 src/BILFile.o: /usr/local/include/cglm/cglm.h
 src/BILFile.o: /usr/local/include/cglm/common.h
@@ -234,7 +235,7 @@ src/BILFile.o: ./include/rapidjson/stringbuffer.h
 src/BILFile.o: ./include/rapidjson/error/en.h
 src/BILFile.o: ./include/rapidjson/error/error.h
 src/BILFile.o: ./include/DynamicallyTypable.h ./include/Logging.h
-src/BILFile.o: ./include/MemoryTracker.h
+src/BILFile.o: ./include/MemoryTracker.h ./include/Timeval.h
 src/BezierPatch.o: ./include/BezierPatch.h ./include/LandSurfaceRegion.h
 src/BezierPatch.o: ./include/VisualObject.h ./include/VisualElement.h
 src/BezierPatch.o: ./include/DynamicallyTypable.h ./include/TriangleBuffer.h
@@ -282,13 +283,14 @@ src/BezierPatch.o: /usr/local/include/cglm/curve.h
 src/BezierPatch.o: /usr/local/include/cglm/bezier.h
 src/BezierPatch.o: /usr/local/include/cglm/ray.h
 src/BezierPatch.o: /usr/local/include/cglm/affine2d.h ./include/Logging.h
-src/BezierPatch.o: ./include/MemoryTracker.h /usr/local/include/GL/glew.h
-src/BezierPatch.o: ./include/Lockable.h ./include/BoundingBox.h
-src/BezierPatch.o: ./include/HeightMarker.h ./include/Positionable.h
-src/BezierPatch.o: ./include/Quadtree.h ./include/DisplayList.h
-src/BezierPatch.o: ./include/Arrow.h ./include/AxialElement.h
-src/BezierPatch.o: ./include/HttpDebug.h ./include/HttpServThread.h
-src/BezierPatch.o: ./include/TaskQueue.h ./include/HttpRequestParser.h
+src/BezierPatch.o: ./include/MemoryTracker.h ./include/Timeval.h
+src/BezierPatch.o: /usr/local/include/GL/glew.h ./include/Lockable.h
+src/BezierPatch.o: ./include/BoundingBox.h ./include/HeightMarker.h
+src/BezierPatch.o: ./include/Positionable.h ./include/Quadtree.h
+src/BezierPatch.o: ./include/DisplayList.h ./include/Arrow.h
+src/BezierPatch.o: ./include/AxialElement.h ./include/HttpDebug.h
+src/BezierPatch.o: ./include/HttpServThread.h ./include/TaskQueue.h
+src/BezierPatch.o: ./include/HttpRequestParser.h
 src/Boundary.o: ./include/Boundary.h /usr/local/include/cglm/cglm.h
 src/Boundary.o: /usr/local/include/cglm/common.h
 src/Boundary.o: /usr/local/include/cglm/types.h
@@ -354,11 +356,11 @@ src/Boundary.o: ./include/rapidjson/stringbuffer.h
 src/Boundary.o: ./include/rapidjson/error/en.h
 src/Boundary.o: ./include/rapidjson/error/error.h ./include/PmodConfig.h
 src/Boundary.o: ./include/Logging.h ./include/MemoryTracker.h
-src/Boundary.o: ./include/Global.h ./include/BoundingBox.h
-src/Boundary.o: ./include/HttpDebug.h ./include/HttpServThread.h
-src/Boundary.o: ./include/TaskQueue.h ./include/Lockable.h
-src/Boundary.o: ./include/HttpRequestParser.h ./include/PmodDesign.h
-src/Boundary.o: ./include/Timeval.h
+src/Boundary.o: ./include/Timeval.h ./include/Global.h
+src/Boundary.o: ./include/BoundingBox.h ./include/HttpDebug.h
+src/Boundary.o: ./include/HttpServThread.h ./include/TaskQueue.h
+src/Boundary.o: ./include/Lockable.h ./include/HttpRequestParser.h
+src/Boundary.o: ./include/PmodDesign.h
 src/BoundingBox.o: ./include/BoundingBox.h /usr/local/include/cglm/cglm.h
 src/BoundingBox.o: /usr/local/include/cglm/common.h
 src/BoundingBox.o: /usr/local/include/cglm/types.h
@@ -403,9 +405,10 @@ src/BoundingBox.o: /usr/local/include/cglm/bezier.h
 src/BoundingBox.o: /usr/local/include/cglm/ray.h
 src/BoundingBox.o: /usr/local/include/cglm/affine2d.h ./include/Shader.h
 src/BoundingBox.o: ./include/Vertex.h ./include/Global.h ./include/Logging.h
-src/BoundingBox.o: ./include/MemoryTracker.h ./include/HttpDebug.h
-src/BoundingBox.o: ./include/HttpServThread.h ./include/TaskQueue.h
-src/BoundingBox.o: ./include/Lockable.h ./include/HttpRequestParser.h
+src/BoundingBox.o: ./include/MemoryTracker.h ./include/Timeval.h
+src/BoundingBox.o: ./include/HttpDebug.h ./include/HttpServThread.h
+src/BoundingBox.o: ./include/TaskQueue.h ./include/Lockable.h
+src/BoundingBox.o: ./include/HttpRequestParser.h
 src/Box.o: ./include/Box.h ./include/VisualObject.h ./include/VisualElement.h
 src/Box.o: ./include/DynamicallyTypable.h ./include/TriangleBuffer.h
 src/Box.o: ./include/Vertex.h ./include/Global.h
@@ -437,7 +440,7 @@ src/Box.o: /usr/local/include/cglm/vec3.h /usr/local/include/cglm/vec4.h
 src/Box.o: /usr/local/include/cglm/sphere.h /usr/local/include/cglm/ease.h
 src/Box.o: /usr/local/include/cglm/curve.h /usr/local/include/cglm/bezier.h
 src/Box.o: /usr/local/include/cglm/ray.h /usr/local/include/cglm/affine2d.h
-src/Box.o: ./include/Logging.h ./include/MemoryTracker.h
+src/Box.o: ./include/Logging.h ./include/MemoryTracker.h ./include/Timeval.h
 src/Box.o: /usr/local/include/GL/glew.h ./include/Lockable.h
 src/Box.o: ./include/BoundingBox.h ./include/rapidjson/document.h
 src/Box.o: ./include/rapidjson/reader.h ./include/rapidjson/allocators.h
@@ -508,10 +511,11 @@ src/Building.o: /usr/local/include/cglm/curve.h
 src/Building.o: /usr/local/include/cglm/bezier.h
 src/Building.o: /usr/local/include/cglm/ray.h
 src/Building.o: /usr/local/include/cglm/affine2d.h ./include/Logging.h
-src/Building.o: ./include/MemoryTracker.h /usr/local/include/GL/glew.h
-src/Building.o: ./include/Lockable.h ./include/BoundingBox.h
-src/Building.o: ./include/DisplayList.h ./include/rapidjson/document.h
-src/Building.o: ./include/rapidjson/reader.h ./include/rapidjson/allocators.h
+src/Building.o: ./include/MemoryTracker.h ./include/Timeval.h
+src/Building.o: /usr/local/include/GL/glew.h ./include/Lockable.h
+src/Building.o: ./include/BoundingBox.h ./include/DisplayList.h
+src/Building.o: ./include/rapidjson/document.h ./include/rapidjson/reader.h
+src/Building.o: ./include/rapidjson/allocators.h
 src/Building.o: ./include/rapidjson/rapidjson.h ./include/rapidjson/stream.h
 src/Building.o: ./include/rapidjson/encodings.h
 src/Building.o: ./include/rapidjson/encodedstream.h
@@ -538,8 +542,7 @@ src/Building.o: ./include/rapidjson/stringbuffer.h
 src/Building.o: ./include/rapidjson/stringbuffer.h
 src/Building.o: ./include/rapidjson/error/en.h
 src/Building.o: ./include/rapidjson/error/error.h ./include/PmodConfig.h
-src/Building.o: ./include/PmodDesign.h ./include/Boundary.h
-src/Building.o: ./include/Timeval.h ./include/Gable.h
+src/Building.o: ./include/PmodDesign.h ./include/Boundary.h ./include/Gable.h
 src/Building.o: ./include/BuildingAssembly.h ./include/Orientable.h
 src/Building.o: ./include/Positionable.h ./include/Shed.h
 src/Building.o: ./include/BuildingRect.h ./include/Box.h
@@ -593,8 +596,9 @@ src/BuildingAssembly.o: /usr/local/include/cglm/bezier.h
 src/BuildingAssembly.o: /usr/local/include/cglm/ray.h
 src/BuildingAssembly.o: /usr/local/include/cglm/affine2d.h
 src/BuildingAssembly.o: ./include/Logging.h ./include/MemoryTracker.h
-src/BuildingAssembly.o: /usr/local/include/GL/glew.h ./include/Lockable.h
-src/BuildingAssembly.o: ./include/BoundingBox.h ./include/BuildingRect.h
+src/BuildingAssembly.o: ./include/Timeval.h /usr/local/include/GL/glew.h
+src/BuildingAssembly.o: ./include/Lockable.h ./include/BoundingBox.h
+src/BuildingAssembly.o: ./include/BuildingRect.h
 src/BuildingRect.o: ./include/BuildingRect.h ./include/VisualElement.h
 src/BuildingRect.o: ./include/DynamicallyTypable.h ./include/TriangleBuffer.h
 src/BuildingRect.o: ./include/Vertex.h ./include/Global.h
@@ -641,10 +645,11 @@ src/BuildingRect.o: /usr/local/include/cglm/curve.h
 src/BuildingRect.o: /usr/local/include/cglm/bezier.h
 src/BuildingRect.o: /usr/local/include/cglm/ray.h
 src/BuildingRect.o: /usr/local/include/cglm/affine2d.h ./include/Logging.h
-src/BuildingRect.o: ./include/MemoryTracker.h /usr/local/include/GL/glew.h
-src/BuildingRect.o: ./include/HttpDebug.h ./include/HttpServThread.h
-src/BuildingRect.o: ./include/TaskQueue.h ./include/Lockable.h
-src/BuildingRect.o: ./include/HttpRequestParser.h ./include/BoundingBox.h
+src/BuildingRect.o: ./include/MemoryTracker.h ./include/Timeval.h
+src/BuildingRect.o: /usr/local/include/GL/glew.h ./include/HttpDebug.h
+src/BuildingRect.o: ./include/HttpServThread.h ./include/TaskQueue.h
+src/BuildingRect.o: ./include/Lockable.h ./include/HttpRequestParser.h
+src/BuildingRect.o: ./include/BoundingBox.h
 src/BuildingWindow.o: ./include/BuildingWindow.h
 src/BuildingWindow.o: ./include/ObjectInspectorWindow.h ./include/Window3D.h
 src/BuildingWindow.o: ./include/Camera.h /usr/local/include/cglm/cglm.h
@@ -760,8 +765,8 @@ src/CO2Scenario.o: ./include/rapidjson/stringbuffer.h
 src/CO2Scenario.o: ./include/rapidjson/stringbuffer.h
 src/CO2Scenario.o: ./include/rapidjson/error/en.h
 src/CO2Scenario.o: ./include/rapidjson/error/error.h ./include/Logging.h
-src/CO2Scenario.o: ./include/MemoryTracker.h ./include/Global.h
-src/CO2Scenario.o: /usr/local/include/cglm/cglm.h
+src/CO2Scenario.o: ./include/MemoryTracker.h ./include/Timeval.h
+src/CO2Scenario.o: ./include/Global.h /usr/local/include/cglm/cglm.h
 src/CO2Scenario.o: /usr/local/include/cglm/common.h
 src/CO2Scenario.o: /usr/local/include/cglm/types.h
 src/CO2Scenario.o: /usr/local/include/cglm/simd/intrin.h
@@ -836,7 +841,7 @@ src/Camera.o: /usr/local/include/cglm/sphere.h /usr/local/include/cglm/ease.h
 src/Camera.o: /usr/local/include/cglm/curve.h
 src/Camera.o: /usr/local/include/cglm/bezier.h /usr/local/include/cglm/ray.h
 src/Camera.o: /usr/local/include/cglm/affine2d.h ./include/Logging.h
-src/Camera.o: ./include/MemoryTracker.h ./include/Scene.h
+src/Camera.o: ./include/MemoryTracker.h ./include/Timeval.h ./include/Scene.h
 src/Camera.o: ./include/LandSurface.h ./include/rapidjson/document.h
 src/Camera.o: ./include/rapidjson/reader.h ./include/rapidjson/allocators.h
 src/Camera.o: ./include/rapidjson/rapidjson.h ./include/rapidjson/stream.h
@@ -964,7 +969,8 @@ src/ColoredAxes.o: /usr/local/include/cglm/ray.h
 src/ColoredAxes.o: /usr/local/include/cglm/affine2d.h
 src/ColoredAxes.o: /usr/local/include/GL/glew.h ./include/Vertex.h
 src/ColoredAxes.o: ./include/Global.h ./include/Logging.h
-src/ColoredAxes.o: ./include/MemoryTracker.h ./include/Shader.h
+src/ColoredAxes.o: ./include/MemoryTracker.h ./include/Timeval.h
+src/ColoredAxes.o: ./include/Shader.h
 src/ControlGroup.o: ./include/ControlGroup.h ./include/ObjectGroup.h
 src/ControlGroup.o: ./include/VisualObject.h ./include/VisualElement.h
 src/ControlGroup.o: ./include/DynamicallyTypable.h ./include/TriangleBuffer.h
@@ -1012,11 +1018,12 @@ src/ControlGroup.o: /usr/local/include/cglm/curve.h
 src/ControlGroup.o: /usr/local/include/cglm/bezier.h
 src/ControlGroup.o: /usr/local/include/cglm/ray.h
 src/ControlGroup.o: /usr/local/include/cglm/affine2d.h ./include/Logging.h
-src/ControlGroup.o: ./include/MemoryTracker.h /usr/local/include/GL/glew.h
-src/ControlGroup.o: ./include/Lockable.h ./include/BoundingBox.h
-src/ControlGroup.o: ./include/DisplayList.h ./include/Arrow.h
-src/ControlGroup.o: ./include/AxialElement.h ./include/PmodDesign.h
-src/ControlGroup.o: ./include/Boundary.h ./include/rapidjson/document.h
+src/ControlGroup.o: ./include/MemoryTracker.h ./include/Timeval.h
+src/ControlGroup.o: /usr/local/include/GL/glew.h ./include/Lockable.h
+src/ControlGroup.o: ./include/BoundingBox.h ./include/DisplayList.h
+src/ControlGroup.o: ./include/Arrow.h ./include/AxialElement.h
+src/ControlGroup.o: ./include/PmodDesign.h ./include/Boundary.h
+src/ControlGroup.o: ./include/rapidjson/document.h
 src/ControlGroup.o: ./include/rapidjson/reader.h
 src/ControlGroup.o: ./include/rapidjson/allocators.h
 src/ControlGroup.o: ./include/rapidjson/rapidjson.h
@@ -1045,7 +1052,7 @@ src/ControlGroup.o: ./include/rapidjson/internal/itoa.h
 src/ControlGroup.o: ./include/rapidjson/stringbuffer.h
 src/ControlGroup.o: ./include/rapidjson/stringbuffer.h
 src/ControlGroup.o: ./include/rapidjson/error/en.h
-src/ControlGroup.o: ./include/rapidjson/error/error.h ./include/Timeval.h
+src/ControlGroup.o: ./include/rapidjson/error/error.h
 src/ControlGroup.o: ./include/SemicircularArrow.h ./include/PathTube.h
 src/ControlGroup.o: ./include/CircleIterator.h ./include/HttpDebug.h
 src/ControlGroup.o: ./include/HttpServThread.h ./include/TaskQueue.h
@@ -1119,10 +1126,10 @@ src/Cylinder.o: /usr/local/include/cglm/curve.h
 src/Cylinder.o: /usr/local/include/cglm/bezier.h
 src/Cylinder.o: /usr/local/include/cglm/ray.h
 src/Cylinder.o: /usr/local/include/cglm/affine2d.h ./include/Logging.h
-src/Cylinder.o: ./include/MemoryTracker.h /usr/local/include/GL/glew.h
-src/Cylinder.o: ./include/HttpDebug.h ./include/HttpServThread.h
-src/Cylinder.o: ./include/TaskQueue.h ./include/Lockable.h
-src/Cylinder.o: ./include/HttpRequestParser.h
+src/Cylinder.o: ./include/MemoryTracker.h ./include/Timeval.h
+src/Cylinder.o: /usr/local/include/GL/glew.h ./include/HttpDebug.h
+src/Cylinder.o: ./include/HttpServThread.h ./include/TaskQueue.h
+src/Cylinder.o: ./include/Lockable.h ./include/HttpRequestParser.h
 src/DisplayList.o: ./include/DisplayList.h ./include/HeightMarker.h
 src/DisplayList.o: ./include/VisualObject.h ./include/VisualElement.h
 src/DisplayList.o: ./include/DynamicallyTypable.h ./include/TriangleBuffer.h
@@ -1170,9 +1177,10 @@ src/DisplayList.o: /usr/local/include/cglm/curve.h
 src/DisplayList.o: /usr/local/include/cglm/bezier.h
 src/DisplayList.o: /usr/local/include/cglm/ray.h
 src/DisplayList.o: /usr/local/include/cglm/affine2d.h ./include/Logging.h
-src/DisplayList.o: ./include/MemoryTracker.h /usr/local/include/GL/glew.h
-src/DisplayList.o: ./include/Lockable.h ./include/BoundingBox.h
-src/DisplayList.o: ./include/Positionable.h ./include/LandSurfaceRegion.h
+src/DisplayList.o: ./include/MemoryTracker.h ./include/Timeval.h
+src/DisplayList.o: /usr/local/include/GL/glew.h ./include/Lockable.h
+src/DisplayList.o: ./include/BoundingBox.h ./include/Positionable.h
+src/DisplayList.o: ./include/LandSurfaceRegion.h
 src/DynamicallyTypable.o: ./include/DynamicallyTypable.h
 src/ElementBufferCombo.o: ./include/ElementBufferCombo.h
 src/ElementBufferCombo.o: ./include/VertexArrayObject.h
@@ -1221,7 +1229,7 @@ src/ElementBufferCombo.o: /usr/local/include/cglm/bezier.h
 src/ElementBufferCombo.o: /usr/local/include/cglm/ray.h
 src/ElementBufferCombo.o: /usr/local/include/cglm/affine2d.h
 src/ElementBufferCombo.o: ./include/Logging.h ./include/MemoryTracker.h
-src/ElementBufferCombo.o: /usr/local/include/GL/glew.h
+src/ElementBufferCombo.o: ./include/Timeval.h /usr/local/include/GL/glew.h
 src/ElementBufferCombo.o: /usr/local/include/GLFW/glfw3.h
 src/ElementBufferCombo.o: ./include/ElementBufferObject.h
 src/ElementBufferObject.o: ./include/ElementBufferObject.h
@@ -1393,12 +1401,12 @@ src/Gable.o: /usr/local/include/cglm/sphere.h /usr/local/include/cglm/ease.h
 src/Gable.o: /usr/local/include/cglm/curve.h /usr/local/include/cglm/bezier.h
 src/Gable.o: /usr/local/include/cglm/ray.h /usr/local/include/cglm/affine2d.h
 src/Gable.o: ./include/Logging.h ./include/MemoryTracker.h
-src/Gable.o: /usr/local/include/GL/glew.h ./include/Lockable.h
-src/Gable.o: ./include/BoundingBox.h ./include/Orientable.h
-src/Gable.o: ./include/Positionable.h ./include/rapidjson/document.h
-src/Gable.o: ./include/rapidjson/reader.h ./include/rapidjson/allocators.h
-src/Gable.o: ./include/rapidjson/rapidjson.h ./include/rapidjson/stream.h
-src/Gable.o: ./include/rapidjson/encodings.h
+src/Gable.o: ./include/Timeval.h /usr/local/include/GL/glew.h
+src/Gable.o: ./include/Lockable.h ./include/BoundingBox.h
+src/Gable.o: ./include/Orientable.h ./include/Positionable.h
+src/Gable.o: ./include/rapidjson/document.h ./include/rapidjson/reader.h
+src/Gable.o: ./include/rapidjson/allocators.h ./include/rapidjson/rapidjson.h
+src/Gable.o: ./include/rapidjson/stream.h ./include/rapidjson/encodings.h
 src/Gable.o: ./include/rapidjson/encodedstream.h
 src/Gable.o: ./include/rapidjson/memorystream.h
 src/Gable.o: ./include/rapidjson/internal/clzll.h
@@ -1477,7 +1485,7 @@ src/GdalFileInterface.o: /usr/local/include/cglm/bezier.h
 src/GdalFileInterface.o: /usr/local/include/cglm/ray.h
 src/GdalFileInterface.o: /usr/local/include/cglm/affine2d.h
 src/GdalFileInterface.o: ./include/Logging.h ./include/MemoryTracker.h
-src/GdalFileInterface.o: /usr/local/include/gdal_priv.h
+src/GdalFileInterface.o: ./include/Timeval.h /usr/local/include/gdal_priv.h
 src/GdalFileInterface.o: /usr/local/include/gdal.h
 src/GdalFileInterface.o: /usr/local/include/gdal_version.h
 src/GdalFileInterface.o: /usr/local/include/cpl_port.h
@@ -1532,7 +1540,7 @@ src/Global.o: /usr/local/include/cglm/curve.h
 src/Global.o: /usr/local/include/cglm/bezier.h /usr/local/include/cglm/ray.h
 src/Global.o: /usr/local/include/cglm/affine2d.h ./include/TaskQueueFarm.h
 src/Global.o: ./include/TaskQueue.h ./include/Lockable.h ./include/Logging.h
-src/Global.o: ./include/MemoryTracker.h
+src/Global.o: ./include/MemoryTracker.h ./include/Timeval.h
 src/Grid.o: ./include/Grid.h ./include/LineStripList.h
 src/Grid.o: /usr/local/include/cglm/cglm.h /usr/local/include/cglm/common.h
 src/Grid.o: /usr/local/include/cglm/types.h
@@ -1564,12 +1572,12 @@ src/Grid.o: /usr/local/include/cglm/curve.h /usr/local/include/cglm/bezier.h
 src/Grid.o: /usr/local/include/cglm/ray.h /usr/local/include/cglm/affine2d.h
 src/Grid.o: /usr/local/include/GL/glew.h ./include/Vertex.h
 src/Grid.o: ./include/Global.h ./include/Logging.h ./include/MemoryTracker.h
-src/Grid.o: ./include/Shader.h ./include/VertexArrayObject.h
-src/Grid.o: ./include/VertexBufferObject.h /usr/local/include/GLFW/glfw3.h
-src/Grid.o: ./include/LandSurface.h ./include/rapidjson/document.h
-src/Grid.o: ./include/rapidjson/reader.h ./include/rapidjson/allocators.h
-src/Grid.o: ./include/rapidjson/rapidjson.h ./include/rapidjson/stream.h
-src/Grid.o: ./include/rapidjson/encodings.h
+src/Grid.o: ./include/Timeval.h ./include/Shader.h
+src/Grid.o: ./include/VertexArrayObject.h ./include/VertexBufferObject.h
+src/Grid.o: /usr/local/include/GLFW/glfw3.h ./include/LandSurface.h
+src/Grid.o: ./include/rapidjson/document.h ./include/rapidjson/reader.h
+src/Grid.o: ./include/rapidjson/allocators.h ./include/rapidjson/rapidjson.h
+src/Grid.o: ./include/rapidjson/stream.h ./include/rapidjson/encodings.h
 src/Grid.o: ./include/rapidjson/encodedstream.h
 src/Grid.o: ./include/rapidjson/memorystream.h
 src/Grid.o: ./include/rapidjson/internal/clzll.h
@@ -1784,7 +1792,8 @@ src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/deprecate
 src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/deprecated/gthread.h
 src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/glib-autocleanups.h
 src/HWSDProfile.o: ./include/Logging.h ./include/MemoryTracker.h
-src/HWSDProfile.o: ./include/Global.h /usr/local/include/cglm/cglm.h
+src/HWSDProfile.o: ./include/Timeval.h ./include/Global.h
+src/HWSDProfile.o: /usr/local/include/cglm/cglm.h
 src/HWSDProfile.o: /usr/local/include/cglm/common.h
 src/HWSDProfile.o: /usr/local/include/cglm/types.h
 src/HWSDProfile.o: /usr/local/include/cglm/simd/intrin.h
@@ -1873,14 +1882,14 @@ src/HeightMarker.o: /usr/local/include/cglm/curve.h
 src/HeightMarker.o: /usr/local/include/cglm/bezier.h
 src/HeightMarker.o: /usr/local/include/cglm/ray.h
 src/HeightMarker.o: /usr/local/include/cglm/affine2d.h ./include/Logging.h
-src/HeightMarker.o: ./include/MemoryTracker.h /usr/local/include/GL/glew.h
-src/HeightMarker.o: ./include/Lockable.h ./include/BoundingBox.h
-src/HeightMarker.o: ./include/Positionable.h ./include/HttpDebug.h
-src/HeightMarker.o: ./include/HttpServThread.h ./include/TaskQueue.h
-src/HeightMarker.o: ./include/HttpRequestParser.h
+src/HeightMarker.o: ./include/MemoryTracker.h ./include/Timeval.h
+src/HeightMarker.o: /usr/local/include/GL/glew.h ./include/Lockable.h
+src/HeightMarker.o: ./include/BoundingBox.h ./include/Positionable.h
+src/HeightMarker.o: ./include/HttpDebug.h ./include/HttpServThread.h
+src/HeightMarker.o: ./include/TaskQueue.h ./include/HttpRequestParser.h
 src/HttpClient.o: ./include/HttpClient.h ./include/Logging.h
-src/HttpClient.o: ./include/MemoryTracker.h ./include/Global.h
-src/HttpClient.o: /usr/local/include/cglm/cglm.h
+src/HttpClient.o: ./include/MemoryTracker.h ./include/Timeval.h
+src/HttpClient.o: ./include/Global.h /usr/local/include/cglm/cglm.h
 src/HttpClient.o: /usr/local/include/cglm/common.h
 src/HttpClient.o: /usr/local/include/cglm/types.h
 src/HttpClient.o: /usr/local/include/cglm/simd/intrin.h
@@ -1994,9 +2003,10 @@ src/HttpDebug.o: ./include/LandSurfaceRegion.h ./include/VisualObject.h
 src/HttpDebug.o: ./include/VisualElement.h ./include/DynamicallyTypable.h
 src/HttpDebug.o: ./include/TriangleBuffer.h ./include/Vertex.h
 src/HttpDebug.o: ./include/Logging.h ./include/MemoryTracker.h
-src/HttpDebug.o: /usr/local/include/GL/glew.h ./include/BoundingBox.h
-src/HttpDebug.o: ./include/InterfaceAction.h ./include/LightingModel.h
-src/HttpDebug.o: ./include/CO2Scenario.h ./include/rapidjson/writer.h
+src/HttpDebug.o: ./include/Timeval.h /usr/local/include/GL/glew.h
+src/HttpDebug.o: ./include/BoundingBox.h ./include/InterfaceAction.h
+src/HttpDebug.o: ./include/LightingModel.h ./include/CO2Scenario.h
+src/HttpDebug.o: ./include/rapidjson/writer.h
 src/HttpDebug.o: ./include/rapidjson/internal/dtoa.h
 src/HttpDebug.o: ./include/rapidjson/internal/itoa.h
 src/HttpDebug.o: ./include/rapidjson/internal/itoa.h
@@ -2009,7 +2019,7 @@ src/HttpDebug.o: ./include/DisplayList.h ./include/TaskQueueFarm.h
 src/HttpDebug.o: ./include/SkySampleModel.h ./include/InterfaceMainSceneWin.h
 src/HttpDebug.o: ./include/MenuInterface.h ./include/MenuPanel.h
 src/HttpDebug.o: imgui/imgui.h imgui/imconfig.h ./include/MainSceneWindow.h
-src/HttpDebug.o: ./include/Window3D.h ./include/Camera.h ./include/Timeval.h
+src/HttpDebug.o: ./include/Window3D.h ./include/Camera.h
 src/HttpDebug.o: /usr/local/include/GLFW/glfw3.h ./include/Species.h
 src/HttpDebug.o: ./include/Version.h ./include/GLFWApplication.h
 src/HttpLBDebug.o: ./include/HttpLBDebug.h ./include/HttpLoadBalancer.h
@@ -2196,6 +2206,8 @@ src/HttpLBPermaserv.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/depre
 src/HttpLBPermaserv.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/deprecated/grel.h
 src/HttpLBPermaserv.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/deprecated/gthread.h
 src/HttpLBPermaserv.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/glib-autocleanups.h
+src/HttpLBPermaserv.o: ./include/Logging.h ./include/MemoryTracker.h
+src/HttpLBPermaserv.o: ./include/Timeval.h
 src/HttpLoadBalancer.o: ./include/HttpLoadBalancer.h ./include/HttpDebug.h
 src/HttpLoadBalancer.o: ./include/HttpServThread.h ./include/TaskQueue.h
 src/HttpLoadBalancer.o: ./include/Lockable.h ./include/Global.h
@@ -2244,7 +2256,7 @@ src/HttpLoadBalancer.o: /usr/local/include/cglm/ray.h
 src/HttpLoadBalancer.o: /usr/local/include/cglm/affine2d.h
 src/HttpLoadBalancer.o: ./include/HttpRequestParser.h
 src/HttpLoadBalancer.o: ./include/TaskQueueFarm.h ./include/Logging.h
-src/HttpLoadBalancer.o: ./include/MemoryTracker.h
+src/HttpLoadBalancer.o: ./include/MemoryTracker.h ./include/Timeval.h
 src/HttpPermaServ.o: ./include/HttpPermaServ.h ./include/HttpServThread.h
 src/HttpPermaServ.o: ./include/TaskQueue.h ./include/Lockable.h
 src/HttpPermaServ.o: ./include/Global.h /usr/local/include/cglm/cglm.h
@@ -2291,10 +2303,10 @@ src/HttpPermaServ.o: /usr/local/include/cglm/bezier.h
 src/HttpPermaServ.o: /usr/local/include/cglm/ray.h
 src/HttpPermaServ.o: /usr/local/include/cglm/affine2d.h
 src/HttpPermaServ.o: ./include/HttpRequestParser.h ./include/Logging.h
-src/HttpPermaServ.o: ./include/MemoryTracker.h ./include/SolarDatabase.h
-src/HttpPermaServ.o: ./include/GdalFileInterface.h ./include/SoilDatabase.h
-src/HttpPermaServ.o: ./include/BILFile.h ./include/MdbFile.h
-src/HttpPermaServ.o: /usr/local/include/mdbtools.h
+src/HttpPermaServ.o: ./include/MemoryTracker.h ./include/Timeval.h
+src/HttpPermaServ.o: ./include/SolarDatabase.h ./include/GdalFileInterface.h
+src/HttpPermaServ.o: ./include/SoilDatabase.h ./include/BILFile.h
+src/HttpPermaServ.o: ./include/MdbFile.h /usr/local/include/mdbtools.h
 src/HttpPermaServ.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib.h
 src/HttpPermaServ.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/galloca.h
 src/HttpPermaServ.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/gtypes.h
@@ -2415,8 +2427,8 @@ src/HttpPermaservClient.o: ./include/rapidjson/stringbuffer.h
 src/HttpPermaservClient.o: ./include/rapidjson/error/en.h
 src/HttpPermaservClient.o: ./include/rapidjson/error/error.h
 src/HttpPermaservClient.o: ./include/PmodConfig.h ./include/Logging.h
-src/HttpPermaservClient.o: ./include/MemoryTracker.h ./include/Global.h
-src/HttpPermaservClient.o: /usr/local/include/cglm/cglm.h
+src/HttpPermaservClient.o: ./include/MemoryTracker.h ./include/Timeval.h
+src/HttpPermaservClient.o: ./include/Global.h /usr/local/include/cglm/cglm.h
 src/HttpPermaservClient.o: /usr/local/include/cglm/common.h
 src/HttpPermaservClient.o: /usr/local/include/cglm/types.h
 src/HttpPermaservClient.o: /usr/local/include/cglm/simd/intrin.h
@@ -2505,6 +2517,7 @@ src/HttpRequestParser.o: /usr/local/include/cglm/bezier.h
 src/HttpRequestParser.o: /usr/local/include/cglm/ray.h
 src/HttpRequestParser.o: /usr/local/include/cglm/affine2d.h
 src/HttpRequestParser.o: ./include/Logging.h ./include/MemoryTracker.h
+src/HttpRequestParser.o: ./include/Timeval.h
 src/HttpServThread.o: ./include/HttpServThread.h ./include/TaskQueue.h
 src/HttpServThread.o: ./include/Lockable.h ./include/Global.h
 src/HttpServThread.o: /usr/local/include/cglm/cglm.h
@@ -2551,7 +2564,7 @@ src/HttpServThread.o: /usr/local/include/cglm/bezier.h
 src/HttpServThread.o: /usr/local/include/cglm/ray.h
 src/HttpServThread.o: /usr/local/include/cglm/affine2d.h
 src/HttpServThread.o: ./include/HttpRequestParser.h ./include/Logging.h
-src/HttpServThread.o: ./include/MemoryTracker.h
+src/HttpServThread.o: ./include/MemoryTracker.h ./include/Timeval.h
 src/InterfaceAction.o: ./include/InterfaceAction.h ./include/Global.h
 src/InterfaceAction.o: /usr/local/include/cglm/cglm.h
 src/InterfaceAction.o: /usr/local/include/cglm/common.h
@@ -2628,11 +2641,12 @@ src/InterfaceAction.o: ./include/rapidjson/stringbuffer.h
 src/InterfaceAction.o: ./include/rapidjson/stringbuffer.h
 src/InterfaceAction.o: ./include/rapidjson/error/en.h
 src/InterfaceAction.o: ./include/rapidjson/error/error.h ./include/Logging.h
-src/InterfaceAction.o: ./include/MemoryTracker.h
+src/InterfaceAction.o: ./include/MemoryTracker.h ./include/Timeval.h
 src/InterfaceMainSceneWin.o: ./include/InterfaceMainSceneWin.h
 src/InterfaceMainSceneWin.o: ./include/MenuInterface.h ./include/MenuPanel.h
 src/InterfaceMainSceneWin.o: ./include/Logging.h ./include/MemoryTracker.h
-src/InterfaceMainSceneWin.o: ./include/InterfaceAction.h ./include/Global.h
+src/InterfaceMainSceneWin.o: ./include/Timeval.h ./include/InterfaceAction.h
+src/InterfaceMainSceneWin.o: ./include/Global.h
 src/InterfaceMainSceneWin.o: /usr/local/include/cglm/cglm.h
 src/InterfaceMainSceneWin.o: /usr/local/include/cglm/common.h
 src/InterfaceMainSceneWin.o: /usr/local/include/cglm/types.h
@@ -2713,7 +2727,6 @@ src/InterfaceMainSceneWin.o: ./include/rapidjson/stringbuffer.h
 src/InterfaceMainSceneWin.o: ./include/rapidjson/error/en.h
 src/InterfaceMainSceneWin.o: ./include/rapidjson/error/error.h
 src/InterfaceMainSceneWin.o: ./include/Window3D.h ./include/Camera.h
-src/InterfaceMainSceneWin.o: ./include/Timeval.h
 src/InterfaceMainSceneWin.o: /usr/local/include/GLFW/glfw3.h
 src/InterfaceMainSceneWin.o: ./include/Scene.h ./include/LandSurface.h
 src/InterfaceMainSceneWin.o: ./include/BezierPatch.h
@@ -2887,24 +2900,24 @@ src/LandSurface.o: ./include/LandSurfaceRegion.h ./include/VisualObject.h
 src/LandSurface.o: ./include/VisualElement.h ./include/DynamicallyTypable.h
 src/LandSurface.o: ./include/TriangleBuffer.h ./include/Vertex.h
 src/LandSurface.o: ./include/Global.h ./include/Logging.h
-src/LandSurface.o: ./include/MemoryTracker.h /usr/local/include/GL/glew.h
-src/LandSurface.o: ./include/Lockable.h ./include/BoundingBox.h
-src/LandSurface.o: ./include/Camera.h ./include/PmodConfig.h
-src/LandSurface.o: ./include/PmodDesign.h ./include/Boundary.h
-src/LandSurface.o: ./include/rapidjson/writer.h
+src/LandSurface.o: ./include/MemoryTracker.h ./include/Timeval.h
+src/LandSurface.o: /usr/local/include/GL/glew.h ./include/Lockable.h
+src/LandSurface.o: ./include/BoundingBox.h ./include/Camera.h
+src/LandSurface.o: ./include/PmodConfig.h ./include/PmodDesign.h
+src/LandSurface.o: ./include/Boundary.h ./include/rapidjson/writer.h
 src/LandSurface.o: ./include/rapidjson/internal/dtoa.h
 src/LandSurface.o: ./include/rapidjson/internal/itoa.h
 src/LandSurface.o: ./include/rapidjson/internal/itoa.h
 src/LandSurface.o: ./include/rapidjson/stringbuffer.h
 src/LandSurface.o: ./include/rapidjson/stringbuffer.h
 src/LandSurface.o: ./include/rapidjson/error/en.h
-src/LandSurface.o: ./include/rapidjson/error/error.h ./include/Timeval.h
-src/LandSurface.o: ./include/TexturedRect.h ./include/VertexArrayObject.h
-src/LandSurface.o: ./include/Texture.h ./include/Shader.h
-src/LandSurface.o: ./include/Quadtree.h ./include/DisplayList.h
-src/LandSurface.o: ./include/HeightMarker.h ./include/Positionable.h
-src/LandSurface.o: ./include/HttpDebug.h ./include/HttpServThread.h
-src/LandSurface.o: ./include/TaskQueue.h ./include/HttpRequestParser.h
+src/LandSurface.o: ./include/rapidjson/error/error.h ./include/TexturedRect.h
+src/LandSurface.o: ./include/VertexArrayObject.h ./include/Texture.h
+src/LandSurface.o: ./include/Shader.h ./include/Quadtree.h
+src/LandSurface.o: ./include/DisplayList.h ./include/HeightMarker.h
+src/LandSurface.o: ./include/Positionable.h ./include/HttpDebug.h
+src/LandSurface.o: ./include/HttpServThread.h ./include/TaskQueue.h
+src/LandSurface.o: ./include/HttpRequestParser.h
 src/LandSurfaceRegion.o: ./include/LandSurfaceRegion.h
 src/LandSurfaceRegion.o: ./include/VisualObject.h ./include/VisualElement.h
 src/LandSurfaceRegion.o: ./include/DynamicallyTypable.h
@@ -2953,10 +2966,10 @@ src/LandSurfaceRegion.o: /usr/local/include/cglm/bezier.h
 src/LandSurfaceRegion.o: /usr/local/include/cglm/ray.h
 src/LandSurfaceRegion.o: /usr/local/include/cglm/affine2d.h
 src/LandSurfaceRegion.o: ./include/Logging.h ./include/MemoryTracker.h
-src/LandSurfaceRegion.o: /usr/local/include/GL/glew.h ./include/Lockable.h
-src/LandSurfaceRegion.o: ./include/BoundingBox.h ./include/HttpDebug.h
-src/LandSurfaceRegion.o: ./include/HttpServThread.h ./include/TaskQueue.h
-src/LandSurfaceRegion.o: ./include/HttpRequestParser.h
+src/LandSurfaceRegion.o: ./include/Timeval.h /usr/local/include/GL/glew.h
+src/LandSurfaceRegion.o: ./include/Lockable.h ./include/BoundingBox.h
+src/LandSurfaceRegion.o: ./include/HttpDebug.h ./include/HttpServThread.h
+src/LandSurfaceRegion.o: ./include/TaskQueue.h ./include/HttpRequestParser.h
 src/LandSurfaceRegionPlanar.o: ./include/LandSurfaceRegionPlanar.h
 src/LandSurfaceRegionPlanar.o: ./include/LandSurfaceRegion.h
 src/LandSurfaceRegionPlanar.o: ./include/VisualObject.h
@@ -3008,6 +3021,7 @@ src/LandSurfaceRegionPlanar.o: /usr/local/include/cglm/bezier.h
 src/LandSurfaceRegionPlanar.o: /usr/local/include/cglm/ray.h
 src/LandSurfaceRegionPlanar.o: /usr/local/include/cglm/affine2d.h
 src/LandSurfaceRegionPlanar.o: ./include/Logging.h ./include/MemoryTracker.h
+src/LandSurfaceRegionPlanar.o: ./include/Timeval.h
 src/LandSurfaceRegionPlanar.o: /usr/local/include/GL/glew.h
 src/LandSurfaceRegionPlanar.o: ./include/Lockable.h ./include/BoundingBox.h
 src/LandSurfaceRegionPlanar.o: ./include/HttpDebug.h
@@ -3085,7 +3099,8 @@ src/LeafModel.o: ./include/rapidjson/stringbuffer.h
 src/LeafModel.o: ./include/rapidjson/error/en.h
 src/LeafModel.o: ./include/rapidjson/error/error.h ./include/Global.h
 src/LeafModel.o: ./include/Logging.h ./include/MemoryTracker.h
-src/LeafModel.o: ./include/JSONStructureChecker.h ./include/Version.h
+src/LeafModel.o: ./include/Timeval.h ./include/JSONStructureChecker.h
+src/LeafModel.o: ./include/Version.h
 src/LightingModel.o: ./include/LightingModel.h /usr/local/include/cglm/cglm.h
 src/LightingModel.o: /usr/local/include/cglm/common.h
 src/LightingModel.o: /usr/local/include/cglm/types.h
@@ -3174,7 +3189,8 @@ src/LineStripList.o: /usr/local/include/cglm/ray.h
 src/LineStripList.o: /usr/local/include/cglm/affine2d.h
 src/LineStripList.o: /usr/local/include/GL/glew.h ./include/Vertex.h
 src/LineStripList.o: ./include/Global.h ./include/Logging.h
-src/LineStripList.o: ./include/MemoryTracker.h ./include/VertexBufferCombo.h
+src/LineStripList.o: ./include/MemoryTracker.h ./include/Timeval.h
+src/LineStripList.o: ./include/VertexBufferCombo.h
 src/LineStripList.o: ./include/VertexArrayObject.h
 src/LineStripList.o: ./include/VertexBufferObject.h
 src/LineStripList.o: /usr/local/include/GLFW/glfw3.h ./include/Shader.h
@@ -3219,7 +3235,7 @@ src/Lockable.o: /usr/local/include/cglm/bezier.h
 src/Lockable.o: /usr/local/include/cglm/ray.h
 src/Lockable.o: /usr/local/include/cglm/affine2d.h
 src/Logging.o: ./include/Logging.h ./include/MemoryTracker.h
-src/Logging.o: ./include/Vertex.h ./include/Global.h
+src/Logging.o: ./include/Timeval.h ./include/Vertex.h ./include/Global.h
 src/Logging.o: /usr/local/include/cglm/cglm.h
 src/Logging.o: /usr/local/include/cglm/common.h
 src/Logging.o: /usr/local/include/cglm/types.h
@@ -3417,9 +3433,10 @@ src/Material.o: /usr/local/include/cglm/bezier.h
 src/Material.o: /usr/local/include/cglm/ray.h
 src/Material.o: /usr/local/include/cglm/affine2d.h ./include/Texture.h
 src/Material.o: /usr/local/include/GL/glew.h ./include/Logging.h
-src/Material.o: ./include/MemoryTracker.h ./include/TextureAtlas.h
-src/Material.o: ./include/HttpDebug.h ./include/HttpServThread.h
-src/Material.o: ./include/TaskQueue.h ./include/Lockable.h ./include/Global.h
+src/Material.o: ./include/MemoryTracker.h ./include/Timeval.h
+src/Material.o: ./include/TextureAtlas.h ./include/HttpDebug.h
+src/Material.o: ./include/HttpServThread.h ./include/TaskQueue.h
+src/Material.o: ./include/Lockable.h ./include/Global.h
 src/Material.o: ./include/HttpRequestParser.h
 src/MdbFile.o: ./include/MdbFile.h /usr/local/include/mdbtools.h
 src/MdbFile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib.h
@@ -3569,7 +3586,7 @@ src/MdbFile.o: /usr/local/include/cglm/sphere.h
 src/MdbFile.o: /usr/local/include/cglm/ease.h /usr/local/include/cglm/curve.h
 src/MdbFile.o: /usr/local/include/cglm/bezier.h /usr/local/include/cglm/ray.h
 src/MdbFile.o: /usr/local/include/cglm/affine2d.h ./include/Logging.h
-src/MdbFile.o: ./include/MemoryTracker.h
+src/MdbFile.o: ./include/MemoryTracker.h ./include/Timeval.h
 src/MemoryTracker.o: ./include/MemoryTracker.h ./include/HttpDebug.h
 src/MemoryTracker.o: ./include/HttpServThread.h ./include/TaskQueue.h
 src/MemoryTracker.o: ./include/Lockable.h ./include/Global.h
@@ -3619,8 +3636,8 @@ src/MemoryTracker.o: /usr/local/include/cglm/affine2d.h
 src/MemoryTracker.o: ./include/HttpRequestParser.h
 src/MenuAllTree.o: ./include/MenuAllTree.h ./include/MenuPanel.h
 src/MenuAllTree.o: ./include/Logging.h ./include/MemoryTracker.h
-src/MenuAllTree.o: ./include/InterfaceAction.h ./include/Global.h
-src/MenuAllTree.o: /usr/local/include/cglm/cglm.h
+src/MenuAllTree.o: ./include/Timeval.h ./include/InterfaceAction.h
+src/MenuAllTree.o: ./include/Global.h /usr/local/include/cglm/cglm.h
 src/MenuAllTree.o: /usr/local/include/cglm/common.h
 src/MenuAllTree.o: /usr/local/include/cglm/types.h
 src/MenuAllTree.o: /usr/local/include/cglm/simd/intrin.h
@@ -3709,8 +3726,8 @@ src/MenuAllTree.o: ./include/HttpDebug.h ./include/HttpServThread.h
 src/MenuAllTree.o: ./include/TaskQueue.h ./include/HttpRequestParser.h
 src/MenuBlockPanel.o: ./include/MenuBlockPanel.h ./include/MenuPanel.h
 src/MenuBlockPanel.o: ./include/Logging.h ./include/MemoryTracker.h
-src/MenuBlockPanel.o: ./include/InterfaceAction.h ./include/Global.h
-src/MenuBlockPanel.o: /usr/local/include/cglm/cglm.h
+src/MenuBlockPanel.o: ./include/Timeval.h ./include/InterfaceAction.h
+src/MenuBlockPanel.o: ./include/Global.h /usr/local/include/cglm/cglm.h
 src/MenuBlockPanel.o: /usr/local/include/cglm/common.h
 src/MenuBlockPanel.o: /usr/local/include/cglm/types.h
 src/MenuBlockPanel.o: /usr/local/include/cglm/simd/intrin.h
@@ -3796,8 +3813,8 @@ src/MenuBlockPanel.o: ./include/rapidjson/error/en.h
 src/MenuBlockPanel.o: ./include/rapidjson/error/error.h
 src/MenuErrorPanel.o: ./include/MenuErrorPanel.h ./include/MenuPanel.h
 src/MenuErrorPanel.o: ./include/Logging.h ./include/MemoryTracker.h
-src/MenuErrorPanel.o: ./include/InterfaceAction.h ./include/Global.h
-src/MenuErrorPanel.o: /usr/local/include/cglm/cglm.h
+src/MenuErrorPanel.o: ./include/Timeval.h ./include/InterfaceAction.h
+src/MenuErrorPanel.o: ./include/Global.h /usr/local/include/cglm/cglm.h
 src/MenuErrorPanel.o: /usr/local/include/cglm/common.h
 src/MenuErrorPanel.o: /usr/local/include/cglm/types.h
 src/MenuErrorPanel.o: /usr/local/include/cglm/simd/intrin.h
@@ -3843,8 +3860,8 @@ src/MenuErrorPanel.o: /usr/local/include/cglm/affine2d.h imgui/imgui.h
 src/MenuErrorPanel.o: imgui/imconfig.h
 src/MenuFocusOverlay.o: ./include/MenuFocusOverlay.h ./include/MenuPanel.h
 src/MenuFocusOverlay.o: ./include/Logging.h ./include/MemoryTracker.h
-src/MenuFocusOverlay.o: ./include/InterfaceAction.h ./include/Global.h
-src/MenuFocusOverlay.o: /usr/local/include/cglm/cglm.h
+src/MenuFocusOverlay.o: ./include/Timeval.h ./include/InterfaceAction.h
+src/MenuFocusOverlay.o: ./include/Global.h /usr/local/include/cglm/cglm.h
 src/MenuFocusOverlay.o: /usr/local/include/cglm/common.h
 src/MenuFocusOverlay.o: /usr/local/include/cglm/types.h
 src/MenuFocusOverlay.o: /usr/local/include/cglm/simd/intrin.h
@@ -3888,8 +3905,7 @@ src/MenuFocusOverlay.o: /usr/local/include/cglm/bezier.h
 src/MenuFocusOverlay.o: /usr/local/include/cglm/ray.h
 src/MenuFocusOverlay.o: /usr/local/include/cglm/affine2d.h imgui/imgui.h
 src/MenuFocusOverlay.o: imgui/imconfig.h ./include/Window3D.h
-src/MenuFocusOverlay.o: ./include/Camera.h ./include/Timeval.h
-src/MenuFocusOverlay.o: /usr/local/include/GL/glew.h
+src/MenuFocusOverlay.o: ./include/Camera.h /usr/local/include/GL/glew.h
 src/MenuFocusOverlay.o: /usr/local/include/GLFW/glfw3.h ./include/Scene.h
 src/MenuFocusOverlay.o: ./include/LandSurface.h
 src/MenuFocusOverlay.o: ./include/rapidjson/document.h
@@ -3932,8 +3948,8 @@ src/MenuFocusOverlay.o: ./include/rapidjson/error/error.h
 src/MenuFocusOverlay.o: ./include/GLFWApplication.h
 src/MenuGablePanel.o: ./include/MenuGablePanel.h ./include/MenuPanel.h
 src/MenuGablePanel.o: ./include/Logging.h ./include/MemoryTracker.h
-src/MenuGablePanel.o: ./include/InterfaceAction.h ./include/Global.h
-src/MenuGablePanel.o: /usr/local/include/cglm/cglm.h
+src/MenuGablePanel.o: ./include/Timeval.h ./include/InterfaceAction.h
+src/MenuGablePanel.o: ./include/Global.h /usr/local/include/cglm/cglm.h
 src/MenuGablePanel.o: /usr/local/include/cglm/common.h
 src/MenuGablePanel.o: /usr/local/include/cglm/types.h
 src/MenuGablePanel.o: /usr/local/include/cglm/simd/intrin.h
@@ -4020,11 +4036,10 @@ src/MenuGablePanel.o: ./include/Scene.h ./include/LandSurface.h
 src/MenuGablePanel.o: ./include/BezierPatch.h ./include/LandSurfaceRegion.h
 src/MenuGablePanel.o: ./include/LightingModel.h ./include/CO2Scenario.h
 src/MenuGablePanel.o: ./include/PmodDesign.h ./include/Boundary.h
-src/MenuGablePanel.o: ./include/Timeval.h
 src/MenuGenus.o: ./include/MenuGenus.h ./include/MenuPanel.h
 src/MenuGenus.o: ./include/Logging.h ./include/MemoryTracker.h
-src/MenuGenus.o: ./include/InterfaceAction.h ./include/Global.h
-src/MenuGenus.o: /usr/local/include/cglm/cglm.h
+src/MenuGenus.o: ./include/Timeval.h ./include/InterfaceAction.h
+src/MenuGenus.o: ./include/Global.h /usr/local/include/cglm/cglm.h
 src/MenuGenus.o: /usr/local/include/cglm/common.h
 src/MenuGenus.o: /usr/local/include/cglm/types.h
 src/MenuGenus.o: /usr/local/include/cglm/simd/intrin.h
@@ -4107,8 +4122,8 @@ src/MenuGenus.o: ./include/LightingModel.h ./include/CO2Scenario.h
 src/MenuGenus.o: ./include/Species.h ./include/Version.h
 src/MenuHeightPanel.o: ./include/MenuHeightPanel.h ./include/MenuPanel.h
 src/MenuHeightPanel.o: ./include/Logging.h ./include/MemoryTracker.h
-src/MenuHeightPanel.o: ./include/InterfaceAction.h ./include/Global.h
-src/MenuHeightPanel.o: /usr/local/include/cglm/cglm.h
+src/MenuHeightPanel.o: ./include/Timeval.h ./include/InterfaceAction.h
+src/MenuHeightPanel.o: ./include/Global.h /usr/local/include/cglm/cglm.h
 src/MenuHeightPanel.o: /usr/local/include/cglm/common.h
 src/MenuHeightPanel.o: /usr/local/include/cglm/types.h
 src/MenuHeightPanel.o: /usr/local/include/cglm/simd/intrin.h
@@ -4192,8 +4207,8 @@ src/MenuHeightPanel.o: ./include/rapidjson/error/en.h
 src/MenuHeightPanel.o: ./include/rapidjson/error/error.h
 src/MenuInitPanel.o: ./include/MenuInitPanel.h ./include/MenuPanel.h
 src/MenuInitPanel.o: ./include/Logging.h ./include/MemoryTracker.h
-src/MenuInitPanel.o: ./include/InterfaceAction.h ./include/Global.h
-src/MenuInitPanel.o: /usr/local/include/cglm/cglm.h
+src/MenuInitPanel.o: ./include/Timeval.h ./include/InterfaceAction.h
+src/MenuInitPanel.o: ./include/Global.h /usr/local/include/cglm/cglm.h
 src/MenuInitPanel.o: /usr/local/include/cglm/common.h
 src/MenuInitPanel.o: /usr/local/include/cglm/types.h
 src/MenuInitPanel.o: /usr/local/include/cglm/simd/intrin.h
@@ -4240,8 +4255,8 @@ src/MenuInitPanel.o: imgui/imconfig.h imgui/backends/imgui_impl_opengl3.h
 src/MenuInitPanel.o: imgui/backends/imgui_impl_glfw.h
 src/MenuInsert.o: ./include/MenuInsert.h ./include/MenuPanel.h
 src/MenuInsert.o: ./include/Logging.h ./include/MemoryTracker.h
-src/MenuInsert.o: ./include/InterfaceAction.h ./include/Global.h
-src/MenuInsert.o: /usr/local/include/cglm/cglm.h
+src/MenuInsert.o: ./include/Timeval.h ./include/InterfaceAction.h
+src/MenuInsert.o: ./include/Global.h /usr/local/include/cglm/cglm.h
 src/MenuInsert.o: /usr/local/include/cglm/common.h
 src/MenuInsert.o: /usr/local/include/cglm/types.h
 src/MenuInsert.o: /usr/local/include/cglm/simd/intrin.h
@@ -4327,8 +4342,8 @@ src/MenuInsert.o: ./include/InterfaceMainSceneWin.h ./include/MenuInterface.h
 src/MenuInsert.o: ./include/MenuTree.h ./include/MenuHeightPanel.h
 src/MenuInterface.o: ./include/MenuInterface.h ./include/MenuPanel.h
 src/MenuInterface.o: ./include/Logging.h ./include/MemoryTracker.h
-src/MenuInterface.o: ./include/InterfaceAction.h ./include/Global.h
-src/MenuInterface.o: /usr/local/include/cglm/cglm.h
+src/MenuInterface.o: ./include/Timeval.h ./include/InterfaceAction.h
+src/MenuInterface.o: ./include/Global.h /usr/local/include/cglm/cglm.h
 src/MenuInterface.o: /usr/local/include/cglm/common.h
 src/MenuInterface.o: /usr/local/include/cglm/types.h
 src/MenuInterface.o: /usr/local/include/cglm/simd/intrin.h
@@ -4373,8 +4388,9 @@ src/MenuInterface.o: /usr/local/include/cglm/ray.h
 src/MenuInterface.o: /usr/local/include/cglm/affine2d.h imgui/imgui.h
 src/MenuInterface.o: imgui/imconfig.h
 src/MenuPanel.o: ./include/MenuPanel.h ./include/Logging.h
-src/MenuPanel.o: ./include/MemoryTracker.h ./include/InterfaceAction.h
-src/MenuPanel.o: ./include/Global.h /usr/local/include/cglm/cglm.h
+src/MenuPanel.o: ./include/MemoryTracker.h ./include/Timeval.h
+src/MenuPanel.o: ./include/InterfaceAction.h ./include/Global.h
+src/MenuPanel.o: /usr/local/include/cglm/cglm.h
 src/MenuPanel.o: /usr/local/include/cglm/common.h
 src/MenuPanel.o: /usr/local/include/cglm/types.h
 src/MenuPanel.o: /usr/local/include/cglm/simd/intrin.h
@@ -4417,12 +4433,12 @@ src/MenuPanel.o: /usr/local/include/cglm/bezier.h
 src/MenuPanel.o: /usr/local/include/cglm/ray.h
 src/MenuPanel.o: /usr/local/include/cglm/affine2d.h imgui/imgui.h
 src/MenuPanel.o: imgui/imconfig.h ./include/Window3D.h ./include/Camera.h
-src/MenuPanel.o: ./include/Timeval.h /usr/local/include/GL/glew.h
-src/MenuPanel.o: /usr/local/include/GLFW/glfw3.h ./include/HttpDebug.h
-src/MenuPanel.o: ./include/HttpServThread.h ./include/TaskQueue.h
-src/MenuPanel.o: ./include/Lockable.h ./include/HttpRequestParser.h
-src/MenuPanel.o: ./include/Scene.h ./include/LandSurface.h
-src/MenuPanel.o: ./include/rapidjson/document.h ./include/rapidjson/reader.h
+src/MenuPanel.o: /usr/local/include/GL/glew.h /usr/local/include/GLFW/glfw3.h
+src/MenuPanel.o: ./include/HttpDebug.h ./include/HttpServThread.h
+src/MenuPanel.o: ./include/TaskQueue.h ./include/Lockable.h
+src/MenuPanel.o: ./include/HttpRequestParser.h ./include/Scene.h
+src/MenuPanel.o: ./include/LandSurface.h ./include/rapidjson/document.h
+src/MenuPanel.o: ./include/rapidjson/reader.h
 src/MenuPanel.o: ./include/rapidjson/allocators.h
 src/MenuPanel.o: ./include/rapidjson/rapidjson.h ./include/rapidjson/stream.h
 src/MenuPanel.o: ./include/rapidjson/encodings.h
@@ -4459,8 +4475,8 @@ src/MenuPanel.o: imgui/backends/imgui_impl_opengl3.h
 src/MenuPanel.o: imgui/backends/imgui_impl_glfw.h
 src/MenuShedPanel.o: ./include/MenuShedPanel.h ./include/MenuPanel.h
 src/MenuShedPanel.o: ./include/Logging.h ./include/MemoryTracker.h
-src/MenuShedPanel.o: ./include/InterfaceAction.h ./include/Global.h
-src/MenuShedPanel.o: /usr/local/include/cglm/cglm.h
+src/MenuShedPanel.o: ./include/Timeval.h ./include/InterfaceAction.h
+src/MenuShedPanel.o: ./include/Global.h /usr/local/include/cglm/cglm.h
 src/MenuShedPanel.o: /usr/local/include/cglm/common.h
 src/MenuShedPanel.o: /usr/local/include/cglm/types.h
 src/MenuShedPanel.o: /usr/local/include/cglm/simd/intrin.h
@@ -4541,11 +4557,11 @@ src/MenuShedPanel.o: ./include/rapidjson/stringbuffer.h
 src/MenuShedPanel.o: ./include/rapidjson/stringbuffer.h
 src/MenuShedPanel.o: ./include/rapidjson/error/en.h
 src/MenuShedPanel.o: ./include/rapidjson/error/error.h ./include/PmodDesign.h
-src/MenuShedPanel.o: ./include/Boundary.h ./include/Timeval.h
-src/MenuShedPanel.o: ./include/MenuInterface.h ./include/MenuErrorPanel.h
+src/MenuShedPanel.o: ./include/Boundary.h ./include/MenuInterface.h
+src/MenuShedPanel.o: ./include/MenuErrorPanel.h
 src/MenuSimulationPanel.o: ./include/MenuSimulationPanel.h
 src/MenuSimulationPanel.o: ./include/MenuPanel.h ./include/Logging.h
-src/MenuSimulationPanel.o: ./include/MemoryTracker.h
+src/MenuSimulationPanel.o: ./include/MemoryTracker.h ./include/Timeval.h
 src/MenuSimulationPanel.o: ./include/InterfaceAction.h ./include/Global.h
 src/MenuSimulationPanel.o: /usr/local/include/cglm/cglm.h
 src/MenuSimulationPanel.o: /usr/local/include/cglm/common.h
@@ -4623,8 +4639,7 @@ src/MenuSimulationPanel.o: ./include/rapidjson/stringbuffer.h
 src/MenuSimulationPanel.o: ./include/rapidjson/stringbuffer.h
 src/MenuSimulationPanel.o: ./include/rapidjson/error/en.h
 src/MenuSimulationPanel.o: ./include/rapidjson/error/error.h
-src/MenuSimulationPanel.o: ./include/BoundingBox.h ./include/Timeval.h
-src/MenuSimulationPanel.o: ./include/MenuInterface.h
+src/MenuSimulationPanel.o: ./include/BoundingBox.h ./include/MenuInterface.h
 src/MenuSimulationPanel.o: ./include/MenuErrorPanel.h ./include/LeafModel.h
 src/MenuSimulationPanel.o: ./include/Scene.h ./include/LandSurface.h
 src/MenuSimulationPanel.o: ./include/BezierPatch.h
@@ -4636,8 +4651,8 @@ src/MenuSimulationPanel.o: /usr/local/include/GL/glew.h ./include/Lockable.h
 src/MenuSimulationPanel.o: ./include/LightingModel.h ./include/CO2Scenario.h
 src/MenuTree.o: ./include/MenuTree.h ./include/MenuPanel.h
 src/MenuTree.o: ./include/Logging.h ./include/MemoryTracker.h
-src/MenuTree.o: ./include/InterfaceAction.h ./include/Global.h
-src/MenuTree.o: /usr/local/include/cglm/cglm.h
+src/MenuTree.o: ./include/Timeval.h ./include/InterfaceAction.h
+src/MenuTree.o: ./include/Global.h /usr/local/include/cglm/cglm.h
 src/MenuTree.o: /usr/local/include/cglm/common.h
 src/MenuTree.o: /usr/local/include/cglm/types.h
 src/MenuTree.o: /usr/local/include/cglm/simd/intrin.h
@@ -4753,11 +4768,11 @@ src/ObjectGroup.o: /usr/local/include/cglm/curve.h
 src/ObjectGroup.o: /usr/local/include/cglm/bezier.h
 src/ObjectGroup.o: /usr/local/include/cglm/ray.h
 src/ObjectGroup.o: /usr/local/include/cglm/affine2d.h ./include/Logging.h
-src/ObjectGroup.o: ./include/MemoryTracker.h /usr/local/include/GL/glew.h
-src/ObjectGroup.o: ./include/Lockable.h ./include/BoundingBox.h
-src/ObjectGroup.o: ./include/DisplayList.h ./include/HttpDebug.h
-src/ObjectGroup.o: ./include/HttpServThread.h ./include/TaskQueue.h
-src/ObjectGroup.o: ./include/HttpRequestParser.h
+src/ObjectGroup.o: ./include/MemoryTracker.h ./include/Timeval.h
+src/ObjectGroup.o: /usr/local/include/GL/glew.h ./include/Lockable.h
+src/ObjectGroup.o: ./include/BoundingBox.h ./include/DisplayList.h
+src/ObjectGroup.o: ./include/HttpDebug.h ./include/HttpServThread.h
+src/ObjectGroup.o: ./include/TaskQueue.h ./include/HttpRequestParser.h
 src/ObjectInspectorWindow.o: ./include/ObjectInspectorWindow.h
 src/ObjectInspectorWindow.o: ./include/Window3D.h ./include/Camera.h
 src/ObjectInspectorWindow.o: /usr/local/include/cglm/cglm.h
@@ -4895,8 +4910,9 @@ src/PathTube.o: /usr/local/include/cglm/curve.h
 src/PathTube.o: /usr/local/include/cglm/bezier.h
 src/PathTube.o: /usr/local/include/cglm/ray.h
 src/PathTube.o: /usr/local/include/cglm/affine2d.h ./include/Logging.h
-src/PathTube.o: ./include/MemoryTracker.h /usr/local/include/GL/glew.h
-src/PathTube.o: ./include/CircleIterator.h ./include/BoundingBox.h
+src/PathTube.o: ./include/MemoryTracker.h ./include/Timeval.h
+src/PathTube.o: /usr/local/include/GL/glew.h ./include/CircleIterator.h
+src/PathTube.o: ./include/BoundingBox.h
 src/PmodConfig.o: ./include/PmodConfig.h
 src/PmodDesign.o: ./include/PmodDesign.h ./include/Boundary.h
 src/PmodDesign.o: /usr/local/include/cglm/cglm.h
@@ -5095,9 +5111,9 @@ src/Quadtree.o: ./include/LandSurfaceRegion.h ./include/VisualObject.h
 src/Quadtree.o: ./include/VisualElement.h ./include/DynamicallyTypable.h
 src/Quadtree.o: ./include/TriangleBuffer.h ./include/Vertex.h
 src/Quadtree.o: ./include/Logging.h ./include/MemoryTracker.h
-src/Quadtree.o: /usr/local/include/GL/glew.h ./include/InterfaceAction.h
-src/Quadtree.o: ./include/LightingModel.h ./include/CO2Scenario.h
-src/Quadtree.o: ./include/rapidjson/writer.h
+src/Quadtree.o: ./include/Timeval.h /usr/local/include/GL/glew.h
+src/Quadtree.o: ./include/InterfaceAction.h ./include/LightingModel.h
+src/Quadtree.o: ./include/CO2Scenario.h ./include/rapidjson/writer.h
 src/Quadtree.o: ./include/rapidjson/internal/dtoa.h
 src/Quadtree.o: ./include/rapidjson/internal/itoa.h
 src/Quadtree.o: ./include/rapidjson/internal/itoa.h
@@ -5105,7 +5121,7 @@ src/Quadtree.o: ./include/rapidjson/stringbuffer.h
 src/Quadtree.o: ./include/rapidjson/stringbuffer.h
 src/Quadtree.o: ./include/rapidjson/error/en.h
 src/Quadtree.o: ./include/rapidjson/error/error.h ./include/ObjectGroup.h
-src/Quadtree.o: ./include/Window3D.h ./include/Camera.h ./include/Timeval.h
+src/Quadtree.o: ./include/Window3D.h ./include/Camera.h
 src/Quadtree.o: /usr/local/include/GLFW/glfw3.h
 src/Quadtree.o: ./include/LandSurfaceRegionPlanar.h ./include/Shader.h
 src/Quadtree.o: ./include/PmodDesign.h ./include/Boundary.h
@@ -5321,10 +5337,11 @@ src/Scene.o: ./include/LandSurfaceRegion.h ./include/VisualObject.h
 src/Scene.o: ./include/VisualElement.h ./include/DynamicallyTypable.h
 src/Scene.o: ./include/TriangleBuffer.h ./include/Vertex.h ./include/Global.h
 src/Scene.o: ./include/Logging.h ./include/MemoryTracker.h
-src/Scene.o: /usr/local/include/GL/glew.h ./include/Lockable.h
-src/Scene.o: ./include/BoundingBox.h ./include/InterfaceAction.h
-src/Scene.o: ./include/LightingModel.h ./include/CO2Scenario.h
-src/Scene.o: ./include/rapidjson/writer.h ./include/rapidjson/internal/dtoa.h
+src/Scene.o: ./include/Timeval.h /usr/local/include/GL/glew.h
+src/Scene.o: ./include/Lockable.h ./include/BoundingBox.h
+src/Scene.o: ./include/InterfaceAction.h ./include/LightingModel.h
+src/Scene.o: ./include/CO2Scenario.h ./include/rapidjson/writer.h
+src/Scene.o: ./include/rapidjson/internal/dtoa.h
 src/Scene.o: ./include/rapidjson/internal/itoa.h
 src/Scene.o: ./include/rapidjson/internal/itoa.h
 src/Scene.o: ./include/rapidjson/stringbuffer.h
@@ -5335,7 +5352,7 @@ src/Scene.o: ./include/ObjectGroup.h ./include/DisplayList.h
 src/Scene.o: ./include/Shader.h ./include/HeightMarker.h
 src/Scene.o: ./include/Positionable.h ./include/Box.h ./include/Tree.h
 src/Scene.o: ./include/TreePart.h ./include/Quadtree.h ./include/Building.h
-src/Scene.o: ./include/Window3D.h ./include/Camera.h ./include/Timeval.h
+src/Scene.o: ./include/Window3D.h ./include/Camera.h
 src/Scene.o: /usr/local/include/GLFW/glfw3.h ./include/GLFWApplication.h
 src/Scene.o: ./include/loadFileToBuf.h ./include/HttpDebug.h
 src/Scene.o: ./include/HttpServThread.h ./include/TaskQueue.h
@@ -5392,7 +5409,7 @@ src/SemicircularArrow.o: /usr/local/include/cglm/bezier.h
 src/SemicircularArrow.o: /usr/local/include/cglm/ray.h
 src/SemicircularArrow.o: /usr/local/include/cglm/affine2d.h
 src/SemicircularArrow.o: ./include/Logging.h ./include/MemoryTracker.h
-src/SemicircularArrow.o: /usr/local/include/GL/glew.h
+src/SemicircularArrow.o: ./include/Timeval.h /usr/local/include/GL/glew.h
 src/SemicircularArrow.o: ./include/VisualObject.h ./include/Lockable.h
 src/SemicircularArrow.o: ./include/BoundingBox.h ./include/CircleIterator.h
 src/Shader.o: ./include/Shader.h /usr/local/include/cglm/cglm.h
@@ -5427,7 +5444,7 @@ src/Shader.o: /usr/local/include/cglm/curve.h
 src/Shader.o: /usr/local/include/cglm/bezier.h /usr/local/include/cglm/ray.h
 src/Shader.o: /usr/local/include/cglm/affine2d.h ./include/loadFileToBuf.h
 src/Shader.o: ./include/Logging.h ./include/MemoryTracker.h
-src/Shader.o: /usr/local/include/GL/glew.h
+src/Shader.o: ./include/Timeval.h /usr/local/include/GL/glew.h
 src/Shed.o: ./include/Shed.h ./include/VisualObject.h
 src/Shed.o: ./include/VisualElement.h ./include/DynamicallyTypable.h
 src/Shed.o: ./include/TriangleBuffer.h ./include/Vertex.h ./include/Global.h
@@ -5459,7 +5476,7 @@ src/Shed.o: /usr/local/include/cglm/vec3.h /usr/local/include/cglm/vec4.h
 src/Shed.o: /usr/local/include/cglm/sphere.h /usr/local/include/cglm/ease.h
 src/Shed.o: /usr/local/include/cglm/curve.h /usr/local/include/cglm/bezier.h
 src/Shed.o: /usr/local/include/cglm/ray.h /usr/local/include/cglm/affine2d.h
-src/Shed.o: ./include/Logging.h ./include/MemoryTracker.h
+src/Shed.o: ./include/Logging.h ./include/MemoryTracker.h ./include/Timeval.h
 src/Shed.o: /usr/local/include/GL/glew.h ./include/Lockable.h
 src/Shed.o: ./include/BoundingBox.h ./include/BuildingRect.h
 src/Shed.o: ./include/Orientable.h ./include/Positionable.h
@@ -5536,11 +5553,12 @@ src/SkySampleModel.o: /usr/local/include/cglm/curve.h
 src/SkySampleModel.o: /usr/local/include/cglm/bezier.h
 src/SkySampleModel.o: /usr/local/include/cglm/ray.h
 src/SkySampleModel.o: /usr/local/include/cglm/affine2d.h ./include/Logging.h
-src/SkySampleModel.o: ./include/MemoryTracker.h ./include/BoundingBox.h
-src/SkySampleModel.o: ./include/HttpDebug.h ./include/HttpServThread.h
-src/SkySampleModel.o: ./include/TaskQueue.h ./include/Lockable.h
-src/SkySampleModel.o: ./include/Global.h ./include/HttpRequestParser.h
-src/SkySampleModel.o: ./include/SolarDatabase.h ./include/GdalFileInterface.h
+src/SkySampleModel.o: ./include/MemoryTracker.h ./include/Timeval.h
+src/SkySampleModel.o: ./include/BoundingBox.h ./include/HttpDebug.h
+src/SkySampleModel.o: ./include/HttpServThread.h ./include/TaskQueue.h
+src/SkySampleModel.o: ./include/Lockable.h ./include/Global.h
+src/SkySampleModel.o: ./include/HttpRequestParser.h ./include/SolarDatabase.h
+src/SkySampleModel.o: ./include/GdalFileInterface.h
 src/SkySampleModel.o: ./include/HttpPermaservClient.h ./include/HttpClient.h
 src/SkySampleModel.o: ./include/rapidjson/document.h
 src/SkySampleModel.o: ./include/rapidjson/reader.h
@@ -5692,8 +5710,9 @@ src/SoilDatabase.o: ./include/rapidjson/stringbuffer.h
 src/SoilDatabase.o: ./include/rapidjson/error/en.h
 src/SoilDatabase.o: ./include/rapidjson/error/error.h
 src/SoilDatabase.o: ./include/DynamicallyTypable.h ./include/Logging.h
-src/SoilDatabase.o: ./include/MemoryTracker.h ./include/HWSDProfile.h
-src/SoilDatabase.o: ./include/Global.h /usr/local/include/cglm/cglm.h
+src/SoilDatabase.o: ./include/MemoryTracker.h ./include/Timeval.h
+src/SoilDatabase.o: ./include/HWSDProfile.h ./include/Global.h
+src/SoilDatabase.o: /usr/local/include/cglm/cglm.h
 src/SoilDatabase.o: /usr/local/include/cglm/common.h
 src/SoilDatabase.o: /usr/local/include/cglm/types.h
 src/SoilDatabase.o: /usr/local/include/cglm/simd/intrin.h
@@ -6124,7 +6143,7 @@ src/TaskQueue.o: /usr/local/include/cglm/curve.h
 src/TaskQueue.o: /usr/local/include/cglm/bezier.h
 src/TaskQueue.o: /usr/local/include/cglm/ray.h
 src/TaskQueue.o: /usr/local/include/cglm/affine2d.h ./include/Logging.h
-src/TaskQueue.o: ./include/MemoryTracker.h
+src/TaskQueue.o: ./include/MemoryTracker.h ./include/Timeval.h
 src/TaskQueueFarm.o: ./include/TaskQueueFarm.h ./include/TaskQueue.h
 src/TaskQueueFarm.o: ./include/Lockable.h ./include/Global.h
 src/TaskQueueFarm.o: /usr/local/include/cglm/cglm.h
@@ -6170,8 +6189,9 @@ src/TaskQueueFarm.o: /usr/local/include/cglm/curve.h
 src/TaskQueueFarm.o: /usr/local/include/cglm/bezier.h
 src/TaskQueueFarm.o: /usr/local/include/cglm/ray.h
 src/TaskQueueFarm.o: /usr/local/include/cglm/affine2d.h ./include/Logging.h
-src/TaskQueueFarm.o: ./include/MemoryTracker.h ./include/HttpDebug.h
-src/TaskQueueFarm.o: ./include/HttpServThread.h ./include/HttpRequestParser.h
+src/TaskQueueFarm.o: ./include/MemoryTracker.h ./include/Timeval.h
+src/TaskQueueFarm.o: ./include/HttpDebug.h ./include/HttpServThread.h
+src/TaskQueueFarm.o: ./include/HttpRequestParser.h
 src/Texture.o: ./include/Texture.h /usr/local/include/GL/glew.h
 src/Texture.o: ./include/Shader.h /usr/local/include/cglm/cglm.h
 src/Texture.o: /usr/local/include/cglm/common.h
@@ -6207,8 +6227,8 @@ src/Texture.o: /usr/local/include/cglm/bezier.h /usr/local/include/cglm/ray.h
 src/Texture.o: /usr/local/include/cglm/affine2d.h ./include/stb_image.h
 src/TextureAtlas.o: ./include/TextureAtlas.h ./include/Texture.h
 src/TextureAtlas.o: /usr/local/include/GL/glew.h ./include/Logging.h
-src/TextureAtlas.o: ./include/MemoryTracker.h ./include/Global.h
-src/TextureAtlas.o: /usr/local/include/cglm/cglm.h
+src/TextureAtlas.o: ./include/MemoryTracker.h ./include/Timeval.h
+src/TextureAtlas.o: ./include/Global.h /usr/local/include/cglm/cglm.h
 src/TextureAtlas.o: /usr/local/include/cglm/common.h
 src/TextureAtlas.o: /usr/local/include/cglm/types.h
 src/TextureAtlas.o: /usr/local/include/cglm/simd/intrin.h
@@ -6299,8 +6319,8 @@ src/TexturedRect.o: /usr/local/include/cglm/ray.h
 src/TexturedRect.o: /usr/local/include/cglm/affine2d.h
 src/TexturedRect.o: ./include/VertexBufferObject.h ./include/Global.h
 src/TexturedRect.o: ./include/Logging.h ./include/MemoryTracker.h
-src/TexturedRect.o: /usr/local/include/GLFW/glfw3.h ./include/Shader.h
-src/TexturedRect.o: ./include/Vertex.h
+src/TexturedRect.o: ./include/Timeval.h /usr/local/include/GLFW/glfw3.h
+src/TexturedRect.o: ./include/Shader.h ./include/Vertex.h
 src/Timeval.o: ./include/Timeval.h ./include/Global.h
 src/Timeval.o: /usr/local/include/cglm/cglm.h
 src/Timeval.o: /usr/local/include/cglm/common.h
@@ -6365,7 +6385,7 @@ src/Tree.o: /usr/local/include/cglm/vec3.h /usr/local/include/cglm/vec4.h
 src/Tree.o: /usr/local/include/cglm/sphere.h /usr/local/include/cglm/ease.h
 src/Tree.o: /usr/local/include/cglm/curve.h /usr/local/include/cglm/bezier.h
 src/Tree.o: /usr/local/include/cglm/ray.h /usr/local/include/cglm/affine2d.h
-src/Tree.o: ./include/Logging.h ./include/MemoryTracker.h
+src/Tree.o: ./include/Logging.h ./include/MemoryTracker.h ./include/Timeval.h
 src/Tree.o: /usr/local/include/GL/glew.h ./include/Lockable.h
 src/Tree.o: ./include/BoundingBox.h ./include/rapidjson/document.h
 src/Tree.o: ./include/rapidjson/reader.h ./include/rapidjson/allocators.h
@@ -6396,19 +6416,19 @@ src/Tree.o: ./include/rapidjson/stringbuffer.h ./include/rapidjson/error/en.h
 src/Tree.o: ./include/rapidjson/error/error.h ./include/TreePart.h
 src/Tree.o: ./include/Quadtree.h ./include/DisplayList.h
 src/Tree.o: ./include/WoodySegment.h ./include/PmodDesign.h
-src/Tree.o: ./include/Boundary.h ./include/Timeval.h ./include/Scene.h
-src/Tree.o: ./include/LandSurface.h ./include/BezierPatch.h
-src/Tree.o: ./include/LandSurfaceRegion.h ./include/InterfaceAction.h
-src/Tree.o: ./include/LightingModel.h ./include/CO2Scenario.h
-src/Tree.o: ./include/SkySampleModel.h ./include/TaskQueueFarm.h
-src/Tree.o: ./include/TaskQueue.h ./include/Species.h ./include/Version.h
-src/Tree.o: ./include/HttpDebug.h ./include/HttpServThread.h
-src/Tree.o: ./include/HttpRequestParser.h ./include/AxialElement.h
-src/Tree.o: ./include/SoilProfile.h ./include/GroundLayer.h
-src/Tree.o: ./include/SoilDatabaseClient.h
+src/Tree.o: ./include/Boundary.h ./include/Scene.h ./include/LandSurface.h
+src/Tree.o: ./include/BezierPatch.h ./include/LandSurfaceRegion.h
+src/Tree.o: ./include/InterfaceAction.h ./include/LightingModel.h
+src/Tree.o: ./include/CO2Scenario.h ./include/SkySampleModel.h
+src/Tree.o: ./include/TaskQueueFarm.h ./include/TaskQueue.h
+src/Tree.o: ./include/Species.h ./include/Version.h ./include/HttpDebug.h
+src/Tree.o: ./include/HttpServThread.h ./include/HttpRequestParser.h
+src/Tree.o: ./include/AxialElement.h ./include/SoilProfile.h
+src/Tree.o: ./include/GroundLayer.h ./include/SoilDatabaseClient.h
 src/TreeEquation.o: ./include/TreeEquation.h
 src/TreePart.o: ./include/TreePart.h ./include/Logging.h
-src/TreePart.o: ./include/MemoryTracker.h /usr/local/include/cglm/cglm.h
+src/TreePart.o: ./include/MemoryTracker.h ./include/Timeval.h
+src/TreePart.o: /usr/local/include/cglm/cglm.h
 src/TreePart.o: /usr/local/include/cglm/common.h
 src/TreePart.o: /usr/local/include/cglm/types.h
 src/TreePart.o: /usr/local/include/cglm/simd/intrin.h
@@ -6579,9 +6599,10 @@ src/TriangleBuffer.o: /usr/local/include/cglm/curve.h
 src/TriangleBuffer.o: /usr/local/include/cglm/bezier.h
 src/TriangleBuffer.o: /usr/local/include/cglm/ray.h
 src/TriangleBuffer.o: /usr/local/include/cglm/affine2d.h ./include/Logging.h
-src/TriangleBuffer.o: ./include/MemoryTracker.h /usr/local/include/GL/glew.h
-src/TriangleBuffer.o: ./include/Shader.h ./include/PmodDesign.h
-src/TriangleBuffer.o: ./include/Boundary.h ./include/rapidjson/document.h
+src/TriangleBuffer.o: ./include/MemoryTracker.h ./include/Timeval.h
+src/TriangleBuffer.o: /usr/local/include/GL/glew.h ./include/Shader.h
+src/TriangleBuffer.o: ./include/PmodDesign.h ./include/Boundary.h
+src/TriangleBuffer.o: ./include/rapidjson/document.h
 src/TriangleBuffer.o: ./include/rapidjson/reader.h
 src/TriangleBuffer.o: ./include/rapidjson/allocators.h
 src/TriangleBuffer.o: ./include/rapidjson/rapidjson.h
@@ -6612,10 +6633,9 @@ src/TriangleBuffer.o: ./include/rapidjson/stringbuffer.h
 src/TriangleBuffer.o: ./include/rapidjson/stringbuffer.h
 src/TriangleBuffer.o: ./include/rapidjson/error/en.h
 src/TriangleBuffer.o: ./include/rapidjson/error/error.h
-src/TriangleBuffer.o: ./include/BoundingBox.h ./include/Timeval.h
-src/TriangleBuffer.o: ./include/HttpDebug.h ./include/HttpServThread.h
-src/TriangleBuffer.o: ./include/TaskQueue.h ./include/Lockable.h
-src/TriangleBuffer.o: ./include/HttpRequestParser.h
+src/TriangleBuffer.o: ./include/BoundingBox.h ./include/HttpDebug.h
+src/TriangleBuffer.o: ./include/HttpServThread.h ./include/TaskQueue.h
+src/TriangleBuffer.o: ./include/Lockable.h ./include/HttpRequestParser.h
 src/TriangleBuffer.o: ./include/ElementBufferCombo.h
 src/TriangleBuffer.o: ./include/VertexArrayObject.h
 src/TriangleBuffer.o: ./include/VertexBufferObject.h
@@ -6667,10 +6687,10 @@ src/TruncatedCone.o: /usr/local/include/cglm/curve.h
 src/TruncatedCone.o: /usr/local/include/cglm/bezier.h
 src/TruncatedCone.o: /usr/local/include/cglm/ray.h
 src/TruncatedCone.o: /usr/local/include/cglm/affine2d.h ./include/Logging.h
-src/TruncatedCone.o: ./include/MemoryTracker.h /usr/local/include/GL/glew.h
-src/TruncatedCone.o: ./include/HttpDebug.h ./include/HttpServThread.h
-src/TruncatedCone.o: ./include/TaskQueue.h ./include/Lockable.h
-src/TruncatedCone.o: ./include/HttpRequestParser.h
+src/TruncatedCone.o: ./include/MemoryTracker.h ./include/Timeval.h
+src/TruncatedCone.o: /usr/local/include/GL/glew.h ./include/HttpDebug.h
+src/TruncatedCone.o: ./include/HttpServThread.h ./include/TaskQueue.h
+src/TruncatedCone.o: ./include/Lockable.h ./include/HttpRequestParser.h
 src/Version.o: ./include/Version.h ./include/rapidjson/document.h
 src/Version.o: ./include/rapidjson/reader.h ./include/rapidjson/allocators.h
 src/Version.o: ./include/rapidjson/rapidjson.h ./include/rapidjson/stream.h
@@ -6762,11 +6782,11 @@ src/Vertex.o: /usr/local/include/cglm/sphere.h /usr/local/include/cglm/ease.h
 src/Vertex.o: /usr/local/include/cglm/curve.h
 src/Vertex.o: /usr/local/include/cglm/bezier.h /usr/local/include/cglm/ray.h
 src/Vertex.o: /usr/local/include/cglm/affine2d.h ./include/Logging.h
-src/Vertex.o: ./include/MemoryTracker.h ./include/Shader.h
-src/Vertex.o: ./include/VisualObject.h ./include/VisualElement.h
-src/Vertex.o: ./include/DynamicallyTypable.h ./include/TriangleBuffer.h
-src/Vertex.o: /usr/local/include/GL/glew.h ./include/Lockable.h
-src/Vertex.o: ./include/BoundingBox.h
+src/Vertex.o: ./include/MemoryTracker.h ./include/Timeval.h
+src/Vertex.o: ./include/Shader.h ./include/VisualObject.h
+src/Vertex.o: ./include/VisualElement.h ./include/DynamicallyTypable.h
+src/Vertex.o: ./include/TriangleBuffer.h /usr/local/include/GL/glew.h
+src/Vertex.o: ./include/Lockable.h ./include/BoundingBox.h
 src/VertexArrayObject.o: ./include/VertexArrayObject.h ./include/Shader.h
 src/VertexArrayObject.o: /usr/local/include/cglm/cglm.h
 src/VertexArrayObject.o: /usr/local/include/cglm/common.h
@@ -6860,7 +6880,7 @@ src/VertexBufferCombo.o: /usr/local/include/cglm/bezier.h
 src/VertexBufferCombo.o: /usr/local/include/cglm/ray.h
 src/VertexBufferCombo.o: /usr/local/include/cglm/affine2d.h
 src/VertexBufferCombo.o: ./include/Logging.h ./include/MemoryTracker.h
-src/VertexBufferCombo.o: /usr/local/include/GL/glew.h
+src/VertexBufferCombo.o: ./include/Timeval.h /usr/local/include/GL/glew.h
 src/VertexBufferCombo.o: /usr/local/include/GLFW/glfw3.h
 src/VertexBufferObject.o: ./include/VertexBufferObject.h ./include/Global.h
 src/VertexBufferObject.o: /usr/local/include/cglm/cglm.h
@@ -6907,7 +6927,7 @@ src/VertexBufferObject.o: /usr/local/include/cglm/bezier.h
 src/VertexBufferObject.o: /usr/local/include/cglm/ray.h
 src/VertexBufferObject.o: /usr/local/include/cglm/affine2d.h
 src/VertexBufferObject.o: ./include/Logging.h ./include/MemoryTracker.h
-src/VertexBufferObject.o: /usr/local/include/GL/glew.h
+src/VertexBufferObject.o: ./include/Timeval.h /usr/local/include/GL/glew.h
 src/VertexBufferObject.o: /usr/local/include/GLFW/glfw3.h ./include/Shader.h
 src/VertexBufferObject.o: ./include/Vertex.h
 src/VisualElement.o: ./include/VisualElement.h ./include/DynamicallyTypable.h
@@ -6955,8 +6975,8 @@ src/VisualElement.o: /usr/local/include/cglm/curve.h
 src/VisualElement.o: /usr/local/include/cglm/bezier.h
 src/VisualElement.o: /usr/local/include/cglm/ray.h
 src/VisualElement.o: /usr/local/include/cglm/affine2d.h ./include/Logging.h
-src/VisualElement.o: ./include/MemoryTracker.h /usr/local/include/GL/glew.h
-src/VisualElement.o: ./include/BoundingBox.h
+src/VisualElement.o: ./include/MemoryTracker.h ./include/Timeval.h
+src/VisualElement.o: /usr/local/include/GL/glew.h ./include/BoundingBox.h
 src/VisualLayer.o: ./include/VisualLayer.h
 src/VisualObject.o: ./include/VisualObject.h ./include/VisualElement.h
 src/VisualObject.o: ./include/DynamicallyTypable.h ./include/TriangleBuffer.h
@@ -7004,10 +7024,11 @@ src/VisualObject.o: /usr/local/include/cglm/curve.h
 src/VisualObject.o: /usr/local/include/cglm/bezier.h
 src/VisualObject.o: /usr/local/include/cglm/ray.h
 src/VisualObject.o: /usr/local/include/cglm/affine2d.h ./include/Logging.h
-src/VisualObject.o: ./include/MemoryTracker.h /usr/local/include/GL/glew.h
-src/VisualObject.o: ./include/Lockable.h ./include/BoundingBox.h
-src/VisualObject.o: ./include/LandSurfaceRegion.h ./include/Quadtree.h
-src/VisualObject.o: ./include/DisplayList.h ./include/ObjectGroup.h
+src/VisualObject.o: ./include/MemoryTracker.h ./include/Timeval.h
+src/VisualObject.o: /usr/local/include/GL/glew.h ./include/Lockable.h
+src/VisualObject.o: ./include/BoundingBox.h ./include/LandSurfaceRegion.h
+src/VisualObject.o: ./include/Quadtree.h ./include/DisplayList.h
+src/VisualObject.o: ./include/ObjectGroup.h
 src/Window3D.o: ./include/Window3D.h ./include/Camera.h
 src/Window3D.o: /usr/local/include/cglm/cglm.h
 src/Window3D.o: /usr/local/include/cglm/common.h
@@ -7090,7 +7111,7 @@ src/Window3D.o: ./include/Shader.h imgui/backends/imgui_impl_opengl3.h
 src/Window3D.o: imgui/backends/imgui_impl_glfw.h
 src/WoodySegment.o: ./include/WoodySegment.h ./include/TreePart.h
 src/WoodySegment.o: ./include/Logging.h ./include/MemoryTracker.h
-src/WoodySegment.o: /usr/local/include/cglm/cglm.h
+src/WoodySegment.o: ./include/Timeval.h /usr/local/include/cglm/cglm.h
 src/WoodySegment.o: /usr/local/include/cglm/common.h
 src/WoodySegment.o: /usr/local/include/cglm/types.h
 src/WoodySegment.o: /usr/local/include/cglm/simd/intrin.h
@@ -7163,18 +7184,17 @@ src/WoodySegment.o: ./include/rapidjson/stringbuffer.h
 src/WoodySegment.o: ./include/rapidjson/stringbuffer.h
 src/WoodySegment.o: ./include/rapidjson/error/en.h
 src/WoodySegment.o: ./include/rapidjson/error/error.h ./include/BoundingBox.h
-src/WoodySegment.o: ./include/Timeval.h ./include/Tree.h
-src/WoodySegment.o: ./include/VisualObject.h ./include/VisualElement.h
-src/WoodySegment.o: ./include/DynamicallyTypable.h ./include/TriangleBuffer.h
-src/WoodySegment.o: ./include/Vertex.h ./include/Global.h
-src/WoodySegment.o: /usr/local/include/GL/glew.h ./include/Lockable.h
-src/WoodySegment.o: ./include/Quadtree.h ./include/DisplayList.h
-src/WoodySegment.o: ./include/JSONStructureChecker.h ./include/Version.h
-src/WoodySegment.o: ./include/TruncatedCone.h ./include/AxialElement.h
-src/WoodySegment.o: ./include/LeafModel.h ./include/Species.h
-src/WoodySegment.o: ./include/HttpDebug.h ./include/HttpServThread.h
-src/WoodySegment.o: ./include/TaskQueue.h ./include/HttpRequestParser.h
-src/WoodySegment.o: ./include/Cylinder.h
+src/WoodySegment.o: ./include/Tree.h ./include/VisualObject.h
+src/WoodySegment.o: ./include/VisualElement.h ./include/DynamicallyTypable.h
+src/WoodySegment.o: ./include/TriangleBuffer.h ./include/Vertex.h
+src/WoodySegment.o: ./include/Global.h /usr/local/include/GL/glew.h
+src/WoodySegment.o: ./include/Lockable.h ./include/Quadtree.h
+src/WoodySegment.o: ./include/DisplayList.h ./include/JSONStructureChecker.h
+src/WoodySegment.o: ./include/Version.h ./include/TruncatedCone.h
+src/WoodySegment.o: ./include/AxialElement.h ./include/LeafModel.h
+src/WoodySegment.o: ./include/Species.h ./include/HttpDebug.h
+src/WoodySegment.o: ./include/HttpServThread.h ./include/TaskQueue.h
+src/WoodySegment.o: ./include/HttpRequestParser.h ./include/Cylinder.h
 src/imgui.o: imgui/imgui.h imgui/imconfig.h imgui/imgui_internal.h
 src/imgui.o: imgui/imstb_textedit.h
 src/imgui_demo.o: imgui/imgui.h imgui/imconfig.h
