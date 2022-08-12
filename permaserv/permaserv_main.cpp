@@ -19,7 +19,9 @@
 // =======================================================================================
 // Global variables
 
-unsigned short servPort = 2090u;
+unsigned short  servPort        = 2090u;
+unsigned        permaservFlags  = 0u;
+
 
 // =======================================================================================
 // C function to launder C++ method into pthread_create
@@ -39,7 +41,8 @@ void printUsage(int argc, char* argv[])
   printf("\nUsage:\n\n%s [options]\n\nOptions:\n\n", argv[0]);
   
   printf("\t-h\tPrint this message.\n");
-  printf("\t-p P\tRun server on port P .\n");
+  printf("\t-p P\tRun server on port P.\n");
+  printf("\t-s\tRun server with no solar database.\n");
   printf("\n");
   exit(0);
 }
@@ -56,7 +59,7 @@ void processCommandLine(int argc, char* argv[])
 {  
   int optionChar;
 
-  while( (optionChar = getopt(argc, argv, "hp:")) != -1)
+  while( (optionChar = getopt(argc, argv, "hp:s")) != -1)
     switch (optionChar)
      {
        case 'h':
@@ -67,6 +70,10 @@ void processCommandLine(int argc, char* argv[])
          servPort = atoi(optarg);
          if(!servPort)
            err(-1, "Bad port number via -p: %s\n", optarg);
+         break;
+
+       case 's':
+         permaservFlags |= PERMASERV_NO_SOLAR;
          break;
 
        default:
@@ -117,7 +124,7 @@ int main (int argc, char* argv[])
   recordPort();
   
   // Start up the debugging http server
-  HttpLBPermaserv httpServer(servPort, compileTime);
+  HttpLBPermaserv httpServer(servPort, compileTime, permaservFlags);
   int             pthreadErr;
   pthread_t       httpThread;
   if((pthreadErr = pthread_create(&httpThread, NULL, callProcessConn, &httpServer)) != 0)

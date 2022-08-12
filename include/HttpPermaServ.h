@@ -5,6 +5,7 @@
 
 #include "HttpServThread.h"
 
+// Flags which influence the operation of permaserv
 
 // =======================================================================================
 // Forward declarations
@@ -34,8 +35,8 @@ public:
 private:
   
   // Instance variables - private
-  SolarDatabase* solarDatabase;
-  SoilDatabase* soilDatabase;
+  SolarDatabase*  solarDatabase;
+  SoilDatabase*   soilDatabase;
   
   // Member functions - private
   bool  processRequestHeader(void);

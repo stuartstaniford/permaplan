@@ -9,7 +9,7 @@ $dir = 'tests/basic-smoke';
 
 my($loopLimit, $simLimit) = processArgs(@ARGV);
 
-checkPermaserv();
+checkPermaserv("-s");
 
 foreach my $i (1..$loopLimit)
  {

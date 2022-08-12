@@ -14,6 +14,7 @@ class SolarDatabase;
 class SoilDatabase;
 class HttpPermaServ;
 
+#define PERMASERV_NO_SOLAR 0x00000001
 
 // =======================================================================================
 /// @brief A subclass of HttpLoadBalancer that is used in permaserv processing
@@ -31,7 +32,7 @@ public:
   // Instance variables - public
   
   // Member functions - public
-  HttpLBPermaserv(unsigned short servPort, time_t compTime);
+  HttpLBPermaserv(unsigned short servPort, time_t compTime, unsigned initFlags);
   ~HttpLBPermaserv(void);
   
 private:
@@ -40,6 +41,7 @@ private:
   SolarDatabase*  solarDatabase;
   SoilDatabase*   soilDatabase;
   time_t          compileTime;
+  unsigned        flags;
   
   // Member functions - private
   /// @brief Prevent copy-construction.

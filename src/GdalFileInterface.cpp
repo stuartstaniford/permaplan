@@ -67,6 +67,8 @@ GdalFileInterface::GdalFileInterface(char* fileName):
                                         fileName, geoTransform[2], geoTransform[4]);  
 
   unlock();
+  LogPermaservOps("Opened Gdal file %s successfully.\n", fileName);
+
   //printOverviewData();
 }
 

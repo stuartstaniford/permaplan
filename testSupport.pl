@@ -22,6 +22,7 @@ $servPortFile         = "permaserv-port.txt";
 $servPort             = 0;
 $permaservHttp        = '';
 $permaservExecutable  = 'permaserv/permaserv';
+$permaservFlags       = '';
 $clientCacheFile      = 'client-cache.json';
 
 @errorLogTypes = (
@@ -142,6 +143,7 @@ sub permaservUpToDate
 
 sub checkPermaserv
 {
+  ($permaservFlags) = @_;
   my $startRequired = 0;
   
   my @pids = listProcessIds($permaservExecutable);
@@ -211,7 +213,7 @@ sub checkPermaserv
      {
       $servPort = 2090;
      }
-    system("$permaservExecutable -p $servPort &");
+    system("$permaservExecutable -p $servPort $permaservFlags &");
     if(-f $clientCacheFile)
      {
       # Need to remove old client cache since we have a new server

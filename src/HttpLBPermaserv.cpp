@@ -14,14 +14,25 @@
 // =======================================================================================
 /// @brief Constructor
 
-HttpLBPermaserv::HttpLBPermaserv(unsigned short servPort, time_t compTime):
+HttpLBPermaserv::HttpLBPermaserv(unsigned short servPort, time_t compTime, 
+                                                              unsigned initFlags):
                                           HttpLoadBalancer(servPort),
-                                          compileTime(compTime)
+                                          compileTime(compTime),
+                                          flags(initFlags)
 {
   // Set up our component database objects
-  solarDatabase = new SolarDatabase;
+  if(flags & PERMASERV_NO_SOLAR)
+   {
+    solarDatabase = NULL;
+    LogPermaservOps("Initializing without solar database.\n");
+   }
+  else
+   {
+    solarDatabase = new SolarDatabase;
+    LogPermaservOps("Initialization of solar database complete.\n");
+   }
   soilDatabase = new SoilDatabase;
-  LogPermaservOps("Initialization of databases complete.\n");
+  LogPermaservOps("Initialization of soil database complete.\n");
   LogFlush();
   
   // Run the threads to service requests
