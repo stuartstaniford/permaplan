@@ -132,9 +132,9 @@
 #define LOG_RESPONSE_ERRORS     // Log problems encountered building the response
 //#define LOG_HTTP_BUFFER_OPS        // Log operations on the main HTTP buffers
 //#define LOG_HTTP_DETAILS        // Log normal details of HTTP operations
-#define LOG_HTTP_LOAD_BALANCE     // Log which connections get processed where
-#define LOG_REQUEST_PARSING        // Log exactly what happens when parsing a request
-#define LOG_PSEUDO_ACTIONS      // Log as the main thread processes pseudo-actions
+//#define LOG_HTTP_LOAD_BALANCE     // Log which connections get processed where
+//#define LOG_REQUEST_PARSING        // Log exactly what happens when parsing a request
+//#define LOG_PSEUDO_ACTIONS      // Log as the main thread processes pseudo-actions
 
 
 // =======================================================================================
@@ -156,7 +156,7 @@
 //#define LOG_TRIANGLE_BUF_ESTIMATES  // Log estimates of sizes needed.
 //#define LOG_TRIANGLE_BUF_REBUILDS  // Log when the triangle buffer is rebuilt.
 #define LOG_VALID_TRIANGLE_BUFS // Validate the condition of triangle buffers on gpu send
-#define LOG_TRIANGLE_BUFFER_ERRS    // Log actual errors the triangle buffers.
+#define LOG_TRIANGLE_BUFFER_ERRS    // Log actual errors in the triangle buffers.
 
 
 // =======================================================================================
@@ -343,55 +343,198 @@ extern bool doLogBezierFit;           // Log the fitting of a Bezier patch to he
 extern bool doLogBezierMatchRay;      // Log the process of matching a ray to the patch.
 extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects above the land
 
-#endif  //ifndef LOGGING_IMPLEMENTATION - need this here.
+// =======================================================================================
+// Control variables for whether a log statement causes a flush or not
 
+// Logging options to do with overall control flow and speed
+extern bool flushLogFrameStarts;    // Log each frame as it begins
+extern bool flushLogCloseDown;      // Log when we exit
+extern bool flushLogStructureSizes; // Log the size of structures on this platform at startup.
+extern bool flushLogEnvVars;        // Log the value of environment variables we care about.
+extern bool flushLogOpenGLConstants;// Log various openGL parameters
+extern bool flushLogTreeValidation; // Validate data structures after every frame
+
+// Logging options to do with resource management and collection
+extern bool flushLogResourceErrors;     // Clear errors in the resource manager
+extern bool flushLogResourceActions;    // Stuff the resource manager actually does
+extern bool flushLogResourceDetails;    // Micro-detail of the resource manager operating
+extern bool flushLogHttpClientErrors;   // Log things going wrong in the HTTP Client
+extern bool flushLogPermaservClientErrors; // Log errors in the Permaserv Client layer
+extern bool flushLogPermaservClientOps; // Log normal operations in the Permaserv Client layer
+extern bool flushLogPermaservOps;       // Log normal operation of the Permaserv server
+extern bool flushLogPermaservOpDetails; // Log detailed operation of Permaserv for debugging
+
+// Logging options to do with parsing and validating OLDF and OTDL files
+extern bool flushLogOLDFValidity;    // Log validity problems in the file
+extern bool flushLogOLDFDetails;     // Log details of valid OLDF objects
+extern bool flushLogOTDLValidity;    // Log validity problems in an OTDL object
+extern bool flushLogOTDLDetails;     // Log details of valid OTDL objects
+
+// Logging options to do with interface controls
+extern bool flushLogMouseLocation;     // where the mouse is on the screen each frame
+extern bool flushLogMouseClick;        // Location of single mouse clicks
+extern bool flushLogDoubleClick;       // Location and intra-click timing of double clicks
+extern bool flushLogClickDetails;      // Extra detailed recording of parts of click detection
+extern bool flushLogMouseRayPoint;     // Where the mouse is pointing in 3d space
+extern bool flushLogLandHeights;       // Log when a new land height is entered.
+extern bool flushLogObjectInsertions;  // Log when a new object is inserted in scene.
+extern bool flushLogDumpObjectBuffer;  // Dump buffer when a new object is inserted.
+extern bool flushLogSimulationControls;// Log control operations on the simulation.
+extern bool flushLogWindowOperations;  // Log changes to the window (eg resizing).
+extern bool flushLogCameraFrames;      // Log camera variables every frame
+extern bool flushLogGLFWErrors;        // Log when the GLFW library needs to report errors
+
+// Logging options to do with materials and textures
+extern bool flushLogTextureAtlas;        // Log texture atlas creation
+extern bool flushLogAtlasAnomalies;      // Log weird conditions in texture atlas creation
+extern bool flushLogAtlasPlacement;      // Log details of which image is where in atlas
+extern bool flushLogMaterialSelections;  // Log when a material is selected.
+extern bool flushLogPathMap;             // Log storage and use of the path map
+
+// Logging options to do with sky sampling and lighting
+extern bool flushLogSkySampleInit;       // Log the setup of the sky sampling model
+extern bool flushLogGdalError;           // Log problems in accessing files via libgdal
+
+// Logging options to do with soil stuff
+extern bool flushLogSoilDbErr;           // Log problems in the soil database operation
+extern bool flushLogSoilDbOps;           // Log normal operations on the soil database
+extern bool flushLogSoilDbDetails;       // Log extra details in the soil database operation
+extern bool flushLogHSWDExhaustive;      // Log every field read from the HSWD database
+extern bool flushLogBilFileDetails;      // Log details of reading from a BILFILE
+
+// Logging options for Trees/Plants
+extern bool flushLogTreeSelections;      // Log when a tree is selected.
+extern bool flushLogTreeReads;           // Log when a tree is read in from a file or url
+extern bool flushLogTreeSimOverview;     // Log high level actions in simulating tree growth.
+extern bool flushLogTreeSimDetails;      // Log all the gory details of simulated tree growth.
+extern bool flushLogGrowthModel;         // Log details of the growth model.
+extern bool flushLogTreeBoundingBox;     // Log updating the tree's bounding box
+extern bool flushLogTreeMatchRay;        // Log matching a ray to a tree
+extern bool flushLogTreeVisualization;   // Log trees being rendered.
+extern bool flushLogTreeVisDetails;      // Log every twig being rendered.
+extern bool flushLogBarkDisplay;         // Log bark color and texture details.
+extern bool flushLogTreeOpacity;         // Log tree bounding box opacity.
+extern bool flushLogTreeGraph;           // Log tree thread analysis graph.
+extern bool flushLogOTDLFileSearch;      // Log process of looking for OTDL files.
+extern bool flushLogTreeErrors;          // Log clear errors in tree related operations.
+
+// Logging options for buildings (gables, sheds, etc)
+extern bool flushLogBuildRectDetails;    // Log creation and buffering of BuildingRects
+extern bool flushLogBuildingBuffer;      // Buffering of Gables, sheds, etc
+
+// Logging options for groups of objects
+extern bool flushLogGroupAdditions;      // Log when groups are created and objects are added.
+extern bool flushLogControlGroupInit;    // Log the process of initiating a new control group.
+extern bool flushLogGroupMatchRay;       // Log ray matching in groups.
+extern bool flushLogFindGroups;          // Log groups found during self validation.
+extern bool flushLogPathTubeBuffer;      // Log the process of rendering a pathTube
+
+// Logging options for the HTTP debug interface
+extern bool flushLogRequestErrors;       // Log validity problems in the HTTP request
+extern bool flushLogResponseErrors;      // Log problems encountered building the response
+extern bool flushLogHTTPBufferOps;       // Log operations on the main HTTP buffers
+extern bool flushLogHTTPDetails;         // Log normal details of HTTP operations
+extern bool flushLogHTTPLoadBalance;     // Log which connections get processed where
+extern bool flushLogRequestParsing;      // Log exactly what happens when parsing a request
+extern bool flushLogPseudoActions;       // Log as the main thread processes pseudo-actions
+
+// Logging options to do with quadtree operations
+extern bool flushLogQuadtreeCreation;   // Log the initial setup of the quadtree.
+extern bool flushLogQuadtreeInsertions; // Log the a new object being put in the quadtree.
+extern bool flushLogQuadtreeBoundBox;   // Log changes to the quadtree bounding boxes.
+extern bool flushLogQuadtreeMatchRay;   // Log the process of matching a ray in the quadtree.
+extern bool flushLogDisplayListBuffer;  // Log process of objects being buffered for display.
+extern bool flushLogQuadtreeObjSizes;   // Log the process of estimating/changing object sizes
+
+// Logging options to do with other infrastructure
+extern bool flushLogObjectCreation;      // Log the id of each newly created oject.
+extern bool flushLogTriangleBufferOps;   // Log the workings of the triangle buffers.
+extern bool flushLogTriangleBufEstimates;// Log estimates of sizes needed.
+extern bool flushLogTriangleBufRebuilds; // Log when the triangle buffer is rebuilt.
+extern bool flushLogValidTriangleBufs;   // Validate condition of triangle buffers on gpu send
+extern bool flushLogTriangleBufferErrs;  // Log actual errors the triangle buffers.
+
+// Logging options to do with the task queues and task queue farms
+extern bool flushLogTaskQueueFarmOps;    // Log what the task queue farms are doing
+
+// Logging options to do with the Bezier Patch code
+extern bool flushLogBezierFit;         // Log the fitting of a Bezier patch to height data
+extern bool flushLogBezierMatchRay;    // Log the process of matching a ray to the patch.
+extern bool flushLogObjectAltitudes;   // Log finding the altitudes of objects above the land
+
+#endif  //else on ifdef LOGGING_IMPLEMENTATION - need this here.
 
 // =======================================================================================
 // Logging options to do with overall control flow and speed
 
 // Log each frame as it begins
 #ifdef LOG_FRAME_STARTS
-#define LogFrameStarts(...) if(doLogFrameStarts) \
-                                            LogStatement("LogFrameStarts: " __VA_ARGS__)
+#define LogFrameStarts(...)     {\
+                                  if(doLogFrameStarts) \
+                                    LogStatement("LogFrameStarts: " __VA_ARGS__)\
+                                  if(flushLogFrameStarts)\
+                                    LogFlush();\
+                                }
 #else
 #define LogFrameStarts(...)
 #endif
 
 // Log when we exit
 #ifdef LOG_CLOSE_DOWN
-#define LogCloseDown(...) if(doLogCloseDown) \
-                                              LogStatement("LogCloseDown: " __VA_ARGS__)
+#define LogCloseDown(...)     {\
+                                if(doLogCloseDown) \
+                                  LogStatement("LogCloseDown: " __VA_ARGS__)\
+                                if(flushLogCloseDown)\
+                                  LogFlush();\
+                              }
 #else
 #define LogCloseDown(...)
 #endif
 
 // Log the size of structures on this platform at startup.
 #ifdef LOG_STRUCTURE_SIZES
-#define LogStructureSizes(...) if(doLogStructureSizes) \
-                                        LogStatement("LogStructureSizes: "  __VA_ARGS__)
+#define LogStructureSizes(...)  {\
+                                  if(doLogStructureSizes) \
+                                    LogStatement("LogStructureSizes: "  __VA_ARGS__)\
+                                  if(flushLogStructureSizes)\
+                                    LogFlush();\
+                                }
 #else
 #define LogStructureSizes(...)
 #endif
 
 // Log the value of environment variables we care about.
 #ifdef LOG_ENV_VARS
-#define LogEnvVars(...) if(doLogEnvVars) LogStatement("LogEnvVars: "  __VA_ARGS__)
+#define LogEnvVars(...)     {\
+                              if(doLogEnvVars) \
+                                LogStatement("LogEnvVars: "  __VA_ARGS__)\
+                              if(flushLogEnvVars)\
+                                LogFlush();\
+                             }
 #else
 #define LogEnvVars(...)
 #endif
 
 // Log various openGL parameters
 #ifdef LOG_OPENGL_CONSTANTS
-#define LogOpenGLConstants(...) if(doLogOpenGLConstants) \
-                                        LogStatement("LogOpenGLConstants: " __VA_ARGS__)
+#define LogOpenGLConstants(...)   {\
+                                    if(doLogOpenGLConstants) \
+                                      LogStatement("LogOpenGLConstants: " __VA_ARGS__)\
+                                    if(flushLogOpenGLConstants)\
+                                      LogFlush();\
+                                  }
 #else
 #define LogOpenGLConstants(...)
 #endif
 
 // Validate data structures after every frame
 #ifdef LOG_TREE_VALIDATION
-#define LogTreeValidation(...) if(doLogTreeValidation) \
-                                            LogStatement("LogTreeValidation: " __VA_ARGS__)
+#define LogTreeValidation(...)    {\
+                                    if(doLogTreeValidation) \
+                                      LogStatement("LogTreeValidation: " __VA_ARGS__)\
+                                    if(flushLogTreeValidation) \
+                                      LogFlush();\
+                                  }
 #else
 #define LogTreeValidation(...)
 #endif
@@ -402,64 +545,99 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
 
 // Clear errors in the resource manager
 #ifdef LOG_RESOURCE_ERRORS
-#define LogResourceErrors(...) if(doLogResourceErrors) \
-                                          LogStatement("LogResourceErrors: " __VA_ARGS__)
+#define LogResourceErrors(...)    {\
+                                    if(doLogResourceErrors) \
+                                      LogStatement("LogResourceErrors: " __VA_ARGS__)\
+                                    if(flushLogResourceErrors)\
+                                      LogFlush();\
+                                  }
 #else
 #define LogResourceErrors(...)
 #endif
 
 // Stuff the resource manager actually does
 #ifdef LOG_RESOURCE_ACTIONS
-#define LogResourceActions(...) if(doLogResourceActions) \
-                                          LogStatement("LogResourceActions: " __VA_ARGS__)
+#define LogResourceActions(...)   {\
+                                    if(doLogResourceActions) \
+                                      LogStatement("LogResourceActions: " __VA_ARGS__)\
+                                    if(flushLogResourceActions)\
+                                      LogFlush();\
+                                  }
 #else
 #define LogResourceActions(...)
 #endif
 
 // Micro-detail of the resource manager operating
 #ifdef LOG_RESOURCE_DETAILS
-#define LogResourceDetails(...) if(doLogResourceDetails) \
-                                          LogStatement("LogResourceDetails: " __VA_ARGS__)
+#define LogResourceDetails(...)   {\
+                                    if(doLogResourceDetails) \
+                                      LogStatement("LogResourceDetails: " __VA_ARGS__)\
+                                    if(flushLogResourceDetails)\
+                                      LogFlush();\
+                                  }
 #else
 #define LogResourceDetails(...)
 #endif
 
 // Log things going wrong in the HTTP Client
 #ifdef LOG_HTTP_CLIENT_ERRORS
-#define LogHttpClientErrors(...) if(doLogHttpClientErrors) \
-                                          LogStatement("LogHttpClientErrors: " __VA_ARGS__)
+#define LogHttpClientErrors(...)    {\
+                                      if(doLogHttpClientErrors) \
+                                        LogStatement("LogHttpClientErrors: " __VA_ARGS__)\
+                                      if(flushLogHttpClientErrors)\
+                                        LogFlush();\
+                                    }
 #else
 #define LogHttpClientErrors(...)
 #endif
       
 // Log things going wrong in the Permaserv Client layer
 #ifdef LOG_PERMASERV_CLIENT_ERRORS
-#define LogPermaservClientErrors(...) if(doLogPermaservClientErrors) \
-                                          LogStatement("LogPermaservClientErrors: " __VA_ARGS__)
+#define LogPermaservClientErrors(...)   \
+                              {\
+                                if(doLogPermaservClientErrors) \
+                                  LogStatement("LogPermaservClientErrors: " __VA_ARGS__)\
+                                if(flushLogPermaservClientErrors)\
+                                  LogFlush();\
+                              }
 #else
 #define LogPermaservClientErrors(...)
 #endif
 
 // Log normal operations in the Permaserv Client layer
 #ifdef LOG_PERMASERV_CLIENT_OPS
-#define LogPermaservClientOps(...) if(doLogPermaservClientOps) \
-                                          LogStatement("LogPermaservClientOps: " __VA_ARGS__)
+#define LogPermaservClientOps(...)\
+                                {\
+                                  if(doLogPermaservClientOps) \
+                                    LogStatement("LogPermaservClientOps: " __VA_ARGS__)\
+                                  if(flushLogPermaservClientOps)\
+                                    LogFlush();\
+                                }
 #else
 #define LogPermaservClientOps(...)
 #endif
 
 // Log normal operation of the Permaserv server
 #ifdef LOG_PERMASERV_OPS
-#define LogPermaservOps(...) if(doLogPermaservOps) \
-                                          LogStatement("LogPermaservOps: " __VA_ARGS__)
+#define LogPermaservOps(...)    {\
+                                  if(doLogPermaservOps) \
+                                    LogStatement("LogPermaservOps: " __VA_ARGS__)\
+                                  if(flushLogPermaservOps)\
+                                    LogFlush();\
+                                }
 #else
 #define LogPermaservOps(...)
 #endif
 
 // Log detailed operation of Permaserv for debugging
 #ifdef LOG_PERMASERV_OP_DETAILS
-#define LogPermaservOpDetails(...) if(doLogPermaservOpDetails) \
-                                      LogStatement("LogPermaservOpDetails: " __VA_ARGS__)
+#define LogPermaservOpDetails(...)    \
+                                  {\
+                                    if(doLogPermaservOpDetails) \
+                                      LogStatement("LogPermaservOpDetails: " __VA_ARGS__)\
+                                    if(flushLogPermaservOpDetails)\
+                                      LogFlush();\
+                                  }
 #else
 #define LogPermaservOpDetails(...)
 #endif
@@ -470,32 +648,48 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
 
 // Log validity problems in the file
 #ifdef LOG_OLDF_VALIDITY
-#define LogOLDFValidity(...) if(doLogOLDFValidity) \
-                                          LogStatement("LogOLDFValidity: " __VA_ARGS__)
+#define LogOLDFValidity(...)    {\
+                                  if(doLogOLDFValidity) \
+                                    LogStatement("LogOLDFValidity: " __VA_ARGS__)\
+                                  if(flushLogOLDFValidity)\
+                                    LogFlush();\
+                                }
 #else
 #define LogOLDFValidity(...)
 #endif
 
 // Log details of valid OLDF objects
 #ifdef LOG_OLDF_DETAILS
-#define LogOLDFDetails(...) if(doLogOLDFDetails) \
-                                          LogStatement("LogOLDFDetails: " __VA_ARGS__)
+#define LogOLDFDetails(...)   {\
+                                if(doLogOLDFDetails) \
+                                  LogStatement("LogOLDFDetails: " __VA_ARGS__)\
+                                if(flushLogOLDFDetails)\
+                                  LogFlush();\
+                              }
 #else
 #define LogOLDFDetails(...)
 #endif
 
 // Log validity problems in an OTDL object
 #ifdef LOG_OTDL_VALIDITY
-#define LogOTDLValidity(...) if(doLogOTDLValidity) \
-                                          LogStatement("LogOTDLValidity: " __VA_ARGS__)
+#define LogOTDLValidity(...)    {\
+                                  if(doLogOTDLValidity) \
+                                    LogStatement("LogOTDLValidity: " __VA_ARGS__)\
+                                  if(flushLogOTDLValidity)\
+                                    LogFlush();\
+                                }
 #else
 #define LogOTDLValidity(...)
 #endif
 
 // Log details of valid OTDL objects
 #ifdef LOG_OTDL_DETAILS
-#define LogOTDLDetails(...) if(doLogOTDLDetails) \
-                                            LogStatement("LogOTDLDetails: " __VA_ARGS__)
+#define LogOTDLDetails(...)   {\
+                                if(doLogOTDLDetails) \
+                                  LogStatement("LogOTDLDetails: " __VA_ARGS__)\
+                                if(flushLogOTDLDetails)\
+                                  LogFlush();\
+                              }
 #else
 #define LogOTDLDetails(...)
 #endif
@@ -506,96 +700,148 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
 
 // where the mouse is on the screen each frame
 #ifdef LOG_MOUSE_LOCATION
-#define LogMouseLocation(...) if(doLogMouseLocation) \
-                                          LogStatement("LogMouseLocation: " __VA_ARGS__)
+#define LogMouseLocation(...)   {\
+                                  if(doLogMouseLocation) \
+                                    LogStatement("LogMouseLocation: " __VA_ARGS__)\
+                                  if(flushLogMouseLocation)\
+                                    LogFlush();\
+                                }
 #else
 #define LogMouseLocation(...)
 #endif
 
 // Location and intra-click timing of mouse double clicks
 #ifdef LOG_MOUSE_CLICK
-#define LogMouseClick(...) if(doLogMouseClick) \
-                                          LogStatement("LogMouseClick: " __VA_ARGS__)
+#define LogMouseClick(...)    {\
+                                if(doLogMouseClick) \
+                                  LogStatement("LogMouseClick: " __VA_ARGS__)\
+                                if(flushLogMouseClick)\
+                                  LogFlush();\
+                              }
 #else
 #define LogMouseClick(...)
 #endif
 
 // Location and intra-click timing of mouse double clicks
 #ifdef LOG_DOUBLE_CLICK
-#define LogDoubleClick(...) if(doLogDoubleClick) \
-                                          LogStatement("LogDoubleClick: " __VA_ARGS__)
+#define LogDoubleClick(...)   {\
+                                if(doLogDoubleClick) \
+                                  LogStatement("LogDoubleClick: " __VA_ARGS__)\
+                                if(flushLogDoubleClick)\
+                                  LogFlush();\
+                              }
 #else
 #define LogDoubleClick(...)
 #endif
 
 // Extra detailed recording of parts of click detection
 #ifdef LOG_CLICK_DETAILS
-#define LogClickDetails(...) if(doLogClickDetails) \
-                                          LogStatement("LogClickDetails: " __VA_ARGS__)
+#define LogClickDetails(...)    {\
+                                  if(doLogClickDetails) \
+                                    LogStatement("LogClickDetails: " __VA_ARGS__)\
+                                  if(flushLogClickDetails)\
+                                    LogFlush();\
+                                }
 #else
 #define LogClickDetails(...)
 #endif
 
 // Where the mouse is pointing in 3d space
 #ifdef LOG_MOUSE_RAY_POINT
-#define LogMouseRayPoint(...) if(doLogMouseRayPoint) \
-                                        LogStatement("LogMouseRayPoint: " __VA_ARGS__)
+#define LogMouseRayPoint(...)   {\
+                                  if(doLogMouseRayPoint) \
+                                    LogStatement("LogMouseRayPoint: " __VA_ARGS__)\
+                                  if(flushLogMouseRayPoint)\
+                                    LogFlush();\
+                                }
 #else
 #define LogMouseRayPoint(...)
 #endif
 
 // Log when a new land height is entered.
 #ifdef LOG_LAND_HEIGHTS
-#define LogLandHeights(...) if(doLogLandHeights) \
-                                      LogStatement("LogLandHeights: " __VA_ARGS__)
+#define LogLandHeights(...)   {\
+                                if(doLogLandHeights) \
+                                  LogStatement("LogLandHeights: " __VA_ARGS__)\
+                                if(flushLogLandHeights)\
+                                  LogFlush();\
+                              }
 #else
 #define LogLandHeights(...)
 #endif
 
 // Log when a new object is inserted.
 #ifdef LOG_OBJECT_INSERTIONS
-#define LogObjectInsertions(...) if(doLogObjectInsertions) \
-                                    LogStatement("LogObjectInsertions: " __VA_ARGS__)
+#define LogObjectInsertions(...) \
+                                {\
+                                  if(doLogObjectInsertions) \
+                                    LogStatement("LogObjectInsertions: " __VA_ARGS__)\
+                                  if(flushLogObjectInsertions)\
+                                    LogFlush();\
+                                }
 #else
 #define LogObjectInsertions(...)
 #endif
 
 // Dump buffer when a new object is inserted.
 #ifdef LOG_DUMP_OBJECT_BUFFER
-#define LogDumpObjectBuffer(...) if(doLogDumpObjectBuffer) \
-                                    LogStatement("LogDumpObjectBuffer: " __VA_ARGS__)
+#define LogDumpObjectBuffer(...)\
+                                {\
+                                  if(doLogDumpObjectBuffer) \
+                                    LogStatement("LogDumpObjectBuffer: " __VA_ARGS__)\
+                                  if(flushLogDumpObjectBuffer)\
+                                    LogFlush();\
+                                }
 #else
 #define LogDumpObjectBuffer(...)
 #endif
 
 // Log control operations on the simulation.
 #ifdef LOG_SIMULATION_CONTROLS
-#define LogSimulationControls(...) if(doLogSimulationControls) \
-                                    LogStatement("LogSimulationControls: " __VA_ARGS__)
+#define LogSimulationControls(...)  \
+                                {\
+                                  if(doLogSimulationControls) \
+                                    LogStatement("LogSimulationControls: " __VA_ARGS__)\
+                                  if(flushLogSimulationControls)\
+                                    LogFlush();\
+                                }
 #else
 #define LogSimulationControls(...)
 #endif
 
 // Log changes to the window (eg resizing).
 #ifdef LOG_WINDOW_OPERATIONS
-#define LogWindowOperations(...) if(doLogWindowOperations) \
-                                    LogStatement("LogWindowOperations: " __VA_ARGS__)
+#define LogWindowOperations(...)   \
+                                {\
+                                  if(doLogWindowOperations) \
+                                    LogStatement("LogWindowOperations: " __VA_ARGS__)\
+                                  if(flushLogWindowOperations)\
+                                    LogFlush();\
+                                }
 #else
 #define LogWindowOperations(...)
 #endif
 
 // Log camera variables every frame
 #ifdef LOG_CAMERA_FRAMES
-#define LogCameraFrames(...) if(doLogCameraFrames) \
-                                    LogStatement("LogCameraFrames: " __VA_ARGS__)
+#define LogCameraFrames(...)    {\
+                                  if(doLogCameraFrames) \
+                                    LogStatement("LogCameraFrames: " __VA_ARGS__)\
+                                  if(flushLogCameraFrames)\
+                                    LogFlush();\
+                                }
 #else
 #define LogCameraFrames(...)
 #endif
 
 // Log when the GLFW library needs to report errors
 #ifdef LOG_GLFW_ERRORS
-#define LogGLFWErrors(...) if(doLogGLFWErrors) \
-                                    LogStatement("LogGLFWErrors: " __VA_ARGS__)
+#define LogGLFWErrors(...)    {\
+                                if(doLogGLFWErrors) \
+                                  LogStatement("LogGLFWErrors: " __VA_ARGS__)\
+                                if(flushLogGLFWErrors)\
+                                  LogFlush();\
+                              }
 #else
 #define LogGLFWErrors(...)
 #endif
@@ -606,39 +852,61 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
 
 // Log texture atlas creation
 #ifdef LOG_TEXTURE_ATLAS
-#define LogTextureAtlas(...) if(doLogTextureAtlas) \
-                                            LogStatement("LogTextureAtlas: " __VA_ARGS__)
+#define LogTextureAtlas(...)    {\
+                                  if(doLogTextureAtlas) \
+                                    LogStatement("LogTextureAtlas: " __VA_ARGS__)\
+                                  if(flushLogTextureAtlas)\
+                                    LogFlush();\
+                                }
 #else
 #define LogTextureAtlas(...)
 #endif
 
 // Log weird conditions in texture atlas creation
 #ifdef LOG_ATLAS_ANOMALIES
-#define LogAtlasAnomalies(...) if(doLogAtlasAnomalies) \
-                                          LogStatement("LogAtlasAnomalies: " __VA_ARGS__)
+#define LogAtlasAnomalies(...)    {\
+                                    if(doLogAtlasAnomalies) \
+                                      LogStatement("LogAtlasAnomalies: " __VA_ARGS__)\
+                                    if(flushLogAtlasAnomalies)\
+                                      LogFlush();\
+                                  }
 #else
 #define LogAtlasAnomalies(...)
 #endif
 
 // Log details of which image is where in atlas
 #ifdef LOG_ATLAS_PLACEMENT
-#define LogAtlasPlacement(...) if(doLogAtlasPlacement) \
-                                          LogStatement("LogAtlasPlacement: " __VA_ARGS__)
+#define LogAtlasPlacement(...)    {\
+                                    if(doLogAtlasPlacement) \
+                                      LogStatement("LogAtlasPlacement: " __VA_ARGS__)\
+                                    if(flushLogAtlasPlacement)\
+                                      LogFlush();\
+                                  }
 #else
 #define LogAtlasPlacement(...)
 #endif
 
 // Log when a material is selected.
 #ifdef LOG_MATERIAL_SELECTIONS
-#define LogMaterialSelections(...) if(doLogMaterialSelections) \
-                                        LogStatement("LogMaterialSelections: " __VA_ARGS__)
+#define LogMaterialSelections(...)  \
+                                {\
+                                  if(doLogMaterialSelections) \
+                                    LogStatement("LogMaterialSelections: " __VA_ARGS__)\
+                                  if(flushLogMaterialSelections)\
+                                    LogFlush();\
+                                }
 #else
 #define LogMaterialSelections(...)
 #endif
 
 // Log storage and use of the path map
 #ifdef LOG_PATH_MAP
-#define LogPathMap(...) if(doLogPathMap) LogStatement("LogPathMap: " __VA_ARGS__)
+#define LogPathMap(...)   {\
+                            if(doLogPathMap) \
+                              LogStatement("LogPathMap: " __VA_ARGS__)\
+                            if(flushLogPathMap)\
+                              LogFlush();\
+                          }
 #else
 #define LogPathMap(...)
 #endif
@@ -649,16 +917,24 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
 
 // Log the setup of the sky sampling model
 #ifdef LOG_SKY_SAMPLE_INIT
-#define LogSkySampleInit(...) if(doLogSkySampleInit) \
-                                            LogStatement("LogSkySampleInit: " __VA_ARGS__)
+#define LogSkySampleInit(...)   {\
+                                  if(doLogSkySampleInit) \
+                                    LogStatement("LogSkySampleInit: " __VA_ARGS__)\
+                                  if(flushLogSkySampleInit)\
+                                    LogFlush();\
+                                }
 #else
-#define LogSkySampleInit(...)
+#define LogSkySampleInit(...) 
 #endif
 
 // Log problems in accessing files via libgdal
 #ifdef LOG_GDAL_ERROR
-#define LogGdalError(...) if(doLogGdalError) \
-                                            LogStatement("LogGdalError: " __VA_ARGS__)
+#define LogGdalError(...)   {\
+                              if(doLogGdalError) \
+                                LogStatement("LogGdalError: " __VA_ARGS__)\
+                              if(flushLogGdalError)\
+                                LogFlush();\
+                            }
 #else
 #define LogGdalError(...)
 #endif
@@ -669,40 +945,60 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
             
 // Log problems in the soil database operation
 #ifdef LOG_SOIL_DB_ERR
-#define LogSoilDbErr(...) if(doLogSoilDbErr) \
-                                            LogStatement("LogSoilDbErr: " __VA_ARGS__)
+#define LogSoilDbErr(...)   {\
+                              if(doLogSoilDbErr) \
+                                LogStatement("LogSoilDbErr: " __VA_ARGS__)\
+                              if(flushLogSoilDbErr)\
+                                LogFlush();\
+                            }
 #else
 #define LogSoilDbErr(...)
 #endif
 
 // Log normal operations on the soil database
 #ifdef LOG_SOIL_DB_OPS
-#define LogSoilDbOps(...) if(doLogSoilDbOps) \
-                                            LogStatement("LogSoilDbOps: " __VA_ARGS__)
+#define LogSoilDbOps(...)   {\
+                              if(doLogSoilDbOps) \
+                                LogStatement("LogSoilDbOps: " __VA_ARGS__)\
+                              if(flushLogSoilDbOps)\
+                                LogFlush();\
+                            }
 #else
 #define LogSoilDbOps(...)
 #endif
 
 // Log extra details in the soil database operation
 #ifdef LOG_SOIL_DB_DETAILS
-#define LogSoilDbDetails(...) if(doLogSoilDbDetails) \
-                                            LogStatement("LogSoilDbDetails: " __VA_ARGS__)
+#define LogSoilDbDetails(...)   {\
+                                  if(doLogSoilDbDetails) \
+                                    LogStatement("LogSoilDbDetails: " __VA_ARGS__)\
+                                  if(flushLogSoilDbDetails)\
+                                    LogFlush();\
+                                }
 #else
 #define LogSoilDbDetails(...)
 #endif
 
 // Log every field read from the HSWD database
 #ifdef LOG_HSWD_EXHAUSTIVE
-#define LogHSWDExhaustive(...) if(doLogHSWDExhaustive) \
-                                            LogStatement("LogHSWDExhaustive: " __VA_ARGS__)
+#define LogHSWDExhaustive(...)    {\
+                                    if(doLogHSWDExhaustive) \
+                                      LogStatement("LogHSWDExhaustive: " __VA_ARGS__)\
+                                    if(flushLogHSWDExhaustive)\
+                                      LogFlush();\
+                                  }
 #else
 #define LogHSWDExhaustive(...)
 #endif
 
 // Log details of reading from a BILFILE
 #ifdef LOG_BILFILE_DETAILS
-#define LogBilFileDetails(...) if(doLogBilFileDetails) \
-                                            LogStatement("LogBilFileDetails: " __VA_ARGS__)
+#define LogBilFileDetails(...)    {\
+                                    if(doLogBilFileDetails) \
+                                      LogStatement("LogBilFileDetails: " __VA_ARGS__)\
+                                    if(flushLogBilFileDetails)\
+                                      LogFlush();\
+                                  }
 #else
 #define LogBilFileDetails(...)
 #endif
@@ -713,110 +1009,168 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
 
 // Log when a tree is selected.
 #ifdef LOG_TREE_SELECTIONS
-#define LogTreeSelections(...) if(doLogTreeSelections) \
-                                            LogStatement("LogTreeSelections: " __VA_ARGS__)
+#define LogTreeSelections(...)    {\
+                                    if(doLogTreeSelections) \
+                                      LogStatement("LogTreeSelections: " __VA_ARGS__)\
+                                    if(flushLogTreeSelections)\
+                                      LogFlush();\
+                                  }
 #else
 #define LogTreeSelections(...)
 #endif
 
 // Log when a tree is read in from a file or url
 #ifdef LOG_TREE_READS
-#define LogTreeReads(...) if(doLogTreeReads) LogStatement("LogTreeReads: " __VA_ARGS__)
+#define LogTreeReads(...)   {\
+                              if(doLogTreeReads) \
+                                LogStatement("LogTreeReads: " __VA_ARGS__)\
+                              if(flushLogTreeReads)\
+                                LogFlush();\
+                            }
 #else
 #define LogTreeReads(...)
 #endif
 
 // Log high level actions in simulating tree growth.
 #ifdef LOG_TREE_SIM_OVERVIEW
-#define LogTreeSimOverview(...) if(doLogTreeSimOverview) \
-                                        LogStatement("LogTreeSimOverview: " __VA_ARGS__)
+#define LogTreeSimOverview(...)   {\
+                                    if(doLogTreeSimOverview) \
+                                      LogStatement("LogTreeSimOverview: " __VA_ARGS__)\
+                                    if(flushLogTreeSimOverview)\
+                                      LogFlush();\
+                                  }
 #else
 #define LogTreeSimOverview(...)
 #endif
 
 // Log all the gory details of simulated tree growth.
 #ifdef LOG_TREE_SIM_DETAILS
-#define LogTreeSimDetails(...) if(doLogTreeSimDetails) \
-                                          LogStatement("LogTreeSimDetails: " __VA_ARGS__)
+#define LogTreeSimDetails(...)    {\
+                                    if(doLogTreeSimDetails) \
+                                      LogStatement("LogTreeSimDetails: " __VA_ARGS__)\
+                                    if(flushLogTreeSimDetails)\
+                                      LogFlush();\
+                                  }
 #else
 #define LogTreeSimDetails(...)
 #endif
 
 // Log details of the growth model.
 #ifdef LOG_GROWTH_MODEL
-#define LogGrowthModel(...) if(doLogGrowthModel) \
-                                              LogStatement("LogGrowthModel: " __VA_ARGS__)
+#define LogGrowthModel(...)   {\
+                                if(doLogGrowthModel) \
+                                  LogStatement("LogGrowthModel: " __VA_ARGS__)\
+                                if(flushLogGrowthModel)\
+                                  LogFlush();\
+                              }
 #else
 #define LogGrowthModel(...)
 #endif
 
 // Log updating the tree's bounding box
 #ifdef LOG_TREE_BOUNDING_BOX
-#define LogTreeBoundingBox(...) if(doLogTreeBoundingBox) \
-                                          LogStatement("LogTreeBoundingBox: " __VA_ARGS__)
+#define LogTreeBoundingBox(...)   {\
+                                    if(doLogTreeBoundingBox) \
+                                      LogStatement("LogTreeBoundingBox: " __VA_ARGS__)\
+                                    if(flushLogTreeBoundingBox)\
+                                      LogFlush();\
+                                  }
 #else
 #define LogTreeBoundingBox(...)
 #endif
 
 // Log matching a ray to a tree
 #ifdef LOG_TREE_MATCH_RAY
-#define LogTreeMatchRay(...) if(doLogTreeMatchRay) \
-                                            LogStatement("LogTreeMatchRay: " __VA_ARGS__)
+#define LogTreeMatchRay(...)    {\
+                                  if(doLogTreeMatchRay) \
+                                    LogStatement("LogTreeMatchRay: " __VA_ARGS__)\
+                                  if(flushLogTreeMatchRay)\
+                                    LogFlush();\
+                                }
 #else
 #define LogTreeMatchRay(...)
 #endif
 
 // Log trees being rendered.
 #ifdef LOG_TREE_VISUALIZATION
-#define LogTreeVisualization(...) if(doLogTreeVisualization) \
-                                      LogStatement("LogTreeVisualization: " __VA_ARGS__)
+#define LogTreeVisualization(...)   {\
+                                      if(doLogTreeVisualization) \
+                                        LogStatement("LogTreeVisualization: " __VA_ARGS__)\
+                                      if(flushLogTreeVisualization)\
+                                        LogFlush();\
+                                    }
 #else
 #define LogTreeVisualization(...)
 #endif
 
 // Log every twig being rendered.
 #ifdef LOG_TREE_VIS_DETAILS
-#define LogTreeVisDetails(...) if(doLogTreeVisDetails) \
-                                          LogStatement("LogTreeVisDetails: " __VA_ARGS__)
+#define LogTreeVisDetails(...)    {\
+                                    if(doLogTreeVisDetails) \
+                                      LogStatement("LogTreeVisDetails: " __VA_ARGS__)\
+                                    if(flushLogTreeVisDetails)\
+                                      LogFlush();\
+                                  }
 #else
 #define LogTreeVisDetails(...)
 #endif
 
 // Log bark color and texture details.
 #ifdef LOG_BARK_DISPLAY
-#define LogBarkDisplay(...) if(doLogBarkDisplay) \
-                                            LogStatement("LogBarkDisplay: " __VA_ARGS__)
+#define LogBarkDisplay(...)   {\
+                                if(doLogBarkDisplay) \
+                                  LogStatement("LogBarkDisplay: " __VA_ARGS__)\
+                                if(flushLogBarkDisplay)\
+                                  LogFlush();\
+                              }
 #else
 #define LogBarkDisplay(...)
 #endif
 
 // Log tree bounding box opacity.
 #ifdef LOG_TREE_OPACITY
-#define LogTreeOpacity(...) if(doLogTreeOpacity) \
-                                            LogStatement("LogTreeOpacity: " __VA_ARGS__)
+#define LogTreeOpacity(...)   {\
+                                if(doLogTreeOpacity) \
+                                  LogStatement("LogTreeOpacity: " __VA_ARGS__)\
+                                if(flushLogTreeOpacity)\
+                                  LogFlush();\
+                              }
 #else
 #define LogTreeOpacity(...)
 #endif
 
 // Log tree thread analysis graph.
 #ifdef LOG_TREE_GRAPH
-#define LogTreeGraph(...) if(doLogTreeGraph) LogStatement("LogTreeGraph: " __VA_ARGS__)
+#define LogTreeGraph(...)   {\
+                              if(doLogTreeGraph) \
+                                LogStatement("LogTreeGraph: " __VA_ARGS__)\
+                              if(flushLogTreeGraph)\
+                                LogFlush();\
+                            }
 #else
 #define LogTreeGraph(...)
 #endif
 
 // Log process of looking for OTDL files.
 #ifdef LOG_OTDL_FILE_SEARCH
-#define LogOTDLFileSearch(...) if(doLogOTDLFileSearch) \
-                                        LogStatement("LogOTDLFileSearch: " __VA_ARGS__)
+#define LogOTDLFileSearch(...)    {\
+                                    if(doLogOTDLFileSearch) \
+                                      LogStatement("LogOTDLFileSearch: " __VA_ARGS__)\
+                                    if(flushLogOTDLFileSearch)\
+                                      LogFlush();\
+                                  }
 #else
 #define LogOTDLFileSearch(...)
 #endif
 
 // Log clear errors in tree related operations.
 #ifdef LOG_TREE_ERRORS
-#define LogTreeErrors(...) if(doLogTreeErrors) \
-                                            LogStatement("LogTreeErrors: " __VA_ARGS__)
+#define LogTreeErrors(...)    {\
+                                if(doLogTreeErrors) \
+                                  LogStatement("LogTreeErrors: " __VA_ARGS__)\
+                                if(flushLogTreeErrors)\
+                                  LogFlush();\
+                              }
 #else
 #define LogTreeErrors(...)
 #endif
@@ -1041,7 +1395,7 @@ extern bool doLogObjectAltitudes;     // Log finding the altitudes of objects ab
 #define LogValidTriangleBufs(...)
 #endif
 
-// Log actual errors the triangle buffers.
+// Log actual errors in the triangle buffers.
 #ifdef LOG_TRIANGLE_BUFFER_ERRS
 #define LogTriangleBufferErrs(...) if(doLogTriangleBufferErrs) \
                                       LogStatement("LogTriangleBufferErrs: " __VA_ARGS__)

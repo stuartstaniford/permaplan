@@ -122,8 +122,8 @@ bool doLogObjectCreation        = true; // Log the id of each newly created ojec
 bool doLogTriangleBufferOps     = true; // Log the workings of the triangle buffers.
 bool doLogTriangleBufEstimates  = true; // Log estimates of sizes needed.
 bool doLogTriangleBufRebuilds   = true; // Log when the triangle buffer is rebuilt.
-bool doLogValidTriangleBufs     = true; // Validate the condition of triangle buffers on gpu send
-bool doLogTriangleBufferErrs    = true; // Log actual errors the triangle buffers.
+bool doLogValidTriangleBufs     = true; // Validate condition of triangle buffers on gpu send
+bool doLogTriangleBufferErrs    = true; // Log actual errors in the triangle buffers.
 
 // Logging options to do with the task queues and task queue farms
 bool doLogTaskQueueFarmOps      = true; // Log what the task queue farms are doing
@@ -132,6 +132,126 @@ bool doLogTaskQueueFarmOps      = true; // Log what the task queue farms are doi
 bool doLogBezierFit           = true; // Log the fitting of a Bezier patch to height data
 bool doLogBezierMatchRay      = true; // Log the process of matching a ray to the patch.
 bool doLogObjectAltitudes     = true; // Log finding the altitudes of objects above the land
+
+
+// =======================================================================================
+// Control variables for whether a log statement causes a flush or not
+
+// Logging options to do with overall control flow and speed
+bool flushLogFrameStarts     = false; // Log each frame as it begins
+bool flushLogCloseDown       = false; // Log when we exit
+bool flushLogStructureSizes  = false; // Log the size of structures on this platform at startup.
+bool flushLogEnvVars         = false; // Log the value of environment variables we care about.
+bool flushLogOpenGLConstants = false; // Log various openGL parameters
+bool flushLogTreeValidation  = false; // Validate data structures after every frame
+
+// Logging options to do with resource management and collection
+bool flushLogResourceErrors        = false; // Clear errors in the resource manager
+bool flushLogResourceActions       = false; // Stuff the resource manager actually does
+bool flushLogResourceDetails       = false; // Micro-detail of the resource manager operating
+bool flushLogHttpClientErrors      = false; // Log things going wrong in the HTTP Client
+bool flushLogPermaservClientErrors = false; // Log errors in the Permaserv Client layer
+bool flushLogPermaservClientOps    = false; // Log normal ops in the Permaserv Client layer
+bool flushLogPermaservOps          = false; // Log normal operation of the Permaserv server
+bool flushLogPermaservOpDetails    = false; // Log detailed operation of Permaserv for debugging
+
+// Logging options to do with parsing and validating OLDF and OTDL files
+bool flushLogOLDFValidity        = false; // Log validity problems in the file
+bool flushLogOLDFDetails         = false; // Log details of valid OLDF objects
+bool flushLogOTDLValidity        = false; // Log validity problems in an OTDL object
+bool flushLogOTDLDetails         = false; // Log details of valid OTDL objects
+
+// Logging options to do with interface controls
+bool flushLogMouseLocation      = false; // where the mouse is on the screen each frame
+bool flushLogMouseClick         = false; // Location of single mouse clicks
+bool flushLogDoubleClick        = false; // Location and intra-click timing of double clicks
+bool flushLogClickDetails       = false; // Extra detailed recording of parts of click detection
+bool flushLogMouseRayPoint      = false; // Where the mouse is pointing in 3d space
+bool flushLogLandHeights        = false; // Log when a new land height is entered.
+bool flushLogObjectInsertions   = false; // Log when a new object is inserted in scene.
+bool flushLogDumpObjectBuffer   = false; // Dump buffer when a new object is inserted.
+bool flushLogSimulationControls = false; // Log control operations on the simulation.
+bool flushLogWindowOperations   = false; // Log changes to the window (eg resizing).
+bool flushLogCameraFrames       = false; // Log camera variables every frame
+bool flushLogGLFWErrors         = false; // Log when the GLFW library needs to report errors
+
+// Logging options to do with materials and textures
+bool flushLogTextureAtlas        = false; // Log texture atlas creation
+bool flushLogAtlasAnomalies      = false; // Log weird conditions in texture atlas creation
+bool flushLogAtlasPlacement      = false; // Log details of which image is where in atlas
+bool flushLogMaterialSelections  = false; // Log when a material is selected.
+bool flushLogPathMap             = false; // Log storage and use of the path map
+
+// Logging options to do with sky sampling and lighting
+bool flushLogSkySampleInit       = false; // Log the setup of the sky sampling model
+bool flushLogGdalError           = false; // Log problems in accessing files via libgdal
+
+// Logging options to do with soil stuff
+bool flushLogSoilDbErr           = false; // Log problems in the soil database operation
+bool flushLogSoilDbOps           = false; // Log normal operations on the soil database
+bool flushLogSoilDbDetails       = false; // Log extra details in the soil database operation
+bool flushLogHSWDExhaustive      = false; // Log every field read from the HSWD database
+bool flushLogBilFileDetails      = false; // Log details of reading from a BILFILE
+
+// Logging options for Trees/Plants
+bool flushLogTreeSelections      = false; // Log when a tree is selected.
+bool flushLogTreeReads           = false; // Log when a tree is read in from a file or url
+bool flushLogTreeSimOverview     = false; // Log high level actions in simulating tree growth.
+bool flushLogTreeSimDetails      = false; // Log all the gory details of simulated tree growth.
+bool flushLogGrowthModel         = false; // Log details of the growth model.
+bool flushLogTreeBoundingBox     = false; // Log updating the tree's bounding box
+bool flushLogTreeMatchRay        = false; // Log matching a ray to a tree
+bool flushLogTreeVisualization   = false; // Log trees being rendered.
+bool flushLogTreeVisDetails      = false; // Log every twig being rendered.
+bool flushLogBarkDisplay         = false; // Log bark color and texture details.
+bool flushLogTreeOpacity         = false; // Log tree bounding box opacity.
+bool flushLogTreeGraph           = false; // Log tree thread analysis graph.
+bool flushLogOTDLFileSearch      = false; // Log process of looking for OTDL files.
+bool flushLogTreeErrors          = false; // Log clear errors in tree related operations.
+
+// Logging options for buildings (gables, sheds, etc)
+bool flushLogBuildRectDetails    = false; // Log creation and buffering of BuildingRects
+bool flushLogBuildingBuffer      = false; // Buffering of Gables, sheds, etc
+
+// Logging options for groups of objects
+bool flushLogGroupAdditions      = false; // Log when groups are created and objects are added.
+bool flushLogControlGroupInit    = false; // Log the process of initiating a new control group.
+bool flushLogGroupMatchRay       = false; // Log ray matching in groups.
+bool flushLogFindGroups          = false; // Log groups found during self validation.
+bool flushLogPathTubeBuffer      = false; // Log the process of rendering a pathTube
+
+// Logging options for the HTTP debug interface
+bool flushLogRequestErrors       = false; // Log validity problems in the HTTP request
+bool flushLogResponseErrors      = false; // Log problems encountered building the response
+bool flushLogHTTPBufferOps       = false; // Log operations on the main HTTP buffers
+bool flushLogHTTPDetails         = false; // Log normal details of HTTP operations
+bool flushLogHTTPLoadBalance     = false; // Log which connections get processed where
+bool flushLogRequestParsing      = false; // Log exactly what happens when parsing a request
+bool flushLogPseudoActions       = false; // Log as the main thread processes pseudo-actions
+
+// Logging options to do with quadtree operations
+bool flushLogQuadtreeCreation    = false; // Log the initial setup of the quadtree.
+bool flushLogQuadtreeInsertions  = false; // Log the a new object being put in the quadtree.
+bool flushLogQuadtreeBoundBox    = false; // Log changes to the quadtree bounding boxes.
+bool flushLogQuadtreeMatchRay    = false; // Log the process of matching a ray in the quadtree.
+bool flushLogDisplayListBuffer   = false; // Log objects being buffered for display.
+bool flushLogQuadtreeObjSizes    = false; // Log the process of estimating/changing object sizes
+
+// Logging options to do with other infrastructure
+bool flushLogObjectCreation       = false; // Log the id of each newly created oject.
+bool flushLogTriangleBufferOps    = false; // Log the workings of the triangle buffers.
+bool flushLogTriangleBufEstimates = false; // Log estimates of sizes needed.
+bool flushLogTriangleBufRebuilds  = false; // Log when the triangle buffer is rebuilt.
+bool flushLogValidTriangleBufs    = false; // Validate condition of triangle buffers on gpu send
+bool flushLogTriangleBufferErrs   = false; // Log actual errors in the triangle buffers.
+
+// Logging options to do with the task queues and task queue farms
+bool flushLogTaskQueueFarmOps      = false; // Log what the task queue farms are doing
+
+// Logging options to do with the Bezier Patch code
+bool flushLogBezierFit           = false; // Log the fitting of a Bezier patch to height data
+bool flushLogBezierMatchRay      = false; // Log the process of matching a ray to the patch.
+bool flushLogObjectAltitudes     = false; // Log finding the altitudes of objects above the land
 
 
 // =======================================================================================
