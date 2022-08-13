@@ -96,10 +96,20 @@ bool HttpPermaServ::processDIFRequest(char* url)
     LogRequestErrors("Bad dif request: /dif?%s\n", url);
     return false;
    }
-  float dif = solarDatabase->getDIFValue(latLong[0], latLong[1]);
+  float dif;
+  if(solarDatabase)
+   {
+    dif = solarDatabase->getDIFValue(latLong[0], latLong[1]);
+    LogPermaservOps("Serviced DIF request (%.3f) for %f,%f from client on port %u.\n", 
+                                                    dif, latLong[0], latLong[1], clientP);
+   }
+  else
+   {
+    dif = 3.0f; // This is for the -s option to permaserv to run with no solar database.
+    LogPermaservOps("Default value for DIF request to permaserv -s "
+                                                  "from client on port %u.\n", clientP);
+   }
   internalPrintf("DIF: %.3f\n", dif);
-  LogPermaservOps("Serviced DIF request (%.3f) for %f,%f from client on port %u.\n", 
-                                                  dif, latLong[0], latLong[1], clientP);
   return true;
 }
 
@@ -117,10 +127,21 @@ bool HttpPermaServ::processDNIRequest(char* url)
     LogRequestErrors("Bad dni request: dni?%s\n", url);
     return false;
    }
-  float dni = solarDatabase->getDNIValue(latLong[0], latLong[1]);
+  float dni;
+  if(solarDatabase)
+   {
+    dni = solarDatabase->getDNIValue(latLong[0], latLong[1]);
+    LogPermaservOps("Serviced DNI request (%.3f) for %f,%f from client on port %u.\n", 
+                                                        dni, latLong[0], latLong[1], clientP);
+   }
+  else
+   {
+    dni = 3.0f; // This is for the -s option to permaserv to run with no solar database.
+    LogPermaservOps("Default value for DNI request to permaserv -s "
+                                                  "from client on port %u.\n", clientP);
+
+   }
   internalPrintf("DNI: %.3f\n", dni);
-  LogPermaservOps("Serviced DNI request (%.3f) for %f,%f from client on port %u.\n", 
-                                                      dni, latLong[0], latLong[1], clientP);
   return true;
 }
 
