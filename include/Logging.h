@@ -464,6 +464,7 @@ extern bool flushLogObjectAltitudes;   // Log finding the altitudes of objects a
 
 #endif  //else on ifdef LOGGING_IMPLEMENTATION - need this here.
 
+
 // =======================================================================================
 // Logging options to do with overall control flow and speed
 
@@ -1181,16 +1182,24 @@ extern bool flushLogObjectAltitudes;   // Log finding the altitudes of objects a
 
 // Log creation and buffering of BuildingRects
 #ifdef LOG_BUILD_RECT_DETAILS
-#define LogBuildRectDetails(...) if(doLogBuildRectDetails) \
-                                          LogStatement("LogBuildRectDetails: " __VA_ARGS__)
+#define LogBuildRectDetails(...)    {\
+                                      if(doLogBuildRectDetails) \
+                                        LogStatement("LogBuildRectDetails: " __VA_ARGS__)\
+                                      if(flushLogBuildRectDetails)\
+                                        LogFlush();\
+                                    }
 #else
 #define LogBuildRectDetails(...)
 #endif
 
 // Buffering of Gables, sheds, etc
 #ifdef LOG_BUILDING_BUFFER
-#define LogBuildingBuffer(...) if(doLogBuildingBuffer) \
-                                          LogStatement("LogBuildingBuffer: " __VA_ARGS__)
+#define LogBuildingBuffer(...)    {\
+                                    if(doLogBuildingBuffer) \
+                                      LogStatement("LogBuildingBuffer: " __VA_ARGS__)\
+                                    if(flushLogBuildingBuffer)\
+                                      LogFlush();\
+                                  }
 #else
 #define LogBuildingBuffer(...)
 #endif
@@ -1201,39 +1210,60 @@ extern bool flushLogObjectAltitudes;   // Log finding the altitudes of objects a
 
 // Log when groups are created and objects are added.
 #ifdef LOG_GROUP_ADDITIONS
-#define LogGroupAdditions(...) if(doLogGroupAdditions) \
-                                          LogStatement("LogGroupAdditions: " __VA_ARGS__)
+#define LogGroupAdditions(...)    {\
+                                    if(doLogGroupAdditions) \
+                                      LogStatement("LogGroupAdditions: " __VA_ARGS__)\
+                                    if(flushLogGroupAdditions)\
+                                      LogFlush();\
+                                  }
 #else
 #define LogGroupAdditions(...)
 #endif
 
 // Log the process of initiating a new control group.
 #ifdef LOG_CONTROL_GROUP_INIT
-#define LogControlGroupInit(...) if(doLogControlGroupInit) \
-                                        LogStatement("LogControlGroupInit: " __VA_ARGS__)
+#define LogControlGroupInit(...)    {\
+                                      if(doLogControlGroupInit) \
+                                        LogStatement("LogControlGroupInit: " __VA_ARGS__)\
+                                      if(flushLogControlGroupInit)\
+                                        LogFlush();\
+                                    }
 #else
 #define LogControlGroupInit(...)
 #endif
 
 // Log ray matching in groups.
 #ifdef LOG_GROUP_MATCH_RAY
-#define LogGroupMatchRay(...) if(doLogGroupMatchRay) \
-                                          LogStatement("LogGroupMatchRay: " __VA_ARGS__)
+#define LogGroupMatchRay(...)   {\
+                                  if(doLogGroupMatchRay) \
+                                    LogStatement("LogGroupMatchRay: " __VA_ARGS__)\
+                                  if(flushLogMatchRay)\
+                                    LogFlush();\
+                                }
 #else
 #define LogGroupMatchRay(...)
 #endif
 
 // Log groups found during self validation.
 #ifdef LOG_FIND_GROUPS
-#define LogFindGroups(...) if(doLogFindGroups) LogStatement("LogFindGroups: " __VA_ARGS__)
+#define LogFindGroups(...)    {\
+                                if(doLogFindGroups) \
+                                  LogStatement("LogFindGroups: " __VA_ARGS__)\
+                                if(flushLogFindGroups)\
+                                  LogFlush();\
+                              }
 #else
 #define LogFindGroups(...)
 #endif
 
 // Log the process of rendering a pathTube
 #ifdef LOG_PATHTUBE_BUFFER
-#define LogPathTubeBuffer(...) if(doLogPathTubeBuffer) \
-                                          LogStatement("LogPathTubeBuffer: " __VA_ARGS__)
+#define LogPathTubeBuffer(...)    {\
+                                    if(doLogPathTubeBuffer) \
+                                      LogStatement("LogPathTubeBuffer: " __VA_ARGS__)\
+                                    if(flushLogPathTubeBuffer)\
+                                      LogFlush();\
+                                  }
 #else
 #define LogPathTubeBuffer(...)
 #endif
@@ -1244,40 +1274,60 @@ extern bool flushLogObjectAltitudes;   // Log finding the altitudes of objects a
 
 // Log validity problems in the HTTP request
 #ifdef LOG_REQUEST_ERRORS
-#define LogRequestErrors(...) if(doLogRequestErrors) \
-                                          LogStatement("LogRequestErrors: " __VA_ARGS__)
+#define LogRequestErrors(...)   {\
+                                  if(doLogRequestErrors) \
+                                    LogStatement("LogRequestErrors: " __VA_ARGS__)\
+                                  if(flushLogRequestErrors)\
+                                    LogFlush();\
+                                }
 #else
 #define LogRequestErrors(...)
 #endif
 
 // Log problems encountered building the response
 #ifdef LOG_RESPONSE_ERRORS
-#define LogResponseErrors(...) if(doLogResponseErrors) \
-                                          LogStatement("LogResponseErrors: " __VA_ARGS__)
+#define LogResponseErrors(...)    {\
+                                    if(doLogResponseErrors) \
+                                      LogStatement("LogResponseErrors: " __VA_ARGS__)\
+                                    if(flushLogResponseErrors)\
+                                      LogFlush();\
+                                  }
 #else
 #define LogResponseErrors(...)
 #endif
 
 // Log operations on the main HTTP buffers
 #ifdef LOG_HTTP_BUFFER_OPS
-#define LogHTTPBufferOps(...) if(doLogHTTPBufferOps) \
-                                          LogStatement("LogHTTPBufferOps: " __VA_ARGS__)
+#define LogHTTPBufferOps(...)   {\
+                                  if(doLogHTTPBufferOps) \
+                                    LogStatement("LogHTTPBufferOps: " __VA_ARGS__)\
+                                  if(flushLogHTTPBufferOps)\
+                                    LogFlush();\
+                                }
 #else
 #define LogHTTPBufferOps(...)
 #endif
 
 // Log normal details of HTTP operations
 #ifdef LOG_HTTP_DETAILS
-#define LogHTTPDetails(...) if(doLogHTTPDetails) \
-                                            LogStatement("LogHTTPDetails: " __VA_ARGS__)
+#define LogHTTPDetails(...)   {\
+                                if(doLogHTTPDetails) \
+                                  LogStatement("LogHTTPDetails: " __VA_ARGS__)\
+                                if(flushLogHTTPDetails)\
+                                  LogFlush();\
+                              }
 #else
 #define LogHTTPDetails(...)
 #endif
 
 // Log which connections get processed where
 #ifdef LOG_HTTP_LOAD_BALANCE
-#define LogHTTPLoadBalance(...) if(doLogHTTPLoadBalance) \
-                                        LogStatement("LogHTTPLoadBalance: " __VA_ARGS__)
+#define LogHTTPLoadBalance(...)   {\
+                                    if(doLogHTTPLoadBalance) \
+                                      LogStatement("LogHTTPLoadBalance: " __VA_ARGS__)\
+                                    if(flushLogHTTPLoadBalance)\
+                                      LogFlush();\
+                                  }
 #else
 #define LogHTTPLoadBalance(...)
 #endif
@@ -1285,16 +1335,24 @@ extern bool flushLogObjectAltitudes;   // Log finding the altitudes of objects a
 
 // Log exactly what happens when parsing a request
 #ifdef LOG_REQUEST_PARSING
-#define LogRequestParsing(...) if(doLogRequestParsing) \
-                                          LogStatement("LogRequestParsing: " __VA_ARGS__)
+#define LogRequestParsing(...)    {\
+                                    if(doLogRequestParsing) \
+                                      LogStatement("LogRequestParsing: " __VA_ARGS__)\
+                                    if(flushLogRequestParsing)\
+                                      LogFlush();\
+                                  }
 #else
 #define LogRequestParsing(...)
 #endif
 
 // Log as the main thread processes pseudo-actions
 #ifdef LOG_PSEUDO_ACTIONS
-#define LogPseudoActions(...) if(doLogPseudoActions) \
-                                          LogStatement("LogPseudoActions: " __VA_ARGS__)
+#define LogPseudoActions(...)   {\
+                                  if(doLogPseudoActions) \
+                                    LogStatement("LogPseudoActions: " __VA_ARGS__)\
+                                  if(flushLogPseudoActions)\
+                                    LogFlush();\
+                                }
 #else
 #define LogPseudoActions(...)
 #endif
@@ -1305,48 +1363,72 @@ extern bool flushLogObjectAltitudes;   // Log finding the altitudes of objects a
 
 // Log the initial setup of the quadtree.
 #ifdef LOG_QUADTREE_CREATION
-#define LogQuadtreeCreation(...) if(doLogQuadtreeCreation) \
-                                        LogStatement("LogQuadtreeCreation: " __VA_ARGS__)
+#define LogQuadtreeCreation(...)    {\
+                                      if(doLogQuadtreeCreation) \
+                                        LogStatement("LogQuadtreeCreation: " __VA_ARGS__)\
+                                      if(flushLogQuadtreeCreation)\
+                                        LogFlush();\
+                                    }
 #else
 #define LogQuadtreeCreation(...)
 #endif
 
 // Log the process of a new object being put in the quadtree.
 #ifdef LOG_QUADTREE_INSERTIONS
-#define LogQuadtreeInsertions(...) if(doLogQuadtreeInsertions) \
-                                      LogStatement("LogQuadtreeInsertions: " __VA_ARGS__)
+#define LogQuadtreeInsertions(...)  {\
+                                      if(doLogQuadtreeInsertions) \
+                                        LogStatement("LogQuadtreeInsertions: " __VA_ARGS__)\
+                                      if(flushLogQuadtreeInsertions)\
+                                        LogFlush();\
+                                    }
 #else
 #define LogQuadtreeInsertions(...)
 #endif
 
 // Log changes to the quadtree bounding boxes.
 #ifdef LOG_QUADTREE_BOUND_BOX
-#define LogQuadtreeBoundBox(...) if(doLogQuadtreeBoundBox) \
-                                        LogStatement("LogQuadtreeBoundBox: " __VA_ARGS__)
+#define LogQuadtreeBoundBox(...)    {\
+                                      if(doLogQuadtreeBoundBox) \
+                                        LogStatement("LogQuadtreeBoundBox: " __VA_ARGS__)\
+                                      if(flushLogQuadtreeBoundBox)\
+                                        LogFlush();\
+                                    }
 #else
 #define LogQuadtreeBoundBox(...)
 #endif
 
 // Log the process of matching a ray in the quadtree.
 #ifdef LOG_QUADTREE_MATCH_RAY
-#define LogQuadtreeMatchRay(...) if(doLogQuadtreeMatchRay) \
-                                        LogStatement("LogQuadtreeMatchRay: " __VA_ARGS__)
+#define LogQuadtreeMatchRay(...)    {\
+                                      if(doLogQuadtreeMatchRay) \
+                                        LogStatement("LogQuadtreeMatchRay: " __VA_ARGS__)\
+                                      if(flushLogQuadtreeMatchRay)\
+                                        LogFlush();\
+                                    }
 #else
 #define LogQuadtreeMatchRay(...)
 #endif
 
 // Log process of objects being buffered for display.
 #ifdef LOG_DISPLAYLIST_BUFFER
-#define LogDisplayListBuffer(...) if(doLogDisplayListBuffer) \
-                                      LogStatement("LogDisplayListBuffer: " __VA_ARGS__)
+#define LogDisplayListBuffer(...)   {\
+                                      if(doLogDisplayListBuffer) \
+                                        LogStatement("LogDisplayListBuffer: " __VA_ARGS__)\
+                                      if(flushLogDisplayListBuffer)\
+                                        LogFlush();\
+                                    }
 #else
 #define LogDisplayListBuffer(...)
 #endif
 
 // Log the process of estimating/changing object sizes
 #ifdef LOG_QUADTREE_OBJ_SIZES
-#define LogQuadtreeObjSizes(...) if(doLogQuadtreeObjSizes) \
-                                      LogStatement("LogQuadtreeObjSizes: " __VA_ARGS__)
+#define LogQuadtreeObjSizes(...)    {\
+                                      if(doLogQuadtreeObjSizes) \
+                                        LogStatement("LogQuadtreeObjSizes: " __VA_ARGS__)\
+                                      if(flushLogQuadtreeObjSizes)\
+                                        LogFlush();\
+                                    }
 #else
 #define LogQuadtreeObjSizes(...)
 #endif
@@ -1357,48 +1439,76 @@ extern bool flushLogObjectAltitudes;   // Log finding the altitudes of objects a
 
 // Log the id of each newly created oject
 #ifdef LOG_OBJECT_CREATION
-#define LogObjectCreation(...) if(doLogObjectCreation) \
-                                          LogStatement("LogObjectCreation: " __VA_ARGS__)
+#define LogObjectCreation(...)    {\
+                                    if(doLogObjectCreation) \
+                                      LogStatement("LogObjectCreation: " __VA_ARGS__)\
+                                    if(flushLogObjectCreation)\
+                                      LogFlush();\
+                                  }
 #else
 #define LogObjectCreation(...)
 #endif
 
 // Log the workings of the triangle buffers.
 #ifdef LOG_TRIANGLE_BUFFER_OPS
-#define LogTriangleBufferOps(...) if(doLogTriangleBufferOps) \
-                                      LogStatement("LogTriangleBufferOps: " __VA_ARGS__)
+#define LogTriangleBufferOps(...)   {\
+                                      if(doLogTriangleBufferOps) \
+                                        LogStatement("LogTriangleBufferOps: " __VA_ARGS__)\
+                                      if(flushLogTriangleBufferOps)\
+                                        LogFlush();\
+                                    }
 #else
 #define LogTriangleBufferOps(...)
 #endif
 
 // Log estimates of sizes needed.
 #ifdef LOG_TRIANGLE_BUF_ESTIMATES
-#define LogTriangleBufEstimates(...) if(doLogTriangleBufEstimates) \
-                                    LogStatement("LogTriangleBufEstimates: " __VA_ARGS__)
+#define LogTriangleBufEstimates(...)  \
+                              {\
+                                if(doLogTriangleBufEstimates) \
+                                  LogStatement("LogTriangleBufEstimates: " __VA_ARGS__)\
+                                if(flushLogTriangleBufEstimates)\
+                                  LogFlush();\
+                              }
 #else
 #define LogTriangleBufEstimates(...)
 #endif
 
 // Log when the triangle buffer is rebuilt.
 #ifdef LOG_TRIANGLE_BUF_REBUILDS
-#define LogTriangleBufRebuilds(...) if(doLogTriangleBufRebuilds) \
-                                    LogStatement("LogTriangleBufRebuilds: " __VA_ARGS__)
+#define LogTriangleBufRebuilds(...)  \
+                              {\
+                                if(doLogTriangleBufRebuilds) \
+                                  LogStatement("LogTriangleBufRebuilds: " __VA_ARGS__)\
+                                if(flushLogTriangleBufRebuilds)\
+                                  LogFlush();\
+                              }
 #else
 #define LogTriangleBufRebuilds(...)
 #endif
 
 // Validate the condition of triangle buffers on gpu send
 #ifdef LOG_VALID_TRIANGLE_BUFS
-#define LogValidTriangleBufs(...) if(doLogValidTriangleBufs) \
-                                      LogStatement("LogValidTriangleBufs: " __VA_ARGS__)
+#define LogValidTriangleBufs(...)  \
+                              {\
+                                if(doLogValidTriangleBufs) \
+                                  LogStatement("LogValidTriangleBufs: " __VA_ARGS__)\
+                                if(flushLogValidTriangleBufs)\
+                                  LogFlush();\
+                              }
 #else
 #define LogValidTriangleBufs(...)
 #endif
 
 // Log actual errors in the triangle buffers.
 #ifdef LOG_TRIANGLE_BUFFER_ERRS
-#define LogTriangleBufferErrs(...) if(doLogTriangleBufferErrs) \
-                                      LogStatement("LogTriangleBufferErrs: " __VA_ARGS__)
+#define LogTriangleBufferErrs(...) \
+                              {\
+                                if(doLogTriangleBufferErrs) \
+                                  LogStatement("LogTriangleBufferErrs: " __VA_ARGS__)\
+                                if(flushLogTriangleBufferErrs)\
+                                  LogFlush();\
+                              }
 #else
 #define LogTriangleBufferErrs(...)
 #endif
@@ -1409,34 +1519,53 @@ extern bool flushLogObjectAltitudes;   // Log finding the altitudes of objects a
 
 // Log what the task queue farms are doing
 #ifdef LOG_TASK_QUEUE_FARM_OPS
-#define LogTaskQueueFarmOps(...) if(doLogTaskQueueFarmOps) \
-                                      LogStatement("LogTaskQueueFarmOps: " __VA_ARGS__)
+#define LogTaskQueueFarmOps(...)    \
+                              {\
+                                if(doLogTaskQueueFarmOps) \
+                                  LogStatement("LogTaskQueueFarmOps: " __VA_ARGS__)\
+                                if(flushLogTaskQueueFarmOps)\
+                                  LogFlush();\
+                              }
 #else
 #define LogTaskQueueFarmOps(...)
 #endif
+
 
 // =======================================================================================
 // Logging options to do with the Bezier Patch code
 
 // Log the process of fitting the Bezier patch to height data
 #ifdef LOG_BEZIER_FIT
-#define LogBezierFit(...) if(doLogBezierFit) LogStatement("LogBezierFit: " __VA_ARGS__)
+#define LogBezierFit(...)   {\
+                              if(doLogBezierFit) \
+                                LogStatement("LogBezierFit: " __VA_ARGS__)\
+                              if(flushLogBezierFit)\
+                                LogFlush();\
+                            }
 #else
 #define LogBezierFit(...)
 #endif
 
 // Log the process of matching ray intersection with a Bezier patch
 #ifdef LOG_BEZIER_MATCH_RAY
-#define LogBezierMatchRay(...) if(doLogBezierMatchRay) \
-                                          LogStatement("LogBezierMatchRay: " __VA_ARGS__)
+#define LogBezierMatchRay(...)    {\
+                                    if(doLogBezierMatchRay) \
+                                      LogStatement("LogBezierMatchRay: " __VA_ARGS__)\
+                                    if(flushLogBezierMatchRay)\
+                                      LogFlush();\
+                                  }
 #else
 #define LogBezierMatchRay(...)
 #endif
 
 // Log finding the altitudes of objects above the land
 #ifdef LOG_OBJECT_ALTITUDES
-#define LogObjectAltitudes(...) if(doLogObjectAltitudes) \
-                                        LogStatement("LogObjectAltitudes: " __VA_ARGS__)
+#define LogObjectAltitudes(...)   {\
+                                    if(doLogObjectAltitudes) \
+                                      LogStatement("LogObjectAltitudes: " __VA_ARGS__)\
+                                    if(flushLogObjectAltitudes)\
+                                      LogFlush();\
+                                  }
 #else
 #define LogObjectAltitudes(...)
 #endif
