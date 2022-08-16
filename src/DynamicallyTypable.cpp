@@ -6,7 +6,11 @@
 #include "DynamicallyTypable.h"
 #include <stdio.h>
 
+
 // =======================================================================================
+// Static variables, etc.
+
+/// Note that this must exactly match the enum DynamicType in DynamicallyTypable.h
 
 char* dynamicallyTypableName[] = {
                             (char*)"TypeNull", 
@@ -19,6 +23,7 @@ char* dynamicallyTypableName[] = {
                             (char*)"TypeTree",
                             (char*)"TypeVisualElement",
                             (char*)"TypeVisualObject",
+                            (char*)"TypeSoilProfile",
                             (char*)"TypeHWSDProfile"
 };
 

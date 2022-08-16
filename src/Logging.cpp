@@ -188,7 +188,7 @@ bool flushLogGdalError           = true; // Log problems in accessing files via 
 
 // Logging options to do with soil stuff
 bool flushLogSoilDbErr           = true; // Log problems in the soil database operation
-bool flushLogSoilDbOps           = false; // Log normal operations on the soil database
+bool flushLogSoilDbOps           = true; // Log normal operations on the soil database
 bool flushLogSoilDbDetails       = false; // Log extra details in the soil database operation
 bool flushLogHSWDExhaustive      = false; // Log every field read from the HSWD database
 bool flushLogBilFileDetails      = false; // Log details of reading from a BILFILE

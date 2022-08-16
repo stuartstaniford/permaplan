@@ -157,13 +157,14 @@ bool HttpPermaServ::processSoilRequest(char* url)
   float latLongRegion[4]; // (loLat, hiLat, loLong, hiLong) 
   unless(extractColonVecN(url, 4, latLongRegion))
    {
-    LogRequestErrors("Bad soil request: dni?%s\n", url);
+    LogRequestErrors("Bad soil request: soil?%s\n", url);
     return false;
    }
   if( (respPtr += soilDatabase->printJsonSoilProfiles(respPtr, respEnd-respPtr, 
                     latLongRegion[0], latLongRegion[1], latLongRegion[2], latLongRegion[3]))
           >= respEnd)
    {
+    LogSoilDbErr("Overflow in json response to soil request %s.\n", url);
     respBufOverflow = true; 
     return false;
    }

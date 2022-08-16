@@ -58,7 +58,8 @@ sub listProcessIds
    {
     @tokens = split;
     #print join('|', @tokens)."\n";
-    next unless $tokens[3] eq $processName;
+    next unless ($tokens[3] eq $processName)||
+        ($tokens[3] eq "/Users/stuarts/permaplan/$processName");
     push @returnArray, $tokens[0]; 
    }
   return sort @returnArray;
@@ -151,12 +152,14 @@ sub checkPermaserv
   if(scalar(@pids) > 1)
    {
     # Many permaservs, too confusing - cleanup
+    print "Found ".scalar(@pids)." existing permaservs, killing all.\n";
     killAll(@pids);
     $startRequired = 1;
    }
   elsif(scalar(@pids) == 0)
    {
     # No permaserv running at all
+    print "No existing permaserv found.\n";
     $startRequired = 1;
    }
   elsif(-f $servPortFile)
