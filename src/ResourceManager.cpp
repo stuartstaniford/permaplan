@@ -72,7 +72,6 @@ ResourceManager::ResourceManager(char* manifestFile)
     char buf[PATH_BUF_SIZE];
     getcwd(buf, PATH_BUF_SIZE);
     LogResourceErrors("Directory %s not found in %s.", MATERIALS_DIR, buf);
-    LogFlush();
     err(-1, "No %s directory in %s.\n", MATERIALS_DIR, buf);
    }
   processManifest(manifestFile);

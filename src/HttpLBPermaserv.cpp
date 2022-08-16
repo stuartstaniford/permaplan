@@ -33,7 +33,6 @@ HttpLBPermaserv::HttpLBPermaserv(unsigned short servPort, time_t compTime,
    }
   soilDatabase = new SoilDatabase;
   LogPermaservOps("Initialization of soil database complete.\n");
-  LogFlush();
   
   // Run the threads to service requests
   for(unsigned i=0; i<HTTP_THREAD_COUNT;i++)

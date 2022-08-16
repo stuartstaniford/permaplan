@@ -163,7 +163,6 @@ ActionType MenuAllTree::processAction(InterfaceAction* action)
   unless(currentList && currentList->count(stringValue))
    {
     LogRequestErrors("MenuAllTree::processAction invalid action %s.\n", stringValue);
-    LogFlush();
     return NoAction;
    }
   allTreeSelection(stringValue, (*currentList)[stringValue]);

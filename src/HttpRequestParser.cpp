@@ -245,7 +245,6 @@ bool HttpRequestParser::getNextRequest(void)
     //XX more complex book-keeping to reduce these copies.
     nBytes = bufLeft;
     LogRequestParsing("Moving %u bytes from position %lu in buffer\n", nBytes, readPoint-buf);
-    LogFlush();
     memcpy(buf, readPoint, nBytes);
     readPoint = buf + bufLeft;
     bufLeft = bufSize - bufLeft;

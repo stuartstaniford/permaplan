@@ -187,10 +187,7 @@ bool HttpPermaServ::processRequestHeader(void)
   char* url     = reqParser.getUrl();
   int strlenUrl = strlen(url);
   
-#ifdef LOG_PERMASERV_OP_DETAILS
   LogPermaservOpDetails("Got request for url %s.\n", url);
-  LogFlush();
-#endif 
 
   if( (strlenUrl == 1 && url[0] == '/') || strncmp(url, "/index.", 7) == 0)
    {
@@ -244,10 +241,6 @@ bool HttpPermaServ::processRequestHeader(void)
     LogRequestErrors("Request for unknown resource %s\n", url);
     errorPage("Resource not found");
    }
-
-#ifdef LOG_PERMASERV_OP_DETAILS
-  LogFlush();
-#endif 
     
   return retVal;
 }

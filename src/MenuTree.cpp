@@ -73,7 +73,6 @@ void MenuTree::treeMenuSelection(const char* genusString)
   
   ((InterfaceMainSceneWin*)mainMenu)->treeMenu = NULL;
   delete this;
-  LogFlush();
 }
 
 

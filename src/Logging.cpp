@@ -146,14 +146,14 @@ bool flushLogOpenGLConstants = false; // Log various openGL parameters
 bool flushLogTreeValidation  = false; // Validate data structures after every frame
 
 // Logging options to do with resource management and collection
-bool flushLogResourceErrors        = false; // Clear errors in the resource manager
+bool flushLogResourceErrors        = true; // Clear errors in the resource manager
 bool flushLogResourceActions       = false; // Stuff the resource manager actually does
 bool flushLogResourceDetails       = false; // Micro-detail of the resource manager operating
-bool flushLogHttpClientErrors      = false; // Log things going wrong in the HTTP Client
-bool flushLogPermaservClientErrors = false; // Log errors in the Permaserv Client layer
-bool flushLogPermaservClientOps    = false; // Log normal ops in the Permaserv Client layer
-bool flushLogPermaservOps          = false; // Log normal operation of the Permaserv server
-bool flushLogPermaservOpDetails    = false; // Log detailed operation of Permaserv for debugging
+bool flushLogHttpClientErrors      = true; // Log things going wrong in the HTTP Client
+bool flushLogPermaservClientErrors = true; // Log errors in the Permaserv Client layer
+bool flushLogPermaservClientOps    = true; // Log normal ops in the Permaserv Client layer
+bool flushLogPermaservOps          = true; // Log normal operation of the Permaserv server
+bool flushLogPermaservOpDetails    = true; // Log detailed operation of Permaserv for debugging
 
 // Logging options to do with parsing and validating OLDF and OTDL files
 bool flushLogOLDFValidity        = false; // Log validity problems in the file
@@ -173,7 +173,7 @@ bool flushLogDumpObjectBuffer   = false; // Dump buffer when a new object is ins
 bool flushLogSimulationControls = false; // Log control operations on the simulation.
 bool flushLogWindowOperations   = false; // Log changes to the window (eg resizing).
 bool flushLogCameraFrames       = false; // Log camera variables every frame
-bool flushLogGLFWErrors         = false; // Log when the GLFW library needs to report errors
+bool flushLogGLFWErrors         = true; // Log when the GLFW library needs to report errors
 
 // Logging options to do with materials and textures
 bool flushLogTextureAtlas        = false; // Log texture atlas creation
@@ -184,10 +184,10 @@ bool flushLogPathMap             = false; // Log storage and use of the path map
 
 // Logging options to do with sky sampling and lighting
 bool flushLogSkySampleInit       = false; // Log the setup of the sky sampling model
-bool flushLogGdalError           = false; // Log problems in accessing files via libgdal
+bool flushLogGdalError           = true; // Log problems in accessing files via libgdal
 
 // Logging options to do with soil stuff
-bool flushLogSoilDbErr           = false; // Log problems in the soil database operation
+bool flushLogSoilDbErr           = true; // Log problems in the soil database operation
 bool flushLogSoilDbOps           = false; // Log normal operations on the soil database
 bool flushLogSoilDbDetails       = false; // Log extra details in the soil database operation
 bool flushLogHSWDExhaustive      = false; // Log every field read from the HSWD database
@@ -207,7 +207,7 @@ bool flushLogBarkDisplay         = false; // Log bark color and texture details.
 bool flushLogTreeOpacity         = false; // Log tree bounding box opacity.
 bool flushLogTreeGraph           = false; // Log tree thread analysis graph.
 bool flushLogOTDLFileSearch      = false; // Log process of looking for OTDL files.
-bool flushLogTreeErrors          = false; // Log clear errors in tree related operations.
+bool flushLogTreeErrors          = true; // Log clear errors in tree related operations.
 
 // Logging options for buildings (gables, sheds, etc)
 bool flushLogBuildRectDetails    = false; // Log creation and buffering of BuildingRects
@@ -221,8 +221,8 @@ bool flushLogFindGroups          = false; // Log groups found during self valida
 bool flushLogPathTubeBuffer      = false; // Log the process of rendering a pathTube
 
 // Logging options for the HTTP debug interface
-bool flushLogRequestErrors       = false; // Log validity problems in the HTTP request
-bool flushLogResponseErrors      = false; // Log problems encountered building the response
+bool flushLogRequestErrors       = true; // Log validity problems in the HTTP request
+bool flushLogResponseErrors      = true; // Log problems encountered building the response
 bool flushLogHTTPBufferOps       = false; // Log operations on the main HTTP buffers
 bool flushLogHTTPDetails         = false; // Log normal details of HTTP operations
 bool flushLogHTTPLoadBalance     = false; // Log which connections get processed where
@@ -243,7 +243,7 @@ bool flushLogTriangleBufferOps    = false; // Log the workings of the triangle b
 bool flushLogTriangleBufEstimates = false; // Log estimates of sizes needed.
 bool flushLogTriangleBufRebuilds  = false; // Log when the triangle buffer is rebuilt.
 bool flushLogValidTriangleBufs    = false; // Validate condition of triangle buffers on gpu send
-bool flushLogTriangleBufferErrs   = false; // Log actual errors in the triangle buffers.
+bool flushLogTriangleBufferErrs   = true; // Log actual errors in the triangle buffers.
 
 // Logging options to do with the task queues and task queue farms
 bool flushLogTaskQueueFarmOps      = false; // Log what the task queue farms are doing

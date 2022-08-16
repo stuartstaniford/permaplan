@@ -138,7 +138,6 @@ void MainSceneWindow::processDoubleClick(float mouseX, float mouseY, float timeD
                                                         obj->objectName(), mouseX, mouseY);
   scene->editModeObject = obj;
   glm_vec3_copy(scene->lastDoubleClick, scene->editModeLocation);
-  LogFlush();
   scene->processNewEditModeObject();
 }
 

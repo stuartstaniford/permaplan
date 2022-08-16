@@ -284,8 +284,6 @@ HWSDProfile::HWSDProfile(MdbTableReader& hwsdTableReader): hwsdReader(hwsdTableR
   //[S_BULK_DENSITY]      Double, 
   columnCheck(i, (char*)"S_BULK_DENSITY", MDB_DOUBLE);
   subSoil->bulkDensity = atof(hwsdReader.boundValues[i++]);
-
-  LogFlush();
 }
 
 
