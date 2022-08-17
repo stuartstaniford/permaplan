@@ -85,7 +85,7 @@ int DynamicallyTypable::writeJson(char* buf, unsigned bufSize)
 int DynamicallyTypable::writeJsonFields(char* buf, unsigned bufSize)
 {
   char* end = buf + bufSize;
-  bufprintf("dynamicType: \"%s\"", dynamicallyTypableName[getDynamicType()]);
+  bufprintf("dynamicType: \"%s\",", dynamicallyTypableName[getDynamicType()]);
   return (bufSize - (int)(end-buf));
 }
 
