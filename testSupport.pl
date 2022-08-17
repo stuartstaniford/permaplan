@@ -59,7 +59,8 @@ sub listProcessIds
     @tokens = split;
     #print join('|', @tokens)."\n";
     next unless ($tokens[3] eq $processName)||
-        ($tokens[3] eq "/Users/stuarts/permaplan/$processName");
+          # hack for case of permaserv running in debugger:
+          ($tokens[3] eq "/Users/stuarts/permaplan/$processName"); 
     push @returnArray, $tokens[0]; 
    }
   return sort @returnArray;
