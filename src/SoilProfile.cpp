@@ -57,7 +57,8 @@ int SoilProfile::writeJsonFields(char* buf, unsigned bufSize)
   char* end = buf + bufSize;
   
   buf += DynamicallyTypable::writeJsonFields(buf, bufSize);
-  
+  bufprintf(",\n");
+
   // Write our own fields.
   bufprintf("\"latitude\": %.6f,\n", latitude);
   bufprintf("\"longtitude\": %.6f,\n", longtitude);

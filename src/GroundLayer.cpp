@@ -47,6 +47,7 @@ int GroundLayer::writeJsonFields(char* buf, unsigned bufSize)
     
   // Write parent and ancestor fields
   buf += DynamicallyTypable::writeJsonFields(buf, bufSize);
+  bufprintf(",\n");
 
   // Write our own fields.  
   bufprintf("\"name\": \"%s\",\n", name);
