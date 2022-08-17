@@ -25,7 +25,9 @@ enum DynamicType
   TypeVisualElement,
   TypeVisualObject,
   TypeSoilProfile,
-  TypeHWSDProfile
+  TypeHWSDProfile,
+  TypeGroundLayer,
+  TypeSoilHorizon
 };
 
 

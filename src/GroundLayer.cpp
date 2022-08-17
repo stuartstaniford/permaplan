@@ -33,36 +33,27 @@ GroundLayer::~GroundLayer(void)
 
 
 // =======================================================================================
-/// @brief Function to write out the json representation of this particular GroundLayer
-/// to a char buffer.
+/// @brief Output JSON GroundLayer format to a buffer.
+/// 
+/// @returns The number of bytes written to the buffer.  If greater than or equal to 
+/// the supplied bufSize parameter, it indicates the buffer was not big enough and the
+/// output will have been truncated/incomplete.
+/// @param buf The char buffer to write the JSON to.
+/// @param bufSize The size of the buffer, which must not be overwritten after the end.
 
-#define ERROR_MARGIN 32
-
-int GroundLayer::writeJson(char* buf, unsigned bufSize)
+int GroundLayer::writeJsonFields(char* buf, unsigned bufSize)
 {
-  char* writePoint = buf;
-  if(bufSize < ERROR_MARGIN) goto ErrorReturn;
+  char* end = buf + bufSize;
     
-  writePoint += sprintf(writePoint, "{\n");
-  if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
-  
-  writePoint += sprintf(writePoint, "depth: %.2f,\n", depth);
-  if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
-
-  writePoint += sprintf(writePoint, "bulkDensity: %.2f,\n", bulkDensity);
-  if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
+  // Write our own fields.  
+  bufprintf("\"name\": \"%s\",\n", name);
+  bufprintf("\"depth\": %.2f,\n", depth);
+  bufprintf("\"bulkDensity\": %.2f,\n", bulkDensity);
 
   // last one, no comma
-  writePoint += sprintf(writePoint, "organicCarbonFraction: %.4f\n", organicCarbonFraction);
-  if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
-
-  writePoint += sprintf(writePoint, "}");
+  bufprintf("\"organicCarbonFraction\": %.4f", organicCarbonFraction);
   
-  return writePoint - buf;
-  
-  ErrorReturn:
-  // Log the error
-  return -1;
+  return bufSize - (end-buf);
 }
 
 

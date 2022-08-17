@@ -3,6 +3,7 @@
 #ifndef GROUND_LAYER_H
 #define GROUND_LAYER_H
 
+#include "DynamicallyTypable.h"
 #include "rapidjson/document.h"
 #include "rapidjson/writer.h"
 #include "rapidjson/stringbuffer.h"
@@ -18,7 +19,7 @@
 /// the ground in sheets and affect the behavior of the ground, but don't have 
 /// meaningful values for soil-related data items like siltFraction or pH.
 
-class GroundLayer
+class GroundLayer: public DynamicallyTypable
 {
 public:
   
@@ -43,7 +44,8 @@ public:
   GroundLayer(void);
   ~GroundLayer(void);
   static bool isValid(rapidjson::Value& json);
-  int writeJson(char* buf, unsigned bufSize);
+  virtual DynamicType getDynamicType(void) {return TypeGroundLayer;}
+  virtual int writeJsonFields(char* buf, unsigned bufSize);
 
 private:
   

@@ -57,88 +57,44 @@ SoilHorizon::~SoilHorizon(void)
 
 
 // =======================================================================================
-/// @brief Constructor
+/// @brief Output JSON soil horizon format to a buffer.
+/// 
+/// @returns The number of bytes written to the buffer.  If greater than or equal to 
+/// the supplied bufSize parameter, it indicates the buffer was not big enough and the
+/// output will have been truncated/incomplete.
+/// @param buf The char buffer to write the JSON to.
+/// @param bufSize The size of the buffer, which must not be overwritten after the end.
 
-#define ERROR_MARGIN 32
-
-int SoilHorizon::writeJson(char* buf, unsigned bufSize)
+int SoilHorizon::writeJsonFields(char* buf, unsigned bufSize)
 {
-  char* writePoint = buf;
-  if(bufSize < ERROR_MARGIN) goto ErrorReturn;
-    
-  writePoint += sprintf(writePoint, "{\n");
-  if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
+  char* end = buf + bufSize;
   
-  writePoint += sprintf(writePoint, "GroundLayer:\n");
-  if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
-
-  writePoint += GroundLayer::writeJson(writePoint, bufSize - (writePoint-buf));
-  if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
-
-  writePoint += sprintf(writePoint, "name: %s,\n", name);
-  if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
-
-  writePoint += sprintf(writePoint, "coarseFragmentFraction: %.4f,\n", coarseFragmentFraction);
-  if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
-
-  writePoint += sprintf(writePoint, "sandFraction: %.4f,\n", sandFraction);
-  if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
-
-  writePoint += sprintf(writePoint, "siltFraction: %.4f,\n", siltFraction);
-  if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
-
-  writePoint += sprintf(writePoint, "clayFraction: %.4f,\n", clayFraction);
-  if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
-
-  writePoint += sprintf(writePoint, "usdaTextureClass: %s,\n", USDATextureName[usdaTextureClass]);
-  if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
-
-  writePoint += sprintf(writePoint, "bulkDensity: %.2f,\n", bulkDensity);  
-  if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
-
-  writePoint += sprintf(writePoint, "organicCarbonPercent: %.1f,\n", organicCarbonPercent);  
-  if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
-
-  writePoint += sprintf(writePoint, "pH: %.2f,\n", pH);  
-  if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
-
-  writePoint += sprintf(writePoint, "cecClay: %.1f,\n", cecClay);
-  if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
-
-  writePoint += sprintf(writePoint, "cecSoil: %.1f,\n", cecSoil);
-  if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
-
-  writePoint += sprintf(writePoint, "baseSaturation: %.1f,\n", baseSaturation);
-  if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
-
-  writePoint += sprintf(writePoint, "totalExchangeableBases: %.1f,\n", totalExchangeableBases);
-  if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
-
-  writePoint += sprintf(writePoint, "limeContent: %.1f,\n", limeContent);
-  if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
-
-  writePoint += sprintf(writePoint, "gypsumContent: %.1f,\n", gypsumContent);
-  if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
-
-  writePoint += sprintf(writePoint, "exchangeableNaPercentage: %.1f,\n",
-                                                            exchangeableNaPercentage);
-  if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
-
-  writePoint += sprintf(writePoint, "electricalConductivity: %.1f,\n", 
-                                                                electricalConductivity);
-  if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
-
+  // Write parent and ancestor fields
+  buf += GroundLayer::writeJsonFields(buf, bufSize);
+  bufprintf(",\n");
+  
+  // Write our own fields.  
+  bufprintf("\"coarseFragmentFraction\": %.4f,\n", coarseFragmentFraction);
+  bufprintf("\"sandFraction\": %.4f,\n", sandFraction);
+  bufprintf("\"siltFraction\": %.4f,\n", siltFraction);
+  bufprintf("\"clayFraction\": %.4f,\n", clayFraction);
+  bufprintf("\"usdaTextureClass\": \"%s\",\n", USDATextureName[usdaTextureClass]);
+  bufprintf("\"bulkDensity\": %.2f,\n", bulkDensity);  
+  bufprintf("\"organicCarbonPercent\": %.1f,\n", organicCarbonPercent);  
+  bufprintf("\"pH\": %.2f,\n", pH);  
+  bufprintf("\"cecClay\": %.1f,\n", cecClay);
+  bufprintf("\"cecSoil\": %.1f,\n", cecSoil);
+  bufprintf("\"baseSaturation\": %.1f,\n", baseSaturation);
+  bufprintf("\"totalExchangeableBases\": %.1f,\n", totalExchangeableBases);
+  bufprintf("\"limeContent\": %.1f,\n", limeContent);
+  bufprintf("\"gypsumContent\": %.1f,\n", gypsumContent);
+  bufprintf("\"exchangeableNaPercentage\": %.1f,\n", exchangeableNaPercentage);
+  bufprintf("\"electricalConductivity\": %.1f,\n", electricalConductivity);
+  
   // Last one, no comma
-  writePoint += sprintf(writePoint, "bulkDensityNonRef: %.1f\n", bulkDensityNonRef);
-  if(bufSize - (writePoint-buf) < ERROR_MARGIN) goto ErrorReturn;
+  bufprintf("\"bulkDensityNonRef\": %.1f", bulkDensityNonRef);
   
-  writePoint += sprintf(writePoint, "}\n\n");
-  
-  return writePoint - buf;
-  
-  ErrorReturn:
-  // Log the error
-  return -1;
+  return bufSize - (end-buf);
 }
 
 

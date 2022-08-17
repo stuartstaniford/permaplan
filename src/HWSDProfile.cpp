@@ -335,7 +335,7 @@ int HWSDProfile::writeJsonFields(char* buf, unsigned bufSize)
   bufprintf("\"roots\": %d,\n", roots);
   bufprintf("\"il\": %d,\n", il);
   bufprintf("\"swr\": %d,\n", swr);
-  bufprintf("\"addProp\": %d", addProp);  // last one, no comma
+  bufprintf("\"addProp\": %d\n", addProp);  // last one, no comma
 
   return bufSize - (end-buf);
 }

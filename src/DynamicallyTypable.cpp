@@ -24,7 +24,9 @@ char* dynamicallyTypableName[] = {
                             (char*)"TypeVisualElement",
                             (char*)"TypeVisualObject",
                             (char*)"TypeSoilProfile",
-                            (char*)"TypeHWSDProfile"
+                            (char*)"TypeHWSDProfile",
+                            (char*)"TypeGroundLayer",
+                            (char*)"TypeSoilHorizon"
 };
 
 
@@ -65,7 +67,7 @@ int DynamicallyTypable::writeJson(char* buf, unsigned bufSize)
   char* end = buf + bufSize;
   bufprintf("{\n");
   buf += writeJsonFields(buf, end-buf);
-  bufprintf(",\n}\n");
+  bufprintf("\n}\n");
   return (bufSize - (int)(end-buf));
 }
 
@@ -85,7 +87,7 @@ int DynamicallyTypable::writeJson(char* buf, unsigned bufSize)
 int DynamicallyTypable::writeJsonFields(char* buf, unsigned bufSize)
 {
   char* end = buf + bufSize;
-  bufprintf("dynamicType: \"%s\",", dynamicallyTypableName[getDynamicType()]);
+  bufprintf("\"dynamicType\": \"%s\",\n", dynamicallyTypableName[getDynamicType()]);
   return (bufSize - (int)(end-buf));
 }
 

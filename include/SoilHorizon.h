@@ -110,8 +110,9 @@ class SoilHorizon: public GroundLayer
   SoilHorizon(char* nm);
   SoilHorizon(rapidjson::Value json);
   ~SoilHorizon(void);
-  int writeJson(char* buf, unsigned bufSize);
-  
+  virtual DynamicType getDynamicType(void) {return TypeSoilHorizon;}
+  virtual int writeJsonFields(char* buf, unsigned bufSize);
+
   // Static methods
   static bool isValid(rapidjson::Value& json);
 
