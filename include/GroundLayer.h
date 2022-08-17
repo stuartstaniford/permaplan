@@ -41,7 +41,7 @@ public:
   
   
   // Member functions - public
-  GroundLayer(void);
+  GroundLayer(char* nm);
   ~GroundLayer(void);
   static bool isValid(rapidjson::Value& json);
   virtual DynamicType getDynamicType(void) {return TypeGroundLayer;}

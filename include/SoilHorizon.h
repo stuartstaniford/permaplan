@@ -42,9 +42,6 @@ class SoilHorizon: public GroundLayer
   
   // The data fields.
 
-  /// @brief Descriptive name of this horizon.
-  char* name; 
-  
   /// @brief The volumetric fraction of gravel/channers/etc (0.0 - 1.0).  Coarse 
   /// Fragments are considered to be those over 2mm in size.
   float coarseFragmentFraction; 

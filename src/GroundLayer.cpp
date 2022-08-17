@@ -19,7 +19,7 @@ using namespace rapidjson;
 // =======================================================================================
 /// @brief Constructor
 
-GroundLayer::GroundLayer(void)
+GroundLayer::GroundLayer(char* nm): name(nm)
 {
 }
 
@@ -45,6 +45,9 @@ int GroundLayer::writeJsonFields(char* buf, unsigned bufSize)
 {
   char* end = buf + bufSize;
     
+  // Write parent and ancestor fields
+  buf += DynamicallyTypable::writeJsonFields(buf, bufSize);
+
   // Write our own fields.  
   bufprintf("\"name\": \"%s\",\n", name);
   bufprintf("\"depth\": %.2f,\n", depth);

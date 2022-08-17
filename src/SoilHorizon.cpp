@@ -33,7 +33,7 @@ char* USDATextureName[] = {
 // =======================================================================================
 /// @brief Blank constructor used, eg, for reading from the HWSD.
 
-SoilHorizon::SoilHorizon(char* nm): name(nm)
+SoilHorizon::SoilHorizon(char* nm): GroundLayer(nm)
 {
 }
 
@@ -43,7 +43,7 @@ SoilHorizon::SoilHorizon(char* nm): name(nm)
 ///
 /// Note - call isValid first to ensure the JSON is valid
 
-SoilHorizon::SoilHorizon(Value json)
+SoilHorizon::SoilHorizon(Value json): GroundLayer(NULL)
 {
 }
 
