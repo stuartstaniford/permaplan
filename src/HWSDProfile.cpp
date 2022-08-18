@@ -342,16 +342,16 @@ HWSDProfile::HWSDProfile(Document& soilJson)
    }
    
   //[MU_SOURCE2]      Long Integer, 
-   if(soilJson.HasMember("muSource2") && soilJson["muSource2"].IsInt())
-     {
-      muSource2 = soilJson["muSource2"].GetInt();
-      LogHSWDExhaustive("Got muSource2 value of %d in soil json.\n", muSource2);
-     }
-    else
-     {
-      muSource2 = 0u;
-      LogSoilDbErr("Couldn't get muSource2 from soil json.\n");
-     }
+  if(soilJson.HasMember("muSource2") && soilJson["muSource2"].IsInt())
+   {
+    muSource2 = soilJson["muSource2"].GetInt();
+    LogHSWDExhaustive("Got muSource2 value of %d in soil json.\n", muSource2);
+   }
+  else
+   {
+    muSource2 = 0u;
+    LogSoilDbErr("Couldn't get muSource2 from soil json.\n");
+   }
 
   //[ISSOIL]      Byte, 
    if(soilJson.HasMember("isSoil") && soilJson["isSoil"].IsInt())
@@ -367,28 +367,76 @@ HWSDProfile::HWSDProfile(Document& soilJson)
         isSoil = false;
         LogHSWDExhaustive("Got isSoil value of false in soil json.\n");        
        }
+      else
+       {
+        isSoil = false;
+        LogSoilDbErr("Got invalid value %d for isSoil from soil json.\n", temp);
+       }
      }
     else
      {
       isSoil = false;
-      LogSoilDbErr("Couldn't get isSoil from json.\n");
+      LogSoilDbErr("Couldn't get isSoil from soil json.\n");
      }
-/*
+
   //[SHARE]      Single, 
-  columnCheck(i, (char*)"SHARE", MDB_FLOAT);
-  share = atof(hwsdReader->boundValues[i++]);
+  if(soilJson.HasMember("share") && soilJson["share"].IsFloat())
+   {
+    share = soilJson["share"].GetFloat();
+    LogHSWDExhaustive("Got share value of %f in soil json.\n", share);
+   }
+  else
+   {
+    share = 0.0f;
+    LogSoilDbErr("Couldn't get share from soil json.\n");
+   }
   
   //[SEQ]      Byte,
-  columnCheck(i, (char*)"SEQ", MDB_BYTE);
-  seq = (unsigned char)atoi(hwsdReader->boundValues[i++]);
+   if(soilJson.HasMember("seq") && soilJson["seq"].IsInt())
+     {
+      int temp = soilJson["seq"].GetInt();
+      if(temp >=0 && temp < 256)
+       {
+        seq = (unsigned char)temp;
+        LogHSWDExhaustive("Got seq value of %d in soil json.\n", seq);
+       }
+      else
+       {
+        seq = '\0';
+        LogSoilDbErr("Got invalid value of %d for seq in soil json.\n", temp);        
+       }
+     }
+    else
+     {
+      seq = '\0';
+      LogSoilDbErr("Couldn't get seq from soil json.\n");
+     }
   
   //[SU_SYM74]      Text (6), 
-  columnCheck(i, (char*)"SU_SYM74", MDB_TEXT);
-  strncpy(suSym74, hwsdReader->boundValues[i++], 6);
+   if(soilJson.HasMember("suSym74") && soilJson["suSym74"].IsString())
+    {
+     strncpy(suSym74, soilJson["suSym74"].GetString(), 6);
+     LogHSWDExhaustive("Got suSym74 value of %s in soil json.\n", suSym74);
+    }
+   else
+    {
+     suSym74[0] = '\0';
+     LogSoilDbErr("Couldn't get suSym74 from soil json.\n");
+    }
 
   //[SU_CODE74]      Integer,
-  columnCheck(i, (char*)"SU_CODE74", MDB_INT);
-  suCode74 = atoi(hwsdReader->boundValues[i++]);
+   if(soilJson.HasMember("suCode74") && soilJson["suCode74"].IsInt())
+    {
+     suCode74 = soilJson["suCode74"].GetInt();
+     LogHSWDExhaustive("Got suCode74 value of %d in soil json.\n", suCode74);
+    }
+   else
+    {
+     suCode74 = 0u;
+     LogSoilDbErr("Couldn't get suCode74 from soil json.\n");
+    }
+
+  /*
 
   //[SU_SYM85]      Text (6),
   columnCheck(i, (char*)"SU_SYM85", MDB_TEXT);
