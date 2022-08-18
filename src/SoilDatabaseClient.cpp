@@ -7,6 +7,7 @@
 #include "HttpPermaservClient.h"
 #include "SoilProfile.h"
 #include "PmodDesign.h"
+#include "HWSDProfile.h"
 #include "Global.h"
 #include "Logging.h"
 
@@ -66,7 +67,25 @@ bool SoilDatabaseClient::getProfilesFromSoilDatabase(void)
   // Parse the returned document to extract the soil profiles.  Note we are a friend
   // of HttpPermaservClient so we can access it's private doc variable - makes more 
   // sense to keep the detailed knowledge of soil profile JSON structure here.
-  
+  Document& soilJson = httpPermClient.doc;
+
+  unless(soilJson.HasMember("dynamicType") && soilJson["dynamicType"].IsString())
+   {
+    LogPermaservClientErrors("Bad or missing dynamicType in soil json.\n");
+    return false;
+   }
+  const char* dType = soilJson["dynamicType"].GetString();
+  if(strcmp(dType, "TypeHWSDProfile") == 0)
+   {
+    HWSDProfile* soilProf = new HWSDProfile(soilJson);
+    soilSamples.push_back((SoilProfile*)soilProf);
+   }
+  else
+   {
+    // No other soil profile types supported at present
+    LogPermaservClientErrors("Unsupported dynamicType %s in soil json.\n", dType);
+    return false;    
+   }
   return true;
 }
 

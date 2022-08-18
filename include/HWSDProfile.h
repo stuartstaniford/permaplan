@@ -4,6 +4,10 @@
 #define HWSD_PROFILE_H
 
 #include "SoilProfile.h"
+#include "rapidjson/document.h"
+#include "rapidjson/writer.h"
+#include "rapidjson/stringbuffer.h"
+#include "rapidjson/error/en.h"
 
 
 // =======================================================================================
@@ -32,6 +36,7 @@ public:
   
   // Member functions - public
   HWSDProfile(MdbTableReader& hwsdTableReader);
+  HWSDProfile(rapidjson::Document& soilJson);
   ~HWSDProfile(void);
   void columnCheck(int column, char* colName, int expectedType);
   virtual DynamicType getDynamicType(void) {return TypeHWSDProfile;}
@@ -41,7 +46,7 @@ private:
   
   // Instance variables - private.
   // Note some reordering has been done to improve packing
-  MdbTableReader& hwsdReader;
+  MdbTableReader* hwsdReader;
   int             dbId;
   int             muGlobal;
   char            muSource1[12];
