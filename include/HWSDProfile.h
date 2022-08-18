@@ -73,7 +73,6 @@ private:
   
   ///@todo SU_ variables not clear if in here or soilProfile
   
-  
   // Member functions - private
   /// @brief Prevent copy-construction.
   HWSDProfile(const HWSDProfile&);       

@@ -206,8 +206,9 @@ src/BILFile.o: /usr/local/include/cglm/sphere.h
 src/BILFile.o: /usr/local/include/cglm/ease.h /usr/local/include/cglm/curve.h
 src/BILFile.o: /usr/local/include/cglm/bezier.h /usr/local/include/cglm/ray.h
 src/BILFile.o: /usr/local/include/cglm/affine2d.h ./include/SoilProfile.h
-src/BILFile.o: ./include/GroundLayer.h ./include/rapidjson/document.h
-src/BILFile.o: ./include/rapidjson/reader.h ./include/rapidjson/allocators.h
+src/BILFile.o: ./include/GroundLayer.h ./include/DynamicallyTypable.h
+src/BILFile.o: ./include/rapidjson/document.h ./include/rapidjson/reader.h
+src/BILFile.o: ./include/rapidjson/allocators.h
 src/BILFile.o: ./include/rapidjson/rapidjson.h ./include/rapidjson/stream.h
 src/BILFile.o: ./include/rapidjson/encodings.h
 src/BILFile.o: ./include/rapidjson/encodedstream.h
@@ -233,8 +234,7 @@ src/BILFile.o: ./include/rapidjson/internal/itoa.h
 src/BILFile.o: ./include/rapidjson/stringbuffer.h
 src/BILFile.o: ./include/rapidjson/stringbuffer.h
 src/BILFile.o: ./include/rapidjson/error/en.h
-src/BILFile.o: ./include/rapidjson/error/error.h
-src/BILFile.o: ./include/DynamicallyTypable.h ./include/Logging.h
+src/BILFile.o: ./include/rapidjson/error/error.h ./include/Logging.h
 src/BILFile.o: ./include/MemoryTracker.h ./include/Timeval.h
 src/BILFile.o: ./include/Lockable.h
 src/BezierPatch.o: ./include/BezierPatch.h ./include/LandSurfaceRegion.h
@@ -1601,7 +1601,8 @@ src/Grid.o: ./include/LandSurfaceRegion.h ./include/VisualObject.h
 src/Grid.o: ./include/VisualElement.h ./include/DynamicallyTypable.h
 src/Grid.o: ./include/TriangleBuffer.h ./include/BoundingBox.h
 src/Grid.o: ./include/TexturedRect.h ./include/Texture.h
-src/GroundLayer.o: ./include/GroundLayer.h ./include/rapidjson/document.h
+src/GroundLayer.o: ./include/GroundLayer.h ./include/DynamicallyTypable.h
+src/GroundLayer.o: ./include/rapidjson/document.h
 src/GroundLayer.o: ./include/rapidjson/reader.h
 src/GroundLayer.o: ./include/rapidjson/allocators.h
 src/GroundLayer.o: ./include/rapidjson/rapidjson.h
@@ -1675,7 +1676,8 @@ src/GroundLayer.o: /usr/local/include/cglm/bezier.h
 src/GroundLayer.o: /usr/local/include/cglm/ray.h
 src/GroundLayer.o: /usr/local/include/cglm/affine2d.h
 src/HWSDProfile.o: ./include/HWSDProfile.h ./include/SoilProfile.h
-src/HWSDProfile.o: ./include/GroundLayer.h ./include/rapidjson/document.h
+src/HWSDProfile.o: ./include/GroundLayer.h ./include/DynamicallyTypable.h
+src/HWSDProfile.o: ./include/rapidjson/document.h
 src/HWSDProfile.o: ./include/rapidjson/reader.h
 src/HWSDProfile.o: ./include/rapidjson/allocators.h
 src/HWSDProfile.o: ./include/rapidjson/rapidjson.h
@@ -1704,8 +1706,7 @@ src/HWSDProfile.o: ./include/rapidjson/internal/itoa.h
 src/HWSDProfile.o: ./include/rapidjson/stringbuffer.h
 src/HWSDProfile.o: ./include/rapidjson/stringbuffer.h
 src/HWSDProfile.o: ./include/rapidjson/error/en.h
-src/HWSDProfile.o: ./include/rapidjson/error/error.h
-src/HWSDProfile.o: ./include/DynamicallyTypable.h ./include/SoilHorizon.h
+src/HWSDProfile.o: ./include/rapidjson/error/error.h ./include/SoilHorizon.h
 src/HWSDProfile.o: ./include/MdbFile.h /usr/local/include/mdbtools.h
 src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib.h
 src/HWSDProfile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/galloca.h
@@ -3528,8 +3529,8 @@ src/MdbFile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/deprecated/gr
 src/MdbFile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/deprecated/gthread.h
 src/MdbFile.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/glib-autocleanups.h
 src/MdbFile.o: ./include/SoilProfile.h ./include/GroundLayer.h
-src/MdbFile.o: ./include/rapidjson/document.h ./include/rapidjson/reader.h
-src/MdbFile.o: ./include/rapidjson/allocators.h
+src/MdbFile.o: ./include/DynamicallyTypable.h ./include/rapidjson/document.h
+src/MdbFile.o: ./include/rapidjson/reader.h ./include/rapidjson/allocators.h
 src/MdbFile.o: ./include/rapidjson/rapidjson.h ./include/rapidjson/stream.h
 src/MdbFile.o: ./include/rapidjson/encodings.h
 src/MdbFile.o: ./include/rapidjson/encodedstream.h
@@ -3555,8 +3556,7 @@ src/MdbFile.o: ./include/rapidjson/internal/itoa.h
 src/MdbFile.o: ./include/rapidjson/stringbuffer.h
 src/MdbFile.o: ./include/rapidjson/stringbuffer.h
 src/MdbFile.o: ./include/rapidjson/error/en.h
-src/MdbFile.o: ./include/rapidjson/error/error.h
-src/MdbFile.o: ./include/DynamicallyTypable.h ./include/Global.h
+src/MdbFile.o: ./include/rapidjson/error/error.h ./include/Global.h
 src/MdbFile.o: /usr/local/include/cglm/cglm.h
 src/MdbFile.o: /usr/local/include/cglm/common.h
 src/MdbFile.o: /usr/local/include/cglm/types.h
@@ -5691,6 +5691,7 @@ src/SoilDatabase.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/deprecat
 src/SoilDatabase.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/deprecated/gthread.h
 src/SoilDatabase.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/glib-autocleanups.h
 src/SoilDatabase.o: ./include/SoilProfile.h ./include/GroundLayer.h
+src/SoilDatabase.o: ./include/DynamicallyTypable.h
 src/SoilDatabase.o: ./include/rapidjson/document.h
 src/SoilDatabase.o: ./include/rapidjson/reader.h
 src/SoilDatabase.o: ./include/rapidjson/allocators.h
@@ -5720,8 +5721,7 @@ src/SoilDatabase.o: ./include/rapidjson/internal/itoa.h
 src/SoilDatabase.o: ./include/rapidjson/stringbuffer.h
 src/SoilDatabase.o: ./include/rapidjson/stringbuffer.h
 src/SoilDatabase.o: ./include/rapidjson/error/en.h
-src/SoilDatabase.o: ./include/rapidjson/error/error.h
-src/SoilDatabase.o: ./include/DynamicallyTypable.h ./include/Logging.h
+src/SoilDatabase.o: ./include/rapidjson/error/error.h ./include/Logging.h
 src/SoilDatabase.o: ./include/MemoryTracker.h ./include/Timeval.h
 src/SoilDatabase.o: ./include/Lockable.h ./include/Global.h
 src/SoilDatabase.o: /usr/local/include/cglm/cglm.h
@@ -5849,9 +5849,11 @@ src/SoilDatabaseClient.o: /usr/local/include/cglm/bezier.h
 src/SoilDatabaseClient.o: /usr/local/include/cglm/ray.h
 src/SoilDatabaseClient.o: /usr/local/include/cglm/affine2d.h
 src/SoilDatabaseClient.o: ./include/BoundingBox.h ./include/Timeval.h
-src/SoilDatabaseClient.o: ./include/Global.h ./include/Logging.h
-src/SoilDatabaseClient.o: ./include/MemoryTracker.h ./include/Lockable.h
+src/SoilDatabaseClient.o: ./include/HWSDProfile.h ./include/Global.h
+src/SoilDatabaseClient.o: ./include/Logging.h ./include/MemoryTracker.h
+src/SoilDatabaseClient.o: ./include/Lockable.h
 src/SoilHorizon.o: ./include/SoilHorizon.h ./include/GroundLayer.h
+src/SoilHorizon.o: ./include/DynamicallyTypable.h
 src/SoilHorizon.o: ./include/rapidjson/document.h
 src/SoilHorizon.o: ./include/rapidjson/reader.h
 src/SoilHorizon.o: ./include/rapidjson/allocators.h
@@ -5926,6 +5928,7 @@ src/SoilHorizon.o: /usr/local/include/cglm/bezier.h
 src/SoilHorizon.o: /usr/local/include/cglm/ray.h
 src/SoilHorizon.o: /usr/local/include/cglm/affine2d.h
 src/SoilProfile.o: ./include/SoilProfile.h ./include/GroundLayer.h
+src/SoilProfile.o: ./include/DynamicallyTypable.h
 src/SoilProfile.o: ./include/rapidjson/document.h
 src/SoilProfile.o: ./include/rapidjson/reader.h
 src/SoilProfile.o: ./include/rapidjson/allocators.h
@@ -5955,8 +5958,7 @@ src/SoilProfile.o: ./include/rapidjson/internal/itoa.h
 src/SoilProfile.o: ./include/rapidjson/stringbuffer.h
 src/SoilProfile.o: ./include/rapidjson/stringbuffer.h
 src/SoilProfile.o: ./include/rapidjson/error/en.h
-src/SoilProfile.o: ./include/rapidjson/error/error.h
-src/SoilProfile.o: ./include/DynamicallyTypable.h ./include/SoilHorizon.h
+src/SoilProfile.o: ./include/rapidjson/error/error.h ./include/SoilHorizon.h
 src/SoilProfile.o: ./include/Global.h /usr/local/include/cglm/cglm.h
 src/SoilProfile.o: /usr/local/include/cglm/common.h
 src/SoilProfile.o: /usr/local/include/cglm/types.h

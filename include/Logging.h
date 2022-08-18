@@ -85,7 +85,7 @@
 #define LOG_SOIL_DB_ERR             // Log problems in the soil database operation
 #define LOG_SOIL_DB_OPS             // Log normal operations on the soil database
 #define LOG_SOIL_DB_DETAILS         // Log extra details in the soil database operation
-//#define LOG_HSWD_EXHAUSTIVE         // Log every field read from the HSWD database
+#define LOG_HSWD_EXHAUSTIVE         // Log every field read from the HSWD database
 #define LOG_BILFILE_DETAILS         // Log details of reading from a BILFILE
 
 
