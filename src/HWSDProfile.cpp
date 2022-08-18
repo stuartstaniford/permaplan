@@ -436,24 +436,55 @@ HWSDProfile::HWSDProfile(Document& soilJson)
      LogSoilDbErr("Couldn't get suCode74 from soil json.\n");
     }
 
-  /*
-
   //[SU_SYM85]      Text (6),
-  columnCheck(i, (char*)"SU_SYM85", MDB_TEXT);
-  strncpy(suSym85, hwsdReader->boundValues[i++], 6);
+   if(soilJson.HasMember("suSym85") && soilJson["suSym85"].IsString())
+    {
+     strncpy(suSym85, soilJson["suSym85"].GetString(), 6);
+     LogHSWDExhaustive("Got suSym85 value of %s in soil json.\n", suSym85);
+    }
+   else
+    {
+     suSym85[0] = '\0';
+     LogSoilDbErr("Couldn't get suSym85 from soil json.\n");
+    }
 
   //[SU_CODE85]      Integer,
-  columnCheck(i, (char*)"SU_CODE85", MDB_INT);
-  suCode85 = atoi(hwsdReader->boundValues[i++]);
+   if(soilJson.HasMember("suCode85") && soilJson["suCode85"].IsInt())
+    {
+     suCode85 = soilJson["suCode85"].GetInt();
+     LogHSWDExhaustive("Got suCode85 value of %d in soil json.\n", suCode85);
+    }
+   else
+    {
+     suCode85 = 0u;
+     LogSoilDbErr("Couldn't get suCode85 from soil json.\n");
+    }
 
   //[SU_SYM90]      Text (6),
-  columnCheck(i, (char*)"SU_SYM90", MDB_TEXT);
-  strncpy(suSym90, hwsdReader->boundValues[i++], 6);
+   if(soilJson.HasMember("suSym90") && soilJson["suSym90"].IsString())
+    {
+     strncpy(suSym85, soilJson["suSym90"].GetString(), 6);
+     LogHSWDExhaustive("Got suSym90 value of %s in soil json.\n", suSym90);
+    }
+   else
+    {
+     suSym90[0] = '\0';
+     LogSoilDbErr("Couldn't get suSym90 from soil json.\n");
+    }
 
   //[SU_CODE90]      Integer,
-  columnCheck(i, (char*)"SU_CODE90", MDB_INT);
-  suCode90 = atoi(hwsdReader->boundValues[i++]);
+   if(soilJson.HasMember("suCode90") && soilJson["suCode90"].IsInt())
+    {
+     suCode85 = soilJson["suCode90"].GetInt();
+     LogHSWDExhaustive("Got suCode90 value of %d in soil json.\n", suCode90);
+    }
+   else
+    {
+     suCode90 = 0u;
+     LogSoilDbErr("Couldn't get suCode90 from soil json.\n");
+    }
 
+  /*
   //[T_TEXTURE]      Byte,
   columnCheck(i, (char*)"T_TEXTURE", MDB_BYTE);
   tTexture = (unsigned char)atoi(hwsdReader->boundValues[i++]);
