@@ -179,6 +179,9 @@ bool HttpPermaservClient::getJSONObject(char* url)
     return false; 
    }
 
+#ifdef LOG_PERMASERV_CLIENT_OPS
+  unsigned jsonLen = strlen(recvBuf);
+#endif
   ParseResult ok = doc.ParseInsitu<kParseCommentsFlag>(recvBuf);
   if (!ok)
    {
@@ -186,8 +189,8 @@ bool HttpPermaservClient::getJSONObject(char* url)
                                                             " for url %s.\n", url);
     return false; 
    }
-  LogPermaservClientOps("HttpPermaservClient::getJSONObject got valid json of %lu bytes"
-                                            " for url %s.\n", strlen(recvBuf), url);
+  LogPermaservClientOps("HttpPermaservClient::getJSONObject got valid json of %u bytes"
+                                            " for url %s.\n", jsonLen, url);
   return true;  
 }
 
