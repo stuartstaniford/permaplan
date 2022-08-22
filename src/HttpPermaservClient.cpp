@@ -187,6 +187,8 @@ bool HttpPermaservClient::getJSONObject(char* url)
    {
     LogPermaservClientErrors("JSON parse error in HttpPermaservClient::getJSONObject"
                                                             " for url %s.\n", url);
+    LogPermaservClientErrors("JSON parse error details: %s (offset %u)\n",
+                              GetParseError_En(ok.Code()), (unsigned)(ok.Offset()));
     return false; 
    }
   LogPermaservClientOps("HttpPermaservClient::getJSONObject got valid json of %u bytes"
