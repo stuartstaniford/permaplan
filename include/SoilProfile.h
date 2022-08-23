@@ -5,6 +5,10 @@
 
 #include "GroundLayer.h"
 #include "DynamicallyTypable.h"
+#include "rapidjson/document.h"
+#include "rapidjson/writer.h"
+#include "rapidjson/stringbuffer.h"
+#include "rapidjson/error/en.h"
 #include <vector>
 
 
@@ -37,7 +41,8 @@ public:
   virtual ~SoilProfile(void);
   virtual DynamicType getDynamicType(void) {return TypeSoilProfile;}
   virtual int writeJsonFields(char* buf, unsigned bufSize);
- 
+  void getGroundLayersFromJson(rapidjson::Document& soilJson);
+
 private:
   
   // Instance variables - private

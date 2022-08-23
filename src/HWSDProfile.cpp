@@ -376,6 +376,9 @@ using namespace rapidjson;
 
 HWSDProfile::HWSDProfile(Document& soilJson)
 {
+  // Read the individual ground layers via a call to SoilProfile method
+  getGroundLayersFromJson(soilJson);
+
   // Read integer variables with checkSetInt()
   dbId      = checkSetInt(soilJson, (char*)"dbId");       // [ID] Long Integer,   
   muGlobal  = checkSetInt(soilJson, (char*)"muGlobal");   // [MU_GLOBAL]  Long Integer   

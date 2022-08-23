@@ -90,3 +90,22 @@ int SoilProfile::writeJsonFields(char* buf, unsigned bufSize)
 
 
 // =======================================================================================
+/// @brief Function used in permaplan when we've gotten soil information as json from
+/// permaserv to load our ground layers.
+/// 
+/// @param soilJson A rapidjson::Document reference with the parsed json received from
+/// permaserv.  By the time we get here, we are guaranteed that it's valid JSON, but 
+/// otherwise we need to validate.
+/// 
+/// See the technical report at
+/// https://www.fao.org/3/aq361e/aq361e.pdf for the semantics of the different fields.
+
+using namespace rapidjson;
+
+void SoilProfile::getGroundLayersFromJson(Document& soilJson)
+{
+  
+}
+
+
+// =======================================================================================
