@@ -43,7 +43,7 @@ SoilHorizon::SoilHorizon(char* nm): GroundLayer(nm)
 ///
 /// Note - call isValid first to ensure the JSON is valid
 
-SoilHorizon::SoilHorizon(Value json): GroundLayer(NULL)
+SoilHorizon::SoilHorizon(Value& json): GroundLayer(NULL)
 {
 }
 

@@ -129,7 +129,10 @@ void SoilProfile::getGroundLayersFromJson(Document& soilJson)
     // Handle the different possible types of groundLayer we might instantiate
     if(strcmp(layerJson["dynamicType"].GetString(), "TypeSoilHorizon") == 0)
      {
-      
+      GroundLayer* gLayer = new SoilHorizon(layerJson);
+      push_back(gLayer);
+      LogHSWDExhaustive("Stored %d layer of type %s from soil json.\n",
+                                              i, layerJson["dynamicType"].GetString());
      }
     else
      {

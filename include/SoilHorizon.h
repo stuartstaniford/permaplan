@@ -4,6 +4,10 @@
 #define SOIL_HORIZON_H
 
 #include "GroundLayer.h"
+#include "rapidjson/document.h"
+#include "rapidjson/writer.h"
+#include "rapidjson/stringbuffer.h"
+#include "rapidjson/error/en.h"
 
 
 // =======================================================================================
@@ -105,7 +109,7 @@ class SoilHorizon: public GroundLayer
   
   // Useful methods
   SoilHorizon(char* nm);
-  SoilHorizon(rapidjson::Value json);
+  SoilHorizon(rapidjson::Value& json);
   ~SoilHorizon(void);
   virtual DynamicType getDynamicType(void) {return TypeSoilHorizon;}
   virtual int writeJsonFields(char* buf, unsigned bufSize);
