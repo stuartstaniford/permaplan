@@ -4,8 +4,10 @@
 
 #include "SoilHorizon.h"
 #include "Logging.h"
-#include <stdio.h>
 #include "Global.h"
+#include <stdio.h>
+#include <unordered_map>
+#include <string>
 
 
 // =======================================================================================
@@ -31,6 +33,8 @@ char* USDATextureName[] = {
 };
 
 bool usdaReverseIndexPresent = false;
+
+std::unordered_map<std::string, USDATextureClass> reverseUSDAIndex;
 
 // =======================================================================================
 /// @brief Blank constructor used, eg, for reading from the HWSD.
@@ -69,6 +73,9 @@ inline float checkSetFloat(Value& soilJson, char* name)
 void setUpUsdaReverseIndex(void)
 {
   usdaReverseIndexPresent = true;
+  
+  for(unsigned i = NoTextureClass; i <= Sand; i++)
+    reverseUSDAIndex[USDATextureName[i]] = (USDATextureClass)i;
 }
 
 
@@ -90,8 +97,16 @@ SoilHorizon::SoilHorizon(Value& json): GroundLayer(NULL)
     LogSoilDbErr("Couldn't get groundlayer name from soil json.\n");
     
   // Need to do USDA texture variables.
-  
-  
+  if(json.HasMember("usdaTextureClass") && json["usdaTextureClass"].IsString()
+                        && reverseUSDAIndex.count(json["usdaTextureClass"].GetString()) > 0)
+   {
+    usdaTextureClass = reverseUSDAIndex[json["usdaTextureClass"].GetString()];
+    LogHSWDExhaustive("Got usdaTextureClass value of %s in soil json.\n", 
+                                                  json["usdaTextureClass"].GetString());
+   }
+  else
+    LogSoilDbErr("Couldn't get valid usdaTextureClass from soil json.\n");
+
   // Float variables directly in this class
   coarseFragmentFraction    = checkSetFloat(json, (char*)"coarseFragmentFraction");
   sandFraction              = checkSetFloat(json, (char*)"sandFraction");

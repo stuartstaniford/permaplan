@@ -14,6 +14,8 @@
 /// @brief An enum for USDA texture classes.  See
 /// 
 /// For details of the definition, see p13 of https://www.fao.org/3/aq361e/aq361e.pdf
+/// N.B. Any changes to the enum would require corresponding changes to USDATextureName
+/// and setUpUsdaReverseIndex().
 
 enum USDATextureClass
 {

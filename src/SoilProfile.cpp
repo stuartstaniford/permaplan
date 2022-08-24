@@ -131,7 +131,7 @@ void SoilProfile::getGroundLayersFromJson(Document& soilJson)
      {
       GroundLayer* gLayer = new SoilHorizon(layerJson);
       push_back(gLayer);
-      LogHSWDExhaustive("Stored %d layer of type %s from soil json.\n",
+      LogHSWDExhaustive("Stored layer %d of type %s from soil json.\n",
                                               i, layerJson["dynamicType"].GetString());
      }
     else
