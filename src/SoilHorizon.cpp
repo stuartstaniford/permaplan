@@ -73,6 +73,10 @@ SoilHorizon::SoilHorizon(Value& json): GroundLayer(NULL)
   else
     LogSoilDbErr("Couldn't get groundlayer name from soil json.\n");
     
+  // Need to do USDA texture variables.
+  
+  
+  // Float variables directly in this class
   coarseFragmentFraction    = checkSetFloat(json, (char*)"coarseFragmentFraction");
   sandFraction              = checkSetFloat(json, (char*)"sandFraction");
   siltFraction              = checkSetFloat(json, (char*)"siltFraction");
