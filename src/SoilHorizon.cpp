@@ -30,6 +30,7 @@ char* USDATextureName[] = {
                             (char*)"Sand"
 };
 
+bool usdaReverseIndexPresent = false;
 
 // =======================================================================================
 /// @brief Blank constructor used, eg, for reading from the HWSD.
@@ -61,12 +62,27 @@ inline float checkSetFloat(Value& soilJson, char* name)
 
 
 // =======================================================================================
+/// @brief Function to set up the reverse index for USDATextureNames.
+/// 
+/// Should only be called once, the first time we create a new SoilHorizon.
+
+void setUpUsdaReverseIndex(void)
+{
+  usdaReverseIndexPresent = true;
+}
+
+
+// =======================================================================================
 /// @brief Constructor for reading from the JSON format
 ///
 /// Note - call isValid first to ensure the JSON is valid
 
 SoilHorizon::SoilHorizon(Value& json): GroundLayer(NULL)
 {
+  // ensure we have the reverse index the first time we are called
+  unless(usdaReverseIndexPresent)
+    setUpUsdaReverseIndex();
+  
   // Initialize our parent class GroundLayer
   if(json.HasMember("name") && json["name"].IsString())
     initVars(json["name"].GetString(), 0.0f, 0.0f);
