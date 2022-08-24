@@ -26,7 +26,7 @@ public:
   // Instance variables - public
 
   /// @brief The name of this particular ground layer (eg "litter", "topsoil").
-  char* name;                  
+  const char* name;                  
   
   /// @brief The depth of this particular soil layer (cm).
   float depth;                  
@@ -43,6 +43,7 @@ public:
   // Member functions - public
   GroundLayer(char* nm);
   ~GroundLayer(void);
+  bool initVars(const char* nm, float dep, float bulkDens);
   static bool isValid(rapidjson::Value& json);
   virtual DynamicType getDynamicType(void) {return TypeGroundLayer;}
   virtual int writeJsonFields(char* buf, unsigned bufSize);

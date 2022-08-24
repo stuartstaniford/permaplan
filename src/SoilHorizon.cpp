@@ -67,9 +67,28 @@ inline float checkSetFloat(Value& soilJson, char* name)
 
 SoilHorizon::SoilHorizon(Value& json): GroundLayer(NULL)
 {
-  // Need to handle name in groundlayer
-  
-  coarseFragmentFraction = checkSetFloat(json, (char*)"coarseFragmentFraction");
+  // Initialize our parent class GroundLayer
+  if(json.HasMember("name") && json["name"].IsString())
+    initVars(json["name"].GetString(), 0.0f, 0.0f);
+  else
+    LogSoilDbErr("Couldn't get groundlayer name from soil json.\n");
+    
+  coarseFragmentFraction    = checkSetFloat(json, (char*)"coarseFragmentFraction");
+  sandFraction              = checkSetFloat(json, (char*)"sandFraction");
+  siltFraction              = checkSetFloat(json, (char*)"siltFraction");
+  clayFraction              = checkSetFloat(json, (char*)"clayFraction");
+  bulkDensity               = checkSetFloat(json, (char*)"bulkDensity");
+  organicCarbonPercent      = checkSetFloat(json, (char*)"organicCarbonPercent");
+  pH                        = checkSetFloat(json, (char*)"pH");
+  cecClay                   = checkSetFloat(json, (char*)"cecClay");
+  cecSoil                   = checkSetFloat(json, (char*)"cecSoil");
+  baseSaturation            = checkSetFloat(json, (char*)"baseSaturation");
+  totalExchangeableBases    = checkSetFloat(json, (char*)"totalExchangeableBases");
+  limeContent               = checkSetFloat(json, (char*)"limeContent");
+  gypsumContent             = checkSetFloat(json, (char*)"gypsumContent");
+  exchangeableNaPercentage  = checkSetFloat(json, (char*)"exchangeableNaPercentage");
+  electricalConductivity    = checkSetFloat(json, (char*)"electricalConductivity");
+  bulkDensityNonRef         = checkSetFloat(json, (char*)"bulkDensityNonRef");
 }
 
 

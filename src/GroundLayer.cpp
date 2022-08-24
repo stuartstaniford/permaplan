@@ -8,6 +8,7 @@
 
 #include "GroundLayer.h"
 #include "Global.h"
+#include "Logging.h"
 
 
 // =======================================================================================
@@ -29,6 +30,22 @@ GroundLayer::GroundLayer(char* nm): name(nm)
 
 GroundLayer::~GroundLayer(void)
 {
+}
+
+
+// =======================================================================================
+/// @brief Initialize the data structure (which can't always be done in the constructor).
+/// 
+/// @returns True if all ok, false on error
+
+bool GroundLayer::initVars(const char* nm, float dep, float bulkDens)
+{
+  name        = nm;
+  depth       = dep;
+  bulkDensity = bulkDens;
+  LogHSWDExhaustive("Initialized Groudlayer %s with depth %.2fcm and density %.2f.\n", 
+                                                                      name, dep, bulkDens);
+  return true;
 }
 
 

@@ -1674,7 +1674,9 @@ src/GroundLayer.o: /usr/local/include/cglm/ease.h
 src/GroundLayer.o: /usr/local/include/cglm/curve.h
 src/GroundLayer.o: /usr/local/include/cglm/bezier.h
 src/GroundLayer.o: /usr/local/include/cglm/ray.h
-src/GroundLayer.o: /usr/local/include/cglm/affine2d.h
+src/GroundLayer.o: /usr/local/include/cglm/affine2d.h ./include/Logging.h
+src/GroundLayer.o: ./include/MemoryTracker.h ./include/Timeval.h
+src/GroundLayer.o: ./include/Lockable.h
 src/HWSDProfile.o: ./include/HWSDProfile.h ./include/SoilProfile.h
 src/HWSDProfile.o: ./include/GroundLayer.h ./include/DynamicallyTypable.h
 src/HWSDProfile.o: ./include/rapidjson/document.h
@@ -5883,7 +5885,9 @@ src/SoilHorizon.o: ./include/rapidjson/internal/itoa.h
 src/SoilHorizon.o: ./include/rapidjson/stringbuffer.h
 src/SoilHorizon.o: ./include/rapidjson/stringbuffer.h
 src/SoilHorizon.o: ./include/rapidjson/error/en.h
-src/SoilHorizon.o: ./include/rapidjson/error/error.h ./include/Global.h
+src/SoilHorizon.o: ./include/rapidjson/error/error.h ./include/Logging.h
+src/SoilHorizon.o: ./include/MemoryTracker.h ./include/Timeval.h
+src/SoilHorizon.o: ./include/Lockable.h ./include/Global.h
 src/SoilHorizon.o: /usr/local/include/cglm/cglm.h
 src/SoilHorizon.o: /usr/local/include/cglm/common.h
 src/SoilHorizon.o: /usr/local/include/cglm/types.h
@@ -5959,6 +5963,8 @@ src/SoilProfile.o: ./include/rapidjson/stringbuffer.h
 src/SoilProfile.o: ./include/rapidjson/stringbuffer.h
 src/SoilProfile.o: ./include/rapidjson/error/en.h
 src/SoilProfile.o: ./include/rapidjson/error/error.h ./include/SoilHorizon.h
+src/SoilProfile.o: ./include/Logging.h ./include/MemoryTracker.h
+src/SoilProfile.o: ./include/Timeval.h ./include/Lockable.h
 src/SoilProfile.o: ./include/Global.h /usr/local/include/cglm/cglm.h
 src/SoilProfile.o: /usr/local/include/cglm/common.h
 src/SoilProfile.o: /usr/local/include/cglm/types.h
