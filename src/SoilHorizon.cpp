@@ -3,6 +3,7 @@
 
 
 #include "SoilHorizon.h"
+#include "Logging.h"
 #include <stdio.h>
 #include "Global.h"
 
@@ -39,12 +40,36 @@ SoilHorizon::SoilHorizon(char* nm): GroundLayer(nm)
 
 
 // =======================================================================================
+/// @brief Utility function for reading floats from the soil json by 
+/// SoilHorizon(Value& json).
+
+inline float checkSetFloat(Value& soilJson, char* name)
+{
+  float retVal;
+  if(soilJson.HasMember(name) && soilJson[name].IsFloat())
+   {
+    retVal = soilJson[name].GetFloat();
+    LogHSWDExhaustive("Got %s value of %f in soil json.\n", name, retVal);
+   }
+  else
+   {
+    retVal = 0.0f;
+    LogSoilDbErr("Couldn't get %s from soil json.\n", name);
+   }
+  return retVal;
+}
+
+
+// =======================================================================================
 /// @brief Constructor for reading from the JSON format
 ///
 /// Note - call isValid first to ensure the JSON is valid
 
 SoilHorizon::SoilHorizon(Value& json): GroundLayer(NULL)
 {
+  // Need to handle name in groundlayer
+  
+  coarseFragmentFraction = checkSetFloat(json, (char*)"coarseFragmentFraction");
 }
 
 
