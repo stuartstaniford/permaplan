@@ -16,6 +16,7 @@
 
 #include "SoilProfile.h"
 #include "SoilHorizon.h"
+#include "Logging.h"
 #include <stdio.h>
 #include "Global.h"
 
@@ -93,6 +94,8 @@ int SoilProfile::writeJsonFields(char* buf, unsigned bufSize)
 /// @brief Function used in permaplan when we've gotten soil information as json from
 /// permaserv to load our ground layers.
 /// 
+/// Note the convention here is that groundLayers are indexed from the top down.
+/// 
 /// @param soilJson A rapidjson::Document reference with the parsed json received from
 /// permaserv.  By the time we get here, we are guaranteed that it's valid JSON, but 
 /// otherwise we need to validate.
@@ -104,7 +107,36 @@ using namespace rapidjson;
 
 void SoilProfile::getGroundLayersFromJson(Document& soilJson)
 {
+  // Check we have a valid array at all
+  unless(soilJson.HasMember("groundLayers") && soilJson["groundLayers"].IsArray())
+   {
+    LogSoilDbErr("Couldn't get valid groundLayers from soil json.\n");
+    return;
+   }
   
+  // Loop over the layers
+  int N = soilJson["groundLayers"].Size();
+  for(int i=0; i<N; i++)
+   {
+    // Check it looks valid
+    Value& layerJson = soilJson["groundLayers"][i];
+    unless(layerJson.HasMember("dynamicType") && layerJson["dynamicType"].IsString())
+     {
+      LogSoilDbErr("Couldn't get valid layer json %d from soil json.\n", i);
+      continue;
+     }
+
+    // Handle the different possible types of groundLayer we might instantiate
+    if(strcmp(layerJson["dynamicType"].GetString(), "TypeSoilHorizon") == 0)
+     {
+      
+     }
+    else
+     {
+      LogSoilDbErr("Unsupported ground layer type %s in soil json position %d.\n",
+                                                  layerJson["dynamicType"].GetString(), i);
+     }
+   }
 }
 
 
