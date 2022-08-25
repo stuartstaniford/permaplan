@@ -42,7 +42,8 @@ public:
   virtual DynamicType getDynamicType(void) {return TypeSoilProfile;}
   virtual int writeJsonFields(char* buf, unsigned bufSize);
   void getGroundLayersFromJson(rapidjson::Document& soilJson);
-
+  virtual float getFertility();
+  
 private:
   
   // Instance variables - private

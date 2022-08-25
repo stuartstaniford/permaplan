@@ -96,7 +96,7 @@ SoilHorizon::SoilHorizon(Value& json): GroundLayer(NULL)
   else
     LogSoilDbErr("Couldn't get groundlayer name from soil json.\n");
     
-  // Need to do USDA texture variables.
+  // Handle USDA texture class variable.
   if(json.HasMember("usdaTextureClass") && json["usdaTextureClass"].IsString()
                         && reverseUSDAIndex.count(json["usdaTextureClass"].GetString()) > 0)
    {

@@ -45,6 +45,15 @@ SoilProfile::~SoilProfile(void)
 
 
 // =======================================================================================
+/// @brief Estimate the total fertility of the soil profile
+
+float SoilProfile::getFertility()
+{
+  
+}
+
+
+// =======================================================================================
 /// @brief Output JSON soil profile format to a buffer.
 /// 
 /// @returns The number of bytes written to the buffer.  If greater than or equal to 
