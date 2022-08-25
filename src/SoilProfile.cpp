@@ -49,7 +49,22 @@ SoilProfile::~SoilProfile(void)
 
 float SoilProfile::getFertility()
 {
+  float fertilityTotal = 0.0f;
   
+  // Loop over the groundlayers
+  float discount = 1.0f;
+  for(GroundLayer* gLayer: *this)
+   {
+    float layerFert = 1.0f;
+    if(gLayer->getDynamicType() != TypeSoilHorizon)
+      continue; // assume no fertility from anything that isn't soil
+    SoilHorizon* horizon = (SoilHorizon*)gLayer;
+    layerFert *= horizon->clayFraction;
+    layerFert *= discount;
+    fertilityTotal += layerFert;
+    discount *= 0.5f; // we discount lower soil layers
+   }
+  return fertilityTotal;
 }
 
 
