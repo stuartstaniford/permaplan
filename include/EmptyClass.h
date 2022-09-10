@@ -1,4 +1,4 @@
-// Copyright Staniford Systems.  All Rights Reserved.  August 2022 -
+// Copyright Staniford Systems.  All Rights Reserved.  September 2022 -
 
 #ifndef EMPTY_CLASS_H
 #define EMPTY_CLASS_H

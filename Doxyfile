@@ -893,6 +893,7 @@ INPUT                  = doc \
                 include/GdalFileInterface.h src/GdalFileInterface.cpp \
                 include/Grid.h src/Grid.cpp \
                 include/GroundLayer.h src/GroundLayer.cpp \
+                include/GroundLitterLayer.h src/GroundLitterLayer.cpp \
                 include/HeightMarker.h src/HeightMarker.cpp \
                 include/HttpDebug.h src/HttpDebug.cpp \
                 include/HttpLBDebug.h src/HttpLBDebug.cpp \
