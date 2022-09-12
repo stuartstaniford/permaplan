@@ -11,6 +11,8 @@
 /// 
 /// Note that any additions to this list must also be reflected in the
 /// dynamicallyTypableName array in DynamicallyTypable.cpp
+/// Then it's necessary to supply at least a getDynamicType() method for the new 
+/// subclass usually in the .h file.
 
 enum DynamicType
 {
@@ -27,7 +29,8 @@ enum DynamicType
   TypeSoilProfile,
   TypeHWSDProfile,
   TypeGroundLayer,
-  TypeSoilHorizon
+  TypeSoilHorizon,
+  TypeGroundLitterLayer
 };
 
 

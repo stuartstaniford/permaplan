@@ -26,7 +26,8 @@ char* dynamicallyTypableName[] = {
                             (char*)"TypeSoilProfile",
                             (char*)"TypeHWSDProfile",
                             (char*)"TypeGroundLayer",
-                            (char*)"TypeSoilHorizon"
+                            (char*)"TypeSoilHorizon",
+                            (char*)"TypeGroundLitterLayer"
 };
 
 

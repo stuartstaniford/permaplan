@@ -24,6 +24,7 @@ public:
   // Member functions - public
   GroundLitterLayer(void);
   ~GroundLitterLayer(void);
+  virtual DynamicType getDynamicType(void) {return TypeGroundLitterLayer;}
   
 private:
   
