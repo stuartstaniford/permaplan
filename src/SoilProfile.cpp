@@ -168,3 +168,28 @@ void SoilProfile::getGroundLayersFromJson(Document& soilJson)
 
 
 // =======================================================================================
+/// @brief Add carbon to the soil surface (eg leaf fall).
+/// 
+/// @param carbon the amount of carbon to add (in XXX units).
+
+void addCarbonFromAbove(float carbon)
+{
+  // If there isn't a litter layer at the front of the layer stack, add one
+  
+  // Add carbon to the litter layer
+}
+
+
+// =======================================================================================
+/// @brief Evolve the carbon in the soil profile based on the passing of time.  
+/// 
+/// This is the main function that models bioturbation, respiratory decay, etc
+/// @todo need to figure out how climate information is passed into this.
+
+void timeStepCarbonEvolution(void)
+{
+  
+}
+
+
+// =======================================================================================

@@ -43,6 +43,8 @@ public:
   virtual int writeJsonFields(char* buf, unsigned bufSize);
   void getGroundLayersFromJson(rapidjson::Document& soilJson);
   virtual float getFertility();
+  void addCarbonFromAbove(float carbon);
+  void timeStepCarbonEvolution(void);
   
 private:
   
