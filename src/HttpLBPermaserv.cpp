@@ -8,6 +8,7 @@
 #include "HttpPermaServ.h"
 #include "SolarDatabase.h"
 #include "SoilDatabase.h"
+#include "ClimateDatabase.h"
 #include "Logging.h"
 
 
@@ -31,8 +32,12 @@ HttpLBPermaserv::HttpLBPermaserv(unsigned short servPort, time_t compTime,
     solarDatabase = new SolarDatabase;
     LogPermaservOps("Initialization of solar database complete.\n");
    }
+  
   soilDatabase = new SoilDatabase;
   LogPermaservOps("Initialization of soil database complete.\n");
+  
+  climateDatabase = new ClimateDatabase;
+  LogPermaservOps("Initialization of climate database complete.\n");
   
   // Run the threads to service requests
   for(unsigned i=0; i<HTTP_THREAD_COUNT;i++)

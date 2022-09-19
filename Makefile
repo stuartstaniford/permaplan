@@ -44,7 +44,7 @@ SRCS = $(wildcard src/*.cpp)
 # with the .o suffix
 #
 OBJS = $(SRCS:.cpp=.o)
-SERV_OBJS = src/BILFile.o src/Global.o src/GroundLayer.o   src/GdalFileInterface.o src/HttpLBPermaserv.o src/HttpPermaServ.o src/HttpServThread.o src/HttpLoadBalancer.o src/HttpRequestParser.o src/HttpClient.o src/HWSDProfile.o src/Logging.o src/MdbFile.o src/SoilDatabase.o src/SoilProfile.o src/SoilHorizon.o src/SolarDatabase.o src/TaskQueueFarm.o src/TaskQueue.o src/Lockable.o src/ResourceManager.o src/loadFileToBuf.o src/DynamicallyTypable.o src/Timeval.o
+SERV_OBJS = src/BILFile.o src/ClimateDatabase.o src/Global.o src/GroundLayer.o   src/GdalFileInterface.o src/HttpLBPermaserv.o src/HttpPermaServ.o src/HttpServThread.o src/HttpLoadBalancer.o src/HttpRequestParser.o src/HttpClient.o src/HWSDProfile.o src/Logging.o src/MdbFile.o src/SoilDatabase.o src/SoilProfile.o src/SoilHorizon.o src/SolarDatabase.o src/TaskQueueFarm.o src/TaskQueue.o src/Lockable.o src/ResourceManager.o src/loadFileToBuf.o src/DynamicallyTypable.o src/Timeval.o
 
 # define the executable file
 MAIN = permaplan

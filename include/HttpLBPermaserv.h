@@ -12,6 +12,7 @@
 
 class SolarDatabase;
 class SoilDatabase;
+class ClimateDatabase;
 class HttpPermaServ;
 
 #define PERMASERV_NO_SOLAR 0x00000001
@@ -38,10 +39,11 @@ public:
 private:
   
   // Instance variables - private
-  SolarDatabase*  solarDatabase;
-  SoilDatabase*   soilDatabase;
-  time_t          compileTime;
-  unsigned        flags;
+  SolarDatabase*    solarDatabase;
+  SoilDatabase*     soilDatabase;
+  ClimateDatabase*  climateDatabase;
+  time_t            compileTime;
+  unsigned          flags;
   
   // Member functions - private
   /// @brief Prevent copy-construction.
