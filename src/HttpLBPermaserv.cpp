@@ -41,8 +41,8 @@ HttpLBPermaserv::HttpLBPermaserv(unsigned short servPort, time_t compTime,
   
   // Run the threads to service requests
   for(unsigned i=0; i<HTTP_THREAD_COUNT;i++)
-    httpThreads[i] = (TaskQueue*) new HttpPermaServ(i, solarDatabase, soilDatabase,
-                                                          (HttpLoadBalancer*)this);
+    httpThreads[i] = (TaskQueue*) new HttpPermaServ(i, solarDatabase, soilDatabase, 
+                                                  climateDatabase, (HttpLoadBalancer*)this);
 }
 
 

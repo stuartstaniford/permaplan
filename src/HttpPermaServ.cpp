@@ -12,10 +12,11 @@
 /// @brief Constructor
 
 HttpPermaServ::HttpPermaServ(unsigned index, SolarDatabase* solarD, SoilDatabase* soilD, 
-                                                                    HttpLoadBalancer* parent):
+                                        ClimateDatabase* climateD, HttpLoadBalancer* parent):
                                           HttpServThread(index, parent),
                                           solarDatabase(solarD),
-                                          soilDatabase(soilD)
+                                          soilDatabase(soilD),
+                                          climateDatabase(climateD)
 {
 }
 
@@ -147,6 +148,33 @@ bool HttpPermaServ::processDNIRequest(char* url)
 
 
 // =======================================================================================
+/// @brief Process the case of a request for climate information.
+/// @param url The balance of the URL that we are to deal with (ie after the '?')
+/// @returns True if all went well, false if we couldn't correctly write a good object.
+
+bool HttpPermaServ::processClimateRequest(char* url)
+{
+  float latLongYear[3];
+  unless(extractColonVecN(url, 3, latLongYear))
+   {
+    LogRequestErrors("Bad climate request: /climate?%s\n", url);
+    return false;
+   }
+  /*if( (respPtr += climateDatabase->printClimateJson(respPtr, respEnd-respPtr, 
+                                  latLongYear[0], latLongYear[1], (unsigned)latLongYear[2]))
+                    >= respEnd)
+   {
+    LogSoilDbErr("Overflow in json response to climate request /climate?%s.\n", url);
+    respBufOverflow = true; 
+    return false;
+   }*/
+  LogPermaservOps("Serviced climate request for %f,%f (%u years) from client on port %u.\n", 
+                  latLongYear[0], latLongYear[1], (unsigned)latLongYear[2], clientP);
+  return true;
+}
+
+
+// =======================================================================================
 /// @brief Process the case of a request for the soil profiles available in some specific
 /// region of lat/long space.
 /// @param url The balance of the URL that we are to deal with (ie after the '?')
@@ -204,6 +232,31 @@ bool HttpPermaServ::processRequestHeader(void)
     retVal = true;
    }
 
+  else if( strlenUrl >= 13 && strncmp(url, "/climate?", 9) == 0)
+   {
+    LogPermaservOpDetails("Processing climate request for %s.\n", url+9);
+    retVal = processClimateRequest(url+5);
+   }
+
+   else if( strlenUrl == 13 && strncmp(url, "/compileTime/", 13) == 0)
+   {
+    LogPermaservOpDetails("Processing compileTime request.\n");
+    internalPrintf("compileTime: %ld\n", ((HttpLBPermaserv*)parentLB)->compileTime);
+    retVal = true;
+   }
+
+   else if( strlenUrl >= 9 && strncmp(url, "/dif?", 5) == 0)
+    {
+     LogPermaservOpDetails("Processing DIF request for %s.\n", url+5);
+     retVal = processDIFRequest(url+5);
+    }
+
+   else if( strlenUrl >= 9 && strncmp(url, "/dni?", 5) == 0)
+   {
+    LogPermaservOpDetails("Processing DNI request for %s.\n", url+5);
+    retVal = processDNIRequest(url+5);
+   }
+
   else if( strlenUrl == 6 && strncmp(url, "/quit/", 6) == 0)
    {
     LogPermaservOpDetails("Processing quit request.\n");
@@ -212,26 +265,7 @@ bool HttpPermaServ::processRequestHeader(void)
     retVal = true;
    }
 
-  else if( strlenUrl == 13 && strncmp(url, "/compileTime/", 13) == 0)
-   {
-    LogPermaservOpDetails("Processing compileTime request.\n");
-    internalPrintf("compileTime: %ld\n", ((HttpLBPermaserv*)parentLB)->compileTime);
-    retVal = true;
-   }
-
-  else if( strlenUrl >= 9 && strncmp(url, "/dif?", 5) == 0)
-   {
-    LogPermaservOpDetails("Processing DIF request for %s.\n", url+5);
-    retVal = processDIFRequest(url+5);
-   }
-
-  else if( strlenUrl >= 9 && strncmp(url, "/dni?", 5) == 0)
-   {
-    LogPermaservOpDetails("Processing DNI request for %s.\n", url+5);
-    retVal = processDNIRequest(url+5);
-   }
-
-  else if( strlenUrl >= 14 && strncmp(url, "/soil?", 6) == 0)
+ else if( strlenUrl >= 14 && strncmp(url, "/soil?", 6) == 0)
    {
     LogPermaservOpDetails("Processing soil request for %s.\n", url+6);
     retVal = processSoilRequest(url+6);

@@ -12,6 +12,7 @@
 
 class SolarDatabase;
 class SoilDatabase;
+class ClimateDatabase;
 
 
 // =======================================================================================
@@ -29,14 +30,15 @@ public:
   
   // Member functions - public
   HttpPermaServ(unsigned index, SolarDatabase* solarD, SoilDatabase* soilD,
-                                                            HttpLoadBalancer* parent);
+                                  ClimateDatabase* climateD, HttpLoadBalancer* parent);
   ~HttpPermaServ(void);
   
 private:
   
   // Instance variables - private
-  SolarDatabase*  solarDatabase;
-  SoilDatabase*   soilDatabase;
+  SolarDatabase*    solarDatabase;
+  SoilDatabase*     soilDatabase;
+  ClimateDatabase*  climateDatabase;
   
   // Member functions - private
   bool  processRequestHeader(void);
@@ -44,6 +46,7 @@ private:
   bool  processDNIRequest(char* url);
   bool  processDIFRequest(char* url);
   bool  processSoilRequest(char* url);
+  bool  processClimateRequest(char* url);
 
   /// @brief Prevent copy-construction.
   HttpPermaServ(const HttpPermaServ&);       
