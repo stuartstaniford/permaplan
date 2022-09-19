@@ -172,7 +172,7 @@ void SoilProfile::getGroundLayersFromJson(Document& soilJson)
 /// 
 /// @param carbon the amount of carbon to add (in XXX units).
 
-void addCarbonFromAbove(float carbon)
+void SoilProfile::addCarbonFromAbove(float carbon)
 {
   // If there isn't a litter layer at the front of the layer stack, add one
   
@@ -186,7 +186,7 @@ void addCarbonFromAbove(float carbon)
 /// This is the main function that models bioturbation, respiratory decay, etc
 /// @todo need to figure out how climate information is passed into this.
 
-void timeStepCarbonEvolution(void)
+void SoilProfile::timeStepCarbonEvolution(void)
 {
   
 }

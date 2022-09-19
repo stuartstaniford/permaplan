@@ -1,13 +1,15 @@
 // Copyright Staniford Systems.  All Rights Reserved.  September 2022 -
-// This class ..... is a template for real classes
+// This class provides climate information within permaserv.  It serves, for any given 
+// location, information about the current/recent climate, as well as projections of 
+// future changed climate
 
-#include "EmptyClass.h"
+#include "ClimateDatabase.h"
 
 
 // =======================================================================================
 /// @brief Constructor
 
-EmptyClass::EmptyClass(void)
+ClimateDatabase::ClimateDatabase(void)
 {
 }
 
@@ -15,7 +17,7 @@ EmptyClass::EmptyClass(void)
 // =======================================================================================
 /// @brief Destructor
 
-EmptyClass::~EmptyClass(void)
+ClimateDatabase::~ClimateDatabase(void)
 {
 }
 
