@@ -90,6 +90,13 @@
 
 
 // =======================================================================================
+// Logging options to do with climate data processing
+
+#define LOG_CLIMATE_DB_ERR             // Log problems in the climate database operation
+#define LOG_CLIMATE_DB_OPS             // Log normal operations on the climate database
+
+
+// =======================================================================================
 // Logging options for Trees/Plants
 
 #define LOG_TREE_SELECTIONS       // Log when a tree is selected.
@@ -283,6 +290,10 @@ extern bool doLogSoilDbDetails;       // Log extra details in the soil database 
 extern bool doLogHSWDExhaustive;      // Log every field read from the HSWD database
 extern bool doLogBilFileDetails;      // Log details of reading from a BILFILE
 
+// Logging options to do with climate data processing
+extern bool doLogClimateDbErr;        // Log problems in the climate database operation
+extern bool doLogClimateDbOps;        // Log normal operations on the climate database
+
 // Logging options for Trees/Plants
 extern bool doLogTreeSelections;      // Log when a tree is selected.
 extern bool doLogTreeReads;           // Log when a tree is read in from a file or url
@@ -401,6 +412,10 @@ extern bool flushLogSoilDbOps;           // Log normal operations on the soil da
 extern bool flushLogSoilDbDetails;       // Log extra details in the soil database operation
 extern bool flushLogHSWDExhaustive;      // Log every field read from the HSWD database
 extern bool flushLogBilFileDetails;      // Log details of reading from a BILFILE
+
+// Logging options to do with climate data processing
+extern bool flushLogClimateDbErr;        // Log problems in the climate database operation
+extern bool flushLogClimateDbOps;        // Log normal operations on the climate database
 
 // Logging options for Trees/Plants
 extern bool flushLogTreeSelections;      // Log when a tree is selected.
@@ -1002,6 +1017,34 @@ extern bool flushLogObjectAltitudes;   // Log finding the altitudes of objects a
                                   }
 #else
 #define LogBilFileDetails(...)
+#endif
+
+
+// =======================================================================================
+// Logging options to do with climate data processing
+            
+// Log problems in the climate database operation
+#ifdef LOG_CLIMATE_DB_ERR
+#define LogClimateDbErr(...)   {\
+                              if(doLogClimateDbErr) \
+                                LogStatement("LogClimateDbErr: " __VA_ARGS__)\
+                              if(flushLogClimateDbErr)\
+                                LogFlush();\
+                            }
+#else
+#define LogClimateDbErr(...)
+#endif
+
+// Log normal operations on the climate database
+#ifdef LOG_CLIMATE_DB_OPS
+#define LogClimateDbOps(...)   {\
+                              if(doLogClimateDbOps) \
+                                LogStatement("LogClimateDbOps: " __VA_ARGS__)\
+                              if(flushLogClimateDbOps)\
+                                LogFlush();\
+                            }
+#else
+#define LogClimateDbOps(...)
 #endif
 
 

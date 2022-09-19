@@ -73,6 +73,10 @@ bool doLogSoilDbDetails       = true; // Log extra details in the soil database 
 bool doLogHSWDExhaustive      = true; // Log every field read from the HSWD database
 bool doLogBilFileDetails      = true; // Log details of reading from a BILFILE
 
+// Logging options to do with climate data processing
+bool doLogClimateDbErr        = true;        // Log problems in the climate database operation
+bool doLogClimateDbOps        = true;        // Log normal operations on the climate database
+
 // Logging options for Trees/Plants
 bool doLogTreeSelections      = true; // Log when a tree is selected.
 bool doLogTreeReads           = true; // Log when a tree is read in from a file or url
@@ -192,6 +196,10 @@ bool flushLogSoilDbOps           = true; // Log normal operations on the soil da
 bool flushLogSoilDbDetails       = false; // Log extra details in the soil database operation
 bool flushLogHSWDExhaustive      = false; // Log every field read from the HSWD database
 bool flushLogBilFileDetails      = false; // Log details of reading from a BILFILE
+
+// Logging options to do with climate data processing
+bool flushLogClimateDbErr        = false;        // Log problems in the climate database operation
+bool flushLogClimateDbOps        = false;        // Log normal operations on the climate database
 
 // Logging options for Trees/Plants
 bool flushLogTreeSelections      = false; // Log when a tree is selected.
@@ -563,6 +571,19 @@ bool LogControlHTML(HttpDebug* serv, char* path)
 #endif
 
   
+  // Logging options to do with climate data processing
+
+  #ifdef LOG_CLIMATE_DB_ERR // Log problems in the climate database operation
+    if(strncmp(path, "doLogClimateDbErr", sizeof("doLogClimateDbErr")-1)==0)
+      return oneLogControl(serv, path, doLogClimateDbErr);
+  #endif
+
+  #ifdef LOG_CLIMATE_DB_OPS // Log normal operations on the climate database
+    if(strncmp(path, "doLogClimateDbOps", sizeof("doLogClimateDbOps")-1)==0)
+      return oneLogControl(serv, path, doLogClimateDbOps);
+  #endif
+
+
 // Logging options for Trees/Plants
 
 #ifdef LOG_TREE_SELECTIONS // Log when a tree is selected.
