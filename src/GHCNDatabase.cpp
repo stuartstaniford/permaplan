@@ -13,6 +13,7 @@
 
 GHCNDatabase::GHCNDatabase(void)
 {
+  readStations();
 }
 
 
@@ -25,6 +26,10 @@ GHCNDatabase::~GHCNDatabase(void)
 
 
 // =======================================================================================
+/// @brief Read all the stations into our data structures.
+///
+/// For more detail, search for 'IV. FORMAT OF "ghcnd-stations.txt"' in
+///  https://www.ncei.noaa.gov/pub/data/ghcn/daily/readme.txt
 
 // ------------------------------
 // Variable   Columns   Type
@@ -39,5 +44,10 @@ GHCNDatabase::~GHCNDatabase(void)
 // HCN/CRN FLAG 77-79   Character
 // WMO ID       81-85   Character
 // ------------------------------
+
+void GHCNDatabase::readStations(void)
+{
+  
+}
 
 // =======================================================================================

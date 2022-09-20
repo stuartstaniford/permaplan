@@ -16,8 +16,8 @@ public:
   char id[12];
   float latitude;
   float longtitude;
-  float elevation;
-  
+  float elevation; // in SpaceUnits
+  char name[32];
 };
 
 
@@ -38,7 +38,8 @@ public:
   // Member functions - public
   GHCNDatabase(void);
   ~GHCNDatabase(void);
-  
+  void readStations(void);
+
 private:
   
   // Instance variables - private
