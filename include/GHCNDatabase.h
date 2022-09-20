@@ -5,6 +5,23 @@
 
 
 // =======================================================================================
+/// @brief Metadata for a single GHCN station.
+
+/// For more detail, search for 'IV. FORMAT OF "ghcnd-stations.txt"' in
+///  https://www.ncei.noaa.gov/pub/data/ghcn/daily/readme.txt
+
+class GHCNStation
+{
+public:
+  char id[12];
+  float latitude;
+  float longtitude;
+  float elevation;
+  
+};
+
+
+// =======================================================================================
 /// @brief Interface to the Global Historical Climatology Network - Daily data.
 ///
 /// This provides global harmonized data for recent daily climate from all over the 
