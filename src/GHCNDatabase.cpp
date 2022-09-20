@@ -6,6 +6,9 @@
 // https://www.ncei.noaa.gov/metadata/geoportal/rest/metadata/item/gov.noaa.ncdc:C00861/html
 
 #include "GHCNDatabase.h"
+#include "Logging.h"
+#include <string.h>
+#include <stdio.h>
 
 
 // =======================================================================================
@@ -47,7 +50,34 @@ GHCNDatabase::~GHCNDatabase(void)
 
 void GHCNDatabase::readStations(void)
 {
+  // Figure out the name of the station file
+  char stationFileName[128];
+  if(snprintf(stationFileName, 128, "%s/ghcnd-stations.txt", dbPath) >= 128)
+   {
+    LogClimateDbErr("Overflow in stationFileName in GHCNDatabase::readStations.\n");
+    return;
+   };
+ 
+  // Open the station file
+  FILE* stationFile = fopen(stationFileName, "r");
+  unless(stationFile)
+   {
+    LogClimateDbErr("Couldn't open GHCNDatabase station file %s.\n", stationFileName);
+    return;
+   };
   
+  // Loop over the lines in the file
+  char buf[96];
+  while(fgets(buf, 96, stationFile))
+   {
+    // Read a line and create a GHCNStation
+    
+    // Store the GHCNStation in our data structure
+
+   }
+  
+  // Close up and go home
+  fclose(stationFile);
 }
 
 
