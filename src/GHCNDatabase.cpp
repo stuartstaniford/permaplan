@@ -11,7 +11,7 @@
 // =======================================================================================
 /// @brief Constructor
 
-GHCNDatabase::GHCNDatabase(void)
+GHCNDatabase::GHCNDatabase(char* path): dbPath(path)
 {
   readStations();
 }
@@ -49,5 +49,6 @@ void GHCNDatabase::readStations(void)
 {
   
 }
+
 
 // =======================================================================================

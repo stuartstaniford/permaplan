@@ -5,6 +5,12 @@
 
 
 // =======================================================================================
+// Forward declarations
+
+class GHCNDatabase;
+
+
+// =======================================================================================
 /// @brief Provides climate information within permaserv.
 ///
 /// This class serves, for any given location, information about the current/recent
@@ -24,6 +30,7 @@ public:
 private:
   
   // Instance variables - private
+  GHCNDatabase* ghcnDatabase;
   
   // Member functions - private
   /// @brief Prevent copy-construction.

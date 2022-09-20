@@ -36,13 +36,14 @@ public:
   // Instance variables - public
   
   // Member functions - public
-  GHCNDatabase(void);
+  GHCNDatabase(char* path);
   ~GHCNDatabase(void);
   void readStations(void);
 
 private:
   
   // Instance variables - private
+  char* dbPath;
   
   // Member functions - private
   /// @brief Prevent copy-construction.

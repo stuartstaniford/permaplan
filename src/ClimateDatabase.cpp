@@ -4,6 +4,13 @@
 // future changed climate
 
 #include "ClimateDatabase.h"
+#include "GHCNDatabase.h"
+
+
+// =======================================================================================
+// Static variables, etc
+
+char* ghcnPath = (char*)"Materials/Climate/GHCN";
 
 
 // =======================================================================================
@@ -11,6 +18,7 @@
 
 ClimateDatabase::ClimateDatabase(void)
 {
+  ghcnDatabase = new GHCNDatabase(ghcnPath);
 }
 
 
