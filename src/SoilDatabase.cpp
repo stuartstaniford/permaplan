@@ -81,12 +81,15 @@ void SoilDatabase::loadHWSDProfiles(void)
 /// output will have been truncated/incomplete.
 /// @param buf The char buffer to write the JSON to.
 /// @param bufSize The size of the buffer, which must not be overwritten after the end.
-/// @param lat The latitude selected.
-/// @param longt The longtitude selected.
+/// @param loLat The low end of the latitude range requested.
+/// @param hiLat The high end of the latitude range requested.
+/// @param hiLong The low end of the longtitude range requested.
+/// @param longt The high end of the longtitude range requested.
 /// @todo Currently we always pull from the Harmonized World Soil Database, but ultimately
 /// we should select the best database for a given location.
 /// @todo Currently we only accommodate finding and returning a single profile, even if
-/// there were actually more to find.
+/// there were actually more to find (we are given lat/long intervals and would ideally
+/// return all profile data from that rectangle).
 
 unsigned SoilDatabase::printJsonSoilProfiles(char* buf, unsigned bufSize, 
                                       float loLat, float hiLat, float loLong, float hiLong)

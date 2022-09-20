@@ -6,6 +6,7 @@
 #include "SolarDatabase.h"
 #include "SoilDatabase.h"
 #include "HttpLBPermaserv.h"
+#include "ClimateDatabase.h"
 
 
 // =======================================================================================
@@ -160,14 +161,14 @@ bool HttpPermaServ::processClimateRequest(char* url)
     LogRequestErrors("Bad climate request: /climate?%s\n", url);
     return false;
    }
-  /*if( (respPtr += climateDatabase->printClimateJson(respPtr, respEnd-respPtr, 
+  if( (respPtr += climateDatabase->printClimateJson(respPtr, respEnd-respPtr, 
                                   latLongYear[0], latLongYear[1], (unsigned)latLongYear[2]))
                     >= respEnd)
    {
-    LogSoilDbErr("Overflow in json response to climate request /climate?%s.\n", url);
+    LogClimateDbErr("Overflow in json response to climate request /climate?%s.\n", url);
     respBufOverflow = true; 
     return false;
-   }*/
+   }
   LogPermaservOps("Serviced climate request for %f,%f (%u years) from client on port %u.\n", 
                   latLongYear[0], latLongYear[1], (unsigned)latLongYear[2], clientP);
   return true;

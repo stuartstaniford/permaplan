@@ -924,6 +924,8 @@ src/CircleIterator.o: /usr/local/include/cglm/curve.h
 src/CircleIterator.o: /usr/local/include/cglm/bezier.h
 src/CircleIterator.o: /usr/local/include/cglm/ray.h
 src/CircleIterator.o: /usr/local/include/cglm/affine2d.h ./include/Global.h
+src/ClimateDatabase.o: ./include/ClimateDatabase.h
+src/ClimateDatabaseClient.o: ./include/ClimateDatabaseClient.h
 src/ColoredAxes.o: ./include/ColoredAxes.h ./include/LineStripList.h
 src/ColoredAxes.o: /usr/local/include/cglm/cglm.h
 src/ColoredAxes.o: /usr/local/include/cglm/common.h
@@ -1677,6 +1679,40 @@ src/GroundLayer.o: /usr/local/include/cglm/ray.h
 src/GroundLayer.o: /usr/local/include/cglm/affine2d.h ./include/Logging.h
 src/GroundLayer.o: ./include/MemoryTracker.h ./include/Timeval.h
 src/GroundLayer.o: ./include/Lockable.h
+src/GroundLitterLayer.o: ./include/GroundLitterLayer.h
+src/GroundLitterLayer.o: ./include/GroundLayer.h
+src/GroundLitterLayer.o: ./include/DynamicallyTypable.h
+src/GroundLitterLayer.o: ./include/rapidjson/document.h
+src/GroundLitterLayer.o: ./include/rapidjson/reader.h
+src/GroundLitterLayer.o: ./include/rapidjson/allocators.h
+src/GroundLitterLayer.o: ./include/rapidjson/rapidjson.h
+src/GroundLitterLayer.o: ./include/rapidjson/stream.h
+src/GroundLitterLayer.o: ./include/rapidjson/encodings.h
+src/GroundLitterLayer.o: ./include/rapidjson/encodedstream.h
+src/GroundLitterLayer.o: ./include/rapidjson/memorystream.h
+src/GroundLitterLayer.o: ./include/rapidjson/internal/clzll.h
+src/GroundLitterLayer.o: ./include/rapidjson/rapidjson.h
+src/GroundLitterLayer.o: ./include/rapidjson/internal/meta.h
+src/GroundLitterLayer.o: ./include/rapidjson/internal/stack.h
+src/GroundLitterLayer.o: ./include/rapidjson/allocators.h
+src/GroundLitterLayer.o: ./include/rapidjson/internal/swap.h
+src/GroundLitterLayer.o: ./include/rapidjson/internal/strtod.h
+src/GroundLitterLayer.o: ./include/rapidjson/internal/ieee754.h
+src/GroundLitterLayer.o: ./include/rapidjson/internal/biginteger.h
+src/GroundLitterLayer.o: ./include/rapidjson/internal/diyfp.h
+src/GroundLitterLayer.o: ./include/rapidjson/internal/clzll.h
+src/GroundLitterLayer.o: ./include/rapidjson/internal/pow10.h
+src/GroundLitterLayer.o: ./include/rapidjson/error/error.h
+src/GroundLitterLayer.o: ./include/rapidjson/internal/strfunc.h
+src/GroundLitterLayer.o: ./include/rapidjson/stream.h
+src/GroundLitterLayer.o: ./include/rapidjson/writer.h
+src/GroundLitterLayer.o: ./include/rapidjson/internal/dtoa.h
+src/GroundLitterLayer.o: ./include/rapidjson/internal/itoa.h
+src/GroundLitterLayer.o: ./include/rapidjson/internal/itoa.h
+src/GroundLitterLayer.o: ./include/rapidjson/stringbuffer.h
+src/GroundLitterLayer.o: ./include/rapidjson/stringbuffer.h
+src/GroundLitterLayer.o: ./include/rapidjson/error/en.h
+src/GroundLitterLayer.o: ./include/rapidjson/error/error.h
 src/HWSDProfile.o: ./include/HWSDProfile.h ./include/SoilProfile.h
 src/HWSDProfile.o: ./include/GroundLayer.h ./include/DynamicallyTypable.h
 src/HWSDProfile.o: ./include/rapidjson/document.h
@@ -2211,8 +2247,8 @@ src/HttpLBPermaserv.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/depre
 src/HttpLBPermaserv.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/deprecated/grel.h
 src/HttpLBPermaserv.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/deprecated/gthread.h
 src/HttpLBPermaserv.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/glib-autocleanups.h
-src/HttpLBPermaserv.o: ./include/Logging.h ./include/MemoryTracker.h
-src/HttpLBPermaserv.o: ./include/Timeval.h
+src/HttpLBPermaserv.o: ./include/ClimateDatabase.h ./include/Logging.h
+src/HttpLBPermaserv.o: ./include/MemoryTracker.h ./include/Timeval.h
 src/HttpLoadBalancer.o: ./include/HttpLoadBalancer.h ./include/HttpDebug.h
 src/HttpLoadBalancer.o: ./include/HttpServThread.h ./include/TaskQueue.h
 src/HttpLoadBalancer.o: ./include/Lockable.h ./include/Global.h
@@ -2398,6 +2434,7 @@ src/HttpPermaServ.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/depreca
 src/HttpPermaServ.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/deprecated/gthread.h
 src/HttpPermaServ.o: /usr/local/Cellar/glib/2.72.2/include/glib-2.0/glib/glib-autocleanups.h
 src/HttpPermaServ.o: ./include/HttpLBPermaserv.h ./include/HttpLoadBalancer.h
+src/HttpPermaServ.o: ./include/ClimateDatabase.h
 src/HttpPermaservClient.o: ./include/HttpPermaservClient.h
 src/HttpPermaservClient.o: ./include/HttpClient.h
 src/HttpPermaservClient.o: ./include/rapidjson/document.h
