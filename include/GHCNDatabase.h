@@ -18,9 +18,9 @@ public:
   
   // Instance variables - public
   char id[12];
-  float latitude;
-  float longtitude;
-  float elevation; // in SpaceUnits
+  float latitude;     // degrees
+  float longtitude;   // degrees
+  float elevation;    // in meters
   char name[32];
 };
 
