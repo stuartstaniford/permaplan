@@ -7,9 +7,9 @@
 
 #include "GHCNDatabase.h"
 #include "Logging.h"
-#include "PmodDesign.h"
 #include <string.h>
 #include <stdio.h>
+#include <ctype.h>
 
 
 // =======================================================================================
@@ -99,16 +99,22 @@ void GHCNDatabase::readStations(void)
 
 GHCNStation::GHCNStation(char* buf)
 {
-  strncpy(id,   buf,    12);
-  strncpy(name, buf+41, 30);
-  for(int i = 11; i--; isspace(id[i]))
+  strncpy(id, buf, 11);
+  id[11] = '\0';
+  for(int i = 10; isspace(id[i]); i--)
     id[i] = '\0';
-  for(int i = 31; i--; isspace(name[i]))
+  
+  strncpy(name, buf+41, 30);
+  name[30] = '\0';
+  for(int i = 29; isspace(name[i]); i--)
     name[i] = '\0';
   
   latitude    = atof(buf+12);
   longtitude  = atof(buf+21);
   elevation   = atof(buf+31);  // in meters, as we are in permaserv
+  
+  LogGHCNExhaustive("Read station %s (%s) at [%.4f, %.4f], el: %.1fm.\n",
+                                              id, name, latitude, longtitude, elevation);
 }
 
 

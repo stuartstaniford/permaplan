@@ -83,10 +83,10 @@
 // Logging options to do with soil stuff
 
 #define LOG_SOIL_DB_ERR             // Log problems in the soil database operation
-#define LOG_SOIL_DB_OPS             // Log normal operations on the soil database
-#define LOG_SOIL_DB_DETAILS         // Log extra details in the soil database operation
-#define LOG_HSWD_EXHAUSTIVE         // Log every field read from the HSWD database
-#define LOG_BILFILE_DETAILS         // Log details of reading from a BILFILE
+//#define LOG_SOIL_DB_OPS             // Log normal operations on the soil database
+//#define LOG_SOIL_DB_DETAILS         // Log extra details in the soil database operation
+//#define LOG_HSWD_EXHAUSTIVE         // Log every field read from the HSWD database
+//#define LOG_BILFILE_DETAILS         // Log details of reading from a BILFILE
 
 
 // =======================================================================================
@@ -94,6 +94,7 @@
 
 #define LOG_CLIMATE_DB_ERR             // Log problems in the climate database operation
 #define LOG_CLIMATE_DB_OPS             // Log normal operations on the climate database
+#define LOG_GHCN_EXHAUSTIVE            // Log minute details of reading the GHCN info
 
 
 // =======================================================================================
@@ -293,6 +294,7 @@ extern bool doLogBilFileDetails;      // Log details of reading from a BILFILE
 // Logging options to do with climate data processing
 extern bool doLogClimateDbErr;        // Log problems in the climate database operation
 extern bool doLogClimateDbOps;        // Log normal operations on the climate database
+extern bool doLogGHCNExhaustive;      // Log minute details of reading the GHCN info
 
 // Logging options for Trees/Plants
 extern bool doLogTreeSelections;      // Log when a tree is selected.
@@ -416,6 +418,7 @@ extern bool flushLogBilFileDetails;      // Log details of reading from a BILFIL
 // Logging options to do with climate data processing
 extern bool flushLogClimateDbErr;        // Log problems in the climate database operation
 extern bool flushLogClimateDbOps;        // Log normal operations on the climate database
+extern bool flushLogGHCNExhaustive;      // Log minute details of reading the GHCN info
 
 // Logging options for Trees/Plants
 extern bool flushLogTreeSelections;      // Log when a tree is selected.
@@ -1045,6 +1048,18 @@ extern bool flushLogObjectAltitudes;   // Log finding the altitudes of objects a
                             }
 #else
 #define LogClimateDbOps(...)
+#endif
+
+// Log minute details of reading the GHCN info
+#ifdef LOG_GHCN_EXHAUSTIVE
+#define LogGHCNExhaustive(...)   {\
+                              if(doLogGHCNExhaustive) \
+                                LogStatement("LogGHCNExhaustive: " __VA_ARGS__)\
+                              if(flushLogGHCNExhaustive)\
+                                LogFlush();\
+                            }
+#else
+#define LogGHCNExhaustive(...)
 #endif
 
 

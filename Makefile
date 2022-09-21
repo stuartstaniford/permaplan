@@ -924,7 +924,7 @@ src/CircleIterator.o: /usr/local/include/cglm/curve.h
 src/CircleIterator.o: /usr/local/include/cglm/bezier.h
 src/CircleIterator.o: /usr/local/include/cglm/ray.h
 src/CircleIterator.o: /usr/local/include/cglm/affine2d.h ./include/Global.h
-src/ClimateDatabase.o: ./include/ClimateDatabase.h
+src/ClimateDatabase.o: ./include/ClimateDatabase.h ./include/GHCNDatabase.h
 src/ClimateDatabaseClient.o: ./include/ClimateDatabaseClient.h
 src/ColoredAxes.o: ./include/ColoredAxes.h ./include/LineStripList.h
 src/ColoredAxes.o: /usr/local/include/cglm/cglm.h
@@ -1283,6 +1283,52 @@ src/ElementBufferObject.o: /usr/local/include/cglm/bezier.h
 src/ElementBufferObject.o: /usr/local/include/cglm/ray.h
 src/ElementBufferObject.o: /usr/local/include/cglm/affine2d.h
 src/EmptyClass.o: ./include/EmptyClass.h
+src/GHCNDatabase.o: ./include/GHCNDatabase.h ./include/Logging.h
+src/GHCNDatabase.o: ./include/MemoryTracker.h ./include/Timeval.h
+src/GHCNDatabase.o: ./include/Lockable.h ./include/Global.h
+src/GHCNDatabase.o: /usr/local/include/cglm/cglm.h
+src/GHCNDatabase.o: /usr/local/include/cglm/common.h
+src/GHCNDatabase.o: /usr/local/include/cglm/types.h
+src/GHCNDatabase.o: /usr/local/include/cglm/simd/intrin.h
+src/GHCNDatabase.o: /usr/local/include/cglm/vec2.h
+src/GHCNDatabase.o: /usr/local/include/cglm/util.h
+src/GHCNDatabase.o: /usr/local/include/cglm/vec2-ext.h
+src/GHCNDatabase.o: /usr/local/include/cglm/vec3.h
+src/GHCNDatabase.o: /usr/local/include/cglm/vec4.h
+src/GHCNDatabase.o: /usr/local/include/cglm/vec4-ext.h
+src/GHCNDatabase.o: /usr/local/include/cglm/vec3-ext.h
+src/GHCNDatabase.o: /usr/local/include/cglm/mat4.h
+src/GHCNDatabase.o: /usr/local/include/cglm/mat3.h
+src/GHCNDatabase.o: /usr/local/include/cglm/mat2.h
+src/GHCNDatabase.o: /usr/local/include/cglm/affine.h
+src/GHCNDatabase.o: /usr/local/include/cglm/affine-mat.h
+src/GHCNDatabase.o: /usr/local/include/cglm/cam.h
+src/GHCNDatabase.o: /usr/local/include/cglm/plane.h
+src/GHCNDatabase.o: /usr/local/include/cglm/clipspace/persp.h
+src/GHCNDatabase.o: /usr/local/include/cglm/common.h
+src/GHCNDatabase.o: /usr/local/include/cglm/plane.h
+src/GHCNDatabase.o: /usr/local/include/cglm/mat4.h
+src/GHCNDatabase.o: /usr/local/include/cglm/clipspace/ortho_rh_no.h
+src/GHCNDatabase.o: /usr/local/include/cglm/clipspace/persp_rh_no.h
+src/GHCNDatabase.o: /usr/local/include/cglm/clipspace/persp.h
+src/GHCNDatabase.o: /usr/local/include/cglm/clipspace/view_rh_no.h
+src/GHCNDatabase.o: /usr/local/include/cglm/clipspace/view_rh.h
+src/GHCNDatabase.o: /usr/local/include/cglm/frustum.h
+src/GHCNDatabase.o: /usr/local/include/cglm/quat.h
+src/GHCNDatabase.o: /usr/local/include/cglm/euler.h
+src/GHCNDatabase.o: /usr/local/include/cglm/box.h
+src/GHCNDatabase.o: /usr/local/include/cglm/color.h
+src/GHCNDatabase.o: /usr/local/include/cglm/io.h
+src/GHCNDatabase.o: /usr/local/include/cglm/project.h
+src/GHCNDatabase.o: /usr/local/include/cglm/clipspace/project_no.h
+src/GHCNDatabase.o: /usr/local/include/cglm/vec3.h
+src/GHCNDatabase.o: /usr/local/include/cglm/vec4.h
+src/GHCNDatabase.o: /usr/local/include/cglm/sphere.h
+src/GHCNDatabase.o: /usr/local/include/cglm/ease.h
+src/GHCNDatabase.o: /usr/local/include/cglm/curve.h
+src/GHCNDatabase.o: /usr/local/include/cglm/bezier.h
+src/GHCNDatabase.o: /usr/local/include/cglm/ray.h
+src/GHCNDatabase.o: /usr/local/include/cglm/affine2d.h
 src/GLFWApplication.o: ./include/GLFWApplication.h ./include/Lockable.h
 src/GLFWApplication.o: ./include/Global.h /usr/local/include/cglm/cglm.h
 src/GLFWApplication.o: /usr/local/include/cglm/common.h
