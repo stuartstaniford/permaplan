@@ -13,6 +13,10 @@
 class GHCNStation
 {
 public:
+  // Member functions - public
+  GHCNStation(char* buf);
+  
+  // Instance variables - public
   char id[12];
   float latitude;
   float longtitude;

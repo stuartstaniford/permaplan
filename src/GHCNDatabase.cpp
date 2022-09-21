@@ -34,20 +34,6 @@ GHCNDatabase::~GHCNDatabase(void)
 /// For more detail, search for 'IV. FORMAT OF "ghcnd-stations.txt"' in
 ///  https://www.ncei.noaa.gov/pub/data/ghcn/daily/readme.txt
 
-// ------------------------------
-// Variable   Columns   Type
-// ------------------------------
-// ID            1-11   Character
-// LATITUDE     13-20   Real
-// LONGITUDE    22-30   Real
-// ELEVATION    32-37   Real
-// STATE        39-40   Character
-// NAME         42-71   Character
-// GSN FLAG     73-75   Character
-// HCN/CRN FLAG 77-79   Character
-// WMO ID       81-85   Character
-// ------------------------------
-
 void GHCNDatabase::readStations(void)
 {
   // Figure out the name of the station file
@@ -71,6 +57,16 @@ void GHCNDatabase::readStations(void)
   while(fgets(buf, 96, stationFile))
    {
     // Read a line and create a GHCNStation
+    GHCNStation* station = new GHCNStation(buf);
+#ifdef LOG_CLIMATE_DB_ERR
+    int line = 1;
+#endif
+    unless(station)
+     {
+      LogClimateDbErr("Couldn't create new station in line %d of station file %s.\n",
+                                                            line++, stationFileName);
+      return;
+     }
     
     // Store the GHCNStation in our data structure
 
@@ -78,6 +74,31 @@ void GHCNDatabase::readStations(void)
   
   // Close up and go home
   fclose(stationFile);
+}
+
+
+// =======================================================================================
+/// @brief Create a single station from a line in the file.
+///
+/// @param buf A char* pointing to the line buffer
+
+// ------------------------------
+// Variable   Columns   Type
+// ------------------------------
+// ID            1-11   Character
+// LATITUDE     13-20   Real
+// LONGITUDE    22-30   Real
+// ELEVATION    32-37   Real
+// STATE        39-40   Character
+// NAME         42-71   Character
+// GSN FLAG     73-75   Character
+// HCN/CRN FLAG 77-79   Character
+// WMO ID       81-85   Character
+// ------------------------------
+
+GHCNStation::GHCNStation(char* buf)
+{
+  
 }
 
 
