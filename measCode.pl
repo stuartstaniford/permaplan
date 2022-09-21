@@ -26,6 +26,7 @@ while(<FILE>)
   next if /stb_/;
   next if /imconfig/;
   next if /total/;
+  next if /RTree.h/;
   @vals = split;
   $total += $vals[0];
   print OUT "$vals[0]\t$vals[3]\n" if $detail;

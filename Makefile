@@ -925,6 +925,7 @@ src/CircleIterator.o: /usr/local/include/cglm/bezier.h
 src/CircleIterator.o: /usr/local/include/cglm/ray.h
 src/CircleIterator.o: /usr/local/include/cglm/affine2d.h ./include/Global.h
 src/ClimateDatabase.o: ./include/ClimateDatabase.h ./include/GHCNDatabase.h
+src/ClimateDatabase.o: ./include/RTree.h
 src/ClimateDatabaseClient.o: ./include/ClimateDatabaseClient.h
 src/ColoredAxes.o: ./include/ColoredAxes.h ./include/LineStripList.h
 src/ColoredAxes.o: /usr/local/include/cglm/cglm.h
@@ -1283,10 +1284,10 @@ src/ElementBufferObject.o: /usr/local/include/cglm/bezier.h
 src/ElementBufferObject.o: /usr/local/include/cglm/ray.h
 src/ElementBufferObject.o: /usr/local/include/cglm/affine2d.h
 src/EmptyClass.o: ./include/EmptyClass.h
-src/GHCNDatabase.o: ./include/GHCNDatabase.h ./include/Logging.h
-src/GHCNDatabase.o: ./include/MemoryTracker.h ./include/Timeval.h
-src/GHCNDatabase.o: ./include/Lockable.h ./include/Global.h
-src/GHCNDatabase.o: /usr/local/include/cglm/cglm.h
+src/GHCNDatabase.o: ./include/GHCNDatabase.h ./include/RTree.h
+src/GHCNDatabase.o: ./include/Logging.h ./include/MemoryTracker.h
+src/GHCNDatabase.o: ./include/Timeval.h ./include/Lockable.h
+src/GHCNDatabase.o: ./include/Global.h /usr/local/include/cglm/cglm.h
 src/GHCNDatabase.o: /usr/local/include/cglm/common.h
 src/GHCNDatabase.o: /usr/local/include/cglm/types.h
 src/GHCNDatabase.o: /usr/local/include/cglm/simd/intrin.h

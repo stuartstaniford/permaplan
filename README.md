@@ -36,7 +36,7 @@ make
 
 Additional appreciations:
 
-Sean Barrett for stb_image.h and stb_image_write.h.
+Sean Barrett for stb_image.h and stb_image_write.h.  Greg Douglas et al for RTree.h.
 
 ## Note on target expertise levels
 

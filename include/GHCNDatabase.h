@@ -3,6 +3,8 @@
 #ifndef GHCN_DATABASE_H
 #define GHCN_DATABASE_H
 
+#include "RTree.h"
+
 
 // =======================================================================================
 /// @brief Metadata for a single GHCN station.
@@ -48,7 +50,8 @@ private:
   
   // Instance variables - private
   char* dbPath;
-  
+  RTree<int, int, 2, float> stationRTree;
+
   // Member functions - private
   /// @brief Prevent copy-construction.
   GHCNDatabase(const GHCNDatabase&);       
