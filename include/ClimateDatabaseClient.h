@@ -5,6 +5,12 @@
 
 
 // =======================================================================================
+// Forward declarations
+
+class HttpPermaservClient;
+
+
+// =======================================================================================
 /// @brief Fetches climate information from permaserv.
 ///
 /// Gets, for our location, information about the current/recent climate, as well as
@@ -17,13 +23,15 @@ public:
   // Instance variables - public
   
   // Member functions - public
-  ClimateDatabaseClient(void);
+  ClimateDatabaseClient(HttpPermaservClient& httpPermCli);
   ~ClimateDatabaseClient(void);
-  
+  bool getClimateDataFromDatabase(void);
+
 private:
   
   // Instance variables - private
-  
+  HttpPermaservClient& httpPermClient;
+
   // Member functions - private
   /// @brief Prevent copy-construction.
   ClimateDatabaseClient(const ClimateDatabaseClient&);       

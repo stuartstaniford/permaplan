@@ -93,7 +93,7 @@ bool SoilDatabaseClient::getProfilesFromSoilDatabase(void)
 // =======================================================================================
 /// @brief Get a pointer to the soil profile at a particular <lat,long>.
 /// 
-/// This is called by other code in permaserv that needs soil information.  It may
+/// This is called by other code in permaplan that needs soil information.  It may
 /// trigger fetching further soil information from permaserv if that has not been done
 /// yet.  However, it is anticipated that most calls will return quickly with a pointer
 /// to soil information we already have.

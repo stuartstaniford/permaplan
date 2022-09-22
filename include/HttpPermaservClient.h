@@ -18,6 +18,7 @@
 
 class SoilProfile;
 class SoilDatabaseClient;
+class ClimateDatabaseClient;
 
 
 // =======================================================================================
@@ -29,6 +30,7 @@ class SoilDatabaseClient;
 class HttpPermaservClient: public HttpClient
 {
   friend SoilDatabaseClient;
+  friend ClimateDatabaseClient;
   
 public:
   
