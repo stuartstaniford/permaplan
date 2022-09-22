@@ -79,6 +79,17 @@ void GHCNDatabase::readStations(void)
 
 
 // =======================================================================================
+/// @brief Retrieve the closest stations from our data structures.
+///
+/// @param latLong A float array containing the latitude and longtitude to search for
+
+void GHCNDatabase::getStations(float* latLong)
+{
+  
+}
+
+
+// =======================================================================================
 /// @brief Create a single station from a line in the file.
 ///
 /// @param buf A char* pointing to the line buffer

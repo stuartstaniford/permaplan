@@ -50,6 +50,10 @@ ClimateDatabase::~ClimateDatabase(void)
 unsigned ClimateDatabase::printClimateJson(char* buf, unsigned bufSize, 
                                         float lat, float longt, unsigned yearCount)
 {
+  float latLong[2];
+  latLong[0] = lat;
+  latLong[1] = longt;
+  ghcnDatabase->getStations(latLong);
   return 0u;
 }
 

@@ -44,6 +44,7 @@ public:
   GHCNDatabase(char* path);
   ~GHCNDatabase(void);
   void readStations(void);
+  void getStations(float* latLong);
 
 private:
   
