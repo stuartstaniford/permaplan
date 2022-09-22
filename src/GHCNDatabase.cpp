@@ -69,7 +69,7 @@ void GHCNDatabase::readStations(void)
       return;
      }
     
-    // Store the GHCNStation in our data structure
+    // Store the GHCNStation in our R-tree data structure
     stationTree.Insert(station->latLong, station->latLong, station);
    }
   
@@ -79,13 +79,40 @@ void GHCNDatabase::readStations(void)
 
 
 // =======================================================================================
+/// @brief Callback for use in R-tree search in GHCNDatabase::getStations.
+
+bool searchCallback(GHCNStation* station, void* context)
+{
+  return true; // keep going  
+}
+
+
+// =======================================================================================
 /// @brief Retrieve the closest stations from our data structures.
 ///
-/// @param latLong A float array containing the latitude and longtitude to search for
+/// @param lat A float containing the latitude to search for
+/// @param longT A float containing the longtitude to search for
+/// @todo We are searching on raw lat/long squares here, which will tend to get skeevy
+/// towards the poles - might want to add a cos(lat) factor.
 
-void GHCNDatabase::getStations(float* latLong)
+void GHCNDatabase::getStations(float lat, float longT)
 {
+  float searchBound = 0.25f;  // half the side of the search rectangle in degrees.
+  float searchMin[2];
+  float searchMax[2];
   
+  while(1) // keep adjusting the search rectangle until we get a good result
+   {
+    searchMin[0] = lat    - searchBound;
+    searchMin[1] = longT  - searchBound;
+    searchMax[0] = lat    + searchBound;
+    searchMax[1] = longT  + searchBound;
+    
+    int hits = stationTree.Search(searchMin, searchMax, searchCallback, NULL);
+    LogGHCNExhaustive("Got %d results in search with %.4f degrees of [%.4f, %.4f].\n",
+                      hits, searchBound, lat, longT);
+    break; // temp
+   }
 }
 
 
