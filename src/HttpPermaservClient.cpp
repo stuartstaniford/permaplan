@@ -292,3 +292,32 @@ bool HttpPermaservClient::getSoilProfiles(float lowLat, float lowLong,
 
 
 // =======================================================================================
+/// @brief Get climate information for our location. 
+/// 
+/// @param lat Latitude of our location.
+/// @param longT Longtitude of our location.
+/// @todo reading from the cache file is not implemented.
+ 
+bool HttpPermaservClient::getClimateData(float lat, float longT)
+{
+  if(cachePresent && doc.HasMember("climate"))
+   {
+    LogPermaservClientOps("Obtained climate data from cache file.\n"); 
+    return true;
+   }
+  char url[FULL_URL_BUFSIZE];
+  snprintf(url, FULL_URL_BUFSIZE, "climate?%f:%f:", lat, longT);
+  if(getJSONObject(url))
+   {
+    LogPermaservClientOps("Obtained climate data from permaserv.\n"); 
+    return true;
+   }
+  else
+   {
+    LogPermaservClientErrors("Failed to obtain climate data from cache or permaserv.\n");
+    return false;
+   }
+}
+
+
+// =======================================================================================
