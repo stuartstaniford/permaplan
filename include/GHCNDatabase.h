@@ -20,8 +20,7 @@ public:
   
   // Instance variables - public
   char id[12];
-  float latitude;     // degrees
-  float longtitude;   // degrees
+  float latLong[2];    // degrees
   float elevation;    // in meters
   char name[32];
 };
@@ -50,7 +49,7 @@ private:
   
   // Instance variables - private
   char* dbPath;
-  RTree<int, int, 2, float> stationRTree;
+  RTree<GHCNStation*, float, 2> stationTree;
 
   // Member functions - private
   /// @brief Prevent copy-construction.

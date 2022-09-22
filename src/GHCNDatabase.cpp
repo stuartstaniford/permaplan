@@ -70,7 +70,7 @@ void GHCNDatabase::readStations(void)
      }
     
     // Store the GHCNStation in our data structure
-
+    stationTree.Insert(station->latLong, station->latLong, station);
    }
   
   // Close up and go home
@@ -109,12 +109,12 @@ GHCNStation::GHCNStation(char* buf)
   for(int i = 29; isspace(name[i]); i--)
     name[i] = '\0';
   
-  latitude    = atof(buf+12);
-  longtitude  = atof(buf+21);
+  latLong[0]  = atof(buf+12);
+  latLong[1]  = atof(buf+21);
   elevation   = atof(buf+31);  // in meters, as we are in permaserv
   
   LogGHCNExhaustive("Read station %s (%s) at [%.4f, %.4f], el: %.1fm.\n",
-                                              id, name, latitude, longtitude, elevation);
+                                              id, name, latLong[0], latLong[1], elevation);
 }
 
 
