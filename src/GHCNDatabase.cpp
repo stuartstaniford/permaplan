@@ -6,6 +6,7 @@
 // https://www.ncei.noaa.gov/metadata/geoportal/rest/metadata/item/gov.noaa.ncdc:C00861/html
 
 #include "GHCNDatabase.h"
+#include "ClimateInfo.h"
 #include "Logging.h"
 #include <string.h>
 #include <stdio.h>
@@ -113,6 +114,17 @@ void GHCNDatabase::getStations(float lat, float longT)
                       hits, searchBound, lat, longT);
     break; // temp
    }
+}
+
+
+// =======================================================================================
+/// @brief Read a single .dly file.
+///
+/// @param fileName A char* pointing to the file name to be opened.
+
+void GHCNDatabase::readOneDlyFile(char* fileName)
+{
+  
 }
 
 

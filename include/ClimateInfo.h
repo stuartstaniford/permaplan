@@ -17,7 +17,7 @@ class ClimateDay
   float lowTemp;    // the low temperature (generally around sunrise).
   float hiTemp;     // high temperature (generally mid afternoon).
   float precip;     // mm of water falling during the 24 hour period
-}
+};
 
 
 // =======================================================================================

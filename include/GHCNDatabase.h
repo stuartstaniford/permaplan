@@ -45,6 +45,7 @@ public:
   ~GHCNDatabase(void);
   void readStations(void);
   void getStations(float lat, float longT);
+  void readOneDlyFile(char* fileName);
 
 private:
   
