@@ -881,6 +881,7 @@ INPUT                  = doc \
                 include/CircleIterator.h src/CircleIterator.cpp \
                 include/ClimateDatabase.h src/ClimateDatabase.cpp \
                 include/ClimateDatabaseClient.h src/ClimateDatabaseClient.cpp \
+                include/ClimateInfo.h src/ClimateInfo.cpp \
                 include/ColoredAxes.h src/ColoredAxes.cpp \
                 include/ControlGroup.h src/ControlGroup.cpp \
                 include/Copse.h src/Copse.cpp \
