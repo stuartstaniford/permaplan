@@ -122,9 +122,47 @@ void GHCNDatabase::getStations(float lat, float longT)
 ///
 /// @param fileName A char* pointing to the file name to be opened.
 
-void GHCNDatabase::readOneDlyFile(char* fileName)
+// https://www.ncei.noaa.gov/pub/data/ghcn/daily/readme.txt
+
+void GHCNDatabase::readOneCSVFile(char* fileName)
 {
+  // Open the file
+  FILE* file = fopen(fileName, "r");
+  unless(file)
+   {
+    LogClimateDbErr("Couldn't open station csv file %s.\n", fileName);
+    return;
+   }
   
+  // Loop over the lines in the file
+  char buf[128];
+  int line = 1;
+  while(fgets(buf, 128, file))
+   {
+    // USC00304174,18930101,TMAX,67,,,6,
+    
+    // Station id
+    // Double check it's the station id we were expecting?
+    if(buf[11] != ',')
+     {
+      LogClimateDbErr("Bad station id comma line line %d of csv file %s.\n", 
+                                                                          line, fileName);
+     }
+    
+    // Date
+    
+    // Observation type
+    
+    // Observation
+    
+    // Flags
+    
+    
+    line++;
+   }
+  
+  // Close up and go home
+  fclose(file);
 }
 
 

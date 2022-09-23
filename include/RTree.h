@@ -1,6 +1,9 @@
 #ifndef RTREE_H
 #define RTREE_H
 
+// SS Originally taken from https://superliminal.com/sources/#C_Code
+// Mods to make it work for permaplan have // SS comments.
+
 // NOTE This file compiles under MSVC 6 SP5 and MSVC .Net 2003 it may not work on other compilers without modification.
 
 // NOTE These next few lines may be win32 specific, you may need to modify them to compile on other platform
