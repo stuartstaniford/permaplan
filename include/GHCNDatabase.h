@@ -7,6 +7,12 @@
 
 
 // =======================================================================================
+// Forward declarations
+
+class ClimateInfo;
+
+
+// =======================================================================================
 /// @brief Metadata for a single GHCN station.
 
 /// For more detail, search for 'IV. FORMAT OF "ghcnd-stations.txt"' in
@@ -45,7 +51,7 @@ public:
   ~GHCNDatabase(void);
   void readStations(void);
   void getStations(float lat, float longT);
-  void readOneCSVFile(char* fileName);
+  bool readOneCSVFile(char* fileName, GHCNStation* station, ClimateInfo* climInfo);
 
 private:
   

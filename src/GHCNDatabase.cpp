@@ -124,14 +124,14 @@ void GHCNDatabase::getStations(float lat, float longT)
 
 // https://www.ncei.noaa.gov/pub/data/ghcn/daily/readme.txt
 
-void GHCNDatabase::readOneCSVFile(char* fileName)
+bool GHCNDatabase::readOneCSVFile(char* fileName, GHCNStation* station, ClimateInfo* climInfo)
 {
   // Open the file
   FILE* file = fopen(fileName, "r");
   unless(file)
    {
     LogClimateDbErr("Couldn't open station csv file %s.\n", fileName);
-    return;
+    return false;
    }
   
   // Loop over the lines in the file
@@ -142,14 +142,34 @@ void GHCNDatabase::readOneCSVFile(char* fileName)
     // USC00304174,18930101,TMAX,67,,,6,
     
     // Station id
-    // Double check it's the station id we were expecting?
     if(buf[11] != ',')
      {
-      LogClimateDbErr("Bad station id comma line line %d of csv file %s.\n", 
+      LogClimateDbErr("Bad station id comma line %d of csv file %s.\n", 
                                                                           line, fileName);
+      goto ERROR_RETURN;
      }
+    buf[11] = '\0';
+    unless(strncmp(buf, station->id, 11) == 0)
+    {
+     LogClimateDbErr("Station id %s does not match %s in csv file %s, line %d.\n", 
+                                                      buf, station->id, fileName, line);
+     goto ERROR_RETURN;
+    }
     
     // Date
+    if(buf[20] != ',')
+     {
+      LogClimateDbErr("Bad date comma line %d of csv file %s.\n", line, fileName);
+      goto ERROR_RETURN;
+     }
+    char dateBuf[5];
+    int year, month, day;
+    for(int i=0;i<4;i++)
+      dateBuf[i] = buf[21+i];
+    dateBuf[4] = '\0';
+    year  = atoi(dateBuf);
+    month = 10*buf[25] + buf[26];
+    day   = 10*buf[27] + buf[28];
     
     // Observation type
     
@@ -163,6 +183,11 @@ void GHCNDatabase::readOneCSVFile(char* fileName)
   
   // Close up and go home
   fclose(file);
+  return true;
+  
+ERROR_RETURN:
+  fclose(file);
+  return false;
 }
 
 
