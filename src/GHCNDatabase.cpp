@@ -144,7 +144,7 @@ bool GHCNDatabase::readOneCSVFile(char* fileName, GHCNStation* station, ClimateI
     // Station id
     if(buf[11] != ',')
      {
-      LogClimateDbErr("Bad station id comma line %d of csv file %s.\n", 
+      LogClimateDbErr("Bad station id comma in line %d of csv file %s.\n", 
                                                                           line, fileName);
       goto ERROR_RETURN;
      }
@@ -159,20 +159,44 @@ bool GHCNDatabase::readOneCSVFile(char* fileName, GHCNStation* station, ClimateI
     // Date
     if(buf[20] != ',')
      {
-      LogClimateDbErr("Bad date comma line %d of csv file %s.\n", line, fileName);
+      LogClimateDbErr("Bad date comma in line %d of csv file %s.\n", line, fileName);
       goto ERROR_RETURN;
      }
     char dateBuf[5];
     int year, month, day;
     for(int i=0;i<4;i++)
-      dateBuf[i] = buf[21+i];
+      dateBuf[i] = buf[12+i];
     dateBuf[4] = '\0';
     year  = atoi(dateBuf);
-    month = 10*buf[25] + buf[26];
-    day   = 10*buf[27] + buf[28];
+    month = 10*buf[16] + buf[17];
+    day   = 10*buf[18] + buf[19];
     
     // Observation type
-    
+    if(buf[25] != ',')
+     {
+      LogClimateDbErr("Bad observation type comma in line %d of csv file %s.\n", 
+                                                                        line, fileName);
+      goto ERROR_RETURN;
+     }
+    buf[25] = '\0';
+    if(strcmp(buf + 21, "TMAX") == 0)
+     {
+      ;
+     }  
+    else if(strcmp(buf + 21, "TMIN") == 0)
+     {
+      ;
+     }  
+    else if(strcmp(buf + 21, "PRCP") == 0)
+     {
+      ;
+     }  
+    else if(strcmp(buf + 21, "SNOW") == 0)
+     {
+      ;
+     }  
+       
+       
     // Observation
     
     // Flags
