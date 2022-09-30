@@ -136,11 +136,17 @@ bool GHCNDatabase::readOneCSVFile(char* fileName, GHCNStation* station, ClimateI
   
   // Loop over the lines in the file
   char buf[128];
-  int line = 1;
-  while(fgets(buf, 128, file))
+  int line = 0;
+  while(fgets(buf, 128, file) && ++line)
    {
     // USC00304174,18930101,TMAX,67,,,6,
-    
+    int strLen = strlen(buf);
+    if(strLen < 32)
+     {
+      LogClimateDbErr("Short line %d of csv file %s.\n", line, fileName);
+      goto ERROR_RETURN;
+     }
+
     // Station id
     if(buf[11] != ',')
      {
@@ -171,14 +177,24 @@ bool GHCNDatabase::readOneCSVFile(char* fileName, GHCNStation* station, ClimateI
     month = 10*buf[16] + buf[17];
     day   = 10*buf[18] + buf[19];
     
-    // Observation type
+    // Observation type, observation
     if(buf[25] != ',')
      {
       LogClimateDbErr("Bad observation type comma in line %d of csv file %s.\n", 
                                                                         line, fileName);
       goto ERROR_RETURN;
      }
-    buf[25] = '\0';
+    buf[25] = '\0'; // comma after observation type
+    char* commaLoc = index(buf + 26, ','); // find the comma after the observation
+    unless(commaLoc)
+     {
+      LogClimateDbErr("Couldn't find observation in line %d of csv file %s.\n", 
+                                                                        line, fileName);
+      goto ERROR_RETURN;
+     }
+    *commaLoc = '\0';
+    float observation = atof(buf+26);
+
     if(strcmp(buf + 21, "TMAX") == 0)
      {
       ;
@@ -196,13 +212,7 @@ bool GHCNDatabase::readOneCSVFile(char* fileName, GHCNStation* station, ClimateI
       ;
      }  
        
-       
-    // Observation
-    
     // Flags
-    
-    
-    line++;
    }
   
   // Close up and go home
