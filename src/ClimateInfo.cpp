@@ -6,13 +6,20 @@
 // projections within permaplan
 
 #include "ClimateInfo.h"
+#include <assert.h>
 
 
 // =======================================================================================
 /// @brief Constructor
+///
+/// @param start The integer year of the first year of data
+/// @param end The integer year after that last year of data
 
-ClimateInfo::ClimateInfo(void)
+ClimateInfo::ClimateInfo(int start, int end): startYear(start),
+                                              endYear(end)
 {
+  assert(endYear > startYear);
+  climateYears = new ClimateYear[endYear - startYear];
 }
 
 
@@ -21,6 +28,7 @@ ClimateInfo::ClimateInfo(void)
 
 ClimateInfo::~ClimateInfo(void)
 {
+  delete[] climateYears;
 }
 
 

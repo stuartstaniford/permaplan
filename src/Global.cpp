@@ -15,6 +15,13 @@
 
 TaskQueueFarm* threadFarm = NULL;
 
+// Calendar related globals
+int monthDaysLeap[11] = {31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30};
+int monthDaysNonLeap[11] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30};
+int yearDaysNonLeap[12];
+int yearDaysLeap[12];
+
+
 // =======================================================================================
 // Initialization of the global variables defined in here.
 
@@ -23,7 +30,13 @@ void initGlobals(int nThreads)
 #ifdef MULTI_THREADED_SIMULATION
   threadFarm = new TaskQueueFarm(nThreads, (char*)"treeSimFarm");  
 #endif
-  
+
+  yearDaysNonLeap[0] = yearDaysLeap[0] = 0;
+  for(int i=1; i<12; i++)
+   {
+    yearDaysNonLeap[i] = yearDaysNonLeap[i-1] + monthDaysNonLeap[i-1];
+    yearDaysLeap[i] = yearDaysLeap[i-1] + monthDaysLeap[i-1];
+   }
 }
 
 

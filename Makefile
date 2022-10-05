@@ -44,7 +44,7 @@ SRCS = $(wildcard src/*.cpp)
 # with the .o suffix
 #
 OBJS = $(SRCS:.cpp=.o)
-SERV_OBJS = src/BILFile.o src/ClimateInfo.o src/ClimateDatabase.o src/GHCNDatabase.o src/Global.o src/GroundLayer.o   src/GdalFileInterface.o src/HttpLBPermaserv.o src/HttpPermaServ.o src/HttpServThread.o src/HttpLoadBalancer.o src/HttpRequestParser.o src/HttpClient.o src/HWSDProfile.o src/Logging.o src/MdbFile.o src/SoilDatabase.o src/SoilProfile.o src/SoilHorizon.o src/SolarDatabase.o src/TaskQueueFarm.o src/TaskQueue.o src/Lockable.o src/ResourceManager.o src/loadFileToBuf.o src/DynamicallyTypable.o src/Timeval.o
+SERV_OBJS = src/BILFile.o src/ClimateInfo.o src/ClimateDatabase.o src/DynamicallyTypable.o src/GHCNDatabase.o src/GdalFileInterface.o src/Global.o src/GroundLayer.o src/HttpLBPermaserv.o src/HttpPermaServ.o src/HttpServThread.o src/HttpLoadBalancer.o src/HttpRequestParser.o src/HttpClient.o src/HWSDProfile.o src/loadFileToBuf.o src/Lockable.o src/Logging.o src/MdbFile.o src/ResourceManager.o src/SoilDatabase.o src/SoilHorizon.o src/SoilProfile.o src/SolarDatabase.o src/TaskQueue.o src/TaskQueueFarm.o src/Timeval.o
 
 # define the executable file
 MAIN = permaplan
@@ -927,6 +927,87 @@ src/CircleIterator.o: /usr/local/include/cglm/affine2d.h ./include/Global.h
 src/ClimateDatabase.o: ./include/ClimateDatabase.h ./include/GHCNDatabase.h
 src/ClimateDatabase.o: ./include/RTree.h
 src/ClimateDatabaseClient.o: ./include/ClimateDatabaseClient.h
+src/ClimateDatabaseClient.o: ./include/HttpPermaservClient.h
+src/ClimateDatabaseClient.o: ./include/HttpClient.h
+src/ClimateDatabaseClient.o: ./include/rapidjson/document.h
+src/ClimateDatabaseClient.o: ./include/rapidjson/reader.h
+src/ClimateDatabaseClient.o: ./include/rapidjson/allocators.h
+src/ClimateDatabaseClient.o: ./include/rapidjson/rapidjson.h
+src/ClimateDatabaseClient.o: ./include/rapidjson/stream.h
+src/ClimateDatabaseClient.o: ./include/rapidjson/encodings.h
+src/ClimateDatabaseClient.o: ./include/rapidjson/encodedstream.h
+src/ClimateDatabaseClient.o: ./include/rapidjson/memorystream.h
+src/ClimateDatabaseClient.o: ./include/rapidjson/internal/clzll.h
+src/ClimateDatabaseClient.o: ./include/rapidjson/rapidjson.h
+src/ClimateDatabaseClient.o: ./include/rapidjson/internal/meta.h
+src/ClimateDatabaseClient.o: ./include/rapidjson/internal/stack.h
+src/ClimateDatabaseClient.o: ./include/rapidjson/allocators.h
+src/ClimateDatabaseClient.o: ./include/rapidjson/internal/swap.h
+src/ClimateDatabaseClient.o: ./include/rapidjson/internal/strtod.h
+src/ClimateDatabaseClient.o: ./include/rapidjson/internal/ieee754.h
+src/ClimateDatabaseClient.o: ./include/rapidjson/internal/biginteger.h
+src/ClimateDatabaseClient.o: ./include/rapidjson/internal/diyfp.h
+src/ClimateDatabaseClient.o: ./include/rapidjson/internal/clzll.h
+src/ClimateDatabaseClient.o: ./include/rapidjson/internal/pow10.h
+src/ClimateDatabaseClient.o: ./include/rapidjson/error/error.h
+src/ClimateDatabaseClient.o: ./include/rapidjson/internal/strfunc.h
+src/ClimateDatabaseClient.o: ./include/rapidjson/stream.h
+src/ClimateDatabaseClient.o: ./include/rapidjson/writer.h
+src/ClimateDatabaseClient.o: ./include/rapidjson/internal/dtoa.h
+src/ClimateDatabaseClient.o: ./include/rapidjson/internal/itoa.h
+src/ClimateDatabaseClient.o: ./include/rapidjson/internal/itoa.h
+src/ClimateDatabaseClient.o: ./include/rapidjson/stringbuffer.h
+src/ClimateDatabaseClient.o: ./include/rapidjson/stringbuffer.h
+src/ClimateDatabaseClient.o: ./include/rapidjson/error/en.h
+src/ClimateDatabaseClient.o: ./include/rapidjson/error/error.h
+src/ClimateDatabaseClient.o: ./include/PmodDesign.h ./include/Boundary.h
+src/ClimateDatabaseClient.o: /usr/local/include/cglm/cglm.h
+src/ClimateDatabaseClient.o: /usr/local/include/cglm/common.h
+src/ClimateDatabaseClient.o: /usr/local/include/cglm/types.h
+src/ClimateDatabaseClient.o: /usr/local/include/cglm/simd/intrin.h
+src/ClimateDatabaseClient.o: /usr/local/include/cglm/vec2.h
+src/ClimateDatabaseClient.o: /usr/local/include/cglm/util.h
+src/ClimateDatabaseClient.o: /usr/local/include/cglm/vec2-ext.h
+src/ClimateDatabaseClient.o: /usr/local/include/cglm/vec3.h
+src/ClimateDatabaseClient.o: /usr/local/include/cglm/vec4.h
+src/ClimateDatabaseClient.o: /usr/local/include/cglm/vec4-ext.h
+src/ClimateDatabaseClient.o: /usr/local/include/cglm/vec3-ext.h
+src/ClimateDatabaseClient.o: /usr/local/include/cglm/mat4.h
+src/ClimateDatabaseClient.o: /usr/local/include/cglm/mat3.h
+src/ClimateDatabaseClient.o: /usr/local/include/cglm/mat2.h
+src/ClimateDatabaseClient.o: /usr/local/include/cglm/affine.h
+src/ClimateDatabaseClient.o: /usr/local/include/cglm/affine-mat.h
+src/ClimateDatabaseClient.o: /usr/local/include/cglm/cam.h
+src/ClimateDatabaseClient.o: /usr/local/include/cglm/plane.h
+src/ClimateDatabaseClient.o: /usr/local/include/cglm/clipspace/persp.h
+src/ClimateDatabaseClient.o: /usr/local/include/cglm/common.h
+src/ClimateDatabaseClient.o: /usr/local/include/cglm/plane.h
+src/ClimateDatabaseClient.o: /usr/local/include/cglm/mat4.h
+src/ClimateDatabaseClient.o: /usr/local/include/cglm/clipspace/ortho_rh_no.h
+src/ClimateDatabaseClient.o: /usr/local/include/cglm/clipspace/persp_rh_no.h
+src/ClimateDatabaseClient.o: /usr/local/include/cglm/clipspace/persp.h
+src/ClimateDatabaseClient.o: /usr/local/include/cglm/clipspace/view_rh_no.h
+src/ClimateDatabaseClient.o: /usr/local/include/cglm/clipspace/view_rh.h
+src/ClimateDatabaseClient.o: /usr/local/include/cglm/frustum.h
+src/ClimateDatabaseClient.o: /usr/local/include/cglm/quat.h
+src/ClimateDatabaseClient.o: /usr/local/include/cglm/euler.h
+src/ClimateDatabaseClient.o: /usr/local/include/cglm/box.h
+src/ClimateDatabaseClient.o: /usr/local/include/cglm/color.h
+src/ClimateDatabaseClient.o: /usr/local/include/cglm/io.h
+src/ClimateDatabaseClient.o: /usr/local/include/cglm/project.h
+src/ClimateDatabaseClient.o: /usr/local/include/cglm/clipspace/project_no.h
+src/ClimateDatabaseClient.o: /usr/local/include/cglm/vec3.h
+src/ClimateDatabaseClient.o: /usr/local/include/cglm/vec4.h
+src/ClimateDatabaseClient.o: /usr/local/include/cglm/sphere.h
+src/ClimateDatabaseClient.o: /usr/local/include/cglm/ease.h
+src/ClimateDatabaseClient.o: /usr/local/include/cglm/curve.h
+src/ClimateDatabaseClient.o: /usr/local/include/cglm/bezier.h
+src/ClimateDatabaseClient.o: /usr/local/include/cglm/ray.h
+src/ClimateDatabaseClient.o: /usr/local/include/cglm/affine2d.h
+src/ClimateDatabaseClient.o: ./include/BoundingBox.h ./include/Timeval.h
+src/ClimateDatabaseClient.o: ./include/Global.h ./include/Logging.h
+src/ClimateDatabaseClient.o: ./include/MemoryTracker.h ./include/Lockable.h
+src/ClimateInfo.o: ./include/ClimateInfo.h
 src/ColoredAxes.o: ./include/ColoredAxes.h ./include/LineStripList.h
 src/ColoredAxes.o: /usr/local/include/cglm/cglm.h
 src/ColoredAxes.o: /usr/local/include/cglm/common.h
@@ -1285,9 +1366,10 @@ src/ElementBufferObject.o: /usr/local/include/cglm/ray.h
 src/ElementBufferObject.o: /usr/local/include/cglm/affine2d.h
 src/EmptyClass.o: ./include/EmptyClass.h
 src/GHCNDatabase.o: ./include/GHCNDatabase.h ./include/RTree.h
-src/GHCNDatabase.o: ./include/Logging.h ./include/MemoryTracker.h
-src/GHCNDatabase.o: ./include/Timeval.h ./include/Lockable.h
-src/GHCNDatabase.o: ./include/Global.h /usr/local/include/cglm/cglm.h
+src/GHCNDatabase.o: ./include/ClimateInfo.h ./include/Logging.h
+src/GHCNDatabase.o: ./include/MemoryTracker.h ./include/Timeval.h
+src/GHCNDatabase.o: ./include/Lockable.h ./include/Global.h
+src/GHCNDatabase.o: /usr/local/include/cglm/cglm.h
 src/GHCNDatabase.o: /usr/local/include/cglm/common.h
 src/GHCNDatabase.o: /usr/local/include/cglm/types.h
 src/GHCNDatabase.o: /usr/local/include/cglm/simd/intrin.h

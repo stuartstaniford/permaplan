@@ -19,6 +19,9 @@ class ClimateDay
   float precip;     // mm of water falling during the 24 hour period
 };
 
+/// @brief ClimateYear is an array of ClimateDays - always has space for a leap day.
+typedef ClimateDay ClimateYear[366];
+
 
 // =======================================================================================
 /// @brief Models a climate scenario at some particular location.
@@ -33,14 +36,17 @@ class ClimateInfo
 public:
   
   // Instance variables - public
+  int startYear;        // the first year for which we have data
+  int endYear;         // the year *after* the last year of data
   
   // Member functions - public
-  ClimateInfo(void);
+  ClimateInfo(int start, int end);
   ~ClimateInfo(void);
   
 private:
   
   // Instance variables - private
+  ClimateYear* climateYears;
   
   // Member functions - private
   /// @brief Prevent copy-construction.
