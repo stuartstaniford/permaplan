@@ -75,6 +75,11 @@ bool HttpPermaServ::indexPage(void)
                                               "soil?loLat:hiLat:loLong:hiLong:</a></td>");
   internalPrintf("<td>Soil Profiles in region (json).</td></tr>\n");
 
+  // Climate data near a particular point
+  internalPrintf("<tr><td><a href=\"/climate?42.441570:-76.498665:20:\">"
+                 "climate?lat:long:years:</a></td>");
+  internalPrintf("<td>Years of climate information near location.</td></tr>\n");
+
   // End table and page
   internalPrintf("</table></center>\n");
   endResponsePage();
@@ -236,7 +241,7 @@ bool HttpPermaServ::processRequestHeader(void)
   else if( strlenUrl >= 13 && strncmp(url, "/climate?", 9) == 0)
    {
     LogPermaservOpDetails("Processing climate request for %s.\n", url+9);
-    retVal = processClimateRequest(url+5);
+    retVal = processClimateRequest(url+9);
    }
 
    else if( strlenUrl == 13 && strncmp(url, "/compileTime/", 13) == 0)
