@@ -15,6 +15,7 @@ class GHCNDatabase;
 #define LOW_TEMP_VALID  0x00000001
 #define HI_TEMP_VALID   0x00000002
 #define PRECIP_VALID    0x00000004
+#define ALL_OBS_VALID   0x00000007
 
 // =======================================================================================
 /// @brief One day's worth of climate data.
@@ -57,6 +58,7 @@ public:
   // Member functions - public
   ClimateInfo(int start, int end);
   ~ClimateInfo(void);
+  void countValidDays(unsigned& totalDays, unsigned& validDays);
   
 private:
   

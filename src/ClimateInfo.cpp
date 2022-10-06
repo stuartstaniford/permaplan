@@ -6,6 +6,7 @@
 // projections within permaplan
 
 #include "ClimateInfo.h"
+#include "Global.h"
 #include <assert.h>
 
 
@@ -30,6 +31,32 @@ ClimateInfo::~ClimateInfo(void)
 {
   delete[] climateYears;
 }
+
+
+// =======================================================================================
+/// @brief Count how many days have fully valid info info
+/// 
+/// This counts the number of days that have high and low temps and precipitation data.
+/// @param totalDays A reference to a counter for the total days in the year range
+/// @param validDays A reference to a counter for the days with valid information
+
+void ClimateInfo::countValidDays(unsigned& totalDays, unsigned& validDays)
+{
+  totalDays = validDays = 0u;
+  
+  for(int i=0; i < endYear-startYear; i++) // loop over years
+   {
+    int days = DaysInYear(startYear+i);
+    totalDays += days;  
+    for(int j=0; j < days; j++)          // loop over days
+     {
+      unsigned flags = climateYears[i][j].flags;
+      if((flags & ALL_OBS_VALID) == ALL_OBS_VALID)
+        validDays++;
+     }
+   }
+}
+
 
 
 // =======================================================================================

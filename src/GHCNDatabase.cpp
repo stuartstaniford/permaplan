@@ -134,7 +134,7 @@ int GHCNDatabase::readOneCSVFile(char* fileName, GHCNStation* station, ClimateIn
   unless(file)
    {
     LogClimateDbErr("Couldn't open station csv file %s.\n", fileName);
-    return false;
+    return -1;
    }
   
   // Loop over the lines in the file
@@ -235,11 +235,13 @@ int GHCNDatabase::readOneCSVFile(char* fileName, GHCNStation* station, ClimateIn
   
   // Close up and go home
   fclose(file);
-  return true;
+  unsigned total, valid;
+  climInfo->countValidDays(total, valid);
+  return valid;
   
 ERROR_RETURN:
   fclose(file);
-  return false;
+  return -1;
 }
 
 

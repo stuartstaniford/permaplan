@@ -22,6 +22,7 @@
 #define IsLeapYear(X) ((X)%4?0:((X)%100?1:((X)%400?0:1)))
 #define yearDays(Year, Month, Day) (IsLeapYear(Year)?(yearDaysLeap[(Month)-1]+(Day-1)):\
                                                     (yearDaysNonLeap[(Month)-1]+(Day-1)))
+#define DaysInYear(X) (IsLeapYear(X)?366:365)
 
 
 // =======================================================================================
