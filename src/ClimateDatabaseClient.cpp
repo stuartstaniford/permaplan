@@ -10,11 +10,21 @@
 
 
 // =======================================================================================
+// Initialization of variables, etc
+
+ClimateDatabaseClient* ClimateDatabaseClient::theClimateDbClient = NULL;
+
+
+// =======================================================================================
 /// @brief Constructor
 
 ClimateDatabaseClient::ClimateDatabaseClient(HttpPermaservClient& httpPermCli):
                                                               httpPermClient(httpPermCli)
 {
+  if(theClimateDbClient)
+    return;
+  else
+    theClimateDbClient = this;
 }
 
 

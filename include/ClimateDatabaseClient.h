@@ -8,6 +8,7 @@
 // Forward declarations
 
 class HttpPermaservClient;
+class ClimateInfo;
 
 
 // =======================================================================================
@@ -27,8 +28,15 @@ public:
   ~ClimateDatabaseClient(void);
   bool getClimateDataFromDatabase(void);
 
+  // Static member functions
+  static ClimateDatabaseClient& getClimateDbClient(void) // Get the singleton instance
+        { return *theClimateDbClient; }
+
 private:
   
+  // Static variables - private
+  static ClimateDatabaseClient* theClimateDbClient;
+
   // Instance variables - private
   HttpPermaservClient& httpPermClient;
 
