@@ -97,6 +97,8 @@ bool searchCallback(GHCNStation* station, void* context)
 /// @param longT A float containing the longtitude to search for
 /// @todo We are searching on raw lat/long squares here, which will tend to get skeevy
 /// towards the poles - might want to add a cos(lat) factor.
+/// @todo We currently just take the first result, rather than examining results for 
+/// altitude etc.
 
 void GHCNDatabase::getStations(float lat, float longT)
 {
@@ -116,7 +118,12 @@ void GHCNDatabase::getStations(float lat, float longT)
     int hits = stationTree.Search(searchMin, searchMax, searchCallback, this);
     LogGHCNExhaustive("Got %d results in search with %.4f degrees of [%.4f, %.4f].\n",
                       hits, searchBound, lat, longT);
-    break; // temp
+    if(hits)
+     {
+      break; // temp
+     }
+    else
+      searchBound *= 1.4142f;
    }
 }
 

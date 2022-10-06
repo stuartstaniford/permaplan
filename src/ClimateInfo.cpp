@@ -34,7 +34,7 @@ ClimateInfo::~ClimateInfo(void)
 
 
 // =======================================================================================
-/// @brief Count how many days have fully valid info info
+/// @brief Count how many days have fully valid info
 /// 
 /// This counts the number of days that have high and low temps and precipitation data.
 /// @param totalDays A reference to a counter for the total days in the year range
@@ -44,19 +44,40 @@ void ClimateInfo::countValidDays(unsigned& totalDays, unsigned& validDays)
 {
   totalDays = validDays = 0u;
   
-  for(int i=0; i < endYear-startYear; i++) // loop over years
+  forAllDays(i,j)
    {
-    int days = DaysInYear(startYear+i);
-    totalDays += days;  
-    for(int j=0; j < days; j++)          // loop over days
-     {
-      unsigned flags = climateYears[i][j].flags;
-      if((flags & ALL_OBS_VALID) == ALL_OBS_VALID)
+    unsigned flags = climateYears[i][j].flags;
+    totalDays++;
+    if((flags & ALL_OBS_VALID) == ALL_OBS_VALID)
         validDays++;
-     }
    }
 }
 
+
+// =======================================================================================
+/// @brief Output JSON format of climate data to a buffer.
+/// 
+/// @returns The number of bytes written to the buffer.  If greater than or equal to 
+/// the supplied bufSize parameter, it indicates the buffer was not big enough and the
+/// output will have been truncated/incomplete.
+/// @param buf The char buffer to write the JSON to.
+/// @param bufSize The size of the buffer, which must not be overwritten after the end.
+
+  int ClimateInfo::writeJsonFields(char* buf, unsigned bufSize)
+  {
+    char* end = buf + bufSize;
+
+   /*
+    buf += DynamicallyTypable::writeJsonFields(buf, bufSize);
+    bufprintf(",\n");
+
+    // Write our own fields.
+    bufprintf("\"latitude\": %.6f,\n", latitude);
+    bufprintf("\"longtitude\": %.6f,\n", longtitude);
+   */ 
+    bufprintf("]"); // no ,\n as we don't know we are last
+    return bufSize - (end-buf);
+  }
 
 
 // =======================================================================================

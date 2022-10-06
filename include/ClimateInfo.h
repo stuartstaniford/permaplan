@@ -3,11 +3,21 @@
 #ifndef CLIMATE_INFO_H
 #define CLIMATE_INFO_H
 
+#include "DynamicallyTypable.h"
+
 
 // =======================================================================================
 // Forward declarations
 
 class GHCNDatabase;
+
+// =======================================================================================
+// Useful macros
+
+#define forAllDays(i, j)  int loopDays; for(int i=0; i < endYear-startYear; \
+                                  i++, loopDays = DaysInYear(startYear+i)) \
+                                    for(int j=0; j < loopDays; j++)
+
 
 // =======================================================================================
 // Flags for storage in a ClimateDay structure.
@@ -16,6 +26,7 @@ class GHCNDatabase;
 #define HI_TEMP_VALID   0x00000002
 #define PRECIP_VALID    0x00000004
 #define ALL_OBS_VALID   0x00000007
+
 
 // =======================================================================================
 /// @brief One day's worth of climate data.
@@ -59,7 +70,8 @@ public:
   ClimateInfo(int start, int end);
   ~ClimateInfo(void);
   void countValidDays(unsigned& totalDays, unsigned& validDays);
-  
+  int writeJsonFields(char* buf, unsigned bufSize);
+
 private:
   
   // Instance variables - private
