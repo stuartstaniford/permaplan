@@ -84,6 +84,8 @@ void GHCNDatabase::readStations(void)
 
 bool searchCallback(GHCNStation* station, void* context)
 {
+  GHCNDatabase* db = (GHCNDatabase*)context;
+  db->stationResults.push_back(station);
   return true; // keep going  
 }
 
@@ -102,6 +104,8 @@ void GHCNDatabase::getStations(float lat, float longT)
   float searchMin[2];
   float searchMax[2];
   
+  stationResults.clear();
+  
   while(1) // keep adjusting the search rectangle until we get a good result
    {
     searchMin[0] = lat    - searchBound;
@@ -109,7 +113,7 @@ void GHCNDatabase::getStations(float lat, float longT)
     searchMax[0] = lat    + searchBound;
     searchMax[1] = longT  + searchBound;
     
-    int hits = stationTree.Search(searchMin, searchMax, searchCallback, NULL);
+    int hits = stationTree.Search(searchMin, searchMax, searchCallback, this);
     LogGHCNExhaustive("Got %d results in search with %.4f degrees of [%.4f, %.4f].\n",
                       hits, searchBound, lat, longT);
     break; // temp
@@ -118,7 +122,7 @@ void GHCNDatabase::getStations(float lat, float longT)
 
 
 // =======================================================================================
-/// @brief Read a single .dly file.
+/// @brief Read a single .csv file.
 ///
 /// @param fileName A char* pointing to the file name to be opened.
 /// @param station A pointer to the GHCNStation record for which we are reading

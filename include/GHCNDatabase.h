@@ -4,7 +4,7 @@
 #define GHCN_DATABASE_H
 
 #include "RTree.h"
-
+#include <vector>
 
 // =======================================================================================
 // Forward declarations
@@ -42,6 +42,8 @@ public:
 
 class GHCNDatabase
 {
+  friend bool searchCallback(GHCNStation*, void*);
+  
 public:
   
   // Instance variables - public
@@ -58,7 +60,8 @@ private:
   // Instance variables - private
   char* dbPath;
   RTree<GHCNStation*, float, 2> stationTree;
-
+  std::vector<GHCNStation*> stationResults;
+  
   // Member functions - private
   /// @brief Prevent copy-construction.
   GHCNDatabase(const GHCNDatabase&);       
