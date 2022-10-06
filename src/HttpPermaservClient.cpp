@@ -296,9 +296,10 @@ bool HttpPermaservClient::getSoilProfiles(float lowLat, float lowLong,
 /// 
 /// @param lat Latitude of our location.
 /// @param longT Longtitude of our location.
+/// @param years Maximum number of years of climate data to fetch.
 /// @todo reading from the cache file is not implemented.
  
-bool HttpPermaservClient::getClimateData(float lat, float longT)
+bool HttpPermaservClient::getClimateData(float lat, float longT, unsigned years)
 {
   if(cachePresent && doc.HasMember("climate"))
    {
@@ -306,7 +307,7 @@ bool HttpPermaservClient::getClimateData(float lat, float longT)
     return true;
    }
   char url[FULL_URL_BUFSIZE];
-  snprintf(url, FULL_URL_BUFSIZE, "climate?%f:%f:", lat, longT);
+  snprintf(url, FULL_URL_BUFSIZE, "climate?%f:%f:%u:", lat, longT, years);
   if(getJSONObject(url))
    {
     LogPermaservClientOps("Obtained climate data from permaserv.\n"); 

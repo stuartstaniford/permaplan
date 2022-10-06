@@ -27,7 +27,8 @@ public:
   ClimateDatabaseClient(HttpPermaservClient& httpPermCli);
   ~ClimateDatabaseClient(void);
   bool getClimateDataFromDatabase(void);
-
+  void waitTillReady(void);
+  
   // Static member functions
   static ClimateDatabaseClient& getClimateDbClient(void) // Get the singleton instance
         { return *theClimateDbClient; }

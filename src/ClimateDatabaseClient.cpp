@@ -51,7 +51,7 @@ bool ClimateDatabaseClient::getClimateDataFromDatabase(void)
   design.boundary.latLongRange(loLat, hiLat, loLong, hiLong);
   
   // Send the request to permaserv
-  unless(httpPermClient.getClimateData((loLat+hiLat)/2.0f, (loLong+hiLong)/2.0f))
+  unless(httpPermClient.getClimateData((loLat+hiLat)/2.0f, (loLong+hiLong)/2.0f, 20))
    {
     LogPermaservClientErrors("Failed to get climate data response in "            
                                       "ClimateDatabaseClient::getClimateDataFromDatabase.\n");
@@ -66,6 +66,16 @@ bool ClimateDatabaseClient::getClimateDataFromDatabase(void)
     return false;
          
   return true;
+}
+
+
+// =======================================================================================
+/// @brief Allows the main thread to wait until the climate data is ready.
+/// @todo Is a stub right now.
+
+void ClimateDatabaseClient::waitTillReady(void)
+{
+  
 }
 
 

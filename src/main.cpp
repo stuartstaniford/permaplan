@@ -14,6 +14,7 @@
 #include "InterfaceMainSceneWin.h"
 #include "HttpPermaservClient.h"
 #include "SoilDatabaseClient.h"
+#include "ClimateDatabaseClient.h"
 #include "Scene.h"
 #include <cstdio>
 #include <stdexcept>
@@ -56,9 +57,11 @@ int main (int argc, char* argv[])
   Shader shader("src/pmodVert.glsl", "src/pmodFrag.glsl");
   window.camera.makeActive(); // Can't do till shader is set up.
   ResourceManager resources(window, (char*)"manifest.json");
-  HttpPermaservClient permaservClient;
-  SoilDatabaseClient soilDBClient(permaservClient);
   PmodDesign design;
+  HttpPermaservClient permaservClient;
+  ClimateDatabaseClient climateDBClient(permaservClient);
+  climateDBClient.getClimateDataFromDatabase();
+  SoilDatabaseClient soilDBClient(permaservClient);
   Scene scene;
   SkySampleModel skySampler(design.boundary.referencePoint[0], 
                                                         design.boundary.referencePoint[1]);
@@ -69,6 +72,8 @@ int main (int argc, char* argv[])
   TextureAtlas treesAtlas((char*)"Materials/Trees");
   MaterialList materials(blocksAtlas);
   RegionList::loadRoot();
+  
+  climateDBClient.waitTillReady();
   
   // By now we should have gotten anything we need from permaserv, so save the cache
   permaservClient.writeCacheFile();

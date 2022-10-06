@@ -45,7 +45,7 @@ public:
   float getDIFValue(float lat, float longt);
   float getDNIValue(float lat, float longt);
   bool getSoilProfiles(float lowLat, float lowLong, float hiLat, float hiLong);
-  bool getClimateData(float lat, float longT);
+  bool getClimateData(float lat, float longT, unsigned years);
 
   // Static public member functions
   static HttpPermaservClient& getPermaservClient(void) // Get the singleton instance
