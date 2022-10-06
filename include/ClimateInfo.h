@@ -5,6 +5,18 @@
 
 
 // =======================================================================================
+// Forward declarations
+
+class GHCNDatabase;
+
+// =======================================================================================
+// Flags for storage in a ClimateDay structure.
+
+#define LOW_TEMP_VALID  0x00000001
+#define HI_TEMP_VALID   0x00000002
+#define PRECIP_VALID    0x00000004
+
+// =======================================================================================
 /// @brief One day's worth of climate data.
 
 class ClimateDay
@@ -14,6 +26,7 @@ class ClimateDay
   // Member functions - public
 
   // Instance variables - public
+  unsigned flags;
   float lowTemp;    // the low temperature (generally around sunrise).
   float hiTemp;     // high temperature (generally mid afternoon).
   float precip;     // mm of water falling during the 24 hour period
@@ -33,6 +46,8 @@ typedef ClimateDay ClimateYear[366];
 
 class ClimateInfo
 {
+  friend GHCNDatabase;
+  
 public:
   
   // Instance variables - public

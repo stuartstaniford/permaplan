@@ -121,10 +121,13 @@ void GHCNDatabase::getStations(float lat, float longT)
 /// @brief Read a single .dly file.
 ///
 /// @param fileName A char* pointing to the file name to be opened.
+/// @param station A pointer to the GHCNStation record for which we are reading
+/// @param climInfo A pointer to the ClimateInfo structure to store the data in
+/// @returns The number of complete records we read
 
 // https://www.ncei.noaa.gov/pub/data/ghcn/daily/readme.txt
 
-bool GHCNDatabase::readOneCSVFile(char* fileName, GHCNStation* station, ClimateInfo* climInfo)
+int GHCNDatabase::readOneCSVFile(char* fileName, GHCNStation* station, ClimateInfo* climInfo)
 {
   // Open the file
   FILE* file = fopen(fileName, "r");
@@ -177,6 +180,15 @@ bool GHCNDatabase::readOneCSVFile(char* fileName, GHCNStation* station, ClimateI
     month = 10*buf[16] + buf[17];
     day   = 10*buf[18] + buf[19];
     
+    //Find the right climateDay
+    if(year < climInfo->startYear || year >= climInfo->endYear)
+     {
+      LogGHCNExhaustive("Ignoring out of range date %d/%d/%d on line %d of csv file %s.\n",                         year, month, day, line, fileName);
+      continue;
+     }
+    ClimateDay* climDay = climInfo->climateYears[year-climInfo->startYear] + 
+                                                            yearDays(year, month, day);
+    
     // Observation type, observation
     if(buf[25] != ',')
      {
@@ -197,15 +209,21 @@ bool GHCNDatabase::readOneCSVFile(char* fileName, GHCNStation* station, ClimateI
 
     if(strcmp(buf + 21, "TMAX") == 0)
      {
-      ;
+      climDay->hiTemp = observation;
+      /// @todo check validity of value
+      climDay->flags |= HI_TEMP_VALID;
      }  
     else if(strcmp(buf + 21, "TMIN") == 0)
      {
-      ;
+      climDay->lowTemp = observation;
+      /// @todo check validity of value
+      climDay->flags |= LOW_TEMP_VALID;
      }  
     else if(strcmp(buf + 21, "PRCP") == 0)
      {
-      ;
+      climDay->precip = observation;
+      /// @todo check validity of value
+      climDay->flags |= PRECIP_VALID;
      }  
     else if(strcmp(buf + 21, "SNOW") == 0)
      {
