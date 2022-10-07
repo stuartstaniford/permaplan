@@ -30,7 +30,8 @@ enum DynamicType
   TypeHWSDProfile,
   TypeGroundLayer,
   TypeSoilHorizon,
-  TypeGroundLitterLayer
+  TypeGroundLitterLayer,
+  TypeClimateInfo
 };
 
 

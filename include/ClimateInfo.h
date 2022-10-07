@@ -31,7 +31,7 @@ class GHCNDatabase;
 // =======================================================================================
 /// @brief One day's worth of climate data.
 
-class ClimateDay
+class ClimateDay: public DynamicallyTypable
 {
   public:
 
@@ -70,7 +70,8 @@ public:
   ClimateInfo(int start, int end);
   ~ClimateInfo(void);
   void countValidDays(unsigned& totalDays, unsigned& validDays);
-  int writeJsonFields(char* buf, unsigned bufSize);
+  virtual DynamicType getDynamicType(void) {return TypeClimateInfo;}
+  virtual int writeJsonFields(char* buf, unsigned bufSize);
 
 private:
   
