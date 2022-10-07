@@ -10,7 +10,6 @@
 #include "loadFileToBuf.h"
 #include <err.h>
 #include <string.h>
-#include <sys/stat.h>
 #include <stdlib.h>
 
 
@@ -39,13 +38,8 @@ HttpPermaservClient::HttpPermaservClient(void)
   
   unsigned bufSize;
   char* buf = NULL;
-  struct stat cacheStatStruct;
-  if(stat(cacheFileName, &cacheStatStruct) == 0)
-   {
-    // We have a file
-    if(cacheStatStruct.st_mode & S_IFREG)
-      buf = loadFileToBuf(cacheFileName, &bufSize);
-   }
+  if(regularFileExists(cacheFileName))
+    buf = loadFileToBuf(cacheFileName, &bufSize);
   else
    {
     // No file, leave buf NULL to signal that downfunction.

@@ -10,6 +10,7 @@
 // Forward declarations
 
 class ClimateInfo;
+class ClimateDatabase;
 
 
 // =======================================================================================
@@ -42,6 +43,7 @@ public:
 
 class GHCNDatabase
 {
+  friend ClimateDatabase;
   friend bool searchCallback(GHCNStation*, void*);
   
 public:

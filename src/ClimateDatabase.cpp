@@ -5,6 +5,7 @@
 
 #include "ClimateDatabase.h"
 #include "GHCNDatabase.h"
+#include "loadFileToBuf.h"
 
 
 // =======================================================================================
@@ -46,11 +47,33 @@ ClimateDatabase::~ClimateDatabase(void)
 /// @param longt The longtitude selected.
 /// @param yearCount The number of years of climate data to provide (assumed to start in
 /// the present year).
+/// @todo We currently just return the first remotely viable station result, instead 
+/// of properly analyzing them and picking the best or a suitably adjusted admixture
 
 unsigned ClimateDatabase::printClimateJson(char* buf, unsigned bufSize, 
                                         float lat, float longt, unsigned yearCount)
 {
   ghcnDatabase->getStations(lat, longt);
+  
+  int N = ghcnDatabase->stationResults.size();
+  char fileName[128];
+  
+  snprintf(fileName, 128, "%s/", ghcnPath);
+  char* lastEl = fileName + strlen(ghcnPath) + 1;
+  int remaining = 128 - (lastEl-fileName);
+  
+  for(int i=0; i<N; i++)
+   {
+    GHCNStation* station = ghcnDatabase->stationResults[i]; 
+    snprintf(lastEl, remaining, "%s.csv", station->id);
+    if(regularFileExists(fileName))
+     {
+      
+     }
+    
+    // lame temp hack
+   }
+  
   return 0u;
 }
 

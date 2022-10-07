@@ -8,6 +8,7 @@
 #include "TaskQueueFarm.h"
 #include "Logging.h"
 #include <stdio.h>
+#include <sys/stat.h>
 
 
 // =======================================================================================
