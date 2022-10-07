@@ -67,15 +67,60 @@ void ClimateInfo::countValidDays(unsigned& totalDays, unsigned& validDays)
   {
     char* end = buf + bufSize;
 
-   /*
     buf += DynamicallyTypable::writeJsonFields(buf, bufSize);
     bufprintf(",\n");
 
     // Write our own fields.
-    bufprintf("\"latitude\": %.6f,\n", latitude);
-    bufprintf("\"longtitude\": %.6f,\n", longtitude);
-   */ 
-    bufprintf("]"); // no ,\n as we don't know we are last
+    bufprintf("\"startYear\": %d,\n", startYear);
+    bufprintf("\"endYear\": %d,\n", endYear);
+
+    // Write the arrays of climate data
+    bufprintf("[\n");
+    int years = endYear-startYear;
+    for(int i = 0; i < years; i++)
+     {
+      if(i)
+        bufprintf(",\n");
+      bufprintf("[\n");
+      int days = DaysInYear(i+startYear);
+      for(int j = 0; j < days; j++)
+       {
+        if(j)
+          bufprintf(",\n");
+        buf += climateYears[i][j].writeJson(buf, bufSize - (end-buf));  
+       }
+      
+      bufprintf("\n]"); // no ,\n as we don't know we are last        
+     }
+   
+    bufprintf("\n]"); // no ,\n as we don't know we are last
+    return bufSize - (end-buf);
+  }
+
+
+// =======================================================================================
+/// @brief Output JSON format of climate data for a single day to a buffer.
+/// 
+/// @returns The number of bytes written to the buffer.  If greater than or equal to 
+/// the supplied bufSize parameter, it indicates the buffer was not big enough and the
+/// output will have been truncated/incomplete.
+/// @param buf The char buffer to write the JSON to.
+/// @param bufSize The size of the buffer, which must not be overwritten after the end.
+
+  int ClimateDay::writeJson(char* buf, unsigned bufSize)
+  {
+    char* end = buf + bufSize;
+
+    bufprintf("{\n");
+
+    if(flags & LOW_TEMP_VALID)
+      bufprintf("\"lowTemp\": %.2f,\n", lowTemp);
+    if(flags & HI_TEMP_VALID)
+      bufprintf("\"hiTemp\": %.2f,\n", hiTemp);
+   if(flags & PRECIP_VALID)
+     bufprintf("\"precip\": %.1f\n", precip); // no comma as last
+   
+    bufprintf("}"); // no ,\n as we don't know we are last
     return bufSize - (end-buf);
   }
 

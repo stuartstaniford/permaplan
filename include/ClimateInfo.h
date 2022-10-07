@@ -31,12 +31,13 @@ class GHCNDatabase;
 // =======================================================================================
 /// @brief One day's worth of climate data.
 
-class ClimateDay: public DynamicallyTypable
+class ClimateDay
 {
   public:
 
   // Member functions - public
-
+  int writeJson(char* buf, unsigned bufSize);
+  
   // Instance variables - public
   unsigned flags;
   float lowTemp;    // the low temperature (generally around sunrise).
@@ -56,7 +57,7 @@ typedef ClimateDay ClimateYear[366];
 /// particular location.  This is the unit of data obtained by permaplan from
 /// permaserv, and then used in projections within permaplan.
 
-class ClimateInfo
+class ClimateInfo: public DynamicallyTypable
 {
   friend GHCNDatabase;
   
