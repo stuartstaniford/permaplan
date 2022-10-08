@@ -4,6 +4,7 @@
 #include "loadFileToBuf.h"
 #include <err.h>
 #include <sys/stat.h>
+#include <sys/time.h>
 #include <cstring>
 
 
@@ -18,6 +19,23 @@ bool regularFileExists(char* fileName)
   if(!(params.st_mode&S_IFREG))
     return false;
   return true;
+}
+
+
+// =======================================================================================
+// Function to return the time since a file was modified (in seconds).  Returns a 
+// negative number on error
+
+float getFileAge(char* fileName)
+{
+  struct stat params;
+  if(stat(fileName, &params)<0)
+    return -1.0f;
+  struct timeval now;
+  gettimeofday(&now, NULL);
+  
+  return (params.st_mtimespec.tv_sec - now.tv_sec) 
+                        + (params.st_mtimespec.tv_nsec/1000000.0f - now.tv_usec/1000.0f);
 }
 
 

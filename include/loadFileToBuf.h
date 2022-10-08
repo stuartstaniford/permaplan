@@ -5,6 +5,7 @@
 
 bool regularFileExists(char* fileName);
 bool directoryExists(char* fileName);
+float getFileAge(char* fileName);
 
 int modeBitsFromString(const char* modeString);
 bool checkAndFixPermissions(const char* path, int mode);
