@@ -54,6 +54,7 @@ public:
   GHCNDatabase(char* path);
   ~GHCNDatabase(void);
   void readStations(void);
+  void checkFileIndex(void);
   void getStations(float lat, float longT);
   int readOneCSVFile(char* fileName, GHCNStation* station, ClimateInfo* climInfo);
   bool fetchCSVFile(GHCNStation* station);

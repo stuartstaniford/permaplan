@@ -19,6 +19,7 @@
 GHCNDatabase::GHCNDatabase(char* path): dbPath(path)
 {
   readStations();
+  checkFileIndex();
 }
 
 
@@ -27,6 +28,22 @@ GHCNDatabase::GHCNDatabase(char* path): dbPath(path)
 
 GHCNDatabase::~GHCNDatabase(void)
 {
+}
+
+
+
+
+// =======================================================================================
+/// @brief Get the directory listing of all the station data files if necessary.
+///
+/// This is the HTML page at this url, which has a directory listing
+/// of file names and sizes which we use to estimate how big a buffer we need to download
+/// any particular file.
+/// https://www.ncei.noaa.gov/pub/data/ghcn/daily/by_station/
+
+void GHCNDatabase::checkFileIndex(void)
+{
+  
 }
 
 
