@@ -8,6 +8,7 @@
 #include "GHCNDatabase.h"
 #include "ClimateInfo.h"
 #include "Logging.h"
+#include "loadFileToBuf.h"
 #include <string.h>
 #include <stdio.h>
 #include <ctype.h>
@@ -41,9 +42,31 @@ GHCNDatabase::~GHCNDatabase(void)
 /// any particular file.
 /// https://www.ncei.noaa.gov/pub/data/ghcn/daily/by_station/
 
+#define MAX_STATION_FILE_AGE  604800.0f   // 7*24*3600
+
 void GHCNDatabase::checkFileIndex(void)
 {
+  char fileName[128];
+  char url[] = "https://www.ncei.noaa.gov/pub/data/ghcn/daily/by_station/";
+  if(snprintf(fileName, 128, "%s/by_station/stations.html", dbPath) >= 128)
+   {
+    LogClimateDbErr("Overflow in fileName in GHCNDatabase::checkFileIndex.\n");
+    return;
+   };
   
+  float fileAge = getFileAge(fileName);
+  if(fileAge < 0.0f || fileAge > MAX_STATION_FILE_AGE)
+   {
+    if(fetchFile(url, fileName))
+     {
+      LogGHCNExhaustive("Refreshed station file %s after %.2f days\n", 
+                                                        fileName, fileAge/24.0f/3600.0f);
+     }
+    else
+     {
+      LogClimateDbErr("Could not refresh station file %s from %s.\n", fileName, url);
+     }
+   }
 }
 
 
