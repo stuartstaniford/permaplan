@@ -4,6 +4,7 @@
 #define GHCN_DATABASE_H
 
 #include "RTree.h"
+#include "HttpClient.h"
 #include <vector>
 
 // =======================================================================================
@@ -41,7 +42,7 @@ public:
 /// rest of permaserv.  For more on the dataset:
 /// https://www.ncei.noaa.gov/metadata/geoportal/rest/metadata/item/gov.noaa.ncdc:C00861/html.
 
-class GHCNDatabase
+class GHCNDatabase: public HttpClient
 {
   friend ClimateDatabase;
   friend bool searchCallback(GHCNStation*, void*);
