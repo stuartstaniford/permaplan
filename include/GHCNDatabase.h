@@ -56,6 +56,7 @@ public:
   void readStations(void);
   void getStations(float lat, float longT);
   int readOneCSVFile(char* fileName, GHCNStation* station, ClimateInfo* climInfo);
+  bool fetchCSVFile(GHCNStation* station);
 
 private:
   

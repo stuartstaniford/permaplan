@@ -129,6 +129,18 @@ void GHCNDatabase::getStations(float lat, float longT)
 
 
 // =======================================================================================
+/// @brief Fetch a single .csv file from the GHCN repository.
+///
+/// @param station A pointer to the GHCNStation record which is requested
+/// @returns True if we successfully fetched it, false if we failed.
+
+bool GHCNDatabase::fetchCSVFile(GHCNStation* station)
+{
+  return false;  
+}
+
+
+// =======================================================================================
 /// @brief Read a single .csv file.
 ///
 /// @param fileName A char* pointing to the file name to be opened.

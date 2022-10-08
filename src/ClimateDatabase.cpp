@@ -6,6 +6,7 @@
 #include "ClimateDatabase.h"
 #include "GHCNDatabase.h"
 #include "loadFileToBuf.h"
+#include "Logging.h"
 
 
 // =======================================================================================
@@ -49,6 +50,7 @@ ClimateDatabase::~ClimateDatabase(void)
 /// the present year).
 /// @todo We currently just return the first remotely viable station result, instead 
 /// of properly analyzing them and picking the best or a suitably adjusted admixture
+/// @todo Most of this function should probably be in GHCN instead of here.
 
 unsigned ClimateDatabase::printClimateJson(char* buf, unsigned bufSize, 
                                         float lat, float longt, unsigned yearCount)
@@ -68,8 +70,10 @@ unsigned ClimateDatabase::printClimateJson(char* buf, unsigned bufSize,
     snprintf(lastEl, remaining, "%s.csv", station->id);
     if(regularFileExists(fileName))
      {
-      
+      LogGHCNExhaustive("Found file for station %s: %s.\n", station->id, fileName);
      }
+    else
+      ghcnDatabase->fetchCSVFile(station);
     
     // lame temp hack
    }
