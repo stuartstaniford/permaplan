@@ -59,10 +59,7 @@ void GHCNDatabase::checkFileIndex(void)
   if(fileAge < -0.0f || fileAge > MAX_STATION_FILE_AGE)
    {
     if(fileAge == -1.0f)
-     {
       LogGHCNExhaustive("Could not stat station file %s:%s\n", fileName, strerror(errno));
-      exit(-1);
-     }
     if(fetchFile(url, fileName))
      {
       LogGHCNExhaustive("Refreshed station file %s after %.2f days\n", 
@@ -72,6 +69,11 @@ void GHCNDatabase::checkFileIndex(void)
      {
       LogClimateDbErr("Could not refresh station file %s from %s.\n", fileName, url);
      }
+   }
+  unless(parseStationFile(fileName))
+   {
+    LogClimateDbErr("Failing due to missing or bad station file %s.\n", fileName);
+    exit(-1);
    }
 }
 
@@ -85,7 +87,20 @@ void GHCNDatabase::checkFileIndex(void)
 
 bool GHCNDatabase::parseStationFile(char* fileName)
 {
+  FILE* file = fopen(fileName, "r");
+  unless(file)
+   {
+    LogClimateDbErr("Could not open station file %s to parse.\n", fileName);
+    return false;
+   }
+  char buf[256];
   
+  while(fgets(buf, 256, file))
+   {
+    
+   }
+  
+  fclose(file);
   return true;  
 }
 
