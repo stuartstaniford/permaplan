@@ -55,8 +55,13 @@ void GHCNDatabase::checkFileIndex(void)
    };
   
   float fileAge = getFileAge(fileName);
-  if(fileAge < 0.0f || fileAge > MAX_STATION_FILE_AGE)
+  if(fileAge < -0.0f || fileAge > MAX_STATION_FILE_AGE)
    {
+    if(fileAge == -1.0f)
+     {
+      LogGHCNExhaustive("Could not stat station file %s:%s\n", fileName, strerror(errno));
+      exit(-1);
+     }
     if(fetchFile(url, fileName))
      {
       LogGHCNExhaustive("Refreshed station file %s after %.2f days\n", 
@@ -112,6 +117,9 @@ void GHCNDatabase::readStations(void)
     
     // Store the GHCNStation in our R-tree data structure
     stationTree.Insert(station->latLong, station->latLong, station);
+    
+    // Store it also in the index by name
+    stationsByName.insert({station->id, station});
    }
   
   // Close up and go home

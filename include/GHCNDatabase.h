@@ -6,6 +6,8 @@
 #include "RTree.h"
 #include "HttpClient.h"
 #include <vector>
+#include <unordered_map>
+
 
 // =======================================================================================
 // Forward declarations
@@ -66,6 +68,7 @@ private:
   char* dbPath;
   RTree<GHCNStation*, float, 2> stationTree;
   std::vector<GHCNStation*> stationResults;
+  std::unordered_map<char*, GHCNStation*> stationsByName;
   
   // Member functions - private
   /// @brief Prevent copy-construction.

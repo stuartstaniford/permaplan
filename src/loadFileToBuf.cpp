@@ -29,13 +29,13 @@ bool regularFileExists(char* fileName)
 float getFileAge(char* fileName)
 {
   struct stat params;
-  if(stat(fileName, &params)<0)
+  if(stat(fileName, &params) < 0)
     return -1.0f;
   struct timeval now;
   gettimeofday(&now, NULL);
   
-  return (params.st_mtimespec.tv_sec - now.tv_sec) 
-                        + (params.st_mtimespec.tv_nsec/1000000.0f - now.tv_usec/1000.0f);
+  return (now.tv_sec - params.st_mtimespec.tv_sec) 
+                        + (now.tv_usec/1000.0f - params.st_mtimespec.tv_nsec/1000000.0f);
 }
 
 
@@ -45,7 +45,7 @@ float getFileAge(char* fileName)
 bool directoryExists(char* fileName)
 {
   struct stat params;
-  if(stat(fileName, &params)<0)
+  if(stat(fileName, &params) < 0)
     return false;
   if(!(params.st_mode&S_IFDIR))
     return false;
@@ -97,9 +97,9 @@ char* loadFileToBuf(const char* fileName, unsigned* size)
 {
   struct stat params;
   if(stat(fileName, &params)<0)
-  err(-1, "Couldn't stat fileName %s\n", fileName);
+    err(-1, "Couldn't stat fileName %s\n", fileName);
   if(!(params.st_mode&S_IFREG))
-  err(-1, "File not regular file: %s\n", fileName);
+    err(-1, "File not regular file: %s\n", fileName);
   *size = params.st_size;
   char* buf = new char[*size+1];
   if(!buf)
