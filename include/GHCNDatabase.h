@@ -30,10 +30,12 @@ public:
   GHCNStation(char* buf);
   
   // Instance variables - public
-  char id[12];
-  float latLong[2];    // degrees
-  float elevation;    // in meters
-  char name[32];
+  char      id[12];
+  float     latLong[2];   // degrees
+  float     elevation;    // in meters
+  unsigned  fileBufSize;  // in bytes
+  char      name[32];
+  
 };
 
 

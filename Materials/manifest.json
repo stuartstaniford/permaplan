@@ -68,14 +68,15 @@
      {
        "name": "Solar",
        "mode": "755",
-       "subdirs": [],
-       "files":
-        [
-          {
-           "name": "world-dni-data.tiff",
-           "sources": ["https://api.globalsolaratlas.info/download/World/World_DNI_GISdata_LTAy_AvgDailyTotals_GlobalSolarAtlas-v2_AAIGRID.zip"]
-          }
-        ]
+       "subdirs": []
+//                   ,
+//       "files":
+//        [
+//          {
+//           "name": "world-dni-data.tiff",
+//           "sources": ["https://api.globalsolaratlas.info/download/World/World_DNI_GISdata_LTAy_AvgDailyTotals_GlobalSolarAtlas-v2_AAIGRID.zip"]
+//          }
+//        ]
      }
    ]
 }

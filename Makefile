@@ -925,7 +925,53 @@ src/CircleIterator.o: /usr/local/include/cglm/bezier.h
 src/CircleIterator.o: /usr/local/include/cglm/ray.h
 src/CircleIterator.o: /usr/local/include/cglm/affine2d.h ./include/Global.h
 src/ClimateDatabase.o: ./include/ClimateDatabase.h ./include/GHCNDatabase.h
-src/ClimateDatabase.o: ./include/RTree.h ./include/loadFileToBuf.h
+src/ClimateDatabase.o: ./include/HttpClient.h ./include/RTree.h
+src/ClimateDatabase.o: ./include/loadFileToBuf.h ./include/Logging.h
+src/ClimateDatabase.o: ./include/MemoryTracker.h ./include/Timeval.h
+src/ClimateDatabase.o: ./include/Lockable.h ./include/Global.h
+src/ClimateDatabase.o: /usr/local/include/cglm/cglm.h
+src/ClimateDatabase.o: /usr/local/include/cglm/common.h
+src/ClimateDatabase.o: /usr/local/include/cglm/types.h
+src/ClimateDatabase.o: /usr/local/include/cglm/simd/intrin.h
+src/ClimateDatabase.o: /usr/local/include/cglm/vec2.h
+src/ClimateDatabase.o: /usr/local/include/cglm/util.h
+src/ClimateDatabase.o: /usr/local/include/cglm/vec2-ext.h
+src/ClimateDatabase.o: /usr/local/include/cglm/vec3.h
+src/ClimateDatabase.o: /usr/local/include/cglm/vec4.h
+src/ClimateDatabase.o: /usr/local/include/cglm/vec4-ext.h
+src/ClimateDatabase.o: /usr/local/include/cglm/vec3-ext.h
+src/ClimateDatabase.o: /usr/local/include/cglm/mat4.h
+src/ClimateDatabase.o: /usr/local/include/cglm/mat3.h
+src/ClimateDatabase.o: /usr/local/include/cglm/mat2.h
+src/ClimateDatabase.o: /usr/local/include/cglm/affine.h
+src/ClimateDatabase.o: /usr/local/include/cglm/affine-mat.h
+src/ClimateDatabase.o: /usr/local/include/cglm/cam.h
+src/ClimateDatabase.o: /usr/local/include/cglm/plane.h
+src/ClimateDatabase.o: /usr/local/include/cglm/clipspace/persp.h
+src/ClimateDatabase.o: /usr/local/include/cglm/common.h
+src/ClimateDatabase.o: /usr/local/include/cglm/plane.h
+src/ClimateDatabase.o: /usr/local/include/cglm/mat4.h
+src/ClimateDatabase.o: /usr/local/include/cglm/clipspace/ortho_rh_no.h
+src/ClimateDatabase.o: /usr/local/include/cglm/clipspace/persp_rh_no.h
+src/ClimateDatabase.o: /usr/local/include/cglm/clipspace/persp.h
+src/ClimateDatabase.o: /usr/local/include/cglm/clipspace/view_rh_no.h
+src/ClimateDatabase.o: /usr/local/include/cglm/clipspace/view_rh.h
+src/ClimateDatabase.o: /usr/local/include/cglm/frustum.h
+src/ClimateDatabase.o: /usr/local/include/cglm/quat.h
+src/ClimateDatabase.o: /usr/local/include/cglm/euler.h
+src/ClimateDatabase.o: /usr/local/include/cglm/box.h
+src/ClimateDatabase.o: /usr/local/include/cglm/color.h
+src/ClimateDatabase.o: /usr/local/include/cglm/io.h
+src/ClimateDatabase.o: /usr/local/include/cglm/project.h
+src/ClimateDatabase.o: /usr/local/include/cglm/clipspace/project_no.h
+src/ClimateDatabase.o: /usr/local/include/cglm/vec3.h
+src/ClimateDatabase.o: /usr/local/include/cglm/vec4.h
+src/ClimateDatabase.o: /usr/local/include/cglm/sphere.h
+src/ClimateDatabase.o: /usr/local/include/cglm/ease.h
+src/ClimateDatabase.o: /usr/local/include/cglm/curve.h
+src/ClimateDatabase.o: /usr/local/include/cglm/bezier.h
+src/ClimateDatabase.o: /usr/local/include/cglm/ray.h
+src/ClimateDatabase.o: /usr/local/include/cglm/affine2d.h
 src/ClimateDatabaseClient.o: ./include/ClimateDatabaseClient.h
 src/ClimateDatabaseClient.o: ./include/HttpPermaservClient.h
 src/ClimateDatabaseClient.o: ./include/HttpClient.h
@@ -1408,11 +1454,12 @@ src/ElementBufferObject.o: /usr/local/include/cglm/bezier.h
 src/ElementBufferObject.o: /usr/local/include/cglm/ray.h
 src/ElementBufferObject.o: /usr/local/include/cglm/affine2d.h
 src/EmptyClass.o: ./include/EmptyClass.h
-src/GHCNDatabase.o: ./include/GHCNDatabase.h ./include/RTree.h
-src/GHCNDatabase.o: ./include/ClimateInfo.h ./include/DynamicallyTypable.h
-src/GHCNDatabase.o: ./include/Logging.h ./include/MemoryTracker.h
-src/GHCNDatabase.o: ./include/Timeval.h ./include/Lockable.h
-src/GHCNDatabase.o: ./include/Global.h /usr/local/include/cglm/cglm.h
+src/GHCNDatabase.o: ./include/GHCNDatabase.h ./include/HttpClient.h
+src/GHCNDatabase.o: ./include/RTree.h ./include/ClimateInfo.h
+src/GHCNDatabase.o: ./include/DynamicallyTypable.h ./include/Logging.h
+src/GHCNDatabase.o: ./include/MemoryTracker.h ./include/Timeval.h
+src/GHCNDatabase.o: ./include/Lockable.h ./include/Global.h
+src/GHCNDatabase.o: /usr/local/include/cglm/cglm.h
 src/GHCNDatabase.o: /usr/local/include/cglm/common.h
 src/GHCNDatabase.o: /usr/local/include/cglm/types.h
 src/GHCNDatabase.o: /usr/local/include/cglm/simd/intrin.h
@@ -1455,6 +1502,7 @@ src/GHCNDatabase.o: /usr/local/include/cglm/curve.h
 src/GHCNDatabase.o: /usr/local/include/cglm/bezier.h
 src/GHCNDatabase.o: /usr/local/include/cglm/ray.h
 src/GHCNDatabase.o: /usr/local/include/cglm/affine2d.h
+src/GHCNDatabase.o: ./include/loadFileToBuf.h
 src/GLFWApplication.o: ./include/GLFWApplication.h ./include/Lockable.h
 src/GLFWApplication.o: ./include/Global.h /usr/local/include/cglm/cglm.h
 src/GLFWApplication.o: /usr/local/include/cglm/common.h

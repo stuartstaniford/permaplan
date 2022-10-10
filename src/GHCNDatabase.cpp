@@ -94,12 +94,15 @@ bool GHCNDatabase::parseStationFile(char* fileName)
     return false;
    }
   char buf[256];
-  std::regex stationIdRegExpr("^<tr><td><a href=\"([A-Z0-9]+)\\.csv\\.gz\">");
+  std::regex stationIdRegEx("^<tr><td><a href=\"([a-zA-Z0-9\\-_]+)\\.csv\\.gz\">");
+  std::regex sizeRegEx("right\">\\s*(\\d*\\.*\\d+)(K|M| )</td><td>.nbsp.</td></tr>\\s*$");
   std::smatch match;
-
+  
   while(fgets(buf, 256, file))
    {
-    if(std::regex_search(std::string(buf), match, stationIdRegExpr) && match.size() > 1)
+    std::string bufString = std::string(buf);
+
+    if(std::regex_search(bufString, match, stationIdRegEx) && match.size() > 1)
      {
       GHCNStation* station;
       if(stationsByName.count(match.str(1)))
@@ -109,8 +112,22 @@ bool GHCNDatabase::parseStationFile(char* fileName)
         LogGHCNExhaustive("Failed to match %s in stationsByName.\n", match.str(1).c_str());        
         continue;
        }
-      LogGHCNExhaustive("Matched on %s\n", match.str(1).c_str());
+      if(std::regex_search(bufString, match, sizeRegEx) && match.size() > 2)
+       {
+        if(match.str(2).c_str()[0] == ' ')
+          station->fileBufSize = (unsigned)(atof(match.str(1).c_str())+16.0f);
+        else if(match.str(2).c_str()[0] == 'K')
+          station->fileBufSize = (unsigned)(1024.0f*(atof(match.str(1).c_str())+1.0f));
+        else if(match.str(2).c_str()[0] == 'M')
+          station->fileBufSize = (unsigned)(1048576.0f*(atof(match.str(1).c_str())+0.15f));
+        else
+          LogGHCNExhaustive("Got bad size %s %s\n", match.str(1).c_str(), match.str(2).c_str());
+       }
+      else
+        LogGHCNExhaustive("Couldn't match size for station id %s\n", station->id);
      }
+    else
+      LogGHCNExhaustive("Couldn't find station id in line %s\n", buf);
     }
   
   fclose(file);
