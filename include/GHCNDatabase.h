@@ -3,10 +3,11 @@
 #ifndef GHCN_DATABASE_H
 #define GHCN_DATABASE_H
 
-#include "RTree.h"
 #include "HttpClient.h"
+#include "RTree.h"
 #include <vector>
 #include <unordered_map>
+#include <string>
 
 
 // =======================================================================================
@@ -63,7 +64,7 @@ private:
   char* dbPath;
   RTree<GHCNStation*, float, 2> stationTree;
   std::vector<GHCNStation*> stationResults;
-  std::unordered_map<char*, GHCNStation*> stationsByName;
+  std::unordered_map<std::string, GHCNStation*> stationsByName;
   
   // Member functions - private
   bool parseStationFile(char* fileName);

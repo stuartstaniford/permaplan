@@ -102,16 +102,14 @@ bool GHCNDatabase::parseStationFile(char* fileName)
     if(std::regex_search(std::string(buf), match, stationIdRegExpr) && match.size() > 1)
      {
       GHCNStation* station;
-      char id[12];
-      strncpy(id, match.str(1).c_str(), 12);
-      if(stationsByName.count(id))
-         station = stationsByName[id];
+      if(stationsByName.count(match.str(1)))
+         station = stationsByName[match.str(1)];
       else
        {
-        LogGHCNExhaustive("Failed to match %s in stationsByName.\n", id);        
+        LogGHCNExhaustive("Failed to match %s in stationsByName.\n", match.str(1).c_str());        
         continue;
        }
-      LogGHCNExhaustive("Matched on %s\n", id);
+      LogGHCNExhaustive("Matched on %s\n", match.str(1).c_str());
      }
     }
   
@@ -164,7 +162,7 @@ void GHCNDatabase::readStations(void)
     stationTree.Insert(station->latLong, station->latLong, station);
     
     // Store it also in the index by name
-    stationsByName.insert({station->id, station});
+    stationsByName.insert({std::string(station->id), station});
    }
   
   // Close up and go home
