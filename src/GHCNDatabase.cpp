@@ -94,11 +94,26 @@ bool GHCNDatabase::parseStationFile(char* fileName)
     return false;
    }
   char buf[256];
-  
+  std::regex stationIdRegExpr("^<tr><td><a href=\"([A-Z0-9]+)\\.csv\\.gz\">");
+  std::smatch match;
+
   while(fgets(buf, 256, file))
    {
-    
-   }
+    if(std::regex_search(std::string(buf), match, stationIdRegExpr) && match.size() > 1)
+     {
+      GHCNStation* station;
+      char id[12];
+      strncpy(id, match.str(1).c_str(), 12);
+      if(stationsByName.count(id))
+         station = stationsByName[id];
+      else
+       {
+        LogGHCNExhaustive("Failed to match %s in stationsByName.\n", id);        
+        continue;
+       }
+      LogGHCNExhaustive("Matched on %s\n", id);
+     }
+    }
   
   fclose(file);
   return true;  
