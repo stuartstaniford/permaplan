@@ -56,11 +56,6 @@ public:
   // Member functions - public
   GHCNDatabase(char* path);
   ~GHCNDatabase(void);
-  void readStations(void);
-  void checkFileIndex(void);
-  void getStations(float lat, float longT);
-  int readOneCSVFile(char* fileName, GHCNStation* station, ClimateInfo* climInfo);
-  bool fetchCSVFile(GHCNStation* station);
 
 private:
   
@@ -71,6 +66,13 @@ private:
   std::unordered_map<char*, GHCNStation*> stationsByName;
   
   // Member functions - private
+  bool parseStationFile(char* fileName);
+  void readStations(void);
+  void checkFileIndex(void);
+  void getStations(float lat, float longT);
+  int readOneCSVFile(char* fileName, GHCNStation* station, ClimateInfo* climInfo);
+  bool fetchCSVFile(GHCNStation* station);
+
   /// @brief Prevent copy-construction.
   GHCNDatabase(const GHCNDatabase&);       
   /// @brief Prevent assignment.

@@ -12,6 +12,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <ctype.h>
+#include <regex>
 
 
 // =======================================================================================
@@ -72,6 +73,20 @@ void GHCNDatabase::checkFileIndex(void)
       LogClimateDbErr("Could not refresh station file %s from %s.\n", fileName, url);
      }
    }
+}
+
+
+// =======================================================================================
+/// @brief Parse the directory listing of all the station data files.
+///
+/// This is called by checkFileIndex to do the actual parsing
+/// @params fileName The path of the file to parse
+/// @returns True if all went well, false if we couldn't parse the file
+
+bool GHCNDatabase::parseStationFile(char* fileName)
+{
+  
+  return true;  
 }
 
 
