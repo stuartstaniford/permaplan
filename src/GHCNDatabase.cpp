@@ -83,23 +83,30 @@ bool GHCNDatabase::checkUpdateFile(char* fileName, char* url, float maxAge)
 void GHCNDatabase::checkFileIndex(void)
 {
   char fileName[128];
+
+  //ghcnd-stations.txt
+  char stationUrl[] = "https://www.ncei.noaa.gov/pub/data/ghcn/daily/ghcnd-stations.txt";
+  if(snprintf(fileName, 128, "%s/ghcnd-stations.txt", dbPath) >= 128)
+   {
+    LogClimateDbErr("Overflow in ghcnd-stations.txt in GHCNDatabase::checkFileIndex.\n");
+    return;
+   };
+  checkUpdateFile(fileName, stationUrl, MAX_STATION_FILE_AGE);  
+
+  // Stations index.html
   char url[] = "https://www.ncei.noaa.gov/pub/data/ghcn/daily/by_station/";
   if(snprintf(fileName, 128, "%s/by_station/stations.html", dbPath) >= 128)
    {
     LogClimateDbErr("Overflow in fileName in GHCNDatabase::checkFileIndex.\n");
     return;
    };
-  
   checkUpdateFile(fileName, url, MAX_STATION_FILE_AGE);  
+  
   unless(parseStationFileWithC(fileName))
    {
     LogClimateDbErr("Failing due to missing or bad station file %s.\n", fileName);
     exit(-1);
    }
-  
-  /// @todo - We should also check the age of Materials/Climate/GHCN/ghcnd-stations.txt
-  /// and update it if necessary
-
 }
 
 
@@ -199,7 +206,10 @@ bool GHCNDatabase::parseStationFileWithC(char* fileName)
 ///
 /// This is an old version that has been supplanted by parseStationFileWithC.  This
 /// version used the C++ std::regex library, and took 40 seconds to parse the file.  The
-/// C based parsing version took XXXX.
+/// C based parsing version above took 0.139 seconds.
+/// See https://www.reddit.com/r/cpp/comments/e16s1m/what_is_wrong_with_stdregex/
+/// and https://stackoverflow.com/questions/70583395/why-is-stdregex-notoriously-much-slower-than-other-regular-expression-librarie
+/// for more on why std::regex turns out to suck.
 /// @params fileName The path of the file to parse
 /// @returns True if all went well, false if we couldn't parse the file.
 
