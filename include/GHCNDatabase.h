@@ -69,12 +69,14 @@ private:
   std::unordered_map<std::string, GHCNStation*> stationsByName;
   
   // Member functions - private
-  bool parseStationFile(char* fileName);
+  bool parseStationFileWithC(char* fileName);
+  bool parseStationFileRegEx(char* fileName);
   void readStations(void);
   void checkFileIndex(void);
   void getStations(float lat, float longT);
   int readOneCSVFile(char* fileName, GHCNStation* station, ClimateInfo* climInfo);
   bool fetchCSVFile(GHCNStation* station);
+  bool checkUpdateFile(char* fileName, char* url, float maxAge);
 
   /// @brief Prevent copy-construction.
   GHCNDatabase(const GHCNDatabase&);       

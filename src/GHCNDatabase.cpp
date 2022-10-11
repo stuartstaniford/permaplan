@@ -33,6 +33,41 @@ GHCNDatabase::~GHCNDatabase(void)
 }
 
 
+// =======================================================================================
+/// @brief Check if a file is too old, and update from a URL if necessary.
+///
+/// @returns True if the file is now ok, false if it's missing or old
+/// @param fileName - Char* pointer to the fileName
+/// @param 
+/// @todo This should probably be consolidated into the ResourceManager and done on a 
+/// queue.
+/// @todo This should download to a temporary filename and then swap only when the download
+/// is done.
+
+bool GHCNDatabase::checkUpdateFile(char* fileName, char* url, float maxAge)
+{
+  float fileAge = getFileAge(fileName);
+  if(fileAge < -0.0f || fileAge > maxAge)
+   {
+    if(fileAge == -1.0f)
+      LogGHCNExhaustive("Could not stat file %s:%s\n", fileName, strerror(errno));
+    if(fetchFile(url, fileName))
+     {
+      LogGHCNExhaustive("Refreshed file %s after %.2f days\n", 
+                                                        fileName, fileAge/24.0f/3600.0f);
+     }
+    else
+     {
+      LogClimateDbErr("Could not refresh file %s from %s.\n", fileName, url);
+      return false;
+     }
+   } 
+  else
+    LogGHCNExhaustive("File %s is still valid after %.2f days\n", fileName, 
+                                                                  fileAge/24.0f/3600.0f); 
+    
+  return true;
+}
 
 
 // =======================================================================================
@@ -55,26 +90,16 @@ void GHCNDatabase::checkFileIndex(void)
     return;
    };
   
-  float fileAge = getFileAge(fileName);
-  if(fileAge < -0.0f || fileAge > MAX_STATION_FILE_AGE)
-   {
-    if(fileAge == -1.0f)
-      LogGHCNExhaustive("Could not stat station file %s:%s\n", fileName, strerror(errno));
-    if(fetchFile(url, fileName))
-     {
-      LogGHCNExhaustive("Refreshed station file %s after %.2f days\n", 
-                                                        fileName, fileAge/24.0f/3600.0f);
-     }
-    else
-     {
-      LogClimateDbErr("Could not refresh station file %s from %s.\n", fileName, url);
-     }
-   }
-  unless(parseStationFile(fileName))
+  checkUpdateFile(fileName, url, MAX_STATION_FILE_AGE);  
+  unless(parseStationFileWithC(fileName))
    {
     LogClimateDbErr("Failing due to missing or bad station file %s.\n", fileName);
     exit(-1);
    }
+  
+  /// @todo - We should also check the age of Materials/Climate/GHCN/ghcnd-stations.txt
+  /// and update it if necessary
+
 }
 
 
@@ -85,8 +110,105 @@ void GHCNDatabase::checkFileIndex(void)
 /// @params fileName The path of the file to parse
 /// @returns True if all went well, false if we couldn't parse the file
 
-bool GHCNDatabase::parseStationFile(char* fileName)
+bool GHCNDatabase::parseStationFileWithC(char* fileName)
 {
+#ifdef LOG_GHCN_EXHAUSTIVE
+  Timeval parseStart;
+  parseStart.now();
+#endif
+  FILE* file = fopen(fileName, "r");
+  unless(file)
+   {
+    LogClimateDbErr("Could not open station file %s to parse.\n", fileName);
+    return false;
+   }
+  char buf[256];
+  unsigned stationCount = 0;
+  
+  while(fgets(buf, 256, file))
+   {
+    //<tr><td><a href="AF000040930.csv.gz">AF000040930.csv.gz</a></td><td align="right">2022-10-09 14:02  </td><td align="right"> 30K</td><td>&nbsp;</td></tr>
+    char* parse;
+    
+    // Confirm the initial form of the line is one of the table rows
+    unless(strncmp(buf, "<tr><td><a href=\"", 17) == 0)
+      continue;
+    parse = buf + 17;
+    unless(parse[11] == '.')
+      continue;
+    
+    // Extract the station id and find the station
+    parse[11] = '\0';
+    GHCNStation* station;
+    if(stationsByName.count(parse))
+      station = stationsByName[parse];
+    else
+     {
+      LogGHCNExhaustive("Failed to match %s in stationsByName.\n", parse);        
+      continue;
+     }
+    
+    // Extract the size field
+    parse += 12;
+    char* end = index(parse, '&');
+    unless(end && (end - parse > 20))
+      continue;
+    end -= 9;
+    *end = '\0';
+    parse = rindex(parse, '>');
+    unless(parse && (end - parse > 1))
+      continue;
+    parse++;
+    
+    // Analyze the size field
+    if(*(end-1) == ' ')
+     {
+      *(--end) = '\0';
+      station->fileBufSize = (unsigned)(atof(parse)+16.0f);
+     }
+    else if(*(end-1) == 'K')
+     {
+      *(--end) = '\0';
+      station->fileBufSize = (unsigned)(1024.0f*(atof(parse)+1.0f));
+     }
+    else if(*(end-1) == 'M')
+     {
+      *(--end) = '\0';
+      station->fileBufSize = (unsigned)(1048576.0f*(atof(parse)+0.15f));
+     }    
+    else
+      LogGHCNExhaustive("Got bad size %s\n", parse);
+    
+    stationCount++;
+    }
+  
+  fclose(file);
+#ifdef LOG_GHCN_EXHAUSTIVE
+  Timeval parseEnd;
+  parseEnd.now();
+  LogGHCNExhaustive("Parsing %d stations from file %s took %.3lf s.\n", 
+                                          stationCount, fileName, parseEnd - parseStart);
+#endif
+
+  return true;  
+}
+
+
+// =======================================================================================
+/// @brief Parse the directory listing of all the station data files.
+///
+/// This is an old version that has been supplanted by parseStationFileWithC.  This
+/// version used the C++ std::regex library, and took 40 seconds to parse the file.  The
+/// C based parsing version took XXXX.
+/// @params fileName The path of the file to parse
+/// @returns True if all went well, false if we couldn't parse the file.
+
+bool GHCNDatabase::parseStationFileRegEx(char* fileName)
+{
+#ifdef LOG_GHCN_EXHAUSTIVE
+  Timeval parseStart;
+  parseStart.now();
+#endif
   FILE* file = fopen(fileName, "r");
   unless(file)
    {
@@ -121,7 +243,8 @@ bool GHCNDatabase::parseStationFile(char* fileName)
         else if(match.str(2).c_str()[0] == 'M')
           station->fileBufSize = (unsigned)(1048576.0f*(atof(match.str(1).c_str())+0.15f));
         else
-          LogGHCNExhaustive("Got bad size %s %s\n", match.str(1).c_str(), match.str(2).c_str());
+          LogGHCNExhaustive("Got bad size %s %s\n", match.str(1).c_str(), 
+                                                                  match.str(2).c_str());
        }
       else
         LogGHCNExhaustive("Couldn't match size for station id %s\n", station->id);
@@ -131,6 +254,13 @@ bool GHCNDatabase::parseStationFile(char* fileName)
     }
   
   fclose(file);
+#ifdef LOG_GHCN_EXHAUSTIVE
+  Timeval parseEnd;
+  parseEnd.now();
+  LogGHCNExhaustive("Parsing the station file %s took %.3lf s.", 
+                                                fileName, parseEnd - parseStart);
+#endif
+
   return true;  
 }
 
