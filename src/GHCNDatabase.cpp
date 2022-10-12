@@ -13,6 +13,7 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <regex>
+#include <zlib.h>
 
 
 // =======================================================================================
@@ -413,6 +414,113 @@ bool GHCNDatabase::checkCSVFile(GHCNStation* station)
 
 
 // =======================================================================================
+/// @brief Handle a single line of a .csv file.
+///
+/// @param buf A char* pointing to buffer with the line.
+/// @param station A pointer to the GHCNStation record for which we are reading.  Note
+/// that it's climate variable should be valid.
+/// @param fileName The name of the file (mainly for logging).
+/// @param line An integer line number (mainly for logging).
+/// @returns True if we read the line ok, false if we encountered a fatal error.
+
+bool GHCNDatabase::readCSVLine(char* buf, GHCNStation* station, char* fileName, int line)
+{
+  // USC00304174,18930101,TMAX,67,,,6,
+  int strLen = strlen(buf);
+  if(strLen < 32)
+   {
+    LogClimateDbErr("Short line %d of csv file %s.\n", line, fileName);
+    return false;
+   }
+
+  // Station id
+  if(buf[11] != ',')
+   {
+    LogClimateDbErr("Bad station id comma in line %d of csv file %s.\n", 
+                                                                      line, fileName);
+    return false;
+   }
+  buf[11] = '\0';
+  unless(strncmp(buf, station->id, 11) == 0)
+   {
+    LogClimateDbErr("Station id %s does not match %s in csv file %s, line %d.\n", 
+                                                  buf, station->id, fileName, line);
+    return false;
+   }
+
+  // Date
+  if(buf[20] != ',')
+   {
+    LogClimateDbErr("Bad date comma in line %d of csv file %s.\n", line, fileName);
+    return false;
+   }
+  char dateBuf[5];
+  int year, month, day;
+  for(int i=0;i<4;i++)
+    dateBuf[i] = buf[12+i];
+  dateBuf[4] = '\0';
+  year  = atoi(dateBuf);
+  month = 10*buf[16] + buf[17];
+  day   = 10*buf[18] + buf[19];
+  
+  //Find the right climateDay
+  ClimateInfo* climInfo = station->climate;
+  if(year < climInfo->startYear || year >= climInfo->endYear)
+   {
+    LogGHCNExhaustive("Ignoring out of range date %d/%d/%d on line %d of csv file %s.\n",                         year, month, day, line, fileName);
+    return true;
+   }
+  ClimateDay* climDay = climInfo->climateYears[year-climInfo->startYear] + 
+                                                        yearDays(year, month, day);
+
+  // Observation type, observation
+  if(buf[25] != ',')
+   {
+    LogClimateDbErr("Bad observation type comma in line %d of csv file %s.\n", 
+                                                                    line, fileName);
+    return false;
+   }
+  buf[25] = '\0'; // comma after observation type
+  char* commaLoc = index(buf + 26, ','); // find the comma after the observation
+  unless(commaLoc)
+   {
+    LogClimateDbErr("Couldn't find observation in line %d of csv file %s.\n", 
+                                                                    line, fileName);
+    return false;
+   }
+  *commaLoc = '\0';
+  float observation = atof(buf+26);
+
+  if(strcmp(buf + 21, "TMAX") == 0)
+   {
+    climDay->hiTemp = observation;
+    /// @todo check validity of value
+    climDay->flags |= HI_TEMP_VALID;
+   }  
+  else if(strcmp(buf + 21, "TMIN") == 0)
+   {
+    climDay->lowTemp = observation;
+    /// @todo check validity of value
+    climDay->flags |= LOW_TEMP_VALID;
+   }  
+  else if(strcmp(buf + 21, "PRCP") == 0)
+   {
+    climDay->precip = observation;
+    /// @todo check validity of value
+    climDay->flags |= PRECIP_VALID;
+   }  
+  else if(strcmp(buf + 21, "SNOW") == 0)
+   {
+    ;
+   }  
+   
+  // Flags
+  
+  return true;
+}
+
+
+// =======================================================================================
 /// @brief Read a single .csv file.
 ///
 /// @param fileName A char* pointing to the file name to be opened.
@@ -421,6 +529,17 @@ bool GHCNDatabase::checkCSVFile(GHCNStation* station)
 /// @returns The number of complete records we read
 
 // https://www.ncei.noaa.gov/pub/data/ghcn/daily/readme.txt
+
+/*
+gzFile fh = gzopen("file.gz", "rb");
+
+char buf[1024];
+char *line;
+while ((line = gzgets(fh, buf, sizeof(buf)) != NULL) {
+    // process line
+}
+gzclose(fh);
+*/
 
 int GHCNDatabase::readOneCSVFile(char* fileName, GHCNStation* station, ClimateInfo* climInfo)
 {
@@ -436,107 +555,18 @@ int GHCNDatabase::readOneCSVFile(char* fileName, GHCNStation* station, ClimateIn
   char buf[128];
   int line = 0;
   while(fgets(buf, 128, file) && ++line)
-   {
-    // USC00304174,18930101,TMAX,67,,,6,
-    int strLen = strlen(buf);
-    if(strLen < 32)
+    unless(readCSVLine(buf, station, fileName, line))
      {
-      LogClimateDbErr("Short line %d of csv file %s.\n", line, fileName);
-      goto ERROR_RETURN;
+      LogClimateDbErr("Couldn't read station csv file %s.\n", fileName);
+      fclose(file);
+      return -1;
      }
-
-    // Station id
-    if(buf[11] != ',')
-     {
-      LogClimateDbErr("Bad station id comma in line %d of csv file %s.\n", 
-                                                                          line, fileName);
-      goto ERROR_RETURN;
-     }
-    buf[11] = '\0';
-    unless(strncmp(buf, station->id, 11) == 0)
-    {
-     LogClimateDbErr("Station id %s does not match %s in csv file %s, line %d.\n", 
-                                                      buf, station->id, fileName, line);
-     goto ERROR_RETURN;
-    }
-    
-    // Date
-    if(buf[20] != ',')
-     {
-      LogClimateDbErr("Bad date comma in line %d of csv file %s.\n", line, fileName);
-      goto ERROR_RETURN;
-     }
-    char dateBuf[5];
-    int year, month, day;
-    for(int i=0;i<4;i++)
-      dateBuf[i] = buf[12+i];
-    dateBuf[4] = '\0';
-    year  = atoi(dateBuf);
-    month = 10*buf[16] + buf[17];
-    day   = 10*buf[18] + buf[19];
-    
-    //Find the right climateDay
-    if(year < climInfo->startYear || year >= climInfo->endYear)
-     {
-      LogGHCNExhaustive("Ignoring out of range date %d/%d/%d on line %d of csv file %s.\n",                         year, month, day, line, fileName);
-      continue;
-     }
-    ClimateDay* climDay = climInfo->climateYears[year-climInfo->startYear] + 
-                                                            yearDays(year, month, day);
-    
-    // Observation type, observation
-    if(buf[25] != ',')
-     {
-      LogClimateDbErr("Bad observation type comma in line %d of csv file %s.\n", 
-                                                                        line, fileName);
-      goto ERROR_RETURN;
-     }
-    buf[25] = '\0'; // comma after observation type
-    char* commaLoc = index(buf + 26, ','); // find the comma after the observation
-    unless(commaLoc)
-     {
-      LogClimateDbErr("Couldn't find observation in line %d of csv file %s.\n", 
-                                                                        line, fileName);
-      goto ERROR_RETURN;
-     }
-    *commaLoc = '\0';
-    float observation = atof(buf+26);
-
-    if(strcmp(buf + 21, "TMAX") == 0)
-     {
-      climDay->hiTemp = observation;
-      /// @todo check validity of value
-      climDay->flags |= HI_TEMP_VALID;
-     }  
-    else if(strcmp(buf + 21, "TMIN") == 0)
-     {
-      climDay->lowTemp = observation;
-      /// @todo check validity of value
-      climDay->flags |= LOW_TEMP_VALID;
-     }  
-    else if(strcmp(buf + 21, "PRCP") == 0)
-     {
-      climDay->precip = observation;
-      /// @todo check validity of value
-      climDay->flags |= PRECIP_VALID;
-     }  
-    else if(strcmp(buf + 21, "SNOW") == 0)
-     {
-      ;
-     }  
-       
-    // Flags
-   }
   
   // Close up and go home
   fclose(file);
   unsigned total, valid;
   climInfo->countValidDays(total, valid);
   return valid;
-  
-ERROR_RETURN:
-  fclose(file);
-  return -1;
 }
 
 
