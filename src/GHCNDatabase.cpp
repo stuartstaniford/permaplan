@@ -384,6 +384,26 @@ void GHCNDatabase::getStations(float lat, float longT)
 
 
 // =======================================================================================
+/// @brief Form the filename for a single CSV file.
+///
+/// @param station A pointer to the GHCNStation record which is requested
+/// @param fileName A pointer to the buffer to write the fileName in.
+/// @param len The size of the buffer
+/// @returns True if all is well, false if we couldn't create the fileName in the space
+
+bool GHCNDatabase::snprintCSVFileName(char* fileName, int len, GHCNStation* station)
+{
+  if(snprintf(fileName, len, "%s/%s.csv.gz", dbPath, station->id) >= len)
+   {
+    LogClimateDbErr("Overflow in csv filename for %s in"
+                                      " GHCNDatabase::snprintCSVFileName.\n", station->id);
+    return false;
+   };
+  return true;
+}
+
+
+// =======================================================================================
 /// @brief Fetch a single .csv file from the GHCN repository.
 ///
 /// @param station A pointer to the GHCNStation record which is requested
@@ -394,13 +414,9 @@ void GHCNDatabase::getStations(float lat, float longT)
 bool GHCNDatabase::checkCSVFile(GHCNStation* station)
 {    
   char fileName[128];
-  if(snprintf(fileName, 128, "%s/%s.csv.gz", dbPath, station->id) >= 128)
-   {
-    LogClimateDbErr("Overflow in csv filename for %s in GHCNDatabase::checkCSVFile.\n",
-                                                                              station->id);
+  unless(snprintCSVFileName(fileName, 128, station))
     return false;
-   };
-
+  
   char url[128];
   if(snprintf(url, 128, "%s%s.csv.gz", byStationUrl, station->id) >= 128)
    {
@@ -523,10 +539,9 @@ bool GHCNDatabase::readCSVLine(char* buf, GHCNStation* station, char* fileName, 
 // =======================================================================================
 /// @brief Read a single .csv file.
 ///
-/// @param fileName A char* pointing to the file name to be opened.
 /// @param station A pointer to the GHCNStation record for which we are reading
-/// @param climInfo A pointer to the ClimateInfo structure to store the data in
 /// @returns The number of complete records we read
+/// @todo We create the ClimateInfo with hard-coded years that are a temp hack.
 
 // https://www.ncei.noaa.gov/pub/data/ghcn/daily/readme.txt
 
@@ -541,8 +556,19 @@ while ((line = gzgets(fh, buf, sizeof(buf)) != NULL) {
 gzclose(fh);
 */
 
-int GHCNDatabase::readOneCSVFile(char* fileName, GHCNStation* station, ClimateInfo* climInfo)
+int GHCNDatabase::readOneCSVFile(GHCNStation* station)
 {
+  // Create the climateInfo if needed
+  unless(station->climate)
+   {
+    station->climate = new ClimateInfo(2000, 2022);
+   }
+  
+  // Get the fileName
+  char fileName[128];
+  unless(snprintCSVFileName(fileName, 128, station))
+    return -1;
+
   // Open the file
   FILE* file = fopen(fileName, "r");
   unless(file)

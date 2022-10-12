@@ -51,6 +51,7 @@ ClimateDatabase::~ClimateDatabase(void)
 /// @todo We currently just return the first remotely viable station result, instead 
 /// of properly analyzing them and picking the best or a suitably adjusted admixture
 /// @todo Most of this function should probably be in GHCN instead of here.
+/// @todo We do not currently check the age of climateInfo data in memory.
 
 unsigned ClimateDatabase::printClimateJson(char* buf, unsigned bufSize, 
                                         float lat, float longt, unsigned yearCount)
@@ -61,8 +62,12 @@ unsigned ClimateDatabase::printClimateJson(char* buf, unsigned bufSize,
   
   for(int i=0; i<N; i++)
    {
-    ghcnDatabase->checkCSVFile(ghcnDatabase->stationResults[i]);
-    
+    GHCNStation* station = ghcnDatabase->stationResults[i];
+    unless(station->climate)
+     {
+      ghcnDatabase->checkCSVFile(station);
+      ghcnDatabase->readOneCSVFile(station);
+     }
     // lame temp hack
    }
   

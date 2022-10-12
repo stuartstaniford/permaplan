@@ -74,10 +74,11 @@ private:
   void readStations(void);
   void checkFileIndex(void);
   void getStations(float lat, float longT);
-  int readOneCSVFile(char* fileName, GHCNStation* station, ClimateInfo* climInfo);
+  int readOneCSVFile(GHCNStation* station);
   bool readCSVLine(char* buf, GHCNStation* station, char* fileName, int line);
   bool checkCSVFile(GHCNStation* station);
   bool checkUpdateFile(char* fileName, char* url, float maxAge);
+  bool snprintCSVFileName(char* fileName, int len, GHCNStation* station);
 
   /// @brief Prevent copy-construction.
   GHCNDatabase(const GHCNDatabase&);       
