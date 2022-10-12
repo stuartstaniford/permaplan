@@ -476,8 +476,8 @@ bool GHCNDatabase::readCSVLine(char* buf, GHCNStation* station, char* fileName, 
     dateBuf[i] = buf[12+i];
   dateBuf[4] = '\0';
   year  = atoi(dateBuf);
-  month = 10*buf[16] + buf[17];
-  day   = 10*buf[18] + buf[19];
+  month = 10*(buf[17] - '0') + (buf[18] - '0');  // converting ASCII values to numbers
+  day   = 10*(buf[19] - '0') + (buf[20] - '0');
   
   //Find the right climateDay
   ClimateInfo* climInfo = station->climate;
@@ -545,53 +545,67 @@ bool GHCNDatabase::readCSVLine(char* buf, GHCNStation* station, char* fileName, 
 
 // https://www.ncei.noaa.gov/pub/data/ghcn/daily/readme.txt
 
-/*
-gzFile fh = gzopen("file.gz", "rb");
-
-char buf[1024];
-char *line;
-while ((line = gzgets(fh, buf, sizeof(buf)) != NULL) {
-    // process line
-}
-gzclose(fh);
-*/
-
 int GHCNDatabase::readOneCSVFile(GHCNStation* station)
 {
   // Create the climateInfo if needed
   unless(station->climate)
-   {
     station->climate = new ClimateInfo(2000, 2022);
-   }
   
   // Get the fileName
   char fileName[128];
   unless(snprintCSVFileName(fileName, 128, station))
     return -1;
 
-  // Open the file
-  FILE* file = fopen(fileName, "r");
-  unless(file)
-   {
-    LogClimateDbErr("Couldn't open station csv file %s.\n", fileName);
-    return -1;
-   }
-  
-  // Loop over the lines in the file
+  // Loop variables
   char buf[128];
   int line = 0;
-  while(fgets(buf, 128, file) && ++line)
-    unless(readCSVLine(buf, station, fileName, line))
+
+  // Check if we are gzipped or not
+  char* dotLoc = rindex(fileName, '.');
+  if(!dotLoc || strcmp(dotLoc, ".gz"))
+   {
+    // Open the file which is not gzipped
+    FILE* file = fopen(fileName, "r");
+    unless(file)
      {
-      LogClimateDbErr("Couldn't read station csv file %s.\n", fileName);
-      fclose(file);
+      LogClimateDbErr("Couldn't open station csv file %s.\n", fileName);
       return -1;
      }
   
+    // Loop over the lines in the file
+    while(fgets(buf, 128, file) && ++line)
+      unless(readCSVLine(buf, station, fileName, line))
+       {
+        LogClimateDbErr("Couldn't read station csv file %s.\n", fileName);
+        fclose(file);
+        return -1;
+       }
+    fclose(file);
+   }
+  else
+   {
+    // Open the gzip file
+    gzFile file = gzopen(fileName, "rb");
+    unless(file)
+     {
+      LogClimateDbErr("Couldn't open station csv.gz file %s.\n", fileName);
+      return -1;
+     }
+
+    // Loop over the lines in the file
+    while(gzgets(file, buf, 128) && ++line)
+    unless(readCSVLine(buf, station, fileName, line))
+     {
+      LogClimateDbErr("Couldn't read station csv.gz file %s.\n", fileName);
+      gzclose(file);
+      return -1;
+     }
+    gzclose(file);
+  }
+
   // Close up and go home
-  fclose(file);
   unsigned total, valid;
-  climInfo->countValidDays(total, valid);
+  station->climate->countValidDays(total, valid);
   return valid;
 }
 
