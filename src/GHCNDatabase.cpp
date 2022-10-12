@@ -16,6 +16,12 @@
 
 
 // =======================================================================================
+// Static variables etc
+
+char byStationUrl[] = "https://www.ncei.noaa.gov/pub/data/ghcn/daily/by_station/";
+
+
+// =======================================================================================
 /// @brief Constructor
 
 GHCNDatabase::GHCNDatabase(char* path): dbPath(path)
@@ -94,13 +100,12 @@ void GHCNDatabase::checkFileIndex(void)
   checkUpdateFile(fileName, stationUrl, MAX_STATION_FILE_AGE);  
 
   // Stations index.html
-  char url[] = "https://www.ncei.noaa.gov/pub/data/ghcn/daily/by_station/";
   if(snprintf(fileName, 128, "%s/by_station/stations.html", dbPath) >= 128)
    {
     LogClimateDbErr("Overflow in fileName in GHCNDatabase::checkFileIndex.\n");
     return;
    };
-  checkUpdateFile(fileName, url, MAX_STATION_FILE_AGE);  
+  checkUpdateFile(fileName, byStationUrl, MAX_STATION_FILE_AGE);  
   
   unless(parseStationFileWithC(fileName))
    {
@@ -383,9 +388,27 @@ void GHCNDatabase::getStations(float lat, float longT)
 /// @param station A pointer to the GHCNStation record which is requested
 /// @returns True if we successfully fetched it, false if we failed.
 
-bool GHCNDatabase::fetchCSVFile(GHCNStation* station)
-{
-  return false;  
+#define MAX_CSV_FILE_AGE  5184000.0f   // 60*24*3600
+
+bool GHCNDatabase::checkCSVFile(GHCNStation* station)
+{    
+  char fileName[128];
+  if(snprintf(fileName, 128, "%s/%s.csv.gz", dbPath, station->id) >= 128)
+   {
+    LogClimateDbErr("Overflow in csv filename for %s in GHCNDatabase::checkCSVFile.\n",
+                                                                              station->id);
+    return false;
+   };
+
+  char url[128];
+  if(snprintf(url, 128, "%s%s.csv.gz", byStationUrl, station->id) >= 128)
+   {
+    LogClimateDbErr("Overflow in csv url for %s in GHCNDatabase::checkCSVFile.\n",
+                                                                              station->id);
+    return false;
+   };
+
+  return checkUpdateFile(fileName, url, MAX_CSV_FILE_AGE);  
 }
 
 

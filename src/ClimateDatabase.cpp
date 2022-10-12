@@ -58,22 +58,10 @@ unsigned ClimateDatabase::printClimateJson(char* buf, unsigned bufSize,
   ghcnDatabase->getStations(lat, longt);
   
   int N = ghcnDatabase->stationResults.size();
-  char fileName[128];
-  
-  snprintf(fileName, 128, "%s/", ghcnPath);
-  char* lastEl = fileName + strlen(ghcnPath) + 1;
-  int remaining = 128 - (lastEl-fileName);
   
   for(int i=0; i<N; i++)
    {
-    GHCNStation* station = ghcnDatabase->stationResults[i]; 
-    snprintf(lastEl, remaining, "%s.csv", station->id);
-    if(regularFileExists(fileName))
-     {
-      LogGHCNExhaustive("Found file for station %s: %s.\n", station->id, fileName);
-     }
-    else
-      ghcnDatabase->fetchCSVFile(station);
+    ghcnDatabase->checkCSVFile(ghcnDatabase->stationResults[i]);
     
     // lame temp hack
    }

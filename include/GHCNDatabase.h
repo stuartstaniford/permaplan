@@ -75,7 +75,7 @@ private:
   void checkFileIndex(void);
   void getStations(float lat, float longT);
   int readOneCSVFile(char* fileName, GHCNStation* station, ClimateInfo* climInfo);
-  bool fetchCSVFile(GHCNStation* station);
+  bool checkCSVFile(GHCNStation* station);
   bool checkUpdateFile(char* fileName, char* url, float maxAge);
 
   /// @brief Prevent copy-construction.
