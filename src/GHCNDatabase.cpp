@@ -210,6 +210,7 @@ bool GHCNDatabase::parseStationFileWithC(char* fileName)
 /// See https://www.reddit.com/r/cpp/comments/e16s1m/what_is_wrong_with_stdregex/
 /// and https://stackoverflow.com/questions/70583395/why-is-stdregex-notoriously-much-slower-than-other-regular-expression-librarie
 /// for more on why std::regex turns out to suck.
+/// @todo Might try rewriting this using pcre2 library (already installed via brew).
 /// @params fileName The path of the file to parse
 /// @returns True if all went well, false if we couldn't parse the file.
 
@@ -550,6 +551,10 @@ GHCNStation::GHCNStation(char* buf)
   latLong[0]  = atof(buf+12);
   latLong[1]  = atof(buf+21);
   elevation   = atof(buf+31);  // in meters, as we are in permaserv
+
+  // Make sure variables that will be filled out later are not random garbage
+  fileBufSize = 0u;
+  climate     = NULL;
   
   LogGHCNExhaustive("Read station %s (%s) at [%.4f, %.4f], el: %.1fm.\n",
                                               id, name, latLong[0], latLong[1], elevation);
