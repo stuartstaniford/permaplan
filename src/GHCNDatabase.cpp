@@ -470,14 +470,22 @@ bool GHCNDatabase::readCSVLine(char* buf, GHCNStation* station, char* fileName, 
     LogClimateDbErr("Bad date comma in line %d of csv file %s.\n", line, fileName);
     return false;
    }
+  buf[20] = '\0';
   char dateBuf[5];
-  int year, month, day;
+  int year, month, day, yearDays;
   for(int i=0;i<4;i++)
     dateBuf[i] = buf[12+i];
   dateBuf[4] = '\0';
-  year  = atoi(dateBuf);
-  month = 10*(buf[17] - '0') + (buf[18] - '0');  // converting ASCII values to numbers
-  day   = 10*(buf[19] - '0') + (buf[20] - '0');
+  year      = atoi(dateBuf);
+  month     = 10*(buf[16] - '0') + (buf[17] - '0');  // converting ASCII values to numbers
+  day       = 10*(buf[18] - '0') + (buf[19] - '0');
+  yearDays  = yearDays(year, month, day);
+  unless(yearDays >= 0 && yearDays < 366)
+   {
+    LogClimateDbErr("Out of range date, %s (%d/%d/%d), in line %d of csv file %s.\n", 
+                                                  buf+12, month, day, year, line, fileName);
+    return false;
+   }
   
   //Find the right climateDay
   ClimateInfo* climInfo = station->climate;
@@ -486,8 +494,7 @@ bool GHCNDatabase::readCSVLine(char* buf, GHCNStation* station, char* fileName, 
     LogGHCNExhaustive("Ignoring out of range date %d/%d/%d on line %d of csv file %s.\n",                         year, month, day, line, fileName);
     return true;
    }
-  ClimateDay* climDay = climInfo->climateYears[year-climInfo->startYear] + 
-                                                        yearDays(year, month, day);
+  ClimateDay* climDay = climInfo->climateYears[year-climInfo->startYear] + yearDays;
 
   // Observation type, observation
   if(buf[25] != ',')
@@ -585,6 +592,9 @@ int GHCNDatabase::readOneCSVFile(GHCNStation* station)
   else
    {
     // Open the gzip file
+    // Code idea borrowed from:
+    // https://stackoverflow.com/questions/35091855/how-to-sequentially-parse-in-\
+    // c-a-gzip-compressed-text-file-without-fully-decompr
     gzFile file = gzopen(fileName, "rb");
     unless(file)
      {
