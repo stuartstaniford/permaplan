@@ -199,8 +199,8 @@ bool flushLogHSWDExhaustive      = false; // Log every field read from the HSWD 
 bool flushLogBilFileDetails      = false; // Log details of reading from a BILFILE
 
 // Logging options to do with climate data processing
-bool flushLogClimateDbErr        = false; // Log problems in the climate database operation
-bool flushLogClimateDbOps        = false; // Log normal operations on the climate database
+bool flushLogClimateDbErr        = true; // Log problems in the climate database operation
+bool flushLogClimateDbOps        = true; // Log normal operations on the climate database
 bool flushLogGHCNExhaustive      = false; // Log minute details of reading the GHCN info
 
 // Logging options for Trees/Plants

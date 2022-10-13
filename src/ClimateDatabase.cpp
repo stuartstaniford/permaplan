@@ -89,13 +89,21 @@ unsigned ClimateDatabase::printClimateJson(char* buf, unsigned bufSize,
 /// @param yearCount The number of years of climate data to provide (assumed to start in
 /// the present year).
 
-unsigned ClimateDatabase::printStationDiagnosticTable(HttpServThread* serv, 
+bool ClimateDatabase::printStationDiagnosticTable(HttpServThread* serv, 
                                                 float lat, float longt, unsigned yearCount)
 {
+  // Find the relevant stations
   ghcnDatabase->getStations(lat, longt);
-  
   int N = ghcnDatabase->stationResults.size();
   
+  // Start the HTML page and the table header
+  unless(serv->startResponsePage("Climate Station Diagnostics"))
+    return false;
+  unless(serv->startTable((char*)"Stations"))
+    return false;
+  httPrintf("<tr><th>Station id</th><th>Size</th></tr>\n");
+
+  // Loop over the rows
   for(int i=0; i<N; i++)
    {
     GHCNStation* station = ghcnDatabase->stationResults[i];
@@ -104,9 +112,16 @@ unsigned ClimateDatabase::printStationDiagnosticTable(HttpServThread* serv,
       ghcnDatabase->checkCSVFile(station);
       ghcnDatabase->readOneCSVFile(station);
      }
+    httPrintf("<tr><td>%s</td><td>%d</td></tr>\n", station->id, station->fileBufSize);
+
    }
   
-  return 0u;
+  // Finish up the table and the page
+  httPrintf("</table></center>\n");
+  unless(serv->endResponsePage())
+    return false;
+
+  return true;
 }
 
 

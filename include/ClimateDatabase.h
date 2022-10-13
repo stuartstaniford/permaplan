@@ -28,7 +28,7 @@ public:
   ~ClimateDatabase(void);
   unsigned printClimateJson(char* buf, unsigned bufSize, 
                                             float lat, float longt, unsigned yearCount);
-  unsigned printStationDiagnosticTable(HttpServThread* serv, 
+  bool printStationDiagnosticTable(HttpServThread* serv, 
                                             float lat, float longt, unsigned yearCount);
 private:
   

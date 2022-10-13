@@ -81,7 +81,7 @@ bool HttpPermaServ::indexPage(void)
   internalPrintf("<td>Years of climate information near location.</td></tr>\n");
 
   // Climate diagnostics near a particular point
-  internalPrintf("<tr><td><a href=\"/climate?42.421:-76.347:20:\">"
+  internalPrintf("<tr><td><a href=\"/climateDiagnostic?42.421:-76.347:20:\">"
                  "climateDiagnostic?lat:long:years:</a></td>");
   internalPrintf("<td>Climate station diagnostic near location.</td></tr>\n");
 
@@ -181,11 +181,10 @@ bool HttpPermaServ::processClimateRequest(char* url, bool diagnostic)
    }
   if(diagnostic)
    {
-    if( (respPtr += climateDatabase->printStationDiagnosticTable(this, 
-                                  latLongYear[0], latLongYear[1], (unsigned)latLongYear[2]))
-                            >= respEnd)
+    unless(climateDatabase->printStationDiagnosticTable(this, 
+                            latLongYear[0], latLongYear[1], (unsigned)latLongYear[2]))
      {
-      LogClimateDbErr("Overflow in json response to climate diagnostic request "
+      LogClimateDbErr("Overflow in html response to climate diagnostic request "
                       "/climateDiagnostic?%s.\n", url);
       respBufOverflow = true; 
       return false;
@@ -269,10 +268,10 @@ bool HttpPermaServ::processRequestHeader(void)
     retVal = true;
    }
 
-  else if( strlenUrl >= 22 && strncmp(url, "/climateDiagnostic?", 18) == 0)
+  else if( strlenUrl >= 23 && strncmp(url, "/climateDiagnostic?", 19) == 0)
    {
-    LogPermaservOpDetails("Processing climate diagnostic request for %s.\n", url+18);
-    retVal = processClimateRequest(url+9, true);
+    LogPermaservOpDetails("Processing climate diagnostic request for %s.\n", url+19);
+    retVal = processClimateRequest(url+19, true);
    }
 
   else if( strlenUrl >= 13 && strncmp(url, "/climate?", 9) == 0)
