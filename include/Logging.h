@@ -94,7 +94,7 @@
 
 #define LOG_CLIMATE_DB_ERR             // Log problems in the climate database operation
 #define LOG_CLIMATE_DB_OPS             // Log normal operations on the climate database
-#define LOG_GHCN_EXHAUSTIVE            // Log minute details of reading the GHCN info
+//#define LOG_GHCN_EXHAUSTIVE            // Log minute details of reading the GHCN info
 
 
 // =======================================================================================

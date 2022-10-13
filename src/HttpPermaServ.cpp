@@ -76,9 +76,14 @@ bool HttpPermaServ::indexPage(void)
   internalPrintf("<td>Soil Profiles in region (json).</td></tr>\n");
 
   // Climate data near a particular point
-  internalPrintf("<tr><td><a href=\"/climate?42.441570:-76.498665:20:\">"
+  internalPrintf("<tr><td><a href=\"/climate?42.421:-76.347:20:\">"
                  "climate?lat:long:years:</a></td>");
   internalPrintf("<td>Years of climate information near location.</td></tr>\n");
+
+  // Climate diagnostics near a particular point
+  internalPrintf("<tr><td><a href=\"/climate?42.421:-76.347:20:\">"
+                 "climateDiagnostic?lat:long:years:</a></td>");
+  internalPrintf("<td>Climate station diagnostic near location.</td></tr>\n");
 
   // End table and page
   internalPrintf("</table></center>\n");
@@ -156,26 +161,52 @@ bool HttpPermaServ::processDNIRequest(char* url)
 // =======================================================================================
 /// @brief Process the case of a request for climate information.
 /// @param url The balance of the URL that we are to deal with (ie after the '?')
+/// @param diagnostic A bool that if true provides HTML diagnostic pages rather than 
+/// the JSON API.  Used for troubleshooting the climate data and the permaserv code 
+/// handling it.
 /// @returns True if all went well, false if we couldn't correctly write a good object.
 
-bool HttpPermaServ::processClimateRequest(char* url)
+bool HttpPermaServ::processClimateRequest(char* url, bool diagnostic)
 {
   float latLongYear[3];
   unless(extractColonVecN(url, 3, latLongYear))
    {
-    LogRequestErrors("Bad climate request: /climate?%s\n", url);
+    if(diagnostic)
+     {
+      LogRequestErrors("Bad climateDiagnostic request: /climateDiagnostic?%s\n", url);
+     }
+    else
+      LogRequestErrors("Bad climate request: /climate?%s\n", url);
     return false;
    }
-  if( (respPtr += climateDatabase->printClimateJson(respPtr, respEnd-respPtr, 
+  if(diagnostic)
+   {
+    if( (respPtr += climateDatabase->printStationDiagnosticTable(respPtr, respEnd-respPtr, 
+                                  latLongYear[0], latLongYear[1], (unsigned)latLongYear[2]))
+                            >= respEnd)
+     {
+      LogClimateDbErr("Overflow in json response to climate diagnostic request "
+                      "/climateDiagnostic?%s.\n", url);
+      respBufOverflow = true; 
+      return false;
+     }
+    LogPermaservOps("Serviced climate diagnostic request for %f,%f (%u years) "
+                  "from client on port %u.\n", 
+                  latLongYear[0], latLongYear[1], (unsigned)latLongYear[2], clientP);
+   }
+  else
+   {
+    if( (respPtr += climateDatabase->printClimateJson(respPtr, respEnd-respPtr, 
                                   latLongYear[0], latLongYear[1], (unsigned)latLongYear[2]))
                     >= respEnd)
-   {
-    LogClimateDbErr("Overflow in json response to climate request /climate?%s.\n", url);
-    respBufOverflow = true; 
-    return false;
-   }
-  LogPermaservOps("Serviced climate request for %f,%f (%u years) from client on port %u.\n", 
+     {
+      LogClimateDbErr("Overflow in json response to climate request /climate?%s.\n", url);
+      respBufOverflow = true; 
+      return false;
+     }
+    LogPermaservOps("Serviced climate request for %f,%f (%u years) from client on port %u.\n", 
                   latLongYear[0], latLongYear[1], (unsigned)latLongYear[2], clientP);
+   }
   return true;
 }
 
@@ -236,6 +267,12 @@ bool HttpPermaServ::processRequestHeader(void)
     LogPermaservOpDetails("Processing alive check request.\n");
     internalPrintf("OK at time %ld\n", time(NULL));
     retVal = true;
+   }
+
+  else if( strlenUrl >= 22 && strncmp(url, "/climateDiagnostic?", 18) == 0)
+   {
+    LogPermaservOpDetails("Processing climate diagnostic request for %s.\n", url+18);
+    retVal = processClimateRequest(url+9, true);
    }
 
   else if( strlenUrl >= 13 && strncmp(url, "/climate?", 9) == 0)

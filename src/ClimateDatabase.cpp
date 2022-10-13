@@ -75,4 +75,38 @@ unsigned ClimateDatabase::printClimateJson(char* buf, unsigned bufSize,
 }
 
 
+/// =======================================================================================
+/// @brief Output HTML table of stations close to a particular location.
+/// 
+/// @returns The number of bytes written to the buffer.  If greater than or equal to 
+/// the supplied bufSize parameter, it indicates the buffer was not big enough and the
+/// output will have been truncated/incomplete.
+/// @param buf The char buffer to write the JSON to.
+/// @param bufSize The size of the buffer, which must not be overwritten after the end.
+/// @param lat The latitude selected.
+/// @param longt The longtitude selected.
+/// @param yearCount The number of years of climate data to provide (assumed to start in
+/// the present year).
+
+unsigned ClimateDatabase::printStationDiagnosticTable(char* buf, unsigned bufSize, 
+                                        float lat, float longt, unsigned yearCount)
+{
+  ghcnDatabase->getStations(lat, longt);
+  
+  int N = ghcnDatabase->stationResults.size();
+  
+  for(int i=0; i<N; i++)
+   {
+    GHCNStation* station = ghcnDatabase->stationResults[i];
+    unless(station->climate)
+     {
+      ghcnDatabase->checkCSVFile(station);
+      ghcnDatabase->readOneCSVFile(station);
+     }
+   }
+  
+  return 0u;
+}
+
+
 // =======================================================================================

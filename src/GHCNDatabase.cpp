@@ -57,10 +57,10 @@ bool GHCNDatabase::checkUpdateFile(char* fileName, char* url, float maxAge)
   if(fileAge < -0.0f || fileAge > maxAge)
    {
     if(fileAge == -1.0f)
-      LogGHCNExhaustive("Could not stat file %s:%s\n", fileName, strerror(errno));
+      LogClimateDbOps("Could not stat file %s:%s\n", fileName, strerror(errno));
     if(fetchFile(url, fileName))
      {
-      LogGHCNExhaustive("Refreshed file %s after %.2f days\n", 
+      LogClimateDbOps("Refreshed file %s after %.2f days\n", 
                                                         fileName, fileAge/24.0f/3600.0f);
      }
     else
@@ -190,7 +190,7 @@ bool GHCNDatabase::parseStationFileWithC(char* fileName)
       station->fileBufSize = (unsigned)(1048576.0f*(atof(parse)+0.15f));
      }    
     else
-      LogGHCNExhaustive("Got bad size %s\n", parse);
+      LogClimateDbErr("Got bad size %s\n", parse);
     
     stationCount++;
     }
@@ -199,7 +199,7 @@ bool GHCNDatabase::parseStationFileWithC(char* fileName)
 #ifdef LOG_GHCN_EXHAUSTIVE
   Timeval parseEnd;
   parseEnd.now();
-  LogGHCNExhaustive("Parsing %d stations from file %s took %.3lf s.\n", 
+  LogClimateDbOps("Parsing %d stations from file %s took %.3lf s.\n", 
                                           stationCount, fileName, parseEnd - parseStart);
 #endif
 
@@ -260,21 +260,21 @@ bool GHCNDatabase::parseStationFileRegEx(char* fileName)
         else if(match.str(2).c_str()[0] == 'M')
           station->fileBufSize = (unsigned)(1048576.0f*(atof(match.str(1).c_str())+0.15f));
         else
-          LogGHCNExhaustive("Got bad size %s %s\n", match.str(1).c_str(), 
+          LogClimateDbErr("Got bad size %s %s\n", match.str(1).c_str(), 
                                                                   match.str(2).c_str());
        }
       else
-        LogGHCNExhaustive("Couldn't match size for station id %s\n", station->id);
+        LogClimateDbErr("Couldn't match size for station id %s\n", station->id);
      }
     else
-      LogGHCNExhaustive("Couldn't find station id in line %s\n", buf);
+      LogClimateDbErr("Couldn't find station id in line %s\n", buf);
     }
   
   fclose(file);
 #ifdef LOG_GHCN_EXHAUSTIVE
   Timeval parseEnd;
   parseEnd.now();
-  LogGHCNExhaustive("Parsing the station file %s took %.3lf s.", 
+  LogClimateDbOps("Parsing the station file %s took %.3lf s.", 
                                                 fileName, parseEnd - parseStart);
 #endif
 
@@ -371,7 +371,7 @@ void GHCNDatabase::getStations(float lat, float longT)
     searchMax[1] = longT  + searchBound;
     
     int hits = stationTree.Search(searchMin, searchMax, searchCallback, this);
-    LogGHCNExhaustive("Got %d results in search with %.4f degrees of [%.4f, %.4f].\n",
+    LogClimateDbOps("Got %d results in search with %.4f degrees of [%.4f, %.4f].\n",
                       hits, searchBound, lat, longT);
     if(hits)
      {
@@ -482,7 +482,7 @@ bool GHCNDatabase::readCSVLine(char* buf, GHCNStation* station, char* fileName, 
   yearDays  = yearDays(year, month, day);
   unless(yearDays >= 0 && yearDays < 366)
    {
-    LogClimateDbErr("Out of range date, %s (%d/%d/%d), in line %d of csv file %s.\n", 
+    LogClimateDbErr("Out of array range date, %s (%d/%d/%d), in line %d of csv file %s.\n", 
                                                   buf+12, month, day, year, line, fileName);
     return false;
    }
@@ -491,7 +491,8 @@ bool GHCNDatabase::readCSVLine(char* buf, GHCNStation* station, char* fileName, 
   ClimateInfo* climInfo = station->climate;
   if(year < climInfo->startYear || year >= climInfo->endYear)
    {
-    LogGHCNExhaustive("Ignoring out of range date %d/%d/%d on line %d of csv file %s.\n",                         year, month, day, line, fileName);
+    //LogGHCNExhaustive("Ignoring out of range year %d on line %d of csv file %s.\n",         
+    //                                                               year, line, fileName);
     return true;
    }
   ClimateDay* climDay = climInfo->climateYears[year-climInfo->startYear] + yearDays;
@@ -616,6 +617,8 @@ int GHCNDatabase::readOneCSVFile(GHCNStation* station)
   // Close up and go home
   unsigned total, valid;
   station->climate->countValidDays(total, valid);
+  LogClimateDbOps("Station %s has %d valid days from %d total.\n", station->id, 
+                                                                            valid, total);
   return valid;
 }
 
