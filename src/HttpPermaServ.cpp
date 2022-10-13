@@ -274,6 +274,13 @@ bool HttpPermaServ::processRequestHeader(void)
     retVal = processClimateRequest(url+19, true);
    }
 
+  // http://127.0.0.1:2091/climateStation/US1NYTM0018
+  else if( strlenUrl == 27 && strncmp(url, "/climateStation/", 16) == 0)
+   {
+    LogPermaservOpDetails("Processing climate station request for %s.\n", url+16);
+    retVal = climateDatabase->processStationDiagnosticRequest(this, url+16);
+   }
+  
   else if( strlenUrl >= 13 && strncmp(url, "/climate?", 9) == 0)
    {
     LogPermaservOpDetails("Processing climate request for %s.\n", url+9);

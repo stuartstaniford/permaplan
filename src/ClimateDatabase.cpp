@@ -79,11 +79,9 @@ unsigned ClimateDatabase::printClimateJson(char* buf, unsigned bufSize,
 /// =======================================================================================
 /// @brief Output HTML table of stations close to a particular location.
 /// 
-/// @returns The number of bytes written to the buffer.  If greater than or equal to 
-/// the supplied bufSize parameter, it indicates the buffer was not big enough and the
-/// output will have been truncated/incomplete.
-/// @param buf The char buffer to write the JSON to.
-/// @param bufSize The size of the buffer, which must not be overwritten after the end.
+/// @returns True if all was well writing to the buffer.  If false, it indicates the 
+/// buffer was not big enough and the output will have been truncated/incomplete.
+/// @param serv A pointer to the HttpServThread managing the HTTP response.
 /// @param lat The latitude selected.
 /// @param longt The longtitude selected.
 /// @param yearCount The number of years of climate data to provide (assumed to start in
@@ -112,8 +110,8 @@ bool ClimateDatabase::printStationDiagnosticTable(HttpServThread* serv,
       ghcnDatabase->checkCSVFile(station);
       ghcnDatabase->readOneCSVFile(station);
      }
-    httPrintf("<tr><td>%s</td><td>%d</td></tr>\n", station->id, station->fileBufSize);
-
+    httPrintf("<tr><td><a href=\"/climateStation/%s\">%s</td><td>%d</td></tr>\n", 
+                                        station->id,  station->id, station->fileBufSize);
    }
   
   // Finish up the table and the page
@@ -122,6 +120,43 @@ bool ClimateDatabase::printStationDiagnosticTable(HttpServThread* serv,
     return false;
 
   return true;
+}
+
+
+/// =======================================================================================
+/// @brief Output HTML table detail data for a particular climate station.
+/// 
+/// @returns True if all was well writing to the buffer.  If false, it indicates the 
+/// buffer was not big enough and the output will have been truncated/incomplete.
+/// @param serv A pointer to the HttpServThread managing the HTTP response.
+/// @param stationId A string hopefully indicating a station ID.  At this point in 
+/// processing, it's known to be 11 characters in length, but otherwise could be hostile.
+
+bool ClimateDatabase::processStationDiagnosticRequest(HttpServThread* serv, char* stationId)
+{
+  // Find the relevant stations
+  unless(ghcnDatabase->stationsByName.count(stationId))
+   {
+    LogClimateDbErr("Couldn't find station for %s in processStationDiagnosticRequest.\n",
+                      stationId);
+    return false;
+   }
+  
+  GHCNStation* station = ghcnDatabase->stationsByName[std::string(stationId)];
+  
+  // Start the HTML page and the table header
+  unless(serv->startResponsePage("Climate Station Details"))
+    return false;
+  unless(serv->startTable((char*)"Stations"))
+    return false;
+  
+  // Finish up the table and the page
+  httPrintf("</table></center>\n");
+  unless(serv->endResponsePage())
+    return false;
+
+  return true;
+
 }
 
 
