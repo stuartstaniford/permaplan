@@ -5,6 +5,7 @@
 
 #include "ClimateDatabase.h"
 #include "GHCNDatabase.h"
+#include "HttpServThread.h"
 #include "loadFileToBuf.h"
 #include "Logging.h"
 
@@ -88,8 +89,8 @@ unsigned ClimateDatabase::printClimateJson(char* buf, unsigned bufSize,
 /// @param yearCount The number of years of climate data to provide (assumed to start in
 /// the present year).
 
-unsigned ClimateDatabase::printStationDiagnosticTable(char* buf, unsigned bufSize, 
-                                        float lat, float longt, unsigned yearCount)
+unsigned ClimateDatabase::printStationDiagnosticTable(HttpServThread* serv, 
+                                                float lat, float longt, unsigned yearCount)
 {
   ghcnDatabase->getStations(lat, longt);
   

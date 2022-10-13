@@ -181,7 +181,7 @@ bool HttpPermaServ::processClimateRequest(char* url, bool diagnostic)
    }
   if(diagnostic)
    {
-    if( (respPtr += climateDatabase->printStationDiagnosticTable(respPtr, respEnd-respPtr, 
+    if( (respPtr += climateDatabase->printStationDiagnosticTable(this, 
                                   latLongYear[0], latLongYear[1], (unsigned)latLongYear[2]))
                             >= respEnd)
      {
