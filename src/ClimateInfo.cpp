@@ -7,6 +7,7 @@
 
 #include "ClimateInfo.h"
 #include "Global.h"
+#include "HttpServThread.h"
 #include <assert.h>
 
 
@@ -134,7 +135,23 @@ void ClimateInfo::countValidDays(unsigned& totalDays, unsigned& validDays)
 
 bool ClimateInfo::diagnosticHTML(HttpServThread* serv)
 {
+  // Open the table
+  unless(serv->startTable((char*)"Stations"))
+    return false;
+
+  // Header row
+  httPrintf("<tr><th>Day</th>");
+  for(int i=0; i < endYear - startYear; i++)
+   {
+    httPrintf("<th>%d</th>", startYear + i);
+   }
+  httPrintf("</tr>");
   
+  // Loop over per-day rows
+  
+  // End table
+  httPrintf("</table></center>\n");
+
   return true;  
 }
 

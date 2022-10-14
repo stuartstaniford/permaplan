@@ -152,14 +152,11 @@ bool ClimateDatabase::processStationDiagnosticRequest(HttpServThread* serv, char
   snprintf(title, 128, "Climate Station Details for %s", stationId);
   unless(serv->startResponsePage(title))
     return false;
-  unless(serv->startTable((char*)"Stations"))
-    return false;
   
   unless(station->climate->diagnosticHTML(serv))
     return false;
   
-  // Finish up the table and the page
-  httPrintf("</table></center>\n");
+  // Finish up the page
   unless(serv->endResponsePage())
     return false;
 
