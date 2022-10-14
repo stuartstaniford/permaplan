@@ -153,7 +153,15 @@ bool ClimateInfo::diagnosticHTML(HttpServThread* serv)
     httPrintf("<tr><td>%d</td>", j);
     for(int i=0; i < endYear - startYear; i++)
      {
-      httPrintf("<td>B");
+      httPrintf("<td>");
+      ClimateDay* today = climateYears[i] + j;
+      if(today->flags & HI_TEMP_VALID)
+        httPrintf("T+:%.1f ", today->hiTemp);
+      if(today->flags & LOW_TEMP_VALID)
+        httPrintf("T-:%.1f ", today->lowTemp);
+      if(today->flags & PRECIP_VALID)
+        httPrintf("P:%.1f ", today->precip);
+
       httPrintf("</td>");
      }
 
