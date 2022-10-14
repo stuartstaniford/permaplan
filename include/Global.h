@@ -20,8 +20,8 @@
 // Time/date related macros
 
 #define IsLeapYear(X) ((X)%4?0:((X)%100?1:((X)%400?0:1)))
-#define yearDays(Year, Month, Day) (IsLeapYear(Year)?(yearDaysLeap[(Month)-1]+(Day-1)):\
-                                                    (yearDaysNonLeap[(Month)-1]+(Day-1)))
+#define yearDays(Year, Month, Day) (IsLeapYear(Year)?(yearDaysLeap[(Month)-1]+((Day)-1)):\
+                                                    (yearDaysNonLeap[(Month)-1]+((Day)-1)))
 #define DaysInYear(X) (IsLeapYear(X)?366:365)
 
 
@@ -70,7 +70,7 @@ inline void scaleLatLongRectangle(const float& scale, float& loLat, float& hiLat
 // =======================================================================================
 // Utility function prototypes
 
-void initGlobals(int nThreads);
+void initGlobals(int nThreads = 0);
 bool extractColonVecN(char* path, int N, float* dest);
 inline bool extractColonVec4(char* path, vec4 dest)
               {return extractColonVecN(path, 4, dest);}

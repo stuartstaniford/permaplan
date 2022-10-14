@@ -472,15 +472,15 @@ bool GHCNDatabase::readCSVLine(char* buf, GHCNStation* station, char* fileName, 
    }
   buf[20] = '\0';
   char dateBuf[5];
-  int year, month, day, yearDays;
+  int year, month, day, yearDay;
   for(int i=0;i<4;i++)
     dateBuf[i] = buf[12+i];
   dateBuf[4] = '\0';
   year      = atoi(dateBuf);
   month     = 10*(buf[16] - '0') + (buf[17] - '0');  // converting ASCII values to numbers
   day       = 10*(buf[18] - '0') + (buf[19] - '0');
-  yearDays  = yearDays(year, month, day);
-  unless(yearDays >= 0 && yearDays < 366)
+  yearDay   = yearDays(year, month, day);
+  unless(yearDay >= 0 && yearDay < 366)
    {
     LogClimateDbErr("Out of array range date, %s (%d/%d/%d), in line %d of csv file %s.\n", 
                                                   buf+12, month, day, year, line, fileName);
@@ -495,8 +495,11 @@ bool GHCNDatabase::readCSVLine(char* buf, GHCNStation* station, char* fileName, 
     //                                                               year, line, fileName);
     return true;
    }
-  ClimateDay* climDay = climInfo->climateYears[year-climInfo->startYear] + yearDays;
+  ClimateDay* climDay = climInfo->climateYears[year-climInfo->startYear] + yearDay;
 
+  //if(strcmp(station->id, "US1NYTG0015") == 0)
+  //  printf("Recording data for yearDay %d from date %s.\n", yearDay, buf+12);  
+  
   // Observation type, observation
   if(buf[25] != ',')
    {
@@ -517,19 +520,19 @@ bool GHCNDatabase::readCSVLine(char* buf, GHCNStation* station, char* fileName, 
 
   if(strcmp(buf + 21, "TMAX") == 0)
    {
-    climDay->hiTemp = observation;
+    climDay->hiTemp = observation/10.0f;
     /// @todo check validity of value
     climDay->flags |= HI_TEMP_VALID;
    }  
   else if(strcmp(buf + 21, "TMIN") == 0)
    {
-    climDay->lowTemp = observation;
+    climDay->lowTemp = observation/10.0f;
     /// @todo check validity of value
     climDay->flags |= LOW_TEMP_VALID;
    }  
   else if(strcmp(buf + 21, "PRCP") == 0)
    {
-    climDay->precip = observation;
+    climDay->precip = observation/10.0f;
     /// @todo check validity of value
     climDay->flags |= PRECIP_VALID;
    }  

@@ -29,7 +29,8 @@ int yearDaysLeap[12];
 void initGlobals(int nThreads)
 {
 #ifdef MULTI_THREADED_SIMULATION
-  threadFarm = new TaskQueueFarm(nThreads, (char*)"treeSimFarm");  
+  if(nThreads)
+    threadFarm = new TaskQueueFarm(nThreads, (char*)"treeSimFarm");  
 #endif
 
   yearDaysNonLeap[0] = yearDaysLeap[0] = 0;

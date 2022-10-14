@@ -114,11 +114,12 @@ void recordPort(void)
 // Main function
 
 int main (int argc, char* argv[])
-{
+{  
   // Initialize logging so we can record the rest of the start-up.
   LogInit((char*)"permaserv.log");
     
   // Startup tasks
+  initGlobals();
   processCommandLine(argc, argv);
   time_t compileTime = getCompileTime(argv[0]);
   recordPort();
