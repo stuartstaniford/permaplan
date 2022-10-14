@@ -29,7 +29,7 @@ LFLAGS =
 # define any libraries to link into executable:
 #   if I want to link in libraries (libx.so or libx.a) I use the -llibname
 #   option, something like (this will link in libmylib.so and libm.so:
-LIBS = -framework OpenGL -lglfw -lGLEW -lcurl -lgdal -lmdb -lz
+LIBS = -framework OpenGL -lglfw -lGLEW -lcurl -lgdal -lmdb -lz -lgsl
 
 # define the source files
 SRCS = $(wildcard src/*.cpp)
@@ -926,8 +926,7 @@ src/CircleIterator.o: /usr/local/include/cglm/ray.h
 src/CircleIterator.o: /usr/local/include/cglm/affine2d.h ./include/Global.h
 src/ClimateDatabase.o: ./include/ClimateDatabase.h ./include/GHCNDatabase.h
 src/ClimateDatabase.o: ./include/HttpClient.h ./include/RTree.h
-src/ClimateDatabase.o: ./include/loadFileToBuf.h ./include/Logging.h
-src/ClimateDatabase.o: ./include/MemoryTracker.h ./include/Timeval.h
+src/ClimateDatabase.o: ./include/HttpServThread.h ./include/TaskQueue.h
 src/ClimateDatabase.o: ./include/Lockable.h ./include/Global.h
 src/ClimateDatabase.o: /usr/local/include/cglm/cglm.h
 src/ClimateDatabase.o: /usr/local/include/cglm/common.h
@@ -972,6 +971,10 @@ src/ClimateDatabase.o: /usr/local/include/cglm/curve.h
 src/ClimateDatabase.o: /usr/local/include/cglm/bezier.h
 src/ClimateDatabase.o: /usr/local/include/cglm/ray.h
 src/ClimateDatabase.o: /usr/local/include/cglm/affine2d.h
+src/ClimateDatabase.o: ./include/HttpRequestParser.h
+src/ClimateDatabase.o: ./include/loadFileToBuf.h ./include/Logging.h
+src/ClimateDatabase.o: ./include/MemoryTracker.h ./include/Timeval.h
+src/ClimateDatabase.o: ./include/ClimateInfo.h ./include/DynamicallyTypable.h
 src/ClimateDatabaseClient.o: ./include/ClimateDatabaseClient.h
 src/ClimateDatabaseClient.o: ./include/HttpPermaservClient.h
 src/ClimateDatabaseClient.o: ./include/HttpClient.h
@@ -1097,6 +1100,14 @@ src/ClimateInfo.o: /usr/local/include/cglm/curve.h
 src/ClimateInfo.o: /usr/local/include/cglm/bezier.h
 src/ClimateInfo.o: /usr/local/include/cglm/ray.h
 src/ClimateInfo.o: /usr/local/include/cglm/affine2d.h
+src/ClimateInfo.o: ./include/HttpServThread.h ./include/TaskQueue.h
+src/ClimateInfo.o: ./include/Lockable.h ./include/HttpRequestParser.h
+src/ClimateInfo.o: /usr/local/include/gsl/gsl_sf_bessel.h
+src/ClimateInfo.o: /usr/local/include/gsl/gsl_mode.h
+src/ClimateInfo.o: /usr/local/include/gsl/gsl_inline.h
+src/ClimateInfo.o: /usr/local/include/gsl/gsl_precision.h
+src/ClimateInfo.o: /usr/local/include/gsl/gsl_types.h
+src/ClimateInfo.o: /usr/local/include/gsl/gsl_sf_result.h
 src/ColoredAxes.o: ./include/ColoredAxes.h ./include/LineStripList.h
 src/ColoredAxes.o: /usr/local/include/cglm/cglm.h
 src/ColoredAxes.o: /usr/local/include/cglm/common.h

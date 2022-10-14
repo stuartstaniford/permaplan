@@ -9,6 +9,7 @@
 #include "Global.h"
 #include "HttpServThread.h"
 #include <assert.h>
+#include <gsl/gsl_sf_bessel.h>
 
 
 // =======================================================================================

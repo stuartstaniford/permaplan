@@ -26,6 +26,8 @@ install mdbtools".  Right now a modification is required to mdbtools.h to get
 things to work properly on the Mac: move the extern "C"' opening below all
 the #include declarations at the top of the file. 
 
+The Gnu GSL (brew install gsl).
+
 Building the source code documentation requires doxygen ("brew install doxygen").
 
 Then:
