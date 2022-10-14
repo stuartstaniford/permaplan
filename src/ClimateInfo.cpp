@@ -125,4 +125,18 @@ void ClimateInfo::countValidDays(unsigned& totalDays, unsigned& validDays)
   }
 
 
+/// =======================================================================================
+/// @brief Output HTML table detail data for diagnostic HTTP server purposes.
+/// 
+/// @returns True if all was well writing to the buffer.  If false, it indicates the 
+/// buffer was not big enough and the output will have been truncated/incomplete.
+/// @param serv A pointer to the HttpServThread managing the HTTP response.
+
+bool ClimateInfo::diagnosticHTML(HttpServThread* serv)
+{
+  
+  return true;  
+}
+
+
 // =======================================================================================

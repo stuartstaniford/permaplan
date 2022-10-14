@@ -8,6 +8,7 @@
 #include "HttpServThread.h"
 #include "loadFileToBuf.h"
 #include "Logging.h"
+#include "ClimateInfo.h"
 
 
 // =======================================================================================
@@ -143,11 +144,18 @@ bool ClimateDatabase::processStationDiagnosticRequest(HttpServThread* serv, char
    }
   
   GHCNStation* station = ghcnDatabase->stationsByName[std::string(stationId)];
-  
+  unless(station->climate)
+    return serv->errorPage("No climate information for station.");
+
   // Start the HTML page and the table header
-  unless(serv->startResponsePage("Climate Station Details"))
+  char title[128];
+  snprintf(title, 128, "Climate Station Details for %s", stationId);
+  unless(serv->startResponsePage(title))
     return false;
   unless(serv->startTable((char*)"Stations"))
+    return false;
+  
+  unless(station->climate->diagnosticHTML(serv))
     return false;
   
   // Finish up the table and the page
@@ -156,7 +164,6 @@ bool ClimateDatabase::processStationDiagnosticRequest(HttpServThread* serv, char
     return false;
 
   return true;
-
 }
 
 

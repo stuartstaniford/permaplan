@@ -10,6 +10,8 @@
 // Forward declarations
 
 class GHCNDatabase;
+class HttpServThread;
+
 
 // =======================================================================================
 // Useful macros
@@ -71,6 +73,7 @@ public:
   ClimateInfo(int start, int end);
   ~ClimateInfo(void);
   void countValidDays(unsigned& totalDays, unsigned& validDays);
+  bool diagnosticHTML(HttpServThread* serv);
   virtual DynamicType getDynamicType(void) {return TypeClimateInfo;}
   virtual int writeJsonFields(char* buf, unsigned bufSize);
 
