@@ -357,7 +357,7 @@ bool searchCallback(GHCNStation* station, void* context)
 
 void GHCNDatabase::getStations(float lat, float longT)
 {
-  float searchBound = 0.25f;  // half the side of the search rectangle in degrees.
+  float searchBound = 0.5f;  // half the side of the search rectangle in degrees.
   float searchMin[2];
   float searchMax[2];
   

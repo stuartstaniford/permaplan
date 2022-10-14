@@ -45,9 +45,13 @@ void initGlobals(int nThreads)
 // =======================================================================================
 // Extract a ':' separated vector from a (URL) string.
 
+#define NUM_BUF_SIZE 32
+
 bool extractColonVecN(char* path, int N, float* dest)
 {
   char* next;
+  char numBuf[NUM_BUF_SIZE];
+
   for(int i=0; i<N; i++)
    {
     next = index(path, ':');
@@ -57,8 +61,15 @@ bool extractColonVecN(char* path, int N, float* dest)
                                                                             i, N-1, path);
       return false;
      }
-    *next = '\0';
-    dest[i] = atof(path);
+    unless(next - path < NUM_BUF_SIZE)
+     {
+      LogRequestErrors("extractColonVecN oversize number with i=%d from 0..%d "
+                                        "and path=%s.\n", i, N-1, path);
+      return false;
+     }
+    
+    strncpy(numBuf, path, next-path);
+    dest[i] = atof(numBuf);
     path = next + 1;
    }
   return true;
