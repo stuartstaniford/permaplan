@@ -145,9 +145,21 @@ bool ClimateInfo::diagnosticHTML(HttpServThread* serv)
    {
     httPrintf("<th>%d</th>", startYear + i);
    }
-  httPrintf("</tr>");
+  httPrintf("</tr>\n");
   
   // Loop over per-day rows
+  for(int j=0; j < 366; j++)
+   {
+    httPrintf("<tr><td>%d</td>", j);
+    for(int i=0; i < endYear - startYear; i++)
+     {
+      httPrintf("<td>B");
+      httPrintf("</td>");
+     }
+
+    httPrintf("</tr>\n");    
+   }
+  
   
   // End table
   httPrintf("</table></center>\n");
