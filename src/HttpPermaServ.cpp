@@ -85,6 +85,11 @@ bool HttpPermaServ::indexPage(void)
                  "climateDiagnostic?lat:long:years:</a></td>");
   internalPrintf("<td>Climate station diagnostic near location.</td></tr>\n");
 
+  // Temperature curves for some year near a particular point
+  internalPrintf("<tr><td><a href=\"/tMaxYear?42.421:-76.347:2005:\">"
+                 "tMaxYear?lat:long:year:</a></td>");
+  internalPrintf("<td>Available temperature curves for year near location.</td></tr>\n");
+
   // End table and page
   internalPrintf("</table></center>\n");
   endResponsePage();
@@ -320,7 +325,13 @@ bool HttpPermaServ::processRequestHeader(void)
     retVal = processSoilRequest(url+6);
    }
 
-  else
+ else if( strlenUrl >= 20 && strncmp(url, "/tMaxYear?", 10) == 0)
+  {
+   LogPermaservOpDetails("Processing temperature query for %s.\n", url+10);
+   retVal = climateDatabase->processTMaxCurvesRequest(this, url+10);
+  }
+
+ else
    {
     LogRequestErrors("Request for unknown resource %s\n", url);
     errorPage("Resource not found");

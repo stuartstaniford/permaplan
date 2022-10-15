@@ -176,4 +176,48 @@ bool ClimateDatabase::processStationDiagnosticRequest(HttpServThread* serv, char
 }
 
 
+/// =======================================================================================
+/// @brief Output HTML table of available temperature curves near a location.
+/// 
+/// @returns True if all was well writing to the buffer.  If false, it indicates the 
+/// buffer was not big enough and the output will have been truncated/incomplete.
+/// @param serv A pointer to the HttpServThread managing the HTTP response.
+/// @param url A string hopefully indicating the latitude, longtitude, and year.  At 
+/// this point in processing, it could be hostile.
+
+bool ClimateDatabase::processTMaxCurvesRequest(HttpServThread* serv, char* url)
+{
+  float latLongYear[3]; // (lat, long, year) 
+  unless(extractColonVecN(url, 3, latLongYear))
+   {
+    LogRequestErrors("Bad temp curve request: tMaxYear?%s\n", url);
+   }
+  
+  // UP TO HERE NEED TO validate request parameters
+  
+  ghcnDatabase->getStations(latLongYear[0], latLongYear[1]);
+  int N = ghcnDatabase->stationResults.size();
+
+  // Find the relevant stations
+
+  // Start the HTML page and the table header
+  char title[128];
+  snprintf(title, 128, "Available Temperature Curves near %.3f, %.3f",
+                                                    latLongYear[0], latLongYear[1]);
+  unless(serv->startResponsePage(title))
+    return false;
+  
+  // Secondary header
+  httPrintf("<center><h2>Blah</h2></center>");
+  
+  // Main table of the climate info
+  
+  // Finish up the page
+  unless(serv->endResponsePage())
+    return false;
+
+  return true;
+}
+
+
 // =======================================================================================
