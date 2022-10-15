@@ -47,8 +47,20 @@ class ClimateDay
   float precip;     // mm of water falling during the 24 hour period
 };
 
+
+// =======================================================================================
 /// @brief ClimateYear is an array of ClimateDays - always has space for a leap day.
-typedef ClimateDay ClimateYear[366];
+
+class ClimateYear
+{
+
+  public:
+  
+  // Instance variables - public
+  unsigned    year;
+  unsigned    flags;
+  ClimateDay  climateDays[366];
+};
 
 
 // =======================================================================================

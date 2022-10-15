@@ -495,7 +495,8 @@ bool GHCNDatabase::readCSVLine(char* buf, GHCNStation* station, char* fileName, 
     //                                                               year, line, fileName);
     return true;
    }
-  ClimateDay* climDay = climInfo->climateYears[year-climInfo->startYear] + yearDay;
+  ClimateDay* climDay = climInfo->climateYears[year-climInfo->startYear].climateDays 
+                                                                              + yearDay;
 
   //if(strcmp(station->id, "US1NYTG0015") == 0)
   //  printf("Recording data for yearDay %d from date %s.\n", yearDay, buf+12);  

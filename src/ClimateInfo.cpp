@@ -48,7 +48,7 @@ void ClimateInfo::countValidDays(unsigned& totalDays, unsigned& validDays)
   
   forAllDays(i,j)
    {
-    unsigned flags = climateYears[i][j].flags;
+    unsigned flags = climateYears[i].climateDays[j].flags;
     totalDays++;
     if((flags & ALL_OBS_VALID) == ALL_OBS_VALID)
         validDays++;
@@ -89,7 +89,7 @@ void ClimateInfo::countValidDays(unsigned& totalDays, unsigned& validDays)
        {
         if(j)
           bufprintf(",\n");
-        buf += climateYears[i][j].writeJson(buf, bufSize - (end-buf));  
+        buf += climateYears[i].climateDays[j].writeJson(buf, bufSize - (end-buf));  
        }
       
       bufprintf("\n]"); // no ,\n as we don't know we are last        
@@ -155,7 +155,7 @@ bool ClimateInfo::diagnosticHTML(HttpServThread* serv)
     for(int i=0; i < endYear - startYear; i++)
      {
       httPrintf("<td>");
-      ClimateDay* today = climateYears[i] + j;
+      ClimateDay* today = climateYears[i].climateDays + j;
       if(today->flags & HI_TEMP_VALID)
         httPrintf("<span style=\"color:red\">T+:%.1f</span>", today->hiTemp);
       if(today->flags & LOW_TEMP_VALID)
