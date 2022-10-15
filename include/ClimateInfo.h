@@ -14,12 +14,22 @@ class HttpServThread;
 
 
 // =======================================================================================
-// Useful macros
+// Important constants
 
-#define forAllDays(i, j)  int loopDays; for(int i=0; i < endYear-startYear; \
-                                  i++, loopDays = DaysInYear(startYear+i)) \
-                                    for(int j=0; j < loopDays; j++)
+// Maximum number of days in a year missing before the year is considered invalid
+#define MISSING_DAYS_ALLOWED 28
 
+// Min and max temperature range considered valid.  Values outside this range
+// are marked invalid.  These limits are in degrees Celsius.
+// https://en.wikipedia.org/wiki/Highest_temperature_recorded_on_Earth
+// https://en.wikipedia.org/wiki/Lowest_temperature_recorded_on_Earth
+#define MAX_TEMP_VALID 70.0f
+#define MIN_TEMP_VALID -110.0f
+
+// Max precipitation considered valid (in mm)
+// https://wmo.asu.edu/content/world-greatest-twenty-four-hour-1-day-rainfall
+#define MIN_PRECIP  0.0f
+#define MAX_PRECIP  3000.0f
 
 // =======================================================================================
 // Flags for storage in a ClimateDay structure.
@@ -28,6 +38,17 @@ class HttpServThread;
 #define HI_TEMP_VALID   0x00000002
 #define PRECIP_VALID    0x00000004
 #define ALL_OBS_VALID   0x00000007
+
+
+// =======================================================================================
+// Useful macros
+
+#define forAllDays(i, j)  int loopDays; for(int i=0; i < nYears; i++, \
+                              loopDays = DaysInYear(climateYears[(i<nYears?i:nYears-1)]->year)) \
+                                    for(int j=0; j < loopDays; j++)
+
+#define tempInRange(T) (((T) >= MIN_TEMP_VALID) && ((T) <= MAX_TEMP_VALID))
+#define precipInRange(P) (((P) >= MIN_PRECIP) && ((P) <= MAX_PRECIP))
 
 
 // =======================================================================================
@@ -57,9 +78,13 @@ class ClimateYear
   public:
   
   // Instance variables - public
-  unsigned    year;
+  int         year;
   unsigned    flags;
   ClimateDay  climateDays[366];
+
+  // Member functions - public
+  ClimateYear(int inYear);
+  bool assessValidity(void);
 };
 
 
@@ -79,7 +104,8 @@ public:
   
   // Instance variables - public
   int startYear;        // the first year for which we have data
-  int endYear;         // the year *after* the last year of data
+  int endYear;          // the year *after* the last year of data
+  int nYears;           // the number of years of actually valid data in climateYears 
   
   // Member functions - public
   ClimateInfo(int start, int end);
@@ -92,7 +118,7 @@ public:
 private:
   
   // Instance variables - private
-  ClimateYear* climateYears;
+  ClimateYear** climateYears;
   
   // Member functions - private
   /// @brief Prevent copy-construction.

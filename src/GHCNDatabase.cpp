@@ -25,7 +25,7 @@ char byStationUrl[] = "https://www.ncei.noaa.gov/pub/data/ghcn/daily/by_station/
 // =======================================================================================
 /// @brief Constructor
 
-GHCNDatabase::GHCNDatabase(char* path): dbPath(path)
+GHCNDatabase::GHCNDatabase(char* path): dbPath(path), readYear(NULL)
 {
   readStations();
   checkFileIndex();
@@ -486,17 +486,43 @@ bool GHCNDatabase::readCSVLine(char* buf, GHCNStation* station, char* fileName, 
                                                   buf+12, month, day, year, line, fileName);
     return false;
    }
-  
-  //Find the right climateDay
+
+  // Screen out years that are out of range  
   ClimateInfo* climInfo = station->climate;
   if(year < climInfo->startYear || year >= climInfo->endYear)
-   {
-    //LogGHCNExhaustive("Ignoring out of range year %d on line %d of csv file %s.\n",         
-    //                                                               year, line, fileName);
     return true;
+
+  // Deal with the case of a new year we haven't seen before
+  if(readYear && !(readYear->year == year))
+   {
+    // Make sure the new year is bigger than the old
+    if(year < readYear->year)
+     {
+      LogClimateDbErr("Year %d out of order with %d in line %d of csv file %s.\n", 
+                      year, readYear->year, line, fileName);
+      delete readYear;
+      readYear = NULL;
+      return false;
+     }
+    if(readYear->assessValidity())
+     {
+      // Store the good data away for future use
+      climInfo->climateYears[climInfo->nYears++] = readYear;
+     }
+    else
+     {
+      // Discard the data
+      delete readYear;
+     }
+    readYear = NULL;    
    }
-  ClimateDay* climDay = climInfo->climateYears[year-climInfo->startYear].climateDays 
-                                                                              + yearDay;
+
+  // If we don't have a current year's data, get a new one
+  unless(readYear)
+    readYear = new ClimateYear(year);
+  
+  //Find the right climateDay
+  ClimateDay* climDay = readYear->climateDays + yearDay;
 
   //if(strcmp(station->id, "US1NYTG0015") == 0)
   //  printf("Recording data for yearDay %d from date %s.\n", yearDay, buf+12);  
@@ -522,20 +548,20 @@ bool GHCNDatabase::readCSVLine(char* buf, GHCNStation* station, char* fileName, 
   if(strcmp(buf + 21, "TMAX") == 0)
    {
     climDay->hiTemp = observation/10.0f;
-    /// @todo check validity of value
-    climDay->flags |= HI_TEMP_VALID;
+    if(tempInRange(climDay->hiTemp))
+      climDay->flags |= HI_TEMP_VALID;
    }  
   else if(strcmp(buf + 21, "TMIN") == 0)
    {
     climDay->lowTemp = observation/10.0f;
-    /// @todo check validity of value
-    climDay->flags |= LOW_TEMP_VALID;
+    if(tempInRange(climDay->lowTemp))
+      climDay->flags |= LOW_TEMP_VALID;
    }  
   else if(strcmp(buf + 21, "PRCP") == 0)
    {
     climDay->precip = observation/10.0f;
-    /// @todo check validity of value
-    climDay->flags |= PRECIP_VALID;
+    if(precipInRange(climDay->precip))
+      climDay->flags |= PRECIP_VALID;
    }  
   else if(strcmp(buf + 21, "SNOW") == 0)
    {
@@ -592,6 +618,15 @@ int GHCNDatabase::readOneCSVFile(GHCNStation* station)
         fclose(file);
         return -1;
        }
+    if(readYear)
+     {
+      if(readYear->assessValidity())
+        // Store the good data away for future use
+        station->climate->climateYears[station->climate->nYears++] = readYear;
+      else
+        delete readYear;
+     }
+    readYear = NULL;    
     fclose(file);
    }
   else
@@ -615,6 +650,15 @@ int GHCNDatabase::readOneCSVFile(GHCNStation* station)
       gzclose(file);
       return -1;
      }
+    if(readYear)
+     {
+      if(readYear->assessValidity())
+        // Store the good data away for future use
+        station->climate->climateYears[station->climate->nYears++] = readYear;
+      else
+        delete readYear;
+     }
+    readYear = NULL;    
     gzclose(file);
   }
 

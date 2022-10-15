@@ -22,7 +22,8 @@ ClimateInfo::ClimateInfo(int start, int end): startYear(start),
                                               endYear(end)
 {
   assert(endYear > startYear);
-  climateYears = new ClimateYear[endYear - startYear];
+  climateYears  = new ClimateYear*[endYear - startYear];
+  nYears        = 0;
 }
 
 
@@ -32,6 +33,53 @@ ClimateInfo::ClimateInfo(int start, int end): startYear(start),
 ClimateInfo::~ClimateInfo(void)
 {
   delete[] climateYears;
+}
+
+
+// =======================================================================================
+/// @brief Climate Year constructor
+/// 
+/// @param year The year (A.D.) for which this records the climate 
+
+ClimateYear::ClimateYear(int inYear):year(inYear), flags(0u)
+{
+  
+}
+
+
+// =======================================================================================
+/// @brief Assess whether this year has enough valid data to be worth keeping around
+/// 
+/// Will set the flags field to indicate which types of data are valid for the year as a
+/// whole.
+/// @returns True if there is enough valid data of at least one kind, false if it's dross.
+
+bool ClimateYear::assessValidity(void)
+{
+  int days      = DaysInYear(year);
+  int hiTCount  = 0;
+  int loTCount  = 0;
+  int prcpCount = 0;
+  
+  for(int j=0; j<days; j++)
+   {
+    unsigned dayFlags = climateDays[j].flags;
+    if(dayFlags & LOW_TEMP_VALID)
+      loTCount++;
+    if(dayFlags & HI_TEMP_VALID)
+      hiTCount++;
+    if(dayFlags & PRECIP_VALID)
+      prcpCount++;
+   }
+  
+  if(days - loTCount <= MISSING_DAYS_ALLOWED)
+    flags |= LOW_TEMP_VALID;
+  if(days - hiTCount <= MISSING_DAYS_ALLOWED)
+    flags |= HI_TEMP_VALID;
+  if(days - prcpCount <= MISSING_DAYS_ALLOWED)
+    flags |= PRECIP_VALID;
+ 
+  return (flags & ALL_OBS_VALID);
 }
 
 
@@ -48,7 +96,7 @@ void ClimateInfo::countValidDays(unsigned& totalDays, unsigned& validDays)
   
   forAllDays(i,j)
    {
-    unsigned flags = climateYears[i].climateDays[j].flags;
+    unsigned flags = climateYears[i]->climateDays[j].flags;
     totalDays++;
     if((flags & ALL_OBS_VALID) == ALL_OBS_VALID)
         validDays++;
@@ -75,21 +123,24 @@ void ClimateInfo::countValidDays(unsigned& totalDays, unsigned& validDays)
     // Write our own fields.
     bufprintf("\"startYear\": %d,\n", startYear);
     bufprintf("\"endYear\": %d,\n", endYear);
+   bufprintf("\"nYears\": %d,\n", nYears);
 
     // Write the arrays of climate data
     bufprintf("[\n");
-    int years = endYear-startYear;
-    for(int i = 0; i < years; i++)
+    for(int i = 0; i < nYears; i++)
      {
       if(i)
         bufprintf(",\n");
+      
+      /// @todo Need to turn the year into an object
+      
       bufprintf("[\n");
       int days = DaysInYear(i+startYear);
       for(int j = 0; j < days; j++)
        {
         if(j)
           bufprintf(",\n");
-        buf += climateYears[i].climateDays[j].writeJson(buf, bufSize - (end-buf));  
+        buf += climateYears[i]->climateDays[j].writeJson(buf, bufSize - (end-buf));  
        }
       
       bufprintf("\n]"); // no ,\n as we don't know we are last        
@@ -142,9 +193,9 @@ bool ClimateInfo::diagnosticHTML(HttpServThread* serv)
 
   // Header row
   httPrintf("<tr><th>Day</th>");
-  for(int i=0; i < endYear - startYear; i++)
+  for(int i=0; i < nYears; i++)
    {
-    httPrintf("<th>%d</th>", startYear + i);
+    httPrintf("<th>%d</th>", climateYears[i]->year);
    }
   httPrintf("</tr>\n");
   
@@ -152,10 +203,10 @@ bool ClimateInfo::diagnosticHTML(HttpServThread* serv)
   for(int j=0; j < 366; j++)
    {
     httPrintf("<tr><td>%d</td>", j);
-    for(int i=0; i < endYear - startYear; i++)
+    for(int i=0; i < nYears; i++)
      {
       httPrintf("<td>");
-      ClimateDay* today = climateYears[i].climateDays + j;
+      ClimateDay* today = climateYears[i]->climateDays + j;
       if(today->flags & HI_TEMP_VALID)
         httPrintf("<span style=\"color:red\">T+:%.1f</span>", today->hiTemp);
       if(today->flags & LOW_TEMP_VALID)
@@ -168,7 +219,6 @@ bool ClimateInfo::diagnosticHTML(HttpServThread* serv)
 
     httPrintf("</tr>\n");    
    }
-  
   
   // End table
   httPrintf("</table></center>\n");

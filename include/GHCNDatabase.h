@@ -15,6 +15,7 @@
 
 class ClimateInfo;
 class ClimateDatabase;
+class ClimateYear;
 
 
 // =======================================================================================
@@ -67,6 +68,7 @@ private:
   RTree<GHCNStation*, float, 2> stationTree;
   std::vector<GHCNStation*> stationResults;
   std::unordered_map<std::string, GHCNStation*> stationsByName;
+  ClimateYear*  readYear;
   
   // Member functions - private
   bool parseStationFileWithC(char* fileName);
