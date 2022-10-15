@@ -100,7 +100,8 @@ bool ClimateDatabase::printStationDiagnosticTable(HttpServThread* serv,
     return false;
   unless(serv->startTable((char*)"Stations"))
     return false;
-  httPrintf("<tr><th>Station id</th><th>Name</th><th>Size</th><th>Days</th><th>Valid Days</th></tr>\n");
+  httPrintf("<tr><th>Station id</th><th>Name</th><th>Location</th><th>Elevation</th>"
+            "<th>Size</th><th>Days</th><th>Valid Days</th></tr>\n");
 
   // Loop over the rows
   for(int i=0; i<N; i++)
@@ -115,7 +116,10 @@ bool ClimateDatabase::printStationDiagnosticTable(HttpServThread* serv,
     station->climate->countValidDays(total, valid);
     httPrintf("<tr><td><a href=\"/climateStation/%s\">%s</a></td><td>%s</td>", 
                                         station->id,  station->id, station->name);
-    httPrintf("<td>%d</td><td>%d</td><td>%d</td></tr>\n", station->fileBufSize, total, valid); 
+    httPrintf("<td>%.3f, %.3f</td><td>%.0f</td>", 
+                            station->latLong[0], station->latLong[1], station->elevation);
+    httPrintf("<td>%d</td><td>%d</td><td>%d</td></tr>\n", 
+                                                    station->fileBufSize, total, valid); 
    }
   
   // Finish up the table and the page
@@ -155,8 +159,12 @@ bool ClimateDatabase::processStationDiagnosticRequest(HttpServThread* serv, char
   snprintf(title, 128, "Climate Station Details for %s", stationId);
   unless(serv->startResponsePage(title))
     return false;
-  httPrintf("<center><h2>%s</h2></center>", station->name)
   
+  // Secondary header
+  httPrintf("<center><h2>%s (Location: %.3f, %.3f; El: %.0fm)</h2></center>", 
+            station->name, station->latLong[0], station->latLong[1], station->elevation);
+  
+  // Main table of the climate info
   unless(station->climate->diagnosticHTML(serv))
     return false;
   
