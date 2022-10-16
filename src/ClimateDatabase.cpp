@@ -187,6 +187,7 @@ bool ClimateDatabase::processStationDiagnosticRequest(HttpServThread* serv, char
 
 bool ClimateDatabase::processTMaxCurvesRequest(HttpServThread* serv, char* url)
 {
+  // Process the URL and extract and check parameters
   float latLongYear[3]; // (lat, long, year) 
   unless(extractColonVecN(url, 3, latLongYear))
    {
@@ -198,31 +199,91 @@ bool ClimateDatabase::processTMaxCurvesRequest(HttpServThread* serv, char* url)
     LogRequestErrors("Bad lat long to temp curve request: tMaxYear?%s\n", url);
     return false;
    }
-  unsigned year = (unsigned)latLongYear[3];
+  int year = (int)latLongYear[2];
   unless(year >= 1800 && year < 3000)
    {
-    LogRequestErrors("Out of range year in temp curve request: tMaxYear?%s\n", url);
+    LogRequestErrors("Out of range year %d in temp curve request: tMaxYear?%s\n", 
+                                                                              year, url);
     return false;
    }
   
+  // Start the HTML page
+  char title[128];
+  snprintf(title, 128, "Available Temperature Curves for %d near %.3f, %.3f",
+                                                year, latLongYear[0], latLongYear[1]);
+  unless(serv->startResponsePage(title))
+    return false;
+
+  // Find close by stations
   ghcnDatabase->getStations(latLongYear[0], latLongYear[1]);
   int N = ghcnDatabase->stationResults.size();
 
-  // Find the relevant stations
-
-  // Start the HTML page and the table header
-  char title[128];
-  snprintf(title, 128, "Available Temperature Curves near %.3f, %.3f",
-                                                    latLongYear[0], latLongYear[1]);
-  unless(serv->startResponsePage(title))
+  // Start the table and the header row
+  unless(serv->startTable((char*)"Stations"))
     return false;
+  httPrintf("<tr><th>Day</th>")
+
+  // Find the relevant stations
+  for(int s=0; s<N; s++)
+   {
+    GHCNStation* station = ghcnDatabase->stationResults[s];
+    /// @todo We need a mechanism to mark and avoid known useless stations
+    unless(station->climate)
+     {
+      ghcnDatabase->checkCSVFile(station);
+      ghcnDatabase->readOneCSVFile(station);
+     }
+    ClimateInfo* clim = station->climate;
+    unless(clim)
+      continue;
+    for(int i=0; i<clim->nYears; i++)
+     {
+      unless(clim->climateYears[i]->year == year)
+        continue;
+      unless(clim->climateYears[i]->flags & HI_TEMP_VALID)
+        break;
+      httPrintf("<th>%s</th>", station->id)
+      break; // don't keep searching this station after we found a good year
+     }
+   }
+
+  // End the header row
+  httPrintf("</tr>")
+ 
+  // Main table of the temperature info
+  int days = DaysInYear(year);
+  for(int j=0; j<days; j++)
+   {
+    httPrintf("<tr><td>%d</td>", j)
+    for(int s=0; s<N; s++)
+     {
+      GHCNStation* station = ghcnDatabase->stationResults[s];
+      /// @todo We need a mechanism to mark and avoid known useless stations
+      ClimateInfo* clim = station->climate;
+      unless(clim)
+        continue;
+      for(int i=0; i<clim->nYears; i++)
+       {
+        unless(clim->climateYears[i]->year == year)
+          continue;
+        unless(clim->climateYears[i]->flags & HI_TEMP_VALID)
+          break;
+        if(clim->climateYears[i]->climateDays[j].flags & HI_TEMP_VALID)
+         {
+          httPrintf("<td>%.2f</td>", clim->climateYears[i]->climateDays[j].hiTemp);
+         }
+        else
+         {
+          httPrintf("<td></td>");          
+         }
+        break; // don't keep searching this station after we found a good year
+       }
+     }
+    httPrintf("</tr>")    
+   }
   
-  // Secondary header
-  httPrintf("<center><h2>Blah</h2></center>");
-  
-  // Main table of the climate info
-  
-  // Finish up the page
+  // Finish up the table and the page
+  httPrintf("</table>")
   unless(serv->endResponsePage())
     return false;
 

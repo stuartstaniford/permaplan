@@ -11,6 +11,7 @@
 
 class GHCNDatabase;
 class HttpServThread;
+class ClimateDatabase;
 
 
 // =======================================================================================
@@ -99,6 +100,7 @@ class ClimateYear
 class ClimateInfo: public DynamicallyTypable
 {
   friend GHCNDatabase;
+  friend ClimateDatabase;
   
 public:
   
