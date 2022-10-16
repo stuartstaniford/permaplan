@@ -77,6 +77,68 @@ bool extractColonVecN(char* path, int N, float* dest)
 
 
 // =======================================================================================
+/// @brief Check that a lat, long pair of floats are in range.
+
+bool checkLatLong(float* values)
+{
+  unless(latitudeInRange(values[0]))
+   {
+    LogRequestErrors("Bad latitude value %.3f.\n", values[0]);
+    return false;
+   }
+  unless(longtitudeInRange(values[1]))
+   {
+    LogRequestErrors("Bad longtitude value %.3f.\n", values[1]);
+    return false;
+   }
+  return true;
+}
+
+
+// =======================================================================================
+/// @brief Check that a lowLat, hiLat, lowLong, hiLong quartet of floats are in range.
+
+bool checkLatLongRegion(float* values)
+{
+  // Check latitudes
+  unless(latitudeInRange(values[0]))
+   {
+    LogRequestErrors("Bad low latitude value %.3f.\n", values[0]);
+    return false;
+   }
+  unless(latitudeInRange(values[1]))
+   {
+    LogRequestErrors("Bad hi latitude value %.3f.\n", values[1]);
+    return false;
+   }
+  unless(values[0] < values[1])
+   {
+    LogRequestErrors("Bad latitude range [%.3f, %.3f].\n", values[0], values[1]);
+    return false;
+   }
+  
+  // Check longtitudes
+  unless(longtitudeInRange(values[2]))
+   {
+    LogRequestErrors("Bad low longtitude value %.3f.\n", values[2]);
+    return false;
+   }
+  unless(longtitudeInRange(values[3]))
+   {
+    LogRequestErrors("Bad low longtitude value %.3f.\n", values[3]);
+    return false;
+   }
+  unless(values[2] < values[3])
+   {
+    LogRequestErrors("Bad longtitude range [%.3f, %.3f].\n", values[2], values[3]);
+    return false;
+   }
+
+  return true;
+}
+
+
+// =======================================================================================
 // Determine if a float is a valid number.  Returns NULL if it's fine, 
 // otherwise a string about the problem.
 

@@ -24,6 +24,10 @@
                                                     (yearDaysNonLeap[(Month)-1]+((Day)-1)))
 #define DaysInYear(X) (IsLeapYear(X)?366:365)
 
+// Latitude and longtitude related macros
+#define latitudeInRange(f) ( ( (f) >= -90.0f) && ((f) <= 90.0f) )
+#define longtitudeInRange(f) ( ( (f) >= -180.0f) && ((f) <= 180.0f) )
+
 
 // =======================================================================================
 // Useful enums
@@ -80,6 +84,8 @@ inline bool extractColonVec2(char* path, vec2 dest)
               {return extractColonVecN(path, 2, dest);}
 inline bool extractColonFloat(char* path, float* value)
               {return extractColonVecN(path, 1, value);}
+bool checkLatLong(float* values);
+bool checkLatLongRegion(float* values);
 FileExtension findExtension(const char* fileName);
 char* errorInNumericCharacterField(char* field);
 char* errorInFloat(float f);
