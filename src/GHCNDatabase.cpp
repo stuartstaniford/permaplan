@@ -361,10 +361,10 @@ void GHCNDatabase::getStations(float lat, float longT)
   float searchMin[2];
   float searchMax[2];
   
-  stationResults.clear();
   
   while(1) // keep adjusting the search rectangle until we get a good result
    {
+    stationResults.clear();
     searchMin[0] = lat    - searchBound;
     searchMin[1] = longT  - searchBound;
     searchMax[0] = lat    + searchBound;
@@ -373,7 +373,7 @@ void GHCNDatabase::getStations(float lat, float longT)
     int hits = stationTree.Search(searchMin, searchMax, searchCallback, this);
     LogClimateDbOps("Got %d results in search with %.4f degrees of [%.4f, %.4f].\n",
                       hits, searchBound, lat, longT);
-    if(hits)
+    if(hits > 2)
      {
       break; // temp
      }
