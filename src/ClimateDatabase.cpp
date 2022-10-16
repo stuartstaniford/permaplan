@@ -224,6 +224,8 @@ bool ClimateDatabase::processTMaxCurvesRequest(HttpServThread* serv, char* url)
   httPrintf("<tr><th>Day</th>")
 
   // Find the relevant stations
+  std::vector<GHCNStation*> relevantStations;
+  std::vector<unsigned> indices;
   for(int s=0; s<N; s++)
    {
     GHCNStation* station = ghcnDatabase->stationResults[s];
@@ -242,6 +244,8 @@ bool ClimateDatabase::processTMaxCurvesRequest(HttpServThread* serv, char* url)
         continue;
       unless(clim->climateYears[i]->flags & HI_TEMP_VALID)
         break;
+      relevantStations.push_back(station);
+      indices.push_back(i);
       httPrintf("<th>%s</th>", station->id)
       break; // don't keep searching this station after we found a good year
      }
@@ -250,6 +254,15 @@ bool ClimateDatabase::processTMaxCurvesRequest(HttpServThread* serv, char* url)
   // End the header row
   httPrintf("</tr>")
  
+  // Row of station names
+  N = relevantStations.size();
+  httPrintf("<tr><td></td>")
+  for(int i=0; i<N; i++)
+   {
+    httPrintf("<td>%s</td>", relevantStations[i]->name);
+   }
+  httPrintf("</tr>")
+
   // Main table of the temperature info
   int days = DaysInYear(year);
   for(int j=0; j<days; j++)
@@ -257,26 +270,14 @@ bool ClimateDatabase::processTMaxCurvesRequest(HttpServThread* serv, char* url)
     httPrintf("<tr><td>%d</td>", j)
     for(int s=0; s<N; s++)
      {
-      GHCNStation* station = ghcnDatabase->stationResults[s];
-      /// @todo We need a mechanism to mark and avoid known useless stations
-      ClimateInfo* clim = station->climate;
-      unless(clim)
-        continue;
-      for(int i=0; i<clim->nYears; i++)
+      ClimateInfo* clim = relevantStations[s]->climate;
+      if(clim->climateYears[indices[s]]->climateDays[j].flags & HI_TEMP_VALID)
        {
-        unless(clim->climateYears[i]->year == year)
-          continue;
-        unless(clim->climateYears[i]->flags & HI_TEMP_VALID)
-          break;
-        if(clim->climateYears[i]->climateDays[j].flags & HI_TEMP_VALID)
-         {
-          httPrintf("<td>%.2f</td>", clim->climateYears[i]->climateDays[j].hiTemp);
-         }
-        else
-         {
-          httPrintf("<td></td>");          
-         }
-        break; // don't keep searching this station after we found a good year
+        httPrintf("<td>%.2f</td>", clim->climateYears[indices[s]]->climateDays[j].hiTemp);
+       }
+      else
+       {
+        httPrintf("<td></td>");          
        }
      }
     httPrintf("</tr>")    
