@@ -251,18 +251,23 @@ bool ClimateDatabase::processTMaxCurvesRequest(HttpServThread* serv, char* url)
      }
    }
 
-  // End the header row
+  // End the header row and process the search results
+  N = relevantStations.size();
   httPrintf("</tr>")
  
-  // Row of station names
-  N = relevantStations.size();
+  // Row of Elevation Data
   httPrintf("<tr><td></td>")
   for(int i=0; i<N; i++)
-   {
-    httPrintf("<td>%s</td>", relevantStations[i]->name);
-   }
+    httPrintf("<td>%.0f</td>", relevantStations[i]->elevation);
   httPrintf("</tr>")
 
+  // Row of station names
+  httPrintf("<tr><td></td>")
+  for(int i=0; i<N; i++)
+    httPrintf("<td>%s</td>", relevantStations[i]->name);
+  httPrintf("</tr>")
+
+  
   // Main table of the temperature info
   int days = DaysInYear(year);
   for(int j=0; j<days; j++)
