@@ -113,6 +113,12 @@ bool HttpPermaServ::processDIFRequest(char* url)
     LogRequestErrors("Bad dif request: /dif?%s\n", url);
     return false;
    }
+  unless(checkLatLong(latLong))
+   {
+    LogRequestErrors("Bad parameters to dif request: /dif?%s\n", url);
+    return false;
+   }
+  
   float dif;
   if(solarDatabase)
    {
@@ -144,6 +150,12 @@ bool HttpPermaServ::processDNIRequest(char* url)
     LogRequestErrors("Bad dni request: dni?%s\n", url);
     return false;
    }
+  unless(checkLatLong(latLong))
+   {
+    LogRequestErrors("Bad parameters to dni request: /dni?%s\n", url);
+    return false;
+   }
+  
   float dni;
   if(solarDatabase)
    {
@@ -173,6 +185,7 @@ bool HttpPermaServ::processDNIRequest(char* url)
 
 bool HttpPermaServ::processClimateRequest(char* url, bool diagnostic)
 {
+  // Extract the information from the URL
   float latLongYear[3];
   unless(extractColonVecN(url, 3, latLongYear))
    {
@@ -184,6 +197,20 @@ bool HttpPermaServ::processClimateRequest(char* url, bool diagnostic)
       LogRequestErrors("Bad climate request: /climate?%s\n", url);
     return false;
    }
+  unless(checkLatLong(latLongYear))
+   {
+    LogRequestErrors("Bad latlong parameters to climate diagnostic request: "
+                                                    "/climateDiagnostic?%s\n", url);
+    return false;
+   }
+  int year = (int)latLongYear[2];
+  unless(year >= 0 && year < 200)
+   {
+    LogRequestErrors("Bad year parameter %d to climate diagnostic request: "
+                                              "/climateDiagnostic?%s\n", year, url);
+    return false;
+   }
+
   if(diagnostic)
    {
     unless(climateDatabase->printStationDiagnosticTable(this, 
@@ -229,6 +256,12 @@ bool HttpPermaServ::processSoilRequest(char* url)
     LogRequestErrors("Bad soil request: soil?%s\n", url);
     return false;
    }
+  unless(checkLatLongRegion(latLongRegion))
+   {
+    LogRequestErrors("Bad parameters in soil request: soil?%s\n", url);
+    return false;
+   }
+  
   if( (respPtr += soilDatabase->printJsonSoilProfiles(respPtr, respEnd-respPtr, 
                     latLongRegion[0], latLongRegion[1], latLongRegion[2], latLongRegion[3]))
           >= respEnd)

@@ -69,6 +69,7 @@ bool extractColonVecN(char* path, int N, float* dest)
      }
     
     strncpy(numBuf, path, next-path);
+    numBuf[next-path] = '\0';
     dest[i] = atof(numBuf);
     path = next + 1;
    }

@@ -191,9 +191,19 @@ bool ClimateDatabase::processTMaxCurvesRequest(HttpServThread* serv, char* url)
   unless(extractColonVecN(url, 3, latLongYear))
    {
     LogRequestErrors("Bad temp curve request: tMaxYear?%s\n", url);
+    return false;
    }
-  
-  // UP TO HERE NEED TO validate request parameters
+  unless(checkLatLong(latLongYear))
+   {
+    LogRequestErrors("Bad lat long to temp curve request: tMaxYear?%s\n", url);
+    return false;
+   }
+  unsigned year = (unsigned)latLongYear[3];
+  unless(year >= 1800 && year < 3000)
+   {
+    LogRequestErrors("Out of range year in temp curve request: tMaxYear?%s\n", url);
+    return false;
+   }
   
   ghcnDatabase->getStations(latLongYear[0], latLongYear[1]);
   int N = ghcnDatabase->stationResults.size();
