@@ -237,25 +237,29 @@ bool ClimateDatabase::processTMaxCurvesRequest(HttpServThread* serv, char* url)
     return false;
   
   // Header row with station ids
-  httPrintf("<tr><th>Day</th>")
+  httPrintf("<tr><th>Id.</th>")
   for(int i=0; i<N; i++)
     httPrintf("<th>%s</th>", relevantStations[i]->id);
-
-  // End the header row and process the search results
   httPrintf("</tr>")
- 
+
+  // Row of location offset data
+  httPrintf("<tr><td>Offset (deg)</td>")
+  for(int i=0; i<N; i++)
+    httPrintf("<td>%.3f, %.3f</td>", relevantStations[i]->latLong[0] - latLongYear[0],
+                                          relevantStations[i]->latLong[1] - latLongYear[1]);
+  httPrintf("</tr>")
+
   // Row of Elevation Data
-  httPrintf("<tr><td></td>")
+  httPrintf("<tr><td>El. (m)</td>")
   for(int i=0; i<N; i++)
     httPrintf("<td>%.0f</td>", relevantStations[i]->elevation);
   httPrintf("</tr>")
 
   // Row of station names
-  httPrintf("<tr><td></td>")
+  httPrintf("<tr><td>Name</td>")
   for(int i=0; i<N; i++)
     httPrintf("<td>%s</td>", relevantStations[i]->name);
   httPrintf("</tr>")
-
   
   // Main table of the temperature info
   int days = DaysInYear(year);
