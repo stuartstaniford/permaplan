@@ -177,6 +177,17 @@ bool ClimateDatabase::processStationDiagnosticRequest(HttpServThread* serv, char
 
 
 /// =======================================================================================
+/// @brief Mark years that have a valid amount of high temp data for search callbacks.
+/// @param climateYear The year of data to be examined.
+/// @returns True if this year is to be included in the search results, false otherwise.
+
+bool yearHasValidHiTemp(ClimateYear* climateYear)
+{
+  return (climateYear->flags & HI_TEMP_VALID);
+}
+
+
+/// =======================================================================================
 /// @brief Output HTML table of available temperature curves near a location.
 /// 
 /// @returns True if all was well writing to the buffer.  If false, it indicates the 
@@ -214,45 +225,23 @@ bool ClimateDatabase::processTMaxCurvesRequest(HttpServThread* serv, char* url)
   unless(serv->startResponsePage(title))
     return false;
 
-  // Find close by stations
-  ghcnDatabase->getStations(latLongYear[0], latLongYear[1]);
-  int N = ghcnDatabase->stationResults.size();
-
-  // Start the table and the header row
-  unless(serv->startTable((char*)"Stations"))
-    return false;
-  httPrintf("<tr><th>Day</th>")
-
   // Find the relevant stations
   std::vector<GHCNStation*> relevantStations;
   std::vector<unsigned> indices;
-  for(int s=0; s<N; s++)
-   {
-    GHCNStation* station = ghcnDatabase->stationResults[s];
-    /// @todo We need a mechanism to mark and avoid known useless stations
-    unless(station->climate)
-     {
-      ghcnDatabase->checkCSVFile(station);
-      ghcnDatabase->readOneCSVFile(station);
-     }
-    ClimateInfo* clim = station->climate;
-    unless(clim)
-      continue;
-    for(int i=0; i<clim->nYears; i++)
-     {
-      unless(clim->climateYears[i]->year == year)
-        continue;
-      unless(clim->climateYears[i]->flags & HI_TEMP_VALID)
-        break;
-      relevantStations.push_back(station);
-      indices.push_back(i);
-      httPrintf("<th>%s</th>", station->id)
-      break; // don't keep searching this station after we found a good year
-     }
-   }
+  ghcnDatabase->searchStations(latLongYear[0], latLongYear[1], 
+                                    relevantStations, indices, yearHasValidHiTemp, year);
+  int N = relevantStations.size();
+
+  // Start the table
+  unless(serv->startTable((char*)"Stations"))
+    return false;
+  
+  // Header row with station ids
+  httPrintf("<tr><th>Day</th>")
+  for(int i=0; i<N; i++)
+    httPrintf("<th>%s</th>", relevantStations[i]->id);
 
   // End the header row and process the search results
-  N = relevantStations.size();
   httPrintf("</tr>")
  
   // Row of Elevation Data

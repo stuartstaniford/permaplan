@@ -384,6 +384,68 @@ void GHCNDatabase::getStations(float lat, float longT)
 
 
 // =======================================================================================
+/// @brief Search close stations for years matching some particular condition.
+///
+/// @param lat A float containing the latitude to search for
+/// @param longT A float containing the longtitude to search for
+/// @param stations A reference to the vector of stations to store stations we found
+/// @param indices A reference to a vector to store indices of the years for each station
+/// @param validFn A pointer to a function which decides whether a given ClimateYear
+/// matches or not.
+/// @param year A year to search for.  Zero will search for any year.  Specifying a year
+/// here will result in a more efficient search than putting it in the validYear function
+/// @todo We are searching on raw lat/long squares here, which will tend to get skeevy
+/// towards the poles - might want to add a cos(lat) factor.
+
+void GHCNDatabase::searchStations(float lat, float longT, 
+                          std::vector<GHCNStation*>& relevantStations,
+                          std::vector<unsigned>& indices, bool (*validFn)(ClimateYear*),
+                          unsigned year)
+{
+  // Find close by stations
+  getStations(lat, longT);
+  int N = stationResults.size();
+
+  for(int s=0; s<N; s++)
+   {
+    GHCNStation* station = stationResults[s];
+    /// @todo We need a mechanism to mark and avoid known useless stations
+    unless(station->climate)
+     {
+      checkCSVFile(station);
+      readOneCSVFile(station);
+     }
+    ClimateInfo* clim = station->climate;
+    unless(clim)
+      continue;
+    if(year)
+     {
+      for(int i=0; i<clim->nYears; i++)
+       {
+        unless(clim->climateYears[i]->year == year)
+          continue;
+        unless(validFn(clim->climateYears[i]))
+          break;
+        relevantStations.push_back(station);
+        indices.push_back(i);
+        break; // don't keep searching this station after we found a good year
+       }
+     }
+    else
+     {
+      for(int i=0; i<clim->nYears; i++)
+       {
+        unless(validFn(clim->climateYears[i]))
+          continue;
+        relevantStations.push_back(station);
+        indices.push_back(i);
+       }      
+     }
+   }
+}
+
+
+// =======================================================================================
 /// @brief Form the filename for a single CSV file.
 ///
 /// @param station A pointer to the GHCNStation record which is requested
