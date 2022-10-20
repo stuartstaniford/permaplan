@@ -398,9 +398,9 @@ void GHCNDatabase::getStations(float lat, float longT)
 /// towards the poles - might want to add a cos(lat) factor.
 
 void GHCNDatabase::searchStations(float lat, float longT, 
-                          std::vector<GHCNStation*>& relevantStations,
-                          std::vector<unsigned>& indices, bool (*validFn)(ClimateYear*),
-                          unsigned year)
+                                      std::vector<GHCNStation*>& relevantStations,
+                                      std::vector<unsigned>& indices, unsigned andFlagMask,
+                                      unsigned year)
 {
   // Find close by stations
   getStations(lat, longT);
@@ -424,7 +424,7 @@ void GHCNDatabase::searchStations(float lat, float longT,
        {
         unless(clim->climateYears[i]->year == year)
           continue;
-        unless(validFn(clim->climateYears[i]))
+        unless(clim->climateYears[i]->flags & andFlagMask)
           break;
         relevantStations.push_back(station);
         indices.push_back(i);
@@ -435,7 +435,7 @@ void GHCNDatabase::searchStations(float lat, float longT,
      {
       for(int i=0; i<clim->nYears; i++)
        {
-        unless(validFn(clim->climateYears[i]))
+        unless(clim->climateYears[i]->flags & andFlagMask)
           continue;
         relevantStations.push_back(station);
         indices.push_back(i);

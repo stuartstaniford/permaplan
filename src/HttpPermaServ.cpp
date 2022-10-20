@@ -7,6 +7,7 @@
 #include "SoilDatabase.h"
 #include "HttpLBPermaserv.h"
 #include "ClimateDatabase.h"
+#include "ClimateInfo.h"
 
 
 // =======================================================================================
@@ -361,7 +362,9 @@ bool HttpPermaServ::processRequestHeader(void)
  else if( strlenUrl >= 20 && strncmp(url, "/tMaxYear?", 10) == 0)
   {
    LogPermaservOpDetails("Processing temperature query for %s.\n", url+10);
-   retVal = climateDatabase->processTMaxCurvesRequest(this, url+10);
+   retVal = climateDatabase->processObservationCurvesRequest(this, url+10,
+                              (char*)"tMaxYear", HI_TEMP_VALID, offsetof(ClimateDay, hiTemp),
+                              (char*)"Temperature");
   }
 
  else

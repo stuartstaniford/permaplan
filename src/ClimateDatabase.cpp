@@ -177,73 +177,51 @@ bool ClimateDatabase::processStationDiagnosticRequest(HttpServThread* serv, char
 
 
 /// =======================================================================================
-/// @brief Mark years that have a valid amount of high temp data for search callbacks.
-/// @param climateYear The year of data to be examined.
-/// @returns True if this year is to be included in the search results, false otherwise.
-
-bool yearHasValidHiTemp(ClimateYear* climateYear)
-{
-  return (climateYear->flags & HI_TEMP_VALID);
-}
-
-
-/// =======================================================================================
-/// @brief Mark years that have a valid amount of daily low temps for search callbacks.
-/// @param climateYear The year of data to be examined.
-/// @returns True if this year is to be included in the search results, false otherwise.
-
-bool yearHasValidLoTemp(ClimateYear* climateYear)
-{
-  return (climateYear->flags & LOW_TEMP_VALID);
-}
-
-
-/// =======================================================================================
-/// @brief Mark years that have a valid amount of precipitation data for search callbacks.
-/// @param climateYear The year of data to be examined.
-/// @returns True if this year is to be included in the search results, false otherwise.
-
-bool yearHasValidPrecip(ClimateYear* climateYear)
-{
-  return (climateYear->flags & PRECIP_VALID);
-}
-
-
-/// =======================================================================================
-/// @brief Output HTML table of available temperature curves near a location.
+/// @brief Output HTML table of available curves of some climate observable near
+/// a location.
 /// 
 /// @returns True if all was well writing to the buffer.  If false, it indicates the 
 /// buffer was not big enough and the output will have been truncated/incomplete.
 /// @param serv A pointer to the HttpServThread managing the HTTP response.
 /// @param url A string hopefully indicating the latitude, longtitude, and year.  At 
 /// this point in processing, it could be hostile.
+/// @param urlStub A string pointing to the part of the URL before this function, needed
+/// for logging (because multiple urls can call this function.
+/// @param andFlagMask An unsigned mask to check which flags we are searching for in
+/// ClimateYears and ClimateDays.
+/// @param obsOffset  The offset within a ClimateDay of the float to use in populating
+/// the table.
+/// @param titleObsName The name of the variable for use in page title.
 
-bool ClimateDatabase::processTMaxCurvesRequest(HttpServThread* serv, char* url)
+bool ClimateDatabase::processObservationCurvesRequest(HttpServThread* serv, char* url,
+                                  char* urlStub, unsigned andFlagMask, unsigned obsOffset,
+                                  char* titleObsName)
 {
   // Process the URL and extract and check parameters
   float latLongYear[3]; // (lat, long, year) 
   unless(extractColonVecN(url, 3, latLongYear))
    {
-    LogRequestErrors("Bad temp curve request: tMaxYear?%s\n", url);
+    LogRequestErrors("Bad %s curve request: tMaxYear?%s\n", titleObsName, url);
     return false;
    }
   unless(checkLatLong(latLongYear))
    {
-    LogRequestErrors("Bad lat long to temp curve request: tMaxYear?%s\n", url);
+    LogRequestErrors("Bad lat long to %s curve request: tMaxYear?%s\n",
+                                                                      titleObsName, url);
     return false;
    }
   int year = (int)latLongYear[2];
   unless(year >= 1800 && year < 3000)
    {
-    LogRequestErrors("Out of range year %d in temp curve request: tMaxYear?%s\n", 
-                                                                              year, url);
+    LogRequestErrors("Out of range year %d in %s curve request: tMaxYear?%s\n",
+                                                                year, titleObsName, url);
     return false;
    }
   
   // Start the HTML page
   char title[128];
-  snprintf(title, 128, "Available Temperature Curves for %d near %.3f, %.3f",
-                                                year, latLongYear[0], latLongYear[1]);
+  snprintf(title, 128, "Available %s Curves for %d near %.3f, %.3f",
+                                      titleObsName, year, latLongYear[0], latLongYear[1]);
   unless(serv->startResponsePage(title))
     return false;
 
@@ -251,7 +229,7 @@ bool ClimateDatabase::processTMaxCurvesRequest(HttpServThread* serv, char* url)
   std::vector<GHCNStation*> relevantStations;
   std::vector<unsigned> indices;
   ghcnDatabase->searchStations(latLongYear[0], latLongYear[1], 
-                                    relevantStations, indices, yearHasValidHiTemp, year);
+                                            relevantStations, indices, andFlagMask, year);
   int N = relevantStations.size();
 
   // Start the table
@@ -291,9 +269,10 @@ bool ClimateDatabase::processTMaxCurvesRequest(HttpServThread* serv, char* url)
     for(int s=0; s<N; s++)
      {
       ClimateInfo* clim = relevantStations[s]->climate;
-      if(clim->climateYears[indices[s]]->climateDays[j].flags & HI_TEMP_VALID)
+      if(clim->climateYears[indices[s]]->climateDays[j].flags & andFlagMask)
        {
-        httPrintf("<td>%.2f</td>", clim->climateYears[indices[s]]->climateDays[j].hiTemp);
+        httPrintf("<td>%.2f</td>",
+                *((float*)(&(clim->climateYears[indices[s]]->climateDays[j]) + obsOffset)));
        }
       else
        {
@@ -308,7 +287,6 @@ bool ClimateDatabase::processTMaxCurvesRequest(HttpServThread* serv, char* url)
   unless(serv->endResponsePage())
     return false;
 
-  days += offsetof(ClimateDay, hiTemp);
   return true;
 }
 

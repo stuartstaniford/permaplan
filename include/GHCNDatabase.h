@@ -77,8 +77,7 @@ private:
   void checkFileIndex(void);
   void getStations(float lat, float longT);
   void searchStations(float lat, float longT, std::vector<GHCNStation*>& relevantStations,
-                  std::vector<unsigned>& indices, bool (*validYear)(ClimateYear*),
-                  unsigned year = 0u);
+                  std::vector<unsigned>& indices, unsigned andFlagMask, unsigned year = 0u);
   int readOneCSVFile(GHCNStation* station);
   bool readCSVLine(char* buf, GHCNStation* station, char* fileName, int line);
   bool checkCSVFile(GHCNStation* station);
