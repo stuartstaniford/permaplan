@@ -209,13 +209,13 @@ src/BILFile.o: /usr/local/include/cglm/affine2d.h ./include/SoilProfile.h
 src/BILFile.o: ./include/GroundLayer.h ./include/DynamicallyTypable.h
 src/BILFile.o: ./include/rapidjson/document.h ./include/rapidjson/reader.h
 src/BILFile.o: ./include/rapidjson/allocators.h
+src/BILFile.o: ./include/rapidjson/rapidjson.h
+src/BILFile.o: ./include/rapidjson/internal/meta.h
 src/BILFile.o: ./include/rapidjson/rapidjson.h ./include/rapidjson/stream.h
 src/BILFile.o: ./include/rapidjson/encodings.h
 src/BILFile.o: ./include/rapidjson/encodedstream.h
 src/BILFile.o: ./include/rapidjson/memorystream.h
 src/BILFile.o: ./include/rapidjson/internal/clzll.h
-src/BILFile.o: ./include/rapidjson/rapidjson.h
-src/BILFile.o: ./include/rapidjson/internal/meta.h
 src/BILFile.o: ./include/rapidjson/internal/stack.h
 src/BILFile.o: ./include/rapidjson/allocators.h
 src/BILFile.o: ./include/rapidjson/internal/swap.h
@@ -330,13 +330,13 @@ src/Boundary.o: /usr/local/include/cglm/ray.h
 src/Boundary.o: /usr/local/include/cglm/affine2d.h
 src/Boundary.o: ./include/rapidjson/document.h ./include/rapidjson/reader.h
 src/Boundary.o: ./include/rapidjson/allocators.h
+src/Boundary.o: ./include/rapidjson/rapidjson.h
+src/Boundary.o: ./include/rapidjson/internal/meta.h
 src/Boundary.o: ./include/rapidjson/rapidjson.h ./include/rapidjson/stream.h
 src/Boundary.o: ./include/rapidjson/encodings.h
 src/Boundary.o: ./include/rapidjson/encodedstream.h
 src/Boundary.o: ./include/rapidjson/memorystream.h
 src/Boundary.o: ./include/rapidjson/internal/clzll.h
-src/Boundary.o: ./include/rapidjson/rapidjson.h
-src/Boundary.o: ./include/rapidjson/internal/meta.h
 src/Boundary.o: ./include/rapidjson/internal/stack.h
 src/Boundary.o: ./include/rapidjson/allocators.h
 src/Boundary.o: ./include/rapidjson/internal/swap.h
@@ -444,13 +444,13 @@ src/Box.o: ./include/Logging.h ./include/MemoryTracker.h ./include/Timeval.h
 src/Box.o: ./include/Lockable.h /usr/local/include/GL/glew.h
 src/Box.o: ./include/BoundingBox.h ./include/rapidjson/document.h
 src/Box.o: ./include/rapidjson/reader.h ./include/rapidjson/allocators.h
+src/Box.o: ./include/rapidjson/rapidjson.h
+src/Box.o: ./include/rapidjson/internal/meta.h
 src/Box.o: ./include/rapidjson/rapidjson.h ./include/rapidjson/stream.h
 src/Box.o: ./include/rapidjson/encodings.h
 src/Box.o: ./include/rapidjson/encodedstream.h
 src/Box.o: ./include/rapidjson/memorystream.h
 src/Box.o: ./include/rapidjson/internal/clzll.h
-src/Box.o: ./include/rapidjson/rapidjson.h
-src/Box.o: ./include/rapidjson/internal/meta.h
 src/Box.o: ./include/rapidjson/internal/stack.h
 src/Box.o: ./include/rapidjson/allocators.h
 src/Box.o: ./include/rapidjson/internal/swap.h
@@ -516,13 +516,13 @@ src/Building.o: ./include/Lockable.h /usr/local/include/GL/glew.h
 src/Building.o: ./include/BoundingBox.h ./include/DisplayList.h
 src/Building.o: ./include/rapidjson/document.h ./include/rapidjson/reader.h
 src/Building.o: ./include/rapidjson/allocators.h
+src/Building.o: ./include/rapidjson/rapidjson.h
+src/Building.o: ./include/rapidjson/internal/meta.h
 src/Building.o: ./include/rapidjson/rapidjson.h ./include/rapidjson/stream.h
 src/Building.o: ./include/rapidjson/encodings.h
 src/Building.o: ./include/rapidjson/encodedstream.h
 src/Building.o: ./include/rapidjson/memorystream.h
 src/Building.o: ./include/rapidjson/internal/clzll.h
-src/Building.o: ./include/rapidjson/rapidjson.h
-src/Building.o: ./include/rapidjson/internal/meta.h
 src/Building.o: ./include/rapidjson/internal/stack.h
 src/Building.o: ./include/rapidjson/allocators.h
 src/Building.o: ./include/rapidjson/internal/swap.h
@@ -708,13 +708,13 @@ src/BuildingWindow.o: ./include/DisplayList.h ./include/rapidjson/document.h
 src/BuildingWindow.o: ./include/rapidjson/reader.h
 src/BuildingWindow.o: ./include/rapidjson/allocators.h
 src/BuildingWindow.o: ./include/rapidjson/rapidjson.h
+src/BuildingWindow.o: ./include/rapidjson/internal/meta.h
+src/BuildingWindow.o: ./include/rapidjson/rapidjson.h
 src/BuildingWindow.o: ./include/rapidjson/stream.h
 src/BuildingWindow.o: ./include/rapidjson/encodings.h
 src/BuildingWindow.o: ./include/rapidjson/encodedstream.h
 src/BuildingWindow.o: ./include/rapidjson/memorystream.h
 src/BuildingWindow.o: ./include/rapidjson/internal/clzll.h
-src/BuildingWindow.o: ./include/rapidjson/rapidjson.h
-src/BuildingWindow.o: ./include/rapidjson/internal/meta.h
 src/BuildingWindow.o: ./include/rapidjson/internal/stack.h
 src/BuildingWindow.o: ./include/rapidjson/allocators.h
 src/BuildingWindow.o: ./include/rapidjson/internal/swap.h
@@ -739,13 +739,13 @@ src/CO2Scenario.o: ./include/CO2Scenario.h ./include/rapidjson/document.h
 src/CO2Scenario.o: ./include/rapidjson/reader.h
 src/CO2Scenario.o: ./include/rapidjson/allocators.h
 src/CO2Scenario.o: ./include/rapidjson/rapidjson.h
+src/CO2Scenario.o: ./include/rapidjson/internal/meta.h
+src/CO2Scenario.o: ./include/rapidjson/rapidjson.h
 src/CO2Scenario.o: ./include/rapidjson/stream.h
 src/CO2Scenario.o: ./include/rapidjson/encodings.h
 src/CO2Scenario.o: ./include/rapidjson/encodedstream.h
 src/CO2Scenario.o: ./include/rapidjson/memorystream.h
 src/CO2Scenario.o: ./include/rapidjson/internal/clzll.h
-src/CO2Scenario.o: ./include/rapidjson/rapidjson.h
-src/CO2Scenario.o: ./include/rapidjson/internal/meta.h
 src/CO2Scenario.o: ./include/rapidjson/internal/stack.h
 src/CO2Scenario.o: ./include/rapidjson/allocators.h
 src/CO2Scenario.o: ./include/rapidjson/internal/swap.h
@@ -846,13 +846,13 @@ src/Camera.o: ./include/MemoryTracker.h ./include/Timeval.h
 src/Camera.o: ./include/Lockable.h ./include/Global.h ./include/Scene.h
 src/Camera.o: ./include/LandSurface.h ./include/rapidjson/document.h
 src/Camera.o: ./include/rapidjson/reader.h ./include/rapidjson/allocators.h
+src/Camera.o: ./include/rapidjson/rapidjson.h
+src/Camera.o: ./include/rapidjson/internal/meta.h
 src/Camera.o: ./include/rapidjson/rapidjson.h ./include/rapidjson/stream.h
 src/Camera.o: ./include/rapidjson/encodings.h
 src/Camera.o: ./include/rapidjson/encodedstream.h
 src/Camera.o: ./include/rapidjson/memorystream.h
 src/Camera.o: ./include/rapidjson/internal/clzll.h
-src/Camera.o: ./include/rapidjson/rapidjson.h
-src/Camera.o: ./include/rapidjson/internal/meta.h
 src/Camera.o: ./include/rapidjson/internal/stack.h
 src/Camera.o: ./include/rapidjson/allocators.h
 src/Camera.o: ./include/rapidjson/internal/swap.h
@@ -982,13 +982,13 @@ src/ClimateDatabaseClient.o: ./include/rapidjson/document.h
 src/ClimateDatabaseClient.o: ./include/rapidjson/reader.h
 src/ClimateDatabaseClient.o: ./include/rapidjson/allocators.h
 src/ClimateDatabaseClient.o: ./include/rapidjson/rapidjson.h
+src/ClimateDatabaseClient.o: ./include/rapidjson/internal/meta.h
+src/ClimateDatabaseClient.o: ./include/rapidjson/rapidjson.h
 src/ClimateDatabaseClient.o: ./include/rapidjson/stream.h
 src/ClimateDatabaseClient.o: ./include/rapidjson/encodings.h
 src/ClimateDatabaseClient.o: ./include/rapidjson/encodedstream.h
 src/ClimateDatabaseClient.o: ./include/rapidjson/memorystream.h
 src/ClimateDatabaseClient.o: ./include/rapidjson/internal/clzll.h
-src/ClimateDatabaseClient.o: ./include/rapidjson/rapidjson.h
-src/ClimateDatabaseClient.o: ./include/rapidjson/internal/meta.h
 src/ClimateDatabaseClient.o: ./include/rapidjson/internal/stack.h
 src/ClimateDatabaseClient.o: ./include/rapidjson/allocators.h
 src/ClimateDatabaseClient.o: ./include/rapidjson/internal/swap.h
@@ -1212,13 +1212,13 @@ src/ControlGroup.o: ./include/rapidjson/document.h
 src/ControlGroup.o: ./include/rapidjson/reader.h
 src/ControlGroup.o: ./include/rapidjson/allocators.h
 src/ControlGroup.o: ./include/rapidjson/rapidjson.h
+src/ControlGroup.o: ./include/rapidjson/internal/meta.h
+src/ControlGroup.o: ./include/rapidjson/rapidjson.h
 src/ControlGroup.o: ./include/rapidjson/stream.h
 src/ControlGroup.o: ./include/rapidjson/encodings.h
 src/ControlGroup.o: ./include/rapidjson/encodedstream.h
 src/ControlGroup.o: ./include/rapidjson/memorystream.h
 src/ControlGroup.o: ./include/rapidjson/internal/clzll.h
-src/ControlGroup.o: ./include/rapidjson/rapidjson.h
-src/ControlGroup.o: ./include/rapidjson/internal/meta.h
 src/ControlGroup.o: ./include/rapidjson/internal/stack.h
 src/ControlGroup.o: ./include/rapidjson/allocators.h
 src/ControlGroup.o: ./include/rapidjson/internal/swap.h
@@ -1570,13 +1570,13 @@ src/GLFWApplication.o: ./include/rapidjson/document.h
 src/GLFWApplication.o: ./include/rapidjson/reader.h
 src/GLFWApplication.o: ./include/rapidjson/allocators.h
 src/GLFWApplication.o: ./include/rapidjson/rapidjson.h
+src/GLFWApplication.o: ./include/rapidjson/internal/meta.h
+src/GLFWApplication.o: ./include/rapidjson/rapidjson.h
 src/GLFWApplication.o: ./include/rapidjson/stream.h
 src/GLFWApplication.o: ./include/rapidjson/encodings.h
 src/GLFWApplication.o: ./include/rapidjson/encodedstream.h
 src/GLFWApplication.o: ./include/rapidjson/memorystream.h
 src/GLFWApplication.o: ./include/rapidjson/internal/clzll.h
-src/GLFWApplication.o: ./include/rapidjson/rapidjson.h
-src/GLFWApplication.o: ./include/rapidjson/internal/meta.h
 src/GLFWApplication.o: ./include/rapidjson/internal/stack.h
 src/GLFWApplication.o: ./include/rapidjson/allocators.h
 src/GLFWApplication.o: ./include/rapidjson/internal/swap.h
@@ -1641,12 +1641,12 @@ src/Gable.o: /usr/local/include/GL/glew.h ./include/BoundingBox.h
 src/Gable.o: ./include/Orientable.h ./include/Positionable.h
 src/Gable.o: ./include/rapidjson/document.h ./include/rapidjson/reader.h
 src/Gable.o: ./include/rapidjson/allocators.h ./include/rapidjson/rapidjson.h
-src/Gable.o: ./include/rapidjson/stream.h ./include/rapidjson/encodings.h
+src/Gable.o: ./include/rapidjson/internal/meta.h
+src/Gable.o: ./include/rapidjson/rapidjson.h ./include/rapidjson/stream.h
+src/Gable.o: ./include/rapidjson/encodings.h
 src/Gable.o: ./include/rapidjson/encodedstream.h
 src/Gable.o: ./include/rapidjson/memorystream.h
 src/Gable.o: ./include/rapidjson/internal/clzll.h
-src/Gable.o: ./include/rapidjson/rapidjson.h
-src/Gable.o: ./include/rapidjson/internal/meta.h
 src/Gable.o: ./include/rapidjson/internal/stack.h
 src/Gable.o: ./include/rapidjson/allocators.h
 src/Gable.o: ./include/rapidjson/internal/swap.h
@@ -1812,12 +1812,12 @@ src/Grid.o: ./include/VertexArrayObject.h ./include/VertexBufferObject.h
 src/Grid.o: /usr/local/include/GLFW/glfw3.h ./include/LandSurface.h
 src/Grid.o: ./include/rapidjson/document.h ./include/rapidjson/reader.h
 src/Grid.o: ./include/rapidjson/allocators.h ./include/rapidjson/rapidjson.h
-src/Grid.o: ./include/rapidjson/stream.h ./include/rapidjson/encodings.h
+src/Grid.o: ./include/rapidjson/internal/meta.h
+src/Grid.o: ./include/rapidjson/rapidjson.h ./include/rapidjson/stream.h
+src/Grid.o: ./include/rapidjson/encodings.h
 src/Grid.o: ./include/rapidjson/encodedstream.h
 src/Grid.o: ./include/rapidjson/memorystream.h
 src/Grid.o: ./include/rapidjson/internal/clzll.h
-src/Grid.o: ./include/rapidjson/rapidjson.h
-src/Grid.o: ./include/rapidjson/internal/meta.h
 src/Grid.o: ./include/rapidjson/internal/stack.h
 src/Grid.o: ./include/rapidjson/allocators.h
 src/Grid.o: ./include/rapidjson/internal/swap.h
@@ -1839,13 +1839,13 @@ src/GroundLayer.o: ./include/rapidjson/document.h
 src/GroundLayer.o: ./include/rapidjson/reader.h
 src/GroundLayer.o: ./include/rapidjson/allocators.h
 src/GroundLayer.o: ./include/rapidjson/rapidjson.h
+src/GroundLayer.o: ./include/rapidjson/internal/meta.h
+src/GroundLayer.o: ./include/rapidjson/rapidjson.h
 src/GroundLayer.o: ./include/rapidjson/stream.h
 src/GroundLayer.o: ./include/rapidjson/encodings.h
 src/GroundLayer.o: ./include/rapidjson/encodedstream.h
 src/GroundLayer.o: ./include/rapidjson/memorystream.h
 src/GroundLayer.o: ./include/rapidjson/internal/clzll.h
-src/GroundLayer.o: ./include/rapidjson/rapidjson.h
-src/GroundLayer.o: ./include/rapidjson/internal/meta.h
 src/GroundLayer.o: ./include/rapidjson/internal/stack.h
 src/GroundLayer.o: ./include/rapidjson/allocators.h
 src/GroundLayer.o: ./include/rapidjson/internal/swap.h
@@ -1917,13 +1917,13 @@ src/GroundLitterLayer.o: ./include/rapidjson/document.h
 src/GroundLitterLayer.o: ./include/rapidjson/reader.h
 src/GroundLitterLayer.o: ./include/rapidjson/allocators.h
 src/GroundLitterLayer.o: ./include/rapidjson/rapidjson.h
+src/GroundLitterLayer.o: ./include/rapidjson/internal/meta.h
+src/GroundLitterLayer.o: ./include/rapidjson/rapidjson.h
 src/GroundLitterLayer.o: ./include/rapidjson/stream.h
 src/GroundLitterLayer.o: ./include/rapidjson/encodings.h
 src/GroundLitterLayer.o: ./include/rapidjson/encodedstream.h
 src/GroundLitterLayer.o: ./include/rapidjson/memorystream.h
 src/GroundLitterLayer.o: ./include/rapidjson/internal/clzll.h
-src/GroundLitterLayer.o: ./include/rapidjson/rapidjson.h
-src/GroundLitterLayer.o: ./include/rapidjson/internal/meta.h
 src/GroundLitterLayer.o: ./include/rapidjson/internal/stack.h
 src/GroundLitterLayer.o: ./include/rapidjson/allocators.h
 src/GroundLitterLayer.o: ./include/rapidjson/internal/swap.h
@@ -1950,13 +1950,13 @@ src/HWSDProfile.o: ./include/rapidjson/document.h
 src/HWSDProfile.o: ./include/rapidjson/reader.h
 src/HWSDProfile.o: ./include/rapidjson/allocators.h
 src/HWSDProfile.o: ./include/rapidjson/rapidjson.h
+src/HWSDProfile.o: ./include/rapidjson/internal/meta.h
+src/HWSDProfile.o: ./include/rapidjson/rapidjson.h
 src/HWSDProfile.o: ./include/rapidjson/stream.h
 src/HWSDProfile.o: ./include/rapidjson/encodings.h
 src/HWSDProfile.o: ./include/rapidjson/encodedstream.h
 src/HWSDProfile.o: ./include/rapidjson/memorystream.h
 src/HWSDProfile.o: ./include/rapidjson/internal/clzll.h
-src/HWSDProfile.o: ./include/rapidjson/rapidjson.h
-src/HWSDProfile.o: ./include/rapidjson/internal/meta.h
 src/HWSDProfile.o: ./include/rapidjson/internal/stack.h
 src/HWSDProfile.o: ./include/rapidjson/allocators.h
 src/HWSDProfile.o: ./include/rapidjson/internal/swap.h
@@ -2252,13 +2252,13 @@ src/HttpDebug.o: ./include/HttpRequestParser.h ./include/Scene.h
 src/HttpDebug.o: ./include/LandSurface.h ./include/rapidjson/document.h
 src/HttpDebug.o: ./include/rapidjson/reader.h
 src/HttpDebug.o: ./include/rapidjson/allocators.h
+src/HttpDebug.o: ./include/rapidjson/rapidjson.h
+src/HttpDebug.o: ./include/rapidjson/internal/meta.h
 src/HttpDebug.o: ./include/rapidjson/rapidjson.h ./include/rapidjson/stream.h
 src/HttpDebug.o: ./include/rapidjson/encodings.h
 src/HttpDebug.o: ./include/rapidjson/encodedstream.h
 src/HttpDebug.o: ./include/rapidjson/memorystream.h
 src/HttpDebug.o: ./include/rapidjson/internal/clzll.h
-src/HttpDebug.o: ./include/rapidjson/rapidjson.h
-src/HttpDebug.o: ./include/rapidjson/internal/meta.h
 src/HttpDebug.o: ./include/rapidjson/internal/stack.h
 src/HttpDebug.o: ./include/rapidjson/allocators.h
 src/HttpDebug.o: ./include/rapidjson/internal/swap.h
@@ -2672,13 +2672,13 @@ src/HttpPermaservClient.o: ./include/rapidjson/document.h
 src/HttpPermaservClient.o: ./include/rapidjson/reader.h
 src/HttpPermaservClient.o: ./include/rapidjson/allocators.h
 src/HttpPermaservClient.o: ./include/rapidjson/rapidjson.h
+src/HttpPermaservClient.o: ./include/rapidjson/internal/meta.h
+src/HttpPermaservClient.o: ./include/rapidjson/rapidjson.h
 src/HttpPermaservClient.o: ./include/rapidjson/stream.h
 src/HttpPermaservClient.o: ./include/rapidjson/encodings.h
 src/HttpPermaservClient.o: ./include/rapidjson/encodedstream.h
 src/HttpPermaservClient.o: ./include/rapidjson/memorystream.h
 src/HttpPermaservClient.o: ./include/rapidjson/internal/clzll.h
-src/HttpPermaservClient.o: ./include/rapidjson/rapidjson.h
-src/HttpPermaservClient.o: ./include/rapidjson/internal/meta.h
 src/HttpPermaservClient.o: ./include/rapidjson/internal/stack.h
 src/HttpPermaservClient.o: ./include/rapidjson/allocators.h
 src/HttpPermaservClient.o: ./include/rapidjson/internal/swap.h
@@ -2888,13 +2888,13 @@ src/InterfaceAction.o: ./include/rapidjson/document.h
 src/InterfaceAction.o: ./include/rapidjson/reader.h
 src/InterfaceAction.o: ./include/rapidjson/allocators.h
 src/InterfaceAction.o: ./include/rapidjson/rapidjson.h
+src/InterfaceAction.o: ./include/rapidjson/internal/meta.h
+src/InterfaceAction.o: ./include/rapidjson/rapidjson.h
 src/InterfaceAction.o: ./include/rapidjson/stream.h
 src/InterfaceAction.o: ./include/rapidjson/encodings.h
 src/InterfaceAction.o: ./include/rapidjson/encodedstream.h
 src/InterfaceAction.o: ./include/rapidjson/memorystream.h
 src/InterfaceAction.o: ./include/rapidjson/internal/clzll.h
-src/InterfaceAction.o: ./include/rapidjson/rapidjson.h
-src/InterfaceAction.o: ./include/rapidjson/internal/meta.h
 src/InterfaceAction.o: ./include/rapidjson/internal/stack.h
 src/InterfaceAction.o: ./include/rapidjson/allocators.h
 src/InterfaceAction.o: ./include/rapidjson/internal/swap.h
@@ -2975,13 +2975,13 @@ src/InterfaceMainSceneWin.o: ./include/rapidjson/document.h
 src/InterfaceMainSceneWin.o: ./include/rapidjson/reader.h
 src/InterfaceMainSceneWin.o: ./include/rapidjson/allocators.h
 src/InterfaceMainSceneWin.o: ./include/rapidjson/rapidjson.h
+src/InterfaceMainSceneWin.o: ./include/rapidjson/internal/meta.h
+src/InterfaceMainSceneWin.o: ./include/rapidjson/rapidjson.h
 src/InterfaceMainSceneWin.o: ./include/rapidjson/stream.h
 src/InterfaceMainSceneWin.o: ./include/rapidjson/encodings.h
 src/InterfaceMainSceneWin.o: ./include/rapidjson/encodedstream.h
 src/InterfaceMainSceneWin.o: ./include/rapidjson/memorystream.h
 src/InterfaceMainSceneWin.o: ./include/rapidjson/internal/clzll.h
-src/InterfaceMainSceneWin.o: ./include/rapidjson/rapidjson.h
-src/InterfaceMainSceneWin.o: ./include/rapidjson/internal/meta.h
 src/InterfaceMainSceneWin.o: ./include/rapidjson/internal/stack.h
 src/InterfaceMainSceneWin.o: ./include/rapidjson/allocators.h
 src/InterfaceMainSceneWin.o: ./include/rapidjson/internal/swap.h
@@ -3032,13 +3032,13 @@ src/JSONStructureChecker.o: ./include/rapidjson/document.h
 src/JSONStructureChecker.o: ./include/rapidjson/reader.h
 src/JSONStructureChecker.o: ./include/rapidjson/allocators.h
 src/JSONStructureChecker.o: ./include/rapidjson/rapidjson.h
+src/JSONStructureChecker.o: ./include/rapidjson/internal/meta.h
+src/JSONStructureChecker.o: ./include/rapidjson/rapidjson.h
 src/JSONStructureChecker.o: ./include/rapidjson/stream.h
 src/JSONStructureChecker.o: ./include/rapidjson/encodings.h
 src/JSONStructureChecker.o: ./include/rapidjson/encodedstream.h
 src/JSONStructureChecker.o: ./include/rapidjson/memorystream.h
 src/JSONStructureChecker.o: ./include/rapidjson/internal/clzll.h
-src/JSONStructureChecker.o: ./include/rapidjson/rapidjson.h
-src/JSONStructureChecker.o: ./include/rapidjson/internal/meta.h
 src/JSONStructureChecker.o: ./include/rapidjson/internal/stack.h
 src/JSONStructureChecker.o: ./include/rapidjson/allocators.h
 src/JSONStructureChecker.o: ./include/rapidjson/internal/swap.h
@@ -3154,13 +3154,13 @@ src/LandSurface.o: ./include/rapidjson/document.h
 src/LandSurface.o: ./include/rapidjson/reader.h
 src/LandSurface.o: ./include/rapidjson/allocators.h
 src/LandSurface.o: ./include/rapidjson/rapidjson.h
+src/LandSurface.o: ./include/rapidjson/internal/meta.h
+src/LandSurface.o: ./include/rapidjson/rapidjson.h
 src/LandSurface.o: ./include/rapidjson/stream.h
 src/LandSurface.o: ./include/rapidjson/encodings.h
 src/LandSurface.o: ./include/rapidjson/encodedstream.h
 src/LandSurface.o: ./include/rapidjson/memorystream.h
 src/LandSurface.o: ./include/rapidjson/internal/clzll.h
-src/LandSurface.o: ./include/rapidjson/rapidjson.h
-src/LandSurface.o: ./include/rapidjson/internal/meta.h
 src/LandSurface.o: ./include/rapidjson/internal/stack.h
 src/LandSurface.o: ./include/rapidjson/allocators.h
 src/LandSurface.o: ./include/rapidjson/internal/swap.h
@@ -3348,13 +3348,13 @@ src/LeafModel.o: /usr/local/include/cglm/ray.h
 src/LeafModel.o: /usr/local/include/cglm/affine2d.h
 src/LeafModel.o: ./include/rapidjson/document.h ./include/rapidjson/reader.h
 src/LeafModel.o: ./include/rapidjson/allocators.h
+src/LeafModel.o: ./include/rapidjson/rapidjson.h
+src/LeafModel.o: ./include/rapidjson/internal/meta.h
 src/LeafModel.o: ./include/rapidjson/rapidjson.h ./include/rapidjson/stream.h
 src/LeafModel.o: ./include/rapidjson/encodings.h
 src/LeafModel.o: ./include/rapidjson/encodedstream.h
 src/LeafModel.o: ./include/rapidjson/memorystream.h
 src/LeafModel.o: ./include/rapidjson/internal/clzll.h
-src/LeafModel.o: ./include/rapidjson/rapidjson.h
-src/LeafModel.o: ./include/rapidjson/internal/meta.h
 src/LeafModel.o: ./include/rapidjson/internal/stack.h
 src/LeafModel.o: ./include/rapidjson/allocators.h
 src/LeafModel.o: ./include/rapidjson/internal/swap.h
@@ -3552,13 +3552,13 @@ src/Logging.o: ./include/BoundingBox.h ./include/BuildingRect.h
 src/Logging.o: ./include/Orientable.h ./include/Positionable.h
 src/Logging.o: ./include/rapidjson/document.h ./include/rapidjson/reader.h
 src/Logging.o: ./include/rapidjson/allocators.h
+src/Logging.o: ./include/rapidjson/rapidjson.h
+src/Logging.o: ./include/rapidjson/internal/meta.h
 src/Logging.o: ./include/rapidjson/rapidjson.h ./include/rapidjson/stream.h
 src/Logging.o: ./include/rapidjson/encodings.h
 src/Logging.o: ./include/rapidjson/encodedstream.h
 src/Logging.o: ./include/rapidjson/memorystream.h
 src/Logging.o: ./include/rapidjson/internal/clzll.h
-src/Logging.o: ./include/rapidjson/rapidjson.h
-src/Logging.o: ./include/rapidjson/internal/meta.h
 src/Logging.o: ./include/rapidjson/internal/stack.h
 src/Logging.o: ./include/rapidjson/allocators.h
 src/Logging.o: ./include/rapidjson/internal/swap.h
@@ -3635,13 +3635,13 @@ src/MainSceneWindow.o: ./include/LandSurface.h ./include/rapidjson/document.h
 src/MainSceneWindow.o: ./include/rapidjson/reader.h
 src/MainSceneWindow.o: ./include/rapidjson/allocators.h
 src/MainSceneWindow.o: ./include/rapidjson/rapidjson.h
+src/MainSceneWindow.o: ./include/rapidjson/internal/meta.h
+src/MainSceneWindow.o: ./include/rapidjson/rapidjson.h
 src/MainSceneWindow.o: ./include/rapidjson/stream.h
 src/MainSceneWindow.o: ./include/rapidjson/encodings.h
 src/MainSceneWindow.o: ./include/rapidjson/encodedstream.h
 src/MainSceneWindow.o: ./include/rapidjson/memorystream.h
 src/MainSceneWindow.o: ./include/rapidjson/internal/clzll.h
-src/MainSceneWindow.o: ./include/rapidjson/rapidjson.h
-src/MainSceneWindow.o: ./include/rapidjson/internal/meta.h
 src/MainSceneWindow.o: ./include/rapidjson/internal/stack.h
 src/MainSceneWindow.o: ./include/rapidjson/allocators.h
 src/MainSceneWindow.o: ./include/rapidjson/internal/swap.h
@@ -3801,13 +3801,13 @@ src/MdbFile.o: /usr/local/Cellar/glib/2.74.0/include/glib-2.0/glib/glib-autoclea
 src/MdbFile.o: ./include/SoilProfile.h ./include/GroundLayer.h
 src/MdbFile.o: ./include/DynamicallyTypable.h ./include/rapidjson/document.h
 src/MdbFile.o: ./include/rapidjson/reader.h ./include/rapidjson/allocators.h
+src/MdbFile.o: ./include/rapidjson/rapidjson.h
+src/MdbFile.o: ./include/rapidjson/internal/meta.h
 src/MdbFile.o: ./include/rapidjson/rapidjson.h ./include/rapidjson/stream.h
 src/MdbFile.o: ./include/rapidjson/encodings.h
 src/MdbFile.o: ./include/rapidjson/encodedstream.h
 src/MdbFile.o: ./include/rapidjson/memorystream.h
 src/MdbFile.o: ./include/rapidjson/internal/clzll.h
-src/MdbFile.o: ./include/rapidjson/rapidjson.h
-src/MdbFile.o: ./include/rapidjson/internal/meta.h
 src/MdbFile.o: ./include/rapidjson/internal/stack.h
 src/MdbFile.o: ./include/rapidjson/allocators.h
 src/MdbFile.o: ./include/rapidjson/internal/swap.h
@@ -3960,13 +3960,13 @@ src/MenuAllTree.o: ./include/Version.h ./include/rapidjson/document.h
 src/MenuAllTree.o: ./include/rapidjson/reader.h
 src/MenuAllTree.o: ./include/rapidjson/allocators.h
 src/MenuAllTree.o: ./include/rapidjson/rapidjson.h
+src/MenuAllTree.o: ./include/rapidjson/internal/meta.h
+src/MenuAllTree.o: ./include/rapidjson/rapidjson.h
 src/MenuAllTree.o: ./include/rapidjson/stream.h
 src/MenuAllTree.o: ./include/rapidjson/encodings.h
 src/MenuAllTree.o: ./include/rapidjson/encodedstream.h
 src/MenuAllTree.o: ./include/rapidjson/memorystream.h
 src/MenuAllTree.o: ./include/rapidjson/internal/clzll.h
-src/MenuAllTree.o: ./include/rapidjson/rapidjson.h
-src/MenuAllTree.o: ./include/rapidjson/internal/meta.h
 src/MenuAllTree.o: ./include/rapidjson/internal/stack.h
 src/MenuAllTree.o: ./include/rapidjson/allocators.h
 src/MenuAllTree.o: ./include/rapidjson/internal/swap.h
@@ -4053,13 +4053,13 @@ src/MenuBlockPanel.o: ./include/LandSurface.h ./include/rapidjson/document.h
 src/MenuBlockPanel.o: ./include/rapidjson/reader.h
 src/MenuBlockPanel.o: ./include/rapidjson/allocators.h
 src/MenuBlockPanel.o: ./include/rapidjson/rapidjson.h
+src/MenuBlockPanel.o: ./include/rapidjson/internal/meta.h
+src/MenuBlockPanel.o: ./include/rapidjson/rapidjson.h
 src/MenuBlockPanel.o: ./include/rapidjson/stream.h
 src/MenuBlockPanel.o: ./include/rapidjson/encodings.h
 src/MenuBlockPanel.o: ./include/rapidjson/encodedstream.h
 src/MenuBlockPanel.o: ./include/rapidjson/memorystream.h
 src/MenuBlockPanel.o: ./include/rapidjson/internal/clzll.h
-src/MenuBlockPanel.o: ./include/rapidjson/rapidjson.h
-src/MenuBlockPanel.o: ./include/rapidjson/internal/meta.h
 src/MenuBlockPanel.o: ./include/rapidjson/internal/stack.h
 src/MenuBlockPanel.o: ./include/rapidjson/allocators.h
 src/MenuBlockPanel.o: ./include/rapidjson/internal/swap.h
@@ -4188,13 +4188,13 @@ src/MenuFocusOverlay.o: ./include/rapidjson/document.h
 src/MenuFocusOverlay.o: ./include/rapidjson/reader.h
 src/MenuFocusOverlay.o: ./include/rapidjson/allocators.h
 src/MenuFocusOverlay.o: ./include/rapidjson/rapidjson.h
+src/MenuFocusOverlay.o: ./include/rapidjson/internal/meta.h
+src/MenuFocusOverlay.o: ./include/rapidjson/rapidjson.h
 src/MenuFocusOverlay.o: ./include/rapidjson/stream.h
 src/MenuFocusOverlay.o: ./include/rapidjson/encodings.h
 src/MenuFocusOverlay.o: ./include/rapidjson/encodedstream.h
 src/MenuFocusOverlay.o: ./include/rapidjson/memorystream.h
 src/MenuFocusOverlay.o: ./include/rapidjson/internal/clzll.h
-src/MenuFocusOverlay.o: ./include/rapidjson/rapidjson.h
-src/MenuFocusOverlay.o: ./include/rapidjson/internal/meta.h
 src/MenuFocusOverlay.o: ./include/rapidjson/internal/stack.h
 src/MenuFocusOverlay.o: ./include/rapidjson/allocators.h
 src/MenuFocusOverlay.o: ./include/rapidjson/internal/swap.h
@@ -4279,13 +4279,13 @@ src/MenuGablePanel.o: ./include/rapidjson/document.h
 src/MenuGablePanel.o: ./include/rapidjson/reader.h
 src/MenuGablePanel.o: ./include/rapidjson/allocators.h
 src/MenuGablePanel.o: ./include/rapidjson/rapidjson.h
+src/MenuGablePanel.o: ./include/rapidjson/internal/meta.h
+src/MenuGablePanel.o: ./include/rapidjson/rapidjson.h
 src/MenuGablePanel.o: ./include/rapidjson/stream.h
 src/MenuGablePanel.o: ./include/rapidjson/encodings.h
 src/MenuGablePanel.o: ./include/rapidjson/encodedstream.h
 src/MenuGablePanel.o: ./include/rapidjson/memorystream.h
 src/MenuGablePanel.o: ./include/rapidjson/internal/clzll.h
-src/MenuGablePanel.o: ./include/rapidjson/rapidjson.h
-src/MenuGablePanel.o: ./include/rapidjson/internal/meta.h
 src/MenuGablePanel.o: ./include/rapidjson/internal/stack.h
 src/MenuGablePanel.o: ./include/rapidjson/allocators.h
 src/MenuGablePanel.o: ./include/rapidjson/internal/swap.h
@@ -4365,13 +4365,13 @@ src/MenuGenus.o: ./include/TriangleBuffer.h ./include/Vertex.h
 src/MenuGenus.o: /usr/local/include/GL/glew.h ./include/BoundingBox.h
 src/MenuGenus.o: ./include/rapidjson/document.h ./include/rapidjson/reader.h
 src/MenuGenus.o: ./include/rapidjson/allocators.h
+src/MenuGenus.o: ./include/rapidjson/rapidjson.h
+src/MenuGenus.o: ./include/rapidjson/internal/meta.h
 src/MenuGenus.o: ./include/rapidjson/rapidjson.h ./include/rapidjson/stream.h
 src/MenuGenus.o: ./include/rapidjson/encodings.h
 src/MenuGenus.o: ./include/rapidjson/encodedstream.h
 src/MenuGenus.o: ./include/rapidjson/memorystream.h
 src/MenuGenus.o: ./include/rapidjson/internal/clzll.h
-src/MenuGenus.o: ./include/rapidjson/rapidjson.h
-src/MenuGenus.o: ./include/rapidjson/internal/meta.h
 src/MenuGenus.o: ./include/rapidjson/internal/stack.h
 src/MenuGenus.o: ./include/rapidjson/allocators.h
 src/MenuGenus.o: ./include/rapidjson/internal/swap.h
@@ -4449,13 +4449,13 @@ src/MenuHeightPanel.o: ./include/LandSurface.h ./include/rapidjson/document.h
 src/MenuHeightPanel.o: ./include/rapidjson/reader.h
 src/MenuHeightPanel.o: ./include/rapidjson/allocators.h
 src/MenuHeightPanel.o: ./include/rapidjson/rapidjson.h
+src/MenuHeightPanel.o: ./include/rapidjson/internal/meta.h
+src/MenuHeightPanel.o: ./include/rapidjson/rapidjson.h
 src/MenuHeightPanel.o: ./include/rapidjson/stream.h
 src/MenuHeightPanel.o: ./include/rapidjson/encodings.h
 src/MenuHeightPanel.o: ./include/rapidjson/encodedstream.h
 src/MenuHeightPanel.o: ./include/rapidjson/memorystream.h
 src/MenuHeightPanel.o: ./include/rapidjson/internal/clzll.h
-src/MenuHeightPanel.o: ./include/rapidjson/rapidjson.h
-src/MenuHeightPanel.o: ./include/rapidjson/internal/meta.h
 src/MenuHeightPanel.o: ./include/rapidjson/internal/stack.h
 src/MenuHeightPanel.o: ./include/rapidjson/allocators.h
 src/MenuHeightPanel.o: ./include/rapidjson/internal/swap.h
@@ -4588,13 +4588,13 @@ src/MenuInsert.o: ./include/Positionable.h ./include/rapidjson/document.h
 src/MenuInsert.o: ./include/rapidjson/reader.h
 src/MenuInsert.o: ./include/rapidjson/allocators.h
 src/MenuInsert.o: ./include/rapidjson/rapidjson.h
+src/MenuInsert.o: ./include/rapidjson/internal/meta.h
+src/MenuInsert.o: ./include/rapidjson/rapidjson.h
 src/MenuInsert.o: ./include/rapidjson/stream.h
 src/MenuInsert.o: ./include/rapidjson/encodings.h
 src/MenuInsert.o: ./include/rapidjson/encodedstream.h
 src/MenuInsert.o: ./include/rapidjson/memorystream.h
 src/MenuInsert.o: ./include/rapidjson/internal/clzll.h
-src/MenuInsert.o: ./include/rapidjson/rapidjson.h
-src/MenuInsert.o: ./include/rapidjson/internal/meta.h
 src/MenuInsert.o: ./include/rapidjson/internal/stack.h
 src/MenuInsert.o: ./include/rapidjson/allocators.h
 src/MenuInsert.o: ./include/rapidjson/internal/swap.h
@@ -4719,13 +4719,13 @@ src/MenuPanel.o: ./include/TaskQueue.h ./include/HttpRequestParser.h
 src/MenuPanel.o: ./include/Scene.h ./include/LandSurface.h
 src/MenuPanel.o: ./include/rapidjson/document.h ./include/rapidjson/reader.h
 src/MenuPanel.o: ./include/rapidjson/allocators.h
+src/MenuPanel.o: ./include/rapidjson/rapidjson.h
+src/MenuPanel.o: ./include/rapidjson/internal/meta.h
 src/MenuPanel.o: ./include/rapidjson/rapidjson.h ./include/rapidjson/stream.h
 src/MenuPanel.o: ./include/rapidjson/encodings.h
 src/MenuPanel.o: ./include/rapidjson/encodedstream.h
 src/MenuPanel.o: ./include/rapidjson/memorystream.h
 src/MenuPanel.o: ./include/rapidjson/internal/clzll.h
-src/MenuPanel.o: ./include/rapidjson/rapidjson.h
-src/MenuPanel.o: ./include/rapidjson/internal/meta.h
 src/MenuPanel.o: ./include/rapidjson/internal/stack.h
 src/MenuPanel.o: ./include/rapidjson/allocators.h
 src/MenuPanel.o: ./include/rapidjson/internal/swap.h
@@ -4809,13 +4809,13 @@ src/MenuShedPanel.o: ./include/Positionable.h ./include/rapidjson/document.h
 src/MenuShedPanel.o: ./include/rapidjson/reader.h
 src/MenuShedPanel.o: ./include/rapidjson/allocators.h
 src/MenuShedPanel.o: ./include/rapidjson/rapidjson.h
+src/MenuShedPanel.o: ./include/rapidjson/internal/meta.h
+src/MenuShedPanel.o: ./include/rapidjson/rapidjson.h
 src/MenuShedPanel.o: ./include/rapidjson/stream.h
 src/MenuShedPanel.o: ./include/rapidjson/encodings.h
 src/MenuShedPanel.o: ./include/rapidjson/encodedstream.h
 src/MenuShedPanel.o: ./include/rapidjson/memorystream.h
 src/MenuShedPanel.o: ./include/rapidjson/internal/clzll.h
-src/MenuShedPanel.o: ./include/rapidjson/rapidjson.h
-src/MenuShedPanel.o: ./include/rapidjson/internal/meta.h
 src/MenuShedPanel.o: ./include/rapidjson/internal/stack.h
 src/MenuShedPanel.o: ./include/rapidjson/allocators.h
 src/MenuShedPanel.o: ./include/rapidjson/internal/swap.h
@@ -4892,13 +4892,13 @@ src/MenuSimulationPanel.o: ./include/rapidjson/document.h
 src/MenuSimulationPanel.o: ./include/rapidjson/reader.h
 src/MenuSimulationPanel.o: ./include/rapidjson/allocators.h
 src/MenuSimulationPanel.o: ./include/rapidjson/rapidjson.h
+src/MenuSimulationPanel.o: ./include/rapidjson/internal/meta.h
+src/MenuSimulationPanel.o: ./include/rapidjson/rapidjson.h
 src/MenuSimulationPanel.o: ./include/rapidjson/stream.h
 src/MenuSimulationPanel.o: ./include/rapidjson/encodings.h
 src/MenuSimulationPanel.o: ./include/rapidjson/encodedstream.h
 src/MenuSimulationPanel.o: ./include/rapidjson/memorystream.h
 src/MenuSimulationPanel.o: ./include/rapidjson/internal/clzll.h
-src/MenuSimulationPanel.o: ./include/rapidjson/rapidjson.h
-src/MenuSimulationPanel.o: ./include/rapidjson/internal/meta.h
 src/MenuSimulationPanel.o: ./include/rapidjson/internal/stack.h
 src/MenuSimulationPanel.o: ./include/rapidjson/allocators.h
 src/MenuSimulationPanel.o: ./include/rapidjson/internal/swap.h
@@ -4974,13 +4974,13 @@ src/MenuTree.o: ./include/MenuGenus.h ./include/MenuAllTree.h
 src/MenuTree.o: ./include/Species.h ./include/DynamicallyTypable.h
 src/MenuTree.o: ./include/Version.h ./include/rapidjson/document.h
 src/MenuTree.o: ./include/rapidjson/reader.h ./include/rapidjson/allocators.h
+src/MenuTree.o: ./include/rapidjson/rapidjson.h
+src/MenuTree.o: ./include/rapidjson/internal/meta.h
 src/MenuTree.o: ./include/rapidjson/rapidjson.h ./include/rapidjson/stream.h
 src/MenuTree.o: ./include/rapidjson/encodings.h
 src/MenuTree.o: ./include/rapidjson/encodedstream.h
 src/MenuTree.o: ./include/rapidjson/memorystream.h
 src/MenuTree.o: ./include/rapidjson/internal/clzll.h
-src/MenuTree.o: ./include/rapidjson/rapidjson.h
-src/MenuTree.o: ./include/rapidjson/internal/meta.h
 src/MenuTree.o: ./include/rapidjson/internal/stack.h
 src/MenuTree.o: ./include/rapidjson/allocators.h
 src/MenuTree.o: ./include/rapidjson/internal/swap.h
@@ -5241,13 +5241,13 @@ src/PmodDesign.o: /usr/local/include/cglm/affine2d.h
 src/PmodDesign.o: ./include/rapidjson/document.h ./include/rapidjson/reader.h
 src/PmodDesign.o: ./include/rapidjson/allocators.h
 src/PmodDesign.o: ./include/rapidjson/rapidjson.h
+src/PmodDesign.o: ./include/rapidjson/internal/meta.h
+src/PmodDesign.o: ./include/rapidjson/rapidjson.h
 src/PmodDesign.o: ./include/rapidjson/stream.h
 src/PmodDesign.o: ./include/rapidjson/encodings.h
 src/PmodDesign.o: ./include/rapidjson/encodedstream.h
 src/PmodDesign.o: ./include/rapidjson/memorystream.h
 src/PmodDesign.o: ./include/rapidjson/internal/clzll.h
-src/PmodDesign.o: ./include/rapidjson/rapidjson.h
-src/PmodDesign.o: ./include/rapidjson/internal/meta.h
 src/PmodDesign.o: ./include/rapidjson/internal/stack.h
 src/PmodDesign.o: ./include/rapidjson/allocators.h
 src/PmodDesign.o: ./include/rapidjson/internal/swap.h
@@ -5368,13 +5368,13 @@ src/Quadtree.o: /usr/local/include/cglm/affine2d.h ./include/DisplayList.h
 src/Quadtree.o: ./include/Lockable.h ./include/Global.h ./include/Scene.h
 src/Quadtree.o: ./include/LandSurface.h ./include/rapidjson/document.h
 src/Quadtree.o: ./include/rapidjson/reader.h ./include/rapidjson/allocators.h
+src/Quadtree.o: ./include/rapidjson/rapidjson.h
+src/Quadtree.o: ./include/rapidjson/internal/meta.h
 src/Quadtree.o: ./include/rapidjson/rapidjson.h ./include/rapidjson/stream.h
 src/Quadtree.o: ./include/rapidjson/encodings.h
 src/Quadtree.o: ./include/rapidjson/encodedstream.h
 src/Quadtree.o: ./include/rapidjson/memorystream.h
 src/Quadtree.o: ./include/rapidjson/internal/clzll.h
-src/Quadtree.o: ./include/rapidjson/rapidjson.h
-src/Quadtree.o: ./include/rapidjson/internal/meta.h
 src/Quadtree.o: ./include/rapidjson/internal/stack.h
 src/Quadtree.o: ./include/rapidjson/allocators.h
 src/Quadtree.o: ./include/rapidjson/internal/swap.h
@@ -5413,13 +5413,13 @@ src/RegionList.o: ./include/Species.h ./include/Version.h
 src/RegionList.o: ./include/rapidjson/document.h ./include/rapidjson/reader.h
 src/RegionList.o: ./include/rapidjson/allocators.h
 src/RegionList.o: ./include/rapidjson/rapidjson.h
+src/RegionList.o: ./include/rapidjson/internal/meta.h
+src/RegionList.o: ./include/rapidjson/rapidjson.h
 src/RegionList.o: ./include/rapidjson/stream.h
 src/RegionList.o: ./include/rapidjson/encodings.h
 src/RegionList.o: ./include/rapidjson/encodedstream.h
 src/RegionList.o: ./include/rapidjson/memorystream.h
 src/RegionList.o: ./include/rapidjson/internal/clzll.h
-src/RegionList.o: ./include/rapidjson/rapidjson.h
-src/RegionList.o: ./include/rapidjson/internal/meta.h
 src/RegionList.o: ./include/rapidjson/internal/stack.h
 src/RegionList.o: ./include/rapidjson/allocators.h
 src/RegionList.o: ./include/rapidjson/internal/swap.h
@@ -5487,13 +5487,13 @@ src/ResourceManager.o: ./include/rapidjson/document.h
 src/ResourceManager.o: ./include/rapidjson/reader.h
 src/ResourceManager.o: ./include/rapidjson/allocators.h
 src/ResourceManager.o: ./include/rapidjson/rapidjson.h
+src/ResourceManager.o: ./include/rapidjson/internal/meta.h
+src/ResourceManager.o: ./include/rapidjson/rapidjson.h
 src/ResourceManager.o: ./include/rapidjson/stream.h
 src/ResourceManager.o: ./include/rapidjson/encodings.h
 src/ResourceManager.o: ./include/rapidjson/encodedstream.h
 src/ResourceManager.o: ./include/rapidjson/memorystream.h
 src/ResourceManager.o: ./include/rapidjson/internal/clzll.h
-src/ResourceManager.o: ./include/rapidjson/rapidjson.h
-src/ResourceManager.o: ./include/rapidjson/internal/meta.h
 src/ResourceManager.o: ./include/rapidjson/internal/stack.h
 src/ResourceManager.o: ./include/rapidjson/allocators.h
 src/ResourceManager.o: ./include/rapidjson/internal/swap.h
@@ -5595,12 +5595,12 @@ src/Scene.o: /usr/local/include/cglm/curve.h /usr/local/include/cglm/bezier.h
 src/Scene.o: /usr/local/include/cglm/ray.h /usr/local/include/cglm/affine2d.h
 src/Scene.o: ./include/rapidjson/document.h ./include/rapidjson/reader.h
 src/Scene.o: ./include/rapidjson/allocators.h ./include/rapidjson/rapidjson.h
-src/Scene.o: ./include/rapidjson/stream.h ./include/rapidjson/encodings.h
+src/Scene.o: ./include/rapidjson/internal/meta.h
+src/Scene.o: ./include/rapidjson/rapidjson.h ./include/rapidjson/stream.h
+src/Scene.o: ./include/rapidjson/encodings.h
 src/Scene.o: ./include/rapidjson/encodedstream.h
 src/Scene.o: ./include/rapidjson/memorystream.h
 src/Scene.o: ./include/rapidjson/internal/clzll.h
-src/Scene.o: ./include/rapidjson/rapidjson.h
-src/Scene.o: ./include/rapidjson/internal/meta.h
 src/Scene.o: ./include/rapidjson/internal/stack.h
 src/Scene.o: ./include/rapidjson/allocators.h
 src/Scene.o: ./include/rapidjson/internal/swap.h
@@ -5764,12 +5764,12 @@ src/Shed.o: ./include/BoundingBox.h ./include/BuildingRect.h
 src/Shed.o: ./include/Orientable.h ./include/Positionable.h
 src/Shed.o: ./include/rapidjson/document.h ./include/rapidjson/reader.h
 src/Shed.o: ./include/rapidjson/allocators.h ./include/rapidjson/rapidjson.h
-src/Shed.o: ./include/rapidjson/stream.h ./include/rapidjson/encodings.h
+src/Shed.o: ./include/rapidjson/internal/meta.h
+src/Shed.o: ./include/rapidjson/rapidjson.h ./include/rapidjson/stream.h
+src/Shed.o: ./include/rapidjson/encodings.h
 src/Shed.o: ./include/rapidjson/encodedstream.h
 src/Shed.o: ./include/rapidjson/memorystream.h
 src/Shed.o: ./include/rapidjson/internal/clzll.h
-src/Shed.o: ./include/rapidjson/rapidjson.h
-src/Shed.o: ./include/rapidjson/internal/meta.h
 src/Shed.o: ./include/rapidjson/internal/stack.h
 src/Shed.o: ./include/rapidjson/allocators.h
 src/Shed.o: ./include/rapidjson/internal/swap.h
@@ -5846,13 +5846,13 @@ src/SkySampleModel.o: ./include/rapidjson/document.h
 src/SkySampleModel.o: ./include/rapidjson/reader.h
 src/SkySampleModel.o: ./include/rapidjson/allocators.h
 src/SkySampleModel.o: ./include/rapidjson/rapidjson.h
+src/SkySampleModel.o: ./include/rapidjson/internal/meta.h
+src/SkySampleModel.o: ./include/rapidjson/rapidjson.h
 src/SkySampleModel.o: ./include/rapidjson/stream.h
 src/SkySampleModel.o: ./include/rapidjson/encodings.h
 src/SkySampleModel.o: ./include/rapidjson/encodedstream.h
 src/SkySampleModel.o: ./include/rapidjson/memorystream.h
 src/SkySampleModel.o: ./include/rapidjson/internal/clzll.h
-src/SkySampleModel.o: ./include/rapidjson/rapidjson.h
-src/SkySampleModel.o: ./include/rapidjson/internal/meta.h
 src/SkySampleModel.o: ./include/rapidjson/internal/stack.h
 src/SkySampleModel.o: ./include/rapidjson/allocators.h
 src/SkySampleModel.o: ./include/rapidjson/internal/swap.h
@@ -5966,13 +5966,13 @@ src/SoilDatabase.o: ./include/rapidjson/document.h
 src/SoilDatabase.o: ./include/rapidjson/reader.h
 src/SoilDatabase.o: ./include/rapidjson/allocators.h
 src/SoilDatabase.o: ./include/rapidjson/rapidjson.h
+src/SoilDatabase.o: ./include/rapidjson/internal/meta.h
+src/SoilDatabase.o: ./include/rapidjson/rapidjson.h
 src/SoilDatabase.o: ./include/rapidjson/stream.h
 src/SoilDatabase.o: ./include/rapidjson/encodings.h
 src/SoilDatabase.o: ./include/rapidjson/encodedstream.h
 src/SoilDatabase.o: ./include/rapidjson/memorystream.h
 src/SoilDatabase.o: ./include/rapidjson/internal/clzll.h
-src/SoilDatabase.o: ./include/rapidjson/rapidjson.h
-src/SoilDatabase.o: ./include/rapidjson/internal/meta.h
 src/SoilDatabase.o: ./include/rapidjson/internal/stack.h
 src/SoilDatabase.o: ./include/rapidjson/allocators.h
 src/SoilDatabase.o: ./include/rapidjson/internal/swap.h
@@ -6045,13 +6045,13 @@ src/SoilDatabaseClient.o: ./include/rapidjson/document.h
 src/SoilDatabaseClient.o: ./include/rapidjson/reader.h
 src/SoilDatabaseClient.o: ./include/rapidjson/allocators.h
 src/SoilDatabaseClient.o: ./include/rapidjson/rapidjson.h
+src/SoilDatabaseClient.o: ./include/rapidjson/internal/meta.h
+src/SoilDatabaseClient.o: ./include/rapidjson/rapidjson.h
 src/SoilDatabaseClient.o: ./include/rapidjson/stream.h
 src/SoilDatabaseClient.o: ./include/rapidjson/encodings.h
 src/SoilDatabaseClient.o: ./include/rapidjson/encodedstream.h
 src/SoilDatabaseClient.o: ./include/rapidjson/memorystream.h
 src/SoilDatabaseClient.o: ./include/rapidjson/internal/clzll.h
-src/SoilDatabaseClient.o: ./include/rapidjson/rapidjson.h
-src/SoilDatabaseClient.o: ./include/rapidjson/internal/meta.h
 src/SoilDatabaseClient.o: ./include/rapidjson/internal/stack.h
 src/SoilDatabaseClient.o: ./include/rapidjson/allocators.h
 src/SoilDatabaseClient.o: ./include/rapidjson/internal/swap.h
@@ -6128,13 +6128,13 @@ src/SoilHorizon.o: ./include/rapidjson/document.h
 src/SoilHorizon.o: ./include/rapidjson/reader.h
 src/SoilHorizon.o: ./include/rapidjson/allocators.h
 src/SoilHorizon.o: ./include/rapidjson/rapidjson.h
+src/SoilHorizon.o: ./include/rapidjson/internal/meta.h
+src/SoilHorizon.o: ./include/rapidjson/rapidjson.h
 src/SoilHorizon.o: ./include/rapidjson/stream.h
 src/SoilHorizon.o: ./include/rapidjson/encodings.h
 src/SoilHorizon.o: ./include/rapidjson/encodedstream.h
 src/SoilHorizon.o: ./include/rapidjson/memorystream.h
 src/SoilHorizon.o: ./include/rapidjson/internal/clzll.h
-src/SoilHorizon.o: ./include/rapidjson/rapidjson.h
-src/SoilHorizon.o: ./include/rapidjson/internal/meta.h
 src/SoilHorizon.o: ./include/rapidjson/internal/stack.h
 src/SoilHorizon.o: ./include/rapidjson/allocators.h
 src/SoilHorizon.o: ./include/rapidjson/internal/swap.h
@@ -6205,13 +6205,13 @@ src/SoilProfile.o: ./include/rapidjson/document.h
 src/SoilProfile.o: ./include/rapidjson/reader.h
 src/SoilProfile.o: ./include/rapidjson/allocators.h
 src/SoilProfile.o: ./include/rapidjson/rapidjson.h
+src/SoilProfile.o: ./include/rapidjson/internal/meta.h
+src/SoilProfile.o: ./include/rapidjson/rapidjson.h
 src/SoilProfile.o: ./include/rapidjson/stream.h
 src/SoilProfile.o: ./include/rapidjson/encodings.h
 src/SoilProfile.o: ./include/rapidjson/encodedstream.h
 src/SoilProfile.o: ./include/rapidjson/memorystream.h
 src/SoilProfile.o: ./include/rapidjson/internal/clzll.h
-src/SoilProfile.o: ./include/rapidjson/rapidjson.h
-src/SoilProfile.o: ./include/rapidjson/internal/meta.h
 src/SoilProfile.o: ./include/rapidjson/internal/stack.h
 src/SoilProfile.o: ./include/rapidjson/allocators.h
 src/SoilProfile.o: ./include/rapidjson/internal/swap.h
@@ -6324,13 +6324,13 @@ src/SolarDatabase.o: /usr/local/include/cglm/affine2d.h
 src/Species.o: ./include/Species.h ./include/DynamicallyTypable.h
 src/Species.o: ./include/Version.h ./include/rapidjson/document.h
 src/Species.o: ./include/rapidjson/reader.h ./include/rapidjson/allocators.h
+src/Species.o: ./include/rapidjson/rapidjson.h
+src/Species.o: ./include/rapidjson/internal/meta.h
 src/Species.o: ./include/rapidjson/rapidjson.h ./include/rapidjson/stream.h
 src/Species.o: ./include/rapidjson/encodings.h
 src/Species.o: ./include/rapidjson/encodedstream.h
 src/Species.o: ./include/rapidjson/memorystream.h
 src/Species.o: ./include/rapidjson/internal/clzll.h
-src/Species.o: ./include/rapidjson/rapidjson.h
-src/Species.o: ./include/rapidjson/internal/meta.h
 src/Species.o: ./include/rapidjson/internal/stack.h
 src/Species.o: ./include/rapidjson/allocators.h
 src/Species.o: ./include/rapidjson/internal/swap.h
@@ -6680,13 +6680,13 @@ src/Tree.o: ./include/Logging.h ./include/MemoryTracker.h ./include/Timeval.h
 src/Tree.o: ./include/Lockable.h /usr/local/include/GL/glew.h
 src/Tree.o: ./include/BoundingBox.h ./include/rapidjson/document.h
 src/Tree.o: ./include/rapidjson/reader.h ./include/rapidjson/allocators.h
+src/Tree.o: ./include/rapidjson/rapidjson.h
+src/Tree.o: ./include/rapidjson/internal/meta.h
 src/Tree.o: ./include/rapidjson/rapidjson.h ./include/rapidjson/stream.h
 src/Tree.o: ./include/rapidjson/encodings.h
 src/Tree.o: ./include/rapidjson/encodedstream.h
 src/Tree.o: ./include/rapidjson/memorystream.h
 src/Tree.o: ./include/rapidjson/internal/clzll.h
-src/Tree.o: ./include/rapidjson/rapidjson.h
-src/Tree.o: ./include/rapidjson/internal/meta.h
 src/Tree.o: ./include/rapidjson/internal/stack.h
 src/Tree.o: ./include/rapidjson/allocators.h
 src/Tree.o: ./include/rapidjson/internal/swap.h
@@ -6814,13 +6814,13 @@ src/TreeWindow.o: ./include/BoundingBox.h ./include/rapidjson/document.h
 src/TreeWindow.o: ./include/rapidjson/reader.h
 src/TreeWindow.o: ./include/rapidjson/allocators.h
 src/TreeWindow.o: ./include/rapidjson/rapidjson.h
+src/TreeWindow.o: ./include/rapidjson/internal/meta.h
+src/TreeWindow.o: ./include/rapidjson/rapidjson.h
 src/TreeWindow.o: ./include/rapidjson/stream.h
 src/TreeWindow.o: ./include/rapidjson/encodings.h
 src/TreeWindow.o: ./include/rapidjson/encodedstream.h
 src/TreeWindow.o: ./include/rapidjson/memorystream.h
 src/TreeWindow.o: ./include/rapidjson/internal/clzll.h
-src/TreeWindow.o: ./include/rapidjson/rapidjson.h
-src/TreeWindow.o: ./include/rapidjson/internal/meta.h
 src/TreeWindow.o: ./include/rapidjson/internal/stack.h
 src/TreeWindow.o: ./include/rapidjson/allocators.h
 src/TreeWindow.o: ./include/rapidjson/internal/swap.h
@@ -6897,13 +6897,13 @@ src/TriangleBuffer.o: ./include/Boundary.h ./include/rapidjson/document.h
 src/TriangleBuffer.o: ./include/rapidjson/reader.h
 src/TriangleBuffer.o: ./include/rapidjson/allocators.h
 src/TriangleBuffer.o: ./include/rapidjson/rapidjson.h
+src/TriangleBuffer.o: ./include/rapidjson/internal/meta.h
+src/TriangleBuffer.o: ./include/rapidjson/rapidjson.h
 src/TriangleBuffer.o: ./include/rapidjson/stream.h
 src/TriangleBuffer.o: ./include/rapidjson/encodings.h
 src/TriangleBuffer.o: ./include/rapidjson/encodedstream.h
 src/TriangleBuffer.o: ./include/rapidjson/memorystream.h
 src/TriangleBuffer.o: ./include/rapidjson/internal/clzll.h
-src/TriangleBuffer.o: ./include/rapidjson/rapidjson.h
-src/TriangleBuffer.o: ./include/rapidjson/internal/meta.h
 src/TriangleBuffer.o: ./include/rapidjson/internal/stack.h
 src/TriangleBuffer.o: ./include/rapidjson/allocators.h
 src/TriangleBuffer.o: ./include/rapidjson/internal/swap.h
@@ -6984,13 +6984,13 @@ src/TruncatedCone.o: ./include/HttpDebug.h ./include/HttpServThread.h
 src/TruncatedCone.o: ./include/TaskQueue.h ./include/HttpRequestParser.h
 src/Version.o: ./include/Version.h ./include/rapidjson/document.h
 src/Version.o: ./include/rapidjson/reader.h ./include/rapidjson/allocators.h
+src/Version.o: ./include/rapidjson/rapidjson.h
+src/Version.o: ./include/rapidjson/internal/meta.h
 src/Version.o: ./include/rapidjson/rapidjson.h ./include/rapidjson/stream.h
 src/Version.o: ./include/rapidjson/encodings.h
 src/Version.o: ./include/rapidjson/encodedstream.h
 src/Version.o: ./include/rapidjson/memorystream.h
 src/Version.o: ./include/rapidjson/internal/clzll.h
-src/Version.o: ./include/rapidjson/rapidjson.h
-src/Version.o: ./include/rapidjson/internal/meta.h
 src/Version.o: ./include/rapidjson/internal/stack.h
 src/Version.o: ./include/rapidjson/allocators.h
 src/Version.o: ./include/rapidjson/internal/swap.h
@@ -7366,13 +7366,13 @@ src/Window3D.o: ./include/Material.h ./include/Texture.h ./include/Species.h
 src/Window3D.o: ./include/DynamicallyTypable.h ./include/Version.h
 src/Window3D.o: ./include/rapidjson/document.h ./include/rapidjson/reader.h
 src/Window3D.o: ./include/rapidjson/allocators.h
+src/Window3D.o: ./include/rapidjson/rapidjson.h
+src/Window3D.o: ./include/rapidjson/internal/meta.h
 src/Window3D.o: ./include/rapidjson/rapidjson.h ./include/rapidjson/stream.h
 src/Window3D.o: ./include/rapidjson/encodings.h
 src/Window3D.o: ./include/rapidjson/encodedstream.h
 src/Window3D.o: ./include/rapidjson/memorystream.h
 src/Window3D.o: ./include/rapidjson/internal/clzll.h
-src/Window3D.o: ./include/rapidjson/rapidjson.h
-src/Window3D.o: ./include/rapidjson/internal/meta.h
 src/Window3D.o: ./include/rapidjson/internal/stack.h
 src/Window3D.o: ./include/rapidjson/allocators.h
 src/Window3D.o: ./include/rapidjson/internal/swap.h
@@ -7453,13 +7453,13 @@ src/WoodySegment.o: ./include/Boundary.h ./include/rapidjson/document.h
 src/WoodySegment.o: ./include/rapidjson/reader.h
 src/WoodySegment.o: ./include/rapidjson/allocators.h
 src/WoodySegment.o: ./include/rapidjson/rapidjson.h
+src/WoodySegment.o: ./include/rapidjson/internal/meta.h
+src/WoodySegment.o: ./include/rapidjson/rapidjson.h
 src/WoodySegment.o: ./include/rapidjson/stream.h
 src/WoodySegment.o: ./include/rapidjson/encodings.h
 src/WoodySegment.o: ./include/rapidjson/encodedstream.h
 src/WoodySegment.o: ./include/rapidjson/memorystream.h
 src/WoodySegment.o: ./include/rapidjson/internal/clzll.h
-src/WoodySegment.o: ./include/rapidjson/rapidjson.h
-src/WoodySegment.o: ./include/rapidjson/internal/meta.h
 src/WoodySegment.o: ./include/rapidjson/internal/stack.h
 src/WoodySegment.o: ./include/rapidjson/allocators.h
 src/WoodySegment.o: ./include/rapidjson/internal/swap.h
@@ -7500,6 +7500,7 @@ src/imgui_impl_glfw.o: imgui/backends/imgui_impl_glfw.h
 src/imgui_impl_glfw.o: /usr/local/include/GLFW/glfw3.h
 src/imgui_impl_opengl3.o: imgui/imgui.h imgui/imconfig.h
 src/imgui_impl_opengl3.o: imgui/backends/imgui_impl_opengl3.h
+src/imgui_impl_opengl3.o: imgui/backends/imgui_impl_opengl3_loader.h
 src/imgui_tables.o: imgui/imgui.h imgui/imconfig.h imgui/imgui_internal.h
 src/imgui_tables.o: imgui/imstb_textedit.h
 src/imgui_widgets.o: imgui/imgui.h imgui/imconfig.h imgui/imgui_internal.h
@@ -7540,12 +7541,12 @@ src/main.o: /usr/local/include/GLFW/glfw3.h ./include/PmodConfig.h
 src/main.o: ./include/PmodDesign.h ./include/Boundary.h
 src/main.o: ./include/rapidjson/document.h ./include/rapidjson/reader.h
 src/main.o: ./include/rapidjson/allocators.h ./include/rapidjson/rapidjson.h
-src/main.o: ./include/rapidjson/stream.h ./include/rapidjson/encodings.h
+src/main.o: ./include/rapidjson/internal/meta.h
+src/main.o: ./include/rapidjson/rapidjson.h ./include/rapidjson/stream.h
+src/main.o: ./include/rapidjson/encodings.h
 src/main.o: ./include/rapidjson/encodedstream.h
 src/main.o: ./include/rapidjson/memorystream.h
 src/main.o: ./include/rapidjson/internal/clzll.h
-src/main.o: ./include/rapidjson/rapidjson.h
-src/main.o: ./include/rapidjson/internal/meta.h
 src/main.o: ./include/rapidjson/internal/stack.h
 src/main.o: ./include/rapidjson/allocators.h
 src/main.o: ./include/rapidjson/internal/swap.h

@@ -188,6 +188,28 @@ bool yearHasValidHiTemp(ClimateYear* climateYear)
 
 
 /// =======================================================================================
+/// @brief Mark years that have a valid amount of daily low temps for search callbacks.
+/// @param climateYear The year of data to be examined.
+/// @returns True if this year is to be included in the search results, false otherwise.
+
+bool yearHasValidLoTemp(ClimateYear* climateYear)
+{
+  return (climateYear->flags & LOW_TEMP_VALID);
+}
+
+
+/// =======================================================================================
+/// @brief Mark years that have a valid amount of precipitation data for search callbacks.
+/// @param climateYear The year of data to be examined.
+/// @returns True if this year is to be included in the search results, false otherwise.
+
+bool yearHasValidPrecip(ClimateYear* climateYear)
+{
+  return (climateYear->flags & PRECIP_VALID);
+}
+
+
+/// =======================================================================================
 /// @brief Output HTML table of available temperature curves near a location.
 /// 
 /// @returns True if all was well writing to the buffer.  If false, it indicates the 
@@ -286,6 +308,7 @@ bool ClimateDatabase::processTMaxCurvesRequest(HttpServThread* serv, char* url)
   unless(serv->endResponsePage())
     return false;
 
+  days += offsetof(ClimateDay, hiTemp);
   return true;
 }
 
