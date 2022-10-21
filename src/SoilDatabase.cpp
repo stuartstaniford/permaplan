@@ -14,9 +14,9 @@
 
 #include <stdio.h>
 
-char* worldSoilBilFileName = (char*)"Materials/Solar/HWSD_RASTER/hwsd";
+char* worldSoilBilFileName = (char*)"Materials/Soil/hwsd";
 
-char* worldSoilMdbDBName = (char*)"Materials/Solar/HWSD.mdb";
+char* worldSoilMdbDBName = (char*)"Materials/Soil/HWSD.mdb";
 
 // =======================================================================================
 /// @brief Constructor

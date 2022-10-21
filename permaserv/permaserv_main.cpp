@@ -5,6 +5,7 @@
 // time series from climate model runs).
 
 #include "HttpLBPermaserv.h"
+#include "ResourceManager.h"
 #include "Logging.h"
 #include "Global.h"
 #include <cstdio>
@@ -123,6 +124,7 @@ int main (int argc, char* argv[])
   processCommandLine(argc, argv);
   time_t compileTime = getCompileTime(argv[0]);
   recordPort();
+  ResourceManager resources((char*)"maniserv.json");
   
   // Start up the debugging http server
   HttpLBPermaserv httpServer(servPort, compileTime, permaservFlags);

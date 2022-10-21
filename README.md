@@ -28,6 +28,10 @@ the #include declarations at the top of the file.
 
 The Gnu GSL (brew install gsl).
 
+brew install glsl
+
+brew install glew
+
 Building the source code documentation requires doxygen ("brew install doxygen").
 
 Then:
