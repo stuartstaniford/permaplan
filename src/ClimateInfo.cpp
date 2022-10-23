@@ -98,7 +98,51 @@ bool ClimateYear::assessValidity(void)
 bool ClimateInfo::diffObservable(ClimateInfo* otherInfo, std::vector<int>& years,
                       std::vector<float>& diffs, unsigned andFlagMask, unsigned obsOffset)
 {
-  return false;
+  
+  years.clear();
+  diffs.clear();
+  
+  // loop over the years in this ClimateInfo
+  int j = 0;
+  for(int i=0; i<nYears; i++)
+   {
+    // Make sure this year is valid for us
+    unless(climateYears[i]->flags & andFlagMask)
+      continue;
+    int year = climateYears[i]->year;
+    
+    // Try to find a matching year on the other side
+    while(j < otherInfo->nYears && otherInfo->climateYears[j]->year < year)
+      j++;
+     
+    // End the search if we've run out of years on the other side
+    if(j == otherInfo->nYears)
+      break;
+      
+    // Skip this year if the other side doesn't have a matching year
+    if(otherInfo->climateYears[j]->year > year)
+      continue;
+      
+    // Skip this year if the other side's year is not valid for our purposes
+    unless(otherInfo->climateYears[j]->flags & andFlagMask)
+      continue;
+   
+    //compute the difference
+    float difference;
+    unless(climateYears[i]->diffObservable(otherInfo->climateYears[j], difference,
+                                                                  andFlagMask, obsOffset))
+      continue;
+    
+    // if we get here, we have two matching valid years, and a valid comparison, so
+    // record the fact
+    years.push_back(year);
+    diffs.push_back(difference);
+   }
+   
+  if(years.size())
+    return true;
+  else
+    return false;
 }
 
 
