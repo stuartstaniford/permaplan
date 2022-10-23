@@ -272,7 +272,7 @@ bool ClimateDatabase::processObservationCurvesRequest(HttpServThread* serv, char
       if(clim->climateYears[indices[s]]->climateDays[j].flags & andFlagMask)
        {
         httPrintf("<td>%.2f</td>",
-                *((float*)(&(clim->climateYears[indices[s]]->climateDays[j]) + obsOffset)));
+                *((float*)((char*)(&(clim->climateYears[indices[s]]->climateDays[j])) + obsOffset)));
        }
       else
        {
