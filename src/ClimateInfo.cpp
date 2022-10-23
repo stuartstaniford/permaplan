@@ -87,7 +87,30 @@ bool ClimateYear::assessValidity(void)
 /// @brief Compute the average difference in high temp of this year and another year
 ///
 /// @returns true if there is enough data for a comparison, false otherwise.
-/// @parame difference A reference to a float to store the average difference.
+/// @param difference A reference to a float to store the average difference.
+/// @param years A vector of the years found with valid comparison
+/// @param diffs A vector of the differences matching those years.
+/// @param andFlagMask The quantity to and with the flags to determine if a given year/day
+/// is valid.
+/// @param obsOffset The offset in bytes of the observable being computed in a ClimateDay
+/// structure.
+
+bool ClimateInfo::diffObservable(ClimateInfo* otherInfo, std::vector<int>& years,
+                      std::vector<float>& diffs, unsigned andFlagMask, unsigned obsOffset)
+{
+  return false;
+}
+
+
+// =======================================================================================
+/// @brief Compute the average difference in some observable of this year and another year
+///
+/// @returns true if there is enough data for a comparison, false otherwise.
+/// @param difference A reference to a float to store the average difference.
+/// @param andFlagMask The quantity to and with the flags to determine if a given year/day
+/// is valid.
+/// @param obsOffset The offset in bytes of the observable being computed in a ClimateDay
+/// structure.
 
 bool ClimateYear::diffObservable(ClimateYear* otherYear, float& difference,
                                                   unsigned andFlagMask, unsigned obsOffset)

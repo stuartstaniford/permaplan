@@ -4,6 +4,7 @@
 #define CLIMATE_INFO_H
 
 #include "DynamicallyTypable.h"
+#include <vector>
 
 
 // =======================================================================================
@@ -118,6 +119,8 @@ public:
   bool diagnosticHTML(HttpServThread* serv);
   virtual DynamicType getDynamicType(void) {return TypeClimateInfo;}
   virtual int writeJsonFields(char* buf, unsigned bufSize);
+  bool diffObservable(ClimateInfo* otherInfo, std::vector<int>& years,
+                    std::vector<float>& diffs, unsigned andFlagMask, unsigned obsOffset);
 
 private:
   
