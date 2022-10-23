@@ -31,6 +31,7 @@ public:
   bool printStationDiagnosticTable(HttpServThread* serv, 
                                             float lat, float longt, unsigned yearCount);
   bool processStationDiagnosticRequest(HttpServThread* serv, char* stationId);
+  bool processStationComparisonRequest(HttpServThread* serv, char* url);
   bool processObservationCurvesRequest(HttpServThread* serv, char* url, char* urlStub,
                             unsigned andFlagMask, unsigned obsOffset, char* titleObsName);
   

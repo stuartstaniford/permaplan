@@ -86,10 +86,20 @@ bool HttpPermaServ::indexPage(void)
                  "climateDiagnostic?lat:long:years:</a></td>");
   internalPrintf("<td>Climate station diagnostic near location.</td></tr>\n");
 
-  // Temperature curves for some year near a particular point
+  // Temperature max curves for some year near a particular point
   internalPrintf("<tr><td><a href=\"/tMaxYear?42.421:-76.347:2005:\">"
                  "tMaxYear?lat:long:year:</a></td>");
-  internalPrintf("<td>Available temperature curves for year near location.</td></tr>\n");
+  internalPrintf("<td>Available max temperature curves for year near location.</td></tr>\n");
+
+  // Temperature min curves for some year near a particular point
+  internalPrintf("<tr><td><a href=\"/tMinYear?42.421:-76.347:2005:\">"
+                 "tMinYear?lat:long:year:</a></td>");
+  internalPrintf("<td>Available min temperature curves for year near location.</td></tr>\n");
+
+  // Station comparison near a particular point
+  internalPrintf("<tr><td><a href=\"/stationComp?42.421:-76.347:\">"
+                 "stationComp?lat:long:</a></td>");
+  internalPrintf("<td>Compare stations near location.</td></tr>\n");
 
   // End table and page
   internalPrintf("</table></center>\n");
@@ -293,13 +303,16 @@ bool HttpPermaServ::processRequestHeader(void)
   
   LogPermaservOpDetails("Got request for url %s.\n", url);
 
+  // Possible paths (in alphabetical order
+
+  // / or index
   if( (strlenUrl == 1 && url[0] == '/') || strncmp(url, "/index.", 7) == 0)
    {
     LogPermaservOpDetails("Processing index request.\n");
     return indexPage();
    }
   
-  // Possible paths (in alphabetical order  
+  // alive
   else if( strlenUrl == 7 && strncmp(url, "/alive/", 7) == 0)
    {
     LogPermaservOpDetails("Processing alive check request.\n");
@@ -307,12 +320,14 @@ bool HttpPermaServ::processRequestHeader(void)
     retVal = true;
    }
 
+  // climateDiagnostic
   else if( strlenUrl >= 23 && strncmp(url, "/climateDiagnostic?", 19) == 0)
    {
     LogPermaservOpDetails("Processing climate diagnostic request for %s.\n", url+19);
     retVal = processClimateRequest(url+19, true);
    }
 
+  // climateStation
   // http://127.0.0.1:2091/climateStation/US1NYTM0018
   else if( strlenUrl == 27 && strncmp(url, "/climateStation/", 16) == 0)
    {
@@ -320,31 +335,36 @@ bool HttpPermaServ::processRequestHeader(void)
     retVal = climateDatabase->processStationDiagnosticRequest(this, url+16);
    }
   
+  // climate
   else if( strlenUrl >= 13 && strncmp(url, "/climate?", 9) == 0)
    {
     LogPermaservOpDetails("Processing climate request for %s.\n", url+9);
     retVal = processClimateRequest(url+9);
    }
 
-   else if( strlenUrl == 13 && strncmp(url, "/compileTime/", 13) == 0)
+  // compileTime
+  else if( strlenUrl == 13 && strncmp(url, "/compileTime/", 13) == 0)
    {
     LogPermaservOpDetails("Processing compileTime request.\n");
     internalPrintf("compileTime: %ld\n", ((HttpLBPermaserv*)parentLB)->compileTime);
     retVal = true;
    }
 
-   else if( strlenUrl >= 9 && strncmp(url, "/dif?", 5) == 0)
-    {
-     LogPermaservOpDetails("Processing DIF request for %s.\n", url+5);
-     retVal = processDIFRequest(url+5);
-    }
+  // dif
+  else if( strlenUrl >= 9 && strncmp(url, "/dif?", 5) == 0)
+   {
+    LogPermaservOpDetails("Processing DIF request for %s.\n", url+5);
+    retVal = processDIFRequest(url+5);
+   }
 
-   else if( strlenUrl >= 9 && strncmp(url, "/dni?", 5) == 0)
+  // dni
+  else if( strlenUrl >= 9 && strncmp(url, "/dni?", 5) == 0)
    {
     LogPermaservOpDetails("Processing DNI request for %s.\n", url+5);
     retVal = processDNIRequest(url+5);
    }
 
+  // quit
   else if( strlenUrl == 6 && strncmp(url, "/quit/", 6) == 0)
    {
     LogPermaservOpDetails("Processing quit request.\n");
@@ -353,20 +373,40 @@ bool HttpPermaServ::processRequestHeader(void)
     retVal = true;
    }
 
+ // soil
  else if( strlenUrl >= 14 && strncmp(url, "/soil?", 6) == 0)
    {
     LogPermaservOpDetails("Processing soil request for %s.\n", url+6);
     retVal = processSoilRequest(url+6);
    }
 
- else if( strlenUrl >= 20 && strncmp(url, "/tMaxYear?", 10) == 0)
+
+ // stationComp
+ else if( strlenUrl >= 23 && strncmp(url, "/stationComp?", 13) == 0)
   {
-   LogPermaservOpDetails("Processing temperature query for %s.\n", url+10);
-   retVal = climateDatabase->processObservationCurvesRequest(this, url+10,
-                              (char*)"tMaxYear", HI_TEMP_VALID, offsetof(ClimateDay, hiTemp),
-                              (char*)"Temperature");
+   LogPermaservOpDetails("Processing station comparision query for %s.\n", url+13);
+   retVal = climateDatabase->processStationComparisonRequest(this, url+13);
   }
 
+ // tMinYear
+ else if( strlenUrl >= 20 && strncmp(url, "/tMinYear?", 10) == 0)
+  {
+   LogPermaservOpDetails("Processing temperature min query for %s.\n", url+10);
+   retVal = climateDatabase->processObservationCurvesRequest(this, url+10,
+                              (char*)"tMinYear", LOW_TEMP_VALID, offsetof(ClimateDay, lowTemp),
+                              (char*)"Min. Temperature");
+  }
+
+ // tMaxYear
+ else if( strlenUrl >= 20 && strncmp(url, "/tMaxYear?", 10) == 0)
+  {
+   LogPermaservOpDetails("Processing temperature max query for %s.\n", url+10);
+   retVal = climateDatabase->processObservationCurvesRequest(this, url+10,
+                              (char*)"tMaxYear", HI_TEMP_VALID, offsetof(ClimateDay, hiTemp),
+                              (char*)"Max. Temperature");
+  }
+
+ //Default - failure
  else
    {
     LogRequestErrors("Request for unknown resource %s\n", url);

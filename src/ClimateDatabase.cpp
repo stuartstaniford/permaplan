@@ -177,6 +177,83 @@ bool ClimateDatabase::processStationDiagnosticRequest(HttpServThread* serv, char
 
 
 /// =======================================================================================
+/// @brief Output HTML table of min and max temperatures over the year for different
+/// stations near some location.
+///
+/// @returns True if all was well writing to the buffer.  If false, it indicates the
+/// buffer was not big enough and the output will have been truncated/incomplete.
+/// @param serv A pointer to the HttpServThread managing the HTTP response.
+/// @param url A string hopefully indicating the latitude, longtitude, and year.  At
+/// this point in processing, it could be hostile.
+
+bool ClimateDatabase::processStationComparisonRequest(HttpServThread* serv, char* url)
+{
+  // Process the URL and extract and check parameters
+  float latLong[2]; // (lat, long)
+  unless(extractColonVecN(url, 2, latLong))
+   {
+    LogRequestErrors("Bad station comparison request: stationComp?%s\n", url);
+    return false;
+   }
+  unless(checkLatLong(latLong))
+   {
+    LogRequestErrors("Bad lat long to station comparison request: stationComp?%s\n", url);
+    return false;
+   }
+  
+  // Start the HTML page
+  char title[128];
+  snprintf(title, 128, "Comparing min/max temps for stations near %.3f, %.3f",
+                                                                  latLong[0], latLong[1]);
+  unless(serv->startResponsePage(title))
+    return false;
+
+  // Find the relevant stations
+  std::vector<GHCNStation*> relevantStations;
+  std::vector<unsigned> indices;
+/*  ghcnDatabase->searchStations(latLongYear[0], latLongYear[1],
+                                            relevantStations, indices, andFlagMask, year);*/
+  int N = relevantStations.size();
+
+  // Start the table
+  unless(serv->startTable((char*)"Stations"))
+    return false;
+  
+  // Header row with station ids
+  httPrintf("<tr><th>Id.</th>")
+  for(int i=0; i<N; i++)
+    httPrintf("<th>%s</th>", relevantStations[i]->id);
+  httPrintf("</tr>")
+
+  // Row of location offset data
+  httPrintf("<tr><td>Offset (deg)</td>")
+  for(int i=0; i<N; i++)
+    httPrintf("<td>%.3f, %.3f</td>", relevantStations[i]->latLong[0] - latLong[0],
+                                          relevantStations[i]->latLong[1] - latLong[1]);
+  httPrintf("</tr>")
+
+  // Row of Elevation Data
+  httPrintf("<tr><td>El. (m)</td>")
+  for(int i=0; i<N; i++)
+    httPrintf("<td>%.0f</td>", relevantStations[i]->elevation);
+  httPrintf("</tr>")
+
+  // Row of station names
+  httPrintf("<tr><td>Name</td>")
+  for(int i=0; i<N; i++)
+    httPrintf("<td>%s</td>", relevantStations[i]->name);
+  httPrintf("</tr>")
+  
+  // Main table of yearly rows
+  
+  // Finish up the table and the page
+  httPrintf("</table>")
+  unless(serv->endResponsePage())
+    return false;
+
+  return true;
+}
+/// =======================================================================================
 /// @brief Output HTML table of available curves of some climate observable near
 /// a location.
 /// 
@@ -201,20 +278,20 @@ bool ClimateDatabase::processObservationCurvesRequest(HttpServThread* serv, char
   float latLongYear[3]; // (lat, long, year) 
   unless(extractColonVecN(url, 3, latLongYear))
    {
-    LogRequestErrors("Bad %s curve request: tMaxYear?%s\n", titleObsName, url);
+    LogRequestErrors("Bad %s curve request: %s?%s\n", titleObsName, urlStub, url);
     return false;
    }
   unless(checkLatLong(latLongYear))
    {
-    LogRequestErrors("Bad lat long to %s curve request: tMaxYear?%s\n",
-                                                                      titleObsName, url);
+    LogRequestErrors("Bad lat long to %s curve request: %s?%s\n",
+                                                              titleObsName, urlStub, url);
     return false;
    }
   int year = (int)latLongYear[2];
   unless(year >= 1800 && year < 3000)
    {
-    LogRequestErrors("Out of range year %d in %s curve request: tMaxYear?%s\n",
-                                                                year, titleObsName, url);
+    LogRequestErrors("Out of range year %d in %s curve request: %s?%s\n",
+                                                        year, titleObsName, urlStub, url);
     return false;
    }
   
