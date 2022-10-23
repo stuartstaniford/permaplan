@@ -84,6 +84,47 @@ bool ClimateYear::assessValidity(void)
 
 
 // =======================================================================================
+/// @brief Compute the average difference in high temp of this year and another year
+///
+/// @returns true if there is enough data for a comparison, false otherwise.
+/// @parame difference A reference to a float to store the average difference.
+
+bool ClimateYear::diffHighTemp(ClimateYear* otherYear, float& difference)
+{
+  // Go home early unless both years have enough valid data
+  unless(flags & HI_TEMP_VALID)
+    return false;
+  unless(otherYear->flags & HI_TEMP_VALID)
+    return false;
+
+  // Figure out number of days
+  int days1     = DaysInYear(year);
+  int days2     = DaysInYear(otherYear->year);
+  int days      = days1<days2?days1:days2;
+
+  // Main loop over the days
+  difference = 0.0f;
+  int count = 0;
+  for(int j=0; j<days; j++)
+   {
+    // Validity tests
+    unsigned dayFlags = climateDays[j].flags;
+    unless(dayFlags & HI_TEMP_VALID)
+      continue;
+    dayFlags = otherYear->climateDays[j].flags;
+    unless(dayFlags & HI_TEMP_VALID)
+      continue;
+
+    // update the counts/totals
+    difference += climateDays[j].hiTemp - otherYear->climateDays[j].hiTemp;
+    count++;
+   }
+   
+  return difference/count;
+}
+
+
+// =======================================================================================
 /// @brief Count how many days have fully valid info
 /// 
 /// This counts the number of days that have high and low temps and precipitation data.

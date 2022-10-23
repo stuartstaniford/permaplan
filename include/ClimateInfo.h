@@ -86,6 +86,7 @@ class ClimateYear
   // Member functions - public
   ClimateYear(int inYear);
   bool assessValidity(void);
+  bool diffHighTemp(ClimateYear* otherYear, float& difference);
 };
 
 
