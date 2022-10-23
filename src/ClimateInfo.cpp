@@ -89,12 +89,13 @@ bool ClimateYear::assessValidity(void)
 /// @returns true if there is enough data for a comparison, false otherwise.
 /// @parame difference A reference to a float to store the average difference.
 
-bool ClimateYear::diffHighTemp(ClimateYear* otherYear, float& difference)
+bool ClimateYear::diffObservable(ClimateYear* otherYear, float& difference,
+                                                  unsigned andFlagMask, unsigned obsOffset)
 {
   // Go home early unless both years have enough valid data
-  unless(flags & HI_TEMP_VALID)
+  unless(flags & andFlagMask)
     return false;
-  unless(otherYear->flags & HI_TEMP_VALID)
+  unless(otherYear->flags & andFlagMask)
     return false;
 
   // Figure out number of days
@@ -109,14 +110,15 @@ bool ClimateYear::diffHighTemp(ClimateYear* otherYear, float& difference)
    {
     // Validity tests
     unsigned dayFlags = climateDays[j].flags;
-    unless(dayFlags & HI_TEMP_VALID)
+    unless(dayFlags & andFlagMask)
       continue;
     dayFlags = otherYear->climateDays[j].flags;
-    unless(dayFlags & HI_TEMP_VALID)
+    unless(dayFlags & andFlagMask)
       continue;
 
     // update the counts/totals
-    difference += climateDays[j].hiTemp - otherYear->climateDays[j].hiTemp;
+    difference += *((float*)((char*)(climateDays + j) + obsOffset)) -
+                              *((float*)((char*)(otherYear->climateDays + j) + obsOffset));
     count++;
    }
    

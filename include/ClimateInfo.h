@@ -86,7 +86,8 @@ class ClimateYear
   // Member functions - public
   ClimateYear(int inYear);
   bool assessValidity(void);
-  bool diffHighTemp(ClimateYear* otherYear, float& difference);
+  bool diffObservable(ClimateYear* otherYear, float& difference,
+                                                unsigned andFlagMask, unsigned obsOffset);
 };
 
 
