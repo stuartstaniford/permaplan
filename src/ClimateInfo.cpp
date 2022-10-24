@@ -84,10 +84,11 @@ bool ClimateYear::assessValidity(void)
 
 
 // =======================================================================================
-/// @brief Compute the average difference in high temp of this year and another year
+/// @brief Compute the average difference in some observable of two different ClimateInfo
+/// objects (likely associated with two stations).
 ///
 /// @returns true if there is enough data for a comparison, false otherwise.
-/// @param difference A reference to a float to store the average difference.
+/// @param otherInfo A pointer to the other ClimateInfo to compare.
 /// @param years A vector of the years found with valid comparison
 /// @param diffs A vector of the differences matching those years.
 /// @param andFlagMask The quantity to and with the flags to determine if a given year/day

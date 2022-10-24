@@ -211,8 +211,8 @@ bool ClimateDatabase::processStationComparisonRequest(HttpServThread* serv, char
   // Find the relevant stations
   std::vector<GHCNStation*> relevantStations;
   std::vector<unsigned> indices;
-/*  ghcnDatabase->searchStations(latLongYear[0], latLongYear[1],
-                                            relevantStations, indices, andFlagMask, year);*/
+  ghcnDatabase->searchStations(latLong[0], latLong[1], relevantStations, indices,
+                                                          HI_TEMP_VALID|LOW_TEMP_VALID, 0u);
   int N = relevantStations.size();
 
   // Start the table

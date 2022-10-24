@@ -230,12 +230,17 @@ void ResourceManager::checkOneFile(Value& fileObject, int i, char* path, unsigne
   bool success = false;
   int j = 0;
   int N = fileObject["sources"].Size();
+  Timeval start, end;
+  start.now();
   while(!success && j < N)
    {
     success = success || httpClient.fetchFile(fileObject["sources"][j].GetString(), path);
     if(success)
-      LogResourceActions("Obtained file %d from source %d: %s\n", i, j, path);
-
+     {
+      end.now();
+      LogResourceActions("Obtained file %d in %.1f secs from source %d: %s\n",
+                                                                    i, end-start, j, path);
+     }
     j++;
    }
   unless(success)
