@@ -244,7 +244,20 @@ bool ClimateDatabase::processStationComparisonRequest(HttpServThread* serv, char
     httPrintf("<td>%s</td>", relevantStations[i]->name);
   httPrintf("</tr>")
   
-  // Main table of yearly rows
+  // Gather the data for the body of the table.
+  std::vector<int>*  years[N];
+  std::vector<float>*     diffs[N];
+  for(int i=0; i<N; i++)
+   {
+    years[i] = new std::vector<int>;
+    diffs[i] = new std::vector<float>;
+    unless(relevantStations[0]->climate->diffObservable(relevantStations[i]->climate,
+                      *(years[i]), *(diffs[i]), HI_TEMP_VALID, offsetof(ClimateDay, hiTemp)))
+      continue;
+   }
+   
+   
+  // Lay out the main table of yearly rows
   
   // Finish up the table and the page
   httPrintf("</table>")
