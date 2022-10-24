@@ -177,6 +177,53 @@ bool ClimateDatabase::processStationDiagnosticRequest(HttpServThread* serv, char
 
 
 /// =======================================================================================
+/// @brief Beginning of a table of some kind of climate data with station columns.
+///
+/// @returns True if all was well writing to the buffer.  If false, it indicates the
+/// buffer was not big enough and the output will have been truncated/incomplete.
+/// @param serv A pointer to the HttpServThread managing the HTTP response.
+/// @param relevantStations A refence to the vector of GHCNStation* to make columns of.
+/// @param latLong A float* to at least two float values for lat and long.
+
+bool ClimateDatabase::stationTableHeader(HttpServThread* serv, float* latLong,
+                                              std::vector<GHCNStation*>& relevantStations)
+{
+  int N = relevantStations.size();
+  
+  // Start the table
+  unless(serv->startTable((char*)"Stations"))
+    return false;
+  
+  // Header row with station ids
+  httPrintf("<tr><th>Id.</th>");
+  for(int i=0; i<N; i++)
+    httPrintf("<th>%s</th>", relevantStations[i]->id);
+  httPrintf("</tr>");
+
+  // Row of location offset data
+  httPrintf("<tr><td>Offset (deg)</td>")
+  for(int i=0; i<N; i++)
+    httPrintf("<td>%.3f, %.3f</td>", relevantStations[i]->latLong[0] - latLong[0],
+                                          relevantStations[i]->latLong[1] - latLong[1]);
+  httPrintf("</tr>");
+
+  // Row of Elevation Data
+  httPrintf("<tr><td>El. (m)</td>")
+  for(int i=0; i<N; i++)
+    httPrintf("<td>%.0f</td>", relevantStations[i]->elevation);
+  httPrintf("</tr>");
+
+  // Row of station names
+  httPrintf("<tr><td>Name</td>")
+  for(int i=0; i<N; i++)
+    httPrintf("<td>%s</td>", relevantStations[i]->name);
+  httPrintf("</tr>");
+  
+  return true;
+}
+
+
+/// =======================================================================================
 /// @brief Output HTML table of min and max temperatures over the year for different
 /// stations near some location.
 ///
@@ -213,38 +260,13 @@ bool ClimateDatabase::processStationComparisonRequest(HttpServThread* serv, char
   std::vector<unsigned> indices;
   ghcnDatabase->searchStations(latLong[0], latLong[1], relevantStations, indices,
                                                           HI_TEMP_VALID|LOW_TEMP_VALID, 0u);
-  int N = relevantStations.size();
-
-  // Start the table
-  unless(serv->startTable((char*)"Stations"))
+ 
+  // Table header
+  unless(stationTableHeader(serv, latLong, relevantStations))
     return false;
-  
-  // Header row with station ids
-  httPrintf("<tr><th>Id.</th>")
-  for(int i=0; i<N; i++)
-    httPrintf("<th>%s</th>", relevantStations[i]->id);
-  httPrintf("</tr>")
 
-  // Row of location offset data
-  httPrintf("<tr><td>Offset (deg)</td>")
-  for(int i=0; i<N; i++)
-    httPrintf("<td>%.3f, %.3f</td>", relevantStations[i]->latLong[0] - latLong[0],
-                                          relevantStations[i]->latLong[1] - latLong[1]);
-  httPrintf("</tr>")
-
-  // Row of Elevation Data
-  httPrintf("<tr><td>El. (m)</td>")
-  for(int i=0; i<N; i++)
-    httPrintf("<td>%.0f</td>", relevantStations[i]->elevation);
-  httPrintf("</tr>")
-
-  // Row of station names
-  httPrintf("<tr><td>Name</td>")
-  for(int i=0; i<N; i++)
-    httPrintf("<td>%s</td>", relevantStations[i]->name);
-  httPrintf("</tr>")
-  
   // Gather the data for the body of the table.
+  int N = relevantStations.size();
   std::vector<int>*   years[N];
   std::vector<float>* diffs[N];
   
@@ -332,38 +354,13 @@ bool ClimateDatabase::processObservationCurvesRequest(HttpServThread* serv, char
   std::vector<unsigned> indices;
   ghcnDatabase->searchStations(latLongYear[0], latLongYear[1], 
                                             relevantStations, indices, andFlagMask, year);
-  int N = relevantStations.size();
 
-  // Start the table
-  unless(serv->startTable((char*)"Stations"))
+  // Table header
+  unless(stationTableHeader(serv, latLongYear, relevantStations))
     return false;
   
-  // Header row with station ids
-  httPrintf("<tr><th>Id.</th>")
-  for(int i=0; i<N; i++)
-    httPrintf("<th>%s</th>", relevantStations[i]->id);
-  httPrintf("</tr>")
-
-  // Row of location offset data
-  httPrintf("<tr><td>Offset (deg)</td>")
-  for(int i=0; i<N; i++)
-    httPrintf("<td>%.3f, %.3f</td>", relevantStations[i]->latLong[0] - latLongYear[0],
-                                          relevantStations[i]->latLong[1] - latLongYear[1]);
-  httPrintf("</tr>")
-
-  // Row of Elevation Data
-  httPrintf("<tr><td>El. (m)</td>")
-  for(int i=0; i<N; i++)
-    httPrintf("<td>%.0f</td>", relevantStations[i]->elevation);
-  httPrintf("</tr>")
-
-  // Row of station names
-  httPrintf("<tr><td>Name</td>")
-  for(int i=0; i<N; i++)
-    httPrintf("<td>%s</td>", relevantStations[i]->name);
-  httPrintf("</tr>")
-  
   // Main table of the temperature info
+  int N = relevantStations.size();
   int days = DaysInYear(year);
   for(int j=0; j<days; j++)
    {

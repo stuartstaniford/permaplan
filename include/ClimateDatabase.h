@@ -3,11 +3,14 @@
 #ifndef CLIMATE_DATABASE_H
 #define CLIMATE_DATABASE_H
 
+#include <vector>
+
 
 // =======================================================================================
 // Forward declarations
 
 class GHCNDatabase;
+class GHCNStation;
 class HttpServThread;
 
 
@@ -41,6 +44,9 @@ private:
   GHCNDatabase* ghcnDatabase;
   
   // Member functions - private
+  bool stationTableHeader(HttpServThread* serv, float* latLong,
+                                            std::vector<GHCNStation*>& relevantStations);
+
   /// @brief Prevent copy-construction.
   ClimateDatabase(const ClimateDatabase&);       
   /// @brief Prevent assignment.
