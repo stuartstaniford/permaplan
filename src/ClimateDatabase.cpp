@@ -269,7 +269,6 @@ bool ClimateDatabase::processStationComparisonRequest(HttpServThread* serv, char
   int N = relevantStations.size();
   std::vector<int>*   years[N];
   std::vector<float>* diffs[N];
-  
   int yearIndices[N];
   for(int i=0; i<N; i++)
    {
@@ -285,10 +284,21 @@ bool ClimateDatabase::processStationComparisonRequest(HttpServThread* serv, char
   int rows = relevantStations[0]->climate->endYear - relevantStations[0]->climate->startYear;
   for(int j=0; j < rows; j++)
    {
-    httPrintf("<tr><td>%d</td>", j + relevantStations[0]->climate->startYear);
+    int thisYear = j + relevantStations[0]->climate->startYear;
+    httPrintf("<tr><td>%d</td>", thisYear);
     for(int i=0; i<N; i++)
      {
-      httPrintf("<td>%s</td>", relevantStations[i]->name);
+      while((*(years[i]))[yearIndices[i]] < thisYear)
+        yearIndices[i]++;
+      
+      if((*(years[i]))[yearIndices[i]] > thisYear)
+       {
+        httPrintf("<td></td>");
+       }
+      else
+       {
+        httPrintf("<td>%.3f</td>", (*(diffs[i]))[yearIndices[i]]);
+       }
      }
     httPrintf("</tr>");
    }
@@ -300,6 +310,8 @@ bool ClimateDatabase::processStationComparisonRequest(HttpServThread* serv, char
 
   return true;
 }
+
+
 /// =======================================================================================
 /// @brief Output HTML table of available curves of some climate observable near
 /// a location.
