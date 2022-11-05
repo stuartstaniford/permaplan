@@ -41,6 +41,7 @@ class RectExtension
 ///
 /// At the moment, largely has functionality for managing an array of BuildingRects,
 /// and another of RectExtensions.
+/// 
 
 class BuildingAssembly: public VisualObject
 {

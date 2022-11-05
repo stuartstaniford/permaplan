@@ -45,7 +45,7 @@ private:
   
   // Member functions - private
   bool stationTableHeader(HttpServThread* serv, float* latLong,
-                                            std::vector<GHCNStation*>& relevantStations);
+                    std::vector<GHCNStation*>& relevantStations, bool* skipStations = NULL);
 
   /// @brief Prevent copy-construction.
   ClimateDatabase(const ClimateDatabase&);       

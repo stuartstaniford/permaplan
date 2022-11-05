@@ -204,7 +204,7 @@ void ResourceManager::checkFiles(Value& fileList, char* path, unsigned pathlen)
   int N = fileList.Size();
   for(int i=0; i<N; i++)
    {
-    LogResourceDetails("Checking file %d: %s\n", i, path);
+    LogResourceDetails("Checking file %d in path %s\n", i, path);
     checkOneFile(fileList[i], i, path, pathlen);
    }
 }
@@ -215,6 +215,7 @@ void ResourceManager::checkFiles(Value& fileList, char* path, unsigned pathlen)
 /// 
 /// Function that is called by checkFiles above, and serves to handle one specific file
 /// and the various sources it might be obtained from.
+///@todo Should add the ability to refresh the file if it's too stale
 
 void ResourceManager::checkOneFile(Value& fileObject, int i, char* path, unsigned pathlen)
 {
@@ -227,6 +228,15 @@ void ResourceManager::checkOneFile(Value& fileObject, int i, char* path, unsigne
     err(-1, "No file object sources for number %d in %s.\n", i, path);
   strncpy(path + pathlen, fileObject["name"].GetString(), PATH_BUF_SIZE-pathlen-1);
   pathlen += strlen(fileObject["name"].GetString());
+  if(pathlen >= PATH_BUF_SIZE)
+    err(-1, "Path buffer overflow in ResourceManager::checkOneFile for %s.\n", path);
+  
+  if(regularFileExists(path))
+   {
+    LogResourceDetails("Already have file %s\n", path);
+    return;
+   }
+  
   bool success = false;
   int j = 0;
   int N = fileObject["sources"].Size();

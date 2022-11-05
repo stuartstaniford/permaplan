@@ -186,7 +186,7 @@ bool ClimateDatabase::processStationDiagnosticRequest(HttpServThread* serv, char
 /// @param latLong A float* to at least two float values for lat and long.
 
 bool ClimateDatabase::stationTableHeader(HttpServThread* serv, float* latLong,
-                                              std::vector<GHCNStation*>& relevantStations)
+                            std::vector<GHCNStation*>& relevantStations, bool* skipStations)
 {
   int N = relevantStations.size();
   
@@ -197,26 +197,42 @@ bool ClimateDatabase::stationTableHeader(HttpServThread* serv, float* latLong,
   // Header row with station ids
   httPrintf("<tr><th>Id.</th>");
   for(int i=0; i<N; i++)
+   {
+    if(skipStations && skipStations[i])
+      continue;
     httPrintf("<th>%s</th>", relevantStations[i]->id);
+   }
   httPrintf("</tr>");
 
   // Row of location offset data
   httPrintf("<tr><td>Offset (deg)</td>")
   for(int i=0; i<N; i++)
+   {
+    if(skipStations && skipStations[i])
+      continue;
     httPrintf("<td>%.3f, %.3f</td>", relevantStations[i]->latLong[0] - latLong[0],
                                           relevantStations[i]->latLong[1] - latLong[1]);
+   }
   httPrintf("</tr>");
 
   // Row of Elevation Data
   httPrintf("<tr><td>El. (m)</td>")
   for(int i=0; i<N; i++)
+   {
+    if(skipStations && skipStations[i])
+      continue;
     httPrintf("<td>%.0f</td>", relevantStations[i]->elevation);
+   }
   httPrintf("</tr>");
 
   // Row of station names
   httPrintf("<tr><td>Name</td>")
   for(int i=0; i<N; i++)
+   {
+    if(skipStations && skipStations[i])
+      continue;
     httPrintf("<td>%s</td>", relevantStations[i]->name);
+   }
   httPrintf("</tr>");
   
   return true;
@@ -261,25 +277,28 @@ bool ClimateDatabase::processStationComparisonRequest(HttpServThread* serv, char
   ghcnDatabase->searchStations(latLong[0], latLong[1], relevantStations, indices,
                                                           HI_TEMP_VALID|LOW_TEMP_VALID, 0u);
  
-  // Table header
-  unless(stationTableHeader(serv, latLong, relevantStations))
-    return false;
-
-  // Gather the data for the body of the table.
+  // Gather the data for the table.
   int N = relevantStations.size();
   std::vector<int>*   years[N];
   std::vector<float>* diffs[N];
   int yearIndices[N];
+  bool skipStations[N];
   for(int i=0; i<N; i++)
    {
     yearIndices[i] = 0;
     years[i] = new std::vector<int>;
     diffs[i] = new std::vector<float>;
-    unless(relevantStations[0]->climate->diffObservable(relevantStations[i]->climate,
+    if(relevantStations[0]->climate->diffObservable(relevantStations[i]->climate,
                       *(years[i]), *(diffs[i]), HI_TEMP_VALID, offsetof(ClimateDay, hiTemp)))
-      continue;
+      skipStations[i] = false;
+    else
+      skipStations[i] = true;
    }
-      
+  
+  // Table header
+  unless(stationTableHeader(serv, latLong, relevantStations, skipStations))
+    return false;
+
   // Lay out the main table of yearly rows
   int rows = relevantStations[0]->climate->endYear - relevantStations[0]->climate->startYear;
   for(int j=0; j < rows; j++)
@@ -288,6 +307,9 @@ bool ClimateDatabase::processStationComparisonRequest(HttpServThread* serv, char
     httPrintf("<tr><td>%d</td>", thisYear);
     for(int i=0; i<N; i++)
      {
+      if(skipStations[i])
+        continue;
+      fprintf(stderr, "i: %d, Comparing %d to %d.\n", i, (*(years[i]))[yearIndices[i]], thisYear);
       while((*(years[i]))[yearIndices[i]] < thisYear)
         yearIndices[i]++;
       

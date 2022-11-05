@@ -390,10 +390,9 @@ void GHCNDatabase::getStations(float lat, float longT)
 /// @param longT A float containing the longtitude to search for
 /// @param stations A reference to the vector of stations to store stations we found
 /// @param indices A reference to a vector to store indices of the years for each station
-/// @param validFn A pointer to a function which decides whether a given ClimateYear
+/// @param andFlagMask A mask which decides whether a given ClimateYear
 /// matches or not.
-/// @param year A year to search for.  Zero will search for any year.  Specifying a year
-/// here will result in a more efficient search than putting it in the validYear function
+/// @param year A year to search for.  Zero will search for any year.
 /// @todo We are searching on raw lat/long squares here, which will tend to get skeevy
 /// towards the poles - might want to add a cos(lat) factor.
 
@@ -439,6 +438,7 @@ void GHCNDatabase::searchStations(float lat, float longT,
           continue;
         relevantStations.push_back(station);
         indices.push_back(i);
+        break; // don't keep searching this station after we found a good year
        }      
      }
    }
