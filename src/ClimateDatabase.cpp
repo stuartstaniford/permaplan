@@ -256,20 +256,14 @@ bool ClimateDatabase::processStationComparisonRequest(HttpServThread* serv, char
   unless(extractColonVecN(url, 2, latLong))
    {
     LogRequestErrors("Bad station comparison request: stationComp?%s\n", url);
-    return false;
+    return serv->errorPage("Bad request.\n");
    }
   unless(checkLatLong(latLong))
    {
-    LogRequestErrors("Bad lat long to station comparison request: stationComp?%s\n", url);
-    return false;
+    LogRequestErrors("Bad request %s.\n", url);
+    return serv->errorPage("Bad request.\n");
    }
   
-  // Start the HTML page
-  char title[128];
-  snprintf(title, 128, "Comparing min/max temps for stations near %.3f, %.3f",
-                                                                  latLong[0], latLong[1]);
-  unless(serv->startResponsePage(title))
-    return false;
 
   // Find the relevant stations
   std::vector<GHCNStation*> relevantStations;
@@ -283,35 +277,60 @@ bool ClimateDatabase::processStationComparisonRequest(HttpServThread* serv, char
   std::vector<float>* diffs[N];
   int yearIndices[N];
   bool skipStations[N];
+  int base = 0;
   for(int i=0; i<N; i++)
    {
     yearIndices[i] = 0;
     years[i] = new std::vector<int>;
     diffs[i] = new std::vector<float>;
-    LogClimateCompDetails("Comparing %d:%s to %d:%s.\n", 0, relevantStations[0]->id,
-                                                      i, relevantStations[i]->id); 
-    if(relevantStations[0]->climate->diffObservable(relevantStations[i]->climate,
+    if(relevantStations[base]->climate->diffObservable(relevantStations[i]->climate,
                       *(years[i]), *(diffs[i]), HI_TEMP_VALID, offsetof(ClimateDay, hiTemp)))
      {
+      LogClimateCompDetails("False comparison of %d:%s to %d:%s.\n", base, 
+                                    relevantStations[base]->id, i, relevantStations[i]->id); 
       skipStations[i] = false;
+      if(base == i)
+       {
+        base++;
+        LogClimateCompDetails("Incrementing base to %d:%s.\n", 
+                                                          base, relevantStations[base]->id); 
+       }
      }
     else
      {
+      LogClimateCompDetails("True comparison of %d:%s to %d:%s.\n", base, 
+                                    relevantStations[base]->id, i, relevantStations[i]->id); 
       skipStations[i] = true;
      }
    }
   
+  // Figure out if we have a first valid station
+  if(base == N)
+   {
+    LogClimateDbErr("Aborting request for %.3f, %.3f: no valid stations", 
+                                                                  latLong[0], latLong[1]);
+    return serv->errorPage("No valid stations.\n");  
+   }
+  
+  // Start the HTML page
+  char title[128];
+  snprintf(title, 128, "Comparing min/max temps for stations near %.3f, %.3f",
+                                                                  latLong[0], latLong[1]);
+  unless(serv->startResponsePage(title))
+    return false;
+
   // Table header
   unless(stationTableHeader(serv, latLong, relevantStations, skipStations))
     return false;
-
+ 
   // Lay out the main table of yearly rows
-  int rows = relevantStations[0]->climate->endYear - relevantStations[0]->climate->startYear;
+  int rows = relevantStations[base]->climate->endYear - 
+                                                relevantStations[base]->climate->startYear;
   for(int j=0; j < rows; j++)
    {
-    int thisYear = j + relevantStations[0]->climate->startYear;
+    int thisYear = j + relevantStations[base]->climate->startYear;
     httPrintf("<tr><td>%d</td>", thisYear);
-    for(int i=0; i<N; i++)
+    for(int i=base; i<N; i++)
      {
       if(skipStations[i])
         continue;
