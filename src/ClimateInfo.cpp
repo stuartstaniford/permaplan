@@ -8,6 +8,7 @@
 #include "ClimateInfo.h"
 #include "Global.h"
 #include "HttpServThread.h"
+#include "Logging.h"
 #include <assert.h>
 #include <gsl/gsl_sf_bessel.h>
 
@@ -138,6 +139,8 @@ bool ClimateInfo::diffObservable(ClimateInfo* otherInfo, std::vector<int>& years
     // record the fact
     years.push_back(year);
     diffs.push_back(difference);
+    LogClimateCompDetails("Computed diff of %d to %d as %.2f.\n", 
+                    climateYears[i]->year, otherInfo->climateYears[j]->year, difference); 
    }
    
   if(years.size())

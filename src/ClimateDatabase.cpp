@@ -288,11 +288,17 @@ bool ClimateDatabase::processStationComparisonRequest(HttpServThread* serv, char
     yearIndices[i] = 0;
     years[i] = new std::vector<int>;
     diffs[i] = new std::vector<float>;
+    LogClimateCompDetails("Comparing %d:%s to %d:%s.\n", 0, relevantStations[0]->id,
+                                                      i, relevantStations[i]->id); 
     if(relevantStations[0]->climate->diffObservable(relevantStations[i]->climate,
                       *(years[i]), *(diffs[i]), HI_TEMP_VALID, offsetof(ClimateDay, hiTemp)))
+     {
       skipStations[i] = false;
+     }
     else
+     {
       skipStations[i] = true;
+     }
    }
   
   // Table header
@@ -309,7 +315,7 @@ bool ClimateDatabase::processStationComparisonRequest(HttpServThread* serv, char
      {
       if(skipStations[i])
         continue;
-      fprintf(stderr, "j: %d,i: %d, Comparing %d to %d.\n", j, i, 
+      LogClimateCompDetails("j: %d,i: %d, Comparing %d to %d.\n", j, i, 
                                                 (*(years[i]))[yearIndices[i]], thisYear);
       while((*(years[i]))[yearIndices[i]] < thisYear)
         yearIndices[i]++;
