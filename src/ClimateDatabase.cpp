@@ -309,7 +309,8 @@ bool ClimateDatabase::processStationComparisonRequest(HttpServThread* serv, char
      {
       if(skipStations[i])
         continue;
-      fprintf(stderr, "i: %d, Comparing %d to %d.\n", i, (*(years[i]))[yearIndices[i]], thisYear);
+      fprintf(stderr, "j: %d,i: %d, Comparing %d to %d.\n", j, i, 
+                                                (*(years[i]))[yearIndices[i]], thisYear);
       while((*(years[i]))[yearIndices[i]] < thisYear)
         yearIndices[i]++;
       

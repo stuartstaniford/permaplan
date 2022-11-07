@@ -94,6 +94,7 @@
 
 #define LOG_CLIMATE_DB_ERR             // Log problems in the climate database operation
 #define LOG_CLIMATE_DB_OPS             // Log normal operations on the climate database
+#define LOG_CLIMATE_COMP_DETAILS       // Log details of climate station comparisons
 //#define LOG_GHCN_EXHAUSTIVE            // Log minute details of reading the GHCN info
 
 
@@ -294,6 +295,7 @@ extern bool doLogBilFileDetails;      // Log details of reading from a BILFILE
 // Logging options to do with climate data processing
 extern bool doLogClimateDbErr;        // Log problems in the climate database operation
 extern bool doLogClimateDbOps;        // Log normal operations on the climate database
+extern bool doLogClimateCompDetails;  // Log details of climate station comparisons
 extern bool doLogGHCNExhaustive;      // Log minute details of reading the GHCN info
 
 // Logging options for Trees/Plants
@@ -418,6 +420,7 @@ extern bool flushLogBilFileDetails;      // Log details of reading from a BILFIL
 // Logging options to do with climate data processing
 extern bool flushLogClimateDbErr;        // Log problems in the climate database operation
 extern bool flushLogClimateDbOps;        // Log normal operations on the climate database
+extern bool flushLogClimateCompDetails;  // Log details of climate station comparisons
 extern bool flushLogGHCNExhaustive;      // Log minute details of reading the GHCN info
 
 // Logging options for Trees/Plants
@@ -1049,6 +1052,19 @@ extern bool flushLogObjectAltitudes;   // Log finding the altitudes of objects a
 #else
 #define LogClimateDbOps(...)
 #endif
+
+// Log details of climate station comparisons
+#ifdef LOG_CLIMATE_COMP_DETAILS
+#define LogClimateCompDetails(...)   {\
+                              if(doLogClimateCompDetails) \
+                                LogStatement("LogClimateCompDetails: " __VA_ARGS__)\
+                              if(flushLogClimateCompDetails)\
+                                LogFlush();\
+                            }
+#else
+#define LogClimateCompDetails(...)
+#endif
+
 
 // Log minute details of reading the GHCN info
 #ifdef LOG_GHCN_EXHAUSTIVE
