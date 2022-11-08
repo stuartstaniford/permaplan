@@ -256,12 +256,12 @@ bool ClimateDatabase::processStationComparisonRequest(HttpServThread* serv, char
   unless(extractColonVecN(url, 2, latLong))
    {
     LogRequestErrors("Bad station comparison request: stationComp?%s\n", url);
-    return serv->errorPage("Bad request.\n");
+    return serv->errorPage("Bad request");
    }
   unless(checkLatLong(latLong))
    {
     LogRequestErrors("Bad request %s.\n", url);
-    return serv->errorPage("Bad request.\n");
+    return serv->errorPage("Bad request");
    }
   
 
@@ -273,6 +273,7 @@ bool ClimateDatabase::processStationComparisonRequest(HttpServThread* serv, char
  
   // Gather the data for the table.
   int N = relevantStations.size();
+  LogClimateCompDetails("Comparing %d stations.\n", N); 
   std::vector<int>*   years[N];
   std::vector<float>* diffs[N];
   int yearIndices[N];
@@ -283,33 +284,38 @@ bool ClimateDatabase::processStationComparisonRequest(HttpServThread* serv, char
     yearIndices[i] = 0;
     years[i] = new std::vector<int>;
     diffs[i] = new std::vector<float>;
-    if(relevantStations[base]->climate->diffObservable(relevantStations[i]->climate,
+    LogClimateCompDetails("About to compare %d:%s to %d:%s.\n", base,             
+                                    relevantStations[base]->id, i, relevantStations[i]->id);
+   if(relevantStations[base]->climate->diffObservable(relevantStations[i]->climate,
                       *(years[i]), *(diffs[i]), HI_TEMP_VALID, offsetof(ClimateDay, hiTemp)))
      {
-      LogClimateCompDetails("False comparison of %d:%s to %d:%s.\n", base, 
+      LogClimateCompDetails("Valid comparison of %d:%s to %d:%s.\n", base, 
                                     relevantStations[base]->id, i, relevantStations[i]->id); 
       skipStations[i] = false;
-      if(base == i)
-       {
-        base++;
-        LogClimateCompDetails("Incrementing base to %d:%s.\n", 
-                                                          base, relevantStations[base]->id); 
-       }
      }
     else
      {
-      LogClimateCompDetails("True comparison of %d:%s to %d:%s.\n", base, 
+      LogClimateCompDetails("Failed comparison of %d:%s to %d:%s.\n", base, 
                                     relevantStations[base]->id, i, relevantStations[i]->id); 
       skipStations[i] = true;
+      if(base == i)
+       {
+        base++;
+        if(base < N)
+         {
+          LogClimateCompDetails("Incrementing base to %d:%s.\n", 
+                                                          base, relevantStations[base]->id); 
+         }
+       }
      }
    }
   
   // Figure out if we have a first valid station
   if(base == N)
    {
-    LogClimateDbErr("Aborting request for %.3f, %.3f: no valid stations", 
+    LogClimateDbErr("Aborting request for %.3f, %.3f: no valid stations.\n", 
                                                                   latLong[0], latLong[1]);
-    return serv->errorPage("No valid stations.\n");  
+    return serv->errorPage("No valid stations");  
    }
   
   // Start the HTML page

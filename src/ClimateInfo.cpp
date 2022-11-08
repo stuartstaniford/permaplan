@@ -106,34 +106,59 @@ bool ClimateInfo::diffObservable(ClimateInfo* otherInfo, std::vector<int>& years
   
   // loop over the years in this ClimateInfo
   int j = 0;
+  LogClimateCompDetails("Years here: %d, years over there: %d.\n",  nYears, 
+                                                                      otherInfo->nYears);
   for(int i=0; i<nYears; i++)
    {
     // Make sure this year is valid for us
     unless(climateYears[i]->flags & andFlagMask)
+     {
+      LogClimateCompDetails("Skipping index:year %d:%d due to flag %X.\n", 
+                                        i,  climateYears[i]->year, climateYears[i]->flags);
       continue;
+     }
     int year = climateYears[i]->year;
-    
+    LogClimateCompDetails("Working on index:year %d:%d with flag %X.\n", 
+                                      i,  climateYears[i]->year, climateYears[i]->flags);
+
     // Try to find a matching year on the other side
     while(j < otherInfo->nYears && otherInfo->climateYears[j]->year < year)
       j++;
      
     // End the search if we've run out of years on the other side
     if(j == otherInfo->nYears)
+     {
+      LogClimateCompDetails("Out of other years at index:year %d:%d.\n", 
+                                                              i,  climateYears[i]->year);
       break;
-      
+     }
+    
     // Skip this year if the other side doesn't have a matching year
     if(otherInfo->climateYears[j]->year > year)
+     {
+      LogClimateCompDetails("Can't find matching year for index:year %d:%d.\n", 
+                                                              i,  climateYears[i]->year);
       continue;
+     }
       
     // Skip this year if the other side's year is not valid for our purposes
     unless(otherInfo->climateYears[j]->flags & andFlagMask)
+     {
+      LogClimateCompDetails("Comparison for index:year %d:%d with %d:%d other not "
+                  "valid: %X.\n", i,  climateYears[i]->year, j,
+                  otherInfo->climateYears[j]->year, otherInfo->climateYears[j]->flags);
       continue;
+     }
    
     //compute the difference
     float difference;
     unless(climateYears[i]->diffObservable(otherInfo->climateYears[j], difference,
                                                                   andFlagMask, obsOffset))
+     {
+      LogClimateCompDetails("Got false comparing index:year %d:%d with %d:%d.\n", i,        
+                                climateYears[i]->year, j, otherInfo->climateYears[j]->year);
       continue;
+     }
     
     // if we get here, we have two matching valid years, and a valid comparison, so
     // record the fact
@@ -193,7 +218,8 @@ bool ClimateYear::diffObservable(ClimateYear* otherYear, float& difference,
     count++;
    }
    
-  return difference/count;
+  difference /= count;
+  return true;
 }
 
 
