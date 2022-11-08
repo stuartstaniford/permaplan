@@ -612,19 +612,37 @@ bool GHCNDatabase::readCSVLine(char* buf, GHCNStation* station, char* fileName, 
     climDay->hiTemp = observation/10.0f;
     if(tempInRange(climDay->hiTemp))
       climDay->flags |= HI_TEMP_VALID;
+    else
+     {
+      LogClimateOutliers("Ignoring invalid daily high temp observation"
+                         " of %.2f in year %d, yearDay %d.\n",
+                           climDay->hiTemp, year, yearDay);
+     }
    }  
   else if(strcmp(buf + 21, "TMIN") == 0)
    {
     climDay->lowTemp = observation/10.0f;
     if(tempInRange(climDay->lowTemp))
       climDay->flags |= LOW_TEMP_VALID;
+    else
+     {
+      LogClimateOutliers("Ignoring invalid daily low temp observation"
+                         " of %.2f in year %d, yearDay %d.\n",
+                           climDay->lowTemp, year, yearDay);
+     }
    }  
   else if(strcmp(buf + 21, "PRCP") == 0)
    {
     climDay->precip = observation/10.0f;
     if(precipInRange(climDay->precip))
       climDay->flags |= PRECIP_VALID;
-   }  
+    else
+     {
+      LogClimateOutliers("Ignoring invalid precipitation observation"
+                         " of %.2f in year %d, yearDay %d.\n",
+                           climDay->precip, year, yearDay);
+     }
+  }  
   else if(strcmp(buf + 21, "SNOW") == 0)
    {
     ;
