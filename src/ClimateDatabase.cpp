@@ -284,9 +284,21 @@ bool ClimateDatabase::processStationComparisonRequest(HttpServThread* serv, char
     yearIndices[i] = 0;
     years[i] = new std::vector<int>;
     diffs[i] = new std::vector<float>;
+    if(base == i)
+     {
+      ClimateInfo* info = relevantStations[base]->climate;
+      if(info->nYears < info->endYear - info->startYear)
+       {
+        LogClimateCompDetails("Ignoring base %d:%s as only %d/%d years.\n", base, 
+                  relevantStations[base]->id, info->nYears, info->endYear - info->startYear); 
+        skipStations[base] = true;
+        base++;
+        continue;
+       }
+     }
     LogClimateCompDetails("About to compare %d:%s to %d:%s.\n", base,             
                                     relevantStations[base]->id, i, relevantStations[i]->id);
-   if(relevantStations[base]->climate->diffObservable(relevantStations[i]->climate,
+    if(relevantStations[base]->climate->diffObservable(relevantStations[i]->climate,
                       *(years[i]), *(diffs[i]), HI_TEMP_VALID, offsetof(ClimateDay, hiTemp)))
      {
       LogClimateCompDetails("Valid comparison of %d:%s to %d:%s.\n", base, 
