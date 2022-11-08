@@ -44,7 +44,7 @@ ClimateInfo::~ClimateInfo(void)
 
 ClimateYear::ClimateYear(int inYear):year(inYear), flags(0u)
 {
-  
+  bzero(climateDays, 366*sizeof(ClimateDay));
 }
 
 
