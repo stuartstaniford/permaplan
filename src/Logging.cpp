@@ -76,6 +76,7 @@ bool doLogBilFileDetails      = true; // Log details of reading from a BILFILE
 // Logging options to do with climate data processing
 bool doLogClimateDbErr        = true; // Log problems in the climate database operation
 bool doLogClimateDbOps        = true; // Log normal operations on the climate database
+bool doLogClimateOutliers     = true; // Log climate observation outlier exclusion
 bool doLogClimateCompDetails  = true; // Log details of climate station comparisons
 bool doLogGHCNExhaustive      = true; // Log minute details of reading the GHCN info
 
@@ -202,6 +203,7 @@ bool flushLogBilFileDetails      = false; // Log details of reading from a BILFI
 // Logging options to do with climate data processing
 bool flushLogClimateDbErr        = true;  // Log problems in the climate database operation
 bool flushLogClimateDbOps        = true;  // Log normal operations on the climate database
+bool flushLogClimateOutliers     = false; // Log climate observation outlier exclusion
 bool flushLogClimateCompDetails  = false; // Log details of climate station comparisons
 bool flushLogGHCNExhaustive      = false; // Log minute details of reading the GHCN info
 
@@ -585,6 +587,11 @@ bool LogControlHTML(HttpDebug* serv, char* path)
 #ifdef LOG_CLIMATE_DB_OPS // Log normal operations on the climate database
   if(strncmp(path, "doLogClimateDbOps", sizeof("doLogClimateDbOps")-1)==0)
     return oneLogControl(serv, path, doLogClimateDbOps);
+#endif
+
+#ifdef LOG_CLIMATE_OUTLIERS // Log climate observation outlier exclusion
+  if(strncmp(path, "doLogClimateOutliers", sizeof("doLogClimateOutliers")-1)==0)
+    return oneLogControl(serv, path, doLogClimateOutliers);
 #endif
 
 #ifdef LOG_CLIMATE_COMP_DETAILS // Log details of climate station comparisons
