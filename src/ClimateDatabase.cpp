@@ -348,7 +348,7 @@ bool ClimateDatabase::processStationComparisonRequest(HttpServThread* serv, char
     for(int j=0; j<M; j++)
      {
       counts[i]++;
-      totals[i] += (*(diffs[i]))[j];
+      totals[i] += -(*(diffs[i]))[j];
      }
    }
   
@@ -385,7 +385,7 @@ bool ClimateDatabase::processStationComparisonRequest(HttpServThread* serv, char
        }
       else
        {
-        httPrintf("<td>%.3f</td>", (*(diffs[i]))[yearIndices[i]]);
+        httPrintf("<td>%.3f</td>", -(*(diffs[i]))[yearIndices[i]]);
        }
      }
     httPrintf("</tr>");
