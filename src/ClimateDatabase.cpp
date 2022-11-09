@@ -335,6 +335,23 @@ bool ClimateDatabase::processStationComparisonRequest(HttpServThread* serv, char
      }
    }
   
+  // Compute the average differences
+  float totals[N];
+  int counts[N];
+  for(int i=0; i<N; i++)
+   {
+    if(skipStations[i])
+      continue;
+    counts[i] = 0;
+    totals[i] = 0.0f;
+    int M = diffs[i]->size();
+    for(int j=0; j<M; j++)
+     {
+      counts[i]++;
+      totals[i] += (*(diffs[i]))[j];
+     }
+   }
+  
   // Start the HTML page
   char title[128];
   snprintf(title, 128, "Comparing max temps for stations near %.3f, %.3f",
@@ -374,6 +391,16 @@ bool ClimateDatabase::processStationComparisonRequest(HttpServThread* serv, char
     httPrintf("</tr>");
    }
   
+  // Row of averages
+  httPrintf("<tr><td><b>Averages</b></td>")
+  for(int i=0; i<N; i++)
+   {
+    if(skipStations[i])
+      continue;
+    httPrintf("<td>%.3f</td>", totals[i]/counts[i]);
+   }
+  httPrintf("</tr>");
+
   // Finish up the table and the page
   httPrintf("</table>")
   unless(serv->endResponsePage())
