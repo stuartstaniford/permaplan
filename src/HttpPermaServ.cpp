@@ -96,9 +96,14 @@ bool HttpPermaServ::indexPage(void)
                  "tMinYear?lat:long:year:</a></td>");
   internalPrintf("<td>Available min temperature curves for year near location.</td></tr>\n");
 
-  // Station comparison near a particular point
-  internalPrintf("<tr><td><a href=\"/stationComp?42.421:-76.347:\">"
-                 "stationComp?lat:long:</a></td>");
+  // Station comparison for daily highs near a particular point
+  internalPrintf("<tr><td><a href=\"/stationCompHigh?42.421:-76.347:\">"
+                 "stationCompHigh?lat:long:</a></td>");
+  internalPrintf("<td>Compare stations near location.</td></tr>\n");
+
+  // Station comparison for daily lows near a particular point
+  internalPrintf("<tr><td><a href=\"/stationCompLow?42.421:-76.347:\">"
+                 "stationCompLow?lat:long:</a></td>");
   internalPrintf("<td>Compare stations near location.</td></tr>\n");
 
   // End table and page
@@ -380,13 +385,21 @@ bool HttpPermaServ::processRequestHeader(void)
     retVal = processSoilRequest(url+6);
    }
 
+  // stationCompHigh
+  else if( strlenUrl >= 27 && strncmp(url, "/stationCompHigh?", 17) == 0)
+   {
+    LogPermaservOpDetails("Processing station high temp comparison query for %s.\n", url+17);
+    retVal = climateDatabase->processStationComparisonRequest(this, url+17, 
+                        (char*)"stationCompHigh", HI_TEMP_VALID, offsetof(ClimateDay, hiTemp));
+   }
 
- // stationComp
- else if( strlenUrl >= 23 && strncmp(url, "/stationComp?", 13) == 0)
-  {
-   LogPermaservOpDetails("Processing station comparision query for %s.\n", url+13);
-   retVal = climateDatabase->processStationComparisonRequest(this, url+13);
-  }
+  // stationCompLow
+  else if( strlenUrl >= 26 && strncmp(url, "/stationCompLow?", 16) == 0)
+   {
+    LogPermaservOpDetails("Processing station low temp comparison query for %s.\n", url+16);
+    retVal = climateDatabase->processStationComparisonRequest(this, url+16,
+                        (char*)"stationCompLow", LOW_TEMP_VALID, offsetof(ClimateDay, lowTemp));
+   }
 
  // tMinYear
  else if( strlenUrl >= 20 && strncmp(url, "/tMinYear?", 10) == 0)

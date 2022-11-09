@@ -258,26 +258,26 @@ bool ClimateDatabase::stationTableHeader(HttpServThread* serv, float* latLong,
 /// @param url A string hopefully indicating the latitude, longtitude, and year.  At
 /// this point in processing, it could be hostile.
 
-bool ClimateDatabase::processStationComparisonRequest(HttpServThread* serv, char* url)
+bool ClimateDatabase::processStationComparisonRequest(HttpServThread* serv, char* url,
+                                        char* urlStub, unsigned andMask, unsigned offset)
 {
   // Process the URL and extract and check parameters
   float latLong[2]; // (lat, long)
   unless(extractColonVecN(url, 2, latLong))
    {
-    LogRequestErrors("Bad station comparison request: stationComp?%s\n", url);
+    LogRequestErrors("Bad station comparison request: %s?%s\n", urlStub, url);
     return serv->errorPage("Bad request");
    }
   unless(checkLatLong(latLong))
    {
-    LogRequestErrors("Bad request %s.\n", url);
+    LogRequestErrors("Bad lat/long in request %s?%s\n", urlStub, url);
     return serv->errorPage("Bad request");
    }
   
   // Find the relevant stations
   std::vector<GHCNStation*> relevantStations;
   std::vector<unsigned> indices;
-  ghcnDatabase->searchStations(latLong[0], latLong[1], relevantStations, indices,
-                                                          HI_TEMP_VALID|LOW_TEMP_VALID, 0u);
+  ghcnDatabase->searchStations(latLong[0], latLong[1], relevantStations, indices, andMask, 0u);
  
   // Find the best base year
   int   N                   = relevantStations.size();
@@ -330,7 +330,7 @@ bool ClimateDatabase::processStationComparisonRequest(HttpServThread* serv, char
     LogClimateCompDetails("About to compare %d:%s to %d:%s.\n", base,             
                                     relevantStations[base]->id, i, relevantStations[i]->id);
     if(relevantStations[base]->climate->diffObservable(relevantStations[i]->climate,
-                      *(years[i]), *(diffs[i]), HI_TEMP_VALID, offsetof(ClimateDay, hiTemp))
+                      *(years[i]), *(diffs[i]), andMask, offset)
        && diffs[i]->size() > 5)
      {
       LogClimateCompDetails("Valid comparison of %d:%s to %d:%s.\n", base, 
@@ -364,8 +364,8 @@ bool ClimateDatabase::processStationComparisonRequest(HttpServThread* serv, char
   
   // Start the HTML page
   char title[128];
-  snprintf(title, 128, "Comparing max temps for stations near %.3f, %.3f",
-                                                                  latLong[0], latLong[1]);
+  snprintf(title, 128, "Comparing temps %s for stations near %.3f, %.3f",
+                                                      urlStub, latLong[0], latLong[1]);
   unless(serv->startResponsePage(title))
     return false;
 
