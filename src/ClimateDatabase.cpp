@@ -204,14 +204,23 @@ bool ClimateDatabase::stationTableHeader(HttpServThread* serv, float* latLong,
    }
   httPrintf("</tr>");
 
-  // Row of location offset data
-  httPrintf("<tr><td>Offset (deg)</td>")
+  // Row of latitude offset data
+  httPrintf("<tr><td>Lat Offset (deg)</td>")
   for(int i=0; i<N; i++)
    {
     if(skipStations && skipStations[i])
       continue;
-    httPrintf("<td>%.3f, %.3f</td>", relevantStations[i]->latLong[0] - latLong[0],
-                                          relevantStations[i]->latLong[1] - latLong[1]);
+    httPrintf("<td>%.3f</td>", relevantStations[i]->latLong[0] - latLong[0]);
+   }
+  httPrintf("</tr>");
+
+  // Row of longtitude offset data
+  httPrintf("<tr><td>Long. Offset (deg)</td>")
+  for(int i=0; i<N; i++)
+   {
+    if(skipStations && skipStations[i])
+      continue;
+    httPrintf("<td>%.3f</td>", relevantStations[i]->latLong[1] - latLong[1]);
    }
   httPrintf("</tr>");
 
@@ -321,7 +330,8 @@ bool ClimateDatabase::processStationComparisonRequest(HttpServThread* serv, char
     LogClimateCompDetails("About to compare %d:%s to %d:%s.\n", base,             
                                     relevantStations[base]->id, i, relevantStations[i]->id);
     if(relevantStations[base]->climate->diffObservable(relevantStations[i]->climate,
-                      *(years[i]), *(diffs[i]), HI_TEMP_VALID, offsetof(ClimateDay, hiTemp)))
+                      *(years[i]), *(diffs[i]), HI_TEMP_VALID, offsetof(ClimateDay, hiTemp))
+       && diffs[i]->size() > 5)
      {
       LogClimateCompDetails("Valid comparison of %d:%s to %d:%s.\n", base, 
                                     relevantStations[base]->id, i, relevantStations[i]->id); 
