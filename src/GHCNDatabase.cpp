@@ -350,14 +350,16 @@ bool searchCallback(GHCNStation* station, void* context)
 ///
 /// @param lat A float containing the latitude to search for
 /// @param longT A float containing the longtitude to search for
+/// @param hitGoal An integer minimum number of results to return.  Will search wider 
+/// until obtained.
 /// @todo We are searching on raw lat/long squares here, which will tend to get skeevy
 /// towards the poles - might want to add a cos(lat) factor.
 /// @todo We currently just take the first result, rather than examining results for 
 /// altitude etc.
 
-void GHCNDatabase::getStations(float lat, float longT)
+void GHCNDatabase::getStations(float lat, float longT, int hitGoal)
 {
-  float searchBound = 0.5f;  // half the side of the search rectangle in degrees.
+  float searchBound = 0.25f;  // half the side of the search rectangle in degrees.
   float searchMin[2];
   float searchMax[2];
   
@@ -373,12 +375,12 @@ void GHCNDatabase::getStations(float lat, float longT)
     int hits = stationTree.Search(searchMin, searchMax, searchCallback, this);
     LogClimateDbOps("Got %d results in search with %.4f degrees of [%.4f, %.4f].\n",
                       hits, searchBound, lat, longT);
-    if(hits > 2)
+    if(hits >= hitGoal)
      {
       break; // temp
      }
     else
-      searchBound *= 1.4142f;
+      searchBound *= 1.2;
    }
 }
 
@@ -390,6 +392,8 @@ void GHCNDatabase::getStations(float lat, float longT)
 /// @param longT A float containing the longtitude to search for
 /// @param stations A reference to the vector of stations to store stations we found
 /// @param indices A reference to a vector to store indices of the years for each station
+/// @param hitGoal An integer minimum number of results to return.  Will search wider 
+/// until obtained.
 /// @param andFlagMask A mask which decides whether a given ClimateYear
 /// matches or not.
 /// @param year A year to search for.  Zero will search for any year.
@@ -398,11 +402,11 @@ void GHCNDatabase::getStations(float lat, float longT)
 
 void GHCNDatabase::searchStations(float lat, float longT, 
                                       std::vector<GHCNStation*>& relevantStations,
-                                      std::vector<unsigned>& indices, unsigned andFlagMask,
-                                      unsigned year)
+                                      std::vector<unsigned>& indices, int hitGoal,
+                                      unsigned andFlagMask, unsigned year)
 {
   // Find close by stations
-  getStations(lat, longT);
+  getStations(lat, longT, hitGoal);
   int N = stationResults.size();
 
   for(int s=0; s<N; s++)

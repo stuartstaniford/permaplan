@@ -33,6 +33,7 @@ class ClimateDatabase;
 #define MIN_PRECIP  0.0f
 #define MAX_PRECIP  3000.0f
 
+
 // =======================================================================================
 // Flags for storage in a ClimateDay structure.
 
