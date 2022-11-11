@@ -82,8 +82,8 @@ private:
                         unsigned year = 0u);
   int readOneCSVFile(GHCNStation* station);
   bool readCSVLine(char* buf, GHCNStation* station, char* fileName, int line);
-  bool checkCSVFile(GHCNStation* station);
-  bool checkUpdateFile(char* fileName, char* url, float maxAge);
+  bool checkOrFetchCSVFile(GHCNStation* station, float pause = -1.0f);
+  bool checkUpdateFile(char* fileName, char* url, float maxAge, float pause = -1.0f);
   bool snprintCSVFileName(char* fileName, int len, GHCNStation* station);
 
   /// @brief Prevent copy-construction.

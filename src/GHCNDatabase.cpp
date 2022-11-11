@@ -45,13 +45,18 @@ GHCNDatabase::~GHCNDatabase(void)
 ///
 /// @returns True if the file is now ok, false if it's missing or old
 /// @param fileName - Char* pointer to the fileName
-/// @param 
+/// @param url Char* pointer to the url from which to download the file
+/// @param maxAge A float of the maximum age allowed in days before the file will be
+/// refreshed.
+/// @param pause An optional float parameter of a number of seconds to wait after the 
+/// download (if any) to provide basic rate limiting.  A negative value, or a not-supplied
+/// value, will result in no pause.
 /// @todo This should probably be consolidated into the ResourceManager and done on a 
 /// queue.
 /// @todo This should download to a temporary filename and then swap only when the download
 /// is done.
 
-bool GHCNDatabase::checkUpdateFile(char* fileName, char* url, float maxAge)
+bool GHCNDatabase::checkUpdateFile(char* fileName, char* url, float maxAge, float pause)
 {
   float fileAge = getFileAge(fileName);
   if(fileAge < -0.0f || fileAge > maxAge)
@@ -68,6 +73,8 @@ bool GHCNDatabase::checkUpdateFile(char* fileName, char* url, float maxAge)
       LogClimateDbErr("Could not refresh file %s from %s.\n", fileName, url);
       return false;
      }
+    if(pause > 0.0f)
+      usleep((pause*1000000.0f));
    } 
   else
     LogGHCNExhaustive("File %s is still valid after %.2f days\n", fileName, 
@@ -353,10 +360,9 @@ void GHCNDatabase::loadAll(float spacing)
     GHCNStation* station = iter.second;
     unless(station->climate)
      {
-      checkCSVFile(station);
+      checkOrFetchCSVFile(station, spacing);
       readOneCSVFile(station);
      }
-    usleep((unsigned)(spacing*1000000.0f));
    }
 }
 
@@ -442,7 +448,7 @@ void GHCNDatabase::searchStations(float lat, float longT,
     /// @todo We need a mechanism to mark and avoid known useless stations
     unless(station->climate)
      {
-      checkCSVFile(station);
+      checkOrFetchCSVFile(station);
       readOneCSVFile(station);
      }
     ClimateInfo* clim = station->climate;
@@ -504,7 +510,7 @@ bool GHCNDatabase::snprintCSVFileName(char* fileName, int len, GHCNStation* stat
 
 #define MAX_CSV_FILE_AGE  5184000.0f   // 60*24*3600
 
-bool GHCNDatabase::checkCSVFile(GHCNStation* station)
+bool GHCNDatabase::checkOrFetchCSVFile(GHCNStation* station, float pause)
 {    
   char fileName[128];
   unless(snprintCSVFileName(fileName, 128, station))
@@ -518,7 +524,7 @@ bool GHCNDatabase::checkCSVFile(GHCNStation* station)
     return false;
    };
 
-  return checkUpdateFile(fileName, url, MAX_CSV_FILE_AGE);  
+  return checkUpdateFile(fileName, url, MAX_CSV_FILE_AGE, pause);  
 }
 
 

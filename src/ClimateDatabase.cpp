@@ -69,7 +69,7 @@ unsigned ClimateDatabase::printClimateJson(char* buf, unsigned bufSize,
     GHCNStation* station = ghcnDatabase->stationResults[i];
     unless(station->climate)
      {
-      ghcnDatabase->checkCSVFile(station);
+      ghcnDatabase->checkOrFetchCSVFile(station);
       ghcnDatabase->readOneCSVFile(station);
      }
     // lame temp hack
@@ -111,7 +111,7 @@ bool ClimateDatabase::printStationDiagnosticTable(HttpServThread* serv,
     GHCNStation* station = ghcnDatabase->stationResults[i];
     unless(station->climate)
      {
-      ghcnDatabase->checkCSVFile(station);
+      ghcnDatabase->checkOrFetchCSVFile(station);
       ghcnDatabase->readOneCSVFile(station);
      }
     unsigned total, valid;
