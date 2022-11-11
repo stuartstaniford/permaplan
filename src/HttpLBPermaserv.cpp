@@ -15,14 +15,23 @@
 // =======================================================================================
 /// @brief Constructor
 
-HttpLBPermaserv::HttpLBPermaserv(unsigned short servPort, time_t compTime, 
-                                                              unsigned initFlags):
-                                          HttpLoadBalancer(servPort),
-                                          compileTime(compTime),
-                                          flags(initFlags)
+PermaservParams::PermaservParams(unsigned short port, unsigned flagsIn, float spacing):
+                                            flags(flagsIn),
+                                            climateFileSpacing(spacing),
+                                            servPort(port)
+{
+  
+}
+
+// =======================================================================================
+/// @brief Constructor
+
+HttpLBPermaserv::HttpLBPermaserv(PermaservParams& permaservParams):
+                                          HttpLoadBalancer(permaservParams.servPort),
+                                          params(permaservParams)
 {
   // Set up our component database objects
-  if(flags & PERMASERV_NO_SOLAR)
+  if(params.flags & PERMASERV_NO_SOLAR)
    {
     solarDatabase = NULL;
     LogPermaservOps("Initializing without solar database.\n");

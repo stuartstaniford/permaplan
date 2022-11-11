@@ -10,6 +10,7 @@
 #include "Global.h"
 #include <cstdio>
 #include <stdexcept>
+#include <stdlib.h>
 #include <pthread.h>
 #include <err.h>
 #include <unistd.h>
@@ -20,8 +21,7 @@
 // =======================================================================================
 // Global variables
 
-unsigned short  servPort        = 2090u;
-unsigned        permaservFlags  = 0u;
+PermaservParams permaservParams(2090u, 0u, -1.0f);
 
 
 // =======================================================================================
@@ -41,6 +41,7 @@ void printUsage(int argc, char* argv[])
 {
   printf("\nUsage:\n\n%s [options]\n\nOptions:\n\n", argv[0]);
   
+  printf("\t-c T\tGet all GHCN climate files with T secs spacing.\n");
   printf("\t-h\tPrint this message.\n");
   printf("\t-p P\tRun server on port P.\n");
   printf("\t-s\tRun server with no solar database.\n");
@@ -60,26 +61,33 @@ void processCommandLine(int argc, char* argv[])
 {  
   int optionChar;
 
-  while( (optionChar = getopt(argc, argv, "hp:s")) != -1)
+  while( (optionChar = getopt(argc, argv, "c:hp:s")) != -1)
     switch (optionChar)
      {
+       case 'c':
+        permaservParams.climateFileSpacing = atof(optarg);
+        permaservParams.flags |= PERMASERV_CLIMATE_FILES;
+         if(permaservParams.climateFileSpacing < 0.0f)
+           err(-1, "Bad climate file spacing via -c: %s\n", optarg);
+         break;
+
        case 'h':
          printUsage(argc, argv);
          exit(0);
       
        case 'p':
-         servPort = atoi(optarg);
-         if(!servPort)
+         permaservParams.servPort = atoi(optarg);
+         if(!permaservParams.servPort)
            err(-1, "Bad port number via -p: %s\n", optarg);
          break;
 
        case 's':
-         permaservFlags |= PERMASERV_NO_SOLAR;
+         permaservParams.flags |= PERMASERV_NO_SOLAR;
          break;
 
        default:
-        printUsage(argc, argv);
-        exit(0);
+         printUsage(argc, argv);
+         exit(0);
       }
 }
 
@@ -106,7 +114,7 @@ void recordPort(void)
   FILE* portFile = fopen("permaserv-port.txt", "w");
   unless(portFile)
     err(-1, "Couldn't open permaserv-port.txt to write port number.\n");
-  fprintf(portFile, "%d\n", servPort);
+  fprintf(portFile, "%d\n", permaservParams.servPort);
   fclose(portFile);
 }
 
@@ -122,12 +130,12 @@ int main (int argc, char* argv[])
   // Startup tasks
   initGlobals();
   processCommandLine(argc, argv);
-  time_t compileTime = getCompileTime(argv[0]);
+  permaservParams.compileTime = getCompileTime(argv[0]);
   recordPort();
   ResourceManager resources((char*)"maniserv.json");
   
   // Start up the debugging http server
-  HttpLBPermaserv httpServer(servPort, compileTime, permaservFlags);
+  HttpLBPermaserv httpServer(permaservParams);
   int             pthreadErr;
   pthread_t       httpThread;
   if((pthreadErr = pthread_create(&httpThread, NULL, callProcessConn, &httpServer)) != 0)

@@ -351,7 +351,7 @@ bool HttpPermaServ::processRequestHeader(void)
   else if( strlenUrl == 13 && strncmp(url, "/compileTime/", 13) == 0)
    {
     LogPermaservOpDetails("Processing compileTime request.\n");
-    internalPrintf("compileTime: %ld\n", ((HttpLBPermaserv*)parentLB)->compileTime);
+    internalPrintf("compileTime: %ld\n", ((HttpLBPermaserv*)parentLB)->params.compileTime);
     retVal = true;
    }
 

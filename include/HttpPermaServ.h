@@ -5,7 +5,6 @@
 
 #include "HttpServThread.h"
 
-// Flags which influence the operation of permaserv
 
 // =======================================================================================
 // Forward declarations

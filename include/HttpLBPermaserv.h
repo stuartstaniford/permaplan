@@ -6,6 +6,11 @@
 #include "HttpLoadBalancer.h"
 #include <time.h>
 
+// Flags which influence the operation of permaserv
+
+#define PERMASERV_NO_SOLAR      0x00000001
+#define PERMASERV_CLIMATE_FILES 0x00000002
+
 
 // =======================================================================================
 // Forward declarations
@@ -15,7 +20,23 @@ class SoilDatabase;
 class ClimateDatabase;
 class HttpPermaServ;
 
-#define PERMASERV_NO_SOLAR 0x00000001
+
+// =======================================================================================
+/// @brief A mostly-POD class used to keep track of all parameters that affect permaserv
+/// operations.
+
+class PermaservParams
+{
+  public:
+  
+  time_t          compileTime;
+  unsigned        flags;
+  float           climateFileSpacing;
+  unsigned short  servPort;
+
+  PermaservParams(unsigned short port, unsigned flagsIn, float spacing);
+};
+
 
 // =======================================================================================
 /// @brief A subclass of HttpLoadBalancer that is used in permaserv processing
@@ -33,7 +54,7 @@ public:
   // Instance variables - public
   
   // Member functions - public
-  HttpLBPermaserv(unsigned short servPort, time_t compTime, unsigned initFlags);
+  HttpLBPermaserv(PermaservParams& permaservParams);
   ~HttpLBPermaserv(void);
   
 private:
@@ -42,8 +63,7 @@ private:
   SolarDatabase*    solarDatabase;
   SoilDatabase*     soilDatabase;
   ClimateDatabase*  climateDatabase;
-  time_t            compileTime;
-  unsigned          flags;
+  PermaservParams&  params;
   
   // Member functions - private
   /// @brief Prevent copy-construction.
