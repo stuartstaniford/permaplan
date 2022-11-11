@@ -338,6 +338,24 @@ void GHCNDatabase::readStations(void)
 
 
 // =======================================================================================
+/// @brief Function to load all datafiles into memory (called on startup), fetching
+/// them if necessary.  
+/// 
+/// This shouldn't usually be done, but is the guts of the -c option to permaserv.
+/// @param spacing.  A float value for how many seconds to pause between each file (to
+/// rate limit our impact on the GHCN website).
+
+void GHCNDatabase::loadAll(float spacing)
+{
+  for (auto iter : stationsByName)
+   {
+    LogClimateDbOps("Checking file %s.\n", iter.first.c_str());
+    usleep(spacing*1000);
+   }
+}
+
+
+// =======================================================================================
 /// @brief Callback for use in R-tree search in GHCNDatabase::getStations.
 
 bool searchCallback(GHCNStation* station, void* context)

@@ -20,9 +20,11 @@ char* ghcnPath = (char*)"Materials/Climate/GHCN";
 // =======================================================================================
 /// @brief Constructor
 
-ClimateDatabase::ClimateDatabase(void)
+ClimateDatabase::ClimateDatabase(float fileSpacing)
 {
   ghcnDatabase = new GHCNDatabase(ghcnPath);
+  if(fileSpacing >= 0.0f)
+    ghcnDatabase->loadAll(fileSpacing);
 }
 
 
@@ -397,6 +399,7 @@ TryAgain:
    {
     if(skipStations[i])
       continue;
+    yearIndices[i] = 0;
     counts[i] = 0;
     totals[i] = 0.0f;
     int M = diffs[i]->size();
@@ -429,7 +432,6 @@ TryAgain:
      {
       if(skipStations[i])
         continue;
-      yearIndices[i] = 0;
       while((*(years[i]))[yearIndices[i]] < thisYear)
         yearIndices[i]++;
       

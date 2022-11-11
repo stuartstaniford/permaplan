@@ -27,7 +27,7 @@ public:
   // Instance variables - public
   
   // Member functions - public
-  ClimateDatabase(void);
+  ClimateDatabase(float fileSpacing = 0.0f);
   ~ClimateDatabase(void);
   unsigned printClimateJson(char* buf, unsigned bufSize, 
                                             float lat, float longt, unsigned yearCount);

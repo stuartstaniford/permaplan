@@ -9,7 +9,7 @@
 CPP = clang++
 
 # define any compile-time flags
-CFLAGS = -Wall -g -std=c++11
+CFLAGS = -Wall -g -std=c++11 -Wno-pointer-bool-conversion
 
 # define any directories containing header files other than /usr/include
 #

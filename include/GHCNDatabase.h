@@ -60,7 +60,8 @@ public:
   // Member functions - public
   GHCNDatabase(char* path);
   ~GHCNDatabase(void);
-
+  void loadAll(float spacing);
+  
 private:
   
   // Instance variables - private

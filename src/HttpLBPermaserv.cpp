@@ -47,7 +47,7 @@ HttpLBPermaserv::HttpLBPermaserv(PermaservParams& permaservParams):
   
   if(params.flags & PERMASERV_CLIMATE_FILES)
    {
-    //climateDatabase = new ClimateDatabase(params.climateFileSpacing);
+    climateDatabase = new ClimateDatabase(params.climateFileSpacing);
     LogPermaservOps("Full initialization of climate database complete.\n");
    }
   else
