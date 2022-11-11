@@ -125,7 +125,7 @@ void GHCNDatabase::checkFileIndex(void)
 
 bool GHCNDatabase::parseStationFileWithC(char* fileName)
 {
-#ifdef LOG_GHCN_EXHAUSTIVE
+#ifdef LOG_CLIMATE_DB_OPS
   Timeval parseStart;
   parseStart.now();
 #endif
@@ -136,7 +136,8 @@ bool GHCNDatabase::parseStationFileWithC(char* fileName)
     return false;
    }
   char buf[256];
-  unsigned stationCount = 0;
+  unsigned stationCount = 0u;
+  unsigned totalBytes   = 0u;
   
   while(fgets(buf, 256, file))
    {
@@ -193,14 +194,16 @@ bool GHCNDatabase::parseStationFileWithC(char* fileName)
       LogClimateDbErr("Got bad size %s\n", parse);
     
     stationCount++;
+    totalBytes += station->fileBufSize;
     }
   
   fclose(file);
-#ifdef LOG_GHCN_EXHAUSTIVE
+#ifdef LOG_CLIMATE_DB_OPS
   Timeval parseEnd;
   parseEnd.now();
-  LogClimateDbOps("Parsing %d stations from file %s took %.3lf s.\n", 
-                                          stationCount, fileName, parseEnd - parseStart);
+  LogClimateDbOps("Parsing %d stations from file %s took %.1lfs with "
+                  "%.1fMB total size (compressed).\n", stationCount, fileName, 
+                  parseEnd - parseStart, totalBytes/1024.0f/1024.0f);
 #endif
 
   return true;  
