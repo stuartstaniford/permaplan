@@ -349,8 +349,14 @@ void GHCNDatabase::loadAll(float spacing)
 {
   for (auto iter : stationsByName)
    {
-    LogClimateDbOps("Checking file %s.\n", iter.first.c_str());
-    usleep(spacing*1000);
+    LogClimateDbOps("Checking file index %s.\n", iter.first.c_str());
+    GHCNStation* station = iter.second;
+    unless(station->climate)
+     {
+      checkCSVFile(station);
+      readOneCSVFile(station);
+     }
+    usleep((unsigned)(spacing*1000000.0f));
    }
 }
 
