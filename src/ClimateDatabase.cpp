@@ -340,7 +340,6 @@ bool ClimateDatabase::processStationComparisonRequest(HttpServThread* serv, char
     hitsAchieved = 0;
     for(int i=0; i<N; i++)
      {
-      yearIndices[i] = 0;
       years[i] = new std::vector<int>;
       diffs[i] = new std::vector<float>;
       LogClimateCompDetails("About to compare %d:%s to %d:%s.\n", base,             
@@ -430,17 +429,19 @@ TryAgain:
      {
       if(skipStations[i])
         continue;
-      LogClimateCompDetails("j: %d,i: %d, Comparing %d to %d.\n", j, i, 
-                                                (*(years[i]))[yearIndices[i]], thisYear);
+      yearIndices[i] = 0;
       while((*(years[i]))[yearIndices[i]] < thisYear)
         yearIndices[i]++;
       
       if((*(years[i]))[yearIndices[i]] > thisYear)
        {
+        LogClimateCompDetails("j: %d,i: %d, No year available for %d.\n", j, i, thisYear);
         httPrintf("<td></td>");
        }
       else
        {
+        LogClimateCompDetails("j: %d,i: %d, Comparing %d[%d] to %d.\n", j, i, 
+                                        (*(years[i]))[yearIndices[i]], yearIndices[i], thisYear);
         httPrintf("<td>%.3f</td>", -(*(diffs[i]))[yearIndices[i]]);
        }
      }

@@ -45,8 +45,16 @@ HttpLBPermaserv::HttpLBPermaserv(PermaservParams& permaservParams):
   soilDatabase = new SoilDatabase;
   LogPermaservOps("Initialization of soil database complete.\n");
   
-  climateDatabase = new ClimateDatabase;
-  LogPermaservOps("Initialization of climate database complete.\n");
+  if(params.flags & PERMASERV_CLIMATE_FILES)
+   {
+    //climateDatabase = new ClimateDatabase(params.climateFileSpacing);
+    LogPermaservOps("Full initialization of climate database complete.\n");
+   }
+  else
+   {
+    climateDatabase = new ClimateDatabase;
+    LogPermaservOps("Basic initialization of climate database complete.\n");
+   }
   
   // Run the threads to service requests
   for(unsigned i=0; i<HTTP_THREAD_COUNT;i++)
