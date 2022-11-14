@@ -189,7 +189,7 @@ void BoundingBox::unsetZs(void)
 
 void BoundingBox::sprint(char* buf)
 {
-  sprintf(buf, "[[%.2f, %.2f, %.2f], [%.2f, %.2f, %.2f]]",
+  snprintf(buf, 64, "[[%.2f, %.2f, %.2f], [%.2f, %.2f, %.2f]]",
                       lower[0], lower[1], lower[2], upper[0], upper[1], upper[2]);
 }
 
