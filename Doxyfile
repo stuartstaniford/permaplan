@@ -907,6 +907,7 @@ INPUT                  = doc \
                 include/HttpPermaservClient.h src/HttpPermaservClient.cpp \
                 include/HttpRequestParser.h src/HttpRequestParser.cpp \
                 include/HttpServThread.h src/HttpServThread.cpp \
+                include/HttpStaticPage.h src/HttpStaticPage.cpp \
                 include/InterfaceAction.h src/InterfaceAction.cpp \
                 include/InterfaceMainSceneWin.h src/InterfaceMainSceneWin.cpp \
                 include/JSONStructureChecker.h src/JSONStructureChecker.cpp \

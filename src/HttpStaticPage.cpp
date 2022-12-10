@@ -1,13 +1,15 @@
 // Copyright Staniford Systems.  All Rights Reserved.  December 2022 -
-// This class ..... is a template for real classes
+// This class is for the storage of static objects that will be served via the HTTP 
+// servers.  On construction, we will load our object from disk, but keep it around 
+// so we can be served as needed 
 
-#include "EmptyClass.h"
+#include "HttpStaticPage.h"
 
 
 // =======================================================================================
 /// @brief Constructor
 
-EmptyClass::EmptyClass(void)
+HttpStaticPage::HttpStaticPage(void)
 {
 }
 
@@ -15,7 +17,7 @@ EmptyClass::EmptyClass(void)
 // =======================================================================================
 /// @brief Destructor
 
-EmptyClass::~EmptyClass(void)
+HttpStaticPage::~HttpStaticPage(void)
 {
 }
 

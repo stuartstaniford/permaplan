@@ -5,19 +5,21 @@
 
 
 // =======================================================================================
-/// @brief This is a template for new classes.  Quick description of the class here.
+/// @brief This class is for the storage of static objects that will be served via the 
+/// HTTP servers.
 ///
-/// More details of the class go here.
+/// On construction, we will load our object from disk, but keep it around so we can
+/// be served as needed.
 
-class EmptyClass
+class HttpStaticPage
 {
 public:
   
   // Instance variables - public
   
   // Member functions - public
-  EmptyClass(void);
-  ~EmptyClass(void);
+  HttpStaticPage(void);
+  ~HttpStaticPage(void);
   
 private:
   
@@ -25,9 +27,9 @@ private:
   
   // Member functions - private
   /// @brief Prevent copy-construction.
-  EmptyClass(const EmptyClass&);       
+  HttpStaticPage(const HttpStaticPage&);       
   /// @brief Prevent assignment.
-  EmptyClass& operator=(const EmptyClass&);      
+  HttpStaticPage& operator=(const HttpStaticPage&);      
 };
 
 
