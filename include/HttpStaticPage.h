@@ -5,6 +5,12 @@
 
 
 // =======================================================================================
+// Forward declarations
+
+class HttpServThread;
+
+
+// =======================================================================================
 /// @brief This class is for the storage of static objects that will be served via the 
 /// HTTP servers.
 ///
@@ -13,17 +19,24 @@
 
 class HttpStaticPage
 {
+  friend HttpServThread;
+  
 public:
   
   // Instance variables - public
   
   // Member functions - public
-  HttpStaticPage(void);
+  HttpStaticPage(char* objectPath);
   ~HttpStaticPage(void);
   
 private:
   
   // Instance variables - private
+  unsigned            respBufSize;
+  unsigned            headBufSize;
+  char*               respBuf;
+  char*               headBuf;
+  char*               originalPath;
   
   // Member functions - private
   /// @brief Prevent copy-construction.

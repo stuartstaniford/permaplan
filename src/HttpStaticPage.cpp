@@ -9,7 +9,7 @@
 // =======================================================================================
 /// @brief Constructor
 
-HttpStaticPage::HttpStaticPage(void)
+HttpStaticPage::HttpStaticPage(char* objectPath):originalPath(objectPath)
 {
 }
 
