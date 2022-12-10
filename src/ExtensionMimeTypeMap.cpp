@@ -10,6 +10,14 @@
 
 ExtensionMimeTypeMap::ExtensionMimeTypeMap(void)
 {
+  insert({"html", "text/html"});
+  insert({"js", "text/javascript"});
+  insert({"css", "text/css"});
+  insert({"gif", "image/gif"});
+  insert({"jpg", "image/jpeg"});
+  insert({"jpeg", "image/jpeg"});
+  insert({"json", "application/json"});
+  insert({"txt", "text/plain"});
 }
 
 
