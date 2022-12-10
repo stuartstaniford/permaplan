@@ -891,6 +891,7 @@ INPUT                  = doc \
                 include/ElementBufferObject.h src/ElementBufferObject.cpp \
                 include/ElementBufferCombo.h src/ElementBufferCombo.cpp \
                 include/EmptyClass.h src/EmptyClass.cpp \
+                include/ExtensionMimeTypeMap.h src/ExtensionMimeTypeMap.cpp \
                 include/GLFWApplication.h src/GLFWApplication.cpp \
                 include/Gable.h src/Gable.cpp \
                 include/GdalFileInterface.h src/GdalFileInterface.cpp \

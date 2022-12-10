@@ -4,6 +4,7 @@
 // so we can be served as needed 
 
 #include "HttpStaticPage.h"
+#include "loadFileToBuf.h"
 
 
 // =======================================================================================
@@ -11,6 +12,7 @@
 
 HttpStaticPage::HttpStaticPage(char* objectPath):originalPath(objectPath)
 {
+  respBuf = loadFileToBuf(objectPath, &respBufSize);
 }
 
 
