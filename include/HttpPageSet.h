@@ -3,6 +3,15 @@
 #ifndef HTTP_PAGE_SET_H
 #define HTTP_PAGE_SET_H
 
+#include <unordered_map>
+#include <string>
+
+
+// =======================================================================================
+// Needed forward declarations
+
+class HttpStaticPage;
+
 
 // =======================================================================================
 /// @brief Maps a set of paths to a set of instances of HttpStaticPage.
@@ -11,7 +20,7 @@
 /// cached in memory.  We do not just serve anything found in a directory, but only
 /// things explicitly coded to be served.
 
-class HttpPageSet
+class HttpPageSet: public std::unordered_map<std::string, HttpStaticPage*>
 {
 public:
   
