@@ -5,6 +5,7 @@
 // time series from climate model runs).
 
 #include "HttpLBPermaserv.h"
+#include "ExtensionMimeTypeMap.h"
 #include "ResourceManager.h"
 #include "Logging.h"
 #include "Global.h"
@@ -129,6 +130,7 @@ int main (int argc, char* argv[])
     
   // Startup tasks
   initGlobals();
+  ExtensionMimeTypeMap extensionMap;
   processCommandLine(argc, argv);
   permaservParams.compileTime = getCompileTime(argv[0]);
   recordPort();

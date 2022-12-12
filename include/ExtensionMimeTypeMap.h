@@ -21,9 +21,13 @@ public:
   // Member functions - public
   ExtensionMimeTypeMap(void);
   ~ExtensionMimeTypeMap(void);
-  
+  static ExtensionMimeTypeMap& getMap(void) {return *theOnlyMap;} // Get singleton instance
+
 private:
   
+  // Private static (class) variables
+  static ExtensionMimeTypeMap* theOnlyMap;
+
   // Instance variables - private
   
   // Member functions - private

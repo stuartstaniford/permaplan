@@ -71,6 +71,7 @@ class PmodDesign
   
 private:
   
+  // Private static (class) variables
   static PmodDesign* design;
   
 public:

@@ -6,10 +6,21 @@
 
 
 // =======================================================================================
+// Static variables, etc.
+
+ExtensionMimeTypeMap* ExtensionMimeTypeMap::theOnlyMap = NULL;
+
+
+// =======================================================================================
 /// @brief Constructor
 
 ExtensionMimeTypeMap::ExtensionMimeTypeMap(void)
 {
+  if(theOnlyMap)
+    return;
+  else
+    theOnlyMap = this;
+
   insert({"html", "text/html"});
   insert({"js", "text/javascript"});
   insert({"css", "text/css"});
