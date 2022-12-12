@@ -904,6 +904,7 @@ INPUT                  = doc \
                 include/HttpDebug.h src/HttpDebug.cpp \
                 include/HttpLBDebug.h src/HttpLBDebug.cpp \
                 include/HttpLoadBalancer.h src/HttpLoadBalancer.cpp \
+                include/HttpPageSet.h src/HttpPageSet.cpp \
                 include/HttpPermaServ.h src/HttpPermaServ.cpp \
                 include/HttpPermaservClient.h src/HttpPermaservClient.cpp \
                 include/HttpRequestParser.h src/HttpRequestParser.cpp \
