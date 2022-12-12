@@ -56,6 +56,8 @@ HttpLBPermaserv::HttpLBPermaserv(PermaservParams& permaservParams):
     LogPermaservOps("Basic initialization of climate database complete.\n");
    }
   
+  initializeScriptPages();
+  
   // Run the threads to service requests
   for(unsigned i=0; i<HTTP_THREAD_COUNT;i++)
     httpThreads[i] = (TaskQueue*) new HttpPermaServ(i, solarDatabase, soilDatabase, 
@@ -68,6 +70,18 @@ HttpLBPermaserv::HttpLBPermaserv(PermaservParams& permaservParams):
 
 HttpLBPermaserv::~HttpLBPermaserv(void)
 {
+}
+
+
+// =======================================================================================
+/// @brief Function to set up static script pages that we serve.
+/// 
+/// Any page that we want to serve should be included in here and set to NULL.  It will
+/// be loaded the first time it's requested.
+
+void HttpLBPermaserv::initializeScriptPages(void)
+{
+  scriptPages.insert({"test.js", NULL});
 }
 
 

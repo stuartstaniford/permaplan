@@ -4,6 +4,7 @@
 #define HTTP_LB_PERMASERV_H
 
 #include "HttpLoadBalancer.h"
+#include "HttpPageSet.h"
 #include <time.h>
 
 // Flags which influence the operation of permaserv
@@ -56,6 +57,7 @@ public:
   // Member functions - public
   HttpLBPermaserv(PermaservParams& permaservParams);
   ~HttpLBPermaserv(void);
+  void initializeScriptPages(void);
   
 private:
   
@@ -64,6 +66,7 @@ private:
   SoilDatabase*     soilDatabase;
   ClimateDatabase*  climateDatabase;
   PermaservParams&  params;
+  HttpPageSet       scriptPages;
   
   // Member functions - private
   /// @brief Prevent copy-construction.

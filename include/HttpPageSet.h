@@ -3,6 +3,7 @@
 #ifndef HTTP_PAGE_SET_H
 #define HTTP_PAGE_SET_H
 
+#include "Lockable.h"
 #include <unordered_map>
 #include <string>
 
@@ -20,7 +21,7 @@ class HttpStaticPage;
 /// cached in memory.  We do not just serve anything found in a directory, but only
 /// things explicitly coded to be served.
 
-class HttpPageSet: public std::unordered_map<std::string, HttpStaticPage*>
+class HttpPageSet: public std::unordered_map<std::string, HttpStaticPage*>, public Lockable
 {
 public:
   
