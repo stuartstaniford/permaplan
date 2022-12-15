@@ -5,6 +5,7 @@
 // coded to be served
 
 #include "HttpPageSet.h"
+#include "HttpServThread.h"
 
 
 // =======================================================================================
@@ -20,6 +21,15 @@ HttpPageSet::HttpPageSet(void)
 
 HttpPageSet::~HttpPageSet(void)
 {
+}
+
+
+// =======================================================================================
+/// @brief Provide a page, if we have it
+
+bool HttpPageSet::processPageRequest(HttpServThread* serv, char* url)
+{
+  return false;
 }
 
 

@@ -378,6 +378,14 @@ bool HttpPermaServ::processRequestHeader(void)
     retVal = true;
    }
 
+  // scripts
+  else if( strlenUrl >= 13 && strncmp(url, "/scripts/", 9) == 0)
+    {
+     LogPermaservOpDetails("Processing scripts request for %s.\n", url+9);
+     HttpPageSet& scripts = ((HttpLBPermaserv*)parentLB)->scriptPages;
+     retVal = scripts.processPageRequest(this, url+9);
+    }
+
  // soil
  else if( strlenUrl >= 14 && strncmp(url, "/soil?", 6) == 0)
    {

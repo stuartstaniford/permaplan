@@ -12,6 +12,7 @@
 // Needed forward declarations
 
 class HttpStaticPage;
+class HttpServThread;
 
 
 // =======================================================================================
@@ -30,6 +31,7 @@ public:
   // Member functions - public
   HttpPageSet(void);
   ~HttpPageSet(void);
+  bool processPageRequest(HttpServThread* serv, char* url);
   
 private:
   

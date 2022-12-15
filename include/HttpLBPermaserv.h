@@ -48,7 +48,7 @@ class PermaservParams
 
 class HttpLBPermaserv: public HttpLoadBalancer
 {
-  friend HttpPermaServ; // required for access to compileTime
+  friend HttpPermaServ; // required for access to compileTime, scripts, etc
   
 public:
   
