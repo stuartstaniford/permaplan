@@ -25,3 +25,13 @@ HttpStaticPage::~HttpStaticPage(void)
 
 
 // =======================================================================================
+/// @brief Provide a pointer to our assembled page on request
+/// @returns The char* pointer to the page
+
+char* HttpStaticPage::getResponse(void)
+{
+  return respBuf;
+}
+
+
+// =======================================================================================

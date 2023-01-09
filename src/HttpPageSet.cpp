@@ -6,6 +6,7 @@
 
 #include "HttpPageSet.h"
 #include "HttpServThread.h"
+#include "HttpStaticPage.h"
 
 
 // =======================================================================================
@@ -26,10 +27,26 @@ HttpPageSet::~HttpPageSet(void)
 
 // =======================================================================================
 /// @brief Provide a page, if we have it
+/// 
+/// @returns true if all went well, false if we ran out of space or other problem.
 
 bool HttpPageSet::processPageRequest(HttpServThread* serv, char* url)
 {
-  return false;
+  lock();
+  if(count(url))
+   {
+    HttpStaticPage* page = at(url);
+    if(!page)
+      page = new HttpStaticPage(url);
+    char* response = page->getResponse();
+    unlock();
+    return true;
+   }
+  else
+   {
+    unlock();
+    return serv->errorPage("Resource Not Found.");
+   }
 }
 
 

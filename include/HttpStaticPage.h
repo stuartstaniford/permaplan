@@ -28,6 +28,7 @@ public:
   // Member functions - public
   HttpStaticPage(char* objectPath);
   ~HttpStaticPage(void);
+  char* getResponse(void);
   
 private:
   

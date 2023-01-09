@@ -49,7 +49,7 @@ SRCS = $(wildcard src/*.cpp)
 # with the .o suffix
 #
 OBJS = $(SRCS:.cpp=.o)
-SERV_OBJS = src/BILFile.o src/ClimateInfo.o src/ClimateDatabase.o src/DynamicallyTypable.o src/ExtensionMimeTypeMap.o src/GHCNDatabase.o src/GdalFileInterface.o src/Global.o src/GroundLayer.o src/HttpLBPermaserv.o src/HttpPageSet.o src/HttpPermaServ.o src/HttpServThread.o src/HttpLoadBalancer.o src/HttpRequestParser.o src/HttpClient.o src/HWSDProfile.o src/loadFileToBuf.o src/Lockable.o src/Logging.o src/MdbFile.o src/ResourceManager.o src/SoilDatabase.o src/SoilHorizon.o src/SoilProfile.o src/SolarDatabase.o src/TaskQueue.o src/TaskQueueFarm.o src/Timeval.o
+SERV_OBJS = src/BILFile.o src/ClimateInfo.o src/ClimateDatabase.o src/DynamicallyTypable.o src/ExtensionMimeTypeMap.o src/GHCNDatabase.o src/GdalFileInterface.o src/Global.o src/GroundLayer.o src/HttpLBPermaserv.o src/HttpPageSet.o src/HttpPermaServ.o src/HttpServThread.o src/HttpStaticPage.o src/HttpLoadBalancer.o src/HttpRequestParser.o src/HttpClient.o src/HWSDProfile.o src/loadFileToBuf.o src/Lockable.o src/Logging.o src/MdbFile.o src/ResourceManager.o src/SoilDatabase.o src/SoilHorizon.o src/SoilProfile.o src/SolarDatabase.o src/TaskQueue.o src/TaskQueueFarm.o src/Timeval.o
 
 # define the executable file
 MAIN = permaplan

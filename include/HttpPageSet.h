@@ -20,7 +20,10 @@ class HttpServThread;
 ///
 /// Used for resolving calls to get pages that will be loaded on first request and then
 /// cached in memory.  We do not just serve anything found in a directory, but only
-/// things explicitly coded to be served.
+/// things explicitly coded to be served.  Inherits from and unordered_map from
+/// the paths we should serve to the HttpStaticPage instances that should be served
+/// for that path.  Also inherits from Lockable to mediate access from multiple server
+/// threads.
 
 class HttpPageSet: public std::unordered_map<std::string, HttpStaticPage*>, public Lockable
 {
