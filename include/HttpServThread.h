@@ -51,9 +51,11 @@ protected:
   unsigned            respBufSize;
   unsigned            headBufSize;
   char*               respBuf;
+  char*               altResp; // used for static pages
   char*               headBuf;
   unsigned short      clientP;
   HttpLoadBalancer*   parentLB;
+  
   
 public:
   
@@ -81,6 +83,10 @@ public:
     internalPrintf("<hr><center><h3>%s</h3>\n", title);
     return true;
    }
+  inline void setAltResp(char* buf)
+   {
+    altResp = buf;
+   }
 
 protected:
   
@@ -94,6 +100,7 @@ protected:
    {
     respPtr = respBuf;
     respEnd = respBuf + respBufSize;
+    altResp = NULL;
    }
 
 private:
