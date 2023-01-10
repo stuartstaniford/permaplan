@@ -208,7 +208,16 @@ void HttpServThread::processOneHTTP1_1(int connfd, unsigned short clientPort)
         break;
      }
     if(returnOK)
-      headerLen = generateHeader(respPtr-respBuf, 200, "OK");
+     {
+      if(altResp)
+       {
+        headerLen = generateHeader(respPtr-altResp, 200, "OK");
+       }
+      else
+       {
+        headerLen = generateHeader(respPtr-respBuf, 200, "OK");
+       }
+     }
     else
      {
       LogRequestErrors("500 error being returned on HTTP request.\n");
@@ -219,8 +228,18 @@ void HttpServThread::processOneHTTP1_1(int connfd, unsigned short clientPort)
     unless(writeLoop(connfd, headBuf, headerLen))
       break;
     if(returnOK)
-      unless(writeLoop(connfd, respBuf, respPtr-respBuf))
-        break;
+     {
+      if(altResp)
+       {
+        unless(writeLoop(connfd, altResp, respPtr-altResp))
+          break;        
+       }
+      else
+       {
+        unless(writeLoop(connfd, respBuf, respPtr-respBuf))
+          break;
+       }
+     }
     //fprintf(stderr, "timeToDie on %d is %d.\n", queueIndex, timeToDie);
     if(timeToDie || reqParser.connectionWillClose)
         break;      

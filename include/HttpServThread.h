@@ -83,9 +83,10 @@ public:
     internalPrintf("<hr><center><h3>%s</h3>\n", title);
     return true;
    }
-  inline void setAltResp(char* buf)
+  inline void setAltResp(char* buf, unsigned size)
    {
     altResp = buf;
+    respPtr = buf + size;
    }
 
 protected:
