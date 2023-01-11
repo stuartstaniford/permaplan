@@ -57,6 +57,7 @@ HttpLBPermaserv::HttpLBPermaserv(PermaservParams& permaservParams):
    }
   
   initializeScriptPages();
+  initializeCSSPages();
   
   // Run the threads to service requests
   for(unsigned i=0; i<HTTP_THREAD_COUNT;i++)
@@ -76,7 +77,7 @@ HttpLBPermaserv::~HttpLBPermaserv(void)
 // =======================================================================================
 /// @brief Function to set up static script pages that we serve.
 /// 
-/// Any page that we want to serve should be included in here and set to NULL.  It will
+/// Any script that we want to serve should be included in here and set to NULL.  It will
 /// be loaded the first time it's requested.
 
 void HttpLBPermaserv::initializeScriptPages(void)
@@ -84,6 +85,20 @@ void HttpLBPermaserv::initializeScriptPages(void)
   scriptPages = new HttpPageSet((char*)"scripts/");
   
   scriptPages->insert({"test.js", NULL});
+}
+
+
+// =======================================================================================
+/// @brief Function to set up static css pages that we serve.
+/// 
+/// Any CSS file that we want to serve should be included in here and set to NULL.  It will
+/// be loaded the first time it's requested.
+
+void HttpLBPermaserv::initializeCSSPages(void)
+{
+  cssPages = new HttpPageSet((char*)"css/");
+  
+  cssPages->insert({"permaplan.css", NULL});
 }
 
 

@@ -58,6 +58,7 @@ public:
   HttpLBPermaserv(PermaservParams& permaservParams);
   ~HttpLBPermaserv(void);
   void initializeScriptPages(void);
+  void initializeCSSPages(void);
   
 private:
   
@@ -67,6 +68,7 @@ private:
   ClimateDatabase*  climateDatabase;
   PermaservParams&  params;
   HttpPageSet*      scriptPages;
+  HttpPageSet*      cssPages;
   
   // Member functions - private
   /// @brief Prevent copy-construction.

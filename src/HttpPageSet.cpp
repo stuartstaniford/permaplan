@@ -17,9 +17,9 @@
 
 HttpPageSet::HttpPageSet(char* path)
 {
-  unsigned pathSize = strlen(path) + 1;
-  assert(pathSize < STAT_URL_BUF_SIZE);
-  strncpy(urlBuf, path, pathSize);
+  unsigned pathSize = strlen(path);
+  assert(pathSize < STAT_URL_BUF_SIZE - 20);
+  strcpy(urlBuf, path);
   urlBufPtr = urlBuf + pathSize;
 }
 
@@ -36,18 +36,25 @@ HttpPageSet::~HttpPageSet(void)
 /// @brief Provide a page, if we have it
 /// 
 /// @returns true if all went well, false if we ran out of space or other problem.
+/// @param serv pointer to the HTTP serv thread object we need to send our page too.
+/// @param url A char* pointer to the url being requested (relative to the path of this
+/// particular HttpPageSet).  Note only urls we have been preconfigured to serve will be
+/// served, so we don't need to explicitly check for "../" and the like.
+/// @todo The result of the strlen could be cached to make this a tiny bit more efficient.
 
 bool HttpPageSet::processPageRequest(HttpServThread* serv, char* url)
 {
   lock();
   if(count(url))
    {
-    strncpy(urlBufPtr, url, STAT_URL_BUF_SIZE - (urlBufPtr-urlBuf));
-    HttpStaticPage* page = at(urlBuf);
+    HttpStaticPage* page = at(url);
     if(!page)
-      page = new HttpStaticPage(url);
+     {
+      strncpy(urlBufPtr, url, STAT_URL_BUF_SIZE - (urlBufPtr-urlBuf));
+      page = new HttpStaticPage(urlBuf);
+     }
     char* response = page->getResponse();
-    serv->setAltResp(response, strlen(response));
+    serv->setAltResp(response, strlen(response)); 
     unlock();
     return true;
    }
