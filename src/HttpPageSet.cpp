@@ -7,13 +7,20 @@
 #include "HttpPageSet.h"
 #include "HttpServThread.h"
 #include "HttpStaticPage.h"
+#include <assert.h>
 
 
 // =======================================================================================
 /// @brief Constructor
+/// @param path A char* pointer to the path where files for this particular set of static
+/// pages are to be found.  Should include the trailing slash (eg "scripts/").
 
-HttpPageSet::HttpPageSet(void)
+HttpPageSet::HttpPageSet(char* path)
 {
+  unsigned pathSize = strlen(path) + 1;
+  assert(pathSize < STAT_URL_BUF_SIZE);
+  strncpy(urlBuf, path, pathSize);
+  urlBufPtr = urlBuf + pathSize;
 }
 
 
@@ -35,10 +42,12 @@ bool HttpPageSet::processPageRequest(HttpServThread* serv, char* url)
   lock();
   if(count(url))
    {
-    HttpStaticPage* page = at(url);
+    strncpy(urlBufPtr, url, STAT_URL_BUF_SIZE - (urlBufPtr-urlBuf));
+    HttpStaticPage* page = at(urlBuf);
     if(!page)
       page = new HttpStaticPage(url);
     char* response = page->getResponse();
+    serv->setAltResp(response, strlen(response));
     unlock();
     return true;
    }

@@ -66,7 +66,7 @@ private:
   SoilDatabase*     soilDatabase;
   ClimateDatabase*  climateDatabase;
   PermaservParams&  params;
-  HttpPageSet       scriptPages;
+  HttpPageSet*      scriptPages;
   
   // Member functions - private
   /// @brief Prevent copy-construction.

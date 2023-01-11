@@ -81,7 +81,9 @@ HttpLBPermaserv::~HttpLBPermaserv(void)
 
 void HttpLBPermaserv::initializeScriptPages(void)
 {
-  scriptPages.insert({"test.js", NULL});
+  scriptPages = new HttpPageSet((char*)"scripts/");
+  
+  scriptPages->insert({"test.js", NULL});
 }
 
 

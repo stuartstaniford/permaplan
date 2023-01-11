@@ -382,7 +382,7 @@ bool HttpPermaServ::processRequestHeader(void)
   else if( strlenUrl >= 13 && strncmp(url, "/scripts/", 9) == 0)
     {
      LogPermaservOpDetails("Processing scripts request for %s.\n", url+9);
-     HttpPageSet& scripts = ((HttpLBPermaserv*)parentLB)->scriptPages;
+     HttpPageSet& scripts = *(((HttpLBPermaserv*)parentLB)->scriptPages);
      retVal = scripts.processPageRequest(this, url+9);
     }
 

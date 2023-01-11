@@ -7,6 +7,7 @@
 #include <unordered_map>
 #include <string>
 
+#define STAT_URL_BUF_SIZE 256
 
 // =======================================================================================
 // Needed forward declarations
@@ -32,13 +33,15 @@ public:
   // Instance variables - public
   
   // Member functions - public
-  HttpPageSet(void);
+  HttpPageSet(char* path);
   ~HttpPageSet(void);
   bool processPageRequest(HttpServThread* serv, char* url);
   
 private:
   
   // Instance variables - private
+  char urlBuf[STAT_URL_BUF_SIZE];
+  char* urlBufPtr;
   
   // Member functions - private
   /// @brief Prevent copy-construction.
