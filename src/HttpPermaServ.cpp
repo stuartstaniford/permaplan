@@ -355,6 +355,14 @@ bool HttpPermaServ::processRequestHeader(void)
     retVal = true;
    }
 
+  // css
+  else if( strlenUrl >= 10 && strncmp(url, "/css/", 5) == 0)
+    {
+     LogPermaservOpDetails("Processing css request for %s.\n", url+5);
+     HttpPageSet& cssPages = *(((HttpLBPermaserv*)parentLB)->cssPages);
+     retVal = cssPages.processPageRequest(this, url+5);
+    }
+  
   // dif
   else if( strlenUrl >= 9 && strncmp(url, "/dif?", 5) == 0)
    {

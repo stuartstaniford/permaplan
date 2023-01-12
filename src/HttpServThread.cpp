@@ -101,7 +101,7 @@ bool HttpServThread::startResponsePage(const char* title, unsigned refresh)
 {
   internalPrintf("<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n");
   internalPrintf("<title>%s</title>\n", title);
-  internalPrintf("<link rel=\"stylesheet\" href=\"css/styles.css\">\n");
+  internalPrintf("<link rel=\"stylesheet\" href=\"css/permaplan.css\">\n");
   if(refresh > 0)
     internalPrintf("<meta http-equiv=\"refresh\" content=\"%u\">\n", refresh);
   internalPrintf("</head>\n<body>\n");
