@@ -92,7 +92,8 @@ public:
 protected:
   
   // Member functions - protected
-  unsigned      generateHeader(unsigned bodySize, unsigned code, const char* msg);
+  unsigned      generateHeader(unsigned bodySize, unsigned code, const char* msg, 
+                                                              char* mimeType = NULL);
   bool          reallocateResponseBuf(void);
   bool          writeLoop(int fildes, char *buf, size_t nbyte);
   virtual bool  processRequestHeader(void);

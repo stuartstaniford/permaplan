@@ -48,15 +48,21 @@ HttpServThread::~HttpServThread(void)
 /// @param bodySize The size of the response body  
 /// @param code The code number to generate on the HTTP status line (200, 404, etc)
 /// @param msg A C-string of message on the status line ("OK", "ERROR", etc).
+/// @param mimeType A C-string of the mime type for the content.  If NULL (the default)
+/// then "text/html" will be used.
 
-unsigned HttpServThread::generateHeader(unsigned bodySize, unsigned code, const char* msg)
+unsigned HttpServThread::generateHeader(unsigned bodySize, unsigned code, 
+                                        const char* msg, char* mimeType)
 {
   char* ptr = headBuf;
   if(strlen(msg) > headBufSize-1024)
     err(-1, "Excessive message size in HttpDebug::generateHeader.");
     
   ptr += sprintf(ptr, "HTTP/1.1 %u %s\r\n", code, msg);
-  ptr += sprintf(ptr, "Content-Type: text/html\r\n");
+  if(mimeType)
+    ptr += sprintf(ptr, "Content-Type: %s\r\n", mimeType);
+  else
+    ptr += sprintf(ptr, "Content-Type: text/html\r\n");
   ptr += sprintf(ptr, "Content-Length: %u\r\n", bodySize);
   ptr += sprintf(ptr, "\r\n");
   return (ptr-headBuf);
