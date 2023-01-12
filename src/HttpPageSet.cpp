@@ -52,6 +52,7 @@ bool HttpPageSet::processPageRequest(HttpServThread* serv, char* url)
      {
       strncpy(urlBufPtr, url, STAT_URL_BUF_SIZE - (urlBufPtr-urlBuf));
       page = new HttpStaticPage(urlBuf);
+      (*this)[url] = page;
      }
     char* response = page->getResponse();
     serv->setAltResp(response, strlen(response)); 
