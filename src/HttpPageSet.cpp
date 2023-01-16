@@ -14,8 +14,10 @@
 /// @brief Constructor
 /// @param path A char* pointer to the path where files for this particular set of static
 /// pages are to be found.  Should include the trailing slash (eg "scripts/").
+/// @param mType A char* pointer to the mimeType of the files to be served from this 
+/// particular set of pages (a given HttpPageSet cannot mix different types of files).
 
-HttpPageSet::HttpPageSet(char* path)
+HttpPageSet::HttpPageSet(char* path, char* mType): mimeType(mType)
 {
   unsigned pathSize = strlen(path);
   assert(pathSize < STAT_URL_BUF_SIZE - 20);
@@ -55,7 +57,7 @@ bool HttpPageSet::processPageRequest(HttpServThread* serv, char* url)
       (*this)[url] = page;
      }
     char* response = page->getResponse();
-    serv->setAltResp(response, strlen(response)); 
+    serv->setAltResp(response, strlen(response), mimeType); 
     unlock();
     return true;
    }

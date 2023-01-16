@@ -52,6 +52,7 @@ protected:
   unsigned            headBufSize;
   char*               respBuf;
   char*               altResp; // used for static pages
+  char*               altMimeType;
   char*               headBuf;
   unsigned short      clientP;
   HttpLoadBalancer*   parentLB;
@@ -83,10 +84,11 @@ public:
     internalPrintf("<hr><center><h3>%s</h3>\n", title);
     return true;
    }
-  inline void setAltResp(char* buf, unsigned size)
+  inline void setAltResp(char* buf, unsigned size, char* mimeType)
    {
-    altResp = buf;
-    respPtr = buf + size;
+    altResp     = buf;
+    respPtr     = buf + size;
+    altMimeType = mimeType;
    }
 
 protected:
@@ -100,9 +102,10 @@ protected:
 
   inline void resetResponse(void)
    {
-    respPtr = respBuf;
-    respEnd = respBuf + respBufSize;
-    altResp = NULL;
+    respPtr     = respBuf;
+    respEnd     = respBuf + respBufSize;
+    altResp     = NULL;
+    altMimeType = NULL;
    }
 
 private:

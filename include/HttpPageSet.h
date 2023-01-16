@@ -33,7 +33,7 @@ public:
   // Instance variables - public
   
   // Member functions - public
-  HttpPageSet(char* path);
+  HttpPageSet(char* path, char* mType = NULL);
   ~HttpPageSet(void);
   bool processPageRequest(HttpServThread* serv, char* url);
   
@@ -42,6 +42,7 @@ private:
   // Instance variables - private
   char urlBuf[STAT_URL_BUF_SIZE];
   char* urlBufPtr;
+  char* mimeType;
   
   // Member functions - private
   /// @brief Prevent copy-construction.
