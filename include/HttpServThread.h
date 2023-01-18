@@ -71,11 +71,11 @@ public:
    {
     if(name)
      {
-      internalPrintf("<table name=\"%s\" cellpadding=\"1\" border=\"1\">\n", name);
+      internalPrintf("<table name=\"%s\">\n", name);
      }
     else
      {
-      internalPrintf("<table cellpadding=\"1\" border=\"1\">\n");
+      internalPrintf("<table>\n");
      }
     return true;
    }

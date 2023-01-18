@@ -1,5 +1,187 @@
+/* =================================================================================== */
+/* Font section
+*/
+
+@font-face {
+  font-family: trench;
+  src: url(../fonts/trench100free.otf);
+}
+
+/* =================================================================================== */
+/* Overall setup */
+
+* {
+  box-sizing: border-box;
+}
+
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
 body {
   background-color: rgb(230,230,255);
   font-family: Arial, Geneva, sans-serif;
-  color: rgb(20,20,80)
+  color: rgb(20,20,80);
 }
+
+/* =================================================================================== */
+/* Specific regions */
+
+table, th, td {
+  border: 1px solid;
+  /* border-collapse: collapse;*/
+  cellpadding: 2px;
+}
+
+h1 {
+  font-style: normal;
+  font-family: "trench", Arial, Geneva, sans-serif;
+  font-size: 3em;
+  display: inline-block;
+}
+
+h2 {
+  font-style: normal;
+  font-family: "trench", Arial, Geneva, sans-serif;
+  font-size: 2.2em;
+}
+
+h3 {
+  font-style: normal;
+  font-family: "trench", Arial, Geneva, sans-serif;
+  font-size: 1.5em;
+}
+
+section {
+  background-color: rgb(240,248,255);
+  color: rgb(0,0,128);
+  float: left;
+  width: 80%;
+  margin-left: 1%;
+  margin-right: 1%;
+  margin-top: 1%;
+  margin-bottom: 1%;
+  padding: 1%;
+  border-radius: 5px;
+  }
+
+section.wide-section
+{
+  width: 80%;
+}
+
+details {
+  text-indent: -2em;
+  padding-left: 2em;
+}
+
+
+aside {
+  background-color: rgb(240,248,255);
+  color: rgb(0,0,128);
+  float: left;
+  width: 25%;
+  margin-left: 1%;
+  margin-right: 1%;
+  margin-top: 1%;
+  margin-bottom: 1%;
+  padding: 1%;
+  border-radius: 5px;
+}
+
+nav {
+  float: left;
+  width: 10%;
+  margin-left: 1%;
+  margin-right: 1%;
+  margin-top: 1%;
+  margin-bottom: 1%;
+  padding: 1%;
+}
+
+
+.axis {
+  font: 14px sans-serif;
+}
+
+
+canvas.logoCanvas {
+  background-color: rgb(240,248,255);
+  float: left;   
+  border-radius: 5px;
+  border: outset;
+  border-color: rgb(240,248,255);
+}
+
+ul.navlist {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+a.navlist:link {
+  text-decoration: none;
+  color: rgb(240,248,255)
+
+}
+
+a.navlist:visited {
+  text-decoration: none;
+  color: rgb(240,248,255)
+}
+
+a.italic:link {
+  text-decoration: none;
+  font-style: italic;
+}
+
+a.italic:visited {
+  text-decoration: none;
+  font-style: italic;
+  color: rgb(120,0,200)
+}
+
+a.serviceLink:link {
+  text-decoration: none;
+  color: rgb(0,0,128);
+}
+
+a.serviceLink:visited {
+  text-decoration: none;
+  color: rgb(0,0,128);
+}
+
+li {
+  margin:0 0 0.5em 0;
+}
+
+hr {
+  float: none;
+}
+
+@media screen and (max-width: 850px) {
+  aside
+  {
+    width: 0%;
+    visibility: hidden;
+  }
+  section{
+    width: 83%;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  
+  section{
+    width: 100%;
+    float: none;
+  }
+  
+  nav{
+     width: 100%;
+     float: none;
+  }
+}
+
