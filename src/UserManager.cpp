@@ -1,13 +1,16 @@
 // Copyright Staniford Systems.  All Rights Reserved.  January 2023 -
-// This class ..... is a template for real classes
+// This class manages user records and session information.  All records about 
+// permaserv users are stored in here, and access to things mediated through 
+// user authentication must go through this class.  Currently the back end is
+// just a file - presumably will be an SQL database some day.
 
-#include "EmptyClass.h"
+#include "UserManager.h"
 
 
 // =======================================================================================
 /// @brief Constructor
 
-EmptyClass::EmptyClass(void)
+UserManager::UserManager(void)
 {
 }
 
@@ -15,7 +18,7 @@ EmptyClass::EmptyClass(void)
 // =======================================================================================
 /// @brief Destructor
 
-EmptyClass::~EmptyClass(void)
+UserManager::~UserManager(void)
 {
 }
 

@@ -1,23 +1,25 @@
 // Copyright Staniford Systems.  All Rights Reserved.  January 2023 -
 
-#ifndef EMPTY_CLASS_H
-#define EMPTY_CLASS_H
+#ifndef USER_MANAGER_H
+#define USER_MANAGER_H
 
 
 // =======================================================================================
-/// @brief This is a template for new classes.  Quick description of the class here.
+/// @brief Manages user records and session information.
 ///
-/// More details of the class go here.
+/// All records about permaserv users are stored in here, and access to things mediated
+/// through user authentication must go through this class.  Currently the back end is
+/// just a file - presumably will be an SQL database some day.
 
-class EmptyClass
+class UserManager
 {
 public:
   
   // Instance variables - public
   
   // Member functions - public
-  EmptyClass(void);
-  ~EmptyClass(void);
+  UserManager(void);
+  ~UserManager(void);
   
 private:
   
@@ -25,9 +27,9 @@ private:
   
   // Member functions - private
   /// @brief Prevent copy-construction.
-  EmptyClass(const EmptyClass&);       
+  UserManager(const UserManager&);       
   /// @brief Prevent assignment.
-  EmptyClass& operator=(const EmptyClass&);      
+  UserManager& operator=(const UserManager&);      
 };
 
 
