@@ -20,9 +20,14 @@ public:
   // Member functions - public
   UserManager(void);
   ~UserManager(void);
-  
+  static UserManager& getUserManager(void) // Get the singleton instance
+   { return *theUserManager; }
+
 private:
   
+  // Private static (class) variables
+  static UserManager* theUserManager;
+
   // Instance variables - private
   
   // Member functions - private

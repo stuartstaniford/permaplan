@@ -5,6 +5,13 @@
 // just a file - presumably will be an SQL database some day.
 
 #include "UserManager.h"
+#include "Logging.h"
+
+
+// =======================================================================================
+// Static variables, etc.
+
+UserManager* UserManager::theUserManager = NULL;
 
 
 // =======================================================================================
@@ -12,6 +19,10 @@
 
 UserManager::UserManager(void)
 {
+  if(theUserManager)
+    return;
+  else
+    theUserManager = this;
 }
 
 
