@@ -377,6 +377,13 @@ bool HttpPermaServ::processRequestHeader(void)
     retVal = processDNIRequest(url+5);
    }
 
+  // login
+  else if( strlenUrl == 10 && strncmp(url, "/loginPage", 10) == 0)
+   {
+    LogPermaservOpDetails("Processing request for Login page.\n");
+    //retVal = processDNIRequest(url+5);
+   }
+
   // quit
   else if( strlenUrl == 6 && strncmp(url, "/quit/", 6) == 0)
    {
@@ -386,16 +393,16 @@ bool HttpPermaServ::processRequestHeader(void)
     retVal = true;
    }
 
-  // scripts
-  else if( strlenUrl >= 13 && strncmp(url, "/scripts/", 9) == 0)
+   // scripts
+   else if( strlenUrl >= 13 && strncmp(url, "/scripts/", 9) == 0)
     {
      LogPermaservOpDetails("Processing scripts request for %s.\n", url+9);
      HttpPageSet& scripts = *(((HttpLBPermaserv*)parentLB)->scriptPages);
      retVal = scripts.processPageRequest(this, url+9);
     }
 
- // soil
- else if( strlenUrl >= 14 && strncmp(url, "/soil?", 6) == 0)
+  // soil
+  else if( strlenUrl >= 14 && strncmp(url, "/soil?", 6) == 0)
    {
     LogPermaservOpDetails("Processing soil request for %s.\n", url+6);
     retVal = processSoilRequest(url+6);
