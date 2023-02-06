@@ -6,6 +6,7 @@
 
 #include "UserManager.h"
 #include "Logging.h"
+#include "HttpServThread.h"
 
 
 // =======================================================================================
@@ -31,6 +32,15 @@ UserManager::UserManager(void)
 
 UserManager::~UserManager(void)
 {
+}
+
+
+// =======================================================================================
+/// @brief Return the page with the form for logging in
+
+bool UserManager::getLoginPage(HttpServThread* serv)
+{
+  return false;
 }
 
 

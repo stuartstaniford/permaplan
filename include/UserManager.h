@@ -5,6 +5,12 @@
 
 
 // =======================================================================================
+// Forward declarations
+
+class HttpServThread;
+
+
+// =======================================================================================
 /// @brief Manages user records and session information.
 ///
 /// All records about permaserv users are stored in here, and access to things mediated
@@ -20,6 +26,7 @@ public:
   // Member functions - public
   UserManager(void);
   ~UserManager(void);
+  bool getLoginPage(HttpServThread* serv);
   static UserManager& getUserManager(void) // Get the singleton instance
    { return *theUserManager; }
 

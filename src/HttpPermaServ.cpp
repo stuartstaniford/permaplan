@@ -8,6 +8,7 @@
 #include "HttpLBPermaserv.h"
 #include "ClimateDatabase.h"
 #include "ClimateInfo.h"
+#include "UserManager.h"
 
 
 // =======================================================================================
@@ -381,7 +382,8 @@ bool HttpPermaServ::processRequestHeader(void)
   else if( strlenUrl == 10 && strncmp(url, "/loginPage", 10) == 0)
    {
     LogPermaservOpDetails("Processing request for Login page.\n");
-    //retVal = processDNIRequest(url+5);
+    UserManager& userManager = UserManager::getUserManager();
+    retVal = userManager.getLoginPage(this);
    }
 
   // quit
