@@ -63,10 +63,14 @@ void processCommandLine(int argc, char* argv[])
 {  
   int optionChar;
 
-  while( (optionChar = getopt(argc, argv, "c:hp:s")) != -1)
+  while( (optionChar = getopt(argc, argv, "cC:hp:s")) != -1)
     switch (optionChar)
      {
        case 'c':
+        permaservParams.flags |= PERMASERV_NO_CLIMATE;
+        break;
+
+       case 'C':
         permaservParams.climateFileSpacing = atof(optarg);
         permaservParams.flags |= PERMASERV_CLIMATE_FILES;
          if(permaservParams.climateFileSpacing < 0.0f)

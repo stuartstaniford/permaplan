@@ -11,6 +11,7 @@
 
 #define PERMASERV_NO_SOLAR      0x00000001
 #define PERMASERV_CLIMATE_FILES 0x00000002
+#define PERMASERV_NO_CLIMATE    0x00000004
 
 
 // =======================================================================================

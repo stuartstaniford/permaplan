@@ -329,23 +329,47 @@ bool HttpPermaServ::processRequestHeader(void)
   // climateDiagnostic
   else if( strlenUrl >= 23 && strncmp(url, "/climateDiagnostic?", 19) == 0)
    {
-    LogPermaservOpDetails("Processing climate diagnostic request for %s.\n", url+19);
-    retVal = processClimateRequest(url+19, true);
+    unless(climateDatabase)
+     {
+      LogRequestErrors("Climate Database not loaded for %s\n", url);
+      errorPage("Climate Database not loaded");
+     }
+    else
+     {
+      LogPermaservOpDetails("Processing climate diagnostic request for %s.\n", url+19);
+      retVal = processClimateRequest(url+19, true);
+     }
    }
 
   // climateStation
   // http://127.0.0.1:2091/climateStation/US1NYTM0018
   else if( strlenUrl == 27 && strncmp(url, "/climateStation/", 16) == 0)
    {
-    LogPermaservOpDetails("Processing climate station request for %s.\n", url+16);
-    retVal = climateDatabase->processStationDiagnosticRequest(this, url+16);
+    unless(climateDatabase)
+     {
+      LogRequestErrors("Climate Database not loaded for %s\n", url);
+      errorPage("Climate Database not loaded");
+     }
+    else
+     {
+      LogPermaservOpDetails("Processing climate station request for %s.\n", url+16);
+      retVal = climateDatabase->processStationDiagnosticRequest(this, url+16);
+     }
    }
   
   // climate
   else if( strlenUrl >= 13 && strncmp(url, "/climate?", 9) == 0)
    {
-    LogPermaservOpDetails("Processing climate request for %s.\n", url+9);
-    retVal = processClimateRequest(url+9);
+    unless(climateDatabase)
+     {
+      LogRequestErrors("Climate Database not loaded for %s\n", url);
+      errorPage("Climate Database not loaded");
+     }
+    else
+     {
+      LogPermaservOpDetails("Processing climate request for %s.\n", url+9);
+      retVal = processClimateRequest(url+9);
+     }
    }
 
   // compileTime
@@ -421,43 +445,75 @@ bool HttpPermaServ::processRequestHeader(void)
   // stationCompHigh
   else if( strlenUrl >= 27 && strncmp(url, "/stationCompHigh?", 17) == 0)
    {
-    LogPermaservOpDetails("Processing station high temp comparison query for %s.\n", url+17);
-    retVal = climateDatabase->processStationComparisonRequest(this, url+17, 
+    unless(climateDatabase)
+     {
+      LogRequestErrors("Climate Database not loaded for %s\n", url);
+      errorPage("Climate Database not loaded");
+     }
+    else
+     {
+      LogPermaservOpDetails("Processing station high temp comparison query for %s.\n", url+17);
+      retVal = climateDatabase->processStationComparisonRequest(this, url+17, 
                         (char*)"stationCompHigh", HI_TEMP_VALID, offsetof(ClimateDay, hiTemp));
+     }
    }
 
   // stationCompLow
   else if( strlenUrl >= 26 && strncmp(url, "/stationCompLow?", 16) == 0)
    {
-    LogPermaservOpDetails("Processing station low temp comparison query for %s.\n", url+16);
-    retVal = climateDatabase->processStationComparisonRequest(this, url+16,
+    unless(climateDatabase)
+     {
+      LogRequestErrors("Climate Database not loaded for %s\n", url);
+      errorPage("Climate Database not loaded");
+     }
+    else
+     {
+      LogPermaservOpDetails("Processing station low temp comparison query for %s.\n", url+16);
+      retVal = climateDatabase->processStationComparisonRequest(this, url+16,
                         (char*)"stationCompLow", LOW_TEMP_VALID, offsetof(ClimateDay, lowTemp));
+     }
    }
 
  // tMinYear
  else if( strlenUrl >= 20 && strncmp(url, "/tMinYear?", 10) == 0)
   {
-   LogPermaservOpDetails("Processing temperature min query for %s.\n", url+10);
-   retVal = climateDatabase->processObservationCurvesRequest(this, url+10,
+   unless(climateDatabase)
+    {
+     LogRequestErrors("Climate Database not loaded for %s\n", url);
+     errorPage("Climate Database not loaded");
+    }
+   else
+    {
+     LogPermaservOpDetails("Processing temperature min query for %s.\n", url+10);
+     retVal = climateDatabase->processObservationCurvesRequest(this, url+10,
                               (char*)"tMinYear", LOW_TEMP_VALID, offsetof(ClimateDay, lowTemp),
                               (char*)"Min. Temperature");
+    }
   }
 
  // tMaxYear
  else if( strlenUrl >= 20 && strncmp(url, "/tMaxYear?", 10) == 0)
   {
-   LogPermaservOpDetails("Processing temperature max query for %s.\n", url+10);
-   retVal = climateDatabase->processObservationCurvesRequest(this, url+10,
+   unless(climateDatabase)
+    {
+     LogRequestErrors("Climate Database not loaded for %s\n", url);
+     errorPage("Climate Database not loaded");
+    }
+   else
+    {
+     LogPermaservOpDetails("Processing temperature max query for %s.\n", url+10);
+     retVal = climateDatabase->processObservationCurvesRequest(this, url+10,
                               (char*)"tMaxYear", HI_TEMP_VALID, offsetof(ClimateDay, hiTemp),
                               (char*)"Max. Temperature");
+    }
   }
 
  //Default - failure
  else
-   {
-    LogRequestErrors("Request for unknown resource %s\n", url);
-    errorPage("Resource not found");
-   }
+  {
+   LogRequestErrors("Request for unknown resource %s\n", url);
+   errorPage("Resource not found");
+  }
     
   return retVal;
 }
