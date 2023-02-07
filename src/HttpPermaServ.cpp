@@ -378,7 +378,15 @@ bool HttpPermaServ::processRequestHeader(void)
     retVal = processDNIRequest(url+5);
    }
 
-  // login
+  // login request
+  else if( strlenUrl == 6 && strncmp(url, "/login", 6) == 0)
+   {
+    LogPermaservOpDetails("Processing login request.\n");
+    UserManager& userManager = UserManager::getUserManager();
+    retVal = userManager.doLogin(this);
+   }
+
+  // login page
   else if( strlenUrl == 10 && strncmp(url, "/loginPage", 10) == 0)
    {
     LogPermaservOpDetails("Processing request for Login page.\n");

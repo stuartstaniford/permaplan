@@ -36,7 +36,22 @@ UserManager::~UserManager(void)
 
 
 // =======================================================================================
-/// @brief Return the page with the form for logging in.
+/// @brief Process a login request.
+/// 
+/// Note this could be the result of a manual login (via UserManager::getLoginPage below)
+/// or it could be the result of a permaplan mediated login.
+/// @returns True if all was well writing to the buffer.  If false, it indicates the 
+/// buffer was not big enough and the output will have been truncated/incomplete.
+/// @param serv A pointer to the HttpServThread managing the HTTP response.
+
+bool UserManager::doLogin(HttpServThread* serv)
+{
+  return true;
+}
+
+
+// =======================================================================================
+/// @brief Return the page with the form for manual login.
 /// 
 /// @returns True if all was well writing to the buffer.  If false, it indicates the 
 /// buffer was not big enough and the output will have been truncated/incomplete.
@@ -50,7 +65,7 @@ bool UserManager::getLoginPage(HttpServThread* serv)
   
   // Open Login Form
   httPrintf("<center>\n");
-  httPrintf("<form action=\"doLogin\" method=\"post\">\n");
+  httPrintf("<form action=\"login\" method=\"post\">\n");
   
   // Open the main user/pass section
   httPrintf("<div class=\"container\">\n");
@@ -81,8 +96,6 @@ bool UserManager::getLoginPage(HttpServThread* serv)
     return false;
 
   return true;
-
-  return false;
 }
 
 
