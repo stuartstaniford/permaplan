@@ -952,6 +952,7 @@ INPUT                  = doc \
                 include/SemicircularArrow.h src/SemicircularArrow.cpp \
                 include/Shader.h src/Shader.cpp \
                 include/Shed.h src/Shed.cpp \
+                include/Singleton.h src/Singleton.cpp \                
                 include/SkySampleModel.h src/SkySampleModel.cpp \
                 include/SoilDatabase.h src/SoilDatabase.cpp \
                 include/SoilDatabaseClient.h src/SoilDatabaseClient.cpp \
@@ -971,6 +972,7 @@ INPUT                  = doc \
                 include/TriangleBuffer.h src/TriangleBuffer.cpp \
                 include/TruncatedCone.h src/TruncatedCone.cpp \
                 include/unitCubeFunction.h src/unitCubeFunction.cpp \                
+                include/UserManager.h src/UserManager.cpp \                
                 include/Version.h src/Version.cpp \
                 include/Vertex.h src/Vertex.cpp \
                 include/VertexArrayObject.h src/VertexArrayObject.cpp \
