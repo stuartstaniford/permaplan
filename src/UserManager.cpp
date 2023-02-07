@@ -36,10 +36,52 @@ UserManager::~UserManager(void)
 
 
 // =======================================================================================
-/// @brief Return the page with the form for logging in
+/// @brief Return the page with the form for logging in.
+/// 
+/// @returns True if all was well writing to the buffer.  If false, it indicates the 
+/// buffer was not big enough and the output will have been truncated/incomplete.
+/// @param serv A pointer to the HttpServThread managing the HTTP response.
 
 bool UserManager::getLoginPage(HttpServThread* serv)
 {
+  // Start the HTML page and the table header
+  unless(serv->startResponsePage((char*)"Login to Permaserv"))
+    return false;
+  
+  // Open Login Form
+  httPrintf("<center>\n");
+  httPrintf("<form action=\"doLogin\" method=\"post\">\n");
+  
+  // Open the main user/pass section
+  httPrintf("<div class=\"container\">\n");
+
+  // Username
+  httPrintf("<label for=\"uname\"><b>Username</b></label>\n");
+  httPrintf("<input type=\"text\" placeholder=\"Enter Username\" "
+                                                          "name=\"uname\" required>\n");
+  httPrintf("<br><br>\n");
+  
+  // Password
+  httPrintf("<label for=\"psw\"><b>Password</b></label>\n");
+  httPrintf("<input type=\"password\" placeholder=\"Enter Password\" "
+                                                          "name=\"psw\" required>\n");
+  httPrintf("<br><br>\n");
+  
+  // Login button
+  httPrintf("<button type=\"submit\">Login</button>\n");
+
+  // End user/pass section
+  httPrintf("</div>\n");
+  
+  // End the form
+  httPrintf("</form></center>\n");
+
+  // Finish up the page
+  unless(serv->endResponsePage())
+    return false;
+
+  return true;
+
   return false;
 }
 

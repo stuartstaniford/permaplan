@@ -42,7 +42,8 @@ void printUsage(int argc, char* argv[])
 {
   printf("\nUsage:\n\n%s [options]\n\nOptions:\n\n", argv[0]);
   
-  printf("\t-c T\tGet all GHCN climate files with T secs spacing.\n");
+  printf("\t-c\tRun server with no climate database.\n");
+  printf("\t-C T\tGet all GHCN climate files with T secs spacing.\n");
   printf("\t-h\tPrint this message.\n");
   printf("\t-p P\tRun server on port P.\n");
   printf("\t-s\tRun server with no solar database.\n");
