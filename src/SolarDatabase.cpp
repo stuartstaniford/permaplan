@@ -6,6 +6,7 @@
 
 #include "SolarDatabase.h"
 #include "Global.h"
+#include "HttpServThread.h"
 #include <err.h>
 
 
@@ -33,6 +34,36 @@ SolarDatabase::SolarDatabase(void):
 
 SolarDatabase::~SolarDatabase(void)
 {
+}
+
+
+/// =======================================================================================
+/// @brief Output HTML table of all solar database API options to main index page.
+/// 
+/// @returns True if all was well writing to the buffer.  If false, it indicates the 
+/// buffer was not big enough and the output will have been truncated/incomplete.
+/// @param serv A pointer to the HttpServThread managing the HTTP response.
+
+bool SolarDatabase::indexPageTable(HttpServThread* serv)
+{
+  httPrintf("<hr>\n");
+  httPrintf("<center>\n");
+  httPrintf("<h2>Solar Database Options</h2>\n");
+  unless(serv->startTable())
+    return false;
+
+  // DIF at a particular point
+  httPrintf("<tr><td><a href=\"/dif?42.441570:-76.498665:\">dif?lat:long:</a></td>");
+  httPrintf("<td>Average diffuse horizontal irradiation at location (kWh/m²/day).</td></tr>\n");
+
+  // DNI at a particular point
+  httPrintf("<tr><td><a href=\"/dni?42.441570:-76.498665:/\">dni?lat:long:</a></td>");
+  httPrintf("<td>Average direct normal irradiation at location (kWh/m²/day).</td></tr>\n");
+  
+  // End table
+  httPrintf("</table></center>\n");
+
+  return true;
 }
 
 

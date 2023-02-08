@@ -64,14 +64,6 @@ bool HttpPermaServ::indexPage(void)
   internalPrintf("<tr><td><a href=\"/compileTime/\">compileTime/</a></td>");
   internalPrintf("<td>Determine when the running server was compiled.</td></tr>\n");
   
-  // DIF at a particular point
-  internalPrintf("<tr><td><a href=\"/dif?42.441570:-76.498665:\">dif?lat:long:</a></td>");
-  internalPrintf("<td>Average diffuse horizontal irradiation at location (kWh/m²/day).</td></tr>\n");
-
-  // DNI at a particular point
-  internalPrintf("<tr><td><a href=\"/dni?42.441570:-76.498665:/\">dni?lat:long:</a></td>");
-  internalPrintf("<td>Average direct normal irradiation at location (kWh/m²/day).</td></tr>\n");
-
   // Soil profiles in some region
   internalPrintf("<tr><td><a href=\"/soil?42.441570:42.441870:-76.498665:-76.496665:\">"
                                               "soil?loLat:hiLat:loLong:hiLong:</a></td>");
@@ -79,10 +71,22 @@ bool HttpPermaServ::indexPage(void)
 
   // End table
   internalPrintf("</table></center>\n");
+
+  // Table of solar database options
+  if(solarDatabase)
+    solarDatabase->indexPageTable(this);
+  else
+   {
+    internalPrintf("<hr><center><h4>Solar Options Disabled (-s)</h4></center>\n");
+   }
   
   // Table of climate options
   if(climateDatabase)
     climateDatabase->indexPageTable(this);
+  else
+   {
+    internalPrintf("<hr><center><h4>Climate Options Disabled (-c)</h4></center>\n");
+   }
     
   // All done with content, finish up
   endResponsePage();

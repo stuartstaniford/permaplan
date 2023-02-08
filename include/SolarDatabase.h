@@ -7,6 +7,12 @@
 
 
 // =======================================================================================
+// Forward declarations
+
+class HttpServThread;
+
+
+// =======================================================================================
 /// @brief Interface to solar databases.
 ///  
 /// This class provides an interface to databases of information required to do solar
@@ -23,6 +29,7 @@ public:
   // Member functions - public
   SolarDatabase(void);
   ~SolarDatabase(void);
+  bool indexPageTable(HttpServThread* serv);
   float getDIFValue(float lat, float longt);
   float getDNIValue(float lat, float longt);
   
