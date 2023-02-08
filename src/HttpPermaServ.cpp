@@ -77,42 +77,16 @@ bool HttpPermaServ::indexPage(void)
                                               "soil?loLat:hiLat:loLong:hiLong:</a></td>");
   internalPrintf("<td>Soil Profiles in region (json).</td></tr>\n");
 
-  // Climate data near a particular point
-  internalPrintf("<tr><td><a href=\"/climate?42.421:-76.347:20:\">"
-                 "climate?lat:long:years:</a></td>");
-  internalPrintf("<td>Years of climate information near location.</td></tr>\n");
-
-  // Climate diagnostics near a particular point
-  internalPrintf("<tr><td><a href=\"/climateDiagnostic?42.421:-76.347:20:\">"
-                 "climateDiagnostic?lat:long:years:</a></td>");
-  internalPrintf("<td>Climate station diagnostic near location.</td></tr>\n");
-
-  // Temperature max curves for some year near a particular point
-  internalPrintf("<tr><td><a href=\"/tMaxYear?42.421:-76.347:2005:\">"
-                 "tMaxYear?lat:long:year:</a></td>");
-  internalPrintf("<td>Available max temperature curves for year near location.</td></tr>\n");
-
-  // Temperature min curves for some year near a particular point
-  internalPrintf("<tr><td><a href=\"/tMinYear?42.421:-76.347:2005:\">"
-                 "tMinYear?lat:long:year:</a></td>");
-  internalPrintf("<td>Available min temperature curves for year near location.</td></tr>\n");
-
-  // Station comparison for daily highs near a particular point
-  internalPrintf("<tr><td><a href=\"/stationCompHigh?42.421:-76.347:\">"
-                 "stationCompHigh?lat:long:</a></td>");
-  internalPrintf("<td>Compare stations near location.</td></tr>\n");
-
-  // Station comparison for daily lows near a particular point
-  internalPrintf("<tr><td><a href=\"/stationCompLow?42.421:-76.347:\">"
-                 "stationCompLow?lat:long:</a></td>");
-  internalPrintf("<td>Compare stations near location.</td></tr>\n");
-
-  // End table and page
+  // End table
   internalPrintf("</table></center>\n");
+  
+  // Table of climate options
+  if(climateDatabase)
+    climateDatabase->indexPageTable(this);
+    
+  // All done with content, finish up
   endResponsePage();
-  
   LogPermaservOps("Served index page to client on port %u.\n", clientP);
-  
   return true;
 }
 

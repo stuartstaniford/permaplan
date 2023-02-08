@@ -29,6 +29,7 @@ public:
   // Member functions - public
   ClimateDatabase(float fileSpacing = -1.0f);
   ~ClimateDatabase(void);
+  bool indexPageTable(HttpServThread* serv);
   unsigned printClimateJson(char* buf, unsigned bufSize, 
                                             float lat, float longt, unsigned yearCount);
   bool printStationDiagnosticTable(HttpServThread* serv, 

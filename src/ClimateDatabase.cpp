@@ -37,6 +37,58 @@ ClimateDatabase::~ClimateDatabase(void)
 
 
 /// =======================================================================================
+/// @brief Output HTML table of all climate database API options to main index page.
+/// 
+/// @returns True if all was well writing to the buffer.  If false, it indicates the 
+/// buffer was not big enough and the output will have been truncated/incomplete.
+/// @param serv A pointer to the HttpServThread managing the HTTP response.
+
+bool ClimateDatabase::indexPageTable(HttpServThread* serv)
+{
+  httPrintf("<hr>\n");
+  httPrintf("<center>\n");
+  httPrintf("<h2>Climate Database Options</h2>\n");
+  unless(serv->startTable())
+    return false;
+
+  // Climate data near a particular point
+  httPrintf("<tr><td><a href=\"/climate?42.421:-76.347:20:\">"
+                 "climate?lat:long:years:</a></td>");
+  httPrintf("<td>Years of climate information near location.</td></tr>\n");
+
+  // Climate diagnostics near a particular point
+  httPrintf("<tr><td><a href=\"/climateDiagnostic?42.421:-76.347:20:\">"
+                 "climateDiagnostic?lat:long:years:</a></td>");
+  httPrintf("<td>Climate station diagnostic near location.</td></tr>\n");
+
+  // Temperature max curves for some year near a particular point
+  httPrintf("<tr><td><a href=\"/tMaxYear?42.421:-76.347:2005:\">"
+                 "tMaxYear?lat:long:year:</a></td>");
+  httPrintf("<td>Available max temperature curves for year near location.</td></tr>\n");
+
+  // Temperature min curves for some year near a particular point
+  httPrintf("<tr><td><a href=\"/tMinYear?42.421:-76.347:2005:\">"
+                 "tMinYear?lat:long:year:</a></td>");
+  httPrintf("<td>Available min temperature curves for year near location.</td></tr>\n");
+
+  // Station comparison for daily highs near a particular point
+  httPrintf("<tr><td><a href=\"/stationCompHigh?42.421:-76.347:\">"
+                 "stationCompHigh?lat:long:</a></td>");
+  httPrintf("<td>Compare stations near location.</td></tr>\n");
+
+  // Station comparison for daily lows near a particular point
+  httPrintf("<tr><td><a href=\"/stationCompLow?42.421:-76.347:\">"
+                 "stationCompLow?lat:long:</a></td>");
+  httPrintf("<td>Compare stations near location.</td></tr>\n");
+  
+  // End table
+  httPrintf("</table></center>\n");
+
+  return true;
+}
+
+
+/// =======================================================================================
 /// @brief Output JSON climate data for a particular location to a buffer.
 ///
 /// Note the current model is we output everything in a big lump on a single request.

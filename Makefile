@@ -1471,6 +1471,7 @@ src/ElementBufferObject.o: /usr/local/include/cglm/bezier.h
 src/ElementBufferObject.o: /usr/local/include/cglm/ray.h
 src/ElementBufferObject.o: /usr/local/include/cglm/affine2d.h
 src/EmptyClass.o: ./include/EmptyClass.h
+src/ExtensionMimeTypeMap.o: ./include/ExtensionMimeTypeMap.h
 src/GHCNDatabase.o: ./include/GHCNDatabase.h ./include/HttpClient.h
 src/GHCNDatabase.o: ./include/RTree.h ./include/ClimateInfo.h
 src/GHCNDatabase.o: ./include/DynamicallyTypable.h ./include/Logging.h
@@ -2348,8 +2349,7 @@ src/HttpLBDebug.o: /usr/local/include/cglm/ray.h
 src/HttpLBDebug.o: /usr/local/include/cglm/affine2d.h
 src/HttpLBDebug.o: ./include/HttpRequestParser.h
 src/HttpLBPermaserv.o: ./include/HttpLBPermaserv.h
-src/HttpLBPermaserv.o: ./include/HttpLoadBalancer.h ./include/HttpPermaServ.h
-src/HttpLBPermaserv.o: ./include/HttpServThread.h ./include/TaskQueue.h
+src/HttpLBPermaserv.o: ./include/HttpLoadBalancer.h ./include/HttpPageSet.h
 src/HttpLBPermaserv.o: ./include/Lockable.h ./include/Global.h
 src/HttpLBPermaserv.o: /usr/local/include/cglm/cglm.h
 src/HttpLBPermaserv.o: /usr/local/include/cglm/common.h
@@ -2394,7 +2394,8 @@ src/HttpLBPermaserv.o: /usr/local/include/cglm/curve.h
 src/HttpLBPermaserv.o: /usr/local/include/cglm/bezier.h
 src/HttpLBPermaserv.o: /usr/local/include/cglm/ray.h
 src/HttpLBPermaserv.o: /usr/local/include/cglm/affine2d.h
-src/HttpLBPermaserv.o: ./include/HttpRequestParser.h
+src/HttpLBPermaserv.o: ./include/HttpPermaServ.h ./include/HttpServThread.h
+src/HttpLBPermaserv.o: ./include/TaskQueue.h ./include/HttpRequestParser.h
 src/HttpLBPermaserv.o: ./include/SolarDatabase.h
 src/HttpLBPermaserv.o: ./include/GdalFileInterface.h ./include/SoilDatabase.h
 src/HttpLBPermaserv.o: ./include/BILFile.h ./include/MdbFile.h
@@ -2535,6 +2536,52 @@ src/HttpLoadBalancer.o: /usr/local/include/cglm/affine2d.h
 src/HttpLoadBalancer.o: ./include/HttpRequestParser.h
 src/HttpLoadBalancer.o: ./include/TaskQueueFarm.h ./include/Logging.h
 src/HttpLoadBalancer.o: ./include/MemoryTracker.h ./include/Timeval.h
+src/HttpPageSet.o: ./include/HttpPageSet.h ./include/Lockable.h
+src/HttpPageSet.o: ./include/Global.h /usr/local/include/cglm/cglm.h
+src/HttpPageSet.o: /usr/local/include/cglm/common.h
+src/HttpPageSet.o: /usr/local/include/cglm/types.h
+src/HttpPageSet.o: /usr/local/include/cglm/simd/intrin.h
+src/HttpPageSet.o: /usr/local/include/cglm/vec2.h
+src/HttpPageSet.o: /usr/local/include/cglm/util.h
+src/HttpPageSet.o: /usr/local/include/cglm/vec2-ext.h
+src/HttpPageSet.o: /usr/local/include/cglm/vec3.h
+src/HttpPageSet.o: /usr/local/include/cglm/vec4.h
+src/HttpPageSet.o: /usr/local/include/cglm/vec4-ext.h
+src/HttpPageSet.o: /usr/local/include/cglm/vec3-ext.h
+src/HttpPageSet.o: /usr/local/include/cglm/mat4.h
+src/HttpPageSet.o: /usr/local/include/cglm/mat3.h
+src/HttpPageSet.o: /usr/local/include/cglm/mat2.h
+src/HttpPageSet.o: /usr/local/include/cglm/affine.h
+src/HttpPageSet.o: /usr/local/include/cglm/affine-mat.h
+src/HttpPageSet.o: /usr/local/include/cglm/cam.h
+src/HttpPageSet.o: /usr/local/include/cglm/plane.h
+src/HttpPageSet.o: /usr/local/include/cglm/clipspace/persp.h
+src/HttpPageSet.o: /usr/local/include/cglm/common.h
+src/HttpPageSet.o: /usr/local/include/cglm/plane.h
+src/HttpPageSet.o: /usr/local/include/cglm/mat4.h
+src/HttpPageSet.o: /usr/local/include/cglm/clipspace/ortho_rh_no.h
+src/HttpPageSet.o: /usr/local/include/cglm/clipspace/persp_rh_no.h
+src/HttpPageSet.o: /usr/local/include/cglm/clipspace/persp.h
+src/HttpPageSet.o: /usr/local/include/cglm/clipspace/view_rh_no.h
+src/HttpPageSet.o: /usr/local/include/cglm/clipspace/view_rh.h
+src/HttpPageSet.o: /usr/local/include/cglm/frustum.h
+src/HttpPageSet.o: /usr/local/include/cglm/quat.h
+src/HttpPageSet.o: /usr/local/include/cglm/euler.h
+src/HttpPageSet.o: /usr/local/include/cglm/box.h
+src/HttpPageSet.o: /usr/local/include/cglm/color.h
+src/HttpPageSet.o: /usr/local/include/cglm/io.h
+src/HttpPageSet.o: /usr/local/include/cglm/project.h
+src/HttpPageSet.o: /usr/local/include/cglm/clipspace/project_no.h
+src/HttpPageSet.o: /usr/local/include/cglm/vec3.h
+src/HttpPageSet.o: /usr/local/include/cglm/vec4.h
+src/HttpPageSet.o: /usr/local/include/cglm/sphere.h
+src/HttpPageSet.o: /usr/local/include/cglm/ease.h
+src/HttpPageSet.o: /usr/local/include/cglm/curve.h
+src/HttpPageSet.o: /usr/local/include/cglm/bezier.h
+src/HttpPageSet.o: /usr/local/include/cglm/ray.h
+src/HttpPageSet.o: /usr/local/include/cglm/affine2d.h
+src/HttpPageSet.o: ./include/HttpServThread.h ./include/TaskQueue.h
+src/HttpPageSet.o: ./include/HttpRequestParser.h ./include/HttpStaticPage.h
 src/HttpPermaServ.o: ./include/HttpPermaServ.h ./include/HttpServThread.h
 src/HttpPermaServ.o: ./include/TaskQueue.h ./include/Lockable.h
 src/HttpPermaServ.o: ./include/Global.h /usr/local/include/cglm/cglm.h
@@ -2671,8 +2718,9 @@ src/HttpPermaServ.o: /usr/local/Cellar/glib/2.74.0/include/glib-2.0/glib/depreca
 src/HttpPermaServ.o: /usr/local/Cellar/glib/2.74.0/include/glib-2.0/glib/deprecated/gthread.h
 src/HttpPermaServ.o: /usr/local/Cellar/glib/2.74.0/include/glib-2.0/glib/glib-autocleanups.h
 src/HttpPermaServ.o: ./include/HttpLBPermaserv.h ./include/HttpLoadBalancer.h
-src/HttpPermaServ.o: ./include/ClimateDatabase.h ./include/ClimateInfo.h
-src/HttpPermaServ.o: ./include/DynamicallyTypable.h
+src/HttpPermaServ.o: ./include/HttpPageSet.h ./include/ClimateDatabase.h
+src/HttpPermaServ.o: ./include/ClimateInfo.h ./include/DynamicallyTypable.h
+src/HttpPermaServ.o: ./include/UserManager.h
 src/HttpPermaservClient.o: ./include/HttpPermaservClient.h
 src/HttpPermaservClient.o: ./include/HttpClient.h
 src/HttpPermaservClient.o: ./include/rapidjson/document.h
@@ -2846,6 +2894,7 @@ src/HttpServThread.o: /usr/local/include/cglm/ray.h
 src/HttpServThread.o: /usr/local/include/cglm/affine2d.h
 src/HttpServThread.o: ./include/HttpRequestParser.h ./include/Logging.h
 src/HttpServThread.o: ./include/MemoryTracker.h ./include/Timeval.h
+src/HttpStaticPage.o: ./include/HttpStaticPage.h ./include/loadFileToBuf.h
 src/InterfaceAction.o: ./include/InterfaceAction.h ./include/Global.h
 src/InterfaceAction.o: /usr/local/include/cglm/cglm.h
 src/InterfaceAction.o: /usr/local/include/cglm/common.h
@@ -5798,6 +5847,7 @@ src/Shed.o: ./include/rapidjson/error/error.h ./include/MenuShedPanel.h
 src/Shed.o: ./include/MenuPanel.h ./include/InterfaceAction.h imgui/imgui.h
 src/Shed.o: imgui/imconfig.h ./include/HttpDebug.h ./include/HttpServThread.h
 src/Shed.o: ./include/TaskQueue.h ./include/HttpRequestParser.h
+src/Singleton.o: ./include/Singleton.h
 src/SkySampleModel.o: ./include/SkySampleModel.h
 src/SkySampleModel.o: /usr/local/include/cglm/cglm.h
 src/SkySampleModel.o: /usr/local/include/cglm/common.h
@@ -6989,6 +7039,54 @@ src/TruncatedCone.o: ./include/MemoryTracker.h ./include/Timeval.h
 src/TruncatedCone.o: ./include/Lockable.h /usr/local/include/GL/glew.h
 src/TruncatedCone.o: ./include/HttpDebug.h ./include/HttpServThread.h
 src/TruncatedCone.o: ./include/TaskQueue.h ./include/HttpRequestParser.h
+src/UserManager.o: ./include/UserManager.h ./include/Logging.h
+src/UserManager.o: ./include/MemoryTracker.h ./include/Timeval.h
+src/UserManager.o: ./include/Lockable.h ./include/Global.h
+src/UserManager.o: /usr/local/include/cglm/cglm.h
+src/UserManager.o: /usr/local/include/cglm/common.h
+src/UserManager.o: /usr/local/include/cglm/types.h
+src/UserManager.o: /usr/local/include/cglm/simd/intrin.h
+src/UserManager.o: /usr/local/include/cglm/vec2.h
+src/UserManager.o: /usr/local/include/cglm/util.h
+src/UserManager.o: /usr/local/include/cglm/vec2-ext.h
+src/UserManager.o: /usr/local/include/cglm/vec3.h
+src/UserManager.o: /usr/local/include/cglm/vec4.h
+src/UserManager.o: /usr/local/include/cglm/vec4-ext.h
+src/UserManager.o: /usr/local/include/cglm/vec3-ext.h
+src/UserManager.o: /usr/local/include/cglm/mat4.h
+src/UserManager.o: /usr/local/include/cglm/mat3.h
+src/UserManager.o: /usr/local/include/cglm/mat2.h
+src/UserManager.o: /usr/local/include/cglm/affine.h
+src/UserManager.o: /usr/local/include/cglm/affine-mat.h
+src/UserManager.o: /usr/local/include/cglm/cam.h
+src/UserManager.o: /usr/local/include/cglm/plane.h
+src/UserManager.o: /usr/local/include/cglm/clipspace/persp.h
+src/UserManager.o: /usr/local/include/cglm/common.h
+src/UserManager.o: /usr/local/include/cglm/plane.h
+src/UserManager.o: /usr/local/include/cglm/mat4.h
+src/UserManager.o: /usr/local/include/cglm/clipspace/ortho_rh_no.h
+src/UserManager.o: /usr/local/include/cglm/clipspace/persp_rh_no.h
+src/UserManager.o: /usr/local/include/cglm/clipspace/persp.h
+src/UserManager.o: /usr/local/include/cglm/clipspace/view_rh_no.h
+src/UserManager.o: /usr/local/include/cglm/clipspace/view_rh.h
+src/UserManager.o: /usr/local/include/cglm/frustum.h
+src/UserManager.o: /usr/local/include/cglm/quat.h
+src/UserManager.o: /usr/local/include/cglm/euler.h
+src/UserManager.o: /usr/local/include/cglm/box.h
+src/UserManager.o: /usr/local/include/cglm/color.h
+src/UserManager.o: /usr/local/include/cglm/io.h
+src/UserManager.o: /usr/local/include/cglm/project.h
+src/UserManager.o: /usr/local/include/cglm/clipspace/project_no.h
+src/UserManager.o: /usr/local/include/cglm/vec3.h
+src/UserManager.o: /usr/local/include/cglm/vec4.h
+src/UserManager.o: /usr/local/include/cglm/sphere.h
+src/UserManager.o: /usr/local/include/cglm/ease.h
+src/UserManager.o: /usr/local/include/cglm/curve.h
+src/UserManager.o: /usr/local/include/cglm/bezier.h
+src/UserManager.o: /usr/local/include/cglm/ray.h
+src/UserManager.o: /usr/local/include/cglm/affine2d.h
+src/UserManager.o: ./include/HttpServThread.h ./include/TaskQueue.h
+src/UserManager.o: ./include/HttpRequestParser.h
 src/Version.o: ./include/Version.h ./include/rapidjson/document.h
 src/Version.o: ./include/rapidjson/reader.h ./include/rapidjson/allocators.h
 src/Version.o: ./include/rapidjson/rapidjson.h ./include/rapidjson/stream.h
