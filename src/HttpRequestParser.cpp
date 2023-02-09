@@ -27,14 +27,7 @@
 /// actually allocate 8 more than this to have some guard bytes at either end).
 
 HttpRequestParser::HttpRequestParser(unsigned size):
-                                          connectionWillClose(false),
-                                          requestMethod(NoMethod),
-                                          readPoint(NULL),
-                                          headerEnd(NULL),
-                                          bufSize(size),
-                                          urlOffset(0u),
-                                          httpVerOffset(0u),
-                                          connectionDone(false)
+                                          bufSize(size)
 {
   buf  = new char[size+8];
   unless(buf)
@@ -42,6 +35,9 @@ HttpRequestParser::HttpRequestParser(unsigned size):
   strncpy(buf, "aaaa", 4);
   buf+=4;
   strncpy(buf+size, "bbbb", 4);
+
+  // most initialization in here: HTTP/1.1 reinitializes multiple times
+  resetForReuse();  
   
   LogRequestParsing("Request parser initialized with buffer size %u.\n", bufSize);
   headerMap["Connection"]         = Connection;
@@ -68,6 +64,8 @@ void HttpRequestParser::resetForReuse(void)
   connectionDone      = false;
   connectionWillClose = false;
   requestMethod       = NoMethod;
+  bodyPresent         = false;
+  bodySize            = 0u;
 }
 
 
@@ -162,8 +160,10 @@ bool HttpRequestParser::parseRequest(void)
             break;
           
           case ContentLength:
-            LogRequestErrors("Unsupported Content-Length header in HTTP request.\n");
-            goto badParseRequestExit;
+            LogRequestParsing("Found Content-Length header (%s) in HTTP request.\n", value);
+            bodyPresent = true;
+            bodySize = atoi(value);
+            break;
 
           case ContentType:
             LogRequestErrors("Unsupported Content-Type header in HTTP request.\n");
@@ -355,6 +355,7 @@ bool HttpRequestParser::getNextRequest(void)
 bool HttpRequestParser::processBody(void)
 {
 
+  readPoint = NULL;
   return true;  
 }
 

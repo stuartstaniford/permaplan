@@ -72,7 +72,9 @@ private:
   unsigned            bufSize;
   unsigned            urlOffset;
   unsigned            httpVerOffset;
+  unsigned            bodySize;
   bool                connectionDone;
+  bool                bodyPresent;
 
   // Member functions - private
   bool parseRequest(void);
