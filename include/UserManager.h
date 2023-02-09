@@ -26,7 +26,7 @@ public:
   // Member functions - public
   UserManager(void);
   ~UserManager(void);
-  bool doLogin(HttpServThread* serv);
+  bool doLogin(HttpServThread* serv, char* url);
   bool getLoginPage(HttpServThread* serv);
   static UserManager& getUserManager(void) // Get the singleton instance
    { return *theUserManager; }

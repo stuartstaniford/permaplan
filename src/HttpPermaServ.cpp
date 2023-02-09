@@ -381,11 +381,12 @@ bool HttpPermaServ::processRequestHeader(void)
    }
 
   // login request
-  else if( strlenUrl == 6 && strncmp(url, "/login", 6) == 0)
+  else if(reqParser.requestMethod == POST && strlenUrl == 6 
+                                                    && strncmp(url, "/login", 6) == 0)
    {
     LogPermaservOpDetails("Processing login request.\n");
     UserManager& userManager = UserManager::getUserManager();
-    retVal = userManager.doLogin(this);
+    retVal = userManager.doLogin(this, url+6);
    }
 
   // login page

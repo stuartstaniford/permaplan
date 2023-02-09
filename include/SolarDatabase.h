@@ -44,7 +44,6 @@ private:
   
   SolarDatabase(const SolarDatabase&);                 // Prevent copy-construction
   SolarDatabase& operator=(const SolarDatabase&);      // Prevent assignment
-
 };
 
 

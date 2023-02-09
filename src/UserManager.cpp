@@ -44,8 +44,9 @@ UserManager::~UserManager(void)
 /// buffer was not big enough and the output will have been truncated/incomplete.
 /// @param serv A pointer to the HttpServThread managing the HTTP response.
 
-bool UserManager::doLogin(HttpServThread* serv)
+bool UserManager::doLogin(HttpServThread* serv, char* url)
 {
+  serv->errorPage("Login not implemented.");
   return true;
 }
 

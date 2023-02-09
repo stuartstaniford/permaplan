@@ -28,6 +28,7 @@
 
 HttpRequestParser::HttpRequestParser(unsigned size):
                                           connectionWillClose(false),
+                                          requestMethod(NoMethod),
                                           readPoint(NULL),
                                           headerEnd(NULL),
                                           bufSize(size),
@@ -43,12 +44,12 @@ HttpRequestParser::HttpRequestParser(unsigned size):
   strncpy(buf+size, "bbbb", 4);
   
   LogRequestParsing("Request parser initialized with buffer size %u.\n", bufSize);
-  headerMap["Connection"]        = Connection;
-  headerMap["User-Agent"]        = UserAgent;
-  headerMap["Content-Length"]    = ContentLength;
-  headerMap["Content-Type"]      = ContentType;
-  headerMap["Transfer-Encoding"] = TransferEncoding;
-  headerMap["Upgrade"]           = Upgrade;
+  headerMap["Connection"]         = Connection;
+  headerMap["User-Agent"]         = UserAgent;
+  headerMap["Content-Length"]     = ContentLength;
+  headerMap["Content-Type"]       = ContentType;
+  headerMap["Transfer-Encoding"]  = TransferEncoding;
+  headerMap["Upgrade"]            = Upgrade;
 }
 
 
@@ -66,6 +67,7 @@ void HttpRequestParser::resetForReuse(void)
   httpVerOffset       = 0u;
   connectionDone      = false;
   connectionWillClose = false;
+  requestMethod       = NoMethod;
 }
 
 
@@ -87,13 +89,26 @@ HttpRequestParser::~HttpRequestParser(void)
 bool HttpRequestParser::parseRequest(void)
 {
   char* h, *url, *lastToken;
-  if(strncmp(buf, "GET ", 4) !=0 )
+  
+  // Deal with method
+  if(strncmp(buf, "GET ", 4) == 0)
+   {
+    requestMethod = GET;
+    urlOffset = 4u;
+   }
+  else if(strncmp(buf, "POST ", 5) == 0)
+   {
+    requestMethod = POST;
+    urlOffset = 5u;
+   }
+  else
    {
     buf[20] = '\0';
     LogRequestErrors("Unsupported method in HTTP request %s.\n", buf);
     goto badParseRequestExit;
    }
-  urlOffset = 4u;
+  
+  // Deal with URL
   url = buf + urlOffset;
   lastToken = index(url, ' ');
   if(lastToken)
@@ -104,6 +119,8 @@ bool HttpRequestParser::parseRequest(void)
     lastToken = url+strlen(url)+1;
    }
   LogRequestParsing("Found Url of length %lu: %s.\n", strlen(url), url);
+  
+  // Deal with HTTP version
   if(lastToken - buf + 256 > bufSize)
    {
     LogRequestErrors("Header too large in HTTP request.\n");
@@ -115,6 +132,7 @@ bool HttpRequestParser::parseRequest(void)
     goto badParseRequestExit;
    }
   
+  // Parse rest of the header lines
   h = lastToken + 10;
   while(h < headerEnd)
    {
@@ -166,9 +184,11 @@ bool HttpRequestParser::parseRequest(void)
     h = term + 2;
    }
     
+  // Finish up in successful case
   headerEnd = NULL; // make sure we don't reuse a crazy value next time.
   return true;
   
+  // Cleanup if we had to abort
 badParseRequestExit:
   connectionDone = true;
   LogFlush();

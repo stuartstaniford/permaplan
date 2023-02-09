@@ -21,6 +21,16 @@ enum HTTPHeaderType
   Upgrade,
 };
 
+// =======================================================================================
+/// @brief An enum to encapsulate the different types of methods that we support in HTTP.
+
+enum HTTPMethodType
+{
+  NoMethod,
+  GET,
+  POST,
+};
+
 
 // =======================================================================================
 /// @brief Parse one HTTP request.
@@ -38,7 +48,8 @@ class HttpRequestParser
 public:
   
   // Instance variables - public
-  bool    connectionWillClose;
+  bool            connectionWillClose;
+  HTTPMethodType  requestMethod;
   
   // Member functions - public
   HttpRequestParser(unsigned size);
@@ -46,7 +57,6 @@ public:
   ~HttpRequestParser(void);
   bool getNextRequest(void);
   inline void setNewConnection(int fd) {connfd = fd;}
-  inline char* getMethod(void) {return buf;}
   inline char* getUrl(void) {return buf + urlOffset;}
   inline char* getHTTPVersion(void) {return buf + httpVerOffset;}
   
