@@ -28,6 +28,36 @@ enum MimeType
   ApplicationJson
 };
 
+
+// =======================================================================================
+/// @brief Singleton class for mappping text mimetypes to enum MimeType. 
+
+class MimeTypeMap: public std::unordered_map<std::string, MimeType>
+{
+public:
+  
+  // Instance variables - public
+  
+  // Member functions - public
+  MimeTypeMap(void);
+  ~MimeTypeMap(void);
+  static MimeTypeMap& getMap(void) {return *theOnlyMap;} // Get singleton instance
+
+private:
+  
+  // Private static (class) variables
+  static MimeTypeMap* theOnlyMap;
+
+  // Instance variables - private
+  
+  // Member functions - private
+  /// @brief Prevent copy-construction.
+  MimeTypeMap(const MimeTypeMap&);       
+  /// @brief Prevent assignment.
+  MimeTypeMap& operator=(const MimeTypeMap&);      
+};
+
+
 // =======================================================================================
 /// @brief Singleton class for mappping file name extensions to mimetypes. 
 ///

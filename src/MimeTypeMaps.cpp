@@ -9,10 +9,44 @@
 // Static variables, etc.
 
 ExtensionMimeTypeMap* ExtensionMimeTypeMap::theOnlyMap = NULL;
+MimeTypeMap* MimeTypeMap::theOnlyMap = NULL;
 
 
 // =======================================================================================
-/// @brief Constructor
+/// @brief MimeTypeMap Constructor
+
+MimeTypeMap::MimeTypeMap(void)
+{
+  if(theOnlyMap)
+    return;
+  else
+    theOnlyMap = this;
+
+  // Text types
+  insert({"text/html", TextHtml});
+  insert({"text/javascript", TextJavascript});
+  insert({"text/css", TextCss});
+  insert({"text/plain", TextPlain});
+
+  // Image types
+  insert({"image/gif", ImageGif});
+  insert({"image/jpeg", ImageJpeg});
+  
+  // Application types
+  insert({"application/json", ApplicationJson});
+}
+
+
+// =======================================================================================
+/// @brief MimeTypeMap Destructor
+
+MimeTypeMap::~MimeTypeMap(void)
+{
+}
+
+
+// =======================================================================================
+/// @brief ExtensionMimeTypeMap Constructor
 
 ExtensionMimeTypeMap::ExtensionMimeTypeMap(void)
 {
@@ -38,7 +72,7 @@ ExtensionMimeTypeMap::ExtensionMimeTypeMap(void)
 
 
 // =======================================================================================
-/// @brief Destructor
+/// @brief ExtensionMimeTypeMap Destructor
 
 ExtensionMimeTypeMap::~ExtensionMimeTypeMap(void)
 {
