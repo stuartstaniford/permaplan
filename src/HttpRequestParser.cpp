@@ -66,6 +66,7 @@ void HttpRequestParser::resetForReuse(void)
   requestMethod       = NoMethod;
   bodyPresent         = false;
   bodySize            = 0u;
+  contentType         = NoMimeType;
 }
 
 
@@ -86,6 +87,7 @@ HttpRequestParser::~HttpRequestParser(void)
 
 bool HttpRequestParser::parseRequest(void)
 {
+  MimeTypeMap& mimeTypes = MimeTypeMap::getMap();
   char* h, *url, *lastToken;
   
   // Deal with method
@@ -166,9 +168,18 @@ bool HttpRequestParser::parseRequest(void)
             break;
 
           case ContentType:
-            LogRequestErrors("Unsupported Content-Type header in HTTP request.\n");
-            goto badParseRequestExit;
-
+            if(mimeTypes.count(value)) // A mime-type we know
+             {
+              contentType = mimeTypes[value];
+              LogRequestParsing("Found Content-Type %s in HTTP request.\n", value);
+             }
+            else
+             {
+              LogRequestErrors("Unsupported Content-Type %s in HTTP request.\n", value);
+              goto badParseRequestExit;
+             }
+            break;
+          
           case TransferEncoding:
             LogRequestErrors("Unsupported Transfer-Encoding header in HTTP request.\n");
             goto badParseRequestExit;

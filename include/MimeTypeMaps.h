@@ -25,7 +25,8 @@ enum MimeType
   ImageJpeg,
   
   // Application types
-  ApplicationJson
+  ApplicationJson,
+  ApplicationXWWWFormUrlEncoded,
 };
 
 

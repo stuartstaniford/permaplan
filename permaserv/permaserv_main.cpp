@@ -135,7 +135,6 @@ int main (int argc, char* argv[])
     
   // Startup tasks
   initGlobals();
-  ExtensionMimeTypeMap extensionMap;
   processCommandLine(argc, argv);
   permaservParams.compileTime = getCompileTime(argv[0]);
   recordPort();

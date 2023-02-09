@@ -11,6 +11,8 @@
 ExtensionMimeTypeMap* ExtensionMimeTypeMap::theOnlyMap = NULL;
 MimeTypeMap* MimeTypeMap::theOnlyMap = NULL;
 
+ExtensionMimeTypeMap  extensionMap;
+MimeTypeMap           mimeTypeMap;
 
 // =======================================================================================
 /// @brief MimeTypeMap Constructor
@@ -34,6 +36,7 @@ MimeTypeMap::MimeTypeMap(void)
   
   // Application types
   insert({"application/json", ApplicationJson});
+  insert({"application/x-www-form-urlencoded", ApplicationXWWWFormUrlEncoded});
 }
 
 

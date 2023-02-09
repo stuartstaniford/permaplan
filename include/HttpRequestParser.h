@@ -3,6 +3,7 @@
 #ifndef REQUEST_PARSER_H
 #define REQUEST_PARSER_H
 
+#include "MimeTypeMaps.h"
 #include <unordered_map>
 #include <string>
 
@@ -75,7 +76,8 @@ private:
   unsigned            bodySize;
   bool                connectionDone;
   bool                bodyPresent;
-
+  MimeType            contentType;
+  
   // Member functions - private
   bool parseRequest(void);
   bool processBody(void);
