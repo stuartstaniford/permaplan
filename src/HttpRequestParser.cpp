@@ -82,7 +82,7 @@ HttpRequestParser::~HttpRequestParser(void)
 
 
 // =======================================================================================
-/// @brief Parses the header once we know we have a whole header in the buffer
+/// @brief Parses the request once we know we have a whole header in the buffer
 /// @returns True if we were able to parse the request to our satisfaction, false 
 /// otherwise.
 
@@ -250,7 +250,7 @@ char* HttpRequestParser::headerEndPresent(char* range, unsigned rangeSize)
 
 
 // =======================================================================================
-/// @brief Get the next header by reading from the socket.
+/// @brief Get the next request by reading from the socket.
 /// @returns true if we successfully read a request, false otherwise.
 
 bool HttpRequestParser::getNextRequest(void)
@@ -295,6 +295,7 @@ bool HttpRequestParser::getNextRequest(void)
        }
       if(nBytes < bufLeft)
        {
+        // Got some data, read it into buffer
         readPoint[nBytes] = '\0';
         LogRequestParsing("Read %u bytes into position %lu in buffer\n", nBytes, readPoint-buf);
        }
@@ -337,8 +338,24 @@ bool HttpRequestParser::getNextRequest(void)
   
    } // while(1) over reads
   
-  readPoint = NULL;
-  return parseRequest();
+  unless(parseRequest())
+   {
+    readPoint = NULL;
+    return false;
+   }
+  
+  return processBody();
+}
+
+
+// =======================================================================================
+/// @brief Determine if there's a body, and read it in if so.
+/// @returns true if we successfully read any body, or there is no body, false otherwise.
+
+bool HttpRequestParser::processBody(void)
+{
+
+  return true;  
 }
 
 

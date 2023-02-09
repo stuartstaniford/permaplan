@@ -50,7 +50,7 @@ public:
   // Instance variables - public
   bool            connectionWillClose;
   HTTPMethodType  requestMethod;
-  
+
   // Member functions - public
   HttpRequestParser(unsigned size);
   void resetForReuse(void);
@@ -59,7 +59,7 @@ public:
   inline void setNewConnection(int fd) {connfd = fd;}
   inline char* getUrl(void) {return buf + urlOffset;}
   inline char* getHTTPVersion(void) {return buf + httpVerOffset;}
-  
+    
 private:
   
   // Instance variables - private
@@ -76,6 +76,7 @@ private:
 
   // Member functions - private
   bool parseRequest(void);
+  bool processBody(void);
   char* headerEndPresent(char* range, unsigned rangeSize);
   HttpRequestParser(const HttpRequestParser&);                 // Prevent copy-construction
   HttpRequestParser& operator=(const HttpRequestParser&);      // Prevent assignment
