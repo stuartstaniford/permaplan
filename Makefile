@@ -1471,7 +1471,6 @@ src/ElementBufferObject.o: /usr/local/include/cglm/bezier.h
 src/ElementBufferObject.o: /usr/local/include/cglm/ray.h
 src/ElementBufferObject.o: /usr/local/include/cglm/affine2d.h
 src/EmptyClass.o: ./include/EmptyClass.h
-src/ExtensionMimeTypeMap.o: ./include/ExtensionMimeTypeMap.h
 src/GHCNDatabase.o: ./include/GHCNDatabase.h ./include/HttpClient.h
 src/GHCNDatabase.o: ./include/RTree.h ./include/ClimateInfo.h
 src/GHCNDatabase.o: ./include/DynamicallyTypable.h ./include/Logging.h
@@ -5058,6 +5057,7 @@ src/MenuTree.o: ./include/rapidjson/error/en.h
 src/MenuTree.o: ./include/rapidjson/error/error.h ./include/HttpDebug.h
 src/MenuTree.o: ./include/HttpServThread.h ./include/TaskQueue.h
 src/MenuTree.o: ./include/HttpRequestParser.h
+src/MimeTypeMaps.o: ./include/MimeTypeMaps.h
 src/ObjectGroup.o: ./include/ObjectGroup.h ./include/VisualObject.h
 src/ObjectGroup.o: ./include/VisualElement.h ./include/DynamicallyTypable.h
 src/ObjectGroup.o: ./include/TriangleBuffer.h ./include/Vertex.h
@@ -5847,7 +5847,6 @@ src/Shed.o: ./include/rapidjson/error/error.h ./include/MenuShedPanel.h
 src/Shed.o: ./include/MenuPanel.h ./include/InterfaceAction.h imgui/imgui.h
 src/Shed.o: imgui/imconfig.h ./include/HttpDebug.h ./include/HttpServThread.h
 src/Shed.o: ./include/TaskQueue.h ./include/HttpRequestParser.h
-src/Singleton.o: ./include/Singleton.h
 src/SkySampleModel.o: ./include/SkySampleModel.h
 src/SkySampleModel.o: /usr/local/include/cglm/cglm.h
 src/SkySampleModel.o: /usr/local/include/cglm/common.h
@@ -6378,6 +6377,8 @@ src/SolarDatabase.o: /usr/local/include/cglm/curve.h
 src/SolarDatabase.o: /usr/local/include/cglm/bezier.h
 src/SolarDatabase.o: /usr/local/include/cglm/ray.h
 src/SolarDatabase.o: /usr/local/include/cglm/affine2d.h
+src/SolarDatabase.o: ./include/HttpServThread.h ./include/TaskQueue.h
+src/SolarDatabase.o: ./include/HttpRequestParser.h
 src/Species.o: ./include/Species.h ./include/DynamicallyTypable.h
 src/Species.o: ./include/Version.h ./include/rapidjson/document.h
 src/Species.o: ./include/rapidjson/reader.h ./include/rapidjson/allocators.h

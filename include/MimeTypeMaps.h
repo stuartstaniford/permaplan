@@ -8,6 +8,27 @@
 
 
 // =======================================================================================
+/// @brief Enum of MimeTypes we know about. 
+
+enum MimeType
+{
+  NoMimeType,
+
+  // Text types
+  TextHtml,
+  TextJavascript,
+  TextCss,
+  TextPlain,
+  
+  // Image types
+  ImageGif,
+  ImageJpeg,
+  
+  // Application types
+  ApplicationJson
+};
+
+// =======================================================================================
 /// @brief Singleton class for mappping file name extensions to mimetypes. 
 ///
 /// For example, .html is mapped to text/html and so on.

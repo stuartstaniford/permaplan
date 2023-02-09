@@ -21,14 +21,19 @@ ExtensionMimeTypeMap::ExtensionMimeTypeMap(void)
   else
     theOnlyMap = this;
 
+  // Text types
   insert({"html", "text/html"});
   insert({"js", "text/javascript"});
   insert({"css", "text/css"});
+  insert({"txt", "text/plain"});
+
+  // Image types
   insert({"gif", "image/gif"});
   insert({"jpg", "image/jpeg"});
   insert({"jpeg", "image/jpeg"});
+  
+  // Application types
   insert({"json", "application/json"});
-  insert({"txt", "text/plain"});
 }
 
 
