@@ -5,7 +5,7 @@
 // time series from climate model runs).
 
 #include "HttpLBPermaserv.h"
-#include "ExtensionMimeTypeMap.h"
+#include "MimeTypeMaps.h"
 #include "ResourceManager.h"
 #include "Logging.h"
 #include "Global.h"

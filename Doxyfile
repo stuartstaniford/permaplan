@@ -891,7 +891,6 @@ INPUT                  = doc \
                 include/ElementBufferObject.h src/ElementBufferObject.cpp \
                 include/ElementBufferCombo.h src/ElementBufferCombo.cpp \
                 include/EmptyClass.h src/EmptyClass.cpp \
-                include/ExtensionMimeTypeMap.h src/ExtensionMimeTypeMap.cpp \
                 include/GLFWApplication.h src/GLFWApplication.cpp \
                 include/Gable.h src/Gable.cpp \
                 include/GdalFileInterface.h src/GdalFileInterface.cpp \
@@ -938,6 +937,7 @@ INPUT                  = doc \
                 include/MenuShedPanel.h src/MenuShedPanel.cpp \
                 include/MenuSimulationPanel.h src/MenuSimulationPanel.cpp \
                 include/MenuTree.h src/MenuTree.cpp \
+                include/MimeTypeMaps.h src/MimeTypeMaps.cpp \
                 include/ObjectGroup.h src/ObjectGroup.cpp \
                 include/ObjectInspectorWindow.h src/ObjectInspectorWindow.cpp \
                 include/Orientable.h src/Orientable.cpp \

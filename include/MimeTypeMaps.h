@@ -1,7 +1,7 @@
 // Copyright Staniford Systems.  All Rights Reserved.  December 2022 -
 
-#ifndef EMPTY_CLASS_H
-#define EMPTY_CLASS_H
+#ifndef MIME_TYPE_MAPS_H
+#define MIME_TYPE_MAPS_H
 
 #include <unordered_map>
 #include <string>

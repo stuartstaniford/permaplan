@@ -1,7 +1,7 @@
 // Copyright Staniford Systems.  All Rights Reserved.  July 2021 -
 
-#ifndef EMPTY_CLASS_H
-#define EMPTY_CLASS_H
+#ifndef BUILDING_ASSEMBLY_H
+#define BUILDING_ASSEMBLY_H
 
 #include "VisualObject.h"
 

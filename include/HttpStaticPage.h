@@ -1,7 +1,7 @@
 // Copyright Staniford Systems.  All Rights Reserved.  December 2022 -
 
-#ifndef EMPTY_CLASS_H
-#define EMPTY_CLASS_H
+#ifndef HTTP_STATIC_PAGE_H
+#define HTTP_STATIC_PAGE_H
 
 
 // =======================================================================================

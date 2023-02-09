@@ -344,7 +344,11 @@ bool HttpRequestParser::getNextRequest(void)
     return false;
    }
   
-  return processBody();
+  if(bodyPresent)
+    return processBody();
+
+  readPoint = NULL;
+  return true;
 }
 
 

@@ -2,7 +2,7 @@
 // Singleton class for mappping file name extensions to mimetypes. For example, 
 // .html is mapped to text/html and so on
 
-#include "ExtensionMimeTypeMap.h"
+#include "MimeTypeMaps.h"
 
 
 // =======================================================================================
