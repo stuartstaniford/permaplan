@@ -365,10 +365,64 @@ bool HttpRequestParser::getNextRequest(void)
 
 // =======================================================================================
 /// @brief Determine if there's a body, and read it in if so.
-/// @returns true if we successfully read any body, or there is no body, false otherwise.
+/// @returns true if we successfully read the body.
 
 bool HttpRequestParser::processBody(void)
 {
+  bool  leftOverDataPresent;
+  int   nBytes;
+
+  while(readPoint < headerEnd + bodySize) // until we've read enough data for a complete header
+   {    
+    if(leftOverDataPresent)
+      leftOverDataPresent = false;
+    else 
+     {
+      // Read some data
+      if((nBytes = read(connfd, readPoint, bufLeft)) <= 0)
+       {
+        // No data, so give up on this particular connection
+        close(connfd);
+        LogRequestErrors("Couldn't read data from socket.\n");
+        connectionDone = true;
+        return false;
+       }
+      if(nBytes < bufLeft)
+       {
+        // Got some data, read it into buffer
+        readPoint[nBytes] = '\0';
+        LogRequestParsing("Read %u bytes into position %lu in buffer\n", nBytes, readPoint-buf);
+       }
+      else // damn big request
+       {
+        LogRequestErrors("Request too big for buffer.\n");
+        connectionDone = true;
+        return false;
+       }
+      LogHTTPDetails("Got from client: %s", readPoint);
+     
+     } // Reading if there's no leftover data
+     
+     
+    if(readPoint > headerEnd + bodySize)
+     {
+      // This is good, we get to go home, but first we keep track of unused data
+      if(headerEnd - readPoint < nBytes)
+       {
+        bufLeft = nBytes - (headerEnd - readPoint);
+        readPoint = headerEnd;
+        LogRequestParsing("Leftover %u bytes at position %lu in buffer\n", bufLeft, readPoint-buf);
+       }
+      else
+        readPoint = NULL;
+      break;
+     }
+      
+    // About to go round again, so update the paramters for where/how much to read
+    readPoint += nBytes;
+    bufLeft -= nBytes;
+  
+   } // while(1) over reads
 
   readPoint = NULL;
   return true;  

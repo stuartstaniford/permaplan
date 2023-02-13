@@ -59,6 +59,7 @@ public:
   bool getNextRequest(void);
   inline void setNewConnection(int fd) {connfd = fd;}
   inline char* getUrl(void) {return buf + urlOffset;}
+  inline char* getBody(void) {return headerEnd;}
   inline char* getHTTPVersion(void) {return buf + httpVerOffset;}
     
 private:
