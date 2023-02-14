@@ -46,6 +46,7 @@ HttpRequestParser::HttpRequestParser(unsigned size):
   headerMap["Content-Type"]       = ContentType;
   headerMap["Transfer-Encoding"]  = TransferEncoding;
   headerMap["Upgrade"]            = Upgrade;
+  headerMap["Cookie"]             = Cookie;
 }
 
 
@@ -58,6 +59,7 @@ HttpRequestParser::HttpRequestParser(unsigned size):
 void HttpRequestParser::resetForNewRequest(void)
 {
   headerEnd           = NULL;
+  cookieValue         = NULL;
   urlOffset           = 0u;
   httpVerOffset       = 0u;
   requestMethod       = NoMethod;
@@ -191,7 +193,12 @@ bool HttpRequestParser::parseRequest(void)
              }
             break;
           
-          case TransferEncoding:
+         case Cookie:
+           LogRequestParsing("Found Cookie header (%s) in HTTP request.\n", value);
+           cookieValue = value;
+           break;
+
+         case TransferEncoding:
             LogRequestErrors("Unsupported Transfer-Encoding header in HTTP request.\n");
             goto badParseRequestExit;
 

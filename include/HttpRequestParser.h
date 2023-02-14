@@ -20,6 +20,7 @@ enum HTTPHeaderType
   ContentType,
   TransferEncoding,
   Upgrade,
+  Cookie,
 };
 
 // =======================================================================================
@@ -70,6 +71,7 @@ private:
   char*               buf;
   char*               readPoint;
   char*               headerEnd;
+  char*               cookieValue;
   unsigned            bufLeft;
   int                 connfd;
   unsigned            bufSize;
