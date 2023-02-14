@@ -1,13 +1,14 @@
 // Copyright Staniford Systems.  All Rights Reserved.  February 2023 -
-// This class ..... is a template for real classes
+// Represents the results of filling out an HTML form.  Derives from 
+// std::unordered_map
 
-#include "EmptyClass.h"
+#include "HTMLForm.h"
 
 
 // =======================================================================================
 /// @brief Constructor
 
-EmptyClass::EmptyClass(void)
+HTMLForm::HTMLForm(void)
 {
 }
 
@@ -15,7 +16,7 @@ EmptyClass::EmptyClass(void)
 // =======================================================================================
 /// @brief Destructor
 
-EmptyClass::~EmptyClass(void)
+HTMLForm::~HTMLForm(void)
 {
 }
 

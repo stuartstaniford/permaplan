@@ -1,23 +1,26 @@
 // Copyright Staniford Systems.  All Rights Reserved.  February 2023 -
 
-#ifndef EMPTY_CLASS_H
-#define EMPTY_CLASS_H
+#ifndef HTML_FORM_H
+#define HTML_FORM_H
+
+#include <unordered_map>
+#include <string>
 
 
 // =======================================================================================
-/// @brief This is a template for new classes.  Quick description of the class here.
+/// @brief Represents the results of filling out an HTML form.
 ///
-/// More details of the class go here.
+/// Derives from std::unordered_map.
 
-class EmptyClass
+class HTMLForm: public std::unordered_map<std::string, char*>
 {
 public:
   
   // Instance variables - public
   
   // Member functions - public
-  EmptyClass(void);
-  ~EmptyClass(void);
+  HTMLForm(void);
+  ~HTMLForm(void);
   
 private:
   
@@ -25,9 +28,9 @@ private:
   
   // Member functions - private
   /// @brief Prevent copy-construction.
-  EmptyClass(const EmptyClass&);       
+  HTMLForm(const HTMLForm&);       
   /// @brief Prevent assignment.
-  EmptyClass& operator=(const EmptyClass&);      
+  HTMLForm& operator=(const HTMLForm&);      
 };
 
 

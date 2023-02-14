@@ -899,6 +899,8 @@ INPUT                  = doc \
                 include/GroundLayer.h src/GroundLayer.cpp \
                 include/GroundLitterLayer.h src/GroundLitterLayer.cpp \
                 include/HeightMarker.h src/HeightMarker.cpp \
+                include/HTMLForm.h src/HTMLForm.cpp \
+                include/HWSDProfile.h src/HWSDProfile.cpp \
                 include/HttpClient.h src/HttpClient.cpp \
                 include/HttpDebug.h src/HttpDebug.cpp \
                 include/HttpLBDebug.h src/HttpLBDebug.cpp \

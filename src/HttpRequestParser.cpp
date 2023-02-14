@@ -403,7 +403,6 @@ bool HttpRequestParser::processBody(void)
      
      } // Reading if there's no leftover data
      
-     
     if(readPoint > headerEnd + bodySize)
      {
       // This is good, we get to go home, but first we keep track of unused data
