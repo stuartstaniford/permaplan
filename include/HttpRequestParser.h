@@ -54,7 +54,8 @@ public:
 
   // Member functions - public
   HttpRequestParser(unsigned size);
-  void resetForReuse(void);
+  void resetForNewRequest(void);
+  void resetForNewConnection(void);
   ~HttpRequestParser(void);
   bool getNextRequest(void);
   inline void setNewConnection(int fd) {connfd = fd;}

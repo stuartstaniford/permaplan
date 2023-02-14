@@ -36,8 +36,8 @@ HttpRequestParser::HttpRequestParser(unsigned size):
   buf+=4;
   strncpy(buf+size, "bbbb", 4);
 
-  // most initialization in here: HTTP/1.1 reinitializes multiple times
-  resetForReuse();  
+  // Non buffer initialization in here:
+  resetForNewConnection();  
   
   LogRequestParsing("Request parser initialized with buffer size %u.\n", bufSize);
   headerMap["Connection"]         = Connection;
@@ -50,23 +50,34 @@ HttpRequestParser::HttpRequestParser(unsigned size):
 
 
 // =======================================================================================
-/// @brief Reset the parser for a new connection.
+/// @brief Reset the parser for a new request within an existing connection.
 /// 
-/// Function to reset (eg for a new connection) without throwing away the buffer.  
-/// Needs to duplicate the newly constructed state.
+/// Function to reset without throwing away the buffer, and possibly preserving left over
+/// data from the last read that belongs in this request we are about to work on.  
 
-void HttpRequestParser::resetForReuse(void)
+void HttpRequestParser::resetForNewRequest(void)
 {
-  readPoint           = NULL;
   headerEnd           = NULL;
   urlOffset           = 0u;
   httpVerOffset       = 0u;
-  connectionDone      = false;
-  connectionWillClose = false;
   requestMethod       = NoMethod;
   bodyPresent         = false;
   bodySize            = 0u;
   contentType         = NoMimeType;
+}
+
+
+// =======================================================================================
+/// @brief Reset the parser for a new connection.
+/// 
+/// Function to reset (eg for a new connection) without throwing away the buffer.  
+
+void HttpRequestParser::resetForNewConnection(void)
+{
+  resetForNewRequest();
+  readPoint           = NULL;
+  connectionDone      = false;
+  connectionWillClose = false;
 }
 
 

@@ -250,7 +250,7 @@ void HttpServThread::processOneHTTP1_1(int connfd, unsigned short clientPort)
     if(timeToDie || reqParser.connectionWillClose)
         break;      
    }
-  reqParser.resetForReuse();
+  reqParser.resetForNewConnection();
 }
 
 
