@@ -61,7 +61,7 @@ public:
   bool getNextRequest(void);
   inline void setNewConnection(int fd) {connfd = fd;}
   inline char* getUrl(void) {return buf + urlOffset;}
-  inline char* getBody(void) {return headerEnd;}
+  inline char* getBody(void) {return headerEnd;} // Note, not null terminated
   inline char* getHTTPVersion(void) {return buf + httpVerOffset;}
     
 private:
@@ -77,14 +77,15 @@ private:
   unsigned            bufSize;
   unsigned            urlOffset;
   unsigned            httpVerOffset;
-  unsigned            bodySize;
   bool                connectionDone;
   bool                bodyPresent;
+  unsigned            bodySize;
   MimeType            contentType;
   
   // Member functions - private
   bool parseRequest(void);
   bool processBody(void);
+  bool readAndCheck(int& nBytes);
   char* headerEndPresent(char* range, unsigned rangeSize);
   HttpRequestParser(const HttpRequestParser&);                 // Prevent copy-construction
   HttpRequestParser& operator=(const HttpRequestParser&);      // Prevent assignment

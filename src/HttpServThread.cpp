@@ -248,9 +248,13 @@ void HttpServThread::processOneHTTP1_1(int connfd, unsigned short clientPort)
      }
     //fprintf(stderr, "timeToDie on %d is %d.\n", queueIndex, timeToDie);
     if(timeToDie || reqParser.connectionWillClose)
-        break;      
+     {
+      reqParser.resetForNewConnection();
+      break;      
+     }
+    else
+      reqParser.resetForNewRequest();      
    }
-  reqParser.resetForNewConnection();
 }
 
 

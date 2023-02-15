@@ -77,7 +77,11 @@ void HttpRequestParser::resetForNewRequest(void)
 void HttpRequestParser::resetForNewConnection(void)
 {
   resetForNewRequest();
+  
+  // Initialize things that might maintain important state across requests, but not
+  // across connections
   readPoint           = NULL;
+  bufLeft             = 0u;
   connectionDone      = false;
   connectionWillClose = false;
 }
@@ -214,7 +218,6 @@ bool HttpRequestParser::parseRequest(void)
    }
     
   // Finish up in successful case
-  headerEnd = NULL; // make sure we don't reuse a crazy value next time.
   return true;
   
   // Cleanup if we had to abort
@@ -265,7 +268,7 @@ char* HttpRequestParser::headerEndPresent(char* range, unsigned rangeSize)
      {
       if(*p == '\n')
        {
-        LogRequestParsing("Found header end %lu bytes into range\n", p-range);
+        LogRequestParsing("Found header end %lu bytes into range\n", p-range+1);
         return p+1;
        }
       else if(*p == '\r')
@@ -275,6 +278,39 @@ char* HttpRequestParser::headerEndPresent(char* range, unsigned rangeSize)
      }
    }
   return NULL;
+}
+
+
+// =======================================================================================
+/// @brief Read some data into the buffer and check if all is well.
+/// @returns true if we successfully read some data and didn't overflow, false otherwise.
+/// @param nBytes A reference to int used to record the number of bytes we read.
+
+bool HttpRequestParser::readAndCheck(int& nBytes)
+{
+  // Read some data
+  if((nBytes = read(connfd, readPoint, bufLeft)) <= 0)
+   {
+    // No data, so give up on this particular connection
+    close(connfd);
+    LogRequestErrors("Couldn't read data from socket.\n");
+    connectionDone = true;
+    return false;
+   }
+  if(nBytes < bufLeft)
+   {
+    // Got some data, read it into buffer
+    readPoint[nBytes] = '\0';
+    LogRequestParsing("Read %u bytes into position %lu in buffer\n", nBytes, readPoint-buf);
+   }
+  else // damn big request
+   {
+    LogRequestErrors("Request too big for buffer.\n");
+    connectionDone = true;
+    return false;
+   }
+  LogHTTPDetails("Got from client: %s\n", readPoint);
+  return true;
 }
 
 
@@ -313,30 +349,9 @@ bool HttpRequestParser::getNextRequest(void)
       leftOverDataPresent = false;
     else 
      {
-      // Read some data
-      if((nBytes = read(connfd, readPoint, bufLeft)) <= 0)
-       {
-        // No data, so give up on this particular connection
-        close(connfd);
-        LogRequestErrors("Couldn't read data from socket.\n");
-        connectionDone = true;
-        return false;
-       }
-      if(nBytes < bufLeft)
-       {
-        // Got some data, read it into buffer
-        readPoint[nBytes] = '\0';
-        LogRequestParsing("Read %u bytes into position %lu in buffer\n", nBytes, readPoint-buf);
-       }
-      else // damn big request
-       {
-        LogRequestErrors("Request too big for buffer.\n");
-        connectionDone = true;
-        return false;
-       }
-      LogHTTPDetails("Got from client: %s", readPoint);
-     
-     } // Reading if there's no leftover data
+      unless(readAndCheck(nBytes))
+        return false;     
+     }
      
     // Now check to see if there's a header-end present in this latest read
      
@@ -349,15 +364,7 @@ bool HttpRequestParser::getNextRequest(void)
      }
     if((headerEnd = headerEndPresent(checkStart, checkSize)))
      {
-      // This is good, we get to go home, but first we keep track of unused data
-      if(headerEnd - readPoint < nBytes)
-       {
-        bufLeft = nBytes - (headerEnd - readPoint);
-        readPoint = headerEnd;
-        LogRequestParsing("Leftover %u bytes at position %lu in buffer\n", bufLeft, readPoint-buf);
-       }
-      else
-        readPoint = NULL;
+      // This is good, we get to go home, 
       break;
      }
       
@@ -367,16 +374,32 @@ bool HttpRequestParser::getNextRequest(void)
   
    } // while(1) over reads
   
+  // If we get here, we have at least a complete header, possibly 
+  // also a body and/or part of next request. 
+  
   unless(parseRequest())
    {
     readPoint = NULL;
     return false;
    }
-  
+
   if(bodyPresent)
     return processBody();
-
-  readPoint = NULL;
+  else
+   {
+    // We keep track of any unused data from the last read
+    if(readPoint > headerEnd)
+     {
+      bufLeft = readPoint - headerEnd;
+      readPoint = headerEnd;
+      LogRequestParsing("Buf: %p; readPoint: %p; headerEnd: %p;\n", 
+                                                              buf, readPoint, headerEnd);
+      LogRequestParsing("Leftover %u bytes at position %lu in buffer\n", 
+                                                              bufLeft, readPoint-buf);
+     }
+    else
+      readPoint = NULL;
+   }
   return true;
 }
 
@@ -387,61 +410,34 @@ bool HttpRequestParser::getNextRequest(void)
 
 bool HttpRequestParser::processBody(void)
 {
-  bool  leftOverDataPresent;
   int   nBytes;
 
-  while(readPoint < headerEnd + bodySize) // until we've read enough data for a complete header
+  while(readPoint < headerEnd + bodySize) // until we've read enough data for body
    {    
-    if(leftOverDataPresent)
-      leftOverDataPresent = false;
-    else 
-     {
-      // Read some data
-      if((nBytes = read(connfd, readPoint, bufLeft)) <= 0)
-       {
-        // No data, so give up on this particular connection
-        close(connfd);
-        LogRequestErrors("Couldn't read data from socket.\n");
-        connectionDone = true;
-        return false;
-       }
-      if(nBytes < bufLeft)
-       {
-        // Got some data, read it into buffer
-        readPoint[nBytes] = '\0';
-        LogRequestParsing("Read %u bytes into position %lu in buffer\n", nBytes, readPoint-buf);
-       }
-      else // damn big request
-       {
-        LogRequestErrors("Request too big for buffer.\n");
-        connectionDone = true;
-        return false;
-       }
-      LogHTTPDetails("Got from client: %s", readPoint);
-     
-     } // Reading if there's no leftover data
-     
-    if(readPoint > headerEnd + bodySize)
-     {
-      // This is good, we get to go home, but first we keep track of unused data
-      if(headerEnd - readPoint < nBytes)
-       {
-        bufLeft = nBytes - (headerEnd - readPoint);
-        readPoint = headerEnd;
-        LogRequestParsing("Leftover %u bytes at position %lu in buffer\n", bufLeft, readPoint-buf);
-       }
-      else
-        readPoint = NULL;
-      break;
-     }
-      
+    unless(readAndCheck(nBytes))
+      return false;
+           
     // About to go round again, so update the paramters for where/how much to read
     readPoint += nBytes;
     bufLeft -= nBytes;
   
    } // while(1) over reads
 
-  readPoint = NULL;
+  if(readPoint > headerEnd + bodySize)
+   {
+    // This is good, we get to go home, but first we keep track of unused data
+    bufLeft = readPoint - headerEnd - bodySize;
+    readPoint = headerEnd + bodySize;
+    LogRequestParsing("Leftover %u bytes after body at position %lu in buffer\n", 
+                                                                bufLeft, readPoint-buf);
+   }
+  else
+   {
+    // We read exactly to the end of the body
+    readPoint = NULL;
+   }
+
+  LogHTTPDetails("Successfully read body of size %u.\n", bodySize);
   return true;  
 }
 
