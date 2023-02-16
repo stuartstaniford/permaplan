@@ -353,8 +353,7 @@ bool HttpRequestParser::getNextRequest(void)
         return false;     
      }
      
-    // Now check to see if there's a header-end present in this latest read
-     
+    // Compute parameters for header end checking before we update readPoint etc 
     char* checkStart = readPoint-3; // in case of \r\n\r\n across last read boundary
     unsigned checkSize = nBytes + 3;
     if(checkStart < buf)
@@ -362,16 +361,17 @@ bool HttpRequestParser::getNextRequest(void)
       checkSize -= buf - checkStart;
       checkStart = buf;
      }
-    if((headerEnd = headerEndPresent(checkStart, checkSize)))
-     {
-      // This is good, we get to go home, 
-      break;
-     }
       
     // About to go round again, so update the paramters for where/how much to read
     readPoint += nBytes;
     bufLeft -= nBytes;
   
+     // Now check to see if there's a header-end present in this latest read
+    if((headerEnd = headerEndPresent(checkStart, checkSize)))
+     {
+      // This is good, we get to go home, 
+      break;
+     }
    } // while(1) over reads
   
   // If we get here, we have at least a complete header, possibly 

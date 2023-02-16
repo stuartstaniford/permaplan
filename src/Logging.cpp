@@ -238,9 +238,9 @@ bool flushLogPathTubeBuffer      = false; // Log the process of rendering a path
 bool flushLogRequestErrors       = true; // Log validity problems in the HTTP request
 bool flushLogResponseErrors      = true; // Log problems encountered building the response
 bool flushLogHTTPBufferOps       = false; // Log operations on the main HTTP buffers
-bool flushLogHTTPDetails         = false; // Log normal details of HTTP operations
+bool flushLogHTTPDetails         = true; // Log normal details of HTTP operations
 bool flushLogHTTPLoadBalance     = false; // Log which connections get processed where
-bool flushLogRequestParsing      = false; // Log exactly what happens when parsing a request
+bool flushLogRequestParsing      = true; // Log exactly what happens when parsing a request
 bool flushLogPseudoActions       = false; // Log as the main thread processes pseudo-actions
 
 // Logging options to do with quadtree operations
