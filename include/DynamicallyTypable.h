@@ -31,7 +31,8 @@ enum DynamicType
   TypeGroundLayer,
   TypeSoilHorizon,
   TypeGroundLitterLayer,
-  TypeClimateInfo
+  TypeClimateInfo,
+  TypeHTMLForm
 };
 
 

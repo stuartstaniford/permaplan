@@ -35,6 +35,11 @@ enum HTTPMethodType
 
 
 // =======================================================================================
+// Other forward declarations.
+
+class DynamicallyTypable;
+
+// =======================================================================================
 /// @brief Parse one HTTP request.
 /// 
 /// The purpose of this class is to read from a socket, identify the boundaries of 
@@ -61,7 +66,7 @@ public:
   bool getNextRequest(void);
   inline void setNewConnection(int fd) {connfd = fd;}
   inline char* getUrl(void) {return buf + urlOffset;}
-  inline char* getBody(void) {return headerEnd;} // Note, not null terminated
+  inline char* getBodyString(void) {return headerEnd;} // Note, not null terminated
   inline char* getHTTPVersion(void) {return buf + httpVerOffset;}
     
 private:
@@ -81,6 +86,7 @@ private:
   bool                bodyPresent;
   unsigned            bodySize;
   MimeType            contentType;
+  DynamicallyTypable* parsedBody;
   
   // Member functions - private
   bool parseRequest(void);

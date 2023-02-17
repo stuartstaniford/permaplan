@@ -85,8 +85,11 @@ HTMLForm::HTMLForm(char* formString, unsigned size)
 
 
 // =======================================================================================
-/// @brief Function to check that a symbol is legal to put into the form.  Security 
-/// critical.
+/// @brief Function to check that a symbol is legal to put into the form.  
+/// 
+/// This function is security critical as it is a gateway for what characters can get 
+/// into forms in the rest of the system.
+/// @returns True if all characters are legal, false otherwise.
 /// @param symbol A char* pointer to a null-terminated name or value to check.
 
 bool HTMLForm::sanityCheck(char* symbol)

@@ -8,6 +8,7 @@
 // within our buffer is necessary.
 
 #include "HttpRequestParser.h"
+#include "HTMLForm.h"
 #include "Global.h"
 #include "Logging.h"
 #include <stdio.h>
@@ -66,6 +67,7 @@ void HttpRequestParser::resetForNewRequest(void)
   bodyPresent         = false;
   bodySize            = 0u;
   contentType         = NoMimeType;
+  parsedBody          = NULL;
 }
 
 
@@ -438,6 +440,17 @@ bool HttpRequestParser::processBody(void)
    }
 
   LogHTTPDetails("Successfully read body of size %u.\n", bodySize);
+  
+  if(contentType == ApplicationXWWWFormUrlEncoded)
+   {
+    parsedBody = (DynamicallyTypable*)new HTMLForm(headerEnd, bodySize);
+    LogRequestParsing("Parsed form body (Content type ApplicationXWWWFormUrlEncoded).\n");
+   }
+  else
+   {
+    LogRequestErrors("Couldn't parse body of this content type.\n");
+   }
+  
   return true;  
 }
 

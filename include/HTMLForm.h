@@ -3,6 +3,7 @@
 #ifndef HTML_FORM_H
 #define HTML_FORM_H
 
+#include "DynamicallyTypable.h"
 #include <unordered_map>
 #include <string>
 
@@ -14,7 +15,7 @@
 /// original string this is constructed from (typically an HTML body in a buffer, so 
 /// it cannot be used after that is freed or goes out of scope
 
-class HTMLForm: public std::unordered_map<std::string, char*>
+class HTMLForm: public std::unordered_map<std::string, char*>, public DynamicallyTypable
 {
 public:
   
@@ -23,6 +24,7 @@ public:
   // Member functions - public
   HTMLForm(char* formString, unsigned size);
   ~HTMLForm(void);
+  virtual DynamicType getDynamicType(void) {return TypeHTMLForm;}
   
 private:
   
