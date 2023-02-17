@@ -80,6 +80,9 @@ HTMLForm::HTMLForm(char* formString, unsigned size)
 
     // At this point, we have a valid name and value, so store the pair
     insert({std::string(first), second});
+    LogRequestParsing("Added %s:%s to HTMForm object.\n", first, second);
+    if(left > 0u)
+      first = end + 1;
    }
 }
 
