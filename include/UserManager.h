@@ -41,6 +41,7 @@ private:
   // Member functions - private
   bool doLogin(HttpServThread* serv, char* url);
   bool getLoginPage(HttpServThread* serv);
+  bool getCreatePage(HttpServThread* serv);
   /// @brief Prevent copy-construction.
   UserManager(const UserManager&);       
   /// @brief Prevent assignment.

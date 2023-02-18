@@ -83,8 +83,15 @@ bool UserManager::processHttpRequest(HttpServThread* serv, char* url)
   int strlenUrl = strlen(url);
   bool retVal = false;
   
+  // create account page
+  if( strlenUrl == 10 && strncmp(url, "createPage", 10) == 0)
+   {
+    LogPermaservOpDetails("Processing request for account creation page.\n");
+    retVal = getCreatePage(serv);
+   }
+
   // login request
-  if(reqParser.requestMethod == POST && strlenUrl == 5 
+  else if(reqParser.requestMethod == POST && strlenUrl == 5 
                                                     && strncmp(url, "login", 5) == 0)
    {
     LogPermaservOpDetails("Processing login request.\n");
@@ -97,6 +104,7 @@ bool UserManager::processHttpRequest(HttpServThread* serv, char* url)
     LogPermaservOpDetails("Processing request for Login page.\n");
     retVal = getLoginPage(serv);
    }
+  
   //Default - failure
   else
    {
@@ -158,6 +166,60 @@ bool UserManager::getLoginPage(HttpServThread* serv)
   
   // Login button
   httPrintf("<button type=\"submit\">Login</button>\n");
+
+  // End user/pass section
+  httPrintf("</div>\n");
+  
+  // End the form
+  httPrintf("</form></center>\n");
+
+  // Finish up the page
+  unless(serv->endResponsePage())
+    return false;
+
+  return true;
+}
+
+
+// =======================================================================================
+/// @brief Return the page with the form for account creation.
+/// 
+/// @returns True if all was well writing to the buffer.  If false, it indicates the 
+/// buffer was not big enough and the output will have been truncated/incomplete.
+/// @param serv A pointer to the HttpServThread managing the HTTP response.
+
+bool UserManager::getCreatePage(HttpServThread* serv)
+{
+  // Start the HTML page and the table header
+  unless(serv->startResponsePage((char*)"Create an Account on Permaserv"))
+    return false;
+  
+  // Open Login Form
+  httPrintf("<center>\n");
+  httPrintf("<form action=\"create\" method=\"post\">\n");
+  
+  // Open the main user/pass section
+  httPrintf("<div class=\"container\">\n");
+
+  // Username
+  httPrintf("<label for=\"uname\"><b>Username</b></label>\n");
+  httPrintf("<input type=\"text\" placeholder=\"Enter Username\" "
+                                                          "name=\"uname\" required>\n");
+  httPrintf("<br><br>\n");
+  
+  // Password
+  httPrintf("<label for=\"psw1\"><b>Password</b></label>\n");
+  httPrintf("<input type=\"password\" placeholder=\"Enter Password\" "
+                                                          "name=\"psw1\" required>\n");
+  httPrintf("<br><br>\n");
+
+  httPrintf("<label for=\"psw2\"><b>Repeat password</b></label>\n");
+  httPrintf("<input type=\"password\" placeholder=\"Repeate Password\" "
+                                                          "name=\"psw2\" required>\n");
+  httPrintf("<br><br>\n");
+  
+  // Login button
+  httPrintf("<button type=\"submit\">Create Account</button>\n");
 
   // End user/pass section
   httPrintf("</div>\n");
