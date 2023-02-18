@@ -72,6 +72,10 @@ bool HttpPermaServ::indexPage(void)
   // End table
   internalPrintf("</table></center>\n");
 
+  // User Manager Options
+  UserManager& userManager = UserManager::getUserManager();
+  userManager.indexPageTable(this);
+
   // Table of solar database options
   if(solarDatabase)
     solarDatabase->indexPageTable(this);
@@ -87,6 +91,7 @@ bool HttpPermaServ::indexPage(void)
    {
     internalPrintf("<hr><center><h4>Climate Options Disabled (-c)</h4></center>\n");
    }
+  
     
   // All done with content, finish up
   endResponsePage();
@@ -380,23 +385,6 @@ bool HttpPermaServ::processRequestHeader(void)
     retVal = processDNIRequest(url+5);
    }
 
-  // login request
-  else if(reqParser.requestMethod == POST && strlenUrl == 6 
-                                                    && strncmp(url, "/login", 6) == 0)
-   {
-    LogPermaservOpDetails("Processing login request.\n");
-    UserManager& userManager = UserManager::getUserManager();
-    retVal = userManager.doLogin(this, url+6);
-   }
-
-  // login page
-  else if( strlenUrl == 10 && strncmp(url, "/loginPage", 10) == 0)
-   {
-    LogPermaservOpDetails("Processing request for Login page.\n");
-    UserManager& userManager = UserManager::getUserManager();
-    retVal = userManager.getLoginPage(this);
-   }
-
   // quit
   else if( strlenUrl == 6 && strncmp(url, "/quit/", 6) == 0)
    {
@@ -470,22 +458,30 @@ bool HttpPermaServ::processRequestHeader(void)
     }
   }
 
- // tMaxYear
- else if( strlenUrl >= 20 && strncmp(url, "/tMaxYear?", 10) == 0)
-  {
-   unless(climateDatabase)
-    {
-     LogRequestErrors("Climate Database not loaded for %s\n", url);
-     errorPage("Climate Database not loaded");
-    }
-   else
-    {
-     LogPermaservOpDetails("Processing temperature max query for %s.\n", url+10);
-     retVal = climateDatabase->processObservationCurvesRequest(this, url+10,
+  // tMaxYear
+  else if( strlenUrl >= 20 && strncmp(url, "/tMaxYear?", 10) == 0)
+   {
+    unless(climateDatabase)
+     {
+      LogRequestErrors("Climate Database not loaded for %s\n", url);
+      errorPage("Climate Database not loaded");
+     }
+    else
+     {
+      LogPermaservOpDetails("Processing temperature max query for %s.\n", url+10);
+      retVal = climateDatabase->processObservationCurvesRequest(this, url+10,
                               (char*)"tMaxYear", HI_TEMP_VALID, offsetof(ClimateDay, hiTemp),
                               (char*)"Max. Temperature");
-    }
-  }
+     }
+   }
+
+  // user/
+  else if( strlenUrl > 6 && strncmp(url, "/user/", 6) == 0)
+   {
+    UserManager& userManager = UserManager::getUserManager();
+    LogPermaservOpDetails("Processing user manager request for %s.\n", url+6);
+    retVal = userManager.processHttpRequest(this, url+6);
+   }
 
  //Default - failure
  else

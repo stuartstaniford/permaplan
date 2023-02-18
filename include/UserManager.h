@@ -26,8 +26,8 @@ public:
   // Member functions - public
   UserManager(void);
   ~UserManager(void);
-  bool doLogin(HttpServThread* serv, char* url);
-  bool getLoginPage(HttpServThread* serv);
+  bool indexPageTable(HttpServThread* serv);
+  bool processHttpRequest(HttpServThread* serv, char* url);
   static UserManager& getUserManager(void) // Get the singleton instance
    { return *theUserManager; }
 
@@ -39,6 +39,8 @@ private:
   // Instance variables - private
   
   // Member functions - private
+  bool doLogin(HttpServThread* serv, char* url);
+  bool getLoginPage(HttpServThread* serv);
   /// @brief Prevent copy-construction.
   UserManager(const UserManager&);       
   /// @brief Prevent assignment.

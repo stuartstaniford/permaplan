@@ -50,6 +50,7 @@ bool ClimateDatabase::indexPageTable(HttpServThread* serv)
   httPrintf("<h2>Climate Database Options</h2>\n");
   unless(serv->startTable())
     return false;
+  httPrintf("<tr><th>Link</th><th>notes</th></tr>\n");
 
   // Climate data near a particular point
   httPrintf("<tr><td><a href=\"/climate?42.421:-76.347:20:\">"

@@ -51,6 +51,7 @@ bool SolarDatabase::indexPageTable(HttpServThread* serv)
   httPrintf("<h2>Solar Database Options</h2>\n");
   unless(serv->startTable())
     return false;
+  httPrintf("<tr><th>Link</th><th>notes</th></tr>\n");
 
   // DIF at a particular point
   httPrintf("<tr><td><a href=\"/dif?42.441570:-76.498665:\">dif?lat:long:</a></td>");

@@ -35,6 +35,79 @@ UserManager::~UserManager(void)
 }
 
 
+/// =======================================================================================
+/// @brief Output HTML table of all user manager API options to main index page.
+/// 
+/// @returns True if all was well writing to the buffer.  If false, it indicates the 
+/// buffer was not big enough and the output will have been truncated/incomplete.
+/// @param serv A pointer to the HttpServThread managing the HTTP response.
+
+bool UserManager::indexPageTable(HttpServThread* serv)
+{
+  httPrintf("<hr>\n");
+  httPrintf("<center>\n");
+  httPrintf("<h2>User Manager Options</h2>\n");
+  unless(serv->startTable())
+    return false;
+  httPrintf("<tr><th>Link</th><th>notes</th></tr>\n");
+
+  // Page to create a new Account
+  httPrintf("<tr><td><a href=\"/user/createPage\">"
+                 "/user/createPage</a></td>");
+  httPrintf("<td>Page with form to create a new account.</td></tr>\n");
+  httPrintf("<tr><td><a href=\"/user/loginPage\">"
+                 "/user/loginPage</a></td>");
+  httPrintf("<td>Page with form to login to an existing account.</td></tr>\n");
+  
+  // End table
+  httPrintf("</table></center>\n");
+
+  return true;
+}
+
+
+/// =======================================================================================
+/// @brief Gateway to handling all requests coming in under /user/.  
+/// 
+/// This just routes to the appropriate private method to handle the different specific
+/// cases.
+/// 
+/// @returns True if all was well writing to the buffer.  If false, it indicates the 
+/// buffer was not big enough and the output will have been truncated/incomplete.
+/// @param serv A pointer to the HttpServThread managing the HTTP response.
+/// @param url A string with the balance of the request url after "/user/".
+
+bool UserManager::processHttpRequest(HttpServThread* serv, char* url)
+{
+  HttpRequestParser& reqParser = serv->reqParser;
+  int strlenUrl = strlen(url);
+  bool retVal = false;
+  
+  // login request
+  if(reqParser.requestMethod == POST && strlenUrl == 5 
+                                                    && strncmp(url, "login", 5) == 0)
+   {
+    LogPermaservOpDetails("Processing login request.\n");
+    retVal = doLogin(serv, url+5);
+   }
+
+  // login page
+  else if( strlenUrl == 9 && strncmp(url, "loginPage", 9) == 0)
+   {
+    LogPermaservOpDetails("Processing request for Login page.\n");
+    retVal = getLoginPage(serv);
+   }
+  //Default - failure
+  else
+   {
+    LogRequestErrors("Request for unknown /user/ resource %s\n", url);
+    retVal = serv->errorPage("Resource not found");
+   }
+
+  return retVal;
+}
+
+
 // =======================================================================================
 /// @brief Process a login request.
 /// 

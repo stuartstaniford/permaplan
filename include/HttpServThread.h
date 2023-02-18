@@ -5,6 +5,7 @@
 
 #include "TaskQueue.h"
 #include "HttpRequestParser.h"
+#include "UserManager.h"
 
 
 // =======================================================================================
@@ -36,7 +37,8 @@ class HttpLoadBalancer;
 class HttpServThread: public TaskQueue
 {
   friend HttpLoadBalancer;
-  
+  friend bool UserManager::processHttpRequest(HttpServThread* serv, char* url);
+
 public:
   
   // Instance variables - public
