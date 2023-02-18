@@ -176,73 +176,6 @@ bool HttpPermaServ::processDNIRequest(char* url)
 
 
 // =======================================================================================
-/// @brief Process the case of a request for climate information.
-/// @param url The balance of the URL that we are to deal with (ie after the '?')
-/// @param diagnostic A bool that if true provides HTML diagnostic pages rather than 
-/// the JSON API.  Used for troubleshooting the climate data and the permaserv code 
-/// handling it.
-/// @returns True if all went well, false if we couldn't correctly write a good object.
-
-bool HttpPermaServ::processClimateRequest(char* url, bool diagnostic)
-{
-  // Extract the information from the URL
-  float latLongYear[3];
-  unless(extractColonVecN(url, 3, latLongYear))
-   {
-    if(diagnostic)
-     {
-      LogRequestErrors("Bad climateDiagnostic request: /climateDiagnostic?%s\n", url);
-     }
-    else
-      LogRequestErrors("Bad climate request: /climate?%s\n", url);
-    return false;
-   }
-  unless(checkLatLong(latLongYear))
-   {
-    LogRequestErrors("Bad latlong parameters to climate diagnostic request: "
-                                                    "/climateDiagnostic?%s\n", url);
-    return false;
-   }
-  int year = (int)latLongYear[2];
-  unless(year >= 0 && year < 200)
-   {
-    LogRequestErrors("Bad year parameter %d to climate diagnostic request: "
-                                              "/climateDiagnostic?%s\n", year, url);
-    return false;
-   }
-
-  if(diagnostic)
-   {
-    unless(climateDatabase->printStationDiagnosticTable(this, 
-                            latLongYear[0], latLongYear[1], (unsigned)latLongYear[2]))
-     {
-      LogClimateDbErr("Overflow in html response to climate diagnostic request "
-                      "/climateDiagnostic?%s.\n", url);
-      respBufOverflow = true; 
-      return false;
-     }
-    LogPermaservOps("Serviced climate diagnostic request for %f,%f (%u years) "
-                  "from client on port %u.\n", 
-                  latLongYear[0], latLongYear[1], (unsigned)latLongYear[2], clientP);
-   }
-  else
-   {
-    if( (respPtr += climateDatabase->printClimateJson(respPtr, respEnd-respPtr, 
-                                  latLongYear[0], latLongYear[1], (unsigned)latLongYear[2]))
-                    >= respEnd)
-     {
-      LogClimateDbErr("Overflow in json response to climate request /climate?%s.\n", url);
-      respBufOverflow = true; 
-      return false;
-     }
-    LogPermaservOps("Serviced climate request for %f,%f (%u years) from client on port %u.\n", 
-                  latLongYear[0], latLongYear[1], (unsigned)latLongYear[2], clientP);
-   }
-  return true;
-}
-
-
-// =======================================================================================
 /// @brief Process the case of a request for the soil profiles available in some specific
 /// region of lat/long space.
 /// @param url The balance of the URL that we are to deal with (ie after the '?')
@@ -308,40 +241,9 @@ bool HttpPermaServ::processRequestHeader(void)
     internalPrintf("OK at time %ld\n", time(NULL));
     retVal = true;
    }
-
-  // climateDiagnostic
-  else if( strlenUrl >= 23 && strncmp(url, "/climateDiagnostic?", 19) == 0)
-   {
-    unless(climateDatabase)
-     {
-      LogRequestErrors("Climate Database not loaded for %s\n", url);
-      errorPage("Climate Database not loaded");
-     }
-    else
-     {
-      LogPermaservOpDetails("Processing climate diagnostic request for %s.\n", url+19);
-      retVal = processClimateRequest(url+19, true);
-     }
-   }
-
-  // climateStation
-  // http://127.0.0.1:2091/climateStation/US1NYTM0018
-  else if( strlenUrl == 27 && strncmp(url, "/climateStation/", 16) == 0)
-   {
-    unless(climateDatabase)
-     {
-      LogRequestErrors("Climate Database not loaded for %s\n", url);
-      errorPage("Climate Database not loaded");
-     }
-    else
-     {
-      LogPermaservOpDetails("Processing climate station request for %s.\n", url+16);
-      retVal = climateDatabase->processStationDiagnosticRequest(this, url+16);
-     }
-   }
   
   // climate
-  else if( strlenUrl >= 13 && strncmp(url, "/climate?", 9) == 0)
+  else if( strlenUrl > 9 && strncmp(url, "/climate/", 9) == 0)
    {
     unless(climateDatabase)
      {
@@ -351,7 +253,7 @@ bool HttpPermaServ::processRequestHeader(void)
     else
      {
       LogPermaservOpDetails("Processing climate request for %s.\n", url+9);
-      retVal = processClimateRequest(url+9);
+      retVal = climateDatabase->processHttpRequest(this, url+9);
      }
    }
 
@@ -407,72 +309,6 @@ bool HttpPermaServ::processRequestHeader(void)
    {
     LogPermaservOpDetails("Processing soil request for %s.\n", url+6);
     retVal = processSoilRequest(url+6);
-   }
-
-  // stationCompHigh
-  else if( strlenUrl >= 27 && strncmp(url, "/stationCompHigh?", 17) == 0)
-   {
-    unless(climateDatabase)
-     {
-      LogRequestErrors("Climate Database not loaded for %s\n", url);
-      errorPage("Climate Database not loaded");
-     }
-    else
-     {
-      LogPermaservOpDetails("Processing station high temp comparison query for %s.\n", url+17);
-      retVal = climateDatabase->processStationComparisonRequest(this, url+17, 
-                        (char*)"stationCompHigh", HI_TEMP_VALID, offsetof(ClimateDay, hiTemp));
-     }
-   }
-
-  // stationCompLow
-  else if( strlenUrl >= 26 && strncmp(url, "/stationCompLow?", 16) == 0)
-   {
-    unless(climateDatabase)
-     {
-      LogRequestErrors("Climate Database not loaded for %s\n", url);
-      errorPage("Climate Database not loaded");
-     }
-    else
-     {
-      LogPermaservOpDetails("Processing station low temp comparison query for %s.\n", url+16);
-      retVal = climateDatabase->processStationComparisonRequest(this, url+16,
-                        (char*)"stationCompLow", LOW_TEMP_VALID, offsetof(ClimateDay, lowTemp));
-     }
-   }
-
- // tMinYear
- else if( strlenUrl >= 20 && strncmp(url, "/tMinYear?", 10) == 0)
-  {
-   unless(climateDatabase)
-    {
-     LogRequestErrors("Climate Database not loaded for %s\n", url);
-     errorPage("Climate Database not loaded");
-    }
-   else
-    {
-     LogPermaservOpDetails("Processing temperature min query for %s.\n", url+10);
-     retVal = climateDatabase->processObservationCurvesRequest(this, url+10,
-                              (char*)"tMinYear", LOW_TEMP_VALID, offsetof(ClimateDay, lowTemp),
-                              (char*)"Min. Temperature");
-    }
-  }
-
-  // tMaxYear
-  else if( strlenUrl >= 20 && strncmp(url, "/tMaxYear?", 10) == 0)
-   {
-    unless(climateDatabase)
-     {
-      LogRequestErrors("Climate Database not loaded for %s\n", url);
-      errorPage("Climate Database not loaded");
-     }
-    else
-     {
-      LogPermaservOpDetails("Processing temperature max query for %s.\n", url+10);
-      retVal = climateDatabase->processObservationCurvesRequest(this, url+10,
-                              (char*)"tMaxYear", HI_TEMP_VALID, offsetof(ClimateDay, hiTemp),
-                              (char*)"Max. Temperature");
-     }
    }
 
   // user/

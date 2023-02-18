@@ -23,6 +23,7 @@ class ClimateDatabase;
 
 class HttpPermaServ: public HttpServThread
 {
+
 public:
   
   // Instance variables - public
@@ -45,7 +46,6 @@ private:
   bool  processDNIRequest(char* url);
   bool  processDIFRequest(char* url);
   bool  processSoilRequest(char* url);
-  bool  processClimateRequest(char* url, bool diagnostic=false);
 
   /// @brief Prevent copy-construction.
   HttpPermaServ(const HttpPermaServ&);       

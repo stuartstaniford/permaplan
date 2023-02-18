@@ -53,38 +53,188 @@ bool ClimateDatabase::indexPageTable(HttpServThread* serv)
   httPrintf("<tr><th>Link</th><th>notes</th></tr>\n");
 
   // Climate data near a particular point
-  httPrintf("<tr><td><a href=\"/climate?42.421:-76.347:20:\">"
-                 "climate?lat:long:years:</a></td>");
+  httPrintf("<tr><td><a href=\"/climate/climate?42.421:-76.347:20:\">"
+                 "/climate/climate?lat:long:years:</a></td>");
   httPrintf("<td>Years of climate information near location.</td></tr>\n");
 
   // Climate diagnostics near a particular point
-  httPrintf("<tr><td><a href=\"/climateDiagnostic?42.421:-76.347:20:\">"
-                 "climateDiagnostic?lat:long:years:</a></td>");
+  httPrintf("<tr><td><a href=\"/climate/climateDiagnostic?42.421:-76.347:20:\">"
+                 "/climate/climateDiagnostic?lat:long:years:</a></td>");
   httPrintf("<td>Climate station diagnostic near location.</td></tr>\n");
 
   // Temperature max curves for some year near a particular point
-  httPrintf("<tr><td><a href=\"/tMaxYear?42.421:-76.347:2005:\">"
-                 "tMaxYear?lat:long:year:</a></td>");
+  httPrintf("<tr><td><a href=\"/climate/tMaxYear?42.421:-76.347:2005:\">"
+                 "/climate/tMaxYear?lat:long:year:</a></td>");
   httPrintf("<td>Available max temperature curves for year near location.</td></tr>\n");
 
   // Temperature min curves for some year near a particular point
-  httPrintf("<tr><td><a href=\"/tMinYear?42.421:-76.347:2005:\">"
-                 "tMinYear?lat:long:year:</a></td>");
+  httPrintf("<tr><td><a href=\"/climate/tMinYear?42.421:-76.347:2005:\">"
+                 "/climate/tMinYear?lat:long:year:</a></td>");
   httPrintf("<td>Available min temperature curves for year near location.</td></tr>\n");
 
   // Station comparison for daily highs near a particular point
-  httPrintf("<tr><td><a href=\"/stationCompHigh?42.421:-76.347:\">"
-                 "stationCompHigh?lat:long:</a></td>");
+  httPrintf("<tr><td><a href=\"/climate/stationCompHigh?42.421:-76.347:\">"
+                 "/climate/stationCompHigh?lat:long:</a></td>");
   httPrintf("<td>Compare stations near location.</td></tr>\n");
 
   // Station comparison for daily lows near a particular point
-  httPrintf("<tr><td><a href=\"/stationCompLow?42.421:-76.347:\">"
-                 "stationCompLow?lat:long:</a></td>");
+  httPrintf("<tr><td><a href=\"/climate/stationCompLow?42.421:-76.347:\">"
+                 "/climate/stationCompLow?lat:long:</a></td>");
   httPrintf("<td>Compare stations near location.</td></tr>\n");
   
   // End table
   httPrintf("</table></center>\n");
 
+  return true;
+}
+
+
+/// =======================================================================================
+/// @brief Gateway to handling all requests coming in under /climate/.  
+/// 
+/// This just routes to the appropriate private method to handle the different specific
+/// cases.
+/// 
+/// @returns True if all was well writing to the buffer.  If false, it indicates the 
+/// buffer was not big enough and the output will have been truncated/incomplete.
+/// @param serv A pointer to the HttpServThread managing the HTTP response.
+/// @param url A string with the balance of the request url after "/user/".
+
+bool ClimateDatabase::processHttpRequest(HttpServThread* serv, char* url)
+{
+  int strlenUrl = strlen(url);
+  bool retVal = false;
+  
+  // climateDiagnostic
+  if(strlenUrl >= 22 && strncmp(url, "climateDiagnostic?", 18) == 0)
+   {
+    LogPermaservOpDetails("Processing climate diagnostic request for %s.\n", url+19);
+    retVal = processClimateRequest(serv, url+18, true);
+   }
+
+  // climateStation
+  // http://127.0.0.1:2091/climate/climateStation/US1NYTM0018
+  else if( strlenUrl == 26 && strncmp(url, "climateStation/", 15) == 0)
+   {
+    LogPermaservOpDetails("Processing climate station request for %s.\n", url+15);
+    retVal = processStationDiagnosticRequest(serv, url+15);
+   }
+  
+  // climate
+  else if( strlenUrl >= 12 && strncmp(url, "climate?", 8) == 0)
+   {
+    LogPermaservOpDetails("Processing climate request for %s.\n", url+8);
+    retVal = processClimateRequest(serv, url+8);
+   }  
+  
+  // stationCompHigh
+  else if( strlenUrl >= 26 && strncmp(url, "stationCompHigh?", 16) == 0)
+   {
+    LogPermaservOpDetails("Processing station high temp comparison query for %s.\n", 
+                                                                                url+16);
+    retVal = processStationComparisonRequest(serv, url+16, 
+                    (char*)"stationCompHigh", HI_TEMP_VALID, offsetof(ClimateDay, hiTemp));
+   }
+
+  // stationCompLow
+  else if( strlenUrl >= 25 && strncmp(url, "stationCompLow?", 15) == 0)
+   {
+    LogPermaservOpDetails("Processing station low temp comparison query for %s.\n", 
+                                                                                url+15);
+    retVal = processStationComparisonRequest(serv, url+15, (char*)"stationCompLow", 
+                                            LOW_TEMP_VALID, offsetof(ClimateDay, lowTemp));
+   }
+
+  // tMinYear
+  else if( strlenUrl >= 19 && strncmp(url, "tMinYear?", 9) == 0)
+   {
+    LogPermaservOpDetails("Processing temperature min query for %s.\n", url+9);
+    retVal = processObservationCurvesRequest(serv, url+9, (char*)"tMinYear", 
+                LOW_TEMP_VALID, offsetof(ClimateDay, lowTemp), (char*)"Min. Temperature");
+  }
+
+  // tMaxYear
+  else if( strlenUrl >= 19 && strncmp(url, "tMaxYear?", 9) == 0)
+   {
+    LogPermaservOpDetails("Processing temperature max query for %s.\n", url+9);
+    retVal = processObservationCurvesRequest(serv, url+9, (char*)"tMaxYear", 
+                HI_TEMP_VALID, offsetof(ClimateDay, hiTemp), (char*)"Max. Temperature");
+   }
+
+  // Default - failure
+  else
+   {
+    LogRequestErrors("Request for unknown /user/ resource %s\n", url);
+    retVal = serv->errorPage("Resource not found");
+   }
+
+  return retVal;
+}
+
+
+// =======================================================================================
+/// @brief Process the case of a request for climate information.
+/// @param url The balance of the URL that we are to deal with (ie after the '?')
+/// @param diagnostic A bool that if true provides HTML diagnostic pages rather than 
+/// the JSON API.  Used for troubleshooting the climate data and the permaserv code 
+/// handling it.
+/// @returns True if all went well, false if we couldn't correctly write a good object.
+
+bool ClimateDatabase::processClimateRequest(HttpServThread* serv, char* url, bool diagnostic)
+{
+  // Extract the information from the URL
+  float latLongYear[3];
+  unless(extractColonVecN(url, 3, latLongYear))
+   {
+    if(diagnostic)
+     {
+      LogRequestErrors("Bad climateDiagnostic request: /climateDiagnostic?%s\n", url);
+     }
+    else
+      LogRequestErrors("Bad climate request: /climate?%s\n", url);
+    return false;
+   }
+  unless(checkLatLong(latLongYear))
+   {
+    LogRequestErrors("Bad latlong parameters to climate diagnostic request: "
+                                                    "/climateDiagnostic?%s\n", url);
+    return false;
+   }
+  int year = (int)latLongYear[2];
+  unless(year >= 0 && year < 200)
+   {
+    LogRequestErrors("Bad year parameter %d to climate diagnostic request: "
+                                              "/climateDiagnostic?%s\n", year, url);
+    return false;
+   }
+
+  if(diagnostic)
+   {
+    unless(printStationDiagnosticTable(serv, 
+                            latLongYear[0], latLongYear[1], (unsigned)latLongYear[2]))
+     {
+      LogClimateDbErr("Overflow in html response to climate diagnostic request "
+                      "/climateDiagnostic?%s.\n", url);
+      serv->respBufOverflow = true; 
+      return false;
+     }
+    LogPermaservOps("Serviced climate diagnostic request for %f,%f (%u years) "
+                  "from client on port %u.\n", latLongYear[0], latLongYear[1], 
+                  (unsigned)latLongYear[2], serv->clientP);
+   }
+  else
+   {
+    if( (serv->respPtr += printClimateJson(serv->respPtr, serv->respEnd - serv->respPtr, 
+                                  latLongYear[0], latLongYear[1], (unsigned)latLongYear[2]))
+                    >= serv->respEnd)
+     {
+      LogClimateDbErr("Overflow in json response to climate request /climate?%s.\n", url);
+      serv->respBufOverflow = true; 
+      return false;
+     }
+    LogPermaservOps("Serviced climate request for %f,%f (%u years) from client on port %u.\n", 
+                  latLongYear[0], latLongYear[1], (unsigned)latLongYear[2], serv->clientP);
+   }
   return true;
 }
 

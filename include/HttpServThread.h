@@ -6,6 +6,7 @@
 #include "TaskQueue.h"
 #include "HttpRequestParser.h"
 #include "UserManager.h"
+#include "ClimateDatabase.h"
 
 
 // =======================================================================================
@@ -38,6 +39,8 @@ class HttpServThread: public TaskQueue
 {
   friend HttpLoadBalancer;
   friend bool UserManager::processHttpRequest(HttpServThread* serv, char* url);
+  friend bool ClimateDatabase::processClimateRequest(HttpServThread* serv, char* url, 
+                                                                          bool diagnostic);
 
 public:
   
