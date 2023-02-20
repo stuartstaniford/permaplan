@@ -234,5 +234,16 @@ bool UserManager::getCreatePage(HttpServThread* serv)
   return true;
 }
 
+// =======================================================================================
+/// @brief Check that a password on a newly created account is sufficient.
+/// 
+/// @returns True password meets the rules, false otherwise.
+/// @param pwd A char* pointer to the null-terminated password string.
+
+bool UserManager::checkPasswordComplexity(char* pwd)
+{
+   return false; 
+}
+
 
 // =======================================================================================

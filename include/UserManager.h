@@ -3,11 +3,31 @@
 #ifndef USER_MANAGER_H
 #define USER_MANAGER_H
 
+#include <string>
+#include <unordered_map>
+
+#define HASH_BYTES 16
+#define SALT_BYTES 16
+
 
 // =======================================================================================
 // Forward declarations
 
 class HttpServThread;
+
+
+// =======================================================================================
+/// @brief A record for a single user.
+///
+
+class UserRecord
+{
+  public:
+  
+  std::string   userName;
+  unsigned char salt[SALT_BYTES];
+  unsigned char passwordHash[HASH_BYTES];
+};
 
 
 // =======================================================================================
@@ -17,7 +37,7 @@ class HttpServThread;
 /// through user authentication must go through this class.  Currently the back end is
 /// just a file - presumably will be an SQL database some day.
 
-class UserManager
+class UserManager: public std::unordered_map<std::string, UserRecord*>
 {
 public:
   
@@ -42,6 +62,7 @@ private:
   bool doLogin(HttpServThread* serv, char* url);
   bool getLoginPage(HttpServThread* serv);
   bool getCreatePage(HttpServThread* serv);
+  bool checkPasswordComplexity(char* pwd);
   /// @brief Prevent copy-construction.
   UserManager(const UserManager&);       
   /// @brief Prevent assignment.
