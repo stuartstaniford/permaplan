@@ -7,6 +7,7 @@
 #include "UserManager.h"
 #include "Logging.h"
 #include "HttpServThread.h"
+#include "HTMLForm.h"
 
 
 // =======================================================================================
@@ -237,12 +238,36 @@ bool UserManager::getCreatePage(HttpServThread* serv)
 // =======================================================================================
 /// @brief Check that a password on a newly created account is sufficient.
 /// 
-/// @returns True password meets the rules, false otherwise.
+/// @returns True if password meets the rules, false otherwise.
 /// @param pwd A char* pointer to the null-terminated password string.
+
+#define PWD_MIN_SIZE 8
 
 bool UserManager::checkPasswordComplexity(char* pwd)
 {
-   return false; 
+  bool upperPresent  = false;
+  bool lowerPresent  = false;
+  bool digitPresent  = false;
+  bool symbolPresent = false;
+  int  count          = 0;
+
+  for(char* p = pwd; *p; p++)
+   {
+    count++;
+    if(!upperPresent && isupper(*p))
+      upperPresent = true;
+    if(!lowerPresent && islower(*p))
+      lowerPresent = true;
+    if(!digitPresent && isdigit(*p))
+      digitPresent = true;
+    if(!symbolPresent)
+      for(char* q = HTMLForm::allowedSymbols; *q; q++)
+        if(*p == *q)
+          symbolPresent = true;
+   }
+  
+   return upperPresent && lowerPresent && digitPresent && symbolPresent 
+                                                        && (count >= PWD_MIN_SIZE); 
 }
 
 

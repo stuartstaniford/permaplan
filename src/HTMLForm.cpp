@@ -5,6 +5,7 @@
 #include "HTMLForm.h"
 #include "Logging.h"
 
+char* HTMLForm::allowedSymbols = (char*)"-_*^%$@!";
 
 // =======================================================================================
 /// @brief Constructor
@@ -103,7 +104,8 @@ bool HTMLForm::sanityCheck(char* symbol)
       continue;
     if(isspace(*p))
       continue;
-    if(*p == '-' || *p == '_')
+    for(char* q = allowedSymbols; *q; q++)
+    if(*p == *q)
       continue;
     return false;
    }

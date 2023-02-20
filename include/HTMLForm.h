@@ -26,6 +26,9 @@ public:
   ~HTMLForm(void);
   virtual DynamicType getDynamicType(void) {return TypeHTMLForm;}
   
+  // Static public variables
+  static char* allowedSymbols;
+  
 private:
   
   // Instance variables - private
