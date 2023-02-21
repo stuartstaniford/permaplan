@@ -60,6 +60,7 @@ private:
   
   // Member functions - private
   bool doLogin(HttpServThread* serv, char* url);
+  bool doCreate(HttpServThread* serv, char* url);
   bool getLoginPage(HttpServThread* serv);
   bool getCreatePage(HttpServThread* serv);
   bool checkPasswordComplexity(char* pwd);

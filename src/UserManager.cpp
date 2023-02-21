@@ -84,8 +84,16 @@ bool UserManager::processHttpRequest(HttpServThread* serv, char* url)
   int strlenUrl = strlen(url);
   bool retVal = false;
   
+  // create account request
+  if(reqParser.requestMethod == POST && strlenUrl == 6 
+                                                    && strncmp(url, "create", 6) == 0)
+   {
+    LogPermaservOpDetails("Processing create request.\n");
+    retVal = doCreate(serv, url+6);
+   }
+
   // create account page
-  if( strlenUrl == 10 && strncmp(url, "createPage", 10) == 0)
+  else if( strlenUrl == 10 && strncmp(url, "createPage", 10) == 0)
    {
     LogPermaservOpDetails("Processing request for account creation page.\n");
     retVal = getCreatePage(serv);
@@ -178,6 +186,22 @@ bool UserManager::getLoginPage(HttpServThread* serv)
   unless(serv->endResponsePage())
     return false;
 
+  return true;
+}
+
+
+// =======================================================================================
+/// @brief Process a create account request.
+/// 
+/// Note this could be the result of a manual creation (via UserManager::getCreatePage 
+/// below) or it could be the result of a permaplan mediated creation.
+/// @returns True if all was well writing to the buffer.  If false, it indicates the 
+/// buffer was not big enough and the output will have been truncated/incomplete.
+/// @param serv A pointer to the HttpServThread managing the HTTP response.
+
+bool UserManager::doCreate(HttpServThread* serv, char* url)
+{
+  serv->errorPage("Create not implemented.");
   return true;
 }
 
