@@ -291,19 +291,30 @@ bool UserManager::checkUsername(char* uname)
 {
   // First character must be alpha.  We convert to lowercase.
   unless(isalpha(*uname))
+   {
+    LogUserErrors("Username %s does not start with alphabet character.\n", uname);
     return false;
+   }
   *uname = tolower(*uname);
   
   // Subsequent characters must be alphanumeric or '_'.  We convert to lower if nec.
   for(char* p = uname+1; *p; p++)
    {
     unless(isalnum(*p) || *p == '_')
-     return false;
+     {
+      LogUserErrors("Username %s has illegal characters.\n", uname);
+      return false;
+     }
     if(isupper(*p))
       *p = tolower(*p);
    }
   
   // Check if the username is already in use.
+  if(count(uname))
+   {      
+    LogUserErrors("Username %s is already in use.\n", uname);
+    return false;
+   }
   
   return true; 
 }
