@@ -210,6 +210,15 @@ bool UserManager::doCreate(HttpServThread* serv, HTMLForm* form)
     LogRequestErrors("Bad form in create Request.\n");
     return serv->errorPage("Create Account Error.");
    }
+  
+  // Check the username is allowed
+  
+  // Check the password is valid
+  
+  // Check the second password matches the first
+  
+  // Ok, all is well, create the account
+  
   return true;
 }
 
@@ -267,8 +276,34 @@ bool UserManager::getCreatePage(HttpServThread* serv)
   return true;
 }
 
+
+// =======================================================================================
+/// @brief Check that a username on a newly created account is valid and doesnt already
+/// exist.
+/// 
+/// Usernames may only have alphanumeric characters plus "_", must start with an 
+/// alphabet character, and are not case sensitive.
+/// 
+/// @returns True if username meets the rules, and doesn't already exist, false otherwise.
+/// @param uname A char* pointer to the null-terminated username string.
+
+bool UserManager::checkUsername(char* uname)
+{
+  for(char* p = uname; *p; p++)
+   {
+
+   }
+  
+  return true; 
+}
+
+
+
 // =======================================================================================
 /// @brief Check that a password on a newly created account is sufficient.
+/// 
+/// Note we earlier checked that only allowable characters for form values are in here,
+/// and passwords allow all such characters.
 /// 
 /// @returns True if password meets the rules, false otherwise.
 /// @param pwd A char* pointer to the null-terminated password string.

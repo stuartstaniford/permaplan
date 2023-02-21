@@ -65,6 +65,7 @@ private:
   bool getLoginPage(HttpServThread* serv);
   bool getCreatePage(HttpServThread* serv);
   bool checkPasswordComplexity(char* pwd);
+  bool checkUsername(char* uname);
   /// @brief Prevent copy-construction.
   UserManager(const UserManager&);       
   /// @brief Prevent assignment.
