@@ -89,7 +89,7 @@ bool UserManager::processHttpRequest(HttpServThread* serv, char* url)
                                                     && strncmp(url, "create", 6) == 0)
    {
     LogPermaservOpDetails("Processing create request.\n");
-    retVal = doCreate(serv, url+6);
+    retVal = doCreate(serv, (HTMLForm*)reqParser.parsedBody);
    }
 
   // create account page
@@ -104,7 +104,7 @@ bool UserManager::processHttpRequest(HttpServThread* serv, char* url)
                                                     && strncmp(url, "login", 5) == 0)
    {
     LogPermaservOpDetails("Processing login request.\n");
-    retVal = doLogin(serv, url+5);
+    retVal = doLogin(serv, (HTMLForm*)reqParser.parsedBody);
    }
 
   // login page
@@ -134,9 +134,13 @@ bool UserManager::processHttpRequest(HttpServThread* serv, char* url)
 /// buffer was not big enough and the output will have been truncated/incomplete.
 /// @param serv A pointer to the HttpServThread managing the HTTP response.
 
-bool UserManager::doLogin(HttpServThread* serv, char* url)
+bool UserManager::doLogin(HttpServThread* serv, HTMLForm* form)
 {
-  serv->errorPage("Login not implemented.");
+  if(!form || form->getDynamicType() != TypeHTMLForm)
+   {
+    LogRequestErrors("Bad form in login Request.\n");
+    return serv->errorPage("Login Error.");
+   }
   return true;
 }
 
@@ -199,9 +203,13 @@ bool UserManager::getLoginPage(HttpServThread* serv)
 /// buffer was not big enough and the output will have been truncated/incomplete.
 /// @param serv A pointer to the HttpServThread managing the HTTP response.
 
-bool UserManager::doCreate(HttpServThread* serv, char* url)
+bool UserManager::doCreate(HttpServThread* serv, HTMLForm* form)
 {
-  serv->errorPage("Create not implemented.");
+  if(!form || form->getDynamicType() != TypeHTMLForm)
+   {
+    LogRequestErrors("Bad form in create Request.\n");
+    return serv->errorPage("Create Account Error.");
+   }
   return true;
 }
 

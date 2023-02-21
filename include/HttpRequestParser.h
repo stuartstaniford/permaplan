@@ -55,8 +55,9 @@ class HttpRequestParser
 public:
   
   // Instance variables - public
-  bool            connectionWillClose;
-  HTTPMethodType  requestMethod;
+  bool                connectionWillClose;
+  HTTPMethodType      requestMethod;
+  DynamicallyTypable* parsedBody;
 
   // Member functions - public
   HttpRequestParser(unsigned size);
@@ -86,7 +87,6 @@ private:
   bool                bodyPresent;
   unsigned            bodySize;
   MimeType            contentType;
-  DynamicallyTypable* parsedBody;
   
   // Member functions - private
   bool parseRequest(void);

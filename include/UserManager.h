@@ -14,6 +14,7 @@
 // Forward declarations
 
 class HttpServThread;
+class HTMLForm;
 
 
 // =======================================================================================
@@ -59,8 +60,8 @@ private:
   // Instance variables - private
   
   // Member functions - private
-  bool doLogin(HttpServThread* serv, char* url);
-  bool doCreate(HttpServThread* serv, char* url);
+  bool doLogin(HttpServThread* serv, HTMLForm* form);
+  bool doCreate(HttpServThread* serv, HTMLForm* form);
   bool getLoginPage(HttpServThread* serv);
   bool getCreatePage(HttpServThread* serv);
   bool checkPasswordComplexity(char* pwd);
