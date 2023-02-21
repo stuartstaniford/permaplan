@@ -289,9 +289,18 @@ bool UserManager::getCreatePage(HttpServThread* serv)
 
 bool UserManager::checkUsername(char* uname)
 {
-  for(char* p = uname; *p; p++)
+  // First character must be alpha.  We convert to lowercase.
+  unless(isalpha(*uname))
+    return false;
+  *uname = tolower(*uname);
+  
+  // Subsequent characters must be alphanumeric or '_'.  We convert to lower if nec.
+  for(char* p = uname+1; *p; p++)
    {
-
+    unless(isalnum(*p) || *p == '_')
+     return false;
+    if(isupper(*p))
+      *p = tolower(*p);
    }
   
   return true; 
