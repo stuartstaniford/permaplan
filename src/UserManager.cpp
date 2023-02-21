@@ -303,6 +303,8 @@ bool UserManager::checkUsername(char* uname)
       *p = tolower(*p);
    }
   
+  // Check if the username is already in use.
+  
   return true; 
 }
 
@@ -312,7 +314,8 @@ bool UserManager::checkUsername(char* uname)
 /// @brief Check that a password on a newly created account is sufficient.
 /// 
 /// Note we earlier checked that only allowable characters for form values are in here,
-/// and passwords allow all such characters.
+/// and passwords allow all such characters.  Also note that we don't log password
+/// related errors in much detail as we don't want password text sitting in the logs.
 /// 
 /// @returns True if password meets the rules, false otherwise.
 /// @param pwd A char* pointer to the null-terminated password string.

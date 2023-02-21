@@ -35,6 +35,7 @@
 #define LOG_PERMASERV_OPS           // Log normal operation of the Permaserv server
 #define LOG_PERMASERV_OP_DETAILS    // Log detailed operation of Permaserv for debugging
 #define LOG_USER_OPS                // Log user management related operations
+#define LOG_USER_ERRORS             // Log user management related errors
 
 
 // =======================================================================================
@@ -255,7 +256,8 @@ extern bool doLogPermaservClientErrors; // Log errors in the Permaserv Client la
 extern bool doLogPermaservClientOps;    // Log normal operations in the Permaserv Client layer
 extern bool doLogPermaservOps;          // Log normal operation of the Permaserv server
 extern bool doLogPermaservOpDetails;    // Log detailed operation of Permaserv for debugging
-extern bool doLogUserOps;              // Log user management related operations
+extern bool doLogUserOps;               // Log user management related operations
+extern bool doLogUserErrors;            // Log user management related errors
 
 // Logging options to do with parsing and validating OLDF and OTDL files
 extern bool doLogOLDFValidity;    // Log validity problems in the file
@@ -383,6 +385,7 @@ extern bool flushLogPermaservClientOps; // Log normal operations in the Permaser
 extern bool flushLogPermaservOps;       // Log normal operation of the Permaserv server
 extern bool flushLogPermaservOpDetails; // Log detailed operation of Permaserv for debugging
 extern bool flushLogUserOps;            // Log user management related operations
+extern bool flushLogUserErrors;            // Log user management related errors
 
 // Logging options to do with parsing and validating OLDF and OTDL files
 extern bool flushLogOLDFValidity;    // Log validity problems in the file
@@ -682,6 +685,20 @@ extern bool flushLogObjectAltitudes;   // Log finding the altitudes of objects a
 #else
 #define LogUserOps(...)
 #endif
+
+// Log user management related errors
+#ifdef LOG_USER_ERRORS
+#define LogUserErrors(...)    \
+                                  {\
+                                    if(doLogUserErrors) \
+                                      LogStatement("LogUserErrors: " __VA_ARGS__)\
+                                    if(flushLogUserErrors)\
+                                      LogFlush();\
+                                  }
+#else
+#define LogUserErrors(...)
+#endif
+
 
 // =======================================================================================
 // Logging options to do with parsing and validating OLDF and OTDL files

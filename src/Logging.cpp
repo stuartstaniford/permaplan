@@ -35,6 +35,7 @@ bool doLogPermaservClientOps    = true; // Log normal operations in the Permaser
 bool doLogPermaservOps          = true; // Log normal operation of the Permaserv server
 bool doLogPermaservOpDetails    = true; // Log detailed operation of Permaserv for debugging
 bool doLogUserOps               = true; // Log user management related operations
+bool doLogUserErrors            = true; // Log user management related errors
 
 // Logging options to do with parsing and validating OLDF and OTDL files
 bool doLogOLDFValidity        = true; // Log validity problems in the file
@@ -163,6 +164,7 @@ bool flushLogPermaservClientOps    = true; // Log normal ops in the Permaserv Cl
 bool flushLogPermaservOps          = true; // Log normal operation of the Permaserv server
 bool flushLogPermaservOpDetails    = true; // Log detailed operation of Permaserv for debugging
 bool flushLogUserOps               = false; // Log user management related operations
+bool flushLogUserErrors            = false; // Log user management related errors
 
 // Logging options to do with parsing and validating OLDF and OTDL files
 bool flushLogOLDFValidity        = false; // Log validity problems in the file
@@ -422,6 +424,12 @@ bool LogControlHTML(HttpDebug* serv, char* path)
   if(strncmp(path, "doLogUserOps", sizeof("doLogUserOps")-1)==0)
     return oneLogControl(serv, path, doLogUserOps);
 #endif
+
+#ifdef LOG_USER_ERRORS  // Log user management related errors
+  if(strncmp(path, "doLogUserErrors", sizeof("doLogUserErrors")-1)==0)
+    return oneLogControl(serv, path, doLogUserErrors);
+#endif
+  
   
 // Logging options to do with parsing and validating OLDF and OTDL files
 
