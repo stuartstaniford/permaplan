@@ -14,7 +14,8 @@
 // =======================================================================================
 // Static variables, etc.
 
-UserManager* UserManager::theUserManager = NULL;
+UserManager* UserManager::theUserManager  = NULL;
+char* userFileName                        = (char*)"userdb";
 
 
 // =======================================================================================
@@ -44,7 +45,14 @@ UserManager::~UserManager(void)
 
 bool UserManager::writeFile(void)
 {
+  FILE* file = fopen(userFileName, "w");
   
+  /*for (auto& iter: *this) 
+   {
+    iter.second;
+   }*/
+
+  fclose(file);
   return true;
 }
 
@@ -56,7 +64,9 @@ bool UserManager::writeFile(void)
 
 bool UserManager::readFile(void)
 {
-  
+  FILE* file = fopen(userFileName, "r");
+ 
+  fclose(file);
   return false;
 }
 
