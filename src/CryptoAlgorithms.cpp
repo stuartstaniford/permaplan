@@ -5,6 +5,13 @@
 // the rest of the code.  Currently Uses libssl.
 
 #include "CryptoAlgorithms.h"
+#include "Logging.h"
+
+
+// =======================================================================================
+// Static variables, etc.
+
+CryptoAlgorithms* CryptoAlgorithms::theCryptoAlgorithms = NULL;
 
 
 // =======================================================================================
@@ -12,6 +19,10 @@
 
 CryptoAlgorithms::CryptoAlgorithms(void)
 {
+  if(theCryptoAlgorithms)
+    return;
+  else
+    theCryptoAlgorithms = this;
 }
 
 

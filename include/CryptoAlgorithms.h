@@ -21,8 +21,13 @@ public:
   // Member functions - public
   CryptoAlgorithms(void);
   ~CryptoAlgorithms(void);
-  
+  static CryptoAlgorithms& getCryptoAlgorithms(void) // Get the singleton instance
+   { return *theCryptoAlgorithms; }
+
 private:
+  
+  // Private static (class) variables
+  static CryptoAlgorithms* theCryptoAlgorithms;
   
   // Instance variables - private
   
