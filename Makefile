@@ -1292,7 +1292,52 @@ src/Copse.o: /usr/local/include/cglm/vec3.h /usr/local/include/cglm/vec4.h
 src/Copse.o: /usr/local/include/cglm/sphere.h /usr/local/include/cglm/ease.h
 src/Copse.o: /usr/local/include/cglm/curve.h /usr/local/include/cglm/bezier.h
 src/Copse.o: /usr/local/include/cglm/ray.h /usr/local/include/cglm/affine2d.h
-src/CryptoAlgorithms.o: ./include/CryptoAlgorithms.h
+src/CryptoAlgorithms.o: ./include/CryptoAlgorithms.h ./include/Logging.h
+src/CryptoAlgorithms.o: ./include/MemoryTracker.h ./include/Timeval.h
+src/CryptoAlgorithms.o: ./include/Lockable.h ./include/Global.h
+src/CryptoAlgorithms.o: /usr/local/include/cglm/cglm.h
+src/CryptoAlgorithms.o: /usr/local/include/cglm/common.h
+src/CryptoAlgorithms.o: /usr/local/include/cglm/types.h
+src/CryptoAlgorithms.o: /usr/local/include/cglm/simd/intrin.h
+src/CryptoAlgorithms.o: /usr/local/include/cglm/vec2.h
+src/CryptoAlgorithms.o: /usr/local/include/cglm/util.h
+src/CryptoAlgorithms.o: /usr/local/include/cglm/vec2-ext.h
+src/CryptoAlgorithms.o: /usr/local/include/cglm/vec3.h
+src/CryptoAlgorithms.o: /usr/local/include/cglm/vec4.h
+src/CryptoAlgorithms.o: /usr/local/include/cglm/vec4-ext.h
+src/CryptoAlgorithms.o: /usr/local/include/cglm/vec3-ext.h
+src/CryptoAlgorithms.o: /usr/local/include/cglm/mat4.h
+src/CryptoAlgorithms.o: /usr/local/include/cglm/mat3.h
+src/CryptoAlgorithms.o: /usr/local/include/cglm/mat2.h
+src/CryptoAlgorithms.o: /usr/local/include/cglm/affine.h
+src/CryptoAlgorithms.o: /usr/local/include/cglm/affine-mat.h
+src/CryptoAlgorithms.o: /usr/local/include/cglm/cam.h
+src/CryptoAlgorithms.o: /usr/local/include/cglm/plane.h
+src/CryptoAlgorithms.o: /usr/local/include/cglm/clipspace/persp.h
+src/CryptoAlgorithms.o: /usr/local/include/cglm/common.h
+src/CryptoAlgorithms.o: /usr/local/include/cglm/plane.h
+src/CryptoAlgorithms.o: /usr/local/include/cglm/mat4.h
+src/CryptoAlgorithms.o: /usr/local/include/cglm/clipspace/ortho_rh_no.h
+src/CryptoAlgorithms.o: /usr/local/include/cglm/clipspace/persp_rh_no.h
+src/CryptoAlgorithms.o: /usr/local/include/cglm/clipspace/persp.h
+src/CryptoAlgorithms.o: /usr/local/include/cglm/clipspace/view_rh_no.h
+src/CryptoAlgorithms.o: /usr/local/include/cglm/clipspace/view_rh.h
+src/CryptoAlgorithms.o: /usr/local/include/cglm/frustum.h
+src/CryptoAlgorithms.o: /usr/local/include/cglm/quat.h
+src/CryptoAlgorithms.o: /usr/local/include/cglm/euler.h
+src/CryptoAlgorithms.o: /usr/local/include/cglm/box.h
+src/CryptoAlgorithms.o: /usr/local/include/cglm/color.h
+src/CryptoAlgorithms.o: /usr/local/include/cglm/io.h
+src/CryptoAlgorithms.o: /usr/local/include/cglm/project.h
+src/CryptoAlgorithms.o: /usr/local/include/cglm/clipspace/project_no.h
+src/CryptoAlgorithms.o: /usr/local/include/cglm/vec3.h
+src/CryptoAlgorithms.o: /usr/local/include/cglm/vec4.h
+src/CryptoAlgorithms.o: /usr/local/include/cglm/sphere.h
+src/CryptoAlgorithms.o: /usr/local/include/cglm/ease.h
+src/CryptoAlgorithms.o: /usr/local/include/cglm/curve.h
+src/CryptoAlgorithms.o: /usr/local/include/cglm/bezier.h
+src/CryptoAlgorithms.o: /usr/local/include/cglm/ray.h
+src/CryptoAlgorithms.o: /usr/local/include/cglm/affine2d.h
 src/Cylinder.o: ./include/Cylinder.h ./include/AxialElement.h
 src/Cylinder.o: ./include/VisualElement.h ./include/DynamicallyTypable.h
 src/Cylinder.o: ./include/TriangleBuffer.h ./include/Vertex.h
@@ -7199,6 +7244,7 @@ src/UserManager.o: ./include/HttpServThread.h ./include/TaskQueue.h
 src/UserManager.o: ./include/HttpRequestParser.h ./include/MimeTypeMaps.h
 src/UserManager.o: ./include/ClimateDatabase.h ./include/HTMLForm.h
 src/UserManager.o: ./include/DynamicallyTypable.h
+src/UserManager.o: ./include/CryptoAlgorithms.h
 src/Version.o: ./include/Version.h ./include/rapidjson/document.h
 src/Version.o: ./include/rapidjson/reader.h ./include/rapidjson/allocators.h
 src/Version.o: ./include/rapidjson/rapidjson.h ./include/rapidjson/stream.h

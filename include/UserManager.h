@@ -60,6 +60,8 @@ private:
   // Instance variables - private
   
   // Member functions - private
+  bool writeFile(void);
+  bool readFile(void);
   bool doLogin(HttpServThread* serv, HTMLForm* form);
   bool doCreate(HttpServThread* serv, HTMLForm* form);
   bool getLoginPage(HttpServThread* serv);

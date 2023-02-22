@@ -8,6 +8,7 @@
 #include "Logging.h"
 #include "HttpServThread.h"
 #include "HTMLForm.h"
+#include "CryptoAlgorithms.h"
 
 
 // =======================================================================================
@@ -33,6 +34,30 @@ UserManager::UserManager(void)
 
 UserManager::~UserManager(void)
 {
+}
+
+
+// =======================================================================================
+/// @brief Writes the user database to disk.
+///
+/// @returns True if successfully written, false otherwise.
+
+bool UserManager::writeFile(void)
+{
+  
+  return true;
+}
+
+
+// =======================================================================================
+/// @brief Reads the user database from disk.
+///
+/// @returns True if successfully written, false otherwise.
+
+bool UserManager::readFile(void)
+{
+  
+  return false;
 }
 
 
