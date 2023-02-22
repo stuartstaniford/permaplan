@@ -195,35 +195,6 @@ bool UserManager::getLoginPage(HttpServThread* serv)
 
 
 // =======================================================================================
-/// @brief Process a create account request.
-/// 
-/// Note this could be the result of a manual creation (via UserManager::getCreatePage 
-/// below) or it could be the result of a permaplan mediated creation.
-/// @returns True if all was well writing to the buffer.  If false, it indicates the 
-/// buffer was not big enough and the output will have been truncated/incomplete.
-/// @param serv A pointer to the HttpServThread managing the HTTP response.
-
-bool UserManager::doCreate(HttpServThread* serv, HTMLForm* form)
-{
-  if(!form || form->getDynamicType() != TypeHTMLForm)
-   {
-    LogRequestErrors("Bad form in create Request.\n");
-    return serv->errorPage("Create Account Error.");
-   }
-  
-  // Check the username is allowed
-  
-  // Check the password is valid
-  
-  // Check the second password matches the first
-  
-  // Ok, all is well, create the account
-  
-  return true;
-}
-
-
-// =======================================================================================
 /// @brief Return the page with the form for account creation.
 /// 
 /// @returns True if all was well writing to the buffer.  If false, it indicates the 
@@ -278,6 +249,72 @@ bool UserManager::getCreatePage(HttpServThread* serv)
 
 
 // =======================================================================================
+/// @brief Process a create account request.
+/// 
+/// Note this could be the result of a manual creation (via UserManager::getCreatePage 
+/// below) or it could be the result of a permaplan mediated creation.
+/// @returns True if all was well writing to the buffer.  If false, it indicates the 
+/// buffer was not big enough and the output will have been truncated/incomplete.
+/// @param serv A pointer to the HttpServThread managing the HTTP response.
+
+bool UserManager::doCreate(HttpServThread* serv, HTMLForm* form)
+{
+  if(!form || form->getDynamicType() != TypeHTMLForm)
+   {
+    LogRequestErrors("Bad form in create Request.\n");
+    return serv->errorPage("Create Account Error.");
+   }
+  
+  //Make sure we have a username
+  unless(form->count("uname"))
+   {
+    LogUserErrors("No username in create Request.\n");
+    return serv->errorPage("Create Account Error.");    
+   }
+  
+  // Check the username is allowed
+  unless(checkUsername((*form)["uname"]))
+   {
+    LogUserErrors("Invalid username in create Request.\n");
+    return serv->errorPage("Create Account Error.");      
+   }
+
+  //Make sure we have a first password
+  unless(form->count("psw1"))
+   {
+    LogUserErrors("No first password in create Request.\n");
+    return serv->errorPage("Create Account Error.");    
+   }
+  
+  // Check the password is valid
+  unless(checkPasswordComplexity((*form)["psw1"]))
+   {
+    LogUserErrors("Invalid password in create Request.\n");
+    return serv->errorPage("Create Account Error.");      
+   }
+  
+  // Make sure we have a second password
+  unless(form->count("psw2"))
+   {
+    LogUserErrors("No second password in create Request.\n");
+    return serv->errorPage("Create Account Error.");    
+   }
+
+  // Check the second password matches the first
+  unless(strcmp((*form)["psw1"], (*form)["psw2"]) == 0)
+   {
+    LogUserErrors("Passwords don't match in create Request.\n");
+    return serv->errorPage("Create Account Error.");    
+   }
+
+  // Ok, all is well, create the account
+  LogUserOps("Created account for username %s.\n", (*form)["uname"]);
+  
+  return true;
+}
+
+
+// =======================================================================================
 /// @brief Check that a username on a newly created account is valid and doesnt already
 /// exist.
 /// 
@@ -318,7 +355,6 @@ bool UserManager::checkUsername(char* uname)
   
   return true; 
 }
-
 
 
 // =======================================================================================
