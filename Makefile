@@ -49,7 +49,7 @@ SRCS = $(wildcard src/*.cpp)
 # with the .o suffix
 #
 OBJS = $(SRCS:.cpp=.o)
-SERV_OBJS = src/BILFile.o src/ClimateInfo.o src/ClimateDatabase.o src/DynamicallyTypable.o src/GHCNDatabase.o src/GdalFileInterface.o src/Global.o src/GroundLayer.o src/HTMLForm.o src/HttpLBPermaserv.o src/HttpPageSet.o src/HttpPermaServ.o src/HttpServThread.o src/HttpStaticPage.o src/HttpLoadBalancer.o src/HttpRequestParser.o src/HttpClient.o src/HWSDProfile.o src/loadFileToBuf.o src/Lockable.o src/Logging.o src/MdbFile.o src/MimeTypeMaps.o src/ResourceManager.o src/SoilDatabase.o src/SoilHorizon.o src/SoilProfile.o src/SolarDatabase.o src/TaskQueue.o src/TaskQueueFarm.o src/Timeval.o src/UserManager.o
+SERV_OBJS = src/BILFile.o src/ClimateInfo.o src/ClimateDatabase.o src/CryptoAlgorithms.o src/DynamicallyTypable.o src/GHCNDatabase.o src/GdalFileInterface.o src/Global.o src/GroundLayer.o src/HTMLForm.o src/HttpLBPermaserv.o src/HttpPageSet.o src/HttpPermaServ.o src/HttpServThread.o src/HttpStaticPage.o src/HttpLoadBalancer.o src/HttpRequestParser.o src/HttpClient.o src/HWSDProfile.o src/loadFileToBuf.o src/Lockable.o src/Logging.o src/MdbFile.o src/MimeTypeMaps.o src/ResourceManager.o src/SoilDatabase.o src/SoilHorizon.o src/SoilProfile.o src/SolarDatabase.o src/TaskQueue.o src/TaskQueueFarm.o src/Timeval.o src/UserManager.o
 
 # define the executable file
 MAIN = permaplan
@@ -129,7 +129,8 @@ src/Arrow.o: /usr/local/include/GL/glew.h ./include/VisualObject.h
 src/Arrow.o: ./include/BoundingBox.h ./include/Cylinder.h
 src/Arrow.o: ./include/HttpDebug.h ./include/HttpServThread.h
 src/Arrow.o: ./include/TaskQueue.h ./include/HttpRequestParser.h
-src/Arrow.o: ./include/MimeTypeMaps.h
+src/Arrow.o: ./include/MimeTypeMaps.h ./include/UserManager.h
+src/Arrow.o: ./include/ClimateDatabase.h
 src/AxialElement.o: ./include/AxialElement.h ./include/VisualElement.h
 src/AxialElement.o: ./include/DynamicallyTypable.h ./include/TriangleBuffer.h
 src/AxialElement.o: ./include/Vertex.h ./include/Global.h
@@ -298,6 +299,7 @@ src/BezierPatch.o: ./include/DisplayList.h ./include/Arrow.h
 src/BezierPatch.o: ./include/AxialElement.h ./include/HttpDebug.h
 src/BezierPatch.o: ./include/HttpServThread.h ./include/TaskQueue.h
 src/BezierPatch.o: ./include/HttpRequestParser.h ./include/MimeTypeMaps.h
+src/BezierPatch.o: ./include/UserManager.h ./include/ClimateDatabase.h
 src/Boundary.o: ./include/Boundary.h /usr/local/include/cglm/cglm.h
 src/Boundary.o: /usr/local/include/cglm/common.h
 src/Boundary.o: /usr/local/include/cglm/types.h
@@ -367,6 +369,7 @@ src/Boundary.o: ./include/Timeval.h ./include/Lockable.h ./include/Global.h
 src/Boundary.o: ./include/BoundingBox.h ./include/HttpDebug.h
 src/Boundary.o: ./include/HttpServThread.h ./include/TaskQueue.h
 src/Boundary.o: ./include/HttpRequestParser.h ./include/MimeTypeMaps.h
+src/Boundary.o: ./include/UserManager.h ./include/ClimateDatabase.h
 src/Boundary.o: ./include/PmodDesign.h
 src/BoundingBox.o: ./include/BoundingBox.h /usr/local/include/cglm/cglm.h
 src/BoundingBox.o: /usr/local/include/cglm/common.h
@@ -416,6 +419,7 @@ src/BoundingBox.o: ./include/MemoryTracker.h ./include/Timeval.h
 src/BoundingBox.o: ./include/Lockable.h ./include/HttpDebug.h
 src/BoundingBox.o: ./include/HttpServThread.h ./include/TaskQueue.h
 src/BoundingBox.o: ./include/HttpRequestParser.h ./include/MimeTypeMaps.h
+src/BoundingBox.o: ./include/UserManager.h ./include/ClimateDatabase.h
 src/Box.o: ./include/Box.h ./include/VisualObject.h ./include/VisualElement.h
 src/Box.o: ./include/DynamicallyTypable.h ./include/TriangleBuffer.h
 src/Box.o: ./include/Vertex.h ./include/Global.h
@@ -478,6 +482,7 @@ src/Box.o: ./include/rapidjson/stringbuffer.h ./include/rapidjson/error/en.h
 src/Box.o: ./include/rapidjson/error/error.h ./include/HttpDebug.h
 src/Box.o: ./include/HttpServThread.h ./include/TaskQueue.h
 src/Box.o: ./include/HttpRequestParser.h ./include/MimeTypeMaps.h
+src/Box.o: ./include/UserManager.h ./include/ClimateDatabase.h
 src/Building.o: ./include/Building.h ./include/ObjectGroup.h
 src/Building.o: ./include/VisualObject.h ./include/VisualElement.h
 src/Building.o: ./include/DynamicallyTypable.h ./include/TriangleBuffer.h
@@ -656,7 +661,8 @@ src/BuildingRect.o: ./include/MemoryTracker.h ./include/Timeval.h
 src/BuildingRect.o: ./include/Lockable.h /usr/local/include/GL/glew.h
 src/BuildingRect.o: ./include/HttpDebug.h ./include/HttpServThread.h
 src/BuildingRect.o: ./include/TaskQueue.h ./include/HttpRequestParser.h
-src/BuildingRect.o: ./include/MimeTypeMaps.h ./include/BoundingBox.h
+src/BuildingRect.o: ./include/MimeTypeMaps.h ./include/UserManager.h
+src/BuildingRect.o: ./include/ClimateDatabase.h ./include/BoundingBox.h
 src/BuildingWindow.o: ./include/BuildingWindow.h
 src/BuildingWindow.o: ./include/ObjectInspectorWindow.h ./include/Window3D.h
 src/BuildingWindow.o: ./include/Camera.h /usr/local/include/cglm/cglm.h
@@ -887,7 +893,8 @@ src/Camera.o: ./include/rapidjson/error/en.h
 src/Camera.o: ./include/rapidjson/error/error.h ./include/Shader.h
 src/Camera.o: ./include/HttpDebug.h ./include/HttpServThread.h
 src/Camera.o: ./include/TaskQueue.h ./include/HttpRequestParser.h
-src/Camera.o: ./include/MimeTypeMaps.h
+src/Camera.o: ./include/MimeTypeMaps.h ./include/UserManager.h
+src/Camera.o: ./include/ClimateDatabase.h
 src/CircleIterator.o: ./include/CircleIterator.h
 src/CircleIterator.o: /usr/local/include/cglm/cglm.h
 src/CircleIterator.o: /usr/local/include/cglm/common.h
@@ -980,9 +987,10 @@ src/ClimateDatabase.o: /usr/local/include/cglm/bezier.h
 src/ClimateDatabase.o: /usr/local/include/cglm/ray.h
 src/ClimateDatabase.o: /usr/local/include/cglm/affine2d.h
 src/ClimateDatabase.o: ./include/HttpRequestParser.h ./include/MimeTypeMaps.h
-src/ClimateDatabase.o: ./include/loadFileToBuf.h ./include/Logging.h
-src/ClimateDatabase.o: ./include/MemoryTracker.h ./include/Timeval.h
-src/ClimateDatabase.o: ./include/ClimateInfo.h ./include/DynamicallyTypable.h
+src/ClimateDatabase.o: ./include/UserManager.h ./include/loadFileToBuf.h
+src/ClimateDatabase.o: ./include/Logging.h ./include/MemoryTracker.h
+src/ClimateDatabase.o: ./include/Timeval.h ./include/ClimateInfo.h
+src/ClimateDatabase.o: ./include/DynamicallyTypable.h
 src/ClimateDatabaseClient.o: ./include/ClimateDatabaseClient.h
 src/ClimateDatabaseClient.o: ./include/HttpPermaservClient.h
 src/ClimateDatabaseClient.o: ./include/HttpClient.h
@@ -1110,7 +1118,8 @@ src/ClimateInfo.o: /usr/local/include/cglm/ray.h
 src/ClimateInfo.o: /usr/local/include/cglm/affine2d.h
 src/ClimateInfo.o: ./include/HttpServThread.h ./include/TaskQueue.h
 src/ClimateInfo.o: ./include/Lockable.h ./include/HttpRequestParser.h
-src/ClimateInfo.o: ./include/MimeTypeMaps.h ./include/Logging.h
+src/ClimateInfo.o: ./include/MimeTypeMaps.h ./include/UserManager.h
+src/ClimateInfo.o: ./include/ClimateDatabase.h ./include/Logging.h
 src/ClimateInfo.o: ./include/MemoryTracker.h ./include/Timeval.h
 src/ClimateInfo.o: /usr/local/include/gsl/gsl_sf_bessel.h
 src/ClimateInfo.o: /usr/local/include/gsl/gsl_mode.h
@@ -1252,6 +1261,7 @@ src/ControlGroup.o: ./include/SemicircularArrow.h ./include/PathTube.h
 src/ControlGroup.o: ./include/CircleIterator.h ./include/HttpDebug.h
 src/ControlGroup.o: ./include/HttpServThread.h ./include/TaskQueue.h
 src/ControlGroup.o: ./include/HttpRequestParser.h ./include/MimeTypeMaps.h
+src/ControlGroup.o: ./include/UserManager.h ./include/ClimateDatabase.h
 src/Copse.o: ./include/Copse.h ./include/DisplayList.h
 src/Copse.o: ./include/BoundingBox.h /usr/local/include/cglm/cglm.h
 src/Copse.o: /usr/local/include/cglm/common.h /usr/local/include/cglm/types.h
@@ -1282,6 +1292,7 @@ src/Copse.o: /usr/local/include/cglm/vec3.h /usr/local/include/cglm/vec4.h
 src/Copse.o: /usr/local/include/cglm/sphere.h /usr/local/include/cglm/ease.h
 src/Copse.o: /usr/local/include/cglm/curve.h /usr/local/include/cglm/bezier.h
 src/Copse.o: /usr/local/include/cglm/ray.h /usr/local/include/cglm/affine2d.h
+src/CryptoAlgorithms.o: ./include/CryptoAlgorithms.h
 src/Cylinder.o: ./include/Cylinder.h ./include/AxialElement.h
 src/Cylinder.o: ./include/VisualElement.h ./include/DynamicallyTypable.h
 src/Cylinder.o: ./include/TriangleBuffer.h ./include/Vertex.h
@@ -1325,7 +1336,8 @@ src/Cylinder.o: ./include/MemoryTracker.h ./include/Timeval.h
 src/Cylinder.o: ./include/Lockable.h /usr/local/include/GL/glew.h
 src/Cylinder.o: ./include/HttpDebug.h ./include/HttpServThread.h
 src/Cylinder.o: ./include/TaskQueue.h ./include/HttpRequestParser.h
-src/Cylinder.o: ./include/MimeTypeMaps.h
+src/Cylinder.o: ./include/MimeTypeMaps.h ./include/UserManager.h
+src/Cylinder.o: ./include/ClimateDatabase.h
 src/DisplayList.o: ./include/DisplayList.h ./include/HeightMarker.h
 src/DisplayList.o: ./include/VisualObject.h ./include/VisualElement.h
 src/DisplayList.o: ./include/DynamicallyTypable.h ./include/TriangleBuffer.h
@@ -1575,7 +1587,8 @@ src/GLFWApplication.o: /usr/local/include/GL/glew.h
 src/GLFWApplication.o: /usr/local/include/GLFW/glfw3.h ./include/Shader.h
 src/GLFWApplication.o: ./include/HttpDebug.h ./include/HttpServThread.h
 src/GLFWApplication.o: ./include/TaskQueue.h ./include/HttpRequestParser.h
-src/GLFWApplication.o: ./include/MimeTypeMaps.h ./include/Logging.h
+src/GLFWApplication.o: ./include/MimeTypeMaps.h ./include/UserManager.h
+src/GLFWApplication.o: ./include/ClimateDatabase.h ./include/Logging.h
 src/GLFWApplication.o: ./include/MemoryTracker.h ./include/Scene.h
 src/GLFWApplication.o: ./include/LandSurface.h ./include/rapidjson/document.h
 src/GLFWApplication.o: ./include/rapidjson/reader.h
@@ -1686,6 +1699,7 @@ src/Gable.o: ./include/Quadtree.h ./include/DisplayList.h
 src/Gable.o: ./include/PmodConfig.h ./include/HttpDebug.h
 src/Gable.o: ./include/HttpServThread.h ./include/TaskQueue.h
 src/Gable.o: ./include/HttpRequestParser.h ./include/MimeTypeMaps.h
+src/Gable.o: ./include/UserManager.h ./include/ClimateDatabase.h
 src/GdalFileInterface.o: ./include/GdalFileInterface.h ./include/Lockable.h
 src/GdalFileInterface.o: ./include/Global.h /usr/local/include/cglm/cglm.h
 src/GdalFileInterface.o: /usr/local/include/cglm/common.h
@@ -1955,7 +1969,45 @@ src/GroundLitterLayer.o: ./include/rapidjson/stringbuffer.h
 src/GroundLitterLayer.o: ./include/rapidjson/stringbuffer.h
 src/GroundLitterLayer.o: ./include/rapidjson/error/en.h
 src/GroundLitterLayer.o: ./include/rapidjson/error/error.h
-src/HTMLForm.o: ./include/HTMLForm.h
+src/HTMLForm.o: ./include/HTMLForm.h ./include/DynamicallyTypable.h
+src/HTMLForm.o: ./include/Logging.h ./include/MemoryTracker.h
+src/HTMLForm.o: ./include/Timeval.h ./include/Lockable.h ./include/Global.h
+src/HTMLForm.o: /usr/local/include/cglm/cglm.h
+src/HTMLForm.o: /usr/local/include/cglm/common.h
+src/HTMLForm.o: /usr/local/include/cglm/types.h
+src/HTMLForm.o: /usr/local/include/cglm/simd/intrin.h
+src/HTMLForm.o: /usr/local/include/cglm/vec2.h /usr/local/include/cglm/util.h
+src/HTMLForm.o: /usr/local/include/cglm/vec2-ext.h
+src/HTMLForm.o: /usr/local/include/cglm/vec3.h /usr/local/include/cglm/vec4.h
+src/HTMLForm.o: /usr/local/include/cglm/vec4-ext.h
+src/HTMLForm.o: /usr/local/include/cglm/vec3-ext.h
+src/HTMLForm.o: /usr/local/include/cglm/mat4.h /usr/local/include/cglm/mat3.h
+src/HTMLForm.o: /usr/local/include/cglm/mat2.h
+src/HTMLForm.o: /usr/local/include/cglm/affine.h
+src/HTMLForm.o: /usr/local/include/cglm/affine-mat.h
+src/HTMLForm.o: /usr/local/include/cglm/cam.h /usr/local/include/cglm/plane.h
+src/HTMLForm.o: /usr/local/include/cglm/clipspace/persp.h
+src/HTMLForm.o: /usr/local/include/cglm/common.h
+src/HTMLForm.o: /usr/local/include/cglm/plane.h
+src/HTMLForm.o: /usr/local/include/cglm/mat4.h
+src/HTMLForm.o: /usr/local/include/cglm/clipspace/ortho_rh_no.h
+src/HTMLForm.o: /usr/local/include/cglm/clipspace/persp_rh_no.h
+src/HTMLForm.o: /usr/local/include/cglm/clipspace/persp.h
+src/HTMLForm.o: /usr/local/include/cglm/clipspace/view_rh_no.h
+src/HTMLForm.o: /usr/local/include/cglm/clipspace/view_rh.h
+src/HTMLForm.o: /usr/local/include/cglm/frustum.h
+src/HTMLForm.o: /usr/local/include/cglm/quat.h
+src/HTMLForm.o: /usr/local/include/cglm/euler.h /usr/local/include/cglm/box.h
+src/HTMLForm.o: /usr/local/include/cglm/color.h /usr/local/include/cglm/io.h
+src/HTMLForm.o: /usr/local/include/cglm/project.h
+src/HTMLForm.o: /usr/local/include/cglm/clipspace/project_no.h
+src/HTMLForm.o: /usr/local/include/cglm/vec3.h /usr/local/include/cglm/vec4.h
+src/HTMLForm.o: /usr/local/include/cglm/sphere.h
+src/HTMLForm.o: /usr/local/include/cglm/ease.h
+src/HTMLForm.o: /usr/local/include/cglm/curve.h
+src/HTMLForm.o: /usr/local/include/cglm/bezier.h
+src/HTMLForm.o: /usr/local/include/cglm/ray.h
+src/HTMLForm.o: /usr/local/include/cglm/affine2d.h
 src/HWSDProfile.o: ./include/HWSDProfile.h ./include/SoilProfile.h
 src/HWSDProfile.o: ./include/GroundLayer.h ./include/DynamicallyTypable.h
 src/HWSDProfile.o: ./include/rapidjson/document.h
@@ -2170,7 +2222,8 @@ src/HeightMarker.o: ./include/Lockable.h /usr/local/include/GL/glew.h
 src/HeightMarker.o: ./include/BoundingBox.h ./include/Positionable.h
 src/HeightMarker.o: ./include/HttpDebug.h ./include/HttpServThread.h
 src/HeightMarker.o: ./include/TaskQueue.h ./include/HttpRequestParser.h
-src/HeightMarker.o: ./include/MimeTypeMaps.h
+src/HeightMarker.o: ./include/MimeTypeMaps.h ./include/UserManager.h
+src/HeightMarker.o: ./include/ClimateDatabase.h
 src/HttpClient.o: ./include/HttpClient.h ./include/Logging.h
 src/HttpClient.o: ./include/MemoryTracker.h ./include/Timeval.h
 src/HttpClient.o: ./include/Lockable.h ./include/Global.h
@@ -2262,6 +2315,7 @@ src/HttpDebug.o: /usr/local/include/cglm/bezier.h
 src/HttpDebug.o: /usr/local/include/cglm/ray.h
 src/HttpDebug.o: /usr/local/include/cglm/affine2d.h
 src/HttpDebug.o: ./include/HttpRequestParser.h ./include/MimeTypeMaps.h
+src/HttpDebug.o: ./include/UserManager.h ./include/ClimateDatabase.h
 src/HttpDebug.o: ./include/Scene.h ./include/LandSurface.h
 src/HttpDebug.o: ./include/rapidjson/document.h ./include/rapidjson/reader.h
 src/HttpDebug.o: ./include/rapidjson/allocators.h
@@ -2354,6 +2408,7 @@ src/HttpLBDebug.o: /usr/local/include/cglm/bezier.h
 src/HttpLBDebug.o: /usr/local/include/cglm/ray.h
 src/HttpLBDebug.o: /usr/local/include/cglm/affine2d.h
 src/HttpLBDebug.o: ./include/HttpRequestParser.h ./include/MimeTypeMaps.h
+src/HttpLBDebug.o: ./include/UserManager.h ./include/ClimateDatabase.h
 src/HttpLBPermaserv.o: ./include/HttpLBPermaserv.h
 src/HttpLBPermaserv.o: ./include/HttpLoadBalancer.h ./include/HttpPageSet.h
 src/HttpLBPermaserv.o: ./include/Lockable.h ./include/Global.h
@@ -2402,7 +2457,8 @@ src/HttpLBPermaserv.o: /usr/local/include/cglm/ray.h
 src/HttpLBPermaserv.o: /usr/local/include/cglm/affine2d.h
 src/HttpLBPermaserv.o: ./include/HttpPermaServ.h ./include/HttpServThread.h
 src/HttpLBPermaserv.o: ./include/TaskQueue.h ./include/HttpRequestParser.h
-src/HttpLBPermaserv.o: ./include/MimeTypeMaps.h ./include/SolarDatabase.h
+src/HttpLBPermaserv.o: ./include/MimeTypeMaps.h ./include/UserManager.h
+src/HttpLBPermaserv.o: ./include/ClimateDatabase.h ./include/SolarDatabase.h
 src/HttpLBPermaserv.o: ./include/GdalFileInterface.h ./include/SoilDatabase.h
 src/HttpLBPermaserv.o: ./include/BILFile.h ./include/MdbFile.h
 src/HttpLBPermaserv.o: /usr/local/include/mdbtools.h
@@ -2491,8 +2547,8 @@ src/HttpLBPermaserv.o: /usr/local/Cellar/glib/2.74.0/include/glib-2.0/glib/depre
 src/HttpLBPermaserv.o: /usr/local/Cellar/glib/2.74.0/include/glib-2.0/glib/deprecated/grel.h
 src/HttpLBPermaserv.o: /usr/local/Cellar/glib/2.74.0/include/glib-2.0/glib/deprecated/gthread.h
 src/HttpLBPermaserv.o: /usr/local/Cellar/glib/2.74.0/include/glib-2.0/glib/glib-autocleanups.h
-src/HttpLBPermaserv.o: ./include/ClimateDatabase.h ./include/Logging.h
-src/HttpLBPermaserv.o: ./include/MemoryTracker.h ./include/Timeval.h
+src/HttpLBPermaserv.o: ./include/Logging.h ./include/MemoryTracker.h
+src/HttpLBPermaserv.o: ./include/Timeval.h
 src/HttpLoadBalancer.o: ./include/HttpLoadBalancer.h ./include/HttpDebug.h
 src/HttpLoadBalancer.o: ./include/HttpServThread.h ./include/TaskQueue.h
 src/HttpLoadBalancer.o: ./include/Lockable.h ./include/Global.h
@@ -2540,7 +2596,8 @@ src/HttpLoadBalancer.o: /usr/local/include/cglm/bezier.h
 src/HttpLoadBalancer.o: /usr/local/include/cglm/ray.h
 src/HttpLoadBalancer.o: /usr/local/include/cglm/affine2d.h
 src/HttpLoadBalancer.o: ./include/HttpRequestParser.h
-src/HttpLoadBalancer.o: ./include/MimeTypeMaps.h ./include/TaskQueueFarm.h
+src/HttpLoadBalancer.o: ./include/MimeTypeMaps.h ./include/UserManager.h
+src/HttpLoadBalancer.o: ./include/ClimateDatabase.h ./include/TaskQueueFarm.h
 src/HttpLoadBalancer.o: ./include/Logging.h ./include/MemoryTracker.h
 src/HttpLoadBalancer.o: ./include/Timeval.h
 src/HttpPageSet.o: ./include/HttpPageSet.h ./include/Lockable.h
@@ -2589,6 +2646,7 @@ src/HttpPageSet.o: /usr/local/include/cglm/ray.h
 src/HttpPageSet.o: /usr/local/include/cglm/affine2d.h
 src/HttpPageSet.o: ./include/HttpServThread.h ./include/TaskQueue.h
 src/HttpPageSet.o: ./include/HttpRequestParser.h ./include/MimeTypeMaps.h
+src/HttpPageSet.o: ./include/UserManager.h ./include/ClimateDatabase.h
 src/HttpPageSet.o: ./include/HttpStaticPage.h
 src/HttpPermaServ.o: ./include/HttpPermaServ.h ./include/HttpServThread.h
 src/HttpPermaServ.o: ./include/TaskQueue.h ./include/Lockable.h
@@ -2636,6 +2694,7 @@ src/HttpPermaServ.o: /usr/local/include/cglm/bezier.h
 src/HttpPermaServ.o: /usr/local/include/cglm/ray.h
 src/HttpPermaServ.o: /usr/local/include/cglm/affine2d.h
 src/HttpPermaServ.o: ./include/HttpRequestParser.h ./include/MimeTypeMaps.h
+src/HttpPermaServ.o: ./include/UserManager.h ./include/ClimateDatabase.h
 src/HttpPermaServ.o: ./include/Logging.h ./include/MemoryTracker.h
 src/HttpPermaServ.o: ./include/Timeval.h ./include/SolarDatabase.h
 src/HttpPermaServ.o: ./include/GdalFileInterface.h ./include/SoilDatabase.h
@@ -2727,9 +2786,8 @@ src/HttpPermaServ.o: /usr/local/Cellar/glib/2.74.0/include/glib-2.0/glib/depreca
 src/HttpPermaServ.o: /usr/local/Cellar/glib/2.74.0/include/glib-2.0/glib/deprecated/gthread.h
 src/HttpPermaServ.o: /usr/local/Cellar/glib/2.74.0/include/glib-2.0/glib/glib-autocleanups.h
 src/HttpPermaServ.o: ./include/HttpLBPermaserv.h ./include/HttpLoadBalancer.h
-src/HttpPermaServ.o: ./include/HttpPageSet.h ./include/ClimateDatabase.h
-src/HttpPermaServ.o: ./include/ClimateInfo.h ./include/DynamicallyTypable.h
-src/HttpPermaServ.o: ./include/UserManager.h
+src/HttpPermaServ.o: ./include/HttpPageSet.h ./include/ClimateInfo.h
+src/HttpPermaServ.o: ./include/DynamicallyTypable.h
 src/HttpPermaservClient.o: ./include/HttpPermaservClient.h
 src/HttpPermaservClient.o: ./include/HttpClient.h
 src/HttpPermaservClient.o: ./include/rapidjson/document.h
@@ -2811,7 +2869,8 @@ src/HttpPermaservClient.o: /usr/local/include/cglm/ray.h
 src/HttpPermaservClient.o: /usr/local/include/cglm/affine2d.h
 src/HttpPermaservClient.o: ./include/loadFileToBuf.h
 src/HttpRequestParser.o: ./include/HttpRequestParser.h
-src/HttpRequestParser.o: ./include/MimeTypeMaps.h ./include/Global.h
+src/HttpRequestParser.o: ./include/MimeTypeMaps.h ./include/HTMLForm.h
+src/HttpRequestParser.o: ./include/DynamicallyTypable.h ./include/Global.h
 src/HttpRequestParser.o: /usr/local/include/cglm/cglm.h
 src/HttpRequestParser.o: /usr/local/include/cglm/common.h
 src/HttpRequestParser.o: /usr/local/include/cglm/types.h
@@ -2903,6 +2962,7 @@ src/HttpServThread.o: /usr/local/include/cglm/bezier.h
 src/HttpServThread.o: /usr/local/include/cglm/ray.h
 src/HttpServThread.o: /usr/local/include/cglm/affine2d.h
 src/HttpServThread.o: ./include/HttpRequestParser.h ./include/MimeTypeMaps.h
+src/HttpServThread.o: ./include/UserManager.h ./include/ClimateDatabase.h
 src/HttpServThread.o: ./include/Logging.h ./include/MemoryTracker.h
 src/HttpServThread.o: ./include/Timeval.h
 src/HttpStaticPage.o: ./include/HttpStaticPage.h ./include/loadFileToBuf.h
@@ -3090,7 +3150,8 @@ src/InterfaceMainSceneWin.o: ./include/MenuInsert.h ./include/MenuGenus.h
 src/InterfaceMainSceneWin.o: ./include/MenuTree.h ./include/HttpDebug.h
 src/InterfaceMainSceneWin.o: ./include/HttpServThread.h ./include/TaskQueue.h
 src/InterfaceMainSceneWin.o: ./include/HttpRequestParser.h
-src/InterfaceMainSceneWin.o: ./include/MimeTypeMaps.h
+src/InterfaceMainSceneWin.o: ./include/MimeTypeMaps.h ./include/UserManager.h
+src/InterfaceMainSceneWin.o: ./include/ClimateDatabase.h
 src/InterfaceMainSceneWin.o: ./include/loadFileToBuf.h ./include/RegionList.h
 src/InterfaceMainSceneWin.o: imgui/backends/imgui_impl_opengl3.h
 src/InterfaceMainSceneWin.o: imgui/backends/imgui_impl_glfw.h
@@ -3263,6 +3324,7 @@ src/LandSurface.o: ./include/DisplayList.h ./include/HeightMarker.h
 src/LandSurface.o: ./include/Positionable.h ./include/HttpDebug.h
 src/LandSurface.o: ./include/HttpServThread.h ./include/TaskQueue.h
 src/LandSurface.o: ./include/HttpRequestParser.h ./include/MimeTypeMaps.h
+src/LandSurface.o: ./include/UserManager.h ./include/ClimateDatabase.h
 src/LandSurfaceRegion.o: ./include/LandSurfaceRegion.h
 src/LandSurfaceRegion.o: ./include/VisualObject.h ./include/VisualElement.h
 src/LandSurfaceRegion.o: ./include/DynamicallyTypable.h
@@ -3315,7 +3377,8 @@ src/LandSurfaceRegion.o: ./include/Timeval.h ./include/Lockable.h
 src/LandSurfaceRegion.o: /usr/local/include/GL/glew.h ./include/BoundingBox.h
 src/LandSurfaceRegion.o: ./include/HttpDebug.h ./include/HttpServThread.h
 src/LandSurfaceRegion.o: ./include/TaskQueue.h ./include/HttpRequestParser.h
-src/LandSurfaceRegion.o: ./include/MimeTypeMaps.h
+src/LandSurfaceRegion.o: ./include/MimeTypeMaps.h ./include/UserManager.h
+src/LandSurfaceRegion.o: ./include/ClimateDatabase.h
 src/LandSurfaceRegionPlanar.o: ./include/LandSurfaceRegionPlanar.h
 src/LandSurfaceRegionPlanar.o: ./include/LandSurfaceRegion.h
 src/LandSurfaceRegionPlanar.o: ./include/VisualObject.h
@@ -3374,6 +3437,8 @@ src/LandSurfaceRegionPlanar.o: ./include/HttpServThread.h
 src/LandSurfaceRegionPlanar.o: ./include/TaskQueue.h
 src/LandSurfaceRegionPlanar.o: ./include/HttpRequestParser.h
 src/LandSurfaceRegionPlanar.o: ./include/MimeTypeMaps.h
+src/LandSurfaceRegionPlanar.o: ./include/UserManager.h
+src/LandSurfaceRegionPlanar.o: ./include/ClimateDatabase.h
 src/LeafModel.o: ./include/LeafModel.h /usr/local/include/cglm/cglm.h
 src/LeafModel.o: /usr/local/include/cglm/common.h
 src/LeafModel.o: /usr/local/include/cglm/types.h
@@ -3542,7 +3607,8 @@ src/LineStripList.o: ./include/VertexBufferObject.h
 src/LineStripList.o: /usr/local/include/GLFW/glfw3.h ./include/Shader.h
 src/LineStripList.o: ./include/HttpDebug.h ./include/HttpServThread.h
 src/LineStripList.o: ./include/TaskQueue.h ./include/HttpRequestParser.h
-src/LineStripList.o: ./include/MimeTypeMaps.h
+src/LineStripList.o: ./include/MimeTypeMaps.h ./include/UserManager.h
+src/LineStripList.o: ./include/ClimateDatabase.h
 src/Lockable.o: ./include/Lockable.h ./include/Global.h
 src/Lockable.o: /usr/local/include/cglm/cglm.h
 src/Lockable.o: /usr/local/include/cglm/common.h
@@ -3616,7 +3682,8 @@ src/Logging.o: /usr/local/include/cglm/bezier.h /usr/local/include/cglm/ray.h
 src/Logging.o: /usr/local/include/cglm/affine2d.h ./include/Vertex.h
 src/Logging.o: ./include/HttpDebug.h ./include/HttpServThread.h
 src/Logging.o: ./include/TaskQueue.h ./include/HttpRequestParser.h
-src/Logging.o: ./include/MimeTypeMaps.h ./include/Shed.h
+src/Logging.o: ./include/MimeTypeMaps.h ./include/UserManager.h
+src/Logging.o: ./include/ClimateDatabase.h ./include/Shed.h
 src/Logging.o: ./include/VisualObject.h ./include/VisualElement.h
 src/Logging.o: ./include/DynamicallyTypable.h ./include/TriangleBuffer.h
 src/Logging.o: /usr/local/include/GL/glew.h ./include/BoundingBox.h
@@ -3741,6 +3808,7 @@ src/MainSceneWindow.o: ./include/rapidjson/error/error.h
 src/MainSceneWindow.o: ./include/GLFWApplication.h ./include/HttpDebug.h
 src/MainSceneWindow.o: ./include/HttpServThread.h ./include/TaskQueue.h
 src/MainSceneWindow.o: ./include/HttpRequestParser.h ./include/MimeTypeMaps.h
+src/MainSceneWindow.o: ./include/UserManager.h ./include/ClimateDatabase.h
 src/Material.o: ./include/Material.h /usr/local/include/cglm/cglm.h
 src/Material.o: /usr/local/include/cglm/common.h
 src/Material.o: /usr/local/include/cglm/types.h
@@ -3783,6 +3851,7 @@ src/Material.o: ./include/Lockable.h ./include/Global.h
 src/Material.o: ./include/TextureAtlas.h ./include/HttpDebug.h
 src/Material.o: ./include/HttpServThread.h ./include/TaskQueue.h
 src/Material.o: ./include/HttpRequestParser.h ./include/MimeTypeMaps.h
+src/Material.o: ./include/UserManager.h ./include/ClimateDatabase.h
 src/MdbFile.o: ./include/MdbFile.h /usr/local/include/mdbtools.h
 src/MdbFile.o: /usr/local/Cellar/glib/2.74.0/include/glib-2.0/glib.h
 src/MdbFile.o: /usr/local/Cellar/glib/2.74.0/include/glib-2.0/glib/galloca.h
@@ -3979,6 +4048,7 @@ src/MemoryTracker.o: /usr/local/include/cglm/bezier.h
 src/MemoryTracker.o: /usr/local/include/cglm/ray.h
 src/MemoryTracker.o: /usr/local/include/cglm/affine2d.h
 src/MemoryTracker.o: ./include/HttpRequestParser.h ./include/MimeTypeMaps.h
+src/MemoryTracker.o: ./include/UserManager.h ./include/ClimateDatabase.h
 src/MenuAllTree.o: ./include/MenuAllTree.h ./include/MenuPanel.h
 src/MenuAllTree.o: ./include/Logging.h ./include/MemoryTracker.h
 src/MenuAllTree.o: ./include/Timeval.h ./include/Lockable.h
@@ -4069,6 +4139,7 @@ src/MenuAllTree.o: ./include/LandSurfaceRegion.h ./include/LightingModel.h
 src/MenuAllTree.o: ./include/CO2Scenario.h ./include/HttpDebug.h
 src/MenuAllTree.o: ./include/HttpServThread.h ./include/TaskQueue.h
 src/MenuAllTree.o: ./include/HttpRequestParser.h ./include/MimeTypeMaps.h
+src/MenuAllTree.o: ./include/UserManager.h ./include/ClimateDatabase.h
 src/MenuBlockPanel.o: ./include/MenuBlockPanel.h ./include/MenuPanel.h
 src/MenuBlockPanel.o: ./include/Logging.h ./include/MemoryTracker.h
 src/MenuBlockPanel.o: ./include/Timeval.h ./include/Lockable.h
@@ -4787,7 +4858,8 @@ src/MenuPanel.o: ./include/Window3D.h ./include/Camera.h
 src/MenuPanel.o: /usr/local/include/GL/glew.h /usr/local/include/GLFW/glfw3.h
 src/MenuPanel.o: ./include/HttpDebug.h ./include/HttpServThread.h
 src/MenuPanel.o: ./include/TaskQueue.h ./include/HttpRequestParser.h
-src/MenuPanel.o: ./include/MimeTypeMaps.h ./include/Scene.h
+src/MenuPanel.o: ./include/MimeTypeMaps.h ./include/UserManager.h
+src/MenuPanel.o: ./include/ClimateDatabase.h ./include/Scene.h
 src/MenuPanel.o: ./include/LandSurface.h ./include/rapidjson/document.h
 src/MenuPanel.o: ./include/rapidjson/reader.h
 src/MenuPanel.o: ./include/rapidjson/allocators.h
@@ -5074,6 +5146,7 @@ src/MenuTree.o: ./include/rapidjson/error/en.h
 src/MenuTree.o: ./include/rapidjson/error/error.h ./include/HttpDebug.h
 src/MenuTree.o: ./include/HttpServThread.h ./include/TaskQueue.h
 src/MenuTree.o: ./include/HttpRequestParser.h ./include/MimeTypeMaps.h
+src/MenuTree.o: ./include/UserManager.h ./include/ClimateDatabase.h
 src/MimeTypeMaps.o: ./include/MimeTypeMaps.h
 src/ObjectGroup.o: ./include/ObjectGroup.h ./include/VisualObject.h
 src/ObjectGroup.o: ./include/VisualElement.h ./include/DynamicallyTypable.h
@@ -5126,7 +5199,8 @@ src/ObjectGroup.o: ./include/Lockable.h /usr/local/include/GL/glew.h
 src/ObjectGroup.o: ./include/BoundingBox.h ./include/DisplayList.h
 src/ObjectGroup.o: ./include/HttpDebug.h ./include/HttpServThread.h
 src/ObjectGroup.o: ./include/TaskQueue.h ./include/HttpRequestParser.h
-src/ObjectGroup.o: ./include/MimeTypeMaps.h
+src/ObjectGroup.o: ./include/MimeTypeMaps.h ./include/UserManager.h
+src/ObjectGroup.o: ./include/ClimateDatabase.h
 src/ObjectInspectorWindow.o: ./include/ObjectInspectorWindow.h
 src/ObjectInspectorWindow.o: ./include/Window3D.h ./include/Camera.h
 src/ObjectInspectorWindow.o: /usr/local/include/cglm/cglm.h
@@ -5402,6 +5476,7 @@ src/Positionable.o: /usr/local/include/cglm/affine2d.h ./include/HttpDebug.h
 src/Positionable.o: ./include/HttpServThread.h ./include/TaskQueue.h
 src/Positionable.o: ./include/Lockable.h ./include/Global.h
 src/Positionable.o: ./include/HttpRequestParser.h ./include/MimeTypeMaps.h
+src/Positionable.o: ./include/UserManager.h ./include/ClimateDatabase.h
 src/Quadtree.o: ./include/Quadtree.h ./include/BoundingBox.h
 src/Quadtree.o: /usr/local/include/cglm/cglm.h
 src/Quadtree.o: /usr/local/include/cglm/common.h
@@ -5481,7 +5556,8 @@ src/Quadtree.o: ./include/LandSurfaceRegionPlanar.h ./include/Shader.h
 src/Quadtree.o: ./include/PmodDesign.h ./include/Boundary.h
 src/Quadtree.o: ./include/HttpDebug.h ./include/HttpServThread.h
 src/Quadtree.o: ./include/TaskQueue.h ./include/HttpRequestParser.h
-src/Quadtree.o: ./include/MimeTypeMaps.h ./include/GLFWApplication.h
+src/Quadtree.o: ./include/MimeTypeMaps.h ./include/UserManager.h
+src/Quadtree.o: ./include/ClimateDatabase.h ./include/GLFWApplication.h
 src/RegionList.o: ./include/RegionList.h ./include/DynamicallyTypable.h
 src/RegionList.o: ./include/Species.h ./include/Version.h
 src/RegionList.o: ./include/rapidjson/document.h ./include/rapidjson/reader.h
@@ -5711,6 +5787,7 @@ src/Scene.o: /usr/local/include/GLFW/glfw3.h ./include/GLFWApplication.h
 src/Scene.o: ./include/loadFileToBuf.h ./include/HttpDebug.h
 src/Scene.o: ./include/HttpServThread.h ./include/TaskQueue.h
 src/Scene.o: ./include/HttpRequestParser.h ./include/MimeTypeMaps.h
+src/Scene.o: ./include/UserManager.h ./include/ClimateDatabase.h
 src/Scene.o: ./include/TexturedRect.h ./include/VertexArrayObject.h
 src/Scene.o: ./include/Texture.h ./include/ColoredAxes.h
 src/Scene.o: ./include/LineStripList.h ./include/PmodConfig.h
@@ -5865,7 +5942,8 @@ src/Shed.o: ./include/rapidjson/error/error.h ./include/MenuShedPanel.h
 src/Shed.o: ./include/MenuPanel.h ./include/InterfaceAction.h imgui/imgui.h
 src/Shed.o: imgui/imconfig.h ./include/HttpDebug.h ./include/HttpServThread.h
 src/Shed.o: ./include/TaskQueue.h ./include/HttpRequestParser.h
-src/Shed.o: ./include/MimeTypeMaps.h
+src/Shed.o: ./include/MimeTypeMaps.h ./include/UserManager.h
+src/Shed.o: ./include/ClimateDatabase.h
 src/SkySampleModel.o: ./include/SkySampleModel.h
 src/SkySampleModel.o: /usr/local/include/cglm/cglm.h
 src/SkySampleModel.o: /usr/local/include/cglm/common.h
@@ -5915,6 +5993,7 @@ src/SkySampleModel.o: ./include/Lockable.h ./include/Global.h
 src/SkySampleModel.o: ./include/BoundingBox.h ./include/HttpDebug.h
 src/SkySampleModel.o: ./include/HttpServThread.h ./include/TaskQueue.h
 src/SkySampleModel.o: ./include/HttpRequestParser.h ./include/MimeTypeMaps.h
+src/SkySampleModel.o: ./include/UserManager.h ./include/ClimateDatabase.h
 src/SkySampleModel.o: ./include/SolarDatabase.h ./include/GdalFileInterface.h
 src/SkySampleModel.o: ./include/HttpPermaservClient.h ./include/HttpClient.h
 src/SkySampleModel.o: ./include/rapidjson/document.h
@@ -6398,6 +6477,7 @@ src/SolarDatabase.o: /usr/local/include/cglm/ray.h
 src/SolarDatabase.o: /usr/local/include/cglm/affine2d.h
 src/SolarDatabase.o: ./include/HttpServThread.h ./include/TaskQueue.h
 src/SolarDatabase.o: ./include/HttpRequestParser.h ./include/MimeTypeMaps.h
+src/SolarDatabase.o: ./include/UserManager.h ./include/ClimateDatabase.h
 src/Species.o: ./include/Species.h ./include/DynamicallyTypable.h
 src/Species.o: ./include/Version.h ./include/rapidjson/document.h
 src/Species.o: ./include/rapidjson/reader.h ./include/rapidjson/allocators.h
@@ -6466,6 +6546,7 @@ src/Species.o: ./include/MemoryTracker.h ./include/Lockable.h
 src/Species.o: ./include/LeafModel.h ./include/HttpDebug.h
 src/Species.o: ./include/HttpServThread.h ./include/TaskQueue.h
 src/Species.o: ./include/HttpRequestParser.h ./include/MimeTypeMaps.h
+src/Species.o: ./include/UserManager.h ./include/ClimateDatabase.h
 src/TaskQueue.o: ./include/TaskQueue.h ./include/Lockable.h
 src/TaskQueue.o: ./include/Global.h /usr/local/include/cglm/cglm.h
 src/TaskQueue.o: /usr/local/include/cglm/common.h
@@ -6558,6 +6639,7 @@ src/TaskQueueFarm.o: /usr/local/include/cglm/affine2d.h ./include/Logging.h
 src/TaskQueueFarm.o: ./include/MemoryTracker.h ./include/Timeval.h
 src/TaskQueueFarm.o: ./include/HttpDebug.h ./include/HttpServThread.h
 src/TaskQueueFarm.o: ./include/HttpRequestParser.h ./include/MimeTypeMaps.h
+src/TaskQueueFarm.o: ./include/UserManager.h ./include/ClimateDatabase.h
 src/Texture.o: ./include/Texture.h /usr/local/include/GL/glew.h
 src/Texture.o: ./include/Shader.h /usr/local/include/cglm/cglm.h
 src/Texture.o: /usr/local/include/cglm/common.h
@@ -6791,7 +6873,8 @@ src/Tree.o: ./include/CO2Scenario.h ./include/SkySampleModel.h
 src/Tree.o: ./include/TaskQueueFarm.h ./include/TaskQueue.h
 src/Tree.o: ./include/Species.h ./include/Version.h ./include/HttpDebug.h
 src/Tree.o: ./include/HttpServThread.h ./include/HttpRequestParser.h
-src/Tree.o: ./include/MimeTypeMaps.h ./include/AxialElement.h
+src/Tree.o: ./include/MimeTypeMaps.h ./include/UserManager.h
+src/Tree.o: ./include/ClimateDatabase.h ./include/AxialElement.h
 src/Tree.o: ./include/SoilProfile.h ./include/GroundLayer.h
 src/Tree.o: ./include/SoilDatabaseClient.h
 src/TreeEquation.o: ./include/TreeEquation.h
@@ -6836,6 +6919,7 @@ src/TreePart.o: /usr/local/include/cglm/ray.h
 src/TreePart.o: /usr/local/include/cglm/affine2d.h ./include/HttpDebug.h
 src/TreePart.o: ./include/HttpServThread.h ./include/TaskQueue.h
 src/TreePart.o: ./include/HttpRequestParser.h ./include/MimeTypeMaps.h
+src/TreePart.o: ./include/UserManager.h ./include/ClimateDatabase.h
 src/TreeWindow.o: ./include/TreeWindow.h ./include/ObjectInspectorWindow.h
 src/TreeWindow.o: ./include/Window3D.h ./include/Camera.h
 src/TreeWindow.o: /usr/local/include/cglm/cglm.h
@@ -6921,7 +7005,8 @@ src/TreeWindow.o: ./include/rapidjson/error/error.h ./include/TreePart.h
 src/TreeWindow.o: ./include/Quadtree.h ./include/DisplayList.h
 src/TreeWindow.o: ./include/HttpDebug.h ./include/HttpServThread.h
 src/TreeWindow.o: ./include/TaskQueue.h ./include/HttpRequestParser.h
-src/TreeWindow.o: ./include/MimeTypeMaps.h ./include/Scene.h
+src/TreeWindow.o: ./include/MimeTypeMaps.h ./include/UserManager.h
+src/TreeWindow.o: ./include/ClimateDatabase.h ./include/Scene.h
 src/TreeWindow.o: ./include/LandSurface.h ./include/BezierPatch.h
 src/TreeWindow.o: ./include/LandSurfaceRegion.h ./include/LightingModel.h
 src/TreeWindow.o: ./include/CO2Scenario.h
@@ -7006,6 +7091,7 @@ src/TriangleBuffer.o: ./include/rapidjson/error/error.h
 src/TriangleBuffer.o: ./include/BoundingBox.h ./include/HttpDebug.h
 src/TriangleBuffer.o: ./include/HttpServThread.h ./include/TaskQueue.h
 src/TriangleBuffer.o: ./include/HttpRequestParser.h ./include/MimeTypeMaps.h
+src/TriangleBuffer.o: ./include/UserManager.h ./include/ClimateDatabase.h
 src/TriangleBuffer.o: ./include/ElementBufferCombo.h
 src/TriangleBuffer.o: ./include/VertexArrayObject.h
 src/TriangleBuffer.o: ./include/VertexBufferObject.h
@@ -7061,7 +7147,8 @@ src/TruncatedCone.o: ./include/MemoryTracker.h ./include/Timeval.h
 src/TruncatedCone.o: ./include/Lockable.h /usr/local/include/GL/glew.h
 src/TruncatedCone.o: ./include/HttpDebug.h ./include/HttpServThread.h
 src/TruncatedCone.o: ./include/TaskQueue.h ./include/HttpRequestParser.h
-src/TruncatedCone.o: ./include/MimeTypeMaps.h
+src/TruncatedCone.o: ./include/MimeTypeMaps.h ./include/UserManager.h
+src/TruncatedCone.o: ./include/ClimateDatabase.h
 src/UserManager.o: ./include/UserManager.h ./include/Logging.h
 src/UserManager.o: ./include/MemoryTracker.h ./include/Timeval.h
 src/UserManager.o: ./include/Lockable.h ./include/Global.h
@@ -7110,6 +7197,8 @@ src/UserManager.o: /usr/local/include/cglm/ray.h
 src/UserManager.o: /usr/local/include/cglm/affine2d.h
 src/UserManager.o: ./include/HttpServThread.h ./include/TaskQueue.h
 src/UserManager.o: ./include/HttpRequestParser.h ./include/MimeTypeMaps.h
+src/UserManager.o: ./include/ClimateDatabase.h ./include/HTMLForm.h
+src/UserManager.o: ./include/DynamicallyTypable.h
 src/Version.o: ./include/Version.h ./include/rapidjson/document.h
 src/Version.o: ./include/rapidjson/reader.h ./include/rapidjson/allocators.h
 src/Version.o: ./include/rapidjson/rapidjson.h ./include/rapidjson/stream.h
@@ -7617,6 +7706,7 @@ src/WoodySegment.o: ./include/AxialElement.h ./include/LeafModel.h
 src/WoodySegment.o: ./include/Species.h ./include/HttpDebug.h
 src/WoodySegment.o: ./include/HttpServThread.h ./include/TaskQueue.h
 src/WoodySegment.o: ./include/HttpRequestParser.h ./include/MimeTypeMaps.h
+src/WoodySegment.o: ./include/UserManager.h ./include/ClimateDatabase.h
 src/WoodySegment.o: ./include/Cylinder.h
 src/imgui.o: imgui/imgui.h imgui/imconfig.h imgui/imgui_internal.h
 src/imgui.o: imgui/imstb_textedit.h

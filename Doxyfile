@@ -885,6 +885,7 @@ INPUT                  = doc \
                 include/ColoredAxes.h src/ColoredAxes.cpp \
                 include/ControlGroup.h src/ControlGroup.cpp \
                 include/Copse.h src/Copse.cpp \
+                include/CryptoAlgorithms.h src/CryptoAlgorithms.cpp \
                 include/Cylinder.h src/Cylinder.cpp \
                 include/DisplayList.h src/DisplayList.cpp \
                 include/DynamicallyTypable.h src/DynamicallyTypable.cpp \
