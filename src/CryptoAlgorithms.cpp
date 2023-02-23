@@ -12,6 +12,18 @@
 // Static variables, etc.
 
 CryptoAlgorithms* CryptoAlgorithms::theCryptoAlgorithms = NULL;
+CryptoAlgorithms  CryptoAlgorithmInstance;
+
+
+// =======================================================================================
+/// @brief Output the salt to a file
+
+bool PasswordSalt::outputToFile(FILE* file)
+{
+  if(fwrite(salt, SALT_BYTES, 1, file) != 1)
+    return false;
+  return true;
+}
 
 
 // =======================================================================================

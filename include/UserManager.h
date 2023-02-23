@@ -3,11 +3,10 @@
 #ifndef USER_MANAGER_H
 #define USER_MANAGER_H
 
+#include "Global.h"
+#include "CryptoAlgorithms.h"
 #include <string>
 #include <unordered_map>
-
-#define HASH_BYTES 16
-#define SALT_BYTES 16
 
 
 // =======================================================================================
@@ -26,8 +25,8 @@ class UserRecord
   public:
   
   std::string   userName;
-  unsigned char salt[SALT_BYTES];
-  unsigned char passwordHash[HASH_BYTES];
+  PasswordSalt  salt;
+  PasswordHash  pwdHash;
 };
 
 
@@ -68,10 +67,7 @@ private:
   bool getCreatePage(HttpServThread* serv);
   bool checkPasswordComplexity(char* pwd);
   bool checkUsername(char* uname);
-  /// @brief Prevent copy-construction.
-  UserManager(const UserManager&);       
-  /// @brief Prevent assignment.
-  UserManager& operator=(const UserManager&);      
+  PreventAssignAndCopyConstructor(UserManager);
 };
 
 

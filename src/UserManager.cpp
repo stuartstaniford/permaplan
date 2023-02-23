@@ -14,8 +14,9 @@
 // =======================================================================================
 // Static variables, etc.
 
-UserManager* UserManager::theUserManager  = NULL;
-char* userFileName                        = (char*)"userdb";
+UserManager*  UserManager::theUserManager = NULL;
+char*         userFileName                = (char*)"userdb";
+UserManager   UserManagerInstance;
 
 
 // =======================================================================================

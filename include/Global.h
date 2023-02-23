@@ -28,6 +28,9 @@
 #define latitudeInRange(f) ( ( (f) >= -90.0f) && ((f) <= 90.0f) )
 #define longtitudeInRange(f) ( ( (f) >= -180.0f) && ((f) <= 180.0f) )
 
+// Prevent assignment and copy construction of class "T".
+#define PreventAssignAndCopyConstructor(T) private: T(const T&); T&operator=(const T&);
+
 
 // =======================================================================================
 // Useful enums
