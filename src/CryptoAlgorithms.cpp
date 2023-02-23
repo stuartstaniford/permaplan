@@ -17,10 +17,27 @@ CryptoAlgorithms  CryptoAlgorithmInstance;
 
 // =======================================================================================
 /// @brief Output the salt to a file
+///
+/// @param file A pointer to the stdio FILE structure.
+/// @returns True if written correctly, false otherwise
 
 bool PasswordSalt::outputToFile(FILE* file)
 {
   if(fwrite(salt, SALT_BYTES, 1, file) != 1)
+    return false;
+  return true;
+}
+
+
+// =======================================================================================
+/// @brief Output the hash to a file
+///
+/// @param file A pointer to the stdio FILE structure.
+/// @returns True if written correctly, false otherwise
+
+bool PasswordHash::outputToFile(FILE* file)
+{
+  if(fwrite(hash, HASH_BYTES, 1, file) != 1)
     return false;
   return true;
 }

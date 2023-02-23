@@ -35,12 +35,13 @@ private:
 class PasswordHash
 {
 public:
+  bool outputToFile(FILE* file);
   
   
 private:
   
   // Instance variables private
-  unsigned char passwordHash[HASH_BYTES];
+  unsigned char hash[HASH_BYTES];
 
   // Member functions - private
   PreventAssignAndCopyConstructor(PasswordHash);
