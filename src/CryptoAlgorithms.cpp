@@ -6,6 +6,8 @@
 
 #include "CryptoAlgorithms.h"
 #include "Logging.h"
+#include <err.h>
+#include <sys/random.h>
 
 
 // =======================================================================================
@@ -13,6 +15,18 @@
 
 CryptoAlgorithms* CryptoAlgorithms::theCryptoAlgorithms = NULL;
 CryptoAlgorithms  CryptoAlgorithmInstance;
+
+// =======================================================================================
+/// @brief Constructor: initialize salt with random data
+///
+/// @param file A pointer to the stdio FILE structure.
+/// @returns True if written correctly, false otherwise
+
+PasswordSalt::PasswordSalt(void)
+{
+  if(getentropy(salt, SALT_BYTES) != 0)
+    err(-1, "Error return from getentropy.\n");
+}
 
 
 // =======================================================================================

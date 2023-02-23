@@ -9,6 +9,7 @@
 #define HASH_BYTES 16
 #define SALT_BYTES 16
 
+
 // =======================================================================================
 /// @brief Class to encapsulate the concept of salt for use in hashing a password.
 
@@ -17,6 +18,7 @@ class PasswordSalt
 public:
   
   // Member functions public
+  PasswordSalt(void);
   bool outputToFile(FILE* file);
   
 private:
