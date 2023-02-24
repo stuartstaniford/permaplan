@@ -360,8 +360,10 @@ bool UserManager::doCreate(HttpServThread* serv, HTMLForm* form)
   bzero((*form)["psw2"], strlen((*form)["psw2"]));
 
   // Ok, all is well, create the account
+  UserRecord* urec = new UserRecord((*form)["uname"], (*form)["psw1"]);
+  insert({(*form)["uname"], urec});
   LogUserOps("Created account for username %s.\n", (*form)["uname"]);
-  
+
   return true;
 }
 
