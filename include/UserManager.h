@@ -65,14 +65,21 @@ private:
   // Instance variables - private
   
   // Member functions - private
-  bool writeFile(void);
-  bool readFile(void);
+  
+  // Login
   bool doLogin(HttpServThread* serv, HTMLForm* form);
-  bool doCreate(HttpServThread* serv, HTMLForm* form);
   bool getLoginPage(HttpServThread* serv);
+
+  // Account creation
   bool getCreatePage(HttpServThread* serv);
+  bool doCreate(HttpServThread* serv, HTMLForm* form);
+  bool getCreateErrorPage(HttpServThread* serv);
   bool checkPasswordComplexity(char* pwd);
   bool checkUsername(char* uname);
+
+  // Misc
+  bool writeFile(void);
+  bool readFile(void);
   PreventAssignAndCopyConstructor(UserManager);
 };
 

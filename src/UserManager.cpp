@@ -10,7 +10,6 @@
 #include "HTMLForm.h"
 #include "CryptoAlgorithms.h"
 
-
 // =======================================================================================
 // Static variables, etc.
 
@@ -298,6 +297,44 @@ bool UserManager::getCreatePage(HttpServThread* serv)
 
 
 // =======================================================================================
+/// @brief Return a page on errors in account creation.
+/// 
+/// This page exists to give the user some hints as to what might have gone wrong, while
+/// not offering too much specific help to bad guys.
+/// @returns True if all was well writing to the buffer.  If false, it indicates the 
+/// buffer was not big enough and the output will have been truncated/incomplete.
+/// @param serv A pointer to the HttpServThread managing the HTTP response.
+
+bool UserManager::getCreateErrorPage(HttpServThread* serv)
+{
+  // Start the HTML page and the table header
+  unless(serv->startResponsePage((char*)"Account Creation Error on Permaserv"))
+    return false;
+  
+  httPrintf("We were not able to create the account as requested.<br><br>\n");
+  httPrintf("Please hit the back button on your browser and try again.<br><br>\n");
+  httPrintf("Some hints:<br><ul>\n");
+
+  httPrintf("<li>Usernames must be unique from all other usernames.\n");
+  httPrintf("<li>Usernames must start with a letter, and may only include letters, ");
+  httPrintf("numbers, and the underscore character \"_\".");
+  httPrintf("<li>Usernames are not case sensitive.");
+  httPrintf("<li>Passwords <b>are</b> case sensitive and must have at least eight ");
+  httPrintf("characters.");
+  httPrintf("<li>Passwords must contain at least one upper-case and one lower-case letter,");
+  httPrintf(" at least one number, and at least one symbol character from %s", 
+                                                                  HTMLForm::allowedSymbols);
+  httPrintf("</ul>\n");
+
+  // Finish up the page
+  unless(serv->endResponsePage())
+    return false;
+
+  return true;
+}
+
+
+// =======================================================================================
 /// @brief Process a create account request.
 /// 
 /// Note this could be the result of a manual creation (via UserManager::getCreatePage 
@@ -311,49 +348,49 @@ bool UserManager::doCreate(HttpServThread* serv, HTMLForm* form)
   if(!form || form->getDynamicType() != TypeHTMLForm)
    {
     LogRequestErrors("Bad form in create Request.\n");
-    return serv->errorPage("Create Account Error.");
+    return getCreateErrorPage(serv);
    }
   
   //Make sure we have a username
   unless(form->count("uname"))
    {
     LogUserErrors("No username in create Request.\n");
-    return serv->errorPage("Create Account Error.");    
+    return getCreateErrorPage(serv);    
    }
   
   // Check the username is allowed
   unless(checkUsername((*form)["uname"]))
    {
     LogUserErrors("Invalid username in create Request.\n");
-    return serv->errorPage("Create Account Error.");      
+    return getCreateErrorPage(serv);    
    }
 
   //Make sure we have a first password
   unless(form->count("psw1"))
    {
     LogUserErrors("No first password in create Request.\n");
-    return serv->errorPage("Create Account Error.");    
+    return getCreateErrorPage(serv);    
    }
   
   // Check the password is valid
   unless(checkPasswordComplexity((*form)["psw1"]))
    {
     LogUserErrors("Invalid password in create Request.\n");
-    return serv->errorPage("Create Account Error.");      
+    return getCreateErrorPage(serv);    
    }
   
   // Make sure we have a second password
   unless(form->count("psw2"))
    {
     LogUserErrors("No second password in create Request.\n");
-    return serv->errorPage("Create Account Error.");    
+    return getCreateErrorPage(serv);    
    }
 
   // Check the second password matches the first
   unless(strcmp((*form)["psw1"], (*form)["psw2"]) == 0)
    {
     LogUserErrors("Passwords don't match in create Request.\n");
-    return serv->errorPage("Create Account Error.");    
+    return getCreateErrorPage(serv);    
    }
   
   // Delete the second password from memory as we no longer need it
