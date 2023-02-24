@@ -17,7 +17,7 @@ CFLAGS = -Wall -g -std=c++11 -Wno-pointer-bool-conversion
 # https://docs.gtk.org/glib/compiling.html
 
 # Works for Intel Macs 
-INCLUDES = -I ./include -I imgui -I imgui/backends -I /usr/local/include -I/usr/local/Cellar/glib/2.74.0/include/glib-2.0 -I/usr/local/Cellar/glib/2.74.0/lib/glib-2.0/include -I/usr/local/opt/gettext/include -I/usr/local/Cellar/pcre/10.40/include
+INCLUDES = -I ./include -I imgui -I imgui/backends -I /usr/local/include -I/usr/local/Cellar/glib/2.74.0/include/glib-2.0 -I/usr/local/Cellar/glib/2.74.0/lib/glib-2.0/include -I/usr/local/opt/gettext/include -I/usr/local/Cellar/pcre/10.40/include -I/usr/local/opt/libressl/include
 # Use this one for ARM Macs
 #INCLUDES = -I ./include -I imgui -I imgui/backends -I /opt/homebrew/include -I/opt/homebrew/Cellar/glib/2.74.0/include/glib-2.0 -I/opt/homebrew/Cellar/glib/2.74.0/lib/glib-2.0/include -I/opt/homebrew/opt/gettext/include -I/opt/homebrew/Cellar/pcre2/10.40/include
 
@@ -29,7 +29,9 @@ INCLUDES = -I ./include -I imgui -I imgui/backends -I /usr/local/include -I/usr/
 #   if I wanted to include libraries not in /usr/lib I'd specify
 #   their path using -Lpath, something like:
 # Need this next line for ARM Macs
-#LFLAGS = -L/opt/homebrew/lib/
+#LFLAGS = -L/opt/homebrew/lib/ -L/usr/local/opt/libressl/lib
+# For Intel Macs so
+LFLAGS = -L/usr/local/opt/libressl/lib
 
 # define any libraries to link into executable:
 #   if I want to link in libraries (libx.so or libx.a) I use the -llibname

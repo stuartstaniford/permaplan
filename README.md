@@ -32,6 +32,10 @@ brew install glsl
 
 brew install glew
 
+Libressl is used for TLS/crypto functions.
+
+brew install libressl
+
 Building the source code documentation requires doxygen ("brew install doxygen").
 
 Then:

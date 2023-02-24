@@ -6,6 +6,7 @@
 
 #include "CryptoAlgorithms.h"
 #include "Logging.h"
+#include <openssl/sha.h>
 #include <err.h>
 #include <sys/random.h>
 
