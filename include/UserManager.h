@@ -22,8 +22,14 @@ class HTMLForm;
 
 class UserRecord
 {
-  public:
+  public: 
   
+  // Member functions - public
+  UserRecord(char* uname, char* pwd);
+
+  private:
+  
+  // Instance variables - private
   std::string   userName;
   PasswordSalt  salt;
   PasswordHash  pwdHash;

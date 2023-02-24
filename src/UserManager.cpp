@@ -21,6 +21,19 @@ UserManager   UserManagerInstance;
 
 // =======================================================================================
 /// @brief Constructor
+///
+/// @param uname A char* pointer to the username for the new user record
+/// @param pwd A char* pointer to the cleartext password for the new user record.  Note
+/// that this will be zero-ed out in the course of setting up the record - only the hash
+/// of the password is stored persistently in memory or on disk.
+
+UserRecord::UserRecord(char* uname, char* pwd): userName(uname), pwdHash(pwd, salt)
+{
+}
+
+
+// =======================================================================================
+/// @brief Constructor
 
 UserManager::UserManager(void)
 {

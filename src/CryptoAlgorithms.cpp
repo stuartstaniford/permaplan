@@ -23,6 +23,7 @@ unsigned char appString[APPSTRING_BYTES] = {
                                               0x9d, 0xb8, 0x0a, 0xfe
                                             }; 
 
+
 // =======================================================================================
 /// @brief Constructor: initialize salt with random data
 ///
@@ -61,6 +62,7 @@ PasswordHash::PasswordHash(char* pwd, PasswordSalt& salt)
   unsigned char input[HASH_INPUT_LENGTH];
   int pwdSize = strlen(pwd);
   
+  // Build the hash input, interleaving salt, appstring, and password
   for(int i=0; i<SALT_BYTES; i++)
    {    
     input[i]    = appString[i];
@@ -68,8 +70,10 @@ PasswordHash::PasswordHash(char* pwd, PasswordSalt& salt)
     if(i < pwdSize)
       input[i+2] = pwd[i];
     else
-      input[i+2] = appString[APPSTRING_BYTES-i];
+      input[i+2] = appString[APPSTRING_BYTES-i-1];
    }
+  
+  // Do the crypto library hash function
   SHA256(input, HASH_INPUT_LENGTH, hash);
   
   // Clean up memory of password data in the clear
