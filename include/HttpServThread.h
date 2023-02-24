@@ -5,8 +5,6 @@
 
 #include "TaskQueue.h"
 #include "HttpRequestParser.h"
-#include "UserManager.h"
-#include "ClimateDatabase.h"
 
 
 // =======================================================================================
@@ -24,6 +22,8 @@
 // Forward declarations
 
 class HttpLoadBalancer;
+class UserManager;
+class ClimateDatabase;
 
 
 // =======================================================================================
@@ -38,9 +38,8 @@ class HttpLoadBalancer;
 class HttpServThread: public TaskQueue
 {
   friend HttpLoadBalancer;
-  friend bool UserManager::processHttpRequest(HttpServThread* serv, char* url);
-  friend bool ClimateDatabase::processClimateRequest(HttpServThread* serv, char* url, 
-                                                                          bool diagnostic);
+  friend UserManager;
+  friend ClimateDatabase;
 
 public:
   
@@ -118,10 +117,7 @@ private:
   // Instance variables - private
   
   // Member functions - private
-  /// @brief Prevent copy-construction.
-  HttpServThread(const HttpServThread&);       
-  /// @brief Prevent assignment.
-  HttpServThread& operator=(const HttpServThread&);      
+  PreventAssignAndCopyConstructor(HttpServThread);       
 };
 
 

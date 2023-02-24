@@ -16,6 +16,7 @@
 CryptoAlgorithms* CryptoAlgorithms::theCryptoAlgorithms = NULL;
 CryptoAlgorithms  CryptoAlgorithmInstance;
 
+
 // =======================================================================================
 /// @brief Constructor: initialize salt with random data
 ///

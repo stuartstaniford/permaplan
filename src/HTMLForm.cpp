@@ -104,9 +104,15 @@ bool HTMLForm::sanityCheck(char* symbol)
       continue;
     if(isspace(*p))
       continue;
-    for(char* q = allowedSymbols; *q; q++)
+    char* q;
+    for(q = allowedSymbols; *q; q++)
+     {
+      if(*p == *q)
+        break;  // out of loop over allowedSymbols
+     }
     if(*p == *q)
-      continue;
+      continue; // we satisfactorily matched on an allowed symbol, so go onto next char
+    LogHTTPDetails("Form checking failing on character %c (%X)", *p, *p);
     return false;
    }
   
