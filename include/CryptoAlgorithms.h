@@ -5,9 +5,17 @@
 
 #include "Global.h"
 #include <stdio.h>
+#include <openssl/sha.h>
 
-#define HASH_BYTES 16
 #define SALT_BYTES 16
+#define APPSTRING_BYTES SALT_BYTES
+#define HASH_INPUT_LENGTH SALT_BYTES*3
+
+
+// =======================================================================================
+// Forward declarations.
+
+class PasswordHash;
 
 
 // =======================================================================================
@@ -15,6 +23,7 @@
 
 class PasswordSalt
 {
+  friend PasswordHash;
 public:
   
   // Member functions public
@@ -37,13 +46,16 @@ private:
 class PasswordHash
 {
 public:
+
+  // Member functions public
+  PasswordHash(char* pwd, PasswordSalt& salt);
   bool outputToFile(FILE* file);
   
   
 private:
   
   // Instance variables private
-  unsigned char hash[HASH_BYTES];
+  unsigned char hash[SHA256_DIGEST_LENGTH];
 
   // Member functions - private
   PreventAssignAndCopyConstructor(PasswordHash);

@@ -6,9 +6,9 @@
 
 #include "CryptoAlgorithms.h"
 #include "Logging.h"
-#include <openssl/sha.h>
 #include <err.h>
 #include <sys/random.h>
+#include <string.h>
 
 
 // =======================================================================================
@@ -16,7 +16,12 @@
 
 CryptoAlgorithms* CryptoAlgorithms::theCryptoAlgorithms = NULL;
 CryptoAlgorithms  CryptoAlgorithmInstance;
-
+unsigned char appString[APPSTRING_BYTES] = { 
+                                              0xa7, 0x18, 0x2a, 0xf9, 
+                                              0x5a, 0xb4, 0xaa, 0xc8,
+                                              0x29, 0x4b, 0x16, 0x7e,
+                                              0x9d, 0xb8, 0x0a, 0xfe
+                                            }; 
 
 // =======================================================================================
 /// @brief Constructor: initialize salt with random data
@@ -46,6 +51,34 @@ bool PasswordSalt::outputToFile(FILE* file)
 
 
 // =======================================================================================
+/// @brief Constructor: create the hash
+///
+/// @param file A pointer to the stdio FILE structure.
+/// @returns True if written correctly, false otherwise
+
+PasswordHash::PasswordHash(char* pwd, PasswordSalt& salt)
+{
+  unsigned char input[HASH_INPUT_LENGTH];
+  int pwdSize = strlen(pwd);
+  
+  for(int i=0; i<SALT_BYTES; i++)
+   {    
+    input[i]    = appString[i];
+    input[i+1]  = salt.salt[i];
+    if(i < pwdSize)
+      input[i+2] = pwd[i];
+    else
+      input[i+2] = appString[APPSTRING_BYTES-i];
+   }
+  SHA256(input, HASH_INPUT_LENGTH, hash);
+  
+  // Clean up memory of password data in the clear
+  bzero(pwd, pwdSize);
+  bzero(input, HASH_INPUT_LENGTH);
+}
+
+
+// =======================================================================================
 /// @brief Output the hash to a file
 ///
 /// @param file A pointer to the stdio FILE structure.
@@ -53,7 +86,7 @@ bool PasswordSalt::outputToFile(FILE* file)
 
 bool PasswordHash::outputToFile(FILE* file)
 {
-  if(fwrite(hash, HASH_BYTES, 1, file) != 1)
+  if(fwrite(hash, SHA256_DIGEST_LENGTH, 1, file) != 1)
     return false;
   return true;
 }

@@ -342,6 +342,9 @@ bool UserManager::doCreate(HttpServThread* serv, HTMLForm* form)
     LogUserErrors("Passwords don't match in create Request.\n");
     return serv->errorPage("Create Account Error.");    
    }
+  
+  // Delete the second password from memory as we no longer need it
+  bzero((*form)["psw2"], strlen((*form)["psw2"]));
 
   // Ok, all is well, create the account
   LogUserOps("Created account for username %s.\n", (*form)["uname"]);
