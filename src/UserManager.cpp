@@ -45,13 +45,32 @@ UserRecord::UserRecord(FILE* file): pwdHash(file)
 
 // =======================================================================================
 /// @brief Writes this user record to disk.
-///
+/// 
+/// The format on disk is as follows:
+/// * Three ASCII digits for the total length of this record (including the final \r\n)
+/// * The password salt (in binary)
+/// * The password hash (in binary)
+/// * The username
+/// * \r\n
+/// 
 /// @returns True if successfully written, false otherwise.
 /// @param file The stdio.h FILE* pointer to the open file.
 
 bool UserRecord::writeFile(FILE* file)
 {
   return true;
+}
+
+
+// =======================================================================================
+/// @brief Compute the length of this record on disk.
+/// 
+/// @returns True if successfully written, false otherwise.
+/// @param file The stdio.h FILE* pointer to the open file.
+
+int UserRecord::diskLength(void)
+{
+  return (sizeof(PasswordSalt) + sizeof(PasswordHash) + userName.length() + 5);
 }
 
 
