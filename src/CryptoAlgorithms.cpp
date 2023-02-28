@@ -111,7 +111,7 @@ PasswordHash::PasswordHash(FILE* file)
 
 bool PasswordHash::outputToFile(FILE* file)
 {
-  if(fwrite(hash, SHA256_DIGEST_LENGTH, 1, file) != 1)
+  if(fwrite(hash, HASH_BYTES, 1, file) != 1)
     return false;
   return true;
 }

@@ -10,6 +10,7 @@
 #define SALT_BYTES 16
 #define APPSTRING_BYTES SALT_BYTES
 #define HASH_INPUT_LENGTH SALT_BYTES*3
+#define HASH_BYTES SHA256_DIGEST_LENGTH
 
 
 // =======================================================================================
@@ -57,7 +58,7 @@ public:
 private:
   
   // Instance variables private
-  unsigned char hash[SHA256_DIGEST_LENGTH];
+  unsigned char hash[HASH_BYTES];
   bool          fileReadOk;   // constructors can't return NULL
 
   // Member functions - private

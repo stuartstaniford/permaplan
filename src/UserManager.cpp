@@ -69,7 +69,8 @@ bool UserRecord::writeFile(FILE* file)
 
 int UserRecord::diskLength(void)
 {
-  return (sizeof(PasswordSalt) + sizeof(PasswordHash) + userName.length() + 5);
+
+  return (SALT_BYTES + HASH_BYTES + userName.length() + 5);
 }
 
 
