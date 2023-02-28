@@ -35,6 +35,7 @@ private:
   
   // Instance variables private
   unsigned char salt[SALT_BYTES];
+  bool          fileReadOk;   // constructors can't return NULL
 
   // Member functions - private
   PreventAssignAndCopyConstructor(PasswordSalt);
@@ -53,11 +54,11 @@ public:
   PasswordHash(FILE* file);
   bool outputToFile(FILE* file);
   
-  
 private:
   
   // Instance variables private
   unsigned char hash[SHA256_DIGEST_LENGTH];
+  bool          fileReadOk;   // constructors can't return NULL
 
   // Member functions - private
   PreventAssignAndCopyConstructor(PasswordHash);

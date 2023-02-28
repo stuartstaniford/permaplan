@@ -65,8 +65,7 @@ bool UserRecord::writeFile(FILE* file)
 // =======================================================================================
 /// @brief Compute the length of this record on disk.
 /// 
-/// @returns True if successfully written, false otherwise.
-/// @param file The stdio.h FILE* pointer to the open file.
+/// @returns The length of the record, in bytes, as it will be written to disk.
 
 int UserRecord::diskLength(void)
 {

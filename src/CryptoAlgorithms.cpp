@@ -42,7 +42,9 @@ PasswordSalt::PasswordSalt(void)
 PasswordSalt::PasswordSalt(FILE* file)
 {
   if(fread(salt, SALT_BYTES, 1, file) != 1)
-    err(-1, "Cannot read salt from file.\n");
+    fileReadOk = false;
+  else
+    fileReadOk = true;    
 }
 
 

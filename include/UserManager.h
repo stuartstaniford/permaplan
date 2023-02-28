@@ -32,6 +32,7 @@ class UserRecord
   std::string   userName;
   PasswordSalt  salt;
   PasswordHash  pwdHash;
+  bool          fileReadOk;   // constructors can't return NULL
   
   // Member functions - private
   UserRecord(char* uname, char* pwd);
