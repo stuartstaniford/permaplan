@@ -10,6 +10,7 @@
 #include "HTMLForm.h"
 #include "CryptoAlgorithms.h"
 
+
 // =======================================================================================
 // Static variables, etc.
 
@@ -28,6 +29,17 @@ UserManager   UserManagerInstance;
 
 UserRecord::UserRecord(char* uname, char* pwd): userName(uname), pwdHash(pwd, salt)
 {
+}
+
+
+// =======================================================================================
+/// @brief Writes this user record to disk.
+///
+/// @returns True if successfully written, false otherwise.
+
+bool UserRecord::writeFile(FILE* file)
+{
+  return true;
 }
 
 
@@ -60,10 +72,10 @@ bool UserManager::writeFile(void)
 {
   FILE* file = fopen(userFileName, "w");
   
-  /*for (auto& iter: *this) 
+  for (auto& iter: *this) 
    {
-    iter.second;
-   }*/
+    iter.second->writeFile(file);
+   }
 
   fclose(file);
   return true;

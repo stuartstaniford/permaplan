@@ -7,6 +7,7 @@
 #include "CryptoAlgorithms.h"
 #include <string>
 #include <unordered_map>
+#include <stdio.h>
 
 
 // =======================================================================================
@@ -14,6 +15,7 @@
 
 class HttpServThread;
 class HTMLForm;
+class UserManager;
 
 
 // =======================================================================================
@@ -22,17 +24,18 @@ class HTMLForm;
 
 class UserRecord
 {
-  public: 
+  friend UserManager;
   
-  // Member functions - public
-  UserRecord(char* uname, char* pwd);
-
   private:
   
   // Instance variables - private
   std::string   userName;
   PasswordSalt  salt;
   PasswordHash  pwdHash;
+  
+  // Member functions - private
+  UserRecord(char* uname, char* pwd);
+  bool writeFile(FILE* file);
 };
 
 
