@@ -28,6 +28,7 @@ public:
   
   // Member functions public
   PasswordSalt(void);
+  PasswordSalt(FILE* file);
   bool outputToFile(FILE* file);
   
 private:

@@ -37,6 +37,7 @@ class UserRecord
   UserRecord(char* uname, char* pwd);
   UserRecord(FILE* file);
   bool writeFile(FILE* file);
+  PreventAssignAndCopyConstructor(UserRecord);
 };
 
 

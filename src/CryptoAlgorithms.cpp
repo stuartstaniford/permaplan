@@ -35,6 +35,18 @@ PasswordSalt::PasswordSalt(void)
 
 
 // =======================================================================================
+/// @brief Constructor: read salt in from file
+///
+/// @param file A pointer to the stdio FILE structure for the file (open for reading).
+
+PasswordSalt::PasswordSalt(FILE* file)
+{
+  if(fread(salt, SALT_BYTES, 1, file) != 1)
+    err(-1, "Cannot read salt from file.\n");
+}
+
+
+// =======================================================================================
 /// @brief Output the salt to a file
 ///
 /// @param file A pointer to the stdio FILE structure.
