@@ -49,6 +49,7 @@ public:
 
   // Member functions public
   PasswordHash(char* pwd, PasswordSalt& salt);
+  PasswordHash(FILE* file);
   bool outputToFile(FILE* file);
   
   

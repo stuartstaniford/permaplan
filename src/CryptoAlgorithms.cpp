@@ -26,9 +26,6 @@ unsigned char appString[APPSTRING_BYTES] = {
 
 // =======================================================================================
 /// @brief Constructor: initialize salt with random data
-///
-/// @param file A pointer to the stdio FILE structure.
-/// @returns True if written correctly, false otherwise
 
 PasswordSalt::PasswordSalt(void)
 {
@@ -52,10 +49,10 @@ bool PasswordSalt::outputToFile(FILE* file)
 
 
 // =======================================================================================
-/// @brief Constructor: create the hash
+/// @brief Constructor: create the hash from password and salt
 ///
-/// @param file A pointer to the stdio FILE structure.
-/// @returns True if written correctly, false otherwise
+/// @param pwd A char* pointer to the new password.
+/// @param salt A reference to the PasswordSalt to be used in creating the hash
 
 PasswordHash::PasswordHash(char* pwd, PasswordSalt& salt)
 {
@@ -79,6 +76,16 @@ PasswordHash::PasswordHash(char* pwd, PasswordSalt& salt)
   // Clean up memory of password data in the clear
   bzero(pwd, pwdSize);
   bzero(input, HASH_INPUT_LENGTH);
+}
+
+
+// =======================================================================================
+/// @brief Constructor: read the hash in from a file
+///
+/// @param file A pointer to the open stdio FILE structure.
+
+PasswordHash::PasswordHash(FILE* file)
+{
 }
 
 

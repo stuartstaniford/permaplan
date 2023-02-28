@@ -143,11 +143,13 @@
 #define LOG_REQUEST_ERRORS      // Log validity problems in the HTTP request
 #define LOG_RESPONSE_ERRORS     // Log problems encountered building the response
 //#define LOG_HTTP_BUFFER_OPS        // Log operations on the main HTTP buffers
-#define LOG_HTTP_DETAILS        // Log normal details of HTTP operations
 //#define LOG_HTTP_LOAD_BALANCE     // Log which connections get processed where
-#define LOG_REQUEST_PARSING        // Log exactly what happens when parsing a request
 //#define LOG_PSEUDO_ACTIONS      // Log as the main thread processes pseudo-actions
 
+// NOT FOR PRODUCTION USE!!!
+// These next may result in passwords being recorded in the clear in the log.
+#define LOG_REQUEST_PARSING        // Log exactly what happens when parsing a request
+#define LOG_HTTP_DETAILS        // Log normal details of HTTP operations
 
 // =======================================================================================
 // Logging options to do with quadtree operations

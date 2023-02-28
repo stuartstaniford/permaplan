@@ -24,7 +24,7 @@ class UserManager;
 
 class UserRecord
 {
-  friend UserManager;
+  friend UserManager; // No other class should mess with these, so everything is private
   
   private:
   
@@ -35,6 +35,7 @@ class UserRecord
   
   // Member functions - private
   UserRecord(char* uname, char* pwd);
+  UserRecord(FILE* file);
   bool writeFile(FILE* file);
 };
 

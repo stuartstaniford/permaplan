@@ -20,7 +20,7 @@ UserManager   UserManagerInstance;
 
 
 // =======================================================================================
-/// @brief Constructor
+/// @brief Constructor from a newly supplier user/password combination.
 ///
 /// @param uname A char* pointer to the username for the new user record
 /// @param pwd A char* pointer to the cleartext password for the new user record.  Note
@@ -33,9 +33,21 @@ UserRecord::UserRecord(char* uname, char* pwd): userName(uname), pwdHash(pwd, sa
 
 
 // =======================================================================================
+/// @brief Constructor while reading from a file.
+///
+/// @param file The stdio.h FILE* pointer to the open file.
+
+UserRecord::UserRecord(FILE* file): pwdHash(file)
+{
+}
+
+
+
+// =======================================================================================
 /// @brief Writes this user record to disk.
 ///
 /// @returns True if successfully written, false otherwise.
+/// @param file The stdio.h FILE* pointer to the open file.
 
 bool UserRecord::writeFile(FILE* file)
 {
