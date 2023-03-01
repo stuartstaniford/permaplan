@@ -57,7 +57,11 @@ UserRecord::UserRecord(FILE* file): pwdHash(file)
 /// @param file The stdio.h FILE* pointer to the open file.
 
 bool UserRecord::writeFile(FILE* file)
-{
+{  
+  fprintf(file, "%03d", diskLength());
+  salt.outputToFile(file);
+  pwdHash.outputToFile(file);
+  fprintf(file, "%s\r\n", userName.c_str());
   return true;
 }
 
@@ -70,7 +74,7 @@ bool UserRecord::writeFile(FILE* file)
 int UserRecord::diskLength(void)
 {
 
-  return (SALT_BYTES + HASH_BYTES + userName.length() + 5);
+  return (salt.diskLength() + pwdHash.diskLength() + userName.length() + 5);
 }
 
 
@@ -83,6 +87,8 @@ UserManager::UserManager(void)
     return;
   else
     theUserManager = this;
+  unless(readFile())
+    err(-1, "Couldn't read user file %s.\n", userFileName);
 }
 
 
@@ -114,16 +120,24 @@ bool UserManager::writeFile(void)
 
 
 // =======================================================================================
-/// @brief Reads the user database from disk.
-///
-/// @returns True if successfully written, false otherwise.
+/// @brief Reads the user database from disk.  
+/// 
+/// NB.  Currently only called on startup.
+/// @returns True if successfully read, false otherwise.
 
 bool UserManager::readFile(void)
 {
   FILE* file = fopen(userFileName, "r");
  
+  while(1)
+   {
+    UserRecord* ur = new UserRecord(file);
+    unless(ur->fileReadOk)
+      break;
+    insert({ur->userName, ur});
+   }
   fclose(file);
-  return false;
+  return true;
 }
 
 
@@ -444,6 +458,11 @@ bool UserManager::doCreate(HttpServThread* serv, HTMLForm* form)
   insert({(*form)["uname"], urec});
   LogUserOps("Created account for username %s.\n", (*form)["uname"]);
 
+  // Rewrite the whole file to disk.  Note this would get inefficient if the
+  // file was large, but by then we should move to a database implementation
+  // for the user table in any case.
+  writeFile();
+  
   return true;
 }
 
