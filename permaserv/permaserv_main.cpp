@@ -7,6 +7,7 @@
 #include "HttpLBPermaserv.h"
 #include "MimeTypeMaps.h"
 #include "ResourceManager.h"
+#include "UserManager.h"
 #include "Logging.h"
 #include "Global.h"
 #include <cstdio>
@@ -135,6 +136,7 @@ int main (int argc, char* argv[])
     
   // Startup tasks
   initGlobals();
+  UserManager   UserManagerInstance;
   processCommandLine(argc, argv);
   permaservParams.compileTime = getCompileTime(argv[0]);
   recordPort();

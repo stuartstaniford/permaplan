@@ -17,7 +17,6 @@
 
 UserManager*  UserManager::theUserManager = NULL;
 char*         userFileName                = (char*)"userdb";
-UserManager   UserManagerInstance;
 
 
 // =======================================================================================
@@ -136,10 +135,16 @@ bool UserManager::writeFile(void)
 
 bool UserManager::readFile(void)
 {
-  FILE* file = fopen(userFileName, "r");
   char textLen[4];
   textLen[3] = '\0';
   int userNameLen;
+
+  FILE* file = fopen(userFileName, "r");
+  unless(file)
+   {
+    LogUserErrors("No file %s found, treating as new system.\n", userFileName);
+    return true;
+   }  
   
   while(1)
    {
