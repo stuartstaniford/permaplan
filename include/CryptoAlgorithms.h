@@ -31,7 +31,9 @@ public:
   PasswordSalt(void);
   PasswordSalt(FILE* file);
   bool outputToFile(FILE* file);
-  inline int diskLength(void){return SALT_BYTES;}
+  
+  // Static member functions
+  static inline int diskLength(void){return SALT_BYTES;}
   
 private:
   
@@ -55,8 +57,10 @@ public:
   PasswordHash(char* pwd, PasswordSalt& salt);
   PasswordHash(FILE* file);
   bool outputToFile(FILE* file);
-  inline int diskLength(void){return HASH_BYTES;}
  
+  // Static member functions
+  static inline int diskLength(void){return HASH_BYTES;}
+
 private:
   
   // Instance variables private

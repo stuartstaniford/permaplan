@@ -9,6 +9,7 @@
 #include "HttpServThread.h"
 #include "HTMLForm.h"
 #include "CryptoAlgorithms.h"
+#include <assert.h>
 
 
 // =======================================================================================
@@ -27,7 +28,7 @@ UserManager   UserManagerInstance;
 /// that this will be zero-ed out in the course of setting up the record - only the hash
 /// of the password is stored persistently in memory or on disk.
 
-UserRecord::UserRecord(char* uname, char* pwd): userName(uname), pwdHash(pwd, salt)
+UserRecord::UserRecord(char* uname, char* pwd): pwdHash(pwd, salt), userName(uname)
 {
 }
 
@@ -36,11 +37,18 @@ UserRecord::UserRecord(char* uname, char* pwd): userName(uname), pwdHash(pwd, sa
 /// @brief Constructor while reading from a file.
 ///
 /// @param file The stdio.h FILE* pointer to the open file.
+/// @todo Annoying C++ ism forces us to do an extra copy - is this avoidable somehow?
 
-UserRecord::UserRecord(FILE* file): pwdHash(file)
+UserRecord::UserRecord(FILE* file, unsigned userNameLen): salt(file), pwdHash(file)
 {
+  char buf[userNameLen + 1];
+  buf[userNameLen] = '\0';
+  unless(fread(buf, sizeof(char), userNameLen, file) == userNameLen)
+   err(-1, "Broken record format in user file %s.\n", userFileName);
+  userName = buf; // extra copy
+  unless(fseek(file, 2, SEEK_CUR) == -1) // read past the \r\n
+    err(-1, "Couldn't seek past record end in file %s.\n", userFileName);
 }
-
 
 
 // =======================================================================================
@@ -74,7 +82,8 @@ bool UserRecord::writeFile(FILE* file)
 int UserRecord::diskLength(void)
 {
 
-  return (salt.diskLength() + pwdHash.diskLength() + userName.length() + 5);
+  return (PasswordSalt::diskLength() + PasswordHash::diskLength() 
+                                                            + userName.length() + 5);
 }
 
 
@@ -128,12 +137,20 @@ bool UserManager::writeFile(void)
 bool UserManager::readFile(void)
 {
   FILE* file = fopen(userFileName, "r");
- 
+  char textLen[4];
+  textLen[3] = '\0';
+  int userNameLen;
+  
   while(1)
    {
-    UserRecord* ur = new UserRecord(file);
-    unless(ur->fileReadOk)
+    unless(fread(textLen, sizeof(char), 3, file) == 3)
       break;
+    userNameLen = atoi(textLen) - PasswordSalt::diskLength() 
+                                                      - PasswordHash::diskLength() - 5;
+    assert(userNameLen > 0);
+    UserRecord* ur = new UserRecord(file, userNameLen);
+    unless(ur->fileReadOk)
+      err(-1, "User file %s corrupted.\n", userFileName);
     insert({ur->userName, ur});
    }
   fclose(file);

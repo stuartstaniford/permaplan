@@ -29,14 +29,14 @@ class UserRecord
   private:
   
   // Instance variables - private
-  std::string   userName;
   PasswordSalt  salt;
   PasswordHash  pwdHash;
   bool          fileReadOk;   // constructors can't return NULL
+  std::string   userName;
   
   // Member functions - private
   UserRecord(char* uname, char* pwd);
-  UserRecord(FILE* file);
+  UserRecord(FILE* file, unsigned userNameLen);
   bool writeFile(FILE* file);
   int diskLength(void);
   PreventAssignAndCopyConstructor(UserRecord);
