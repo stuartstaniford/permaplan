@@ -100,6 +100,10 @@ PasswordHash::PasswordHash(char* pwd, PasswordSalt& salt)
 
 PasswordHash::PasswordHash(FILE* file)
 {
+  if(fread(hash, HASH_BYTES, 1, file) != 1)
+    fileReadOk = false;
+  else
+    fileReadOk = true;    
 }
 
 
