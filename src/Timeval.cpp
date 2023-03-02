@@ -6,6 +6,7 @@
 #include <time.h>
 #include <sys/time.h>
 #include <stdlib.h>
+#include <err.h>
 
 
 // =======================================================================================
@@ -23,6 +24,8 @@ Timeval::Timeval(void)
 
 Timeval::Timeval(FILE* file)
 {
+  unless(fread(this, sizeof(Timeval), 1, file) == 1)
+    err(-1, "Failed reading binary Timeval from file.\n");
 }
 
 
@@ -41,6 +44,8 @@ Timeval::~Timeval(void)
 
 bool Timeval::writeBinaryToDisk(FILE* file)
 {
+  unless(fwrite(this, sizeof(Timeval), 1, file) == 1)
+    return false;
   return true;
 }
 
