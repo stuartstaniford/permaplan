@@ -183,9 +183,16 @@ bool UserManager::indexPageTable(HttpServThread* serv)
   httPrintf("<tr><td><a href=\"/user/createPage\">"
                  "/user/createPage</a></td>");
   httPrintf("<td>Page with form to create a new account.</td></tr>\n");
+  
+  // Login
   httPrintf("<tr><td><a href=\"/user/loginPage\">"
                  "/user/loginPage</a></td>");
   httPrintf("<td>Page with form to login to an existing account.</td></tr>\n");
+  
+  // List the users
+  httPrintf("<tr><td><a href=\"/user/userList\">"
+                 "/user/userList</a></td>");
+  httPrintf("<td>List of user accounts with summary information.</td></tr>\n");
   
   // End table
   httPrintf("</table></center>\n");
@@ -241,6 +248,13 @@ bool UserManager::processHttpRequest(HttpServThread* serv, char* url)
     retVal = getLoginPage(serv);
    }
   
+  // user list page
+  else if( strlenUrl == 8 && strncmp(url, "userList", 8) == 0)
+   {
+    LogPermaservOpDetails("Processing request for user listing page.\n");
+    retVal = getUserListPage(serv);
+   }
+
   //Default - failure
   else
    {
@@ -569,6 +583,42 @@ bool UserManager::checkPasswordComplexity(char* pwd)
   
    return upperPresent && lowerPresent && digitPresent && symbolPresent 
                                                         && (count >= PWD_MIN_SIZE); 
+}
+
+
+/// =======================================================================================
+/// @brief Output HTML table of all users.
+/// 
+/// @returns True if all was well writing to the buffer.  If false, it indicates the 
+/// buffer was not big enough and the output will have been truncated/incomplete.
+/// @param serv A pointer to the HttpServThread managing the HTTP response.
+
+bool UserManager::getUserListPage(HttpServThread* serv)
+{
+  // Start the HTML page and the table header
+  unless(serv->startResponsePage((char*)"List of Permaserv User Accounts"))
+    return false;
+  httPrintf("<center>\n");
+  unless(serv->startTable())
+    return false;
+  httPrintf("<tr><th>UserName</th><th>notes</th></tr>\n");
+
+  // Loop over the user accounts  
+  for (auto& iter: *this) 
+   {
+    httPrintf("<tr><td>%s</td>", iter.first.c_str());
+    httPrintf("<td></td>");
+    httPrintf("</tr>");
+   }
+
+  // End table
+  httPrintf("</table></center>\n");
+
+  // Finish up the page
+  unless(serv->endResponsePage())
+    return false;
+
+  return true;
 }
 
 

@@ -84,6 +84,9 @@ private:
   bool checkPasswordComplexity(char* pwd);
   bool checkUsername(char* uname);
 
+  // User management information
+  bool getUserListPage(HttpServThread* serv);
+
   // Misc
   bool writeFile(void);
   bool readFile(void);
