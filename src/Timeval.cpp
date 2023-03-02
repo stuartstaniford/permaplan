@@ -15,11 +15,33 @@ Timeval::Timeval(void)
 {
 }
 
+
+// =======================================================================================
+/// @brief Constructor reading the value from a binary file
+///
+/// @param file The stdio FILE* pointer to the open file to read from
+
+Timeval::Timeval(FILE* file)
+{
+}
+
+
 // =======================================================================================
 /// @brief Destructor
 
 Timeval::~Timeval(void)
 {
+}
+
+
+// =======================================================================================
+/// @brief Write out value to a binary file.
+///
+/// @param file The stdio FILE* pointer to the open file to write to
+
+bool Timeval::writeBinaryToDisk(FILE* file)
+{
+  return true;
 }
 
 

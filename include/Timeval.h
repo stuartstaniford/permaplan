@@ -5,6 +5,7 @@
 
 #include <unistd.h>
 #include <time.h>
+#include <stdio.h>
 
 
 // =======================================================================================
@@ -20,6 +21,7 @@ class Timeval: public timeval
 
   // Member functions - public
   Timeval(void);
+  Timeval(FILE* file);
   ~Timeval();
   void    now();
   void    set(time_t tv_sec_in, suseconds_t tv_usec_in);
@@ -27,6 +29,7 @@ class Timeval: public timeval
   char*   ctimeString(void);
   void    localtime(struct tm *result);
   float   floatYear(void);
+  bool    writeBinaryToDisk(FILE* file);
 
   double operator-(const Timeval& t); // Difference between two times (in seconds)
 
