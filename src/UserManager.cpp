@@ -38,7 +38,8 @@ UserRecord::UserRecord(char* uname, char* pwd): pwdHash(pwd, salt), userName(una
 /// @param file The stdio.h FILE* pointer to the open file.
 /// @todo Annoying C++ ism forces us to do an extra copy - is this avoidable somehow?
 
-UserRecord::UserRecord(FILE* file, unsigned userNameLen): salt(file), pwdHash(file)
+UserRecord::UserRecord(FILE* file, unsigned userNameLen): salt(file), 
+                                                        pwdHash(file), fileReadOk(false)
 {
   char buf[userNameLen + 1];
   buf[userNameLen] = '\0';
@@ -47,6 +48,9 @@ UserRecord::UserRecord(FILE* file, unsigned userNameLen): salt(file), pwdHash(fi
   userName = buf; // extra copy
   unless(fseek(file, 2, SEEK_CUR) == 0) // read past the \r\n
     err(-1, "Couldn't seek past record end in file %s.\n", userFileName);
+  fileReadOk = true;
+  LogUserDetails("Read record for %s of length %d from file %s.\n", userName.c_str(),
+                                                                userNameLen, userFileName);
 }
 
 
