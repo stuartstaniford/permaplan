@@ -29,6 +29,8 @@ char*         userFileName                = (char*)"userdb";
 
 UserRecord::UserRecord(char* uname, char* pwd): pwdHash(pwd, salt), userName(uname)
 {
+  creation.now();
+  pwdLastChange.now();
 }
 
 
@@ -39,7 +41,10 @@ UserRecord::UserRecord(char* uname, char* pwd): pwdHash(pwd, salt), userName(una
 /// @todo Annoying C++ ism forces us to do an extra copy - is this avoidable somehow?
 
 UserRecord::UserRecord(FILE* file, unsigned userNameLen): salt(file), 
-                                                        pwdHash(file), fileReadOk(false)
+                                                          pwdHash(file),
+                                                          creation(file),
+                                                          pwdLastChange(file),
+                                                          fileReadOk(false)
 {
   char buf[userNameLen + 1];
   buf[userNameLen] = '\0';
@@ -61,6 +66,8 @@ UserRecord::UserRecord(FILE* file, unsigned userNameLen): salt(file),
 /// * Three ASCII digits for the total length of this record (including the final \r\n)
 /// * The password salt (in binary)
 /// * The password hash (in binary)
+/// * The creation time (binary Timeval)
+/// * The last password change time (binary Timeval)
 /// * The username
 /// * \r\n
 /// 
@@ -72,6 +79,8 @@ bool UserRecord::writeFile(FILE* file)
   fprintf(file, "%03d", diskLength());
   salt.outputToFile(file);
   pwdHash.outputToFile(file);
+  creation.writeBinaryToDisk(file);
+  pwdLastChange.writeBinaryToDisk(file);
   fprintf(file, "%s\r\n", userName.c_str());
   return true;
 }
@@ -85,8 +94,21 @@ bool UserRecord::writeFile(FILE* file)
 int UserRecord::diskLength(void)
 {
 
-  return (PasswordSalt::diskLength() + PasswordHash::diskLength() 
-                                                            + userName.length() + 5);
+  return (PasswordSalt::diskLength() + PasswordHash::diskLength() +
+                                      2*sizeof(Timeval) + userName.length() + 5);
+}
+
+
+// =======================================================================================
+/// @brief Compute the username length of this record on disk from the text length.
+/// 
+/// @returns The length of the record, in bytes, as it will be written to disk.
+
+int UserRecord::userNameLength(char* textLen)
+{
+
+  return atoi(textLen) - PasswordSalt::diskLength() - PasswordHash::diskLength() 
+                                                                - 2*sizeof(Timeval) - 5;
 }
 
 
@@ -155,8 +177,7 @@ bool UserManager::readFile(void)
    {
     unless(fread(textLen, sizeof(char), 3, file) == 3)
       break;
-    userNameLen = atoi(textLen) - PasswordSalt::diskLength() 
-                                                      - PasswordHash::diskLength() - 5;
+    userNameLen = UserRecord::userNameLength(textLen);
     assert(userNameLen > 0);
     UserRecord* ur = new UserRecord(file, userNameLen);
     unless(ur->fileReadOk)

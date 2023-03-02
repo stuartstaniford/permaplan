@@ -5,6 +5,7 @@
 
 #include "Global.h"
 #include "CryptoAlgorithms.h"
+#include "Timeval.h"
 #include <string>
 #include <unordered_map>
 #include <stdio.h>
@@ -31,8 +32,13 @@ class UserRecord
   // Instance variables - private
   PasswordSalt  salt;
   PasswordHash  pwdHash;
+  Timeval       creation;
+  Timeval       pwdLastChange;
   bool          fileReadOk;   // constructors can't return NULL
   std::string   userName;
+
+  // Static functions - private
+  static int userNameLength(char* textLen);
   
   // Member functions - private
   UserRecord(char* uname, char* pwd);
