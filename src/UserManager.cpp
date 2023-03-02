@@ -45,7 +45,7 @@ UserRecord::UserRecord(FILE* file, unsigned userNameLen): salt(file), pwdHash(fi
   unless(fread(buf, sizeof(char), userNameLen, file) == userNameLen)
    err(-1, "Broken record format in user file %s.\n", userFileName);
   userName = buf; // extra copy
-  unless(fseek(file, 2, SEEK_CUR) == -1) // read past the \r\n
+  unless(fseek(file, 2, SEEK_CUR) == 0) // read past the \r\n
     err(-1, "Couldn't seek past record end in file %s.\n", userFileName);
 }
 
@@ -146,6 +146,7 @@ bool UserManager::readFile(void)
     return true;
    }  
   
+  int line = 1;
   while(1)
    {
     unless(fread(textLen, sizeof(char), 3, file) == 3)
@@ -155,8 +156,9 @@ bool UserManager::readFile(void)
     assert(userNameLen > 0);
     UserRecord* ur = new UserRecord(file, userNameLen);
     unless(ur->fileReadOk)
-      err(-1, "User file %s corrupted.\n", userFileName);
+      err(-1, "User file %s corrupted at line %d.\n", userFileName, line);
     insert({ur->userName, ur});
+    line++;
    }
   fclose(file);
   return true;
