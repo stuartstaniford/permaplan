@@ -628,13 +628,25 @@ bool UserManager::getUserListPage(HttpServThread* serv)
   httPrintf("<center>\n");
   unless(serv->startTable())
     return false;
-  httPrintf("<tr><th>UserName</th><th>notes</th></tr>\n");
+  httPrintf("<tr><th>UserName</th><th>Creation Date</th>"
+                                                      "<th>Password Changed</th></tr>\n");
 
   // Loop over the user accounts  
   for (auto& iter: *this) 
    {
+    // Username
     httPrintf("<tr><td>%s</td>", iter.first.c_str());
-    httPrintf("<td></td>");
+
+    // Creation Date
+    char dateBuf[16];
+    iter.second->creation.ctimeDateOnly(dateBuf);
+    httPrintf("<td>%s</td>", dateBuf);
+    
+    // Password Change Date
+    iter.second->pwdLastChange.ctimeDateOnly(dateBuf);
+    httPrintf("<td>%s</td>", dateBuf);    
+    
+    // End the row and loop around
     httPrintf("</tr>");
    }
 
