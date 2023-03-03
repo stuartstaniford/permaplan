@@ -10,13 +10,16 @@
 #include "HTMLForm.h"
 #include "CryptoAlgorithms.h"
 #include <assert.h>
+#include <sys/random.h>
 
 
 // =======================================================================================
 // Static variables, etc.
 
-UserManager*  UserManager::theUserManager = NULL;
-char*         userFileName                = (char*)"userdb";
+UserManager*        UserManager::theUserManager = NULL;
+char*               userFileName                = (char*)"userdb";
+unsigned long long  UserSession::masterId       = 0u;
+Lockable            UserSession::idLock;
 
 
 // =======================================================================================
@@ -109,6 +112,21 @@ int UserRecord::userNameLength(char* textLen)
 
   return atoi(textLen) - PasswordSalt::diskLength() - PasswordHash::diskLength() 
                                                                 - 2*sizeof(Timeval) - 5;
+}
+
+
+// =======================================================================================
+/// @brief Constructor for a new user session.
+/// 
+/// @returns The length of the record, in bytes, as it will be written to disk.
+
+UserSession::UserSession(void)
+{
+  idLock.lock();
+  unless(masterId)
+    getentropy(&masterId, sizeof(unsigned long long));
+  theId = masterId++;
+  idLock.unlock();
 }
 
 

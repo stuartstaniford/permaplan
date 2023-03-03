@@ -6,6 +6,7 @@
 #include "Global.h"
 #include "CryptoAlgorithms.h"
 #include "Timeval.h"
+#include "Lockable.h"
 #include <string>
 #include <unordered_map>
 #include <stdio.h>
@@ -62,7 +63,11 @@ class UserSession
 private:
 
   // Instance variables - private
-  unsigned theId;
+  unsigned long long theId;
+  
+  // Static variables
+  static Lockable idLock;
+  static unsigned long long masterId;
   
   // Member functions - private
   UserSession(void);
