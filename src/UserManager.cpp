@@ -353,6 +353,12 @@ bool UserManager::doLogin(HttpServThread* serv, HTMLForm* form)
     return serv->errorPage("Login Error.");
    }
   
+  // Get the user record
+  
+  // Check the password hash matches and then zero the password string out
+  
+  // Generate a session-id for this login, and tell the servThread about it.
+  
   return true;
 }
 
