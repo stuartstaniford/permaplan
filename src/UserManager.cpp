@@ -316,11 +316,43 @@ bool UserManager::processHttpRequest(HttpServThread* serv, char* url)
 
 bool UserManager::doLogin(HttpServThread* serv, HTMLForm* form)
 {
+  // Sanity check the form
   if(!form || form->getDynamicType() != TypeHTMLForm)
    {
     LogRequestErrors("Bad form in login Request.\n");
     return serv->errorPage("Login Error.");
    }
+  
+  //Make sure we have a username
+  unless(form->count("uname"))
+   {
+    LogUserErrors("No username in login Request.\n");
+    return serv->errorPage("Login Error.");
+   }
+  
+  // Make sure we have a password
+  unless(form->count("psw"))
+   {
+    LogUserErrors("No password in login Request.\n");
+    return serv->errorPage("Login Error.");
+   }
+  
+  // Check that the username isn't too long.
+  unless(strlen((*form)["uname"]) < MAX_USERNAME_LEN)
+   {
+    (*form)["uname"][MAX_USERNAME_LEN - 1] = '\0';
+    LogUserErrors("Username starting with %s exceeds max length of %d.\n", 
+                  (*form)["uname"], MAX_USERNAME_LEN - 1);
+    return serv->errorPage("Login Error.");
+   }
+
+  // Check that the username exists.
+  unless(count((*form)["uname"]))
+   {      
+    LogUserErrors("Attempted login on unknown username %s.\n", (*form)["uname"]);
+    return serv->errorPage("Login Error.");
+   }
+  
   return true;
 }
 
@@ -451,6 +483,8 @@ bool UserManager::getCreateErrorPage(HttpServThread* serv)
   httPrintf("<li>Usernames must start with a letter, and may only include letters, ");
   httPrintf("numbers, and the underscore character \"_\".");
   httPrintf("<li>Usernames are not case sensitive.");
+  httPrintf("<li>Usernames cannot be more than %d characters in length.\n",
+                                                                  MAX_USERNAME_LEN - 1);
   httPrintf("<li>Passwords <b>are</b> case sensitive and must have at least eight ");
   httPrintf("characters.");
   httPrintf("<li>Passwords must contain at least one upper-case and one lower-case letter,");
@@ -554,6 +588,14 @@ bool UserManager::doCreate(HttpServThread* serv, HTMLForm* form)
 
 bool UserManager::checkUsername(char* uname)
 {
+  unless(strlen(uname) < MAX_USERNAME_LEN)
+   {
+    uname[MAX_USERNAME_LEN - 1] = '\0';
+    LogUserErrors("Username starting with %s exceeds max length of %d.\n", 
+                  uname, MAX_USERNAME_LEN - 1);
+    return false;
+   }
+  
   // First character must be alpha.  We convert to lowercase.
   unless(isalpha(*uname))
    {
