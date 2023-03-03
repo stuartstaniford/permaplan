@@ -27,6 +27,7 @@ class Timeval: public timeval
   void    set(time_t tv_sec_in, suseconds_t tv_usec_in);
   bool    setFromJSON(char* buf);
   char*   ctimeString(void);
+  void    ctimeDateOnly(char* buf);
   void    localtime(struct tm *result);
   float   floatYear(void);
   bool    writeBinaryToDisk(FILE* file);

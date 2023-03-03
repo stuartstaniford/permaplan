@@ -7,6 +7,7 @@
 #include <sys/time.h>
 #include <stdlib.h>
 #include <err.h>
+#include <string.h>
 
 
 // =======================================================================================
@@ -146,6 +147,22 @@ bool Timeval::setFromJSON(char* buf)
 char* Timeval::ctimeString(void)
 {
   return ctime(&tv_sec);
+}
+
+
+// =======================================================================================
+/// @brief Put a string version of the date only into a character buffer. 
+/// 
+/// The date format is Thu Nov 24 1986\0
+/// @param buf The char* buffer into which the date will be written.  Must hold at least
+/// 16 characters.
+
+void Timeval::ctimeDateOnly(char* buf)
+{
+  char* ctimeStr = ctime(&tv_sec);
+  memcpy(buf, ctimeStr, 11);
+  memcpy(buf + 11, ctimeStr + 20, 4);
+  buf[15] = '\0';
 }
 
 
