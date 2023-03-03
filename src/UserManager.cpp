@@ -215,6 +215,11 @@ bool UserManager::indexPageTable(HttpServThread* serv)
   httPrintf("<tr><td><a href=\"/user/loginPage\">"
                  "/user/loginPage</a></td>");
   httPrintf("<td>Page with form to login to an existing account.</td></tr>\n");
+
+  // Change Password
+  httPrintf("<tr><td><a href=\"/user/changePasswordPage\">"
+                 "/user/changePasswordPage</a></td>");
+  httPrintf("<td>Page with form to change a password while logged in.</td></tr>\n");
   
   // List the users
   httPrintf("<tr><td><a href=\"/user/userList\">"
@@ -244,9 +249,16 @@ bool UserManager::processHttpRequest(HttpServThread* serv, char* url)
   HttpRequestParser& reqParser = serv->reqParser;
   int strlenUrl = strlen(url);
   bool retVal = false;
+
+  // change password page
+  if(strlenUrl == 18 && strncmp(url, "changePasswordPage", 18) == 0)
+   {
+    LogPermaservOpDetails("Processing request for password change page.\n");
+    retVal = getChangePasswordPage(serv);
+   }
   
   // create account request
-  if(reqParser.requestMethod == POST && strlenUrl == 6 
+  else if(reqParser.requestMethod == POST && strlenUrl == 6 
                                                     && strncmp(url, "create", 6) == 0)
    {
     LogPermaservOpDetails("Processing create request.\n");
@@ -395,11 +407,11 @@ bool UserManager::getCreatePage(HttpServThread* serv)
   httPrintf("<br><br>\n");
 
   httPrintf("<label for=\"psw2\"><b>Repeat password</b></label>\n");
-  httPrintf("<input type=\"password\" placeholder=\"Repeate Password\" "
+  httPrintf("<input type=\"password\" placeholder=\"Repeat Password\" "
                                                           "name=\"psw2\" required>\n");
   httPrintf("<br><br>\n");
   
-  // Login button
+  // Action button
   httPrintf("<button type=\"submit\">Create Account</button>\n");
 
   // End user/pass section
@@ -610,6 +622,54 @@ bool UserManager::checkPasswordComplexity(char* pwd)
   
    return upperPresent && lowerPresent && digitPresent && symbolPresent 
                                                         && (count >= PWD_MIN_SIZE); 
+}
+
+
+// =======================================================================================
+/// @brief Return the page with the form for changing the password.
+/// 
+/// @returns True if all was well writing to the buffer.  If false, it indicates the 
+/// buffer was not big enough and the output will have been truncated/incomplete.
+/// @param serv A pointer to the HttpServThread managing the HTTP response.
+
+bool UserManager::getChangePasswordPage(HttpServThread* serv)
+{
+  // Start the HTML page and the table header
+  unless(serv->startResponsePage((char*)"Change Password on Permaserv"))
+    return false;
+  
+  // Open Form
+  httPrintf("<center>\n");
+  httPrintf("<form action=\"changePassword\" method=\"post\">\n");
+  
+  // Open the main user/pass section
+  httPrintf("<div class=\"container\">\n");
+
+  // Password
+  httPrintf("<label for=\"psw1\"><b>New Password</b></label>\n");
+  httPrintf("<input type=\"password\" placeholder=\"Enter Password\" "
+                                                          "name=\"psw1\" required>\n");
+  httPrintf("<br><br>\n");
+
+  httPrintf("<label for=\"psw2\"><b>Repeat new password</b></label>\n");
+  httPrintf("<input type=\"password\" placeholder=\"Repeat Password\" "
+                                                          "name=\"psw2\" required>\n");
+  httPrintf("<br><br>\n");
+  
+  // Action button
+  httPrintf("<button type=\"submit\">Be the Change!</button>\n");
+
+  // End pass section
+  httPrintf("</div>\n");
+  
+  // End the form
+  httPrintf("</form></center>\n");
+
+  // Finish up the page
+  unless(serv->endResponsePage())
+    return false;
+
+  return true;
 }
 
 

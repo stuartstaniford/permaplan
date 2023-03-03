@@ -90,6 +90,9 @@ private:
   bool checkPasswordComplexity(char* pwd);
   bool checkUsername(char* uname);
 
+  // Change password
+  bool getChangePasswordPage(HttpServThread* serv);
+
   // User management information
   bool getUserListPage(HttpServThread* serv);
 
