@@ -63,6 +63,8 @@ unsigned HttpServThread::generateHeader(unsigned bodySize, unsigned code,
     ptr += sprintf(ptr, "Content-Type: %s\r\n", mimeType);
   else
     ptr += sprintf(ptr, "Content-Type: text/html\r\n");
+  if(responseCookie)
+    ptr += sprintf(ptr, "Set-Cookie: %s\r\n", responseCookie);
   ptr += sprintf(ptr, "Content-Length: %u\r\n", bodySize);
   ptr += sprintf(ptr, "\r\n");
   return (ptr-headBuf);

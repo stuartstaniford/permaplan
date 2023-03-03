@@ -645,12 +645,19 @@ bool UserManager::getChangePasswordPage(HttpServThread* serv)
   // Open the main user/pass section
   httPrintf("<div class=\"container\">\n");
 
-  // Password
-  httPrintf("<label for=\"psw1\"><b>New Password</b></label>\n");
+  // Old Password
+  httPrintf("<label for=\"oldpsw\"><b>Current Password</b></label>\n");
   httPrintf("<input type=\"password\" placeholder=\"Enter Password\" "
                                                           "name=\"psw1\" required>\n");
   httPrintf("<br><br>\n");
 
+  // New Password
+  httPrintf("<label for=\"psw1\"><b>Enter New Password</b></label>\n");
+  httPrintf("<input type=\"password\" placeholder=\"New Password\" "
+                                                          "name=\"psw1\" required>\n");
+  httPrintf("<br><br>\n");
+
+  // Repeat new pwd
   httPrintf("<label for=\"psw2\"><b>Repeat new password</b></label>\n");
   httPrintf("<input type=\"password\" placeholder=\"Repeat Password\" "
                                                           "name=\"psw2\" required>\n");
