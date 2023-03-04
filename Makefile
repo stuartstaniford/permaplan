@@ -7339,6 +7339,7 @@ src/UserSession.o: /usr/local/include/cglm/curve.h
 src/UserSession.o: /usr/local/include/cglm/bezier.h
 src/UserSession.o: /usr/local/include/cglm/ray.h
 src/UserSession.o: /usr/local/include/cglm/affine2d.h ./include/Lockable.h
+src/UserSession.o: ./include/TimeoutMap.h ./include/Timeval.h
 src/Version.o: ./include/Version.h ./include/rapidjson/document.h
 src/Version.o: ./include/rapidjson/reader.h ./include/rapidjson/allocators.h
 src/Version.o: ./include/rapidjson/rapidjson.h ./include/rapidjson/stream.h

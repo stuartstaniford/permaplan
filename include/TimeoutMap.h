@@ -11,7 +11,7 @@
 // =======================================================================================
 /// @brief Implements an unordered_map of things that need to have a timeout.
 
-class Timable
+class Timeoutable
 {
   Timeval lastAccess;  
 };
@@ -23,15 +23,12 @@ class Timable
 /// More details of the class needed here.
 
 template<typename Key>
-class TimeoutMap: public std::unordered_map<Key, Timable*>
+class TimeoutMap: private std::unordered_map<Key, Timeoutable*>
 {
 public:
   
   // Instance variables - public
-  
-  // Member functions - public
-  TimeoutMap(void);
-  ~TimeoutMap(void);
+    
   
 private:
   
@@ -39,10 +36,31 @@ private:
   
   // Member functions - private
   PreventAssignAndCopyConstructor(TimeoutMap);
-};
+
+public:
+  
+  // Member functions - public
+  // See below for function definitions of the template class
+  
+// =======================================================================================
+/// @brief Constructor
+
+TimeoutMap(void)
+{
+}
 
 
 // =======================================================================================
+/// @brief Destructor
+
+~TimeoutMap(void)
+{
+}
+
+// =======================================================================================
+
+}; // End of class definition
+
 
 #endif
 
