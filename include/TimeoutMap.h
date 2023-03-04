@@ -4,6 +4,17 @@
 #define TIMEOUT_MAP_H
 
 #include "Global.h"
+#include "Timeval.h"
+#include <unordered_map>
+
+
+// =======================================================================================
+/// @brief Implements an unordered_map of things that need to have a timeout.
+
+class Timable
+{
+  Timeval lastAccess;  
+};
 
 
 // =======================================================================================
@@ -11,7 +22,8 @@
 ///
 /// More details of the class needed here.
 
-class TimeoutMap
+template<typename Key>
+class TimeoutMap: public unordered_map<Key, Timable*>
 {
 public:
   
