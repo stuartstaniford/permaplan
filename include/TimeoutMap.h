@@ -9,6 +9,17 @@
 
 
 // =======================================================================================
+/// @brief An enum for whether a given Timeoutable was present, expired, or not present
+
+enum ItemPresent
+{
+  ItemNotPresent,
+  ItemPresent,
+  ItemExpired
+};
+
+
+// =======================================================================================
 /// @brief Implements an unordered_map of things that need to have a timeout.
 
 class Timeoutable
@@ -20,8 +31,11 @@ public:
   
 private:
   
-  
+  // Instance variables - private
   Timeval lastAccess;  
+
+  // Member functions - private
+  PreventAssignAndCopyConstructor(Timeoutable);
 };
 
 
@@ -37,7 +51,6 @@ public:
   
   // Instance variables - public
     
-  
 private:
   
   // Instance variables - private
