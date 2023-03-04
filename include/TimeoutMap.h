@@ -13,6 +13,14 @@
 
 class Timeoutable
 {
+public:
+  // Member functions - public
+  Timeoutable(void);
+  ~Timeoutable(void);
+  
+private:
+  
+  
   Timeval lastAccess;  
 };
 

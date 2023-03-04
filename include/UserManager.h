@@ -59,7 +59,7 @@ class UserRecord
 /// through user authentication must go through this class.  Currently the back end is
 /// just a file - presumably will be an SQL database some day.
 
-class UserManager: public std::unordered_map<std::string, UserRecord*>
+class UserManager: private std::unordered_map<std::string, UserRecord*>
 {
 public:
   

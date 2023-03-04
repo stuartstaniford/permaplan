@@ -12,7 +12,7 @@
 /// This is used for rendering sections of tree-trunks and the like.  Most of the 
 /// implementation is inherited from AxialElement.
 
-class TruncatedCone: public AxialElement
+class TruncatedCone: private AxialElement
 {
  public:
   
@@ -32,8 +32,7 @@ class TruncatedCone: public AxialElement
   vec2          conePoints[2];
 
   // Member functions - private
-  TruncatedCone(const TruncatedCone&);                 // Prevent copy-construction
-  TruncatedCone& operator=(const TruncatedCone&);      // Prevent assignment
+  PreventAssignAndCopyConstructor(TruncatedCone);
 };
 
 
