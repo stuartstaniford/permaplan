@@ -1,32 +1,32 @@
 // Copyright Staniford Systems.  All Rights Reserved.  March 2023 -
 
-#ifndef EMPTY_CLASS_H
-#define EMPTY_CLASS_H
+#ifndef TIMEOUT_MAP_H
+#define TIMEOUT_MAP_H
 
 #include "Global.h"
 
 
 // =======================================================================================
-/// @brief This is a template for new classes.  Quick description of the class here.
+/// @brief Implements an unordered_map of things that need to have a timeout.
 ///
-/// More details of the class go here.
+/// More details of the class needed here.
 
-class EmptyClass
+class TimeoutMap
 {
 public:
   
   // Instance variables - public
   
   // Member functions - public
-  EmptyClass(void);
-  ~EmptyClass(void);
+  TimeoutMap(void);
+  ~TimeoutMap(void);
   
 private:
   
   // Instance variables - private
   
   // Member functions - private
-  PreventAssignAndCopyConstructor(EmptyClass);
+  PreventAssignAndCopyConstructor(TimeoutMap);
 };
 
 

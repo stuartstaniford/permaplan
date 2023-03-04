@@ -1,13 +1,13 @@
 // Copyright Staniford Systems.  All Rights Reserved.  March 2023 -
-// This class ..... is a template for real classes
+// Implements an unordered_map of things that need to have a timeout
 
-#include "EmptyClass.h"
+#include "TimeoutMap.h"
 
 
 // =======================================================================================
 /// @brief Constructor
 
-EmptyClass::EmptyClass(void)
+TimeoutMap::TimeoutMap(void)
 {
 }
 
@@ -15,7 +15,7 @@ EmptyClass::EmptyClass(void)
 // =======================================================================================
 /// @brief Destructor
 
-EmptyClass::~EmptyClass(void)
+TimeoutMap::~TimeoutMap(void)
 {
 }
 

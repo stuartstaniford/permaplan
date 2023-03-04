@@ -968,6 +968,7 @@ INPUT                  = doc \
                 include/Texture.h src/Texture.cpp \
                 include/TextureAtlas.h src/TextureAtlas.cpp \
                 include/TexturedRect.h src/TexturedRect.cpp \
+                include/TimeoutMap.h src/TimeoutMap.cpp \
                 include/Timeval.h src/Timeval.cpp \
                 include/Tree.h src/Tree.cpp \
                 include/TreePart.h src/TreePart.cpp \
