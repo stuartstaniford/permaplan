@@ -23,7 +23,7 @@ class Timable
 /// More details of the class needed here.
 
 template<typename Key>
-class TimeoutMap: public unordered_map<Key, Timable*>
+class TimeoutMap: public std::unordered_map<Key, Timable*>
 {
 public:
   

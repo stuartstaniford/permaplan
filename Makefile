@@ -1526,7 +1526,50 @@ src/ElementBufferObject.o: /usr/local/include/cglm/curve.h
 src/ElementBufferObject.o: /usr/local/include/cglm/bezier.h
 src/ElementBufferObject.o: /usr/local/include/cglm/ray.h
 src/ElementBufferObject.o: /usr/local/include/cglm/affine2d.h
-src/EmptyClass.o: ./include/EmptyClass.h
+src/EmptyClass.o: ./include/EmptyClass.h ./include/Global.h
+src/EmptyClass.o: /usr/local/include/cglm/cglm.h
+src/EmptyClass.o: /usr/local/include/cglm/common.h
+src/EmptyClass.o: /usr/local/include/cglm/types.h
+src/EmptyClass.o: /usr/local/include/cglm/simd/intrin.h
+src/EmptyClass.o: /usr/local/include/cglm/vec2.h
+src/EmptyClass.o: /usr/local/include/cglm/util.h
+src/EmptyClass.o: /usr/local/include/cglm/vec2-ext.h
+src/EmptyClass.o: /usr/local/include/cglm/vec3.h
+src/EmptyClass.o: /usr/local/include/cglm/vec4.h
+src/EmptyClass.o: /usr/local/include/cglm/vec4-ext.h
+src/EmptyClass.o: /usr/local/include/cglm/vec3-ext.h
+src/EmptyClass.o: /usr/local/include/cglm/mat4.h
+src/EmptyClass.o: /usr/local/include/cglm/mat3.h
+src/EmptyClass.o: /usr/local/include/cglm/mat2.h
+src/EmptyClass.o: /usr/local/include/cglm/affine.h
+src/EmptyClass.o: /usr/local/include/cglm/affine-mat.h
+src/EmptyClass.o: /usr/local/include/cglm/cam.h
+src/EmptyClass.o: /usr/local/include/cglm/plane.h
+src/EmptyClass.o: /usr/local/include/cglm/clipspace/persp.h
+src/EmptyClass.o: /usr/local/include/cglm/common.h
+src/EmptyClass.o: /usr/local/include/cglm/plane.h
+src/EmptyClass.o: /usr/local/include/cglm/mat4.h
+src/EmptyClass.o: /usr/local/include/cglm/clipspace/ortho_rh_no.h
+src/EmptyClass.o: /usr/local/include/cglm/clipspace/persp_rh_no.h
+src/EmptyClass.o: /usr/local/include/cglm/clipspace/persp.h
+src/EmptyClass.o: /usr/local/include/cglm/clipspace/view_rh_no.h
+src/EmptyClass.o: /usr/local/include/cglm/clipspace/view_rh.h
+src/EmptyClass.o: /usr/local/include/cglm/frustum.h
+src/EmptyClass.o: /usr/local/include/cglm/quat.h
+src/EmptyClass.o: /usr/local/include/cglm/euler.h
+src/EmptyClass.o: /usr/local/include/cglm/box.h
+src/EmptyClass.o: /usr/local/include/cglm/color.h
+src/EmptyClass.o: /usr/local/include/cglm/io.h
+src/EmptyClass.o: /usr/local/include/cglm/project.h
+src/EmptyClass.o: /usr/local/include/cglm/clipspace/project_no.h
+src/EmptyClass.o: /usr/local/include/cglm/vec3.h
+src/EmptyClass.o: /usr/local/include/cglm/vec4.h
+src/EmptyClass.o: /usr/local/include/cglm/sphere.h
+src/EmptyClass.o: /usr/local/include/cglm/ease.h
+src/EmptyClass.o: /usr/local/include/cglm/curve.h
+src/EmptyClass.o: /usr/local/include/cglm/bezier.h
+src/EmptyClass.o: /usr/local/include/cglm/ray.h
+src/EmptyClass.o: /usr/local/include/cglm/affine2d.h
 src/GHCNDatabase.o: ./include/GHCNDatabase.h ./include/HttpClient.h
 src/GHCNDatabase.o: ./include/RTree.h ./include/ClimateInfo.h
 src/GHCNDatabase.o: ./include/DynamicallyTypable.h ./include/Logging.h
@@ -6782,6 +6825,50 @@ src/TexturedRect.o: ./include/Logging.h ./include/MemoryTracker.h
 src/TexturedRect.o: ./include/Timeval.h ./include/Lockable.h
 src/TexturedRect.o: /usr/local/include/GLFW/glfw3.h ./include/Shader.h
 src/TexturedRect.o: ./include/Vertex.h
+src/TimeoutMap.o: ./include/TimeoutMap.h ./include/Global.h
+src/TimeoutMap.o: /usr/local/include/cglm/cglm.h
+src/TimeoutMap.o: /usr/local/include/cglm/common.h
+src/TimeoutMap.o: /usr/local/include/cglm/types.h
+src/TimeoutMap.o: /usr/local/include/cglm/simd/intrin.h
+src/TimeoutMap.o: /usr/local/include/cglm/vec2.h
+src/TimeoutMap.o: /usr/local/include/cglm/util.h
+src/TimeoutMap.o: /usr/local/include/cglm/vec2-ext.h
+src/TimeoutMap.o: /usr/local/include/cglm/vec3.h
+src/TimeoutMap.o: /usr/local/include/cglm/vec4.h
+src/TimeoutMap.o: /usr/local/include/cglm/vec4-ext.h
+src/TimeoutMap.o: /usr/local/include/cglm/vec3-ext.h
+src/TimeoutMap.o: /usr/local/include/cglm/mat4.h
+src/TimeoutMap.o: /usr/local/include/cglm/mat3.h
+src/TimeoutMap.o: /usr/local/include/cglm/mat2.h
+src/TimeoutMap.o: /usr/local/include/cglm/affine.h
+src/TimeoutMap.o: /usr/local/include/cglm/affine-mat.h
+src/TimeoutMap.o: /usr/local/include/cglm/cam.h
+src/TimeoutMap.o: /usr/local/include/cglm/plane.h
+src/TimeoutMap.o: /usr/local/include/cglm/clipspace/persp.h
+src/TimeoutMap.o: /usr/local/include/cglm/common.h
+src/TimeoutMap.o: /usr/local/include/cglm/plane.h
+src/TimeoutMap.o: /usr/local/include/cglm/mat4.h
+src/TimeoutMap.o: /usr/local/include/cglm/clipspace/ortho_rh_no.h
+src/TimeoutMap.o: /usr/local/include/cglm/clipspace/persp_rh_no.h
+src/TimeoutMap.o: /usr/local/include/cglm/clipspace/persp.h
+src/TimeoutMap.o: /usr/local/include/cglm/clipspace/view_rh_no.h
+src/TimeoutMap.o: /usr/local/include/cglm/clipspace/view_rh.h
+src/TimeoutMap.o: /usr/local/include/cglm/frustum.h
+src/TimeoutMap.o: /usr/local/include/cglm/quat.h
+src/TimeoutMap.o: /usr/local/include/cglm/euler.h
+src/TimeoutMap.o: /usr/local/include/cglm/box.h
+src/TimeoutMap.o: /usr/local/include/cglm/color.h
+src/TimeoutMap.o: /usr/local/include/cglm/io.h
+src/TimeoutMap.o: /usr/local/include/cglm/project.h
+src/TimeoutMap.o: /usr/local/include/cglm/clipspace/project_no.h
+src/TimeoutMap.o: /usr/local/include/cglm/vec3.h
+src/TimeoutMap.o: /usr/local/include/cglm/vec4.h
+src/TimeoutMap.o: /usr/local/include/cglm/sphere.h
+src/TimeoutMap.o: /usr/local/include/cglm/ease.h
+src/TimeoutMap.o: /usr/local/include/cglm/curve.h
+src/TimeoutMap.o: /usr/local/include/cglm/bezier.h
+src/TimeoutMap.o: /usr/local/include/cglm/ray.h
+src/TimeoutMap.o: /usr/local/include/cglm/affine2d.h ./include/Timeval.h
 src/Timeval.o: ./include/Timeval.h ./include/Global.h
 src/Timeval.o: /usr/local/include/cglm/cglm.h
 src/Timeval.o: /usr/local/include/cglm/common.h
@@ -7203,11 +7290,55 @@ src/UserManager.o: ./include/CryptoAlgorithms.h
 src/UserManager.o: /usr/local/opt/libressl/include/openssl/sha.h
 src/UserManager.o: /usr/local/opt/libressl/include/openssl/opensslconf.h
 src/UserManager.o: /usr/local/opt/libressl/include/openssl/opensslfeatures.h
-src/UserManager.o: ./include/Logging.h ./include/MemoryTracker.h
 src/UserManager.o: ./include/Timeval.h ./include/Lockable.h
+src/UserManager.o: ./include/Logging.h ./include/MemoryTracker.h
 src/UserManager.o: ./include/HttpServThread.h ./include/TaskQueue.h
 src/UserManager.o: ./include/HttpRequestParser.h ./include/MimeTypeMaps.h
 src/UserManager.o: ./include/HTMLForm.h ./include/DynamicallyTypable.h
+src/UserSession.o: ./include/UserSession.h ./include/Global.h
+src/UserSession.o: /usr/local/include/cglm/cglm.h
+src/UserSession.o: /usr/local/include/cglm/common.h
+src/UserSession.o: /usr/local/include/cglm/types.h
+src/UserSession.o: /usr/local/include/cglm/simd/intrin.h
+src/UserSession.o: /usr/local/include/cglm/vec2.h
+src/UserSession.o: /usr/local/include/cglm/util.h
+src/UserSession.o: /usr/local/include/cglm/vec2-ext.h
+src/UserSession.o: /usr/local/include/cglm/vec3.h
+src/UserSession.o: /usr/local/include/cglm/vec4.h
+src/UserSession.o: /usr/local/include/cglm/vec4-ext.h
+src/UserSession.o: /usr/local/include/cglm/vec3-ext.h
+src/UserSession.o: /usr/local/include/cglm/mat4.h
+src/UserSession.o: /usr/local/include/cglm/mat3.h
+src/UserSession.o: /usr/local/include/cglm/mat2.h
+src/UserSession.o: /usr/local/include/cglm/affine.h
+src/UserSession.o: /usr/local/include/cglm/affine-mat.h
+src/UserSession.o: /usr/local/include/cglm/cam.h
+src/UserSession.o: /usr/local/include/cglm/plane.h
+src/UserSession.o: /usr/local/include/cglm/clipspace/persp.h
+src/UserSession.o: /usr/local/include/cglm/common.h
+src/UserSession.o: /usr/local/include/cglm/plane.h
+src/UserSession.o: /usr/local/include/cglm/mat4.h
+src/UserSession.o: /usr/local/include/cglm/clipspace/ortho_rh_no.h
+src/UserSession.o: /usr/local/include/cglm/clipspace/persp_rh_no.h
+src/UserSession.o: /usr/local/include/cglm/clipspace/persp.h
+src/UserSession.o: /usr/local/include/cglm/clipspace/view_rh_no.h
+src/UserSession.o: /usr/local/include/cglm/clipspace/view_rh.h
+src/UserSession.o: /usr/local/include/cglm/frustum.h
+src/UserSession.o: /usr/local/include/cglm/quat.h
+src/UserSession.o: /usr/local/include/cglm/euler.h
+src/UserSession.o: /usr/local/include/cglm/box.h
+src/UserSession.o: /usr/local/include/cglm/color.h
+src/UserSession.o: /usr/local/include/cglm/io.h
+src/UserSession.o: /usr/local/include/cglm/project.h
+src/UserSession.o: /usr/local/include/cglm/clipspace/project_no.h
+src/UserSession.o: /usr/local/include/cglm/vec3.h
+src/UserSession.o: /usr/local/include/cglm/vec4.h
+src/UserSession.o: /usr/local/include/cglm/sphere.h
+src/UserSession.o: /usr/local/include/cglm/ease.h
+src/UserSession.o: /usr/local/include/cglm/curve.h
+src/UserSession.o: /usr/local/include/cglm/bezier.h
+src/UserSession.o: /usr/local/include/cglm/ray.h
+src/UserSession.o: /usr/local/include/cglm/affine2d.h ./include/Lockable.h
 src/Version.o: ./include/Version.h ./include/rapidjson/document.h
 src/Version.o: ./include/rapidjson/reader.h ./include/rapidjson/allocators.h
 src/Version.o: ./include/rapidjson/rapidjson.h ./include/rapidjson/stream.h

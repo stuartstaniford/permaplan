@@ -53,29 +53,6 @@ class UserRecord
 
 
 // =======================================================================================
-/// @brief A record of information for managing a single user session.
-///
-
-class UserSession
-{
-  friend UserManager; // No other class should mess with these, so everything is private
-
-private:
-
-  // Instance variables - private
-  unsigned long long theId;
-  
-  // Static variables
-  static Lockable idLock;
-  static unsigned long long masterId;
-  
-  // Member functions - private
-  UserSession(void);
-  PreventAssignAndCopyConstructor(UserSession);  
-};
-
-
-// =======================================================================================
 /// @brief Manages user records and session information.
 ///
 /// All records about permaserv users are stored in here, and access to things mediated

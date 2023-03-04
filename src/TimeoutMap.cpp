@@ -7,7 +7,8 @@
 // =======================================================================================
 /// @brief Constructor
 
-TimeoutMap::TimeoutMap(void)
+template<typename Key>
+TimeoutMap<Key>::TimeoutMap(void)
 {
 }
 
@@ -15,7 +16,8 @@ TimeoutMap::TimeoutMap(void)
 // =======================================================================================
 /// @brief Destructor
 
-TimeoutMap::~TimeoutMap(void)
+template<typename Key>
+TimeoutMap<Key>::~TimeoutMap(void)
 {
 }
 
