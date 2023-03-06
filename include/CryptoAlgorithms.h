@@ -57,7 +57,8 @@ public:
   PasswordHash(char* pwd, PasswordSalt& salt);
   PasswordHash(FILE* file);
   bool outputToFile(FILE* file);
- 
+  bool checkMatch(char* pwd, PasswordSalt& salt);
+  
   // Static member functions
   static inline int diskLength(void){return HASH_BYTES;}
 
@@ -68,6 +69,8 @@ private:
   bool          fileReadOk;   // constructors can't return NULL
 
   // Member functions - private
+  
+  void makeHash(unsigned char* buf, char* pwd, PasswordSalt& salt);
   PreventAssignAndCopyConstructor(PasswordHash);
 };
 

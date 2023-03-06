@@ -70,26 +70,7 @@ bool PasswordSalt::outputToFile(FILE* file)
 
 PasswordHash::PasswordHash(char* pwd, PasswordSalt& salt)
 {
-  unsigned char input[HASH_INPUT_LENGTH];
-  int pwdSize = strlen(pwd);
-  
-  // Build the hash input, interleaving salt, appstring, and password
-  for(int i=0; i<SALT_BYTES; i++)
-   {    
-    input[i]    = appString[i];
-    input[i+1]  = salt.salt[i];
-    if(i < pwdSize)
-      input[i+2] = pwd[i];
-    else
-      input[i+2] = appString[APPSTRING_BYTES-i-1];
-   }
-  
-  // Do the crypto library hash function
-  SHA256(input, HASH_INPUT_LENGTH, hash);
-  
-  // Clean up memory of password data in the clear
-  bzero(pwd, pwdSize);
-  bzero(input, HASH_INPUT_LENGTH);
+  makeHash(hash, pwd, salt);
 }
 
 
@@ -104,6 +85,63 @@ PasswordHash::PasswordHash(FILE* file)
     fileReadOk = false;
   else
     fileReadOk = true;    
+}
+
+
+// =======================================================================================
+/// @brief Create the hash from password and salt
+///
+/// Used both in the constructor to make the hash in the first place, and also in 
+/// password checking to create a temporary hash to compare to the stored one.
+/// @param buf The location to store the constructed hash.  Needs to store HASH_BYTES.
+/// @param pwd A char* pointer to the password.
+/// @param salt A reference to the PasswordSalt to be used in creating the hash
+
+void PasswordHash::makeHash(unsigned char* buf, char* pwd, PasswordSalt& salt)
+{
+  unsigned char input[HASH_INPUT_LENGTH];
+  int pwdSize = strlen(pwd);
+
+  // Build the hash input, interleaving salt, appstring, and password
+  for(int i=0; i<SALT_BYTES; i++)
+   {    
+    input[i]    = appString[i];
+    input[i+1]  = salt.salt[i];
+    if(i < pwdSize)
+      input[i+2] = pwd[i];
+    else
+      input[i+2] = appString[APPSTRING_BYTES-i-1];
+   }
+  
+  // Do the crypto library hash function
+  SHA256(input, HASH_INPUT_LENGTH, hash);
+
+  // Clean up memory of password data in the clear
+  bzero(input, HASH_INPUT_LENGTH);
+  bzero(pwd, pwdSize);
+}
+
+
+// =======================================================================================
+/// @brief Check if a supplied password matches our stored hash.
+///
+/// The supplied password string will be zero'd out.
+/// @param pwd A char* pointer to the password.
+/// @param salt A reference to the PasswordSalt to be used in creating the hash
+
+bool PasswordHash::checkMatch(char* pwd, PasswordSalt& salt)
+{
+  // Make the hash
+  unsigned char buf[HASH_BYTES];
+  makeHash(buf, pwd, salt);
+
+  // Check if the newly made one matches our stored one
+  for(int i=0; i<HASH_BYTES; i++)
+    if(buf[i] != hash[i])
+      return false;
+  
+  // Every byte matched, so call it good
+  return true;
 }
 
 

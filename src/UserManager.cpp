@@ -122,7 +122,7 @@ int UserRecord::userNameLength(char* textLen)
 
 bool UserRecord::checkPassword(char* pwd)
 {
-  return false;
+  return pwdHash.checkMatch(pwd, salt);
 }
 
 
