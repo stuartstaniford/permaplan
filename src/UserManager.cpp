@@ -114,6 +114,19 @@ int UserRecord::userNameLength(char* textLen)
 
 
 // =======================================================================================
+/// @brief Verify if the password matches the hash.
+/// 
+/// After checking, the supplied string will be zero'd out.
+/// @param pwd A pointer to the C-string with the password attempt.
+/// @returns True if the password matches, false otherwise.
+
+bool UserRecord::checkPassword(char* pwd)
+{
+  return false;
+}
+
+
+// =======================================================================================
 /// @brief Constructor
 
 UserManager::UserManager(void)
@@ -357,8 +370,18 @@ bool UserManager::doLogin(HttpServThread* serv, HTMLForm* form, UserSessionGroup
    }
   
   // Get the user record
+  UserRecord* ur = (*this)[(*form)["uname"]];
   
   // Check the password hash matches and then zero the password string out
+  if(ur->checkPassword((*form)["psw"]))
+   {
+    LogUserOps("Successful login by user %s.\n", (*form)["uname"]);
+   }
+  else
+   {
+    LogUserErrors("Failed login by user %s.\n", (*form)["uname"]);
+    return serv->errorPage("Login Error.");
+   }
   
   // Generate a session-id for this login, and tell the servThread about it.
   
