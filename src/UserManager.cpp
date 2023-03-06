@@ -9,6 +9,7 @@
 #include "HttpServThread.h"
 #include "HTMLForm.h"
 #include "CryptoAlgorithms.h"
+#include "UserSession.h"
 #include <assert.h>
 
 
@@ -244,7 +245,8 @@ bool UserManager::indexPageTable(HttpServThread* serv)
 /// @param serv A pointer to the HttpServThread managing the HTTP response.
 /// @param url A string with the balance of the request url after "/user/".
 
-bool UserManager::processHttpRequest(HttpServThread* serv, char* url)
+bool UserManager::processHttpRequest(HttpServThread* serv, char* url, 
+                                                                UserSessionGroup* sessions)
 {
   HttpRequestParser& reqParser = serv->reqParser;
   int strlenUrl = strlen(url);
@@ -277,7 +279,7 @@ bool UserManager::processHttpRequest(HttpServThread* serv, char* url)
                                                     && strncmp(url, "login", 5) == 0)
    {
     LogPermaservOpDetails("Processing login request.\n");
-    retVal = doLogin(serv, (HTMLForm*)reqParser.parsedBody);
+    retVal = doLogin(serv, (HTMLForm*)reqParser.parsedBody, sessions);
    }
 
   // login page
@@ -310,11 +312,12 @@ bool UserManager::processHttpRequest(HttpServThread* serv, char* url)
 /// 
 /// Note this could be the result of a manual login (via UserManager::getLoginPage below)
 /// or it could be the result of a permaplan mediated login.
+/// Also note this operation should be the only way to get a new session-id.
 /// @returns True if all was well writing to the buffer.  If false, it indicates the 
 /// buffer was not big enough and the output will have been truncated/incomplete.
 /// @param serv A pointer to the HttpServThread managing the HTTP response.
 
-bool UserManager::doLogin(HttpServThread* serv, HTMLForm* form)
+bool UserManager::doLogin(HttpServThread* serv, HTMLForm* form, UserSessionGroup* sessions)
 {
   // Sanity check the form
   if(!form || form->getDynamicType() != TypeHTMLForm)

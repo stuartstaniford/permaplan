@@ -333,7 +333,7 @@ bool HttpPermaServ::processRequestHeader(void)
      {
       UserManager& userManager = UserManager::getUserManager();
       LogPermaservOpDetails("Processing user manager request for %s.\n", url+6);
-      retVal = userManager.processHttpRequest(this, url+6);
+      retVal = userManager.processHttpRequest(this, url+6, userSessions);
      }
    }
 

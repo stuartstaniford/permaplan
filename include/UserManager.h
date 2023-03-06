@@ -20,6 +20,7 @@
 class HttpServThread;
 class HTMLForm;
 class UserManager;
+class UserSessionGroup;
 
 
 // =======================================================================================
@@ -69,7 +70,7 @@ public:
   UserManager(void);
   ~UserManager(void);
   bool indexPageTable(HttpServThread* serv);
-  bool processHttpRequest(HttpServThread* serv, char* url);
+  bool processHttpRequest(HttpServThread* serv, char* url, UserSessionGroup* sessions);
   static UserManager& getUserManager(void) // Get the singleton instance
    { return *theUserManager; }
 
@@ -83,7 +84,7 @@ private:
   // Member functions - private
   
   // Login
-  bool doLogin(HttpServThread* serv, HTMLForm* form);
+  bool doLogin(HttpServThread* serv, HTMLForm* form, UserSessionGroup* sessions);
   bool getLoginPage(HttpServThread* serv);
 
   // Account creation
