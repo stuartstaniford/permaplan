@@ -103,7 +103,7 @@ void PasswordHash::makeHash(unsigned char* buf, char* pwd, PasswordSalt& salt)
   int pwdSize = strlen(pwd);
 
   // Build the hash input, interleaving salt, appstring, and password
-  for(int i=0; i<SALT_BYTES; i++)
+  for(int i=0; i<SALT_BYTES; i+=3)
    {    
     input[i]    = appString[i];
     input[i+1]  = salt.salt[i];
