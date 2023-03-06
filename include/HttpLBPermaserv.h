@@ -12,6 +12,7 @@
 #define PERMASERV_NO_SOLAR      0x00000001
 #define PERMASERV_CLIMATE_FILES 0x00000002
 #define PERMASERV_NO_CLIMATE    0x00000004
+#define PERMASERV_NO_USERS      0x00000008
 
 
 // =======================================================================================
@@ -21,6 +22,7 @@ class SolarDatabase;
 class SoilDatabase;
 class ClimateDatabase;
 class HttpPermaServ;
+class UserSessionGroup;
 
 
 // =======================================================================================
@@ -67,6 +69,7 @@ private:
   SolarDatabase*    solarDatabase;
   SoilDatabase*     soilDatabase;
   ClimateDatabase*  climateDatabase;
+  UserSessionGroup* userSessions;
   PermaservParams&  params;
   HttpPageSet*      scriptPages;
   HttpPageSet*      cssPages;

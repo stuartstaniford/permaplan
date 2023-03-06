@@ -9,17 +9,20 @@
 #include "ClimateDatabase.h"
 #include "ClimateInfo.h"
 #include "UserManager.h"
+#include "UserSession.h"
 
 
 // =======================================================================================
 /// @brief Constructor
 
 HttpPermaServ::HttpPermaServ(unsigned index, SolarDatabase* solarD, SoilDatabase* soilD, 
-                                        ClimateDatabase* climateD, HttpLoadBalancer* parent):
+                            ClimateDatabase* climateD, UserSessionGroup* userS, 
+                            HttpLoadBalancer* parent):
                                           HttpServThread(index, parent),
                                           solarDatabase(solarD),
                                           soilDatabase(soilD),
-                                          climateDatabase(climateD)
+                                          climateDatabase(climateD),
+                                          userSessions(userS)
 {
 }
 
@@ -73,9 +76,16 @@ bool HttpPermaServ::indexPage(void)
   internalPrintf("</table></center>\n");
 
   // User Manager Options
-  UserManager& userManager = UserManager::getUserManager();
-  userManager.indexPageTable(this);
-
+  if(userSessions)
+   {
+    UserManager& userManager = UserManager::getUserManager();
+    userManager.indexPageTable(this);
+   }
+  else
+   {
+    internalPrintf("<hr><center><h4>User Options Disabled (-u)</h4></center>\n");
+   }
+  
   // Table of solar database options
   if(solarDatabase)
     solarDatabase->indexPageTable(this);
@@ -314,9 +324,17 @@ bool HttpPermaServ::processRequestHeader(void)
   // user/
   else if( strlenUrl > 6 && strncmp(url, "/user/", 6) == 0)
    {
-    UserManager& userManager = UserManager::getUserManager();
-    LogPermaservOpDetails("Processing user manager request for %s.\n", url+6);
-    retVal = userManager.processHttpRequest(this, url+6);
+    unless(userSessions)
+     {
+      LogRequestErrors("User Management not enabled for %s\n", url);
+      errorPage("User Management not enabled.");
+     }
+    else
+     {
+      UserManager& userManager = UserManager::getUserManager();
+      LogPermaservOpDetails("Processing user manager request for %s.\n", url+6);
+      retVal = userManager.processHttpRequest(this, url+6);
+     }
    }
 
  //Default - failure

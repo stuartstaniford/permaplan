@@ -48,6 +48,7 @@ void printUsage(int argc, char* argv[])
   printf("\t-h\tPrint this message.\n");
   printf("\t-p P\tRun server on port P.\n");
   printf("\t-s\tRun server with no solar database.\n");
+  printf("\t-u\tRun server with no user sessions/management.\n");
   printf("\n");
   exit(0);
 }
@@ -64,7 +65,7 @@ void processCommandLine(int argc, char* argv[])
 {  
   int optionChar;
 
-  while( (optionChar = getopt(argc, argv, "cC:hp:s")) != -1)
+  while( (optionChar = getopt(argc, argv, "cC:hp:su")) != -1)
     switch (optionChar)
      {
        case 'c':
@@ -90,6 +91,10 @@ void processCommandLine(int argc, char* argv[])
 
        case 's':
          permaservParams.flags |= PERMASERV_NO_SOLAR;
+         break;
+
+       case 'u':
+         permaservParams.flags |= PERMASERV_NO_USERS;
          break;
 
        default:

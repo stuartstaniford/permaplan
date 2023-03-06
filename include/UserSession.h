@@ -12,6 +12,8 @@
 // Forward declarations
 
 class UserManager;
+class HttpPermaserv;
+class HttpLBPermaserv;
 
 
 // =======================================================================================
@@ -44,8 +46,12 @@ private:
 
 class UserSessionGroup: private TimeoutMap<unsigned long long>
 {
-  friend UserManager; // No other class should mess with these, so everything is private
-
+  friend UserManager; 
+  friend HttpPermaserv;
+  friend HttpLBPermaserv;
+  
+  // No other class should mess with these, so everything is private
+  
 private:
 
   // Instance variables - private
