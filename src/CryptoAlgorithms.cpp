@@ -103,24 +103,24 @@ void PasswordHash::makeHash(unsigned char* buf, char* pwd, PasswordSalt& salt)
   int pwdSize = strlen(pwd);
 
   // Build the hash input, interleaving salt, appstring, and password
-  for(int i=0; i<SALT_BYTES; i+=3)
+  for(int i=0; i<SALT_BYTES; i++)
    {    
-    input[i]    = appString[i];
-    input[i+1]  = salt.salt[i];
+    input[3*i]    = appString[i];
+    input[3*i+1]  = salt.salt[i];
     if(i < pwdSize)
-      input[i+2] = pwd[i];
+      input[3*i+2] = pwd[i];
     else
-      input[i+2] = appString[APPSTRING_BYTES-i-1];
+      input[3*i+2] = appString[APPSTRING_BYTES-i-1];
    }
   
   // Do the crypto library hash function
-  SHA256(input, HASH_INPUT_LENGTH, hash);
+  SHA256(input, HASH_INPUT_LENGTH, buf);
 #ifdef LOG_CRYPTO_OPS
   char textBuf[256];
   hexdump(input, HASH_INPUT_LENGTH, textBuf);
-  LogCryptoOps("Hash input: %s", textBuf);
+  LogCryptoOps("Hash input:\n%s", textBuf);
   hexdump(hash, HASH_BYTES, textBuf);
-  LogCryptoOps("Hash output: %s", textBuf);
+  LogCryptoOps("Hash output:\n%s", textBuf);
 #endif
   
   // Clean up memory of password data in the clear
@@ -145,7 +145,10 @@ bool PasswordHash::checkMatch(char* pwd, PasswordSalt& salt)
   // Check if the newly made one matches our stored one
   for(int i=0; i<HASH_BYTES; i++)
     if(buf[i] != hash[i])
+     {
+      LogCryptoOps("Hash match failed at byte %d.\n", i);
       return false;
+     }
   
   // Every byte matched, so call it good
   return true;
