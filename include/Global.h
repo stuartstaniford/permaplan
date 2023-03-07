@@ -78,7 +78,7 @@ inline void scaleLatLongRectangle(const float& scale, float& loLat, float& hiLat
 // Utility function prototypes
 
 void initGlobals(int nThreads = 0);
-void hexdump(void *ptr, int buflen);
+void hexdump(void *ptr, int buflen, char* outBuf);
 bool extractColonVecN(char* path, int N, float* dest);
 inline bool extractColonVec4(char* path, vec4 dest)
               {return extractColonVecN(path, 4, dest);}
