@@ -115,7 +115,14 @@ void PasswordHash::makeHash(unsigned char* buf, char* pwd, PasswordSalt& salt)
   
   // Do the crypto library hash function
   SHA256(input, HASH_INPUT_LENGTH, hash);
-
+#ifdef LOG_CRYPTO_OPS
+  char textBuf[256];
+  hexdump(input, HASH_INPUT_LENGTH, textBuf);
+  LogCryptoOps("Hash input: %s", textBuf);
+  hexdump(hash, HASH_BYTES, textBuf);
+  LogCryptoOps("Hash output: %s", textBuf);
+#endif
+  
   // Clean up memory of password data in the clear
   bzero(input, HASH_INPUT_LENGTH);
   bzero(pwd, pwdSize);
