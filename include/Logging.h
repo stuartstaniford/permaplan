@@ -37,6 +37,7 @@
 #define LOG_USER_OPS                // Log user management related operations
 #define LOG_USER_ERRORS             // Log user management related errors
 #define LOG_USER_DETAILS            // Log details of user management
+#define LOG_CRYPTO_OPS              // Log details of what the crypto interface does
 
 
 // =======================================================================================
@@ -262,6 +263,7 @@ extern bool doLogPermaservOpDetails;    // Log detailed operation of Permaserv f
 extern bool doLogUserOps;               // Log user management related operations
 extern bool doLogUserErrors;            // Log user management related errors
 extern bool doLogUserDetails;           // Log details of user management 
+extern bool doLogCryptoOps;             // Log details of what the crypto interface does
 
 // Logging options to do with parsing and validating OLDF and OTDL files
 extern bool doLogOLDFValidity;    // Log validity problems in the file
@@ -391,6 +393,7 @@ extern bool flushLogPermaservOpDetails; // Log detailed operation of Permaserv f
 extern bool flushLogUserOps;            // Log user management related operations
 extern bool flushLogUserErrors;         // Log user management related errors
 extern bool flushLogUserDetails;        // Log details of user management 
+extern bool flushLogCryptoOps;             // Log details of what the crypto interface does
 
 // Logging options to do with parsing and validating OLDF and OTDL files
 extern bool flushLogOLDFValidity;    // Log validity problems in the file
@@ -715,6 +718,19 @@ extern bool flushLogObjectAltitudes;   // Log finding the altitudes of objects a
                                   }
 #else
 #define LogUserDetails(...)
+#endif
+
+// Log details of what the crypto interface does
+#ifdef LOG_CRYPTO_OPS
+#define LogCryptoOps(...)    \
+                                  {\
+                                    if(doLogCryptoOps) \
+                                      LogStatement("LogCryptoOps: " __VA_ARGS__)\
+                                    if(flushLogCryptoOps)\
+                                      LogFlush();\
+                                  }
+#else
+#define LogCryptoOps(...)
 #endif
 
 

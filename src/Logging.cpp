@@ -37,6 +37,7 @@ bool doLogPermaservOpDetails    = true; // Log detailed operation of Permaserv f
 bool doLogUserOps               = true; // Log user management related operations
 bool doLogUserErrors            = true; // Log user management related errors
 bool doLogUserDetails           = true; // Log details of user management 
+bool doLogCryptoOps             = true; // Log details of what the crypto interface does
 
 // Logging options to do with parsing and validating OLDF and OTDL files
 bool doLogOLDFValidity        = true; // Log validity problems in the file
@@ -167,6 +168,7 @@ bool flushLogPermaservOpDetails    = true; // Log detailed operation of Permaser
 bool flushLogUserOps               = false; // Log user management related operations
 bool flushLogUserErrors            = false; // Log user management related errors
 bool flushLogUserDetails           = false; // Log details of user management 
+bool flushLogCryptoOps             = false; // Log details of what the crypto interface does
 
 // Logging options to do with parsing and validating OLDF and OTDL files
 bool flushLogOLDFValidity        = false; // Log validity problems in the file
@@ -437,6 +439,10 @@ bool LogControlHTML(HttpDebug* serv, char* path)
     return oneLogControl(serv, path, doLogUserDetails);
 #endif
 
+#ifdef LOG_CRYPTO_OPS  // Log details of what the crypto interface does
+  if(strncmp(path, "doLogCryptoOps", sizeof("doLogCryptoOps")-1)==0)
+    return oneLogControl(serv, path, doLogCryptoOps);
+#endif
 
 // Logging options to do with parsing and validating OLDF and OTDL files
 
