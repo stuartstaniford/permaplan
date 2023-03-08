@@ -390,18 +390,14 @@ bool UserManager::doLogin(HttpServThread* serv, HTMLForm* form, UserSessionGroup
 
 
 // =======================================================================================
-/// @brief Return the page with the form for manual login.
+/// @brief Creates the form for manual login (which is used by several pages).
 /// 
 /// @returns True if all was well writing to the buffer.  If false, it indicates the 
 /// buffer was not big enough and the output will have been truncated/incomplete.
 /// @param serv A pointer to the HttpServThread managing the HTTP response.
 
-bool UserManager::getLoginPage(HttpServThread* serv)
-{
-  // Start the HTML page and the table header
-  unless(serv->startResponsePage((char*)"Login to Permaserv"))
-    return false;
-  
+bool UserManager::addLoginFormToPage(HttpServThread* serv)
+{  
   // Open Login Form
   httPrintf("<center>\n");
   httPrintf("<form action=\"login\" method=\"post\">\n");
@@ -430,6 +426,26 @@ bool UserManager::getLoginPage(HttpServThread* serv)
   // End the form
   httPrintf("</form></center>\n");
 
+  return true;
+}
+
+
+// =======================================================================================
+/// @brief Return the main page with the form for manual login.
+/// 
+/// @returns True if all was well writing to the buffer.  If false, it indicates the 
+/// buffer was not big enough and the output will have been truncated/incomplete.
+/// @param serv A pointer to the HttpServThread managing the HTTP response.
+
+bool UserManager::getLoginPage(HttpServThread* serv)
+{
+  // Start the HTML page and the table header
+  unless(serv->startResponsePage((char*)"Login to Permaserv"))
+    return false;
+  
+  unless(addLoginFormToPage(serv))
+    return false;
+  
   // Finish up the page
   unless(serv->endResponsePage())
     return false;
