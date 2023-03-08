@@ -193,9 +193,11 @@ void HttpServThread::processOneHTTP1_1(int connfd, unsigned short clientPort)
 {
   LogHTTPLoadBalance("HTTPDebug %d handling client on port %u.\n", queueIndex, clientPort);
   clientP = clientPort; // make this available for logging by subclasses.
+
+  resetForNewConnection();
   
   reqParser.setNewConnection(connfd);
-  
+
   while(reqParser.getNextRequest())
    {
     resetResponse();

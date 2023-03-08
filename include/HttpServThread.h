@@ -60,7 +60,7 @@ protected:
   char*               headBuf;
   unsigned short      clientP;
   HttpLoadBalancer*   parentLB;
-  
+  unsigned long long  sessionId;
   
 public:
   
@@ -120,6 +120,10 @@ private:
     altMimeType     = NULL;
     responseCookie  = NULL;
    }  
+  inline void   resetForNewConnection(void)
+   {
+    sessionId = 0ULL; 
+   }
   PreventAssignAndCopyConstructor(HttpServThread);       
 };
 

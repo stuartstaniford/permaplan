@@ -37,7 +37,7 @@
 #define LOG_USER_OPS                // Log user management related operations
 #define LOG_USER_ERRORS             // Log user management related errors
 #define LOG_USER_DETAILS            // Log details of user management
-#define LOG_CRYPTO_OPS              // Log details of what the crypto interface does
+//#define LOG_CRYPTO_OPS              // Log details of what the crypto interface does
 
 
 // =======================================================================================

@@ -23,6 +23,8 @@ UserSession::UserSession(void)
   unless(masterId)
     getentropy(&masterId, sizeof(unsigned long long));
   theId = masterId++;
+  unless(theId)
+    theId = masterId++; // 0 is never a valid session id
   idLock.unlock();
 }
 
