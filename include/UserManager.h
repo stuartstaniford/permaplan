@@ -88,6 +88,7 @@ private:
   bool doLogin(HttpServThread* serv, HTMLForm* form, UserSessionGroup* sessions);
   bool getLoginPage(HttpServThread* serv);
   bool addLoginFormToPage(HttpServThread* serv);
+  bool sessionExpiredPage(HttpServThread* serv);
 
   // Account creation
   bool getCreatePage(HttpServThread* serv);

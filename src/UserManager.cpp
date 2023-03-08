@@ -455,6 +455,32 @@ bool UserManager::getLoginPage(HttpServThread* serv)
 
 
 // =======================================================================================
+/// @brief Return the page used when a previously successful session login has expired.
+/// 
+/// @returns True if all was well writing to the buffer.  If false, it indicates the 
+/// buffer was not big enough and the output will have been truncated/incomplete.
+/// @param serv A pointer to the HttpServThread managing the HTTP response.
+
+bool UserManager::sessionExpiredPage(HttpServThread* serv)
+{
+  // Start the HTML page and the table header
+  unless(serv->startResponsePage((char*)"Session Expired"))
+    return false;
+  
+  httPrintf("<p>Your session has expired.  Login again to resume work.");
+  
+  unless(addLoginFormToPage(serv))
+    return false;
+  
+  // Finish up the page
+  unless(serv->endResponsePage())
+    return false;
+
+  return true;
+}
+
+
+// =======================================================================================
 /// @brief Return the page with the form for account creation.
 /// 
 /// @returns True if all was well writing to the buffer.  If false, it indicates the 
