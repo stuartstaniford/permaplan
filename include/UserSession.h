@@ -60,6 +60,7 @@ private:
   UserSessionGroup(void);
   ~UserSessionGroup(void);
   unsigned long long newSession(void);
+  UserSession* findSession(unsigned long long id);
   PreventAssignAndCopyConstructor(UserSessionGroup);
 };
 

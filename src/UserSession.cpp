@@ -55,10 +55,24 @@ UserSessionGroup::~UserSessionGroup(void)
 
 // =======================================================================================
 /// @brief Create a new session and return the id
+///
+/// @returns An unsigned long long which is the session id, and can be used to find
+/// the session again.
 
 unsigned long long UserSessionGroup::newSession(void)
 {
   return 1ULL;
+}
+
+
+// =======================================================================================
+/// @brief Find a session based on the id
+///
+/// @returns A pointer to the UserSession object, which will be returned locked.
+
+UserSession* UserSessionGroup::findSession(unsigned long long id)
+{
+  return NULL;
 }
 
 
