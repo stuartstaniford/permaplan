@@ -59,6 +59,7 @@ private:
   // Member functions - private
   UserSessionGroup(void);
   ~UserSessionGroup(void);
+  unsigned long long newSession(void);
   PreventAssignAndCopyConstructor(UserSessionGroup);
 };
 

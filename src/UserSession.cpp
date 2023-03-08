@@ -54,3 +54,12 @@ UserSessionGroup::~UserSessionGroup(void)
 
 
 // =======================================================================================
+/// @brief Create a new session and return the id
+
+unsigned long long UserSessionGroup::newSession(void)
+{
+  return 1ULL;
+}
+
+
+// =======================================================================================
