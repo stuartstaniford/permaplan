@@ -24,3 +24,12 @@ Timeoutable::~Timeoutable(void)
 
 
 // =======================================================================================
+/// @brief Update the last access to the present.  
+
+void Timeoutable::updateAccessToNow(void)
+{
+  lastAccess.now();
+}
+
+
+// =======================================================================================
