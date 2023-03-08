@@ -87,11 +87,22 @@ TimeoutMap(void)
 
 // =======================================================================================
 /// @brief Function to find a particular entry based on key.
-/// @returns  
+/// @returns A pointer to the Timeoutable entry, which will be returned locked.  Caller
+/// is responsible for unlocking the entry lock.
 
 Timeoutable* findEntry(Key key, EntryStatus& status)
 {
-  return NULL;
+  mapLock.lock();
+  unless((std::unordered_map<Key, Timeoutable*>::count(key)))
+   {
+    status = EntryNotPresent;
+    mapLock.unlock();
+    return NULL;
+   }
+  
+  (*this)[key]->lock();
+  mapLock.unlock();
+  return (*this)[key];
 }
 
   

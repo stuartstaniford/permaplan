@@ -71,9 +71,9 @@ unsigned long long UserSessionGroup::newSession(void)
 /// @returns A pointer to the UserSession object, which will be returned locked.  Caller
 /// is responsible for unlocking the component
 
-UserSession* UserSessionGroup::findSession(unsigned long long id)
+UserSession* UserSessionGroup::findSession(unsigned long long id, EntryStatus& status)
 {
-  return NULL;
+  return (UserSession*)findEntry(id, status);
 }
 
 
