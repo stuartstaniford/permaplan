@@ -99,6 +99,7 @@ private:
 
   // Change password
   bool getChangePasswordPage(HttpServThread* serv);
+  bool doChangePassword(HttpServThread* serv, HTMLForm* form);
 
   // User management information
   bool getUserListPage(HttpServThread* serv);
