@@ -68,7 +68,8 @@ unsigned long long UserSessionGroup::newSession(void)
 // =======================================================================================
 /// @brief Find a session based on the id
 ///
-/// @returns A pointer to the UserSession object, which will be returned locked.
+/// @returns A pointer to the UserSession object, which will be returned locked.  Caller
+/// is responsible for unlocking the component
 
 UserSession* UserSessionGroup::findSession(unsigned long long id)
 {

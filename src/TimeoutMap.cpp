@@ -5,7 +5,9 @@
 
 
 // =======================================================================================
-/// @brief Constructor
+/// @brief Constructor.  
+/// 
+/// Records the time of creation.  Does not do anything with locks.
 
 Timeoutable::Timeoutable(void)
 {

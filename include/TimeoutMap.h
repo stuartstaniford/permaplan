@@ -5,24 +5,25 @@
 
 #include "Global.h"
 #include "Timeval.h"
+#include "Lockable.h"
 #include <unordered_map>
 
 
 // =======================================================================================
 /// @brief An enum for whether a given Timeoutable was present, expired, or not present
 
-enum ItemPresent
+enum EntryStatus
 {
-  ItemNotPresent,
-  ItemPresent,
-  ItemExpired
+  EntryNotPresent,
+  EntryPresent,
+  EntryExpired
 };
 
 
 // =======================================================================================
 /// @brief Implements an unordered_map of things that need to have a timeout.
 
-class Timeoutable
+class Timeoutable: public Lockable
 {
 public:
   // Member functions - public
@@ -58,6 +59,11 @@ private:
   // Member functions - private
   PreventAssignAndCopyConstructor(TimeoutMap);
 
+protected:
+
+  // Instance variables - protected
+  Lockable  mapLock;
+
 public:
   
   // Member functions - public
@@ -78,6 +84,17 @@ TimeoutMap(void)
 {
 }
 
+
+// =======================================================================================
+/// @brief Function to find a particular entry based on key.
+/// @returns  
+
+Timeoutable* findEntry(Key key, EntryStatus& status)
+{
+  return NULL;
+}
+
+  
 // =======================================================================================
 
 }; // End of class definition
