@@ -11,8 +11,6 @@
 #include <unordered_map>
 #include <stdio.h>
 
-#define MAX_USERNAME_LEN  32
-
 
 // =======================================================================================
 // Forward declarations

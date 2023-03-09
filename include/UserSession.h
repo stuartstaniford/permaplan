@@ -12,6 +12,7 @@
 // Forward declarations
 
 class UserManager;
+class UserSessionGroup;
 class HttpPermaserv;
 class HttpLBPermaserv;
 
@@ -22,19 +23,20 @@ class HttpLBPermaserv;
 
 class UserSession: private Timeoutable
 {
-  friend UserManager; // No other class should mess with these, so everything is private
+  friend UserSessionGroup; // No other class should mess with these, so everything is private
 
 private:
 
   // Instance variables - private
-  unsigned long long theId;
+  unsigned long long  theId;
+  char                 sessionUser[MAX_USERNAME_LEN];
   
   // Static variables
   static Lockable idLock;
   static unsigned long long masterId;
   
   // Member functions - private
-  UserSession(void);
+  UserSession(char* userName);
   ~UserSession(void);
   PreventAssignAndCopyConstructor(UserSession);  
 };
@@ -59,7 +61,7 @@ private:
   // Member functions - private
   UserSessionGroup(void);
   ~UserSessionGroup(void);
-  unsigned long long newSession(void);
+  unsigned long long newSession(char* userName);
   UserSession* findSession(unsigned long long id, EntryStatus& status);
   PreventAssignAndCopyConstructor(UserSessionGroup);
 };

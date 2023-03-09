@@ -12,7 +12,6 @@
 
 #define unless(X) if(!(X))
 #define until(X) while(!(X))
-#define EPSILON 0.000000001f
 #define isWhiteSpace(x) ( (x)==' ' || (x)=='\t' || (x)=='\n' || (x)=='\r' || (x)=='\f' )
 
 #define MULTI_THREADED_SIMULATION
@@ -30,6 +29,10 @@
 
 // Prevent assignment and copy construction of class "T".
 #define PreventAssignAndCopyConstructor(T) private: T(const T&); T&operator=(const T&);
+
+// Constants
+#define MAX_USERNAME_LEN  32
+#define EPSILON           0.000000001f
 
 
 // =======================================================================================

@@ -17,15 +17,18 @@ Lockable            UserSession::idLock;
 /// 
 /// @returns The length of the record, in bytes, as it will be written to disk.
 
-UserSession::UserSession(void)
+UserSession::UserSession(char* userName)
 {
   idLock.lock();
+  lock();
   unless(masterId)
     getentropy(&masterId, sizeof(unsigned long long));
   theId = masterId++;
   unless(theId)
     theId = masterId++; // 0 is never a valid session id
   idLock.unlock();
+  strncpy(sessionUser, userName, MAX_USERNAME_LEN);
+  unlock();
 }
 
 
@@ -59,9 +62,11 @@ UserSessionGroup::~UserSessionGroup(void)
 /// @returns An unsigned long long which is the session id, and can be used to find
 /// the session again.
 
-unsigned long long UserSessionGroup::newSession(void)
+unsigned long long UserSessionGroup::newSession(char* userName)
 {
-  return 1ULL;
+  UserSession* S = new UserSession(userName);
+  addEntry(S->theId, S);
+  return S->theId;
 }
 
 

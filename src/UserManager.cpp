@@ -392,83 +392,8 @@ bool UserManager::doLogin(HttpServThread* serv, HTMLForm* form, UserSessionGroup
    }
   
   // Generate a session-id for this login, and tell the servThread about it.
+  unsigned long long sessionId = sessions->newSession((*form)["uname"]);
   
-  return true;
-}
-
-
-// =======================================================================================
-/// @brief Process a password change request.
-/// 
-/// Note this could be the result of a manual request, or it could be the result 
-/// of a permaplan mediated request.
-/// @returns True if all was well writing to the buffer.  If false, it indicates the 
-/// buffer was not big enough and the output will have been truncated/incomplete.
-/// @param serv A pointer to the HttpServThread managing the HTTP response.
-/// @param form A pointer to the HTML form object from parsing the request body.
-
-bool UserManager::doChangePassword(HttpServThread* serv, HTMLForm* form)
-{
-  // Sanity check the form
-  if(!form || form->getDynamicType() != TypeHTMLForm)
-   {
-    LogRequestErrors("Bad form in change password Request.\n");
-    return serv->errorPage("Change Password Error.");
-   }
-  
-  //Make sure we have a username
-  unless(form->count("uname"))
-   {
-    LogUserErrors("No username in login Request.\n");
-    return serv->errorPage("Change Password Error.");
-   }
-  
-  // Make sure we have a password
-  unless(form->count("psw"))
-   {
-    LogUserErrors("No password in login Request.\n");
-    return serv->errorPage("Change Password Error.");
-   }
-  
-  // Make sure we have a second password
-  
-  // Make sure the two passwords match
-  
-  
-  // Check that the username isn't too long.
-  unless(strlen((*form)["uname"]) < MAX_USERNAME_LEN)
-   {
-    (*form)["uname"][MAX_USERNAME_LEN - 1] = '\0';
-    LogUserErrors("Username starting with %s exceeds max length of %d.\n", 
-                  (*form)["uname"], MAX_USERNAME_LEN - 1);
-    return serv->errorPage("Change Password Error.");
-   }
-
-  // Check that the username exists.
-  unless(count((*form)["uname"]))
-   {      
-    LogUserErrors("Attempted password change on unknown username %s.\n", (*form)["uname"]);
-     return serv->errorPage("Change Password Error.");
-   }
-  
-  // Get the user record
-  UserRecord* ur = (*this)[(*form)["uname"]];
-  
-  // UP TO HERE
-  
-  
-  
-  // Check the password hash matches and then zero the password string out
-  if(ur->checkPassword((*form)["psw"]))
-   {
-    LogUserOps("Successful login by user %s.\n", (*form)["uname"]);
-   }
-  else
-   {
-    LogUserErrors("Failed login by user %s.\n", (*form)["uname"]);
-    return serv->errorPage("Change Password Error.");
-   }
-    
   return true;
 }
 
@@ -876,6 +801,63 @@ bool UserManager::getChangePasswordPage(HttpServThread* serv)
   unless(serv->endResponsePage())
     return false;
 
+  return true;
+}
+
+
+// =======================================================================================
+/// @brief Process a password change request.
+/// 
+/// Note this could be the result of a manual request, or it could be the result 
+/// of a permaplan mediated request.
+/// @returns True if all was well writing to the buffer.  If false, it indicates the 
+/// buffer was not big enough and the output will have been truncated/incomplete.
+/// @param serv A pointer to the HttpServThread managing the HTTP response.
+/// @param form A pointer to the HTML form object from parsing the request body.
+
+bool UserManager::doChangePassword(HttpServThread* serv, HTMLForm* form)
+{
+  // Sanity check the form
+  if(!form || form->getDynamicType() != TypeHTMLForm)
+   {
+    LogRequestErrors("Bad form in change password Request.\n");
+    return serv->errorPage("Change Password Error.");
+   }
+  
+  //Get the username from the session-id
+  /*unless(form->count("uname"))
+   {
+    LogUserErrors("No username in login Request.\n");
+    return serv->errorPage("Change Password Error.");
+   }*/
+  
+  // Get the user record
+  UserRecord* ur = (*this)[(*form)["uname"]];
+
+  // Make sure we have the old password
+  unless(form->count("oldpsw"))
+   {
+    LogUserErrors("No password in change password Request.\n");
+    return serv->errorPage("Change Password Error.");
+   }
+  
+  // Make sure we have a second password
+  
+  // Make sure the two passwords match
+  
+  // UP TO HERE
+
+  // Check the password hash matches and then zero the password string out
+  if(ur->checkPassword((*form)["psw"]))
+   {
+    LogUserOps("Successful login by user %s.\n", (*form)["uname"]);
+   }
+  else
+   {
+    LogUserErrors("Failed login by user %s.\n", (*form)["uname"]);
+    return serv->errorPage("Change Password Error.");
+   }
+    
   return true;
 }
 
