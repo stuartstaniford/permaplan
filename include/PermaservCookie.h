@@ -28,7 +28,7 @@ public:
   PermaservCookie(void);
   ~PermaservCookie(void);
   void setSessionId(unsigned long long id);
-  bool snprint(HttpServThread* serv, char* buf, unsigned bufLen);
+  int sprint(char* buf);
 
 private:
   

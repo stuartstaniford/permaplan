@@ -36,24 +36,25 @@ void PermaservCookie::setSessionId(unsigned long long id)
 // =======================================================================================
 /// @brief Output our Set-Cookie header to a buffer
 ///
-/// @returns false if not everything would fit, true if it did.
+/// Caller is responsible for the buffer being big enough
+/// @returns The number of characters written.
 /// @param buf The buffer to write to.
-/// @param bufLen The space in that buffer (in bytes).
 
 
-bool PermaservCookie::snprint(HttpServThread* serv, char* buf, unsigned bufLen)
+int PermaservCookie::sprint(char* buf)
 {  
+  char* p = buf;
   if(flags)
    {
-    httPrintf("Set-Cookie: ");
+    p += sprintf(p, "Set-Cookie: ");
     if(flags & VALID_SESSION_ID)
      {
-      httPrintf("sessionId=%llu, ", sessionId);
+      p += sprintf(p, "sessionId=%llu, ", sessionId);
      }
-    httPrintf("\r\n");    
+    p += sprintf(p, "\r\n");    
    }
   
-  return true;
+  return p - buf;
 }
 
 

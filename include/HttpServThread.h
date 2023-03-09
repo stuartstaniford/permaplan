@@ -106,21 +106,18 @@ protected:
 private:
   
   // Instance variables - private
-  char*               responseCookie;
 
   // Member functions - private
   bool          reallocateResponseBuf(void);
   unsigned      generateHeader(unsigned bodySize, unsigned code, const char* msg, 
                                                               char* mimeType = NULL);
   bool          writeLoop(int fildes, char *buf, size_t nbyte);
-  inline void   setResponseCookie(char* cookieText) {responseCookie = cookieText;}
   inline void   resetResponse(void)
    {
     respPtr         = respBuf;
     respEnd         = respBuf + respBufSize;
     altResp         = NULL;
     altMimeType     = NULL;
-    responseCookie  = NULL;
    }  
   inline void   resetForNewConnection(void)
    {
