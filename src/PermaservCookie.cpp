@@ -21,3 +21,13 @@ PermaservCookie::~PermaservCookie(void)
 
 
 // =======================================================================================
+/// @brief Destructor
+
+void PermaservCookie::setSessionId(unsigned long long id)
+{
+  flags |= VALID_SESSION_ID;
+  sessionId = id;
+}
+
+
+// =======================================================================================

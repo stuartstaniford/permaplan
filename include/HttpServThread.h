@@ -5,6 +5,7 @@
 
 #include "TaskQueue.h"
 #include "HttpRequestParser.h"
+#include "PermaservCookie.h"
 
 
 // =======================================================================================
@@ -52,6 +53,7 @@ protected:
   
   // Instance variables - protected
   HttpRequestParser   reqParser;
+  PermaservCookie     cookies;
   unsigned            respBufSize;
   unsigned            headBufSize;
   char*               respBuf;

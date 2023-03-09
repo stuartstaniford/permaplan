@@ -5,6 +5,8 @@
 
 #include "Global.h"
 
+#define VALID_SESSION_ID 0x00000001
+
 
 // =======================================================================================
 /// @brief Keep track of the stuff that will go in a cookie to be served by Permaserv.
@@ -19,10 +21,13 @@ public:
   // Member functions - public
   PermaservCookie(void);
   ~PermaservCookie(void);
-  
+  void setSessionId(unsigned long long id);
+
 private:
   
   // Instance variables - private
+  unsigned long long sessionId;
+  unsigned            flags;
   
   // Member functions - private
   PreventAssignAndCopyConstructor(PermaservCookie);
