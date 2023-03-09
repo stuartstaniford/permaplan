@@ -7,7 +7,9 @@
 // =======================================================================================
 /// @brief Constructor
 
-PermaservCookie::PermaservCookie(void)
+PermaservCookie::PermaservCookie(void): 
+                                        sessionId(0u),
+                                        flags(0u)
 {
 }
 
@@ -21,12 +23,25 @@ PermaservCookie::~PermaservCookie(void)
 
 
 // =======================================================================================
-/// @brief Destructor
+/// @brief Set the session id
 
 void PermaservCookie::setSessionId(unsigned long long id)
 {
   flags |= VALID_SESSION_ID;
   sessionId = id;
+}
+
+
+// =======================================================================================
+/// @brief Output our Set-Cookie header to a buffer
+///
+/// @returns The number of characters written. -1 if not everything would fit.
+/// @param buf The buffer to write to.
+/// @param bufLen The space in that buffer (in bytes).
+
+int PermaservCookie::sprint(char* buf, unsigned bufLen)
+{
+  return 0u;
 }
 
 

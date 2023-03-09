@@ -22,6 +22,7 @@ public:
   PermaservCookie(void);
   ~PermaservCookie(void);
   void setSessionId(unsigned long long id);
+  int sprint(char* buf, unsigned bufLen);
 
 private:
   
