@@ -945,6 +945,7 @@ INPUT                  = doc \
                 include/ObjectInspectorWindow.h src/ObjectInspectorWindow.cpp \
                 include/Orientable.h src/Orientable.cpp \
                 include/PathTube.h src/PathTube.cpp \
+                include/PermaservCookie.h src/PermaservCookie.cpp \                
                 include/PmodConfig.h src/PmodConfig.cpp \
                 include/PmodDesign.h src/PmodDesign.cpp \
                 include/Positionable.h src/Positionable.cpp \
@@ -977,6 +978,7 @@ INPUT                  = doc \
                 include/TruncatedCone.h src/TruncatedCone.cpp \
                 include/unitCubeFunction.h src/unitCubeFunction.cpp \                
                 include/UserManager.h src/UserManager.cpp \                
+                include/UserSession.h src/UserSession.cpp \                
                 include/Version.h src/Version.cpp \
                 include/Vertex.h src/Vertex.cpp \
                 include/VertexArrayObject.h src/VertexArrayObject.cpp \
