@@ -9,6 +9,12 @@
 
 
 // =======================================================================================
+/// @brief Forward declarations.
+
+class HttpServThread;
+
+
+// =======================================================================================
 /// @brief Keep track of the stuff that will go in a cookie to be served by Permaserv.
 ///
 
@@ -22,7 +28,7 @@ public:
   PermaservCookie(void);
   ~PermaservCookie(void);
   void setSessionId(unsigned long long id);
-  int sprint(char* buf, unsigned bufLen);
+  bool snprint(HttpServThread* serv, char* buf, unsigned bufLen);
 
 private:
   
