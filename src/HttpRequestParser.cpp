@@ -200,7 +200,10 @@ bool HttpRequestParser::parseRequest(void)
             break;
           
          case Cookie:
-           LogRequestParsing("Found Cookie header (%s) in HTTP request.\n", value);
+           // NB RFC 6265: "When the user agent generates an HTTP request, the user 
+           // agent MUST NOT attach more than one Cookie header field."
+           // If the user agent violates this, we will only process the last header. 
+          LogRequestParsing("Found Cookie header (%s) in HTTP request.\n", value);
            cookieValue = value;
            break;
 

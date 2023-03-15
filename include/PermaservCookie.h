@@ -17,6 +17,7 @@ class HttpServThread;
 // =======================================================================================
 /// @brief Keep track of the stuff that will go in a cookie to be served by Permaserv.
 ///
+/// See https://www.rfc-editor.org/rfc/rfc6265 for how cookies work.
 
 class PermaservCookie
 {
@@ -27,6 +28,7 @@ public:
   // Member functions - public
   PermaservCookie(void);
   ~PermaservCookie(void);
+  void processRequestCookies(char* cookieValue);
   void setSessionId(unsigned long long id);
   int sprint(char* buf);
 
@@ -37,6 +39,7 @@ private:
   unsigned            flags;
   
   // Member functions - private
+  void processOneCookie(char* name, char* value);
   PreventAssignAndCopyConstructor(PermaservCookie);
 };
 

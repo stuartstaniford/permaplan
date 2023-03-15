@@ -67,6 +67,7 @@ public:
   bool getNextRequest(void);
   inline void setNewConnection(int fd) {connfd = fd;}
   inline char* getUrl(void) {return buf + urlOffset;}
+  inline char* getCookieString(void) {return cookieValue;}
   inline char* getBodyString(void) {return headerEnd;} // Note, not null terminated
   inline char* getHTTPVersion(void) {return buf + httpVerOffset;}
     

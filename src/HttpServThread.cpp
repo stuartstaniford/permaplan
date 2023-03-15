@@ -200,7 +200,8 @@ void HttpServThread::processOneHTTP1_1(int connfd, unsigned short clientPort)
   while(reqParser.getNextRequest())
    {
     resetResponse();
-
+    cookies.processRequestCookies(reqParser.getCookieString());
+    
     unsigned headerLen;
     bool returnOK;
     while(1)
