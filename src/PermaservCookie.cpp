@@ -4,6 +4,7 @@
 #include "PermaservCookie.h"
 #include "HttpServThread.h"
 #include "Logging.h"
+#include <ctype.h>
 
 
 // =======================================================================================
@@ -40,7 +41,7 @@ void PermaservCookie::setSessionId(unsigned long long id)
 /// 
 /// So that processRequestCookies() doesn't get too long.
 ///
-/// @param name A pointer to the cookie-value.
+/// @param name A pointer to the cookie-name.
 /// @param value A pointer to the cookie-value.
 
 void PermaservCookie::processOneCookie(char* name, char* value)
@@ -53,6 +54,30 @@ void PermaservCookie::processOneCookie(char* name, char* value)
   //                      ; whitespace DQUOTE, comma, semicolon,
   //                      ; and backslash
 
+  if(strcmp(name, "sessionId") == 0)
+   {
+    for(char* p = value; *p; p++)
+      unless(isdigit((int)*p))
+        goto BAD_COOKIE;
+    char* endP;
+    unsigned long long s = strtoull(value, &endP, 16);
+    unless(s)
+      goto BAD_COOKIE;
+    sessionId = s;
+    flags |= VALID_SESSION_ID;
+   }
+  else
+   {
+    // When we get a cookie we don't recognize, we tell the client to delete it, so
+    // that any old/stale cookies don't hang around.
+    goto BAD_COOKIE;
+   }
+  
+BAD_COOKIE:  
+  LogRequestErrors("Unknown or bad cookie %s with value %s.  Recording for deletion.\n",
+                   name, value)
+  flags |= BAD_COOKIES_PRESENT;
+  return;
 }
 
 // =======================================================================================

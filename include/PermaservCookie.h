@@ -6,6 +6,7 @@
 #include "Global.h"
 
 #define VALID_SESSION_ID 0x00000001
+#define BAD_COOKIES_PRESENT 0x00000001
 
 
 // =======================================================================================
@@ -37,6 +38,7 @@ private:
   // Instance variables - private
   unsigned long long sessionId;
   unsigned            flags;
+
   
   // Member functions - private
   void processOneCookie(char* name, char* value);
