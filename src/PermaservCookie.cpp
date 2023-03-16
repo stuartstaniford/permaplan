@@ -10,10 +10,9 @@
 // =======================================================================================
 /// @brief Constructor
 
-PermaservCookie::PermaservCookie(void): 
-                                        sessionId(0u),
-                                        flags(0u)
+PermaservCookie::PermaservCookie(void)
 {
+  clearState();
 }
 
 
@@ -32,6 +31,17 @@ void PermaservCookie::setSessionId(unsigned long long id)
 {
   flags |= VALID_SESSION_ID;
   sessionId = id;
+}
+
+
+// =======================================================================================
+/// @brief Clear the state of this object
+
+void PermaservCookie::clearState(void)
+{
+  sessionId = 0u;
+  flags     = 0u;
+  badCookieList.clear();
 }
 
 
@@ -75,8 +85,8 @@ void PermaservCookie::processOneCookie(char* name, char* value)
   
 BAD_COOKIE:  
   LogRequestErrors("Unknown or bad cookie %s with value %s.  Recording for deletion.\n",
-                   name, value)
-  flags |= BAD_COOKIES_PRESENT;
+                   name, value);
+  badCookieList.push_back(name);
   return;
 }
 
@@ -177,16 +187,27 @@ void PermaservCookie::processRequestCookies(char* cookieValue)
 int PermaservCookie::sprint(char* buf)
 {  
   char* p = buf;
-  if(flags)
+  if(flags || badCookieList.size())
    {
+    p += sprintf(p, "Set-Cookie: ");
+                 
     if(flags & VALID_SESSION_ID)
      {
-      p += sprintf(p, "Set-Cookie: sessionId=%llX", sessionId);
+      p += sprintf(p, "sessionId=%llX; ", sessionId);
 
       // Print attributes here
-      p += sprintf(p, "\r\n");    
       flags &= ~VALID_SESSION_ID; // don't set it again after we set it.
      }
+
+    for(char* name: badCookieList)
+     {
+      p += sprintf(p, "%s=0; ", name);
+      
+      // Print attributes here
+     }
+    
+    p-=2; // get rid of last semi-colon/space
+    p += sprintf(p, "\r\n");    
    }
   
   return p - buf;

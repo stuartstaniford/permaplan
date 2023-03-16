@@ -5471,7 +5471,8 @@ src/PermaservCookie.o: /usr/local/include/cglm/ray.h
 src/PermaservCookie.o: /usr/local/include/cglm/affine2d.h
 src/PermaservCookie.o: ./include/HttpServThread.h ./include/TaskQueue.h
 src/PermaservCookie.o: ./include/Lockable.h ./include/HttpRequestParser.h
-src/PermaservCookie.o: ./include/MimeTypeMaps.h
+src/PermaservCookie.o: ./include/MimeTypeMaps.h ./include/Logging.h
+src/PermaservCookie.o: ./include/MemoryTracker.h ./include/Timeval.h
 src/PmodConfig.o: ./include/PmodConfig.h
 src/PmodDesign.o: ./include/PmodDesign.h ./include/Boundary.h
 src/PmodDesign.o: /usr/local/include/cglm/cglm.h
