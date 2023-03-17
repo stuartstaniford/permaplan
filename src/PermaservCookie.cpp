@@ -27,10 +27,11 @@ PermaservCookie::~PermaservCookie(void)
 // =======================================================================================
 /// @brief Set the session id
 
-void PermaservCookie::setSessionId(unsigned long long id)
+void PermaservCookie::setSessionId(unsigned long long id, unsigned duration)
 {
-  flags |= VALID_SESSION_ID;
-  sessionId = id;
+  flags             |= VALID_SESSION_ID;
+  sessionId         = id;
+  sessionIdDuration = duration;
 }
 
 
@@ -67,12 +68,18 @@ void PermaservCookie::processOneCookie(char* name, char* value)
   if(strcmp(name, "sessionId") == 0)
    {
     for(char* p = value; *p; p++)
-      unless(isdigit((int)*p))
+      unless(isxdigit((int)*p))
+       {
+        LogRequestParsing("Bad character in sessionId value: %c.\n", *p);
         goto BAD_COOKIE;
+       }
     char* endP;
     unsigned long long s = strtoull(value, &endP, 16);
     unless(s)
+     {
+      LogRequestParsing("Zero value for sessionId from %s.\n", value);
       goto BAD_COOKIE;
+     }
     sessionId = s;
     flags |= VALID_SESSION_ID;
    }
@@ -80,8 +87,11 @@ void PermaservCookie::processOneCookie(char* name, char* value)
    {
     // When we get a cookie we don't recognize, we tell the client to delete it, so
     // that any old/stale cookies don't hang around.
+    LogRequestParsing("Unrecognized cookie type %s with value %s.\n", name, value);
     goto BAD_COOKIE;
    }
+  
+  return;
   
 BAD_COOKIE:  
   LogRequestErrors("Unknown or bad cookie %s with value %s.  Recording for deletion.\n",
@@ -160,7 +170,7 @@ void PermaservCookie::processRequestCookies(char* cookieValue)
      }
     
     // At this point, p is the cookie-name, and cookieVal is the cookie-value
-    processOneCookie(p, cookieValue);
+    processOneCookie(p, cookieVal);
     
     // Test if we are done, or else increment p
     if(pairEnd == end)
@@ -183,31 +193,27 @@ void PermaservCookie::processRequestCookies(char* cookieValue)
 /// @returns The number of characters written.
 /// @param buf The buffer to write to.
 
-
 int PermaservCookie::sprint(char* buf)
-{  
+{ 
+  // For reference on the syntax of the Set_Cookie header, see 
+  // https://www.rfc-editor.org/rfc/rfc6265#section-4
+  
   char* p = buf;
-  if(flags || badCookieList.size())
+  
+  // Output the Session ID
+  if(flags & VALID_SESSION_ID)
    {
-    p += sprintf(p, "Set-Cookie: ");
-                 
-    if(flags & VALID_SESSION_ID)
-     {
-      p += sprintf(p, "sessionId=%llX; ", sessionId);
+    p += sprintf(p, "Set-Cookie: sessionId=%llX; Max-Age=%u\r\n", 
+                                                sessionId, sessionIdDuration);
+    flags &= ~VALID_SESSION_ID; // don't set it again after we set it.
+   }
 
-      // Print attributes here
-      flags &= ~VALID_SESSION_ID; // don't set it again after we set it.
-     }
-
-    for(char* name: badCookieList)
-     {
-      p += sprintf(p, "%s=0; ", name);
+  // Unset/clean-up any cookies we don't recognize
+  for(char* name: badCookieList)
+   {
+    p += sprintf(p, "Set-Cookie: %s=0; Max-Age=-1\r\n", name);
       
-      // Print attributes here
-     }
-    
-    p-=2; // get rid of last semi-colon/space
-    p += sprintf(p, "\r\n");    
+    // Print attributes here
    }
   
   return p - buf;

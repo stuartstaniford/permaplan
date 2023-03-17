@@ -393,8 +393,8 @@ bool UserManager::doLogin(HttpServThread* serv, HTMLForm* form, UserSessionGroup
   
   // Generate a session-id for this login, and tell the servThread about it.
   unsigned long long sessionId = sessions->newSession((*form)["uname"]);
-  serv->cookies.setSessionId(sessionId);
-  LogPermaservOpDetails("Set session id as %llu.\n", sessionId);
+  serv->cookies.setSessionId(sessionId, 1500);
+  LogPermaservOpDetails("Set session id as %llu for duration %u.\n", sessionId, 1500);
   return true;
 }
 

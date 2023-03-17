@@ -34,14 +34,15 @@ public:
   PermaservCookie(void);
   ~PermaservCookie(void);
   void processRequestCookies(char* cookieValue);
-  void setSessionId(unsigned long long id);
+  void setSessionId(unsigned long long id, unsigned duration);
   void clearState(void);
   int sprint(char* buf);
 
 private:
   
   // Instance variables - private
-  unsigned long long sessionId;
+  unsigned long long  sessionId;
+  unsigned            sessionIdDuration;
   unsigned            flags;
   std::vector<char*>  badCookieList;
   
