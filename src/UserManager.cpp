@@ -408,10 +408,19 @@ bool UserManager::doLogin(HttpServThread* serv, HTMLForm* form, UserSessionGroup
 /// @param sessionId An unsigned long long (64 bit) session id.
 /// @param sessions The user session group.
 
-UserRecord* UserManager::getRecord(unsigned long long sessionId, UserSessionGroup* sessions)
+UserRecord* UserManager::getRecord(unsigned long long sessionId, EntryStatus sessionStatus,   
+                                                                  UserSessionGroup* sessions)
 {
-  
-  return NULL;
+  UserSession* session = (UserSession*)(sessions->findEntry(sessionId, sessionStatus));
+  if(session)
+   {
+    if(count(session->sessionUser))
+      return (*this)[session->sessionUser];
+    else
+      return NULL;
+   }
+  else
+    return NULL;
 }
 
 

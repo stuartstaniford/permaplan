@@ -24,6 +24,7 @@ class HttpLBPermaserv;
 class UserSession: private Timeoutable
 {
   friend UserSessionGroup; // No other class should mess with these, so everything is private
+  friend UserManager; 
 
 private:
 
