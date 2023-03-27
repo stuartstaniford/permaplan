@@ -26,6 +26,8 @@ class HttpServThread;
 
 class PermaservCookie
 {
+  friend HttpServThread;
+  
 public:
   
   // Instance variables - public

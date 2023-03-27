@@ -394,8 +394,24 @@ bool UserManager::doLogin(HttpServThread* serv, HTMLForm* form, UserSessionGroup
   // Generate a session-id for this login, and tell the servThread about it.
   unsigned long long sessionId = sessions->newSession((*form)["uname"]);
   serv->cookies.setSessionId(sessionId, 1500);
-  LogPermaservOpDetails("Set session id as %llu for duration %u.\n", sessionId, 1500);
+  LogPermaservOpDetails("Set session id as %llX for duration %u.\n", sessionId, 1500);
   return true;
+}
+
+
+// =======================================================================================
+/// @brief Utility method to get the user-record from a session id.
+/// 
+/// This should be standard route to find the user-record from the session-id.
+/// @returns A pointer to the user record.  Returns NULL if user is not validly logging 
+/// in.
+/// @param sessionId An unsigned long long (64 bit) session id.
+/// @param sessions The user session group.
+
+UserRecord* UserManager::getRecord(unsigned long long sessionId, UserSessionGroup* sessions)
+{
+  
+  return NULL;
 }
 
 
@@ -774,7 +790,7 @@ bool UserManager::getChangePasswordPage(HttpServThread* serv)
   // Old Password
   httPrintf("<label for=\"oldpsw\"><b>Current Password</b></label>\n");
   httPrintf("<input type=\"password\" placeholder=\"Enter Password\" "
-                                                          "name=\"psw1\" required>\n");
+                                                          "name=\"oldpsw\" required>\n");
   httPrintf("<br><br>\n");
 
   // New Password

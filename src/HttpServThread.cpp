@@ -200,10 +200,15 @@ void HttpServThread::processOneHTTP1_1(int connfd, unsigned short clientPort)
   while(reqParser.getNextRequest())
    {
     resetResponse();
+    
+    // Deal with possible cookies
     char* cookieVal = reqParser.getCookieString();
     if(cookieVal)
        cookies.processRequestCookies(cookieVal);
+   /* if(coookies.flags&VALID_SESSION_ID)
+      cookies.sessionId;*/
     
+    // Process the rest of the request (and generate a response body)
     unsigned headerLen;
     bool returnOK;
     while(1)
@@ -221,6 +226,8 @@ void HttpServThread::processOneHTTP1_1(int connfd, unsigned short clientPort)
       unless(reallocateResponseBuf())
         break;
      }
+    
+    // Generate the correct response header
     if(returnOK)
      {
       if(altResp)
@@ -238,7 +245,7 @@ void HttpServThread::processOneHTTP1_1(int connfd, unsigned short clientPort)
       headerLen = generateHeader(0u, 500, "ERROR");
      }
     
-    // respond to client
+    // Respond to the client client
     unless(writeLoop(connfd, headBuf, headerLen))
       break;
     if(returnOK)
