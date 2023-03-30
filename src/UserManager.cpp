@@ -16,7 +16,7 @@
 // =======================================================================================
 // Static variables, etc.
 
-UserManager*        UserManager::theUserManager = NULL;
+UserManager*        UserManager::theUserManager = nullptr;
 char*               userFileName                = (char*)"userdb";
 
 
@@ -393,8 +393,9 @@ bool UserManager::doLogin(HttpServThread* serv, HTMLForm* form, UserSessionGroup
   
   // Generate a session-id for this login, and tell the servThread about it.
   unsigned long long sessionId = sessions->newSession((*form)["uname"]);
-  serv->cookies.setSessionId(sessionId, 1500);
-  LogPermaservOpDetails("Set session id as %llX for duration %u.\n", sessionId, 1500);
+  serv->cookies.setSessionId(sessionId, SESSION_TIMEOUT);
+  LogPermaservOpDetails("Set session id as %llX for duration %u.\n", 
+                                                          sessionId, SESSION_TIMEOUT);
   return true;
 }
 
@@ -403,24 +404,26 @@ bool UserManager::doLogin(HttpServThread* serv, HTMLForm* form, UserSessionGroup
 /// @brief Utility method to get the user-record from a session id.
 /// 
 /// This should be standard route to find the user-record from the session-id.
-/// @returns A pointer to the user record.  Returns NULL if user is not validly logging 
+/// @returns A pointer to the user record.  Returns nullptr if user is not validly logging 
 /// in.
+/// @param sessionStatus A reference used to record the status of the user session.  This
+/// is an enum defined in TimeoutMap.h
 /// @param sessionId An unsigned long long (64 bit) session id.
 /// @param sessions The user session group.
 
-UserRecord* UserManager::getRecord(unsigned long long sessionId, EntryStatus sessionStatus,   
+UserRecord* UserManager::getRecord(unsigned long long sessionId, EntryStatus& sessionStatus,   
                                                                   UserSessionGroup* sessions)
 {
-  UserSession* session = (UserSession*)(sessions->findEntry(sessionId, sessionStatus));
+  UserSession* session = sessions->findSession(sessionId, sessionStatus);
   if(session)
    {
     if(count(session->sessionUser))
       return (*this)[session->sessionUser];
     else
-      return NULL;
+      return nullptr;
    }
   else
-    return NULL;
+    return nullptr;
 }
 
 

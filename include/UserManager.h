@@ -84,8 +84,8 @@ private:
   // Member functions - private
   
   // Utility
-  UserRecord* getRecord(unsigned long long sessionId, EntryStatus sessionStatus, 
-                                                              UserSessionGroup* sessions);
+  UserRecord* getRecord(unsigned long long sessionId, EntryStatus& sessionStatus,   
+                        UserSessionGroup* sessions);
   
   // Login
   bool doLogin(HttpServThread* serv, HTMLForm* form, UserSessionGroup* sessions);

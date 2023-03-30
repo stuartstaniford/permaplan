@@ -7,6 +7,8 @@
 #include "Lockable.h"
 #include "TimeoutMap.h"
 
+#define SESSION_TIMEOUT 1500
+
 
 // =======================================================================================
 // Forward declarations
