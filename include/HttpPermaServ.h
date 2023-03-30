@@ -12,7 +12,6 @@
 class SolarDatabase;
 class SoilDatabase;
 class ClimateDatabase;
-class UserSessionGroup;
 
 
 // =======================================================================================
@@ -40,7 +39,6 @@ private:
   SolarDatabase*    solarDatabase;
   SoilDatabase*     soilDatabase;
   ClimateDatabase*  climateDatabase;
-  UserSessionGroup* userSessions;
 
   // Member functions - private
   bool  processRequestHeader(void);

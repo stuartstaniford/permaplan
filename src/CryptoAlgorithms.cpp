@@ -8,6 +8,7 @@
 #include "Logging.h"
 #include <err.h>
 #include <sys/random.h>
+#define __STDC_WANT_LIB_EXT1__ 1
 #include <string.h>
 
 
@@ -124,8 +125,8 @@ void PasswordHash::makeHash(unsigned char* buf, char* pwd, PasswordSalt& salt)
 #endif
   
   // Clean up memory of password data in the clear
-  bzero(input, HASH_INPUT_LENGTH);
-  bzero(pwd, pwdSize);
+  explicit_bzero(input, HASH_INPUT_LENGTH);
+  explicit_bzero(pwd, pwdSize);
 }
 
 

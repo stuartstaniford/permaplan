@@ -17,6 +17,7 @@
 // Forward declarations.
 
 class PasswordHash;
+class UserRecord;
 
 
 // =======================================================================================
@@ -25,6 +26,7 @@ class PasswordHash;
 class PasswordSalt
 {
   friend PasswordHash;
+  
 public:
   
   // Member functions public
@@ -51,6 +53,8 @@ private:
 
 class PasswordHash
 {
+  friend UserRecord;
+  
 public:
 
   // Member functions public

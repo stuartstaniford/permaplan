@@ -4,6 +4,8 @@
 // user authentication must go through this class.  Currently the back end is
 // just a file - presumably will be an SQL database some day.
 
+#define __STDC_WANT_LIB_EXT1__ 1
+#include <string.h>
 #include "UserManager.h"
 #include "Logging.h"
 #include "HttpServThread.h"
@@ -35,6 +37,19 @@ UserRecord::UserRecord(char* uname, char* pwd): pwdHash(pwd, salt), userName(una
 }
 
 
+// =======================================================================================
+/// @brief Change the password to a newly supplied string.
+///
+/// @param pwd A char* pointer to the new cleartext password for the new user record.  
+/// Note that this will be zero-ed out in the course of setting up the record - only 
+/// the hash of the password is stored persistently in memory or on disk.
+
+void UserRecord::setPassword(char* pwd)
+{
+  pwdHash.makeHash(pwdHash.hash, pwd, salt);
+}
+
+  
 // =======================================================================================
 /// @brief Constructor while reading from a file.
 ///
@@ -672,7 +687,8 @@ bool UserManager::doCreate(HttpServThread* serv, HTMLForm* form)
    }
   
   // Delete the second password from memory as we no longer need it
-  bzero((*form)["psw2"], strlen((*form)["psw2"]));
+  int plen = strlen((*form)["psw2"]);
+  explicit_bzero((*form)["psw2"], plen);
 
   // Ok, all is well, create the account
   UserRecord* urec = new UserRecord((*form)["uname"], (*form)["psw1"]);
@@ -849,43 +865,90 @@ bool UserManager::doChangePassword(HttpServThread* serv, HTMLForm* form)
   // Sanity check the form
   if(!form || form->getDynamicType() != TypeHTMLForm)
    {
-    LogRequestErrors("Bad form in change password Request.\n");
+    LogRequestErrors("Bad form in change password request.\n");
     return serv->errorPage("Change Password Error.");
    }
-  
-  //Get the username from the session-id
-  /*unless(form->count("uname"))
-   {
-    LogUserErrors("No username in login Request.\n");
-    return serv->errorPage("Change Password Error.");
-   }*/
-  
+    
   // Get the user record
-  UserRecord* ur = (*this)[(*form)["uname"]];
+  EntryStatus sessionStatus;
+  UserRecord* ur = getRecord(serv->sessionId, sessionStatus, serv->userSessions);
+  unless(ur)
+   {
+    if(sessionStatus == EntryNotPresent)
+     {
+      LogUserErrors("Change password request when not logged in.\n");
+     }
+    else if(sessionStatus == EntryExpired)
+     {
+      LogUserErrors("Change password request when session expired.\n");
+     }
+    else 
+     {
+      LogUserErrors("Change password request with other error.\n");
+     }      
+    return serv->errorPage("Change Password Error.");
+   }
 
   // Make sure we have the old password
   unless(form->count("oldpsw"))
    {
-    LogUserErrors("No password in change password Request.\n");
+    LogUserErrors("No old password in change password Request.\n");
     return serv->errorPage("Change Password Error.");
    }
   
-  // Make sure we have a second password
-  
-  // Make sure the two passwords match
-  
-  // UP TO HERE
+  // Check the old password hash matches and then zero the password string out
+  unless(ur->checkPassword((*form)["oldpsw"]))
+  {
+    LogUserErrors("Old password mismatch for user %s.\n", ur->userName.c_str());
+    return serv->errorPage("Change Password Error.");
+  }
 
-  // Check the password hash matches and then zero the password string out
-  if(ur->checkPassword((*form)["psw"]))
+  // Make sure we have the new password
+  unless(form->count("psw1"))
+  {
+    LogUserErrors("No new password in change password request.\n");
+    return serv->errorPage("Change Password Error.");
+  }
+
+  if(strcmp((*form)["oldpsw"], (*form)["psw1"]) == 0)
+  {
+    LogUserErrors("New password is the same as the old password for user %s.\n",                                                                            ur->userName.c_str());
+    return serv->errorPage("Change Password Error.");
+  }
+
+  // Make sure we have a second password
+  unless(form->count("psw2"))
    {
-    LogUserOps("Successful login by user %s.\n", (*form)["uname"]);
-   }
-  else
-   {
-    LogUserErrors("Failed login by user %s.\n", (*form)["uname"]);
+    LogUserErrors("No second copy of new password in change password request.\n");
     return serv->errorPage("Change Password Error.");
    }
+  
+  // Check the second new password matches the first copy of it
+  unless(strcmp((*form)["psw1"], (*form)["psw2"]) == 0)
+   {
+    LogUserErrors("New passwords don't match in change password request.\n");
+    return serv->errorPage("Change Password Error.");
+   }
+  
+  // Delete the second password from memory as we no longer need it
+  int plen = strlen((*form)["psw2"]);
+  explicit_bzero((*form)["psw2"], plen);
+
+  // Check the new password complexity
+  unless(checkPasswordComplexity((*form)["psw1"]))
+   {
+    LogUserErrors("New password doesn't meet complexity requirements for user %s.\n", ur->userName.c_str());
+    return serv->errorPage("Change Password Error.");
+   }
+  
+  // Update the user's password
+  ur->setPassword((*form)["psw1"]);
+
+  // Log the password change
+  LogUserOps("Password changed for user %s.\n", ur->userName.c_str());
+
+  // Save the changes to the user records
+  writeFile();
     
   return true;
 }

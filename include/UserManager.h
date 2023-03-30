@@ -48,6 +48,7 @@ class UserRecord
   UserRecord(FILE* file, unsigned userNameLen);
   bool writeFile(FILE* file);
   bool checkPassword(char* pwd);
+  void setPassword(char* pwd);
   int diskLength(void);
   PreventAssignAndCopyConstructor(UserRecord);
 };

@@ -13,6 +13,7 @@
 #define unless(X) if(!(X))
 #define until(X) while(!(X))
 #define isWhiteSpace(x) ( (x)==' ' || (x)=='\t' || (x)=='\n' || (x)=='\r' || (x)=='\f' )
+#define explicit_bzero(ptr, len) memset_s((ptr), (len), 0, (len))
 
 #define MULTI_THREADED_SIMULATION
 

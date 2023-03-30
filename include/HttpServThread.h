@@ -25,6 +25,7 @@
 class HttpLoadBalancer;
 class UserManager;
 class ClimateDatabase;
+class UserSessionGroup;
 
 
 // =======================================================================================
@@ -62,12 +63,13 @@ protected:
   char*               headBuf;
   unsigned short      clientP;
   HttpLoadBalancer*   parentLB;
+  UserSessionGroup*   userSessions;
   unsigned long long  sessionId;
   
 public:
   
   // Member functions - public
-  HttpServThread(unsigned index, HttpLoadBalancer* parent);
+  HttpServThread(unsigned index, HttpLoadBalancer* parent, UserSessionGroup* userS = NULL);
   ~HttpServThread(void);
   bool  startResponsePage(const char* title, unsigned refresh = 0u);
   bool  endResponsePage(void);

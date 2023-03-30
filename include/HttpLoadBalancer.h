@@ -20,6 +20,7 @@ class TaskQueueFarm;
 class TaskQueue;
 class GLFWApplication;
 class HttpServThread;
+class UserSessionGroup;
 
 
 // =======================================================================================
@@ -46,6 +47,7 @@ public:
 protected:
   TaskQueue**  httpThreads;  // must be initialized by subclass that knows the 
                                   // real type of these
+  UserSessionGroup* userSessions;
   
 private:
   

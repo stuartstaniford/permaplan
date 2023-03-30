@@ -22,7 +22,6 @@ class SolarDatabase;
 class SoilDatabase;
 class ClimateDatabase;
 class HttpPermaServ;
-class UserSessionGroup;
 
 
 // =======================================================================================
@@ -69,7 +68,6 @@ private:
   SolarDatabase*    solarDatabase;
   SoilDatabase*     soilDatabase;
   ClimateDatabase*  climateDatabase;
-  UserSessionGroup* userSessions;
   PermaservParams&  params;
   HttpPageSet*      scriptPages;
   HttpPageSet*      cssPages;

@@ -18,11 +18,10 @@
 HttpPermaServ::HttpPermaServ(unsigned index, SolarDatabase* solarD, SoilDatabase* soilD, 
                             ClimateDatabase* climateD, UserSessionGroup* userS, 
                             HttpLoadBalancer* parent):
-                                          HttpServThread(index, parent),
+                                          HttpServThread(index, parent, userS),
                                           solarDatabase(solarD),
                                           soilDatabase(soilD),
-                                          climateDatabase(climateD),
-                                          userSessions(userS)
+                                          climateDatabase(climateD)
 {
 }
 
