@@ -910,6 +910,7 @@ bool UserManager::doChangePassword(HttpServThread* serv, HTMLForm* form)
     return serv->errorPage("Change Password Error.");
   }
 
+  // Make sure the new password is different than the old password
   if(strcmp((*form)["oldpsw"], (*form)["psw1"]) == 0)
   {
     LogUserErrors("New password is the same as the old password for user %s.\n",                                                                            ur->userName.c_str());

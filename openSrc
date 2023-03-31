@@ -11,4 +11,4 @@ $testFiles .= `find tests -name \'*.oldf\'`;
 $testFiles .= `find tests -name \'*.lctl\'`;
 $testFiles =~ s/\S+\.out\.oldf//g;
 $testFiles =~ s/\n/ /g;
-system("open -a XCode Doxyfile ~/.zshrc Makefile README.md openSrc *.pl compilePermaserv 812/812.oldf src/*.glsl CMakeLists.txt web/*.js web/views/*.ejs web/views/*.js scripts/*.js css/*.css docs/*.md $testFiles *.json Materials/*.json $regionFiles $otdlFiles");
+system("open -a XCode Doxyfile ~/.zshrc Makefile README.md openSrc scripts/*.js *.pl compilePermaserv 812/812.oldf src/*.glsl CMakeLists.txt web/*.js web/views/*.ejs web/views/*.js scripts/*.js css/*.css docs/*.md $testFiles *.json Materials/*.json $regionFiles $otdlFiles");
