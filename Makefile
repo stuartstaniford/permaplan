@@ -41,6 +41,8 @@ LIBS = -framework OpenGL -lglfw -lGLEW -lcurl -lgdal -lmdb -lz -lgsl -lcrypto
 # define the source files
 SRCS = $(wildcard src/*.cpp)
 
+# define the javascript files
+SCRIPTS = $(wildcard scripts/*.js)
 
 # define the C++ object files
 #
@@ -64,15 +66,18 @@ MAIN = permaplan
 
 .PHONY: depend clean
 
-all:    doc $(MAIN) permaserv/permaserv
+all:    doc javascriptCheck $(MAIN) permaserv/permaserv
 				@echo $(MAIN) has been compiled.
+
+doc:		$(SRCS) $(wildcard include/*.h) Doxyfile
+				doxygen Doxyfile
+
+javascriptCheck: $(SCRIPTS)
+				node --check $(SCRIPTS)
 
 $(MAIN): $(OBJS)
 			$(CPP) $(CFLAGS) $(INCLUDES) -c src/ResourceManager.cpp -o src/ResourceManager.o
 			$(CPP) $(CFLAGS) $(INCLUDES) -o $(MAIN) $(OBJS) $(LFLAGS) $(LIBS)
-
-doc:		$(SRCS) $(wildcard include/*.h) Doxyfile
-				doxygen Doxyfile
 
 permaserv/permaserv: $(SERV_OBJS) permaserv/permaserv_main.cpp
 			$(CPP) $(CFLAGS) -D PERMASERV $(INCLUDES) -c src/ResourceManager.cpp -o src/ResourceManager.o
@@ -2877,7 +2882,7 @@ src/HttpPermaServ.o: ./include/UserManager.h ./include/CryptoAlgorithms.h
 src/HttpPermaServ.o: /usr/local/opt/libressl/include/openssl/sha.h
 src/HttpPermaServ.o: /usr/local/opt/libressl/include/openssl/opensslconf.h
 src/HttpPermaServ.o: /usr/local/opt/libressl/include/openssl/opensslfeatures.h
-src/HttpPermaServ.o: ./include/UserSession.h ./include/TimeoutMap.h
+src/HttpPermaServ.o: ./include/TimeoutMap.h ./include/UserSession.h
 src/HttpPermaservClient.o: ./include/HttpPermaservClient.h
 src/HttpPermaservClient.o: ./include/HttpClient.h
 src/HttpPermaservClient.o: ./include/rapidjson/document.h
@@ -7371,12 +7376,12 @@ src/UserManager.o: /usr/local/opt/libressl/include/openssl/sha.h
 src/UserManager.o: /usr/local/opt/libressl/include/openssl/opensslconf.h
 src/UserManager.o: /usr/local/opt/libressl/include/openssl/opensslfeatures.h
 src/UserManager.o: ./include/Timeval.h ./include/Lockable.h
-src/UserManager.o: ./include/Logging.h ./include/MemoryTracker.h
-src/UserManager.o: ./include/HttpServThread.h ./include/TaskQueue.h
-src/UserManager.o: ./include/HttpRequestParser.h ./include/MimeTypeMaps.h
-src/UserManager.o: ./include/PermaservCookie.h ./include/HTMLForm.h
-src/UserManager.o: ./include/DynamicallyTypable.h ./include/UserSession.h
-src/UserManager.o: ./include/TimeoutMap.h
+src/UserManager.o: ./include/TimeoutMap.h ./include/Logging.h
+src/UserManager.o: ./include/MemoryTracker.h ./include/HttpServThread.h
+src/UserManager.o: ./include/TaskQueue.h ./include/HttpRequestParser.h
+src/UserManager.o: ./include/MimeTypeMaps.h ./include/PermaservCookie.h
+src/UserManager.o: ./include/HTMLForm.h ./include/DynamicallyTypable.h
+src/UserManager.o: ./include/UserSession.h
 src/UserSession.o: ./include/UserSession.h ./include/Global.h
 src/UserSession.o: /usr/local/include/cglm/cglm.h
 src/UserSession.o: /usr/local/include/cglm/common.h
