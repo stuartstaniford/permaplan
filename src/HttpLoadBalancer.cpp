@@ -6,6 +6,7 @@
 #include "HttpLoadBalancer.h"
 #include "HttpDebug.h"
 #include "TaskQueueFarm.h"
+#include "UserSession.h"
 #include "Logging.h"
 #include <sys/socket.h>
 #include <sys/types.h>
@@ -24,7 +25,7 @@
 /// will need to interact with it.
 /// @param windowApp A reference to the GLFWApplication.
 
-HttpLoadBalancer::HttpLoadBalancer(unsigned short servPort):
+HttpLoadBalancer::HttpLoadBalancer(unsigned short servPort, bool haveSessions):
                                     shutDownNow(false),
                                     port(servPort)
 {
@@ -45,6 +46,18 @@ HttpLoadBalancer::HttpLoadBalancer(unsigned short servPort):
   // Make our socket a server that will listen
   if ((listen(sockfd, 6)) != 0)
     err(-1, "Listen failed on socket %d in __func__\n", sockfd);
+
+  // User session group
+  if(haveSessions)
+   {
+    userSessions = new UserSessionGroup;
+    LogPermaservOps("Initialization of user session group complete.\n");
+   }
+  else
+   {
+    userSessions = NULL;
+    LogPermaservOps("Initializing without user session group.\n");
+   }
 
   httpThreads = new TaskQueue*[HTTP_THREAD_COUNT];  
   servFarm = new TaskQueueFarm(HTTP_THREAD_COUNT, (TaskQueue**)httpThreads, (char*)"httpFarm");

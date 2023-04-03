@@ -46,7 +46,6 @@ void PermaservCookie::clearState(void)
 }
 
 
-
 // =======================================================================================
 /// @brief Function to deal with a single cookie-pair .  
 /// 
@@ -99,6 +98,7 @@ BAD_COOKIE:
   badCookieList.push_back(name);
   return;
 }
+
 
 // =======================================================================================
 /// @brief Entry point to the class to process cookies in an HTTP request.  

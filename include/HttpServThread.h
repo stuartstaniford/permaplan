@@ -23,6 +23,7 @@
 // Forward declarations
 
 class HttpLoadBalancer;
+class UserRecord;
 class UserManager;
 class ClimateDatabase;
 class UserSessionGroup;
@@ -64,18 +65,18 @@ protected:
   unsigned short      clientP;
   HttpLoadBalancer*   parentLB;
   UserSessionGroup*   userSessions;
-  unsigned long long  sessionId;
+  UserRecord*         loggedInUser;
   
 public:
   
   // Member functions - public
-  HttpServThread(unsigned index, HttpLoadBalancer* parent, UserSessionGroup* userS = NULL);
+  HttpServThread(unsigned index, HttpLoadBalancer* parent, UserSessionGroup* userS = nullptr);
   ~HttpServThread(void);
   bool  startResponsePage(const char* title, unsigned refresh = 0u);
   bool  endResponsePage(void);
   bool  errorPage(const char* error);
   void  processOneHTTP1_1(int connfd, unsigned short clientPort);
-  inline bool startTable(char* name = NULL)
+  inline bool startTable(char* name = nullptr)
    {
     if(name)
      {
@@ -111,20 +112,19 @@ private:
 
   // Member functions - private
   bool          reallocateResponseBuf(void);
+  void          dealWithPossibleCookies(void);
   unsigned      generateHeader(unsigned bodySize, unsigned code, const char* msg, 
-                                                              char* mimeType = NULL);
+                                                              char* mimeType = nullptr);
   bool          writeLoop(int fildes, char *buf, size_t nbyte);
   inline void   resetResponse(void)
    {
     respPtr         = respBuf;
     respEnd         = respBuf + respBufSize;
-    altResp         = NULL;
-    altMimeType     = NULL;
+    altResp         = nullptr;
+    altMimeType     = nullptr;
+    loggedInUser    = nullptr;
    }  
-  inline void   resetForNewConnection(void)
-   {
-    sessionId = 0ULL; 
-   }
+
   PreventAssignAndCopyConstructor(HttpServThread);       
 };
 

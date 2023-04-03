@@ -6,6 +6,8 @@
 // (eg see HttpDebug as the original subclass of this).
 
 #include "HttpServThread.h"
+#include "UserSession.h"
+#include "UserManager.h"
 #include "Logging.h"
 #include <unistd.h>
 
@@ -50,7 +52,7 @@ HttpServThread::~HttpServThread(void)
 /// @param bodySize The size of the response body  
 /// @param code The code number to generate on the HTTP status line (200, 404, etc)
 /// @param msg A C-string of message on the status line ("OK", "ERROR", etc).
-/// @param mimeType A C-string of the mime type for the content.  If NULL (the default)
+/// @param mimeType A C-string of the mime type for the content.  If nullptr (the default)
 /// then "text/html" will be used.
 
 unsigned HttpServThread::generateHeader(unsigned bodySize, unsigned code, 
@@ -184,6 +186,33 @@ bool HttpServThread::processRequestHeader(void)
 
 
 // =======================================================================================
+/// @brief Function to break out request Cookie handling from processOneHTTP1_1.
+/// 
+
+void HttpServThread::dealWithPossibleCookies(void)
+{
+  char* cookieVal = reqParser.getCookieString();
+  if(cookieVal)
+     cookies.processRequestCookies(cookieVal);
+  if(cookies.flags & VALID_SESSION_ID)
+   {
+    EntryStatus status;
+    UserManager& userMan = UserManager::getUserManager();
+    loggedInUser = userMan.getRecord(cookies.sessionId, status, userSessions);
+    if(loggedInUser)
+     {
+      LogPermaservOpDetails("Session ID for this request is now %llX on user %s.\n", 
+                                      cookies.sessionId, loggedInUser->userName.c_str());
+     }
+    else
+     {
+      LogPermaservOpDetails("Session ID %llX in request is not valid.\n", cookies.sessionId);
+     }
+   }
+}
+
+
+// =======================================================================================
 /// @brief Process one HTTP/1.1 connection, looping over the request headers and 
 /// arranging for them to be dealt with individually.
 /// @param connfd The socket file descriptor
@@ -194,22 +223,14 @@ void HttpServThread::processOneHTTP1_1(int connfd, unsigned short clientPort)
 {
   LogHTTPLoadBalance("HTTPDebug %d handling client on port %u.\n", queueIndex, clientPort);
   clientP = clientPort; // make this available for logging by subclasses.
-
-  resetForNewConnection();
   
   reqParser.setNewConnection(connfd);
 
   while(reqParser.getNextRequest())
    {
     resetResponse();
-    
-    // Deal with possible cookies
-    char* cookieVal = reqParser.getCookieString();
-    if(cookieVal)
-       cookies.processRequestCookies(cookieVal);
-   /* if(coookies.flags&VALID_SESSION_ID)
-      cookies.sessionId;*/
-    
+    dealWithPossibleCookies();
+        
     // Process the rest of the request (and generate a response body)
     unsigned headerLen;
     bool returnOK;

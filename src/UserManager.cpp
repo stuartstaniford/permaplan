@@ -870,22 +870,9 @@ bool UserManager::doChangePassword(HttpServThread* serv, HTMLForm* form)
    }
     
   // Get the user record
-  EntryStatus sessionStatus;
-  UserRecord* ur = getRecord(serv->sessionId, sessionStatus, serv->userSessions);
-  unless(ur)
+  unless(serv->loggedInUser)
    {
-    if(sessionStatus == EntryNotPresent)
-     {
-      LogUserErrors("Change password request when not logged in.\n");
-     }
-    else if(sessionStatus == EntryExpired)
-     {
-      LogUserErrors("Change password request when session expired.\n");
-     }
-    else 
-     {
-      LogUserErrors("Change password request with other error.\n");
-     }      
+    LogUserErrors("Change password request when not logged in.\n");
     return serv->errorPage("Change Password Error.");
    }
 
@@ -897,9 +884,10 @@ bool UserManager::doChangePassword(HttpServThread* serv, HTMLForm* form)
    }
   
   // Check the old password hash matches and then zero the password string out
-  unless(ur->checkPassword((*form)["oldpsw"]))
+  unless(serv->loggedInUser->checkPassword((*form)["oldpsw"]))
   {
-    LogUserErrors("Old password mismatch for user %s.\n", ur->userName.c_str());
+    LogUserErrors("Old password mismatch for user %s.\n", 
+                                                    serv->loggedInUser->userName.c_str());
     return serv->errorPage("Change Password Error.");
   }
 
@@ -913,7 +901,7 @@ bool UserManager::doChangePassword(HttpServThread* serv, HTMLForm* form)
   // Make sure the new password is different than the old password
   if(strcmp((*form)["oldpsw"], (*form)["psw1"]) == 0)
   {
-    LogUserErrors("New password is the same as the old password for user %s.\n",                                                                            ur->userName.c_str());
+    LogUserErrors("New password is the same as the old password for user %s.\n",                                                       serv->loggedInUser->userName.c_str());
     return serv->errorPage("Change Password Error.");
   }
 
@@ -938,15 +926,16 @@ bool UserManager::doChangePassword(HttpServThread* serv, HTMLForm* form)
   // Check the new password complexity
   unless(checkPasswordComplexity((*form)["psw1"]))
    {
-    LogUserErrors("New password doesn't meet complexity requirements for user %s.\n", ur->userName.c_str());
+    LogUserErrors("New password doesn't meet complexity requirements for user %s.\n", 
+                                                      serv->loggedInUser->userName.c_str());
     return serv->errorPage("Change Password Error.");
    }
   
   // Update the user's password
-  ur->setPassword((*form)["psw1"]);
+  serv->loggedInUser->setPassword((*form)["psw1"]);
 
   // Log the password change
-  LogUserOps("Password changed for user %s.\n", ur->userName.c_str());
+  LogUserOps("Password changed for user %s.\n", serv->loggedInUser->userName.c_str());
 
   // Save the changes to the user records
   writeFile();

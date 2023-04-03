@@ -15,8 +15,8 @@
 
 class UserManager;
 class UserSessionGroup;
-class HttpPermaserv;
-class HttpLBPermaserv;
+class HttpServThread;
+class HttpLoadBalancer;
 
 
 // =======================================================================================
@@ -52,8 +52,8 @@ private:
 class UserSessionGroup: private TimeoutMap<unsigned long long>
 {
   friend UserManager; 
-  friend HttpPermaserv;
-  friend HttpLBPermaserv;
+  friend HttpServThread;
+  friend HttpLoadBalancer;
   
   // No other class should mess with these, so everything is private
   

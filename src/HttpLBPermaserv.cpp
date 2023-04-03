@@ -9,7 +9,6 @@
 #include "SolarDatabase.h"
 #include "SoilDatabase.h"
 #include "ClimateDatabase.h"
-#include "UserSession.h"
 #include "Logging.h"
 
 
@@ -28,8 +27,9 @@ PermaservParams::PermaservParams(unsigned short port, unsigned flagsIn, float sp
 /// @brief Constructor
 
 HttpLBPermaserv::HttpLBPermaserv(PermaservParams& permaservParams):
-                                          HttpLoadBalancer(permaservParams.servPort),
-                                          params(permaservParams)
+                                    HttpLoadBalancer(permaservParams.servPort,
+                                            !(permaservParams.flags & PERMASERV_NO_USERS)),
+                                    params(permaservParams)
 {
   // Set up our component database objects
   
@@ -65,19 +65,7 @@ HttpLBPermaserv::HttpLBPermaserv(PermaservParams& permaservParams):
     climateDatabase = new ClimateDatabase;
     LogPermaservOps("Basic initialization of climate database complete.\n");
    }
-  
-  // User session group
-  if(params.flags & PERMASERV_NO_USERS)
-   {
-    userSessions = NULL;
-    LogPermaservOps("Initializing without user session group.\n");
-   }
-  else
-   {
-    userSessions = new UserSessionGroup;
-    LogPermaservOps("Initialization of user session group complete.\n");
-   }
-  
+    
   // Static objects  from files
   initializeScriptPages();
   initializeCSSPages();

@@ -28,7 +28,8 @@ class UserSessionGroup;
 
 class UserRecord
 {
-  friend UserManager; // No other class should mess with these, so everything is private
+  friend HttpServThread;
+  friend UserManager; // No other classes should mess with these, so everything is private
   
   private:
   
@@ -74,6 +75,8 @@ public:
   bool processHttpRequest(HttpServThread* serv, char* url, UserSessionGroup* sessions);
   static UserManager& getUserManager(void) // Get the singleton instance
    { return *theUserManager; }
+  UserRecord* getRecord(unsigned long long sessionId, EntryStatus& sessionStatus,   
+                        UserSessionGroup* sessions);
 
 private:
   
@@ -83,11 +86,7 @@ private:
   // Instance variables - private
   
   // Member functions - private
-  
-  // Utility
-  UserRecord* getRecord(unsigned long long sessionId, EntryStatus& sessionStatus,   
-                        UserSessionGroup* sessions);
-  
+    
   // Login
   bool doLogin(HttpServThread* serv, HTMLForm* form, UserSessionGroup* sessions);
   bool getLoginPage(HttpServThread* serv);

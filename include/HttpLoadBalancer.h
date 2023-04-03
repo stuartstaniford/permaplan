@@ -40,7 +40,7 @@ public:
   bool                shutDownNow; // Reads/writes on a single bool should be atomic, no lock.
   
   // Member functions - public
-  HttpLoadBalancer(unsigned short servPort);
+  HttpLoadBalancer(unsigned short servPort, bool haveSessions = false);
   ~HttpLoadBalancer(void);
   void* processConnections(void);
 
