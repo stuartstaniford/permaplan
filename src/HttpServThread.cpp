@@ -206,7 +206,21 @@ void HttpServThread::dealWithPossibleCookies(void)
      }
     else
      {
-      LogPermaservOpDetails("Session ID %llX in request is not valid.\n", cookies.sessionId);
+      if(status == EntryExpired)
+       {
+        LogPermaservOpDetails("Session ID %llX in request has expired.\n", 
+                                                                      cookies.sessionId);
+       }
+      else if(status == EntryNotPresent)
+       {
+        LogPermaservOpDetails("Session ID %llX in request is unknown.\n", 
+                                                                      cookies.sessionId);
+       }
+      else
+       {
+        LogPermaservOpDetails("Session ID %llX with bad status %d.\n", 
+                                                  cookies.sessionId, status);
+       }
      }
    }
 }
