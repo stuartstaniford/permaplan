@@ -101,16 +101,22 @@ bool HttpServThread::reallocateResponseBuf(void)
 /// @param title A C string to use in the title tag and also h1 tag at the top of the 
 /// page.
 /// @param refresh A refresh interval for the page (defaults to 0u if missing).
+/// @param scriptName The name (and path) of a script to include in the header.
 
-bool HttpServThread::startResponsePage(const char* title, unsigned refresh)
+bool HttpServThread::startResponsePage(const char* title, unsigned refresh,
+                                                                      char* scriptName)
 {
   internalPrintf("<!doctype html>\n<html lang=\"en\">\n<head>\n"
                                                         "<meta charset=\"utf-8\">\n");
   internalPrintf("<title>%s</title>\n", title);
   internalPrintf("<link rel=\"stylesheet\" type=\"text/css\" "
                                                   "href=\"/css/permaplan.css\">\n");
-  if(refresh > 0)
+  if(refresh > 0u)
     internalPrintf("<meta http-equiv=\"refresh\" content=\"%u\">\n", refresh);
+  
+  if(scriptName)
+    internalPrintf("<script src=\"%s\" async></script>\n", scriptName);
+  
   internalPrintf("</head>\n<body>\n");
   internalPrintf("<center><h1>%s</h1></center>\n", title);
   return true;

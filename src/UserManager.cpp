@@ -496,7 +496,8 @@ bool UserManager::addLoginFormToPage(HttpServThread* serv)
 bool UserManager::getLoginPage(HttpServThread* serv)
 {
   // Start the HTML page and the table header
-  unless(serv->startResponsePage((char*)"Login to Permaserv"))
+  unless(serv->startResponsePage((char*)"Login to Permaserv", 
+                                                  0u, (char*)"scripts/checkUserPass.js"))
     return false;
   
   unless(addLoginFormToPage(serv))
@@ -546,7 +547,8 @@ bool UserManager::sessionExpiredPage(HttpServThread* serv)
 bool UserManager::getCreatePage(HttpServThread* serv)
 {
   // Start the HTML page and the table header
-  unless(serv->startResponsePage((char*)"Create an Account on Permaserv"))
+  unless(serv->startResponsePage((char*)"Create an Account on Permaserv",
+                                                  0u, (char*)"scripts/checkUserPass.js"))
     return false;
   
   // Open Login Form
@@ -808,7 +810,8 @@ bool UserManager::checkPasswordComplexity(char* pwd)
 bool UserManager::getChangePasswordPage(HttpServThread* serv)
 {
   // Start the HTML page and the table header
-  unless(serv->startResponsePage((char*)"Change Password on Permaserv"))
+  unless(serv->startResponsePage((char*)"Change Password on Permaserv", 
+                                                    0u, (char*)"scripts/checkUserPass.js"))
     return false;
   
   // Open Form

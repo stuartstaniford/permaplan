@@ -72,7 +72,8 @@ public:
   // Member functions - public
   HttpServThread(unsigned index, HttpLoadBalancer* parent, UserSessionGroup* userS = nullptr);
   ~HttpServThread(void);
-  bool  startResponsePage(const char* title, unsigned refresh = 0u);
+  bool  startResponsePage(const char* title, unsigned refresh = 0u, 
+                                                            char* scriptName = nullptr);
   bool  endResponsePage(void);
   bool  errorPage(const char* error);
   void  processOneHTTP1_1(int connfd, unsigned short clientPort);
