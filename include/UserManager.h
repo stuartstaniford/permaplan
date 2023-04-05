@@ -24,7 +24,7 @@ class UserSessionGroup;
 
 // =======================================================================================
 /// @brief A record for a single user.
-///
+/// @todo There is currently no locking on user records, which is asking for trouble.
 
 class UserRecord
 {

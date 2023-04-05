@@ -121,7 +121,7 @@ Timeoutable* findEntry(Key key, EntryStatus& status)
   (*this)[key]->updateAccessToNow();
   status = EntryPresent;
   mapLock.unlock();
-  return (*this)[key];
+  return (*this)[key]; // Note, is still locked!!
 }
 
   

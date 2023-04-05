@@ -433,7 +433,10 @@ UserRecord* UserManager::getRecord(unsigned long long sessionId, EntryStatus& se
   if(session)
    {
     if(count(session->sessionUser))
+     {
+      session->unlock();
       return (*this)[session->sessionUser];
+     }
     else
       return nullptr;
    }
