@@ -31,11 +31,11 @@ public:
   ~Timeoutable(void);
   void updateAccessToNow(void);
   
-private:
-  
-  // Instance variables - private
+  // Instance variables - public
   Timeval lastAccess;  
 
+private:
+  
   // Member functions - private
   PreventAssignAndCopyConstructor(Timeoutable);
 };
@@ -56,6 +56,7 @@ public:
 private:
   
   // Instance variables - private
+  unsigned timeoutSecs;
   
   // Member functions - private
   PreventAssignAndCopyConstructor(TimeoutMap);
@@ -73,7 +74,7 @@ public:
 // =======================================================================================
 /// @brief Constructor
 
-TimeoutMap(void)
+TimeoutMap(unsigned timeout): timeoutSecs(timeout)
 {
 }
 
@@ -94,15 +95,31 @@ TimeoutMap(void)
 Timeoutable* findEntry(Key key, EntryStatus& status)
 {
   mapLock.lock();
+  
+  // Check if the entry is missing altogether
   unless((std::unordered_map<Key, Timeoutable*>::count(key)))
    {
     status = EntryNotPresent;
     mapLock.unlock();
-    return NULL;
+    return nullptr;
    }
   
+  // Get the current time
+  Timeval current;
+  current.now();
+  
+  // Check if the entry has expired
+  unless(current - (*this)[key]->lastAccess < timeoutSecs)
+   {
+    status = EntryExpired;
+    mapLock.unlock();
+    return nullptr;
+   }
+  
+  // Handle a successful search for the entry
   (*this)[key]->lock();
   (*this)[key]->updateAccessToNow();
+  status = EntryPresent;
   mapLock.unlock();
   return (*this)[key];
 }
@@ -126,6 +143,7 @@ Timeoutable* findEntry(Key key, EntryStatus& status)
      }
     
    entry->updateAccessToNow();
+   (*this)[key] = entry;
    mapLock.unlock();
    return true;
   }

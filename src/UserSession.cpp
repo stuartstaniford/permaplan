@@ -43,7 +43,7 @@ UserSession::~UserSession(void)
 // =======================================================================================
 /// @brief Constructor
 
-UserSessionGroup::UserSessionGroup(void)
+UserSessionGroup::UserSessionGroup(void):TimeoutMap<unsigned long long>(SESSION_TIMEOUT)
 {
 }
 
