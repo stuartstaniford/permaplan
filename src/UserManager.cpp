@@ -497,7 +497,7 @@ bool UserManager::getLoginPage(HttpServThread* serv)
 {
   // Start the HTML page and the table header
   unless(serv->startResponsePage((char*)"Login to Permaserv", 
-                                                  0u, (char*)"scripts/checkUserPass.js"))
+                                                  0u, (char*)"/scripts/checkUserPass.js"))
     return false;
   
   unless(addLoginFormToPage(serv))
@@ -548,12 +548,13 @@ bool UserManager::getCreatePage(HttpServThread* serv)
 {
   // Start the HTML page and the table header
   unless(serv->startResponsePage((char*)"Create an Account on Permaserv",
-                                                  0u, (char*)"scripts/checkUserPass.js"))
+                                                  0u, (char*)"/scripts/checkUserPass.js"))
     return false;
   
   // Open Login Form
   httPrintf("<center>\n");
-  httPrintf("<form action=\"create\" method=\"post\">\n");
+  httPrintf("<form action=\"create\" method=\"post\" "
+              "onsubmit = \"return validateCreateForm();\">\n");
   
   // Open the main user/pass section
   httPrintf("<div class=\"container\">\n");
@@ -811,13 +812,14 @@ bool UserManager::getChangePasswordPage(HttpServThread* serv)
 {
   // Start the HTML page and the table header
   unless(serv->startResponsePage((char*)"Change Password on Permaserv", 
-                                                    0u, (char*)"scripts/checkUserPass.js"))
+                                                    0u, (char*)"/scripts/checkUserPass.js"))
     return false;
   
   // Open Form
   httPrintf("<center>\n");
-  httPrintf("<form action=\"changePassword\" method=\"post\">\n");
-  
+  httPrintf("<form action=\"changePassword\" method=\"post\" "
+                              "onsubmit = \"return validateCreateForm();\">\n");
+
   // Open the main user/pass section
   httPrintf("<div class=\"container\">\n");
 

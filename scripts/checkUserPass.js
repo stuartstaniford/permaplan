@@ -46,7 +46,9 @@ function validatePasswordForm(psw1, psw2)
 {
   if (!isValidPassword(psw1)) 
    {
-    alert("Invalid password. Passwords must be at least " + PWD_MIN_SIZE + " characters long, contain at least one uppercase letter, one lowercase letter, one digit, and one special character.");
+    alert("Invalid password. Passwords must be at least " + PWD_MIN_SIZE + 
+          " characters long, contain at least one uppercase letter, one lowercase " + 
+          "letter, one digit, and one special character (from -_*^%$@!).");
     return false;
   }
 
@@ -79,7 +81,7 @@ function isValidPassword(password)
   var upper = /[A-Z]/;
   var lower = /[a-z]/;
   var digit = /[0-9]/;
-  var symbol = /[!@#$%^&*(),.?":{}|<>]/;
+  var symbol = /[-_*^%$@!]/;
 
   return password.length >= PWD_MIN_SIZE &&
          upper.test(password) &&
