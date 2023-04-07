@@ -49,7 +49,8 @@ UserSession::UserSession(char* userName)
      }
     else
      {
-      LogUserErrors("Could not create home directory %s.\n", dirName);
+      LogUserErrors("Could not create home directory %s: %s.\n", 
+                                                        dirName, strerror(errno) );
      }
    }
   unless( (homeDir = opendir(dirName)) )
@@ -57,7 +58,12 @@ UserSession::UserSession(char* userName)
     // Bad scene - cannot get the users home directory.  Nothing will go well for them.
     LogUserErrors("Cannot open home directory %s.\n", dirName);
    }
-         
+  else
+   {
+    LogUserDetails("Opened home directory %s.\n", dirName);    
+   }
+   
+  // release the lock for this session and go home
   unlock();
 }
 
