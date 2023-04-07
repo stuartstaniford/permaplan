@@ -153,6 +153,7 @@
 #define LOG_REQUEST_PARSING        // Log exactly what happens when parsing a request
 #define LOG_HTTP_DETAILS        // Log normal details of HTTP operations
 
+
 // =======================================================================================
 // Logging options to do with quadtree operations
 

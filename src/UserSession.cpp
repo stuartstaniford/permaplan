@@ -3,6 +3,7 @@
 
 #include "UserSession.h"
 #include "loadFileToBuf.h"
+#include "Logging.h"
 #include <sys/random.h>
 
 
@@ -41,10 +42,20 @@ UserSession::UserSession(char* userName)
   char dirName[MAX_USERNAME_LEN + 7];
   snprintf(dirName, MAX_USERNAME_LEN + 6, "users/%s", userName);
   unless(directoryExists(dirName))
-    createDirectory(dirName);
+   {
+    if(createDirectory(dirName))
+     {
+      LogUserOps("Created home directory %s.\n", dirName);
+     }
+    else
+     {
+      LogUserErrors("Could not create home directory %s.\n", dirName);
+     }
+   }
   unless( (homeDir = opendir(dirName)) )
    {
-    // Bad scene - cannot get the users home directory.  Nothing going to go well for this
+    // Bad scene - cannot get the users home directory.  Nothing will go well for them.
+    LogUserErrors("Cannot open home directory %s.\n", dirName);
    }
          
   unlock();
