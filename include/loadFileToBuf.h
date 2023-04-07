@@ -4,7 +4,8 @@
 #include <stdio.h>
 
 bool regularFileExists(char* fileName);
-bool directoryExists(char* fileName);
+bool directoryExists(char* dirName);
+bool createDirectory(char* dirName);
 float getFileAge(char* fileName);
 
 int modeBitsFromString(const char* modeString);

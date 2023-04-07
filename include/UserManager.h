@@ -20,6 +20,7 @@ class HttpServThread;
 class HTMLForm;
 class UserManager;
 class UserSessionGroup;
+class PmodDesign;
 
 
 // =======================================================================================
@@ -40,7 +41,8 @@ class UserRecord
   Timeval       pwdLastChange;
   bool          fileReadOk;   // constructors can't return NULL
   std::string   userName;
-
+  PmodDesign*   design;
+  
   // Static functions - private
   static int userNameLength(char* textLen);
   

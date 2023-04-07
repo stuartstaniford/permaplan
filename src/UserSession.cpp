@@ -2,6 +2,7 @@
 // This class ..... is a template for real classes
 
 #include "UserSession.h"
+#include "loadFileToBuf.h"
 #include <sys/random.h>
 
 
@@ -19,15 +20,33 @@ Lockable            UserSession::idLock;
 
 UserSession::UserSession(char* userName)
 {
+  // Get the necessary locks
   idLock.lock();
   lock();
+  
+  // Set the master ID the first time
   unless(masterId)
     getentropy(&masterId, sizeof(unsigned long long));
+  
+  // Get a unique session ID for this session
   theId = masterId++;
   unless(theId)
     theId = masterId++; // 0 is never a valid session id
   idLock.unlock();
+  
+  // Record the session User name for the session
   strncpy(sessionUser, userName, MAX_USERNAME_LEN);
+  
+  // Check for and open the home directory for the user
+  char dirName[MAX_USERNAME_LEN + 7];
+  snprintf(dirName, MAX_USERNAME_LEN + 6, "users/%s", userName);
+  unless(directoryExists(dirName))
+    createDirectory(dirName);
+  unless( (homeDir = opendir(dirName)) )
+   {
+    // Bad scene - cannot get the users home directory.  Nothing going to go well for this
+   }
+         
   unlock();
 }
 
@@ -37,6 +56,8 @@ UserSession::UserSession(char* userName)
 
 UserSession::~UserSession(void)
 {
+  if(homeDir)
+    closedir(homeDir);
 }
 
 

@@ -6,6 +6,7 @@
 #include "Global.h"
 #include "Lockable.h"
 #include "TimeoutMap.h"
+#include <dirent.h>
 
 #define SESSION_TIMEOUT 1500
 
@@ -32,7 +33,8 @@ private:
 
   // Instance variables - private
   unsigned long long  theId;
-  char                 sessionUser[MAX_USERNAME_LEN];
+  char                sessionUser[MAX_USERNAME_LEN];
+  DIR*                homeDir; 
   
   // Static variables
   static Lockable idLock;

@@ -3,9 +3,11 @@
 
 #include "loadFileToBuf.h"
 #include <err.h>
-#include <sys/stat.h>
+#include <sys/stat.h> // For POSIX systems (Linux, macOS)
 #include <sys/time.h>
+#include <sys/types.h> // For POSIX systems (Linux, macOS)
 #include <cstring>
+// #include <direct.h> // Uncomment this for Windows systems
 
 
 // =======================================================================================
@@ -42,14 +44,34 @@ float getFileAge(char* fileName)
 // =======================================================================================
 // Function to check that a file is present and is a directory
 
-bool directoryExists(char* fileName)
+bool directoryExists(char* dirName)
 {
   struct stat params;
-  if(stat(fileName, &params) < 0)
+  if(stat(dirName, &params) < 0)
     return false;
   if(!(params.st_mode&S_IFDIR))
     return false;
   return true;
+}
+
+
+// =======================================================================================
+// Function to create a directory
+
+bool createDirectory(char* dirName)
+{
+  int result;
+  
+  // For POSIX systems (Linux, macOS)
+  result = mkdir(dirName, 0755); // 0755 is the access mode (rwxr-xr-x)
+
+  // For Windows systems
+  // result = _mkdir(dirname);
+
+  if(result == 0)
+    return true;
+  else 
+    return false;
 }
 
 

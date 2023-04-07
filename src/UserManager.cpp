@@ -12,6 +12,7 @@
 #include "HTMLForm.h"
 #include "CryptoAlgorithms.h"
 #include "UserSession.h"
+#include "PmodDesign.h"
 #include <assert.h>
 
 
