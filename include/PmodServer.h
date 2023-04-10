@@ -26,12 +26,14 @@ public:
   PmodServer(void);
   ~PmodServer(void);
   bool indexPageTable(HttpServThread* serv);
+  bool processHttpRequest(HttpServThread* serv, char* url);
 
 private:
   
   // Instance variables - private
   
   // Member functions - private
+  bool provideManualUploadForm(HttpServThread* serv);
   PreventAssignAndCopyConstructor(PmodServer);
 };
 

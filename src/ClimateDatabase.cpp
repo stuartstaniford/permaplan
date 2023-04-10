@@ -98,7 +98,7 @@ bool ClimateDatabase::indexPageTable(HttpServThread* serv)
 /// @returns True if all was well writing to the buffer.  If false, it indicates the 
 /// buffer was not big enough and the output will have been truncated/incomplete.
 /// @param serv A pointer to the HttpServThread managing the HTTP response.
-/// @param url A string with the balance of the request url after "/user/".
+/// @param url A string with the balance of the request url after "/climate/".
 
 bool ClimateDatabase::processHttpRequest(HttpServThread* serv, char* url)
 {
@@ -164,7 +164,7 @@ bool ClimateDatabase::processHttpRequest(HttpServThread* serv, char* url)
   // Default - failure
   else
    {
-    LogRequestErrors("Request for unknown /user/ resource %s\n", url);
+    LogRequestErrors("Request for unknown /climate/ resource %s\n", url);
     retVal = serv->errorPage("Resource not found");
    }
 

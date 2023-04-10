@@ -111,8 +111,6 @@ bool HttpPermaServ::indexPage(void)
     internalPrintf("<hr><center><h4>Pmod Server for user OLDF disabled "
                                                                 "(-o)</h4></center>\n");
    }
-  
-    
     
   // All done with content, finish up
   endResponsePage();
@@ -306,6 +304,21 @@ bool HttpPermaServ::processRequestHeader(void)
    {
     LogPermaservOpDetails("Processing DNI request for %s.\n", url+5);
     retVal = processDNIRequest(url+5);
+   }
+
+  // oldf
+  else if( strlenUrl > 6 && strncmp(url, "/oldf/", 6) == 0)
+   {
+    unless(pmodServer)
+     {
+      LogRequestErrors("PmodServer not loaded for OLDF on %s\n", url);
+      errorPage("PmodServer not loaded");
+     }
+    else
+     {
+      LogPermaservOpDetails("Processing pmodserver request for %s.\n", url+6);
+      retVal = pmodServer->processHttpRequest(this, url+6);
+     }
    }
 
   // quit
