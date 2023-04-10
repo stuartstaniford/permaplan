@@ -68,10 +68,19 @@ bool PmodServer::processHttpRequest(HttpServThread* serv, char* url)
   int strlenUrl = strlen(url);
   bool retVal = false;
   
+  // Make sure we are logged in, and get the username
+  const char* loginName = serv->getLoggedInUserName();
+  unless(loginName)
+   {
+    LogResponseErrors("pmodServer request for %s when not logged in.\n", url);
+    return serv->errorPage("Need to login to do that.");
+   }
+  
   // manualUpload.html
   if(strlenUrl == 17 && strncmp(url, "manualUpload.html", 17) == 0)
    {
-    LogPermaservOpDetails("Processing pmodServer manual upload request.\n");
+    LogPermaservOpDetails("Processing pmodServer manual upload request for user %s.\n",
+                                                                                  loginName);
     retVal = provideManualUploadForm(serv);
    }
 
@@ -102,7 +111,37 @@ bool PmodServer::processHttpRequest(HttpServThread* serv, char* url)
 
 bool PmodServer::provideManualUploadForm(HttpServThread* serv)
 {
-  return false;  
+  // Start the HTML page and the table header
+  unless(serv->startResponsePage((char*)"Manually Upload an OLDF file"))
+    return false;
+  
+  // Open Upload Form
+  httPrintf("<center>\n");
+  httPrintf("<form action=\"fileUpload\" method=\"post\" "
+                                                  " enctype=\"multipart/form-data\">\n");
+  
+  // Open the main section
+  httPrintf("<div class=\"container\">\n");
+  
+  // File to upload
+  httPrintf("<label for=\"file\"><b>Choose a file to upload:</b></label>\n");
+  httPrintf("<input type=\"file\" id=\"file\" name=\"uploaded_file\"  required>\n");
+  httPrintf("<br><br>\n");
+    
+  // Upload button
+  httPrintf("<button type=\"submit\">Upload</button>\n");
+
+  // End section
+  httPrintf("</div>\n");
+  
+  // End the form
+  httPrintf("</form></center>\n");
+  
+  // Finish up the page
+  unless(serv->endResponsePage())
+    return false;
+
+  return true;  
 }
 
 

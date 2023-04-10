@@ -45,6 +45,20 @@ HttpServThread::~HttpServThread(void)
 
 
 // =======================================================================================
+/// @brief Return the userName if a user is currently logged in.
+///
+/// @returns The username, nullptr if no-one is logged in.
+
+const char* HttpServThread::getLoggedInUserName(void)
+ {
+  if(loggedInUser)
+    return loggedInUser->userName.c_str();
+  else
+    return nullptr;
+ }
+
+
+// =======================================================================================
 /// @brief Generate a response header into the header buffer.
 ///
 /// Note headBufSize is currently 4096 so this won't stretch it.

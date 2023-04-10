@@ -100,6 +100,7 @@ public:
     respPtr     = buf + size;
     altMimeType = mimeType;
    }
+  const char* getLoggedInUserName(void);
 
 protected:
   
