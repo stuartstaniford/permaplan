@@ -9,6 +9,7 @@
 #include "SolarDatabase.h"
 #include "SoilDatabase.h"
 #include "ClimateDatabase.h"
+#include "PmodServer.h"
 #include "Logging.h"
 
 
@@ -45,6 +46,18 @@ HttpLBPermaserv::HttpLBPermaserv(PermaservParams& permaservParams):
     LogPermaservOps("Initialization of solar database complete.\n");
    }
   
+  // PmodServ (for user OLDF files) 
+  if(params.flags & (PERMASERV_NO_OLDFSERV | PERMASERV_NO_USERS))
+   {
+    pmodServer = NULL;
+    LogPermaservOps("Initializing without Pmod Server for OLDF files.\n");
+   }
+  else
+   {
+    pmodServer = new PmodServer;
+    LogPermaservOps("Initialization of Pmod Server for user OLDF files complete.\n");
+   }
+
   // Soil Database
   soilDatabase = new SoilDatabase;
   LogPermaservOps("Initialization of soil database complete.\n");
@@ -73,7 +86,8 @@ HttpLBPermaserv::HttpLBPermaserv(PermaservParams& permaservParams):
   // Run the threads to service requests
   for(unsigned i=0; i<HTTP_THREAD_COUNT;i++)
     httpThreads[i] = (TaskQueue*) new HttpPermaServ(i, solarDatabase, soilDatabase, 
-                                climateDatabase, userSessions, (HttpLoadBalancer*)this);
+                                climateDatabase, pmodServer, userSessions,
+                                (HttpLoadBalancer*)this);
 }
 
 

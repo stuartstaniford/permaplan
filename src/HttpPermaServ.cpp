@@ -8,6 +8,7 @@
 #include "HttpLBPermaserv.h"
 #include "ClimateDatabase.h"
 #include "ClimateInfo.h"
+#include "PmodServer.h"
 #include "UserManager.h"
 #include "UserSession.h"
 
@@ -16,12 +17,13 @@
 /// @brief Constructor
 
 HttpPermaServ::HttpPermaServ(unsigned index, SolarDatabase* solarD, SoilDatabase* soilD, 
-                            ClimateDatabase* climateD, UserSessionGroup* userS, 
-                            HttpLoadBalancer* parent):
+                            ClimateDatabase* climateD, PmodServer* pServ, 
+                            UserSessionGroup* userS, HttpLoadBalancer* parent):
                                           HttpServThread(index, parent, userS),
                                           solarDatabase(solarD),
                                           soilDatabase(soilD),
-                                          climateDatabase(climateD)
+                                          climateDatabase(climateD),
+                                          pmodServer(pServ)
 {
 }
 
