@@ -1,13 +1,14 @@
 // Copyright Staniford Systems.  All Rights Reserved.  April 2023 -
-// This class ..... is a template for real classes
+// This class coordinates operations for the handling of PmodDesign related HTTP
+// operations in Permaserv.
 
-#include "EmptyClass.h"
+#include "PmodServer.h"
 
 
 // =======================================================================================
 /// @brief Constructor
 
-EmptyClass::EmptyClass(void)
+PmodServer::PmodServer(void)
 {
 }
 
@@ -15,7 +16,7 @@ EmptyClass::EmptyClass(void)
 // =======================================================================================
 /// @brief Destructor
 
-EmptyClass::~EmptyClass(void)
+PmodServer::~PmodServer(void)
 {
 }
 

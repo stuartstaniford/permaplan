@@ -1,39 +1,34 @@
 // Copyright Staniford Systems.  All Rights Reserved.  April 2023 -
 
-#ifndef EMPTY_CLASS_H
-#define EMPTY_CLASS_H
+#ifndef PMOD_SERVER_H
+#define PMOD_SERVER_H
 
 #include "Global.h"
 
 
 // =======================================================================================
-/// @brief This is a template for new classes.  Quick description of the class here.
-///
-/// More details of the class go here.
+/// @brief This class coordinates operations for the handling of PmodDesign related HTTP
+/// operations in Permaserv.
 
-class EmptyClass
+class PmodServer
 {
 public:
   
   // Instance variables - public
   
   // Member functions - public
-  EmptyClass(void);
-  ~EmptyClass(void);
+  PmodServer(void);
+  ~PmodServer(void);
   
 private:
   
   // Instance variables - private
   
   // Member functions - private
-  PreventAssignAndCopyConstructor(EmptyClass);
+  PreventAssignAndCopyConstructor(PmodServer);
 };
 
 
 // =======================================================================================
 
 #endif
-
-
-
-
