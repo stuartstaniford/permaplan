@@ -7,6 +7,12 @@
 
 
 // =======================================================================================
+// Forward declarations
+
+class HttpServThread;
+
+
+// =======================================================================================
 /// @brief This class coordinates operations for the handling of PmodDesign related HTTP
 /// operations in Permaserv.
 
@@ -19,7 +25,8 @@ public:
   // Member functions - public
   PmodServer(void);
   ~PmodServer(void);
-  
+  bool indexPageTable(HttpServThread* serv);
+
 private:
   
   // Instance variables - private

@@ -103,6 +103,16 @@ bool HttpPermaServ::indexPage(void)
     internalPrintf("<hr><center><h4>Climate Options Disabled (-c)</h4></center>\n");
    }
   
+  // Table of pmod server options
+  if(pmodServer)
+    pmodServer->indexPageTable(this);
+  else
+   {
+    internalPrintf("<hr><center><h4>Pmod Server for user OLDF disabled "
+                                                                "(-o)</h4></center>\n");
+   }
+  
+    
     
   // All done with content, finish up
   endResponsePage();

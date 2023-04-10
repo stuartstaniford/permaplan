@@ -46,9 +46,12 @@ void printUsage(int argc, char* argv[])
   printf("\t-c\tRun server with no climate database.\n");
   printf("\t-C T\tGet all GHCN climate files with T secs spacing.\n");
   printf("\t-h\tPrint this message.\n");
+  printf("\t-o\tRun server with no OLDF file handling.\n");
   printf("\t-p P\tRun server on port P.\n");
   printf("\t-s\tRun server with no solar database.\n");
   printf("\t-u\tRun server with no user sessions/management.\n");
+  printf("Note:\n");
+  printf("\t* -u implies -o as OLDF handling depends on user directories.\n");
   printf("\n");
   exit(0);
 }
@@ -65,7 +68,7 @@ void processCommandLine(int argc, char* argv[])
 {  
   int optionChar;
 
-  while( (optionChar = getopt(argc, argv, "cC:hp:su")) != -1)
+  while( (optionChar = getopt(argc, argv, "cC:hop:su")) != -1)
     switch (optionChar)
      {
        case 'c':
@@ -82,7 +85,11 @@ void processCommandLine(int argc, char* argv[])
        case 'h':
          printUsage(argc, argv);
          exit(0);
-      
+
+       case 'o':
+        permaservParams.flags |= PERMASERV_NO_OLDFSERV;
+        break;
+
        case 'p':
          permaservParams.servPort = atoi(optarg);
          if(!permaservParams.servPort)
