@@ -302,8 +302,9 @@ void HttpServThread::processOneHTTP1_1(int connfd, unsigned short clientPort)
       headerLen = generateHeader(0u, 500, "ERROR");
      }
     LogHTTPDetails("Sending response header:\n%s\n", headBuf);
+    LogResponseBodies("With attached body:\n%s\n", respBuf);
     
-    // Respond to the client client
+    // Respond to the client
     unless(writeLoop(connfd, headBuf, headerLen))
       break;
     if(returnOK)

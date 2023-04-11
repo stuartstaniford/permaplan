@@ -356,6 +356,14 @@ bool UserManager::processHttpRequest(HttpServThread* serv, char* url,
 
 bool UserManager::doLogin(HttpServThread* serv, HTMLForm* form, UserSessionGroup* sessions)
 {
+  // Don't service this request if already logged in
+  const char* loginName = serv->getLoggedInUserName();
+  if(loginName)
+   {
+    LogUserErrors("Request to login while already logged in as %s.\n", loginName);
+    return doubleLoginPage(serv);
+   }
+
   // Sanity check the form
   if(!form || form->getDynamicType() != TypeHTMLForm)
    {

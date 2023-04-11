@@ -119,6 +119,7 @@ bool doLogHTTPDetails         = true; // Log normal details of HTTP operations
 bool doLogHTTPLoadBalance     = true; // Log which connections get processed where
 bool doLogRequestParsing      = true; // Log exactly what happens when parsing a request
 bool doLogPseudoActions       = true; // Log as the main thread processes pseudo-actions
+bool doLogResponseBodies      = true; // Log all the bodies of HTTP responses we provide
 
 // Logging options to do with quadtree operations
 bool doLogQuadtreeCreation    = true; // Log the initial setup of the quadtree.
@@ -250,6 +251,7 @@ bool flushLogHTTPDetails         = true; // Log normal details of HTTP operation
 bool flushLogHTTPLoadBalance     = false; // Log which connections get processed where
 bool flushLogRequestParsing      = true; // Log exactly what happens when parsing a request
 bool flushLogPseudoActions       = false; // Log as the main thread processes pseudo-actions
+bool flushLogResponseBodies      = false; // Log all the bodies of HTTP responses we provide
 
 // Logging options to do with quadtree operations
 bool flushLogQuadtreeCreation    = false; // Log the initial setup of the quadtree.
@@ -781,6 +783,11 @@ bool LogControlHTML(HttpDebug* serv, char* path)
 #ifdef LOG_PSEUDO_ACTIONS // Log as the main thread processes pseudo-actions
   if(strncmp(path, "doLogPseudoActions", sizeof("doLogPseudoActions")-1)==0)
     return oneLogControl(serv, path, doLogPseudoActions);
+#endif
+
+#ifdef LOG_RESPONSE_BODIES // Log all the bodies of HTTP responses we provide
+  if(strncmp(path, "doLogResponseBodies", sizeof("doLogResponseBodies")-1)==0)
+    return oneLogControl(serv, path, doLogResponseBodies);
 #endif
 
   

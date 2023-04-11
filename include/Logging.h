@@ -151,7 +151,8 @@
 // NOT FOR PRODUCTION USE!!!
 // These next may result in passwords being recorded in the clear in the log.
 #define LOG_REQUEST_PARSING        // Log exactly what happens when parsing a request
-#define LOG_HTTP_DETAILS        // Log normal details of HTTP operations
+#define LOG_HTTP_DETAILS          // Log normal details of HTTP operations
+#define LOG_RESPONSE_BODIES       // Log all the bodies of HTTP responses we provide
 
 
 // =======================================================================================
@@ -346,6 +347,7 @@ extern bool doLogHTTPDetails;         // Log normal details of HTTP operations
 extern bool doLogHTTPLoadBalance;     // Log which connections get processed where
 extern bool doLogRequestParsing;      // Log exactly what happens when parsing a request
 extern bool doLogPseudoActions;       // Log as the main thread processes pseudo-actions
+extern bool doLogResponseBodies;      // Log all the bodies of HTTP responses we provide
 
 // Logging options to do with quadtree operations
 extern bool doLogQuadtreeCreation;    // Log the initial setup of the quadtree.
@@ -476,6 +478,7 @@ extern bool flushLogHTTPDetails;         // Log normal details of HTTP operation
 extern bool flushLogHTTPLoadBalance;     // Log which connections get processed where
 extern bool flushLogRequestParsing;      // Log exactly what happens when parsing a request
 extern bool flushLogPseudoActions;       // Log as the main thread processes pseudo-actions
+extern bool flushLogResponseBodies;      // Log all the bodies of HTTP responses we provide
 
 // Logging options to do with quadtree operations
 extern bool flushLogQuadtreeCreation;   // Log the initial setup of the quadtree.
@@ -1474,6 +1477,18 @@ extern bool flushLogObjectAltitudes;   // Log finding the altitudes of objects a
                               }
 #else
 #define LogHTTPDetails(...)
+#endif
+
+// Log all the bodies of HTTP responses we provide
+#ifdef LOG_RESPONSE_BODIES
+#define LogResponseBodies(...)   {\
+                                if(doLogResponseBodies) \
+                                  LogStatement("LogResponseBodies: " __VA_ARGS__)\
+                                if(flushLogResponseBodies)\
+                                  LogFlush();\
+                              }
+#else
+#define LogResponseBodies(...)
 #endif
 
 // Log which connections get processed where
