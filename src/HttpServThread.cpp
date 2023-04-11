@@ -301,6 +301,7 @@ void HttpServThread::processOneHTTP1_1(int connfd, unsigned short clientPort)
       LogRequestErrors("500 error being returned on HTTP request.\n");
       headerLen = generateHeader(0u, 500, "ERROR");
      }
+    LogHTTPDetails("Sending response header:\n%s\n", headBuf);
     
     // Respond to the client client
     unless(writeLoop(connfd, headBuf, headerLen))

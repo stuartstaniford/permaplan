@@ -496,6 +496,14 @@ bool UserManager::addLoginFormToPage(HttpServThread* serv)
 
 bool UserManager::getLoginPage(HttpServThread* serv)
 {
+  // Don't provide this page if already logged in
+  const char* loginName = serv->getLoggedInUserName();
+  if(loginName)
+   {
+    LogUserErrors("Request for login page while already logged in as %s.\n", loginName);
+    return doubleLoginPage(serv);
+   }
+  
   // Start the HTML page and the table header
   unless(serv->startResponsePage((char*)"Login to Permaserv", 
                                                   0u, (char*)"/scripts/checkUserPass.js"))
@@ -503,6 +511,30 @@ bool UserManager::getLoginPage(HttpServThread* serv)
   
   unless(addLoginFormToPage(serv))
     return false;
+  
+  // Finish up the page
+  unless(serv->endResponsePage())
+    return false;
+
+  return true;
+}
+
+
+// =======================================================================================
+/// @brief Return a warning page when trying to do login related things while already
+/// logged in.
+/// 
+/// @returns True if all was well writing to the buffer.  If false, it indicates the 
+/// buffer was not big enough and the output will have been truncated/incomplete.
+/// @param serv A pointer to the HttpServThread managing the HTTP response.
+
+bool UserManager::doubleLoginPage(HttpServThread* serv)
+{  
+  // Start the HTML page and the table header
+  unless(serv->startResponsePage((char*)"Already Logged In"))
+    return false;
+  
+  httPrintf("You tried to login in while already logged in.");
   
   // Finish up the page
   unless(serv->endResponsePage())

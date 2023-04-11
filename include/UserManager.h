@@ -94,6 +94,7 @@ private:
   bool getLoginPage(HttpServThread* serv);
   bool addLoginFormToPage(HttpServThread* serv);
   bool sessionExpiredPage(HttpServThread* serv);
+  bool doubleLoginPage(HttpServThread* serv);
 
   // Account creation
   bool getCreatePage(HttpServThread* serv);
