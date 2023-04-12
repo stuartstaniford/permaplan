@@ -18,6 +18,10 @@
               respEnd-respPtr,  __VA_ARGS__)) >= respEnd) \
                 {respBufOverflow = true; return false;}
 
+#define DEV_CACHE_DURATION 900
+#define PROD_CACHE_DURATION 86400
+#define CACHE_DURATION DEV_CACHE_DURATION
+
 
 // =======================================================================================
 // Forward declarations
@@ -62,6 +66,7 @@ protected:
   char*               altResp; // used for static pages
   char*               altMimeType;
   char*               headBuf;
+  unsigned            cacheDuration;                 
   unsigned short      clientP;
   HttpLoadBalancer*   parentLB;
   UserSessionGroup*   userSessions;
@@ -77,6 +82,11 @@ public:
   bool  endResponsePage(void);
   bool  errorPage(const char* error);
   void  processOneHTTP1_1(int connfd, unsigned short clientPort);
+  inline void setCacheDuration(int duration) 
+   {
+    cacheDuration = duration;
+   }
+
   inline bool startTable(char* name = nullptr)
    {
     if(name)
@@ -125,6 +135,7 @@ private:
     altResp         = nullptr;
     altMimeType     = nullptr;
     loggedInUser    = nullptr;
+    cacheDuration   = 0u;
    }  
 
   PreventAssignAndCopyConstructor(HttpServThread);       

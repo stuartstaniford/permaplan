@@ -76,13 +76,25 @@ unsigned HttpServThread::generateHeader(unsigned bodySize, unsigned code,
   if(strlen(msg) > headBufSize-1024)
     err(-1, "Excessive message size in HttpDebug::generateHeader.");
     
+  // Initial response line
   ptr += sprintf(ptr, "HTTP/1.1 %u %s\r\n", code, msg);
+  
+  // Mime type of body
   if(mimeType)
     ptr += sprintf(ptr, "Content-Type: %s\r\n", mimeType);
   else
     ptr += sprintf(ptr, "Content-Type: text/html\r\n");
+  
+  // Cookies
   ptr += cookies.sprint(ptr);
+  
+  // Content length
   ptr += sprintf(ptr, "Content-Length: %u\r\n", bodySize);
+
+  // Caching
+  ptr += sprintf(ptr, "Cache-Control: public, max-age=%u\r\n", cacheDuration);
+  
+  // Wrap header up and go home
   ptr += sprintf(ptr, "\r\n");
   return (ptr-headBuf);
 }
@@ -301,7 +313,7 @@ void HttpServThread::processOneHTTP1_1(int connfd, unsigned short clientPort)
       LogRequestErrors("500 error being returned on HTTP request.\n");
       headerLen = generateHeader(0u, 500, "ERROR");
      }
-    LogHTTPDetails("Sending response header:\n%s\n", headBuf);
+    LogHTTPDetails("Sending response header:\n%s", headBuf);
     LogResponseBodies("With attached body:\n%s\n", respBuf);
     
     // Respond to the client

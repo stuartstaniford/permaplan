@@ -314,7 +314,7 @@ bool HttpRequestParser::readAndCheck(int& nBytes)
     connectionDone = true;
     return false;
    }
-  LogHTTPDetails("Got from client: %s\n", readPoint);
+  LogHTTPDetails("Got from client:\n%s", readPoint);
   return true;
 }
 

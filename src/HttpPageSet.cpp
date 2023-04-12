@@ -58,6 +58,7 @@ bool HttpPageSet::processPageRequest(HttpServThread* serv, char* url)
      }
     char* response = page->getResponse();
     serv->setAltResp(response, strlen(response), mimeType); 
+    serv->setCacheDuration(CACHE_DURATION);
     unlock();
     return true;
    }
