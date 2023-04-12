@@ -133,3 +133,16 @@ void* HttpLoadBalancer::processConnections(void)
 
 
 // =======================================================================================
+/// @brief Function to set up static images etc that we serve.
+/// 
+/// Eg this is where favicon.ico and the like get served from.
+
+void HttpLoadBalancer::initializeBasicImages(void)
+{
+  //cssPages = new HttpPageSet((char*)"css/", (char*)"text/css");
+  
+  //cssPages->insert({"permaplan.css", NULL});
+}
+
+
+// =======================================================================================

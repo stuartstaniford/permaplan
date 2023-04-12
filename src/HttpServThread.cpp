@@ -92,7 +92,8 @@ unsigned HttpServThread::generateHeader(unsigned bodySize, unsigned code,
   ptr += sprintf(ptr, "Content-Length: %u\r\n", bodySize);
 
   // Caching
-  ptr += sprintf(ptr, "Cache-Control: public, max-age=%u\r\n", cacheDuration);
+  if(cacheDuration > 0u)
+    ptr += sprintf(ptr, "Cache-Control: public, max-age=%u\r\n", cacheDuration);
   
   // Wrap header up and go home
   ptr += sprintf(ptr, "\r\n");
@@ -142,6 +143,14 @@ bool HttpServThread::startResponsePage(const char* title, unsigned refresh,
   
   if(scriptName)
     internalPrintf("<script src=\"%s\" async></script>\n", scriptName);
+  
+  internalPrintf("<link rel=\"apple-touch-icon\" sizes=\"180x180\" "
+                                                  "href=\"/apple-touch-icon.png\">\n");
+  internalPrintf("<link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" "
+                                                      "href=\"/favicon-32x32.png\">\n");
+  internalPrintf("<link rel=\"icon\" type=\"image/png\" sizes=\"16x16\" "
+                                                      "href=\"/favicon-16x16.png\">\n");
+  internalPrintf("<link rel=\"manifest\" href=\"/site.webmanifest\">\n");
   
   internalPrintf("</head>\n<body>\n");
   internalPrintf("<center><h1>%s</h1></center>\n", title);
@@ -313,8 +322,17 @@ void HttpServThread::processOneHTTP1_1(int connfd, unsigned short clientPort)
       LogRequestErrors("500 error being returned on HTTP request.\n");
       headerLen = generateHeader(0u, 500, "ERROR");
      }
+
+    // Detailed logging of what we did
     LogHTTPDetails("Sending response header:\n%s", headBuf);
-    LogResponseBodies("With attached body:\n%s\n", respBuf);
+    if(altResp)
+     {
+      LogResponseBodies("With attached body:\n%s\n", altResp);
+     }
+    else
+     {
+      LogResponseBodies("With attached body:\n%s\n", respBuf);
+     }
     
     // Respond to the client
     unless(writeLoop(connfd, headBuf, headerLen))
@@ -332,7 +350,8 @@ void HttpServThread::processOneHTTP1_1(int connfd, unsigned short clientPort)
           break;
        }
      }
-    //fprintf(stderr, "timeToDie on %d is %d.\n", queueIndex, timeToDie);
+    
+    // Check for loop termination conditions
     if(timeToDie || reqParser.connectionWillClose)
      {
       reqParser.resetForNewConnection();

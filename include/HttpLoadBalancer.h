@@ -5,6 +5,7 @@
 
 #define HTTP_THREAD_COUNT 3
 
+#include "Global.h"
 #include <netinet/in.h>
 #include <sys/socket.h>
 #include <sys/types.h>
@@ -60,8 +61,8 @@ private:
   unsigned short      port;
   
   // Member functions - private
-  HttpLoadBalancer(const HttpLoadBalancer&);                 // Prevent copy-construction
-  HttpLoadBalancer& operator=(const HttpLoadBalancer&);      // Prevent assignment
+  void initializeBasicImages(void);
+  PreventAssignAndCopyConstructor(HttpLoadBalancer);
 };
 
 
