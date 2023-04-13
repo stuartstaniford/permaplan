@@ -142,7 +142,7 @@ void* HttpLoadBalancer::processConnections(void)
 
 void HttpLoadBalancer::initializeBasicStaticPages(void)
 {
-  basicStaticPages = new HttpPageSet((char*)"/");
+  basicStaticPages = new HttpPageSet((char*)"");
   
   basicStaticPages->insert({"favicon-16x16.png", NULL});
   basicStaticPages->insert({"favicon-32x32.png", NULL});

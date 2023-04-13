@@ -361,6 +361,14 @@ bool HttpPermaServ::processRequestHeader(void)
      }
    }
 
+  // basic objects from parent (eg favicon.ico)
+  else if( strlenUrl >= 8 && *url == '/' )
+   {
+    LogPermaservOpDetails("Processing / request for %s.\n", url+1);
+    HttpPageSet& basic = *(parentLB->basicStaticPages);
+    retVal = basic.processPageRequest(this, url+1);
+   }
+
  //Default - failure
  else
   {

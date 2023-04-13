@@ -45,12 +45,12 @@ public:
   HttpLoadBalancer(unsigned short servPort, bool haveSessions = false);
   ~HttpLoadBalancer(void);
   void* processConnections(void);
+  HttpPageSet*      basicStaticPages;
 
 protected:
   TaskQueue**  httpThreads;  // must be initialized by subclass that knows the 
                                   // real type of these
   UserSessionGroup* userSessions;
-  HttpPageSet*      basicStaticPages;
   
 private:
   
