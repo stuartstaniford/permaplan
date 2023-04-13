@@ -23,6 +23,8 @@ enum MimeType
   // Image types
   ImageGif,
   ImageJpeg,
+  ImagePng,
+  ImageIco,
   
   // Application types
   ApplicationJson,
@@ -38,7 +40,8 @@ class MimeTypeMap: public std::unordered_map<std::string, MimeType>
 public:
   
   // Instance variables - public
-  
+  static const char* inverseMap[];
+ 
   // Member functions - public
   MimeTypeMap(void);
   ~MimeTypeMap(void);
@@ -48,7 +51,7 @@ private:
   
   // Private static (class) variables
   static MimeTypeMap* theOnlyMap;
-
+  
   // Instance variables - private
   
   // Member functions - private
@@ -64,7 +67,7 @@ private:
 ///
 /// For example, .html is mapped to text/html and so on.
 
-class ExtensionMimeTypeMap: public std::unordered_map<std::string, std::string>
+class ExtensionMimeTypeMap: public std::unordered_map<std::string, MimeType>
 {
 public:
   
@@ -93,7 +96,3 @@ private:
 // =======================================================================================
 
 #endif
-
-
-
-

@@ -107,7 +107,7 @@ HttpLBPermaserv::~HttpLBPermaserv(void)
 
 void HttpLBPermaserv::initializeScriptPages(void)
 {
-  scriptPages = new HttpPageSet((char*)"scripts/", (char*)"text/javascript");
+  scriptPages = new HttpPageSet((char*)"scripts/", TextJavascript);
   
   scriptPages->insert({"test.js", NULL});
   scriptPages->insert({"checkUserPass.js", NULL});
@@ -122,7 +122,7 @@ void HttpLBPermaserv::initializeScriptPages(void)
 
 void HttpLBPermaserv::initializeCSSPages(void)
 {
-  cssPages = new HttpPageSet((char*)"css/", (char*)"text/css");
+  cssPages = new HttpPageSet((char*)"css/", TextCss);
   
   cssPages->insert({"permaplan.css", NULL});
 }

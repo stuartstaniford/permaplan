@@ -2454,8 +2454,6 @@ src/HttpDebug.o: ./include/Window3D.h ./include/Camera.h
 src/HttpDebug.o: /usr/local/include/GLFW/glfw3.h ./include/Species.h
 src/HttpDebug.o: ./include/Version.h ./include/GLFWApplication.h
 src/HttpLBDebug.o: ./include/HttpLBDebug.h ./include/HttpLoadBalancer.h
-src/HttpLBDebug.o: ./include/HttpDebug.h ./include/HttpServThread.h
-src/HttpLBDebug.o: ./include/TaskQueue.h ./include/Lockable.h
 src/HttpLBDebug.o: ./include/Global.h /usr/local/include/cglm/cglm.h
 src/HttpLBDebug.o: /usr/local/include/cglm/common.h
 src/HttpLBDebug.o: /usr/local/include/cglm/types.h
@@ -2498,12 +2496,12 @@ src/HttpLBDebug.o: /usr/local/include/cglm/ease.h
 src/HttpLBDebug.o: /usr/local/include/cglm/curve.h
 src/HttpLBDebug.o: /usr/local/include/cglm/bezier.h
 src/HttpLBDebug.o: /usr/local/include/cglm/ray.h
-src/HttpLBDebug.o: /usr/local/include/cglm/affine2d.h
-src/HttpLBDebug.o: ./include/HttpRequestParser.h ./include/MimeTypeMaps.h
-src/HttpLBDebug.o: ./include/PermaservCookie.h
+src/HttpLBDebug.o: /usr/local/include/cglm/affine2d.h ./include/HttpDebug.h
+src/HttpLBDebug.o: ./include/HttpServThread.h ./include/TaskQueue.h
+src/HttpLBDebug.o: ./include/Lockable.h ./include/HttpRequestParser.h
+src/HttpLBDebug.o: ./include/MimeTypeMaps.h ./include/PermaservCookie.h
 src/HttpLBPermaserv.o: ./include/HttpLBPermaserv.h
-src/HttpLBPermaserv.o: ./include/HttpLoadBalancer.h ./include/HttpPageSet.h
-src/HttpLBPermaserv.o: ./include/Lockable.h ./include/Global.h
+src/HttpLBPermaserv.o: ./include/HttpLoadBalancer.h ./include/Global.h
 src/HttpLBPermaserv.o: /usr/local/include/cglm/cglm.h
 src/HttpLBPermaserv.o: /usr/local/include/cglm/common.h
 src/HttpLBPermaserv.o: /usr/local/include/cglm/types.h
@@ -2547,6 +2545,7 @@ src/HttpLBPermaserv.o: /usr/local/include/cglm/curve.h
 src/HttpLBPermaserv.o: /usr/local/include/cglm/bezier.h
 src/HttpLBPermaserv.o: /usr/local/include/cglm/ray.h
 src/HttpLBPermaserv.o: /usr/local/include/cglm/affine2d.h
+src/HttpLBPermaserv.o: ./include/HttpPageSet.h ./include/Lockable.h
 src/HttpLBPermaserv.o: ./include/HttpPermaServ.h ./include/HttpServThread.h
 src/HttpLBPermaserv.o: ./include/TaskQueue.h ./include/HttpRequestParser.h
 src/HttpLBPermaserv.o: ./include/MimeTypeMaps.h ./include/PermaservCookie.h
@@ -2639,12 +2638,10 @@ src/HttpLBPermaserv.o: /usr/local/Cellar/glib/2.74.0/include/glib-2.0/glib/depre
 src/HttpLBPermaserv.o: /usr/local/Cellar/glib/2.74.0/include/glib-2.0/glib/deprecated/grel.h
 src/HttpLBPermaserv.o: /usr/local/Cellar/glib/2.74.0/include/glib-2.0/glib/deprecated/gthread.h
 src/HttpLBPermaserv.o: /usr/local/Cellar/glib/2.74.0/include/glib-2.0/glib/glib-autocleanups.h
-src/HttpLBPermaserv.o: ./include/ClimateDatabase.h ./include/UserSession.h
-src/HttpLBPermaserv.o: ./include/TimeoutMap.h ./include/Timeval.h
+src/HttpLBPermaserv.o: ./include/ClimateDatabase.h ./include/PmodServer.h
 src/HttpLBPermaserv.o: ./include/Logging.h ./include/MemoryTracker.h
-src/HttpLoadBalancer.o: ./include/HttpLoadBalancer.h ./include/HttpDebug.h
-src/HttpLoadBalancer.o: ./include/HttpServThread.h ./include/TaskQueue.h
-src/HttpLoadBalancer.o: ./include/Lockable.h ./include/Global.h
+src/HttpLBPermaserv.o: ./include/Timeval.h
+src/HttpLoadBalancer.o: ./include/HttpLoadBalancer.h ./include/Global.h
 src/HttpLoadBalancer.o: /usr/local/include/cglm/cglm.h
 src/HttpLoadBalancer.o: /usr/local/include/cglm/common.h
 src/HttpLoadBalancer.o: /usr/local/include/cglm/types.h
@@ -2688,10 +2685,13 @@ src/HttpLoadBalancer.o: /usr/local/include/cglm/curve.h
 src/HttpLoadBalancer.o: /usr/local/include/cglm/bezier.h
 src/HttpLoadBalancer.o: /usr/local/include/cglm/ray.h
 src/HttpLoadBalancer.o: /usr/local/include/cglm/affine2d.h
+src/HttpLoadBalancer.o: ./include/HttpDebug.h ./include/HttpServThread.h
+src/HttpLoadBalancer.o: ./include/TaskQueue.h ./include/Lockable.h
 src/HttpLoadBalancer.o: ./include/HttpRequestParser.h
 src/HttpLoadBalancer.o: ./include/MimeTypeMaps.h ./include/PermaservCookie.h
-src/HttpLoadBalancer.o: ./include/TaskQueueFarm.h ./include/Logging.h
-src/HttpLoadBalancer.o: ./include/MemoryTracker.h ./include/Timeval.h
+src/HttpLoadBalancer.o: ./include/TaskQueueFarm.h ./include/UserSession.h
+src/HttpLoadBalancer.o: ./include/TimeoutMap.h ./include/Timeval.h
+src/HttpLoadBalancer.o: ./include/Logging.h ./include/MemoryTracker.h
 src/HttpPageSet.o: ./include/HttpPageSet.h ./include/Lockable.h
 src/HttpPageSet.o: ./include/Global.h /usr/local/include/cglm/cglm.h
 src/HttpPageSet.o: /usr/local/include/cglm/common.h
@@ -2878,7 +2878,8 @@ src/HttpPermaServ.o: /usr/local/Cellar/glib/2.74.0/include/glib-2.0/glib/glib-au
 src/HttpPermaServ.o: ./include/HttpLBPermaserv.h ./include/HttpLoadBalancer.h
 src/HttpPermaServ.o: ./include/HttpPageSet.h ./include/ClimateDatabase.h
 src/HttpPermaServ.o: ./include/ClimateInfo.h ./include/DynamicallyTypable.h
-src/HttpPermaServ.o: ./include/UserManager.h ./include/CryptoAlgorithms.h
+src/HttpPermaServ.o: ./include/PmodServer.h ./include/UserManager.h
+src/HttpPermaServ.o: ./include/CryptoAlgorithms.h
 src/HttpPermaServ.o: /usr/local/opt/libressl/include/openssl/sha.h
 src/HttpPermaServ.o: /usr/local/opt/libressl/include/openssl/opensslconf.h
 src/HttpPermaServ.o: /usr/local/opt/libressl/include/openssl/opensslfeatures.h
@@ -3057,8 +3058,13 @@ src/HttpServThread.o: /usr/local/include/cglm/bezier.h
 src/HttpServThread.o: /usr/local/include/cglm/ray.h
 src/HttpServThread.o: /usr/local/include/cglm/affine2d.h
 src/HttpServThread.o: ./include/HttpRequestParser.h ./include/MimeTypeMaps.h
-src/HttpServThread.o: ./include/PermaservCookie.h ./include/Logging.h
-src/HttpServThread.o: ./include/MemoryTracker.h ./include/Timeval.h
+src/HttpServThread.o: ./include/PermaservCookie.h ./include/UserSession.h
+src/HttpServThread.o: ./include/TimeoutMap.h ./include/Timeval.h
+src/HttpServThread.o: ./include/UserManager.h ./include/CryptoAlgorithms.h
+src/HttpServThread.o: /usr/local/opt/libressl/include/openssl/sha.h
+src/HttpServThread.o: /usr/local/opt/libressl/include/openssl/opensslconf.h
+src/HttpServThread.o: /usr/local/opt/libressl/include/openssl/opensslfeatures.h
+src/HttpServThread.o: ./include/Logging.h ./include/MemoryTracker.h
 src/HttpStaticPage.o: ./include/HttpStaticPage.h ./include/loadFileToBuf.h
 src/InterfaceAction.o: ./include/InterfaceAction.h ./include/Global.h
 src/InterfaceAction.o: /usr/local/include/cglm/cglm.h
@@ -5567,6 +5573,55 @@ src/PmodDesign.o: ./include/BuildingAssembly.h ./include/Orientable.h
 src/PmodDesign.o: ./include/Positionable.h ./include/Shed.h
 src/PmodDesign.o: ./include/BuildingRect.h ./include/Tree.h
 src/PmodDesign.o: ./include/TreePart.h ./include/Quadtree.h
+src/PmodServer.o: ./include/PmodServer.h ./include/Global.h
+src/PmodServer.o: /usr/local/include/cglm/cglm.h
+src/PmodServer.o: /usr/local/include/cglm/common.h
+src/PmodServer.o: /usr/local/include/cglm/types.h
+src/PmodServer.o: /usr/local/include/cglm/simd/intrin.h
+src/PmodServer.o: /usr/local/include/cglm/vec2.h
+src/PmodServer.o: /usr/local/include/cglm/util.h
+src/PmodServer.o: /usr/local/include/cglm/vec2-ext.h
+src/PmodServer.o: /usr/local/include/cglm/vec3.h
+src/PmodServer.o: /usr/local/include/cglm/vec4.h
+src/PmodServer.o: /usr/local/include/cglm/vec4-ext.h
+src/PmodServer.o: /usr/local/include/cglm/vec3-ext.h
+src/PmodServer.o: /usr/local/include/cglm/mat4.h
+src/PmodServer.o: /usr/local/include/cglm/mat3.h
+src/PmodServer.o: /usr/local/include/cglm/mat2.h
+src/PmodServer.o: /usr/local/include/cglm/affine.h
+src/PmodServer.o: /usr/local/include/cglm/affine-mat.h
+src/PmodServer.o: /usr/local/include/cglm/cam.h
+src/PmodServer.o: /usr/local/include/cglm/plane.h
+src/PmodServer.o: /usr/local/include/cglm/clipspace/persp.h
+src/PmodServer.o: /usr/local/include/cglm/common.h
+src/PmodServer.o: /usr/local/include/cglm/plane.h
+src/PmodServer.o: /usr/local/include/cglm/mat4.h
+src/PmodServer.o: /usr/local/include/cglm/clipspace/ortho_rh_no.h
+src/PmodServer.o: /usr/local/include/cglm/clipspace/persp_rh_no.h
+src/PmodServer.o: /usr/local/include/cglm/clipspace/persp.h
+src/PmodServer.o: /usr/local/include/cglm/clipspace/view_rh_no.h
+src/PmodServer.o: /usr/local/include/cglm/clipspace/view_rh.h
+src/PmodServer.o: /usr/local/include/cglm/frustum.h
+src/PmodServer.o: /usr/local/include/cglm/quat.h
+src/PmodServer.o: /usr/local/include/cglm/euler.h
+src/PmodServer.o: /usr/local/include/cglm/box.h
+src/PmodServer.o: /usr/local/include/cglm/color.h
+src/PmodServer.o: /usr/local/include/cglm/io.h
+src/PmodServer.o: /usr/local/include/cglm/project.h
+src/PmodServer.o: /usr/local/include/cglm/clipspace/project_no.h
+src/PmodServer.o: /usr/local/include/cglm/vec3.h
+src/PmodServer.o: /usr/local/include/cglm/vec4.h
+src/PmodServer.o: /usr/local/include/cglm/sphere.h
+src/PmodServer.o: /usr/local/include/cglm/ease.h
+src/PmodServer.o: /usr/local/include/cglm/curve.h
+src/PmodServer.o: /usr/local/include/cglm/bezier.h
+src/PmodServer.o: /usr/local/include/cglm/ray.h
+src/PmodServer.o: /usr/local/include/cglm/affine2d.h
+src/PmodServer.o: ./include/HttpServThread.h ./include/TaskQueue.h
+src/PmodServer.o: ./include/Lockable.h ./include/HttpRequestParser.h
+src/PmodServer.o: ./include/MimeTypeMaps.h ./include/PermaservCookie.h
+src/PmodServer.o: ./include/loadFileToBuf.h ./include/Logging.h
+src/PmodServer.o: ./include/MemoryTracker.h ./include/Timeval.h
 src/Positionable.o: ./include/Positionable.h /usr/local/include/cglm/cglm.h
 src/Positionable.o: /usr/local/include/cglm/common.h
 src/Positionable.o: /usr/local/include/cglm/types.h
@@ -7381,7 +7436,37 @@ src/UserManager.o: ./include/MemoryTracker.h ./include/HttpServThread.h
 src/UserManager.o: ./include/TaskQueue.h ./include/HttpRequestParser.h
 src/UserManager.o: ./include/MimeTypeMaps.h ./include/PermaservCookie.h
 src/UserManager.o: ./include/HTMLForm.h ./include/DynamicallyTypable.h
-src/UserManager.o: ./include/UserSession.h
+src/UserManager.o: ./include/UserSession.h ./include/PmodDesign.h
+src/UserManager.o: ./include/Boundary.h ./include/rapidjson/document.h
+src/UserManager.o: ./include/rapidjson/reader.h
+src/UserManager.o: ./include/rapidjson/allocators.h
+src/UserManager.o: ./include/rapidjson/rapidjson.h
+src/UserManager.o: ./include/rapidjson/stream.h
+src/UserManager.o: ./include/rapidjson/encodings.h
+src/UserManager.o: ./include/rapidjson/encodedstream.h
+src/UserManager.o: ./include/rapidjson/memorystream.h
+src/UserManager.o: ./include/rapidjson/internal/clzll.h
+src/UserManager.o: ./include/rapidjson/rapidjson.h
+src/UserManager.o: ./include/rapidjson/internal/meta.h
+src/UserManager.o: ./include/rapidjson/internal/stack.h
+src/UserManager.o: ./include/rapidjson/allocators.h
+src/UserManager.o: ./include/rapidjson/internal/swap.h
+src/UserManager.o: ./include/rapidjson/internal/strtod.h
+src/UserManager.o: ./include/rapidjson/internal/ieee754.h
+src/UserManager.o: ./include/rapidjson/internal/biginteger.h
+src/UserManager.o: ./include/rapidjson/internal/diyfp.h
+src/UserManager.o: ./include/rapidjson/internal/clzll.h
+src/UserManager.o: ./include/rapidjson/internal/pow10.h
+src/UserManager.o: ./include/rapidjson/error/error.h
+src/UserManager.o: ./include/rapidjson/internal/strfunc.h
+src/UserManager.o: ./include/rapidjson/stream.h ./include/rapidjson/writer.h
+src/UserManager.o: ./include/rapidjson/internal/dtoa.h
+src/UserManager.o: ./include/rapidjson/internal/itoa.h
+src/UserManager.o: ./include/rapidjson/internal/itoa.h
+src/UserManager.o: ./include/rapidjson/stringbuffer.h
+src/UserManager.o: ./include/rapidjson/stringbuffer.h
+src/UserManager.o: ./include/rapidjson/error/en.h
+src/UserManager.o: ./include/rapidjson/error/error.h ./include/BoundingBox.h
 src/UserSession.o: ./include/UserSession.h ./include/Global.h
 src/UserSession.o: /usr/local/include/cglm/cglm.h
 src/UserSession.o: /usr/local/include/cglm/common.h
@@ -7427,6 +7512,8 @@ src/UserSession.o: /usr/local/include/cglm/bezier.h
 src/UserSession.o: /usr/local/include/cglm/ray.h
 src/UserSession.o: /usr/local/include/cglm/affine2d.h ./include/Lockable.h
 src/UserSession.o: ./include/TimeoutMap.h ./include/Timeval.h
+src/UserSession.o: ./include/loadFileToBuf.h ./include/Logging.h
+src/UserSession.o: ./include/MemoryTracker.h
 src/Version.o: ./include/Version.h ./include/rapidjson/document.h
 src/Version.o: ./include/rapidjson/reader.h ./include/rapidjson/allocators.h
 src/Version.o: ./include/rapidjson/rapidjson.h ./include/rapidjson/stream.h

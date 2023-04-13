@@ -15,6 +15,31 @@ ExtensionMimeTypeMap  extensionMap;
 MimeTypeMap           mimeTypeMap;
 
 // =======================================================================================
+// The map from MimeType to char*.  Keep synchronized with enum MimeType
+
+const char* MimeTypeMap::inverseMap[] = 
+{
+        (const char*)"none",      // NoMimeType
+
+        // Text types
+        (const char*)"text/html",       // TextHtml,
+        (const char*)"text/javascript", // TextJavascript,
+        (const char*)"text/css",        // TextCss,
+        (const char*)"text/plain",      // TextPlain,
+       
+        // Image types
+        (const char*)"image/gif",       // ImageGif,
+        (const char*)"image/jpeg",      // ImageJpeg,
+        (const char*)"image/png",       // ImagePng,
+        (const char*)"image/x-icon",    // ImageIco,
+       
+        // Application types
+        (const char*)"application/json",                  // ApplicationJson,
+        (const char*)"application/x-www-form-urlencoded", // ApplicationXWWWFormUrlEncoded,
+};
+
+
+// =======================================================================================
 /// @brief MimeTypeMap Constructor
 
 MimeTypeMap::MimeTypeMap(void)
@@ -31,8 +56,10 @@ MimeTypeMap::MimeTypeMap(void)
   insert({"text/plain", TextPlain});
 
   // Image types
-  insert({"image/gif", ImageGif});
-  insert({"image/jpeg", ImageJpeg});
+  insert({"image/gif",    ImageGif});
+  insert({"image/jpeg",   ImageJpeg});
+  insert({"image/png",    ImagePng});
+  insert({"image/x-icon", ImageIco});
   
   // Application types
   insert({"application/json", ApplicationJson});
@@ -59,18 +86,20 @@ ExtensionMimeTypeMap::ExtensionMimeTypeMap(void)
     theOnlyMap = this;
 
   // Text types
-  insert({"html", "text/html"});
-  insert({"js", "text/javascript"});
-  insert({"css", "text/css"});
-  insert({"txt", "text/plain"});
+  insert({"html", TextHtml});
+  insert({"js", TextJavascript});
+  insert({"css", TextCss});
+  insert({"txt", TextPlain});
 
   // Image types
-  insert({"gif", "image/gif"});
-  insert({"jpg", "image/jpeg"});
-  insert({"jpeg", "image/jpeg"});
+  insert({"gif", ImageGif});
+  insert({"jpg", ImageJpeg});
+  insert({"jpeg", ImageJpeg});
+  insert({"png", ImagePng});
+  insert({"ico", ImageIco});
   
   // Application types
-  insert({"json", "application/json"});
+  insert({"json", ApplicationJson});
 }
 
 

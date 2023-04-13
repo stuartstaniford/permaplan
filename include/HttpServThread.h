@@ -6,6 +6,7 @@
 #include "TaskQueue.h"
 #include "HttpRequestParser.h"
 #include "PermaservCookie.h"
+#include "MimeTypeMaps.h"
 
 
 // =======================================================================================
@@ -64,7 +65,7 @@ protected:
   unsigned            headBufSize;
   char*               respBuf;
   char*               altResp; // used for static pages
-  char*               altMimeType;
+  MimeType            altMimeType;
   char*               headBuf;
   unsigned            cacheDuration;                 
   unsigned short      clientP;
@@ -104,7 +105,7 @@ public:
     internalPrintf("<hr><center><h3>%s</h3>\n", title);
     return true;
    }
-  inline void setAltResp(char* buf, unsigned size, char* mimeType)
+  inline void setAltResp(char* buf, unsigned size, MimeType mimeType)
    {
     altResp     = buf;
     respPtr     = buf + size;
@@ -126,14 +127,14 @@ private:
   bool          reallocateResponseBuf(void);
   void          dealWithPossibleCookies(void);
   unsigned      generateHeader(unsigned bodySize, unsigned code, const char* msg, 
-                                                              char* mimeType = nullptr);
+                                                          MimeType mimeType = NoMimeType);
   bool          writeLoop(int fildes, char *buf, size_t nbyte);
   inline void   resetResponse(void)
    {
     respPtr         = respBuf;
     respEnd         = respBuf + respBufSize;
     altResp         = nullptr;
-    altMimeType     = nullptr;
+    altMimeType     = NoMimeType;
     loggedInUser    = nullptr;
     cacheDuration   = 0u;
    }  

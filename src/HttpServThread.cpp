@@ -70,7 +70,7 @@ const char* HttpServThread::getLoggedInUserName(void)
 /// then "text/html" will be used.
 
 unsigned HttpServThread::generateHeader(unsigned bodySize, unsigned code, 
-                                        const char* msg, char* mimeType)
+                                        const char* msg, MimeType mimeType)
 {
   char* ptr = headBuf;
   if(strlen(msg) > headBufSize-1024)
@@ -80,8 +80,10 @@ unsigned HttpServThread::generateHeader(unsigned bodySize, unsigned code,
   ptr += sprintf(ptr, "HTTP/1.1 %u %s\r\n", code, msg);
   
   // Mime type of body
-  if(mimeType)
-    ptr += sprintf(ptr, "Content-Type: %s\r\n", mimeType);
+  if(mimeType != NoMimeType)
+   {
+    ptr += sprintf(ptr, "Content-Type: %s\r\n", MimeTypeMap::inverseMap[mimeType]);
+   }
   else
     ptr += sprintf(ptr, "Content-Type: text/html\r\n");
   

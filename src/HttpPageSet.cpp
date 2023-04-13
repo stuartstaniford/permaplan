@@ -7,6 +7,7 @@
 #include "HttpPageSet.h"
 #include "HttpServThread.h"
 #include "HttpStaticPage.h"
+#include "Logging.h"
 #include <assert.h>
 
 
@@ -17,7 +18,7 @@
 /// @param mType A char* pointer to the mimeType of the files to be served from this 
 /// particular set of pages (a given HttpPageSet cannot mix different types of files).
 
-HttpPageSet::HttpPageSet(char* path, char* mType): mimeType(mType)
+HttpPageSet::HttpPageSet(char* path, MimeType mType): mimeType(mType)
 {
   unsigned pathSize = strlen(path);
   assert(pathSize < STAT_URL_BUF_SIZE - 20);
@@ -50,14 +51,46 @@ bool HttpPageSet::processPageRequest(HttpServThread* serv, char* url)
   if(count(url))
    {
     HttpStaticPage* page = at(url);
+    
+    // Load the page if necessary
     if(!page)
      {
       strncpy(urlBufPtr, url, STAT_URL_BUF_SIZE - (urlBufPtr-urlBuf));
       page = new HttpStaticPage(urlBuf);
       (*this)[url] = page;
      }
+    
+    // Determine the mime type if necessary
+    MimeType mType;
+    unless(mimeType == NoMimeType)
+      mType = mimeType;
+    else
+     {
+      // Try to get it from extension
+      char* ptr = rindex(url, '.');
+      if(ptr && *(++ptr) != '\0')
+       {
+        ExtensionMimeTypeMap& map = ExtensionMimeTypeMap::getMap();
+        unless(map.count(ptr))
+         {
+          mType = TextPlain; // may not be a great solution
+          LogResponseErrors("Delivering response with default mime type "
+                                              "for unknown extention %s.\n", ptr);
+         }
+        else
+          mType = map[ptr];
+       }
+      else
+       {
+        mType = TextPlain; // may not be a great solution
+        LogResponseErrors("Delivering response with default mime type "
+                                                          "to request for %s.\n", url);
+       }
+     }
+    
+    // Set up the response for delivery to the client
     char* response = page->getResponse();
-    serv->setAltResp(response, strlen(response), mimeType); 
+    serv->setAltResp(response, strlen(response), mType); 
     serv->setCacheDuration(CACHE_DURATION);
     unlock();
     return true;

@@ -4,6 +4,7 @@
 #define HTTP_PAGE_SET_H
 
 #include "Lockable.h"
+#include "MimeTypeMaps.h"
 #include <unordered_map>
 #include <string>
 
@@ -33,16 +34,16 @@ public:
   // Instance variables - public
   
   // Member functions - public
-  HttpPageSet(char* path, char* mType = NULL);
+  HttpPageSet(char* path, MimeType mType = NoMimeType);
   ~HttpPageSet(void);
   bool processPageRequest(HttpServThread* serv, char* url);
   
 private:
   
   // Instance variables - private
-  char urlBuf[STAT_URL_BUF_SIZE];
-  char* urlBufPtr;
-  char* mimeType;
+  char      urlBuf[STAT_URL_BUF_SIZE];
+  char*     urlBufPtr;
+  MimeType  mimeType;
   
   // Member functions - private
   /// @brief Prevent copy-construction.
