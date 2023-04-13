@@ -22,6 +22,7 @@ class TaskQueue;
 class GLFWApplication;
 class HttpServThread;
 class UserSessionGroup;
+class HttpPageSet;
 
 
 // =======================================================================================
@@ -49,6 +50,7 @@ protected:
   TaskQueue**  httpThreads;  // must be initialized by subclass that knows the 
                                   // real type of these
   UserSessionGroup* userSessions;
+  HttpPageSet*      basicStaticPages;
   
 private:
   
@@ -61,7 +63,7 @@ private:
   unsigned short      port;
   
   // Member functions - private
-  void initializeBasicImages(void);
+  void initializeBasicStaticPages(void);
   PreventAssignAndCopyConstructor(HttpLoadBalancer);
 };
 

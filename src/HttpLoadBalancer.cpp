@@ -8,6 +8,7 @@
 #include "TaskQueueFarm.h"
 #include "UserSession.h"
 #include "Logging.h"
+#include "HttpPageSet.h"
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <unistd.h>
@@ -59,6 +60,8 @@ HttpLoadBalancer::HttpLoadBalancer(unsigned short servPort, bool haveSessions):
     LogPermaservOps("Initializing without user session group.\n");
    }
 
+  initializeBasicStaticPages();
+  
   httpThreads = new TaskQueue*[HTTP_THREAD_COUNT];  
   servFarm = new TaskQueueFarm(HTTP_THREAD_COUNT, (TaskQueue**)httpThreads, (char*)"httpFarm");
 }
@@ -137,11 +140,17 @@ void* HttpLoadBalancer::processConnections(void)
 /// 
 /// Eg this is where favicon.ico and the like get served from.
 
-void HttpLoadBalancer::initializeBasicImages(void)
+void HttpLoadBalancer::initializeBasicStaticPages(void)
 {
-  //cssPages = new HttpPageSet((char*)"css/", (char*)"text/css");
+  basicStaticPages = new HttpPageSet((char*)"/");
   
-  //cssPages->insert({"permaplan.css", NULL});
+  basicStaticPages->insert({"favicon-16x16.png", NULL});
+  basicStaticPages->insert({"favicon-32x32.png", NULL});
+  basicStaticPages->insert({"favicon.ico", NULL});
+  basicStaticPages->insert({"site.webmanifest", NULL});
+  basicStaticPages->insert({"android-chrome-192x192.png", NULL});
+  basicStaticPages->insert({"android-chrome-512x512.png", NULL});
+  basicStaticPages->insert({"apple-touch-icon.png", NULL});
 }
 
 
