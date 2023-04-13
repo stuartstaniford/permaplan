@@ -67,13 +67,13 @@ bool HttpPageSet::processPageRequest(HttpServThread* serv, char* url)
     else
      {
       // Try to get it from extension
-      char* ptr = rindex(url, '.');
+      const char* ptr = rindex(url, '.');
       if(ptr && *(++ptr) != '\0')
        {
         ExtensionMimeTypeMap& map = ExtensionMimeTypeMap::getMap();
         unless(map.count(ptr))
          {
-          mType = TextPlain; // may not be a great solution
+          mType = ApplicationOctetStream; // may not be a great solution
           LogResponseErrors("Delivering response with default mime type "
                                               "for unknown extention %s.\n", ptr);
          }
@@ -82,7 +82,7 @@ bool HttpPageSet::processPageRequest(HttpServThread* serv, char* url)
        }
       else
        {
-        mType = TextPlain; // may not be a great solution
+        mType = ApplicationOctetStream; // may not be a great solution
         LogResponseErrors("Delivering response with default mime type "
                                                           "to request for %s.\n", url);
        }

@@ -14,6 +14,7 @@ MimeTypeMap* MimeTypeMap::theOnlyMap = NULL;
 ExtensionMimeTypeMap  extensionMap;
 MimeTypeMap           mimeTypeMap;
 
+
 // =======================================================================================
 // The map from MimeType to char*.  Keep synchronized with enum MimeType
 
@@ -34,8 +35,9 @@ const char* MimeTypeMap::inverseMap[] =
         (const char*)"image/x-icon",    // ImageIco,
        
         // Application types
-        (const char*)"application/json",                  // ApplicationJson,
+        (const char*)"application/json",                   // ApplicationJson,
         (const char*)"application/x-www-form-urlencoded", // ApplicationXWWWFormUrlEncoded,
+        (const char*)"application/octet-stream",          // ApplicationOctetStream,
 };
 
 
@@ -64,6 +66,7 @@ MimeTypeMap::MimeTypeMap(void)
   // Application types
   insert({"application/json", ApplicationJson});
   insert({"application/x-www-form-urlencoded", ApplicationXWWWFormUrlEncoded});
+  insert({"application/octet-stream", ApplicationOctetStream});
 }
 
 

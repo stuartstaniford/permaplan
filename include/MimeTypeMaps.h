@@ -29,6 +29,7 @@ enum MimeType
   // Application types
   ApplicationJson,
   ApplicationXWWWFormUrlEncoded,
+  ApplicationOctetStream,
 };
 
 
