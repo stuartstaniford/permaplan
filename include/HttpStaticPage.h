@@ -8,6 +8,7 @@
 // Forward declarations
 
 class HttpServThread;
+class HttpPageSet;
 
 
 // =======================================================================================
@@ -20,6 +21,7 @@ class HttpServThread;
 class HttpStaticPage
 {
   friend HttpServThread;
+  friend HttpPageSet;
   
 public:
   

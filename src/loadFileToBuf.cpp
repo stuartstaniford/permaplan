@@ -118,9 +118,9 @@ bool checkAndFixPermissions(const char* path, int mode)
 char* loadFileToBuf(const char* fileName, unsigned* size)
 {
   struct stat params;
-  if(stat(fileName, &params)<0)
+  if(stat(fileName, &params) < 0)
     err(-1, "Couldn't stat fileName %s\n", fileName);
-  if(!(params.st_mode&S_IFREG))
+  if(!(params.st_mode & S_IFREG))
     err(-1, "File not regular file: %s\n", fileName);
   *size = params.st_size;
   char* buf = new char[*size+1];

@@ -90,7 +90,7 @@ bool HttpPageSet::processPageRequest(HttpServThread* serv, char* url)
     
     // Set up the response for delivery to the client
     char* response = page->getResponse();
-    serv->setAltResp(response, strlen(response), mType); 
+    serv->setAltResp(response, page->respBufSize, mType); 
     serv->setCacheDuration(CACHE_DURATION);
     unlock();
     return true;
