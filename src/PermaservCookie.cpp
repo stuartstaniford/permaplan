@@ -203,7 +203,7 @@ int PermaservCookie::sprint(char* buf)
   // Output the Session ID
   if(flags & VALID_SESSION_ID)
    {
-    p += sprintf(p, "Set-Cookie: sessionId=%llX; Max-Age=%u\r\n", 
+    p += sprintf(p, "Set-Cookie: sessionId=%llX; Max-Age=%u; Path=/\r\n", 
                                                 sessionId, sessionIdDuration);
     flags &= ~VALID_SESSION_ID; // don't set it again after we set it.
    }
@@ -211,7 +211,7 @@ int PermaservCookie::sprint(char* buf)
   // Unset/clean-up any cookies we don't recognize
   for(char* name: badCookieList)
    {
-    p += sprintf(p, "Set-Cookie: %s=0; Max-Age=-1\r\n", name);
+    p += sprintf(p, "Set-Cookie: %s=0; Max-Age=-1; Path=/\r\n", name);
       
     // Print attributes here
    }

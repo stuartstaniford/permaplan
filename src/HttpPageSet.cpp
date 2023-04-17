@@ -75,7 +75,7 @@ bool HttpPageSet::processPageRequest(HttpServThread* serv, char* url)
          {
           mType = ApplicationOctetStream; // may not be a great solution
           LogResponseErrors("Delivering response with default mime type "
-                                              "for unknown extention %s.\n", ptr);
+                                              "for unknown extension %s.\n", ptr);
          }
         else
           mType = map[ptr];
