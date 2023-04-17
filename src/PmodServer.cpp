@@ -84,11 +84,11 @@ bool PmodServer::processHttpRequest(HttpServThread* serv, char* url)
     retVal = provideManualUploadForm(serv);
    }
 
-  // XXXX
-  else if( strlenUrl == 26 && strncmp(url, "climateStation/", 15) == 0)
+  // fileUpload
+  else if( strlenUrl == 10 && strncmp(url, "fileUpload", 10) == 0)
    {
-    LogPermaservOpDetails("Processing climate station request for %s.\n", url+15);
-    //retVal = processStationDiagnosticRequest(serv, url+15);
+    LogPermaservOpDetails("Processing upload of file from user %s.\n", loginName);
+    retVal = processFileUploadRequest(serv);
    }
   
   // Default - failure
@@ -100,6 +100,20 @@ bool PmodServer::processHttpRequest(HttpServThread* serv, char* url)
 
   return retVal;
 }
+
+
+/// =======================================================================================
+/// @brief Accept and check an uploaded OLDF file.  
+/// 
+/// @returns True if all was well writing to the buffer.  If false, it indicates the 
+/// buffer was not big enough and the output will have been truncated/incomplete.
+/// @param serv A pointer to the HttpServThread managing the HTTP response.
+
+bool PmodServer::processFileUploadRequest(HttpServThread* serv)
+{
+  return false;
+}
+
 
 
 /// =======================================================================================

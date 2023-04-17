@@ -34,6 +34,7 @@ private:
   
   // Member functions - private
   bool provideManualUploadForm(HttpServThread* serv);
+  bool processFileUploadRequest(HttpServThread* serv);
   PreventAssignAndCopyConstructor(PmodServer);
 };
 
