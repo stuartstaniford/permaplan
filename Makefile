@@ -58,7 +58,7 @@ SCRIPTS = $(wildcard scripts/*.js)
 # with the .o suffix
 #
 OBJS = $(SRCS:.cpp=.o) $(CSRCS:.c=.o)
-SERV_OBJS = src/BILFile.o src/ClimateInfo.o src/ClimateDatabase.o src/CryptoAlgorithms.o src/DynamicallyTypable.o src/GHCNDatabase.o src/GdalFileInterface.o src/Global.o src/GroundLayer.o src/HTMLForm.o src/HttpLBPermaserv.o src/HttpPageSet.o src/HttpPermaServ.o src/HttpServThread.o src/HttpStaticPage.o src/HttpLoadBalancer.o src/HttpRequestParser.o src/HttpClient.o src/HWSDProfile.o src/loadFileToBuf.o src/Lockable.o src/Logging.o src/MdbFile.o src/MimeTypeMaps.o src/PermaservCookie.o src/PmodServer.o src/ResourceManager.o src/SoilDatabase.o src/SoilHorizon.o src/SoilProfile.o src/SolarDatabase.o src/TaskQueue.o src/TaskQueueFarm.o src/TimeoutMap.o src/Timeval.o src/UserManager.o src/UserSession.o
+SERV_OBJS = src/BILFile.o src/ClimateInfo.o src/ClimateDatabase.o src/CryptoAlgorithms.o src/DynamicallyTypable.o src/GHCNDatabase.o src/GdalFileInterface.o src/Global.o src/GroundLayer.o src/HTMLForm.o src/HttpLBPermaserv.o src/HttpPageSet.o src/HttpPermaServ.o src/HttpServThread.o src/HttpStaticPage.o src/HttpLoadBalancer.o src/HttpRequestParser.o src/HttpClient.o src/HWSDProfile.o src/loadFileToBuf.o src/Lockable.o src/Logging.o src/MdbFile.o src/MimeTypeMaps.o src/MultipartFile.o src/multipart_parser.o src/PermaservCookie.o src/PmodServer.o src/ResourceManager.o src/SoilDatabase.o src/SoilHorizon.o src/SoilProfile.o src/SolarDatabase.o src/TaskQueue.o src/TaskQueueFarm.o src/TimeoutMap.o src/Timeval.o src/UserManager.o src/UserSession.o
 
 # define the executable file
 MAIN = permaplan
