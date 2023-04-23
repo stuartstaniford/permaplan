@@ -38,6 +38,8 @@ enum HTTPMethodType
 // Other forward declarations.
 
 class DynamicallyTypable;
+class PmodServer;
+
 
 // =======================================================================================
 /// @brief Parse one HTTP request.
@@ -52,13 +54,16 @@ class DynamicallyTypable;
 
 class HttpRequestParser
 {
+  friend PmodServer;
+  
 public:
   
   // Instance variables - public
   bool                connectionWillClose;
   HTTPMethodType      requestMethod;
   DynamicallyTypable* parsedBody;
-
+  char*               unparsedBody;
+  
   // Member functions - public
   HttpRequestParser(unsigned size);
   void resetForNewRequest(void);

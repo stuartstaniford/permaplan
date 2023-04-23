@@ -8,8 +8,12 @@
 # define the C++ compiler to use
 CPP = clang++
 
+# define the compiler for pure C sources
+CC = clang
+
 # define any compile-time flags
-CFLAGS = -Wall -g -std=c++11 -Wno-pointer-bool-conversion
+CPPFLAGS = -Wall -g -std=c++11 -Wno-pointer-bool-conversion
+CFLAGS = -Wall -g
 
 # define any directories containing header files other than /usr/include
 #
@@ -40,6 +44,7 @@ LIBS = -framework OpenGL -lglfw -lGLEW -lcurl -lgdal -lmdb -lz -lgsl -lcrypto
 
 # define the source files
 SRCS = $(wildcard src/*.cpp)
+CSRCS = $(wildcard src/*.c)
 
 # define the javascript files
 SCRIPTS = $(wildcard scripts/*.js)
@@ -52,7 +57,7 @@ SCRIPTS = $(wildcard scripts/*.js)
 # Below we are replacing the suffix .c of all words in the macro SRCS
 # with the .o suffix
 #
-OBJS = $(SRCS:.cpp=.o)
+OBJS = $(SRCS:.cpp=.o) $(CSRCS:.c=.o)
 SERV_OBJS = src/BILFile.o src/ClimateInfo.o src/ClimateDatabase.o src/CryptoAlgorithms.o src/DynamicallyTypable.o src/GHCNDatabase.o src/GdalFileInterface.o src/Global.o src/GroundLayer.o src/HTMLForm.o src/HttpLBPermaserv.o src/HttpPageSet.o src/HttpPermaServ.o src/HttpServThread.o src/HttpStaticPage.o src/HttpLoadBalancer.o src/HttpRequestParser.o src/HttpClient.o src/HWSDProfile.o src/loadFileToBuf.o src/Lockable.o src/Logging.o src/MdbFile.o src/MimeTypeMaps.o src/PermaservCookie.o src/PmodServer.o src/ResourceManager.o src/SoilDatabase.o src/SoilHorizon.o src/SoilProfile.o src/SolarDatabase.o src/TaskQueue.o src/TaskQueueFarm.o src/TimeoutMap.o src/Timeval.o src/UserManager.o src/UserSession.o
 
 # define the executable file
@@ -76,19 +81,21 @@ javascriptCheck: $(SCRIPTS)
 				node --check $(SCRIPTS)
 
 $(MAIN): $(OBJS)
-			$(CPP) $(CFLAGS) $(INCLUDES) -c src/ResourceManager.cpp -o src/ResourceManager.o
-			$(CPP) $(CFLAGS) $(INCLUDES) -o $(MAIN) $(OBJS) $(LFLAGS) $(LIBS)
+			$(CPP) $(CPPFLAGS) $(INCLUDES) -c src/ResourceManager.cpp -o src/ResourceManager.o
+			$(CPP) $(CPPFLAGS) $(INCLUDES) -o $(MAIN) $(OBJS) $(LFLAGS) $(LIBS)
 
 permaserv/permaserv: $(SERV_OBJS) permaserv/permaserv_main.cpp
-			$(CPP) $(CFLAGS) -D PERMASERV $(INCLUDES) -c src/ResourceManager.cpp -o src/ResourceManager.o
-			$(CPP) $(CFLAGS) -o permaserv/permaserv $(INCLUDES) $(LFLAGS) $(LIBS)  $(SERV_OBJS) permaserv/permaserv_main.cpp
+			$(CPP) $(CPPFLAGS) -D PERMASERV $(INCLUDES) -c src/ResourceManager.cpp -o src/ResourceManager.o
+			$(CPP) $(CPPFLAGS) -o permaserv/permaserv $(INCLUDES) $(LFLAGS) $(LIBS)  $(SERV_OBJS) permaserv/permaserv_main.cpp
 
 # this is a suffix replacement rule for building .o's from .c's
 # it uses automatic variables $<: the name of the prerequisite of
 # the rule(a .c file) and $@: the name of the target of the rule (a .o file)
 # (see the gnu make manual section about automatic variables)
+.c.o:
+				$(CC) $(CFLAGS) $(INCLUDES) -c $<  -o $@
 .cpp.o:
-				$(CPP) $(CFLAGS) $(INCLUDES) -c $<  -o $@
+				$(CPP) $(CPPFLAGS) $(INCLUDES) -c $<  -o $@
 
 clean:
 				$(RM) src/*.o *~ $(MAIN) permaserv/permaserv

@@ -80,12 +80,13 @@ bool PmodServer::processHttpRequest(HttpServThread* serv, char* url)
   if(strlenUrl == 17 && strncmp(url, "manualUpload.html", 17) == 0)
    {
     LogPermaservOpDetails("Processing pmodServer manual upload request for user %s.\n",
-                                                                                  loginName);
+                                                                                loginName);
     retVal = provideManualUploadForm(serv);
    }
 
   // fileUpload
-  else if( strlenUrl == 10 && strncmp(url, "fileUpload", 10) == 0)
+  else if(serv->reqParser.requestMethod == POST && strlenUrl == 10 
+                                                && strncmp(url, "fileUpload", 10) == 0)
    {
     LogPermaservOpDetails("Processing upload of file from user %s.\n", loginName);
     retVal = processFileUploadRequest(serv);
@@ -111,6 +112,10 @@ bool PmodServer::processHttpRequest(HttpServThread* serv, char* url)
 
 bool PmodServer::processFileUploadRequest(HttpServThread* serv)
 {
+  
+  // UP TO HERE
+  
+  // How are uploaded files encoded?  Is it in a form?
   return false;
 }
 

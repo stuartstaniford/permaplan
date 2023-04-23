@@ -32,6 +32,7 @@ class UserRecord;
 class UserManager;
 class ClimateDatabase;
 class UserSessionGroup;
+class PmodServer;
 
 
 // =======================================================================================
@@ -48,7 +49,8 @@ class HttpServThread: public TaskQueue
   friend HttpLoadBalancer;
   friend UserManager;
   friend ClimateDatabase;
-
+  friend PmodServer;
+  
 public:
   
   // Instance variables - public

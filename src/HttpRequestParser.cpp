@@ -59,15 +59,15 @@ HttpRequestParser::HttpRequestParser(unsigned size):
 
 void HttpRequestParser::resetForNewRequest(void)
 {
-  headerEnd           = NULL;
-  cookieValue         = NULL;
+  headerEnd           = nullptr;
+  cookieValue         = nullptr;
   urlOffset           = 0u;
   httpVerOffset       = 0u;
   requestMethod       = NoMethod;
   bodyPresent         = false;
   bodySize            = 0u;
   contentType         = NoMimeType;
-  parsedBody          = NULL;
+  parsedBody          = nullptr;
 }
 
 
@@ -82,7 +82,7 @@ void HttpRequestParser::resetForNewConnection(void)
   
   // Initialize things that might maintain important state across requests, but not
   // across connections
-  readPoint           = NULL;
+  readPoint           = nullptr;
   bufLeft             = 0u;
   connectionDone      = false;
   connectionWillClose = false;
@@ -236,7 +236,7 @@ badParseRequestExit:
 // =======================================================================================
 /// @brief State machine to check a range of bytes looking for \r\n\r\n.  
 /// 
-/// @returns If present, a pointer to one past the final \n.  Otherwise, returns NULL.  
+/// @returns If present, a pointer to one past the final \n.  Otherwise, returns nullptr.  
 /// @param range A char* pointer to the beginning of the range of bytes to check.
 /// @param rangeSize The number of bytes in the range to check.
 
@@ -282,7 +282,7 @@ char* HttpRequestParser::headerEndPresent(char* range, unsigned rangeSize)
         state = 0;
      }
    }
-  return NULL;
+  return nullptr;
 }
 
 
@@ -384,7 +384,7 @@ bool HttpRequestParser::getNextRequest(void)
   
   unless(parseRequest())
    {
-    readPoint = NULL;
+    readPoint = nullptr;
     return false;
    }
 
@@ -403,7 +403,7 @@ bool HttpRequestParser::getNextRequest(void)
                                                               bufLeft, readPoint-buf);
      }
     else
-      readPoint = NULL;
+      readPoint = nullptr;
    }
   return true;
 }
@@ -439,7 +439,7 @@ bool HttpRequestParser::processBody(void)
   else
    {
     // We read exactly to the end of the body
-    readPoint = NULL;
+    readPoint = nullptr;
    }
 
   LogHTTPDetails("Successfully read body of size %u.\n", bodySize);
@@ -447,10 +447,13 @@ bool HttpRequestParser::processBody(void)
   if(contentType == ApplicationXWWWFormUrlEncoded)
    {
     parsedBody = (DynamicallyTypable*)new HTMLForm(headerEnd, bodySize);
+    unparsedBody = nullptr;
     LogRequestParsing("Parsed form body (Content type ApplicationXWWWFormUrlEncoded).\n");
    }
   else
    {
+    unparsedBody = headerEnd;
+    parsedBody    = nullptr;
     LogRequestErrors("Couldn't parse body of this content type.\n");
    }
   

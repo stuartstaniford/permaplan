@@ -46,7 +46,7 @@ make
 
 Additional appreciations:
 
-Sean Barrett for stb_image.h and stb_image_write.h.  Greg Douglas et al for RTree.h.
+Sean Barrett for stb_image.h and stb_image_write.h.  Greg Douglas et al for RTree.h.  Igor Afonov for multipart-parser-c.
 
 ## Note on target expertise levels
 
