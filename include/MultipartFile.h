@@ -4,6 +4,7 @@
 #define MULTIPART_FILE_H
 
 #include "Global.h"
+#include "multipart_parser.h"
 
 
 // =======================================================================================
@@ -22,6 +23,11 @@ public:
   ~MultipartFile(void);
   
 private:
+
+  // Static class variables - private
+  static bool                       classInitDone;
+  static multipart_parser_settings  callbacks;
+
   
   // Instance variables - private
   
@@ -31,9 +37,12 @@ private:
 
 
 // =======================================================================================
+// C callback signatures
+
+int read_header_name(multipart_parser* p, const char *at, size_t length);
+int read_header_value(multipart_parser* p, const char *at, size_t length);
+
+
+// =======================================================================================
 
 #endif
-
-
-
-

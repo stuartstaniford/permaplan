@@ -2553,10 +2553,10 @@ src/HttpLBPermaserv.o: /usr/local/include/cglm/bezier.h
 src/HttpLBPermaserv.o: /usr/local/include/cglm/ray.h
 src/HttpLBPermaserv.o: /usr/local/include/cglm/affine2d.h
 src/HttpLBPermaserv.o: ./include/HttpPageSet.h ./include/Lockable.h
-src/HttpLBPermaserv.o: ./include/HttpPermaServ.h ./include/HttpServThread.h
-src/HttpLBPermaserv.o: ./include/TaskQueue.h ./include/HttpRequestParser.h
-src/HttpLBPermaserv.o: ./include/MimeTypeMaps.h ./include/PermaservCookie.h
-src/HttpLBPermaserv.o: ./include/SolarDatabase.h
+src/HttpLBPermaserv.o: ./include/MimeTypeMaps.h ./include/HttpPermaServ.h
+src/HttpLBPermaserv.o: ./include/HttpServThread.h ./include/TaskQueue.h
+src/HttpLBPermaserv.o: ./include/HttpRequestParser.h
+src/HttpLBPermaserv.o: ./include/PermaservCookie.h ./include/SolarDatabase.h
 src/HttpLBPermaserv.o: ./include/GdalFileInterface.h ./include/SoilDatabase.h
 src/HttpLBPermaserv.o: ./include/BILFile.h ./include/MdbFile.h
 src/HttpLBPermaserv.o: /usr/local/include/mdbtools.h
@@ -2699,6 +2699,7 @@ src/HttpLoadBalancer.o: ./include/MimeTypeMaps.h ./include/PermaservCookie.h
 src/HttpLoadBalancer.o: ./include/TaskQueueFarm.h ./include/UserSession.h
 src/HttpLoadBalancer.o: ./include/TimeoutMap.h ./include/Timeval.h
 src/HttpLoadBalancer.o: ./include/Logging.h ./include/MemoryTracker.h
+src/HttpLoadBalancer.o: ./include/HttpPageSet.h
 src/HttpPageSet.o: ./include/HttpPageSet.h ./include/Lockable.h
 src/HttpPageSet.o: ./include/Global.h /usr/local/include/cglm/cglm.h
 src/HttpPageSet.o: /usr/local/include/cglm/common.h
@@ -2743,9 +2744,11 @@ src/HttpPageSet.o: /usr/local/include/cglm/curve.h
 src/HttpPageSet.o: /usr/local/include/cglm/bezier.h
 src/HttpPageSet.o: /usr/local/include/cglm/ray.h
 src/HttpPageSet.o: /usr/local/include/cglm/affine2d.h
-src/HttpPageSet.o: ./include/HttpServThread.h ./include/TaskQueue.h
-src/HttpPageSet.o: ./include/HttpRequestParser.h ./include/MimeTypeMaps.h
+src/HttpPageSet.o: ./include/MimeTypeMaps.h ./include/HttpServThread.h
+src/HttpPageSet.o: ./include/TaskQueue.h ./include/HttpRequestParser.h
 src/HttpPageSet.o: ./include/PermaservCookie.h ./include/HttpStaticPage.h
+src/HttpPageSet.o: ./include/Logging.h ./include/MemoryTracker.h
+src/HttpPageSet.o: ./include/Timeval.h
 src/HttpPermaServ.o: ./include/HttpPermaServ.h ./include/HttpServThread.h
 src/HttpPermaServ.o: ./include/TaskQueue.h ./include/Lockable.h
 src/HttpPermaServ.o: ./include/Global.h /usr/local/include/cglm/cglm.h
@@ -5251,6 +5254,51 @@ src/MenuTree.o: ./include/HttpServThread.h ./include/TaskQueue.h
 src/MenuTree.o: ./include/HttpRequestParser.h ./include/MimeTypeMaps.h
 src/MenuTree.o: ./include/PermaservCookie.h
 src/MimeTypeMaps.o: ./include/MimeTypeMaps.h
+src/MultipartFile.o: ./include/MultipartFile.h ./include/Global.h
+src/MultipartFile.o: /usr/local/include/cglm/cglm.h
+src/MultipartFile.o: /usr/local/include/cglm/common.h
+src/MultipartFile.o: /usr/local/include/cglm/types.h
+src/MultipartFile.o: /usr/local/include/cglm/simd/intrin.h
+src/MultipartFile.o: /usr/local/include/cglm/vec2.h
+src/MultipartFile.o: /usr/local/include/cglm/util.h
+src/MultipartFile.o: /usr/local/include/cglm/vec2-ext.h
+src/MultipartFile.o: /usr/local/include/cglm/vec3.h
+src/MultipartFile.o: /usr/local/include/cglm/vec4.h
+src/MultipartFile.o: /usr/local/include/cglm/vec4-ext.h
+src/MultipartFile.o: /usr/local/include/cglm/vec3-ext.h
+src/MultipartFile.o: /usr/local/include/cglm/mat4.h
+src/MultipartFile.o: /usr/local/include/cglm/mat3.h
+src/MultipartFile.o: /usr/local/include/cglm/mat2.h
+src/MultipartFile.o: /usr/local/include/cglm/affine.h
+src/MultipartFile.o: /usr/local/include/cglm/affine-mat.h
+src/MultipartFile.o: /usr/local/include/cglm/cam.h
+src/MultipartFile.o: /usr/local/include/cglm/plane.h
+src/MultipartFile.o: /usr/local/include/cglm/clipspace/persp.h
+src/MultipartFile.o: /usr/local/include/cglm/common.h
+src/MultipartFile.o: /usr/local/include/cglm/plane.h
+src/MultipartFile.o: /usr/local/include/cglm/mat4.h
+src/MultipartFile.o: /usr/local/include/cglm/clipspace/ortho_rh_no.h
+src/MultipartFile.o: /usr/local/include/cglm/clipspace/persp_rh_no.h
+src/MultipartFile.o: /usr/local/include/cglm/clipspace/persp.h
+src/MultipartFile.o: /usr/local/include/cglm/clipspace/view_rh_no.h
+src/MultipartFile.o: /usr/local/include/cglm/clipspace/view_rh.h
+src/MultipartFile.o: /usr/local/include/cglm/frustum.h
+src/MultipartFile.o: /usr/local/include/cglm/quat.h
+src/MultipartFile.o: /usr/local/include/cglm/euler.h
+src/MultipartFile.o: /usr/local/include/cglm/box.h
+src/MultipartFile.o: /usr/local/include/cglm/color.h
+src/MultipartFile.o: /usr/local/include/cglm/io.h
+src/MultipartFile.o: /usr/local/include/cglm/project.h
+src/MultipartFile.o: /usr/local/include/cglm/clipspace/project_no.h
+src/MultipartFile.o: /usr/local/include/cglm/vec3.h
+src/MultipartFile.o: /usr/local/include/cglm/vec4.h
+src/MultipartFile.o: /usr/local/include/cglm/sphere.h
+src/MultipartFile.o: /usr/local/include/cglm/ease.h
+src/MultipartFile.o: /usr/local/include/cglm/curve.h
+src/MultipartFile.o: /usr/local/include/cglm/bezier.h
+src/MultipartFile.o: /usr/local/include/cglm/ray.h
+src/MultipartFile.o: /usr/local/include/cglm/affine2d.h
+src/MultipartFile.o: ./include/multipart_parser.h
 src/ObjectGroup.o: ./include/ObjectGroup.h ./include/VisualObject.h
 src/ObjectGroup.o: ./include/VisualElement.h ./include/DynamicallyTypable.h
 src/ObjectGroup.o: ./include/TriangleBuffer.h ./include/Vertex.h
