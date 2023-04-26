@@ -39,6 +39,7 @@ enum HTTPMethodType
 
 class DynamicallyTypable;
 class PmodServer;
+class MultipartFile;
 
 
 // =======================================================================================
@@ -63,6 +64,7 @@ public:
   HTTPMethodType      requestMethod;
   DynamicallyTypable* parsedBody;
   char*               unparsedBody;
+  MultipartFile*      multiFile;
   
   // Member functions - public
   HttpRequestParser(unsigned size);

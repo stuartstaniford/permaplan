@@ -9,6 +9,7 @@
 
 #include "HttpRequestParser.h"
 #include "HTMLForm.h"
+#include "MultipartFile.h"
 #include "Global.h"
 #include "Logging.h"
 #include <stdio.h>
@@ -68,6 +69,11 @@ void HttpRequestParser::resetForNewRequest(void)
   bodySize            = 0u;
   contentType         = NoMimeType;
   parsedBody          = nullptr;
+  if(multiFile)
+   {
+    delete multiFile;
+    multiFile = nullptr;
+   }
 }
 
 
@@ -187,10 +193,15 @@ bool HttpRequestParser::parseRequest(void)
             break;
 
           case ContentType:
-            if(mimeTypes.count(value)) // A mime-type we know
+            if(mimeTypes.count(value)) // A fixed mime-type we know
              {
               contentType = mimeTypes[value];
               LogRequestParsing("Found Content-Type %s in HTTP request.\n", value);
+             }
+            else if(strcmp(value, "multipart/") == 0)
+             {
+              // Multipart content-types are not fixed and require special handling
+              multiFile = new MultipartFile(value + 10);
              }
             else
              {

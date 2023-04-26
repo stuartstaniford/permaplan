@@ -17,9 +17,10 @@ class MultipartFile
 public:
   
   // Instance variables - public
+  bool  isValid;
   
   // Member functions - public
-  MultipartFile(void);
+  MultipartFile(char* contentTypeValue);
   ~MultipartFile(void);
   
 private:
