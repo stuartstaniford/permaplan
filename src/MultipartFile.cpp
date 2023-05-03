@@ -1,6 +1,10 @@
 // Copyright Staniford Systems.  All Rights Reserved.  April 2023 -
 // Class for handling web uploads of files.  Is mainly a C++ wrapper around 
 // multipart_parser.h/.c
+// Relevant RFCs used in developing this code include: 
+// https://datatracker.ietf.org/doc/html/rfc7578
+// https://datatracker.ietf.org/doc/html/rfc7231
+// https://datatracker.ietf.org/doc/html/rfc6838
 
 #include "MultipartFile.h"
 #include "Logging.h"
@@ -39,7 +43,7 @@ MultipartFile::MultipartFile(char* contentTypeValue): isValid(true)
    }
   else
    {
-    LogRequestErrors("UP TO HERE"); 
+    LogRequestErrors("Unsupported multipart content-type.\n"); 
     isValid = false;
     return;
    }
