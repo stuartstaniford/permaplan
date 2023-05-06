@@ -31,8 +31,11 @@ private:
 
   
   // Instance variables - private
+  char* boundaryString;
+  char* charsetString;
   
   // Member functions - private
+  bool parseFormDataHeader(char* headerString);
   PreventAssignAndCopyConstructor(MultipartFile);
 };
 
