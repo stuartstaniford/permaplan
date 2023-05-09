@@ -81,9 +81,17 @@ bool MultipartFile::parseFormDataHeader(char* headerString)
       token++;
         
     if(strncmp(token, "boundary=", 9) == 0)
+     {
       boundaryString = token + 9;
+      LogRequestParsing("Found boundary string %s in multipart Content-Type.\n", 
+                                                                          boundaryString);
+     }
     else if(strncmp(token, "charset=", 8) == 0)
+     {
       charsetString = token + 8;
+      LogRequestParsing("Found charset string %s in multipart Content-Type.\n", 
+                                                                            charsetString);
+     }
     else
      {
       LogRequestErrors("Unknown term in multipart content-type %s.\n", token);
