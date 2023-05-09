@@ -188,9 +188,16 @@ bool HttpRequestParser::parseRequest(void)
           
           case ContentLength:
             LogRequestParsing("Found Content-Length header (%s) in HTTP request.\n", value);
-            bodyPresent = true;
-            bodySize = atoi(value);
-            break;
+            if(isValidUnsigned(value, bodySize))
+             {
+              bodyPresent = true;
+              break;
+             }
+            else
+             {
+              LogRequestParsing("Bad Content-Length header (%s) in HTTP request.\n", value);
+              goto badParseRequestExit;
+             }
 
           case ContentType:
             if(mimeTypes.count(value)) // A fixed mime-type we know
@@ -198,7 +205,7 @@ bool HttpRequestParser::parseRequest(void)
               contentType = mimeTypes[value];
               LogRequestParsing("Found Content-Type %s in HTTP request.\n", value);
              }
-            else if(strcmp(value, "multipart/") == 0)
+            else if(strncmp(value, "multipart/", 10) == 0)
              {
               // Multipart content-types are not fixed and require special handling
               multiFile = new MultipartFile(value + 10);
@@ -453,7 +460,7 @@ bool HttpRequestParser::processBody(void)
     readPoint = nullptr;
    }
 
-  LogHTTPDetails("Successfully read body of size %u.\n", bodySize);
+  LogHTTPDetails("Successfully read body of size %lu.\n", bodySize);
   
   if(contentType == ApplicationXWWWFormUrlEncoded)
    {

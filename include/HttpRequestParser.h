@@ -93,7 +93,7 @@ private:
   unsigned            httpVerOffset;
   bool                connectionDone;
   bool                bodyPresent;
-  unsigned            bodySize;
+  unsigned long       bodySize;
   MimeType            contentType;
   
   // Member functions - private

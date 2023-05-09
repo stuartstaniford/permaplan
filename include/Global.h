@@ -97,6 +97,7 @@ bool checkLatLongRegion(float* values);
 FileExtension findExtension(const char* fileName);
 char* errorInNumericCharacterField(char* field);
 char* errorInFloat(float f);
+bool isValidUnsigned(const char *str, unsigned long& value);
 
 
 // =======================================================================================

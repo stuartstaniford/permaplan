@@ -323,3 +323,39 @@ int endian(void)
 
 
 // =======================================================================================
+/// @brief Check if a string is a valid integer, 
+/// @returns True if the string contains a valid integer, false otherwise
+/// @param str The string to be checked
+/// @param value A reference to a long to store the value found, which will only be set
+/// if the string was valid.
+
+bool isValidUnsigned(const char *str, unsigned long& value) 
+{
+  char *endptr;
+  errno = 0;  // Reset errno to 0 before the call
+
+  unsigned long val = strtoul(str, &endptr, 10);
+
+  // Check for conversion errors
+  if (errno == ERANGE && (val == ULONG_MAX))
+    return false;  // The value is out of range for a long
+
+  if (errno != 0 && val == 0)
+    return false;  // Some other error occurred
+
+  // Check if there were no digits at all
+  if (endptr == str)
+    return false;
+
+  // If we got here, strtol() successfully parsed a number. Now we need to
+  // check for extra characters after the number.
+  if (*endptr != '\0')
+    return false;  // We have extra characters after the number
+
+  
+  value = val;
+  return true;  // The string is a valid integer
+}
+
+
+// =======================================================================================
