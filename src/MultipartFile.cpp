@@ -45,7 +45,7 @@ MultipartFile::MultipartFile(char* contentTypeValue): isValid(false),
       isValid = true;
     else
      {
-      LogRequestErrors("Couldn't parse multipart content-type %s.\n", contentTypeValue);       
+      LogRequestErrors("Couldn't parse multipart Content-Type: %s.\n", contentTypeValue);       
      }
    }
   else
@@ -71,9 +71,10 @@ MultipartFile::~MultipartFile(void)
 
 bool MultipartFile::parseFormDataHeader(char* headerString) 
 {
-  char* token = strtok(headerString, ";");
+  char* lasts;
+  char* token = strtok_r(headerString, ";", &lasts);
     
-  token = strtok(NULL, ";");
+  token = strtok_r(NULL, ";", &lasts);
     
   while(token) 
    {
@@ -97,7 +98,7 @@ bool MultipartFile::parseFormDataHeader(char* headerString)
       LogRequestErrors("Unknown term in multipart content-type %s.\n", token);
       return false;
      }
-    token = strtok(NULL, ";");
+    token = strtok_r(NULL, ";", &lasts);
    }
   if(boundaryString)
     return true;
