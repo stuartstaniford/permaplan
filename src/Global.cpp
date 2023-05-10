@@ -359,3 +359,14 @@ bool isValidUnsigned(const char *str, unsigned long& value)
 
 
 // =======================================================================================
+/// @brief Convert a string to all lower case (in place), 
+/// @param str The string to be checked
+
+void toLowerCase(char* str) 
+{
+  for(int i = 0; str[i]; i++)
+    str[i] = tolower((unsigned char) str[i]);
+}
+
+
+// =======================================================================================

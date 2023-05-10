@@ -45,14 +45,16 @@ HttpRequestParser::HttpRequestParser(unsigned size):
   // Non buffer initialization in here:
   resetForNewConnection();  
   
+  // Set up the map for recognizing HTTP header strings (which are case insensitive)
+  // https://stackoverflow.com/questions/5258977/are-http-headers-case-sensitive
   LogRequestParsing("Request parser initialized with buffer size %u.\n", bufSize);
-  headerMap["Connection"]         = Connection;
-  headerMap["User-Agent"]         = UserAgent;
-  headerMap["Content-Length"]     = ContentLength;
-  headerMap["Content-Type"]       = ContentType;
-  headerMap["Transfer-Encoding"]  = TransferEncoding;
-  headerMap["Upgrade"]            = Upgrade;
-  headerMap["Cookie"]             = Cookie;
+  headerMap["connection"]         = Connection;
+  headerMap["user-agent"]         = UserAgent;
+  headerMap["content-length"]     = ContentLength;
+  headerMap["content-type"]       = ContentType;
+  headerMap["transfer-encoding"]  = TransferEncoding;
+  headerMap["upgrade"]            = Upgrade;
+  headerMap["cookie"]             = Cookie;
 }
 
 
@@ -181,6 +183,7 @@ bool HttpRequestParser::parseRequest(void)
     unless(term && term < headerEnd-3)
       break;
     *term = '\0';
+    toLowerCase(h); // HTTP headers are case-insensitive
     if(headerMap.count(h)) // A header we recognize
      {
       switch(headerMap[h])
@@ -235,7 +238,7 @@ bool HttpRequestParser::parseRequest(void)
            // NB RFC 6265: "When the user agent generates an HTTP request, the user 
            // agent MUST NOT attach more than one Cookie header field."
            // If the user agent violates this, we will only process the last header. 
-          LogRequestParsing("Found Cookie header (%s) in HTTP request.\n", value);
+           LogRequestParsing("Found Cookie header (%s) in HTTP request.\n", value);
            cookieValue = value;
            break;
 
@@ -248,7 +251,7 @@ bool HttpRequestParser::parseRequest(void)
             goto badParseRequestExit;
           
           default:
-            LogRequestParsing("Header with no special handling: %s.\n", value);
+            LogRequestParsing("Header %s with no special handling: %s.\n", h, value);
        }
      }
     h = term + 2;
