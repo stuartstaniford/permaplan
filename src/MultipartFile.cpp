@@ -73,14 +73,18 @@ bool MultipartFile::parseFormDataHeader(char* headerString)
 {
   char* lasts;
   char* token = strtok_r(headerString, ";", &lasts);
-    
-  token = strtok_r(NULL, ";", &lasts);
-    
+        
   while(token) 
    {
+    unless(*token)
+     {
+      // ; at start of string
+      LogRequestParsing("Skipping empty token in multipart Content-Type.\n"); 
+      goto ROUND_AGAIN;
+     }
+    LogRequestParsing("Parsing token %s in multipart Content-Type.\n", token); 
     while (*token == ' ')
       token++;
-        
     if(strncmp(token, "boundary=", 9) == 0)
      {
       boundaryString = token + 9;
@@ -95,11 +99,13 @@ bool MultipartFile::parseFormDataHeader(char* headerString)
      }
     else
      {
-      LogRequestErrors("Unknown term in multipart content-type %s.\n", token);
+      LogRequestErrors("Unknown term in multipart Content-Type %s.\n", token);
       return false;
      }
+ROUND_AGAIN:
     token = strtok_r(NULL, ";", &lasts);
    }
+  
   if(boundaryString)
     return true;
   else
