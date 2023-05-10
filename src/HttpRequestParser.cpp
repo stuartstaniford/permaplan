@@ -38,6 +38,10 @@ HttpRequestParser::HttpRequestParser(unsigned size):
   buf+=4;
   strncpy(buf+size, "bbbb", 4);
 
+  // Zero out ptrs that we wouldn't want to accidentally delete on random initial state
+  parsedBody  = nullptr;
+  multiFile   = nullptr;
+
   // Non buffer initialization in here:
   resetForNewConnection();  
   
@@ -68,7 +72,11 @@ void HttpRequestParser::resetForNewRequest(void)
   bodyPresent         = false;
   bodySize            = 0u;
   contentType         = NoMimeType;
-  parsedBody          = nullptr;
+  if(parsedBody)
+   {
+    delete parsedBody;
+    parsedBody  = nullptr;
+   }
   if(multiFile)
    {
     delete multiFile;
@@ -83,7 +91,8 @@ void HttpRequestParser::resetForNewRequest(void)
 /// Function to reset (eg for a new connection) without throwing away the buffer.  
 
 void HttpRequestParser::resetForNewConnection(void)
-{
+{  
+  // This will take care of of most state
   resetForNewRequest();
   
   // Initialize things that might maintain important state across requests, but not
@@ -209,6 +218,11 @@ bool HttpRequestParser::parseRequest(void)
              {
               // Multipart content-types are not fixed and require special handling
               multiFile = new MultipartFile(value + 10);
+              unless(multiFile)
+              {
+               LogRequestErrors("Failed memory allocation for multifile.\n");
+               goto badParseRequestExit;   
+              }
              }
             else
              {
@@ -465,6 +479,11 @@ bool HttpRequestParser::processBody(void)
   if(contentType == ApplicationXWWWFormUrlEncoded)
    {
     parsedBody = (DynamicallyTypable*)new HTMLForm(headerEnd, bodySize);
+    unless(parsedBody)
+    {
+     LogRequestErrors("Failed memory allocation for parsedBody.\n");
+     return false;   
+    }
     unparsedBody = nullptr;
     LogRequestParsing("Parsed form body (Content type ApplicationXWWWFormUrlEncoded).\n");
    }
