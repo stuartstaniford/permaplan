@@ -39,7 +39,7 @@ MultipartFile::MultipartFile(char* contentTypeValue): isValid(false),
   
   // Parse the Content-Type value, boundary, etc
   // Our string starts after the Content-type: multipart/
-  if(strcmp(contentTypeValue, "form-data") == 0)
+  if(strncmp(contentTypeValue, "form-data", 9) == 0)
    {
     if(parseFormDataHeader(contentTypeValue + 9))
       isValid = true;
