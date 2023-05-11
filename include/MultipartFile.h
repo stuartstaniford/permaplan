@@ -31,8 +31,9 @@ private:
 
   
   // Instance variables - private
-  char* boundaryString;
-  char* charsetString;
+  char*             boundaryString;
+  char*             charsetString;
+  multipart_parser* parser;
   
   // Member functions - private
   bool parseFormDataHeader(char* headerString);

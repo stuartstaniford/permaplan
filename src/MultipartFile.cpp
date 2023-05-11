@@ -26,7 +26,8 @@ multipart_parser_settings MultipartFile::callbacks;
 
 MultipartFile::MultipartFile(char* contentTypeValue): isValid(false), 
                                                       boundaryString(nullptr),
-                                                      charsetString(nullptr)
+                                                      charsetString(nullptr),
+                                                      parser(nullptr)
 {
   // Set up the callbacks once at class initialization time
   unless(classInitDone)
@@ -42,10 +43,13 @@ MultipartFile::MultipartFile(char* contentTypeValue): isValid(false),
   if(strncmp(contentTypeValue, "form-data", 9) == 0)
    {
     if(parseFormDataHeader(contentTypeValue + 9))
+     {
       isValid = true;
+      parser = multipart_parser_init(boundaryString, &callbacks);
+     }
     else
      {
-      LogRequestErrors("Couldn't parse multipart Content-Type: %s.\n", contentTypeValue);       
+      LogRequestErrors("Couldn't parse multipart Content-Type: %s.\n", contentTypeValue);
      }
    }
   else
@@ -60,6 +64,8 @@ MultipartFile::MultipartFile(char* contentTypeValue): isValid(false),
 
 MultipartFile::~MultipartFile(void)
 {
+  if(parser)
+    multipart_parser_free(parser);
 }
 
 
