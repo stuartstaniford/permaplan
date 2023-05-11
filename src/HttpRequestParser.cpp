@@ -456,7 +456,13 @@ bool HttpRequestParser::processBody(void)
    {    
     unless(readAndCheck(nBytes))
       return false;
-           
+    
+    if(multiFile)
+     {
+       // Special handling for big uploads which won't fit in buffer 
+     }
+     
+     
     // About to go round again, so update the paramters for where/how much to read
     readPoint += nBytes;
     bufLeft -= nBytes;
