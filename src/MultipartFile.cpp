@@ -9,6 +9,7 @@
 #include "MultipartFile.h"
 #include "Logging.h"
 #include <string.h>
+#include <assert.h>
 
 
 // =======================================================================================
@@ -46,6 +47,11 @@ MultipartFile::MultipartFile(char* contentTypeValue): isValid(false),
      {
       isValid = true;
       parser = multipart_parser_init(boundaryString, &callbacks);
+      unless(parser)
+       {
+        LogRequestErrors("Initialization failed in multipart_parser_init.\n");
+        isValid = false;
+       }
      }
     else
      {
@@ -78,7 +84,15 @@ MultipartFile::~MultipartFile(void)
 
 unsigned MultipartFile::gotNewData(char* buf, int nBytes)
 {
-  return 0u;
+  assert(parser);
+  size_t parsed = multipart_parser_execute(parser, buf, nBytes);
+
+  if(parsed == nBytes) 
+   {
+    LogRequestParsing("Multipart parsing complete!\n");
+   }
+  
+  return (unsigned)parsed;
 }
 
 
@@ -133,19 +147,31 @@ ROUND_AGAIN:
 
 
 // =======================================================================================
+/// @brief C callback function from multipart_parser on header names.
+///
+/// @returns Zero on success, non zero on error.
+/// @param at The header name we are passed.
+/// @param length The number of bytes in the header name.
 
 int read_header_name(multipart_parser* p, const char *at, size_t length)
 {
-   printf("%.*s: ", (int)length, at);
-   return 0;
+  LogRequestParsing("Found multipart header: %.*s: ", (int)length, at);
+  return 0;
 }
 
+
 // =======================================================================================
+/// @brief C callback function from multipart_parser on header values.
+///
+/// @returns Zero on success, non zero on error.
+/// @param at The header name we are passed.
+/// @param length The number of bytes in the header name.
 
 int read_header_value(multipart_parser* p, const char *at, size_t length)
 {
-   printf("%.*s\n", (int)length, at);
-   return 0;
+  LogRequestParsing("Found multipart value: %.*s\n", (int)length, at);
+  return 0;
 }
+
 
 // =======================================================================================

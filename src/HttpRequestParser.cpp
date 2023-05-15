@@ -465,6 +465,8 @@ bool HttpRequestParser::processBody(void)
        {
         LogRequestParsing("Only consumed %u bytes of %u in Multifile-gotNewData\n",
                                                     consumed, nBytes);
+        
+        // XXX more book-keeping needed here if there is left over data
         break;
        }
       LogRequestParsing("Sent %u bytes to multiFile->gotNewData.\n", nBytes); 
