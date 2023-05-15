@@ -459,14 +459,23 @@ bool HttpRequestParser::processBody(void)
     
     if(multiFile)
      {
-       // Special handling for big uploads which won't fit in buffer 
+      // Special handling for big uploads which won't fit in buffer
+      unsigned consumed;
+      unless((consumed = multiFile->gotNewData(readPoint, nBytes)) == nBytes)
+       {
+        LogRequestParsing("Only consumed %u bytes of %u in Multifile-gotNewData\n",
+                                                    consumed, nBytes);
+        break;
+       }
+      LogRequestParsing("Sent %u bytes to multiFile->gotNewData.\n", nBytes); 
+     }
+    else
+     {
+      // About to go round again, so update the paramters for where/how much to read
+      readPoint += nBytes;
+      bufLeft -= nBytes;
      }
      
-     
-    // About to go round again, so update the paramters for where/how much to read
-    readPoint += nBytes;
-    bufLeft -= nBytes;
-  
    } // while(1) over reads
 
   if(readPoint > headerEnd + bodySize)

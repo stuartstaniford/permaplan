@@ -70,7 +70,20 @@ MultipartFile::~MultipartFile(void)
 
 
 // =======================================================================================
-/// @brief Constructor
+/// @brief Consume a new chunk of data and pass it to the multipart_parser code.
+///
+/// @returns The number of bytes actually consumed by the multipart_parser.
+/// @param buf A char* pointer to the data to be consumed.
+/// @param nBytes The count of bytes at the buf pointer.
+
+unsigned MultipartFile::gotNewData(char* buf, int nBytes)
+{
+  return 0u;
+}
+
+
+// =======================================================================================
+/// @brief Function to parse the Content-Type in a multipart data Post.
 ///
 /// @param headerString The value of the Content-Type header after the multipart/form-data. 
 /// This is required in order to extract the boundary string.

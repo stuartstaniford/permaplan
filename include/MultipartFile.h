@@ -22,6 +22,7 @@ public:
   // Member functions - public
   MultipartFile(char* contentTypeValue);
   ~MultipartFile(void);
+  unsigned gotNewData(char* buf, int nBytes);
   
 private:
 
