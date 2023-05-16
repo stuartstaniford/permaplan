@@ -52,6 +52,10 @@ MultipartFile::MultipartFile(char* contentTypeValue): isValid(false),
         LogRequestErrors("Initialization failed in multipart_parser_init.\n");
         isValid = false;
        }
+      else
+       {
+        LogRequestParsing("Successfully created MultipartFile object.");
+       }
      }
     else
      {
@@ -86,6 +90,8 @@ unsigned MultipartFile::gotNewData(char* buf, int nBytes)
 {
   assert(parser);
   size_t parsed = multipart_parser_execute(parser, buf, nBytes);
+
+  LogRequestParsing("multipart_parser consumed %zu bytes of %u given.\n", parsed, nBytes);
 
   if(parsed == nBytes) 
    {
@@ -164,7 +170,7 @@ int read_header_name(multipart_parser* p, const char *at, size_t length)
 /// @brief C callback function from multipart_parser on header values.
 ///
 /// @returns Zero on success, non zero on error.
-/// @param at The header name we are passed.
+/// @param at The value we are passed.
 /// @param length The number of bytes in the header name.
 
 int read_header_value(multipart_parser* p, const char *at, size_t length)

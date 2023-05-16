@@ -337,7 +337,7 @@ bool HttpRequestParser::readAndCheck(int& nBytes)
     connectionDone = true;
     return false;
    }
-  if(nBytes < bufLeft)
+  if(nBytes <= bufLeft)
    {
     // Got some data, read it into buffer
     readPoint[nBytes] = '\0';
@@ -345,7 +345,8 @@ bool HttpRequestParser::readAndCheck(int& nBytes)
    }
   else // damn big request
    {
-    LogRequestErrors("Request too big for buffer.\n");
+    LogRequestErrors("Request of %u bytes too big for remaining buffer of %u bytes.\n",
+                        nBytes, bufLeft);
     connectionDone = true;
     return false;
    }
