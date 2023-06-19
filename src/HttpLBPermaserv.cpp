@@ -9,6 +9,7 @@
 #include "SolarDatabase.h"
 #include "SoilDatabase.h"
 #include "ClimateDatabase.h"
+#include "iTreeList.h"
 #include "PmodServer.h"
 #include "Logging.h"
 
@@ -37,7 +38,7 @@ HttpLBPermaserv::HttpLBPermaserv(PermaservParams& permaservParams):
   // Solar Database
   if(params.flags & PERMASERV_NO_SOLAR)
    {
-    solarDatabase = NULL;
+    solarDatabase = nullptr;
     LogPermaservOps("Initializing without solar database.\n");
    }
   else
@@ -49,7 +50,7 @@ HttpLBPermaserv::HttpLBPermaserv(PermaservParams& permaservParams):
   // PmodServ (for user OLDF files) 
   if(params.flags & (PERMASERV_NO_OLDFSERV | PERMASERV_NO_USERS))
    {
-    pmodServer = NULL;
+    pmodServer = nullptr;
     LogPermaservOps("Initializing without Pmod Server for OLDF files.\n");
    }
   else
@@ -65,7 +66,7 @@ HttpLBPermaserv::HttpLBPermaserv(PermaservParams& permaservParams):
   // Climate Database
   if(params.flags & PERMASERV_NO_CLIMATE)
    {
-    climateDatabase = NULL;
+    climateDatabase = nullptr;
     LogPermaservOps("Initializing without climate database.\n");
    }
   else if(params.flags & PERMASERV_CLIMATE_FILES)
@@ -78,7 +79,19 @@ HttpLBPermaserv::HttpLBPermaserv(PermaservParams& permaservParams):
     climateDatabase = new ClimateDatabase;
     LogPermaservOps("Basic initialization of climate database complete.\n");
    }
-    
+
+  // Tree Database
+  if(params.flags & PERMASERV_NO_TREES)
+   {
+    treeList = nullptr;
+    LogPermaservOps("Initializing without tree database.\n");
+   }
+  else
+   {
+    treeList = new iTreeList;
+    LogPermaservOps("Initialization of tree database complete.\n");
+   }
+
   // Static objects  from files
   initializeScriptPages();
   initializeCSSPages();
@@ -102,29 +115,29 @@ HttpLBPermaserv::~HttpLBPermaserv(void)
 // =======================================================================================
 /// @brief Function to set up static script pages that we serve.
 /// 
-/// Any script that we want to serve should be included in here and set to NULL.  It will
+/// Any script that we want to serve should be included in here and set to nullptr.  It will
 /// be loaded the first time it's requested.
 
 void HttpLBPermaserv::initializeScriptPages(void)
 {
   scriptPages = new HttpPageSet((char*)"scripts/", TextJavascript);
   
-  scriptPages->insert({"test.js", NULL});
-  scriptPages->insert({"checkUserPass.js", NULL});
+  scriptPages->insert({"test.js", nullptr});
+  scriptPages->insert({"checkUserPass.js", nullptr});
 }
 
 
 // =======================================================================================
 /// @brief Function to set up static css pages that we serve.
 /// 
-/// Any CSS file that we want to serve should be included in here and set to NULL.  It will
+/// Any CSS file that we want to serve should be included in here and set to nullptr.  It will
 /// be loaded the first time it's requested.
 
 void HttpLBPermaserv::initializeCSSPages(void)
 {
   cssPages = new HttpPageSet((char*)"css/", TextCss);
   
-  cssPages->insert({"permaplan.css", NULL});
+  cssPages->insert({"permaplan.css", nullptr});
 }
 
 

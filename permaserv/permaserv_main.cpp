@@ -49,6 +49,7 @@ void printUsage(int argc, char* argv[])
   printf("\t-o\tRun server with no OLDF file handling.\n");
   printf("\t-p P\tRun server on port P.\n");
   printf("\t-s\tRun server with no solar database.\n");
+  printf("\t-t\tRun server with no tree/plant database.\n");
   printf("\t-u\tRun server with no user sessions/management.\n");
   printf("Note:\n");
   printf("\t* -u implies -o as OLDF handling depends on user directories.\n");
@@ -68,7 +69,7 @@ void processCommandLine(int argc, char* argv[])
 {  
   int optionChar;
 
-  while( (optionChar = getopt(argc, argv, "cC:hop:su")) != -1)
+  while( (optionChar = getopt(argc, argv, "cC:hop:stu")) != -1)
     switch (optionChar)
      {
        case 'c':
@@ -98,6 +99,10 @@ void processCommandLine(int argc, char* argv[])
 
        case 's':
          permaservParams.flags |= PERMASERV_NO_SOLAR;
+         break;
+
+       case 't':
+         permaservParams.flags |= PERMASERV_NO_TREES;
          break;
 
        case 'u':
