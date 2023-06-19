@@ -5,6 +5,8 @@
 #ifndef _multipart_parser_h
 #define _multipart_parser_h
 
+#define DEBUG_MULTIPART 1
+
 #ifdef __cplusplus
 extern "C"
 {

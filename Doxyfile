@@ -915,6 +915,7 @@ INPUT                  = doc \
                 include/HttpStaticPage.h src/HttpStaticPage.cpp \
                 include/InterfaceAction.h src/InterfaceAction.cpp \
                 include/InterfaceMainSceneWin.h src/InterfaceMainSceneWin.cpp \
+                include/iTreeList.h src/iTreeList.cpp \
                 include/JSONStructureChecker.h src/JSONStructureChecker.cpp \
                 include/LandSurface.h src/LandSurface.cpp \
                 include/LandSurfaceRegion.h src/LandSurfaceRegion.cpp \

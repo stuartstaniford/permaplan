@@ -1,13 +1,13 @@
 // Copyright Staniford Systems.  All Rights Reserved.  June 2023 -
-// This class ..... is a template for real classes
+// Code to read in json version of the iTree database
 
-#include "EmptyClass.h"
+#include "iTreeList.h"
 
 
 // =======================================================================================
 /// @brief Constructor
 
-EmptyClass::EmptyClass(void)
+iTreeList::iTreeList(void)
 {
 }
 
@@ -15,7 +15,7 @@ EmptyClass::EmptyClass(void)
 // =======================================================================================
 /// @brief Destructor
 
-EmptyClass::~EmptyClass(void)
+iTreeList::~iTreeList(void)
 {
 }
 

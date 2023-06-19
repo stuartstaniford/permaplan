@@ -1,32 +1,32 @@
 // Copyright Staniford Systems.  All Rights Reserved.  June 2023 -
 
-#ifndef EMPTY_CLASS_H
-#define EMPTY_CLASS_H
+#ifndef I_TREE_LIST_H
+#define I_TREE_LIST_H
 
 #include "Global.h"
 
 
 // =======================================================================================
-/// @brief This is a template for new classes.  Quick description of the class here.
+/// @brief Code to read in json version of the iTree database.
 ///
-/// More details of the class go here.
+/// Also has code to allow permaserv to print a table of it.
 
-class EmptyClass
+class iTreeList
 {
 public:
   
   // Instance variables - public
   
   // Member functions - public
-  EmptyClass(void);
-  ~EmptyClass(void);
+  iTreeList(void);
+  ~iTreeList(void);
   
 private:
   
   // Instance variables - private
   
   // Member functions - private
-  PreventAssignAndCopyConstructor(EmptyClass);
+  PreventAssignAndCopyConstructor(iTreeList);
 };
 
 
