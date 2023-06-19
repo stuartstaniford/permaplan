@@ -4,6 +4,10 @@
 #define I_TREE_LIST_H
 
 #include "Global.h"
+#include "rapidjson/document.h"
+#include "rapidjson/writer.h"
+#include "rapidjson/stringbuffer.h"
+#include "rapidjson/error/en.h"
 
 
 // =======================================================================================
@@ -16,7 +20,8 @@ class iTreeList
 public:
   
   // Instance variables - public
-  
+  rapidjson::Document   doc;
+
   // Member functions - public
   iTreeList(void);
   ~iTreeList(void);
