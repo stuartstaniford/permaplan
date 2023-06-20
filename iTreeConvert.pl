@@ -1,5 +1,10 @@
 #!/usr/bin/perl
 
+# What the start of file is like:
+#Genus Name  Species Name  Synonym  Family  Order  Class  Common Name  Species Code  Growth Form  Percent Leaf Type  Leaf Type  Growth Rate  Longevity  Height at Maturity (feet)
+#Abarema  cochliocarpos    Fabaceae  Fabales  Rosidae  Abarema cochliocarpos  ABCO1  Shrub or small tree  Hardwood  Evergreen    
+#Abarema  glauca    Fabaceae  Fabales  Rosidae  Abarema glauca  ABGL  Tree  Hardwood  Evergreen      
+
 $iTreeFile = "web/itree-SpeciesList_28-10-2020-11-10-57-AM.txt";
 $outFile = "web/trees.json";
 
