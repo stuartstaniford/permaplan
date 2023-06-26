@@ -28,9 +28,11 @@ the #include declarations at the top of the file.
 
 The Gnu GSL (brew install gsl).
 
-brew install glsl
+brew install glslang
 
 brew install glew
+
+brew install glfw
 
 Libressl is used for TLS/crypto functions.
 
