@@ -6,10 +6,11 @@
 #include "Logging.h"
 #include "Global.h"
 
+#ifdef ITREE_JSON_VERSION
 using namespace rapidjson;
 
 char* iTreeFileLocation = (char*)"web/trees.json";
-
+#endif
 
 // =======================================================================================
 /// @brief Constructor
@@ -19,6 +20,7 @@ iTreeList::iTreeList(void)
   unsigned bufSize;
   char* buf = loadFileToBuf(iTreeFileLocation, &bufSize);
   
+#ifdef ITREE_JSON_VERSION
   ParseResult ok = doc.ParseInsitu<kParseCommentsFlag>(buf);
   unless(ok)
    {
@@ -28,6 +30,8 @@ iTreeList::iTreeList(void)
    }
   if(!doc.IsArray())
     err(-1, "Base of tree json file %s is not JSON array.\n", iTreeFileLocation);
+#endif
+
 }
 
 
