@@ -3,7 +3,7 @@
 #ifndef I_TREE_LIST_H
 #define I_TREE_LIST_H
 
-#define ITREE_JSON_VERSION 1
+//#define ITREE_JSON_VERSION 1
 
 #include "Global.h"
 #include "Taxonomy.h"

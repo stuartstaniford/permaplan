@@ -5,6 +5,8 @@
 #include "loadFileToBuf.h"
 #include "Logging.h"
 #include "Global.h"
+#include <strings.h>
+#include <stdio.h>
 
 #ifdef ITREE_JSON_VERSION
 using namespace rapidjson;
@@ -45,13 +47,21 @@ iTreeList::iTreeList(void)
 
 void iTreeList::parseItreeFile(char* buf, unsigned bufSize)
 {
-// What the start of file is like:
-//Genus Name  Species Name  Synonym  Family  Order  Class  Common Name  Species Code  Growth Form  Percent Leaf Type  Leaf Type  Growth Rate  Longevity  Height at Maturity (feet)
-//Abarema  cochliocarpos    Fabaceae  Fabales  Rosidae  Abarema cochliocarpos  ABCO1  Shrub or small tree  Hardwood  Evergreen    
-//Abarema  glauca    Fabaceae  Fabales  Rosidae  Abarema glauca  ABGL  Tree  Hardwood  Evergreen      
+  // What the start of file is like:
+  //Genus Name  Species Name  Synonym  Family  Order  Class  Common Name  Species Code  Growth Form  Percent Leaf Type  Leaf Type  Growth Rate  Longevity  Height at Maturity (feet)
+  //Abarema  cochliocarpos    Fabaceae  Fabales  Rosidae  Abarema cochliocarpos  ABCO1  Shrub or small tree  Hardwood  Evergreen    
+  //Abarema  glauca    Fabaceae  Fabales  Rosidae  Abarema glauca  ABGL  Tree  Hardwood  Evergreen      
 
+  char* line;
+  char* end = buf + bufSize;
+  int count = 0;
   
-  
+  for(line = buf; line >= buf && line < end; line = index(line, '\n') + 1)
+   {
+    count++; 
+    //fprintf(stderr, "%d (%ld)\t", count, line-buf);
+   }
+  fprintf(stderr, "Counted %d lines in file %s.\n", count, iTreeFileLocation);
 }
 
 
