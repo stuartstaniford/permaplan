@@ -45,6 +45,12 @@ iTreeList::iTreeList(void)
 
 void iTreeList::parseItreeFile(char* buf, unsigned bufSize)
 {
+// What the start of file is like:
+//Genus Name  Species Name  Synonym  Family  Order  Class  Common Name  Species Code  Growth Form  Percent Leaf Type  Leaf Type  Growth Rate  Longevity  Height at Maturity (feet)
+//Abarema  cochliocarpos    Fabaceae  Fabales  Rosidae  Abarema cochliocarpos  ABCO1  Shrub or small tree  Hardwood  Evergreen    
+//Abarema  glauca    Fabaceae  Fabales  Rosidae  Abarema glauca  ABGL  Tree  Hardwood  Evergreen      
+
+  
   
 }
 

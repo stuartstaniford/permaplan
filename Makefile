@@ -57,7 +57,7 @@ SCRIPTS = $(wildcard scripts/*.js)
 # with the .o suffix
 #
 OBJS = $(SRCS:.cpp=.o) $(CSRCS:.c=.o)
-SERV_OBJS = src/BILFile.o src/ClimateInfo.o src/ClimateDatabase.o src/CryptoAlgorithms.o src/DynamicallyTypable.o src/Family.o src/GHCNDatabase.o src/GdalFileInterface.o src/Global.o src/GroundLayer.o src/HTMLForm.o src/HttpLBPermaserv.o src/HttpPageSet.o src/HttpPermaServ.o src/HttpServThread.o src/HttpStaticPage.o src/HttpLoadBalancer.o src/HttpRequestParser.o src/HttpClient.o src/HWSDProfile.o src/iTreeList.o src/loadFileToBuf.o src/Lockable.o src/Logging.o src/MdbFile.o src/MimeTypeMaps.o src/MultipartFile.o src/multipart_parser.o src/PermaservCookie.o src/PmodServer.o src/ResourceManager.o src/SoilDatabase.o src/SoilHorizon.o src/SoilProfile.o src/SolarDatabase.o src/TaskQueue.o src/TaskQueueFarm.o src/TimeoutMap.o src/Timeval.o src/UserManager.o src/UserSession.o
+SERV_OBJS = src/BILFile.o src/ClimateInfo.o src/ClimateDatabase.o src/CryptoAlgorithms.o src/DynamicallyTypable.o src/Family.o src/GHCNDatabase.o src/GdalFileInterface.o src/Global.o src/GroundLayer.o src/HTMLForm.o src/HttpLBPermaserv.o src/HttpPageSet.o src/HttpPermaServ.o src/HttpServThread.o src/HttpStaticPage.o src/HttpLoadBalancer.o src/HttpRequestParser.o src/HttpClient.o src/HWSDProfile.o src/iTreeList.o src/loadFileToBuf.o src/Lockable.o src/Logging.o src/MdbFile.o src/MimeTypeMaps.o src/MultipartFile.o src/multipart_parser.o src/PermaservCookie.o src/PmodServer.o src/ResourceManager.o src/SoilDatabase.o src/SoilHorizon.o src/SoilProfile.o src/SolarDatabase.o src/TaskQueue.o src/TaskQueueFarm.o src/Taxonomy.o src/TimeoutMap.o src/Timeval.o src/UserManager.o src/UserSession.o
 
 # define the executable file
 MAIN = permaplan
@@ -828,8 +828,9 @@ src/BuildingWindow.o: /opt/homebrew/include/cglm/ray.h
 src/BuildingWindow.o: /opt/homebrew/include/cglm/affine2d.h
 src/BuildingWindow.o: ./include/Timeval.h ./include/InterfaceAction.h
 src/BuildingWindow.o: ./include/Global.h /opt/homebrew/include/GL/glew.h
-src/BuildingWindow.o: ./include/Building.h ./include/ObjectGroup.h
-src/BuildingWindow.o: ./include/VisualObject.h ./include/VisualElement.h
+src/BuildingWindow.o: /opt/homebrew/include/GLFW/glfw3.h ./include/Building.h
+src/BuildingWindow.o: ./include/ObjectGroup.h ./include/VisualObject.h
+src/BuildingWindow.o: ./include/VisualElement.h
 src/BuildingWindow.o: ./include/DynamicallyTypable.h
 src/BuildingWindow.o: ./include/TriangleBuffer.h ./include/Vertex.h
 src/BuildingWindow.o: ./include/Logging.h ./include/MemoryTracker.h
@@ -1529,6 +1530,9 @@ src/CryptoAlgorithms.o: /opt/homebrew/include/cglm/curve.h
 src/CryptoAlgorithms.o: /opt/homebrew/include/cglm/bezier.h
 src/CryptoAlgorithms.o: /opt/homebrew/include/cglm/ray.h
 src/CryptoAlgorithms.o: /opt/homebrew/include/cglm/affine2d.h
+src/CryptoAlgorithms.o: /opt/homebrew/Cellar/libressl/3.7.3/include/openssl/sha.h
+src/CryptoAlgorithms.o: /opt/homebrew/Cellar/libressl/3.7.3/include/openssl/opensslconf.h
+src/CryptoAlgorithms.o: /opt/homebrew/Cellar/libressl/3.7.3/include/openssl/opensslfeatures.h
 src/CryptoAlgorithms.o: ./include/Logging.h ./include/MemoryTracker.h
 src/CryptoAlgorithms.o: ./include/Timeval.h ./include/Lockable.h
 src/Cylinder.o: ./include/Cylinder.h ./include/AxialElement.h
@@ -1698,9 +1702,12 @@ src/ElementBufferCombo.o: /opt/homebrew/include/cglm/affine2d.h
 src/ElementBufferCombo.o: ./include/Logging.h ./include/MemoryTracker.h
 src/ElementBufferCombo.o: ./include/Timeval.h ./include/Lockable.h
 src/ElementBufferCombo.o: /opt/homebrew/include/GL/glew.h
+src/ElementBufferCombo.o: /opt/homebrew/include/GLFW/glfw3.h
 src/ElementBufferCombo.o: ./include/ElementBufferObject.h
 src/ElementBufferObject.o: ./include/ElementBufferObject.h
-src/ElementBufferObject.o: /opt/homebrew/include/GL/glew.h ./include/Shader.h
+src/ElementBufferObject.o: /opt/homebrew/include/GL/glew.h
+src/ElementBufferObject.o: /opt/homebrew/include/GLFW/glfw3.h
+src/ElementBufferObject.o: ./include/Shader.h
 src/ElementBufferObject.o: /opt/homebrew/include/cglm/cglm.h
 src/ElementBufferObject.o: /opt/homebrew/include/cglm/common.h
 src/ElementBufferObject.o: /opt/homebrew/include/cglm/types.h
@@ -1952,7 +1959,8 @@ src/GLFWApplication.o: /opt/homebrew/include/cglm/ray.h
 src/GLFWApplication.o: /opt/homebrew/include/cglm/affine2d.h
 src/GLFWApplication.o: ./include/Timeval.h ./include/Window3D.h
 src/GLFWApplication.o: ./include/Camera.h ./include/InterfaceAction.h
-src/GLFWApplication.o: /opt/homebrew/include/GL/glew.h ./include/Shader.h
+src/GLFWApplication.o: /opt/homebrew/include/GL/glew.h
+src/GLFWApplication.o: /opt/homebrew/include/GLFW/glfw3.h ./include/Shader.h
 src/GLFWApplication.o: ./include/HttpDebug.h ./include/HttpServThread.h
 src/GLFWApplication.o: ./include/TaskQueue.h ./include/HttpRequestParser.h
 src/GLFWApplication.o: ./include/MimeTypeMaps.h ./include/PermaservCookie.h
@@ -2264,10 +2272,10 @@ src/Grid.o: /opt/homebrew/include/GL/glew.h ./include/Vertex.h
 src/Grid.o: ./include/Global.h ./include/Logging.h ./include/MemoryTracker.h
 src/Grid.o: ./include/Timeval.h ./include/Lockable.h ./include/Shader.h
 src/Grid.o: ./include/VertexArrayObject.h ./include/VertexBufferObject.h
-src/Grid.o: ./include/LandSurface.h ./include/rapidjson/document.h
-src/Grid.o: ./include/rapidjson/reader.h ./include/rapidjson/allocators.h
-src/Grid.o: ./include/rapidjson/rapidjson.h ./include/rapidjson/stream.h
-src/Grid.o: ./include/rapidjson/encodings.h
+src/Grid.o: /opt/homebrew/include/GLFW/glfw3.h ./include/LandSurface.h
+src/Grid.o: ./include/rapidjson/document.h ./include/rapidjson/reader.h
+src/Grid.o: ./include/rapidjson/allocators.h ./include/rapidjson/rapidjson.h
+src/Grid.o: ./include/rapidjson/stream.h ./include/rapidjson/encodings.h
 src/Grid.o: ./include/rapidjson/encodedstream.h
 src/Grid.o: ./include/rapidjson/memorystream.h
 src/Grid.o: ./include/rapidjson/internal/clzll.h
@@ -2488,6 +2496,93 @@ src/HWSDProfile.o: ./include/rapidjson/stringbuffer.h
 src/HWSDProfile.o: ./include/rapidjson/error/en.h
 src/HWSDProfile.o: ./include/rapidjson/error/error.h ./include/SoilHorizon.h
 src/HWSDProfile.o: ./include/MdbFile.h /opt/homebrew/include/mdbtools.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/galloca.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gtypes.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/lib/glib-2.0/include/glibconfig.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gmacros.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gversionmacros.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/glib-visibility.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/garray.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gasyncqueue.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gthread.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gatomic.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/glib-typeof.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gerror.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gquark.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gutils.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gbacktrace.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gbase64.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gbitlock.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gbookmarkfile.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gdatetime.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gtimezone.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gbytes.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gcharset.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gchecksum.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gconvert.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gdataset.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gdate.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gdir.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/genviron.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gfileutils.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/ggettext.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/ghash.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/glist.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gmem.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gnode.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/ghmac.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gchecksum.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/ghook.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/ghostutils.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/giochannel.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gmain.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gpoll.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gslist.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gstring.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gunicode.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gstrfuncs.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gkeyfile.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gmappedfile.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gmarkup.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gmessages.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gvariant.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gvarianttype.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/goption.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gpathbuf.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gpattern.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gprimes.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gqsort.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gqueue.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/grand.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/grcbox.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/grefcount.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/grefstring.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gmem.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gmacros.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gregex.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gscanner.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gsequence.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gshell.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gslice.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gspawn.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gstringchunk.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gstrvbuilder.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gtestutils.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gthreadpool.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gtimer.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gtrashstack.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gtree.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/guri.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/guuid.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gversion.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/deprecated/gallocator.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/deprecated/gcache.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/deprecated/gcompletion.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/deprecated/gmain.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/deprecated/grel.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/deprecated/gthread.h
+src/HWSDProfile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/glib-autocleanups.h
 src/HWSDProfile.o: ./include/Logging.h ./include/MemoryTracker.h
 src/HWSDProfile.o: ./include/Timeval.h ./include/Lockable.h
 src/HWSDProfile.o: ./include/Global.h /opt/homebrew/include/cglm/cglm.h
@@ -2740,7 +2835,8 @@ src/HttpDebug.o: ./include/DisplayList.h ./include/TaskQueueFarm.h
 src/HttpDebug.o: ./include/SkySampleModel.h ./include/InterfaceMainSceneWin.h
 src/HttpDebug.o: ./include/MenuInterface.h ./include/MenuPanel.h
 src/HttpDebug.o: imgui/imgui.h imgui/imconfig.h ./include/MainSceneWindow.h
-src/HttpDebug.o: ./include/Window3D.h ./include/Camera.h ./include/Species.h
+src/HttpDebug.o: ./include/Window3D.h ./include/Camera.h
+src/HttpDebug.o: /opt/homebrew/include/GLFW/glfw3.h ./include/Species.h
 src/HttpDebug.o: ./include/Version.h ./include/GLFWApplication.h
 src/HttpLBDebug.o: ./include/HttpLBDebug.h ./include/HttpLoadBalancer.h
 src/HttpLBDebug.o: ./include/Global.h /opt/homebrew/include/cglm/cglm.h
@@ -2853,8 +2949,95 @@ src/HttpLBPermaserv.o: ./include/PermaservCookie.h ./include/SolarDatabase.h
 src/HttpLBPermaserv.o: ./include/GdalFileInterface.h ./include/SoilDatabase.h
 src/HttpLBPermaserv.o: ./include/BILFile.h ./include/MdbFile.h
 src/HttpLBPermaserv.o: /opt/homebrew/include/mdbtools.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/galloca.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gtypes.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/lib/glib-2.0/include/glibconfig.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gmacros.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gversionmacros.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/glib-visibility.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/garray.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gasyncqueue.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gthread.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gatomic.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/glib-typeof.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gerror.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gquark.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gutils.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gbacktrace.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gbase64.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gbitlock.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gbookmarkfile.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gdatetime.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gtimezone.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gbytes.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gcharset.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gchecksum.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gconvert.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gdataset.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gdate.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gdir.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/genviron.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gfileutils.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/ggettext.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/ghash.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/glist.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gmem.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gnode.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/ghmac.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gchecksum.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/ghook.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/ghostutils.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/giochannel.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gmain.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gpoll.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gslist.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gstring.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gunicode.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gstrfuncs.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gkeyfile.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gmappedfile.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gmarkup.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gmessages.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gvariant.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gvarianttype.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/goption.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gpathbuf.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gpattern.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gprimes.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gqsort.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gqueue.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/grand.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/grcbox.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/grefcount.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/grefstring.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gmem.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gmacros.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gregex.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gscanner.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gsequence.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gshell.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gslice.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gspawn.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gstringchunk.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gstrvbuilder.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gtestutils.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gthreadpool.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gtimer.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gtrashstack.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gtree.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/guri.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/guuid.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gversion.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/deprecated/gallocator.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/deprecated/gcache.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/deprecated/gcompletion.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/deprecated/gmain.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/deprecated/grel.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/deprecated/gthread.h
+src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/glib-autocleanups.h
 src/HttpLBPermaserv.o: ./include/ClimateDatabase.h ./include/iTreeList.h
-src/HttpLBPermaserv.o: ./include/rapidjson/document.h
+src/HttpLBPermaserv.o: ./include/Taxonomy.h ./include/rapidjson/document.h
 src/HttpLBPermaserv.o: ./include/rapidjson/reader.h
 src/HttpLBPermaserv.o: ./include/rapidjson/allocators.h
 src/HttpLBPermaserv.o: ./include/rapidjson/rapidjson.h
@@ -3054,12 +3237,102 @@ src/HttpPermaServ.o: ./include/MemoryTracker.h ./include/Timeval.h
 src/HttpPermaServ.o: ./include/SolarDatabase.h ./include/GdalFileInterface.h
 src/HttpPermaServ.o: ./include/SoilDatabase.h ./include/BILFile.h
 src/HttpPermaServ.o: ./include/MdbFile.h /opt/homebrew/include/mdbtools.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/galloca.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gtypes.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/lib/glib-2.0/include/glibconfig.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gmacros.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gversionmacros.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/glib-visibility.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/garray.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gasyncqueue.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gthread.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gatomic.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/glib-typeof.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gerror.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gquark.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gutils.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gbacktrace.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gbase64.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gbitlock.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gbookmarkfile.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gdatetime.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gtimezone.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gbytes.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gcharset.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gchecksum.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gconvert.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gdataset.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gdate.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gdir.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/genviron.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gfileutils.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/ggettext.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/ghash.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/glist.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gmem.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gnode.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/ghmac.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gchecksum.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/ghook.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/ghostutils.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/giochannel.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gmain.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gpoll.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gslist.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gstring.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gunicode.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gstrfuncs.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gkeyfile.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gmappedfile.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gmarkup.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gmessages.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gvariant.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gvarianttype.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/goption.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gpathbuf.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gpattern.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gprimes.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gqsort.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gqueue.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/grand.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/grcbox.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/grefcount.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/grefstring.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gmem.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gmacros.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gregex.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gscanner.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gsequence.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gshell.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gslice.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gspawn.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gstringchunk.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gstrvbuilder.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gtestutils.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gthreadpool.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gtimer.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gtrashstack.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gtree.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/guri.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/guuid.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gversion.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/deprecated/gallocator.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/deprecated/gcache.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/deprecated/gcompletion.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/deprecated/gmain.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/deprecated/grel.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/deprecated/gthread.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/glib-autocleanups.h
 src/HttpPermaServ.o: ./include/HttpLBPermaserv.h ./include/HttpLoadBalancer.h
 src/HttpPermaServ.o: ./include/HttpPageSet.h ./include/ClimateDatabase.h
 src/HttpPermaServ.o: ./include/ClimateInfo.h ./include/DynamicallyTypable.h
 src/HttpPermaServ.o: ./include/PmodServer.h ./include/UserManager.h
-src/HttpPermaServ.o: ./include/CryptoAlgorithms.h ./include/TimeoutMap.h
-src/HttpPermaServ.o: ./include/UserSession.h
+src/HttpPermaServ.o: ./include/CryptoAlgorithms.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/libressl/3.7.3/include/openssl/sha.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/libressl/3.7.3/include/openssl/opensslconf.h
+src/HttpPermaServ.o: /opt/homebrew/Cellar/libressl/3.7.3/include/openssl/opensslfeatures.h
+src/HttpPermaServ.o: ./include/TimeoutMap.h ./include/UserSession.h
 src/HttpPermaservClient.o: ./include/HttpPermaservClient.h
 src/HttpPermaservClient.o: ./include/HttpClient.h
 src/HttpPermaservClient.o: ./include/rapidjson/document.h
@@ -3254,6 +3527,9 @@ src/HttpServThread.o: ./include/HttpRequestParser.h ./include/MimeTypeMaps.h
 src/HttpServThread.o: ./include/PermaservCookie.h ./include/UserSession.h
 src/HttpServThread.o: ./include/TimeoutMap.h ./include/Timeval.h
 src/HttpServThread.o: ./include/UserManager.h ./include/CryptoAlgorithms.h
+src/HttpServThread.o: /opt/homebrew/Cellar/libressl/3.7.3/include/openssl/sha.h
+src/HttpServThread.o: /opt/homebrew/Cellar/libressl/3.7.3/include/openssl/opensslconf.h
+src/HttpServThread.o: /opt/homebrew/Cellar/libressl/3.7.3/include/openssl/opensslfeatures.h
 src/HttpServThread.o: ./include/Logging.h ./include/MemoryTracker.h
 src/HttpStaticPage.o: ./include/HttpStaticPage.h ./include/loadFileToBuf.h
 src/InterfaceAction.o: ./include/InterfaceAction.h ./include/Global.h
@@ -3431,6 +3707,7 @@ src/InterfaceMainSceneWin.o: ./include/rapidjson/stringbuffer.h
 src/InterfaceMainSceneWin.o: ./include/rapidjson/error/en.h
 src/InterfaceMainSceneWin.o: ./include/rapidjson/error/error.h
 src/InterfaceMainSceneWin.o: ./include/Window3D.h ./include/Camera.h
+src/InterfaceMainSceneWin.o: /opt/homebrew/include/GLFW/glfw3.h
 src/InterfaceMainSceneWin.o: ./include/Scene.h ./include/LandSurface.h
 src/InterfaceMainSceneWin.o: ./include/BezierPatch.h
 src/InterfaceMainSceneWin.o: ./include/LandSurfaceRegion.h
@@ -3940,7 +4217,8 @@ src/LineStripList.o: ./include/Global.h ./include/Logging.h
 src/LineStripList.o: ./include/MemoryTracker.h ./include/Timeval.h
 src/LineStripList.o: ./include/Lockable.h ./include/VertexBufferCombo.h
 src/LineStripList.o: ./include/VertexArrayObject.h
-src/LineStripList.o: ./include/VertexBufferObject.h ./include/Shader.h
+src/LineStripList.o: ./include/VertexBufferObject.h
+src/LineStripList.o: /opt/homebrew/include/GLFW/glfw3.h ./include/Shader.h
 src/LineStripList.o: ./include/HttpDebug.h ./include/HttpServThread.h
 src/LineStripList.o: ./include/TaskQueue.h ./include/HttpRequestParser.h
 src/LineStripList.o: ./include/MimeTypeMaps.h ./include/PermaservCookie.h
@@ -4130,6 +4408,7 @@ src/MainSceneWindow.o: /opt/homebrew/include/cglm/ray.h
 src/MainSceneWindow.o: /opt/homebrew/include/cglm/affine2d.h
 src/MainSceneWindow.o: ./include/Timeval.h ./include/InterfaceAction.h
 src/MainSceneWindow.o: ./include/Global.h /opt/homebrew/include/GL/glew.h
+src/MainSceneWindow.o: /opt/homebrew/include/GLFW/glfw3.h
 src/MainSceneWindow.o: ./include/InterfaceMainSceneWin.h
 src/MainSceneWindow.o: ./include/MenuInterface.h ./include/MenuPanel.h
 src/MainSceneWindow.o: ./include/Logging.h ./include/MemoryTracker.h
@@ -4232,6 +4511,93 @@ src/Material.o: ./include/HttpServThread.h ./include/TaskQueue.h
 src/Material.o: ./include/HttpRequestParser.h ./include/MimeTypeMaps.h
 src/Material.o: ./include/PermaservCookie.h
 src/MdbFile.o: ./include/MdbFile.h /opt/homebrew/include/mdbtools.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/galloca.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gtypes.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/lib/glib-2.0/include/glibconfig.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gmacros.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gversionmacros.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/glib-visibility.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/garray.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gasyncqueue.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gthread.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gatomic.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/glib-typeof.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gerror.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gquark.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gutils.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gbacktrace.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gbase64.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gbitlock.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gbookmarkfile.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gdatetime.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gtimezone.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gbytes.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gcharset.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gchecksum.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gconvert.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gdataset.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gdate.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gdir.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/genviron.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gfileutils.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/ggettext.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/ghash.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/glist.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gmem.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gnode.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/ghmac.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gchecksum.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/ghook.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/ghostutils.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/giochannel.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gmain.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gpoll.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gslist.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gstring.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gunicode.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gstrfuncs.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gkeyfile.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gmappedfile.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gmarkup.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gmessages.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gvariant.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gvarianttype.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/goption.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gpathbuf.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gpattern.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gprimes.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gqsort.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gqueue.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/grand.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/grcbox.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/grefcount.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/grefstring.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gmem.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gmacros.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gregex.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gscanner.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gsequence.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gshell.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gslice.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gspawn.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gstringchunk.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gstrvbuilder.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gtestutils.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gthreadpool.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gtimer.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gtrashstack.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gtree.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/guri.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/guuid.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gversion.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/deprecated/gallocator.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/deprecated/gcache.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/deprecated/gcompletion.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/deprecated/gmain.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/deprecated/grel.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/deprecated/gthread.h
+src/MdbFile.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/glib-autocleanups.h
 src/MdbFile.o: ./include/SoilProfile.h ./include/GroundLayer.h
 src/MdbFile.o: ./include/DynamicallyTypable.h ./include/rapidjson/document.h
 src/MdbFile.o: ./include/rapidjson/reader.h ./include/rapidjson/allocators.h
@@ -4659,7 +5025,8 @@ src/MenuFocusOverlay.o: /opt/homebrew/include/cglm/affine2d.h
 src/MenuFocusOverlay.o: ./include/InterfaceAction.h imgui/imgui.h
 src/MenuFocusOverlay.o: imgui/imconfig.h ./include/Window3D.h
 src/MenuFocusOverlay.o: ./include/Camera.h /opt/homebrew/include/GL/glew.h
-src/MenuFocusOverlay.o: ./include/Scene.h ./include/LandSurface.h
+src/MenuFocusOverlay.o: /opt/homebrew/include/GLFW/glfw3.h ./include/Scene.h
+src/MenuFocusOverlay.o: ./include/LandSurface.h
 src/MenuFocusOverlay.o: ./include/rapidjson/document.h
 src/MenuFocusOverlay.o: ./include/rapidjson/reader.h
 src/MenuFocusOverlay.o: ./include/rapidjson/allocators.h
@@ -5226,7 +5593,8 @@ src/MenuPanel.o: /opt/homebrew/include/cglm/ray.h
 src/MenuPanel.o: /opt/homebrew/include/cglm/affine2d.h
 src/MenuPanel.o: ./include/InterfaceAction.h imgui/imgui.h imgui/imconfig.h
 src/MenuPanel.o: ./include/Window3D.h ./include/Camera.h
-src/MenuPanel.o: /opt/homebrew/include/GL/glew.h ./include/HttpDebug.h
+src/MenuPanel.o: /opt/homebrew/include/GL/glew.h
+src/MenuPanel.o: /opt/homebrew/include/GLFW/glfw3.h ./include/HttpDebug.h
 src/MenuPanel.o: ./include/HttpServThread.h ./include/TaskQueue.h
 src/MenuPanel.o: ./include/HttpRequestParser.h ./include/MimeTypeMaps.h
 src/MenuPanel.o: ./include/PermaservCookie.h ./include/Scene.h
@@ -5702,6 +6070,7 @@ src/ObjectInspectorWindow.o: /opt/homebrew/include/cglm/affine2d.h
 src/ObjectInspectorWindow.o: ./include/Timeval.h ./include/InterfaceAction.h
 src/ObjectInspectorWindow.o: ./include/Global.h
 src/ObjectInspectorWindow.o: /opt/homebrew/include/GL/glew.h
+src/ObjectInspectorWindow.o: /opt/homebrew/include/GLFW/glfw3.h
 src/ObjectInspectorWindow.o: ./include/VisualObject.h
 src/ObjectInspectorWindow.o: ./include/VisualElement.h
 src/ObjectInspectorWindow.o: ./include/DynamicallyTypable.h
@@ -6151,6 +6520,7 @@ src/Quadtree.o: ./include/rapidjson/stringbuffer.h
 src/Quadtree.o: ./include/rapidjson/error/en.h
 src/Quadtree.o: ./include/rapidjson/error/error.h ./include/ObjectGroup.h
 src/Quadtree.o: ./include/Window3D.h ./include/Camera.h
+src/Quadtree.o: /opt/homebrew/include/GLFW/glfw3.h
 src/Quadtree.o: ./include/LandSurfaceRegionPlanar.h ./include/Shader.h
 src/Quadtree.o: ./include/PmodDesign.h ./include/Boundary.h
 src/Quadtree.o: ./include/HttpDebug.h ./include/HttpServThread.h
@@ -6320,8 +6690,8 @@ src/ResourceManager.o: /opt/homebrew/include/cglm/ray.h
 src/ResourceManager.o: /opt/homebrew/include/cglm/affine2d.h
 src/ResourceManager.o: ./include/Timeval.h ./include/InterfaceAction.h
 src/ResourceManager.o: ./include/Global.h /opt/homebrew/include/GL/glew.h
-src/ResourceManager.o: ./include/Logging.h ./include/MemoryTracker.h
-src/ResourceManager.o: ./include/Lockable.h
+src/ResourceManager.o: /opt/homebrew/include/GLFW/glfw3.h ./include/Logging.h
+src/ResourceManager.o: ./include/MemoryTracker.h ./include/Lockable.h
 src/Scene.o: ./include/Scene.h ./include/LandSurface.h
 src/Scene.o: /opt/homebrew/include/cglm/cglm.h
 src/Scene.o: /opt/homebrew/include/cglm/common.h
@@ -6411,14 +6781,15 @@ src/Scene.o: ./include/Shader.h ./include/HeightMarker.h
 src/Scene.o: ./include/Positionable.h ./include/Box.h ./include/Tree.h
 src/Scene.o: ./include/TreePart.h ./include/Quadtree.h ./include/Building.h
 src/Scene.o: ./include/Window3D.h ./include/Camera.h
-src/Scene.o: ./include/GLFWApplication.h ./include/loadFileToBuf.h
-src/Scene.o: ./include/HttpDebug.h ./include/HttpServThread.h
-src/Scene.o: ./include/TaskQueue.h ./include/HttpRequestParser.h
-src/Scene.o: ./include/MimeTypeMaps.h ./include/PermaservCookie.h
-src/Scene.o: ./include/TexturedRect.h ./include/VertexArrayObject.h
-src/Scene.o: ./include/Texture.h ./include/ColoredAxes.h
-src/Scene.o: ./include/LineStripList.h ./include/PmodConfig.h
-src/Scene.o: ./include/PmodDesign.h ./include/Boundary.h ./include/Grid.h
+src/Scene.o: /opt/homebrew/include/GLFW/glfw3.h ./include/GLFWApplication.h
+src/Scene.o: ./include/loadFileToBuf.h ./include/HttpDebug.h
+src/Scene.o: ./include/HttpServThread.h ./include/TaskQueue.h
+src/Scene.o: ./include/HttpRequestParser.h ./include/MimeTypeMaps.h
+src/Scene.o: ./include/PermaservCookie.h ./include/TexturedRect.h
+src/Scene.o: ./include/VertexArrayObject.h ./include/Texture.h
+src/Scene.o: ./include/ColoredAxes.h ./include/LineStripList.h
+src/Scene.o: ./include/PmodConfig.h ./include/PmodDesign.h
+src/Scene.o: ./include/Boundary.h ./include/Grid.h
 src/SemicircularArrow.o: ./include/SemicircularArrow.h ./include/PathTube.h
 src/SemicircularArrow.o: ./include/VisualElement.h
 src/SemicircularArrow.o: ./include/DynamicallyTypable.h
@@ -6702,6 +7073,93 @@ src/SkySampleModel.o: ./include/rapidjson/error/en.h
 src/SkySampleModel.o: ./include/rapidjson/error/error.h
 src/SoilDatabase.o: ./include/SoilDatabase.h ./include/BILFile.h
 src/SoilDatabase.o: ./include/MdbFile.h /opt/homebrew/include/mdbtools.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/galloca.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gtypes.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/lib/glib-2.0/include/glibconfig.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gmacros.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gversionmacros.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/glib-visibility.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/garray.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gasyncqueue.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gthread.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gatomic.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/glib-typeof.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gerror.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gquark.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gutils.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gbacktrace.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gbase64.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gbitlock.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gbookmarkfile.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gdatetime.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gtimezone.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gbytes.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gcharset.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gchecksum.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gconvert.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gdataset.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gdate.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gdir.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/genviron.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gfileutils.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/ggettext.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/ghash.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/glist.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gmem.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gnode.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/ghmac.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gchecksum.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/ghook.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/ghostutils.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/giochannel.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gmain.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gpoll.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gslist.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gstring.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gunicode.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gstrfuncs.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gkeyfile.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gmappedfile.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gmarkup.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gmessages.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gvariant.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gvarianttype.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/goption.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gpathbuf.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gpattern.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gprimes.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gqsort.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gqueue.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/grand.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/grcbox.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/grefcount.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/grefstring.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gmem.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gmacros.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gregex.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gscanner.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gsequence.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gshell.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gslice.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gspawn.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gstringchunk.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gstrvbuilder.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gtestutils.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gthreadpool.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gtimer.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gtrashstack.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gtree.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/guri.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/guuid.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/gversion.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/deprecated/gallocator.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/deprecated/gcache.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/deprecated/gcompletion.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/deprecated/gmain.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/deprecated/grel.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/deprecated/gthread.h
+src/SoilDatabase.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/glib-autocleanups.h
 src/SoilDatabase.o: ./include/SoilProfile.h ./include/GroundLayer.h
 src/SoilDatabase.o: ./include/DynamicallyTypable.h
 src/SoilDatabase.o: ./include/rapidjson/document.h
@@ -7280,6 +7738,55 @@ src/TaskQueueFarm.o: ./include/Logging.h ./include/MemoryTracker.h
 src/TaskQueueFarm.o: ./include/Timeval.h ./include/HttpDebug.h
 src/TaskQueueFarm.o: ./include/HttpServThread.h ./include/HttpRequestParser.h
 src/TaskQueueFarm.o: ./include/MimeTypeMaps.h ./include/PermaservCookie.h
+src/Taxonomy.o: ./include/Taxonomy.h ./include/Global.h
+src/Taxonomy.o: /opt/homebrew/include/cglm/cglm.h
+src/Taxonomy.o: /opt/homebrew/include/cglm/common.h
+src/Taxonomy.o: /opt/homebrew/include/cglm/types.h
+src/Taxonomy.o: /opt/homebrew/include/cglm/simd/intrin.h
+src/Taxonomy.o: /opt/homebrew/include/cglm/vec2.h
+src/Taxonomy.o: /opt/homebrew/include/cglm/util.h
+src/Taxonomy.o: /opt/homebrew/include/cglm/vec2-ext.h
+src/Taxonomy.o: /opt/homebrew/include/cglm/vec3.h
+src/Taxonomy.o: /opt/homebrew/include/cglm/vec4.h
+src/Taxonomy.o: /opt/homebrew/include/cglm/vec4-ext.h
+src/Taxonomy.o: /opt/homebrew/include/cglm/vec3-ext.h
+src/Taxonomy.o: /opt/homebrew/include/cglm/ivec2.h
+src/Taxonomy.o: /opt/homebrew/include/cglm/ivec3.h
+src/Taxonomy.o: /opt/homebrew/include/cglm/ivec4.h
+src/Taxonomy.o: /opt/homebrew/include/cglm/mat4.h
+src/Taxonomy.o: /opt/homebrew/include/cglm/mat3.h
+src/Taxonomy.o: /opt/homebrew/include/cglm/mat2.h
+src/Taxonomy.o: /opt/homebrew/include/cglm/affine.h
+src/Taxonomy.o: /opt/homebrew/include/cglm/affine-mat.h
+src/Taxonomy.o: /opt/homebrew/include/cglm/affine-pre.h
+src/Taxonomy.o: /opt/homebrew/include/cglm/affine-post.h
+src/Taxonomy.o: /opt/homebrew/include/cglm/cam.h
+src/Taxonomy.o: /opt/homebrew/include/cglm/plane.h
+src/Taxonomy.o: /opt/homebrew/include/cglm/clipspace/persp.h
+src/Taxonomy.o: /opt/homebrew/include/cglm/common.h
+src/Taxonomy.o: /opt/homebrew/include/cglm/plane.h
+src/Taxonomy.o: /opt/homebrew/include/cglm/mat4.h
+src/Taxonomy.o: /opt/homebrew/include/cglm/clipspace/ortho_rh_no.h
+src/Taxonomy.o: /opt/homebrew/include/cglm/clipspace/persp_rh_no.h
+src/Taxonomy.o: /opt/homebrew/include/cglm/clipspace/persp.h
+src/Taxonomy.o: /opt/homebrew/include/cglm/clipspace/view_rh_no.h
+src/Taxonomy.o: /opt/homebrew/include/cglm/clipspace/view_rh.h
+src/Taxonomy.o: /opt/homebrew/include/cglm/frustum.h
+src/Taxonomy.o: /opt/homebrew/include/cglm/quat.h
+src/Taxonomy.o: /opt/homebrew/include/cglm/euler.h
+src/Taxonomy.o: /opt/homebrew/include/cglm/box.h
+src/Taxonomy.o: /opt/homebrew/include/cglm/color.h
+src/Taxonomy.o: /opt/homebrew/include/cglm/io.h
+src/Taxonomy.o: /opt/homebrew/include/cglm/project.h
+src/Taxonomy.o: /opt/homebrew/include/cglm/clipspace/project_no.h
+src/Taxonomy.o: /opt/homebrew/include/cglm/vec3.h
+src/Taxonomy.o: /opt/homebrew/include/cglm/vec4.h
+src/Taxonomy.o: /opt/homebrew/include/cglm/sphere.h
+src/Taxonomy.o: /opt/homebrew/include/cglm/ease.h
+src/Taxonomy.o: /opt/homebrew/include/cglm/curve.h
+src/Taxonomy.o: /opt/homebrew/include/cglm/bezier.h
+src/Taxonomy.o: /opt/homebrew/include/cglm/ray.h
+src/Taxonomy.o: /opt/homebrew/include/cglm/affine2d.h
 src/Texture.o: ./include/Texture.h /opt/homebrew/include/GL/glew.h
 src/Texture.o: ./include/Shader.h /opt/homebrew/include/cglm/cglm.h
 src/Texture.o: /opt/homebrew/include/cglm/common.h
@@ -7435,7 +7942,8 @@ src/TexturedRect.o: /opt/homebrew/include/cglm/affine2d.h
 src/TexturedRect.o: ./include/VertexBufferObject.h ./include/Global.h
 src/TexturedRect.o: ./include/Logging.h ./include/MemoryTracker.h
 src/TexturedRect.o: ./include/Timeval.h ./include/Lockable.h
-src/TexturedRect.o: ./include/Shader.h ./include/Vertex.h
+src/TexturedRect.o: /opt/homebrew/include/GLFW/glfw3.h ./include/Shader.h
+src/TexturedRect.o: ./include/Vertex.h
 src/TimeoutMap.o: ./include/TimeoutMap.h ./include/Global.h
 src/TimeoutMap.o: /opt/homebrew/include/cglm/cglm.h
 src/TimeoutMap.o: /opt/homebrew/include/cglm/common.h
@@ -7733,7 +8241,8 @@ src/TreeWindow.o: /opt/homebrew/include/cglm/bezier.h
 src/TreeWindow.o: /opt/homebrew/include/cglm/ray.h
 src/TreeWindow.o: /opt/homebrew/include/cglm/affine2d.h ./include/Timeval.h
 src/TreeWindow.o: ./include/InterfaceAction.h ./include/Global.h
-src/TreeWindow.o: /opt/homebrew/include/GL/glew.h ./include/Tree.h
+src/TreeWindow.o: /opt/homebrew/include/GL/glew.h
+src/TreeWindow.o: /opt/homebrew/include/GLFW/glfw3.h ./include/Tree.h
 src/TreeWindow.o: ./include/VisualObject.h ./include/VisualElement.h
 src/TreeWindow.o: ./include/DynamicallyTypable.h ./include/TriangleBuffer.h
 src/TreeWindow.o: ./include/Vertex.h ./include/Logging.h
@@ -7866,6 +8375,7 @@ src/TriangleBuffer.o: ./include/PermaservCookie.h
 src/TriangleBuffer.o: ./include/ElementBufferCombo.h
 src/TriangleBuffer.o: ./include/VertexArrayObject.h
 src/TriangleBuffer.o: ./include/VertexBufferObject.h
+src/TriangleBuffer.o: /opt/homebrew/include/GLFW/glfw3.h
 src/TriangleBuffer.o: ./include/ElementBufferObject.h
 src/TruncatedCone.o: ./include/TruncatedCone.h ./include/AxialElement.h
 src/TruncatedCone.o: ./include/VisualElement.h ./include/DynamicallyTypable.h
@@ -7973,15 +8483,18 @@ src/UserManager.o: /opt/homebrew/include/cglm/curve.h
 src/UserManager.o: /opt/homebrew/include/cglm/bezier.h
 src/UserManager.o: /opt/homebrew/include/cglm/ray.h
 src/UserManager.o: /opt/homebrew/include/cglm/affine2d.h
-src/UserManager.o: ./include/CryptoAlgorithms.h ./include/Timeval.h
-src/UserManager.o: ./include/Lockable.h ./include/TimeoutMap.h
-src/UserManager.o: ./include/Logging.h ./include/MemoryTracker.h
-src/UserManager.o: ./include/HttpServThread.h ./include/TaskQueue.h
-src/UserManager.o: ./include/HttpRequestParser.h ./include/MimeTypeMaps.h
-src/UserManager.o: ./include/PermaservCookie.h ./include/HTMLForm.h
-src/UserManager.o: ./include/DynamicallyTypable.h ./include/UserSession.h
-src/UserManager.o: ./include/PmodDesign.h ./include/Boundary.h
-src/UserManager.o: ./include/rapidjson/document.h
+src/UserManager.o: ./include/CryptoAlgorithms.h
+src/UserManager.o: /opt/homebrew/Cellar/libressl/3.7.3/include/openssl/sha.h
+src/UserManager.o: /opt/homebrew/Cellar/libressl/3.7.3/include/openssl/opensslconf.h
+src/UserManager.o: /opt/homebrew/Cellar/libressl/3.7.3/include/openssl/opensslfeatures.h
+src/UserManager.o: ./include/Timeval.h ./include/Lockable.h
+src/UserManager.o: ./include/TimeoutMap.h ./include/Logging.h
+src/UserManager.o: ./include/MemoryTracker.h ./include/HttpServThread.h
+src/UserManager.o: ./include/TaskQueue.h ./include/HttpRequestParser.h
+src/UserManager.o: ./include/MimeTypeMaps.h ./include/PermaservCookie.h
+src/UserManager.o: ./include/HTMLForm.h ./include/DynamicallyTypable.h
+src/UserManager.o: ./include/UserSession.h ./include/PmodDesign.h
+src/UserManager.o: ./include/Boundary.h ./include/rapidjson/document.h
 src/UserManager.o: ./include/rapidjson/reader.h
 src/UserManager.o: ./include/rapidjson/allocators.h
 src/UserManager.o: ./include/rapidjson/rapidjson.h
@@ -8243,6 +8756,7 @@ src/VertexArrayObject.o: /opt/homebrew/include/cglm/bezier.h
 src/VertexArrayObject.o: /opt/homebrew/include/cglm/ray.h
 src/VertexArrayObject.o: /opt/homebrew/include/cglm/affine2d.h
 src/VertexArrayObject.o: /opt/homebrew/include/GL/glew.h
+src/VertexArrayObject.o: /opt/homebrew/include/GLFW/glfw3.h
 src/VertexBufferCombo.o: ./include/VertexBufferCombo.h
 src/VertexBufferCombo.o: ./include/VertexArrayObject.h
 src/VertexBufferCombo.o: ./include/VertexBufferObject.h ./include/Global.h
@@ -8297,6 +8811,7 @@ src/VertexBufferCombo.o: /opt/homebrew/include/cglm/affine2d.h
 src/VertexBufferCombo.o: ./include/Logging.h ./include/MemoryTracker.h
 src/VertexBufferCombo.o: ./include/Timeval.h ./include/Lockable.h
 src/VertexBufferCombo.o: /opt/homebrew/include/GL/glew.h
+src/VertexBufferCombo.o: /opt/homebrew/include/GLFW/glfw3.h
 src/VertexBufferObject.o: ./include/VertexBufferObject.h ./include/Global.h
 src/VertexBufferObject.o: /opt/homebrew/include/cglm/cglm.h
 src/VertexBufferObject.o: /opt/homebrew/include/cglm/common.h
@@ -8348,8 +8863,9 @@ src/VertexBufferObject.o: /opt/homebrew/include/cglm/ray.h
 src/VertexBufferObject.o: /opt/homebrew/include/cglm/affine2d.h
 src/VertexBufferObject.o: ./include/Logging.h ./include/MemoryTracker.h
 src/VertexBufferObject.o: ./include/Timeval.h ./include/Lockable.h
-src/VertexBufferObject.o: /opt/homebrew/include/GL/glew.h ./include/Shader.h
-src/VertexBufferObject.o: ./include/Vertex.h
+src/VertexBufferObject.o: /opt/homebrew/include/GL/glew.h
+src/VertexBufferObject.o: /opt/homebrew/include/GLFW/glfw3.h
+src/VertexBufferObject.o: ./include/Shader.h ./include/Vertex.h
 src/VisualElement.o: ./include/VisualElement.h ./include/DynamicallyTypable.h
 src/VisualElement.o: ./include/TriangleBuffer.h ./include/Vertex.h
 src/VisualElement.o: ./include/Global.h /opt/homebrew/include/cglm/cglm.h
@@ -8510,7 +9026,8 @@ src/Window3D.o: /opt/homebrew/include/cglm/bezier.h
 src/Window3D.o: /opt/homebrew/include/cglm/ray.h
 src/Window3D.o: /opt/homebrew/include/cglm/affine2d.h ./include/Timeval.h
 src/Window3D.o: ./include/InterfaceAction.h ./include/Global.h
-src/Window3D.o: /opt/homebrew/include/GL/glew.h ./include/Material.h
+src/Window3D.o: /opt/homebrew/include/GL/glew.h
+src/Window3D.o: /opt/homebrew/include/GLFW/glfw3.h ./include/Material.h
 src/Window3D.o: ./include/Texture.h ./include/Species.h
 src/Window3D.o: ./include/DynamicallyTypable.h ./include/Version.h
 src/Window3D.o: ./include/rapidjson/document.h ./include/rapidjson/reader.h
@@ -8693,7 +9210,7 @@ src/iTreeList.o: /opt/homebrew/include/cglm/ease.h
 src/iTreeList.o: /opt/homebrew/include/cglm/curve.h
 src/iTreeList.o: /opt/homebrew/include/cglm/bezier.h
 src/iTreeList.o: /opt/homebrew/include/cglm/ray.h
-src/iTreeList.o: /opt/homebrew/include/cglm/affine2d.h
+src/iTreeList.o: /opt/homebrew/include/cglm/affine2d.h ./include/Taxonomy.h
 src/iTreeList.o: ./include/rapidjson/document.h ./include/rapidjson/reader.h
 src/iTreeList.o: ./include/rapidjson/allocators.h
 src/iTreeList.o: ./include/rapidjson/rapidjson.h ./include/rapidjson/stream.h
@@ -8732,6 +9249,7 @@ src/imgui_draw.o: imgui/imstb_textedit.h imgui/imstb_rectpack.h
 src/imgui_draw.o: imgui/imstb_truetype.h
 src/imgui_impl_glfw.o: imgui/imgui.h imgui/imconfig.h
 src/imgui_impl_glfw.o: imgui/backends/imgui_impl_glfw.h
+src/imgui_impl_glfw.o: /opt/homebrew/include/GLFW/glfw3.h
 src/imgui_impl_opengl3.o: imgui/imgui.h imgui/imconfig.h
 src/imgui_impl_opengl3.o: imgui/backends/imgui_impl_opengl3.h
 src/imgui_tables.o: imgui/imgui.h imgui/imconfig.h imgui/imgui_internal.h
@@ -8789,7 +9307,8 @@ src/main.o: /opt/homebrew/include/cglm/bezier.h
 src/main.o: /opt/homebrew/include/cglm/ray.h
 src/main.o: /opt/homebrew/include/cglm/affine2d.h ./include/Timeval.h
 src/main.o: ./include/InterfaceAction.h ./include/Global.h
-src/main.o: /opt/homebrew/include/GL/glew.h ./include/PmodConfig.h
+src/main.o: /opt/homebrew/include/GL/glew.h
+src/main.o: /opt/homebrew/include/GLFW/glfw3.h ./include/PmodConfig.h
 src/main.o: ./include/PmodDesign.h ./include/Boundary.h
 src/main.o: ./include/rapidjson/document.h ./include/rapidjson/reader.h
 src/main.o: ./include/rapidjson/allocators.h ./include/rapidjson/rapidjson.h

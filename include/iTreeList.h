@@ -6,6 +6,7 @@
 #define ITREE_JSON_VERSION 1
 
 #include "Global.h"
+#include "Taxonomy.h"
 
 #ifdef ITREE_JSON_VERSION
 #include "rapidjson/document.h"
@@ -20,7 +21,7 @@
 ///
 /// Also has code to allow permaserv to print a table of it.
 
-class iTreeList
+class iTreeList: public Taxonomy
 {
 public:
   

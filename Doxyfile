@@ -970,6 +970,7 @@ INPUT                  = doc \
                 include/Species.h src/Species.cpp \
                 include/TaskQueueFarm.h src/TaskQueueFarm.cpp \
                 include/TaskQueue.h src/TaskQueue.cpp \
+                include/Taxonomy.h src/Taxonomy.cpp \
                 include/Texture.h src/Texture.cpp \
                 include/TextureAtlas.h src/TextureAtlas.cpp \
                 include/TexturedRect.h src/TexturedRect.cpp \
@@ -980,7 +981,7 @@ INPUT                  = doc \
                 include/TreeWindow.h src/TreeWindow.cpp \
                 include/TriangleBuffer.h src/TriangleBuffer.cpp \
                 include/TruncatedCone.h src/TruncatedCone.cpp \
-                include/unitCubeFunction.h src/unitCubeFunction.cpp \                
+                include/unitCubeFunction.h src/unitCubeFunction.cpp \
                 include/UserManager.h src/UserManager.cpp \                
                 include/UserSession.h src/UserSession.cpp \                
                 include/Version.h src/Version.cpp \
