@@ -8,9 +8,11 @@
 
 #ifdef ITREE_JSON_VERSION
 using namespace rapidjson;
-
 char* iTreeFileLocation = (char*)"web/trees.json";
+#else
+char* iTreeFileLocation = (char*)"web/itree-SpeciesList_28-10-2020-11-10-57-AM.txt";
 #endif
+
 
 // =======================================================================================
 /// @brief Constructor
@@ -30,8 +32,20 @@ iTreeList::iTreeList(void)
    }
   if(!doc.IsArray())
     err(-1, "Base of tree json file %s is not JSON array.\n", iTreeFileLocation);
+#else
+  parseItreeFile(buf, bufSize);
 #endif
+}
 
+
+// =======================================================================================
+/// @brief Parse the itree file directly (rather than getting JSON from a script).
+/// @param buf A buffer containing the file loaded into memory.
+/// @param bufSize The number of bytes in the file.
+
+void iTreeList::parseItreeFile(char* buf, unsigned bufSize)
+{
+  
 }
 
 

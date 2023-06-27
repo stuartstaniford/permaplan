@@ -32,7 +32,8 @@ public:
   // Member functions - public
   iTreeList(void);
   ~iTreeList(void);
-  
+  void parseItreeFile(char* buf, unsigned bufSize);
+
 private:
   
   // Instance variables - private
