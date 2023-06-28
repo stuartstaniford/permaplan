@@ -370,3 +370,18 @@ void toLowerCase(char* str)
 
 
 // =======================================================================================
+/// @brief Split a string into null terminated tokens. 
+/// @returns A pointer to an unsigned array of the indices in buf of each token
+/// @param buf The string to be split
+/// @param bufSize The size of the buffer (if positive).  If zero, buffer is assumed to
+/// be null terminated.
+/// @param divToken The character to be treated as the divider between tokens.
+/// @param tokCount A reference to a place to store the count of tokens found.
+
+unsigned* splitTokens(char* buf, unsigned bufSize, char divToken, unsigned& tokCount) 
+{
+  return NULL;
+}
+
+
+// =======================================================================================
