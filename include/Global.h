@@ -99,7 +99,7 @@ char* errorInNumericCharacterField(char* field);
 char* errorInFloat(float f);
 bool isValidUnsigned(const char *str, unsigned long& value);
 void toLowerCase(char* str);
-unsigned* splitTokens(char* buf, unsigned bufSize, char divToken, unsigned& tokCount);
+unsigned* splitTokens(char* buf, char divToken, unsigned& tokCount);
 
 
 // =======================================================================================

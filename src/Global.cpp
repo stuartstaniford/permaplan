@@ -9,6 +9,7 @@
 #include "Logging.h"
 #include <stdio.h>
 #include <sys/stat.h>
+#include <assert.h>
 
 
 // =======================================================================================
@@ -371,16 +372,40 @@ void toLowerCase(char* str)
 
 // =======================================================================================
 /// @brief Split a string into null terminated tokens. 
-/// @returns A pointer to an unsigned array of the indices in buf of each token
-/// @param buf The string to be split
-/// @param bufSize The size of the buffer (if positive).  If zero, buffer is assumed to
-/// be null terminated.
+/// @returns A pointer to an unsigned array of the indices in buf of each token.  This 
+/// is allocated on the heap - caller must free.
+/// @param buf The null-terminated string to be split
 /// @param divToken The character to be treated as the divider between tokens.
 /// @param tokCount A reference to a place to store the count of tokens found.
 
-unsigned* splitTokens(char* buf, unsigned bufSize, char divToken, unsigned& tokCount) 
+unsigned* splitTokens(char* buf, char divToken, unsigned& tokCount) 
 {
-  return NULL;
+  tokCount = 1u;
+  char* p;
+  
+  // Count how many tokens there will be
+  for(p = buf; *p; p++)
+    if(*p == divToken)
+      tokCount++;
+
+  // Obtain space for the indices
+  unsigned* indices = (unsigned*)malloc(sizeof(unsigned)*tokCount);
+  assert(indices);
+  
+  
+  // Do all but the last token
+  p = buf;
+  for(int i=0; i < tokCount-1;i++)
+   {
+    indices[i] = p - buf;
+    p = index(p, divToken);
+    *(p++) = '\0';
+   }
+    
+  // Last token is special because it's terminated by pre-existing null, not divToken
+  indices[tokCount - 1] = p - buf;
+  
+  return indices;
 }
 
 
