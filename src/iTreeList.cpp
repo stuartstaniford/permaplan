@@ -52,14 +52,29 @@ void iTreeList::parseItreeFile(char* buf, unsigned bufSize)
   //Abarema  cochliocarpos    Fabaceae  Fabales  Rosidae  Abarema cochliocarpos  ABCO1  Shrub or small tree  Hardwood  Evergreen    
   //Abarema  glauca    Fabaceae  Fabales  Rosidae  Abarema glauca  ABGL  Tree  Hardwood  Evergreen      
 
-  char* line;
-  char* end = buf + bufSize;
+  char* line, *lineEnd;
+  char* bufEnd = buf + bufSize;
   int count = 0;
+  unsigned* tokens;
+  unsigned tokenCount;
   
-  for(line = buf; line >= buf && line < end; line = index(line, '\n') + 1)
+  buf[bufSize-1] = '\0';
+  line = buf;
+  while(line >= buf && line < bufEnd)
    {
-    count++; 
-    //fprintf(stderr, "%d (%ld)\t", count, line-buf);
+    // Find the end of this line
+    lineEnd = index(line, '\n');
+    if(lineEnd)
+      *lineEnd = '\0';
+    
+    // Split into tokens
+    tokens = splitTokens(line, '\t', tokenCount);
+    fprintf(stderr, "Found species %s %s.\n", line + tokens[0], line + tokens[1]);
+    free(tokens);
+    
+    // Go round again
+    line = lineEnd + 1;
+    count++;
    }
   fprintf(stderr, "Counted %d lines in file %s.\n", count, iTreeFileLocation);
 }
