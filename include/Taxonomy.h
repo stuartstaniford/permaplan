@@ -4,6 +4,27 @@
 #define TAXONOMY_H
 
 #include "Global.h"
+#include <string>
+#include <map>
+#include <unordered_map>
+
+#define MAX_SPECIES_PATH     256  // the following considers genus/species, then we allow
+                                   // a fudge factor for variety names.
+                                   //https://en.wikipedia.org/wiki/List_of_long_species_names
+
+// =======================================================================================
+// Forward declarations
+
+class Species;
+
+
+// =======================================================================================
+/// @brief Container class for a collection of Species indexed by a string name.
+
+class SpeciesList: public std::unordered_map<std::string, Species*>
+{
+  
+};
 
 
 // =======================================================================================
@@ -21,10 +42,13 @@ public:
   // Member functions - public
   Taxonomy(void);
   ~Taxonomy(void);
+  bool add(char* species, char* genus, char* family, char* order, char* bioClass);
   
 private:
   
   // Instance variables - private
+  static std::unordered_map<std::string, unsigned> genusList;
+  static std::unordered_map<std::string, SpeciesList*> genusSpeciesList;
   
   // Member functions - private
   PreventAssignAndCopyConstructor(Taxonomy);

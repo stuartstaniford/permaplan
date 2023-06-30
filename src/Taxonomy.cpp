@@ -23,3 +23,12 @@ Taxonomy::~Taxonomy(void)
 
 
 // =======================================================================================
+/// @brief Function to add a new species into the taxonomy.
+
+bool Taxonomy::add(char* species, char* genus, char* family, char* order, char* bioClass)
+{
+  return true;
+}
+
+
+// =======================================================================================

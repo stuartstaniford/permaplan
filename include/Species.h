@@ -5,39 +5,23 @@
 
 #include "DynamicallyTypable.h"
 #include "Version.h"
+#include "Taxonomy.h"
 #include "rapidjson/document.h"
 #include "rapidjson/writer.h"
 #include "rapidjson/stringbuffer.h"
 #include "rapidjson/error/en.h"
-#include <map>
-#include <unordered_map>
-#include <string>
-
-#define MAX_SPECIES_PATH     256  // the following considers genus/species, then we allow
-                                   // a fudge factor for variety names.
-                                   //https://en.wikipedia.org/wiki/List_of_long_species_names
 
 
 // =======================================================================================
 // Forward declarations
 
-class Species;
 class HttpDebug;
 class LeafModel;
 class JSONStructureChecker;
 
 
 // =======================================================================================
-/// @brief Container class for a collection of Species indexed by a string name.
-
-class SpeciesList: public std::unordered_map<std::string, Species*>
-{
-  
-};
-
-
-// =======================================================================================
-/// @brief Manage information about a apecies
+/// @brief Manage information about a species
 ///
 /// This class is a container for the factors governing the evolution of a particular
 /// species (mainly extracted from an OTDL JSON object).

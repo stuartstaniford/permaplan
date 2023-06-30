@@ -70,6 +70,9 @@ void iTreeList::parseItreeFile(char* buf, unsigned bufSize)
     // Split into tokens
     tokens = splitTokens(line, '\t', tokenCount);
     fprintf(stderr, "Found species %s %s.\n", line + tokens[0], line + tokens[1]);
+    
+    
+    // Ok, done with tokens array (NB not efficient but not performance relevant loop)
     free(tokens);
     
     // Go round again
