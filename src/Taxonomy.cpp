@@ -4,6 +4,7 @@
 // particular sources of taxonomic information
 
 #include "Taxonomy.h"
+#include "Logging.h"
 
 
 // =======================================================================================
@@ -27,6 +28,7 @@ Taxonomy::~Taxonomy(void)
 
 bool Taxonomy::add(char* species, char* genus, char* family, char* order, char* bioClass)
 {
+  LogTaxonDetails("Adding %s %s to taxonomy.\n", genus, species);
   return true;
 }
 

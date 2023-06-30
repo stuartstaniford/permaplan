@@ -44,6 +44,7 @@ bool doLogOLDFValidity        = true; // Log validity problems in the file
 bool doLogOLDFDetails         = true; // Log details of valid OLDF objects
 bool doLogOTDLValidity        = true; // Log validity problems in an OTDL object
 bool doLogOTDLDetails         = true; // Log details of valid OTDL objects
+bool doLogTaxonDetails        = true; // Log details of operations on taxonomies
 
 // Logging options to do with interface controls
 bool doLogMouseLocation       = true; // where the mouse is on the screen each frame
@@ -176,6 +177,7 @@ bool flushLogOLDFValidity        = false; // Log validity problems in the file
 bool flushLogOLDFDetails         = false; // Log details of valid OLDF objects
 bool flushLogOTDLValidity        = false; // Log validity problems in an OTDL object
 bool flushLogOTDLDetails         = false; // Log details of valid OTDL objects
+bool flushLogTaxonDetails        = false; // Log details of operations on taxonomies
 
 // Logging options to do with interface controls
 bool flushLogMouseLocation      = false; // where the mouse is on the screen each frame
@@ -473,7 +475,11 @@ bool LogControlHTML(HttpDebug* serv, char* path)
     return oneLogControl(serv, path, doLogOTDLDetails);
 #endif
 
-  
+#ifdef LOG_TAXON_DETAILS   // Log details of operations on taxonomies
+  if(strncmp(path, "doLogTaxonDetails", sizeof("doLogTaxonDetails")-1)==0)
+    return oneLogControl(serv, path, doLogTaxonDetails);
+#endif
+
 // Logging options to do with interface controls
 
 #ifdef LOG_MOUSE_LOCATION // where the mouse is on the screen each frame

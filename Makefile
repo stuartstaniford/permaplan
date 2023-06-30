@@ -2837,7 +2837,8 @@ src/HttpDebug.o: ./include/MenuInterface.h ./include/MenuPanel.h
 src/HttpDebug.o: imgui/imgui.h imgui/imconfig.h ./include/MainSceneWindow.h
 src/HttpDebug.o: ./include/Window3D.h ./include/Camera.h
 src/HttpDebug.o: /opt/homebrew/include/GLFW/glfw3.h ./include/Species.h
-src/HttpDebug.o: ./include/Version.h ./include/GLFWApplication.h
+src/HttpDebug.o: ./include/Version.h ./include/Taxonomy.h
+src/HttpDebug.o: ./include/GLFWApplication.h
 src/HttpLBDebug.o: ./include/HttpLBDebug.h ./include/HttpLoadBalancer.h
 src/HttpLBDebug.o: ./include/Global.h /opt/homebrew/include/cglm/cglm.h
 src/HttpLBDebug.o: /opt/homebrew/include/cglm/common.h
@@ -3037,39 +3038,9 @@ src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/de
 src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/deprecated/gthread.h
 src/HttpLBPermaserv.o: /opt/homebrew/Cellar/glib/2.76.3/include/glib-2.0/glib/glib-autocleanups.h
 src/HttpLBPermaserv.o: ./include/ClimateDatabase.h ./include/iTreeList.h
-src/HttpLBPermaserv.o: ./include/Taxonomy.h ./include/rapidjson/document.h
-src/HttpLBPermaserv.o: ./include/rapidjson/reader.h
-src/HttpLBPermaserv.o: ./include/rapidjson/allocators.h
-src/HttpLBPermaserv.o: ./include/rapidjson/rapidjson.h
-src/HttpLBPermaserv.o: ./include/rapidjson/stream.h
-src/HttpLBPermaserv.o: ./include/rapidjson/encodings.h
-src/HttpLBPermaserv.o: ./include/rapidjson/encodedstream.h
-src/HttpLBPermaserv.o: ./include/rapidjson/memorystream.h
-src/HttpLBPermaserv.o: ./include/rapidjson/internal/clzll.h
-src/HttpLBPermaserv.o: ./include/rapidjson/rapidjson.h
-src/HttpLBPermaserv.o: ./include/rapidjson/internal/meta.h
-src/HttpLBPermaserv.o: ./include/rapidjson/internal/stack.h
-src/HttpLBPermaserv.o: ./include/rapidjson/allocators.h
-src/HttpLBPermaserv.o: ./include/rapidjson/internal/swap.h
-src/HttpLBPermaserv.o: ./include/rapidjson/internal/strtod.h
-src/HttpLBPermaserv.o: ./include/rapidjson/internal/ieee754.h
-src/HttpLBPermaserv.o: ./include/rapidjson/internal/biginteger.h
-src/HttpLBPermaserv.o: ./include/rapidjson/internal/diyfp.h
-src/HttpLBPermaserv.o: ./include/rapidjson/internal/clzll.h
-src/HttpLBPermaserv.o: ./include/rapidjson/internal/pow10.h
-src/HttpLBPermaserv.o: ./include/rapidjson/error/error.h
-src/HttpLBPermaserv.o: ./include/rapidjson/internal/strfunc.h
-src/HttpLBPermaserv.o: ./include/rapidjson/stream.h
-src/HttpLBPermaserv.o: ./include/rapidjson/writer.h
-src/HttpLBPermaserv.o: ./include/rapidjson/internal/dtoa.h
-src/HttpLBPermaserv.o: ./include/rapidjson/internal/itoa.h
-src/HttpLBPermaserv.o: ./include/rapidjson/internal/itoa.h
-src/HttpLBPermaserv.o: ./include/rapidjson/stringbuffer.h
-src/HttpLBPermaserv.o: ./include/rapidjson/stringbuffer.h
-src/HttpLBPermaserv.o: ./include/rapidjson/error/en.h
-src/HttpLBPermaserv.o: ./include/rapidjson/error/error.h
-src/HttpLBPermaserv.o: ./include/PmodServer.h ./include/Logging.h
-src/HttpLBPermaserv.o: ./include/MemoryTracker.h ./include/Timeval.h
+src/HttpLBPermaserv.o: ./include/Taxonomy.h ./include/PmodServer.h
+src/HttpLBPermaserv.o: ./include/Logging.h ./include/MemoryTracker.h
+src/HttpLBPermaserv.o: ./include/Timeval.h
 src/HttpLoadBalancer.o: ./include/HttpLoadBalancer.h ./include/Global.h
 src/HttpLoadBalancer.o: /opt/homebrew/include/cglm/cglm.h
 src/HttpLoadBalancer.o: /opt/homebrew/include/cglm/common.h
@@ -3612,9 +3583,9 @@ src/InterfaceAction.o: ./include/rapidjson/internal/itoa.h
 src/InterfaceAction.o: ./include/rapidjson/stringbuffer.h
 src/InterfaceAction.o: ./include/rapidjson/stringbuffer.h
 src/InterfaceAction.o: ./include/rapidjson/error/en.h
-src/InterfaceAction.o: ./include/rapidjson/error/error.h ./include/Logging.h
-src/InterfaceAction.o: ./include/MemoryTracker.h ./include/Timeval.h
-src/InterfaceAction.o: ./include/Lockable.h
+src/InterfaceAction.o: ./include/rapidjson/error/error.h ./include/Taxonomy.h
+src/InterfaceAction.o: ./include/Logging.h ./include/MemoryTracker.h
+src/InterfaceAction.o: ./include/Timeval.h ./include/Lockable.h
 src/InterfaceMainSceneWin.o: ./include/InterfaceMainSceneWin.h
 src/InterfaceMainSceneWin.o: ./include/MenuInterface.h ./include/MenuPanel.h
 src/InterfaceMainSceneWin.o: ./include/Logging.h ./include/MemoryTracker.h
@@ -3706,7 +3677,8 @@ src/InterfaceMainSceneWin.o: ./include/rapidjson/stringbuffer.h
 src/InterfaceMainSceneWin.o: ./include/rapidjson/stringbuffer.h
 src/InterfaceMainSceneWin.o: ./include/rapidjson/error/en.h
 src/InterfaceMainSceneWin.o: ./include/rapidjson/error/error.h
-src/InterfaceMainSceneWin.o: ./include/Window3D.h ./include/Camera.h
+src/InterfaceMainSceneWin.o: ./include/Taxonomy.h ./include/Window3D.h
+src/InterfaceMainSceneWin.o: ./include/Camera.h
 src/InterfaceMainSceneWin.o: /opt/homebrew/include/GLFW/glfw3.h
 src/InterfaceMainSceneWin.o: ./include/Scene.h ./include/LandSurface.h
 src/InterfaceMainSceneWin.o: ./include/BezierPatch.h
@@ -4812,8 +4784,8 @@ src/MenuAllTree.o: ./include/rapidjson/internal/itoa.h
 src/MenuAllTree.o: ./include/rapidjson/stringbuffer.h
 src/MenuAllTree.o: ./include/rapidjson/stringbuffer.h
 src/MenuAllTree.o: ./include/rapidjson/error/en.h
-src/MenuAllTree.o: ./include/rapidjson/error/error.h ./include/RegionList.h
-src/MenuAllTree.o: ./include/InterfaceMainSceneWin.h
+src/MenuAllTree.o: ./include/rapidjson/error/error.h ./include/Taxonomy.h
+src/MenuAllTree.o: ./include/RegionList.h ./include/InterfaceMainSceneWin.h
 src/MenuAllTree.o: ./include/MenuInterface.h ./include/Tree.h
 src/MenuAllTree.o: ./include/VisualObject.h ./include/VisualElement.h
 src/MenuAllTree.o: ./include/TriangleBuffer.h ./include/Vertex.h
@@ -5249,7 +5221,7 @@ src/MenuGenus.o: ./include/Quadtree.h ./include/DisplayList.h
 src/MenuGenus.o: ./include/Scene.h ./include/LandSurface.h
 src/MenuGenus.o: ./include/BezierPatch.h ./include/LandSurfaceRegion.h
 src/MenuGenus.o: ./include/LightingModel.h ./include/CO2Scenario.h
-src/MenuGenus.o: ./include/Species.h ./include/Version.h
+src/MenuGenus.o: ./include/Species.h ./include/Version.h ./include/Taxonomy.h
 src/MenuHeightPanel.o: ./include/MenuHeightPanel.h ./include/MenuPanel.h
 src/MenuHeightPanel.o: ./include/Logging.h ./include/MemoryTracker.h
 src/MenuHeightPanel.o: ./include/Timeval.h ./include/Lockable.h
@@ -5903,10 +5875,10 @@ src/MenuTree.o: ./include/rapidjson/internal/itoa.h
 src/MenuTree.o: ./include/rapidjson/stringbuffer.h
 src/MenuTree.o: ./include/rapidjson/stringbuffer.h
 src/MenuTree.o: ./include/rapidjson/error/en.h
-src/MenuTree.o: ./include/rapidjson/error/error.h ./include/HttpDebug.h
-src/MenuTree.o: ./include/HttpServThread.h ./include/TaskQueue.h
-src/MenuTree.o: ./include/HttpRequestParser.h ./include/MimeTypeMaps.h
-src/MenuTree.o: ./include/PermaservCookie.h
+src/MenuTree.o: ./include/rapidjson/error/error.h ./include/Taxonomy.h
+src/MenuTree.o: ./include/HttpDebug.h ./include/HttpServThread.h
+src/MenuTree.o: ./include/TaskQueue.h ./include/HttpRequestParser.h
+src/MenuTree.o: ./include/MimeTypeMaps.h ./include/PermaservCookie.h
 src/MimeTypeMaps.o: ./include/MimeTypeMaps.h
 src/MultipartFile.o: ./include/MultipartFile.h ./include/Global.h
 src/MultipartFile.o: /opt/homebrew/include/cglm/cglm.h
@@ -6557,7 +6529,7 @@ src/RegionList.o: ./include/rapidjson/internal/itoa.h
 src/RegionList.o: ./include/rapidjson/stringbuffer.h
 src/RegionList.o: ./include/rapidjson/stringbuffer.h
 src/RegionList.o: ./include/rapidjson/error/en.h
-src/RegionList.o: ./include/rapidjson/error/error.h ./include/loadFileToBuf.h
+src/RegionList.o: ./include/rapidjson/error/error.h ./include/Taxonomy.h
 src/RegionList.o: ./include/Global.h /opt/homebrew/include/cglm/cglm.h
 src/RegionList.o: /opt/homebrew/include/cglm/common.h
 src/RegionList.o: /opt/homebrew/include/cglm/types.h
@@ -6606,6 +6578,7 @@ src/RegionList.o: /opt/homebrew/include/cglm/curve.h
 src/RegionList.o: /opt/homebrew/include/cglm/bezier.h
 src/RegionList.o: /opt/homebrew/include/cglm/ray.h
 src/RegionList.o: /opt/homebrew/include/cglm/affine2d.h
+src/RegionList.o: ./include/loadFileToBuf.h
 src/ResourceManager.o: ./include/ResourceManager.h ./include/HttpClient.h
 src/ResourceManager.o: ./include/rapidjson/document.h
 src/ResourceManager.o: ./include/rapidjson/reader.h
@@ -7577,7 +7550,7 @@ src/Species.o: ./include/rapidjson/internal/itoa.h
 src/Species.o: ./include/rapidjson/stringbuffer.h
 src/Species.o: ./include/rapidjson/stringbuffer.h
 src/Species.o: ./include/rapidjson/error/en.h
-src/Species.o: ./include/rapidjson/error/error.h ./include/loadFileToBuf.h
+src/Species.o: ./include/rapidjson/error/error.h ./include/Taxonomy.h
 src/Species.o: ./include/Global.h /opt/homebrew/include/cglm/cglm.h
 src/Species.o: /opt/homebrew/include/cglm/common.h
 src/Species.o: /opt/homebrew/include/cglm/types.h
@@ -7625,7 +7598,8 @@ src/Species.o: /opt/homebrew/include/cglm/ease.h
 src/Species.o: /opt/homebrew/include/cglm/curve.h
 src/Species.o: /opt/homebrew/include/cglm/bezier.h
 src/Species.o: /opt/homebrew/include/cglm/ray.h
-src/Species.o: /opt/homebrew/include/cglm/affine2d.h ./include/PmodConfig.h
+src/Species.o: /opt/homebrew/include/cglm/affine2d.h
+src/Species.o: ./include/loadFileToBuf.h ./include/PmodConfig.h
 src/Species.o: ./include/PmodDesign.h ./include/Boundary.h
 src/Species.o: ./include/BoundingBox.h ./include/Timeval.h
 src/Species.o: ./include/JSONStructureChecker.h ./include/Logging.h
@@ -7786,7 +7760,9 @@ src/Taxonomy.o: /opt/homebrew/include/cglm/ease.h
 src/Taxonomy.o: /opt/homebrew/include/cglm/curve.h
 src/Taxonomy.o: /opt/homebrew/include/cglm/bezier.h
 src/Taxonomy.o: /opt/homebrew/include/cglm/ray.h
-src/Taxonomy.o: /opt/homebrew/include/cglm/affine2d.h
+src/Taxonomy.o: /opt/homebrew/include/cglm/affine2d.h ./include/Logging.h
+src/Taxonomy.o: ./include/MemoryTracker.h ./include/Timeval.h
+src/Taxonomy.o: ./include/Lockable.h
 src/Texture.o: ./include/Texture.h /opt/homebrew/include/GL/glew.h
 src/Texture.o: ./include/Shader.h /opt/homebrew/include/cglm/cglm.h
 src/Texture.o: /opt/homebrew/include/cglm/common.h
@@ -8130,11 +8106,12 @@ src/Tree.o: ./include/BezierPatch.h ./include/LandSurfaceRegion.h
 src/Tree.o: ./include/InterfaceAction.h ./include/LightingModel.h
 src/Tree.o: ./include/CO2Scenario.h ./include/SkySampleModel.h
 src/Tree.o: ./include/TaskQueueFarm.h ./include/TaskQueue.h
-src/Tree.o: ./include/Species.h ./include/Version.h ./include/HttpDebug.h
-src/Tree.o: ./include/HttpServThread.h ./include/HttpRequestParser.h
-src/Tree.o: ./include/MimeTypeMaps.h ./include/PermaservCookie.h
-src/Tree.o: ./include/AxialElement.h ./include/SoilProfile.h
-src/Tree.o: ./include/GroundLayer.h ./include/SoilDatabaseClient.h
+src/Tree.o: ./include/Species.h ./include/Version.h ./include/Taxonomy.h
+src/Tree.o: ./include/HttpDebug.h ./include/HttpServThread.h
+src/Tree.o: ./include/HttpRequestParser.h ./include/MimeTypeMaps.h
+src/Tree.o: ./include/PermaservCookie.h ./include/AxialElement.h
+src/Tree.o: ./include/SoilProfile.h ./include/GroundLayer.h
+src/Tree.o: ./include/SoilDatabaseClient.h
 src/TreeEquation.o: ./include/TreeEquation.h
 src/TreePart.o: ./include/TreePart.h ./include/Logging.h
 src/TreePart.o: ./include/MemoryTracker.h ./include/Timeval.h
@@ -9057,17 +9034,18 @@ src/Window3D.o: ./include/rapidjson/internal/itoa.h
 src/Window3D.o: ./include/rapidjson/stringbuffer.h
 src/Window3D.o: ./include/rapidjson/stringbuffer.h
 src/Window3D.o: ./include/rapidjson/error/en.h
-src/Window3D.o: ./include/rapidjson/error/error.h ./include/MenuInsert.h
-src/Window3D.o: ./include/MenuPanel.h ./include/Logging.h
-src/Window3D.o: ./include/MemoryTracker.h ./include/Lockable.h imgui/imgui.h
-src/Window3D.o: imgui/imconfig.h ./include/MenuInitPanel.h
-src/Window3D.o: ./include/GLFWApplication.h ./include/Scene.h
-src/Window3D.o: ./include/LandSurface.h ./include/BezierPatch.h
-src/Window3D.o: ./include/LandSurfaceRegion.h ./include/VisualObject.h
-src/Window3D.o: ./include/VisualElement.h ./include/TriangleBuffer.h
-src/Window3D.o: ./include/Vertex.h ./include/BoundingBox.h
-src/Window3D.o: ./include/LightingModel.h ./include/CO2Scenario.h
-src/Window3D.o: ./include/Shader.h imgui/backends/imgui_impl_opengl3.h
+src/Window3D.o: ./include/rapidjson/error/error.h ./include/Taxonomy.h
+src/Window3D.o: ./include/MenuInsert.h ./include/MenuPanel.h
+src/Window3D.o: ./include/Logging.h ./include/MemoryTracker.h
+src/Window3D.o: ./include/Lockable.h imgui/imgui.h imgui/imconfig.h
+src/Window3D.o: ./include/MenuInitPanel.h ./include/GLFWApplication.h
+src/Window3D.o: ./include/Scene.h ./include/LandSurface.h
+src/Window3D.o: ./include/BezierPatch.h ./include/LandSurfaceRegion.h
+src/Window3D.o: ./include/VisualObject.h ./include/VisualElement.h
+src/Window3D.o: ./include/TriangleBuffer.h ./include/Vertex.h
+src/Window3D.o: ./include/BoundingBox.h ./include/LightingModel.h
+src/Window3D.o: ./include/CO2Scenario.h ./include/Shader.h
+src/Window3D.o: imgui/backends/imgui_impl_opengl3.h
 src/Window3D.o: imgui/backends/imgui_impl_glfw.h
 src/WoodySegment.o: ./include/WoodySegment.h ./include/TreePart.h
 src/WoodySegment.o: ./include/Logging.h ./include/MemoryTracker.h
@@ -9158,10 +9136,11 @@ src/WoodySegment.o: /opt/homebrew/include/GL/glew.h ./include/Quadtree.h
 src/WoodySegment.o: ./include/DisplayList.h ./include/JSONStructureChecker.h
 src/WoodySegment.o: ./include/Version.h ./include/TruncatedCone.h
 src/WoodySegment.o: ./include/AxialElement.h ./include/LeafModel.h
-src/WoodySegment.o: ./include/Species.h ./include/HttpDebug.h
-src/WoodySegment.o: ./include/HttpServThread.h ./include/TaskQueue.h
-src/WoodySegment.o: ./include/HttpRequestParser.h ./include/MimeTypeMaps.h
-src/WoodySegment.o: ./include/PermaservCookie.h ./include/Cylinder.h
+src/WoodySegment.o: ./include/Species.h ./include/Taxonomy.h
+src/WoodySegment.o: ./include/HttpDebug.h ./include/HttpServThread.h
+src/WoodySegment.o: ./include/TaskQueue.h ./include/HttpRequestParser.h
+src/WoodySegment.o: ./include/MimeTypeMaps.h ./include/PermaservCookie.h
+src/WoodySegment.o: ./include/Cylinder.h
 src/iTreeList.o: ./include/iTreeList.h ./include/Global.h
 src/iTreeList.o: /opt/homebrew/include/cglm/cglm.h
 src/iTreeList.o: /opt/homebrew/include/cglm/common.h
@@ -9211,36 +9190,9 @@ src/iTreeList.o: /opt/homebrew/include/cglm/curve.h
 src/iTreeList.o: /opt/homebrew/include/cglm/bezier.h
 src/iTreeList.o: /opt/homebrew/include/cglm/ray.h
 src/iTreeList.o: /opt/homebrew/include/cglm/affine2d.h ./include/Taxonomy.h
-src/iTreeList.o: ./include/rapidjson/document.h ./include/rapidjson/reader.h
-src/iTreeList.o: ./include/rapidjson/allocators.h
-src/iTreeList.o: ./include/rapidjson/rapidjson.h ./include/rapidjson/stream.h
-src/iTreeList.o: ./include/rapidjson/encodings.h
-src/iTreeList.o: ./include/rapidjson/encodedstream.h
-src/iTreeList.o: ./include/rapidjson/memorystream.h
-src/iTreeList.o: ./include/rapidjson/internal/clzll.h
-src/iTreeList.o: ./include/rapidjson/rapidjson.h
-src/iTreeList.o: ./include/rapidjson/internal/meta.h
-src/iTreeList.o: ./include/rapidjson/internal/stack.h
-src/iTreeList.o: ./include/rapidjson/allocators.h
-src/iTreeList.o: ./include/rapidjson/internal/swap.h
-src/iTreeList.o: ./include/rapidjson/internal/strtod.h
-src/iTreeList.o: ./include/rapidjson/internal/ieee754.h
-src/iTreeList.o: ./include/rapidjson/internal/biginteger.h
-src/iTreeList.o: ./include/rapidjson/internal/diyfp.h
-src/iTreeList.o: ./include/rapidjson/internal/clzll.h
-src/iTreeList.o: ./include/rapidjson/internal/pow10.h
-src/iTreeList.o: ./include/rapidjson/error/error.h
-src/iTreeList.o: ./include/rapidjson/internal/strfunc.h
-src/iTreeList.o: ./include/rapidjson/stream.h ./include/rapidjson/writer.h
-src/iTreeList.o: ./include/rapidjson/internal/dtoa.h
-src/iTreeList.o: ./include/rapidjson/internal/itoa.h
-src/iTreeList.o: ./include/rapidjson/internal/itoa.h
-src/iTreeList.o: ./include/rapidjson/stringbuffer.h
-src/iTreeList.o: ./include/rapidjson/stringbuffer.h
-src/iTreeList.o: ./include/rapidjson/error/en.h
-src/iTreeList.o: ./include/rapidjson/error/error.h ./include/loadFileToBuf.h
-src/iTreeList.o: ./include/Logging.h ./include/MemoryTracker.h
-src/iTreeList.o: ./include/Timeval.h ./include/Lockable.h
+src/iTreeList.o: ./include/loadFileToBuf.h ./include/Logging.h
+src/iTreeList.o: ./include/MemoryTracker.h ./include/Timeval.h
+src/iTreeList.o: ./include/Lockable.h
 src/imgui.o: imgui/imgui.h imgui/imconfig.h imgui/imgui_internal.h
 src/imgui.o: imgui/imstb_textedit.h
 src/imgui_demo.o: imgui/imgui.h imgui/imconfig.h

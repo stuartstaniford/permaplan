@@ -47,6 +47,7 @@
 //#define LOG_OLDF_DETAILS       // Log details of valid OLDF objects
 #define LOG_OTDL_VALIDITY      // Log validity problems in an OTDL object
 //#define LOG_OTDL_DETAILS       // Log details of valid OTDL objects
+#define LOG_TAXON_DETAILS        // Log details of operations on taxonomies
 
 
 // =======================================================================================
@@ -272,6 +273,7 @@ extern bool doLogOLDFValidity;    // Log validity problems in the file
 extern bool doLogOLDFDetails;     // Log details of valid OLDF objects
 extern bool doLogOTDLValidity;    // Log validity problems in an OTDL object
 extern bool doLogOTDLDetails;     // Log details of valid OTDL objects
+extern bool doLogTaxonDetails;    // Log details of operations on taxonomies
 
 // Logging options to do with interface controls
 extern bool doLogMouseLocation;       // where the mouse is on the screen each frame
@@ -403,6 +405,7 @@ extern bool flushLogOLDFValidity;    // Log validity problems in the file
 extern bool flushLogOLDFDetails;     // Log details of valid OLDF objects
 extern bool flushLogOTDLValidity;    // Log validity problems in an OTDL object
 extern bool flushLogOTDLDetails;     // Log details of valid OTDL objects
+extern bool flushLogTaxonDetails;    // Log details of operations on taxonomies
 
 // Logging options to do with interface controls
 extern bool flushLogMouseLocation;     // where the mouse is on the screen each frame
@@ -787,6 +790,18 @@ extern bool flushLogObjectAltitudes;   // Log finding the altitudes of objects a
                               }
 #else
 #define LogOTDLDetails(...)
+#endif
+
+// Log details of operations on taxonomies
+#ifdef LOG_TAXON_DETAILS
+#define LogTaxonDetails(...)   {\
+                                if(doLogTaxonDetails) \
+                                  LogStatement("LogTaxonDetails: " __VA_ARGS__)\
+                                if(flushLogTaxonDetails)\
+                                  LogFlush();\
+                              }
+#else
+#define LogTaxonDetails(...)
 #endif
 
 

@@ -66,20 +66,26 @@ void iTreeList::parseItreeFile(char* buf, unsigned bufSize)
     lineEnd = index(line, '\n');
     if(lineEnd)
       *lineEnd = '\0';
-    
-    // Split into tokens
-    tokens = splitTokens(line, '\t', tokenCount);
-    fprintf(stderr, "Found species %s %s.\n", line + tokens[0], line + tokens[1]);
-    
-    
-    // Ok, done with tokens array (NB not efficient but not performance relevant loop)
-    free(tokens);
+
+    // ignore the first line which is labels
+    if(count)
+     {    
+      // Split into tokens
+      tokens = splitTokens(line, '\t', tokenCount);
+       
+      // Add this species into the Taxonomy (our parent class)
+      add(line + tokens[1], line + tokens[0], line + tokens[3], 
+           line + tokens[4], line + tokens[5]);
+       
+      // Ok, done with tokens array (NB not efficient but not performance relevant loop)
+      free(tokens);
+     }
     
     // Go round again
     line = lineEnd + 1;
     count++;
    }
-  fprintf(stderr, "Counted %d lines in file %s.\n", count, iTreeFileLocation);
+  LogTaxonDetails("Counted %d lines in iTreeList file %s.\n", count, iTreeFileLocation);
 }
 
 
