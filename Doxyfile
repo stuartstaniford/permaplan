@@ -896,6 +896,7 @@ INPUT                  = doc \
                 include/GLFWApplication.h src/GLFWApplication.cpp \
                 include/Gable.h src/Gable.cpp \
                 include/GdalFileInterface.h src/GdalFileInterface.cpp \
+                include/Genus.h src/Genus.cpp \
                 include/GHCNDatabase.h src/GHCNDatabase.cpp \
                 include/Grid.h src/Grid.cpp \
                 include/GroundLayer.h src/GroundLayer.cpp \
