@@ -16,6 +16,8 @@
 // Forward declarations
 
 class Species;
+class Genus;
+class Family;
 
 
 // =======================================================================================

@@ -88,7 +88,8 @@ class Species: public DynamicallyTypable
   static unsigned short speciesCount;
   static std::unordered_map<std::string, unsigned> genusList;
   static std::unordered_map<std::string, SpeciesList*> genusSpeciesList;
-
+  static Taxonomy taxonomy;
+  
  private:
   
   // Instance variables - private

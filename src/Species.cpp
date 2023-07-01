@@ -27,6 +27,7 @@ unsigned short Species::speciesCount = 0u;
 SpeciesList* Species::cachedSpecies = new SpeciesList;
 std::unordered_map<std::string, unsigned> Species::genusList;
 std::unordered_map<std::string, SpeciesList*> Species::genusSpeciesList;
+Taxonomy Species::taxonomy;
 
 
 // =======================================================================================
