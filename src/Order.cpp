@@ -1,13 +1,13 @@
 // Copyright Staniford Systems.  All Rights Reserved.  July 2023 -
-// This class ..... is a template for real classes
+// Models a biological order.  Inherits from an unordered map of names to Families
 
-#include "EmptyClass.h"
+#include "Order.h"
 
 
 // =======================================================================================
 /// @brief Constructor
 
-EmptyClass::EmptyClass(void)
+Order::Order(void)
 {
 }
 
@@ -15,7 +15,7 @@ EmptyClass::EmptyClass(void)
 // =======================================================================================
 /// @brief Destructor
 
-EmptyClass::~EmptyClass(void)
+Order::~Order(void)
 {
 }
 

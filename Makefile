@@ -57,7 +57,7 @@ SCRIPTS = $(wildcard scripts/*.js)
 # with the .o suffix
 #
 OBJS = $(SRCS:.cpp=.o) $(CSRCS:.c=.o)
-SERV_OBJS = src/BILFile.o src/ClimateInfo.o src/ClimateDatabase.o src/CryptoAlgorithms.o src/DynamicallyTypable.o src/Family.o src/GHCNDatabase.o src/GdalFileInterface.o src/Genus.o src/Global.o src/GroundLayer.o src/HTMLForm.o src/HttpLBPermaserv.o src/HttpPageSet.o src/HttpPermaServ.o src/HttpServThread.o src/HttpStaticPage.o src/HttpLoadBalancer.o src/HttpRequestParser.o src/HttpClient.o src/HWSDProfile.o src/iTreeList.o src/loadFileToBuf.o src/Lockable.o src/Logging.o src/MdbFile.o src/MimeTypeMaps.o src/MultipartFile.o src/multipart_parser.o src/PermaservCookie.o src/PmodServer.o src/ResourceManager.o src/SoilDatabase.o src/SoilHorizon.o src/SoilProfile.o src/SolarDatabase.o src/TaskQueue.o src/TaskQueueFarm.o src/Taxonomy.o src/TimeoutMap.o src/Timeval.o src/UserManager.o src/UserSession.o
+SERV_OBJS = src/BioClass.o src/BILFile.o src/ClimateInfo.o src/ClimateDatabase.o src/CryptoAlgorithms.o src/DynamicallyTypable.o src/Family.o src/GHCNDatabase.o src/GdalFileInterface.o src/Genus.o src/Global.o src/GroundLayer.o src/HTMLForm.o src/HttpLBPermaserv.o src/HttpPageSet.o src/HttpPermaServ.o src/HttpServThread.o src/HttpStaticPage.o src/HttpLoadBalancer.o src/HttpRequestParser.o src/HttpClient.o src/HWSDProfile.o src/iTreeList.o src/loadFileToBuf.o src/Lockable.o src/Logging.o src/MdbFile.o src/MimeTypeMaps.o src/MultipartFile.o src/multipart_parser.o src/Order.o src/PermaservCookie.o src/PmodServer.o src/ResourceManager.o src/SoilDatabase.o src/SoilHorizon.o src/SoilProfile.o src/SolarDatabase.o src/TaskQueue.o src/TaskQueueFarm.o src/Taxonomy.o src/TimeoutMap.o src/Timeval.o src/UserManager.o src/UserSession.o
 
 # define the executable file
 MAIN = permaplan
@@ -357,6 +357,55 @@ src/BezierPatch.o: ./include/AxialElement.h ./include/HttpDebug.h
 src/BezierPatch.o: ./include/HttpServThread.h ./include/TaskQueue.h
 src/BezierPatch.o: ./include/HttpRequestParser.h ./include/MimeTypeMaps.h
 src/BezierPatch.o: ./include/PermaservCookie.h
+src/BioClass.o: ./include/BioClass.h ./include/Global.h
+src/BioClass.o: /opt/homebrew/include/cglm/cglm.h
+src/BioClass.o: /opt/homebrew/include/cglm/common.h
+src/BioClass.o: /opt/homebrew/include/cglm/types.h
+src/BioClass.o: /opt/homebrew/include/cglm/simd/intrin.h
+src/BioClass.o: /opt/homebrew/include/cglm/vec2.h
+src/BioClass.o: /opt/homebrew/include/cglm/util.h
+src/BioClass.o: /opt/homebrew/include/cglm/vec2-ext.h
+src/BioClass.o: /opt/homebrew/include/cglm/vec3.h
+src/BioClass.o: /opt/homebrew/include/cglm/vec4.h
+src/BioClass.o: /opt/homebrew/include/cglm/vec4-ext.h
+src/BioClass.o: /opt/homebrew/include/cglm/vec3-ext.h
+src/BioClass.o: /opt/homebrew/include/cglm/ivec2.h
+src/BioClass.o: /opt/homebrew/include/cglm/ivec3.h
+src/BioClass.o: /opt/homebrew/include/cglm/ivec4.h
+src/BioClass.o: /opt/homebrew/include/cglm/mat4.h
+src/BioClass.o: /opt/homebrew/include/cglm/mat3.h
+src/BioClass.o: /opt/homebrew/include/cglm/mat2.h
+src/BioClass.o: /opt/homebrew/include/cglm/affine.h
+src/BioClass.o: /opt/homebrew/include/cglm/affine-mat.h
+src/BioClass.o: /opt/homebrew/include/cglm/affine-pre.h
+src/BioClass.o: /opt/homebrew/include/cglm/affine-post.h
+src/BioClass.o: /opt/homebrew/include/cglm/cam.h
+src/BioClass.o: /opt/homebrew/include/cglm/plane.h
+src/BioClass.o: /opt/homebrew/include/cglm/clipspace/persp.h
+src/BioClass.o: /opt/homebrew/include/cglm/common.h
+src/BioClass.o: /opt/homebrew/include/cglm/plane.h
+src/BioClass.o: /opt/homebrew/include/cglm/mat4.h
+src/BioClass.o: /opt/homebrew/include/cglm/clipspace/ortho_rh_no.h
+src/BioClass.o: /opt/homebrew/include/cglm/clipspace/persp_rh_no.h
+src/BioClass.o: /opt/homebrew/include/cglm/clipspace/persp.h
+src/BioClass.o: /opt/homebrew/include/cglm/clipspace/view_rh_no.h
+src/BioClass.o: /opt/homebrew/include/cglm/clipspace/view_rh.h
+src/BioClass.o: /opt/homebrew/include/cglm/frustum.h
+src/BioClass.o: /opt/homebrew/include/cglm/quat.h
+src/BioClass.o: /opt/homebrew/include/cglm/euler.h
+src/BioClass.o: /opt/homebrew/include/cglm/box.h
+src/BioClass.o: /opt/homebrew/include/cglm/color.h
+src/BioClass.o: /opt/homebrew/include/cglm/io.h
+src/BioClass.o: /opt/homebrew/include/cglm/project.h
+src/BioClass.o: /opt/homebrew/include/cglm/clipspace/project_no.h
+src/BioClass.o: /opt/homebrew/include/cglm/vec3.h
+src/BioClass.o: /opt/homebrew/include/cglm/vec4.h
+src/BioClass.o: /opt/homebrew/include/cglm/sphere.h
+src/BioClass.o: /opt/homebrew/include/cglm/ease.h
+src/BioClass.o: /opt/homebrew/include/cglm/curve.h
+src/BioClass.o: /opt/homebrew/include/cglm/bezier.h
+src/BioClass.o: /opt/homebrew/include/cglm/ray.h
+src/BioClass.o: /opt/homebrew/include/cglm/affine2d.h
 src/Boundary.o: ./include/Boundary.h /opt/homebrew/include/cglm/cglm.h
 src/Boundary.o: /opt/homebrew/include/cglm/common.h
 src/Boundary.o: /opt/homebrew/include/cglm/types.h
@@ -2169,6 +2218,55 @@ src/GdalFileInterface.o: /opt/homebrew/include/ogr_geometry.h
 src/GdalFileInterface.o: /opt/homebrew/include/cpl_json.h
 src/GdalFileInterface.o: /opt/homebrew/include/ogr_spatialref.h
 src/GdalFileInterface.o: /opt/homebrew/include/ogr_srs_api.h
+src/Genus.o: ./include/Genus.h ./include/Global.h
+src/Genus.o: /opt/homebrew/include/cglm/cglm.h
+src/Genus.o: /opt/homebrew/include/cglm/common.h
+src/Genus.o: /opt/homebrew/include/cglm/types.h
+src/Genus.o: /opt/homebrew/include/cglm/simd/intrin.h
+src/Genus.o: /opt/homebrew/include/cglm/vec2.h
+src/Genus.o: /opt/homebrew/include/cglm/util.h
+src/Genus.o: /opt/homebrew/include/cglm/vec2-ext.h
+src/Genus.o: /opt/homebrew/include/cglm/vec3.h
+src/Genus.o: /opt/homebrew/include/cglm/vec4.h
+src/Genus.o: /opt/homebrew/include/cglm/vec4-ext.h
+src/Genus.o: /opt/homebrew/include/cglm/vec3-ext.h
+src/Genus.o: /opt/homebrew/include/cglm/ivec2.h
+src/Genus.o: /opt/homebrew/include/cglm/ivec3.h
+src/Genus.o: /opt/homebrew/include/cglm/ivec4.h
+src/Genus.o: /opt/homebrew/include/cglm/mat4.h
+src/Genus.o: /opt/homebrew/include/cglm/mat3.h
+src/Genus.o: /opt/homebrew/include/cglm/mat2.h
+src/Genus.o: /opt/homebrew/include/cglm/affine.h
+src/Genus.o: /opt/homebrew/include/cglm/affine-mat.h
+src/Genus.o: /opt/homebrew/include/cglm/affine-pre.h
+src/Genus.o: /opt/homebrew/include/cglm/affine-post.h
+src/Genus.o: /opt/homebrew/include/cglm/cam.h
+src/Genus.o: /opt/homebrew/include/cglm/plane.h
+src/Genus.o: /opt/homebrew/include/cglm/clipspace/persp.h
+src/Genus.o: /opt/homebrew/include/cglm/common.h
+src/Genus.o: /opt/homebrew/include/cglm/plane.h
+src/Genus.o: /opt/homebrew/include/cglm/mat4.h
+src/Genus.o: /opt/homebrew/include/cglm/clipspace/ortho_rh_no.h
+src/Genus.o: /opt/homebrew/include/cglm/clipspace/persp_rh_no.h
+src/Genus.o: /opt/homebrew/include/cglm/clipspace/persp.h
+src/Genus.o: /opt/homebrew/include/cglm/clipspace/view_rh_no.h
+src/Genus.o: /opt/homebrew/include/cglm/clipspace/view_rh.h
+src/Genus.o: /opt/homebrew/include/cglm/frustum.h
+src/Genus.o: /opt/homebrew/include/cglm/quat.h
+src/Genus.o: /opt/homebrew/include/cglm/euler.h
+src/Genus.o: /opt/homebrew/include/cglm/box.h
+src/Genus.o: /opt/homebrew/include/cglm/color.h
+src/Genus.o: /opt/homebrew/include/cglm/io.h
+src/Genus.o: /opt/homebrew/include/cglm/project.h
+src/Genus.o: /opt/homebrew/include/cglm/clipspace/project_no.h
+src/Genus.o: /opt/homebrew/include/cglm/vec3.h
+src/Genus.o: /opt/homebrew/include/cglm/vec4.h
+src/Genus.o: /opt/homebrew/include/cglm/sphere.h
+src/Genus.o: /opt/homebrew/include/cglm/ease.h
+src/Genus.o: /opt/homebrew/include/cglm/curve.h
+src/Genus.o: /opt/homebrew/include/cglm/bezier.h
+src/Genus.o: /opt/homebrew/include/cglm/ray.h
+src/Genus.o: /opt/homebrew/include/cglm/affine2d.h ./include/Taxonomy.h
 src/Global.o: ./include/Global.h /opt/homebrew/include/cglm/cglm.h
 src/Global.o: /opt/homebrew/include/cglm/common.h
 src/Global.o: /opt/homebrew/include/cglm/types.h
@@ -6049,6 +6147,55 @@ src/ObjectInspectorWindow.o: ./include/DynamicallyTypable.h
 src/ObjectInspectorWindow.o: ./include/TriangleBuffer.h ./include/Vertex.h
 src/ObjectInspectorWindow.o: ./include/Logging.h ./include/MemoryTracker.h
 src/ObjectInspectorWindow.o: ./include/Lockable.h ./include/BoundingBox.h
+src/Order.o: ./include/Order.h ./include/Global.h
+src/Order.o: /opt/homebrew/include/cglm/cglm.h
+src/Order.o: /opt/homebrew/include/cglm/common.h
+src/Order.o: /opt/homebrew/include/cglm/types.h
+src/Order.o: /opt/homebrew/include/cglm/simd/intrin.h
+src/Order.o: /opt/homebrew/include/cglm/vec2.h
+src/Order.o: /opt/homebrew/include/cglm/util.h
+src/Order.o: /opt/homebrew/include/cglm/vec2-ext.h
+src/Order.o: /opt/homebrew/include/cglm/vec3.h
+src/Order.o: /opt/homebrew/include/cglm/vec4.h
+src/Order.o: /opt/homebrew/include/cglm/vec4-ext.h
+src/Order.o: /opt/homebrew/include/cglm/vec3-ext.h
+src/Order.o: /opt/homebrew/include/cglm/ivec2.h
+src/Order.o: /opt/homebrew/include/cglm/ivec3.h
+src/Order.o: /opt/homebrew/include/cglm/ivec4.h
+src/Order.o: /opt/homebrew/include/cglm/mat4.h
+src/Order.o: /opt/homebrew/include/cglm/mat3.h
+src/Order.o: /opt/homebrew/include/cglm/mat2.h
+src/Order.o: /opt/homebrew/include/cglm/affine.h
+src/Order.o: /opt/homebrew/include/cglm/affine-mat.h
+src/Order.o: /opt/homebrew/include/cglm/affine-pre.h
+src/Order.o: /opt/homebrew/include/cglm/affine-post.h
+src/Order.o: /opt/homebrew/include/cglm/cam.h
+src/Order.o: /opt/homebrew/include/cglm/plane.h
+src/Order.o: /opt/homebrew/include/cglm/clipspace/persp.h
+src/Order.o: /opt/homebrew/include/cglm/common.h
+src/Order.o: /opt/homebrew/include/cglm/plane.h
+src/Order.o: /opt/homebrew/include/cglm/mat4.h
+src/Order.o: /opt/homebrew/include/cglm/clipspace/ortho_rh_no.h
+src/Order.o: /opt/homebrew/include/cglm/clipspace/persp_rh_no.h
+src/Order.o: /opt/homebrew/include/cglm/clipspace/persp.h
+src/Order.o: /opt/homebrew/include/cglm/clipspace/view_rh_no.h
+src/Order.o: /opt/homebrew/include/cglm/clipspace/view_rh.h
+src/Order.o: /opt/homebrew/include/cglm/frustum.h
+src/Order.o: /opt/homebrew/include/cglm/quat.h
+src/Order.o: /opt/homebrew/include/cglm/euler.h
+src/Order.o: /opt/homebrew/include/cglm/box.h
+src/Order.o: /opt/homebrew/include/cglm/color.h
+src/Order.o: /opt/homebrew/include/cglm/io.h
+src/Order.o: /opt/homebrew/include/cglm/project.h
+src/Order.o: /opt/homebrew/include/cglm/clipspace/project_no.h
+src/Order.o: /opt/homebrew/include/cglm/vec3.h
+src/Order.o: /opt/homebrew/include/cglm/vec4.h
+src/Order.o: /opt/homebrew/include/cglm/sphere.h
+src/Order.o: /opt/homebrew/include/cglm/ease.h
+src/Order.o: /opt/homebrew/include/cglm/curve.h
+src/Order.o: /opt/homebrew/include/cglm/bezier.h
+src/Order.o: /opt/homebrew/include/cglm/ray.h
+src/Order.o: /opt/homebrew/include/cglm/affine2d.h
 src/Orientable.o: ./include/Orientable.h ./include/Positionable.h
 src/Orientable.o: /opt/homebrew/include/cglm/cglm.h
 src/Orientable.o: /opt/homebrew/include/cglm/common.h

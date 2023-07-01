@@ -1,32 +1,32 @@
 // Copyright Staniford Systems.  All Rights Reserved.  July 2023 -
 
-#ifndef EMPTY_CLASS_H
-#define EMPTY_CLASS_H
+#ifndef BIO_CLASS_H
+#define BIO_CLASS_H
 
 #include "Global.h"
 
 
 // =======================================================================================
-/// @brief This is a template for new classes.  Quick description of the class here.
+/// @brief Models a Class in the biological sense as part of a Taxonomy.
 ///
-/// More details of the class go here.
+/// Inherits from a map of Orders.
 
-class EmptyClass
+class BioClass
 {
 public:
   
   // Instance variables - public
   
   // Member functions - public
-  EmptyClass(void);
-  ~EmptyClass(void);
+  BioClass(void);
+  ~BioClass(void);
   
 private:
   
   // Instance variables - private
   
   // Member functions - private
-  PreventAssignAndCopyConstructor(EmptyClass);
+  PreventAssignAndCopyConstructor(BioClass);
 };
 
 

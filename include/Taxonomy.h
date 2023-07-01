@@ -18,6 +18,7 @@
 class Species;
 class Genus;
 class Family;
+class BioClass;
 
 
 // =======================================================================================
@@ -51,6 +52,7 @@ private:
   // Instance variables - private
   static std::unordered_map<std::string, unsigned> genusList;
   static std::unordered_map<std::string, SpeciesList*> genusSpeciesList;
+  static std::unordered_map<std::string, BioClass> bioClasses;
   
   // Member functions - private
   PreventAssignAndCopyConstructor(Taxonomy);

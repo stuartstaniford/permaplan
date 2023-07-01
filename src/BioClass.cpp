@@ -1,13 +1,14 @@
 // Copyright Staniford Systems.  All Rights Reserved.  July 2023 -
-// This class ..... is a template for real classes
+// Models a Class in the biological sense as part of a Taxonomy.  Inherits from a 
+// map of Orders
 
-#include "EmptyClass.h"
+#include "BioClass.h"
 
 
 // =======================================================================================
 /// @brief Constructor
 
-EmptyClass::EmptyClass(void)
+BioClass::BioClass(void)
 {
 }
 
@@ -15,7 +16,7 @@ EmptyClass::EmptyClass(void)
 // =======================================================================================
 /// @brief Destructor
 
-EmptyClass::~EmptyClass(void)
+BioClass::~BioClass(void)
 {
 }
 

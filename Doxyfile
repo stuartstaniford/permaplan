@@ -868,6 +868,7 @@ INPUT                  = doc \
                 include/Arrow.h src/Arrow.cpp \
                 include/AxialElement.h src/AxialElement.cpp \
                 include/BezierPatch.h src/BezierPatch.cpp \
+                include/BioClass.h src/BioClass.cpp \
                 include/BILFile.h src/BILFile.cpp \
                 include/Boundary.h src/Boundary.cpp \
                 include/BoundingBox.h src/BoundingBox.cpp \
@@ -947,6 +948,7 @@ INPUT                  = doc \
                 include/MimeTypeMaps.h src/MimeTypeMaps.cpp \
                 include/ObjectGroup.h src/ObjectGroup.cpp \
                 include/ObjectInspectorWindow.h src/ObjectInspectorWindow.cpp \
+                include/Order.h src/Order.cpp \
                 include/Orientable.h src/Orientable.cpp \
                 include/PathTube.h src/PathTube.cpp \
                 include/PermaservCookie.h src/PermaservCookie.cpp \                
