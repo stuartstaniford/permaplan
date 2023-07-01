@@ -5,6 +5,7 @@
 
 #include "Taxonomy.h"
 #include "Logging.h"
+#include "BioClass.h"
 
 
 // =======================================================================================
@@ -28,6 +29,16 @@ Taxonomy::~Taxonomy(void)
 
 bool Taxonomy::add(char* species, char* genus, char* family, char* order, char* bioClass)
 {
+  if(bioClassesByName.count(bioClass))
+   {
+    
+   }
+  else
+   {
+    BioClass* newClass = new BioClass;
+    bioClassesByName.insert({std::string(bioClass), newClass});
+    LogTaxonDetails("Adding new Class %s to taxonomy.\n", bioClass);
+   }
   LogTaxonDetails("Adding %s %s to taxonomy.\n", genus, species);
   return true;
 }

@@ -4,6 +4,14 @@
 #define BIO_CLASS_H
 
 #include "Global.h"
+#include <string>
+#include <unordered_map>
+
+
+// =======================================================================================
+// Forward declarations
+
+class Order;
 
 
 // =======================================================================================
@@ -11,7 +19,7 @@
 ///
 /// Inherits from a map of Orders.
 
-class BioClass
+class BioClass: public std::unordered_map<std::string, Order*>
 {
 public:
   
