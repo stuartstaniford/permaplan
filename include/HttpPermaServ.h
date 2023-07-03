@@ -13,6 +13,7 @@ class SolarDatabase;
 class SoilDatabase;
 class ClimateDatabase;
 class PmodServer;
+class Taxonomy;
 
 
 // =======================================================================================
@@ -32,7 +33,7 @@ public:
   // Member functions - public
   HttpPermaServ(unsigned index, SolarDatabase* solarD, SoilDatabase* soilD,
                     ClimateDatabase* climateD, PmodServer* pServ, UserSessionGroup* userS, 
-                    HttpLoadBalancer* parent);
+                    Taxonomy* taxa, HttpLoadBalancer* parent);
   ~HttpPermaServ(void);
   
 private:
@@ -42,7 +43,8 @@ private:
   SoilDatabase*     soilDatabase;
   ClimateDatabase*  climateDatabase;
   PmodServer*       pmodServer;
-
+  Taxonomy*         taxonomy;
+  
   // Member functions - private
   bool  processRequestHeader(void);
   bool  indexPage(void);

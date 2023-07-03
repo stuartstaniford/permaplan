@@ -11,6 +11,7 @@
 #include "PmodServer.h"
 #include "UserManager.h"
 #include "UserSession.h"
+#include "Taxonomy.h"
 
 
 // =======================================================================================
@@ -18,12 +19,14 @@
 
 HttpPermaServ::HttpPermaServ(unsigned index, SolarDatabase* solarD, SoilDatabase* soilD, 
                             ClimateDatabase* climateD, PmodServer* pServ, 
-                            UserSessionGroup* userS, HttpLoadBalancer* parent):
+                            UserSessionGroup* userS, Taxonomy* taxa, 
+                            HttpLoadBalancer* parent):
                                           HttpServThread(index, parent, userS),
                                           solarDatabase(solarD),
                                           soilDatabase(soilD),
                                           climateDatabase(climateD),
-                                          pmodServer(pServ)
+                                          pmodServer(pServ),
+                                          taxonomy(taxa)
 {
 }
 
@@ -111,7 +114,16 @@ bool HttpPermaServ::indexPage(void)
     internalPrintf("<hr><center><h4>Pmod Server for user OLDF disabled "
                                                                 "(-o)</h4></center>\n");
    }
-    
+
+  // Table of taxonomy server options
+  if(taxonomy)
+    taxonomy->indexPageTable(this);
+  else
+   {
+    internalPrintf("<hr><center><h4>Taxonomy Server disabled "
+                                                                "(-t)</h4></center>\n");
+   }
+
   // All done with content, finish up
   endResponsePage();
   LogPermaservOps("Served index page to client on port %u.\n", clientP);

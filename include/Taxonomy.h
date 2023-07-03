@@ -20,6 +20,7 @@ class Genus;
 class Family;
 class BioClass;
 class Order;
+class HttpServThread;
 
 
 // =======================================================================================
@@ -47,7 +48,8 @@ public:
   Taxonomy(void);
   ~Taxonomy(void);
   bool add(char* species, char* genus, char* family, char* order, char* bioClass);
-  
+  bool indexPageTable(HttpServThread* serv);
+
 private:
   
   // Instance variables - private

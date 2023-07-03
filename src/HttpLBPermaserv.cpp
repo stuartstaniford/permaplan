@@ -99,7 +99,7 @@ HttpLBPermaserv::HttpLBPermaserv(PermaservParams& permaservParams):
   // Run the threads to service requests
   for(unsigned i=0; i<HTTP_THREAD_COUNT;i++)
     httpThreads[i] = (TaskQueue*) new HttpPermaServ(i, solarDatabase, soilDatabase, 
-                                climateDatabase, pmodServer, userSessions,
+                                climateDatabase, pmodServer, userSessions, treeList,
                                 (HttpLoadBalancer*)this);
 }
 
