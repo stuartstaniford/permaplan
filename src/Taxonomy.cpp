@@ -78,4 +78,41 @@ bool Taxonomy::indexPageTable(HttpServThread* serv)
 }
 
 
+/// =======================================================================================
+/// @brief Gateway to handling all requests coming in under /taxonomy/.  
+/// 
+/// This just routes to the appropriate private method to handle the different specific
+/// cases.
+/// 
+/// @returns True if all was well writing to the buffer.  If false, it indicates the 
+/// buffer was not big enough and the output will have been truncated/incomplete.
+/// @param serv A pointer to the HttpServThread managing the HTTP response.
+/// @param url A string with the balance of the request url after "/oldf/".
+
+bool Taxonomy::processHttpRequest(HttpServThread* serv, char* url)
+{
+  int strlenUrl = strlen(url);
+  bool retVal = false;
+  
+  // Make sure we are logged in, and get the username
+
+  // classes.html
+  if(strlenUrl == 12 && strncmp(url, "classes.html", 12) == 0)
+   {
+    LogPermaservOpDetails("Processing taxonomy classes request.\n");
+    retVal = serv->errorPage("Not yet implemented");
+    //retVal = provideClassList(serv);
+   }
+
+  // Default - failure
+  else
+   {
+    LogRequestErrors("Request for unknown /taxonomy/ resource %s\n", url);
+    retVal = serv->errorPage("Resource not found");
+   }
+
+  return retVal;
+}
+
+
 // =======================================================================================

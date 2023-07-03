@@ -357,6 +357,21 @@ bool HttpPermaServ::processRequestHeader(void)
     retVal = processSoilRequest(url+6);
    }
 
+  // taxonomy
+  else if( strlenUrl > 10 && strncmp(url, "/taxonomy/", 10) == 0)
+   {
+    unless(taxonomy)
+     {
+      LogRequestErrors("Taxonomy not loaded on %s\n", url);
+      errorPage("Taxonomy not available");
+     }
+    else
+     {
+      LogPermaservOpDetails("Processing taxonomy request for %s.\n", url+10);
+      retVal = taxonomy->processHttpRequest(this, url+10);
+     }
+   }
+
   // user/
   else if( strlenUrl > 6 && strncmp(url, "/user/", 6) == 0)
    {
