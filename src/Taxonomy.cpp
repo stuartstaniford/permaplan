@@ -90,25 +90,25 @@ bool Taxonomy::provideClassList(HttpServThread* serv)
   // Start the HTML page and the table header
   unless(serv->startResponsePage("Classes in this Taxonomy"))
     return false;
-  unless(serv->startTable((char*)"Classes"))
-    return false;
-  httPrintf("<tr><th>Row</th><th>Class Name</th></tr>\n");
 
-  // Loop over the rows
-/*  for(int i=0; i<N; i++)
+  // Loop over the classes
+  int classIndex = 1;
+  for (auto i : bioClassesByName)
    {
-    httPrintf("<tr><td><a href=\"/climateStation/%s\">%s</a></td><td>%s</td>", 
-                                        station->id,  station->id, station->name);
-   }*/
+    char title[128];
+    snprintf(title, 128, "Class %d: %s", classIndex++, i.first.c_str());
+    unless(serv->newSection(title))
+      return false;
+    unless(i.second->orderHTMLTable(serv))
+      return false;
+   }
   
-  // Finish up the table and the page
-  httPrintf("</table></center>\n");
+  // Finish up the page
   unless(serv->endResponsePage())
     return false;
 
   return true;
 }
-
 
 
 /// =======================================================================================

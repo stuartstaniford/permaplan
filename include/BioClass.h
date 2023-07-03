@@ -12,6 +12,7 @@
 // Forward declarations
 
 class Order;
+class HttpServThread;
 
 
 // =======================================================================================
@@ -29,7 +30,8 @@ public:
   BioClass(void);
   ~BioClass(void);
   bool add(char* species, char* genus, char* family, char* order);
-  
+  bool orderHTMLTable(HttpServThread* serv);
+
 private:
   
   // Instance variables - private
