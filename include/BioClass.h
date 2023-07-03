@@ -27,7 +27,7 @@ public:
   // Instance variables - public
   
   // Member functions - public
-  BioClass(void);
+  BioClass(char* className);
   ~BioClass(void);
   bool add(char* species, char* genus, char* family, char* order);
   bool orderHTMLTable(HttpServThread* serv);
@@ -35,6 +35,7 @@ public:
 private:
   
   // Instance variables - private
+  char* name;
   
   // Member functions - private
   PreventAssignAndCopyConstructor(BioClass);

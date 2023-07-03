@@ -4,13 +4,15 @@
 
 #include "BioClass.h"
 #include "HttpServThread.h"
+#include <string.h>
 
 
 // =======================================================================================
 /// @brief Constructor
 
-BioClass::BioClass(void)
+BioClass::BioClass(char* className)
 {
+  name = strdup(className);
 }
 
 
@@ -19,6 +21,7 @@ BioClass::BioClass(void)
 
 BioClass::~BioClass(void)
 {
+  free(name);
 }
 
 
@@ -45,7 +48,9 @@ bool BioClass::add(char* species, char* genus, char* family, char* order)
 
 bool BioClass::orderHTMLTable(HttpServThread* serv)
 {
-  unless(serv->startTable((char*)"Orders"))
+  char tableName[128];
+  snprintf(tableName, 128, "Orders_for_class_%s", name);
+  unless(serv->startTable(tableName))
     return false;
   httPrintf("<tr><th>Row</th><th>Order Name</th></tr>\n");
   httPrintf("</table></center>"); 
