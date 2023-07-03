@@ -3,7 +3,9 @@
 // map of Orders
 
 #include "BioClass.h"
+#include "Order.h"
 #include "HttpServThread.h"
+#include "Logging.h"
 #include <string.h>
 
 
@@ -35,6 +37,18 @@ BioClass::~BioClass(void)
 
 bool BioClass::add(char* species, char* genus, char* family, char* order)
 {
+  if(count(order))
+   {
+    //return bioClassesByName[bioClass]->add(species, genus, family, order);
+    return true;
+   }
+  else
+   {
+    Order* newOrder = new Order(order);
+    insert({std::string(order), newOrder});
+    LogTaxonDetails("Adding new Order %s to class %s.\n", order, name);
+   }
+
    return true; 
 }
 
@@ -48,11 +62,21 @@ bool BioClass::add(char* species, char* genus, char* family, char* order)
 
 bool BioClass::orderHTMLTable(HttpServThread* serv)
 {
+  // Start the table
   char tableName[128];
   snprintf(tableName, 128, "Orders_for_class_%s", name);
   unless(serv->startTable(tableName))
     return false;
   httPrintf("<tr><th>Row</th><th>Order Name</th></tr>\n");
+  
+  // Iterate over the rows
+  int index = 1;
+  for (auto i : *this)
+   {
+    httPrintf("<tr><td>%d</td><td>%s</td></tr>\n", index++, i.first.c_str()); 
+   }
+
+  // Finish up the table
   httPrintf("</table></center>"); 
   return true;
 }

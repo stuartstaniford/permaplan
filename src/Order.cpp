@@ -2,13 +2,17 @@
 // Models a biological order.  Inherits from an unordered map of names to Families
 
 #include "Order.h"
+#include "HttpServThread.h"
+#include "Logging.h"
+#include <string.h>
 
 
 // =======================================================================================
 /// @brief Constructor
 
-Order::Order(void)
+Order::Order(char* orderName)
 {
+  name = strdup(orderName);
 }
 
 
@@ -17,6 +21,7 @@ Order::Order(void)
 
 Order::~Order(void)
 {
+  free(name);
 }
 
 

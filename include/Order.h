@@ -18,12 +18,13 @@ public:
   // Instance variables - public
   
   // Member functions - public
-  Order(void);
+  Order(char* orderName);
   ~Order(void);
   
 private:
   
   // Instance variables - private
+  char* name;
   
   // Member functions - private
   PreventAssignAndCopyConstructor(Order);
