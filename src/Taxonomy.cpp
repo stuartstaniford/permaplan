@@ -44,9 +44,9 @@ bool Taxonomy::add(char* species, char* genus, char* family, char* order, char* 
    {
     BioClass* newClass = new BioClass(bioClass);
     bioClassesByName.insert({std::string(bioClass), newClass});
-    LogTaxonDetails("Adding new Order %s to taxonomy.\n", bioClass);
+    LogTaxonDetails("Adding new Class %s to taxonomy.\n", bioClass);
+    return newClass->add(species, genus, family, order);
    }
-  return true;
 }
 
 
