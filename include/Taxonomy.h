@@ -50,6 +50,7 @@ public:
   bool add(char* species, char* genus, char* family, char* order, char* bioClass);
   bool indexPageTable(HttpServThread* serv);
   bool processHttpRequest(HttpServThread* serv, char* url);
+  bool provideClassList(HttpServThread* serv);
 
 private:
   

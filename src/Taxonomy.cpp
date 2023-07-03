@@ -79,6 +79,39 @@ bool Taxonomy::indexPageTable(HttpServThread* serv)
 
 
 /// =======================================================================================
+/// @brief Output HTML table of taxonomic classes known to us.
+/// 
+/// @returns True if all was well writing to the buffer.  If false, it indicates the 
+/// buffer was not big enough and the output will have been truncated/incomplete.
+/// @param serv A pointer to the HttpServThread managing the HTTP response.
+
+bool Taxonomy::provideClassList(HttpServThread* serv)
+{  
+  // Start the HTML page and the table header
+  unless(serv->startResponsePage("Classes in this Taxonomy"))
+    return false;
+  unless(serv->startTable((char*)"Classes"))
+    return false;
+  httPrintf("<tr><th>Row</th><th>Class Name</th></tr>\n");
+
+  // Loop over the rows
+/*  for(int i=0; i<N; i++)
+   {
+    httPrintf("<tr><td><a href=\"/climateStation/%s\">%s</a></td><td>%s</td>", 
+                                        station->id,  station->id, station->name);
+   }*/
+  
+  // Finish up the table and the page
+  httPrintf("</table></center>\n");
+  unless(serv->endResponsePage())
+    return false;
+
+  return true;
+}
+
+
+
+/// =======================================================================================
 /// @brief Gateway to handling all requests coming in under /taxonomy/.  
 /// 
 /// This just routes to the appropriate private method to handle the different specific
@@ -100,8 +133,7 @@ bool Taxonomy::processHttpRequest(HttpServThread* serv, char* url)
   if(strlenUrl == 12 && strncmp(url, "classes.html", 12) == 0)
    {
     LogPermaservOpDetails("Processing taxonomy classes request.\n");
-    retVal = serv->errorPage("Not yet implemented");
-    //retVal = provideClassList(serv);
+    retVal = provideClassList(serv);
    }
 
   // Default - failure
