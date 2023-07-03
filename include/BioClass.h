@@ -28,6 +28,7 @@ public:
   // Member functions - public
   BioClass(void);
   ~BioClass(void);
+  bool add(char* species, char* genus, char* family, char* order);
   
 private:
   
