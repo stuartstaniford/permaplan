@@ -66,17 +66,17 @@ bool Order::provideOrderPage(HttpServThread* serv)
   unless(serv->startResponsePage(title))
     return false;
 
-/*  // Loop over the classes
-  int classIndex = 1;
-  for (auto i : bioClassesByName)
+  // Loop over the families
+  int famIndex = 1;
+  for (auto i : *this)
    {
     char title[128];
-    snprintf(title, 128, "Class %d: %s", classIndex++, i.first.c_str());
+    snprintf(title, 128, "Family %d: %s", famIndex++, i.first.c_str());
     unless(serv->newSection(title))
       return false;
-    unless(i.second->orderHTMLTable(serv))
-      return false;
-   }*/
+    //unless(i.second->orderHTMLTable(serv))
+    //  return false;
+   }
   
   // Finish up the page
   unless(serv->endResponsePage())
