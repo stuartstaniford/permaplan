@@ -73,7 +73,8 @@ bool BioClass::orderHTMLTable(HttpServThread* serv)
   int index = 1;
   for (auto i : *this)
    {
-    httPrintf("<tr><td>%d</td><td>%s</td></tr>\n", index++, i.first.c_str()); 
+    httPrintf("<tr><td>%d</td><td><a href=\"/taxonomy/order/%s\">%s</a></td></tr>\n", 
+                                              index++, i.first.c_str(), i.first.c_str()); 
    }
 
   // Finish up the table

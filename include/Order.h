@@ -7,6 +7,12 @@
 
 
 // =======================================================================================
+// Forward declarations
+
+class HttpServThread;
+
+
+// =======================================================================================
 /// @brief Models a biological order.
 ///
 /// Inherits from an unordered map of names to Families.
@@ -20,7 +26,8 @@ public:
   // Member functions - public
   Order(char* orderName);
   ~Order(void);
-  
+  bool provideOrderPage(HttpServThread* serv);
+
 private:
   
   // Instance variables - private

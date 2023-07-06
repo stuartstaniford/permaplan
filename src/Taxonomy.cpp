@@ -6,6 +6,7 @@
 #include "Taxonomy.h"
 #include "Logging.h"
 #include "BioClass.h"
+#include "Order.h"
 #include "HttpServThread.h"
 
 
@@ -36,17 +37,26 @@ Taxonomy::~Taxonomy(void)
 
 bool Taxonomy::add(char* species, char* genus, char* family, char* order, char* bioClass)
 {
+  bool retval = false;
+  
   if(bioClassesByName.count(bioClass))
    {
-    return bioClassesByName[bioClass]->add(species, genus, family, order);
+    retval = bioClassesByName[bioClass]->add(species, genus, family, order);
    }
   else
    {
     BioClass* newClass = new BioClass(bioClass);
     bioClassesByName.insert({std::string(bioClass), newClass});
     LogTaxonDetails("Adding new Class %s to taxonomy.\n", bioClass);
-    return newClass->add(species, genus, family, order);
+    retval = newClass->add(species, genus, family, order);
    }
+  if(retval)
+   {
+    Order* orderObj     = (*(bioClassesByName[bioClass]))[order];
+    ordersByName[order] = orderObj;
+   }
+  
+  return retval;
 }
 
 
@@ -71,6 +81,11 @@ bool Taxonomy::indexPageTable(HttpServThread* serv)
                                                   "/taxonomy/classes.html</a></td>");
   httPrintf("<td>Get a list of taxonomic classes we know of</td></tr>\n");
 
+  // Details of an Order
+  httPrintf("<tr><td><a href=\"/taxonomy/order/Pinales\">"
+                                                  "/taxonomy/order/Pinales</a></td>");
+  httPrintf("<td>Get details for a specific order</td></tr>\n");
+  
   // End table
   httPrintf("</table></center>\n");
 
@@ -134,6 +149,22 @@ bool Taxonomy::processHttpRequest(HttpServThread* serv, char* url)
    {
     LogPermaservOpDetails("Processing taxonomy classes request.\n");
     retVal = provideClassList(serv);
+   }
+
+  // order/  
+  if(strlenUrl >= 12  && strncmp(url, "order/", 6) == 0) // Arales is shortest
+   {
+    LogPermaservOpDetails("Processing taxonomy order request for %s.\n", url+6);
+    unless(ordersByName.count(url+6) > 0)
+     {
+      LogRequestErrors("Request for unknown taxonomic order %s\n", url+6);
+      retVal = serv->errorPage("Resource not found");
+     }
+    else
+     {
+      Order* orderObj = ordersByName[url+6];
+      retVal = orderObj->provideOrderPage(serv);
+     }
    }
 
   // Default - failure
