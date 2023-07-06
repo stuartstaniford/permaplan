@@ -4,12 +4,15 @@
 #define ORDER_H
 
 #include "Global.h"
+#include <string>
+#include <unordered_map>
 
 
 // =======================================================================================
 // Forward declarations
 
 class HttpServThread;
+class Family;
 
 
 // =======================================================================================
@@ -17,7 +20,7 @@ class HttpServThread;
 ///
 /// Inherits from an unordered map of names to Families.
 
-class Order
+class Order: public std::unordered_map<std::string, Family*>
 {
 public:
   
@@ -26,6 +29,7 @@ public:
   // Member functions - public
   Order(char* orderName);
   ~Order(void);
+  bool add(char* species, char* genus, char* family);
   bool provideOrderPage(HttpServThread* serv);
 
 private:

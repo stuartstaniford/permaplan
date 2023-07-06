@@ -39,7 +39,7 @@ bool BioClass::add(char* species, char* genus, char* family, char* order)
 {
   if(count(order))
    {
-    //return bioClassesByName[bioClass]->add(species, genus, family, order);
+    (*this)[order]->add(species, genus, family);
     return true;
    }
   else
@@ -47,6 +47,7 @@ bool BioClass::add(char* species, char* genus, char* family, char* order)
     Order* newOrder = new Order(order);
     insert({std::string(order), newOrder});
     LogTaxonDetails("Adding new Order %s to class %s.\n", order, name);
+    newOrder->add(species, genus, family);
    }
 
    return true; 

@@ -151,9 +151,9 @@
 
 // NOT FOR PRODUCTION USE!!!
 // These next may result in passwords being recorded in the clear in the log.
-#define LOG_REQUEST_PARSING        // Log exactly what happens when parsing a request
-#define LOG_HTTP_DETAILS          // Log normal details of HTTP operations
-#define LOG_RESPONSE_BODIES       // Log all the bodies of HTTP responses we provide
+//#define LOG_REQUEST_PARSING        // Log exactly what happens when parsing a request
+//#define LOG_HTTP_DETAILS          // Log normal details of HTTP operations
+//#define LOG_RESPONSE_BODIES       // Log all the bodies of HTTP responses we provide
 
 
 // =======================================================================================

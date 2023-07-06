@@ -2,6 +2,7 @@
 // Models a biological order.  Inherits from an unordered map of names to Families
 
 #include "Order.h"
+#include "Family.h"
 #include "HttpServThread.h"
 #include "Logging.h"
 #include <string.h>
@@ -22,6 +23,31 @@ Order::Order(char* orderName)
 Order::~Order(void)
 {
   free(name);
+}
+
+
+// =======================================================================================
+/// @brief (Possibly) add a new element to this order.
+/// @returns True if we added something, false otherwise.
+/// @param species The name of the species
+/// @param genus The name of the genus
+/// @param family The name of the family
+
+bool Order::add(char* species, char* genus, char* family)
+{
+  if(count(family))
+   {
+    //return bioClassesByName[bioClass]->add(species, genus, family, order);
+    return true;
+   }
+  else
+   {
+    Family* newFamily = new Family(family);
+    insert({std::string(family), newFamily});
+    LogTaxonDetails("Adding new Family %s to order %s.\n", family, name);
+   }
+
+   return true; 
 }
 
 

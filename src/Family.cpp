@@ -2,13 +2,15 @@
 // Holder for a taxonomic family (containing genera, which contain species).
 
 #include "Family.h"
+#include <string.h>
 
 
 // =======================================================================================
 /// @brief Constructor
 
-Family::Family(void)
+Family::Family(char* familyName)
 {
+  name = strdup(familyName);
 }
 
 
@@ -17,6 +19,7 @@ Family::Family(void)
 
 Family::~Family(void)
 {
+  free(name);
 }
 
 

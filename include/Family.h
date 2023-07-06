@@ -17,13 +17,14 @@ public:
   // Instance variables - public
   
   // Member functions - public
-  Family(void);
+  Family(char* familyName);
   ~Family(void);
   
 private:
   
   // Instance variables - private
-  
+  char* name;
+
   // Member functions - private
   PreventAssignAndCopyConstructor(Family);
 };
