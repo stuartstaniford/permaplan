@@ -4,20 +4,30 @@
 #define FAMILY_H
 
 #include "Global.h"
+#include <string>
+#include <unordered_map>
+
+
+// =======================================================================================
+// Forward declarations
+
+class Genus;
+class HttpServThread;
 
 
 // =======================================================================================
 /// @brief Holder for a taxonomic family (containing genera, which contain species).
 ///
+/// Inherits from an unorderded map of Genera.
 
-class Family
+class Family: public std::unordered_map<std::string, Genus*>
 {
 public:
   
   // Instance variables - public
   
   // Member functions - public
-  Family(char* familyName);
+  Family(char* genusName);
   ~Family(void);
   
 private:

@@ -2,13 +2,15 @@
 // Models a biological genus as part of a Taxonomy.
 
 #include "Genus.h"
+#include <string.h>
 
 
 // =======================================================================================
 /// @brief Constructor
 
-Genus::Genus(void)
+Genus::Genus(char* genusName)
 {
+  name = strdup(genusName);
 }
 
 

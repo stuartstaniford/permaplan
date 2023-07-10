@@ -19,12 +19,13 @@ public:
   // Instance variables - public
   
   // Member functions - public
-  Genus(void);
+  Genus(char* familyName);
   ~Genus(void);
   
 private:
   
   // Instance variables - private
+  char* name;
   
   // Member functions - private
   PreventAssignAndCopyConstructor(Genus);
