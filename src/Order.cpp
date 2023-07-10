@@ -37,13 +37,14 @@ bool Order::add(char* species, char* genus, char* family)
 {
   if(count(family))
    {
-    //return bioClassesByName[bioClass]->add(species, genus, family, order);
+    (*this)[family]->add(species, genus);
     return true;
    }
   else
    {
     Family* newFamily = new Family(family);
     insert({std::string(family), newFamily});
+    newFamily->add(species, genus);
     LogTaxonDetails("Adding new Family %s to order %s.\n", family, name);
    }
 

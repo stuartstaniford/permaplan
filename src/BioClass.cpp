@@ -48,9 +48,8 @@ bool BioClass::add(char* species, char* genus, char* family, char* order)
     insert({std::string(order), newOrder});
     LogTaxonDetails("Adding new Order %s to class %s.\n", order, name);
     newOrder->add(species, genus, family);
+    return true; 
    }
-
-   return true; 
 }
 
 

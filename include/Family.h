@@ -29,7 +29,8 @@ public:
   // Member functions - public
   Family(char* genusName);
   ~Family(void);
-  
+  bool add(char* species, char* genus);
+
 private:
   
   // Instance variables - private
