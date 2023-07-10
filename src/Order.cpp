@@ -75,8 +75,8 @@ bool Order::provideOrderPage(HttpServThread* serv)
     snprintf(title, 128, "Family %d: %s", famIndex++, i.first.c_str());
     unless(serv->newSection(title))
       return false;
-    //unless(i.second->orderHTMLTable(serv))
-    //  return false;
+    unless(i.second->generaHTMLTable(serv))
+      return false;
    }
   
   // Finish up the page
