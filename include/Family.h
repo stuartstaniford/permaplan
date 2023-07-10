@@ -30,6 +30,7 @@ public:
   Family(char* genusName);
   ~Family(void);
   bool add(char* species, char* genus);
+  bool generaHTMLTable(HttpServThread* serv);
 
 private:
   
