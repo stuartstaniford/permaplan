@@ -7,6 +7,8 @@
 #include "Logging.h"
 #include "BioClass.h"
 #include "Order.h"
+#include "Family.h"
+#include "Genus.h"
 #include "HttpServThread.h"
 
 
@@ -54,6 +56,9 @@ bool Taxonomy::add(char* species, char* genus, char* family, char* order, char* 
    {
     Order* orderObj     = (*(bioClassesByName[bioClass]))[order];
     ordersByName[order] = orderObj;
+    Family* familyObj   = (*orderObj)[family];
+    Genus* genusObj     = (*familyObj)[genus];
+    generaByName[genus] = genusObj;
    }
   
   return retval;
@@ -164,6 +169,22 @@ bool Taxonomy::processHttpRequest(HttpServThread* serv, char* url)
      {
       Order* orderObj = ordersByName[url+6];
       retVal = orderObj->provideOrderPage(serv);
+     }
+   }
+
+  // genus/  
+  if(strlenUrl >= 9  && strncmp(url, "genus/", 6) == 0) // Shortest have 3 letters (Zea)
+   {
+    LogPermaservOpDetails("Processing taxonomy genus request for %s.\n", url+6);
+    unless(generaByName.count(url+6) > 0)
+     {
+      LogRequestErrors("Request for unknown genus %s\n", url+6);
+      retVal = serv->errorPage("Resource not found");
+     }
+    else
+     {
+      Genus* genusObj = generaByName[url+6];
+      retVal = genusObj->provideGenusPage(serv);
      }
    }
 

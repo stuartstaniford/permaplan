@@ -59,6 +59,7 @@ private:
   std::unordered_map<std::string, SpeciesList*> genusSpeciesList;
   std::unordered_map<std::string, BioClass*> bioClassesByName;
   std::unordered_map<std::string, Order*> ordersByName;
+  std::unordered_map<std::string, Genus*> generaByName;
   
   // Member functions - private
   PreventAssignAndCopyConstructor(Taxonomy);
