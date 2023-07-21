@@ -56,6 +56,7 @@ class Species: public DynamicallyTypable
   
   // Member functions - public
   Species(rapidjson::Document& otdlDoc, char* source);
+  Species(char* gName, char* sName);
   void initializeOverViewData(rapidjson::Value& overviewData);
   void initializeWoodData(rapidjson::Document& otdlDoc);
   ~Species(void);

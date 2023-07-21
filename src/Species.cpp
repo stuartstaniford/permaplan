@@ -31,7 +31,12 @@ Taxonomy Species::taxonomy;
 
 
 // =======================================================================================
-/// @brief Constructor.
+
+// NB!!!!!!  Two constructors follow !!!!!!
+
+
+// =======================================================================================
+/// @brief Construct the species from an OTDL doc.
 /// @param otdlDoc A reference to the rapidson::Document for the OTDL file describing
 /// this species.  See docs/open-tree-description-language.md for detailes on the format.
 /// @param source A pointer to a C-string with the name of the OTDL document.
@@ -61,6 +66,23 @@ Species::Species(Document& otdlDoc, char* source):
   foliage = new LeafModel(otdlDoc, leafParent, jCheck, phrase);
   unless(foliage->isValid())
     validOTDL = false;
+}
+
+
+// =======================================================================================
+/// @brief Simple constructor when we only have names.
+/// @param gName The name of the genus this species is contained in
+/// @param sName The name of the species itself
+
+Species::Species(char* gName, char* sName):
+                                genusName(gName),
+                                speciesName(sName),
+                                varName(nullptr),
+                                sourceName(nullptr),
+                                parent(nullptr),
+                                jCheck(nullptr),
+                                validOTDL(false)
+{
 }
 
 
