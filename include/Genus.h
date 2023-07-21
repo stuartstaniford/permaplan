@@ -21,6 +21,7 @@ public:
   // Member functions - public
   Genus(char* familyName);
   ~Genus(void);
+  bool add(char* species);
   bool provideGenusPage(HttpServThread* serv);
 
 private:

@@ -2,7 +2,9 @@
 // Models a biological genus as part of a Taxonomy.
 
 #include "Genus.h"
+#include "Species.h"
 #include "HttpServThread.h"
+#include "Logging.h"
 #include <string.h>
 
 
@@ -20,6 +22,28 @@ Genus::Genus(char* genusName)
 
 Genus::~Genus(void)
 {
+}
+
+
+// =======================================================================================
+/// @brief (Possibly) add a new species to this genus.
+/// @returns True if we added something, false otherwise.
+/// @param species The name of the species
+/// @param genus The name of the genus
+
+bool Genus::add(char* species)
+{
+  if(count(species))
+   {
+    return true;
+   }
+  else
+   {
+    //Species* newSpecies = new Species(species);
+    //insert({std::string(species), newSpecies});
+    LogTaxonDetails("Adding new Species %s to Genus %s.\n", species, name);
+    return true; 
+   }
 }
 
 

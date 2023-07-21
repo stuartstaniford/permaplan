@@ -27,7 +27,7 @@ Family::~Family(void)
 
 
 // =======================================================================================
-/// @brief (Possibly) add a new element to this family.
+/// @brief (Possibly) add a new genus to this family.
 /// @returns True if we added something, false otherwise.
 /// @param species The name of the species
 /// @param genus The name of the genus
@@ -36,7 +36,7 @@ bool Family::add(char* species, char* genus)
 {
   if(count(genus))
    {
-    //(*this)[genus]->add(species);
+    (*this)[genus]->add(species);
     return true;
    }
   else
@@ -44,7 +44,7 @@ bool Family::add(char* species, char* genus)
     Genus* newGenus = new Genus(genus);
     insert({std::string(genus), newGenus});
     LogTaxonDetails("Adding new Genus %s to Family %s.\n", genus, name);
-    //newGenus->add(species, genus);
+    newGenus->add(species);
     return true; 
    }
 }
