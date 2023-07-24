@@ -28,6 +28,7 @@ SpeciesList* Species::cachedSpecies = new SpeciesList;
 std::unordered_map<std::string, unsigned> Species::genusList;
 std::unordered_map<std::string, SpeciesList*> Species::genusSpeciesList;
 Taxonomy Species::taxonomy;
+char* Species::speciesDirectory = (char*)"./Materials/Trees";
 
 
 // =======================================================================================
@@ -746,9 +747,8 @@ void Species::findOTDLFileName(char* path, unsigned pathSize)
 
 Species* Species::loadLocalOTDLEntry(const char* speciesPath)
 {
-  const PmodConfig& config = PmodConfig::getConfig();
   char path[256];
-  snprintf(path, 256, "%s/%s/", config.speciesDirectory, speciesPath);
+  snprintf(path, 256, "%s/%s/", speciesDirectory, speciesPath);
   Species::findOTDLFileName(path, 256);
   unless(regularFileExists(path))
     return NULL;

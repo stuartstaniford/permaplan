@@ -24,6 +24,7 @@
 // Global variables
 
 PermaservParams permaservParams(2090u, 0u, -1.0f);
+float           mmPerSpaceUnit = 1.0f; // leave dimensions in mm in permaserv
 
 
 // =======================================================================================

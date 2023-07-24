@@ -39,8 +39,8 @@ bool Genus::add(char* species)
    }
   else
    {
-    //Species* newSpecies = new Species(species);
-    //insert({std::string(species), newSpecies});
+    Species* newSpecies = new Species(name, species);
+    insert({std::string(species), newSpecies});
     LogTaxonDetails("Adding new Species %s to Genus %s.\n", species, name);
     return true; 
    }

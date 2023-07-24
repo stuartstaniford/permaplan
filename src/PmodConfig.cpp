@@ -44,10 +44,9 @@ PmodConfig::PmodConfig(int argc, char* argv[])
   bezReadFileName     = NULL;
   bezWriteFileName    = NULL;
   writeDesignFileName = NULL;
-  speciesDirectory    = NULL;
   nSimThreads         = 4;
   
-  while( (optionChar = getopt(argc, argv, "Ab:B:d:D:g:Lp:P:s:S:")) != -1)
+  while( (optionChar = getopt(argc, argv, "Ab:B:d:D:g:Lp:s:S:")) != -1)
     switch (optionChar)
      {
       case 'A':
@@ -87,10 +86,6 @@ PmodConfig::PmodConfig(int argc, char* argv[])
            err(-1, "Bad debug port number via -p: %s\n", optarg);
          break;
 
-       case 'P':
-         speciesDirectory = optarg;
-         break;
-
        case 's':
         nSimThreads = atoi(optarg);
          if(nSimThreads <= 0)
@@ -106,8 +101,6 @@ PmodConfig::PmodConfig(int argc, char* argv[])
        default:
          usage();
       }
-  if(!speciesDirectory)
-    speciesDirectory = (char*)"./Materials/Trees";
 }
 
 
