@@ -61,18 +61,21 @@ bool Genus::provideGenusPage(HttpServThread* serv)
   snprintf(title, 256, "Species in Genus %s", name);
   unless(serv->startResponsePage(title))
     return false;
-
+  httPrintf("<center>"); 
+  unless(serv->startTable(title))
+    return false;
+  httPrintf("<tr><th>Row</th><th>Species Name</th></tr>\n");
+  
   // Loop over the species
-/*  int famIndex = 1;
+  int rowIndex = 1;
   for (auto i : *this)
    {
-    char title[128];
-    snprintf(title, 128, "Family %d: %s", famIndex++, i.first.c_str());
-    unless(serv->newSection(title))
-      return false;
-    unless(i.second->generaHTMLTable(serv))
-      return false;
-   }*/
+    httPrintf("<tr><td>%d</td><td><a href=\"/taxonomy/species/%s_%s\">%s %s</a></td></tr>\n", 
+                    rowIndex++, name, i.first.c_str(), name, i.first.c_str()); 
+   }
+
+  // Finish up the table
+  httPrintf("</table></center>"); 
   
   // Finish up the page
   unless(serv->endResponsePage())
