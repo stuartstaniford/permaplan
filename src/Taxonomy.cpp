@@ -188,6 +188,22 @@ bool Taxonomy::processHttpRequest(HttpServThread* serv, char* url)
      }
    }
 
+  // species/  
+  if(strlenUrl >= 15  && strncmp(url, "species/", 8) == 0)
+   {
+    LogPermaservOpDetails("Processing taxonomy species request for %s.\n", url+8);
+    unless(generaByName.count(url+8) > 0)
+     {
+      LogRequestErrors("Request for unknown species %s\n", url+8);
+      retVal = serv->errorPage("Resource not found");
+     }
+    else
+     {
+      //Genus* genusObj = generaByName[url+6];
+      //retVal = genusObj->provideGenusPage(serv);
+     }
+   }
+
   // Default - failure
   else
    {
