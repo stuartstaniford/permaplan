@@ -845,8 +845,9 @@ const char* Species::objectName(void)
 /// @returns True if the desired HTML was written correctly, false if we ran out of space.
 /// @param serv The HTTP Debug server
 
-bool Species::diagnosticHTML(HttpDebug* serv)
+bool Species::diagnosticHTML(HttpServThread* serv)
 {
+  // Page opening
   char title[MAX_SPECIES_PATH+16];
   if(varName)
     snprintf(title, MAX_SPECIES_PATH+16, "Species: %s %s %s", genusName,
@@ -855,14 +856,20 @@ bool Species::diagnosticHTML(HttpDebug* serv)
     snprintf(title, MAX_SPECIES_PATH+16, "Species: %s %s", genusName, speciesName);
   serv->startResponsePage(title);
   
-  httPrintf("<h2>OTDL spec</h2>\n");
-  httPrintf("<pre>\n");
-  int size;
-  if((size = writeOTDL(serv->respPtr, serv->respEnd - serv->respPtr)) >= 0)
-    serv->respPtr += size;
-  else
-    return false;
-  httPrintf("</pre>\n");
+  // Serve our OTDL file if we have one
+  if(validOTDL)
+   {
+    httPrintf("<h2>OTDL spec</h2>\n");
+    httPrintf("<pre>\n");
+    int size;
+    if((size = writeOTDL(serv->respPtr, serv->respEnd - serv->respPtr)) >= 0)
+      serv->respPtr += size;
+    else
+      return false;
+    httPrintf("</pre>\n");
+   }
+  
+  // End page  
   serv->endResponsePage();
   return true;
 }

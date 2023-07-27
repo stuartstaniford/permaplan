@@ -9,6 +9,7 @@
 #include "Order.h"
 #include "Family.h"
 #include "Genus.h"
+#include "Species.h"
 #include "HttpServThread.h"
 
 
@@ -59,6 +60,9 @@ bool Taxonomy::add(char* species, char* genus, char* family, char* order, char* 
     Family* familyObj   = (*orderObj)[family];
     Genus* genusObj     = (*familyObj)[genus];
     generaByName[genus] = genusObj;
+    Species* speciesObj = (*genusObj)[species];
+    speciesByBinomial[std::string(genus) + std::string("_") + std::string(species) ] 
+                        = speciesObj;
    }
   
   return retval;
@@ -192,15 +196,15 @@ bool Taxonomy::processHttpRequest(HttpServThread* serv, char* url)
   if(strlenUrl >= 15  && strncmp(url, "species/", 8) == 0)
    {
     LogPermaservOpDetails("Processing taxonomy species request for %s.\n", url+8);
-    unless(generaByName.count(url+8) > 0)
+    unless(speciesByBinomial.count(url+8) > 0)
      {
       LogRequestErrors("Request for unknown species %s\n", url+8);
       retVal = serv->errorPage("Resource not found");
      }
     else
      {
-      //Genus* genusObj = generaByName[url+6];
-      //retVal = genusObj->provideGenusPage(serv);
+      Species* speciesObj = speciesByBinomial[url+8];
+      retVal = speciesObj->diagnosticHTML(serv);
      }
    }
 

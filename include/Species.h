@@ -65,7 +65,7 @@ class Species: public DynamicallyTypable
   unsigned    getBarkColor(float age);
   const char* objectName(void);
   int         writeOTDL(char* buf, unsigned bufSize);
-  bool        diagnosticHTML(HttpDebug* serv);
+  bool        diagnosticHTML(HttpServThread* serv);
   bool        validateOverviewData(rapidjson::Document& doc);
   bool        validateOTDL(rapidjson::Document& doc);
   bool        validateCommonNames(rapidjson::Value& containObj);
