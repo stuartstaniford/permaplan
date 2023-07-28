@@ -856,10 +856,18 @@ bool Species::diagnosticHTML(HttpServThread* serv)
     snprintf(title, MAX_SPECIES_PATH+16, "Species: %s %s", genusName, speciesName);
   serv->startResponsePage(title);
   
+  // Info section
+  serv->newSection("General Information");
+  httPrintf("Wikipedia Page for <a href=\"http://en.wikipedia.org/wiki/%s_%s\">"
+            "%s %s</a><br>\n", genusName, speciesName, genusName, speciesName);
+  httPrintf("Search the Plant List for <a href"
+            "=\"http://www.theplantlist.org/tpl1.1/search?q=%s+%s\">%s %s</a><br>\n",
+            genusName, speciesName, genusName, speciesName);
+    
   // Serve our OTDL file if we have one
   if(validOTDL)
    {
-    httPrintf("<h2>OTDL spec</h2>\n");
+    serv->newSection("OTDL Specification");
     httPrintf("<pre>\n");
     int size;
     if((size = writeOTDL(serv->respPtr, serv->respEnd - serv->respPtr)) >= 0)
