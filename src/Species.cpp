@@ -858,6 +858,8 @@ bool Species::diagnosticHTML(HttpServThread* serv)
   
   // Info section
   serv->newSection("General Information");
+  httPrintf("Growth habit: %s to a height of %.0f feet.<br>\n", growthForm, maxHeight);
+
   httPrintf("Wikipedia Page for <a href=\"http://en.wikipedia.org/wiki/%s_%s\">"
             "%s %s</a><br>\n", genusName, speciesName, genusName, speciesName);
   httPrintf("Search the Plant List for <a href"

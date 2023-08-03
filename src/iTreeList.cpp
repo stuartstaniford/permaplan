@@ -5,6 +5,7 @@
 #include "loadFileToBuf.h"
 #include "Logging.h"
 #include "Global.h"
+#include "Species.h"
 #include <strings.h>
 #include <stdio.h>
 
@@ -76,7 +77,13 @@ void iTreeList::parseItreeFile(char* buf, unsigned bufSize)
       // Add this species into the Taxonomy (our parent class)
       add(line + tokens[1], line + tokens[0], line + tokens[3], 
            line + tokens[4], line + tokens[5]);
-       
+      
+      Species* species    = speciesByBinomial[std::string(line + tokens[0]) 
+                            + std::string("_") + std::string(line + tokens[1]) ];
+      
+      species->maxHeight  = atof(line + tokens[13]);
+      species->growthForm = line + tokens[8];
+        
       // Ok, done with tokens array (NB not efficient but not performance relevant loop)
       free(tokens);
      }

@@ -52,15 +52,17 @@ public:
   bool processHttpRequest(HttpServThread* serv, char* url);
   bool provideClassList(HttpServThread* serv);
 
-private:
+protected:
   
-  // Instance variables - private
+  // Instance variables - protected
   std::unordered_map<std::string, unsigned> genusList;
   std::unordered_map<std::string, SpeciesList*> genusSpeciesList;
   std::unordered_map<std::string, BioClass*> bioClassesByName;
   std::unordered_map<std::string, Order*> ordersByName;
   std::unordered_map<std::string, Genus*> generaByName;
   std::unordered_map<std::string, Species*> speciesByBinomial;
+
+private:
   
   // Member functions - private
   PreventAssignAndCopyConstructor(Taxonomy);
