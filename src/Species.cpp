@@ -858,12 +858,23 @@ bool Species::diagnosticHTML(HttpServThread* serv)
   
   // Info section
   serv->newSection("General Information");
-  httPrintf("Growth habit: %s to a height of %.0f feet.<br>\n", growthForm, maxHeight);
-
+  if(growthForm)
+   {
+    httPrintf("Growth habit (itree): %s to a height of %.0f feet.<br><br>\n", 
+                                                                  growthForm, maxHeight);
+   }
+  else if(maxHeight > 0.0f)
+   {
+    httPrintf("Grows to a height of %.0f feet.<br><br>\n", maxHeight);
+   }
+  
   httPrintf("Wikipedia Page for <a href=\"http://en.wikipedia.org/wiki/%s_%s\">"
             "%s %s</a><br>\n", genusName, speciesName, genusName, speciesName);
   httPrintf("Search the Plant List for <a href"
             "=\"http://www.theplantlist.org/tpl1.1/search?q=%s+%s\">%s %s</a><br>\n",
+            genusName, speciesName, genusName, speciesName);
+  httPrintf("Search Kew Plants of the World for <a href"
+            "=\"https://powo.science.kew.org/results?q=%s%%20%s\">%s %s</a><br>\n",
             genusName, speciesName, genusName, speciesName);
     
   // Serve our OTDL file if we have one

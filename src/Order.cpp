@@ -80,9 +80,7 @@ bool Order::provideOrderPage(HttpServThread* serv)
    }
   
   // Finish up the page
-  unless(serv->endResponsePage())
-    return false;
-
+  serv->endResponsePage();
   return true;
 }
 

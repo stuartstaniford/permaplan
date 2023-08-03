@@ -452,12 +452,15 @@ bool HttpRequestParser::getNextRequest(void)
 bool HttpRequestParser::processBody(void)
 {
   int   nBytes;
+  LogRequestErrors("Attempting to process request body.\n");
 
   while(readPoint < headerEnd + bodySize) // until we've read enough data for body
    {    
     unless(readAndCheck(nBytes))
+     {
+      LogRequestParsing("readAndCheck returned false.\n");
       return false;
-    
+     }
     if(multiFile)
      {
       // Special handling for big uploads which won't fit in buffer
@@ -477,6 +480,8 @@ bool HttpRequestParser::processBody(void)
       // About to go round again, so update the paramters for where/how much to read
       readPoint += nBytes;
       bufLeft -= nBytes;
+      LogRequestParsing("Going round again in processBody after %u bytes, %u in buffer\n",
+                        nBytes, bufLeft);
      }
      
    } // while(1) over reads

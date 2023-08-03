@@ -78,9 +78,7 @@ bool Genus::provideGenusPage(HttpServThread* serv)
   httPrintf("</table></center>"); 
   
   // Finish up the page
-  unless(serv->endResponsePage())
-    return false;
-
+  serv->endResponsePage();
   return true;
 }
 

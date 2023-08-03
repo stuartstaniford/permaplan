@@ -161,7 +161,7 @@ bool Taxonomy::processHttpRequest(HttpServThread* serv, char* url)
    }
 
   // order/  
-  if(strlenUrl >= 12  && strncmp(url, "order/", 6) == 0) // Arales is shortest
+  else if(strlenUrl >= 12  && strncmp(url, "order/", 6) == 0) // Arales is shortest
    {
     LogPermaservOpDetails("Processing taxonomy order request for %s.\n", url+6);
     unless(ordersByName.count(url+6) > 0)
@@ -177,7 +177,7 @@ bool Taxonomy::processHttpRequest(HttpServThread* serv, char* url)
    }
 
   // genus/  
-  if(strlenUrl >= 9  && strncmp(url, "genus/", 6) == 0) // Shortest have 3 letters (Zea)
+  else if(strlenUrl >= 9  && strncmp(url, "genus/", 6) == 0) // Shortest have 3 letters (Zea)
    {
     LogPermaservOpDetails("Processing taxonomy genus request for %s.\n", url+6);
     unless(generaByName.count(url+6) > 0)
@@ -193,7 +193,7 @@ bool Taxonomy::processHttpRequest(HttpServThread* serv, char* url)
    }
 
   // species/  
-  if(strlenUrl >= 15  && strncmp(url, "species/", 8) == 0)
+  else if(strlenUrl >= 15  && strncmp(url, "species/", 8) == 0)
    {
     LogPermaservOpDetails("Processing taxonomy species request for %s.\n", url+8);
     unless(speciesByBinomial.count(url+8) > 0)

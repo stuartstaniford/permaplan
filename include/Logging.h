@@ -47,7 +47,7 @@
 //#define LOG_OLDF_DETAILS       // Log details of valid OLDF objects
 #define LOG_OTDL_VALIDITY      // Log validity problems in an OTDL object
 //#define LOG_OTDL_DETAILS       // Log details of valid OTDL objects
-#define LOG_TAXON_DETAILS        // Log details of operations on taxonomies
+//#define LOG_TAXON_DETAILS        // Log details of operations on taxonomies
 
 
 // =======================================================================================
@@ -151,8 +151,8 @@
 
 // NOT FOR PRODUCTION USE!!!
 // These next may result in passwords being recorded in the clear in the log.
-//#define LOG_REQUEST_PARSING        // Log exactly what happens when parsing a request
-//#define LOG_HTTP_DETAILS          // Log normal details of HTTP operations
+#define LOG_REQUEST_PARSING        // Log exactly what happens when parsing a request
+#define LOG_HTTP_DETAILS          // Log normal details of HTTP operations
 //#define LOG_RESPONSE_BODIES       // Log all the bodies of HTTP responses we provide
 
 

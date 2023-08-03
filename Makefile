@@ -1659,7 +1659,12 @@ src/Family.o: /usr/local/include/cglm/vec3.h /usr/local/include/cglm/vec4.h
 src/Family.o: /usr/local/include/cglm/sphere.h /usr/local/include/cglm/ease.h
 src/Family.o: /usr/local/include/cglm/curve.h
 src/Family.o: /usr/local/include/cglm/bezier.h /usr/local/include/cglm/ray.h
-src/Family.o: /usr/local/include/cglm/affine2d.h
+src/Family.o: /usr/local/include/cglm/affine2d.h ./include/Genus.h
+src/Family.o: ./include/Taxonomy.h ./include/Logging.h
+src/Family.o: ./include/MemoryTracker.h ./include/Timeval.h
+src/Family.o: ./include/Lockable.h ./include/HttpServThread.h
+src/Family.o: ./include/TaskQueue.h ./include/HttpRequestParser.h
+src/Family.o: ./include/MimeTypeMaps.h ./include/PermaservCookie.h
 src/GHCNDatabase.o: ./include/GHCNDatabase.h ./include/HttpClient.h
 src/GHCNDatabase.o: ./include/RTree.h ./include/ClimateInfo.h
 src/GHCNDatabase.o: ./include/DynamicallyTypable.h ./include/Logging.h
@@ -1970,7 +1975,39 @@ src/Genus.o: /usr/local/include/cglm/vec3.h /usr/local/include/cglm/vec4.h
 src/Genus.o: /usr/local/include/cglm/sphere.h /usr/local/include/cglm/ease.h
 src/Genus.o: /usr/local/include/cglm/curve.h /usr/local/include/cglm/bezier.h
 src/Genus.o: /usr/local/include/cglm/ray.h /usr/local/include/cglm/affine2d.h
-src/Genus.o: ./include/Taxonomy.h
+src/Genus.o: ./include/Taxonomy.h ./include/Species.h
+src/Genus.o: ./include/DynamicallyTypable.h ./include/Version.h
+src/Genus.o: ./include/rapidjson/document.h ./include/rapidjson/reader.h
+src/Genus.o: ./include/rapidjson/allocators.h ./include/rapidjson/rapidjson.h
+src/Genus.o: ./include/rapidjson/stream.h ./include/rapidjson/encodings.h
+src/Genus.o: ./include/rapidjson/encodedstream.h
+src/Genus.o: ./include/rapidjson/memorystream.h
+src/Genus.o: ./include/rapidjson/internal/clzll.h
+src/Genus.o: ./include/rapidjson/rapidjson.h
+src/Genus.o: ./include/rapidjson/internal/meta.h
+src/Genus.o: ./include/rapidjson/internal/stack.h
+src/Genus.o: ./include/rapidjson/allocators.h
+src/Genus.o: ./include/rapidjson/internal/swap.h
+src/Genus.o: ./include/rapidjson/internal/strtod.h
+src/Genus.o: ./include/rapidjson/internal/ieee754.h
+src/Genus.o: ./include/rapidjson/internal/biginteger.h
+src/Genus.o: ./include/rapidjson/internal/diyfp.h
+src/Genus.o: ./include/rapidjson/internal/clzll.h
+src/Genus.o: ./include/rapidjson/internal/pow10.h
+src/Genus.o: ./include/rapidjson/error/error.h
+src/Genus.o: ./include/rapidjson/internal/strfunc.h
+src/Genus.o: ./include/rapidjson/stream.h ./include/rapidjson/writer.h
+src/Genus.o: ./include/rapidjson/internal/dtoa.h
+src/Genus.o: ./include/rapidjson/internal/itoa.h
+src/Genus.o: ./include/rapidjson/internal/itoa.h
+src/Genus.o: ./include/rapidjson/stringbuffer.h
+src/Genus.o: ./include/rapidjson/stringbuffer.h
+src/Genus.o: ./include/rapidjson/error/en.h ./include/rapidjson/error/error.h
+src/Genus.o: ./include/HttpServThread.h ./include/TaskQueue.h
+src/Genus.o: ./include/Lockable.h ./include/HttpRequestParser.h
+src/Genus.o: ./include/MimeTypeMaps.h ./include/PermaservCookie.h
+src/Genus.o: ./include/Logging.h ./include/MemoryTracker.h
+src/Genus.o: ./include/Timeval.h
 src/Global.o: ./include/Global.h /usr/local/include/cglm/cglm.h
 src/Global.o: /usr/local/include/cglm/common.h
 src/Global.o: /usr/local/include/cglm/types.h
@@ -5546,11 +5583,11 @@ src/Order.o: /usr/local/include/cglm/vec3.h /usr/local/include/cglm/vec4.h
 src/Order.o: /usr/local/include/cglm/sphere.h /usr/local/include/cglm/ease.h
 src/Order.o: /usr/local/include/cglm/curve.h /usr/local/include/cglm/bezier.h
 src/Order.o: /usr/local/include/cglm/ray.h /usr/local/include/cglm/affine2d.h
-src/Order.o: ./include/HttpServThread.h ./include/TaskQueue.h
-src/Order.o: ./include/Lockable.h ./include/HttpRequestParser.h
-src/Order.o: ./include/MimeTypeMaps.h ./include/PermaservCookie.h
-src/Order.o: ./include/Logging.h ./include/MemoryTracker.h
-src/Order.o: ./include/Timeval.h
+src/Order.o: ./include/Family.h ./include/HttpServThread.h
+src/Order.o: ./include/TaskQueue.h ./include/Lockable.h
+src/Order.o: ./include/HttpRequestParser.h ./include/MimeTypeMaps.h
+src/Order.o: ./include/PermaservCookie.h ./include/Logging.h
+src/Order.o: ./include/MemoryTracker.h ./include/Timeval.h
 src/Orientable.o: ./include/Orientable.h ./include/Positionable.h
 src/Orientable.o: /usr/local/include/cglm/cglm.h
 src/Orientable.o: /usr/local/include/cglm/common.h
@@ -7071,10 +7108,39 @@ src/Taxonomy.o: /usr/local/include/cglm/bezier.h
 src/Taxonomy.o: /usr/local/include/cglm/ray.h
 src/Taxonomy.o: /usr/local/include/cglm/affine2d.h ./include/Logging.h
 src/Taxonomy.o: ./include/MemoryTracker.h ./include/Timeval.h
-src/Taxonomy.o: ./include/Lockable.h ./include/BioClass.h
-src/Taxonomy.o: ./include/HttpServThread.h ./include/TaskQueue.h
-src/Taxonomy.o: ./include/HttpRequestParser.h ./include/MimeTypeMaps.h
-src/Taxonomy.o: ./include/PermaservCookie.h
+src/Taxonomy.o: ./include/Lockable.h ./include/BioClass.h ./include/Order.h
+src/Taxonomy.o: ./include/Family.h ./include/Genus.h ./include/Species.h
+src/Taxonomy.o: ./include/DynamicallyTypable.h ./include/Version.h
+src/Taxonomy.o: ./include/rapidjson/document.h ./include/rapidjson/reader.h
+src/Taxonomy.o: ./include/rapidjson/allocators.h
+src/Taxonomy.o: ./include/rapidjson/rapidjson.h ./include/rapidjson/stream.h
+src/Taxonomy.o: ./include/rapidjson/encodings.h
+src/Taxonomy.o: ./include/rapidjson/encodedstream.h
+src/Taxonomy.o: ./include/rapidjson/memorystream.h
+src/Taxonomy.o: ./include/rapidjson/internal/clzll.h
+src/Taxonomy.o: ./include/rapidjson/rapidjson.h
+src/Taxonomy.o: ./include/rapidjson/internal/meta.h
+src/Taxonomy.o: ./include/rapidjson/internal/stack.h
+src/Taxonomy.o: ./include/rapidjson/allocators.h
+src/Taxonomy.o: ./include/rapidjson/internal/swap.h
+src/Taxonomy.o: ./include/rapidjson/internal/strtod.h
+src/Taxonomy.o: ./include/rapidjson/internal/ieee754.h
+src/Taxonomy.o: ./include/rapidjson/internal/biginteger.h
+src/Taxonomy.o: ./include/rapidjson/internal/diyfp.h
+src/Taxonomy.o: ./include/rapidjson/internal/clzll.h
+src/Taxonomy.o: ./include/rapidjson/internal/pow10.h
+src/Taxonomy.o: ./include/rapidjson/error/error.h
+src/Taxonomy.o: ./include/rapidjson/internal/strfunc.h
+src/Taxonomy.o: ./include/rapidjson/stream.h ./include/rapidjson/writer.h
+src/Taxonomy.o: ./include/rapidjson/internal/dtoa.h
+src/Taxonomy.o: ./include/rapidjson/internal/itoa.h
+src/Taxonomy.o: ./include/rapidjson/internal/itoa.h
+src/Taxonomy.o: ./include/rapidjson/stringbuffer.h
+src/Taxonomy.o: ./include/rapidjson/stringbuffer.h
+src/Taxonomy.o: ./include/rapidjson/error/en.h
+src/Taxonomy.o: ./include/rapidjson/error/error.h ./include/HttpServThread.h
+src/Taxonomy.o: ./include/TaskQueue.h ./include/HttpRequestParser.h
+src/Taxonomy.o: ./include/MimeTypeMaps.h ./include/PermaservCookie.h
 src/Texture.o: ./include/Texture.h /usr/local/include/GL/glew.h
 src/Texture.o: ./include/Shader.h /usr/local/include/cglm/cglm.h
 src/Texture.o: /usr/local/include/cglm/common.h
@@ -8314,7 +8380,36 @@ src/iTreeList.o: /usr/local/include/cglm/ray.h
 src/iTreeList.o: /usr/local/include/cglm/affine2d.h ./include/Taxonomy.h
 src/iTreeList.o: ./include/loadFileToBuf.h ./include/Logging.h
 src/iTreeList.o: ./include/MemoryTracker.h ./include/Timeval.h
-src/iTreeList.o: ./include/Lockable.h
+src/iTreeList.o: ./include/Lockable.h ./include/Species.h
+src/iTreeList.o: ./include/DynamicallyTypable.h ./include/Version.h
+src/iTreeList.o: ./include/rapidjson/document.h ./include/rapidjson/reader.h
+src/iTreeList.o: ./include/rapidjson/allocators.h
+src/iTreeList.o: ./include/rapidjson/rapidjson.h ./include/rapidjson/stream.h
+src/iTreeList.o: ./include/rapidjson/encodings.h
+src/iTreeList.o: ./include/rapidjson/encodedstream.h
+src/iTreeList.o: ./include/rapidjson/memorystream.h
+src/iTreeList.o: ./include/rapidjson/internal/clzll.h
+src/iTreeList.o: ./include/rapidjson/rapidjson.h
+src/iTreeList.o: ./include/rapidjson/internal/meta.h
+src/iTreeList.o: ./include/rapidjson/internal/stack.h
+src/iTreeList.o: ./include/rapidjson/allocators.h
+src/iTreeList.o: ./include/rapidjson/internal/swap.h
+src/iTreeList.o: ./include/rapidjson/internal/strtod.h
+src/iTreeList.o: ./include/rapidjson/internal/ieee754.h
+src/iTreeList.o: ./include/rapidjson/internal/biginteger.h
+src/iTreeList.o: ./include/rapidjson/internal/diyfp.h
+src/iTreeList.o: ./include/rapidjson/internal/clzll.h
+src/iTreeList.o: ./include/rapidjson/internal/pow10.h
+src/iTreeList.o: ./include/rapidjson/error/error.h
+src/iTreeList.o: ./include/rapidjson/internal/strfunc.h
+src/iTreeList.o: ./include/rapidjson/stream.h ./include/rapidjson/writer.h
+src/iTreeList.o: ./include/rapidjson/internal/dtoa.h
+src/iTreeList.o: ./include/rapidjson/internal/itoa.h
+src/iTreeList.o: ./include/rapidjson/internal/itoa.h
+src/iTreeList.o: ./include/rapidjson/stringbuffer.h
+src/iTreeList.o: ./include/rapidjson/stringbuffer.h
+src/iTreeList.o: ./include/rapidjson/error/en.h
+src/iTreeList.o: ./include/rapidjson/error/error.h
 src/imgui.o: imgui/imgui.h imgui/imconfig.h imgui/imgui_internal.h
 src/imgui.o: imgui/imstb_textedit.h
 src/imgui_demo.o: imgui/imgui.h imgui/imconfig.h
