@@ -44,8 +44,10 @@ char* Species::speciesDirectory = (char*)"./Materials/Trees";
 
 Species::Species(Document& otdlDoc, char* source):
                                 sourceName(source),
-                                parent(NULL),
-                                jCheck(NULL)
+                                growthForm(nullptr),
+                                commonName(nullptr),
+                                parent(nullptr),
+                                jCheck(nullptr)
 {
   if(validateOTDL(otdlDoc))
     validOTDL = true;
@@ -80,6 +82,8 @@ Species::Species(char* gName, char* sName):
                                 speciesName(sName),
                                 varName(nullptr),
                                 sourceName(nullptr),
+                                growthForm(nullptr),
+                                commonName(nullptr),
                                 parent(nullptr),
                                 jCheck(nullptr),
                                 validOTDL(false)
@@ -858,6 +862,11 @@ bool Species::diagnosticHTML(HttpServThread* serv)
   
   // Info section
   serv->newSection("General Information");
+  if(commonName)
+   {
+    httPrintf("Common Name: <b>%s</b>.<br><br>\n", commonName); 
+   }
+  
   if(growthForm)
    {
     httPrintf("Growth habit (itree): %s to a height of %.0f feet.<br><br>\n", 

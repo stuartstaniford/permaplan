@@ -64,14 +64,19 @@ bool Genus::provideGenusPage(HttpServThread* serv)
   httPrintf("<center>"); 
   unless(serv->startTable(title))
     return false;
-  httPrintf("<tr><th>Row</th><th>Species Name</th></tr>\n");
+  httPrintf("<tr><th>Row</th><th>Species Name</th><th>Common Name</th></tr>\n");
   
   // Loop over the species
   int rowIndex = 1;
   for (auto i : *this)
    {
-    httPrintf("<tr><td>%d</td><td><a href=\"/taxonomy/species/%s_%s\">%s %s</a></td></tr>\n", 
+    httPrintf("<tr><td>%d</td><td><a href=\"/taxonomy/species/%s_%s\">%s %s</a></td><td>", 
                     rowIndex++, name, i.first.c_str(), name, i.first.c_str()); 
+    if(i.second->commonName)
+     {
+      httPrintf("%s", i.second->commonName);
+     }      
+    httPrintf("</td></tr>\n");
    }
 
   // Finish up the table

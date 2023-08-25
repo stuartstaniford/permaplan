@@ -38,6 +38,7 @@ class Species: public DynamicallyTypable
   const char*               varName;
   const char*               sourceName;
   char*                     growthForm;
+  char*                     commonName;
   Species*                  parent;
   JSONStructureChecker*     jCheck;
   float                     stemRate;           // in spaceUnits/year

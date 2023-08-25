@@ -83,6 +83,7 @@ void iTreeList::parseItreeFile(char* buf, unsigned bufSize)
       
       species->maxHeight  = atof(line + tokens[13]);
       species->growthForm = line + tokens[8];
+      species->commonName = line + tokens[6];
         
       // Ok, done with tokens array (NB not efficient but not performance relevant loop)
       free(tokens);
