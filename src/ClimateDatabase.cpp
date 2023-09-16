@@ -123,7 +123,7 @@ bool ClimateDatabase::processHttpRequest(HttpServThread* serv, char* url)
   // climate
   else if( strlenUrl >= 12 && strncmp(url, "climate?", 8) == 0)
    {
-    LogPermaservOpDetails("Processing climate request for %s.\n", url+8);
+    LogPermaservOpDetails("Processing climate API request for %s.\n", url+8);
     retVal = processClimateRequest(serv, url+8);
    }  
   
@@ -319,7 +319,7 @@ bool ClimateDatabase::printStationDiagnosticTable(HttpServThread* serv,
      }
     unsigned total, valid;
     station->climate->countValidDays(total, valid);
-    httPrintf("<tr><td><a href=\"/climateStation/%s\">%s</a></td><td>%s</td>", 
+    httPrintf("<tr><td><a href=\"climateStation/%s\">%s</a></td><td>%s</td>", 
                                         station->id,  station->id, station->name);
     httPrintf("<td>%.3f, %.3f</td><td>%.0f</td>", 
                             station->latLong[0], station->latLong[1], station->elevation);
