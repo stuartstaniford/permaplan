@@ -372,8 +372,8 @@ bool HttpRequestParser::getNextRequest(void)
     nBytes = bufLeft;
     LogRequestParsing("Moving %u bytes from position %lu in buffer\n", nBytes, readPoint-buf);
     memcpy(buf, readPoint, nBytes);
-    readPoint = buf + bufLeft;
-    bufLeft = bufSize - bufLeft;
+    readPoint = buf;
+    bufLeft = bufSize;
     leftOverDataPresent = true;
    }
   else
@@ -404,6 +404,10 @@ bool HttpRequestParser::getNextRequest(void)
      }
       
     // About to go round again, so update the paramters for where/how much to read
+    unless(nBytes <= bufLeft && readPoint+nBytes <= buf+bufSize && nBytes > 0)
+     {
+      assert(1==0);
+     }
     readPoint += nBytes;
     bufLeft -= nBytes;
   
@@ -413,6 +417,7 @@ bool HttpRequestParser::getNextRequest(void)
       // This is good, we get to go home, 
       break;
      }
+     
    } // while(1) over reads
   
   // If we get here, we have at least a complete header, possibly 
@@ -429,7 +434,7 @@ bool HttpRequestParser::getNextRequest(void)
   else
    {
     // We keep track of any unused data from the last read
-    if(readPoint > headerEnd)
+    if(headerEnd && readPoint > headerEnd)
      {
       bufLeft = readPoint - headerEnd;
       readPoint = headerEnd;

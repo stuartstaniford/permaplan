@@ -356,12 +356,12 @@ void HttpServThread::processOneHTTP1_1(int connfd, unsigned short clientPort)
     // Check for loop termination conditions
     if(timeToDie || reqParser.connectionWillClose)
      {
-      reqParser.resetForNewConnection();
       break;      
      }
     else
       reqParser.resetForNewRequest();      
    }
+  reqParser.resetForNewConnection();
 }
 
 
