@@ -102,17 +102,27 @@ public:
      }
     return true;
    }
+  
   inline bool newSection(const char* title)
    {
     internalPrintf("<hr><center><h3>%s</h3>\n", title);
     return true;
    }
+  
+  inline bool includeD3(void)
+   {
+    internalPrintf("<script src=\"https://d3js.org/d3.v7.js\" "
+                                          "charset=\"utf-8\"></script>\n"); 
+    return true;
+   }
+  
   inline void setAltResp(char* buf, unsigned size, MimeType mimeType)
    {
     altResp     = buf;
     respPtr     = buf + size;
     altMimeType = mimeType;
    }
+  
   const char* getLoggedInUserName(void);
 
 protected:

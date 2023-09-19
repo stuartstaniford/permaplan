@@ -366,8 +366,12 @@ bool ClimateDatabase::processStationDiagnosticRequest(HttpServThread* serv, char
     return false;
   
   // Secondary header
-  httPrintf("<center><h2>%s (Location: %.3f, %.3f; El: %.0fm)</h2></center>", 
+  httPrintf("<center><h2>%s (Location: %.3f, %.3f; El: %.0fm)</h2></center>\n", 
             station->name, station->latLong[0], station->latLong[1], station->elevation);
+
+  // Use D3 for graphs
+  unless(serv->includeD3())
+    return false;
   
   // Main table of the climate info
   unless(station->climate->diagnosticHTML(serv))
