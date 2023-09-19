@@ -1436,6 +1436,39 @@ src/Cylinder.o: ./include/Lockable.h /usr/local/include/GL/glew.h
 src/Cylinder.o: ./include/HttpDebug.h ./include/HttpServThread.h
 src/Cylinder.o: ./include/TaskQueue.h ./include/HttpRequestParser.h
 src/Cylinder.o: ./include/MimeTypeMaps.h ./include/PermaservCookie.h
+src/D3Graph.o: ./include/D3Graph.h ./include/Global.h
+src/D3Graph.o: /usr/local/include/cglm/cglm.h
+src/D3Graph.o: /usr/local/include/cglm/common.h
+src/D3Graph.o: /usr/local/include/cglm/types.h
+src/D3Graph.o: /usr/local/include/cglm/simd/intrin.h
+src/D3Graph.o: /usr/local/include/cglm/vec2.h /usr/local/include/cglm/util.h
+src/D3Graph.o: /usr/local/include/cglm/vec2-ext.h
+src/D3Graph.o: /usr/local/include/cglm/vec3.h /usr/local/include/cglm/vec4.h
+src/D3Graph.o: /usr/local/include/cglm/vec4-ext.h
+src/D3Graph.o: /usr/local/include/cglm/vec3-ext.h
+src/D3Graph.o: /usr/local/include/cglm/mat4.h /usr/local/include/cglm/mat3.h
+src/D3Graph.o: /usr/local/include/cglm/mat2.h
+src/D3Graph.o: /usr/local/include/cglm/affine.h
+src/D3Graph.o: /usr/local/include/cglm/affine-mat.h
+src/D3Graph.o: /usr/local/include/cglm/cam.h /usr/local/include/cglm/plane.h
+src/D3Graph.o: /usr/local/include/cglm/clipspace/persp.h
+src/D3Graph.o: /usr/local/include/cglm/common.h
+src/D3Graph.o: /usr/local/include/cglm/plane.h /usr/local/include/cglm/mat4.h
+src/D3Graph.o: /usr/local/include/cglm/clipspace/ortho_rh_no.h
+src/D3Graph.o: /usr/local/include/cglm/clipspace/persp_rh_no.h
+src/D3Graph.o: /usr/local/include/cglm/clipspace/persp.h
+src/D3Graph.o: /usr/local/include/cglm/clipspace/view_rh_no.h
+src/D3Graph.o: /usr/local/include/cglm/clipspace/view_rh.h
+src/D3Graph.o: /usr/local/include/cglm/frustum.h
+src/D3Graph.o: /usr/local/include/cglm/quat.h /usr/local/include/cglm/euler.h
+src/D3Graph.o: /usr/local/include/cglm/box.h /usr/local/include/cglm/color.h
+src/D3Graph.o: /usr/local/include/cglm/io.h /usr/local/include/cglm/project.h
+src/D3Graph.o: /usr/local/include/cglm/clipspace/project_no.h
+src/D3Graph.o: /usr/local/include/cglm/vec3.h /usr/local/include/cglm/vec4.h
+src/D3Graph.o: /usr/local/include/cglm/sphere.h
+src/D3Graph.o: /usr/local/include/cglm/ease.h /usr/local/include/cglm/curve.h
+src/D3Graph.o: /usr/local/include/cglm/bezier.h /usr/local/include/cglm/ray.h
+src/D3Graph.o: /usr/local/include/cglm/affine2d.h
 src/DisplayList.o: ./include/DisplayList.h ./include/HeightMarker.h
 src/DisplayList.o: ./include/VisualObject.h ./include/VisualElement.h
 src/DisplayList.o: ./include/DynamicallyTypable.h ./include/TriangleBuffer.h

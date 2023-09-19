@@ -5,10 +5,11 @@
 
 #include "ClimateDatabase.h"
 #include "GHCNDatabase.h"
+#include "ClimateInfo.h"
+#include "D3Graph.h"
 #include "HttpServThread.h"
 #include "loadFileToBuf.h"
 #include "Logging.h"
-#include "ClimateInfo.h"
 
 
 // =======================================================================================
@@ -370,7 +371,7 @@ bool ClimateDatabase::processStationDiagnosticRequest(HttpServThread* serv, char
             station->name, station->latLong[0], station->latLong[1], station->elevation);
 
   // Use D3 for graphs
-  unless(serv->includeD3())
+  unless(D3Graph::includeD3Script(serv))
     return false;
   
   // Main table of the climate info

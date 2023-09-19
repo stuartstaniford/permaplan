@@ -7,6 +7,12 @@
 
 
 // =======================================================================================
+// Forward declarations
+
+class HttpServThread;
+
+
+// =======================================================================================
 /// @brief Provide support for making graphs via D3 in web pages served via 
 /// HttpServThread and it's subclasses.
 ///
@@ -22,7 +28,10 @@ public:
   // Member functions - public
   D3Graph(void);
   ~D3Graph(void);
-  
+
+  // Static public functions  
+  static bool includeD3Script(HttpServThread* serv);
+
 private:
   
   // Instance variables - private

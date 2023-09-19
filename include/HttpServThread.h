@@ -85,6 +85,7 @@ public:
   bool  endResponsePage(void);
   bool  errorPage(const char* error);
   void  processOneHTTP1_1(int connfd, unsigned short clientPort);
+  
   inline void setCacheDuration(int duration) 
    {
     cacheDuration = duration;
@@ -108,14 +109,7 @@ public:
     internalPrintf("<hr><center><h3>%s</h3>\n", title);
     return true;
    }
-  
-  inline bool includeD3(void)
-   {
-    internalPrintf("<script src=\"https://d3js.org/d3.v7.min.js\" "
-                                          "charset=\"utf-8\"></script>\n"); 
-    return true;
-   }
-  
+    
   inline void setAltResp(char* buf, unsigned size, MimeType mimeType)
    {
     altResp     = buf;
