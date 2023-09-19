@@ -111,7 +111,7 @@ public:
   
   inline bool includeD3(void)
    {
-    internalPrintf("<script src=\"https://d3js.org/d3.v7.js\" "
+    internalPrintf("<script src=\"https://d3js.org/d3.v7.min.js\" "
                                           "charset=\"utf-8\"></script>\n"); 
     return true;
    }

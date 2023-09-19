@@ -888,6 +888,7 @@ INPUT                  = doc \
                 include/Copse.h src/Copse.cpp \
                 include/CryptoAlgorithms.h src/CryptoAlgorithms.cpp \
                 include/Cylinder.h src/Cylinder.cpp \
+                include/D3Graph.h src/D3Graph.cpp \
                 include/DisplayList.h src/DisplayList.cpp \
                 include/DynamicallyTypable.h src/DynamicallyTypable.cpp \
                 include/ElementBufferObject.h src/ElementBufferObject.cpp \
