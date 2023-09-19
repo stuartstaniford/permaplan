@@ -373,7 +373,13 @@ bool ClimateDatabase::processStationDiagnosticRequest(HttpServThread* serv, char
   // Use D3 for graphs
   unless(D3Graph::includeD3Script(serv))
     return false;
-  
+
+  // Make the graph  
+  unless(D3Graph::startChart(serv, 600, 400))
+    return false;
+  unless(D3Graph::endChart(serv))
+    return false;
+
   // Main table of the climate info
   unless(station->climate->diagnosticHTML(serv))
     return false;

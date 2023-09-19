@@ -40,4 +40,64 @@ bool D3Graph::includeD3Script(HttpServThread* serv)
   return true;
  }
 
+
+// =======================================================================================
+/// @brief Start a new D3 chart in an HTML page.
+/// 
+/// @returns True if all was well writing to the buffer.  If false, it indicates the 
+/// buffer was not big enough and the output will have been truncated/incomplete.
+/// @param serv A pointer to the HttpServThread managing the HTTP response.
+/// @param pixWidth The number of pixels wide to make the chart area.
+/// @param pixHeight The number of pixels high to make the chart area.
+ 
+bool D3Graph::startChart(HttpServThread* serv, int pixWidth, int pixHeight)
+ {
+  openSVG(serv, pixWidth, pixHeight);
+  return true;
+ }
+
+
+// =======================================================================================
+/// @brief Open an SVG area in an HTML page.
+/// 
+/// @returns True if all was well writing to the buffer.  If false, it indicates the 
+/// buffer was not big enough and the output will have been truncated/incomplete.
+/// @param serv A pointer to the HttpServThread managing the HTTP response.
+/// @param pixWidth The number of pixels wide to make the svg area.
+/// @param pixHeight The number of pixels high to make the svg area.
+
+bool D3Graph::openSVG(HttpServThread* serv, int pixWidth, int pixHeight)
+ {
+  httPrintf("<svg width=\"%d\" height=\"%d\">\n",  pixWidth, pixHeight); 
+  return true;
+ }
+
+
+// =======================================================================================
+/// @brief End a D3 chart in an HTML page.
+/// 
+/// @returns True if all was well writing to the buffer.  If false, it indicates the 
+/// buffer was not big enough and the output will have been truncated/incomplete.
+/// @param serv A pointer to the HttpServThread managing the HTTP response.
+
+bool D3Graph::endChart(HttpServThread* serv)
+ {
+  closeSVG(serv);
+  return true;
+ }
+
+
+// =======================================================================================
+/// @brief Close an SVG area in an HTML page.
+/// 
+/// @returns True if all was well writing to the buffer.  If false, it indicates the 
+/// buffer was not big enough and the output will have been truncated/incomplete.
+/// @param serv A pointer to the HttpServThread managing the HTTP response.
+
+bool D3Graph::closeSVG(HttpServThread* serv)
+ {
+  httPrintf("</svg>\n"); 
+  return true;
+ }
+
 // =======================================================================================
