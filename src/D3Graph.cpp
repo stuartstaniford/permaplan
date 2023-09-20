@@ -8,6 +8,7 @@
 #include "D3Graph.h"
 #include "HttpServThread.h"
 
+
 // =======================================================================================
 /// @brief Constructor
 
@@ -37,6 +38,24 @@ bool D3Graph::includeD3Script(HttpServThread* serv)
  {
   httPrintf("<script src=\"https://d3js.org/d3.v7.min.js\" "
                                         "charset=\"utf-8\"></script>\n"); 
+  return true;
+ }
+
+
+// =======================================================================================
+/// @brief Output a locally sourced script tag.
+/// 
+/// This is to include a script served from the local scripts directory on the current 
+/// server (ie by permaserv/permaplan).
+/// 
+/// @returns True if all was well writing to the buffer.  If false, it indicates the 
+/// buffer was not big enough and the output will have been truncated/incomplete.
+/// @param serv A pointer to the HttpServThread managing the HTTP response.
+/// @param scriptName The path of the script below /scripts/
+
+bool D3Graph::insertLocalScriptTag(HttpServThread* serv, char* scriptName)
+ {
+  httPrintf("<script src=\"/scripts/%s\" charset=\"utf-8\"></script>\n", scriptName); 
   return true;
  }
 

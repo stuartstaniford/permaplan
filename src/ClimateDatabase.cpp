@@ -379,6 +379,8 @@ bool ClimateDatabase::processStationDiagnosticRequest(HttpServThread* serv, char
     return false;
   unless(D3Graph::endChart(serv))
     return false;
+  unless(D3Graph::insertLocalScriptTag(serv, (char*)"test.js") )
+    return false;
 
   // Main table of the climate info
   unless(station->climate->diagnosticHTML(serv))

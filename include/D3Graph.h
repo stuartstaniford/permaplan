@@ -31,6 +31,7 @@ public:
 
   // Static public functions  
   static bool includeD3Script(HttpServThread* serv);
+  static bool insertLocalScriptTag(HttpServThread* serv, char* scriptName);
   static bool startChart(HttpServThread* serv, int pixWidth, int pixHeight);
   static bool endChart(HttpServThread* serv);
 
