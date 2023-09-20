@@ -69,10 +69,12 @@ bool D3Graph::insertLocalScriptTag(HttpServThread* serv, char* scriptName)
 /// @param serv A pointer to the HttpServThread managing the HTTP response.
 /// @param pixWidth The number of pixels wide to make the chart area.
 /// @param pixHeight The number of pixels high to make the chart area.
- 
-bool D3Graph::startChart(HttpServThread* serv, int pixWidth, int pixHeight)
+/// @param idName The id field for the svg.  Defaults to nullptr, which will not put any
+/// id in the tag.
+
+bool D3Graph::startChart(HttpServThread* serv, int pixWidth, int pixHeight, char* idName)
  {
-  openSVG(serv, pixWidth, pixHeight);
+  openSVG(serv, pixWidth, pixHeight, idName);
   return true;
  }
 
@@ -86,9 +88,16 @@ bool D3Graph::startChart(HttpServThread* serv, int pixWidth, int pixHeight)
 /// @param pixWidth The number of pixels wide to make the svg area.
 /// @param pixHeight The number of pixels high to make the svg area.
 
-bool D3Graph::openSVG(HttpServThread* serv, int pixWidth, int pixHeight)
+bool D3Graph::openSVG(HttpServThread* serv, int pixWidth, int pixHeight, char* idName)
  {
-  httPrintf("<svg width=\"%d\" height=\"%d\">\n",  pixWidth, pixHeight); 
+  if(idName)
+   {
+    httPrintf("<svg width=\"%d\" height=\"%d\" id=\"%s\">\n", pixWidth, pixHeight, idName);     
+   }
+  else
+   {
+    httPrintf("<svg width=\"%d\" height=\"%d\">\n",  pixWidth, pixHeight); 
+   }
   return true;
  }
 

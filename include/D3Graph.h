@@ -32,13 +32,15 @@ public:
   // Static public functions  
   static bool includeD3Script(HttpServThread* serv);
   static bool insertLocalScriptTag(HttpServThread* serv, char* scriptName);
-  static bool startChart(HttpServThread* serv, int pixWidth, int pixHeight);
+  static bool startChart(HttpServThread* serv, int pixWidth, int pixHeight, 
+                                                                  char* idName = nullptr);
   static bool endChart(HttpServThread* serv);
 
 private:
 
   // Static private functions  
-  static bool openSVG(HttpServThread* serv, int pixWidth, int pixHeight);
+  static bool openSVG(HttpServThread* serv, int pixWidth, int pixHeight,
+                                                                  char* idName = nullptr);
   static bool closeSVG(HttpServThread* serv);
   
   // Instance variables - private

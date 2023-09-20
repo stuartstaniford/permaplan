@@ -374,11 +374,19 @@ bool ClimateDatabase::processStationDiagnosticRequest(HttpServThread* serv, char
   unless(D3Graph::includeD3Script(serv))
     return false;
 
-  // Make the graph  
-  unless(D3Graph::startChart(serv, 600, 400))
+  // Make the max temperature graph area
+  unless(D3Graph::startChart(serv, 600, 400, "maxtemp"))
     return false;
   unless(D3Graph::endChart(serv))
     return false;
+  
+  // Make the min temperature graph area  
+  unless(D3Graph::startChart(serv, 600, 400, "mintemp"))
+    return false;
+  unless(D3Graph::endChart(serv))
+    return false;
+  
+  // javascript to make the graphs
   unless(D3Graph::insertLocalScriptTag(serv, (char*)"graphs.js") )
     return false;
 
