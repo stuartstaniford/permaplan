@@ -46,7 +46,8 @@ bool D3Graph::includeD3Script(HttpServThread* serv)
 /// @brief Output a locally sourced script tag.
 /// 
 /// This is to include a script served from the local scripts directory on the current 
-/// server (ie by permaserv/permaplan).
+/// server (ie by permaserv/permaplan).  Note that only scripts set up in 
+/// HttpLBPermaserv::initializeScriptPages will work.
 /// 
 /// @returns True if all was well writing to the buffer.  If false, it indicates the 
 /// buffer was not big enough and the output will have been truncated/incomplete.

@@ -123,6 +123,7 @@ void HttpLBPermaserv::initializeScriptPages(void)
   scriptPages = new HttpPageSet((char*)"scripts/", TextJavascript);
   
   scriptPages->insert({"test.js", nullptr});
+  scriptPages->insert({"graphs.js", nullptr});
   scriptPages->insert({"checkUserPass.js", nullptr});
 }
 
