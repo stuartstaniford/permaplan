@@ -367,4 +367,73 @@ bool ClimateInfo::diagnosticHTML(HttpServThread* serv)
 }
 
 
+/// =======================================================================================
+/// @brief Output one of our observables as a tab delimited array.
+/// 
+/// @returns True if all was well writing to the buffer.  If false, it indicates the 
+/// buffer was not big enough and the output will have been truncated/incomplete.
+/// @param serv A pointer to the HttpServThread managing the HTTP response.
+/// @param observable Uses one of the values LOW_TEMP_VALID, HI_TEMP_VALID, PRECIP_VALID,
+/// to indicate which observable is to be displayed (only one can be displayed in any
+/// given call).
+
+bool ClimateInfo::observableTabTable(HttpServThread* serv, unsigned observable)
+{
+  // Header row
+  httPrintf("Day");
+  for(int i=0; i < nYears; i++)
+   {
+    httPrintf("\t%d", climateYears[i]->year);
+   }
+  httPrintf("\n");
+  
+  // Loop over per-day rows
+  for(int j=0; j < 366; j++)
+   {
+    httPrintf("%d", j);
+    for(int i=0; i < nYears; i++)
+     {
+      ClimateDay* today = climateYears[i]->climateDays + j;
+      if(observable == HI_TEMP_VALID)
+       {
+        if(today->flags & HI_TEMP_VALID)
+         {
+          httPrintf("\t%.1f", today->hiTemp);
+         }
+        else
+         {
+          httPrintf("\t ");
+         }
+       }
+      else if(observable == LOW_TEMP_VALID)
+       {
+        if(today->flags & LOW_TEMP_VALID)
+         {
+          httPrintf("\t%.1f", today->lowTemp);
+         }
+        else
+         {
+          httPrintf("\t ");
+         }
+       }        
+      else if(observable == PRECIP_VALID)
+       {
+        if(today->flags & PRECIP_VALID)
+         {
+          httPrintf("\t%.1f", today->precip);
+         }
+        else
+         {
+          httPrintf("\t ");
+         }
+       }
+     }
+
+    httPrintf("\n");    
+   }
+  
+  return true;  
+}
+
+
 // =======================================================================================

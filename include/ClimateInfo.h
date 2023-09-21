@@ -122,6 +122,7 @@ public:
   virtual int writeJsonFields(char* buf, unsigned bufSize);
   bool diffObservable(ClimateInfo* otherInfo, std::vector<int>& years,
                     std::vector<float>& diffs, unsigned andFlagMask, unsigned obsOffset);
+  bool observableTabTable(HttpServThread* serv, unsigned observable);
 
 private:
   
