@@ -1,3 +1,12 @@
+// Copyright Staniford Systems.  All Rights Reserved.  September 2023 -
+
+// Javascript code for making graphs in Permaplan/Permaserv using D3.
+
+// =======================================================================================
+/// @brief Make a scatter plot in a particular svg area of the page.
+/// 
+/// @param svgIdName The id of the svg that the graph should be drawn in.
+
 function scatterPlot(svgIdName) 
  {
   const svg = d3.select("#" + svgIdName);
@@ -55,6 +64,47 @@ function scatterPlot(svgIdName)
         .attr("fill", "steelblue");
   });
  }
+
+
+// =======================================================================================
+/// @brief Fetches tab delimited data from a URL and processes it into an array.
+/// 
+/// @returns The array of data
+/// @param url The id of the svg that the graph should be drawn in.
+
+async function fetchData(url) 
+{
+  // Fetch data from the URL
+  const response = await fetch(url);
+  const text = await response.text();
+
+  // Split the text data by lines and then by tabs
+  const lines = text.split('\n').map(line => line.split('\t'));
+  const header = lines[0];
+    
+  const dataMap = new Map();
+
+  // Process each line (skip the header)
+  for (let i = 1; i < lines.length; i++) 
+   {
+    const [series, x, y] = lines[i];
+        
+    // If the series doesn't exist in our map, add it
+    if (!dataMap.has(series)) 
+     {
+      dataMap.set(series, { series, values: [] });
+     }
+
+    // Push the x and y values to the series' values array
+    dataMap.get(series).values.push({ x: +x, y: +y }); // '+' is used to convert string to number
+    }
+
+  return Array.from(dataMap.values());
+}
+
+
+// =======================================================================================
+
 
 scatterPlot("maxtemp");
 scatterPlot("mintemp");
