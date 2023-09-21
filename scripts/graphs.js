@@ -5,7 +5,6 @@ function scatterPlot(svgIdName)
   const width = +svg.attr("width") - margin.left - margin.right;
   const height = +svg.attr("height") - margin.top - margin.bottom;
 
-  
   // Sample data: Two series
   const data = [
     { series: "A", values: [{ x: 1, y: 5 }, { x: 2, y: 7 }, { x: 3, y: 10 }] },

@@ -19,7 +19,7 @@
               respEnd-respPtr,  __VA_ARGS__)) >= respEnd) \
                 {respBufOverflow = true; return false;}
 
-#define DEV_CACHE_DURATION 900
+#define DEV_CACHE_DURATION 20
 #define PROD_CACHE_DURATION 86400
 #define CACHE_DURATION DEV_CACHE_DURATION
 

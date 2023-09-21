@@ -375,13 +375,13 @@ bool ClimateDatabase::processStationDiagnosticRequest(HttpServThread* serv, char
     return false;
 
   // Make the max temperature graph area
-  unless(D3Graph::startChart(serv, 600, 400, "maxtemp"))
+  unless(D3Graph::startChart(serv, 600, 400, (char*)"maxtemp"))
     return false;
   unless(D3Graph::endChart(serv))
     return false;
   
   // Make the min temperature graph area  
-  unless(D3Graph::startChart(serv, 600, 400, "mintemp"))
+  unless(D3Graph::startChart(serv, 600, 400, (char*)"mintemp"))
     return false;
   unless(D3Graph::endChart(serv))
     return false;
