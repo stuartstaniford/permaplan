@@ -50,6 +50,7 @@ private:
                                        unsigned andMask, unsigned offset);
   bool processObservationCurvesRequest(HttpServThread* serv, char* url, char* urlStub,
                             unsigned andFlagMask, unsigned obsOffset, char* titleObsName);
+  bool processStationDataRequest(HttpServThread* serv, char* stationId, unsigned observable);
 
   /// @brief Prevent copy-construction.
   ClimateDatabase(const ClimateDatabase&);       

@@ -353,13 +353,17 @@ bool ClimateDatabase::processStationDiagnosticRequest(HttpServThread* serv, char
    {
     LogClimateDbErr("Couldn't find station for %s in processStationDiagnosticRequest.\n",
                       stationId);
-    return false;
+    return serv->errorPage("No climate information for station.");;
    }
   
   GHCNStation* station = ghcnDatabase->stationsByName[std::string(stationId)];
   unless(station->climate)
+   {
+    LogClimateDbErr("Station with no data for %s in processStationDiagnosticRequest.\n",
+                      stationId);
     return serv->errorPage("No climate information for station.");
-
+   }
+  
   // Start the HTML page and the table header
   char title[128];
   snprintf(title, 128, "Climate Station Details for %s", stationId);
@@ -398,6 +402,53 @@ bool ClimateDatabase::processStationDiagnosticRequest(HttpServThread* serv, char
   unless(serv->endResponsePage())
     return false;
 
+  return true;
+}
+
+
+/// =======================================================================================
+/// @brief Output tabbed data for a particular climate station and observable.
+/// 
+/// @returns True if all was well writing to the buffer.  If false, it indicates the 
+/// buffer was not big enough and the output will have been truncated/incomplete.
+/// @param serv A pointer to the HttpServThread managing the HTTP response.
+/// @param stationId A string hopefully indicating a station ID.  At this point in 
+/// processing, it's known to be 11 characters in length, but otherwise could be hostile.
+/// @param observable Uses one of the values LOW_TEMP_VALID, HI_TEMP_VALID, PRECIP_VALID,
+/// to indicate which observable is to be displayed (only one can be displayed in any
+/// given call).
+
+bool ClimateDatabase::processStationDataRequest(HttpServThread* serv, char* stationId, 
+                                                                        unsigned observable)
+{
+  // Find the relevant stations
+  unless(ghcnDatabase->stationsByName.count(stationId))
+   {
+    LogClimateDbErr("Couldn't find station for %s in processStationDataRequest.\n",
+                      stationId);
+    return serv->errorPage("No climate information for station.");;
+   }
+  
+  GHCNStation* station = ghcnDatabase->stationsByName[std::string(stationId)];
+  unless(station->climate)
+   {
+    LogClimateDbErr("Station with no data for %s in processStationDataRequest.\n",
+                      stationId);
+    return serv->errorPage("No climate information for station.");
+   }
+  
+  unless(observable == LOW_TEMP_VALID || observable == HI_TEMP_VALID || 
+                                                              observable == PRECIP_VALID)
+   {
+    LogClimateDbErr("Bad observable %u on station %s in processStationDataRequest.\n",
+                      observable, stationId);
+    return serv->errorPage("Bad request.");
+   }
+  
+  // Provide the climate info
+  unless(station->climate->observableTabTable(serv, observable))
+    return false;
+  
   return true;
 }
 
