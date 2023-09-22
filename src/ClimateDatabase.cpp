@@ -113,12 +113,36 @@ bool ClimateDatabase::processHttpRequest(HttpServThread* serv, char* url)
     retVal = processClimateRequest(serv, url+18, true);
    }
 
-  // climateStation
+  // climateStation - pretty summary of data at some station
   // http://127.0.0.1:2091/climate/climateStation/US1NYTM0018
   else if( strlenUrl == 26 && strncmp(url, "climateStation/", 15) == 0)
    {
     LogPermaservOpDetails("Processing climate station request for %s.\n", url+15);
     retVal = processStationDiagnosticRequest(serv, url+15);
+   }
+
+  // maxTempStation - tabbed max temp data at station
+  // http://127.0.0.1:2091/climate/maxTempStation/US1NYTM0018
+  else if( strlenUrl == 26 && strncmp(url, "maxTempStation/", 15) == 0)
+   {
+    LogPermaservOpDetails("Processing maxtemp station request for %s.\n", url+15);
+    retVal = processStationDataRequest(serv, url+15, HI_TEMP_VALID);
+   }
+
+  // minTempStation - tabbed min temp data at station
+  // http://127.0.0.1:2091/climate/minTempStation/US1NYTM0018
+  else if( strlenUrl == 26 && strncmp(url, "minTempStation/", 15) == 0)
+   {
+    LogPermaservOpDetails("Processing mintemp station request for %s.\n", url+15);
+    retVal = processStationDataRequest(serv, url+15, LOW_TEMP_VALID);
+   }
+
+  // precipStation - tabbed precipitation data at station
+  // http://127.0.0.1:2091/climate/minTempStation/US1NYTM0018
+  else if( strlenUrl == 26 && strncmp(url, "precipStation/", 15) == 0)
+   {
+    LogPermaservOpDetails("Processing precipitation station request for %s.\n", url+15);
+    retVal = processStationDataRequest(serv, url+15, PRECIP_VALID);
    }
   
   // climate
@@ -421,22 +445,7 @@ bool ClimateDatabase::processStationDiagnosticRequest(HttpServThread* serv, char
 bool ClimateDatabase::processStationDataRequest(HttpServThread* serv, char* stationId, 
                                                                         unsigned observable)
 {
-  // Find the relevant stations
-  unless(ghcnDatabase->stationsByName.count(stationId))
-   {
-    LogClimateDbErr("Couldn't find station for %s in processStationDataRequest.\n",
-                      stationId);
-    return serv->errorPage("No climate information for station.");;
-   }
-  
-  GHCNStation* station = ghcnDatabase->stationsByName[std::string(stationId)];
-  unless(station->climate)
-   {
-    LogClimateDbErr("Station with no data for %s in processStationDataRequest.\n",
-                      stationId);
-    return serv->errorPage("No climate information for station.");
-   }
-  
+  // Sanity check the observable parameter before going any further
   unless(observable == LOW_TEMP_VALID || observable == HI_TEMP_VALID || 
                                                               observable == PRECIP_VALID)
    {
@@ -444,8 +453,25 @@ bool ClimateDatabase::processStationDataRequest(HttpServThread* serv, char* stat
                       observable, stationId);
     return serv->errorPage("Bad request.");
    }
+
+  // Find the relevant stations
+  unless(ghcnDatabase->stationsByName.count(stationId))
+   {
+    LogClimateDbErr("Couldn't find station for %s in processStationDataRequest.\n",
+                      stationId);
+    return serv->errorPage("No climate information for station.");;
+   }
+  GHCNStation* station = ghcnDatabase->stationsByName[std::string(stationId)];
   
-  // Provide the climate info
+  // Check we actually have any data
+  unless(station->climate)
+   {
+    LogClimateDbErr("Station with no data for %s in processStationDataRequest.\n",
+                      stationId);
+    return serv->errorPage("No climate information for station.");
+   }
+    
+  // Provide the data from the ClimateInfo structure
   unless(station->climate->observableTabTable(serv, observable))
     return false;
   
