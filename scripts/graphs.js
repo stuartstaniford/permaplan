@@ -19,9 +19,12 @@ function scatterPlot(svgIdName, data)
   const width = +svg.attr("width") - margin.left - margin.right;
   const height = +svg.attr("height") - margin.top - margin.bottom;
 
-  // Scales
-  const xScale = d3.scaleLinear().domain([0, 4]).range([0, width]);
-  const yScale = d3.scaleLinear().domain([0, 20]).range([height, 0]);
+  // Compute the scale domains dynamically
+  const {xDomain, yDomain} = computeScaleDomains(data);
+
+  // Set the computed domains to the scales
+  const xScale = d3.scaleLinear().domain(xDomain).range([0, width]);
+  const yScale = d3.scaleLinear().domain(yDomain).range([height, 0]);
 
   // Axis
   const xAxis = d3.axisBottom(xScale);
@@ -66,6 +69,17 @@ function scatterPlot(svgIdName, data)
 
 
 // =======================================================================================
+/// @brief Clears the SVG to avoid appending multiple elements.
+///
+/// @param svgIdName The id of the svg to put this scatterplot.
+
+function clearSVG(svgIdName) 
+{
+  d3.select("#" + svgIdName).selectAll("*").remove();
+}
+
+
+// =======================================================================================
 /// @brief Fetches tab delimited data from a URL and processes it into an array.
 /// 
 /// @returns The array of data
@@ -103,11 +117,78 @@ async function fetchData(url)
 
 
 // =======================================================================================
+/// @brief Gets the station-id when the Url is of the form
+/// http://blah-host:blah-port/blah-path/USC00304174
+/// 
+/// @returns The station-id
 
- const myData = [
-  { series: "A", values: [{ x: 1, y: 5 }, { x: 2, y: 7 }, { x: 3, y: 10 }] },
-  { series: "B", values: [{ x: 1, y: 10 }, { x: 2, y: 15 }, { x: 3, y: 17 }] }
- ];
+function getStationIdFromCurrentPath()
+{
+  var pathComponents = window.location.pathname.split('/');
+  return pathComponents[pathComponents.length - 1];
+}
 
-scatterPlot("maxtemp", myData);
-scatterPlot("mintemp", myData);
+
+// =======================================================================================
+/// @brief Compute scatterplot scales from the data after we have gotten it.
+/// 
+/// @param svgIdName The id of the svg to put this scatterplot.
+/// @param observable One of minTempStation, maxTempStation, precipStation
+
+function computeScaleDomains(data) 
+{
+  let xMin = Infinity, xMax = -Infinity, yMin = Infinity, yMax = -Infinity;
+
+  data.forEach((series) => 
+   {
+    series.values.forEach((point) => 
+     {
+      xMin = Math.min(xMin, point.x);
+      xMax = Math.max(xMax, point.x);
+      yMin = Math.min(yMin, point.y);
+      yMax = Math.max(yMax, point.y);
+     });
+   });
+
+  return {
+    xDomain: [xMin, xMax],
+    yDomain: [yMin, yMax]
+  };
+}
+
+
+// =======================================================================================
+/// @brief Gets a particular observable from permaserv and scatterplots it
+/// 
+/// @param svgIdName The id of the svg to put this scatterplot.
+/// @param observable One of minTempStation, maxTempStation, precipStation
+
+function scatterPlotObservable(svgIdName, observable)
+{
+  const urlStub = '/climate/';
+  const stationId = getStationIdFromCurrentPath();
+  const url = urlStub + observable + "/" + stationId;
+  fetchData(url)
+      .then(
+            (data) => {
+              clearSVG(svgIdName);
+              scatterPlot(svgIdName, data);
+            })
+      .catch(
+            (error) => {
+              console.error(`Error occurred fetching data from ${url}: ${error}`);
+              alert(`Error occurred fetching data from ${url}: ${error}`);
+            });
+}
+
+
+// =======================================================================================
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  scatterPlotObservable("maxtemp", "maxTempStation");
+  scatterPlotObservable("mintemp", "minTempStation",);
+});
+
+
+// =======================================================================================
