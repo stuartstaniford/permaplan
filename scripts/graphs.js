@@ -6,19 +6,18 @@
 /// @brief Make a scatter plot in a particular svg area of the page.
 /// 
 /// @param svgIdName The id of the svg that the graph should be drawn in.
+/// @param data An array of the series and points to plot.  Example data with two series:
+/// const data = [
+///  { series: "A", values: [{ x: 1, y: 5 }, { x: 2, y: 7 }, { x: 3, y: 10 }] },
+///  { series: "B", values: [{ x: 1, y: 10 }, { x: 2, y: 15 }, { x: 3, y: 17 }] }
+/// ];
 
-function scatterPlot(svgIdName) 
+function scatterPlot(svgIdName, data) 
  {
   const svg = d3.select("#" + svgIdName);
   const margin = { top: 20, right: 20, bottom: 30, left: 40 };
   const width = +svg.attr("width") - margin.left - margin.right;
   const height = +svg.attr("height") - margin.top - margin.bottom;
-
-  // Sample data: Two series
-  const data = [
-    { series: "A", values: [{ x: 1, y: 5 }, { x: 2, y: 7 }, { x: 3, y: 10 }] },
-    { series: "B", values: [{ x: 1, y: 10 }, { x: 2, y: 15 }, { x: 3, y: 17 }] }
-  ];
 
   // Scales
   const xScale = d3.scaleLinear().domain([0, 4]).range([0, width]);
@@ -105,6 +104,10 @@ async function fetchData(url)
 
 // =======================================================================================
 
+ const myData = [
+  { series: "A", values: [{ x: 1, y: 5 }, { x: 2, y: 7 }, { x: 3, y: 10 }] },
+  { series: "B", values: [{ x: 1, y: 10 }, { x: 2, y: 15 }, { x: 3, y: 17 }] }
+ ];
 
-scatterPlot("maxtemp");
-scatterPlot("mintemp");
+scatterPlot("maxtemp", myData);
+scatterPlot("mintemp", myData);
