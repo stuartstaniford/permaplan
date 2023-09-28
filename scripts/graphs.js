@@ -2,6 +2,57 @@
 
 // Javascript code for making graphs in Permaplan/Permaserv using D3.
 
+
+// =======================================================================================
+/// @brief class for keeping track of svg/D3 based ScatterPlots in progress.
+///
+/// Used so we can incrementally add data as it is fetched from the web.
+
+class SvgScatterPlot 
+{
+
+  // =======================================================================================
+  /// @brief Constructor for an SvgScatterPlot.
+  /// 
+  /// @param svgIdName The id of the svg that the graph should be drawn in.
+  /// @param xLo The low end of the x range for the plot
+  /// @param xHi The high end of the x range for the plot
+  /// @param yLo The low end of the y range for the plot
+  /// @param yHi The high end of the y range for the plot
+
+  constructor(svgIdName, xLo, xHi, yLo, yHi) 
+   {
+    this.svg = d3.select("#" + svgIdName);
+    if(!svg.node()) 
+     {
+      console.alert("Cannot find svg area " + svgIdName + " in page.");
+     }
+
+    this.xLow   = xLo;
+    this.xHigh  = xHi;
+    this.yLow   = yLo;
+    this.yHigh  = yHi;
+    this.seriesNames = [];
+   }
+
+  // =======================================================================================
+  /// @brief Constructor for an SvgScatterPlot.
+  /// 
+  /// @param addedNames Adding some extra series onto the end of the ones we were already
+  /// tracking.
+
+    addSeriesNames(addedNames) 
+     {
+      this.seriesNames.push(...addedNames);
+     }
+  
+  
+// =======================================================================================
+/// End of class SvgScatterPlot 
+
+}
+
+
 // =======================================================================================
 /// @brief Make a scatter plot in a particular svg area of the page.
 /// 
@@ -164,41 +215,17 @@ function computeScaleDomains(data)
 
 
 // =======================================================================================
-/// @brief Gets a particular observable from permaserv and scatterplots it
-/// 
-/// @param svgIdName The id of the svg to put this scatterplot.
-/// @param observable One of minTempStation, maxTempStation, precipStation
-
-function scatterPlotObservable(svgIdName, observable)
-{
-  const urlStub = '/climate/';
-  const stationId = getStationIdFromCurrentPath();
-  const url = urlStub + observable + "/" + stationId;
-  fetchData(url)
-      .then(
-            (data) => {
-              clearSVG(svgIdName);
-              scatterPlot(svgIdName, data);
-            })
-      .catch(
-            (error) => {
-              console.error(`Error occurred fetching data from ${url}: ${error}`);
-              alert(`Error occurred fetching data from ${url}: ${error}`);
-            });
-}
-
-
-// =======================================================================================
 /// @brief Fetch data from a url and process it in a line oriented way as it arrives.
 ///
 /// @param url The url from whence to get the data
 /// @param processLine A function which takes one line and does something with it.
+/// @param objectArg An object which will be passed to the processLine function.
 /// Example Usage
-/// fetchAndProcessStream('your_url_here', line => {
+/// fetchAndProcessStream('your_url_here', (line, _) => {
 ///    console.log(line);  // or any other processing
-/// });
+/// }, {});
 
-async function fetchAndProcessStream(url, processLine) 
+async function fetchAndProcessStream(url, processLine, objectArg) 
 {
   const response = await fetch(url);
   const reader = response.body.getReader();
@@ -221,14 +248,43 @@ async function fetchAndProcessStream(url, processLine)
         
     for (let line of lines) 
      {
-      processLine(line);
+      processLine(line, objectArg);
      }
    }
 
   if (lastPartialLine) 
    {
-    processLine(lastPartialLine);
+    processLine(lastPartialLine, objectArg);
    }
+}
+
+
+// =======================================================================================
+/// @brief Gets a particular observable from permaserv and scatterplots it
+/// 
+/// @param svgIdName The id of the svg to put this scatterplot.
+/// @param observable One of minTempStation, maxTempStation, precipStation
+/// @param xLo The low end of the x range for the plot
+/// @param xHi The high end of the x range for the plot
+/// @param yLo The low end of the y range for the plot
+/// @param yHi The high end of the y range for the plot
+
+function scatterPlotObservable(svgIdName, observable, xLo, xHi, yLo, yHi)
+{
+  const urlStub = '/climate/';
+  const stationId = getStationIdFromCurrentPath();
+  const url = urlStub + observable + "/" + stationId;
+  fetchData(url)
+      .then(
+            (data) => {
+              clearSVG(svgIdName);
+              scatterPlot(svgIdName, data);
+            })
+      .catch(
+            (error) => {
+              console.error(`Error occurred fetching data from ${url}: ${error}`);
+              alert(`Error occurred fetching data from ${url}: ${error}`);
+            });
 }
 
 
@@ -236,8 +292,8 @@ async function fetchAndProcessStream(url, processLine)
 
 
 document.addEventListener("DOMContentLoaded", function() {
-  scatterPlotObservable("maxtemp", "maxTempStation");
-  scatterPlotObservable("mintemp", "minTempStation",);
+  scatterPlotObservable("maxtemp", "maxTempStation", 0, 365, 0, 110);
+  scatterPlotObservable("mintemp", "minTempStation", 0, 365, -20, 90);
 });
 
 
