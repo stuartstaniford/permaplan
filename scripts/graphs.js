@@ -15,111 +15,112 @@ class SvgScatterPlot
   /// @brief Constructor for an SvgScatterPlot.
   /// 
   /// @param svgIdName The id of the svg that the graph should be drawn in.
-  /// @param xLo The low end of the x range for the plot
-  /// @param xHi The high end of the x range for the plot
-  /// @param yLo The low end of the y range for the plot
-  /// @param yHi The high end of the y range for the plot
+  /// @param xLo The low end of the initial x range for the plot
+  /// @param xHi The high end of the initial x range for the plot
+  /// @param yLo The low end of the initial y range for the plot
+  /// @param yHi The high end of the initial y range for the plot
 
   constructor(svgIdName, xLo, xHi, yLo, yHi) 
    {
+    // Find our SVG where we will be drawing the scatterplot
     this.svg = d3.select("#" + svgIdName);
-    if(!svg.node()) 
+    if(!this.svg.node()) 
      {
-      console.alert("Cannot find svg area " + svgIdName + " in page.");
+      console.error("Cannot find svg area " + svgIdName + " in page.");
+      alert("Cannot find svg area " + svgIdName + " in page.");
      }
 
+    // Store our parameters for future use.
     this.xLow   = xLo;
     this.xHigh  = xHi;
     this.yLow   = yLo;
     this.yHigh  = yHi;
+    
+    // Initialize the array for storing the names of series
     this.seriesNames = [];
+    
+    // Set margins and find the dimensions of the svg
+    this.margin = { top: 20, right: 20, bottom: 30, left: 40 };
+    this.width = +this.svg.attr("width") - this.margin.left - this.margin.right;
+    this.height = +this.svg.attr("height") - this.margin.top - this.margin.bottom;
+
+    // Set the computed domains to the scales
+    this.xScale = d3.scaleLinear().domain([this.xLow, this.xHigh]).range([0, width]);
+    this.yScale = d3.scaleLinear().domain([this.yLow, this.yHigh]).range([height, 0]);
+
+    // Setup the axes
+    this.xAxis = d3.axisBottom(this.xScale);
+    this.yAxis = d3.axisLeft(this.yScale);
+
+    // Draw the graph within the svg's g element
+    this.graphGroup = this.svg.append("g")
+                            .attr("transform", `translate(${margin.left},${margin.top})`);
+
+    // Draw the x and y axis
+    this.graphGroup.append("g")
+      .attr("transform", `translate(0,${height})`)
+      .call(this.xAxis);
+    this.graphGroup.append("g")
+      .call(this.yAxis);
+
+    // Create the line generator
+    this.lineGenerator = d3.line()
+      .x(d => xScale(d.x))
+      .y(d => yScale(d.y));
+    
+    // End of constructor which doesn't return anything.
    }
 
-  // =======================================================================================
-  /// @brief Constructor for an SvgScatterPlot.
-  /// 
-  /// @param addedNames Adding some extra series onto the end of the ones we were already
-  /// tracking.
-
-    addSeriesNames(addedNames) 
-     {
-      this.seriesNames.push(...addedNames);
-     }
   
+  // =======================================================================================
+  /// @brief Adding some extra series onto the end of the ones we were already
+  /// tracking.
+  /// 
+  /// @param addedNames An array of the new names of series to be added.
+
+  addSeriesNames(addedNames) 
+   {
+    this.seriesNames.push(...addedNames);
+   }
+  
+  
+  // =======================================================================================
+  /// @brief Add some data to update a scatter plot.
+  /// 
+  /// @param data An array of the series and points to plot.  Example data with two series:
+  /// const data = [
+  ///  { series: "A", values: [{ x: 1, y: 5 }, { x: 2, y: 7 }, { x: 3, y: 10 }] },
+  ///  { series: "B", values: [{ x: 1, y: 10 }, { x: 2, y: 15 }, { x: 3, y: 17 }] }
+  /// ];
+  /// @todo Hasn't been rewritten to be in the object yet.
+  addSeriesData(data) 
+   {
+    // Draw the lines and scatter points
+    data.forEach(seriesData => {
+      // Draw line
+      g.append("path")
+          .datum(seriesData.values)
+          .attr("fill", "none")
+          .attr("stroke", "steelblue")
+          .attr("d", lineGenerator);
+
+      // Draw scatter points
+      g.selectAll(".dot")
+          .data(seriesData.values)
+          .enter().append("circle")
+          .attr("cx", d => xScale(d.x))
+          .attr("cy", d => yScale(d.y))
+          .attr("r", 5)
+          .attr("fill", "steelblue");
+    });
+   }
+
   
 // =======================================================================================
 /// End of class SvgScatterPlot 
 
 }
 
-
-// =======================================================================================
-/// @brief Make a scatter plot in a particular svg area of the page.
-/// 
-/// @param svgIdName The id of the svg that the graph should be drawn in.
-/// @param data An array of the series and points to plot.  Example data with two series:
-/// const data = [
-///  { series: "A", values: [{ x: 1, y: 5 }, { x: 2, y: 7 }, { x: 3, y: 10 }] },
-///  { series: "B", values: [{ x: 1, y: 10 }, { x: 2, y: 15 }, { x: 3, y: 17 }] }
-/// ];
-
-function scatterPlot(svgIdName, data) 
- {
-  const svg = d3.select("#" + svgIdName);
-  const margin = { top: 20, right: 20, bottom: 30, left: 40 };
-  const width = +svg.attr("width") - margin.left - margin.right;
-  const height = +svg.attr("height") - margin.top - margin.bottom;
-
-  // Compute the scale domains dynamically
-  const {xDomain, yDomain} = computeScaleDomains(data);
-
-  console.log("xDomain for " + svgIdName + " is " + xDomain + ".\n");
-  console.log("yDomain for " + svgIdName + " is " + yDomain + ".\n");
-  
-  // Set the computed domains to the scales
-  const xScale = d3.scaleLinear().domain(xDomain).range([0, width]);
-  const yScale = d3.scaleLinear().domain(yDomain).range([height, 0]);
-  
-  // Axis
-  const xAxis = d3.axisBottom(xScale);
-  const yAxis = d3.axisLeft(yScale);
-
-  // Draw the graph within the svg's g element
-  const g = svg.append("g")
-    .attr("transform", `translate(${margin.left},${margin.top})`);
-
-  // Draw the x and y axis
-  g.append("g")
-    .attr("transform", `translate(0,${height})`)
-    .call(xAxis);
-
-  g.append("g")
-    .call(yAxis);
-
-  // Create the line generator
-  const lineGenerator = d3.line()
-    .x(d => xScale(d.x))
-    .y(d => yScale(d.y));
-
-  // Draw the lines and scatter points
-  data.forEach(seriesData => {
-    // Draw line
-    g.append("path")
-        .datum(seriesData.values)
-        .attr("fill", "none")
-        .attr("stroke", "steelblue")
-        .attr("d", lineGenerator);
-
-    // Draw scatter points
-    g.selectAll(".dot")
-        .data(seriesData.values)
-        .enter().append("circle")
-        .attr("cx", d => xScale(d.x))
-        .attr("cy", d => yScale(d.y))
-        .attr("r", 5)
-        .attr("fill", "steelblue");
-  });
- }
 
 
 // =======================================================================================

@@ -77,7 +77,12 @@ doc:		$(SRCS) $(wildcard include/*.h) Doxyfile
 				doxygen Doxyfile
 
 javascriptCheck: $(SCRIPTS)
-				node --check $(SCRIPTS)
+	for script in $(SCRIPTS); do \
+		node --check $$script; \
+		if [ $$? -ne 0 ]; then \
+			exit 1; \
+		fi \
+	done
 
 $(MAIN): $(OBJS)
 			$(CPP) $(CPPFLAGS) $(INCLUDES) -c src/ResourceManager.cpp -o src/ResourceManager.o
