@@ -7,6 +7,7 @@
 #include "HttpDebug.h"
 #include <cstdio>
 #include <err.h>
+#include <assert.h>
 
 vec2 Arrow::arrowPoints[3] = {  {0.5f, 0.0f},
                                     {0.5f, 0.75f},

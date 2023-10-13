@@ -37,7 +37,10 @@ class SvgScatterPlot
     this.yHigh  = yHi;
     
     // Initialize the array for storing the names of series
-    this.seriesNames = [];
+    this.seriesNames      = [];
+    this.lastData         = [];
+    this.dataPointsAdded  = 0;
+    this.data             = {};
     
     // Set margins and find the dimensions of the svg
     this.margin = { top: 20, right: 20, bottom: 30, left: 40 };
@@ -55,6 +58,9 @@ class SvgScatterPlot
     // Draw the graph within the svg's g element
     this.graphGroup = this.svg.append("g")
                             .attr("transform", `translate(${margin.left},${margin.top})`);
+
+    // Make a place to put the data representation later
+    this.dataGroup = this.graphGroup.append("g");
 
     // Draw the x and y axis
     this.graphGroup.append("g")
@@ -76,11 +82,19 @@ class SvgScatterPlot
   /// @brief Adding some extra series onto the end of the ones we were already
   /// tracking.
   /// 
-  /// @param addedNames An array of the new names of series to be added.
+  /// @param addedNames An array of the new names of series to be added.  Note, they must
+  /// all be unique.  The first one is ignored (because it's above the x-values, not the
+  /// series of y-values).
 
   addSeriesNames(addedNames) 
    {
+    const oldLength = this.seriesNames.length;
     this.seriesNames.push(...addedNames);
+    for(let i=oldLength; i<this.seriesNames.length; i++)
+     {
+      this.lastData[i] = NaN;
+      this.data[seriesNames[i]] = [];
+     }
    }
   
   
@@ -89,10 +103,10 @@ class SvgScatterPlot
   /// 
   /// @param data An array of the series and points to plot.  Example data with two series:
   /// const data = [
-  ///  { series: "A", values: [{ x: 1, y: 5 }, { x: 2, y: 7 }, { x: 3, y: 10 }] },
-  ///  { series: "B", values: [{ x: 1, y: 10 }, { x: 2, y: 15 }, { x: 3, y: 17 }] }
+  ///  { "A": [{ x: 1, y: 5 }, { x: 2, y: 7 }, { x: 3, y: 10 }] },
+  ///  { "B": [{ x: 1, y: 10 }, { x: 2, y: 15 }, { x: 3, y: 17 }] }
   /// ];
-  /// @todo Hasn't been rewritten to be in the object yet.
+
   addSeriesData(data) 
    {
     // Draw the lines and scatter points
@@ -104,23 +118,91 @@ class SvgScatterPlot
           .attr("stroke", "steelblue")
           .attr("d", lineGenerator);
 
-      // Draw scatter points
-      g.selectAll(".dot")
-          .data(seriesData.values)
-          .enter().append("circle")
-          .attr("cx", d => xScale(d.x))
-          .attr("cy", d => yScale(d.y))
-          .attr("r", 5)
-          .attr("fill", "steelblue");
     });
    }
 
+  
+  // =======================================================================================
+  /// @brief Add some circles to represent one row of data to scatter plot.
+  /// 
+  /// @param points An array of the y values to be plotted.  (The x-values have been sto
+  
+
+  addCircles(data) 
+   {
+    if(!this.dataPointsAdded)
+     {
+      // First time we are adding any circles to dataGroup
+      
+     }
+    else
+     {
+      // Draw scatter points
+      this.dataGroup.selectAll(".dot")
+      .data(seriesData.values)
+      .enter().append("circle")
+      .attr("cx", d => xScale(d.x))
+      .attr("cy", d => yScale(d.y))
+      .attr("r", 5)
+      .attr("fill", "steelblue");
+     }
+   }
+
+/*
+this.dataGroup.selectAll(".dot")
+    .data(seriesData.values)
+    .enter().append("circle")
+    .attr("cx", d => xScale(d.x))
+    .attr("cy", d => yScale(d.y))
+    .attr("r", 5)
+    .attr("fill", "steelblue");
+*/
+
+  // =======================================================================================
+  /// @brief Process one incoming line from the url with the (tab delimited) header or data.
+  /// 
+  /// @param line The (unprocessed) string we got from one line of the data file
+  /// NB the structure of the data object of the series and points to plot is as follows.  
+  /// Example data with two series:
+  /// const data = [
+  ///  { "A": [{ x: 1, y: 5 }, { x: 2, y: 7 }, { x: 3, y: 10 }],},
+  ///  { "B": [{ x: 1, y: 10 }, { x: 2, y: 15 }, { x: 3, y: 17 }] }
+
+  processLine(line) 
+   {
+    if(this.seriesNames.length)
+     {
+      // We already have series header, so treat the line as data
+      const points = line.trim().split('\t');
+      
+      for(let i=1; i<points.length; i++)
+       {
+        this.data[seriesNames[i]].push({x: points[0] , y: points[i]});
+       }
+
+      // Plot the circles
+      addCircles(points);
+      //updateLastData(points);
+      
+      // If these are not the first data points, add lines from the last ones
+      if(this.dataPointsAdded)
+       {
+        //plotLines(points);
+       }
+      this.dataPointsAdded++;
+     }
+    else
+     {
+      // Assume the first line is the header names
+      addSeriesNames(line.trim().split('\t'));
+     }
+   }
+  
   
 // =======================================================================================
 /// End of class SvgScatterPlot 
 
 }
-
 
 
 // =======================================================================================
@@ -131,46 +213,6 @@ class SvgScatterPlot
 function clearSVG(svgIdName) 
 {
   d3.select("#" + svgIdName).selectAll("*").remove();
-}
-
-
-// =======================================================================================
-/// @brief Fetches tab delimited data from a URL and processes it into an array.
-/// 
-/// The series are in columns, and the first column is the x values, and the subsequent
-/// columns are the y-values for each case.
-/// @returns The array of data
-/// @param url The url from which to fetch the data.
-
-async function fetchData(url) 
-{
-  // Fetch data from the URL
-  const response = await fetch(url);
-  const text = await response.text();
-
-  // Split the text data by lines and then by tabs
-  const lines = text.split('\n').map(line => line.trim().split('\t'));
-  const headers = lines[0];  // Assuming the first row contains headers
-
-  // Transpose the matrix to work with columns (series) instead of rows
-  const transposed = headers.map((_, i) => lines.map(row => row[i]));
-
-  const data = [];
-  for (let i = 1; i < headers.length; i++) {  // Skip the first column, assuming it contains x-values
-    const seriesName = headers[i];
-    const seriesData = transposed[i].slice(1).map((y, j) => ({
-      x: +transposed[0][j + 1],  // +1 to skip header
-      y: +y
-    }));
-    console.log("Series name is " + seriesName + "\n");
-    console.log("Series data is " + seriesData + "\n");
-    data.push({
-      series: seriesName,
-      values: seriesData
-    });
-  }
-
-  return data;
 }
 
 
@@ -219,14 +261,10 @@ function computeScaleDomains(data)
 /// @brief Fetch data from a url and process it in a line oriented way as it arrives.
 ///
 /// @param url The url from whence to get the data
-/// @param processLine A function which takes one line and does something with it.
-/// @param objectArg An object which will be passed to the processLine function.
-/// Example Usage
-/// fetchAndProcessStream('your_url_here', (line, _) => {
-///    console.log(line);  // or any other processing
-/// }, {});
+/// @param objectArg An object must have a processLine function, which takes one line and 
+/// does something with it.
 
-async function fetchAndProcessStream(url, processLine, objectArg) 
+async function fetchAndProcessStream(url, objectArg) 
 {
   const response = await fetch(url);
   const reader = response.body.getReader();
@@ -249,13 +287,13 @@ async function fetchAndProcessStream(url, processLine, objectArg)
         
     for (let line of lines) 
      {
-      processLine(line, objectArg);
+      objectArg.processLine(line);
      }
    }
 
   if (lastPartialLine) 
    {
-    processLine(lastPartialLine, objectArg);
+    objectArg.processLine(lastPartialLine);
    }
 }
 
@@ -275,12 +313,9 @@ function scatterPlotObservable(svgIdName, observable, xLo, xHi, yLo, yHi)
   const urlStub = '/climate/';
   const stationId = getStationIdFromCurrentPath();
   const url = urlStub + observable + "/" + stationId;
-  fetchData(url)
-      .then(
-            (data) => {
-              clearSVG(svgIdName);
-              scatterPlot(svgIdName, data);
-            })
+  const svgPlot = new SvgScatterPlot(svgIdName, xLo, xHi, yLo, yHi);
+
+  fetchAndProcessStream(url, svgPlot)
       .catch(
             (error) => {
               console.error(`Error occurred fetching data from ${url}: ${error}`);

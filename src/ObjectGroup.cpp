@@ -4,6 +4,7 @@
 
 #include "ObjectGroup.h"
 #include "HttpDebug.h"
+#include <assert.h>
 
 
 // =======================================================================================

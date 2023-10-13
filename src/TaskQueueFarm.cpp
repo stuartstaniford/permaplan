@@ -5,6 +5,7 @@
 #include "TaskQueueFarm.h"
 #include "Logging.h"
 #include "HttpDebug.h"
+#include <assert.h>
 
 
 // =======================================================================================

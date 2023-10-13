@@ -21,6 +21,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include <err.h>
+#include <assert.h>
 
 
 // =======================================================================================
