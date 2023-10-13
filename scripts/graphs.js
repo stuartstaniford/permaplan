@@ -48,8 +48,8 @@ class SvgScatterPlot
     this.height = +this.svg.attr("height") - this.margin.top - this.margin.bottom;
 
     // Set the computed domains to the scales
-    this.xScale = d3.scaleLinear().domain([this.xLow, this.xHigh]).range([0, width]);
-    this.yScale = d3.scaleLinear().domain([this.yLow, this.yHigh]).range([height, 0]);
+    this.xScale = d3.scaleLinear().domain([this.xLow, this.xHigh]).range([0, this.width]);
+    this.yScale = d3.scaleLinear().domain([this.yLow, this.yHigh]).range([this.height, 0]);
 
     // Setup the axes
     this.xAxis = d3.axisBottom(this.xScale);
@@ -93,70 +93,42 @@ class SvgScatterPlot
     for(let i=oldLength; i<this.seriesNames.length; i++)
      {
       this.lastData[i] = NaN;
-      this.data[seriesNames[i]] = [];
+      this.data[this.seriesNames[i]] = [];
      }
    }
   
-  
-  // =======================================================================================
-  /// @brief Add some data to update a scatter plot.
-  /// 
-  /// @param data An array of the series and points to plot.  Example data with two series:
-  /// const data = [
-  ///  { "A": [{ x: 1, y: 5 }, { x: 2, y: 7 }, { x: 3, y: 10 }] },
-  ///  { "B": [{ x: 1, y: 10 }, { x: 2, y: 15 }, { x: 3, y: 17 }] }
-  /// ];
-
-  addSeriesData(data) 
-   {
-    // Draw the lines and scatter points
-    data.forEach(seriesData => {
-      // Draw line
-      g.append("path")
-          .datum(seriesData.values)
-          .attr("fill", "none")
-          .attr("stroke", "steelblue")
-          .attr("d", lineGenerator);
-
-    });
-   }
-
   
   // =======================================================================================
   /// @brief Add some circles to represent one row of data to scatter plot.
   /// 
-  /// @param points An array of the y values to be plotted.  (The x-values have been sto
-  
+  /// @param points The data to be plotted
+  /// NB the structure of the data object of the series and points to plot is as follows.  
+  /// Example data with two series:
+  /// const points = [
+  ///  { "A": [{ x: 1, y: 5 }, { x: 2, y: 7 }, { x: 3, y: 10 }],},
+  ///  { "B": [{ x: 1, y: 10 }, { x: 2, y: 15 }, { x: 3, y: 17 }] }
 
-  addCircles(data) 
+
+  addCircles(points) 
    {
-    if(!this.dataPointsAdded)
+    if (!points || typeof points !== 'object') 
      {
-      // First time we are adding any circles to dataGroup
-      
+      console.error("Invalid points data passed to addCircles.");
+      return;
      }
-    else
+
+    for (let series of Object.keys(points))
      {
-      // Draw scatter points
-      this.dataGroup.selectAll(".dot")
-      .data(seriesData.values)
-      .enter().append("circle")
-      .attr("cx", d => xScale(d.x))
-      .attr("cy", d => yScale(d.y))
-      .attr("r", 5)
-      .attr("fill", "steelblue");
+      this.dots = this.dataGroup.selectAll(".dot")
+                      .data(points[series]);
+      this.dots.enter().append("circle")
+        .attr("cx", d => this.xScale(d.x))
+        .attr("cy", d => this.yScale(d.y))
+        .attr("r", 5)
+        .attr("fill", "steelblue");
      }
    }
 
-/*
-this.dataGroup.selectAll(".dot")
-    .data(seriesData.values)
-    .enter().append("circle")
-    .attr("cx", d => xScale(d.x))
-    .attr("cy", d => yScale(d.y))
-    .attr("r", 5)
-    .attr("fill", "steelblue");
-*/
 
   // =======================================================================================
   /// @brief Process one incoming line from the url with the (tab delimited) header or data.
@@ -164,7 +136,7 @@ this.dataGroup.selectAll(".dot")
   /// @param line The (unprocessed) string we got from one line of the data file
   /// NB the structure of the data object of the series and points to plot is as follows.  
   /// Example data with two series:
-  /// const data = [
+  /// const points = [
   ///  { "A": [{ x: 1, y: 5 }, { x: 2, y: 7 }, { x: 3, y: 10 }],},
   ///  { "B": [{ x: 1, y: 10 }, { x: 2, y: 15 }, { x: 3, y: 17 }] }
 
@@ -173,21 +145,21 @@ this.dataGroup.selectAll(".dot")
     if(this.seriesNames.length)
      {
       // We already have series header, so treat the line as data
-      const points = line.trim().split('\t');
+      const terms = line.trim().split('\t');
       
       for(let i=1; i<points.length; i++)
        {
-        this.data[seriesNames[i]].push({x: points[0] , y: points[i]});
+        this.data[this.seriesNames[i]].push({x: terms[0] , y: terms[i]});
        }
 
       // Plot the circles
-      addCircles(points);
-      //updateLastData(points);
+      this.addCircles(this.data);
+      //this.updateLastData(this.data);
       
       // If these are not the first data points, add lines from the last ones
       if(this.dataPointsAdded)
        {
-        //plotLines(points);
+        //this.plotLines(this.data);
        }
       this.dataPointsAdded++;
      }
@@ -266,34 +238,42 @@ function computeScaleDomains(data)
 
 async function fetchAndProcessStream(url, objectArg) 
 {
-  const response = await fetch(url);
-  const reader = response.body.getReader();
   const textDecoder = new TextDecoder('utf-8');
   let lastPartialLine = '';
 
-  while (true) 
+  try
    {
-    // Get a chunk of the response body (eg one packet's worth) and decode it
-    const { done, value } = await reader.read();
-    if (done) 
-     {
-      break;
-     }
-    let textChunk = textDecoder.decode(value, { stream: true });
-    
-    let lines = textChunk.split('\n');
-    lines[0] = lastPartialLine + lines[0];
-    lastPartialLine = lines.pop(); // save partial line for the next chunk
-        
-    for (let line of lines) 
-     {
-      objectArg.processLine(line);
-     }
-   }
+    const response = await fetch(url);
+    const reader = response.body.getReader();
 
-  if (lastPartialLine) 
+    while (true) 
+     {
+      // Get a chunk of the response body (eg one packet's worth) and decode it
+      const { done, value } = await reader.read();
+      if (done) 
+       {
+        break;
+       }
+      let textChunk = textDecoder.decode(value, { stream: true });
+      
+      let lines = textChunk.split('\n');
+      lines[0] = lastPartialLine + lines[0];
+      lastPartialLine = lines.pop(); // save partial line for the next chunk
+          
+      for (let line of lines) 
+       {
+        objectArg.processLine(line);
+       }
+     }
+
+    if (lastPartialLine) 
+     {
+      objectArg.processLine(lastPartialLine);
+     }
+   } 
+  catch (error) 
    {
-    objectArg.processLine(lastPartialLine);
+    console.error(`Error fetching and processing stream: ${error}`);
    }
 }
 
